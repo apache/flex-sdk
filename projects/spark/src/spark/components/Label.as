@@ -69,8 +69,8 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  The formatting of the text is specified by the element's CSS styles,
  *  such as <code>fontFamily</code> and <code>fontSize</code>.
  *
- *  <p>Label, which is new with Flex 4, makes use of the new
- *  Flash Text Engine (FTE) in Flash Player 10 to provide high-quality
+ *  <p>Label uses of the 
+ *  Flash Text Engine (FTE) in Flash Player to provide high-quality
  *  international typography.
  *  Because Label is fast and lightweight, it is especially suitable
  *  for use cases that involve rendering many small pieces of non-interactive
@@ -91,17 +91,17 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  selection, editing, hyperlinks, images loaded from URLs, etc.
  *  You should use the fastest one that meets your needs.</p>
  *
- *  <p>spark.components.Label is similar to the older MX control mx.controls.Label.
- *  The most important differences to understand are
+ *  <p>The Spark Label control is similar to the MX Label control, mx.controls.Label.
+ *  The most important differences are:
  *  <ul>
  *    <li>Spark Label uses FTE, the player's new text engine,
- *        while MX Label uses the obsolete TextField class.</li>
+ *        while MX Label uses the TextField class.</li>
  *    <li>Spark Label offers better typography, and better support
  *        for international languages, than MX Label.</li>
  *    <li>Spark Label can display multiple lines, which MX Label cannot.</li>
  *    <li>MX Label can display a limited subset of HTML,
  *        while Spark Label can only display text with uniform formatting.</li>
- *    <li>MX Label can be made selectable, while Label cannot.</li>
+ *    <li>MX Label can be made selectable, while Spark Label cannot.</li>
  *  </ul></p>
  *
  *  <p>In Spark Label, three character sequences are recognized
@@ -164,9 +164,57 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  about individual glyphs; for more info, see
  *  flash.text.engine.TextLineValidity.STATIC.</p>
  *
+ *  @mxml <p>The <code>&lt;s:Label&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:Label 
+ *    <strong>Properties</strong>
+ *    fontContext=""
+ * 
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="baseline"
+ *    baselineShift="0"
+ *    cffHinting="0.0"
+ *    color="0x000000"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="ltr"
+ *    dominantBaseline="auto"
+ *    fontFamily="Arial"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="false"
+ *    ligatureLevel="common"
+ *    lineBreak="toFit"
+ *    lineHeight="120%"
+ *    lineThrough="false%"
+ *    locale="en"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
+ *    renderingMode="cff"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="start"
+ *    textJustify="interWord"
+ *    trackingLeft="0"
+ *    trackingRight="00"
+ *    typographicCase="default"
+ *    verticalAlign="top"
+ *  /&gt;
+ *  </pre>
+ *
  *  @see spark.components.RichEditableText
  *  @see spark.components.RichText
- *  
+ *  @see flash.text.engine.TextLineValidity#STATIC
+ *
  *  @includeExample examples/LabelExample.mxml
  *  
  *  @langversion 3.0
@@ -175,55 +223,55 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  @productversion Flex 4
  */
 public class Label extends TextBase
-	implements IFontContextComponent
+    implements IFontContextComponent
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Class initialization
     //
     //--------------------------------------------------------------------------
-	
+    
     /**
-	 *  @private
-	 */
-	private static function initClass():void
-	{
-		staticTextBlock = new TextBlock();
-		
-		staticTextElement = new TextElement();
-		
-		staticSpaceJustifier = new SpaceJustifier();
-		
-		staticEastAsianJustifier = new EastAsianJustifier();
-		
-		staticTextFormat = new TextFormat();
+     *  @private
+     */
+    private static function initClass():void
+    {
+        staticTextBlock = new TextBlock();
+        
+        staticTextElement = new TextElement();
+        
+        staticSpaceJustifier = new SpaceJustifier();
+        
+        staticEastAsianJustifier = new EastAsianJustifier();
+        
+        staticTextFormat = new TextFormat();
 
-		if ("recreateTextLine" in staticTextBlock)
-			recreateTextLine = staticTextBlock["recreateTextLine"];
-	}
-	
-	initClass();
+        if ("recreateTextLine" in staticTextBlock)
+            recreateTextLine = staticTextBlock["recreateTextLine"];
+    }
+    
+    initClass();
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Class variables
     //
     //--------------------------------------------------------------------------
-	    
+        
     // We can re-use single instances of a few FTE classes over and over,
     // since they just serve as a factory for the TextLines that we care about.
     
     /**
-	 *  @private
-	 */
-	private static var staticTextBlock:TextBlock;
+     *  @private
+     */
+    private static var staticTextBlock:TextBlock;
 
-	/**
-	 *  @private
-	 */
-	private static var staticTextElement:TextElement;
+    /**
+     *  @private
+     */
+    private static var staticTextElement:TextElement;
 
     /**
      *  @private
@@ -250,7 +298,7 @@ public class Label extends TextBase
      */
     private static var recreateTextLine:Function;
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Class properties
     //
@@ -376,6 +424,11 @@ public class Label extends TextBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -490,25 +543,25 @@ public class Label extends TextBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Creates an ElementFormat (and its FontDescription)
-	 *  based on the Label's CSS styles.
-	 *  These must be recreated each time because FTE
-	 *  does not allow them to be reused.
-	 *  As a side effect, this method also sets embeddedFontContext
-	 *  so that we know which SWF should be used to create TextLines.
-	 *  (TextLines using an embedded font must be created in the SWF
-	 *  where the font is.)
-	 */
-	private function createElementFormat():ElementFormat
-	{
-		// When you databind to a text formatting style on a Label,
-		// as in <Label fontFamily="{fontCombo.selectedItem}"/>
-		// the databinding can cause the style to be set to null.
-		// Setting null values for properties in an FTE FontDescription
-		// or ElementFormat throw an error, so the following code does
-		// null-checking on the problematic properties.
+    /**
+     *  @private
+     *  Creates an ElementFormat (and its FontDescription)
+     *  based on the Label's CSS styles.
+     *  These must be recreated each time because FTE
+     *  does not allow them to be reused.
+     *  As a side effect, this method also sets embeddedFontContext
+     *  so that we know which SWF should be used to create TextLines.
+     *  (TextLines using an embedded font must be created in the SWF
+     *  where the font is.)
+     */
+    private function createElementFormat():ElementFormat
+    {
+        // When you databind to a text formatting style on a Label,
+        // as in <Label fontFamily="{fontCombo.selectedItem}"/>
+        // the databinding can cause the style to be set to null.
+        // Setting null values for properties in an FTE FontDescription
+        // or ElementFormat throw an error, so the following code does
+        // null-checking on the problematic properties.
 
         var s:String;
         
@@ -525,99 +578,99 @@ public class Label extends TextBase
         
         s = getStyle("cffHinting");
         if (s != null)
-        	fontDescription.cffHinting = s;
+            fontDescription.cffHinting = s;
         
         s = getStyle("fontLookup");
         if (s != null)
         {
-        	// FTE understands only "device" and "embeddedCFF"
-        	// for fontLookup. But Flex allows this style to be
-        	// set to "auto", in which case we automatically
-        	// determine it based on whether the CSS styles
-        	// specify an embedded font.
-        	if (s == "auto")
-        	{
-        		s = embeddedFontContext ?
-        			FontLookup.EMBEDDED_CFF :
-                	FontLookup.DEVICE;
-        	}
-	       	fontDescription.fontLookup = s;
+            // FTE understands only "device" and "embeddedCFF"
+            // for fontLookup. But Flex allows this style to be
+            // set to "auto", in which case we automatically
+            // determine it based on whether the CSS styles
+            // specify an embedded font.
+            if (s == "auto")
+            {
+                s = embeddedFontContext ?
+                    FontLookup.EMBEDDED_CFF :
+                    FontLookup.DEVICE;
+            }
+            fontDescription.fontLookup = s;
         }
         
         s = getStyle("fontFamily");
         if (s != null)
-        	fontDescription.fontName = s;
+            fontDescription.fontName = s;
         
         s = getStyle("fontStyle");
         if (s != null)
-        	fontDescription.fontPosture = s;
+            fontDescription.fontPosture = s;
         
         s = getStyle("fontWeight");
         if (s != null)
-        	fontDescription.fontWeight = s;
-        	
+            fontDescription.fontWeight = s;
+            
         s = getStyle("renderingMode");
         if (s != null)
-        	fontDescription.renderingMode = s;
+            fontDescription.renderingMode = s;
         
         // Fill our an ElementFormat based on the CSS styles.
         
         var elementFormat:ElementFormat = new ElementFormat();
         
-		s = getStyle("alignmentBaseline");
-		if (s != null)
-			elementFormat.alignmentBaseline = s;
-			
+        s = getStyle("alignmentBaseline");
+        if (s != null)
+            elementFormat.alignmentBaseline = s;
+            
         elementFormat.alpha = getStyle("textAlpha");
-        	
+            
         elementFormat.baselineShift = -getStyle("baselineShift");
-			// Note: The negative sign is because, as in TLF,
-			// we want a positive number to shift the baseline up,
-			// whereas FTE does it the opposite way.
-			// In FTE, a positive baselineShift increases
-			// the y coordinate of the baseline, which is
-			// mathematically appropriate, but unintuitive.
-        	
+            // Note: The negative sign is because, as in TLF,
+            // we want a positive number to shift the baseline up,
+            // whereas FTE does it the opposite way.
+            // In FTE, a positive baselineShift increases
+            // the y coordinate of the baseline, which is
+            // mathematically appropriate, but unintuitive.
+            
         // Note: Label doesn't support a breakOpportunity style,
-		// so we leave elementFormat.breakOpportunity with its
-		// default value of "auto".
-        	
+        // so we leave elementFormat.breakOpportunity with its
+        // default value of "auto".
+            
         elementFormat.color = getStyle("color");
         
         s = getStyle("digitCase");
         if (s != null)
-        	elementFormat.digitCase = s;
-        	
+            elementFormat.digitCase = s;
+            
         s = getStyle("digitWidth");
         if (s != null)
-        	elementFormat.digitWidth = s;
-        	
+            elementFormat.digitWidth = s;
+            
         s = getStyle("dominantBaseline");
         if (s != null)
-		{
-        	// TLF adds the concept of a locale-based "auto" setting for
-			// dominantBaseline, so we support that in Label as well
-			// so that "auto" can be used in the global selector.
-			// TLF's rule is that "auto" means "ideographicCenter"
-			// for Japanese and Chinese locales and "roman" for other locales.
-			// (See TLF's LocaleUtil, which we avoid linking in here.)
-			if (s == "auto")
-			{
-				s = TextBaseline.ROMAN;
-				var locale:String = getStyle("locale");
-				if (locale != null)
-				{
-					var lowercaseLocale:String = locale.toLowerCase();
-					if (lowercaseLocale.indexOf("ja") == 0 ||
-						lowercaseLocale.indexOf("zh") == 0)
-					{
-						s = TextBaseline.IDEOGRAPHIC_CENTER;
-					}
-				}
-			}
-			elementFormat.dominantBaseline = s;
-		}
-        	
+        {
+            // TLF adds the concept of a locale-based "auto" setting for
+            // dominantBaseline, so we support that in Label as well
+            // so that "auto" can be used in the global selector.
+            // TLF's rule is that "auto" means "ideographicCenter"
+            // for Japanese and Chinese locales and "roman" for other locales.
+            // (See TLF's LocaleUtil, which we avoid linking in here.)
+            if (s == "auto")
+            {
+                s = TextBaseline.ROMAN;
+                var locale:String = getStyle("locale");
+                if (locale != null)
+                {
+                    var lowercaseLocale:String = locale.toLowerCase();
+                    if (lowercaseLocale.indexOf("ja") == 0 ||
+                        lowercaseLocale.indexOf("zh") == 0)
+                    {
+                        s = TextBaseline.IDEOGRAPHIC_CENTER;
+                    }
+                }
+            }
+            elementFormat.dominantBaseline = s;
+        }
+            
         elementFormat.fontDescription = fontDescription;
         
         elementFormat.fontSize = getStyle("fontSize");
@@ -626,21 +679,21 @@ public class Label extends TextBase
         
         s = getStyle("ligatureLevel");
         if (s != null)
-        	elementFormat.ligatureLevel = s;
+            elementFormat.ligatureLevel = s;
         
         s = getStyle("locale");
         if (s != null)
-        	elementFormat.locale = s;
+            elementFormat.locale = s;
         
         setTracking(elementFormat);
         
         s = getStyle("typographicCase");
         if (s != null)
-        	elementFormat.typographicCase = s;
+            elementFormat.typographicCase = s;
 
-		return elementFormat;
-	}
-	
+        return elementFormat;
+    }
+    
     /**
      *  @private
      *  Uses the component's CSS styles to determine the module factory
@@ -682,31 +735,31 @@ public class Label extends TextBase
     {
         var kerning:Object = getStyle("kerning");
         
-		// In Halo components based on TextField,
-		// kerning is supposed to be true or false.
-		// The default in TextField and Flex 3 is false
-		// because kerning doesn't work for device fonts
-		// and is slow for embedded fonts.
-		// In Spark components based on TLF and FTE,
-		// kerning is "auto", "on", or, "off".
-		// The default in TLF and FTE is "auto"
-		// (which means kern non-Asian characters)
-		// because kerning works even on device fonts
-		// and has miminal performance impact.
+        // In Halo components based on TextField,
+        // kerning is supposed to be true or false.
+        // The default in TextField and Flex 3 is false
+        // because kerning doesn't work for device fonts
+        // and is slow for embedded fonts.
+        // In Spark components based on TLF and FTE,
+        // kerning is "auto", "on", or, "off".
+        // The default in TLF and FTE is "auto"
+        // (which means kern non-Asian characters)
+        // because kerning works even on device fonts
+        // and has miminal performance impact.
         // Since a CSS selector or parent container
-		// can affect both Halo and Spark components,
-		// we need to map true to "on" and false to "off"
-		// here and in Label.
-		// For Halo components, UITextField and UIFTETextField
-		// do the opposite mapping
-		// of "auto" and "on" to true and "off" to false.
-		// We also support a value of "default"
-		// (which we set in the global selector)
-		// to mean "auto" for Spark and false for Halo
-		// to get the recommended behavior in both sets of components.
+        // can affect both Halo and Spark components,
+        // we need to map true to "on" and false to "off"
+        // here and in Label.
+        // For Halo components, UITextField and UIFTETextField
+        // do the opposite mapping
+        // of "auto" and "on" to true and "off" to false.
+        // We also support a value of "default"
+        // (which we set in the global selector)
+        // to mean "auto" for Spark and false for Halo
+        // to get the recommended behavior in both sets of components.
         if (kerning === "default")
-			kerning = Kerning.AUTO;
-		else if (kerning === true)
+            kerning = Kerning.AUTO;
+        else if (kerning === true)
             kerning = Kerning.ON;
         else if (kerning === false)
             kerning = Kerning.OFF;
@@ -735,16 +788,16 @@ public class Label extends TextBase
             elementFormat.trackingRight = value;
     }
 
-	/**
-	 *  @private
-	 *  Stuffs the specified text and formatting info into a TextBlock
+    /**
+     *  @private
+     *  Stuffs the specified text and formatting info into a TextBlock
      *  and uses it to create as many TextLines as fit into the bounds.
      *  Returns true if all the text was composed into textLines.
-	 */
-	private function createTextLines(elementFormat:ElementFormat):Boolean
-	{
-		// Get CSS styles that affect a TextBlock and its justifier.
-		var direction:String = getStyle("direction");
+     */
+    private function createTextLines(elementFormat:ElementFormat):Boolean
+    {
+        // Get CSS styles that affect a TextBlock and its justifier.
+        var direction:String = getStyle("direction");
         var justificationRule:String = getStyle("justificationRule");
         var justificationStyle:String = getStyle("justificationStyle");
         var textAlign:String = getStyle("textAlign");
@@ -752,94 +805,94 @@ public class Label extends TextBase
         var textJustify:String = getStyle("textJustify");
 
         // TLF adds the concept of a locale-based "auto" setting for
-		// justificationRule and justificationStyle, so we support
-		// that in Label as well so that "auto" can be used
-		// in the global selector.
-		// TLF's rule is that "auto" for justificationRule means "eastAsian"
-		// for Japanese and Chinese locales and "space" for other locales,
-		// and that "auto" for justificationStyle (which only affects
-		// the EastAsianJustifier) always means "pushInKinsoku".
-		// (See TLF's LocaleUtil, which we avoid linking in here.)
-		if (justificationRule == "auto")
-		{
-			justificationRule = "space";
-			var locale:String = getStyle("locale");
-			if (locale != null)
-			{
-				var lowercaseLocale:String = locale.toLowerCase();
-				if (lowercaseLocale.indexOf("ja") == 0 ||
-					lowercaseLocale.indexOf("zh") == 0)
-				{
-					justificationRule = "eastAsian";
-				}
-			}
-		}
-		if (justificationStyle == "auto")
-			justificationStyle = "pushInKinsoku";
+        // justificationRule and justificationStyle, so we support
+        // that in Label as well so that "auto" can be used
+        // in the global selector.
+        // TLF's rule is that "auto" for justificationRule means "eastAsian"
+        // for Japanese and Chinese locales and "space" for other locales,
+        // and that "auto" for justificationStyle (which only affects
+        // the EastAsianJustifier) always means "pushInKinsoku".
+        // (See TLF's LocaleUtil, which we avoid linking in here.)
+        if (justificationRule == "auto")
+        {
+            justificationRule = "space";
+            var locale:String = getStyle("locale");
+            if (locale != null)
+            {
+                var lowercaseLocale:String = locale.toLowerCase();
+                if (lowercaseLocale.indexOf("ja") == 0 ||
+                    lowercaseLocale.indexOf("zh") == 0)
+                {
+                    justificationRule = "eastAsian";
+                }
+            }
+        }
+        if (justificationStyle == "auto")
+            justificationStyle = "pushInKinsoku";
 
-		// Set the TextBlock's content.
-		// Note: If there is no text, we do what TLF does and compose
-		// a paragraph terminator character, so that a TextLine
-		// gets created and we can measure it.
-		// It will have a width of 0 but a height equal
-		// to the font's ascent plus descent.
+        // Set the TextBlock's content.
+        // Note: If there is no text, we do what TLF does and compose
+        // a paragraph terminator character, so that a TextLine
+        // gets created and we can measure it.
+        // It will have a width of 0 but a height equal
+        // to the font's ascent plus descent.
         staticTextElement.text = text != null && text.length > 0 ? text : "\u2029";
-		staticTextElement.elementFormat = elementFormat;
-		staticTextBlock.content = staticTextElement;
+        staticTextElement.elementFormat = elementFormat;
+        staticTextBlock.content = staticTextElement;
 
         // And its bidiLevel.
-		staticTextBlock.bidiLevel = direction == "ltr" ? 0 : 1;
+        staticTextBlock.bidiLevel = direction == "ltr" ? 0 : 1;
 
-		// And its justifier.
-		var lineJustification:String;
-		if (textAlign == "justify")
-		{
-			lineJustification = textAlignLast == "justify" ?
-				                LineJustification.ALL_INCLUDING_LAST :
-				                LineJustification.ALL_BUT_LAST;
-		}
-		else
+        // And its justifier.
+        var lineJustification:String;
+        if (textAlign == "justify")
         {
-			lineJustification = LineJustification.UNJUSTIFIED;
+            lineJustification = textAlignLast == "justify" ?
+                                LineJustification.ALL_INCLUDING_LAST :
+                                LineJustification.ALL_BUT_LAST;
         }
-		if (justificationRule == "space")
-		{
+        else
+        {
+            lineJustification = LineJustification.UNJUSTIFIED;
+        }
+        if (justificationRule == "space")
+        {
             staticSpaceJustifier.lineJustification = lineJustification;
-			staticSpaceJustifier.letterSpacing = textJustify == "distribute";
+            staticSpaceJustifier.letterSpacing = textJustify == "distribute";
             staticTextBlock.textJustifier = staticSpaceJustifier;
-		}
-		else
-		{
+        }
+        else
+        {
             staticEastAsianJustifier.lineJustification = lineJustification;
             staticEastAsianJustifier.justificationStyle = justificationStyle;
-			
+            
             staticTextBlock.textJustifier = staticEastAsianJustifier;
-		}
+        }
                 
-		// Then create TextLines using this TextBlock.
-		return createTextLinesFromTextBlock(staticTextBlock, textLines, bounds);
-	}
+        // Then create TextLines using this TextBlock.
+        return createTextLinesFromTextBlock(staticTextBlock, textLines, bounds);
+    }
 
-	/**
-	 *  @private
-	 *  Compose into textLines.  bounds on input is size of composition
-	 *  area and on output is the size of the composed content.
-	 *  The caller must call releaseLinesFromTextBlock() to release the
-	 *  textLines from the TextBlock.  This must be done after truncation
-	 *  so that the composed lines can be broken into atoms to figure out
-	 *  where the truncation indicator should be placed.
-	 * 
+    /**
+     *  @private
+     *  Compose into textLines.  bounds on input is size of composition
+     *  area and on output is the size of the composed content.
+     *  The caller must call releaseLinesFromTextBlock() to release the
+     *  textLines from the TextBlock.  This must be done after truncation
+     *  so that the composed lines can be broken into atoms to figure out
+     *  where the truncation indicator should be placed.
+     * 
      *  Returns true if all the text was composed into textLines.
-	 */
-	private function createTextLinesFromTextBlock(textBlock:TextBlock,
-                	                              textLines:Vector.<DisplayObject>,
-                	                              bounds:Rectangle):Boolean
-	{
-		// Start with 0 text lines.
-		releaseTextLines(textLines);
-	       
-		// Get CSS styles for formats that we have to apply ourselves.
-		var direction:String = getStyle("direction");
+     */
+    private function createTextLinesFromTextBlock(textBlock:TextBlock,
+                                                  textLines:Vector.<DisplayObject>,
+                                                  bounds:Rectangle):Boolean
+    {
+        // Start with 0 text lines.
+        releaseTextLines(textLines);
+           
+        // Get CSS styles for formats that we have to apply ourselves.
+        var direction:String = getStyle("direction");
         var lineBreak:String = getStyle("lineBreak");
         var lineHeight:Object = getStyle("lineHeight");
         var lineThrough:Boolean = getStyle("lineThrough");
@@ -852,25 +905,25 @@ public class Label extends TextBase
         var textDecoration:String = getStyle("textDecoration");
         var verticalAlign:String = getStyle("verticalAlign");
 
-		var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
-		var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
-		
+        var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
+        var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
+        
         var measureWidth:Boolean = isNaN(innerWidth);
-		if (measureWidth)
-			innerWidth = maxWidth;
+        if (measureWidth)
+            innerWidth = maxWidth;
 
         var maxLineWidth:Number = lineBreak == "explicit" ?
                                   TextLine.MAX_LINE_WIDTH :
                                   innerWidth;
-		
-		if (innerWidth < 0 || innerHeight < 0 || !textBlock)
-		{
-			bounds.width = 0;
-			bounds.height = 0;
-			return false;
-		}
+        
+        if (innerWidth < 0 || innerHeight < 0 || !textBlock)
+        {
+            bounds.width = 0;
+            bounds.height = 0;
+            return false;
+        }
 
-		var fontSize:Number = staticTextElement.elementFormat.fontSize;
+        var fontSize:Number = staticTextElement.elementFormat.fontSize;
         var actualLineHeight:Number;
         if (lineHeight is Number)
         {
@@ -887,93 +940,93 @@ public class Label extends TextBase
             actualLineHeight = 1.2 * fontSize;
         
         var maxTextWidth:Number = 0;
-		var totalTextHeight:Number = 0;
-		var n:int = 0;
-		var nextTextLine:TextLine;
-		var nextY:Number = 0;
-		var textLine:TextLine;
+        var totalTextHeight:Number = 0;
+        var n:int = 0;
+        var nextTextLine:TextLine;
+        var nextY:Number = 0;
+        var textLine:TextLine;
         
         var swfContext:ISWFContext = ISWFContext(embeddedFontContext);
-        			
-		// For truncation, need to know if all lines have been composed.
+                    
+        // For truncation, need to know if all lines have been composed.
         var createdAllLines:Boolean = false;
         // sometimes we need to create an extra line in order to compute
         // truncation
         var extraLine:Boolean;
         
-		// Generate TextLines, stopping when we run out of text
-		// or reach the bottom of the requested bounds.
-		// In this loop the lines are positioned within the rectangle
-		// (0, 0, innerWidth, innerHeight), with top-left alignment.
-		while (true)
-		{
+        // Generate TextLines, stopping when we run out of text
+        // or reach the bottom of the requested bounds.
+        // In this loop the lines are positioned within the rectangle
+        // (0, 0, innerWidth, innerHeight), with top-left alignment.
+        while (true)
+        {
             var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
             if (recycleLine)
             {
                 if (swfContext)
                 {
                     nextTextLine = swfContext.callInContext(
-						textBlock["recreateTextLine"], textBlock,
-						[ recycleLine, textLine, maxLineWidth ]);		
+                        textBlock["recreateTextLine"], textBlock,
+                        [ recycleLine, textLine, maxLineWidth ]);       
                 }        
                 else
                 {
                     nextTextLine = recreateTextLine(
-                    	recycleLine, textLine, maxLineWidth);
+                        recycleLine, textLine, maxLineWidth);
                 }  
-		    }
-		    else
-		    {
+            }
+            else
+            {
                 if (swfContext)
                 {
                     nextTextLine = swfContext.callInContext(
-						textBlock.createTextLine, textBlock,
-						[ textLine, maxLineWidth ]);
+                        textBlock.createTextLine, textBlock,
+                        [ textLine, maxLineWidth ]);
                 }
                 else
                 {
-    			    nextTextLine = textBlock.createTextLine(
-    			    	textLine, maxLineWidth);
+                    nextTextLine = textBlock.createTextLine(
+                        textLine, maxLineWidth);
                 }
             }
             
-			if (!nextTextLine)
+            if (!nextTextLine)
             {
-				createdAllLines = !extraLine;
+                createdAllLines = !extraLine;
                 break;
             }
-			
-			// Determine the natural baseline position for this line.
-			// Note: The y coordinate of a TextLine is the location
-			// of its baseline, not of its top.
+            
+            // Determine the natural baseline position for this line.
+            // Note: The y coordinate of a TextLine is the location
+            // of its baseline, not of its top.
             nextY += (n == 0 ? nextTextLine.ascent : actualLineHeight);
-			
-			// If verticalAlign is top and the next line is completely outside 
-			// the rectangle, we're done.  If verticalAlign is middle or bottom
-			// then we need to compose all the lines so the alignment is done
-			// correctly.
-			if (verticalAlign == "top" && 
-			    nextY - nextTextLine.ascent > innerHeight)
-			{
+            
+            // If verticalAlign is top and the next line is completely outside 
+            // the rectangle, we're done.  If verticalAlign is middle or bottom
+            // then we need to compose all the lines so the alignment is done
+            // correctly.
+            if (verticalAlign == "top" && 
+                nextY - nextTextLine.ascent > innerHeight)
+            {
                 // make an extra line so we can compute truncation
                 if (!extraLine) 
-				    extraLine = true;
+                    extraLine = true;
                 else
                     break;
-			}
+            }
 
-			// We'll keep this line. Put it into the textLines array.
-			textLine = nextTextLine;
-			textLines[n++] = textLine;
+            // We'll keep this line. Put it into the textLines array.
+            textLine = nextTextLine;
+            textLines[n++] = textLine;
 
-			// Assign its location based on left/top alignment.
-			// Its x position is 0 by default.
-			textLine.y = nextY;
-			
-			// Keep track of the maximum textWidth 
-			// and the accumulated textHeight of the TextLines.
-			maxTextWidth = Math.max(maxTextWidth, textLine.textWidth);
-			totalTextHeight += textLine.textHeight;
+            // Assign its location based on left/top alignment.
+            // Its x position is 0 by default.
+            textLine.y = nextY;
+            
+            // Keep track of the maximum textWidth 
+            // and the accumulated textHeight of the TextLines.
+            maxTextWidth = Math.max(maxTextWidth, textLine.textWidth);
+            totalTextHeight += textLine.textHeight;
 
             if (lineThrough || textDecoration == "underline")
             {
@@ -1009,18 +1062,18 @@ public class Label extends TextBase
                 
                 textLine.addChild(shape);
             }
-		}
+        }
 
-		// At this point, n is the number of lines that fit
-		// and textLine is the last line that fit.
+        // At this point, n is the number of lines that fit
+        // and textLine is the last line that fit.
 
-		if (n == 0)
-		{
-			bounds.width = paddingLeft + paddingRight;
-			bounds.height = paddingTop + paddingBottom;
-			return createdAllLines;
-		}
-		
+        if (n == 0)
+        {
+            bounds.width = paddingLeft + paddingRight;
+            bounds.height = paddingTop + paddingBottom;
+            return createdAllLines;
+        }
+        
         // If not measuring the width, innerWidth remains the same since 
         // alignment is done over the innerWidth not over the width of the
         // text that was just composed.
@@ -1029,7 +1082,7 @@ public class Label extends TextBase
 
         if (isNaN(bounds.height))
             innerHeight = textLine.y + textLine.descent;
-		
+        
         var leftAligned:Boolean = 
             textAlign == "start" && direction == "ltr" ||
             textAlign == "end" && direction == "rtl" ||
@@ -1041,21 +1094,21 @@ public class Label extends TextBase
             textAlign == "end" && direction == "ltr" ||
             textAlign == "right"; 
 
-		// Calculate loop constants for horizontal alignment.
-		var leftOffset:Number = bounds.left + paddingLeft;
-		var centerOffset:Number = leftOffset + innerWidth / 2;
-		var rightOffset:Number =  leftOffset + innerWidth;
-		
-		// Calculate loop constants for vertical alignment.
-		var topOffset:Number = bounds.top + paddingTop;
-		var bottomOffset:Number = innerHeight - (textLine.y + textLine.descent);
-		var middleOffset:Number = bottomOffset / 2;
-		bottomOffset += topOffset;
-		middleOffset += topOffset;
-		var leading:Number = (innerHeight - totalTextHeight) / (n - 1);
-		
-		var previousTextLine:TextLine;
-		var y:Number = 0;
+        // Calculate loop constants for horizontal alignment.
+        var leftOffset:Number = bounds.left + paddingLeft;
+        var centerOffset:Number = leftOffset + innerWidth / 2;
+        var rightOffset:Number =  leftOffset + innerWidth;
+        
+        // Calculate loop constants for vertical alignment.
+        var topOffset:Number = bounds.top + paddingTop;
+        var bottomOffset:Number = innerHeight - (textLine.y + textLine.descent);
+        var middleOffset:Number = bottomOffset / 2;
+        bottomOffset += topOffset;
+        middleOffset += topOffset;
+        var leading:Number = (innerHeight - totalTextHeight) / (n - 1);
+        
+        var previousTextLine:TextLine;
+        var y:Number = 0;
 
         var lastLineIsSpecial:Boolean =
             textAlign == "justify" && createdAllLines;
@@ -1066,13 +1119,13 @@ public class Label extends TextBase
         
         var clipping:Boolean = (n) ? (textLines[n - 1].y + TextLine(textLines[n - 1]).descent > innerHeight) : false;
 
-		// Reposition each line if necessary.
-		// based on the horizontal and vertical alignment.
-		for (var i:int = 0; i < n; i++)
-		{
-			textLine = TextLine(textLines[i]);
+        // Reposition each line if necessary.
+        // based on the horizontal and vertical alignment.
+        for (var i:int = 0; i < n; i++)
+        {
+            textLine = TextLine(textLines[i]);
 
-			// If textAlign is "justify" and there is more than one line,
+            // If textAlign is "justify" and there is more than one line,
             // the last one (if we created it) gets horizontal aligned
             // according to textAlignLast.
             if (lastLineIsSpecial && i == n - 1)
@@ -1090,36 +1143,36 @@ public class Label extends TextBase
             } 
 
             if (leftAligned)
-				textLine.x = leftOffset;
-			else if (centerAligned)
-				textLine.x = centerOffset - textLine.textWidth / 2;
-			else if (rightAligned)
-				textLine.x = rightOffset - textLine.textWidth;
+                textLine.x = leftOffset;
+            else if (centerAligned)
+                textLine.x = centerOffset - textLine.textWidth / 2;
+            else if (rightAligned)
+                textLine.x = rightOffset - textLine.textWidth;
 
-			if (verticalAlign == "top" || !createdAllLines || clipping)
-			{
-				textLine.y += topOffset;
-			}
-			else if (verticalAlign == "middle")
-			{
-				textLine.y += middleOffset;
-			}
-			else if (verticalAlign == "bottom")
-			{
-				textLine.y += bottomOffset;
-			}
-			else if (verticalAlign == "justify")
-			{
-				// Determine the natural baseline position for this line.
-				// Note: The y coordinate of a TextLine is the location
-				// of its baseline, not of its top.
-				y += i == 0 ?
-					 topOffset + textLine.ascent :
-					 previousTextLine.descent + leading + textLine.ascent;
-			
-				textLine.y = y;
-				previousTextLine = textLine;
-			}
+            if (verticalAlign == "top" || !createdAllLines || clipping)
+            {
+                textLine.y += topOffset;
+            }
+            else if (verticalAlign == "middle")
+            {
+                textLine.y += middleOffset;
+            }
+            else if (verticalAlign == "bottom")
+            {
+                textLine.y += bottomOffset;
+            }
+            else if (verticalAlign == "justify")
+            {
+                // Determine the natural baseline position for this line.
+                // Note: The y coordinate of a TextLine is the location
+                // of its baseline, not of its top.
+                y += i == 0 ?
+                     topOffset + textLine.ascent :
+                     previousTextLine.descent + leading + textLine.ascent;
+            
+                textLine.y = y;
+                previousTextLine = textLine;
+            }
 
             // Upper left corner of bounding box may not be 0,0 after
             // styles are applied or rounding error from minY calculation.
@@ -1128,7 +1181,7 @@ public class Label extends TextBase
             minX = Math.min(minX, textLine.x);             
             minY = Math.min(minY, textLine.y - textLine.ascent);
             maxX = Math.max(maxX, textLine.x + textLine.textWidth); 
-		}
+        }
 
         bounds.x = minX - paddingLeft;
         bounds.y = minY - paddingTop;
@@ -1136,10 +1189,10 @@ public class Label extends TextBase
         bounds.bottom = textLine.y + textLine.descent + paddingBottom;
         
         return createdAllLines;
-	}
-	
+    }
+    
     /**
-	 *  @private
+     *  @private
      *  Determines if the composed text fits in the given height and 
      *  line count limit. 
      */ 
@@ -1183,8 +1236,8 @@ public class Label extends TextBase
      *  TextLineFactory.textLinesFromString().
      */
     private function truncateText(width:Number, height:Number, lineBreak:String):void
-	{
-	    var lineCountLimit:int = maxDisplayedLines;
+    {
+        var lineCountLimit:int = maxDisplayedLines;
         var somethingFit:Boolean = false;
         var truncLineIndex:int = 0;    
 
@@ -1212,7 +1265,7 @@ public class Label extends TextBase
             // dependent on the given width.            
             staticTextElement.text = truncationIndicatorResource;
             var indicatorLines:Vector.<DisplayObject> =
-            	new Vector.<DisplayObject>();
+                new Vector.<DisplayObject>();
             var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
     
             createTextLinesFromTextBlock(staticTextBlock, 
@@ -1241,9 +1294,9 @@ public class Label extends TextBase
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
                 // FIXME (gosmith): What if textLines[truncLineIndex] is a backgroundColor
-				// Shape instead of a TextLine?
+                // Shape instead of a TextLine?
                 var truncateAtCharPosition:int = getTruncationPosition(
-                	TextLine(textLines[truncLineIndex]), allowedWidth);
+                    TextLine(textLines[truncLineIndex]), allowedWidth);
 
                 // The following loop executes repeatedly composing text until 
                 // it fits.  In each iteration, an atoms's worth of characters 
@@ -1253,7 +1306,7 @@ public class Label extends TextBase
                     // Replace all content starting at the inital truncation 
                     // position with the truncation indicator.
                     var truncText:String = text.slice(0, truncateAtCharPosition) +
-                    					   truncationIndicatorResource;
+                                           truncationIndicatorResource;
 
                     // (Re)-initialize bounds for next compose.
                     bounds.x = 0;
@@ -1264,7 +1317,7 @@ public class Label extends TextBase
                     staticTextElement.text = truncText;
                     
                     var createdAllLines:Boolean = createTextLinesFromTextBlock(
-                    	staticTextBlock, textLines, bounds);
+                        staticTextBlock, textLines, bounds);
         
                     if (doesComposedTextFit(height, width,
                                             createdAllLines, 
@@ -1284,7 +1337,7 @@ public class Label extends TextBase
                     // preceding atom.
                     var oldCharPosition:int = truncateAtCharPosition;
                     truncateAtCharPosition = getNextTruncationPosition(
-                    	Math.min(truncLineIndex, textLines.length - 1), truncateAtCharPosition);  
+                        Math.min(truncLineIndex, textLines.length - 1), truncateAtCharPosition);  
                     // check to see if we've run out of chars
                     if (oldCharPosition == truncateAtCharPosition)
                         break;
@@ -1320,7 +1373,7 @@ public class Label extends TextBase
      *  results resulting from the compose.
      */
     private function truncateExplicitLineBreakText(width:Number, height:Number):void
-	{
+    {
         // 1. Measure the space that the truncation indicator will take
         // by composing the truncation resource using the same bounds
         // and formats.  The measured indicator lines could be cached but
@@ -1356,7 +1409,7 @@ public class Label extends TextBase
                     lineStr += truncationIndicatorResource;
                     staticTextElement.text = lineStr;
                     var clippedLines:Vector.<DisplayObject> =
-            	        new Vector.<DisplayObject>();
+                        new Vector.<DisplayObject>();
 
                     createTextLinesFromTextBlock(staticTextBlock, 
                                                  clippedLines, 
@@ -1379,7 +1432,7 @@ public class Label extends TextBase
     }
 
     /** 
-	 *  @private
+     *  @private
      *  Calculates the last line that fits in the given height and line count 
      *  limit.
      */
@@ -1414,7 +1467,7 @@ public class Label extends TextBase
     }
 
     /** 
-	 *  @private
+     *  @private
      *  Gets the truncation position on a line given the allowed width.
      *  - Must be at an atom boundary.
      *  - Must scan the line for atoms in logical order, not physical position 
@@ -1447,7 +1500,7 @@ public class Label extends TextBase
     }
         
     /** 
-	 *  @private
+     *  @private
      *  Gets the next truncation position by shedding an atom's worth of 
      *  characters.
      */
@@ -1512,7 +1565,7 @@ public class Label extends TextBase
     }
     
     /**
-	 *  @private
+     *  @private
      *  Cleans up and sets the validity of the lines associated 
      *  with the TextBlock to TextLineValidity.INVALID.
      */
