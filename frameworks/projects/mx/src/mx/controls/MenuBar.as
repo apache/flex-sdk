@@ -2100,11 +2100,16 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             var nextIndex:int = openMenuIndex;
             var found:Boolean = false;
             var count:int = 0;
+            
+            // If rtl layout, need to swap LEFT for RIGHT so correct action
+            // is done.
+            var keyCode:int = mapKeycodeForLayoutDirection(event);
+                        
             while (!found && count < barLen)
             {
                 count++;
-                nextIndex = (event.keyCode == Keyboard.RIGHT) ? nextIndex + 1 : nextIndex - 1;
-
+                nextIndex = (keyCode == Keyboard.RIGHT) ? nextIndex + 1 : nextIndex - 1;
+                
                 if (nextIndex>=barLen)
                     nextIndex = 0;
                 else if (nextIndex < 0)
@@ -2122,7 +2127,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         }
 
         // Handle Keyboard.DOWN Navigation
-        if (event.keyCode == Keyboard.DOWN)
+        if (keyCode == Keyboard.DOWN)
         {
             if (openMenuIndex != -1)
             {
@@ -2143,7 +2148,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         }
   
         // Handle Keyboard.ENTER/ESCAPE Commands
-        if ((event.keyCode == Keyboard.ENTER) || (event.keyCode == Keyboard.ESCAPE))
+        if ((keyCode == Keyboard.ENTER) || (keyCode == Keyboard.ESCAPE))
         {
             if (openMenuIndex != -1)
                 getMenuAt(openMenuIndex).hide();
