@@ -104,8 +104,8 @@ public class VSlider extends Slider
             }
             
             thumbLItem.setActualPosition(thumbLItem.actualPosition.x, 
-                                         trackPos + trackLen - thumbPos
-                                         - thumbLItem.actualSize.y); 
+                                         Math.round(trackPos + trackLen - thumbPos
+                                         - thumbLItem.actualSize.y)); 
         }
     }
     
