@@ -412,7 +412,7 @@ public class ListBase extends SkinnableDataContainer
      */
     public function get selectedItem():*
     {
-        if (_pendingSelectedItem != undefined)
+        if (_pendingSelectedItem !== undefined)
             return _pendingSelectedItem;
             
         if (selectedIndex == NO_SELECTION || dataProvider == null)
@@ -426,7 +426,7 @@ public class ListBase extends SkinnableDataContainer
      */
     public function set selectedItem(value:*):void
     {
-        if (selectedItem == value)
+        if (selectedItem === value)
             return;
         
         _pendingSelectedItem = value;
