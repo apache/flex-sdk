@@ -551,9 +551,6 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
      */
     private function animationUpdateHandler(animation:Animation):void
     {
-        // FIXME (klin): Should the animation be setting the value
-        // as it goes like ScrollBar does? Should this behavior
-        // depend on liveDragging?
         pendingValue = animation.currentValue["value"];
     }
     
