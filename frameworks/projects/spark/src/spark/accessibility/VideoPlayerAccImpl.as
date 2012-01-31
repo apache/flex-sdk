@@ -16,6 +16,7 @@ import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.FocusEvent;
+import org.osmf.events.TimeEvent;
 import spark.components.VideoPlayer;
 import spark.components.Button;
 import spark.events.VideoEvent;
@@ -64,7 +65,7 @@ public class VideoPlayerAccImpl extends AccImpl
     /**
      *  @private
      */
-    private static const VIDEOPLAYER_PLAYHEADTIMEDISPLAY:uint = 3;
+    private static const VIDEOPLAYER_CURRENTTIMEDISPLAY:uint = 3;
     
     /**
      *  @private
@@ -148,6 +149,13 @@ public class VideoPlayerAccImpl extends AccImpl
 	    super(master);
 
 	    role = AccConst.ROLE_SYSTEM_PANE; 
+        
+        VideoPlayer(master).playPauseButton.addEventListener(Event.CHANGE,
+        eventHandler);
+        VideoPlayer(master).volumeBar.addEventListener(Event.CHANGE,
+        eventHandler);
+        VideoPlayer(master).volumeBar.addEventListener(FlexEvent.MUTED_CHANGE,
+        eventHandler);
 	}
 
 	//--------------------------------------------------------------------------
@@ -166,17 +174,8 @@ public class VideoPlayerAccImpl extends AccImpl
 	 */
 	override protected function get eventsToHandle():Array
 	{
-	    VideoPlayer(master).playPauseButton.addEventListener(Event.CHANGE,
-        eventHandler);
-	    VideoPlayer(master).volumeBar.addEventListener(Event.CHANGE,
-        eventHandler);
-	    VideoPlayer(master).volumeBar.addEventListener(FlexEvent.MUTED_CHANGE,
-        eventHandler);
-	    VideoPlayer(master).videoElement.addEventListener(VideoEvent.
-        PLAYHEAD_UPDATE, eventHandler);
-      
         return super.eventsToHandle.concat([MouseEvent.CLICK,
-        FocusEvent.FOCUS_IN])
+        FocusEvent.FOCUS_IN, TimeEvent.CURRENT_TIME_CHANGE ])
 	}
 
 
@@ -207,9 +206,9 @@ public class VideoPlayerAccImpl extends AccImpl
             {
                 return videoPlayer.scrubBar;
             }
-            case VIDEOPLAYER_PLAYHEADTIMEDISPLAY:
+            case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-                return videoPlayer.playheadTimeDisplay;
+                return videoPlayer.currentTimeDisplay;
             }
             case VIDEOPLAYER_MUTEBUTTON:
             {
@@ -282,9 +281,9 @@ public class VideoPlayerAccImpl extends AccImpl
 			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // scrubBar
 			    break;
 		    }
-		    case VIDEOPLAYER_PLAYHEADTIMEDISPLAY:
+		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-			    accRole = AccConst.ROLE_SYSTEM_STATICTEXT; // playHeadTime
+			    accRole = AccConst.ROLE_SYSTEM_STATICTEXT; // currentTime
 			    break;
        		}
     		case VIDEOPLAYER_MUTEBUTTON:
@@ -351,8 +350,8 @@ public class VideoPlayerAccImpl extends AccImpl
         videoPlayer.playPauseButton.enabled == false) ||
         (childID == VIDEOPLAYER_SCRUBBAR && 
         videoPlayer.scrubBar.enabled == false) ||
-        (childID == VIDEOPLAYER_PLAYHEADTIMEDISPLAY && 
-        videoPlayer.playheadTimeDisplay.enabled == false) ||
+        (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
+        videoPlayer.currentTimeDisplay.enabled == false) ||
         (childID == VIDEOPLAYER_MUTEBUTTON && 
         videoPlayer.volumeBar.enabled == false) ||
         (childID == VIDEOPLAYER_VOLUMEBAR && 
@@ -364,8 +363,8 @@ public class VideoPlayerAccImpl extends AccImpl
            return accState;
         }
 
-        // eveything except for the playheadTimeDisplay should be focusable
-        if (childID != VIDEOPLAYER_PLAYHEADTIMEDISPLAY) 
+        // eveything except for the currentTimeDisplay should be focusable
+        if (childID != VIDEOPLAYER_CURRENTTIMEDISPLAY) 
             accState |=	AccConst.STATE_SYSTEM_FOCUSABLE;
 
         if (childID == index)
@@ -541,10 +540,10 @@ public class VideoPlayerAccImpl extends AccImpl
                 resourceManager.getString("components","videoPlayerScrubBarAccName")
                 break;
 	        }
-		    case VIDEOPLAYER_PLAYHEADTIMEDISPLAY:
+		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-		        label = String(videoPlayer.playheadTimeDisplay.text+"/"+
-                videoPlayer.totalTimeDisplay.text);
+		        label = String(videoPlayer.currentTimeDisplay.text+"/"+
+                videoPlayer.durationDisplay.text);
 		        break;
 		    }
             case VIDEOPLAYER_MUTEBUTTON:
@@ -612,7 +611,7 @@ public class VideoPlayerAccImpl extends AccImpl
 		var accValue:String = "";
 		
 		if (childID == VIDEOPLAYER_SCRUBBAR) 
-  	   	    accValue = videoPlayer.playheadTimeDisplay.text; 
+  	   	    accValue = videoPlayer.currentTimeDisplay.text; 
 		
         if (childID == VIDEOPLAYER_VOLUMEBAR) 
             accValue = String(Math.floor(videoPlayer.volumeBar.value*100));
@@ -685,8 +684,8 @@ public class VideoPlayerAccImpl extends AccImpl
             index = VIDEOPLAYER_PLAYPAUSEBUTTON;
         else if (str.search("scrubBar") > 0)
             index = VIDEOPLAYER_SCRUBBAR;
-        else if (str.search("totalTimeDisplay") > 0) 
-            index = VIDEOPLAYER_PLAYHEADTIMEDISPLAY;
+        else if (str.search("durationDisplay") > 0) 
+            index = VIDEOPLAYER_CURRENTTIMEDISPLAY;
         else if (str.search("volumeBar") > 0)
             index = VIDEOPLAYER_VOLUMEBAR;
         else if (str.search("fullScreenButton") > 0)
@@ -741,7 +740,7 @@ public class VideoPlayerAccImpl extends AccImpl
 				else if (childID == VIDEOPLAYER_SCRUBBAR || childID == 
                 VIDEOPLAYER_VOLUMEBAR)
 					msaaEvt = AccConst.EVENT_OBJECT_VALUECHANGE;
-                if (childID != VIDEOPLAYER_PLAYHEADTIMEDISPLAY && childID != 0)
+                if (childID != VIDEOPLAYER_CURRENTTIMEDISPLAY && childID != 0)
                 {
 				    Accessibility.sendEvent(master, childID, msaaEvt);
 				    Accessibility.updateProperties();
@@ -755,11 +754,11 @@ public class VideoPlayerAccImpl extends AccImpl
 				Accessibility.updateProperties();
 				break;
 			}
-            case VideoEvent.PLAYHEAD_UPDATE:
+            case TimeEvent.CURRENT_TIME_CHANGE:
 			{
 				Accessibility.sendEvent(master, VIDEOPLAYER_SCRUBBAR, 
                 AccConst.EVENT_OBJECT_VALUECHANGE);
-				Accessibility.sendEvent(master, VIDEOPLAYER_PLAYHEADTIMEDISPLAY, 
+				Accessibility.sendEvent(master, VIDEOPLAYER_CURRENTTIMEDISPLAY, 
                 AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
 				break;
