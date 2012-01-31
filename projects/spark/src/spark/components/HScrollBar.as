@@ -9,23 +9,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
-import flex.intf.ILayoutItem;
-import flex.layout.LayoutItemFactory;
-
+import mx.components.baseClasses.FxTextBase;
+import mx.components.baseClasses.FxScrollBar;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
 /**
- *  The HScrollBar (horizontal ScrollBar) control lets you control
+ *  The FxHScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
  *  to fit horizontally in a display area.
  * 
  *  <p>This control extends the base ScrollBar control.</p> 
  *  
- *  <p>Although you can use the HScrollBar control as a stand-alone control,
+ *  <p>Although you can use the FxHScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
  */
-public class HScrollBar extends ScrollBar
+public class FxHScrollBar extends FxScrollBar
 {
     include "../core/Version.as";
 
@@ -38,7 +39,7 @@ public class HScrollBar extends ScrollBar
     /**
      *  Constructor. 
      */
-    public function HScrollBar()
+    public function FxHScrollBar()
     {
         super();
     }
@@ -50,7 +51,7 @@ public class HScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     *  The size of the track on an HScrollBar equals the width of the track.
+     *  The size of the track on an FxHScrollBar equals the width of the track.
      */
     override protected function get trackSize():Number
     {
@@ -101,7 +102,7 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
-     *  The position of the thumb on an HScrollBar is equal to the given
+     *  The position of the thumb on an FxHScrollBar is equal to the given
      *  localX parameter.
      * 
      *  @param localX The x position relative to the scrollbar control
