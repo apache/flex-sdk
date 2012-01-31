@@ -103,6 +103,7 @@
 			<include-resource-bundles bundle="layout"/>
 			<include-resource-bundles bundle="sparkEffects"/>
 			<include-resource-bundles bundle="textLayout"/>
+            <include-resource-bundles bundle="osmf"/>
 			<include-namespaces/>
 			<include-classes/>
 			<source-path path-element="${basedir}/bundles/${locale}"/>
