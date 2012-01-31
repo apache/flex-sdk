@@ -48,6 +48,9 @@ include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
+/**
+ *  The GroupBase class.
+ */
 public class GroupBase extends UIComponent implements IGraphicElementHost, IViewport
 {
     //--------------------------------------------------------------------------
