@@ -35,7 +35,6 @@ import mx.controls.menuClasses.MenuBarItem;
 import mx.controls.treeClasses.DefaultDataDescriptor;
 import mx.core.ClassFactory;
 import mx.core.EventPriority;
-import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
@@ -525,9 +524,6 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.baselinePosition;
-        
         if (!validateBaselinePosition())
             return NaN;
 
@@ -1436,29 +1432,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             var m:Menu;
             if (menuStyleName)
             {
-                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+                for (i = 0; i < menus.length; i++)
                 {
-                    var styleDecl:CSSStyleDeclaration =
-                        StyleManager.getStyleDeclaration("." + menuStyleName);
-         
-                    if (styleDecl)
-                    {
-                        for (i = 0; i < menus.length; i++)
-                        {
-                            m = menus[i];
-                            m.styleDeclaration = styleDecl;
-                            m.regenerateStyleCache(true);
-                        }
-                    }
-                 }
-                 else
-                 {
-                    for (i = 0; i < menus.length; i++)
-                    {
-                        m = menus[i];
-                        m.styleName = menuStyleName;
-                    }
-                 }
+                    m = menus[i];
+                    m.styleName = menuStyleName;
+                }
             }
         }
     }
@@ -1784,24 +1762,9 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             menu = new Menu();
             menu.showRoot = false;
             
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                menu.styleName = this;
-            
             var menuStyleName:Object = getStyle("menuStyleName");
             if (menuStyleName)
-            {
-                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                {
-                    var styleDecl:CSSStyleDeclaration =
-                        StyleManager.getStyleDeclaration("." + menuStyleName);
-                    if (styleDecl)
-                        menu.styleDeclaration = styleDecl;
-                }
-                else
-                {
-                    menu.styleName = menuStyleName;
-                }
-            }
+                menu.styleName = menuStyleName;
             
             menu.sourceMenuBar = this;
             menu.owner = this;
