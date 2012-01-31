@@ -196,6 +196,14 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *
  *  <p>To improve performance and minimize application size, 
  *  you can use the Group container. The Group container cannot be skinned.</p>
+ *
+ *  <p>The SkinnableContainer container has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
  * 
  *  @mxml
  *
@@ -275,6 +283,9 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see SkinnableDataContainer
  *  @see Group
  *  @see spark.skins.spark.SkinnableContainerSkin
+ *
+ *  @includeExample examples/SkinnableContainerExample.mxml
+ *  @includeExample examples/MyBorderSkin.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
