@@ -160,8 +160,6 @@ public class Application extends SkinnableContainer
      */
     public function Application()
     {
-        name = "fxApplication";
-
         UIComponentGlobals.layoutManager = ILayoutManager(
             Singleton.getInstance("mx.managers::ILayoutManager"));
         UIComponentGlobals.layoutManager.usePhasedInstantiation = true;
