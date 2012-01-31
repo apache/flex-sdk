@@ -17,7 +17,7 @@ import flash.utils.Dictionary;
 
 import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
-import mx.collections.Sort;
+import mx.collections.ISort;
 import mx.collections.XMLListAdapter;
 import mx.collections.XMLListCollection;
 import mx.collections.errors.ItemPendingError;
@@ -202,7 +202,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     *  @private
      *  Not Supported in Tree.
      */
-    public function get sort():Sort
+    public function get sort():ISort
 	{
 	    return null;
 	}
@@ -211,7 +211,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *  @private
      *  Not Supported in Tree.
      */
-    public function set sort(value:Sort):void
+    public function set sort(value:ISort):void
 	{
 	    //No Impl
 	}
