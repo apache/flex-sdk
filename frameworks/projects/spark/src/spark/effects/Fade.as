@@ -11,9 +11,9 @@
 
 package spark.effects
 {
-import spark.effects.supportClasses.FadeInstance;
-
 import mx.effects.IEffectInstance;
+
+import spark.effects.supportClasses.FadeInstance;
 
 /**
  *  The Fade effect animates the <code>alpha</code> property of a component. 
@@ -111,6 +111,42 @@ public class Fade extends Animate
      */
     public var alphaTo:Number;
 
+    //----------------------------------
+    //  affectVisibility
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="true")]
+
+    /** 
+     *  Fade animates the <code>alpha</code> value of its target
+     *  objects. But it may also be desirable for Fade to automatically
+     *  affect the <code>visible</code> property as well, setting that
+     *  property to <code>false</code> when fading out a visible object
+     *  or setting it to <code>true</code> when fading in a non-visible 
+     *  object. The setting of this flag determines whether that side-effect
+     *  will persist after the Fade is complete.
+     * 
+     *  <p>For example, an object which is not visible when a fade-in
+     *  operation is run on it will become visible when the effect runs and
+     *  stay visible when the effect finishes.</p>
+     * 
+     *  <p>Note that if the <code>visible</code> property is specified 
+     *  explicitly in state values, this behavior will not counter the
+     *  instructions when going into that state. For example, an object
+     *  which is not visible and which has a <code>visible</code> value 
+     *  of <code>false</code> in some state "StateX" will remain non-visible
+     *  after any Fade effect runs on it, even if that Fade effect 
+     *  explicitly faded the object in.</p>
+     * 
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var affectVisibility:Boolean = true;
+    
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -128,6 +164,7 @@ public class Fade extends Animate
 
         fadeInstance.alphaFrom = alphaFrom;
         fadeInstance.alphaTo = alphaTo;
+        fadeInstance.affectVisibility = affectVisibility;
     }
 
     /**
