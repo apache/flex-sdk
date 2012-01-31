@@ -206,7 +206,7 @@ public class SkinnableComponent extends UIComponent
     //----------------------------------
     
     /**
-     *  An Array that lists the skin parts that will be
+     *  An Array that lists the skin parts 
      *  excluded from bitmaps captured and used to
      *  show focus.  This list is only used if
      *  the skin has a null focusSkinExclusions property.
@@ -541,7 +541,7 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Marks the component so that the new state of the skin will get set
+     *  Marks the component so that the new state of the skin is set
      *  during a later screen update.
      *  
      *  @langversion 3.0
