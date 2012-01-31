@@ -639,10 +639,10 @@ public class DropDownList extends DropDownBase
 		dropDown.labelField = labelField;
 		dropDown.labelFunction = labelFunction;
 		
-		if (itemRenderer)
+		if (itemRenderer != null)
 			dropDown.itemRenderer = itemRenderer;
 	
-		if (itemRendererFunction)
+		if (itemRendererFunction != null)
 			dropDown.itemRendererFunction = itemRendererFunction;
 	
 		// TODO!! We force validation because when we set the selectedIndex, 
