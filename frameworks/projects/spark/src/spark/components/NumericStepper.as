@@ -471,7 +471,14 @@ public class NumericStepper extends Spinner
         if (stage)
         {
             stage.focus = textInput.textView;
-            textInput.textView.setSelection();
+            
+            // Since the API ignores the visual editable and selectable 
+            // properties make sure the selection should be set first.
+            if (textInput.textView && 
+               (textInput.textView.editable || textInput.textView.selectable))
+            {
+                textInput.textView.setSelection();
+            }
         }
     }
     
