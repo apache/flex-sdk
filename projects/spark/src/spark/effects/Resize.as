@@ -8,13 +8,13 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects
+package mx.effects
 {
-import flex.effects.effectClasses.ResizeInstance;
+import mx.effects.effectClasses.FxResizeInstance;
 
 import mx.effects.IEffectInstance;
     
-public class Resize extends Animate
+public class FxResize extends FxAnimate
 {
     include "../core/Version.as";
 
@@ -48,11 +48,11 @@ public class Resize extends Animate
      *
      *  @param target The Object to animate with this effect.
      */
-    public function Resize(target:Object=null)
+    public function FxResize(target:Object=null)
     {
         super(target);
 
-        instanceClass = ResizeInstance;
+        instanceClass = FxResizeInstance;
     }
 
     //--------------------------------------------------------------------------
@@ -181,7 +181,7 @@ public class Resize extends Animate
     {
         super.initInstance(instance);
         
-        var resizeInstance:ResizeInstance = ResizeInstance(instance);
+        var resizeInstance:FxResizeInstance = FxResizeInstance(instance);
 
         if (!isNaN(widthFrom))
             resizeInstance.widthFrom = widthFrom;
