@@ -17,14 +17,16 @@ import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
-import mx.core.ClassFactory;
+import mx.core.ClassFactory; 
+import mx.components.IItemRenderer;  
 import mx.core.IVisualElement;
 import mx.events.RendererExistenceEvent;
+import mx.events.FlexEvent;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 import mx.managers.IFocusManagerComponent;
 import mx.skins.spark.FxDefaultItemRenderer;
-import flash.geom.Point;
+
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
@@ -424,12 +426,6 @@ public class FxList extends FxListBase implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------
-    //
     //  Private Methods
     //
     //--------------------------------------------------------------------------
@@ -522,7 +518,19 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         var renderer:Object = event.renderer;
         
         if (renderer)
-            renderer.addEventListener("click", item_clickHandler);
+        {
+        	renderer.addEventListener("click", item_clickHandler);
+        	renderer.addEventListener("dataChange", item_dataChangeHandler);
+        	if (renderer is IVisualElement)
+        		IVisualElement(renderer).owner = this;
+        		
+        	//If the labelElement part has been defined on the renderer, 
+    		//push the right text in. 
+        	if ((renderer is ItemRenderer) && (renderer.labelElement))
+        	{
+        		renderer.labelElement.text = itemToLabel(renderer.data);
+        	}
+        }
             
         if (isItemIndexSelected(index))
             itemSelected(index, true);
@@ -538,7 +546,10 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         var renderer:Object = event.renderer;
         
         if (renderer)
+        {
             renderer.removeEventListener("click", item_clickHandler);
+            renderer.removeEventListener("dataChange", item_dataChangeHandler);
+        }
     }
     
     /**
@@ -550,6 +561,24 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         // Multiple selection needs to be added here....
         
         selectedIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
+    }
+    
+    /**
+     *  @private
+     *  Called when an item's data has changed. 
+     */
+    private function item_dataChangeHandler(event:FlexEvent):void
+    {
+    	var renderer:Object = event.target;
+    	if (renderer)
+    	{
+    		//If the labelElement part has been defined on the renderer, 
+    		//push the right text in based on the new data. 
+        	if ((renderer is ItemRenderer) && (renderer.labelElement))
+        	{
+        		renderer.labelElement.text = itemToLabel(renderer.data);
+        	}
+     	}
     }
     
     /**
