@@ -15,6 +15,7 @@ package spark.accessibility
     import flash.events.Event;
     import flash.events.FocusEvent;
     
+import mx.accessibility.AccConst;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     
@@ -35,31 +36,6 @@ package spark.accessibility
     public class ComboBoxAccImpl extends DropDownListBaseAccImpl
     {
         include "../core/Version.as";
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Class constants
-        //
-        //--------------------------------------------------------------------------
-        /**
-         *  @private
-         */
-        private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-        
-        /**
-         *  @private
-         */
-        private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800e;
-        
-        /**
-         *  @private
-         */
-        private static const EVENT_SYSTEM_STATECHANGE:uint = 0x800a;
-        
-        /**
-         *  @private
-         */ 
-        private static const ROLE_SYSTEM_TEXT:uint = 0x2a;
         
         //--------------------------------------------------------------------------
         //
@@ -130,7 +106,7 @@ package spark.accessibility
          */
         private function textInputChangeHandler(event:Event):void
         {
-            Accessibility.sendEvent(master, 0, EVENT_OBJECT_VALUECHANGE);
+            Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_VALUECHANGE);
         }
         
         //--------------------------------------------------------------------------
@@ -230,12 +206,12 @@ package spark.accessibility
                 }
                 case "open":
                 {
-                    Accessibility.sendEvent(master, 0, EVENT_SYSTEM_STATECHANGE);
+                    Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
                     break;
                 }
                 case "focusIn":
                 {
-                    Accessibility.sendEvent(master, 0, EVENT_OBJECT_FOCUS);
+                    Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
                     break;
                 }
                 default:
