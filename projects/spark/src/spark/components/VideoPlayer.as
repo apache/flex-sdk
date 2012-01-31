@@ -225,7 +225,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenConnectionError")]
+[SkinState("connectionErrorAndFullScreen")]
 
 /**
  *  Disabled State of the VideoPlayer when 
@@ -236,7 +236,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenDisabled")]
+[SkinState("disabledAndFullScreen")]
 
 /**
  *  Disconnected State of the VideoPlayer when 
@@ -247,7 +247,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenDisconnected")]
+[SkinState("disconnectedAndFullScreen")]
 
 /**
  *  Loading State of the VideoPlayer when 
@@ -258,7 +258,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenLoading")]
+[SkinState("loadingAndFullScreen")]
 
 /**
  *  Playing State of the VideoPlayer when 
@@ -269,7 +269,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenPlaying")]
+[SkinState("playingAndFullScreen")]
 
 /**
  *  Stopped State of the VideoPlayer when 
@@ -280,7 +280,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreenStopped")]
+[SkinState("stoppedAndFullScreen")]
 
 /**
  *  Loading State of the VideoPlayer
