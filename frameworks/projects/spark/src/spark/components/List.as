@@ -32,7 +32,7 @@ import spark.core.NavigationUnit;
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
+ *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,7 +42,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,7 +52,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#rollOverColor
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -62,7 +62,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#selectionColor
+ *  @copy spark.components.supportClasses.GroupBase#style:selectionColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -72,7 +72,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -338,13 +338,13 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function commitProperties():void
     {
-    	super.commitProperties(); 
-    	
-    	if (multipleSelectionChanged)
-    	{
-    		commitSelection(); 
-    		multipleSelectionChanged = false; 
-    	}
+        super.commitProperties(); 
+        
+        if (multipleSelectionChanged)
+        {
+            commitSelection(); 
+            multipleSelectionChanged = false; 
+        }
     }
     
     /**
@@ -355,22 +355,22 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function commitSelection(dispatchSelectionChanged:Boolean = true):Boolean
     {
-    	var oldIndex:Number = _selectedIndex; 
-    	
-    	// Ensure that multiple selection is allowed and that proposed 
+        var oldIndex:Number = _selectedIndex; 
+        
+        // Ensure that multiple selection is allowed and that proposed 
         // selected indices honors it. For example, in the single 
         // selection case, proposedSelectedIndices should only be an 
         // array of 1 entry. If its not, we pare it down and select the 
         // first item.  
         if (!allowMultipleSelection && !isEmpty(_proposedSelectedIndices))
             _proposedSelectedIndices = [_proposedSelectedIndices[0]];
-    	
-    	// Keep _proposedSelectedIndex in-sync with multiple selection properties. 
-    	if (!isEmpty(_proposedSelectedIndices))
-    	   _proposedSelectedIndex = getLastItemValue(_proposedSelectedIndices); 
-    	
-    	// Let ListBase handle the validating and commiting of the single-selection
-    	// properties.  
+        
+        // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
+        if (!isEmpty(_proposedSelectedIndices))
+           _proposedSelectedIndex = getLastItemValue(_proposedSelectedIndices); 
+        
+        // Let ListBase handle the validating and commiting of the single-selection
+        // properties.  
         var retVal:Boolean = super.commitSelection(false); 
         
         // If super.commitSelection returns a value of false, 
@@ -383,7 +383,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // comitted.  
         if (selectedIndex > NO_SELECTION)
         {
-        	if (_proposedSelectedIndices && _proposedSelectedIndices.indexOf(selectedIndex) == -1)
+            if (_proposedSelectedIndices && _proposedSelectedIndices.indexOf(selectedIndex) == -1)
                 _proposedSelectedIndices.push(selectedIndex);
         }
         
@@ -730,8 +730,8 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (renderer)
         {
-        	renderer.addEventListener("click", item_clickHandler);
-        	updateRenderer(IVisualElement(renderer));
+            renderer.addEventListener("click", item_clickHandler);
+            updateRenderer(IVisualElement(renderer));
         }
     }
     
@@ -756,7 +756,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_clickHandler(event:MouseEvent):void
     {
-    	// TODO (jszeto) Clear the caret 
+        // TODO (jszeto) Clear the caret 
         var newIndex:Number; 
         if (!allowMultipleSelection)
         {
@@ -849,7 +849,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if ((!selectedIndices && selectedIndex > NO_SELECTION) ||
             (selectedIndex > NO_SELECTION && selectedIndices.indexOf(selectedIndex) == -1))
         {
-        	commitSelection(); 
+            commitSelection(); 
         }
         
         // Handle the add or remove and adjust selection accordingly. 
@@ -916,7 +916,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // fired to update any bindings to selection properties. 
         if (_selectedIndices != oldIndices)
         {
-        	selectedIndexAdjusted = true; 
+            selectedIndexAdjusted = true; 
             invalidateProperties(); 
         }
     }
