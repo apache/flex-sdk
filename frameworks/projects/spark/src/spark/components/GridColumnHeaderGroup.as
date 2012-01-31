@@ -304,14 +304,17 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
         overlayGroup.layout = new LayoutBase(); // no layout
         overlay.addDisplayObject(overlayGroup);
         
-        // Event handler that dispatch GridEvents
+        // Event handlers that dispatch GridEvents
         
         MouseEventUtil.addDownDragUpListeners(this, 
             chb_mouseDownDragUpHandler, 
             chb_mouseDownDragUpHandler, 
             chb_mouseDownDragUpHandler);
+
         addEventListener(MouseEvent.MOUSE_MOVE, chb_mouseMoveHandler);
-        addEventListener(MouseEvent.ROLL_OUT, chb_mouseRollOutHandler);        
+        addEventListener(MouseEvent.ROLL_OUT, chb_mouseRollOutHandler);
+        addEventListener(MouseEvent.CLICK, chb_clickHandler);
+        addEventListener(MouseEvent.DOUBLE_CLICK, chb_doubleClickHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -547,7 +550,7 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
     //--------------------------------------------------------------------------  
     
     // The down,roll pairs of variables below define column indices.  Only one
-    // member of each pair will be not equal to -1 at a time.
+    // member of each pair will be not equal to -1 at a time. 
     
     private var rollColumnIndex:int = -1;      // column mouse has rolled into
     private var rollSeparatorIndex:int = -1;   // separator mouse has rolled into
@@ -605,7 +608,7 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
                 {
                     gridEventType = GridEvent.GRID_MOUSE_DOWN;
                     downSeparatorIndex = -1;
-                    downColumnIndex = eventSeparatorIndex;
+                    downColumnIndex = eventColumnIndex;
                 }
                 break;
         }
@@ -751,7 +754,7 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
     {
         const column:GridColumn = getColumnAt(columnIndex);
         const item:Object = null;
-        const itemRenderer:IVisualElement = getHeaderRendererAt(columnIndex);
+        const itemRenderer:IGridItemRenderer = getHeaderRendererAt(columnIndex);
         const bubbles:Boolean = mouseEvent.bubbles;
         const cancelable:Boolean = mouseEvent.cancelable;
         const relatedObject:InteractiveObject = mouseEvent.relatedObject;
