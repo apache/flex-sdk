@@ -39,6 +39,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  The radius of the corners of this component.
+ *
+ *  @default 4
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -49,6 +51,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  The alpha of the focus ring for this component.
+ *
+ *  @default 0.5
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -169,9 +173,10 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [DefaultProperty("label")]
 
 /**
- *  The ButtonBase component is the base class for the all Spark button components.
- *  Button and ToggleButtonBase are subclasses of ButtonBase.
- *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
+ *  The ButtonBase class is the base class for the all Spark button components.
+ *  The Button and ToggleButtonBase classes are subclasses of ButtonBase.
+ *  ToggleButton. 
+ *  The CheckBox and RadioButton classes are subclasses of ToggleButtonBase.
  * 
  *  @mxml
  *
@@ -191,15 +196,15 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *
  *    <strong>Styles</strong>
  *    alignmentBaseline="USE_DOMINANT_BASELINE"
- *    baselineShift="0.0"
- *    breakOpportunity="AUTO"
  *    cffHinting="HORIZONTAL_STEM"
  *    color="0"
+ *    cornerRadius="4"
  *    digitCase="DEFAULT"
  *    digitWidth="DEFAULT"
  *    direction="LTR"
  *    dominantBaseline="AUTO"
- *    focusColor=""
+ *    focusAlpha="0.5"
+ *    focusColor="0x70B2EE"
  *    fontFamily="Times New Roman"
  *    fontLookup="DEVICE"
  *    fontSize="12"
@@ -636,7 +641,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 
     /**
      *  Indicates whether the mouse is down and the mouse pointer was
-     *  over the button when MouseEvent.MOUSE_DOWN was first dispatched.
+     *  over the button when <code>MouseEvent.MOUSE_DOWN</code> was first dispatched.
      *  Used to determine the skin state.
      *  
      *  @langversion 3.0
@@ -919,10 +924,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     }
 
     /**
-     *  This method is called when handling a MouseEvent.MOUSE_UP event
+     *  This method is called when handling a <code>MouseEvent.MOUSE_UP</code> event
      *  when the user clicks on the button. It is only called when the button
-     *  is the target and when mouseCaptured is true. It allows subclasses
-     *  to update the properties of the button right as it is clicked to
+     *  is the target and when <code>mouseCaptured</code> is <code>true</code>. 
+     *  It allows subclasses to update the properties of the button right as it is clicked to
      *  avoid the button being in transitional states between the mouse up
      *  and click events.
      *  
@@ -994,8 +999,12 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  This method handles the mouse events, calls the <code>clickHandler</code> method 
      *  where appropriate and updates the <code>hovered</code> and
      *  <code>mouseCaptured</code> properties.
-     *  <p>This method gets called to handle MouseEvent.ROLL_OVER, MouseEvent.ROLL_OUT,
-     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, and MouseEvent.CLICK.</p>
+     *
+     *  <p>This method gets called to handle <code>MouseEvent.ROLL_OVER</code>, 
+     *  <code>MouseEvent.ROLL_OUT</code>, <code>MouseEvent.MOUSE_DOWN</code>, 
+     *  <code>MouseEvent.MOUSE_UP</code>, and <code>MouseEvent.CLICK</code> events.</p>
+     *
+     *  @param event The Event object associated with the event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1067,9 +1076,11 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     }
     
     /**
-     *  Override in subclasses to handle the click event rather than
-     *  adding a separate handler. clickHandler will not get called if the
-     *  button is disabled. 
+     *  Override this method in subclasses to handle the <code>click</code> event rather than
+     *  adding a separate handler. 
+     *  This method is not called if the button is disabled. 
+     *
+     *  @param event The Event object associated with the event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
