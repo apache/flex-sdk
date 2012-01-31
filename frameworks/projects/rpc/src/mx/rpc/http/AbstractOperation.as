@@ -77,7 +77,6 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
 
         _log = Log.getLogger("mx.rpc.http.HTTPService");
 
-        showBusyCursor = false;
         concurrency = Concurrency.MULTIPLE;
     }
 
@@ -971,7 +970,7 @@ function xmlEncoder (myObj)
 
     private var _method:String = HTTPRequestMessage.GET_METHOD;
     
-    private var _showBusyCursor:Boolean;
+    private var _showBusyCursor:Boolean = false;
 
 }
 
