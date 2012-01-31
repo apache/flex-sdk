@@ -705,8 +705,7 @@ public class List extends ListBase implements IFocusManagerComponent
             else 
                 return [index];
         }
-        
-        else (shiftKey)
+        else // shiftKey
         {
             // A contiguous selection action has occurred. Figure out which new 
             // indices to add to the selection interval and return that. 
@@ -968,46 +967,7 @@ public class List extends ListBase implements IFocusManagerComponent
             invalidateProperties(); 
         }
     }
-    
-    /**
-     *  @private
-     *  Used by <code>keyDownHandler</code> to map the keyboard events
-     *  to NavigationUnit. The NavigationUnit values are passed to the
-     *  layout to figure out what the new item in focus is based on
-     *  the current item in focus.
-     * 
-     *  Override to add custom event to NavigationUnit mapping. 
-     *  
-     *  @param event The user input event.
-     *  @return Returns the NavigationUnit value that corresponds to the event.
-     * 
-     *  @see spark.core.NavigationUnit
-     *  @see spark.layouts.LayoutBase#getDestinationIndex
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function mapEventToNavigationUnit(event:Event):uint
-    {
-        if (!(event is KeyboardEvent))
-            return NavigationUnit.NONE; 
 
-        switch (KeyboardEvent(event).keyCode)
-        {
-            case Keyboard.LEFT:         return NavigationUnit.LEFT;
-            case Keyboard.RIGHT:        return NavigationUnit.RIGHT;
-            case Keyboard.UP:           return NavigationUnit.UP;
-            case Keyboard.DOWN:         return NavigationUnit.DOWN;
-            case Keyboard.PAGE_UP:      return NavigationUnit.PAGE_UP;
-            case Keyboard.PAGE_DOWN:    return NavigationUnit.PAGE_DOWN;
-            case Keyboard.HOME:         return NavigationUnit.HOME;
-            case Keyboard.END:          return NavigationUnit.END;
-            default:                    return NavigationUnit.NONE;
-        }
-    }
-    
     /**
      *  Tries to find the next item in the data provider that
      *  starts with the character in the <code>eventCode</code> parameter.
@@ -1110,8 +1070,6 @@ public class List extends ListBase implements IFocusManagerComponent
     {   
         super.keyDownHandler(event);
 
-        var navigationUnit:uint = mapEventToNavigationUnit(event);    
-        
         if (!dataProvider || !layout)
             return;
         
@@ -1131,13 +1089,14 @@ public class List extends ListBase implements IFocusManagerComponent
         }
             
         // Some unrecognized key stroke was entered, return. 
-        if (navigationUnit == NavigationUnit.NONE)
+        var navigationUnit:uint = event.keyCode;    
+        if (!NavigationUnit.isNavigationUnit(event.keyCode))
             return; 
             
         // Delegate to the layout to tell us what the next item is we should select or focus into.
         // TODO (jszeto) At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
-        var proposedNewIndex:int = layout.getDestinationIndex(navigationUnit, caretIndex); 
+        var proposedNewIndex:int = layout.getNavigationDestinationIndex(caretIndex, navigationUnit); 
         
         // TODO (jszeto) proposedNewIndex depends on CTRL key
         // move CTRL key logic into single selection
