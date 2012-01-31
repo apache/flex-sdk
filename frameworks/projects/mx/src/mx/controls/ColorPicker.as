@@ -31,6 +31,7 @@ import mx.events.ColorPickerEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.MarshalMouseEvent;
 import mx.managers.IFocusManager;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
@@ -1156,6 +1157,10 @@ public class ColorPicker extends ComboBase
                                             dropdownSwatch_mouseDownOutsideHandler);
             dropdownSwatch.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                             dropdownSwatch_mouseDownOutsideHandler);
+            dropdownSwatch.addEventListener(MarshalMouseEvent.MOUSE_DOWN,
+                                            dropdownSwatch_mouseDownOutsideHandler);
+            dropdownSwatch.addEventListener(MarshalMouseEvent.MOUSE_WHEEL,
+                                            dropdownSwatch_mouseDownOutsideHandler);
 
             dropdownSwatch.isOpening = true;
             dropdownSwatch.showTextField = showTextField;
@@ -1217,6 +1222,10 @@ public class ColorPicker extends ComboBase
                                                dropdownSwatch_mouseDownOutsideHandler);
             dropdownSwatch.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                                dropdownSwatch_mouseDownOutsideHandler);
+            dropdownSwatch.removeEventListener(MarshalMouseEvent.MOUSE_DOWN,
+                                            dropdownSwatch_mouseDownOutsideHandler);
+            dropdownSwatch.removeEventListener(MarshalMouseEvent.MOUSE_WHEEL,
+                                            dropdownSwatch_mouseDownOutsideHandler);
                                                
             PopUpManager.removePopUp(dropdownSwatch);
         }
@@ -1492,9 +1501,15 @@ public class ColorPicker extends ComboBase
     /**
      *  @private
      */
-    private function dropdownSwatch_mouseDownOutsideHandler(event:MouseEvent):void
+    private function dropdownSwatch_mouseDownOutsideHandler(event:Event):void
     {
-        if (!hitTestPoint(event.stageX, event.stageY, true))
+        if (event is MouseEvent)
+        {
+            var mouseEvent:MouseEvent = MouseEvent(event);
+            if (!hitTestPoint(mouseEvent.stageX, mouseEvent.stageY, true))
+                close(event);
+        }
+        else if (event is MarshalMouseEvent)
             close(event);
     }
     
