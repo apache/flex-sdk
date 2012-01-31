@@ -439,7 +439,7 @@ public class Label extends TextBase
         releaseLinesFromTextBlock();
                                                        
         // Add the new text lines to the container.
-        addTextLines(this);
+        addTextLines();
 
         // Figure out if a scroll rect is needed.
         isOverset = isTextOverset(width, height);
@@ -839,7 +839,8 @@ public class Label extends TextBase
 		var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
 		var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
 		
-		if (isNaN(innerWidth))
+        var measureWidth:Boolean = isNaN(innerWidth);
+		if (measureWidth)
 			innerWidth = maxWidth;
 
         var maxLineWidth:Number = lineBreak == "explicit" ?
@@ -996,8 +997,12 @@ public class Label extends TextBase
 			return createdAllLines;
 		}
 		
-        // innerWidth remains the same.  alignment is done over the innerWidth
-        // not over the width of the text that was just composed.
+        // If not measuring the width, innerWidth remains the same since 
+        // alignment is done over the innerWidth not over the width of the
+        // text that was just composed.
+        if (measureWidth)
+            innerWidth = maxTextWidth;
+
         if (isNaN(bounds.height))
             innerHeight = textLine.y + textLine.descent;
 		
