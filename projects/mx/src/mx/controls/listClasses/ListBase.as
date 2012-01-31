@@ -4146,7 +4146,7 @@ public class ListBase extends ScrollControlBase
     
             // force validation, otherwise it can be delayed until the
             // end of a data effect
-            if (mx_internal::invalidateDisplayListFlag)
+            if (invalidateDisplayListFlag)
                 callLater(invalidateList);
             else
                 invalidateList();
@@ -4175,7 +4175,7 @@ public class ListBase extends ScrollControlBase
 
         // force validation, otherwise it can be delayed until the
         // end of a data effect
-        if (mx_internal::invalidateDisplayListFlag)
+        if (invalidateDisplayListFlag)
             callLater(invalidateList);
         else
             invalidateList();
@@ -5812,7 +5812,7 @@ public class ListBase extends ScrollControlBase
         if (selected)
         {
             var effectiveRowY:Number = runningDataEffect ? 
-                item.y - mx_internal::cachedPaddingTop :
+                item.y - cachedPaddingTop :
                 rowInfo[rowData.rowIndex].y;
                 
             if (!selectionIndicators[rowData.uid])
@@ -9616,7 +9616,7 @@ public class ListBase extends ScrollControlBase
                 modifiedCollectionView.processCollectionEvent(ce, firstItemIndex, lastItemIndex);
                 runDataEffectNextUpdate = true;
                 
-                if (mx_internal::invalidateDisplayListFlag)
+                if (invalidateDisplayListFlag)
                     callLater(invalidateList);
                 else
                     invalidateList();
