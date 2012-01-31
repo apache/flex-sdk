@@ -260,8 +260,8 @@ public class Scale extends AnimateTransform
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addPostLayoutMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
+            addMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
         }
         super.initInstance(instance);
     }    
