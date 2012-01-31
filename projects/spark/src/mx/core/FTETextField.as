@@ -1076,6 +1076,14 @@ public class FTETextField extends Sprite
 	 */
 	public function get htmlText():String
 	{
+		// When you set the htmlText and then get it,
+		// what you get is not necessarily what you set.
+		// The easiest way to handle this is to make sure
+		// that the text is composed (which will null out _htmlText
+		// if there is no styleSheet) and then execute the code
+		// below to export HTML from the TextFlow.
+		validateNow();
+		
 		// When 'text' is set, _htmlText is nulled out
 		// to indicate that it is invalid
 		// and must be recalculated.
@@ -2952,6 +2960,12 @@ public class FTETextField extends Sprite
 									 compositionHeight:Number):void
 	{
 		textFlow = htmlImporter.importToFlow(_htmlText);
+		
+		// Unless there is a styleSheet, _htmlText is now invalid
+		// and needs to be regenerated on demand,
+		// because with htmlText what-you-set-is-not-what-you-get.
+		if (!styleSheet)
+			_htmlText = null;
         
 		if (!textFlow)
             return;
