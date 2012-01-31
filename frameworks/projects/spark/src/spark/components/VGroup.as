@@ -12,8 +12,8 @@
 package spark.components
 {
 import flash.events.Event;
-import spark.components.Group;
 import spark.layout.VerticalLayout;
+import spark.layout.supportClasses.LayoutBase;
 
 [IconFile("VGroup.png")]
 
@@ -50,11 +50,12 @@ public class VGroup extends Group
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */  
-	public function VGroup():void
-	{
-		super(new VerticalLayout());
-	}
-	
+    public function VGroup():void
+    {
+        super();
+        super.layout = new VerticalLayout();
+    }
+    
     private function get verticalLayout():VerticalLayout
     {
         return VerticalLayout(layout);
@@ -250,7 +251,25 @@ public class VGroup extends Group
     public function get lastIndexInView():int
     {
         return verticalLayout.lastIndexInView;
-    } 
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------    
+        
+    /**
+     *  @private
+     */
+    override public function set layout(value:LayoutBase):void
+    {
+        throw(new Error(resourceManager.getString("components", "layoutReadOnly")));
+    }
     
     //--------------------------------------------------------------------------
     //
