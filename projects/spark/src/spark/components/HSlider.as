@@ -43,7 +43,7 @@ public class FxHSlider extends FxSlider
     {
         super();
     }
-        
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: Slider
