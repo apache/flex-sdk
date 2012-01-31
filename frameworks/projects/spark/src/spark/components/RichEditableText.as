@@ -264,7 +264,8 @@ public class RichEditableText extends UIComponent
         staticTextContainerManagerConfiguration.manageEnterKey = false;
         
         staticPlainTextImporter =
-            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
+            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT,
+            staticTextContainerManagerConfiguration);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
@@ -1694,7 +1695,7 @@ public class RichEditableText extends UIComponent
             // and FTE performance will degrade on a large paragraph.
             
             // If we have focus, then we need to immediately create a 
-            // TextFlow sothe interaction manager will be created and 
+            // TextFlow so the interaction manager will be created and 
             // editing/selection can be done without having to mouse click 
             // or mouse hover over this field.  Normally this is done in our 
             // focusIn handler by making sure there is a selection.  Test this
