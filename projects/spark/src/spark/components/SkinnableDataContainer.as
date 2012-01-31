@@ -25,9 +25,11 @@ import mx.managers.IFocusManagerContainer;
 [DefaultProperty("dataProvider")]
 
 /**
- * The DataComponent class is the base class for all skinnable components that have 
- * data content. This class is not typically instantiated in MXML. It is primarily
- * used as a base class, or as a skin part.
+ *  The FxDataContainer class is the base class for all skinnable components that have 
+ *  data content. This class is not typically instantiated in MXML. It is primarily
+ *  used as a base class, or as a skin part.
+ *
+ *  @see FxContainer
  */
 public class FxDataContainer extends FxContainerBase
 {
