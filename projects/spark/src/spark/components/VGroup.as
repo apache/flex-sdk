@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 import flash.events.Event;
-import flex.core.Group;
-import flex.layout.VerticalLayout;
+import mx.components.Group;
+import mx.layout.VerticalLayout;
 
 /**
  *  A Group with a VerticalLayout.  
@@ -23,7 +23,7 @@ import flex.layout.VerticalLayout;
  * 
  *  The layout property should not be set or configured directly.
  * 
- *  @see flex.layout.VerticalLayout
+ *  @see mx.layout.VerticalLayout
  */
 public class VGroup extends Group
 {
@@ -35,8 +35,8 @@ public class VGroup extends Group
      *  Resetting the layout property or setting its properties directly
      *  is not supported.
      * 
-     *  @see flex.layout.VerticalLayout
-     *  @see flex.component.HGroup
+     *  @see mx.layout.VerticalLayout
+     *  @see mx.components.HGroup
      */  
 	public function VGroup():void
 	{
@@ -63,7 +63,7 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy flex.layout.VerticalLayout#gap
+     * @copy mx.layout.VerticalLayout#gap
      */
     public function get gap():int
     {
@@ -85,7 +85,7 @@ public class VGroup extends Group
     [Bindable("propertyChange")]
 
     /**
-     * @copy flex.layout.VerticalLayout#rowCount
+     * @copy mx.layout.VerticalLayout#rowCount
      */
     public function get rowCount():int
     {
@@ -97,7 +97,7 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy flex.layout.VerticalLayout#requestedRowCount
+     * @copy mx.layout.VerticalLayout#requestedRowCount
      */
     public function get requestedRowCount():int
     {
@@ -119,7 +119,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy flex.layout.VerticalLayout#rowHeight
+     * @copy mx.layout.VerticalLayout#rowHeight
      */
     public function get rowHeight():Number
     {
@@ -141,7 +141,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy flex.layout.VerticalLayout#variableRowHeight
+     * @copy mx.layout.VerticalLayout#variableRowHeight
      */
     public function get variableRowHeight():Boolean
     {
@@ -163,7 +163,7 @@ public class VGroup extends Group
     [Bindable("indexInViewChanged")]    
  
     /**
-     * @copy flex.layout.VerticalLayout#firstIndexInView
+     * @copy mx.layout.VerticalLayout#firstIndexInView
      */
     public function get firstIndexInView():int
     {
@@ -177,7 +177,7 @@ public class VGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy flex.layout.VerticalLayout#lastIndexInview
+     * @copy mx.layout.VerticalLayout#lastIndexInview
      */
     public function get lastIndexInView():int
     {
