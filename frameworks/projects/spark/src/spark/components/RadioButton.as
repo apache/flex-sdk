@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -17,7 +17,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
-import mx.components.baseClasses.ToggleButtonBase;
+import spark.components.supportClasses.ToggleButtonBase;
 import mx.core.IFlexDisplayObject;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -48,22 +48,22 @@ import mx.managers.IFocusManagerGroup;
 //  Other metadata
 //--------------------------------------
 
-[IconFile("FxRadioButton.png")]
+[IconFile("RadioButton.png")]
 
 
 
 /**
- *  The FxRadioButton control lets the user make a single choice
+ *  The RadioButton control lets the user make a single choice
  *  within a set of mutually exclusive choices.
- *  A FxRadioButton group is composed of two or more FxRadioButton controls
+ *  A RadioButton group is composed of two or more RadioButton controls
  *  with the same <code>groupName</code> property.
- *  The FxRadioButton group can refer to a group created by the
- *  <code>&lt;mx:FxRadioButtonGroup&gt;</code> tag.
+ *  The RadioButton group can refer to a group created by the
+ *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag.
  *  The user selects only one member of the group at a time.
  *  Selecting an unselected group member deselects the currently selected
- *  FxRadioButton control within that group.
+ *  RadioButton control within that group.
  *
- *  <p>The FxRadioButton control has the following default characteristics:</p>
+ *  <p>The RadioButton control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
  *           <th>Characteristic</th>
@@ -85,24 +85,24 @@ import mx.managers.IFocusManagerGroup;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:FxRadioButton&gt;</code> tag inherits all of the tag
+ *  <p>The <code>&lt;mx:RadioButton&gt;</code> tag inherits all of the tag
  *  attributes of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:FxRadioButton
+ *  &lt;mx:RadioButton
  *    <strong>Properties</strong>
  *    groupName=""  
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.FxRadioButtonGroup
+ *  @see mx.components.RadioButtonGroup
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGroup
+public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
 {
     include "../core/Version.as";
     
@@ -120,7 +120,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxRadioButton()
+    public function RadioButton()
     {
         super();
 
@@ -145,14 +145,14 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
     
     /**
      *  @private
-     *  The FxRadioButtonGroup that this radio button is in.  The group property
+     *  The RadioButtonGroup that this radio button is in.  The group property
      *  should not be used to keep track of the radio button group for this radio
      *  button.  During state transitions, the radio button may come
      *  and go from the group and the group property is not reset.  The group
      *  property, if initially set, is needed when the radio button is readded
      *  to the group.
      */
-    mx_internal var radioButtonGroup:FxRadioButtonGroup = null;
+    mx_internal var radioButtonGroup:RadioButtonGroup = null;
      
     //--------------------------------------------------------------------------
     //
@@ -174,16 +174,16 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      *  @private
      *  Storage for the group property.
      */
-    private var _group:FxRadioButtonGroup;
+    private var _group:RadioButtonGroup;
 
     /**
-     *  The FxRadioButtonGroup object to which this FxRadioButton belongs.
-     *  When creating radio buttons to put in a FxRadioButtonGroup, it is 
+     *  The RadioButtonGroup object to which this RadioButton belongs.
+     *  When creating radio buttons to put in a RadioButtonGroup, it is 
      *  advisable to use group for all of the buttons or groupName for all of 
      *  the buttons.  The groupName will be set to the generated name of the 
-     *  FxRadioButtonGroup object.
+     *  RadioButtonGroup object.
      *  
-     *  @default the default FxRadioButtonGroup
+     *  @default the default RadioButtonGroup
      *  @see #groupName
      * 
      *  @langversion 3.0
@@ -191,7 +191,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get group():FxRadioButtonGroup
+    public function get group():RadioButtonGroup
     {
         // Debugger asks too soon.
         if (!document)
@@ -203,10 +203,10 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
             // group until it is first accessed.
             if (groupName && groupName != "")
             {
-                var g:FxRadioButtonGroup;
+                var g:RadioButtonGroup;
                 try
                 {
-                    g = FxRadioButtonGroup(document[groupName]);
+                    g = RadioButtonGroup(document[groupName]);
                 }
                 catch(e:Error)
                 {
@@ -216,19 +216,19 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
                     if (document.mx_internal::automaticRadioButtonGroups &&
                         document.mx_internal::automaticRadioButtonGroups[autoGroupIndex])
                     {
-                        g = FxRadioButtonGroup(
+                        g = RadioButtonGroup(
                             document.mx_internal::automaticRadioButtonGroups[autoGroupIndex]);
                     }
                 }
                 if (!g)
                 {
-                    g = new FxRadioButtonGroup(IFlexDisplayObject(document));
+                    g = new RadioButtonGroup(IFlexDisplayObject(document));
                     
                     if (!document.mx_internal::automaticRadioButtonGroups)
                         document.mx_internal::automaticRadioButtonGroups = [];
                     document.mx_internal::automaticRadioButtonGroups[autoGroupIndex] = g;                        
                 }
-                else if (!(g is FxRadioButtonGroup))
+                else if (!(g is RadioButtonGroup))
                 {
                     return null;
                 }
@@ -243,7 +243,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
     /**
      *  @private
      */
-    public function set group(value:FxRadioButtonGroup):void
+    public function set group(value:RadioButtonGroup):void
     {
         if (_group == value)
             return;
@@ -258,7 +258,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
         // default group so this button will move back to that group.
         _groupName = value ? group.mx_internal::name : "radioGroup";    
         
-        // Make sure this gets added to it's FxRadioButtonGroup
+        // Make sure this gets added to it's RadioButtonGroup
         groupChanged = true;
         
         invalidateProperties();
@@ -283,15 +283,15 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
     [Inspectable(category="General", defaultValue="radioGroup")]
 
     /**
-     *  Specifies the name of the group to which this FxRadioButton control belongs, or 
-     *  specifies the value of the <code>id</code> property of a FxRadioButtonGroup control
-     *  if this FxRadioButton is part of a group defined by a FxRadioButtonGroup control.
+     *  Specifies the name of the group to which this RadioButton control belongs, or 
+     *  specifies the value of the <code>id</code> property of a RadioButtonGroup control
+     *  if this RadioButton is part of a group defined by a RadioButtonGroup control.
      *  All radio buttons with the same groupName will be in the same tab group
      *  even if they belong to different radio button groups.  When creating
-     *  radio buttons to put in a FxRadioButtonGroup, it is advisable to
+     *  radio buttons to put in a RadioButtonGroup, it is advisable to
      *  use group for all of the buttons or groupName for all of the buttons.
      *
-     *  @default "FxRadioButtonGroup_number" where number is an integer greater
+     *  @default "RadioButtonGroup_number" where number is an integer greater
      *  than or equal to 0.
      *  @see #group
      * 
@@ -323,7 +323,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
         // Make sure get group recalculates the group.
         _group = null;
 
-        // Make sure this gets added to it's FxRadioButtonGroup
+        // Make sure this gets added to it's RadioButtonGroup
         groupChanged = true;
         
         invalidateProperties();
@@ -362,7 +362,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
 
     /**
      *  Optional user-defined value
-     *  that is associated with a FxRadioButton control.
+     *  that is associated with a RadioButton control.
      * 
      *  @default null
      *  
@@ -447,9 +447,9 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      *  Create radio button group if it does not exist
      *  and add the instance to the group. 
      */
-    private function addToGroup():FxRadioButtonGroup
+    private function addToGroup():RadioButtonGroup
     {        
-        var g:FxRadioButtonGroup = group; // Trigger getting the group
+        var g:RadioButtonGroup = group; // Trigger getting the group
         if (g)
             g.mx_internal::addInstance(this);
               
@@ -466,8 +466,8 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
           
         // It's possible that the radio button was in the auto group.  If so,
         // delete the group if there are no other radio buttons still in it.
-        // The radio button also could have been in an explicit FxRadioButtonGroup
-        // specified via group or in a FxRadioButtonGroup that was in the document,
+        // The radio button also could have been in an explicit RadioButtonGroup
+        // specified via group or in a RadioButtonGroup that was in the document,
         // specified by groupName.
         try
         {
@@ -487,7 +487,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      */
     private function setPrev(moveSelection:Boolean = true):void
     {
-        var g:FxRadioButtonGroup = group;
+        var g:RadioButtonGroup = group;
 
         var fm:IFocusManager = focusManager;
         if (fm)
@@ -495,7 +495,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
 
         for (var i:int = 1; i <= mx_internal::indexNumber; i++)
         {
-            var radioButton:FxRadioButton = 
+            var radioButton:RadioButton = 
                     g.getRadioButtonAt(mx_internal::indexNumber - i);
             if (radioButton && isRadioButtonEnabled(radioButton))
             {
@@ -518,7 +518,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      */
     private function setNext(moveSelection:Boolean = true):void
     {
-        var g:FxRadioButtonGroup = group;
+        var g:RadioButtonGroup = group;
 
         var fm:IFocusManager = focusManager;
         if (fm)
@@ -526,7 +526,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
 
         for (var i:int = mx_internal::indexNumber + 1; i < g.numRadioButtons; i++)
         {
-            var radioButton:FxRadioButton = g.getRadioButtonAt(i);
+            var radioButton:RadioButton = g.getRadioButtonAt(i);
             if (radioButton && isRadioButtonEnabled(radioButton))
             {
                 if (moveSelection)
@@ -547,7 +547,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
      *  a radio button that's not enabled because it's in a different
      *  container that isn't enabled.
      */
-    private function isRadioButtonEnabled(rb:FxRadioButton):Boolean
+    private function isRadioButtonEnabled(rb:RadioButton):Boolean
     {
         if (!rb.enabled)
             return false;
@@ -575,7 +575,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
         if (!mx_internal::radioButtonGroup)
             addToGroup();
 
-        var g:FxRadioButtonGroup = group;
+        var g:RadioButtonGroup = group;
         if (g.selection != this)
             g.mx_internal::setSelection(this);
     }
@@ -707,7 +707,7 @@ public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGrou
 
         group.mx_internal::setSelection(this);
 
-        // Dispatch an itemClick event from the FxRadioButtonGroup.
+        // Dispatch an itemClick event from the RadioButtonGroup.
         var itemClickEvent:ItemClickEvent =
             new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
         itemClickEvent.label = label;
