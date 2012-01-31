@@ -211,7 +211,7 @@ public class DataGroup extends GroupBase
      */
     public function set typicalItem(value:Object):void
     {
-        if (_typicalItem == value)
+        if (_typicalItem === value)
             return;
         _typicalItem = explicitTypicalItem = value;
         typicalItemChanged = true;
@@ -227,7 +227,7 @@ public class DataGroup extends GroupBase
 
     private function initializeTypicalItem():void
     {
-        if (_typicalItem == null)
+        if (_typicalItem === null)
         {
             setTypicalLayoutElement(null);
             return;
@@ -619,8 +619,12 @@ public class DataGroup extends GroupBase
         {
             var rendererFactory:IFactory = itemRendererFunction(item);
             
+            // if the function returned a factory, use that.
+            // otherwise, if it returned null, try using the item directly
             if (rendererFactory)
                 myItemRenderer = rendererFactory.newInstance();
+            else if (item is IVisualElement && item is DisplayObject)
+                myItemRenderer = IVisualElement(item);
         }
         
         // 2. if itemRenderer is defined, instantiate one
@@ -725,7 +729,7 @@ public class DataGroup extends GroupBase
         renderersBeingUpdated = true;
         
         //Set the data    
-        if ((renderer is IDataRenderer) && (renderer != data))
+        if ((renderer is IDataRenderer) && (renderer !== data))
             IDataRenderer(renderer).data = data;
         
         //Newly created renderer with no owner, set owner to this     
@@ -1223,7 +1227,7 @@ public class DataGroup extends GroupBase
                       RendererExistenceEvent.RENDERER_REMOVE, false, false, 
                       myItemRenderer, index, item));
         
-        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
+        if (myItemRenderer is IDataRenderer && myItemRenderer !== item)
             IDataRenderer(myItemRenderer).data = null;
         
         var child:DisplayObject = myItemRenderer as DisplayObject;
