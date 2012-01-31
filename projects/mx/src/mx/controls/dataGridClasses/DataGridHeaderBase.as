@@ -26,7 +26,6 @@ import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.DataGrid;
 import mx.core.EdgeMetrics;
 import mx.core.FlexSprite;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
