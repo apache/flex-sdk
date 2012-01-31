@@ -25,6 +25,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of a Tab in a TabNavigator or TabBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TabSkin extends Border
 {
@@ -93,6 +98,11 @@ public class TabSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TabSkin()
 	{
