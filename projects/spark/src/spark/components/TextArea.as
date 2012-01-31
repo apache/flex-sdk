@@ -33,6 +33,26 @@ import spark.events.TextOperationEvent;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+/**
+ *  @copy spark.components.Scroller#style.horizontalScrollPolicy
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
+/**
+ *  @copy spark.components.Scroller#style.verticalScrollPolicy
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
 [DefaultProperty("content")]
 
 [IconFile("TextArea.png")]
@@ -109,6 +129,16 @@ public class TextArea extends TextBase
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private var horizontalScrollPolicyChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var verticalScrollPolicyChanged:Boolean = false;
+            
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -234,47 +264,6 @@ public class TextArea extends TextBase
     }
     
     //----------------------------------
-    //  horizontalScrollPolicy
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
-
-    /**
-     *  @private
-     */
-    private var horizontalScrollPolicyChanged:Boolean = false;
-    
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get horizontalScrollPolicy():String
-    {
-        return _horizontalScrollPolicy;
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPolicy(value:String):void
-    {
-        if (value == _horizontalScrollPolicy)
-            return;
-
-        _horizontalScrollPolicy = value;
-        horizontalScrollPolicyChanged = true;
-
-        invalidateProperties();
-    }
-    
-    //----------------------------------
     //  scroller
     //----------------------------------
 
@@ -290,53 +279,32 @@ public class TextArea extends TextBase
      */
     public var scroller:Scroller;
 
-    //----------------------------------
-    //  verticalScrollPolicy
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
-
-    /**
-     *  @private
-     */
-    private var verticalScrollPolicyChanged:Boolean = false;
-    
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get verticalScrollPolicy():String
-    {
-        return _verticalScrollPolicy;
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPolicy(value:String):void
-    {
-        if (value == _verticalScrollPolicy)
-            return;
-
-        _verticalScrollPolicy = value;
-        verticalScrollPolicyChanged = true;
-
-        invalidateProperties();
-    }
-        
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-        
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+        super.styleChanged(styleProp);
+
+        if (allStyles || styleProp == "horizontalScrollPolicy")
+        {
+            horizontalScrollPolicyChanged = true;
+            invalidateProperties();
+        }
+        if (allStyles || styleProp == "verticalScrollPolicy")
+        {
+            verticalScrollPolicyChanged = true;
+            invalidateProperties();
+        }
+    }
+    
     /**
      *  @private
      *  Pushes various TextInput properties down into the RichEditableText. 
@@ -348,14 +316,14 @@ public class TextArea extends TextBase
         if (horizontalScrollPolicyChanged)
         {
             if (scroller)
-                scroller.horizontalScrollPolicy = _horizontalScrollPolicy;
+                scroller.setStyle("horizontalScrollPolicy", getStyle("horizontalScrollPolicy"));
             horizontalScrollPolicyChanged = false;
         }
 
         if (verticalScrollPolicyChanged)
         {
             if (scroller)
-                scroller.verticalScrollPolicy = _verticalScrollPolicy;
+                scroller.setStyle("verticalScrollPolicy", getStyle("verticalScrollPolicy"));
             verticalScrollPolicyChanged = false;
         }
     }
