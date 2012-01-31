@@ -1811,6 +1811,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             pt.y += item.height + 1;
         if (pt.x + menu.getExplicitOrMeasuredWidth() > screen.width + screen.x)
             pt.x = screen.x + screen.width - menu.getExplicitOrMeasuredWidth();
+        pt.x = Math.max(screen.x, pt.x);
         pt = sm.getSandboxRoot().globalToLocal(pt);
 
         // If inside an ACB, slight offset looks much better.
