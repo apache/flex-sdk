@@ -220,7 +220,8 @@ public class VScrollBar extends ScrollBarBase
         
         // convert thumb position to parent's coordinates.
         thumbPos = track.localToGlobal(new Point(0, thumbPosTrackY));
-        thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
+        if (thumb.parent)
+            thumbPosParentY = thumb.parent.globalToLocal(thumbPos).y;
         
         thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
     }
