@@ -200,7 +200,7 @@ public class TrackBase extends Range
     //
     //--------------------------------------------------------------------------
 
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A skin part that defines a button
@@ -217,7 +217,7 @@ public class TrackBase extends Range
      */
     public var thumb:Button;
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A skin part that defines a button
