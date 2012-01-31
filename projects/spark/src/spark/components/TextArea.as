@@ -198,25 +198,23 @@ public class TextArea extends TextInput
 	/**
 	 *  Documentation is not currently available.
 	 */
-    public function getAttributes(names:Array = null,
-                                  startIndex:int = -1, endIndex:int = -1):Object
+    public function getAttributes(names:Array = null):Object
     {
         if (!textView)
             return null;
 
-        return textView.getAttributes(names, startIndex, endIndex);
+        return textView.getAttributes(names);
     }
 
 	/**
 	 *  Documentation is not currently available.
 	 */
-    public function setAttributes(attributes:Object,
-                                  startIndex:int = -1, endIndex:int = -1):void
+    public function setAttributes(attributes:Object):void
     {
         if (!textView)
             return;
 
-        textView.setAttributes(attributes, startIndex, endIndex);
+        textView.setAttributes(attributes);
     }
 }
 
