@@ -243,7 +243,7 @@ public class FormHeading extends UIComponent
 	private function createLabel():void
 	{
 		// See if we need to create our labelObj.
-		if (_label.length > 0)
+		if (_label && _label.length > 0)
 		{
 			if (!labelObj)
 			{
@@ -264,7 +264,7 @@ public class FormHeading extends UIComponent
 		}
 
 		// See if we need to destroy our labelObj.
-		if (_label.length == 0 && labelObj)
+		if ((_label==null || _label.length == 0) && labelObj)
 		{
 			removeChild(labelObj);
 			labelObj = null;
