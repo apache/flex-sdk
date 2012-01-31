@@ -572,7 +572,7 @@ public class Scroller extends SkinnableComponent
      * 
      *  <p>In components where the content does not reflow, like a typical List's
      *  items, the default behavior is preferable because it makes it less
-     *  likely that the component's content will not obscured by a scroll bar.</p>
+     *  likely that the component's content will be obscured by a scroll bar.</p>
      * 
      *  @default true
      */
