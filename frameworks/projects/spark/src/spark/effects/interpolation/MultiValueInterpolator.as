@@ -89,14 +89,24 @@ public class MultiValueInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
+     *  Given an elapsed fraction of an animation, between 0.0 and 1.0,
+     *  and start and end values to interpolate, return the interpolated value.
      * 
-     * Interpolation for MultiValueInterpolator consists of running a separate
-     * interpolation on each element of the startValue and endValue
-     * arrays or vectors, returning a new Array or Vector that holds those 
-     * interpolated values. The returned object will be an Array if startValue
-     * and endValue are of type Array, otherwise the returned object will be
-     * of type Vector.
+     *  Interpolation for MultiValueInterpolator consists of running a separate
+     *  interpolation on each element of the startValue and endValue
+     *  arrays or vectors, returning a new Array or Vector that holds those 
+     *  interpolated values. The returned object will be an Array if startValue
+     *  and endValue are of type Array, otherwise the returned object will be
+     *  of type Vector.
+     *
+     *  @param fraction The fraction elapsed of the 
+     *  animation, between 0.0 and 1.0.
+     *
+     *  @param startValue The start value of the interpolation.
+     *
+     *  @param endValue The end value of the interpolation.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
