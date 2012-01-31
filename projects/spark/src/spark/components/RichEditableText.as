@@ -1726,7 +1726,14 @@ public class TextView extends UIComponent implements IViewport
             // then displayAsPassword last.
             
             if (restrict != null)
+            {
                 textToInsert = StringUtil.restrict(textToInsert, restrict);
+                if (textToInsert.length == 0)
+                {
+                    event.preventDefault();
+                    return;
+                }
+            }
 
             if (maxChars != 0)
             {
