@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Simple example to demonstrate the s:Rotate class. -->
+<!-- Simple example to demonstrate the s:Rotate3D class. -->
 <s:Application
-	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:s="library://ns.adobe.com/flex/spark">
 
     <!-- Standalone effects must be declared in the "Declarations" tag in Flex 4 -->
     <fx:Declarations>
-        <s:Rotate3D id="rotateEffect" target="{targetBox}" angleXFrom="0" angleXTo="180" angleYFrom="0" angleYTo="180" duration="1000" autoCenterTransform="true"
-	        effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
+        <s:Rotate3D id="rotateEffect" target="{targetBox}" 
+            angleXFrom="0" angleXTo="180" angleYFrom="0" angleYTo="180" 
+            duration="1000" autoCenterTransform="true"
+            effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
     </fx:Declarations>
 
-    <s:Panel title="AnimateTransformRotate3D Effect Example"
-    	width="75%" height="75%">
+    <s:Panel title="Rotate3D Effect Example"
+        width="75%" height="75%">
 
         <mx:HBox width="100%" height="100%">
             <!-- Our target to affect -->
@@ -24,7 +26,7 @@
             <!-- Directions -->
             <mx:VBox id="detailsBox" width="50%" left="0">
                 <mx:Text width="99%" color="blue"
-		        	text="The AnimateTransformRotate3D effect rotates a target using the following parameters: angleXFrom, angleXTo, angleXBy, angleYFrom, angleYTo, angleYBy, angleFrom, angleTo, angleBy. Click 'AnimateTransformRotate3D' to watch the effect."/>
+                    text="The Rotate3D effect rotates a target using the following parameters: angleXFrom, angleXTo, angleXBy, angleYFrom, angleYTo, angleYBy, angleFrom, angleTo, angleBy. Click 'Rotate3D' to watch the effect."/>
             </mx:VBox>
         </mx:HBox>
 
@@ -38,7 +40,7 @@
         </s:Rect>
         <!-- End then Play the effect to rotate the target.-->
         <s:Button id="playButton"
-        	left="5" bottom="5"
-        	label="AnimateTransformRotate3D" click="rotateEffect.play();"/>
+            left="5" bottom="5"
+            label="Rotate3D" click="rotateEffect.play();"/>
     </s:Panel>
 </s:Application>
