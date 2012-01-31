@@ -213,7 +213,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
         // The group state changed.  Invalidate all the radio buttons.  The
         // radio button skin most likely will change.
         for (var i:int = 0; i < numRadioButtons; i++)
-            getRadioButtonAt(i).mx_internal::invalidateRadioButtonState(true);
+            getRadioButtonAt(i).mx_internal::invalidateSkinState();
     }
 
     //----------------------------------
@@ -431,7 +431,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
             selection = instance;
 
         instance.mx_internal::radioButtonGroup = this;
-        instance.mx_internal::invalidateRadioButtonState();
+        instance.mx_internal::invalidateSkinState();
         
 		dispatchEvent(new Event("numRadioButtonsChanged"));
     }
@@ -473,7 +473,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
                         _selection = null;
 
                     instance.mx_internal::radioButtonGroup = null;
-                    instance.mx_internal::invalidateRadioButtonState();
+                    instance.mx_internal::invalidateSkinState();
 
                     // Remove the radio button from the internal array.
                     radioButtons.splice(i,1);
