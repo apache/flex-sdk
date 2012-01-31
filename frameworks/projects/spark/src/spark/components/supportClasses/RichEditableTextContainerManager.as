@@ -33,6 +33,8 @@ import spark.components.TextSelectionVisibility;
 use namespace mx_internal;
 
 /**
+ *  A subclass of TextContainerManager that manages the text in
+ *  a RichEditableText component.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
