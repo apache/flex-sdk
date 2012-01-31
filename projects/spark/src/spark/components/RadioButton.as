@@ -12,6 +12,8 @@
 package mx.components
 {
 
+[IconFile("FxRadioButton.png")]
+
 /**
  *  Documentation is not currently available.
  */
