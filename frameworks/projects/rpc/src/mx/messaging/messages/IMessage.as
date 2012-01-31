@@ -14,6 +14,12 @@ package mx.messaging.messages
 
 /**
  *  This interface defines the contract for message objects.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public interface IMessage 
 {
@@ -30,6 +36,12 @@ public interface IMessage
     /**
      *  The body of a message contains the specific data that needs to be 
      *  delivered to the remote destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get body():Object;
     
@@ -44,6 +56,12 @@ public interface IMessage
     
     /**
      *  The clientId indicates which client sent the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get clientId():String;
     
@@ -58,6 +76,12 @@ public interface IMessage
     
     /**
      *  The message destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     function get destination():String;
     
@@ -76,6 +100,12 @@ public interface IMessage
      *  header name.
      *  This property provides access to specialized meta information for the 
      *  specific message instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get headers():Object;
     
@@ -92,6 +122,12 @@ public interface IMessage
      *  The unique id for the message.
      *  The message id can be used to correlate a response to the original
      *  request message in request-response messaging scenarios.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get messageId():String;
     
@@ -112,6 +148,12 @@ public interface IMessage
      *  expiration.
      *
      *  @see #timeToLive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get timestamp():Number;
     
@@ -134,6 +176,12 @@ public interface IMessage
      *  and the <code>timeToLive</code> value is 5000, then this message will
      *  expire at 04/05/05 1:30:50 PST.
      *  Once a message expires it will not be delivered to any other clients.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function get timeToLive():Number;
     
@@ -152,6 +200,12 @@ public interface IMessage
      *  This method will return a string representation of the message.
      *
      *  @return String representation of the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function toString():String;
     
