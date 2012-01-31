@@ -22,7 +22,7 @@ import flash.utils.Timer;
 
 import mx.utils.Flags32;
 import mx.components.baseClasses.FxComponent;
-import mx.graphics.TextBox;
+import mx.graphics.graphicsClasses.TextGraphicElement;
 
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
@@ -131,7 +131,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     /**
      *  A skin part that defines the  label of the button. 
      */
-    public var labelField:TextBox;
+    public var labelField:TextGraphicElement;
     
     //--------------------------------------------------------------------------
     //
