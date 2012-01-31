@@ -208,7 +208,6 @@ use namespace mx_internal;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
-include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
