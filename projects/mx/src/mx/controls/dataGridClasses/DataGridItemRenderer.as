@@ -375,7 +375,7 @@ public class DataGridItemRenderer extends UITextField
 
             if (!styleDeclaration)
             {
-                styleDeclaration = new CSSStyleDeclaration();
+                styleDeclaration = new CSSStyleDeclaration(null, styleManager);
                 styleDeclaration.setLocalStyle(styleProp, newValue);
 
                 // If inheritingStyles is undefined, then this object is being
@@ -396,7 +396,7 @@ public class DataGridItemRenderer extends UITextField
 
             if (!styleDeclaration)
             {
-                styleDeclaration = new CSSStyleDeclaration();
+                styleDeclaration = new CSSStyleDeclaration(null, styleManager);
                 styleDeclaration.setLocalStyle(styleProp, newValue);
 
                 // If nonInheritingStyles is undefined, then this object is being
