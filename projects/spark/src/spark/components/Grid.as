@@ -2147,12 +2147,32 @@ public class Grid extends Group implements IDataGridElement
         
         _typicalItem = value;
         
+        invalidateTypicalItem();
+        
+        dispatchChangeEvent("typicalItemChanged");
+    }
+    
+
+    /**
+     *  Clears cached column width data that had been based on the 
+     *  typicalItem and requests a new layout pass.   This method should 
+     *  be called if some aspect of the typicalItem has changed that should
+     *  be reflected by the Grid's layout.  
+     * 
+     *  <p>This method is called automatically if the typicalItem is changed directly, i.e.
+     *  if the property is set to a new value that's not "==" to current value.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5 
+     */
+    public function invalidateTypicalItem():void
+    {
         typicalItemChanged = true;       
         invalidateProperties();
         invalidateSize();
-        invalidateDisplayList();
-        
-        dispatchChangeEvent("typicalItemChanged");
+        invalidateDisplayList();;
     }
     
     //----------------------------------
@@ -3129,10 +3149,8 @@ public class Grid extends Group implements IDataGridElement
     {
         if (!inUpdateDisplayList)
         {
-            const notifyListeners:Boolean = !invalidateSizeFlag;            
             super.invalidateSize();
-            if (notifyListeners)
-                dispatchChangeEvent("invalidateSize");            
+            dispatchChangeEvent("invalidateSize");            
         }
     }
     
@@ -3149,10 +3167,8 @@ public class Grid extends Group implements IDataGridElement
     {
         if (!inUpdateDisplayList)
         {
-            const notifyListeners:Boolean = !invalidateDisplayListFlag;
             super.invalidateDisplayList();
-            if (notifyListeners)
-                dispatchChangeEvent("invalidateDisplayList");
+            dispatchChangeEvent("invalidateDisplayList");
         }
     }
 
