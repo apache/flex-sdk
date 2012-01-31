@@ -222,7 +222,7 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------
     
     private var labelChanged:Boolean = false;
-    // TODO (jszeto) Should this be protected?
+    // FIXME (jszeto): Should this be protected?
     private var proposedSelectedIndex:Number = -1;
     mx_internal static var PAGE_SIZE:int = 5;
     
@@ -459,7 +459,7 @@ public class DropDownList extends List
      *  @private
      *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
-    // TODO (jszeto) Make this protected and make the name more generic (passing data to skin) 
+    // FIXME (jszeto): Make this protected and make the name more generic (passing data to skin) 
     private function updateLabelElement():void
     {
         if (labelDisplay)
