@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 
 import flash.display.DisplayObjectContainer;
@@ -18,8 +18,8 @@ import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.Kerning;
 
-import flex.graphics.graphicsClasses.TextBlockComposer;
-import flex.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.graphicsClasses.TextBlockComposer;
+import mx.graphics.graphicsClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
 
