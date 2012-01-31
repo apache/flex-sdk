@@ -324,24 +324,7 @@ public class FxAnimateInstance extends EffectInstance
             if (!property || (property == ""))
                 throw new Error("Illegal property value: " + property);
                  
-            if (property in target)
-            {
-                isStyleMap[property] = false;
-            }
-            else
-            {
-                try {
-                    target.getStyle(property);
-                    isStyleMap[property] = true;
-                }
-                catch (err:Error)
-                {
-                    throw new Error("Property " + property + " is neither " +
-                        "a property or a style on object " + target + ": " + err);
-                }
-                // TODO: check to make sure that the throw above won't
-                // let the code flow get to here
-            }
+            setupStyleMapEntry(property);
 
             // Set any NaN from/to values to the current values in the target
             if (!isNaN(propValues[0]))
@@ -767,7 +750,7 @@ public class FxAnimateInstance extends EffectInstance
      * set on the target prior to completely setting up the effect's
      * propertyValuesList data values (from which the styleMap is created)
      */
-    private function setupStyleMapEntry(property:String):void
+    protected function setupStyleMapEntry(property:String):void
     {
         // TODO (chaase): Find a better way to set this up just once
         if (isStyleMap[property] == undefined)
