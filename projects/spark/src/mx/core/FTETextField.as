@@ -21,6 +21,7 @@ import flash.events.MouseEvent;
 import flash.events.TextEvent;
 import flash.geom.Rectangle;
 import flash.text.StyleSheet;
+import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
@@ -51,14 +52,13 @@ import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.LinkElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.FlowElementMouseEvent;
+import flashx.textLayout.events.StatusChangeEvent;
 import flashx.textLayout.factory.TextFlowTextLineFactory;
 import flashx.textLayout.formats.ITextLayoutFormat;
 import flashx.textLayout.formats.LeadingModel;
 import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
 import flashx.textLayout.formats.TextLayoutFormat;
-
-import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -180,12 +180,11 @@ public class TLFTextField extends Sprite
 	 *  Masks for bits inside the 'flags' var
 	 *  tracking misc boolean variables.
 	 */
-	private static const FLAG_VALIDATE_IN_PROGRESS:uint = 1 << 10;
-	private static const FLAG_USE_TCM:uint = 1 << 11;
+	private static const FLAG_EFFECTIVE_CONDENSE_WHITE:uint = 1 << 10;
+	private static const FLAG_VALIDATE_IN_PROGRESS:uint = 1 << 11;
 	private static const FLAG_HAS_SCROLL_RECT:uint = 1 << 12;
-		// FIXME (gosmith): should be set in override of set scrollRect?
 
-	// FIXME (gosmith): Does TextField maintain
+	// TODO (gosmith): Does TextField maintain
 	// an internal vs. external concept of scrollRect?
 		
 	/**
@@ -202,6 +201,12 @@ public class TLFTextField extends Sprite
 	//  Class variables
 	//
 	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  Used for initializing _defaultTextFormat.
+	 */
+	private static var textField:TextField = new TextField();
 	
 	/**
 	 *  @private
@@ -278,37 +283,6 @@ public class TLFTextField extends Sprite
 		if (i - 0.5 == x && i & 1)
 			--i;
 		return i;
-	}
-	
-	/**
-	 *  @private
-	 */
-	private static function createDefaultTextFormat():TextFormat
-	{
-		var textFormat:TextFormat = new TextFormat(
-			"Times New Roman",		// font // FIXME (gosmith): platform-dependent?
-			12,						// size
-			0x000000,				// color
-			false,					// bold
-			false,					// italic
-			false,					// underline				
-			"",						// url
-			"",						// target
-			TextFormatAlign.LEFT,	// align
-			0,						// leftMargin
-			0,						// rightMargin
-			0,						// indent
-			0);						// leading
-
-		textFormat.blockIndent = 0;
-		textFormat.bullet = false;
-		textFormat.kerning = false;
-		textFormat.letterSpacing = 0;
-		textFormat.tabStops = [];
-			// FIXME (gosmith): Flash apparently detects when an empty array
-			// is assigned to tabStops and assigns null instead.
-		
-		return textFormat;
 	}
 	
 	/**
@@ -415,7 +389,12 @@ public class TLFTextField extends Sprite
 		// events over each line, thich TextField doesn't do.
 		mouseChildren = false;
 		
-		_defaultTextFormat = createDefaultTextFormat();
+		// Use a static TextField to initialize the defaultTextFormat.
+		// This should be faster than creating a TextFormat object
+		// and filling it out.
+		// It will also take care of setting the 'font' field,
+		// which is platform-dependent.
+		_defaultTextFormat = textField.defaultTextFormat;
 		
 		addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 	}
@@ -521,6 +500,37 @@ public class TLFTextField extends Sprite
 				FLAG_GRAPHICS_INVALID);
 				
 		invalidate();
+	}
+	
+	//----------------------------------
+	//  scrollRect
+	//----------------------------------
+	
+	/*
+	 *  Workaround for a Flash Player problem.
+	 *  Don't read the scrollRect property if its value has not been set,
+	 *  because this will cause a large memory allocation.
+	 *  And ignore attempts to reset the scrollRect property to null
+	 *  (its default value) if we've never set it. 
+	 */
+	
+	/**
+	 *  @private
+	 */
+	override public function get scrollRect():Rectangle
+	{
+		return testFlag(FLAG_HAS_SCROLL_RECT) ? super.scrollRect : null;
+	}
+	
+	/**
+	 *  @private 
+	 */
+	override public function set scrollRect(value:Rectangle):void
+	{
+		if (!testFlag(FLAG_HAS_SCROLL_RECT) && !value)
+			return;
+		setFlag(FLAG_HAS_SCROLL_RECT);
+		super.scrollRect = value;
 	}
 	
 	//----------------------------------
@@ -880,9 +890,6 @@ public class TLFTextField extends Sprite
 	{
 		setFlagToValue(FLAG_CONDENSE_WHITE, value);
 
-		// FIXME (gosmith): Need to cache this so that if you then set
-		// htmlText and change condenseWhite, the old value is used.
-		
 		// Note: There is nothing else to do immediately;
 		// the new value doesn't have any effect
 		// until 'htmlText' is set later.
@@ -1056,21 +1063,25 @@ public class TLFTextField extends Sprite
 	 */
 	public function get htmlText():String
 	{
-		// FIXME (gosmith): Explain this.
+		// When 'text' is set, _htmlText is nulled out
+		// to indicate that it is invalid
+		// and must be recalculated.
 		if (_htmlText == null)
 		{
+			// We can optimize the default case
+			// that there is no text or hmtlText.
 			if (_text == "")
 			{
 				_htmlText = "";
 			}
 			else
 			{
+				// Import the plain text into a TextFlow,
+				// and then export the TextFlow into HTML.
 				if (!textFlow)
 					textFlow = plainTextImporter.importToFlow(_text);
 				_htmlText = String(htmlExporter.export(
 					textFlow, ConversionType.STRING_TYPE));
-
-				// FIXME (gosmith): Are newlines \r or \n, or none?
 			}
 		}	
 		
@@ -1091,9 +1102,15 @@ public class TLFTextField extends Sprite
 			throw new TypeError("Parameter text must be non-null.");
 		}
 		
-		// FIXME (gosmith): Explain why we don't do this.		
-		//    	if (value == htmlText)
-		//    		return;
+		// Note: We don't return early if value == _htmlText
+		// because the defaultTextFormat may have changed
+		// in which case we need to recompose.
+		
+		// Remember the value of condenseWhite at the time
+		// that htmlText is set, because it could be changed
+		// before the TextLines are rendered.
+		setFlagToValue(FLAG_EFFECTIVE_CONDENSE_WHITE,
+					   testFlag(FLAG_CONDENSE_WHITE));
 		
 		_htmlText = value;
 		
@@ -1473,7 +1490,8 @@ public class TLFTextField extends Sprite
 	 */
 	public function get styleSheet():StyleSheet
 	{
-		return _styleSheet; // FIXME (gosmith): return copy?
+		// Note: TextField does NOT return a copy of the StyleSheet.
+		return _styleSheet;
 	}
 	
 	/**
@@ -1484,9 +1502,9 @@ public class TLFTextField extends Sprite
 		// TextField allows a null value to be set;
 		// in fact, this is the default.
 		
-		// FIXME (gosmith): Explain why we don't do this.
-		//if (value == _styleSheet)
-		//	return;
+		// Note: We don't return early if value == _styleSheet
+		// because the same StyleSheet instance could be coming 
+		// in again but might have new values in it.
 		
 		_styleSheet = value;
 		
@@ -1519,16 +1537,23 @@ public class TLFTextField extends Sprite
 	 */
 	public function get text():String
 	{
-		// Explain this.
+		// When 'htmlText' is set, _text is nulled out
+		// to indicate that it is invalid
+		// and must be rexported from the TextFlow.
 		if (_text == null)
 		{
+			// If we don't already have a TextFlow,
+			// create one by importing the htmlText.
 			if (!textFlow)
 				textFlow = htmlImporter.importToFlow(_htmlText);
 
+			// Export plain text from the TextFlow.
 			_text = String(plainTextExporter.export(
 				textFlow, ConversionType.STRING_TYPE));
 
-			// FIXME (gosmith): line endings should be changed from \n to \r?
+			// Convert the LF characters that TLF exports
+			// into CR characters.
+			_text = _text.replace(ALL_LINEFEEDS, "\r");
 		}
 			
 		return _text;
@@ -1543,7 +1568,9 @@ public class TLFTextField extends Sprite
 		if (value == null)
 			throw new TypeError("Parameter text must be non-null.");
 		
-		// FIXME (gosmith)
+		// Note: We don't return early if value == _text
+		// because the defaultTextFormat may have changed
+		// in which case we need to recompose.
 		
 		// TextField turns all LF characters into CR characters,
 		// including treating the Windows line-ending-sequence
@@ -1588,10 +1615,9 @@ public class TLFTextField extends Sprite
 	 */
 	public function set textColor(value:uint):void
 	{
-		// FIXME (gosmith): Should this be commented out?
-		//if (value == _textColor)
-		//	return;
-		
+		if (value == textColor)
+			return;
+
 		_defaultTextFormat.color = value;
 		
 		setFlag(FLAG_TEXT_LINES_INVALID);
@@ -1702,7 +1728,7 @@ public class TLFTextField extends Sprite
 		}
 		
 		if (value == TextFieldType.INPUT)
-			throw new Error("FIXME (gosmith)");
+			throw new Error("TLFTextField does not support setting type to \"input\".");
 	}
 	
 	//----------------------------------
@@ -1920,7 +1946,8 @@ public class TLFTextField extends Sprite
 		// TLFTextField allows a null value to be set;
 		// in fact, this is the default.
 
-		//FIXME (gosmith): set to existing value?
+		if (value == _textLineCreator)
+			return;
 				
 		_textLineCreator = value;
 		
@@ -1947,7 +1974,14 @@ public class TLFTextField extends Sprite
 	 */
 	private function get htmlImporter():ITextImporter
 	{
-		return condenseWhite ? collapsingHTMLImporter : preservingHTMLImporter;
+		// Note that which importer we return depends on the value
+		// of condenseWhite was at the time that htmlText was set,
+		// not on the current value of condenseWhite,
+		// since it could change between htmlText being set
+		// and the TextLines being composed.
+		return testFlag(FLAG_EFFECTIVE_CONDENSE_WHITE) ?
+			   collapsingHTMLImporter :
+			   preservingHTMLImporter;
 	}	
 		
 	//--------------------------------------------------------------------------
@@ -2162,7 +2196,7 @@ public class TLFTextField extends Sprite
 		// you call getTextFormat(); the proof is that
 		//   textField.getTextFormat() != textField.getTextFormat()
 		// is true.
-		return cloneTextFormat(_defaultTextFormat); // FIXME (gosmith) return null?
+		return cloneTextFormat(_defaultTextFormat);
 	}
 	
 	/**
@@ -2263,6 +2297,7 @@ public class TLFTextField extends Sprite
 	 */
 	private function notImplemented(name:String):String
 	{
+		// FIXME (gosmith) Make this an other RTE messages localizable.
 		return "'" + name + "' is not implemented TLFTextField.";
 	}
 	
@@ -2302,13 +2337,10 @@ public class TLFTextField extends Sprite
 	 */
 	private function invalidate():void
 	{
-		//FIXME (gosmith)
-		//CONFIG::debug { assert(!testFlag(FLAG_VALIDATE_IN_PROGRESS), "invalidating during validateNow()"); }
-		
 		if (stage)
 			stage.invalidate();
 
-		// FIXME (gosmith): do addEventListener() for 'render' here
+		addEventListener(Event.RENDER, renderHandler);
 	}
 	
 	/**
@@ -2320,7 +2352,7 @@ public class TLFTextField extends Sprite
 	 */
 	private function validateNow():void
 	{
-		// FIXME (gosmith): When do we get recursive validateNow()?
+		// TODO (gosmith): When do we get recursive validateNow()?
 		if (!testFlag(ALL_INVALIDATION_FLAGS) ||
 			testFlag(FLAG_VALIDATE_IN_PROGRESS))
 		{
@@ -2331,14 +2363,6 @@ public class TLFTextField extends Sprite
 
 		if (testFlag(FLAG_TEXT_LINES_INVALID))
 		{
-			// Determine whether we will use FTE directly
-			// or TLF's TextContainerManager.
-			// FIXME (gosmith): What about tabStops?
-			var useTCM:Boolean = testFlag(FLAG_HTML_TEXT_CHANGED) ||
-								 _defaultTextFormat.target != "" ||
-								 _defaultTextFormat.url != ""; // FIXME (gosmith): forget this
-			setFlagToValue(FLAG_USE_TCM, useTCM); // FIXME (gosmith): kill this flag
-			
 			// Remove the previous TextLines
 			// (and recycle them, if supported by the player).
 			removeTextLines();
@@ -2356,74 +2380,60 @@ public class TLFTextField extends Sprite
 				compositionWidth = _width;
 			}
 			
-			if (!useTCM)
-			{
-				if (!elementFormat)
-					createElementFormat();	
-				
-				composeText(compositionWidth, compositionHeight);							
-			}
-			else
+			if (testFlag(FLAG_HTML_TEXT_CHANGED))
 			{
 				if (!hostFormat)
 					createHostFormat();
 				
 				composeHTMLText(compositionWidth, compositionHeight);							
 			}
-		}
-		
-		// FIXME (gosmith): Does this belong inside the previous block?
-		var origX:Number = x;
-		var origWidth:Number = _width; 
-		var origHeight:Number = _height; 
+			else
+			{
+				if (!elementFormat)
+					createElementFormat();	
 				
-		if (_autoSize != TextFieldAutoSize.NONE)
-		{
-			_height = _textHeight + PADDING_TOP + PADDING_BOTTOM;
-			if (!wordWrap)
-			{
-				_width = _textWidth + PADDING_LEFT + PADDING_RIGHT;
-				
-				// adjust x for CENTER and RIGHT cases
-				if (_autoSize == TextFieldAutoSize.RIGHT)
-					x += origWidth - _width;
-				else if (_autoSize == TextFieldAutoSize.CENTER)
-					x += (origWidth - _width) / 2;
+				composeText(compositionWidth, compositionHeight);							
 			}
-			if (_height != origHeight || _width != origWidth || x != origX)
-				setFlag(FLAG_GRAPHICS_INVALID);
-		}
 		
-		if (_textWidth > origWidth || _textHeight > origHeight)
-		{
-			// need to clip
-			//trace("clip");
-			/*
-			if (border)
+			var origX:Number = x;
+			var origWidth:Number = _width; 
+			var origHeight:Number = _height; 
+					
+			if (_autoSize != TextFieldAutoSize.NONE)
 			{
-				// trying to match TextField behavior of border
-				r.width += 1;
-				r.height += 1;
+				_height = _textHeight + PADDING_TOP + PADDING_BOTTOM;
+				if (!wordWrap)
+				{
+					_width = _textWidth + PADDING_LEFT + PADDING_RIGHT;
+					
+					// adjust x for CENTER and RIGHT cases
+					if (_autoSize == TextFieldAutoSize.RIGHT)
+						x += origWidth - _width;
+					else if (_autoSize == TextFieldAutoSize.CENTER)
+						x += (origWidth - _width) / 2;
+				}
+				if (_height != origHeight || _width != origWidth || x != origX)
+					setFlag(FLAG_GRAPHICS_INVALID);
 			}
-			*/
-			var r:Rectangle = scrollRect;
-			if (!r)
-				r = new Rectangle();
-			r.left = 0;
-			r.top = 0;
-			r.right = _width;
-			r.bottom = _height;
-			scrollRect = r;
-			setFlag(FLAG_HAS_SCROLL_RECT);
-		}
-		else 
-		{
-			// don't need to clip
-			//trace("don't clip");
-			if (testFlag(FLAG_HAS_SCROLL_RECT))
+			
+			if (_textWidth > origWidth || _textHeight > origHeight)
 			{
+				// need to clip
+				//trace("clip");
+				var r:Rectangle = scrollRect;
+				if (!r)
+					r = new Rectangle();
+				r.left = 0;
+				r.top = 0;
+				r.right = _width;
+				r.bottom = _height;
+				scrollRect = r;
+			}
+			else 
+			{
+				// don't need to clip
+				//trace("don't clip");
 				scrollRect = null;
-				clearFlag(FLAG_HAS_SCROLL_RECT);
 			}
 		}
 		
@@ -2436,19 +2446,19 @@ public class TLFTextField extends Sprite
 			// First draw the background, then draw the border.
 			// This is because TextField actually does something strange --- it expands itselft 1 pixel right and down when drawing a border
 			// and fill without the stroke with the required stroking path does not match the "background sans border" behavior of TextField.
-			if (background)
-			{
-				// Width/Height rounding differences between TextField and TLFTextField...
-				// For width or height of the form E.5 where E is a positive even integer, Flash 10 on Windows seems to 
-				// "round to even", i.e., round the dimension down to E rather than up to E+1. However we currently just 
-				// round consistently up to E+1 using Math.round() here since for now are willing to live with this difference.
-				var w:Number = rint(_width);
-				var h:Number = rint(_height);
+		
+			// Width/Height rounding differences between TextField and TLFTextField...
+			// For width or height of the form E.5 where E is a positive even integer, Flash 10 on Windows seems to 
+			// "round to even", i.e., round the dimension down to E rather than up to E+1. However we currently just 
+			// round consistently up to E+1 using Math.round() here since for now are willing to live with this difference.
+			var w:Number = rint(_width);
+			var h:Number = rint(_height);
 				
-				g.beginFill(backgroundColor);
-				g.drawRect(0, 0, w, h);
-				g.endFill();
-			}
+			// Even if no background is requested, we fill the bounds
+			// with alpha=0 pixels so that mouse events are generated.
+			g.beginFill(backgroundColor, background ? 1.0 : 0.0);
+			g.drawRect(0, 0, w, h);
+			g.endFill();
 			
 			if (border)
 			{
@@ -2495,7 +2505,7 @@ public class TLFTextField extends Sprite
 								
 		elementFormat.locale = locale;
 				
-		elementFormat.trackingRight = Number(_defaultTextFormat.letterSpacing); // FIXME (gosmith): 1/2 left, 1/2 right?
+		elementFormat.trackingRight = Number(_defaultTextFormat.letterSpacing);
 	}
 	
 	/**
@@ -2504,70 +2514,6 @@ public class TLFTextField extends Sprite
 	private function createHostFormat():void
 	{
 		hostFormat = new TLFTextFieldHostFormat(this);
-		
-		/*
-		//FIXME (gosmith)
-		
-		hostFormat = new TextLayoutFormat();
-
-		hostFormat.color = _defaultTextFormat.color;
-		
-		hostFormat.fontFamily = _defaultTextFormat.font;
-		
-		hostFormat.fontLookup = embedFonts ?
-								FontLookup.EMBEDDED_CFF :
-								FontLookup.DEVICE;
-
-		hostFormat.fontSize = _defaultTextFormat.size;
-
-		hostFormat.fontStyle = _defaultTextFormat.italic ?
-							   FontPosture.ITALIC :
-							   FontPosture.NORMAL;
-		
-		hostFormat.fontWeight = _defaultTextFormat.bold ?
-								FontWeight.BOLD :
-								FontWeight.NORMAL;
-
-		hostFormat.kerning = _defaultTextFormat.kerning ?
-							 Kerning.AUTO :
-							 Kerning.OFF;
-		
-		hostFormat.leadingModel = LeadingModel.ASCENT_DESCENT_UP;
-		
-		hostFormat.lineBreak = wordWrap ?
-							   LineBreak.TO_FIT :
-							   LineBreak.EXPLICIT;
-		
-		hostFormat.lineHeight = 2 + _defaultTextFormat.leading; // FIXME (gosmith)
-		
-		hostFormat.locale = locale;
-	
-		hostFormat.paddingBottom = PADDING_BOTTOM;
-		
-		hostFormat.paddingLeft = PADDING_LEFT;
-	
-		hostFormat.paddingRight = PADDING_RIGHT;
-		
-		hostFormat.paddingTop = PADDING_TOP;
-
-		hostFormat.paragraphEndIndent = _defaultTextFormat.rightMargin;
-
-		hostFormat.paragraphStartIndent = _defaultTextFormat.leftMargin;
-
-		hostFormat.tabStops = _defaultTextFormat.tabStops; // FIXME (gosmith)
-
-		hostFormat.textAlign = _defaultTextFormat.align;
-		
-		hostFormat.textAlignLast = _defaultTextFormat.align;
-		
-		hostFormat.textDecoration = _defaultTextFormat.underline ?
-									TextDecoration.UNDERLINE :
-									TextDecoration.NONE;
-		
-		hostFormat.textIndent = _defaultTextFormat.indent;
-		
-		hostFormat.trackingRight = _defaultTextFormat.letterSpacing;
-		*/
 	}
 	
 	/**
@@ -2602,7 +2548,6 @@ public class TLFTextField extends Sprite
 		var innerHeight:Number =
 			compositionHeight - PADDING_TOP - PADDING_BOTTOM;
 			
-		// FIXME (gosmith)
 		var emBox:Rectangle = elementFormat.getFontMetrics().emBox;
 		var ascent:int = Math.round(emBox.height);
 		var descent:int = Math.round(emBox.bottom);
@@ -2644,7 +2589,6 @@ public class TLFTextField extends Sprite
 		// are correctly aligned and inset by the left and top padding.
 		alignTextLines(innerWidth);
 		
-		// FIXME (gosmith)
 		_textWidth = Math.round(_textWidth);
 		_textHeight = Math.round(
 			numChildren * (ascent + descent) +
@@ -2683,7 +2627,6 @@ public class TLFTextField extends Sprite
 			_defaultTextFormat.align == "justify" ?
 			LineJustification.ALL_BUT_LAST :
 			LineJustification.UNJUSTIFIED;;
-		//FIXME (gosmith) staticSpaceJustifier.letterSpacing
 		staticTextBlock.textJustifier = staticSpaceJustifier;
 		
 		// Then create and add TextLines using this TextBlock.
@@ -2774,19 +2717,13 @@ public class TLFTextField extends Sprite
 			else
 				nextY += descent + _defaultTextFormat.leading + ascent;
 			
-			// If the next line is completely outside the rectangle,
-			// we're done.
-//			if (nextY - nextTextLine.ascent > innerHeight)
-//				break;
-			
 			// We'll keep this line.
 			textLine = nextTextLine;
-			n++; // FIXME (gosmith): remove counter
+			n++;
 			
 			// Assign its location based on left/top alignment.
 			// Its x position is 0 by default.
 			textLine.y = nextY;
-			//trace(textLine.y);
 			
 			if (_defaultTextFormat.underline)
 			{
@@ -2860,10 +2797,13 @@ public class TLFTextField extends Sprite
 	private function composeHTMLText(compositionWidth:Number,
 									 compositionHeight:Number):void
 	{
-		// FIXME (gosmith): if (!textFlow) ?
 		textFlow = htmlImporter.importToFlow(_htmlText);
 		
 		textFlow.addEventListener(MouseEvent.CLICK, linkClickHandler);
+					
+		textFlow.addEventListener(
+			StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,
+			inlineGraphicStatusChangeHandler);
 					
 		if (!textContainerManager)
 			textContainerManager = new TLFTextFieldTextContainerManager(this);
@@ -2892,12 +2832,9 @@ public class TLFTextField extends Sprite
 		textContainerManager.updateContainer();
 		
 		var bounds:Rectangle = textContainerManager.getContentBounds();
-		_textWidth = Math.ceil(bounds.width); // FIXME (gosmith): round?
-		_textHeight = Math.ceil(bounds.height);
+		_textWidth = Math.round(bounds.width);
+		_textHeight = Math.round(bounds.height);
 	}
-
-	// FIXME (gosmith): listen for events
-	// when asynchronous images are loaded to resize?
 
 	//--------------------------------------------------------------------------
 	//
@@ -2910,30 +2847,17 @@ public class TLFTextField extends Sprite
 	 */
 	private function addedToStageHandler(event:Event):void
 	{
-		// Having renderHandler() attached only while on the stage
-		// gives a performance improvement.
-		removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-		addEventListener(Event.RENDER, renderHandler);
-		addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-		validateNow();
+		invalidate();
 	}
 	
 	/**
 	 *  @private
 	 */
-	private function removedFromStageHandler(event:Event):void
+	private function renderHandler(event:Event):void
 	{
+		validateNow();
+		
 		removeEventListener(Event.RENDER, renderHandler);
-		removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-		addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function renderHandler(event:Event):void // FIXME (gosmith): don't keep this around
-	{
-		validateNow();
 	}
 	
 	/**
@@ -2944,15 +2868,27 @@ public class TLFTextField extends Sprite
 		// Need to remove the event: portion of the href if it has one.
 		// Only dispatch the event if it has the event portion.
 		var href:String = LinkElement(event.flowElement).href;
-		var i:int = href.search("event:"); // FIXME (gosmith): indexOf; need starts-with logic
-		if (i < 0)
-			return;
-		var textEvent:TextEvent = new TextEvent(TextEvent.LINK);
-		textEvent.text = href.substring(i + 6, href.length - i + 5);
-		dispatchEvent(textEvent);
+		if (href.indexOf("event:") == 0)
+		{
+			var textEvent:TextEvent = new TextEvent(TextEvent.LINK);
+			textEvent.text = href.substring(6);
+			dispatchEvent(textEvent);
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function inlineGraphicStatusChangeHandler(
+									event:StatusChangeEvent):void
+	{
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+
+		invalidate();
 	}
 }
-	
+
 }
 
 import flash.display.Sprite;
@@ -3224,7 +3160,7 @@ class TLFTextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get tabStops():*
 	{
-		return textField._defaultTextFormat.tabStops; // FIXME (gosmith)
+		return undefined;
 	}
 	
 	public function get textAlign():*
@@ -3266,7 +3202,7 @@ class TLFTextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get trackingLeft():*
 	{
-		return undefined; // FIXME (gosmith): divide letterSpacing in 2?
+		return undefined;
 	}
 	
 	public function get trackingRight():*
@@ -3305,12 +3241,13 @@ class FTETextFieldStyleResolver implements IFormatResolver
     //--------------------------------------------------------------------------
     
     /**
-     *  Map of TextField StyleSheet css properties to their equivalent
-     *  TLF properties.  This is only the styles which have different names.
+     *  Map of TextField StyleSheet CSS properties to their equivalent
+     *  TLF properties. This is only the styles which have different names.
      */
-    private static const textFieldToTLFStyleMap:Object = {
-        // FIXME(gosmith): when mapping leading to lineHeight does this need the 
-        // same adjustment as  TLFTextFieldHostFormat.lineHeight?
+    private static const textFieldToTLFStyleMap:Object =
+	{
+        // FIXME (gosmith): when mapping leading to lineHeight does this need
+        // the same adjustment as TLFTextFieldHostFormat.lineHeight?
         "leading": "lineHeight",    
         "letterSpacing": "trackingRight",
         "marginLeft": "paragraphStartIndent",
