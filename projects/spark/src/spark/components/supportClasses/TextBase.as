@@ -619,8 +619,8 @@ public class TextBase extends UIComponent
         var contentHeight:Number = Math.ceil(bounds.bottom);
         var contentWidth:Number = Math.ceil(bounds.right);
         
-        // FIXME (gosmith): optimize for right-to-left text so compose isn't always done
-        // when height or width changes.
+        // TODO (gosmith):Optimize for right-to-left text
+		// so composition isn't always done when the height or width changes.
         if (invalidateCompose || 
             composeForAlignStyles(unscaledWidth, unscaledHeight, contentWidth, contentHeight))
         {
@@ -802,7 +802,7 @@ public class TextBase extends UIComponent
             }
         }
 
-        // FIXME (gosmith): optimize this case.        
+        // TODO (gosmith): Handle this case properly.
         if (getStyle("blockProgression") != "tb")
             return true;    
             
@@ -823,7 +823,7 @@ public class TextBase extends UIComponent
                 return true;
         }
         
-        // FIXME (gosmith): optimize this case.        
+        // TODO (gosmith): Handle this case properly.  
         if (getStyle("blockProgression") != "tb")
             return true;
                     
