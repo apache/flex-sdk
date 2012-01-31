@@ -15,18 +15,12 @@ Keyboard Interaction
 - List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
-TODO List
+` List
 
-- implicitSelectedIndex
-- Handle stage resize, focus in/out
-- add enabled/disabled
+- Handle stage resize
 - Add type assist
 - Add typicalItem support for measuredSize (lower priority) 
-- Change button to be a ToggleButton so we stay down when dropdown is open
-- No prompt should set selectedIndex = 0?
-
-BUGS
-- Setting selectedItem to undefined doesn't set selectedIndex to -1
+- Change button to stay down when dropdown is open (?)
 
 *  @langversion 3.0
 *  @playerversion Flash 10
@@ -39,6 +33,7 @@ package spark.components
 {
 
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
@@ -49,9 +44,13 @@ import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 
 import spark.components.Button;
+import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.ListBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
+
+
+
 
 /**
  *  Dispatched when the dropDown is dismissed for any reason such when 
@@ -120,7 +119,7 @@ import spark.utils.LabelUtil;
  */
 public class DropDownList extends List
 {
-
+ 
     //--------------------------------------------------------------------------
     //
     //  Skin Parts
@@ -228,7 +227,10 @@ public class DropDownList extends List
      */
     public function set prompt(value:String):void
     {
-        _prompt = value;
+    	if (_prompt == value)
+    		return;
+    		
+    	_prompt = value;
         labelChanged = true;
         invalidateProperties();
     }
@@ -273,11 +275,65 @@ public class DropDownList extends List
     
     /**
      *  @private
+     *  Update the label if the dataProvider has changed
      */
-     // TODO (jszeto) Check if we really need this
     override public function set dataProvider(value:IList):void
-    {
+    {	
+    	if (dataProvider === value)
+    		return;
+    		
     	super.dataProvider = value;
+    	labelChanged = true;
+    	invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+    	if (value == enabled)
+    		return;
+    	
+    	super.enabled = value;
+    	if (button)
+    		button.enabled = value;
+    }
+    
+    //----------------------------------
+    //  labelField
+    //----------------------------------
+    
+     /**
+     *  @private
+     */
+    override public function set labelField(value:String):void
+    {
+    	if (labelField == value)
+    		return;
+    		
+    	super.labelField = value;
+    	labelChanged = true;
+    	invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  labelFunction
+    //----------------------------------
+    
+     /**
+     *  @private
+     */
+    override public function set labelFunction(value:Function):void
+    {
+    	if (labelFunction == value)
+    		return;
+    		
+    	super.labelFunction = value;
     	labelChanged = true;
     	invalidateProperties();
     }
@@ -413,12 +469,10 @@ public class DropDownList extends List
    
     	return result;   	
     }
-	
-	// TODO (jszeto) Add measure implementation that uses the longest string in the data provider as 
-    // the label and calls super.measure().
-	/**
-	 *  @private
-	 */ 
+    
+    /**
+ 	 *  @private
+ 	 */ 
 	override protected function commitProperties():void
     {
         super.commitProperties();
@@ -461,7 +515,8 @@ public class DropDownList extends List
  
  		if (instance == button)
     	{
-    		instance.addEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    		button.addEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    		button.enabled = enabled;
     	}
     }
     
@@ -472,7 +527,7 @@ public class DropDownList extends List
     {
     	if (instance == button)
     	{
-    		instance.removeEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    		button.removeEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
     	}
         
         super.partRemoved(partName, instance);
@@ -540,88 +595,33 @@ public class DropDownList extends List
         	//trace("DropDownList.keyDownHandler arrow key isOpen",isOpen);
         	// TODO (jszeto) Check if we need dataGroup skin during this event
         	super.list_keyDownHandler(event);
-        }
-        
-        /*
-        if (event.keyCode == Keyboard.UP ||
-                event.keyCode == Keyboard.DOWN ||
-                event.keyCode == Keyboard.LEFT ||
-                event.keyCode == Keyboard.RIGHT ||
-                event.keyCode == Keyboard.PAGE_UP ||
-                event.keyCode == Keyboard.PAGE_DOWN)
-        {	
-        	if (isOpen)
-        	{
-        		// TODO (jszeto) Clean this up once we have List support for 
-        		// not sending selection_change on keydown.
-        		inKeyNavigation = true;
-        		// TODO (jszeto) Clean this up when SDK-19738 is fixed
-        		if (dropDown.numChildren > 0)
-        			dropDown.getChildAt(0).dispatchEvent(event.clone());
-        			
-        		inKeyNavigation = false;	
-        	}
-        	else
-        	{
-        		var nextSelectedIndex:int = selectedIndex;
-        		if (event.keyCode == Keyboard.UP)
-        		{
-        			nextSelectedIndex = Math.max(0, nextSelectedIndex - 1);
-        		}
-        		else if (event.keyCode == Keyboard.DOWN)
-        		{
-        			nextSelectedIndex = Math.min(collection.length - 1, nextSelectedIndex + 1); 
-        		}
-        		else if (event.keyCode == Keyboard.PAGE_UP)
-        		{
-        			nextSelectedIndex = Math.max(0, nextSelectedIndex - PAGE_SIZE);
-        		}
-        		else if (event.keyCode == Keyboard.PAGE_DOWN)
-        		{
-        			nextSelectedIndex = Math.min(collection.length - 1, nextSelectedIndex + PAGE_SIZE); 
-        		}
-        		
-        		if (nextSelectedIndex != selectedIndex)
-        		{
-	        		selectedIndex = nextSelectedIndex;
-        		
-        			dispatchEvent(new Event(Event.CHANGE));
-        		}
-        	}*/
-        	
-        	
-        	
-        	
-        	/*var e:KeyboardEvent = event.clone();
-        	e.eventPhase = EventPhase.CAPTURING_PHASE;*/
-        	
-        	/*dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
-        	
-        	if (dropDown.numChildren > 0)
-        		dropDown.getChildAt(0).dispatchEvent(event.clone());
-        	
-        	dropDown.removeEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);*/
-        	
-        	
-        	
-            /*var oldIndex:int = selectedIndex;
-
-			
-
-            // Make sure we know we are handling a keyDown,
-            // so if the dropdown sends out a "change" event
-            // (like when an up-arrow or down-arrow changes
-            // the selection) we know not to close the dropdown.
-            bInKeyDown = _showingDropdown;
-            // Redispatch the event to the dropdown
-            // and let its keyDownHandler() handle it.
-
-            dropdown.dispatchEvent(event.clone());
-            event.stopPropagation();
-            bInKeyDown = false;*/
-
-          
+        }         
 	}
+	
+	/**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+        // Note: event.relatedObject is the object getting focus.
+        // It can be null in some cases, such as when you open
+        // the dropdown and then click outside the application.
+
+        // If the dropdown is open...
+        if (isOpen)
+        {
+            // If focus is moving outside the dropdown...
+            // TODO (jszeto) Should we compare to the whole skin or just the dataGroup?
+            if (!event.relatedObject ||
+                !dataGroup.contains(event.relatedObject))
+            {
+                // Close the dropdown.
+                closeDropDown(false);
+            }
+        }
+
+        super.focusOutHandler(event);
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -640,7 +640,6 @@ public class DropDownList extends List
  	 */ 
     protected function buttonDownHandler(event:Event):void
     {
-    	//trace("DropDownBase.buttonDownHandler ", isOpen ? "[CLOSE]" : "[OPEN]");
         if (isOpen)
             closeDropDown(true);
         else
@@ -659,7 +658,6 @@ public class DropDownList extends List
     protected function systemManager_mouseDownHandler(event:MouseEvent):void
     {
     	// TODO (jszeto) Make marshall plan compliant
-    	// TODO (jszeto) Figure a better way to handle this
      	if ((dataGroup && !dataGroup.hitTestPoint(event.stageX, event.stageY)) &&
      	    (button && !button.hitTestPoint(event.stageX, event.stageY)))
         {
