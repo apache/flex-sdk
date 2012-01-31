@@ -71,7 +71,7 @@ package spark.components
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
     import mx.core.UIComponent;
-	import mx.core.UIComponentGlobals;
+    import mx.core.UIComponentGlobals;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
@@ -4393,14 +4393,17 @@ package spark.components
          *           should grow or stay the same.
          *
          *  toFit
-         *      width       height      
-         *      smaller     smaller     height pinned to old height
+         *      width       height
+         *      
+         *      smaller     smaller     width pinned to old width and
+         *                              height pinned to old height
          *      smaller     larger      ok
          *      larger      larger      ok
          *      larger      smaller     ok
          *       
          *  explicit
          *      width       height
+         * 
          *      smaller     smaller     width pinned to old width
          *      smaller     larger      width pinned to old width
          *      larger      larger      ok
@@ -4410,22 +4413,21 @@ package spark.components
         {   
             // Already reported bounds at least once for this generation of
             // the text flow so we have to be careful to mantain consistency
-            // for the scroller.
+            // for the scroller.  Otherwise scrollbars can come and go which
+            // causes recomposition and increases the likelihood of looping.
             if (_textFlow.generation == lastContentBoundsGeneration)
             {          
                 if (bounds.width <= _contentWidth)
                 {
+                    // The width may get smaller if the compose height is 
+                    // reduced and fewer lines are composed.  Use the old 
+                    // content width which is more accurate.
+                    bounds.width = _contentWidth;
+
                     if (_textContainerManager.hostFormat.lineBreak == "toFit")
                     {
                         if (bounds.height < _contentHeight)
                             bounds.height = _contentHeight;
-                    }
-                    else
-                    {
-                        // The width may get smaller if the compose height is 
-                        // reduced and fewer lines are composed.  Use the old 
-                        // content width which is more accurate.
-                        bounds.width = _contentWidth;
                     }
                 }
             }
@@ -4805,31 +4807,24 @@ package spark.components
         
         /**
          *  @private
-         *  Called when a InlineGraphicElement is resized due to having width or 
-         *  height as auto or percent and the graphic has finished loading.  The
-         *  size of the graphic is now known.
+         *  Called when an InlineGraphicElement is asynchronously loaded.
+         *  The event status could be "sizePending", "loaded" or "error". 
+         *  Must call updateAllContainers() to cause transition to the next
+         *  graphic status.
          */
         private function textContainerManager_inlineGraphicStatusChangeHandler (
             event:StatusChangeEvent):void
-        {
-            if (event.status == InlineGraphicElementStatus.SIZE_PENDING &&
-                event.element is InlineGraphicElement)
-            {
-                // Force InlineGraphicElement.applyDelayedElementUpdate to
-                // execute and finish loading the graphic.  This is a workaround
-                // for the case when the image is in a compiled text flow.
-                InlineGraphicElement(event.element).updateForMustUseComposer(
-                    _textContainerManager.getTextFlow());
-            }
-            else if (event.status == InlineGraphicElementStatus.READY)
+        {            
+            if (event.status == InlineGraphicElementStatus.READY)
             {
                 // Now that the actual size of the graphic is available need to
                 // optionally remeasure and updateContainer.
                 if (autoSize)
-                    invalidateSize();
-                
-                invalidateDisplayList();
+                    invalidateSize();                
             }
+
+            // Call updateAllContainers().
+            invalidateDisplayList();
         }    
         
         /**
