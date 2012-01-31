@@ -69,11 +69,64 @@ use namespace mx_internal;
  * 
  *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
  *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
- *
+ * 
+ *  <h2>Efficiency Considerations</h2>
+ *  
+ *  <p>DataGrid scrolling and startup performance are directly linked
+ *  to item renderer complexity and the number of item renderers that
+ *  are visible within the DataGrid's scroller.  Custom GridItemRenderer 
+ *  instances are used and reused repeatedly so it's important to define 
+ *  them as simply and efficiently as  possible.</p>
+ *  
+ *  <p>If an item renderer's responsibility is limited to displaying
+ *  one or more lines of text, then developers should seriously
+ *  consider using the DefaultItemRenderer class which does so very
+ *  economically (an application that's only going to be deployed on
+ *  Windows one can gain some additional performance by using the
+ *  UITextFieldGridItemRenderer class instead).  The most efficient
+ *  way to use GridItemRenderer to display the GridColumn's dataField
+ *  as text is to identify the GridItemRenderer's text displaying
+ *  element with <code>id="labelDisplay"</code>.  The labelDisplay
+ *  component must be a <code>TextBase</code> subclass like
+ *  <code>Label</code> or <code>TextArea</code>.  You might take this
+ *  approach, instead of just using DefaultGridItemRenderer, if your
+ *  item renderer included some additional elements that did not
+ *  depend on the item renderer's data, like borders or other graphic
+ *  elements.</p>
+ *  
+ *  <p>An item renderer that contains more than one visual element
+ *  whose properties depend on the item renderer's data can use data
+ *  binding to define the values of those properties.  This approach
+ *  yields MXML code that's straightforward to read and maintain and
+ *  its performance may be adequate if the number of visible item
+ *  renderers is limited (see the DataGrid <code>requestedRowCount</code> 
+ *  and <code>requestedColumnCount</code> properties).  The most efficient
+ *  way to configure this kind of item renderer is to override its
+ *  <code>prepare()</code> method and do the work there.  The
+ *  renderer's <code>prepare()</code> method is called each time the
+ *  renderer is redisplayed and so it's important that it's coded
+ *  efficiently.  If your item renderer is stateful, for example if it
+ *  caches internal values, you can clear its state in its
+ *  <code>discard()</code> method.  The <code>discard()</code> method
+ *  is called each time the renderer is moved to the DataGrid's
+ *  internal free list, where it's available for reuse.</p>
+ *  
+ *  <p>GridItemRenderers should be as simple as possible.  To gain the
+ *  best possible performance, minimize the number of components, and
+ *  the depth of the hierarchy.  If it's practical, use explicit
+ *  positions and sizes rather than constraints to define the layout.
+ *  DataGrid's with <code>variableRowHeight="false"</code> (the
+ *  default) tend to perform better, likewise for
+ *  <code>showDataTips="false"</code> (also the default).</p>
+ *  
+ *  <p>Examples of the various GridItemRenderer configurations described 
+ *  here are available in the examples section.</p>
+ * 
  *  @see spark.components.DataGrid
  *  @see spark.components.Grid
  *  @see spark.components.gridClasses.GridColumn
  *  @see spark.components.gridClasses.GridColumn#itemRenderer
+ *  @see spark.skins.spark.DefaultGridItemRenderer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
