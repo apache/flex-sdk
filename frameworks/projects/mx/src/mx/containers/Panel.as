@@ -726,15 +726,15 @@ public class Panel extends Container
     //----------------------------------
     //  constraintColumns
     //----------------------------------
-
-    [ArrayElementType("mx.containers.utilityClasses.ConstraintColumn")]
-    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
     
     /**
      *  @private
      *  Storage for the constraintColumns property.
      */
     private var _constraintColumns:Array = [];
+
+    [ArrayElementType("mx.containers.utilityClasses.ConstraintColumn")]
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
@@ -771,15 +771,15 @@ public class Panel extends Container
     //----------------------------------
     //  constraintRows
     //----------------------------------
-
-    [ArrayElementType("mx.containers.utilityClasses.ConstraintRow")]
-    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
     
     /**
      *  @private
      *  Storage for the constraintRows property.
      */
     private var _constraintRows:Array = [];
+    
+    [ArrayElementType("mx.containers.utilityClasses.ConstraintRow")]
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
