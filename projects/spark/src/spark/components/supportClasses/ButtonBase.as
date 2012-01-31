@@ -1311,9 +1311,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                     mouseCaptured = true;
                 }
                 
-                // We can cancel mouseDown's thanks to re-dispatching the event in SystemManager.
-                // This prevents other people (like ItemRenderers) from handling this mouseDown as well
-                event.preventDefault();
                 break;
             }
 
