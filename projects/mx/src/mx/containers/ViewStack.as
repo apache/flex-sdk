@@ -531,6 +531,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
     //----------------------------------
 
     [Bindable("valueCommit")]
+    [Bindable("creationComplete")]
 
     /**
      *  A reference to the currently visible child container.
@@ -582,6 +583,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
     [Bindable("change")]
     [Bindable("valueCommit")]
+    [Bindable("creationComplete")]
     [Inspectable(category="General")]
 
     /**
@@ -1236,7 +1238,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
             proposedSelectedIndex = 0;
             invalidateProperties();
         } 
-        else if (index <= selectedIndex && numChildren > 1)         
+        else if (index <= selectedIndex && numChildren > 1 && proposedSelectedIndex == -1)         
         {
             selectedIndex++;
         }
