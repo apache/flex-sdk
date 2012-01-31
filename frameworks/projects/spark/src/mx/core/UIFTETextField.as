@@ -2088,7 +2088,7 @@ public class UITLFTextField extends TLFTextField
 
             if (!styleSheet)
             {
-                //super.setTextFormat(textFormat);
+                super.setTextFormat(textFormat);
                 defaultTextFormat = textFormat;
             }
                     
