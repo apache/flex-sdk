@@ -24,9 +24,9 @@ import mx.managers.IFocusManagerComponent;
  *  Dispatched when the value of the Spinner control changes
  *  as a result of user interaction.
  *
- *  @eventType mx.events.Event
+ *  @eventType flash.events.Event
  */
-[Event(name="change", type="mx.events.Event")]
+[Event(name="change", type="flash.events.Event")]
 
 /**
  *  A Spinner is used to select a value from an
