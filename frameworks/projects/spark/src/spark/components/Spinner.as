@@ -88,8 +88,8 @@ import mx.managers.IFocusManagerComponent;
  *
  *  <p>The scale of an Spinner component is the set of 
  *  allowed values for the <code>value</code> property. 
- *  The allowed values are the multiples of 
- *  the <code>valueInterval</code> property between 
+ *  The allowed values are the integer multiples of 
+ *  the <code>snapInterval</code> property between 
  *  the <code>maximum</code> and <code>minimum</code> values, 
  *  including the <code>maximum</code> and <code>minimum</code> values. 
  *  For example:</p>
@@ -97,10 +97,10 @@ import mx.managers.IFocusManagerComponent;
  *  <ul>
  *    <li><code>minimum</code> = -1</li>
  *    <li><code>maximum</code> = 10</li>
- *    <li><code>valueInterval</code> = 3</li>
+ *    <li><code>snapInterval</code> = 3</li>
  *  </ul>
  *  
- *  Therefore the scale is {-1,3,6,9,10}.
+ *  Therefore the scale is {-1,0,3,6,9,10}.
  *
  *  @see mx.components.NumericStepper
  *
@@ -175,19 +175,19 @@ public class Spinner extends Range implements IFocusManagerComponent
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  valueWrap
+    //  allowValueWrap
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _valueWrap:Boolean = false;
+    private var _allowValueWrap:Boolean = false;
     
     /**
      *  Determines the behavior of the control for a step when the current 
      *  <code>value</code> is either the <code>maximum</code> 
      *  or <code>minimum</code> value.  
-     *  If <code>valueWrap</code> is <code>true</code>, then the 
+     *  If <code>allowValueWrap</code> is <code>true</code>, then the 
      *  <code>value</code> property wraps from the <code>maximum</code> 
      *  to the <code>minimum</code> value, or from 
      *  the <code>minimum</code> to the <code>maximum</code> value.
@@ -199,14 +199,14 @@ public class Spinner extends Range implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get valueWrap():Boolean
+    public function get allowValueWrap():Boolean
     {
-        return _valueWrap;
+        return _allowValueWrap;
     }
 
-    public function set valueWrap(value:Boolean):void
+    public function set allowValueWrap(value:Boolean):void
     {
-        _valueWrap = value;
+        _allowValueWrap = value;
     }
     
     //--------------------------------------------------------------------------
@@ -270,19 +270,19 @@ public class Spinner extends Range implements IFocusManagerComponent
     /**
      *  @private
      */
-    override public function step(increase:Boolean = true):void
+    override public function changeValueByStep(increase:Boolean = true):void
     {
-        if (valueWrap)
+        if (allowValueWrap)
         {
             if (increase && (value == maximum))
                 value = minimum;
             else if (!increase && (value == minimum))
                 value = maximum;
             else 
-                super.step(increase);
+                super.changeValueByStep(increase);
         }
         else
-            super.step(increase);
+            super.changeValueByStep(increase);
     }
     
     //--------------------------------------------------------------------------
@@ -304,7 +304,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     {
         var prevValue:Number = this.value;
         
-        step(true);
+        changeValueByStep(true);
         
         if (value != prevValue)
             dispatchEvent(new Event("change"));
@@ -319,7 +319,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     {
         var prevValue:Number = this.value;
         
-        step(false);
+        changeValueByStep(false);
         
         if (value != prevValue)
             dispatchEvent(new Event("change"));
@@ -333,6 +333,9 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
+        if (event.isDefaultPrevented())
+            return;
+        
         var prevValue:Number = this.value;
         var stopPropagation:Boolean = false;
                 
@@ -341,7 +344,7 @@ public class Spinner extends Range implements IFocusManagerComponent
             case Keyboard.DOWN:
             //case Keyboard.LEFT:
             {
-                step(false);
+                changeValueByStep(false);
                 stopPropagation = true;
                 break;
             }
@@ -349,7 +352,7 @@ public class Spinner extends Range implements IFocusManagerComponent
             case Keyboard.UP:
             //case Keyboard.RIGHT:
             {
-                step(true);
+                changeValueByStep(true);
                 stopPropagation = true;
                 break;
             }
@@ -378,8 +381,16 @@ public class Spinner extends Range implements IFocusManagerComponent
         if (value != prevValue)
             dispatchEvent(new Event("change"));
 
+        // Gumbo redispatches scrolling keyboard events with cancelable=true
+        // so typically we will preventDefault (read "cancel") here, rather
+        // than stopping dispatching.
         if (stopPropagation)
-            event.stopPropagation();
+        {
+            if (event.cancelable)
+                event.preventDefault();
+            else
+                event.stopPropagation();
+        }
     }
 }
 
