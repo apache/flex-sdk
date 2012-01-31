@@ -729,25 +729,6 @@ package spark.components
         /**
          *  @private
          */
-        override protected function measure():void
-        {
-            super.measure();
-            //trace("CHB.measure", measuredWidth, measuredHeight, "min", measuredMinWidth, measuredMinHeight);        
-        }
-        
-        /**
-         * @private
-         */ 
-        override protected function updateDisplayList(unscaledWidth:Number,
-                                                      unscaledHeight:Number):void
-        {
-            //trace("CHB.udl", unscaledWidth, unscaledHeight);        
-            super.updateDisplayList(unscaledWidth, unscaledHeight);
-        }
-            
-        /**
-         *  @private
-         */
         override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
         {
             // If the CHB has a height set on it, force all the headers to be
