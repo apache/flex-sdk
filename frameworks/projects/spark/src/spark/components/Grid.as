@@ -1067,7 +1067,7 @@ public class Grid extends Group implements IDataGridElement
     mx_internal function get gridSelection():GridSelection
     {
         if (!_gridSelection)
-            _gridSelection = new GridSelection();  // TBD(hmuller):delegate to protected createGridSelection()
+            _gridSelection = createGridSelection();
         
         return _gridSelection;
     }
@@ -3418,70 +3418,6 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  @private
-     *  This version of invlaidateDisplayList() stores the "reason" for the invalidate
-     *  request so that GridLayout/updateDisplayList() can do its job more efficiently.
-     *  GridLayout tests the accumulated invalidateDisplayList reasons with 
-     *  isInvalidateDisplayListReason() and they're automatically cleared by 
-     *  updateDisplayList() here.
-     * 
-     *  Note that if invalidateDisplayList() is called directly, all possible 
-     *  invalidateDispayList reasons are implicitly specified, in other words if
-     *  no reason is specified then they all are (see invalidateDisplayListReasonBits.none).
-     *  That way, callers need not be aware of this internal API.
-     * 
-     *  Also: most reason="selectionIndicator" calls also change the caret index which
-     *  in turn adds reason="caretIndicator" to the invalidateDisplayList reasons, if the
-     *  caret index actually changed.
-     */
-    mx_internal function invalidateDisplayListFor(reason:String):void
-    {
-        if (!inUpdateDisplayList)
-        {
-            setInvalidateDisplayListReason(reason);            
-            super.invalidateDisplayList();
-            dispatchChangeEvent("invalidateDisplayList");
-        }
-    }
-    
-    /**
-     *  If the specified cell is visible, it is redisplayed.  
-     *  If <code>variableRowHeight=true</code>, 
-     *  then doing so may cause the height of the corresponding row to change.
-     * 
-     *  <p>If columnIndex is -1, then the entire row is invalidated.  
-     *  Similarly if <code>rowIndex is -1</code>, then the entire column is invalidated.</p>
-     * 
-     *  <p>This method should be called when there is a change to any aspect of 
-     *  the data provider item at <code>rowIndex</code> that might have some 
-     *  impact on the way the  specified cell is displayed. 
-     *  Calling this method is similar to calling the
-     *  <code>dataProvider.itemUpdated()</code> method, which advises the Grid that all rows
-     *  displaying the specified item should be redisplayed.  
-     *  Using this method can be relatively efficient, since it narrows 
-     *  the scope of the change to a single cell.</p>
-     * 
-     *  @param rowIndex The 0-based row index of the cell that changed, or -1.
-     *
-     *  @param column Index The 0-based column index of the cell that changed or -1.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function invalidateCell(rowIndex:int, columnIndex:int):void
-    {
-        if (!dataProvider || (rowIndex < 0) || (rowIndex >= dataProvider.length))
-            return;
-        
-        // TODO (hmuller) this is a provisional implementation: invalidate the entire row
-        const column:GridColumn = getGridColumn(columnIndex);
-        const dataField:String = (column) ? column.dataField : null;
-        dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
-    }
-
-    /**
-     *  @private
      */
     override protected function commitProperties():void
     {
@@ -3610,7 +3546,94 @@ public class Grid extends Group implements IDataGridElement
         
     //--------------------------------------------------------------------------
     //
-    //  Internal Grid Access
+    //  Methods
+    //
+    //--------------------------------------------------------------------------      
+    
+    /**
+     *  @private
+     *  This version of invlaidateDisplayList() stores the "reason" for the invalidate
+     *  request so that GridLayout/updateDisplayList() can do its job more efficiently.
+     *  GridLayout tests the accumulated invalidateDisplayList reasons with 
+     *  isInvalidateDisplayListReason() and they're automatically cleared by 
+     *  updateDisplayList() here.
+     * 
+     *  Note that if invalidateDisplayList() is called directly, all possible 
+     *  invalidateDispayList reasons are implicitly specified, in other words if
+     *  no reason is specified then they all are (see invalidateDisplayListReasonBits.none).
+     *  That way, callers need not be aware of this internal API.
+     * 
+     *  Also: most reason="selectionIndicator" calls also change the caret index which
+     *  in turn adds reason="caretIndicator" to the invalidateDisplayList reasons, if the
+     *  caret index actually changed.
+     */
+    mx_internal function invalidateDisplayListFor(reason:String):void
+    {
+        if (!inUpdateDisplayList)
+        {
+            setInvalidateDisplayListReason(reason);            
+            super.invalidateDisplayList();
+            dispatchChangeEvent("invalidateDisplayList");
+        }
+    }
+    
+    /**
+     *  If the specified cell is visible, it is redisplayed.  
+     *  If <code>variableRowHeight=true</code>, 
+     *  then doing so may cause the height of the corresponding row to change.
+     * 
+     *  <p>If columnIndex is -1, then the entire row is invalidated.  
+     *  Similarly if <code>rowIndex is -1</code>, then the entire column is invalidated.</p>
+     * 
+     *  <p>This method should be called when there is a change to any aspect of 
+     *  the data provider item at <code>rowIndex</code> that might have some 
+     *  impact on the way the  specified cell is displayed. 
+     *  Calling this method is similar to calling the
+     *  <code>dataProvider.itemUpdated()</code> method, which advises the Grid that all rows
+     *  displaying the specified item should be redisplayed.  
+     *  Using this method can be relatively efficient, since it narrows 
+     *  the scope of the change to a single cell.</p>
+     * 
+     *  @param rowIndex The 0-based row index of the cell that changed, or -1.
+     *
+     *  @param column Index The 0-based column index of the cell that changed or -1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function invalidateCell(rowIndex:int, columnIndex:int):void
+    {
+        if (!dataProvider || (rowIndex < 0) || (rowIndex >= dataProvider.length))
+            return;
+        
+        // TODO (hmuller) this is a provisional implementation: invalidate the entire row
+        const column:GridColumn = getGridColumn(columnIndex);
+        const dataField:String = (column) ? column.dataField : null;
+        dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
+    }
+    
+    /**
+     *  Creates a grid selection object to use to manage selection. Override this method if you have a custom grid 
+     *  selection that you want to use in place of the default and this grid is not a skin part for DataGrid.  
+     *  This method is not used when this grid is a skin part for DataGrid.
+     *
+     *  @see spark.components.DataGrid.createGridSelection
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function createGridSelection():GridSelection
+    {
+        return new GridSelection();    
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Internal Grid Access
     //
     //--------------------------------------------------------------------------      
     
