@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 import flash.events.Event;
 import flash.events.EventPhase;
@@ -20,29 +20,29 @@ import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import mx.collections.IList;
-import mx.components.baseClasses.FxListBase;
+import spark.components.supportClasses.ListBase;
 import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.RendererExistenceEvent;
+import spark.events.RendererExistenceEvent;
 import mx.managers.IFocusManagerComponent;
 
-[IconFile("FxButtonBar.png")]
+[IconFile("ButtonBar.png")]
 
 /**
- *  The FxButtonBar control displays a set of Buttons 
+ *  The ButtonBar control displays a set of Buttons 
  *
- *  @includeExample examples/FxButtonBarExample.mxml
+ *  @includeExample examples/ButtonBarExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxButtonBar extends FxListBase implements IFocusManagerComponent 
+public class ButtonBar extends ListBase implements IFocusManagerComponent 
 {
     include "../core/Version.as";
 
@@ -66,7 +66,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxButtonBar()
+    public function ButtonBar()
     {
         super();
         itemRendererFunction = defaultButtonBarItemRendererFunction;
