@@ -575,9 +575,9 @@ public class ScrollBar extends TrackBase
     {
         var val:Number;
         if (increase)
-            val = value + pageSize;
+            val = Math.min(value + pageSize, maximum);
         else
-            val = value - pageSize;
+            val = Math.max(value - pageSize, minimum);
         if (smoothScrolling) {
             startAnimation(getStyle("repeatInterval"), val, Linear.getInstance());            
             animatingSinglePage = true;
