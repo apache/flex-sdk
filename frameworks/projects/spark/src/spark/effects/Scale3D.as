@@ -82,7 +82,8 @@ public class Scale3D extends AnimateTransform3D
      */
     private static var AFFECTED_PROPERTIES:Array =
         ["scaleX", "scaleY", "scaleZ",
-         "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ"];
+         "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = [];
 
