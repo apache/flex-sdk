@@ -27,6 +27,7 @@ import flash.text.engine.FontLookup;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
+import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ITextLineCreator;
@@ -38,7 +39,6 @@ import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.ISelectionManager;
-import flashx.textLayout.edit.IUndoManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
@@ -64,6 +64,7 @@ import flashx.textLayout.operations.FlowTextOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.tlf_internal;
+import flashx.undo.IUndoManager;
 
 import mx.core.EmbeddedFont;
 import mx.core.EmbeddedFontRegistry;
@@ -204,7 +205,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     	// because we need the ENTER key to behave differently based on the
     	// 'multiline' property.
     	staticInputManagerConfiguration =
-    		Configuration(InputManager.defaultInputManagerConfiguration).clone();
+    		Configuration(InputManager.defaultConfiguration).clone();
     	staticInputManagerConfiguration.manageEnterKey = false;
     	
     	staticTextLayoutFormat = new TextLayoutFormat;
@@ -1539,7 +1540,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         	
         	contentChanged = false;
         }
-        
+
         if (enabledChanged || selectableChanged || editableChanged)
         {
         	updateEditingMode();
@@ -1677,13 +1678,13 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         }
 
 		if (mx_internal::debug)
-			trace("updateToController()");
+			trace("updateContainer()");
         if (mx_internal::embeddedFontContext)
             _inputManager.textLineCreator = ITextLineCreator(mx_internal::embeddedFontContext);
         else
             _inputManager.textLineCreator = null;
-        _inputManager.updateToController();
-        
+        _inputManager.updateContainer();
+
         // Reinstate the damage handler.
         _inputManager.addEventListener(
         	DamageEvent.DAMAGE, inputManager_damageHandler);        
@@ -1757,6 +1758,14 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  Documentation is not currently available.
+     */
+    public function createContextMenu(inputManager:InputManager):ContextMenu
+    {
+        return inputManager.createContextMenu(inputManager);
+    }
+    
     /**
      *  Documentation is not currently available.
      */
@@ -1836,7 +1845,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
 	/**
 	 *  Documentation is not currently available.
 	 */
-	public function getNoFocusSelectionFormat(
+	public function getUnfocusedSelectionFormat(
 						inputManager:InputManager):SelectionFormat
 	{
         var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
@@ -2131,7 +2140,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         /**************
         flowComposer.compose();
         */
-        _inputManager.updateToController();
+        _inputManager.updateContainer();
 
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
@@ -2537,7 +2546,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         editManager.insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        _inputManager.updateToController();        
+        _inputManager.updateContainer();        
 
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
@@ -2571,7 +2580,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         editManager.insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        _inputManager.updateToController();        
+        _inputManager.updateContainer();        
 
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
@@ -2775,7 +2784,8 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
             return;
             
         var textScrap:TextScrap = op.scrapToPaste();
-        var pastedText:String = TextUtil.extractText(textScrap.textFlow);
+        var pastedText:String = TextUtil.extractText(
+            tlf_internal::textScrap.textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
         var editManager:EditManager = getEditManager();
@@ -2863,7 +2873,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     {
         // By default, we clear the undo history when a TextView loses focus.
         if (mx_internal::clearUndoOnFocusOut)
-            mx_internal::undoManager.clear();
+                mx_internal::undoManager.clearAll();
                     
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
