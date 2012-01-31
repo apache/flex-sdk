@@ -273,6 +273,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
 
             // This will create the skin and attach it
             PopUpManager.addPopUp(this, owner, modal);
+            
+            positionPopUp();
         }
 
         // Change state *after* we pop up, as the skin needs to go be in the initial "closed"
@@ -283,6 +285,20 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             skin.addEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         else
             stateChangeComplete_handler(null); // Call directly
+    }
+    
+    /**
+     *  Positions the popUp after the popUp is added to PopUpManager but before any
+     *  state transitions occur.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    protected function positionPopUp():void
+    {
+        // subclasses will implement custom positioning
+        // e.g. PopUpManager.centerPopUp()
     }
     
     /**
