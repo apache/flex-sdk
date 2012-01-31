@@ -1491,6 +1491,14 @@ public class RichEditableText extends UIComponent
                 _textFlow = staticPlainTextImporter.importToFlow(_text);
         }
         
+        // If not read-only, make sure the textFlow has a composer in
+        // place so that it can be modified by the caller if desired.
+        if (editingMode != EditingMode.READ_ONLY)
+        {
+            _textContainerManager.beginInteraction();
+            _textContainerManager.endInteraction();
+        }
+        
         return _textFlow;
     }
     
