@@ -224,6 +224,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private var typicalItemChanged:Boolean = false;
     private var typicalLayoutElement:ILayoutElement = null;
     
+    [Inspectable(category="Data")]
+    
     /**
      *  Layouts use the preferred size of the <code>typicalItem</code>
      *  when fixed row or column sizes are required, but a specific 
@@ -548,6 +550,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private var dataProviderChanged:Boolean;
     
     [Bindable("dataProviderChanged")]
+    [Inspectable(category="Data")]
+    
     /**
      *  The data provider for this DataGroup. 
      *  It must be an IList.
