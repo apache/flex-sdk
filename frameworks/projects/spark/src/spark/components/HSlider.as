@@ -17,7 +17,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import spark.components.supportClasses.Slider;
-import mx.core.ILayoutElement;
 
 //--------------------------------------
 //  Other metadata
@@ -61,100 +60,37 @@ public class HSlider extends Slider
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: Slider
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  The size of the track, which equals the width of the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function get trackSize():Number
-    {
-        return track ? track.getLayoutBoundsWidth() : 0;
-    }
-
-    /**
-     *  The size of the thumb button, which equals the height of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function calculateThumbSize():Number
-    {
-        return thumb ? thumb.getLayoutBoundsWidth() : 0;
-    }
-
-    //--------------------------------------------------------------------------
-    //
     // Methods
     //
     //--------------------------------------------------------------------------
     
     /**
-     *  Position the thumb button based on the specified thumb position,
-     *  relative to the current X location of the track
-     *  in the control.
-     * 
-     *  @param thumbPos A number representing the new position of
-     *  the thumb button in the control.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
-    override protected function positionThumb(thumbPos:Number):void
+    override protected function pointToValue(x:Number, y:Number):Number
     {
-        if (thumb)
-        {
-            var trackPos:Number = track.getLayoutBoundsX();
-            thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
-                                          thumb.getLayoutBoundsY());
-        }
+        if (!thumb || !track)
+            return 0;
+        
+        var range:Number = maximum - minimum;
+        var thumbRange:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
+        return minimum + ((thumbRange != 0) ? (x / thumbRange) * range : 0); 
     }
     
     /**
-     *  Return the position of the thumb button on a HSlider component.
-     *  The position of the thumb on an HSlider is equal to the
-     *  given localX parameter.
-     * 
-     *  @param localX The x position relative to the track.
-     * 
-     *  @param localY The y position relative to the track.
-     *
-     *  @return The position of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
-    override protected function pointToPosition(localX:Number, 
-                                                localY:Number):Number
+    override protected function updateSkinDisplayList():void
     {
-        return localX;
+        if (!thumb || !track)
+            return;
+        
+        var thumbRange:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
+        var range:Number = maximum - minimum;
+        var thumbPos:Number = (range > 0) ? ((pendingValue - minimum) / range) * thumbRange : 0;
+        thumb.setLayoutBoundsPosition(Math.round(track.getLayoutBoundsX() + thumbPos), thumb.getLayoutBoundsY());
     }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function pointClickToPosition(localX:Number,
-                                                     localY:Number):Number
-    {
-        return pointToPosition(localX, localY) - thumb.getLayoutBoundsWidth() / 2;
-    }
+    
     
     /**
      *  @private
@@ -163,9 +99,9 @@ public class HSlider extends Slider
     {
     	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
     	
-    	if (tipAsDisplayObject)
+    	if (tipAsDisplayObject && thumb)
     	{
-			var relX:Number = thumb.x - (tipAsDisplayObject.width - thumbSize) / 2;
+			var relX:Number = thumb.x - (tipAsDisplayObject.width - thumb.width) / 2;
 	        var o:Point = new Point(relX, dataTipOriginalPosition.y);
 	        var r:Point = localToGlobal(o);     
 			
