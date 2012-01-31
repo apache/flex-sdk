@@ -13,9 +13,6 @@ package spark.effects.animation
 /**
  *  The IAnimationTarget interface is implemented by classes that support 
  *  the events for an Animation instance.
- *  It is more typical to use the event listening mechanism on the Animation class,
- *  but an IAnimationTarget implementation approach can provide a lower
- *  overhead and higher performance in some situations for handling update events. 
  *
  *  @see spark.effects.animation.Animation
  * 
