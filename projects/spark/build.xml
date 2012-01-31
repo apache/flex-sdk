@@ -61,10 +61,9 @@
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-                <include name="text_edit.swc"/>
-                <include name="text_flex.swc"/>
-                <include name="text_importExport.swc"/>
-                <include name="text_model.swc"/>
+                <include name="tcal_conversion.swc"/>
+                <include name="tcal_core.swc"/>
+                <include name="tcal_edit.swc"/>
 			</external-library-path>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
