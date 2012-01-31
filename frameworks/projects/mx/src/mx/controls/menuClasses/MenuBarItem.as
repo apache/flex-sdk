@@ -443,7 +443,7 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
     {
         super.createChildren();
         
-        var styleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration();
+        var styleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(null, styleManager);
         styleDeclaration.factory = function():void
         {
             this.borderStyle = "none"
