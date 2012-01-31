@@ -902,6 +902,9 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             cachedYPosition = this.y;
             setSoftKeyboardEffectCachedHeight(this.height);
             
+            // Initialize softKeyboardEffectCachedHeightExplicit
+            explicitHeightChangedHandler();
+            
             // reset cached keyboard height
             cachedKeyboardHeight = 0;
         }
@@ -1196,7 +1199,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     /**
      *  @private
      */
-    private function explicitHeightChangedHandler(event:Event):void
+    private function explicitHeightChangedHandler(event:Event=null):void
     {
         softKeyboardEffectCachedHeightExplicit = !isNaN(explicitHeight);
     }
