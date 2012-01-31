@@ -13,13 +13,14 @@ package spark.effects.supportClasses
 {
 import flash.events.Event;
 
-import spark.components.Group;
-import spark.effects.animation.Animation;
-import spark.effects.SimpleMotionPath;
-import mx.events.FlexEvent;
-import spark.primitives.supportClasses.GraphicElement;
-import mx.managers.LayoutManager;
 import mx.effects.effectClasses.PropertyChanges;
+import mx.events.FlexEvent;
+import mx.managers.LayoutManager;
+
+import spark.components.Group;
+import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Animation;
+import spark.primitives.supportClasses.GraphicElement;
 
 /**
  *  The FadeInstance class implements the instance class
@@ -101,6 +102,20 @@ public class FadeInstance extends AnimateInstance
      */
     public var alphaTo:Number;
 
+    //----------------------------------
+    //  affectVisibility
+    //----------------------------------
+
+    /** 
+     *  @copy spark.effects.Fade#affectVisibility
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var affectVisibility:Boolean;
+
     /**
      *  @private
      */
@@ -168,8 +183,9 @@ public class FadeInstance extends AnimateInstance
         // to be fading it in
         if ("visible" in target && !target.visible && 
             alphaFrom == 0 && alphaTo != 0 &&
-            propChanges && propChanges.end["visible"] !== undefined &&
-            propertyChanges.end["visible"] != propertyChanges.start["visible"])
+            ((propChanges && propChanges.end["visible"] !== undefined &&
+              propertyChanges.end["visible"] != propertyChanges.start["visible"]) ||
+             affectVisibility))
         {
             target.alpha = 0;
             target.visible = true;
@@ -180,8 +196,9 @@ public class FadeInstance extends AnimateInstance
         // side-effecting and what we should reset at the end
         if ("visible" in target && target.visible && 
             alphaFrom != 0 && alphaTo == 0 &&
-            propChanges && propChanges.end["visible"] !== undefined &&
-            propertyChanges.end["visible"] != propertyChanges.start["visible"])
+            ((propChanges && propChanges.end["visible"] !== undefined &&
+              propertyChanges.end["visible"] != propertyChanges.start["visible"]) ||
+             affectVisibility))
         {
             makeInvisible = true;
         }
