@@ -489,31 +489,6 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Threshold for number of pixels they must move to count as a horizontal scroll
-     */
-    private static const MIN_HORIZONTAL_SLOP:int = 20;
-    
-    /**
-     *  @private
-     *  Threshold for number of pixels they must move to count as a vertical scroll
-     */
-    private static const MIN_VERTICAL_SLOP:int = 20;
-    
-    /**
-     *  @private
-     *  Threshold for number of pixels they must move to count as a diagonal scroll
-     */
-    private static const MIN_DIAGONAL_SLOP:int = 20;
-    
-    /**
-     *  @private
-     *  The amount of deceleration to apply to the velocity for each effect period
-     *  For a faster deceleration, you can switch this to 0.990.
-     */
-    private static const THROW_EFFECT_DECEL_FACTOR:Number = 0.998;
-
-    /**
-     *  @private
      *  The duration of the overshoot effect when a throw "bounces" against the end of the list.
      */
     private static const THROW_OVERSHOOT_TIME:int = 200;
@@ -590,6 +565,34 @@ public class Scroller extends SkinnableComponent
      *  the vertical scroll bar should be hidden or not)
      */
     mx_internal var verticalScrollInProgress:Boolean = false;
+    
+    /**
+     *  @private
+     *  Threshold for screen distance they must move to count as a horizontal scroll
+     *  Based on 20 pixels on a 252ppi device.
+     */
+    mx_internal var minHorizontalSlopInches:Number = 0.079365; // 20.0/252.0
+    
+    /**
+     *  @private
+     *  Threshold for screen distance they must move to count as a vertical scroll
+     *  Based on 20 pixels on a 252ppi device.
+     */
+    mx_internal var minVerticalSlopInches:Number = 0.079365; // 20.0/252.0
+    
+    /**
+     *  @private
+     *  Threshold for screen distance they must move to count as a diagonal scroll
+     *  Based on 20 pixels on a 252ppi device.
+     */
+    mx_internal var minDiagonalSlopInches:Number = 0.079365; // 20.0/252.0
+    
+    /**
+     *  @private
+     *  The amount of deceleration to apply to the velocity for each effect period
+     *  For a faster deceleration, you can switch this to 0.990.
+     */
+    mx_internal var throwEffectDecelFactor:Number = 0.998;
     
     /**
      *  @private
@@ -725,13 +728,19 @@ public class Scroller extends SkinnableComponent
      *  the container wrapped by the scroller receives focus, 
      *  the Scroller scrolls that component into view if the keyboard is 
      *  opening
-     */ 
+     */    
     mx_internal var ensureElementIsVisibleForSoftKeyboard:Boolean = true;
-        
+    
     /**
      *  @private 
      */ 
     private var lastFocusedElement:IVisualElement;
+    
+    /**
+     *  @private 
+     *  Used to detect when the device orientation (landscape/portrait) has changed
+     */
+    private var aspectRatio:String;
     
     /**
      *  @private 
@@ -1049,7 +1058,7 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Helper function for checkScrollPositionsOnUpdateComplete.  
+     *  Helper function for checkScrollPosition.  
      */
     private function getMotionPathCurrentVelocity(mp:MotionPath,currentTime:Number,totalTime:Number):Number
     {
@@ -1071,10 +1080,14 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private 
      */
-    private function checkScrollPositionsOnUpdateComplete(event:FlexEvent):void
+    private function checkScrollPosition():void
     {
-        viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
-            checkScrollPositionsOnUpdateComplete);
+        // Determine whether there's been a device orientation change
+        // Note:  the first time this code runs it may falsely appear as though an orientation 
+        // change has occurred (aspectRatio is null).  This is okay since there will be no 
+        // throw animation playing, so orientationChange will not be acted upon.
+        var orientationChange:Boolean = aspectRatio != FlexGlobals.topLevelApplication.aspectRatio;
+        aspectRatio = FlexGlobals.topLevelApplication.aspectRatio;
         
         var curVelocity:Point;
         
@@ -1092,48 +1105,83 @@ public class Scroller extends SkinnableComponent
         if (throwEffect && throwEffect.isPlaying && (didNotThrowFarEnough || threwTooFar))
         {
             // There's currently a throw animation playing, and it's throwing to a 
-            // now-incorrect position.  We're going to stop the animation and start
-            // a better one to continue the throw.
-            
-            var velX:Number = 0;
-            var velY:Number = 0;
-
-            // Get the current position of the existing throw animation
-            var effectTime:Number = throwEffect.playheadTime;
-
-            // It's possible for playheadTime to not be set if we're getting it
-            // before the first animation timer call.
-            if (isNaN(effectTime))
-                effectTime = 0;
-
-            var effectDuration:Number = throwEffect.duration;
-            
-            // Now get the current effective velocity for each motionpath in the animation. 
-            for (var t:int = 0; t < throwEffect.motionPaths.length; t++)
+            // now-incorrect position.
+            if (orientationChange)
             {
-                var vel:Number = getMotionPathCurrentVelocity(throwEffect.motionPaths[t], effectTime, effectDuration);
-
-                // The property can only either be horizontalScrollPosition or verticalScrollPosition
-                if (throwEffect.motionPaths[t].property == "horizontalScrollPosition")
-                    velX = vel;
-                else
-                    velY = vel;
+                // The throw end position became invalid because the device
+                // orientation changed.  In this case, we just want to stop
+                // the throw animation and snap to valid positions.  We don't
+                // want to animate to the final position because this may
+                // require changing directions relative to the current throw,
+                // which looks strange.
+                throwEffect.stop();
+                if (viewport.verticalScrollPosition > maxVSP)
+                    viewport.verticalScrollPosition = maxVSP;
+                if (viewport.horizontalScrollPosition > maxHSP)
+                    viewport.horizontalScrollPosition = maxHSP;
             }
-
-            // Stop the existing throw animation now that we've determined its current velocities.
-            stoppedPreemptively = true;
-            throwEffect.stop();
-
-            // Now perform a new throw to get us to the right position.
-            performThrow(-velX, -velY);
+            else
+            {
+                // The size of the content may have changed during the throw.
+                // In this case, we'll stop the current animation and start
+                // a new one that gets us to the correct position. 
+            
+                var velX:Number = 0;
+                var velY:Number = 0;
+                
+                // Get the current position of the existing throw animation
+                var effectTime:Number = throwEffect.playheadTime;
+                
+                // It's possible for playheadTime to not be set if we're getting it
+                // before the first animation timer call.
+                if (isNaN(effectTime))
+                    effectTime = 0;
+                
+                var effectDuration:Number = throwEffect.duration;
+                
+                // Now get the current effective velocity for each motionpath in the animation. 
+                for (var t:int = 0; t < throwEffect.motionPaths.length; t++)
+                {
+                    var vel:Number = getMotionPathCurrentVelocity(throwEffect.motionPaths[t], effectTime, effectDuration);
+                    
+                    // The property can only either be horizontalScrollPosition or verticalScrollPosition
+                    if (throwEffect.motionPaths[t].property == "horizontalScrollPosition")
+                        velX = vel;
+                    else
+                        velY = vel;
+                }
+                
+                // Stop the existing throw animation now that we've determined its current velocities.
+                stoppedPreemptively = true;
+                throwEffect.stop();
+                
+                // Now perform a new throw to get us to the right position.
+                performThrow(-velX, -velY);
+            }
         }
         else if (!inTouchInteraction)
         {
             // No touch interaction is in effect, but the content may be sitting at
-            // a scroll position that is now invalid.  Note that performThrow will
-            // only actually perform a throw if the positions actually are invalid.
-            performThrow(0, 0);
+            // a scroll position that is now invalid.  If so, snap the content to
+            // a valid position.  The most likely reason we get here is that the
+            // device orientation changed while the content is stationary (i.e. not
+            // in an animated throw)
+            if (viewport.verticalScrollPosition > maxVSP)
+                viewport.verticalScrollPosition = maxVSP;
+            if (viewport.horizontalScrollPosition > maxHSP)
+                viewport.horizontalScrollPosition = maxHSP;
         }
+    }
+    
+    /**
+     *  @private 
+     */
+    private function checkScrollPositionsOnUpdateComplete(event:FlexEvent):void
+    {
+        viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
+            checkScrollPositionsOnUpdateComplete);
+        
+        checkScrollPosition();
     }
     
     /**
@@ -1165,7 +1213,7 @@ public class Scroller extends SkinnableComponent
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
-                
+        
         // When we gain focus, make sure the focused element is visible
         if (viewport && ensureElementIsVisibleForSoftKeyboard)
         {
@@ -1176,9 +1224,9 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     */  
+     */ 
     override protected function focusOutHandler(event:FocusEvent):void
-    {
+        {
         super.focusOutHandler(event);
         lastFocusedElement = null;
     }
@@ -1191,11 +1239,8 @@ public class Scroller extends SkinnableComponent
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
         {
             // When the orientation (landscape/portrait) changes, then the valid
-            // scroll position ranges may have changed.  In this case, we need to
-            // schedule an updateComplete handler to check and potentially correct
-            // the scroll positions.
-            viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
-                checkScrollPositionsOnUpdateComplete);
+            // scroll position ranges may have changed.
+            checkScrollPosition();
         }
     }
     
@@ -1430,7 +1475,7 @@ public class Scroller extends SkinnableComponent
     //  Touch scrolling methods
     //
     //--------------------------------------------------------------------------
-    
+	
     /**
      *  @private
      *  Add touch listeners
@@ -1477,8 +1522,8 @@ public class Scroller extends SkinnableComponent
             // We want to solve for "time" in this equasion: velocity*(decel^time)-0.01 = 0.
             // Note that we are only calculating an effect duration here.  The actual curve of our throw velocity is determined by 
             // the exponential easing function we use between animation keyframes.
-            var throwTimeX:int = velocityX == 0 ? 0 : (Math.log(0.01 / (Math.abs(velocityX)))) / Math.log(THROW_EFFECT_DECEL_FACTOR);
-            var throwTimeY:int = velocityY == 0 ? 0 : (Math.log(0.01 / (Math.abs(velocityY)))) / Math.log(THROW_EFFECT_DECEL_FACTOR);
+            var throwTimeX:int = velocityX == 0 ? 0 : (Math.log(0.01 / (Math.abs(velocityX)))) / Math.log(throwEffectDecelFactor);
+            var throwTimeY:int = velocityY == 0 ? 0 : (Math.log(0.01 / (Math.abs(velocityY)))) / Math.log(throwEffectDecelFactor);
 
             if (scrollerLayout.canScrollHorizontally && scrollerLayout.canScrollVertically)
             {
@@ -1826,9 +1871,10 @@ public class Scroller extends SkinnableComponent
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper(this);
-                    touchScrollHelper.horizontalSlop = MIN_HORIZONTAL_SLOP;
-                    touchScrollHelper.verticalSlop = MIN_VERTICAL_SLOP;
-                    touchScrollHelper.diagonalSlop = MIN_DIAGONAL_SLOP;
+                    var dpi:Number = flash.system.Capabilities.screenDPI;
+                    touchScrollHelper.horizontalSlop = minHorizontalSlopInches * dpi;
+                    touchScrollHelper.verticalSlop = minVerticalSlopInches * dpi;
+                    touchScrollHelper.diagonalSlop = minDiagonalSlopInches * dpi;
                 }
             }
             else
@@ -2232,7 +2278,7 @@ public class Scroller extends SkinnableComponent
         
         touchScrollHelper.startScrollWatch(event);
     }
-        
+    	
     /**
      *  @private
      */
@@ -2240,7 +2286,7 @@ public class Scroller extends SkinnableComponent
     {
         var xMove:int = 0;
         var yMove:int = 0;
-        
+		
         if (scrollerLayout && scrollerLayout.canScrollHorizontally)
             xMove = dragX;
         
@@ -2276,7 +2322,7 @@ public class Scroller extends SkinnableComponent
         // clamp the values here
         newHSP = Math.min(Math.max(newHSP, -viewportWidth), maxWidth+viewportWidth);
         newVSP = Math.min(Math.max(newVSP, -viewportHeight), maxHeight+viewportHeight);
-        
+		
         viewport.horizontalScrollPosition = newHSP;
         viewport.verticalScrollPosition = newVSP;
     }
@@ -2343,141 +2389,141 @@ public class Scroller extends SkinnableComponent
         // scrollbars in overlay mode
         skin.invalidateDisplayList();
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Text selection auto scroll
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  When true, use the text selection scroll behavior instead of the 
-     *  typical "throw" behavior. This is only used when interactionMode="touch"
-     */
-    mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
-    private var textSelectionAutoScrollTimer:Timer;
-    private var minTextSelectionVScrollPos:int = 0;
-    private var maxTextSelectionVScrollPos:int = -1;
-    private var minTextSelectionHScrollPos:int = 0;
-    private var maxTextSelectionHScrollPos:int = -1;
-    private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
-    
-    /**
-     *  @private
-     *  Change scroll behavior when selecting text. 
-     */
-    mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
-                       minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
-                       minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
-    {
-        if (getStyle("interactionMode") == InteractionMode.TOUCH)
-        {
-            this.textSelectionAutoScrollEnabled = enable;
-            this.minTextSelectionHScrollPos = minHScrollPosition;
-            this.maxTextSelectionHScrollPos = maxHScrollPosition;
-            this.minTextSelectionVScrollPos = minVScrollPosition;
-            this.maxTextSelectionVScrollPos = maxVScrollPosition;
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function setUpTextSelectionAutoScroll():void
-    {
-        if (!textSelectionAutoScrollTimer)
-        {
-            textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
-            textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
-                textSelectionAutoScrollTimerHandler);
-            
-            textSelectionAutoScrollTimer.start();
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function stopTextSelectionAutoScroll():void
-    {
-        if (textSelectionAutoScrollTimer)
-        {
-            textSelectionAutoScrollTimer.stop();
-            textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
-                textSelectionAutoScrollTimerHandler);
-            textSelectionAutoScrollTimer = null;
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
-    {
-        const SLOW_SCROLL_THRESHOLD:int = 12;       // Distance from edge to trigger a slow scroll
-        const SLOW_SCROLL_SPEED:int = 20;           // Pixels per timer callback to scroll
-        const FAST_SCROLL_THRESHOLD:int = 3;        // Distance from edge to trigger a fast scroll
-        const FAST_SCROLL_DELTA:int = 30;           // Added to SLOW_SCROLL_SPEED to determine fast speed
-        
-        var newVSP:Number = viewport.verticalScrollPosition;
-        var newHSP:Number = viewport.horizontalScrollPosition;
-        
-        if (scrollerLayout.canScrollHorizontally)
-        {
-            if (mouseX > width - SLOW_SCROLL_THRESHOLD)
-            {
-                newHSP += SLOW_SCROLL_SPEED;
-                
-                if (mouseX > width - FAST_SCROLL_THRESHOLD)
-                    newHSP += FAST_SCROLL_DELTA;
-                
-                if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
-                    newHSP = maxTextSelectionHScrollPos;
-            }
-            
-            if (mouseX < SLOW_SCROLL_THRESHOLD)
-            {
-                newHSP -= SLOW_SCROLL_SPEED;
-                
-                if (mouseX < FAST_SCROLL_THRESHOLD)
-                    newHSP -= FAST_SCROLL_DELTA;
-                
-                if (newHSP < minTextSelectionHScrollPos)
-                    newHSP = minTextSelectionHScrollPos;
-            }
-        }
-        
-        if (scrollerLayout.canScrollVertically)
-        {
-            if (mouseY > height - SLOW_SCROLL_THRESHOLD)
-            {
-                newVSP += SLOW_SCROLL_SPEED;
-                
-                if (mouseY > height - FAST_SCROLL_THRESHOLD)
-                    newVSP += FAST_SCROLL_DELTA;
-                
-                if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
-                    newVSP = maxTextSelectionVScrollPos;
-            }
-            
-            if (mouseY < SLOW_SCROLL_THRESHOLD)
-            {
-                newVSP -= SLOW_SCROLL_SPEED;
-                
-                if (mouseY < FAST_SCROLL_THRESHOLD)
-                    newVSP -= FAST_SCROLL_DELTA;
-                
-                if (newVSP < minTextSelectionVScrollPos)
-                    newVSP = minTextSelectionVScrollPos;
-            }
-        }
-        
-        if (newHSP != viewport.horizontalScrollPosition)
-            viewport.horizontalScrollPosition = newHSP;
-        if (newVSP != viewport.verticalScrollPosition)
-            viewport.verticalScrollPosition = newVSP;
-    }
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Text selection auto scroll
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  When true, use the text selection scroll behavior instead of the 
+	 *  typical "throw" behavior. This is only used when interactionMode="touch"
+	 */
+	mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
+	private var textSelectionAutoScrollTimer:Timer;
+	private var minTextSelectionVScrollPos:int = 0;
+	private var maxTextSelectionVScrollPos:int = -1;
+	private var minTextSelectionHScrollPos:int = 0;
+	private var maxTextSelectionHScrollPos:int = -1;
+	private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
+	
+	/**
+	 *  @private
+	 *  Change scroll behavior when selecting text. 
+	 */
+	mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
+					   minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
+					   minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
+	{
+		if (getStyle("interactionMode") == InteractionMode.TOUCH)
+		{
+			this.textSelectionAutoScrollEnabled = enable;
+			this.minTextSelectionHScrollPos = minHScrollPosition;
+			this.maxTextSelectionHScrollPos = maxHScrollPosition;
+			this.minTextSelectionVScrollPos = minVScrollPosition;
+			this.maxTextSelectionVScrollPos = maxVScrollPosition;
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	mx_internal function setUpTextSelectionAutoScroll():void
+	{
+		if (!textSelectionAutoScrollTimer)
+		{
+			textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
+			textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
+				textSelectionAutoScrollTimerHandler);
+			
+			textSelectionAutoScrollTimer.start();
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	mx_internal function stopTextSelectionAutoScroll():void
+	{
+		if (textSelectionAutoScrollTimer)
+		{
+			textSelectionAutoScrollTimer.stop();
+			textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
+				textSelectionAutoScrollTimerHandler);
+			textSelectionAutoScrollTimer = null;
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
+	{
+		const SLOW_SCROLL_THRESHOLD:int = 12;		// Distance from edge to trigger a slow scroll
+		const SLOW_SCROLL_SPEED:int = 20;			// Pixels per timer callback to scroll
+		const FAST_SCROLL_THRESHOLD:int = 3;		// Distance from edge to trigger a fast scroll
+		const FAST_SCROLL_DELTA:int = 30; 			// Added to SLOW_SCROLL_SPEED to determine fast speed
+		
+		var newVSP:Number = viewport.verticalScrollPosition;
+		var newHSP:Number = viewport.horizontalScrollPosition;
+		
+		if (scrollerLayout.canScrollHorizontally)
+		{
+			if (mouseX > width - SLOW_SCROLL_THRESHOLD)
+			{
+				newHSP += SLOW_SCROLL_SPEED;
+				
+				if (mouseX > width - FAST_SCROLL_THRESHOLD)
+					newHSP += FAST_SCROLL_DELTA;
+				
+				if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
+					newHSP = maxTextSelectionHScrollPos;
+			}
+			
+			if (mouseX < SLOW_SCROLL_THRESHOLD)
+			{
+				newHSP -= SLOW_SCROLL_SPEED;
+				
+				if (mouseX < FAST_SCROLL_THRESHOLD)
+					newHSP -= FAST_SCROLL_DELTA;
+				
+				if (newHSP < minTextSelectionHScrollPos)
+					newHSP = minTextSelectionHScrollPos;
+    		}
+		}
+		
+		if (scrollerLayout.canScrollVertically)
+		{
+			if (mouseY > height - SLOW_SCROLL_THRESHOLD)
+			{
+				newVSP += SLOW_SCROLL_SPEED;
+				
+				if (mouseY > height - FAST_SCROLL_THRESHOLD)
+					newVSP += FAST_SCROLL_DELTA;
+				
+				if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
+					newVSP = maxTextSelectionVScrollPos;
+			}
+			
+			if (mouseY < SLOW_SCROLL_THRESHOLD)
+			{
+				newVSP -= SLOW_SCROLL_SPEED;
+				
+				if (mouseY < FAST_SCROLL_THRESHOLD)
+					newVSP -= FAST_SCROLL_DELTA;
+				
+				if (newVSP < minTextSelectionVScrollPos)
+					newVSP = minTextSelectionVScrollPos;
+			}
+		}
+		
+		if (newHSP != viewport.horizontalScrollPosition)
+			viewport.horizontalScrollPosition = newHSP;
+		if (newVSP != viewport.verticalScrollPosition)
+			viewport.verticalScrollPosition = newVSP;
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -2532,7 +2578,7 @@ public class Scroller extends SkinnableComponent
      *  application to resize itself and fix the scroll position if necessary
      */ 
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
-    {
+    {   
         // Adjust the scroll position after the application's size is restored. 
         adjustScrollPositionAfterSoftKeyboardDeactivate();
         oldSoftKeyboardHeight = NaN;
@@ -2543,7 +2589,7 @@ public class Scroller extends SkinnableComponent
      *  @private
      */ 
     mx_internal function adjustScrollPositionAfterSoftKeyboardDeactivate():void
-    {   
+    {      
         // If the throw animation is still playing, stop it. Otherwise, fix the 
         // scroll position. 
         if (throwEffect && throwEffect.isPlaying)
@@ -2947,7 +2993,7 @@ class TouchScrollHelper
                 var scrollStartEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_START, true, true);
                 scrollStartEvent.relatedObject = scroller;
                 scrollStartEvent.reason = TouchInteractionReason.SCROLL;
-                dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
+				dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
                 
                 isScrolling = true;
                 
@@ -3004,11 +3050,11 @@ class TouchScrollHelper
         // if we are scrolling (even if we just started scrolling)
         if (isScrolling)
         {
-            if (scroller.textSelectionAutoScrollEnabled)
-            {
-                scroller.setUpTextSelectionAutoScroll();
-                return;
-            }
+			if (scroller.textSelectionAutoScrollEnabled)
+			{
+				scroller.setUpTextSelectionAutoScroll();
+				return;
+			}
 
             // calculate the delta
             var dx:Number = event.stageX - scrollGestureAnchorPoint.x;
@@ -3034,13 +3080,13 @@ class TouchScrollHelper
                 // move event will continue to be handled right in this function.
                 if (Scroller.dragEventThinning)
                 {
-                // Start the periodic timer that will do subsequent drag 
-                // scrolling if necessary. 
-                dragTimer.start();
-                
-                // No additional mouse events received yet, so no scrolling pending.
-                dragScrollPending = false;
-            }
+                    // Start the periodic timer that will do subsequent drag 
+                    // scrolling if necessary. 
+                    dragTimer.start();
+                    
+                    // No additional mouse events received yet, so no scrolling pending.
+                    dragScrollPending = false;
+                }
             }
             else
             {
@@ -3094,14 +3140,14 @@ class TouchScrollHelper
         if (!isScrolling)
             return;
        
-        // Don't throw if we're doing a text selection auto scroll
-        if (scroller.textSelectionAutoScrollEnabled)
-        {
-            scroller.stopTextSelectionAutoScroll();
-            endTouchScroll();
-            return;
-        }
-        
+		// Don't throw if we're doing a text selection auto scroll
+		if (scroller.textSelectionAutoScrollEnabled)
+		{
+			scroller.stopTextSelectionAutoScroll();
+			endTouchScroll();
+			return;
+		}
+		
         if (dragTimer)
         {
             if (dragScrollPending)
@@ -3159,13 +3205,13 @@ class TouchScrollHelper
         }
         averageDt /= len-1;
         
-        // if off screen for some reason, let's end scrolling:
-        if (!scroller.stage)
-        {
+		// if off screen for some reason, let's end scrolling:
+		if (!scroller.stage)
+		{
             endTouchScroll();
-            return;
-        }
-        
+			return;
+		}
+		
         var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
 
         // calculate the last velocity and make sure there was no pause that occurred
@@ -3187,9 +3233,8 @@ class TouchScrollHelper
             throwVelocity.y = 0;
         }
 
-        // FIXME (rfrishbe): should be minXVelocity, minYVelocity, minDiagonalVelocity
-        // FIXME (rfrishbe): this should be parameterized better and the heuristic should 
-        // be documented better
+        // If the gesture appears to have slowed or stopped prior to the mouse up, 
+        // then force the velocity to zero.
         if ( (lastDt >= 3*averageDt) &&
             (lastVelocity.length <= minVelocityPixels))
         {
@@ -3261,40 +3306,40 @@ class TouchScrollHelper
         
         return new Point(velX,velY);
     }
-    
-    /**
-     *  @private
-     *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
-     *  object can be off the display list, this may be tricky.  Technically, we should 
-     *  grab all the live objects at the time of mouseDown and dispatch events to them 
-     *  manually, but instead, we just use this heuristic, which is dispatch it to 
-     *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
-     *  then dispatch to scroller as well.
-     * 
-     *  <p>If you absolutely need to know the touch event ended, add event listeners 
-     *  to the mouseDownedDisplayObject directly and don't rely on event 
-     *  bubbling.</p>
-     */
-    private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
-    {
-        var eventAccepted:Boolean = true;
-        if (mouseDownedDisplayObject)
-        {
-            eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
-            if (!mouseDownedDisplayObject.stage)
-            {
-                if (scroller && !scroller.contains(mouseDownedDisplayObject))
-                    eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-            }
-        }
-        else
-        {
-            eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-        }
-        
-        return eventAccepted;
-    }
-    
+	
+	/**
+	 *  @private
+	 *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
+	 *  object can be off the display list, this may be tricky.  Technically, we should 
+	 *  grab all the live objects at the time of mouseDown and dispatch events to them 
+	 *  manually, but instead, we just use this heuristic, which is dispatch it to 
+	 *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
+	 *  then dispatch to scroller as well.
+	 * 
+	 *  <p>If you absolutely need to know the touch event ended, add event listeners 
+	 *  to the mouseDownedDisplayObject directly and don't rely on event 
+	 *  bubbling.</p>
+	 */
+	private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
+	{
+		var eventAccepted:Boolean = true;
+		if (mouseDownedDisplayObject)
+		{
+			eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
+			if (!mouseDownedDisplayObject.stage)
+			{
+				if (scroller && !scroller.contains(mouseDownedDisplayObject))
+					eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+			}
+		}
+		else
+		{
+			eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+		}
+		
+		return eventAccepted;
+	}
+	
     /**
      *  @private
      *  When the touchScrollThrow is over, we should dispatch a touchInteractionEnd.
