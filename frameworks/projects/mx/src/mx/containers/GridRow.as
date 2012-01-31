@@ -31,6 +31,11 @@ use namespace mx_internal;
  *  Possible values are <code>"left"</code>, <code>"center"</code>,
  *  and <code>"right"</code>.
  *  The default value is <code>"left"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -39,6 +44,11 @@ use namespace mx_internal;
  *  Possible values are <code>"top"</code>, <code>"middle"</code>,
  *  and <code>"bottom"</code>.
  *  The default value is <code>"top"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 
@@ -147,6 +157,11 @@ use namespace mx_internal;
  *  @see mx.containers.GridItem
  *
  *  @includeExample examples/GridLayoutExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GridRow extends HBox
 {
@@ -160,6 +175,11 @@ public class GridRow extends HBox
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function GridRow()
     {
@@ -361,6 +381,11 @@ public class GridRow extends HBox
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
