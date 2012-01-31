@@ -315,7 +315,7 @@ public class ScrollerLayout extends LayoutBase
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
             hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
-        else
+        else if (hsb)
         {
             if (hsb.scaleX != 0) hsbScaleX = hsb.scaleX;
             if (hsb.scaleY != 0) hsbScaleY = hsb.scaleY;
@@ -331,7 +331,7 @@ public class ScrollerLayout extends LayoutBase
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
             vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
-        else
+        else if (vsb)
         {
             if (vsb.scaleX != 0) vsbScaleX = vsb.scaleX;
             if (vsb.scaleY != 0) vsbScaleY = vsb.scaleY;
