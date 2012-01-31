@@ -940,7 +940,8 @@ public class TextBase extends SkinnableComponent
             return;
         }
 
-        super.drawFocus(isFocused);
+        if (textView)
+            textView.drawFocus(isFocused);
     }
     
     //--------------------------------------------------------------------------
@@ -1282,7 +1283,19 @@ public class TextBase extends SkinnableComponent
 
         super.focusInHandler(event);
     }
+    
+    /**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {        
+        super.focusOutHandler(event);
 
+        // Trigger validation when leaving the field to test for required
+        // fields and invalid values.
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
