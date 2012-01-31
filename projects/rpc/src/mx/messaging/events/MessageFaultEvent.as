@@ -17,6 +17,12 @@ import mx.messaging.messages.ErrorMessage;
 
 /**
  * The MessageFaultEvent class is used to propagate fault messages within the messaging system.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MessageFaultEvent extends Event
 {
@@ -54,6 +60,12 @@ public class MessageFaultEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *  @eventType fault
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */     
     public static const FAULT:String = "fault";
 
@@ -70,6 +82,12 @@ public class MessageFaultEvent extends Event
      *  @param message The ErrorMessage associated with the fault.
      * 
      *  @return New MessageFaultEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static function createEvent(msg:ErrorMessage):MessageFaultEvent
     {
@@ -95,6 +113,12 @@ public class MessageFaultEvent extends Event
      *  event can be prevented.
      * 
      *  @param message The ErrorMessage associated with the fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MessageFaultEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false,
             message:ErrorMessage = null)
@@ -112,6 +136,12 @@ public class MessageFaultEvent extends Event
 
     /**
      *  The ErrorMessage for this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var message:ErrorMessage;
     
@@ -136,6 +166,12 @@ public class MessageFaultEvent extends Event
      *
      *  @see #faultString
      *  @see #faultDetail
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get faultCode():String
     {
@@ -154,6 +190,12 @@ public class MessageFaultEvent extends Event
      *
      *  @see #faultString
      *  @see #faultCode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get faultDetail():String
     {
@@ -169,6 +211,12 @@ public class MessageFaultEvent extends Event
      *
      *  @see #faultCode
      *  @see #faultDetail
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get faultString():String
     {
@@ -187,6 +235,12 @@ public class MessageFaultEvent extends Event
      *  ErrorMessage.
      *
      *  @see MessageFaultEvent#rootCause
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get rootCause():Object
     {
@@ -203,6 +257,12 @@ public class MessageFaultEvent extends Event
      *  Clones the MessageFaultEvent.
      *
      *  @return Copy of this MessageFaultEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function clone():Event
     {
@@ -213,6 +273,12 @@ public class MessageFaultEvent extends Event
      *  Returns a string representation of the MessageFaultEvent.
      *
      *  @return String representation of the MessageFaultEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function toString():String
     {
