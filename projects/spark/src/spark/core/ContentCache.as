@@ -584,6 +584,36 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     }
     
     /**
+     *  Resets the queue to initial empty state.  All requests, both active
+     *  and queued, are cancelled. All cache entries associated with canceled
+     *  requests are invalidated.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function removeAllQueueEntries():void
+    {
+        // Cancel any active requests and return to queue.
+        requeueActive(true);
+        
+        // Walk queue and invalidate any associated cache entries.
+        if (enableCaching)
+        {   
+            var current:QueueEntryNode = requestQueue.head as QueueEntryNode;
+            while (current)
+            {
+                removeCacheEntry(current.urlRequest.url);
+                current = current.next as QueueEntryNode;
+            }
+        }
+        
+        // Clear request queue.
+        requestQueue = new LinkedList();
+    }
+    
+    /**
      *  Reorder our request queue giving priorityGroup preference.
      *  @private
      */
@@ -616,18 +646,22 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     }
     
     /**
-     *  Requeues all active requests.
+     *  Requeues active requests.
+     * 
+     *  @param requeueAll Cancel all active requests if true,
+     *  otherwise cancel and requeue any requests not in the
+     *  active priority group.
      * 
      *  @private
      */
-    mx_internal function requeueActive():void
+    mx_internal function requeueActive(requeueAll:Boolean=false):void
     {
         var current:QueueEntryNode = activeRequests.head as QueueEntryNode;
         while (current)
         {
             var activeNode:QueueEntryNode = current;
             current = current.next as QueueEntryNode;
-            if (activeNode.queueGroup != priorityGroup)
+            if (activeNode.queueGroup != priorityGroup || requeueAll)
             {
                 // Remove from active list and invoke close() on the Loader.
                 // We'll reinvoke load() again once the queued request is 
@@ -644,7 +678,6 @@ public class ContentCache extends EventDispatcher implements IContentLoader
                     requestQueue.unshift(activeNode);
                 }
             }
-            
         }
     }
     //--------------------------------------------------------------------------
