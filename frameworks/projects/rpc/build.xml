@@ -13,30 +13,101 @@
 
 <project name="rpc" default="main" basedir=".">
 
-	<property file="build.properties"/>
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
-	<target name="main" depends="clean,compile,bundles" description="Clean build of rpc.swc"/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of rpc.swc and its English and Japanese resources"/>
 
 	<target name="clean">
-		<delete file="bundles.properties"/>
-		<delete file="${frameworks.dir}/libs/rpc.swc"/>
-		<delete file="${frameworks.dir}/libs/rpc.swc.incr"/>
-		<ant dir="bundles/en_US" target="clean"/>
-		<ant dir="bundles/ja_JP" target="clean"/>
+		<delete failonerror="false">
+			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="rpc.swc"/>
+				<include name="rpc.swc.incr"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/rpc_rb.swc"/>
+				<include name="*/rpc_rb.swc.incr"/>
+			</fileset>
+		</delete>
 	</target>
 
-	<target name="compile">
-		<echo file="${frameworks.dir}/version.properties" append="false">build=${build.number}</echo>
+	<target name="compile" description="Compiles rpc.swc">
+		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/rpc.swc"/>
-		<ant dir="${frameworks.dir}" target="compc"/>
-		<delete file="${frameworks.dir}/version.properties"/>
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in RPCClasses.as,
+			because these aren't referenced by the manifest classes.
+			Compile against framework.swc, but don't link it into rpc.swc.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc output="${FLEX_HOME}/frameworks/libs/rpc.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<include-classes>RPCClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/playerglobal.swc"/>
+				<include name="framework.swc"/>
+			</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
 	</target>
 
-	<target name="bundles">
-		<echo message="Compiling frameworks/locale/en_US/rpc_rb.swc"/>
-		<ant dir="bundles/en_US"/>
-		<echo message="Compiling frameworks/locale/ja_JP/rpc_rb.swc"/>
-		<ant dir="bundles/ja_JP"/>
+	<!-- This is a private target for building rpc_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with antcall. -->
+	<target name="bundle">
+		<echo message="Compiling frameworks/locale/${locale}/rpc_rb.swc"/>
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<compc output="${FLEX_HOME}/frameworks/locale/${locale}/rpc_rb.swc"
+			   locale="${locale}">
+			<include-resource-bundles bundle="collections"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="logging"/>
+			<include-resource-bundles bundle="messaging"/>
+			<include-resource-bundles bundle="rpc"/>
+			<include-resource-bundles bundle="styles"/>
+			<include-resource-bundles bundle="utils"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${basedir}/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<include-libraries/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/playerglobal.swc"/>
+			</external-library-path>
+		</compc>
+	</target>
+
+	<!-- Targets for compiling rpc_rb.swc for various locales -->
+	
+	<target name="en_US" description="English resources">
+		<antcall target="bundle">
+			<param name="locale" value="en_US"/>
+		</antcall>
+	</target>
+	
+	<target name="ja_JP" description="Japanese resources">
+		<antcall target="bundle">
+			<param name="locale" value="ja_JP"/>
+		</antcall>
 	</target>
 
 </project>
