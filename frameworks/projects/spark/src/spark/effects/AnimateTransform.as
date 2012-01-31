@@ -182,34 +182,36 @@ public class AnimateTransform extends Animate
     // described in the comment for linearEaser above.
     mx_internal var transformEffectSubclass:Boolean = false;
     
-    // FIXME (chaase): Is weak Dictionary sufficient to hold these values and then
-    // dispense with them appropriately? What if we get interrupted before we
-    // clear the map?
-    /**
-     * @private
-     * 
-     * Stores the single instance for the current transform effect on a given target.
-     * There can be only one instance per target at any given time, so we store
-     * that instance in the map and insert new effect values into it before playing
-     * it, rather than creating new instances for each new effect. The instance
-     * is cleared out when the effect is played because we cannot add new information
-     * to the effect after it has already been started.
-     */
-    static protected var transformInstancePerTarget:Dictionary = new Dictionary(true);
-
     // FIXME (chaase): consider putting the three per-target maps into one 
     // single structure
     /**
      * @private
      * These maps hold information about whether values have already been applied
-     * to a target as a part of the 
+     * to a target as a part of the transition start or end process
      */
-    static protected var appliedStartValuesPerTarget:Dictionary = new Dictionary(true);
+    static private var appliedStartValuesPerTarget:Dictionary = new Dictionary(true);
     /**
      * @private
      */
-    static protected var appliedEndValuesPerTarget:Dictionary = new Dictionary(true);
-    
+    static private var appliedEndValuesPerTarget:Dictionary = new Dictionary(true);
+
+    /**
+     * The sharedObjectDepot holds shared transform effect instances on a 
+     * per-toplevel-Parallel basis. That is, transform effects running in
+     * parallel will share a common effect instance with other effects
+     * grouped in the same Parallel tree. Effects running individually, or
+     * running inside a Sequence, will not share instances. We manage this
+     * by having a map-of-maps inside our sharedObjectDepot. The top-level
+     * map manages the per-toplevel-Parallel maps (maps keyd from particular
+     * Parallel effects), whose entries are maps that are keyed off of
+     * instance targets. The reason for the separate utility class is to
+     * simplify managing the map-of-maps; the depot uses a reference counter
+     * so that we know, when removing the shared-instance map entries, whether
+     * we can remove the top level map for a particular Paralle effect.
+     */
+    static private var sharedObjectDepot:SharedObjectDepot
+         = new SharedObjectDepot();
+             
     /**
      * @private
      * Helper structures to hold values used in applyValues()
@@ -389,6 +391,21 @@ public class AnimateTransform extends Animate
     //
     //--------------------------------------------------------------------------
 
+    private function getOwningParallelEffect():Parallel
+    {
+        var prevParent:Parallel = null;
+        var parent:Effect = parentCompositeEffect;
+        // Only share instance for children of parallel effects
+        while (parent)
+        {
+            if (parent is Sequence)
+                break;
+            prevParent = Parallel(parent);
+            parent = parent.parentCompositeEffect;
+        }
+        return prevParent;
+    }
+
     /**
      *  @private
      *  
@@ -414,21 +431,22 @@ public class AnimateTransform extends Animate
             target = this.target;
     
         var parent:Effect = parentCompositeEffect;
-        if (!transformInstancePerTarget[target] ||
-            (parent && parent is Sequence))
+        var sharedInstance:IEffectInstance = null;
+        var topmostParallel:Parallel = getOwningParallelEffect();
+        if (topmostParallel != null)
+            sharedInstance = IEffectInstance(
+                sharedObjectDepot.getSharedObject(topmostParallel, target));
+        if (!sharedInstance)
         {
-            // FIXME (chaase): need to clear out this entry once the effect
-            // starts (stops?) because we don't want it hanging around for
-            // future runs
             var newInstance:IEffectInstance = super.createInstance(target);
-            transformInstancePerTarget[target] = newInstance;
+            if (topmostParallel)
+                sharedObjectDepot.storeSharedObject(topmostParallel, 
+                    target, newInstance);
             return newInstance;
         }
         else
         {
-            var instance:AnimateTransformInstance = 
-                AnimateTransformInstance(transformInstancePerTarget[target]);
-            initInstance(instance);
+            initInstance(sharedInstance);
             // return null to indicate that there is no 'new' instance. This 
             // keeps it from being redundantly added to composite effects
             return null;
@@ -446,7 +464,12 @@ public class AnimateTransform extends Animate
     override protected function effectStartHandler(event:EffectEvent):void
     {
         super.effectStartHandler(event);
-        delete transformInstancePerTarget[event.effectInstance.target];
+        // Delete any cached info about the effect instance, such as the
+        // shared transform effect instance
+        var topmostParallel:Parallel = getOwningParallelEffect();
+        if (topmostParallel != null)
+            sharedObjectDepot.removeSharedObject(topmostParallel, 
+                event.effectInstance.target);
         delete appliedStartValuesPerTarget[event.effectInstance.target];
         delete appliedEndValuesPerTarget[event.effectInstance.target];
     }
@@ -1015,7 +1038,7 @@ public class AnimateTransform extends Animate
     override protected function initInstance(instance:IEffectInstance):void
     {
         var i:int;
-        
+        var adjustedDuration:Number = duration;
         var target:Object = instance.target;
         
         var transformInstance:AnimateTransformInstance =
@@ -1052,6 +1075,8 @@ public class AnimateTransform extends Animate
                         if (startDelay != 0)
                             kf.time += startDelay;
                     }
+                    adjustedDuration = Math.max(adjustedDuration, 
+                        mp.keyframes[mp.keyframes.length - 1].time);
                 }
             }
             var globalStartTime:Number = getGlobalStartTime();
@@ -1100,6 +1125,7 @@ public class AnimateTransform extends Animate
         super.initInstance(instance);
         startDelay = tmpStartDelay;
         motionPaths = tmpAnimProps;
+        transformInstance.duration = Math.max(duration, adjustedDuration);
         // For transform effect subclasses (Move, Move3D, Rotate, etc.), 
         // override default easer on the instance. We want the overall easing
         // to be Linear, with the Keyframes controlling the per-interval easing
