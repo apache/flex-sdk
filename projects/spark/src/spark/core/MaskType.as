@@ -47,6 +47,16 @@ public final class MaskType
      *  @productversion Flex 4
      */
     public static const ALPHA:String = "alpha";
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const LUMINOSITY:String = "luminosity";
 }
 
 }
