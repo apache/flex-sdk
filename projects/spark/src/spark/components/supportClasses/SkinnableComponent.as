@@ -323,7 +323,7 @@ public class FxComponent extends UIComponent
                 catch (err:Error) {}
             }
             
-            addChild(skin);
+            super.addChild(skin);
             
             skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         }
@@ -424,7 +424,7 @@ public class FxComponent extends UIComponent
         skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
         clearSkinParts();
-        removeChild(skin);
+        super.removeChild(skin);
         setSkin(null);
     }
 
@@ -738,6 +738,75 @@ public class FxComponent extends UIComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function addChild(child:DisplayObject):DisplayObject
+    {
+        throw(new Error("addChild is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use addItem."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function addChildAt(child:DisplayObject, index:int):DisplayObject
+    {
+        throw(new Error("addChildAt is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use addItemAt."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        throw(new Error("removeChild is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use removeItem."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function removeChildAt(index:int):DisplayObject
+    {
+        throw(new Error("removeChildAt is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use removeItemAt."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function setChildIndex(child:DisplayObject, index:int):void
+    {
+        throw(new Error("setChildIndex is not available in FxComponent. " + 
+                "Instead, modify the skin directly or setItemIndex."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
+    {
+        throw(new Error("swapChildren is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use swapItems."));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function swapChildrenAt(index1:int, index2:int):void
+    {
+        throw(new Error("swapChildrenAt is not available in FxComponent. " + 
+                "Instead, modify the skin directly or use swapItemsAt."));
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Private variables
     //
     //--------------------------------------------------------------------------
@@ -753,7 +822,7 @@ public class FxComponent extends UIComponent
      *  @private
      *  Whether the skin state is invalid or not.
      */
-    protected var skinStateIsDirty:Boolean = false;  
+    private var skinStateIsDirty:Boolean = false;
 }
 
 }
