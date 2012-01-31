@@ -34,14 +34,14 @@ import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
-import spark.primitives.shaders.ColorBurnShader;
-import spark.primitives.shaders.ColorDodgeShader;
-import spark.primitives.shaders.ColorShader;
-import spark.primitives.shaders.ExclusionShader;
-import spark.primitives.shaders.HueShader;
-import spark.primitives.shaders.LuminosityShader;
-import spark.primitives.shaders.SaturationShader;
-import spark.primitives.shaders.SoftLightShader;
+import spark.primitives.supportClasses.shaders.ColorBurnShader;
+import spark.primitives.supportClasses.shaders.ColorDodgeShader;
+import spark.primitives.supportClasses.shaders.ColorShader;
+import spark.primitives.supportClasses.shaders.ExclusionShader;
+import spark.primitives.supportClasses.shaders.HueShader;
+import spark.primitives.supportClasses.shaders.LuminosityShader;
+import spark.primitives.supportClasses.shaders.SaturationShader;
+import spark.primitives.supportClasses.shaders.SoftLightShader;
 
 use namespace mx_internal;
 
