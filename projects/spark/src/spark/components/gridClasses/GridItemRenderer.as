@@ -285,7 +285,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  A flag determining if this renderer should play any 
      *  associated transitions when a state change occurs. 
      */
-    mx_internal const playTransitions:Boolean = false; 
+    mx_internal var playTransitions:Boolean = false; 
     
     //--------------------------------------------------------------------------
     //
