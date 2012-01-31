@@ -967,7 +967,11 @@ public class SimpleText extends TextGraphicElement
                 
                 var elementFormat:ElementFormat =
                     TextElement(textBlock.content).elementFormat;
-                var fontMetrics:FontMetrics = elementFormat.getFontMetrics();
+                var fontMetrics:FontMetrics;
+                if (embeddedFontContext)
+                    fontMetrics = embeddedFontContext.callInContext(elementFormat.getFontMetrics, elementFormat, null);
+                else
+                    fontMetrics = elementFormat.getFontMetrics();
                 
                 var shape:Shape = new Shape();
                 var g:Graphics = shape.graphics;
