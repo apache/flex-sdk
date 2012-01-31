@@ -1872,9 +1872,9 @@ public class Scroller extends SkinnableComponent
                 {
                     touchScrollHelper = new TouchScrollHelper(this);
                     var dpi:Number = flash.system.Capabilities.screenDPI;
-                    touchScrollHelper.horizontalSlop = minHorizontalSlopInches * dpi;
-                    touchScrollHelper.verticalSlop = minVerticalSlopInches * dpi;
-                    touchScrollHelper.diagonalSlop = minDiagonalSlopInches * dpi;
+                    touchScrollHelper.horizontalSlop = Math.round(minHorizontalSlopInches * dpi);
+                    touchScrollHelper.verticalSlop = Math.round(minVerticalSlopInches * dpi);
+                    touchScrollHelper.diagonalSlop = Math.round(minDiagonalSlopInches * dpi);
                 }
             }
             else
