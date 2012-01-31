@@ -488,8 +488,8 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     /**
      *  @private
-     *  Set the values in the given array on the properties held in our
-     *  motionPaths array. This is called by the update and end 
+     *  Set the values in the given animation on the properties held in
+     *  motionPaths. This is called by the update and end 
      *  functions, which are called by the Animation during the animation.
      *  
      *  @langversion 3.0
