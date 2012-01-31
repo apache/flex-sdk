@@ -83,10 +83,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         super();      
     }
     
-    private var mxmlContentChanged:Boolean = false;
     private var needsDisplayObjectAssignment:Boolean = false;
-    
-    private var _mxmlContent:Array;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     private var numGraphicElements:uint = 0;
     
@@ -203,6 +200,10 @@ public class Group extends GroupBase implements IVisualElementContainer
     //  mxmlContent
     //----------------------------------
     
+    private var mxmlContentChanged:Boolean = false;
+    private var _mxmlContent:Array;
+    private var _oldMxmlContent:Array;
+    
     [ArrayElementType("mx.core.IVisualElement")]
     /**
      *  Content for this Group.  Do not modify this array directly.
@@ -228,40 +229,40 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function set mxmlContent(value:Array):void
     {
+        if (!mxmlContentChanged)
+            _oldMxmlContent = _mxmlContent;
         _mxmlContent = value;
         mxmlContentChanged = true;
-        maskChanged = true;
         invalidateProperties();
-        invalidateDisplayList();
     }
 
     /**
      *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
      */ 
-    protected function initializeChildrenArray():void
-    {   
-        // Get rid of existing display object children.
-        // !!!!! This should probably be done through change notification
-        // TODO!! This should be removing the last child b/c we want to 
-        // send an event for each content child. This logic will send
-        // remove event for the 0th content child x times. 
-        for (var idx:int = numChildren; idx > 0; idx--)
-            //itemRemoved(0);
-            super.removeChildAt(0);
-            
-        numGraphicElements = 0;
+    protected function validateMxmlContent():void
+    {
+        mxmlContentChanged = false;
+        var i:int;
         
-        if (_mxmlContent !== null)
+        if (_oldMxmlContent != null)
         {
-            for (var i:int = 0; i < numElements; i++)
+            for (i = _oldMxmlContent.length - 1; i >= 0; i--)
             {
-                elementAdded(getElementAt(i), i);
+                elementRemoved(_oldMxmlContent[i], i);
             }
         }
         
-        assignDisplayObjects();
-        needsDisplayObjectAssignment = false;
+        _oldMxmlContent = null;
+        
+        if (_mxmlContent != null)
+        {
+            var n:int = _mxmlContent.length;
+            for (i = 0; i < n; i++)
+            {
+                elementAdded(_mxmlContent[i], i);
+            }
+        }
     }
     
     /**
@@ -269,16 +270,10 @@ public class Group extends GroupBase implements IVisualElementContainer
      */ 
     override protected function commitProperties():void
     {
+        super.commitProperties();
+        
         if (mxmlContentChanged)
-        {
-            mxmlContentChanged = false;
-            initializeChildrenArray();
-        }
-    
-        // Need to initializeChildrenArray before calling super.commitProperties
-        // initializeChildrenArray removes all of the display list children.
-        // GroupBase's commitProperties reattaches the mask
-        super.commitProperties(); 
+            validateMxmlContent(); 
         
         if (blendModeChanged)
         {
@@ -521,14 +516,12 @@ public class Group extends GroupBase implements IVisualElementContainer
         
         // If we don't have any content yet, initialize it to an empty array
         if (_mxmlContent == null)
-        {
-            mxmlContent = [];
-            mxmlContentChanged = false;
-        }
+            _mxmlContent = [];
         
         _mxmlContent.splice(index, 0, element);
         
-        elementAdded(element, index);
+        if (!mxmlContentChanged)
+            elementAdded(element, index);
         
         return element;
     }
@@ -549,16 +542,15 @@ public class Group extends GroupBase implements IVisualElementContainer
         // check RangeError
         checkForRangeError(index);
         
-        var element:IVisualElement;
+        var element:IVisualElement = _mxmlContent[index];
         
         // Need to call elementRemoved before removing the item so anyone listening
         // for the event can access the item.
         
-        elementRemoved(index);
+        if (!mxmlContentChanged)
+            elementRemoved(element, index);
         
-        var removed:Array = _mxmlContent.splice(index, 1);
-        if (removed && removed.length > 0)
-            element = removed[0];
+        _mxmlContent.splice(index, 1);
         
         return element;
     }
@@ -697,7 +689,7 @@ public class Group extends GroupBase implements IVisualElementContainer
             // if the display object ordering is invalidated (because we have graphic elements 
             // that aren't actually in the display list), then lets just add our item to the end.  
             // If the ordering isn't invalidated, then let's just try to add it to the proper index.
-            if (invalidateDisplayObjectOrdering() || mxmlContentChanged)
+            if (invalidateDisplayObjectOrdering())
             {
                 // This always adds the child to the end of the display list. Any 
                 // ordering discrepancies will be fixed up in assignDisplayObjects().
@@ -722,23 +714,22 @@ public class Group extends GroupBase implements IVisualElementContainer
      *
      *  @param index The index of the item that is being removed.
      */
-    mx_internal function elementRemoved(index:int):void
-    {       
-        var element:IVisualElement = getElementAt(index);
+    mx_internal function elementRemoved(element:IVisualElement, index:int):void
+    {
         var childDO:DisplayObject = element as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, element, index));        
+                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, element, index));
+        
         if (element && (element is IGraphicElement))
         {
             numGraphicElements--;
-            IGraphicElement(element).parentChanged(null);
-            IGraphicElement(element).sharedDisplayObject = null;
-            childDO = IGraphicElement(element).displayObject;
+            removingGraphicElementChild(element as IGraphicElement);
         }
-                
-        if (childDO && childDO.parent == this)
+        else if (childDO && childDO.parent == this)
+        {
             super.removeChild(childDO);
+        }
         
         invalidateDisplayObjectOrdering();
         invalidateSize();
@@ -770,6 +761,18 @@ public class Group extends GroupBase implements IVisualElementContainer
         // but some need to react to even this early change.
         if (child is TextGraphicElement)
             TextGraphicElement(child).stylesInitialized();
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function removingGraphicElementChild(child:IGraphicElement):void
+    {
+        child.parentChanged(null);
+        child.sharedDisplayObject = null;
+        
+        if (child.displayObject)
+            super.removeChild(child.destroyDisplayObject());
     }
     
     /**
@@ -934,11 +937,7 @@ public class Group extends GroupBase implements IVisualElementContainer
                 // Item should be assigned the currentAssignableDO
                 // If it already has a DO, we need to remove it
                 if (graphicElement.displayObject)
-                {
-                    if (graphicElement.displayObject.parent == this)
-                        super.removeChild(graphicElement.displayObject);
-                    graphicElement.destroyDisplayObject();
-                }
+                    super.removeChild(graphicElement.destroyDisplayObject());
                 
                 graphicElement.sharedDisplayObject = mergeData.currentAssignableDO;
                 if (graphicElement.nextSiblingNeedsDisplayObject)
@@ -968,8 +967,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         if (host && host is IVisualElementContainer && host != this)
             IVisualElementContainer(host).removeElement(element);
         
-        
-        // Calling removeItem should have already removed the child. This
+        // Calling removeElement should have already removed the child. This
         // should handle the case when we don't call removeItem
         if (child.parent)
         {
@@ -1011,12 +1009,13 @@ public class Group extends GroupBase implements IVisualElementContainer
     //--------------------------------------------------------------------------
 
     private var scaleGridChanged:Boolean = false;
+    
+    // store the scaleGrid into a rectangle to save space (top, left, bottom, right);
+    private var scaleGridStorageVariable:Rectangle;
 
     //----------------------------------
     //  scaleGridBottom
     //----------------------------------
-
-    private var _scaleGridBottom:Number;
     
     [Inspectable(category="General")]
     
@@ -1025,14 +1024,20 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get scaleGridBottom():Number
     {
-        return _scaleGridBottom;
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.height;
+        
+        return NaN;
     }
     
     public function set scaleGridBottom(value:Number):void
-    {     
-        if (value != _scaleGridBottom)
+    {
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.height)
         {
-            _scaleGridBottom = value;
+            scaleGridStorageVariable.height = value;
             scaleGridChanged = true;
             invalidateDisplayList();
         }
@@ -1041,8 +1046,6 @@ public class Group extends GroupBase implements IVisualElementContainer
     //----------------------------------
     //  scaleGridLeft
     //----------------------------------
-
-    private var _scaleGridLeft:Number;
     
     [Inspectable(category="General")]
     
@@ -1051,24 +1054,29 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get scaleGridLeft():Number
     {
-        return _scaleGridLeft;
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.x;
+        
+        return NaN;
     }
     
     public function set scaleGridLeft(value:Number):void
     {
-        if (value != _scaleGridLeft)
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.x)
         {
-            _scaleGridLeft = value;
+            scaleGridStorageVariable.x = value;
             scaleGridChanged = true;
             invalidateDisplayList();
         }
+
     }
 
     //----------------------------------
     //  scaleGridRight
     //----------------------------------
-
-    private var _scaleGridRight:Number;
     
     [Inspectable(category="General")]
     
@@ -1077,24 +1085,29 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get scaleGridRight():Number
     {
-        return _scaleGridRight;
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.width;
+        
+        return NaN;
     }
     
     public function set scaleGridRight(value:Number):void
     {
-        if (value != _scaleGridRight)
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.width)
         {
-            _scaleGridRight = value;
+            scaleGridStorageVariable.width = value;
             scaleGridChanged = true;
             invalidateDisplayList();
         }
+
     }
 
     //----------------------------------
     //  scaleGridTop
     //----------------------------------
-
-    private var _scaleGridTop:Number;
     
     [Inspectable(category="General")]
     
@@ -1103,73 +1116,129 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get scaleGridTop():Number
     {
-        return _scaleGridTop;
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.y;
+        
+        return NaN;
     }
     
     public function set scaleGridTop(value:Number):void
     {
-        if (value != _scaleGridTop)
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.y)
         {
-            _scaleGridTop = value;
+            scaleGridStorageVariable.y = value;
             scaleGridChanged = true;
             invalidateDisplayList();
         }
+
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects, 
+     *  and you should not call <code>addChild()</code> directly.  Instead, use 
+     *  <code>addElement()</code>.
+     * 
+     *  @see mx.components.Group#addElement
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("addChild is not available in Group. Use addItem instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects, 
+     *  and you should not call <code>addChildAt()</code> directly.  Instead, use 
+     *  <code>addElementAt()</code>.
+     * 
+     *  @see mx.components.Group#addElementAt
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("addChildAt is not available in Group. Use addItemAt instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects,
+     *  and you should not call <code>removeChild()</code> directly.  Instead, use 
+     *  <code>removeElement()</code>.
+     * 
+     *  @see mx.components.Group#removeElement
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("removeChild is not available in Group. Use removeItem instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects,
+     *  and you should not call <code>removeChildAt()</code> directly.  Instead, use 
+     *  <code>removeElementAt()</code>.
+     * 
+     *  @see mx.components.Group#removeElementAt
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("removeChildAt is not available in Group. Use removeItemAt instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects,
+     *  and you should not call <code>setChildIndex()</code> directly.  Instead, use 
+     *  <code>setElementIndex()</code>.
+     * 
+     *  @see mx.components.Group#setElementIndex
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("setChildIndex is not available in Group. Use setItemIndex instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects,
+     *  and you should not call <code>swapChildren()</code> directly.  Instead, use 
+     *  <code>swapElements()</code>.
+     * 
+     *  @see mx.components.Group#swapElements
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("swapChildren is not available in Group. Use swapItems instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  Group supports non-DisplayObject children (<code>IGraphicElement</code>s) as well 
+     *  as DisplayObject children.  Group manages its own display objects,
+     *  and you should not call <code>swapChildrenAt()</code> directly.  Instead, use 
+     *  <code>swapElementsAt()</code>.
+     * 
+     *  @see mx.components.Group#swapElementsAt
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
 }
