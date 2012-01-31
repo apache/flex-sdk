@@ -219,6 +219,24 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Horizontal space on either side of a column separator that's considered to be 
+ *  part of the separator for the sake of mouse event dispatching.
+ * 
+ *  <p>Separators are often just one pixel wide which makes interacting with them difficult.
+ *  This value is used by <code>getSeparatorIndexAt()</code> to give separators a wider
+ *  berth, so that separator events are dispatched when the mouse is closer than 
+ *  <code>separatorMouseWidth</code> to the horizontal midpoint of a separator.</p> 
+ * 
+ *  @default 5
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+*/
+[Style(name="separatorAffordance", type="Number", format="Length", inherit="no")]
+
+/**
  *  Bottom inset, in pixels, for all header renderers. 
  * 
  *  @default 0
@@ -302,11 +320,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
         
         layout = new GridColumnHeaderGroupLayout();
         layout.clipAndEnableScrolling = true;
-        
-        overlayGroup = new Group();
-        overlayGroup.layout = new LayoutBase(); // no layout
-        overlay.addDisplayObject(overlayGroup);
-        
+
         // Event handlers that dispatch GridEvents
         
         MouseEventUtil.addDownDragUpListeners(this, 
@@ -465,83 +479,6 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
         if (event.property == "horizontalScrollPosition")
             horizontalScrollPosition = Number(event.newValue);
     }        
-    
-    //----------------------------------
-    //  overlayGroup
-    //----------------------------------
-    
-    [Bindable("overlayGroupChanged")]
-    
-    private var _overlayGroup:Group = null;
-    
-    /**
-     *  The container for columnSeparator visual elements.  By default it's an 
-     *  element of the GridColumnHeaderGroup's overlay.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get overlayGroup():Group
-    {
-        return _overlayGroup;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set overlayGroup(value:Group):void
-    {
-        if (_overlayGroup == value)
-            return;
-        
-        _overlayGroup = value;
-        invalidateDisplayList();
-        dispatchChangeEvent("overlayGroupChanged");
-    }
-    
-    //----------------------------------
-    //  separatorMouseWidth
-    //----------------------------------
-    
-    [Bindable("separatorMouseWidthChanged")]
-    
-    private var _separatorMouseWidth:Number = 5;
-    
-    /**
-     *  Horizontal space on either side of a column separator that's considered to be 
-     *  part of the separator for the sake of mouse event dispatching.
-     * 
-     *  <p>Separators are often just one pixel wide which makes interacting with them difficult.
-     *  This value is used by <code>getSeparatorIndexAt()</code> to give separators a wider
-     *  berth, so that separator events are dispatched when the mouse is closer than 
-     *  <code>separatorMouseWidth</code> to the horizontal midpoint of a separator.</p> 
-     * 
-     *  @default 5
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get separatorMouseWidth():Number
-    {
-        return _separatorMouseWidth;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set separatorMouseWidth(value:Number):void
-    {
-        if (_separatorMouseWidth == value)
-            return;
-        
-        _separatorMouseWidth = value;
-        invalidateDisplayList();
-        dispatchChangeEvent("separatorMouseWidthChanged");
-    }
     
     //----------------------------------
     //  visibleSortIndicatorIndices
