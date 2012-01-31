@@ -536,7 +536,13 @@ public class Label extends TextBase
 			
         elementFormat.alpha = getStyle("textAlpha");
         	
-        elementFormat.baselineShift = getStyle("baselineShift");
+        elementFormat.baselineShift = -getStyle("baselineShift");
+			// Note: The negative sign is because, as in TLF,
+			// we want a positive number to shift the baseline up,
+			// whereas FTE does it the opposite way.
+			// In FTE, a positive baselineShift increases
+			// the y coordinate of the baseline, which is
+			// mathematically appropriate, but unintuitive.
         	
         s = getStyle("breakOpportunity");
         if (s != null)
