@@ -63,16 +63,15 @@ use namespace mx_internal;
  *  TextInput is a text-entry control that lets users enter and edit
  *  a single line of uniformly-formatted text.
  *
- *  <p>This Spark version of TextInput 
- *  makes use of the Text Layout Framework (TLF) library,
- *  which in turn builds on the new Flash Text Engine (FTE) in Flash Player 10.
- *  In combination, they provide text editing with
- *  high-quality international typography.
- *  The MX version of TextInput displays text using the older
- *  TextField class.</p>
+ *  <p><b>The TextInput skin for the Spark theme
+ *  uses the RichEditableText class. This means that the Spark TextInput control supports 
+ *  the Text Layout Framework (TLF) library,
+ *  which builds on the Flash Text Engine (FTE).</b>
+ *  In combination, these layers provide text editing with
+ *  high-quality international typography and layout.</p>
  * 
- *  <p>The mobile theme uses TextField-based text instead of RichEditableText.
- *  Some TLF-only features are not supported in the mobile theme including
+ *  <p><b>The TextInput skin for the mobile theme uses the StyleableTextField class instead of RichEditableText.</b>
+ *  As a result, TLF-only features are not supported in the mobile theme including
  *  TextFlow, right-to-left or bidirectional text, and advanced text 
  *  styles.</p>
  *
@@ -282,9 +281,9 @@ public class TextInput extends SkinnableTextBase
      *  a percent width, or both <code>left</code> and <code>right</code>
      *  constraints.</p>
      *
-	 *  <p>This property will also be ignored if the <code>typicalText</code> 
-	 *  property is specified.</p>
-	 * 
+     *  <p>This property will also be ignored if the <code>typicalText</code> 
+     *  property is specified.</p>
+     * 
      *  <p><b>For the Mobile theme, this is not supported.</b></p>
      *      
      *  @default 10
