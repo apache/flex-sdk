@@ -54,7 +54,7 @@ import spark.skins.default.SpinnerSkin; SpinnerSkin;
 import spark.skins.default.TextAreaSkin; TextAreaSkin;
 import spark.skins.default.TextInputSkin; TextInputSkin;
 import spark.skins.default.ToggleButtonSkin; ToggleButtonSkin;
-import spark.skins.default.VideoDisplaySkin; VideoDisplaySkin;
+import spark.skins.default.VideoPlayerSkin; VideoPlayerSkin;
 import spark.skins.default.VScrollBarSkin; VScrollBarSkin;
 import spark.skins.default.VScrollBarThumbSkin; VScrollBarThumbSkin;
 import spark.skins.default.VSliderSkin; VSliderSkin;
