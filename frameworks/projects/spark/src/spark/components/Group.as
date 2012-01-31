@@ -94,11 +94,41 @@ use namespace mx_internal;
 
 /**
  *  The Group class is the base container class for visual elements.
+ *  The Group container take as children any components that implement 
+ *  the IUIComponent interface, and any components that implement 
+ *  the IGraphicElement interface. 
+ *  Use this container when you want to manage visual children, 
+ *  both visual components and graphical components. 
+ *
+ *  <p>To improve performance and minimize application size, 
+ *  the Group container cannot be skinned. 
+ *  If you want to apply a skin, use the SkinnableContainer instead.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;Group&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Group
+ *    <strong>Properties</strong>
+ *    blendMode="normal"
+ *    mxmlContent="null"
+ *    scaleGridBottom="null"
+ *    scaleGridLeft"null"
+ *    scaleGridRight="null"
+ *    scaleGridTop"null"
+ *  
+ *    <strong>Events</strong>
+ *    elementAdd="<i>No default</i>"
+ *    elementRemove="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see spark.components.DataGroup
+ *  @see spark.components.SkinnableContainer
  *
  *  @includeExample examples/GroupExample.mxml
- *
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -120,7 +150,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         super();    
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Variables
     //
@@ -144,14 +174,14 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     override public function set resizeMode(stringValue:String):void
     {
-    	if (isValidScaleGrid())
+        if (isValidScaleGrid())
         {
-        	// Force the resize mode to be scale if we 
-        	// have set scaleGrid properties
-        	stringValue = ResizeMode.SCALE;
+            // Force the resize mode to be scale if we 
+            // have set scaleGrid properties
+            stringValue = ResizeMode.SCALE;
         }
          
-    	super.resizeMode = stringValue;
+        super.resizeMode = stringValue;
     }
     
     /**
@@ -168,7 +198,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             invalidateDisplayObjectOrdering();            
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
@@ -295,15 +325,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  Visual content children for this Group.
+     *  The visual content children for this Group.
      *
-     *  <p>The content items should only be IVisualItems.  An 
-     *  mxmlContent Array shouldn't be shared between multiple
-     *  Groups as visual elements can only live in one Group at 
-     *  a time.</p>
+     *  <p>The content items should only be IVisualItem objectss.  
+     *  An <code>mxmlContent</code> Array should not be shared between multiple
+     *  Group containers because visual elements can only live in one container 
+     *  at a time.</p>
      * 
-     *  <p>If the content is an Array, do not modify the array 
-     *  directly. Use the methods defined on Group to do this.</p>
+     *  <p>If the content is an Array, do not modify the Array 
+     *  directly. Use the methods defined by Group class instead. </p>
      *
      *  @default null
      *  
@@ -393,7 +423,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     // store the scaleGrid into a rectangle to save space (top, left, bottom, right);
     private var scaleGridStorageVariable:Rectangle;
 
-	//----------------------------------
+    //----------------------------------
     //  scale9Grid
     //----------------------------------
     
@@ -401,22 +431,22 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @private
      */
     override public function set scale9Grid(value:Rectangle):void
-	{
-		if (value != null)
-		{
-			scaleGridTop = value.top;
-			scaleGridBottom = value.bottom;
-			scaleGridLeft = value.left;
-			scaleGridRight = value.right;
-		}
-		else
-		{
-			scaleGridTop = NaN;
-			scaleGridBottom = NaN;
-			scaleGridLeft = NaN;
-			scaleGridRight = NaN;
-		}
-	}
+    {
+        if (value != null)
+        {
+            scaleGridTop = value.top;
+            scaleGridBottom = value.bottom;
+            scaleGridLeft = value.left;
+            scaleGridRight = value.right;
+        }
+        else
+        {
+            scaleGridTop = NaN;
+            scaleGridBottom = NaN;
+            scaleGridLeft = NaN;
+            scaleGridRight = NaN;
+        }
+    }
 
     //----------------------------------
     //  scaleGridBottom
@@ -425,7 +455,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     [Inspectable(category="General")]
     
     /**
-     * Specfies the bottom coordinate of the scale grid.
+     *  Specifies the bottom coordinate of the scale grid.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -461,7 +491,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     [Inspectable(category="General")]
     
     /**
-     * Specfies the left coordinate of the scale grid.
+     * Specifies the left coordinate of the scale grid.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -498,7 +528,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     [Inspectable(category="General")]
     
     /**
-     * Specfies the right coordinate of the scale grid.
+     * Specifies the right coordinate of the scale grid.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -535,7 +565,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     [Inspectable(category="General")]
     
     /**
-     * Specfies the top coordinate of the scale grid.
+     * Specifies the top coordinate of the scale grid.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -566,10 +596,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     private function isValidScaleGrid():Boolean
     {
-    	return !isNaN(scaleGridLeft) &&
-        	   !isNaN(scaleGridTop) &&
-        	   !isNaN(scaleGridRight) &&
-        	   !isNaN(scaleGridBottom);
+        return !isNaN(scaleGridLeft) &&
+               !isNaN(scaleGridTop) &&
+               !isNaN(scaleGridRight) &&
+               !isNaN(scaleGridBottom);
     }
     
     //--------------------------------------------------------------------------
@@ -624,9 +654,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         if (scaleGridChanged)
         {
-        	// Don't reset scaleGridChanged since we also check it in updateDisplayList
-        	if (isValidScaleGrid())
-        		resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale	
+            // Don't reset scaleGridChanged since we also check it in updateDisplayList
+            if (isValidScaleGrid())
+                resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale 
         }
         
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
@@ -671,7 +701,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {    	
+    {       
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         // Clear the group's graphic because graphic elements might be drawing to it
@@ -686,70 +716,70 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // the element with the shared displayObject and the next element that has a displayObject.
         if (numGraphicElements > 0)
         {
-	        var length:int = numElements;
-	        for (var i:int = 0; i < length; i++)
-	        {
-	            var element:IGraphicElement = getElementAt(i) as IGraphicElement;
-	            if (!element)
-	               continue;
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (!element)
+                   continue;
 
-	            // Do a special check for layer, we may stumble upon an element with layer != 0
-	            // before we're done with the current shared sequence and we don't want to mark
-	            // the sequence as valid, until we reach the next sequence.   
+                // Do a special check for layer, we may stumble upon an element with layer != 0
+                // before we're done with the current shared sequence and we don't want to mark
+                // the sequence as valid, until we reach the next sequence.   
                 if (element.layer == 0)
                 {
-                    // Is this the start of a new shared sequence?         	
-	            	if (element.shareIndex <= 0)
-	            	{
-	            	    // We have finished redrawing the previous sequence
-	            	    if (sharedDisplayObject)
-	            	        sharedDisplayObject.redrawRequested = false;
-	            	    
-	            	    // Start the new sequence
+                    // Is this the start of a new shared sequence?          
+                    if (element.shareIndex <= 0)
+                    {
+                        // We have finished redrawing the previous sequence
+                        if (sharedDisplayObject)
+                            sharedDisplayObject.redrawRequested = false;
+                        
+                        // Start the new sequence
                         sharedDisplayObject = element.displayObject as ISharedDisplayObject;
-	            	}
-	            	
-	            	if (!sharedDisplayObject || sharedDisplayObject.redrawRequested) 
-	            		element.validateDisplayList();
-	            }
-	            else
-	            {
-	                // If we have layering, we don't share the display objects.
-	                // Don't update the current sharedDisplayObject 
-	                var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
-	                if (!elementDisplayObject || elementDisplayObject.redrawRequested)
-	                {
-	                   element.validateDisplayList();
+                    }
+                    
+                    if (!sharedDisplayObject || sharedDisplayObject.redrawRequested) 
+                        element.validateDisplayList();
+                }
+                else
+                {
+                    // If we have layering, we don't share the display objects.
+                    // Don't update the current sharedDisplayObject 
+                    var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
+                    if (!elementDisplayObject || elementDisplayObject.redrawRequested)
+                    {
+                       element.validateDisplayList();
 
-	                   if (elementDisplayObject)
+                       if (elementDisplayObject)
                            elementDisplayObject.redrawRequested = false;
-	                }
-	            }
-	        }
+                    }
+                }
+            }
         }
-	        
+            
         // Mark the last shared displayObject valid
         if (sharedDisplayObject)
             sharedDisplayObject.redrawRequested = false;
         
         if (scaleGridChanged)
         {
-        	scaleGridChanged = false;
+            scaleGridChanged = false;
         
-        	if (isValidScaleGrid())
-        	{
-	        	if (numChildren > 0)
-	        		throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
+            if (isValidScaleGrid())
+            {
+                if (numChildren > 0)
+                    throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
-	        	super.scale9Grid = new Rectangle(scaleGridLeft, 
-	        							   scaleGridTop,	
-	        							   scaleGridRight - scaleGridLeft, 
-	        							   scaleGridBottom - scaleGridTop);
-	        }
-	        else
-	        {
-	        	super.scale9Grid = null;
-	        }							   
+                super.scale9Grid = new Rectangle(scaleGridLeft, 
+                                           scaleGridTop,    
+                                           scaleGridRight - scaleGridLeft, 
+                                           scaleGridBottom - scaleGridTop);
+            }
+            else
+            {
+                super.scale9Grid = null;
+            }                              
         }
     }
 
@@ -1558,8 +1588,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     }
     
     /**
-     *  Notify the host that an element has changed and needs to be redrawn.
-     *  Group will call <code>validateDisplayList()</code> on the IGraphicElement
+     *  Notify the host component that an element has changed and needs to be redrawn.
+     *  Group calls the <code>validateDisplayList()</code> method on the IGraphicElement
      *  to give it a chance to redraw.
      *
      *  @param element The element that has changed.
@@ -1579,9 +1609,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     }
     
     /**
-     *  Notify the host that an element has changed and needs to validate properties.
-     *  Group will call <code>validateProperties()</code> on the IGraphicElement
-     *  to give it a chnace to commit its properties.
+     *  Notify the host component that an element changed and needs to validate properties.
+     *  Group calls the <code>validateProperties()</code> method on the IGraphicElement
+     *  to give it a chance to commit its properties.
      *
      *  @param element The element that has changed.
      *  
@@ -1596,8 +1626,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     }
 
     /**
-     *  Notify the host that an element size has changed.
-     *  Group will call <code>validateSize()</code> on the IGraphicElement
+     *  Notify the host component that an element size has changed.
+     *  Group calls the <code>validateSize()</code> method on the IGraphicElement
      *  to give it a chance to validate its size.
      * 
      *  @param element The element that has changed size.
@@ -1700,8 +1730,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     private var _redrawRequested:Boolean = false;
 
     /**
-     *  True when any of the <code>IGraphicElement</code> objects, that share
-     *  this <code>DisplayObject</code>, needs to redraw.  This is used internally
+     *  @private
+     *  Contains <code>true</code> when any of the <code>IGraphicElement</code> objects that share
+     *  this <code>DisplayObject</code> object needs to redraw.  
+     *  This is used internally
      *  by the <code>Group</code> class and developers don't typically use this. 
      *  
      *  @langversion 3.0
