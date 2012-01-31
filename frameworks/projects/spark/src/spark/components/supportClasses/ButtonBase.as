@@ -45,7 +45,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark", minValue="0.0")]
 
 /**
  *  The alpha of the focus ring for this component.
@@ -55,7 +55,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
@@ -81,7 +81,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
+[Style(name="repeatDelay", type="Number", format="Time", inherit="no", minValue="0.0")]
 
 /**
  *  Number of milliseconds between <code>buttonDown</code> events
@@ -94,7 +94,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
+[Style(name="repeatInterval", type="Number", format="Time", inherit="no", minValueExclusive="0.0")]
 
 //--------------------------------------
 //  Events
