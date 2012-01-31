@@ -1835,19 +1835,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         // already exist.
         var menu:Menu = getMenuAt(index);
         var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle;
-                                                                 
-        if (sm != sbRoot)
-        {
-            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                                    false, false,
-                                    "getVisibleApplicationRect"); 
-            sbRoot.dispatchEvent(request);
-            screen = Rectangle(request.value);
-        }
-        else
-            screen = sm.getVisibleApplicationRect();
+        var screen:Rectangle = sm.getVisibleApplicationRect();
 
         UIComponentGlobals.layoutManager.validateClient(menu, true);
         
@@ -1863,7 +1851,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             pt.y += item.height + 1;
         if (pt.x + menu.getExplicitOrMeasuredWidth() > screen.width + screen.x)
             pt.x = screen.x + screen.width - menu.getExplicitOrMeasuredWidth();
-        pt = sbRoot.globalToLocal(pt);
+        pt = sm.getSandboxRoot().globalToLocal(pt);
 
         // If inside an ACB, slight offset looks much better.
         if (isInsideACB)
