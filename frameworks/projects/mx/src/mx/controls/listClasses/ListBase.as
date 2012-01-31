@@ -98,6 +98,11 @@ use namespace mx_internal;
  *  changes as a result of user interaction.
  *
  *  @eventType mx.events.ListEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.ListEvent")]
 
@@ -110,6 +115,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -117,6 +127,11 @@ use namespace mx_internal;
  *  Dispatched when the user rolls the mouse pointer over an item in the control.
  *
  *  @eventType mx.events.ListEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.ListEvent")]
 
@@ -124,6 +139,11 @@ use namespace mx_internal;
  *  Dispatched when the user rolls the mouse pointer out of an item in the control.
  *
  *  @eventType mx.events.ListEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.ListEvent")]
 
@@ -131,6 +151,11 @@ use namespace mx_internal;
  *  Dispatched when the user clicks on an item in the control.
  *
  *  @eventType mx.events.ListEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.ListEvent")]
 
@@ -138,6 +163,11 @@ use namespace mx_internal;
  *  Dispatched when the user double-clicks on an item in the control.
  *
  *  @eventType mx.events.ListEvent.ITEM_DOUBLE_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemDoubleClick", type="mx.events.ListEvent")]
 
@@ -169,6 +199,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  <p>Only takes effect if no <code>backgroundColor</code> is specified.</p>
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -181,6 +216,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  the dropped item.
  *
  *  @default mx.controls.listClasses.ListDropIndicator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropIndicatorSkin", type="Class", inherit="no")]
 
@@ -189,6 +229,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  and the bottom of the renderer in the row.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -197,6 +242,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  and the top of the renderer in the row.
  *  
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -204,6 +254,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The color of the background of a renderer when the user rolls over it.
  *
  *  @default 0xEEFEE6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -211,6 +266,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The color of the background of a renderer when the user selects it.
  *
  *  @default 0x7FCEFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -218,6 +278,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The color of the background of a renderer when the component is disabled.
  *
  *  @default 0xDDDDDD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionDisabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -228,6 +293,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  
  *  @default 250
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionDuration", type="Number", format="Time", inherit="no")]
 
@@ -238,6 +308,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  for controlling the selection effect.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionEasingFunction", type="Function", inherit="no")]
 
@@ -245,6 +320,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The color of the text of a renderer when the user rolls over a it.
  *
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -252,6 +332,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The color of the text of a renderer when the user selects it.
  *
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -262,6 +347,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  If <code>false</code>, rows are highlighted only when selected.
  *
  *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="useRollOver", type="Boolean", inherit="no")]
 
@@ -277,6 +367,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  and adjust their layout based on it.
  *
  *  @default "top"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 
@@ -362,6 +457,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  </pre>
  *
  *  @see mx.collections.ICollectionView
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListBase extends ScrollControlBase
                       implements IDataRenderer, IFocusManagerComponent,
@@ -421,6 +521,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListBase()
     {
@@ -457,6 +562,11 @@ public class ListBase extends ScrollControlBase
      *  data in the provider.
      *  When you  get the <code>dataProvider</code> property, 
      *  Flex returns this value.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var collection:ICollectionView;
 
@@ -465,6 +575,11 @@ public class ListBase extends ScrollControlBase
      *  data provider and pass the items to the renderers.
      *  At the end of any sequence of code, it must always
      *  be positioned at the topmost visible item being displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var iterator:IViewCursor
 
@@ -476,6 +591,11 @@ public class ListBase extends ScrollControlBase
      *  it sets <code>iteratorValid</code> to <code>false</code>. Code that
      *  normally handles the rendering of items checks this flag and does not 
      *  run until the page of data comes in from the server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var iteratorValid:Boolean = true;
 
@@ -484,6 +604,11 @@ public class ListBase extends ScrollControlBase
      *  If there are multiple page faults, only the most recent one
      *  is of interest, as that is where to position the iterator 
      *  and start rendering rows again.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lastSeekPending:ListBaseSeekPending;
 
@@ -491,6 +616,11 @@ public class ListBase extends ScrollControlBase
      *  A hash table of data provider item renderers currently in view.
      *  The table is indexed by the data provider item's UID and is used
      *  to quickly get the renderer used to display a particular item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get visibleData():Object
     {
@@ -502,6 +632,11 @@ public class ListBase extends ScrollControlBase
      *  selection and highlighting indicators and other supporting graphics.
      *  This is roughly equivalent to the <code>contentPane</code> in the 
      *  Container class, and is used for managing scrolling.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var listContent:ListBaseContentHolder;
 
@@ -513,6 +648,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The set of styles to pass from the ListBase to the listContent.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get listContentStyleFilters():Object
     {
@@ -524,6 +664,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The layer in <code>listContent</code> where all selection 
      *  and highlight indicators are drawn.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var selectionLayer:Sprite;
 
@@ -532,6 +677,11 @@ public class ListBase extends ScrollControlBase
      *  the itemRenderer instances that render each data provider item.
      *  This is a two-dimensional row major array
      *  (array of rows that are arrays of columns).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get listItems():Array
     {
@@ -541,6 +691,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  An array of ListRowInfo objects that cache row heights and 
      *  other tracking information for the rows in listItems.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get rowInfo():Array
     {
@@ -551,6 +706,11 @@ public class ListBase extends ScrollControlBase
      *  A hash map of item renderers to their respective ListRowInfo object.
      *  The ListRowInfo object is indexed by the DisplayObject name of the
      *  item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var rowMap:Object = {};
 
@@ -559,6 +719,11 @@ public class ListBase extends ScrollControlBase
      *  This property is a Dictionary indexed by itemRenderers
      *  where the values are IFactory.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var factoryMap:Dictionary;
 
@@ -568,6 +733,11 @@ public class ListBase extends ScrollControlBase
      *  as they scroll out of the displayable area; doing so 
      *  saves time during scrolling.
      *  The recycled renderers are stored here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var freeItemRenderers:Array = [];
 
@@ -576,6 +746,11 @@ public class ListBase extends ScrollControlBase
      *  This property is a Dictionary indexed by factories
      *  where the values are Dictionaries of itemRenderers.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var freeItemRenderersByFactory:Dictionary;
 
@@ -583,12 +758,22 @@ public class ListBase extends ScrollControlBase
      *  A hash map of currently unused item renderers that may be
      *  used again in the near future. Used when running data effects.
      *  The map is indexed by the data provider item's UID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var reservedItemRenderers:Object = {};
 
     /**
      *  A hash map of item renderers that are not subject
      *  to the layout algorithms of the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var unconstrainedRenderers:Dictionary = new Dictionary();
 
@@ -596,17 +781,32 @@ public class ListBase extends ScrollControlBase
      *  A dictionary mapping item renderers to the ItemWrappers
      *  used to supply their data. Only applicable if a data
      *  effect is running.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var dataItemWrappersByRenderer:Dictionary = new Dictionary(true);
 
     /**
      *  A flag that indicates if a data effect should be initiated
      *  the next time the display is updated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var runDataEffectNextUpdate:Boolean = false;
 
     /**
      *  A flag indicating if a data change effect is currently running.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var runningDataEffect:Boolean = false;
 
@@ -614,12 +814,22 @@ public class ListBase extends ScrollControlBase
      *  The effect that plays when changes occur in the data
      *  provider for the control, set through the itemsChangeEffect
      *  style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var cachedItemsChangeEffect:IEffect = null;
 
     /**
      *  The collection view that temporarily preserves previous
      *  data provider state to facilitate running data change effects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var modifiedCollectionView:ModifiedCollectionView;
 
@@ -627,6 +837,11 @@ public class ListBase extends ScrollControlBase
      *  A copy of the value normally stored in <code>collection</code>
      *  used while running data changes effects. This value should be
      *  null when a data change effect is not running.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var actualCollection:ICollectionView;
 
@@ -639,6 +854,11 @@ public class ListBase extends ScrollControlBase
      *  <code>offscreenExtraRowsOrColumns</code> property.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraRows:int = 0;
     
@@ -650,6 +870,11 @@ public class ListBase extends ScrollControlBase
      *  with <code>verticalScrollPosition</code> property).
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraRowsTop:int = 0;
 
@@ -658,6 +883,11 @@ public class ListBase extends ScrollControlBase
      *  item renderer. This value will be &lt;= <code>offscreenExtraRows</code> / 2.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraRowsBottom:int = 0;
 
@@ -671,6 +901,11 @@ public class ListBase extends ScrollControlBase
      *  <code>offscreenExtraRowsOrColumns</code> property.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraColumns:int = 0;
 
@@ -680,6 +915,11 @@ public class ListBase extends ScrollControlBase
      *  This value will be &lt;= <code>offscreenExtraColumns</code> / 2.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraColumnsLeft:int = 0;
 
@@ -689,12 +929,22 @@ public class ListBase extends ScrollControlBase
      *  This value will be &lt;= <code>offscreenExtraColumns</code> / 2.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraColumnsRight:int = 0;
         
     /**
      *  A copy of the value normally stored in <code>iterator</code>
      *  used while running data changes effects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var actualIterator:IViewCursor;
 
@@ -710,22 +960,42 @@ public class ListBase extends ScrollControlBase
                 
     /**
      *  The UID of the item that is current rolled over or under the caret.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var highlightUID:String;
 
     /**
      *  The renderer that is currently rolled over or under the caret.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var highlightItemRenderer:IListItemRenderer;
 
     /**
      *  The DisplayObject that contains the graphics that indicates
      *  which renderer is highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var highlightIndicator:Sprite;
 
     /**
      *  The UID of the item under the caret.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var caretUID:String;
 
@@ -752,12 +1022,22 @@ public class ListBase extends ScrollControlBase
      *  item. If arrow keys are used with the Ctrl key, just the caret moves.
      *  The user can use the Space key to toggle selection of the item under
      *  the caret.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var caretItemRenderer:IListItemRenderer;
 
     /**
      *  The DisplayObject that contains the graphics that indicate
      *  which renderer is the caret.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var caretIndicator:Sprite;
 
@@ -767,6 +1047,11 @@ public class ListBase extends ScrollControlBase
      *  of the items.
      *
      *  @see mx.controls.listClasses.ListBaseSelectionData
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var selectedData:Object = {};
 
@@ -774,6 +1059,11 @@ public class ListBase extends ScrollControlBase
      *  A hash table of selection indicators. This table allows the component
      *  to quickly find and remove the indicators when the set of selected
      *  items is cleared. The table is indexed by the item's UID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var selectionIndicators:Object = {};
 
@@ -781,12 +1071,22 @@ public class ListBase extends ScrollControlBase
      *  A hash table of selection tweens. This allows the component to
      *  quickly find and clean up any tweens in progress if the set
      *  of selected items is cleared. The table is indexed by the item's UID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var selectionTweens:Object = {};
 
     /**
      *  A bookmark to the item under the caret. A bookmark allows the
      *  component to quickly seek to a position in the collection of items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var caretBookmark:CursorBookmark;
 
@@ -796,6 +1096,11 @@ public class ListBase extends ScrollControlBase
      *  This property is used when selecting a set of items between the anchor
      *  and the caret or highlighted item, and when finding the selected item
      *  after a Sort or Filter is applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var anchorBookmark:CursorBookmark;
 
@@ -804,12 +1109,22 @@ public class ListBase extends ScrollControlBase
      *  This property is usually set
      *  to <code>false</code> when mouse activity is detected and set back to 
      *  <code>true</code> when the keyboard is used for selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var showCaret:Boolean;
 
     /**
      *  The most recently calculated index where the drag item
      *  should be added to the drop target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lastDropIndex:int;
 
@@ -818,6 +1133,11 @@ public class ListBase extends ScrollControlBase
      *  and <code>rowHeight</code> properties need to be calculated.
      *  This property is set if a style changes that can affect the
      *  measurements of the renderer, or if the data provider is changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var itemsNeedMeasurement:Boolean = true;
 
@@ -827,6 +1147,11 @@ public class ListBase extends ScrollControlBase
      *  the renderers on the next <code>updateDisplayList()</code> call.
      *  There is an assumption that re-applying the items will invalidate the
      *  item renderers and cause them to re-measure.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var itemsSizeChanged:Boolean = false;
 
@@ -835,6 +1160,11 @@ public class ListBase extends ScrollControlBase
      *  The component usually responds by destroying all existing renderers
      *  and redrawing all of the renderers on the next 
      *  <code>updateDisplayList()</code> call.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var rendererChanged:Boolean = false;
 
@@ -844,6 +1174,11 @@ public class ListBase extends ScrollControlBase
      *  The component usually responds by cleaning up various 
      *  internal data structures on the next 
      *  <code>updateDisplayList()</code> call.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var dataEffectCompleted:Boolean = false;
 
@@ -859,6 +1194,11 @@ public class ListBase extends ScrollControlBase
      *  that re-applying the data items to the renderers may not invalidate them
      *  since the only thing that changed was whether or not the renderer should
      *  factor in wordWrap into its size calculations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var wordWrapChanged:Boolean = false;
 
@@ -868,6 +1208,11 @@ public class ListBase extends ScrollControlBase
      *  of items until the page of data arrives.
      *  The <code>finishKeySelection()</code> method will be called
      *  when the paged data arrives.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var keySelectionPending:Boolean = false;
     
@@ -991,17 +1336,32 @@ public class ListBase extends ScrollControlBase
     /**
      *  The renderer that is or was rolled over or under the caret.
      *  In DG, this is always column 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var lastHighlightItemRenderer:IListItemRenderer;
 
     /**
      *  The renderer that is or was rolled over or under the caret.
      *  In DG, this is the actual item
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var lastHighlightItemRendererAtIndices:IListItemRenderer;
 
     /**
      *  The last coordinate send in ITEM_ROLL_OVER
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var lastHighlightItemIndices:Point;
 
@@ -1037,6 +1397,11 @@ public class ListBase extends ScrollControlBase
      *  A separate IViewCursor used to find indices of items and
      *  other things. The collectionIterator can be at any
      *  place within the set of items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var collectionIterator:IViewCursor;
 
@@ -1044,6 +1409,11 @@ public class ListBase extends ScrollControlBase
 
     /** 
      *  diagnostics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get rendererArray():Array 
     {
@@ -1493,6 +1863,11 @@ public class ListBase extends ScrollControlBase
      *  an item.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var allowDragSelection:Boolean = false;
 
@@ -1517,6 +1892,11 @@ public class ListBase extends ScrollControlBase
      *  (Shift-click, Ctrl-click).
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get allowMultipleSelection():Boolean
     {
@@ -1538,6 +1918,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The offset of the item in the data provider that is the selection
      *  anchor point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var anchorIndex:int = -1;
 
@@ -1550,6 +1935,11 @@ public class ListBase extends ScrollControlBase
      *  caret point.
      *
      *  @see mx.controls.listClasses.ListBase#caretItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var caretIndex:int = -1;
 
@@ -1577,6 +1967,11 @@ public class ListBase extends ScrollControlBase
      *  individual column widths.
      * 
      *  @default 4
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get columnCount():int
     {
@@ -1607,6 +2002,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  Internal version for setting columnCount
      *  without invalidation or notification.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function setColumnCount(value:int):void
     {
@@ -1635,6 +2035,11 @@ public class ListBase extends ScrollControlBase
      *  DataGridColumn widths.
      *  
      * @default 50
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get columnWidth():Number
     {
@@ -1663,6 +2068,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  Internal version of setting columnWidth
      *  without invalidation or notification.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function setColumnWidth(value:Number):void
     {
@@ -1707,6 +2117,11 @@ public class ListBase extends ScrollControlBase
      *  <p>You do not set this property in MXML.</p>
      *
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -1759,6 +2174,11 @@ public class ListBase extends ScrollControlBase
      * 
      *  @default null
      *  @see mx.collections.ICollectionView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -1856,6 +2276,11 @@ public class ListBase extends ScrollControlBase
      *  set of people's names retrieved from a database.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataTipField():String
     {
@@ -1907,6 +2332,11 @@ public class ListBase extends ScrollControlBase
      *  <pre>myDataTipFunction(item:Object):String</pre>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataTipFunction():Function
     {
@@ -1938,6 +2368,11 @@ public class ListBase extends ScrollControlBase
      *  content.
      *
      *  @default 4
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var defaultColumnCount:int = 4;
 
@@ -1953,6 +2388,11 @@ public class ListBase extends ScrollControlBase
      *  content.
      *
      *  @default 4
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var defaultRowCount:int = 4;
 
@@ -1975,6 +2415,11 @@ public class ListBase extends ScrollControlBase
      *  to reorder the items.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dragEnabled():Boolean
     {
@@ -2013,6 +2458,11 @@ public class ListBase extends ScrollControlBase
      *  during a drag and drop operation.
      *
      *  @default mx.controls.listClasses.ListItemDragProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get dragImage():IUIComponent
     {
@@ -2028,6 +2478,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Gets the offset of the drag image for drag and drop.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get dragImageOffsets():Point
     {
@@ -2069,6 +2524,11 @@ public class ListBase extends ScrollControlBase
      *  drag-and-drop.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dragMoveEnabled():Boolean
     {
@@ -2113,6 +2573,11 @@ public class ListBase extends ScrollControlBase
      *  and <code>hideDropFeedback()</code> methods to display the drop indicator.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropEnabled():Boolean
     {
@@ -2154,6 +2619,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The column count requested by explicitly setting the
      *  <code>columnCount</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var explicitColumnCount:int = -1;
 
@@ -2164,6 +2634,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The column width requested by explicitly setting the 
      *  <code>columnWidth</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var explicitColumnWidth:Number;
 
@@ -2174,6 +2649,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The row count requested by explicitly setting
      *  <code>rowCount</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var explicitRowCount:int = -1;
 
@@ -2184,6 +2664,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The row height requested by explicitly setting
      *  <code>rowHeight</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var explicitRowHeight:Number;
 
@@ -2216,6 +2701,11 @@ public class ListBase extends ScrollControlBase
      *  document with that name and expect that property to map to a Class.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconField():String
     {
@@ -2261,6 +2751,11 @@ public class ListBase extends ScrollControlBase
      *  <pre>iconFunction(item:Object):Class</pre>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconFunction():Function
     {
@@ -2300,6 +2795,11 @@ public class ListBase extends ScrollControlBase
      *  The TileList and HorizontalList class use 
      *  TileListItemRenderer, The List class uses ListItemRenderer.
      *  The DataGrid class uses DataGridItemRenderer from DataGridColumn.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get itemRenderer():IFactory
     {
@@ -2345,6 +2845,11 @@ public class ListBase extends ScrollControlBase
      *  "FullName" when viewing a set of people names fetched from a database.
      *
      *  @default "label"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -2404,6 +2909,11 @@ public class ListBase extends ScrollControlBase
      *  <code>column</code> specifies the DataGrid column.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -2450,6 +2960,11 @@ public class ListBase extends ScrollControlBase
      *  or drop-in item editor.</p>
      *
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -2474,6 +2989,11 @@ public class ListBase extends ScrollControlBase
      *  In a Menu, dragging from
      *  one renderer into another selects the new one
      *  and un-selects the old.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var menuSelectionMode:Boolean = false;
 
@@ -2490,6 +3010,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  A flag indicating that the number of offscreen rows or columns
      *  may have changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var offscreenExtraRowsOrColumnsChanged:Boolean = false;
     
@@ -2527,6 +3052,11 @@ public class ListBase extends ScrollControlBase
      *  a large number of elements.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get offscreenExtraRowsOrColumns():int
     {
@@ -2570,6 +3100,11 @@ public class ListBase extends ScrollControlBase
      *  The TileList and HorizontalList class use 
      *  TileListItemRenderer, The List class uses ListItemRenderer.
      *  The DataGrid class uses DataGridItemRenderer from DataGridColumn.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nullItemRenderer():IFactory
     {
@@ -2618,6 +3153,11 @@ public class ListBase extends ScrollControlBase
      *  the <code>rowCount</code> property is 4.</p>
      * 
      *  @default 4
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rowCount():int
     {
@@ -2652,6 +3192,11 @@ public class ListBase extends ScrollControlBase
      *  property, which permanently locks in the number of rows.
      *
      *  @param v The row count.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setRowCount(v:int):void
     {
@@ -2682,6 +3227,11 @@ public class ListBase extends ScrollControlBase
      *  <code>true</code>, all rows are the same height.  
      *  If not specified, the row height is based on
      *  the font size and other properties of the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rowHeight():Number
     {
@@ -2713,6 +3263,11 @@ public class ListBase extends ScrollControlBase
      *  permanently locks in the height of the rows.
      *
      *  @param v The row height, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setRowHeight(v:Number):void
     {
@@ -2740,6 +3295,11 @@ public class ListBase extends ScrollControlBase
      *  menu item as selected.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectable():Boolean
     {
@@ -2773,6 +3333,11 @@ public class ListBase extends ScrollControlBase
      * 
      *  <p>The default value is -1 (no selected item).</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -2809,6 +3374,11 @@ public class ListBase extends ScrollControlBase
      *  An array of indices in the data provider of the selected items. The
      *  items are in the reverse order that the user selected the items.
      *  @default [ ]
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndices():Array
     {
@@ -2855,6 +3425,11 @@ public class ListBase extends ScrollControlBase
      *  A reference to the selected item in the data provider.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedItem():Object
     {
@@ -2893,6 +3468,11 @@ public class ListBase extends ScrollControlBase
      *  An array of references to the selected items in the data provider. The
      *  items are in the reverse order that the user selected the items.
      *  @default [ ]
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedItems():Array
     {
@@ -2938,6 +3518,11 @@ public class ListBase extends ScrollControlBase
      *  text is too long for the row.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showDataTips():Boolean
     {
@@ -2972,6 +3557,11 @@ public class ListBase extends ScrollControlBase
      *
      *  <p>Note: Using <code>selectedItem</code> is often preferable. This
      *  property exists for backward compatibility with older applications.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Object
     {
@@ -3004,6 +3594,11 @@ public class ListBase extends ScrollControlBase
      *  If <code>true</code>, individual rows can have different height values.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get variableRowHeight():Boolean
     {
@@ -3042,6 +3637,11 @@ public class ListBase extends ScrollControlBase
      *  <code>true</code>.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wordWrap():Boolean
     {
@@ -3086,6 +3686,11 @@ public class ListBase extends ScrollControlBase
      *  the <code>listContent</code> object that will hold all the item 
      *  renderers. The item renderers are not created immediately, but later
      *  when the <code>updateDisplayList()</code> method is called.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function createChildren():void
     {
@@ -3112,6 +3717,11 @@ public class ListBase extends ScrollControlBase
      *  <code>rowCount</code> were explicitly set.
      *
      *  @see mx.core.ScrollControlBase
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function commitProperties():void
     {
@@ -3184,6 +3794,11 @@ public class ListBase extends ScrollControlBase
      *  <code>columnWidth</code> properties.
      *
      *  @see mx.core.ScrollControlBase
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -3286,6 +3901,11 @@ public class ListBase extends ScrollControlBase
      *  @param unscaledWidth The width of the control before external sizings are applied.
      *  
      *  @param unscaledHeight The height of the control before external sizings are applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initiateDataChangeEffect(unscaledWidth:Number,
                                                 unscaledHeight:Number):void
@@ -3429,6 +4049,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeDataEffectItem(item:Object):void
     {
@@ -3453,6 +4078,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addDataEffectItem(item:Object):void
     {
@@ -3477,6 +4107,11 @@ public class ListBase extends ScrollControlBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unconstrainRenderer(item:Object):void
     {
@@ -3485,6 +4120,11 @@ public class ListBase extends ScrollControlBase
 
     /** 
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getRendererSemanticValue(target:Object,semanticProperty:String):Object
     {
@@ -3502,6 +4142,11 @@ public class ListBase extends ScrollControlBase
      * 
      *  @return <code>true</code> if an item renderer is no longer being positioned
      *  by the list's layout algorithm.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function isRendererUnconstrained(item:Object):Boolean
     {
@@ -3515,6 +4160,11 @@ public class ListBase extends ScrollControlBase
      *  the Flex framework; you do not need to call it from your code.
      * 
      *  @param event The EffectEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function finishDataChangeEffect(event:EffectEvent):void
     {
@@ -3578,6 +4228,11 @@ public class ListBase extends ScrollControlBase
      *  <code>scaleY</code> property of the component.
      *
      *  @see mx.core.ScrollControlBase
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected override function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -3685,6 +4340,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  Called from the <code>updateDisplayList()</code> method to adjust the size and position of
      *  listContent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
@@ -3751,6 +4411,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  Called by the <code>updateDisplayList()</code> method to remove existing item renderers
      *  and clean up various caching structures when the renderer changes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function purgeItemRenderers():void
     {
@@ -4024,6 +4689,11 @@ public class ListBase extends ScrollControlBase
      *  Seek to a position, and handle an ItemPendingError if necessary.
      *  @param index Index into the collection.
      *  @return <code>false</code> if an ItemPendingError is thrown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function seekPositionSafely(index:int):Boolean
     {
@@ -4129,6 +4799,11 @@ public class ListBase extends ScrollControlBase
      *  @param count The number of items to measure in calculating the width.
      *
      *  @return The widest of the measured items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureWidthOfItems(index:int = -1, count:int = 0):Number
     {
@@ -4152,6 +4827,11 @@ public class ListBase extends ScrollControlBase
      *  @param count The number of items to use in calculating the height.
      *
      *  @return the sum of the height of the measured items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureHeightOfItems(index:int = -1, count:int = 0):Number
     {
@@ -4173,6 +4853,11 @@ public class ListBase extends ScrollControlBase
      *  @param data Object to be rendered.
      *
      *  @return The string to be displayed based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToLabel(data:Object):String
     {
@@ -4233,6 +4918,11 @@ public class ListBase extends ScrollControlBase
      *  @param data Object to be rendered.
      *
      *  @return String displayable string based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToDataTip(data:Object):String
     {
@@ -4293,6 +4983,11 @@ public class ListBase extends ScrollControlBase
      *  @param data The item from which to extract the icon class.
      *  @return The icon for the item, as a class reference or 
      *  <code>null</code> if none.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToIcon(data:Object):Class
     {
@@ -4396,6 +5091,11 @@ public class ListBase extends ScrollControlBase
      *  is true.
      *
      *  @return A Point containing the number of rows and columns created.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function makeRowsAndColumns(left:Number, top:Number,
                                           right:Number, bottom:Number,
@@ -4423,6 +5123,11 @@ public class ListBase extends ScrollControlBase
      *  on the left has a columnIndex of 2.
      *
      *  @return The offset into the data provider.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function indicesToIndex(rowIndex:int, colIndex:int):int
     {
@@ -4436,6 +5141,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return The row the item would be displayed at in the component;
      *  -1 if not displayable in listContent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function indexToRow(index:int):int
     {
@@ -4449,6 +5159,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return The column the item would be displayed at in the component;
      *  -1 if not displayable in listContent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function indexToColumn(index:int):int
     {
@@ -4481,6 +5196,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return A Point. The <code>x</code> property is the columnIndex
      *  and the <code>y</code> property is the rowIndex.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemRendererToIndices(item:IListItemRenderer):Point
     {
@@ -4508,6 +5228,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return The item renderer that is displaying the item, or 
      *  <code>null</code> if the item is not currently displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function indexToItemRenderer(index:int):IListItemRenderer
     {
@@ -4532,6 +5257,11 @@ public class ListBase extends ScrollControlBase
      *  item for which you want to know the data provider index.
      *
      *  @return The index of the item in the data provider.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemRendererToIndex(itemRenderer:IListItemRenderer):int
     {
@@ -4574,6 +5304,11 @@ public class ListBase extends ScrollControlBase
      *  @param data The data provider item.
      *
      *  @return The UID as a string.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToUID(data:Object):String
     {
@@ -4586,6 +5321,11 @@ public class ListBase extends ScrollControlBase
      *  Find an item renderer based on its UID if it is visible.
      *  @param uid The UID of the item.
      *  @return The item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function UIDToItemRenderer(uid:String):IListItemRenderer
     {
@@ -4605,6 +5345,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return The item renderer or <code>null</code> if the item is not 
      *  currently displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToItemRenderer(item:Object):IListItemRenderer
     {
@@ -4616,6 +5361,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param item A data provider item.
      *  @return <code>true</code> if the item is being displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemVisible(item:Object):Boolean
     {
@@ -4636,6 +5386,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return The item renderer the mouse is over or 
      *  <code>null</code> if none.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseEventToItemRenderer(
                                 event:MouseEvent):IListItemRenderer
@@ -4735,6 +5490,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return <code>true</code> if the display object is contained
      *  or owned by the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemRendererContains(renderer:IListItemRenderer,
                                          object:DisplayObject):Boolean
@@ -4756,6 +5516,11 @@ public class ListBase extends ScrollControlBase
      *  general freeItemRenderers stack.
      *
      *  @param item The renderer to add.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function addToFreeItemRenderers(item:IListItemRenderer):void
     {
@@ -4798,6 +5563,11 @@ public class ListBase extends ScrollControlBase
      *  is found) it retrieves from the freeItemRenderers stack.
      *
      *  @param data Object The data to be presented by the item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getReservedOrFreeItemRenderer(data:Object):IListItemRenderer
     {
@@ -4849,6 +5619,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @return if <code>data</code> is null, the default item renderer, 
      *  otherwis it returns the custom item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemRendererFactory(data:Object):IFactory
     {
@@ -4867,6 +5642,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Draws any alternating row colors, borders and backgrounds for the rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawRowBackgrounds():void
     {
@@ -4885,6 +5665,11 @@ public class ListBase extends ScrollControlBase
      *  it is the selection caret.
      *  @param transition <code>true</code> if the selection state should fade in
      *  via an effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawItem(item:IListItemRenderer,
                                 selected:Boolean = false,
@@ -5071,6 +5856,11 @@ public class ListBase extends ScrollControlBase
      *  @param height The suggested height for the indicator.
      *  @param color The suggested color for the indicator.
      *  @param itemRenderer The item renderer that is being highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawHighlightIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5093,6 +5883,11 @@ public class ListBase extends ScrollControlBase
      *  @param indicator A Sprite that should contain the graphics
      *  for that make a renderer look highlighted.
      *  @param itemRenderer The item renderer that is being highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearHighlightIndicator(indicator:Sprite,
                                 itemRenderer:IListItemRenderer):void
@@ -5114,6 +5909,11 @@ public class ListBase extends ScrollControlBase
      *  @param height The suggested height for the indicator.
      *  @param color The suggested color for the indicator.
      *  @param itemRenderer The item renderer that is being highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawSelectionIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5144,6 +5944,11 @@ public class ListBase extends ScrollControlBase
      *  @param height The suggested height for the indicator.
      *  @param color The suggested color for the indicator.
      *  @param itemRenderer The item renderer that is being highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawCaretIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5165,6 +5970,11 @@ public class ListBase extends ScrollControlBase
      *  @param indicator A Sprite that should contain the graphics
      *  for that make a renderer look highlighted.
      *  @param itemRenderer The item renderer that is being highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearCaretIndicator(
                                 indicator:Sprite,
@@ -5176,6 +5986,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Removes all selection and highlight and caret indicators.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearIndicators():void
     {
@@ -5204,6 +6019,11 @@ public class ListBase extends ScrollControlBase
      *  for a given item in the data provider.
      *
      *  @param uid The UID of the data provider item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function removeIndicators(uid:String):void
     {
@@ -5269,6 +6089,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Refresh all rows on the next update.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateList():void
     {
@@ -5280,6 +6105,11 @@ public class ListBase extends ScrollControlBase
      *  Refreshes all rows. Calling this method can require substantial
      *  processing, because it completely redraws all renderers
      *  in the list and does not return until complete.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateList():void
     {
@@ -5312,6 +6142,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Empty the visibleData hash table.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearVisibleData():void
     {
@@ -5320,6 +6155,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Update the keys in the visibleData hash table.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function reKeyVisibleData():void
     {
@@ -5332,6 +6172,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  If false, renderers cannot invalidate size of List. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function set allowItemSizeChangeNotification(value:Boolean):void
     {
@@ -5520,6 +6365,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param data The data provider item.
      *  @return <code>true</code> if the item is highlighted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemHighlighted(data:Object):Boolean
     {
@@ -5545,6 +6395,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param data The data provider item.
      *  @return <code>true</code> if the item is selected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemSelected(data:Object):Boolean
     {
@@ -5563,6 +6418,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param data The data provider item.
      *  @return <code>true</code> if the item is selectable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemSelectable(data:Object):Boolean
     {
@@ -5615,6 +6475,11 @@ public class ListBase extends ScrollControlBase
      *  @return <code>true</code> if the set of selected items changed.
      *  Clicking on an already-selected item does not always change the set
      *  of selected items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function selectItem(item:IListItemRenderer,
                                   shiftKey:Boolean, ctrlKey:Boolean,
@@ -5812,6 +6677,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param transition <code>true</code> if the graphics should
      *  have a fadeout effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearSelected(transition:Boolean = false):void
     {
@@ -5855,6 +6725,11 @@ public class ListBase extends ScrollControlBase
      *  the keyboard key was pressed.
      *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
      *  the keyboard key was pressed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function moveSelectionHorizontally(code:uint, shiftKey:Boolean,
                                                  ctrlKey:Boolean):void
@@ -5876,6 +6751,11 @@ public class ListBase extends ScrollControlBase
      *  the keyboard key was pressed.
      *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
      *  the keyboard key was pressed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function moveSelectionVertically(code:uint, shiftKey:Boolean,
                                                ctrlKey:Boolean):void
@@ -6039,6 +6919,11 @@ public class ListBase extends ScrollControlBase
      *  Called by the keyboard selection handlers
      *  and by the <code>updateDisplayList()</code> method in case the 
      *  keyboard selection handler received a page fault while scrolling to get more items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function finishKeySelection():void
     {
@@ -6477,6 +7362,11 @@ public class ListBase extends ScrollControlBase
      *  into a table and track more than one selection effect.
      *  
      *  @param itemRenderer The item renderer that is being shown as selected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function applySelectionEffect(indicator:Sprite, uid:String,
                                             itemRenderer:IListItemRenderer):void
@@ -6522,6 +7412,11 @@ public class ListBase extends ScrollControlBase
      *  if the array should be filled with the indexes of the items.
      *
      *  @return An array of selected items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function copySelectedItems(useDataField:Boolean = true):Array
     {
@@ -6557,6 +7452,11 @@ public class ListBase extends ScrollControlBase
      *         property value corresponding to the scroll position.
      *
      *  @return The data provider index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function scrollPositionToIndex(horizontalScrollPosition:int,
                                              verticalScrollPosition:int):int
@@ -6578,6 +7478,11 @@ public class ListBase extends ScrollControlBase
      *  @param index The index of the item in the data provider.
      *
      *  @return <code>true</code> if <code>verticalScrollPosition</code> changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function scrollToIndex(index:int):Boolean
     {
@@ -6608,6 +7513,11 @@ public class ListBase extends ScrollControlBase
      *  @param pos The new scroll position.
      *  @param deltaPos The change in position. This value is always a positive number.
      *  @param scrollUp <code>true</code> if the scroll position is getting smaller.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function scrollVertically(pos:int, deltaPos:int,
                                         scrollUp:Boolean):void
@@ -6911,6 +7821,11 @@ public class ListBase extends ScrollControlBase
      *  
      *  @param i The index of the row to remove.
      *  @param numCols The number of columns in the row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function destroyRow(i:int, numCols:int):void
     {
@@ -6935,6 +7850,11 @@ public class ListBase extends ScrollControlBase
      *  @param i The index of the row.
      *  @param numCols The number of columns in the row.
      *  @param moveBlockDistance The distance to move.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function moveRowVertically(i:int, numCols:int, moveBlockDistance:Number):void
     {
@@ -6955,6 +7875,11 @@ public class ListBase extends ScrollControlBase
      *  @param newIndex New index in the arrays.
      *  @param numCols The number of columns in the row.
      *  @param shiftItems <code>true</code> if we actually move the item. <code>false</code> if we simply change the item's rowIndex.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function shiftRow(oldIndex:int, newIndex:int, numCols:int, shiftItems:Boolean):void
     {
@@ -6983,6 +7908,11 @@ public class ListBase extends ScrollControlBase
      *  
      *  @param uid UID used to find the indicators.
      *  @param moveBlockDistance The distance to move vertically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function moveIndicatorsVertically(uid:String, moveBlockDistance:Number):void
     {
@@ -7002,6 +7932,11 @@ public class ListBase extends ScrollControlBase
      *  
      *  @param uid UID used to find the indicators.
      *  @param moveBlockDistance The distance to move horizontally.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function moveIndicatorsHorizontally(uid:String, moveBlockDistance:Number):void
     {
@@ -7021,6 +7956,11 @@ public class ListBase extends ScrollControlBase
      *  @param startRowIdx The index of first row.
      *  @param endRowIdx The index of last row.
      *  @return The total height of the rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function sumRowHeights(startRowIdx:int, endRowIdx:int):Number
     {
@@ -7036,6 +7976,11 @@ public class ListBase extends ScrollControlBase
      *  arrays that store references to the rows.
      *  
      *  @param numRows The row index to truncate from.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function truncateRowArrays(numRows:int):void
     {
@@ -7045,6 +7990,11 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Add a blank row to the beginning of the arrays that store references to the rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function addToRowArrays():void
     {
@@ -7057,6 +8007,11 @@ public class ListBase extends ScrollControlBase
      *  arrays that store references to the rows.
      *  
      *  @param modDeltaPos The number of rows to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function restoreRowArrays(modDeltaPos:int):void
     {
@@ -7068,6 +8023,11 @@ public class ListBase extends ScrollControlBase
      *  Remove a row from the arrays that store references to the row.
      *  
      *  @param i The index of the row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function removeFromRowArrays(i:int):void
     {
@@ -7094,6 +8054,11 @@ public class ListBase extends ScrollControlBase
      *  @param pos The new scroll position.
      *  @param deltaPos The change in position. This value is always a positive number.
      *  @param scrollUp <code>true</code> if scroll position is getting smaller.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function scrollHorizontally(pos:int, deltaPos:int, scrollUp:Boolean):void
     {
@@ -7106,6 +8071,11 @@ public class ListBase extends ScrollControlBase
      *  Creates an item renderer given the data object.
      *  @param The data object.
      *  @return The item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createItemRenderer(data:Object):IListItemRenderer
     {
@@ -7119,6 +8089,11 @@ public class ListBase extends ScrollControlBase
      *  after the rows and columns have been updated.
      *  The method should figures out what parameters to pass into the 
      *  <code>setScrollBarProperties()</code> method to properly set up the ScrollBars.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function configureScrollBars():void
     {
@@ -7127,6 +8102,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  Interval function that scrolls the list up or down
      *  if the mouse goes above or below the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragScroll():void
     {
@@ -7239,6 +8219,11 @@ public class ListBase extends ScrollControlBase
      *  Override this method to add other data to the drag source.
      * 
      * @param ds The DragSource object to which to add the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function addDragData(ds:Object):void // actually a DragSource
     {
@@ -7255,6 +8240,11 @@ public class ListBase extends ScrollControlBase
      *  last valid event.
      *
      *  @return Index where the dropped items should be added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function calculateDropIndex(event:DragEvent = null):int
     {
@@ -7305,6 +8295,11 @@ public class ListBase extends ScrollControlBase
      *  @param rowNum The row number in the control where the drop indicator should appear.
      *
      *  @return The y axis coordinate of the drop indicator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function calculateDropIndicatorY(rowCount:Number,
                                                rowNum:int):Number
@@ -7334,6 +8329,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param event A DragEvent object that contains information as to where
      *  the mouse is.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function showDropFeedback(event:DragEvent):void
     {
@@ -7389,6 +8389,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param event A DragEvent object that contains information about the
      *  mouse location.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hideDropFeedback(event:DragEvent):void
     {
@@ -7412,6 +8417,11 @@ public class ListBase extends ScrollControlBase
      *  @param data The data that caused the error. 
      *  
      *  @param info Data about a seek operation that was interrupted by an ItemPendingError error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function seekPendingFailureHandler(data:Object,
                                                  info:ListBaseSeekPending):void
@@ -7427,6 +8437,11 @@ public class ListBase extends ScrollControlBase
      *  @param data The data that caused the error.
      *  
      *  @param info Data about a seek operation that was interrupted by an ItemPendingError error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function seekPendingResultHandler(data:Object,
                                                 info:ListBaseSeekPending):void
@@ -7561,6 +8576,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @param eventCode The key that was pressed on the keyboard.
      *  @return <code>true</code> if a match was found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function findKey(eventCode:int):Boolean
     {
@@ -7591,6 +8611,11 @@ public class ListBase extends ScrollControlBase
      *  @see mx.collections.ListCollectionView
      *  @see mx.collections.ArrayCollection
      *  @see mx.collections.XMLListCollection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findString(str:String):Boolean
     {
@@ -7959,6 +8984,11 @@ public class ListBase extends ScrollControlBase
      *  @param event The MouseEvent object.
      *
      *  @see mx.core.ScrollControlBase#mouseWheelHandler()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function mouseWheelHandler(event:MouseEvent):void
     {
@@ -7994,6 +9024,11 @@ public class ListBase extends ScrollControlBase
      *  Updates the renderers, selected indices and scrollbars as needed.
      *
      *  @param event The CollectionEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function collectionChangeHandler(event:Event):void
     {
@@ -8436,6 +9471,11 @@ public class ListBase extends ScrollControlBase
     
     /**
      *  Prepares the data effect for the collection event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function prepareDataEffect(ce:CollectionEvent):void
     {           
@@ -8664,6 +9704,11 @@ public class ListBase extends ScrollControlBase
      *  renderers and in padded areas around the renderers.</p>
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseOverHandler(event:MouseEvent):void
     {
@@ -8751,6 +9796,11 @@ public class ListBase extends ScrollControlBase
      *  finds out which renderer the mouse has left and removes the highlights.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseOutHandler(event:MouseEvent):void
     {
@@ -8789,6 +9839,11 @@ public class ListBase extends ScrollControlBase
      *  the target.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseMoveHandler(event:MouseEvent):void
     {
@@ -8858,6 +9913,11 @@ public class ListBase extends ScrollControlBase
      *  a <code>MouseEvent.MOUSE_UP</code> event.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
@@ -8955,6 +10015,11 @@ public class ListBase extends ScrollControlBase
      *  a <code>MouseEvent.MOUSE_UP</code> event.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseUpHandler(event:MouseEvent):void
     {
@@ -9015,6 +10080,11 @@ public class ListBase extends ScrollControlBase
      *  and dispatches a <code>ListEvent.ITEM_CLICK</code> event.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseClickHandler(event:MouseEvent):void
     {
@@ -9041,6 +10111,11 @@ public class ListBase extends ScrollControlBase
      *  and dispatches a <code>ListEvent.ITEM_DOUBLE_CLICK</code> event.
      *
      *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseDoubleClickHandler(event:MouseEvent):void
     {
@@ -9064,6 +10139,11 @@ public class ListBase extends ScrollControlBase
      *  The default handler for the <code>dragStart</code> event.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragStartHandler(event:DragEvent):void
     {
@@ -9084,6 +10164,11 @@ public class ListBase extends ScrollControlBase
      *  the <code>showDropFeedback()</code> method to set up the UI feedback.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragEnterHandler(event:DragEvent):void
     {
@@ -9111,6 +10196,11 @@ public class ListBase extends ScrollControlBase
      *  the <code>showDropFeedback()</code> method to set up the UI feeback.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragOverHandler(event:DragEvent):void
     {
@@ -9136,6 +10226,11 @@ public class ListBase extends ScrollControlBase
      *  the UI feeback by calling the <code>hideDropFeedback()</code> method.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragExitHandler(event:DragEvent):void
     {
@@ -9165,6 +10260,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @see mx.utils.ObjectUtil
      *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragDropHandler(event:DragEvent):void
     {   
@@ -9232,6 +10332,11 @@ public class ListBase extends ScrollControlBase
      *
      *  @see mx.utils.ObjectUtil
      *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function copyItemWithUID(item:Object):Object
     {
@@ -9254,6 +10359,11 @@ public class ListBase extends ScrollControlBase
      *  removes the item from the data provider.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dragCompleteHandler(event:DragEvent):void
     {
