@@ -535,10 +535,17 @@ public class TextGraphicElement extends GraphicElement
      */
     override public function canShareWithNext(element:IGraphicElement):Boolean
     {
+        return false;
+        // TODO: Returning false is a temporary workaround to fix SDK-21084
+        // for Beta 1. The real problem involves how Group does z-ordering
+        // of its children without taking TextLines into account.
+        // We should restore the code below after we have a proper fix
+        // for SDK-21084.
+        
         // We can share with the next GraphicElement only if it is also
         // a TextGraphicElement, as TextGraphicElements add child DisplayObjects
         // instead of drawing the the DisplayObject's graphics.
-        return element is TextGraphicElement && super.canShareWithNext(element);
+        //return element is TextGraphicElement && super.canShareWithNext(element);
     }
 
     //--------------------------------------------------------------------------
@@ -1151,17 +1158,18 @@ public class TextGraphicElement extends GraphicElement
 	 *  Adds the TextLines created by composeTextLines()
      *  to a specified DisplayObjectContainer.
 	 */
-	mx_internal function addTextLines(container:DisplayObjectContainer):void
+	mx_internal function addTextLines(container:DisplayObjectContainer,
+								      index:int = 0):void
 	{
 		var n:int = textLines.length;
         if (n == 0)
             return;
 
-        var addChildMethod:Function = container is UIComponent ?
-        							  UIComponent(container).$addChild :
-        							  container.addChild;
+        var addChildAtMethod:Function = container is UIComponent ?
+        								UIComponent(container).$addChildAt :
+        								container.addChildAt;
             
-        for (var i:int = 0; i < n; i++)
+        for (var i:int = n - 1; i >= 0; i--)
 		{
 			var textLine:DisplayObject = textLines[i];
 						
@@ -1170,7 +1178,7 @@ public class TextGraphicElement extends GraphicElement
             textLine.x += drawX;
             textLine.y += drawY;
             
-			addChildMethod(textLine);
+			addChildAtMethod(textLine, index);
 		}
 		
 		// If these lines went into a shared container these need to be saved
