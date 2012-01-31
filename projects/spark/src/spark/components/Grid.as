@@ -2752,17 +2752,7 @@ package spark.components
                     gridSelection.requireSelection = savedRequireSelection;
                 }
                 
-                gridLayout.clearVirtualLayoutCache();
-                
-                if (gridDimensions)
-                {
-                    gridDimensions.clear();
-                    // clearing the gridDimensions resets rowCount
-                    if (_dataProvider)
-                        gridDimensions.rowCount = _dataProvider.length;
-                    if (columnsChanged && _columns)
-                        gridDimensions.columnCount = _columns.length;
-                }
+                clearGridLayoutCache(false);
                      
                 if (!caretChanged)
                     initializeCaretPosition();
@@ -3437,6 +3427,29 @@ package spark.components
         //  Methods
         //
         //--------------------------------------------------------------------------  
+        
+        /**
+         *  @private
+         *  Clears the layout's renderers and cached sizes. Also clears
+         *  the typical item's size if clearTypicalSizes is true.
+         */
+        mx_internal function clearGridLayoutCache(clearTypicalSizes:Boolean):void
+        {
+            gridLayout.clearVirtualLayoutCache();
+            
+            if (gridDimensions)
+            {
+                if (clearTypicalSizes)
+                    gridDimensions.clearTypicalCellWidthsAndHeights();
+                
+                gridDimensions.clear();
+                // clearing the gridDimensions resets rowCount
+                if (_dataProvider)
+                    gridDimensions.rowCount = _dataProvider.length;
+                if (_columns)
+                    gridDimensions.columnCount = _columns.length;
+            }
+        }
         
         /**
          *  @private
