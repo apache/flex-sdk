@@ -11,12 +11,14 @@
 
 package spark.components.supportClasses
 {
+import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
 import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
@@ -25,13 +27,13 @@ import mx.events.CollectionEventKind;
 
 import org.osmf.metadata.IFacet;
 
+import spark.components.ColumnHeaderBar;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
-import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.HorizontalLayout;
+import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.Rect;
-import spark.components.ColumnHeaderBar;
 
 use namespace mx_internal;
 
@@ -56,6 +58,40 @@ public class GridLayout extends LayoutBase
     //  Property Overrides
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  typicalLayoutElement
+    //----------------------------------
+
+    private var explicitTypicalLayoutElement:ILayoutElement;
+    
+    /**
+     *  @private
+     *  If a typicalLayoutElement has not been explicitly set, then generate
+     *  one.  
+     */
+    override public function get typicalLayoutElement():ILayoutElement
+    {
+        if (explicitTypicalLayoutElement == null)
+            typicalLayoutElement = getTypicalItemRenderer();
+
+        return super.typicalLayoutElement;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set typicalLayoutElement(value:ILayoutElement):void
+    {
+        if (explicitTypicalLayoutElement == value)
+            return;
+        
+        if (explicitTypicalLayoutElement != null)
+            freeItemRenderer(IVisualElement(explicitTypicalLayoutElement));
+            
+        explicitTypicalLayoutElement = value;       
+        super.typicalLayoutElement = value;
+   }
     
     //----------------------------------
     //  useVirtualLayout
@@ -115,11 +151,14 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        // TBD(hmuller):need an implementation
-        var measuredWidth:Number = 640;
-        var measuredHeight:Number = 480;
+        // ToDo: Need to take typicalLayoutElement into account
+        //var rowCount:int = grid.dataProvider.length;
+        //var columnCount:int = grid.columns.length;
+        
+        var measuredWidth:Number = 640; //typicalLayoutElement.getPreferredBoundsWidth() * columnCount;
+        var measuredHeight:Number = 480; //typicalLayoutElement.getPreferredBoundsHeight() * rowCount;
         var measuredMinWidth:Number = 640;
-        var measuredMinHeight:Number = 480;
+        var measuredMinHeight:Number = 480;;
         
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
@@ -433,37 +472,51 @@ public class GridLayout extends LayoutBase
         visibleRowIndices = newVisibleRowIndices;
         visibleColumnIndices = newVisibleColumnIndices;
     }
-       
-    /* ToDo: typicalLayoutElement getter will return default so check for null 
-       won't work.  If replacing typicalLayoutElement need to free the old one.
-    private function ensureTypicalItem():void
+
+    /**
+     *  @private
+     *  Creates a new IR for cell 0,0 using the grid's typicalItem.  If the
+     *  grid does not have a typicalItem it uses row 0.  The IR is put on
+     *  the display list, measured, and then removed from the display
+     *  list.  It is not cached with the other IRs.  It is not visible.
+     */
+    private function getTypicalItemRenderer():IVisualElement
     {
-        if (typicalLayoutElement !== null || grid.typicalItem == null)
-            return;
+        if (!grid)
+            return null;
         
         var typicalItem:Object = grid.typicalItem;
+        if (typicalItem == null)
+            typicalItem = getDataProviderItem(0);
+        
         var column:GridColumn = getGridColumn(0);
+        if (column == null)
+            return null;
+        
         var factory:IFactory = column.itemToRenderer(typicalItem);
+        if (factory == null)
+            return null;
+        
         const renderer:IVisualElement = 
             allocateGridElement(factory) as IVisualElement;
         
         if (renderer == null)
-            return;
+            return null;
         
-        grid.itemRendererGroup.addElement(IVisualElement(renderer));
+        grid.itemRendererGroup.addElement(renderer);
         
-        initializeItemRenderer(renderer, 0, 0);
+        initializeItemRenderer(renderer, 0, 0, typicalItem, false);
         
-        const validatingElt:IInvalidating = renderer as IInvalidating;
-        if (validatingElt)        
-            validatingElt.validateNow();
+        layoutGridElement(renderer, 0, 0, NaN, NaN);
                 
-       grid.itemRendererGroup.removeElement(IVisualElement(renderer));
-       
-       typicalLayoutElement = renderer;
-    } 
-    */
-            
+        grid.itemRendererGroup.removeElement(renderer);
+        
+        return renderer;
+     } 
+    
+    /**
+     *  @private
+     */
     private function getVisibleItemRendererIndex(rowIndex:int, columnIndex:int):int
     {
         if ((visibleRowIndices == null) || (visibleColumnIndices == null))
@@ -490,6 +543,9 @@ public class GridLayout extends LayoutBase
         return renderer;        
     }
     
+    /**
+     *  @private
+     */
     private function takeVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
     {
         const index:int = getVisibleItemRendererIndex(rowIndex, columnIndex);
@@ -501,9 +557,15 @@ public class GridLayout extends LayoutBase
         return renderer;
     }
     
-    private function initializeItemRenderer(renderer:IVisualElement, rowIndex:int, columnIndex:int):void
+    /**
+     *  @private
+     */
+    private function initializeItemRenderer(renderer:IVisualElement, 
+                                            rowIndex:int, columnIndex:int,
+                                            dataItem:Object=null,
+                                            visible:Boolean=true):void
     {
-        renderer.visible = true;
+        renderer.visible = visible;
         
         const gridRenderer:GridItemRenderer = renderer as GridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
@@ -512,7 +574,8 @@ public class GridLayout extends LayoutBase
         {
             gridRenderer.itemIndex = rowIndex;
             gridRenderer.column = gridColumn;
-            const dataItem:Object = getDataProviderItem(rowIndex);
+            if (dataItem == null)
+                dataItem = getDataProviderItem(rowIndex);
             gridRenderer.label = gridColumn.itemToLabel(dataItem);
             gridRenderer.data = dataItem;
             
