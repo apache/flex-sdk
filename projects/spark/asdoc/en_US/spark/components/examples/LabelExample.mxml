@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TextBoxExample.mxml -->
-<Application xmlns="http://ns.adobe.com/mxml/2009">
-     <Panel title="TextBox Example"
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+     <s:Panel title="TextBox Example"
         height="75%" width="75%" layout="horizontal"
         paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-          <Graphic>
+          <s:Graphic>
                <TextBox x="0" y="0" height="75" width="75">
                     <text>This is a TextBox</text>
                </TextBox>
-          </Graphic>
-          <Group x="100" y="0">
+          </s:Graphic>
+          <s:Group x="100" y="0">
                <TextBox height="100" width="75" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
                     <text>This is a TextBox with a border drawn by a Rect.</text>
                </TextBox>
-               <Rect width="100%" height="100%">
-                    <stroke>
-                         <SolidColorStroke color="red"/>
-                    </stroke>
-               </Rect>               
-          </Group>
-     </Panel>
-</Application>
+               <s:Rect width="100%" height="100%">
+                    <s:stroke>
+                         <s:SolidColorStroke color="red"/>
+                    </s:stroke>
+               </s:Rect>               
+          </s:Group>
+     </s:Panel>
+</s:Application>
