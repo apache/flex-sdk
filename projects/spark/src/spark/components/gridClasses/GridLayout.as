@@ -16,6 +16,7 @@ import flash.utils.Dictionary;
 import flash.utils.getTimer;
 
 import mx.collections.IList;
+import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
@@ -23,8 +24,8 @@ import mx.core.IUIComponent;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
-import mx.core.mx_internal;
 import mx.core.Singleton;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
@@ -38,7 +39,6 @@ import spark.components.IGridItemRenderer;
 import spark.components.IGridRowBackground;
 import spark.components.supportClasses.GridLayer;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.skins.spark.DefaultGridItemRenderer;
 import spark.skins.spark.DefaultGridItemRenderer;
 import spark.skins.spark.UITextFieldGridItemRenderer;
 
@@ -105,6 +105,41 @@ public class GridLayout extends LayoutBase
      *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
      */
     private const visibleGridBounds:Rectangle = new Rectangle();
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods and properties
+    //
+    //-------------------------------------------------------------------------- 
+    
+    /**
+     *  @private
+     *  The static embeddedFontsRegistryExists property is initialized lazily. 
+     */
+    private static var  _embeddedFontRegistryExists:Boolean = false;
+    private static var embeddedFontRegistryExistsInitialized:Boolean = false;
+    
+    /**
+     *  @private
+     *  True if an embedded font registry singleton exists.
+     */
+    private static function get embeddedFontRegistryExists():Boolean
+    {
+        if (!embeddedFontRegistryExistsInitialized)
+        {
+            embeddedFontRegistryExistsInitialized = true;
+            try
+            {
+                _embeddedFontRegistryExists = Singleton.getInstance("mx.core::IEmbeddedFontRegistry") != null;
+            }
+            catch (e:Error)
+            {
+                _embeddedFontRegistryExists = false;
+            }
+        }
+        
+        return _embeddedFontRegistryExists;
+    }     
     
     //--------------------------------------------------------------------------
     //
@@ -497,7 +532,7 @@ public class GridLayout extends LayoutBase
 			typicalItem = getDataProviderItem(0);
 		
 		const column:GridColumn = getGridColumn(columnIndex);
-		const factory:IFactory = column.itemToRenderer(typicalItem);
+		const factory:IFactory = itemToRenderer(column, typicalItem);
 		const renderer:IGridItemRenderer = allocateGridElement(factory) as IGridItemRenderer;
 		
 		grid.rendererLayer.addGridElement(renderer);
@@ -700,14 +735,43 @@ public class GridLayout extends LayoutBase
             }
         }    
 	}
-	
 
     //--------------------------------------------------------------------------
     //
     //  Item Renderer Management and Layout
     //
-    //--------------------------------------------------------------------------   
+    //--------------------------------------------------------------------------    
+    
+    private const gridItemRendererClassFactories:Dictionary = new Dictionary(true);
+    
+    /**
+     *  @private
+     *  Return the item renderer for the specified column and dataProvider item,
+     *  essentially column.itemToRenderer(dataItem). 
+     * 
+     *  If this app might have embedded fonts then item renderers must be created with the Grid's
+     *  module factory.  To enable that, we wrap the real item renderer ClassFactory with 
+     *  a GridItemRendererClassFactory.  Wrapped factories are cached in 
+     *  the gridItemRendererClassFactories Dictionary.
+     */
+    private function itemToRenderer(column:GridColumn, dataItem:Object):IFactory
+    {
+        var factory:IFactory = column.itemToRenderer(dataItem);
+        var rendererClassFactory:IFactory = null;
+
+        if (embeddedFontRegistryExists && (factory is ClassFactory))
+        {
+            rendererClassFactory = gridItemRendererClassFactories[factory];
+            if (!rendererClassFactory)
+            {
+                rendererClassFactory = new GridItemRendererClassFactory(grid, ClassFactory(factory));
+                gridItemRendererClassFactories[factory] = rendererClassFactory;
+            }
+        }
         
+        return (rendererClassFactory) ? rendererClassFactory : factory;
+    }
+
     private function layoutItemRenderers(rendererLayer:GridLayer, scrollX:Number, scrollY:Number, width:Number, height:Number):void
     {
         var rowIndex:int;
@@ -749,7 +813,7 @@ public class GridLayout extends LayoutBase
         var cellX:Number = startCellX;
         var cellY:Number = startCellY;
         var availableHeight:Number = height;
-        
+
         for (rowIndex = startRowIndex; (availableHeight > 0) && (rowIndex >= 0) && (rowIndex < rowCount); rowIndex++)
         {
             newVisibleRowIndices.push(rowIndex);
@@ -762,7 +826,7 @@ public class GridLayout extends LayoutBase
                 {       
                     var dataItem:Object = getDataProviderItem(rowIndex);
                     var column:GridColumn = getGridColumn(colIndex);
-                    var factory:IFactory = column.itemToRenderer(dataItem);
+                    var factory:IFactory = itemToRenderer(column, dataItem);
                     renderer = allocateGridElement(factory) as IGridItemRenderer;                   
                 }
             
@@ -844,7 +908,6 @@ public class GridLayout extends LayoutBase
         visibleRowIndices = newVisibleRowIndices;
         visibleColumnIndices = newVisibleColumnIndices;
     }
-
 
     /**
      *  @private
@@ -2121,7 +2184,7 @@ public class GridLayout extends LayoutBase
         if (dataItem == null || column == null)
             return null;
                 
-        const factory:IFactory = column.itemToRenderer(dataItem);
+        const factory:IFactory = itemToRenderer(column, dataItem);
         const renderer:IGridItemRenderer = factory.newInstance() as IGridItemRenderer;
         
         grid.rendererLayer.addGridElement(renderer);
@@ -2242,4 +2305,51 @@ public class GridLayout extends LayoutBase
     }
 
 }
+}
+
+import flash.utils.getQualifiedClassName;
+
+import mx.core.ClassFactory;
+import mx.core.IFactory;
+import mx.core.IFlexModuleFactory;
+
+import spark.components.Grid;
+
+/**
+ *  @private
+ *  A wrapper class for item renderers that creates the renderer instance with the grid's
+ *  module factory.  
+ * 
+ *  This is necessary for applications that use embedded fonts.   The module factory creates
+ *  the renderer instance in the correct "font context" in the same way as ContextualClassFactory
+ *  does.   More about this in the  ContextualClassFactory  ASDoc.
+ */
+class GridItemRendererClassFactory extends ClassFactory
+{
+    public var grid:Grid;
+    public var factory:ClassFactory;
+    
+    public function GridItemRendererClassFactory(grid:Grid, factory:ClassFactory)
+    {
+        super(factory.generator);
+        this.grid = grid;
+        this.factory = factory;
+    }
+    
+    override public function newInstance():*
+    {
+        const factoryGenerator:Class = factory.generator;
+        const moduleFactory:IFlexModuleFactory = grid.moduleFactory;
+        const instance:Object = 
+            (moduleFactory) ? moduleFactory.create(getQualifiedClassName(factoryGenerator)) : new factoryGenerator();
+        
+        const factoryProperties:Object = factory.properties;
+        if (factoryProperties)
+        {
+            for (var p:String in factoryProperties)
+                instance[p] = factoryProperties[p];
+        }
+        
+        return instance;
+    }
 }
