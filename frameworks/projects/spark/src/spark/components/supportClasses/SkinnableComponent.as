@@ -23,6 +23,17 @@ import mx.events.PropertyChangeEvent;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+
 /**
  *  Name of the skin to use for this component. The skin must be a class that extends
  *  the flex.core.Skin class. 
@@ -694,9 +705,14 @@ public class SkinnableComponent extends UIComponent
 
 }
 
-class SkinPartInfo {
-    public function SkinPartInfo() {}
+class SkinPartInfo
+{
+    public function SkinPartInfo()
+    {
+        super();
+    }
     
     public var id:String;
+
     public var required:Boolean;
 }
