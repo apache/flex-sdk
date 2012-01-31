@@ -299,26 +299,6 @@ public class ComboBoxAccImpl extends DropDownListBaseAccImpl
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     *  Method for returning the name of the ListItem/ComboBox
-     *  which is spoken out by the screen reader.
-     *
-     *  @param childID uint
-     *
-     *  @return Name String
-     */
-    override protected function getName(childID:uint):String
-    {
-        if (childID == 0)
-            return "";
-        var comboBox:ComboBox = ComboBox(master);
-        if (childID < 0 || childID > comboBox.dataProvider.length)
-            return "";
-        else
-            return comboBox.dataProvider.getItemAt(childID - 1).toString();
-        
-    }
     
     //--------------------------------------------------------------------------
     //
