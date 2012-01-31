@@ -14,6 +14,7 @@ package spark.components
 
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
+import flash.display.Stage;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
 import flash.events.UncaughtErrorEvent;
@@ -875,6 +876,29 @@ public class Application extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  aspectRatio
+    //----------------------------------
+    
+    /**
+     *  Returns the aspect ratio of the top level stage based on its width
+     *  and height.  If the width of the stage is greater than the height,
+     *  the stage is considered to be in "landscape" orientation.  Otherwise,
+     *  portrait is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get aspectRatio():String
+    {
+        var stage:Stage = systemManager.stage;
+        
+        // FIXME (chiedozi): Should use StageAspectRatio enums once added to player (spicy)
+        return stage.stageWidth > stage.stageHeight ? "landscape" : "portrait";
+    }
+    
     //----------------------------------
     //  parameters
     //----------------------------------
