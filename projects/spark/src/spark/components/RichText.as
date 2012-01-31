@@ -367,16 +367,18 @@ public class TextGraphic extends TextGraphicElement
         var overset:Boolean = compose(unscaledWidth, unscaledHeight);
         
         // Use scrollRect to clip overset lines.
-        // But don't set scrollRect to null if it is already null,
+        // But don't read or write scrollRect if you can avoid it,
         // because this causes Player 10.0 to allocate memory.
         if (overset)
         {
             displayObject.scrollRect =
                 new Rectangle(0, 0, unscaledWidth, unscaledHeight);
+            mx_internal::hasScrollRect = true;
         }
-        else if (displayObject.scrollRect)
+        else if (mx_internal::hasScrollRect)
         {
             displayObject.scrollRect = null;
+            mx_internal::hasScrollRect = false;
         }
     }
 
