@@ -1469,6 +1469,8 @@ public class ListBase extends ScrollControlBase
         
         var isNull:Boolean = dataProvider == null;
         var isEmpty:Boolean = dataProvider != null && dataProvider.length == 0;
+        var originalProvider:Object = dataProvider;
+        
         if (isNull || isEmpty)
         {
             dataProvider = [ null ];
@@ -1489,10 +1491,7 @@ public class ListBase extends ScrollControlBase
 
         if (isNull || isEmpty)
         {
-            if (isNull)
-                dataProvider = null;
-            else if (isEmpty)
-                dataProvider = [];
+            dataProvider = originalProvider;
             validateNow();
         }
         
