@@ -3936,6 +3936,8 @@ public class ListBase extends ScrollControlBase
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
 
+        oldLayoutDirection = layoutDirection;
+        
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
