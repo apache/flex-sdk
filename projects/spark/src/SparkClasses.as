@@ -29,6 +29,9 @@ import flex.skin.ButtonSkin; ButtonSkin;
 import flex.skin.CheckBoxSkin; CheckBoxSkin;
 import flex.skin.HScrollBarSkin; HScrollBarSkin;
 import flex.skin.HScrollBarThumbSkin; HScrollBarThumbSkin;
+import flex.skin.HSliderSkin; HSliderSkin;
+import flex.skin.HSliderThumbSkin; HSliderThumbSkin;
+import flex.skin.HSliderTrackSkin; HSliderTrackSkin;
 import flex.skin.ItemsComponentSkin; ItemsComponentSkin;
 import flex.skin.ListSkin; ListSkin;
 import flex.skin.PanelSkin; PanelSkin;
@@ -46,6 +49,9 @@ import flex.skin.TextInputSkin; TextInputSkin;
 import flex.skin.ToggleButtonSkin; ToggleButtonSkin;
 import flex.skin.VScrollBarSkin; VScrollBarSkin;
 import flex.skin.VScrollBarThumbSkin; VScrollBarThumbSkin;
+import flex.skin.VSliderSkin; VSliderSkin;
+import flex.skin.VSliderThumbSkin; VSliderThumbSkin;
+import flex.skin.VSliderTrackSkin; VSliderTrackSkin;
 }
 
 }
