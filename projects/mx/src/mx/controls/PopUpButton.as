@@ -12,6 +12,7 @@
 package mx.controls
 {
 
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
@@ -32,11 +33,13 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.effects.Tween;
 import mx.events.DropdownEvent;
+import mx.events.InterManagerRequest;
 import mx.events.ListEvent;
 import mx.events.MenuEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
 
@@ -732,7 +735,21 @@ public class PopUpButton extends Button
         var endY:Number;
         var easingFunction:Function;
         var duration:Number;
-            
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle;
+
+        if (sm != sbRoot)
+        {
+            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                    false, false,
+                                    "getVisibleApplicationRect"); 
+            sbRoot.dispatchEvent(request);
+            screen = Rectangle(request.value);
+        }
+        else
+            screen = sm.getVisibleApplicationRect();
+
         if (show)
         {
             if (getPopUp() == null)
@@ -746,9 +763,8 @@ public class PopUpButton extends Button
             else
                 PopUpManager.bringToFront(_popUp);
 
-            point = _popUp.parent.globalToLocal(point);
-
-            if (point.y + _popUp.height > screen.height && point.y > (height + _popUp.height))
+            if (point.y + _popUp.height > screen.bottom && 
+                point.y > (screen.top + height + _popUp.height))
             { 
                 // PopUp will go below the bottom of the stage
                 // and be clipped. Instead, have it grow up.
@@ -760,8 +776,9 @@ public class PopUpButton extends Button
                 initY = _popUp.height;
             }
 
-            point.x = Math.min( point.x, screen.width - _popUp.getExplicitOrMeasuredWidth());
+            point.x = Math.min( point.x, screen.right - _popUp.getExplicitOrMeasuredWidth());
             point.x = Math.max( point.x, 0);
+            point = _popUp.parent.globalToLocal(point);
             if (_popUp.x != point.x || _popUp.y != point.y)
                 _popUp.move(point.x, point.y);
 
@@ -785,8 +802,8 @@ public class PopUpButton extends Button
 
             point = _popUp.parent.globalToLocal(point);
 
-            endY = (point.y + _popUp.height > screen.height && 
-                               point.y > (height + _popUp.height)
+            endY = (point.y + _popUp.height > screen.bottom && 
+                               point.y > (screen.top + height + _popUp.height)
                                ? -_popUp.height - 2
                                : _popUp.height + 2);
             initY = 0;
