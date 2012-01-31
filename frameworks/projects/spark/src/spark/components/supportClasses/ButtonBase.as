@@ -166,7 +166,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.ButtonAccImpl")]
+[AccessibilityClass(implementation="spark.accessibility.ButtonBaseAccImpl")]
 
 [DefaultTriggerEvent("click")]
 
