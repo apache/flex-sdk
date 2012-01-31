@@ -50,6 +50,7 @@ import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IUIComponent;
 import mx.core.IUID;
 import mx.core.IUITextField;
@@ -5791,7 +5792,11 @@ public class ListBase extends ScrollControlBase
             }
 
             o = highlightIndicator;
-
+            
+            // Let the highlightIndicator inherit the layoutDirection
+            if (o is ILayoutDirectionElement)
+                ILayoutDirectionElement(o).layoutDirection = null;
+            
             drawHighlightIndicator(
                 o, item.x, rowInfo[rowData.rowIndex].y,
                 item.width, rowInfo[rowData.rowIndex].height, 
@@ -5817,6 +5822,8 @@ public class ListBase extends ScrollControlBase
             {
                 o = new SpriteAsset();
                 o.mouseEnabled = false;
+                // Let the selectionIndicator inherit the layoutDirection
+                ILayoutDirectionElement(o).layoutDirection = null;
                 selectionLayer.addChild(DisplayObject(o));
                 selectionIndicators[rowData.uid] = o;
                 
@@ -5834,6 +5841,10 @@ public class ListBase extends ScrollControlBase
             else
             {
                 o = selectionIndicators[rowData.uid];
+                
+                // Let the selectionIndicator inherit the layoutDirection
+                if (o is ILayoutDirectionElement)
+                    ILayoutDirectionElement(o).layoutDirection = null;
                 
                 drawSelectionIndicator(
                     o, item.x, effectiveRowY /* rowInfo[rowData.rowIndex].y */,
@@ -5887,6 +5898,10 @@ public class ListBase extends ScrollControlBase
                 }
                 
                 o = caretIndicator;
+                
+                // Let the caretIndicator inherit the layoutDirection
+                if (o is ILayoutDirectionElement)
+                    ILayoutDirectionElement(o).layoutDirection = null;
                 
                 drawCaretIndicator(
                     o, item.x, rowInfo[rowData.rowIndex].y,
