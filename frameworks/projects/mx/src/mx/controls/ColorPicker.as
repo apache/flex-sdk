@@ -139,17 +139,6 @@ include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
- *  Color of the SwatchPanel object's background.
- *  The default value is <code>0xE5E6E7</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
  *  Color of the outer border on the SwatchPanel object.
  *  The default value is <code>0xA5A9AE</code>.
  *  
@@ -181,17 +170,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="closeEasingFunction", type="Function", inherit="no")]
-
-/**
- *  Number of columns in the swatch grid.
- *  The default value is 20.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="columnCount", type="int", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Alphas used for the background fill of controls.
@@ -226,17 +204,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
-
-/**
- *  Horizontal gap between swatches in the swatch grid.
- *  The default value is 0.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="horizontalGap", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Length of an open transition, in milliseconds.
@@ -305,29 +272,6 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 /**
- *  Height of the larger preview swatch that appears above the swatch grid on
- *  the upper left of the SwatchPanel object.
- *  The default value is 22.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="previewHeight", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Width of the larger preview swatch.
- *  The default value is 45.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="previewWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
  *  Color of the swatches' borders.
  *  The default value is <code>0x000000</code>.
  *  
@@ -348,63 +292,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="swatchBorderSize", type="Number", format="Length", inherit="no")]
-
-/**
- *  Color of the background rectangle behind the swatch grid.
- *  The default value is <code>0x000000</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchGridBackgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Size of the single border around the grid of swatches.
- *  The default value is 0.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchGridBorderSize", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Height of each swatch.
- *  The default value is 12.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchHeight", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Color of the highlight that appears around the swatch when the user
- *  rolls over a swatch.
- *  The default value is <code>0xFFFFFF</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchHighlightColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Size of the highlight that appears around the swatch when the user
- *  rolls over a swatch.
- *  The default value is 1.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchHighlightSize", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Name of the class selector that defines style properties for the swatch panel.
@@ -439,60 +326,13 @@ include "../styles/metadata/TextStyles.as"
  */
 [Style(name="swatchPanelStyleName", type="String", inherit="no")]
 
-/**
- *  Width of each swatch.
- *  The default value is 12.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="swatchWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Name of the style sheet definition to configure the text input control.
- *  The default value is "swatchPanelTextField"
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="textFieldStyleName", type="String", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Width of the text box that appears above the swatch grid.
- *  The default value is 72.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="textFieldWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
-/**
- *  Vertical gap between swatches in the grid.
- *  The default value is 0.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="verticalGap", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
-
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
-
 [Exclude(name="text", kind="property")]
 
 [Exclude(name="fillAlphas", kind="style")]
-
 [Exclude(name="fillColors", kind="style")]
-
 [Exclude(name="highlightAlphas", kind="style")]
 
 //--------------------------------------
