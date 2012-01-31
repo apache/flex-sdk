@@ -27,10 +27,12 @@ import spark.events.RendererExistenceEvent;
 import mx.collections.IList;
 import mx.core.EventPriority;
 import mx.core.IFactory;
+import mx.core.INavigatable;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
@@ -209,13 +211,30 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider)
+        {
             dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler);
+            if (dataProvider is INavigatable)
+                dataProvider.removeEventListener(FlexEvent.NAVIGATION_CHANGE, navigationChangeHandler);
+        }
     
         // not really a default handler, we just want it to run after the datagroup
         if (value)
+        {
             value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER);
+            if (value is INavigatable)
+                value.addEventListener(FlexEvent.NAVIGATION_CHANGE, navigationChangeHandler);
+        }
 
         super.dataProvider = value;
+    }
+
+    /**
+     *  @private
+     */
+    private function navigationChangeHandler(event:Event):void
+    {
+        if (INavigatable(dataProvider).selectedIndex != selectedIndex)
+            selectedIndex = INavigatable(dataProvider).selectedIndex;
     }
 
     /**
@@ -285,6 +304,8 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             setCurrentCaretIndex(index);
             renderer.selected = selected;
         }
+        if (dataProvider is INavigatable && selected)
+            INavigatable(dataProvider).selectedIndex = index;
     }
         
     /**
