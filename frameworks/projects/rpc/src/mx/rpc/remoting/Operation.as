@@ -137,6 +137,7 @@ public class Operation extends AbstractOperation
      */
     public var argumentNames:Array;
 
+
     //--------------------------------------------------------------------------
     //
     // Private Variables
@@ -164,6 +165,9 @@ public class Operation extends AbstractOperation
     {
         if (service != null)
             service.initialize();
+
+        if (remoteObject.convertParametersHandler != null)
+            args = remoteObject.convertParametersHandler(args);
 
         if (operationManager != null)
             return operationManager(args);
@@ -260,6 +264,16 @@ public class Operation extends AbstractOperation
         return token;
     }
 
+    override mx_internal function processResult(message:IMessage, token:AsyncToken):Boolean
+    {
+        if (super.processResult(message, token))
+        {
+            if (remoteObject.convertResultHandler != null)
+                _result = remoteObject.convertResultHandler(_result, this);
+            return true;
+        }
+        return false;
+    }
 
     //--------------------------------------------------------------------------
     //
