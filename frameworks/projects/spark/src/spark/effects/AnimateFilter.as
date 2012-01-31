@@ -44,7 +44,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateFilter
+ *  &lt;s:AnimateFilter
  *    <b>Properties</b>
  *    id="ID"
  *    bitmapFilter="no default"
