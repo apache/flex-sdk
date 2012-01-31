@@ -17,29 +17,11 @@ import mx.components.DataGroup;
 import mx.components.baseClasses.FxContainerBase;
 import mx.core.IFactory;
 import mx.core.IViewport;
-import mx.core.ScrollUnit;
 import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
 import mx.events.PropertyChangeEvent;
 import mx.layout.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
-
-/**
- *  Dispatched when an item is added to the content holder.
- *  event.
- *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
- */
-[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
-
-/**
- *  Dispatched when an item is removed from the content holder.
- *  event.
- *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
- */
-[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../styles/metadata/BasicContainerFormatTextStyles.as"
@@ -73,7 +55,7 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     /**
      *  @private
      */
-    private static const CLIP_CONTENT_PROPERTY_FLAG:uint = 1 << 0;
+    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 0;
     
     /**
      *  @private
@@ -167,32 +149,32 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  clipContent
+    //  clipAndEnableScrolling
     //----------------------------------
     
     /**
      *  @inheritDoc
      */
-    public function get clipContent():Boolean 
+    public function get clipAndEnableScrolling():Boolean 
     {
         return (dataGroup) 
-            ? dataGroup.clipContent 
-            : dataGroupProperties.clipContent;
+            ? dataGroup.clipAndEnableScrolling 
+            : dataGroupProperties.clipAndEnableScrolling;
     }
 
     /**
      *  @private
      */
-    public function set clipContent(value:Boolean):void 
+    public function set clipAndEnableScrolling(value:Boolean):void 
     {       
         if (dataGroup)
         {
-            dataGroup.clipContent = value;
+            dataGroup.clipAndEnableScrolling = value;
             dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
-                                                     CLIP_CONTENT_PROPERTY_FLAG, true);
+                                                     CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
         }
         else
-            dataGroupProperties.clipContent = value;
+            dataGroupProperties.clipAndEnableScrolling = value;
     }
     
     //----------------------------------
@@ -416,19 +398,19 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     /**
      *  @inheritDoc
      */
-    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
         return (dataGroup) ? 
-            dataGroup.getHorizontalScrollPositionDelta(unit) : 0;     
+            dataGroup.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
     }
     
     /**
      *  @inheritDoc
      */
-    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
         return (dataGroup) ? 
-            dataGroup.getVerticalScrollPositionDelta(unit) : 0;     
+            dataGroup.getVerticalScrollPositionDelta(scrollUnit) : 0;     
     }
 
     //--------------------------------------------------------------------------
@@ -448,11 +430,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             
             var newDataGroupProperties:uint = 0;
             
-            if (dataGroupProperties.clipContent !== undefined)
+            if (dataGroupProperties.clipAndEnableScrolling !== undefined)
             {
-                dataGroup.clipContent = dataGroupProperties.clipContent;
+                dataGroup.clipAndEnableScrolling = dataGroupProperties.clipAndEnableScrolling;
                 newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
-                                                            CLIP_CONTENT_PROPERTY_FLAG, true);
+                                                            CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
             }
             
             if (dataGroupProperties.layout !== undefined)
@@ -500,10 +482,6 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             dataGroupProperties = newDataGroupProperties;
             
             dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddedHandler);
-            dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemovedHandler);
-            dataGroup.addEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
         }
     }
@@ -513,18 +491,14 @@ public class FxDataContainer extends FxContainerBase implements IViewport
         if (instance == dataGroup)
         {
             dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddedHandler);
-            dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemovedHandler);
-            dataGroup.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
             
             // copy proxied values from dataGroup (if explicitely set) to dataGroupProperties
             
             var newDataGroupProperties:Object = {};
             
-            if (BitFlagUtil.isSet(dataGroupProperties as uint, CLIP_CONTENT_PROPERTY_FLAG))
-                newDataGroupProperties.clipContent = dataGroup.clipContent;
+            if (BitFlagUtil.isSet(dataGroupProperties as uint, CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG))
+                newDataGroupProperties.clipAndEnableScrolling = dataGroup.clipAndEnableScrolling;
             
             if (BitFlagUtil.isSet(dataGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newDataGroupProperties.layout = dataGroup.layout;
@@ -555,18 +529,6 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
-    
-    private function dataGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
-    {
-        // Re-dispatch the event
-        dispatchEvent(event);
-    }
-    
-    private function dataGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
-    {
-        // Re-dispatch the event
-        dispatchEvent(event);
-    }
     
    /**
     * @private
