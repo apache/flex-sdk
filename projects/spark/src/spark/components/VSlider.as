@@ -178,7 +178,7 @@ public class VSlider extends SliderBase
             var r:Point = thumb.parent.localToGlobal(o);        
             
             // Get the screen bounds
-            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
+            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect(null, true);
             
             // Make sure the tip doesn't exceed the bounds of the screen
             r.x = Math.floor( Math.max(screenBounds.left, 
