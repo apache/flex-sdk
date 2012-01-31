@@ -16,6 +16,7 @@ package spark.components.supportClasses
     
 import flash.display.DisplayObject;
 
+import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -289,6 +290,23 @@ public class Skin extends Group
                 return parentExplicitMaxHeight;
         }
         return super.explicitMaxHeight;
+    }
+    
+    /**
+     *  @private 
+     */
+    override protected function canSkipMeasurement():Boolean
+    {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+        {
+            return super.canSkipMeasurement();
+        }
+
+        // Explicit width/height on the skin should mean "the default size".
+        // As such, we should still measure so that we get correct measuredWidth,
+        // measuredHeight, measuredMinWidth, measuredMinHeight.
+        // Look at the SkinnableComponent's measure() to see how these are used.
+        return false;
     }
 }
 
