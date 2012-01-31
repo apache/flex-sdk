@@ -13,10 +13,16 @@ package spark.components.supportClasses
 {
 import flash.geom.Point;
 
+import mx.core.FlexVersion;
+import mx.core.IContainerInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.InteractionMode;
 import mx.core.ScrollPolicy;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
+import mx.managers.ILayoutManagerClient;
+import mx.managers.ILayoutManagerContainerClient;
 import mx.utils.MatrixUtil;
 
 import spark.components.Scroller;
@@ -319,6 +325,82 @@ public class ScrollerLayout extends LayoutBase
     //  Overidden Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Compute the estimatedWidth and estimatedHeight on the
+     *  elements.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    override public function estimateSizesOfElements():void
+    {
+        var scroller:Scroller = getScroller();
+        if (!scroller) 
+            return;
+        
+        var viewport:IViewport = scroller.viewport;
+        var layoutElement:ILayoutElement = viewport as ILayoutElement;
+        if (!layoutElement)
+			return;
+		
+        var cw:Number;
+        var ch:Number;
+        var oldcw:Number = layoutElement.estimatedWidth;
+        var oldch:Number = layoutElement.estimatedHeight;
+        cw = target.estimatedWidth;
+        if (isNaN(cw) && !isNaN(target.explicitWidth))
+            cw = target.explicitWidth;
+        ch = target.estimatedHeight;
+        if (isNaN(ch) && !isNaN(target.explicitHeight))
+            ch = target.explicitHeight;
+        
+        const minViewportInset:Number = scroller.minViewportInset;
+        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("interactionMode") == InteractionMode.MOUSE);
+        const hsb:ScrollBarBase = scroller.horizontalScrollBar;
+        var showHSB:Boolean = false;
+        if (measuredSizeIncludesScrollBars)
+            switch(scroller.getStyle("horizontalScrollPolicy")) 
+            {
+                case ScrollPolicy.ON: 
+                    if (hsb) showHSB = true; 
+                    break;
+                case ScrollPolicy.AUTO: 
+                    if (hsb) showHSB = hsb.visible;
+                    break;
+            } 
+        
+        const vsb:ScrollBarBase = scroller.verticalScrollBar;
+        var showVSB:Boolean = false;
+        if (measuredSizeIncludesScrollBars)
+            switch(scroller.getStyle("verticalScrollPolicy")) 
+            {
+                case ScrollPolicy.ON: 
+                    if (vsb) showVSB = true; 
+                    break;
+                case ScrollPolicy.AUTO: 
+                    if (vsb) showVSB = vsb.visible;
+                    break;
+            }
+        
+        ch -= (showHSB) ? hsbRequiredHeight() + minViewportInset : minViewportInset * 2;
+        cw -= (showVSB) ? vsbRequiredWidth() + minViewportInset : minViewportInset * 2;
+        
+        layoutElement.setEstimatedSize(cw, ch);
+        if (layoutElement is ILayoutManagerContainerClient)
+		{
+			var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
+			var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
+            if (!(sameHeight && sameWidth))
+            {
+                if (layoutElement is IContainerInvalidating)
+                    IContainerInvalidating(layoutElement).invalidateEstimatedSizesOfChildren();
+                ILayoutManagerContainerClient(layoutElement).validateEstimatedSizesOfChildren();
+            }
+		}
+    }
     
     /**
      * @private
@@ -641,6 +723,12 @@ public class ScrollerLayout extends LayoutBase
 
         if (viewport)
         {
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            {
+                estimateSizesOfElements();
+                if (viewport is ILayoutManagerClient)
+                    UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(viewport), true);
+            }
             viewport.setLayoutBoundsSize(viewportW, viewportH);
             viewport.setLayoutBoundsPosition(minViewportInset, minViewportInset);
         }
@@ -673,25 +761,47 @@ public class ScrollerLayout extends LayoutBase
             else
                 vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
         }
-
-        // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
-        // There's a risk of looping here, so we count.  
-        if ((invalidationCount < 2) && (((vsbVisible != oldShowVSB) && vAuto) || ((hsbVisible != oldShowHSB) && hAuto)))
+        
+		var viewportGroup:GroupBase;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
         {
-            target.invalidateSize();
-            
-            // If the viewport's layout is virtual, it's possible that its
-            // measured size changed as a consequence of laying it out,
-            // so we invalidate its size as well.
-            var viewportGroup:GroupBase = viewport as GroupBase;
-            if (viewportGroup && viewportGroup.layout && viewportGroup.layout.useVirtualLayout)
-                viewportGroup.invalidateSize();
-            
-            invalidationCount += 1; 
+            // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
+            // There's a risk of looping here, so we count.  
+            if ((invalidationCount < 2) && (((vsbVisible != oldShowVSB) && vAuto) || ((hsbVisible != oldShowHSB) && hAuto)))
+            {
+                target.invalidateSize();
+                
+                // If the viewport's layout is virtual, it's possible that its
+                // measured size changed as a consequence of laying it out,
+                // so we invalidate its size as well.
+                viewportGroup = viewport as GroupBase;
+                if (viewportGroup && viewportGroup.layout && viewportGroup.layout.useVirtualLayout)
+                    viewportGroup.invalidateSize();
+                
+                invalidationCount += 1; 
+            }
+            else
+                invalidationCount = 0;
         }
-        else
-            invalidationCount = 0;
-             
+		else
+		{
+			if (((vsbVisible != oldShowVSB) && vAuto) || ((hsbVisible != oldShowHSB) && hAuto))
+			{
+				const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("interactionMode") == InteractionMode.MOUSE);
+				if (measuredSizeIncludesScrollBars)
+				{
+					target.invalidateSize();
+					
+					// If the viewport's layout is virtual, it's possible that its
+					// measured size changed as a consequence of laying it out,
+					// so we invalidate its size as well.
+					viewportGroup = viewport as GroupBase;
+					if (viewportGroup && viewportGroup.layout && viewportGroup.layout.useVirtualLayout)
+						viewportGroup.invalidateSize();
+				}
+			}
+		}
+        
         target.setContentSize(w, h);
     }
 
