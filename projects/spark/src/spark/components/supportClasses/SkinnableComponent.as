@@ -168,7 +168,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  The instance of the skin class for this component instance. 
      *  This is a read-only property that you set 
-     *  by calling the <code>loadSkin()</code> method.
+     *  by calling the <code>createSkin()</code> method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -276,8 +276,8 @@ public class SkinnableComponent extends UIComponent
         if (!skipReload)
         {
             if (skin)
-                unloadSkin();
-            loadSkin();
+                destroySkin();
+            createSkin();
         }
     }
     
@@ -458,7 +458,7 @@ public class SkinnableComponent extends UIComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  Load the skin for the component. 
+     *  Create the skin for the component. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls 
      *  the <code>UIComponent.commitProperties()</code> method.
@@ -473,7 +473,7 @@ public class SkinnableComponent extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function loadSkin():void
+    protected function createSkin():void
     {
         // Factory
         var skinClassFactory:IFactory = getStyle("skinFactory") as IFactory;        
@@ -529,7 +529,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Find the skin parts in the skin class and assign them to the properties of the component.
      *  You do not call this method directly. 
-     *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
+     *  Flex calls it automatically when it calls the <code>createSkin()</code> method.
      *  Typically, a subclass of SkinnableComponent does not override this method.
      *  
      *  @langversion 3.0
@@ -565,7 +565,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Clear out references to skin parts. 
      *  You do not call this method directly. 
-     *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
+     *  Flex calls it automatically when it calls the <code>destroySkin()</code> method.
      *
      *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
      *  
@@ -600,7 +600,7 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Unload the skin for this component. 
+     *  Destroys and removes the skin for this component. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when a skin is changed at runtime.
      *
@@ -613,7 +613,7 @@ public class SkinnableComponent extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function unloadSkin():void
+    protected function destroySkin():void
     {       
         skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
@@ -632,7 +632,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Called when a skin part is added. 
      *  You do not call this method directly. 
-     *  For static parts, Flex calls it automatically when it calls the <code>loadSkin()</code> method. 
+     *  For static parts, Flex calls it automatically when it calls the <code>createSkin()</code> method. 
      *  For dynamic parts, Flex calls it automatically when it calls 
      *  the <code>createDynamicPartInstance()</code> method. 
      *
@@ -657,7 +657,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Called when an instance of a skin part is being removed. 
      *  You do not call this method directly. 
-     *  For static parts, Flex calls it automatically when it calls the <code>unloadSkin()</code> method. 
+     *  For static parts, Flex calls it automatically when it calls the <code>destroySkin()</code> method. 
      *  For dynamic parts, Flex calls it automatically when it calls 
      *  the <code>removeDynamicPartInstance()</code> method. 
      *
