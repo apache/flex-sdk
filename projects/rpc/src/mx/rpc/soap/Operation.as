@@ -67,6 +67,10 @@ public class Operation extends AbstractOperation
      * compiler or automatically by the WebService when an unknown operation
      * has been accessed. It is not recommended that a developer use this
      * constructor directly.
+     *
+     * @param webService The web service upon which this Operation is invoked.
+     *
+     * @param name The name of this Operation.
      */
     public function Operation(webService:AbstractService = null, name:String = null)
     {
@@ -641,7 +645,6 @@ public class Operation extends AbstractOperation
     }
 
     /**
-     * [DOCS] use superclass description
      * @private
      */
     override public function send(...args:Array):AsyncToken
