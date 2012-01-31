@@ -13,7 +13,6 @@ package mx.controls
 {
 
 import flash.text.TextLineMetrics;
-import mx.core.FlexVersion;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
@@ -245,79 +244,6 @@ public class LinkButton extends Button
 	{
 		if (createAccessibilityImplementation != null)
 			createAccessibilityImplementation(this);
-	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function measure():void
-	{
-		super.measure();
-
-    	if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-		{
-	
-			var textWidth:Number = 8;
-			var textHeight:Number = 8;
-	
-			if (label)
-			{
-				var lineMetrics:TextLineMetrics = measureText(label);
-				textWidth += lineMetrics.width;
-				textHeight += lineMetrics.height;
-			}
-	
-			textWidth += (getStyle("paddingLeft") +
-						  getStyle("paddingRight"));
-	
-			// Make sure any pending icon changes are committed before measuring.
-			// commitProperties() should always be called before measure(),
-			// but bug 103305 is a case where it isn't.
-			//
-			//removed icon and iconchanged in api scrub replaced with icon style
-			//if (iconChanged)
-			//	changeIcons();
-	
-			viewIcon();
-			viewSkin();
-	
-			var iconWidth:Number = currentIcon ? currentIcon.width : 0;
-			var iconHeight:Number = currentIcon ? currentIcon.height : 0;
-	
-			var w:Number = 0;
-			var h:Number = 0;
-	
-			if (labelPlacement == ButtonLabelPlacement.LEFT ||
-				labelPlacement == ButtonLabelPlacement.RIGHT)
-			{
-				if (label && label.length > 0)
-					w = textWidth + iconWidth;
-				else
-					w = iconWidth;
-				if (iconWidth != 0)
-					w += getStyle("horizontalGap");
-				h = Math.max(textHeight, iconHeight);
-			}
-			else
-			{
-				w = Math.max(textWidth, iconWidth);
-				if (label && label.length > 0)
-					h = textHeight + iconHeight;
-				else
-					h = iconHeight;
-				if (iconHeight != 0)
-					h += getStyle("verticalGap");
-			}
-	
-			if (label && label != "")
-				w += extraSpacing;
-	
-			w = Math.max(20, w);
-			h = Math.max(14, h);
-	
-			measuredMinWidth = measuredWidth = w;
-			measuredMinHeight = measuredHeight = h;
-		}
 	}
 
 }
