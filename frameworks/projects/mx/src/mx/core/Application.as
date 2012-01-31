@@ -294,11 +294,6 @@ public class Application extends LayoutContainer
      *  MyApplication(Application.application).myAppMethod().
      *  Therefore we decided to dispense with strict typing for
      *  'application'.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     public static function get application():Object
     {
@@ -1246,7 +1241,7 @@ public class Application extends LayoutContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-           	sm.activate(this);
+            sm.activate(this);
         }
     }
 
@@ -1256,23 +1251,23 @@ public class Application extends LayoutContainer
      */
     private function initContextMenu():void
     {
-    	// context menu already set
-    	// nothing to init
-    	if (flexContextMenu != null)
-    	{
-    		// make sure we set it back on systemManager b/c it may have been overriden by now
-    		if (systemManager is InteractiveObject)
-        		InteractiveObject(systemManager).contextMenu = contextMenu;
-        	return;
-    	}
-    	
+        // context menu already set
+        // nothing to init
+        if (flexContextMenu != null)
+        {
+            // make sure we set it back on systemManager b/c it may have been overriden by now
+            if (systemManager is InteractiveObject)
+                InteractiveObject(systemManager).contextMenu = contextMenu;
+            return;
+        }
+        
         var defaultMenu:ContextMenu = new ContextMenu();
         defaultMenu.hideBuiltInItems();
         defaultMenu.builtInItems.print = true;
 
         if (_viewSourceURL)
         {
-        	// don't worry! this gets updated in resourcesChanged()
+            // don't worry! this gets updated in resourcesChanged()
             const caption:String = resourceManager.getString("core", "viewSource");
             
             viewSourceCMI = new ContextMenuItem(caption, true);
@@ -1284,7 +1279,7 @@ public class Application extends LayoutContainer
         contextMenu = defaultMenu;
         
         if (systemManager is InteractiveObject)
-        	InteractiveObject(systemManager).contextMenu = defaultMenu;
+            InteractiveObject(systemManager).contextMenu = defaultMenu;
     }
 
     /**
@@ -1341,11 +1336,6 @@ public class Application extends LayoutContainer
             /*
             trace("addToCreationQueue queueItem",queueItemPointer.id,"queueItem.level",pointerLevel,"obj.level",queueObj.parent.nestLevel,
                     "queueItem.index",pointerIndex,"obj.index",queueObj.index);
-            *  
-            *  @langversion 3.0
-            *  @playerversion Flash 9
-            *  @playerversion AIR 1.1
-            *  @productversion Flex 3
             */
             // If our new item has a preferredIndex
             if (queueObj.index != -1)
