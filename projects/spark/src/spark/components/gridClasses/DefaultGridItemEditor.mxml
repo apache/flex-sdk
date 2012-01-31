@@ -60,7 +60,7 @@ in accordance with the terms of the license agreement accompanying it.
                 
                 var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
                 var textDisplay:IEditableText = textArea.textDisplay;
-                var itemRenderer:IGridItemRenderer = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex) as IGridItemRenderer;
+                var itemRenderer:IGridItemRenderer = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex);
 
                 if (itemRenderer is IUITextField)
                 {
@@ -77,12 +77,9 @@ in accordance with the terms of the license agreement accompanying it.
                     textDisplay.multiline = false;                    
                 }
                     
-                if ("lineBreak" in itemRenderer)
-                    textDisplay.lineBreak = itemRenderer["lineBreak"];
-                    
                 if (textDisplay.multiline == false &&
                     textDisplay.lineBreak == "explicit" &&
-                    textArea.getStyle("textAlign") == "start")
+                    isTextAlignStart())
                 {
                     // Single line control. Set the initial width to be the width of the cell.
                     textArea.width = NaN;
@@ -101,12 +98,26 @@ in accordance with the terms of the license agreement accompanying it.
                 }
                 else
                 {
-                    textArea.width = cellBounds.width;
+                    textArea.width = cellBounds.width + 1;
                 }
                 
-                textArea.minWidth = cellBounds.width;
-                textArea.height = cellBounds.height;
+                // Extend width of the TextArea so its borders overlay the cell's borders.
+                textArea.minWidth = cellBounds.width + 1;
+                textArea.height = cellBounds.height + 1;
                 
+                // Adjust the padding so the text appears in the same position
+                // in the editor as the renderer. 
+                // TODO (dloverin): This code is trying to match the default 
+                // item renderer's padding. Ideally we should just be able to 
+                // use the same values of padding on the item renderer and be done.
+                var paddingTop:int = textArea.getStyle("paddingTop");
+                var paddingLeft:int = textArea.getStyle("paddingLeft");
+                var paddingBottom:int = textArea.getStyle("paddingBottom");
+                var paddingRight:int = textArea.getStyle("paddingRight");
+                textArea.setStyle("paddingTop", paddingTop + 3);
+                textArea.setStyle("paddingLeft", paddingLeft + 3);
+                textArea.setStyle("paddingBottom", paddingBottom + 3);
+                textArea.setStyle("paddingRight", paddingRight + 4);
             }
 
             /**
@@ -117,6 +128,32 @@ in accordance with the terms of the license agreement accompanying it.
                 textArea.setFocus();
             }
             
+            /**
+             *  @private
+             * 
+             *   Test if text is aligned at the beginning of the control.
+             * 
+             *   @return true if the text is aligned that the beginning of the
+             *   control, false otherwise.
+             */ 
+            private function isTextAlignStart():Boolean
+            {
+                var textAlign:String = textArea.getStyle("textAlign")
+                if ( textAlign == "start")
+                    return true;
+                
+                if (textAlign == "end")
+                    return false;
+                
+                var direction:String = textArea.getStyle("direction");
+                if (direction == "ltr" && textAlign == "left" ||
+                    direction == "rtl" && textAlign == "right")
+                {
+                    return true;
+                }
+                
+                return false;
+            }
         ]]>
     </fx:Script>
 
