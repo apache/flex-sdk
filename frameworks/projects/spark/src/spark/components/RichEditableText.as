@@ -1777,22 +1777,9 @@ public class TextView extends UIComponent
      *  The supported attributes are those in the
      *  ICharacterAttributes and IParagraphAttributes interfaces.
      */
-    public function getAttributes(names:Array = null,
-                                  beginIndex:int = -1, endIndex:int = -1):Object
+    public function getAttributes(names:Array = null):Object
     {
         var selectionManager:ISelectionManager = textFlow.selectionManager;
-        
-        if (beginIndex == -1)
-            beginIndex = selectionManager.selectionAnchorIndex;
-        if (endIndex == -1)
-            endIndex = selectionManager.selectionActiveIndex;
-        
-        if (beginIndex > endIndex)
-        {
-            var tmp:int = beginIndex;
-            beginIndex = endIndex;
-            endIndex = tmp;
-        }
                 
         var p:String;
         var kind:String;
@@ -1831,22 +1818,19 @@ public class TextView extends UIComponent
         if (needContainerAttributes)
         {
             containerAttributes =
-                selectionManager.getCommonContainerAttributes(
-                    beginIndex, endIndex);
+                selectionManager.getCommonContainerAttributes();
         }
         
         if (needParagraphAttributes)
         {
             paragraphAttributes =
-                selectionManager.getCommonParagraphAttributes(
-                    beginIndex, endIndex);
+                selectionManager.getCommonParagraphAttributes();
         }
 
         if (needCharacterAttributes)
         {
             characterAttributes =
-                selectionManager.getCommonCharacterAttributes(
-                    beginIndex, endIndex);
+                selectionManager.getCommonCharacterAttributes();
         }
 
         var attributes:Object = {};
@@ -1877,8 +1861,7 @@ public class TextView extends UIComponent
      *  The supported attributes are those in the
      *  ICharacterAttributes and IParagraphAttributes interfaces.
      */
-    public function setAttributes(attributes:Object,
-                                  beginIndex:int = -1, endIndex:int = -1):void
+    public function setAttributes(attributes:Object):void
     {
         var containerAttributes:ContainerAttributes;
         var paragraphAttributes:ParagraphAttributes;
@@ -1910,26 +1893,23 @@ public class TextView extends UIComponent
         
         var editManager:TextViewEditManager =
             TextViewEditManager(textFlow.selectionManager);
-
-        var selectionState:SelectionState = new SelectionState(
-            textFlow, beginIndex, endIndex, new CharacterAttributes());
         
         if (containerAttributes)
         {
             editManager.execute(new ContainerStyleChangeOperation(
-                selectionState, containerAttributes));
+                editManager, containerAttributes));
         }
 
         if (paragraphAttributes)
         {
             editManager.execute(new ParagraphStyleChangeOperation(
-                selectionState, paragraphAttributes));
+                editManager, paragraphAttributes));
         }
 
         if (characterAttributes)
         {
             editManager.execute(new StyleChangeOperation(
-                selectionState, characterAttributes));
+                editManager, characterAttributes));
         }
     }
 
