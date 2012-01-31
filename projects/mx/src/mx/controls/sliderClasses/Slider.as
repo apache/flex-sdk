@@ -50,6 +50,11 @@ use namespace mx_internal;
  *  the event is dispatched when the user releases the slider thumb.</p>
  *
  *  @eventType mx.events.SliderEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.SliderEvent")]
 
@@ -57,6 +62,11 @@ use namespace mx_internal;
  *  Dispatched when the slider's thumb is pressed and then moved by the mouse.
  *  This event is always preceded by a <code>thumbPress</code> event.
  *  @eventType mx.events.SliderEvent.THUMB_DRAG
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="thumbDrag", type="mx.events.SliderEvent")]
 
@@ -65,6 +75,11 @@ use namespace mx_internal;
  *  the user presses the mouse button over the thumb.
  *
  *  @eventType mx.events.SliderEvent.THUMB_PRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="thumbPress", type="mx.events.SliderEvent")]
 
@@ -74,6 +89,11 @@ use namespace mx_internal;
  *  a <code>thumbPress</code> event.
  *
  *  @eventType mx.events.SliderEvent.THUMB_RELEASE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="thumbRelease", type="mx.events.SliderEvent")]
 
@@ -87,6 +107,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The color of the black section of the border. 
  *  
  *  @default 0x919999
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
@@ -95,6 +120,11 @@ include "../../styles/metadata/FillStyles.as";
  *  If <code>true</code>, the thumbs will be flipped.
  *  
  *  @default false
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="invertThumbDirection", type="Boolean", inherit="no")]
 
@@ -104,6 +134,11 @@ include "../../styles/metadata/FillStyles.as";
  *  of the labels relative to the track.
  *
   *  @default -10
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelOffset", type="Number", format="Length", inherit="no")]
 
@@ -111,6 +146,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The name of the style to use for the slider label.  
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelStyleName", type="String", inherit="no")]
 
@@ -119,6 +159,11 @@ include "../../styles/metadata/FillStyles.as";
  *  when you click on the track to move a thumb.
  *
  *  @default 300
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="slideDuration", type="Number", format="Time", inherit="no")]
 
@@ -127,6 +172,11 @@ include "../../styles/metadata/FillStyles.as";
  *  when you click on the track to move a thumb.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="slideEasingFunction", type="Function", inherit="no")]
 
@@ -136,6 +186,11 @@ include "../../styles/metadata/FillStyles.as";
  *  of the thumb relative to the track.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbOffset", type="Number", format="Length", inherit="no")]
 
@@ -144,6 +199,11 @@ include "../../styles/metadata/FillStyles.as";
  *  Can be a hex color value or the string name of a known color.
  *
  *  @default 0x6F7777.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tickColor", type="uint", format="Color", inherit="no")]
 
@@ -155,6 +215,11 @@ include "../../styles/metadata/FillStyles.as";
  *  then adjust the width.
  *
  *  @default 3
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tickLength", type="Number", format="Length", inherit="no")]
 
@@ -164,6 +229,11 @@ include "../../styles/metadata/FillStyles.as";
  *  of the tick marks relative to the track.
  *
  *  @default -6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tickOffset", type="Number", format="Length", inherit="no")]
 
@@ -175,6 +245,11 @@ include "../../styles/metadata/FillStyles.as";
  *  then adjust the height.
  *
  *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tickThickness", type="Number", format="Length", inherit="no")]
 
@@ -187,6 +262,11 @@ include "../../styles/metadata/FillStyles.as";
  *  when setting <code>trackColors</code>.</p>
  *
  *  @default [ 0xE7E7E7, 0xE7E7E7 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -195,6 +275,11 @@ include "../../styles/metadata/FillStyles.as";
  *  (or a single thumb and the beginning of the track).
  *
  *  @default false
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="showTrackHighlight", type="Boolean", inherit="no")]
 
@@ -205,6 +290,11 @@ include "../../styles/metadata/FillStyles.as";
  *  If given a value, Flex attempts to fit the labels in the available space.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackMargin", type="Number", format="Length", inherit="no")]
 
@@ -212,6 +302,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The name of the style declaration to use for the data tip.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dataTipStyleName", type="String", inherit="no")]
 
@@ -221,6 +316,11 @@ include "../../styles/metadata/FillStyles.as";
  *  style property of the HSlider and VSlider controls.
  *
  *  @default 16
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dataTipOffset", type="Number", format="Length", inherit="no")]
 
@@ -229,6 +329,11 @@ include "../../styles/metadata/FillStyles.as";
  *  A value of 0 means to round all values to an integer.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dataTipPrecision", type="int", inherit="no")]
 
@@ -236,6 +341,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The default skin for the slider thumb.
  * 
  *  @default SliderThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -243,6 +353,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The skin for the slider thumb up state.
  *
  *  @default SliderThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbUpSkin", type="Class", inherit="no")]
 
@@ -250,6 +365,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The skin for the slider thumb over state.
  *
  *  @default SliderThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbOverSkin", type="Class", inherit="no")]
 
@@ -257,6 +377,11 @@ include "../../styles/metadata/FillStyles.as";
  *  The skin for the slider thumb down state.
  *
  *  @default SliderThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbDownSkin", type="Class", inherit="no")]
 
@@ -264,16 +389,31 @@ include "../../styles/metadata/FillStyles.as";
  *  The skin for the slider thumb disabled state.
  *
  *  @default SliderThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbDisabledSkin", type="Class", inherit="no")]
 
 /**
  *  The skin for the slider track when it is selected.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackHighlightSkin", type="Class", inherit="no")]
 
 /**
  *  The skin for the slider track.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackSkin", type="Class", inherit="no")]
 
@@ -356,6 +496,11 @@ include "../../styles/metadata/FillStyles.as";
  *    thumbRelease="<i>No default</i>"
  *  /&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Slider extends UIComponent
 {
@@ -381,6 +526,11 @@ public class Slider extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Slider()
     {
@@ -575,6 +725,11 @@ public class Slider extends UIComponent
      *  If <code>true</code>, then each thumb can be moved to any position on the track.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var allowThumbOverlap:Boolean = false;
 
@@ -588,6 +743,11 @@ public class Slider extends UIComponent
      *  Specifies whether clicking on the track will move the slider thumb.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var allowTrackClick:Boolean = true;
 
@@ -623,6 +783,11 @@ public class Slider extends UIComponent
      *  </pre>
      *
      *  @default undefined   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataTipFormatFunction():Function
     {
@@ -667,6 +832,11 @@ public class Slider extends UIComponent
      *
      *  @default SliderDirection.HORIZONTAL
      *  @see mx.controls.sliderClasses.SliderDirection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -721,6 +891,11 @@ public class Slider extends UIComponent
      *  the number of tick marks is equal to the number of labels.</p>
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labels():Array
     {
@@ -756,6 +931,11 @@ public class Slider extends UIComponent
      *  event continuously as the user moves the thumb.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var liveDragging:Boolean = false;
 
@@ -775,6 +955,11 @@ public class Slider extends UIComponent
      *  The maximum allowed value on the slider.
      *
      *  @default  10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maximum():Number
     {
@@ -816,6 +1001,11 @@ public class Slider extends UIComponent
      *  The minimum allowed value on the slider control.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minimum():Number
     {
@@ -848,6 +1038,11 @@ public class Slider extends UIComponent
      *  containing the current value of the slider.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var showDataTip:Boolean = true;
 
@@ -864,6 +1059,11 @@ public class Slider extends UIComponent
      *  A reference to the class to use for each thumb.
      *
      *  @default SliderThumb
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sliderThumbClass():Class
     {
@@ -895,6 +1095,11 @@ public class Slider extends UIComponent
      *  A reference to the class to use for the data tip.
      *
      *  @default SliderDataTip
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sliderDataTipClass():Class
     {
@@ -944,6 +1149,11 @@ public class Slider extends UIComponent
      *  between the <code>minimum</code> and <code>maximum</code> values.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get snapInterval():Number
     {
@@ -993,6 +1203,11 @@ public class Slider extends UIComponent
      *  an array of values representing the value for each thumb.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get thumbCount():int
     {
@@ -1026,6 +1241,11 @@ public class Slider extends UIComponent
     /**
      *  Set of styles to pass from the Slider to the thumbs.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get thumbStyleFilters():Object
     {
@@ -1055,6 +1275,11 @@ public class Slider extends UIComponent
      *  is set to a non-empty Array, then this property is ignored.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tickInterval():Number
     {
@@ -1099,6 +1324,11 @@ public class Slider extends UIComponent
      *  is ignored.</p>
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tickValues():Array
     {
@@ -1132,6 +1362,11 @@ public class Slider extends UIComponent
      *  When <code>thumbCount</code> is greater than 1, use the
      *  <code>values</code> property instead.
      *  The default value is equal to the minimum property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Number
     {
@@ -1173,6 +1408,11 @@ public class Slider extends UIComponent
     /**
      *  An array of values for each thumb when <code>thumbCount</code>
      *  is greater than 1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get values():Array
     {
@@ -1463,6 +1703,11 @@ public class Slider extends UIComponent
      *  The width of a horizontal slider control defaults to 250 pixels.
      *  For a vertical slider control, the width and the length
      *  measurements are reversed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -1534,6 +1779,11 @@ public class Slider extends UIComponent
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -2395,6 +2645,11 @@ public class Slider extends UIComponent
      *  @param index The zero-based index number of the thumb.
      *
      *  @return A reference to the SliderThumb object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getThumbAt(index:int):SliderThumb
     {
@@ -2410,6 +2665,11 @@ public class Slider extends UIComponent
      *  the value of, where a value of 0 corresponds to the first thumb.
      *
      *  @param value The value to set the thumb to
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setThumbValueAt(index:int, value:Number):void
     {
