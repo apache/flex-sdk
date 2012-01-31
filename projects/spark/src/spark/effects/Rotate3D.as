@@ -68,6 +68,21 @@ public class Rotate3D extends AnimateTransform3D
 
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["rotationX", "rotationY", "rotationZ", 
+         "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ"];
+
+    private static var RELEVANT_STYLES:Array = [];
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -226,6 +241,28 @@ public class Rotate3D extends AnimateTransform3D
      */
     public var angleZTo:Number;
     
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
+
     /**
      * @private
      */
