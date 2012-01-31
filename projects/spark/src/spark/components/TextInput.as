@@ -145,6 +145,9 @@ public class TextInput extends TextBase
             // TextInput rather than RichEditableText so that if changed later it
             // will be inherited.
             textView.multiline = false;
+            
+            // TextInput should always be 1 line.
+            textView.heightInLines = 1;
         }
     }
 }
