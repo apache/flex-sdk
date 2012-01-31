@@ -108,7 +108,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Black section of a three-dimensional border, or the color section
@@ -125,7 +125,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Number of columns in the swatch grid.
@@ -147,7 +147,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightColor", type="uint", format="Color", inherit="yes")]
+[Style(name="highlightColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Color for the left and right inside edges of a component's skin.
@@ -158,7 +158,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowCapColor", type="uint", format="Color", inherit="yes")]
+[Style(name="shadowCapColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Bottom inside color of a button's skin.
@@ -170,7 +170,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowColor", type="uint", format="Color", inherit="yes")]
+[Style(name="shadowColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Height of the larger preview swatch that appears above the swatch grid on
@@ -215,7 +215,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="swatchBorderColor", type="uint", format="Color", inherit="no")]
+[Style(name="swatchBorderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Size of the single border around the grid of swatches.
@@ -237,7 +237,7 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="swatchGridBackgroundColor", type="uint", format="Color", inherit="no")]
+[Style(name="swatchGridBackgroundColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Height of each swatch.
