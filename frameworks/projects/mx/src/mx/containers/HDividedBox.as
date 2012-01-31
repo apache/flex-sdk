@@ -77,6 +77,11 @@ import mx.core.mx_internal;
  *
  *  @see mx.containers.DividedBox
  *  @see mx.containers.VDividedBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HDividedBox extends DividedBox
 {
@@ -90,6 +95,11 @@ public class HDividedBox extends DividedBox
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HDividedBox()
 	{
