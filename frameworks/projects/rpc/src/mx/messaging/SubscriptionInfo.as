@@ -29,7 +29,13 @@ public class SubscriptionInfo
      */
     public var selector:String;
 
-    /** Builds a new SubscriptionInfo with the specified subtopic and selector */
+    /** Builds a new SubscriptionInfo with the specified subtopic and selector.
+     *
+     *  @param st The subtopic for the subscription. If null, represents a subscription
+     *  for messages directed to the destination with no subtopic.
+     *
+     *  @param sel The selector. If null, inidcates all messages should be sent.
+     */
     public function SubscriptionInfo(st:String, sel:String)
     {
         subtopic = st;
