@@ -35,7 +35,7 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -45,7 +45,7 @@ import mx.managers.IFocusManagerComponent;
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -315,17 +315,17 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override public function step(increase:Boolean = true):void
     {
-		if (valueWrap)
-		{
-			if (increase && (value == maximum))
-				value = minimum;
-			else if (!increase && (value == minimum))
-				value = maximum;
-			else 
-				super.step(increase);
-		}
-		else
-			super.step(increase);
+        if (valueWrap)
+        {
+            if (increase && (value == maximum))
+                value = minimum;
+            else if (!increase && (value == minimum))
+                value = maximum;
+            else 
+                super.step(increase);
+        }
+        else
+            super.step(increase);
     }
     
     //--------------------------------------------------------------------------
@@ -421,8 +421,8 @@ public class Spinner extends Range implements IFocusManagerComponent
         if (value != prevValue)
             dispatchEvent(new Event("change"));
 
-		if (stopPropagation)
-        	event.stopPropagation();
+        if (stopPropagation)
+            event.stopPropagation();
     }
 }
 
