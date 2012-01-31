@@ -402,9 +402,9 @@ public class TabSkin extends Border
 		}
 	}
 
-	static private var tabnavs:Object = {};
+	private static var tabnavs:Object = {};
 
-	static private function isTabNavigator(parent:Object):Boolean
+	private static function isTabNavigator(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (tabnavs[s] == 1)
