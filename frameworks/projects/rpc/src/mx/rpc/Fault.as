@@ -20,6 +20,11 @@ public class Fault extends Error
 {
     /**
      * Creates a new Fault object.
+     *
+     * @param faultCode The code protecting the fault.
+     * @param faultString Text description of the fault.
+     * @param faultDetail Additional details describing the fault.
+     * 
      */
     public function Fault(faultCode:String, faultString:String, faultDetail:String = null)
     {
@@ -83,6 +88,8 @@ public class Fault extends Error
 
     /**
      * Returns the string representation of a Fault object.
+     *
+     * @return Returns the string representation of a Fault object.
      */
     public function toString():String
     {
