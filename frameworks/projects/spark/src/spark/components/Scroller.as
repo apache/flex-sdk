@@ -370,6 +370,7 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
         if (instance == verticalScrollBar)
         {
         	verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
+        	//verticalScrollBar.minHeight = 0;
         }
         
         if (instance == horizontalScrollBar)
@@ -401,14 +402,12 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-    	if (!viewport)
+        var vp:IViewport = viewport;
+    	if (!vp)
     	    return;
     	    
         // TBD: is special handling for textfields needed here, as in mx.core.Container?
     
-        // TBD: IViewport should expose horiztonal,verticalScrollPositionDelta methods
-        var vp:LayoutBase = LayoutBase(Group(viewport).layout);
-         
         if (verticalScrollBar && verticalScrollBar.visible)
         {
         	var vspDelta:Number = NaN;
@@ -425,7 +424,7 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
             }
             if (!isNaN(vspDelta))
             {
-            	viewport.verticalScrollPosition += vspDelta;
+            	vp.verticalScrollPosition += vspDelta;
             	event.stopPropagation();
             }
         }
@@ -442,7 +441,7 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
             }
             if (!isNaN(hspDelta))
             {
-                viewport.horizontalScrollPosition += hspDelta;
+                vp.horizontalScrollPosition += hspDelta;
                 event.stopPropagation();
             }
         }
