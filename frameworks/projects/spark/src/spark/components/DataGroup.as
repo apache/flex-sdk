@@ -27,7 +27,7 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;  // for mx_internal property contentChangeDelta
 
