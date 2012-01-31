@@ -22,6 +22,7 @@ import mx.messaging.ChannelSet;
 import mx.messaging.events.MessageEvent;
 import mx.messaging.messages.IMessage;
 import mx.messaging.messages.SOAPMessage;
+import mx.netmon.NetworkMonitor;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.rpc.AbstractOperation;
@@ -792,6 +793,11 @@ public class Operation extends AbstractOperation
             message.setSOAPAction(wsdlOperation.soapAction);
         message.body = soap.toXMLString();
         message.url = endpointURI;
+        if (NetworkMonitor.isMonitoring())
+        {
+            message.recordHeaders = true;    
+        }
+
         invoke(message, pc.token);
     }
 
