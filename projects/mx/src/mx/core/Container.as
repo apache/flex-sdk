@@ -779,6 +779,9 @@ public class Container extends UIComponent
             verticalScrollBar.enabled = value;
 
         invalidateProperties();
+        
+        if (border && border is IInvalidating)
+        	IInvalidating(border).invalidateDisplayList();
     }
 
     //----------------------------------
