@@ -586,6 +586,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 [DefaultProperty("dataProvider")]
 
+[DefaultTriggerEvent("selectionChange")]
+
 [DiscouragedForProfile("mobileDevice")]
 
 [IconFile("DataGrid.png")]
@@ -1204,6 +1206,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable("dataProviderChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.Grid#dataProvider
@@ -1253,6 +1256,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------    
     
     [Bindable("dataTipFieldChanged")]
+    [Inspectable(category="Data", defaultValue="null")]
     
     /**
      *  @copy spark.components.Grid#dataTipField
@@ -1283,6 +1287,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------    
     
     [Bindable("dataTipFunctionChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.Grid#dataTipFunction
@@ -1318,7 +1323,7 @@ public class DataGrid extends SkinnableContainerBase
      */
     private var _editable:Boolean = false;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  The default value for the GridColumn <code>editable</code> property, which
@@ -1552,6 +1557,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------    
     
     [Bindable("itemRendererChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.Grid#itemRenderer
@@ -1582,6 +1588,8 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     //  preserveSelection (delegates to grid.preserveSelection)
     //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  @copy spark.components.Grid#preserveSelection
@@ -1616,10 +1624,12 @@ public class DataGrid extends SkinnableContainerBase
     //  requireSelection (delegates to grid.requireSelection)
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="false")]
+    
     /**
      *  @copy spark.components.Grid#requireSelection
      *
-     *  @default true
+     *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1649,6 +1659,8 @@ public class DataGrid extends SkinnableContainerBase
     //  requestedRowCount (delegates to grid.requestedRowCount)
     //----------------------------------
     
+    [Inspectable(category="General", minValue="-1")]
+    
     /**
      *  @copy spark.components.Grid#requestedRowCount
      *
@@ -1675,6 +1687,8 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     //  requestedColumnCount (delegates to grid.requestedColumnCount)
     //----------------------------------
+    
+    [Inspectable(category="General", minValue="-1")]
     
     /**
      *  @copy spark.components.Grid#requestedColumnCount
@@ -1703,6 +1717,8 @@ public class DataGrid extends SkinnableContainerBase
     //  requestedMaxRowCount (delegates to grid.requestedMaxRowCount)
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="10", minValue="-1")]
+    
     /**
      *  @copy spark.components.Grid#requestedMaxRowCount
      *
@@ -1730,6 +1746,8 @@ public class DataGrid extends SkinnableContainerBase
     //  requestedMinRowCount (delegates to grid.requestedMinRowCount)
     //----------------------------------
     
+    [Inspectable(category="General", minValue="-1")]
+    
     /**
      *  @copy spark.components.Grid#requestedMinRowCount
      *
@@ -1756,6 +1774,8 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     //  requestedMinColumnCount (delegates to grid.requestedMinColumnCount)
     //----------------------------------
+    
+    [Inspectable(category="General", minValue="-1")]
     
     /**
      *  @copy spark.components.Grid#requestedMinColumnCount
@@ -1785,6 +1805,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable("resizableColumnsChanged")]
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  @copy spark.components.Grid#resizableColumns
@@ -1815,6 +1836,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable("rowHeightChanged")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  @copy spark.components.Grid#rowHeight
@@ -1943,7 +1965,7 @@ public class DataGrid extends SkinnableContainerBase
     private var _sortableColumns:Boolean = true;
     
     [Bindable("sortableColumnsChanged")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  Specifies whether the user can interactively sort columns.
@@ -1982,6 +2004,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------    
     
     [Bindable("typicalItemChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.Grid#typicalItem
@@ -2026,6 +2049,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable("variableRowHeightChanged")]
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  @copy spark.components.Grid#variableRowHeight
@@ -2734,6 +2758,7 @@ public class DataGrid extends SkinnableContainerBase
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="-1")]
     
     /**
      *  @copy spark.components.Grid#selectedIndex
@@ -2776,6 +2801,7 @@ public class DataGrid extends SkinnableContainerBase
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
     
     /**
      *  @copy spark.components.Grid#selectedIndices
@@ -2814,6 +2840,7 @@ public class DataGrid extends SkinnableContainerBase
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="null")]
     
     /**
      *  @copy spark.components.Grid#selectedItem
@@ -2857,6 +2884,7 @@ public class DataGrid extends SkinnableContainerBase
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
     
     /**
      *  @copy spark.components.Grid#selectedItems
