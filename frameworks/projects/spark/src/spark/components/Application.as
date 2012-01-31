@@ -32,7 +32,6 @@ import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.InteractionMode;
-import mx.core.RuntimeDPIProvider;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -42,8 +41,6 @@ import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.managers.ToolTipManager;
-import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
 import mx.utils.BitFlagUtil;
 import mx.utils.DensityUtil;
 import mx.utils.LoaderUtil;
@@ -278,7 +275,21 @@ public class Application extends SkinnableContainer
     //  Variables
     //
     //--------------------------------------------------------------------------
-
+    
+    /**
+     *  @private
+     *  Flag set to true if the application has temporarily set its explicit
+     *  width and height to deal with orientation.
+     */ 
+    private var restoreApplicationWidthAndHeight:Boolean = false;
+    
+    /**
+     *  @private
+     *  Caches the application's width and height values for the portrait
+     *  and landscape orientations.
+     */
+    private var cachedSizes:Object;
+    
     /**
      *  @private
      */
@@ -1065,10 +1076,9 @@ public class Application extends SkinnableContainer
      */
     public function get aspectRatio():String
     {
-        var stage:Stage = systemManager.stage;
-        
-        // TODO (chiedozi): Should use StageAspectRatio enums once added to player (spicy)
-        return stage.stageWidth > stage.stageHeight ? "landscape" : "portrait";
+        // TODO (chiedozi): Should use StageAspectRatio enums once added to player or
+        // create new enum class
+        return width > height ? "landscape" : "portrait";
     }
     
     //----------------------------------
@@ -1247,6 +1257,16 @@ public class Application extends SkinnableContainer
         if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
             systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 
+        // To prevent a flicker described in SDK-30133, a flex application listens
+        // for orientationChanging events dispatched by iOS AIR applications.
+        // In the handler, the stage's width and height are swapped, and a validation
+        // pass is forced to allow the application to resize and re-layout itself before the
+        // orientation change animation occurs.  These events are only dispatched on iOS
+        // devices.  These events are not wrapped by iOS version checks so that they still
+        // execute in ADL
+        sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
+        sm.stage.addEventListener("orientationChange", stage_orientationChange);
+                
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
@@ -1264,6 +1284,119 @@ public class Application extends SkinnableContainer
         // Note: isDebugger is true only with a Debugger Player.
         if (sm.isTopLevel() && Capabilities.isDebugger == true)
             setInterval(debugTickler, 1500);
+    }
+    
+    /**
+     *  @private
+     *  This is the event handler for the stage's orientationChanging event.  It
+     *  cancels the orientation animation and manually swaps the width and height
+     *  of the application to allow the application to validate itself before
+     *  the orientation change occurs.  The orientaitonChanging event is only
+     *  dispatched on iOS devices.
+     */
+    private function stage_orientationChangingHandler(event:Event):void
+    {
+        var sm:ISystemManager = systemManager;
+        
+        // Manually update orientation width and height if the application's explicit
+        // sizes aren't set.  If they are, we assume the application will handle
+        // orientation on their own.
+        if (isNaN(explicitWidth) && isNaN(explicitHeight))
+        { 
+            // Cancel the current orientation change operation so that the
+            // validations below can occur before the animation starts.
+            event.preventDefault();
+            
+            if (!cachedSizes)
+                cachedSizes = {};
+            
+            // Cache the current percentWidth and height values.  These will
+            // be lost when width and height are set, and restored later.            
+            cachedSizes.oldPercentWidth = percentWidth;
+            cachedSizes.oldPercentHeight = percentHeight;
+
+            // If the application is currently in landscape orientation
+            if (sm.stage.stageWidth > sm.stage.stageHeight)
+            {
+                if (!cachedSizes.landscapeWidth)
+                {
+                    cachedSizes.landscapeWidth = width;
+                    cachedSizes.landscapeHeight = height;
+                }
+                
+                // If the size for portrait has been saved, use it.  Otherwise
+                // just swap width and height
+                if (cachedSizes.portraitWidth)
+                {
+                    width = cachedSizes.portraitWidth;
+                    height = cachedSizes.portraitHeight;
+                }
+                else
+                    swapApplicationDimensions();
+            }
+            else
+            {
+                if (!cachedSizes.portraitWidth)
+                {
+                    cachedSizes.portraitWidth = width;
+                    cachedSizes.portraitHeight = height;
+                }
+                
+                // If the size for landscape has been saved, use it.  Otherwise
+                // just swap width and height
+                if (cachedSizes.landscapeWidth)
+                {
+                    width = cachedSizes.landscapeWidth;
+                    height = cachedSizes.landscapeHeight;
+                }
+                else
+                    swapApplicationDimensions();
+            }
+            
+            // Indicate that the width and heigth have changed because of orientation 
+            restoreApplicationWidthAndHeight = true;
+            
+            // Force a validation
+            validateNow();
+            
+            // Execute the initial orientation change
+            systemManager.stage["setOrientation"](event["afterOrientation"]);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Swaps the applications width and height
+     */ 
+    private function swapApplicationDimensions():void
+    {
+        var tmp:Number = width;
+        width = height;
+        height = tmp;
+    }
+    
+    /**
+     *  @private
+     *  Handler for the stage orientation change event.  At this point, we need
+     *  to undo the explicit width and height that was set when the application is
+     *  reoriented on an iOS device.  See stage_orientationChangingHandler for more
+     *  information.
+     */
+    private function stage_orientationChange(event:Event):void
+    {
+        if (restoreApplicationWidthAndHeight)
+        {
+            percentWidth = cachedSizes.oldPercentWidth;
+            percentHeight = cachedSizes.oldPercentHeight;
+            
+            // Reset the explicitWidth and explictHeight property so that the application
+            // resizes on the next frame to deal with situations where the landscape and
+            // portrait application dimensions aren't symetrical
+            explicitWidth = NaN;
+            explicitHeight = NaN;
+            
+            restoreApplicationWidthAndHeight = false;
+        }
     }
     
     /**
