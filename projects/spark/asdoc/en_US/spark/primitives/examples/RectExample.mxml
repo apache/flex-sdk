@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EllipseExample.mxml -->
+<!-- RectExample.mxml -->
 <Application xmlns="http://ns.adobe.com/mxml/2009">
-     <Canvas top="0" bottom="0" left="0" right="0">
-          <Graphic x="0" y="0">
-               <!-- Draw rectangle with square corners. -->
-              <Rect height="100" width="200">                              
-                    <stroke>
-                         <Stroke color="0x000000" weight="2"/>
-                    </stroke>
-                    <fill>
-                         <RadialGradient>
-                              <entries>
-                                   <GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
-                                   <GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
-                                   <GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
-                              </entries>
-                         </RadialGradient>
-                    </fill>
-              </Rect>
-           </Graphic>
-          <Graphic x="250" y="0">
-               <!-- Draw rectangle with rounded corners. -->
-              <Rect height="100" width="200" radiusX="25" radiusY="25">                              
-                    <stroke>
-                         <Stroke color="0x000000" weight="2"/>
-                    </stroke>
-                    <fill>
-                         <RadialGradient>
-                              <entries>
-                                   <GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
-                                   <GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
-                                   <GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
-                              </entries>
-                         </RadialGradient>
-                    </fill>
-              </Rect>
-          </Graphic>
-     </Canvas>
+     <Panel title="Rectangle Graphic Example"
+        height="75%" width="75%" layout="horizontal"
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+          <Canvas top="0" bottom="0" left="0" right="0">
+               <Graphic x="0" y="0">
+                    <!-- Draw rectangle with square corners. -->
+                   <Rect height="100" width="200">                              
+                         <stroke>
+                              <Stroke color="0x000000" weight="2"/>
+                         </stroke>
+                         <fill>
+                              <RadialGradient>
+                                   <entries>
+                                        <GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
+                                        <GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
+                                        <GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
+                                   </entries>
+                              </RadialGradient>
+                         </fill>
+                   </Rect>
+                </Graphic>
+               <Graphic x="250" y="0">
+                    <!-- Draw rectangle with rounded corners. -->
+                   <Rect height="100" width="200" radiusX="25" radiusY="25">                              
+                         <stroke>
+                              <Stroke color="0x000000" weight="2"/>
+                         </stroke>
+                         <fill>
+                              <RadialGradient>
+                                   <entries>
+                                        <GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
+                                        <GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
+                                        <GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
+                                   </entries>
+                              </RadialGradient>
+                         </fill>
+                   </Rect>
+               </Graphic>
+          </Canvas>
+     </Panel>
 </Application>
