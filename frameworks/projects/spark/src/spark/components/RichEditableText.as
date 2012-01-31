@@ -485,17 +485,8 @@ package spark.components
             GlobalSettings.enableDefaultTabStops = 
                 !Configuration.playerEnablesArgoFeatures;
             
-            staticConfiguration = 
-                Configuration(TextContainerManager.defaultConfiguration).clone();
-            staticConfiguration.manageEnterKey = false; // default is true
-            staticConfiguration.manageTabKey = false;   // default is false
-            
-            // See comment on staticConfiguration variable.
-            staticConfiguration.compatibilityVersion = 1.1;
-
             staticPlainTextImporter =
-                TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT,
-                    staticConfiguration);
+                TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
             
             // Throw import errors rather than return a null textFlow.
             // Alternatively, the error strings are in the Vector, importer.errors.
@@ -517,21 +508,7 @@ package spark.components
          *  @private
          */
         private static var classInitialized:Boolean = false;
-        
-        /**
-         *  @private
-         *  Create a single Configuration used by all Text instances.  
-         *  It tells the TextContainerManager that we don't want it 
-         *  to handle the ENTER key, because we need the ENTER key to behave 
-         *  differently based on the 'multiline' property.
-         *  It tells the TextContainerManager that we want TLF1.1 compatibility
-         *  for the selection length.  Pre TLF2, the selection length 
-         *  was textFlow.length-1 and did not include the final paragraph terminator.  
-         *  For TLF2, the selection length is textFlow.length which includes
-         *  the final paragraph terminator.
-         */
-        private static var staticConfiguration:Configuration;
-        
+                
         /**
          *  @private
          *  This TLF object composes TextLines from a text String.
@@ -1886,6 +1863,8 @@ package spark.components
          */
         private var selectionFormatsChanged:Boolean = false;
         
+        [Inspectable(category="General", enumeration="always,whenActive,whenFocused", defaultValue="whenFocused")]
+        
         /**
          *  Determines when the text selection is highlighted.
          *  
@@ -2874,7 +2853,7 @@ package spark.components
                 else if (!_textContainerManager.isDamaged())
                     _textContainerManager.drawBackgroundAndSetScrollRect(0,0);
             }
-                
+               
             _textContainerManager.updateContainer();
             
             lastUnscaledWidth = unscaledWidth;
@@ -3512,7 +3491,7 @@ package spark.components
          */
         mx_internal function createTextContainerManager():RichEditableTextContainerManager
         {
-            return new RichEditableTextContainerManager(this, staticConfiguration);
+            return new RichEditableTextContainerManager(this);
         }
         
         /**
@@ -4203,9 +4182,8 @@ package spark.components
             if (editingMode != EditingMode.READ_WRITE)
                 return;
             
-            // We always handle the 'enter' key since we would have to recreate
-            // the container manager to change the configuration if multiline 
-            // changes.            
+            // Handle the ENTER key here, if multiline text is not allowed or
+            // if there isn't enough room for more characters to be added.
             if (event.keyCode == Keyboard.ENTER)
             {        
                 if (!multiline)
@@ -4220,17 +4198,12 @@ package spark.components
                 {
                     event.preventDefault();
                     return;
-                }
-                
-                var editManager:IEditManager = 
-                    EditManager(_textContainerManager.beginInteraction());
-                
-                if (editManager.hasSelection())
-                    editManager.splitParagraph();
-                
-                _textContainerManager.endInteraction();
-                
-                event.preventDefault();
+                }                
+
+                // Let the TLF EditManager handle the ENTER key.  If editing
+                // a list, depending on the position, it will either add a new
+                // list item or close off the list.  Otherwise it will split
+                // the paragraph.
             }
         }
         
