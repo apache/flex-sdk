@@ -133,7 +133,9 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    dataDescriptor="<i>instance of DefaultDataDescriptor</i>"
  *    dataProvider="undefined"
- *    labelField="null"
+ *    iconField="icon"
+ *    iconFunction="undefined"
+ *    labelField="label"
  *    labelFunction="undefined"
  *    showRoot="false|true"
  *    &nbsp;
@@ -325,7 +327,7 @@ public class PopUpMenuButton extends PopUpButton
     {
         if (popUpMenu)
             return Menu(popUpMenu).dataProvider;
-        return null;
+        return _dataProvider;
     }
 
     /**
@@ -336,16 +338,111 @@ public class PopUpMenuButton extends PopUpButton
         _dataProvider = value;
         dataProviderChanged = true;
         
-        // In general we shouldn't create the popUp's until
-        // they are actually popped up. However, in this case
-        // the initial label, icon and action on the main button's 
-        // click are to be borrowed from the popped menu. 
-        // Moreover since PopUpMenuButton doesn't expose selectedIndex
-        // selectedItem etc., one should be able to access them
-        // prior to popping up the menu.        
-        getPopUp();
-        
         invalidateProperties();     
+    }
+    
+    //--------------------------------------------------------------------------
+    //  iconField
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Storage for the iconField property.
+     */
+    private var _iconField:String = "icon";
+
+    [Bindable("iconFieldChanged")]
+    [Inspectable(category="Data", defaultValue="icon")]
+
+    /**
+     *  Name of the field in the <code>dataProvider</code> Array that contains the icon to
+     *  show for each menu item.
+     *  The <code>iconFunction</code> property, if set, overrides this property.
+     * 
+     *  <p>The renderers will look in the data provider object for a property of 
+     *  the name supplied as the iconField.  If the value of the property is a 
+     *  Class, it will instantiate that class and expect it to be an instance 
+     *  of an IFlexDisplayObject. If the value of the property is a String, 
+     *  it will look to see if a Class exists with that name in the application, 
+     *  and if it can't find one, it will also look for a property on the 
+     *  document with that name and expect that property to map to a Class.</p>
+     * 
+     *  If the data provider is an E4X XML object, you must set this property
+     *  explicitly; for example, use &#064;icon to specify the <code>icon</code> attribute.
+     *
+     *  @default "icon"
+     */
+    public function get iconField():String
+    {
+        return _iconField;
+    }
+
+    /**
+     *  @private
+     */
+    public function set iconField(value:String):void
+    {
+        if (_iconField != value)
+        {
+            _iconField = value;
+            
+            if (popUpMenu)
+                popUpMenu.iconField = _iconField;
+            
+            dispatchEvent(new Event("iconFieldChanged"));
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    //  iconFunction
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Storage for the iconFunction property.
+     */
+    private var _iconFunction:Function;
+
+    [Inspectable(category="Data")]
+
+    /**
+     *  A function that determines the icon to display for each menu item.
+     *  If you omit this property, Flex uses the contents of the field or attribute
+     *  determined by the <code>iconField</code> property.
+     *  If you specify this property, Flex ignores any <code>iconField</code>
+     *  property value.
+     *
+     *  By default the menu does not try to display icons with the text 
+     *  in the rows.  However, by specifying an icon function, you can specify 
+     *  a Class for a graphic that will be created and displayed as an icon 
+     *  in the row. 
+     *
+     *  <p>The iconFunction takes a single argument which is the item
+     *  in the data provider and returns a Class.</p>
+     * 
+     *  <blockquote>
+     *  <code>iconFunction(item:Object):Class</code>
+     *  </blockquote>
+     *
+     *  @default null
+     */
+    public function get iconFunction():Function
+    {
+        return _iconFunction;
+    }
+
+    /**
+     *  @private
+     */
+    public function set iconFunction(value:Function):void
+    {
+        if (_iconFunction != value)
+        {
+            _iconFunction = value;
+            
+            if (popUpMenu)
+                popUpMenu.iconFunction = _iconFunction;
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -540,6 +637,18 @@ public class PopUpMenuButton extends PopUpButton
      */
     override protected function commitProperties():void
     {
+    	if (dataProviderChanged && !popUpMenu)
+    	{
+    		// In general we shouldn't create the popUp until
+	        // they are actually popped up. However, in this case
+	        // the initial label, icon and action on the main button's 
+	        // click are to be borrowed from the popped menu. 
+	        // Moreover since PopUpMenuButton doesn't expose selectedIndex
+	        // selectedItem etc., one should be able to access them
+	        // prior to popping up the menu.        
+	        getPopUp();
+    	}
+    	
         if (_showRootChanged)
         {
             _showRootChanged = false;
@@ -629,6 +738,8 @@ public class PopUpMenuButton extends PopUpButton
         if (!popUpMenu || !super.popUp)
         {
             popUpMenu = new Menu();
+            popUpMenu.iconField = _iconField;
+            popUpMenu.iconFunction = _iconFunction;
             popUpMenu.labelField = _labelField;
             popUpMenu.labelFunction = _labelFunction;
             popUpMenu.showRoot = _showRoot;
