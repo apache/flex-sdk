@@ -131,7 +131,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Group
+ *  &lt;s:Group
  *    <strong>Properties</strong>
  *    blendMode="normal"
  *    mxmlContent="null"
@@ -171,7 +171,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         super();    
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Variables
     //
@@ -195,14 +195,14 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     override public function set resizeMode(stringValue:String):void
     {
-    	if (isValidScaleGrid())
+        if (isValidScaleGrid())
         {
-        	// Force the resize mode to be scale if we 
-        	// have set scaleGrid properties
-        	stringValue = ResizeMode.SCALE;
+            // Force the resize mode to be scale if we 
+            // have set scaleGrid properties
+            stringValue = ResizeMode.SCALE;
         }
          
-    	super.resizeMode = stringValue;
+        super.resizeMode = stringValue;
     }
     
     /**
@@ -263,7 +263,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         super.height = value;
     }
     
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
@@ -490,7 +490,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     // store the scaleGrid into a rectangle to save space (top, left, bottom, right);
     private var scaleGridStorageVariable:Rectangle;
 
-	//----------------------------------
+    //----------------------------------
     //  scale9Grid
     //----------------------------------
     
@@ -498,22 +498,22 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @private
      */
     override public function set scale9Grid(value:Rectangle):void
-	{
-		if (value != null)
-		{
-			scaleGridTop = value.top;
-			scaleGridBottom = value.bottom;
-			scaleGridLeft = value.left;
-			scaleGridRight = value.right;
-		}
-		else
-		{
-			scaleGridTop = NaN;
-			scaleGridBottom = NaN;
-			scaleGridLeft = NaN;
-			scaleGridRight = NaN;
-		}
-	}
+    {
+        if (value != null)
+        {
+            scaleGridTop = value.top;
+            scaleGridBottom = value.bottom;
+            scaleGridLeft = value.left;
+            scaleGridRight = value.right;
+        }
+        else
+        {
+            scaleGridTop = NaN;
+            scaleGridBottom = NaN;
+            scaleGridLeft = NaN;
+            scaleGridRight = NaN;
+        }
+    }
 
     //----------------------------------
     //  scaleGridBottom
@@ -663,10 +663,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     private function isValidScaleGrid():Boolean
     {
-    	return !isNaN(scaleGridLeft) &&
-        	   !isNaN(scaleGridTop) &&
-        	   !isNaN(scaleGridRight) &&
-        	   !isNaN(scaleGridBottom);
+        return !isNaN(scaleGridLeft) &&
+               !isNaN(scaleGridTop) &&
+               !isNaN(scaleGridRight) &&
+               !isNaN(scaleGridBottom);
     }
       
     //--------------------------------------------------------------------------
@@ -721,9 +721,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         if (scaleGridChanged)
         {
-        	// Don't reset scaleGridChanged since we also check it in updateDisplayList
-        	if (isValidScaleGrid())
-        		resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale	
+            // Don't reset scaleGridChanged since we also check it in updateDisplayList
+            if (isValidScaleGrid())
+                resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale 
         }
         
         // FIXME (egeorgie): we need to optimize this, iterating through all the elements is slow.
@@ -786,7 +786,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {    	
+    {       
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // If the DisplayObject assignment is still not completed, then postpone validation
@@ -820,70 +820,70 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // the element with the shared displayObject and the next element that has a displayObject.
         if (numGraphicElements > 0)
         {
-	        var length:int = numElements;
-	        for (var i:int = 0; i < length; i++)
-	        {
-	            var element:IGraphicElement = getElementAt(i) as IGraphicElement;
-	            if (!element)
-	               continue;
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (!element)
+                   continue;
 
-	            // Do a special check for layer, we may stumble upon an element with layer != 0
-	            // before we're done with the current shared sequence and we don't want to mark
-	            // the sequence as valid, until we reach the next sequence.   
+                // Do a special check for layer, we may stumble upon an element with layer != 0
+                // before we're done with the current shared sequence and we don't want to mark
+                // the sequence as valid, until we reach the next sequence.   
                 if (element.depth == 0)
                 {
-                    // Is this the start of a new shared sequence?         	
-	            	if (element.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
-	            	{
-	            	    // We have finished redrawing the previous sequence
-	            	    if (sharedDisplayObject)
-	            	        sharedDisplayObject.redrawRequested = false;
-	            	    
-	            	    // Start the new sequence
+                    // Is this the start of a new shared sequence?          
+                    if (element.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
+                    {
+                        // We have finished redrawing the previous sequence
+                        if (sharedDisplayObject)
+                            sharedDisplayObject.redrawRequested = false;
+                        
+                        // Start the new sequence
                         sharedDisplayObject = element.displayObject as ISharedDisplayObject;
-	            	}
-	            	
-	            	if (!sharedDisplayObject || sharedDisplayObject.redrawRequested) 
-	            		element.validateDisplayList();
-	            }
-	            else
-	            {
-	                // If we have layering, we don't share the display objects.
-	                // Don't update the current sharedDisplayObject 
-	                var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
-	                if (!elementDisplayObject || elementDisplayObject.redrawRequested)
-	                {
-	                   element.validateDisplayList();
+                    }
+                    
+                    if (!sharedDisplayObject || sharedDisplayObject.redrawRequested) 
+                        element.validateDisplayList();
+                }
+                else
+                {
+                    // If we have layering, we don't share the display objects.
+                    // Don't update the current sharedDisplayObject 
+                    var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
+                    if (!elementDisplayObject || elementDisplayObject.redrawRequested)
+                    {
+                       element.validateDisplayList();
 
-	                   if (elementDisplayObject)
+                       if (elementDisplayObject)
                            elementDisplayObject.redrawRequested = false;
-	                }
-	            }
-	        }
+                    }
+                }
+            }
         }
-	        
+            
         // Mark the last shared displayObject valid
         if (sharedDisplayObject)
             sharedDisplayObject.redrawRequested = false;
         
         if (scaleGridChanged)
         {
-        	scaleGridChanged = false;
+            scaleGridChanged = false;
         
-        	if (isValidScaleGrid())
-        	{
-	        	if (numChildren > 0)
-	        		throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
+            if (isValidScaleGrid())
+            {
+                if (numChildren > 0)
+                    throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
-	        	super.scale9Grid = new Rectangle(scaleGridLeft, 
-	        							   scaleGridTop,	
-	        							   scaleGridRight - scaleGridLeft, 
-	        							   scaleGridBottom - scaleGridTop);
-	        } 
-	        else
-	        {
-	        	super.scale9Grid = null;
-	        }							   
+                super.scale9Grid = new Rectangle(scaleGridLeft, 
+                                           scaleGridTop,    
+                                           scaleGridRight - scaleGridLeft, 
+                                           scaleGridBottom - scaleGridTop);
+            } 
+            else
+            {
+                super.scale9Grid = null;
+            }                              
         }
     }
 
