@@ -351,6 +351,8 @@ public class NumericStepper extends Spinner
      */
     private var maxChanged:Boolean = false;
     
+    [Inspectable(category="General", defaultValue="10.0")]
+    
     /**
      *  Number which represents the maximum value possible for 
      *  <code>value</code>. If the values for either 
@@ -379,6 +381,8 @@ public class NumericStepper extends Spinner
      *  @private
      */
     private var stepSizeChanged:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="1.0", minValue="0.0")]
     
     /**
      *  @private
@@ -430,6 +434,8 @@ public class NumericStepper extends Spinner
      *  @private
      */
     private var maxCharsChanged:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="0")]
 
     /**
      *  The maximum number of characters that can be entered in the field.
@@ -566,13 +572,11 @@ public class NumericStepper extends Spinner
      */
     private var _imeMode:String = null;
 
-    [Inspectable(defaultValue="")]
-
     /**
      *  @private
      */
     private var imeModeChanged:Boolean = false;
-
+    
     /**
      *  Specifies the IME (Input Method Editor) mode.
      *  The IME enables users to enter text in Chinese, Japanese, and Korean.
