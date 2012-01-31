@@ -859,10 +859,10 @@ public class TextBase extends SkinnableComponent
             textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
                                       textView_selectionChangeHandler);
 
-            textView.addEventListener("changing",
+            textView.addEventListener(TextOperationEvent.CHANGING,
                                       textView_changingHandler);
 
-            textView.addEventListener("change",
+            textView.addEventListener(TextOperationEvent.CHANGE,
                                       textView_changeHandler);
 
             textView.addEventListener(FlexEvent.ENTER,
