@@ -23,7 +23,6 @@ import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionVisibility;
@@ -115,77 +114,6 @@ public class TextBase extends SkinnableComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private static const AUTO_SIZE_PROPERTY_FLAG:uint = 1 << 0;
-    
-    /**
-     *  @private
-     */
-    private static const CONTENT_PROPERTY_FLAG:uint = 1 << 1;
-
-    /**
-     *  @private
-     */
-    private static const DISPLAY_AS_PASSWORD_PROPERTY_FLAG:uint = 1 << 2;
-    
-    /**
-     *  @private
-     */
-    private static const EDITABLE_PROPERTY_FLAG:uint = 1 << 3;
-    
-    /**
-     *  @private
-     */
-    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 4;
-    
-    /**
-     *  @private
-     */
-    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 5;
-    
-    /**
-     *  @private
-     */
-    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 6;
-       
-    /**
-     *  @private
-     */
-    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
-    
-    /**
-     *  @private
-     */
-    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 8;
-
-    /**
-     *  @private
-     */
-    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 9;
-
-    /**
-     *  @private
-     */
-    private static const SELECTION_VISIBILITY_PROPERTY_FLAG:uint = 1 << 10;
-
-    /**
-     *  @private
-     */
-    private static const TEXT_PROPERTY_FLAG:uint = 1 << 11;
-
-    /**
-     *  @private
-     */
-    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
-
-    //--------------------------------------------------------------------------
-    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -222,26 +150,9 @@ public class TextBase extends SkinnableComponent
 
     /**
      *  @private
-     */
-    mx_internal var textInvalid:Boolean = false;
-    
-    /**
-     *  @private
      *  Mouse shield that is put up when this component is disabled.
      */
     private var mouseShield:DisplayObject;
-
-    /**
-     *  @private
-     *  Text is a special case from the proxy pattern used for all the other
-     *  textView properties.  It is expensive to extract the text from the  
-     *  textFlow so it is only done when really necessary.  As a result, the
-     *  textView text setter does not follow the normal pattern of checking
-     *  the value against the property and returning if it's already set.
-     *  We only want to proxy the text in the textView when we really need it
-     *  to be changed.
-     */
-    private var proxyText:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -295,16 +206,22 @@ public class TextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------
-    //
-    //  Properties proxied to textView
-    //
-    //--------------------------------------------------------------------------
-    
     //----------------------------------
     //  autoSize
     //----------------------------------
 
+    /**
+     *  @private
+     *  This must match the initial value in the textView.  autoSize will be 
+     *  set to false by the constructor.
+     */
+    private var _autoSize:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var autoSizeChanged:Boolean = false;
+    
     /**
      *  Documentation is not currently available.
      *  
@@ -315,12 +232,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get autoSize():Boolean
     {
-        if (textView)
-            return textView.autoSize;
-            
-        // want the default to be true
-        var v:* = textViewProperties.autoSize;        
-        return (v === undefined) ? true : v;
+        return _autoSize;
     }
 
     /**
@@ -328,15 +240,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set autoSize(value:Boolean):void
     {
-        if (textView)
-            textView.autoSize = value;
-        else
-            textViewProperties.autoLayout = value;
+        if (value == _autoSize)
+            return;
+
+        _autoSize = value;
+        autoSizeChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  displayAsPassword
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _displayAsPassword:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var displayAsPasswordChanged:Boolean = false;
     
     /**
      *  Documentation is not currently available.
@@ -348,12 +273,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get displayAsPassword():Boolean
     {
-        if (textView)
-            return textView.displayAsPassword;
-
-        // want the default to be false
-        var v:* = textViewProperties.displayAsPassword
-        return (v === undefined) ? false : v;
+        return _displayAsPassword;
     }
 
     /**
@@ -361,15 +281,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set displayAsPassword(value:Boolean):void
     {
-        if (textView)
-            textView.displayAsPassword = value;
-        else
-            textViewProperties.displayAsPassword = value;            
+        if (value == _displayAsPassword)
+            return;
+
+        _displayAsPassword = value;
+        displayAsPasswordChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  editable
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _editable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var editableChanged:Boolean = false;
 
     /**
      *  Specifies whether the user is allowed to edit the text in this control.
@@ -383,12 +316,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get editable():Boolean
     {
-        if (textView)
-            return textView.editable;
-            
-        // want the default to be true
-        var v:* = textViewProperties.editable;
-        return (v === undefined) ? true : v;
+        return _editable;
     }
 
     /**
@@ -396,15 +324,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set editable(value:Boolean):void
     {
-        if (textView)
-            textView.editable = value;
-        else
-            textViewProperties.editable = value;
+        if (value == _editable)
+            return;
+
+        _editable = value;
+        editableChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  imeMode
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    /**
+     *  @private
+     */
+    private var imeModeChanged:Boolean = false;
 
     /**
      *  Specifies the IME (input method editor) mode.
@@ -427,12 +368,7 @@ public class TextBase extends SkinnableComponent
      */
      public function get imeMode():String
     {
-        if (textView)        
-            return textView.imeMode;
-            
-        // want the default to be null
-        var v:* = textViewProperties.imeMode;
-        return (v === undefined) ? null : v;
+        return _imeMode;
     }
 
     /**
@@ -440,15 +376,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set imeMode(value:String):void
     {
-        if (textView)
-            textView.imeMode = value;
-        else
-            textViewProperties.imeMode = value;
+        if (value == _imeMode)
+            return;
+
+        _imeMode = value;
+        imeModeChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  maxChars
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _maxChars:int = 0;
+
+    /**
+     *  @private
+     */
+    private var maxCharsChanged:Boolean = false;
 
     /**
      *  The maximum number of characters that the RichEditableText can contain,
@@ -467,12 +416,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get maxChars():int 
     {
-        if (textView)
-            return textView.maxChars;
-            
-        // want the default to be 0
-        var v:* = textViewProperties.maxChars;
-        return (v === undefined) ? 0 : v;
+        return _maxChars;
     }
     
     /**
@@ -480,10 +424,35 @@ public class TextBase extends SkinnableComponent
      */
     public function set maxChars(value:int):void
     {
-        if (textView)
-            textView.maxChars = value;
-        else
-            textViewProperties.maxChars = value;
+        if (value == _maxChars)
+            return;
+        
+        _maxChars = value;
+        maxCharsChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  percentWidth
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var percentWidthChanged:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get percentWidth():Number
+    {
+        return super.percentWidth;
     }
 
     //----------------------------------
@@ -493,30 +462,35 @@ public class TextBase extends SkinnableComponent
     /**
      *  @private
      */
-    override public function get maxWidth():Number
-    {
-        if (textView)
-            return textView.maxWidth;
-            
-        // want the default to be default max width for UIComponent
-        var v:* = textViewProperties.maxWidth;
-        return (v === undefined) ? super.maxWidth : v;        
-    }
+    private var maxWidthChanged:Boolean = false;
 
     /**
      *  @private
      */
     override public function set maxWidth(value:Number):void
     {
-        if (textView)
-            textView.maxWidth = value;
-        else
-            textViewProperties.maxWidth = value;
+        if (value == super.maxWidth)
+            return;
+
+        super.maxWidth = value;
+        maxWidthChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  restrict
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _restrict:String = null;
+
+    /**
+     *  @private
+     */
+    private var restrictChanged:Boolean = false;
 
     /**
      *  Documentation is not currently available.
@@ -530,12 +504,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get restrict():String 
     {
-        if (textView)
-            return textView.restrict;
-            
-        // want the default to be null
-        var v:* = textViewProperties.restrict;
-        return (v === undefined) ? null : v;
+        return _restrict;
     }
     
     /**
@@ -543,15 +512,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set restrict(value:String):void
     {
-        if (textView)
-            textView.restrict = value;
-        else
-            textViewProperties.restrict = value;
+        if (value == _restrict)
+            return;
+        
+        _restrict = value;
+        restrictChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
     //  selectable
     //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _selectable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var selectableChanged:Boolean = false;
 
     /**
      *  Specifies whether the text can be selected.
@@ -566,12 +548,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get selectable():Boolean
     {
-        if (textView)
-            return textView.selectable;
-            
-        // want the default to be true
-        var v:* = textViewProperties.selectable;
-        return (v === undefined) ? true : v;
+        return _selectable;
     }
 
     /**
@@ -579,10 +556,13 @@ public class TextBase extends SkinnableComponent
      */
     public function set selectable(value:Boolean):void
     {
-        if (textView)
-            textView.selectable = value;
-        else
-            textViewProperties.selectable = value;
+        if (value == _selectable)
+            return;
+
+        _selectable = value;
+        selectableChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -650,6 +630,17 @@ public class TextBase extends SkinnableComponent
     //----------------------------------
 
     /**
+     *  @private
+     */
+    private var _selectionVisibility:String =
+        TextSelectionVisibility.WHEN_FOCUSED;
+
+    /**
+     *  @private
+     */
+    private var selectionVisibilityChanged:Boolean = false;
+
+    /**
      *  Documentation is not currently available.
      * 
      *  @default null
@@ -661,12 +652,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get selectionVisibility():String 
     {
-        if (textView)
-            return textView.selectionVisibility;
-            
-        // want the default to be "when focused"
-        var v:* = textViewProperties.selectionVisibility;
-        return (v === undefined) ? TextSelectionVisibility.WHEN_FOCUSED : v;
+        return _selectionVisibility;
     }
     
     /**
@@ -674,10 +660,13 @@ public class TextBase extends SkinnableComponent
      */
     public function set selectionVisibility(value:String):void
     {
-        if (textView)
-            textView.selectionVisibility = value;
-        else
-            textViewProperties.selectionVisibility = value;
+        if (value == _selectionVisibility)
+            return;
+        
+        _selectionVisibility = value;
+        selectionVisibilityChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -686,17 +675,20 @@ public class TextBase extends SkinnableComponent
 
     /**
      *  @private
-     *  Text is the exception to the how the proxied properties work.  Because
-     *  it can be expensive to get text from the flow, keep a local copy.
      */
-    private var _text:String;
-    
+    mx_internal var _text:String = "";
+
+    /**
+     *  @private
+     */
+    mx_internal var textChanged:Boolean = false;
+
     [Bindable("change")]
     [Bindable("textChanged")]
 
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
-    
+       
     /**
      *  The text String displayed by this component.
      *  
@@ -707,18 +699,7 @@ public class TextBase extends SkinnableComponent
      */
     public function get text():String
     {
-        // Thru events, textView notifies us when the text as we know it has
-        // changed.
-        if (mx_internal::textInvalid)
-        {
-            // Pull text up from textView into textViewProperties.
-            proxyText = false;
-            text = textView.text;
-            proxyText = true;
-        }
-            
-        // want the default to be the empty string
-        return (_text == null) ? "" : _text;
+        return mx_internal::_text;
     }
 
     /**
@@ -726,62 +707,16 @@ public class TextBase extends SkinnableComponent
      */
     public function set text(value:String):void
     {
-        //if (value == textViewProperties.text)
-        if (value == _text)
+        if (value == mx_internal::_text)
             return;
-        
-        // If the textView is telling us about the change we don't want
-        // to proxy the text to it.
-        if (proxyText)
-            textView.text = value;
-            
-        // Always keep this current, even if using the textView.    
-        //textViewProperties.text = value;
-        _text = value;
-        
-        mx_internal::textInvalid = false;
 
+        mx_internal::_text = value;
+        mx_internal::textChanged = true;
+
+        invalidateProperties();
+        
         dispatchEvent(new Event("textChanged"));
-     }
-
-    //----------------------------------
-    //  widthInChars
-    //----------------------------------
-    
-    /**
-     *  The default width for the Text components, measured in characters.
-     *  The width of the "M" character is used for the calculation.
-     *  So if you set this property to 5, it will be wide enough
-     *  to let the user enter 5 ems.
-     *
-     *  @default
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get widthInChars():Number
-    {
-        if (textView)
-            return textView.widthInChars
-            
-        // want the default to be 15 characters
-        var v:* = textViewProperties.widthInChars;
-        return (v === undefined) ? 15 : v;
     }
-
-    /**
-     *  @private
-     */
-    public function set widthInChars(value:Number):void
-    {
-        if (textView)
-            textView.widthInChars = value;
-        else
-            textViewProperties.widthInChars = value;
-    }
-    
     
     //----------------------------------
     //  textView
@@ -799,32 +734,94 @@ public class TextBase extends SkinnableComponent
      *  @productversion Flex 4
      */
     public var textView:RichEditableText;
-
-    /**
-     *  @private
-     *  Several properties are proxied to textView.  However, when textView
-     *  is not around, we need to store values set on TextBase.  This object 
-     *  stores those values.  If textView is around, the values are stored 
-     *  on the textView directly.  However, we need to know what values 
-     *  have been set by the developer on TextInput/TextArea (versus set on 
-     *  the textView or defaults of the textView) as those are values 
-     *  we want to carry around if the textView changes (via a new skin). 
-     *  In order to store this info effeciently, textViewProperties becomes 
-     *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitly set on this TextBase.  When the 
-     *  textView is not around, textViewProperties is a typeless 
-     *  object to store these proxied properties.  When textView is around,
-     *  textViewProperties stores booleans as to whether these properties 
-     *  have been explicitly set or not.
-     */
-    private var textViewProperties:Object = {};
-   
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+        
+    /**
+     *  @private
+     *  Pushes various properties down into the RichEditableText. 
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
 
+        if (autoSizeChanged)
+        {
+            textView.autoSize = _autoSize;
+            autoSizeChanged = false;
+        }
+
+		if (displayAsPasswordChanged)
+        {
+            textView.displayAsPassword = _displayAsPassword;
+            displayAsPasswordChanged = false;
+        }
+
+        if (enabledChanged)
+        {
+            textView.enabled = super.enabled;
+            enabledChanged = false;
+        }
+        
+        if (editableChanged)
+        {
+            textView.editable = _editable;
+            editableChanged = false;
+        }
+
+        if (imeModeChanged)
+        {
+            textView.imeMode = _imeMode;
+            imeModeChanged = false;
+        }
+
+        if (maxCharsChanged)
+        {
+            textView.maxChars = _maxChars;
+            maxCharsChanged = false;
+        }
+
+        if (maxWidthChanged)
+        {
+            textView.maxWidth = super.maxWidth;
+            maxWidthChanged = false;
+        }
+
+        if (percentWidthChanged)
+        {
+            textView.percentWidth = super.percentWidth;
+            percentWidthChanged = false;
+        }
+
+        if (restrictChanged)
+        {
+            textView.restrict = _restrict;
+            restrictChanged = false;
+        }
+
+        if (selectableChanged)
+        {
+            textView.selectable = _selectable;
+            selectableChanged = false;
+        }
+
+        if (selectionVisibilityChanged)
+        {
+            textView.selectionVisibility = _selectionVisibility;
+            selectionVisibilityChanged = false;
+        }
+        
+        if (mx_internal::textChanged)
+        {
+            textView.text = mx_internal::_text;
+            mx_internal::textChanged = false;
+        }
+    }
+    
     override protected function updateDisplayList(width:Number, height:Number):void
     {
         super.updateDisplayList(width, height);
@@ -840,16 +837,6 @@ public class TextBase extends SkinnableComponent
 
         if (instance == textView)
         {
-            // TODO: Remove this hard-coded styleName assignment
-            // once all global text styles are moved to the global
-            // stylesheet. This is a temporary workaround to support
-            // inline text styles for Buttons and subclasses.
-            textView.styleName = this;
-                                      
-            // Copy proxied values from textViewProperties (if set) to textView.
-            textViewAdded();            
-            proxyText = true;
-            
             // Start listening for various events from the RichEditableText.
 
             textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
@@ -860,14 +847,18 @@ public class TextBase extends SkinnableComponent
 
             textView.addEventListener("change",
                                       textView_changeHandler);
-
+            
             textView.addEventListener(FlexEvent.ENTER,
                                       textView_enterHandler);
-
-            // Proxy this event since there are no lifecyle events in this
-            // component to trigger this event.
-            textView.addEventListener(FlexEvent.UPDATE_COMPLETE, 
-                                      textView_updateCompleteHandler);
+                                      
+            // Set the initial text value
+            textView.text = mx_internal::_text;
+            
+            // TODO: Remove this hard-coded styleName assignment
+            // once all global text styles are moved to the global
+            // stylesheet. This is a temporary workaround to support
+            // inline text styles for Buttons and subclasses.
+            textView.styleName = this;
         }
     }
 
@@ -880,11 +871,6 @@ public class TextBase extends SkinnableComponent
 
         if (instance == textView)
         {
-            // Copy proxied values from textView (if explicitly set) to 
-            // textViewProperties.                        
-            textViewRemoved();            
-            proxyText = false;
-            
             // Stop listening for various events from the RichEditableText.
 
             textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
@@ -898,9 +884,6 @@ public class TextBase extends SkinnableComponent
 
             textView.removeEventListener(FlexEvent.ENTER,
                                          textView_enterHandler);
-
-            textView.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
-                                         textView_updateCompleteHandler);
         }
     }
     
@@ -949,66 +932,6 @@ public class TextBase extends SkinnableComponent
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  content
-    //----------------------------------
-
-    // TextArea has this, TextInput does not.
-    
-    /**
-     *  @private
-     */
-    protected function getContent():Object
-    {
-        if (textView)
-            return textView.content;
-            
-        // want the default to be null
-        var v:* = textViewProperties.content;        
-        return (v === undefined) ? null : v;
-    }
-
-    /**
-     *  @private
-     */
-    protected function setContent(value:Object):void
-    {
-        if (textView)
-            textView.content = value;
-        else
-            textViewProperties.content = value;
-     }
-
-    //----------------------------------
-    //  heightInLines
-    //----------------------------------
-
-    // TextArea has this, TextInput does not.
-    
-    /**
-     *  @private
-     */
-    protected function getHeightInLines():Number
-    {
-        if (textView)
-            return textView.heightInLines;
-            
-        // want the default to be 10 lines
-        var v:* = textViewProperties.heightInLines;        
-        return (v === undefined) ? 10 : v;
-    }
-
-    /**
-     *  @private
-     */
-    protected function setHeightInLines(value:Number):void
-    {
-        if (textView)
-            textView.heightInLines = value;
-        else
-            textViewProperties.heightInLines = value;
-    }
 
     /**
      *  Documentation is not currently available.
@@ -1067,190 +990,6 @@ public class TextBase extends SkinnableComponent
         textView.appendText(text);
     }
     
-    /**
-     *  @private
-     *  Copy values stored locally into textView now that textView has been
-     *  added.
-     */
-    private function textViewAdded():void
-    {        
-        var newTextViewProperties:uint = 0;
-        
-        if (textViewProperties.autoSize !== undefined)
-        {
-            textView.autoSize = textViewProperties.autoSize;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), AUTO_SIZE_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.content !== undefined)
-        {
-            textView.content = textViewProperties.content;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), CONTENT_PROPERTY_FLAG, true);
-        }
- 
-        if (textViewProperties.displayAsPassword !== undefined)
-        {
-            textView.displayAsPassword = textViewProperties.displayAsPassword
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
-                DISPLAY_AS_PASSWORD_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.editable !== undefined)
-        {
-            textView.editable = textViewProperties.editable;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), EDITABLE_PROPERTY_FLAG, true);
-       }
-
-        if (textViewProperties.heightInLines !== undefined)
-        {
-            textView.heightInLines = textViewProperties.heightInLines;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
-                HEIGHT_IN_LINES_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.imeMode !== undefined)
-        {
-            textView.imeMode = textViewProperties.imeMode;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), IME_MODE_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.maxChars !== undefined)
-        {
-            textView.maxChars = textViewProperties.maxChars;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), MAX_CHARS_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.maxWidth !== undefined)
-        {
-            textView.maxWidth = textViewProperties.maxWidth;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), MAX_WIDTH_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.restrict !== undefined)
-        {
-            textView.restrict = textViewProperties.restrict;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), RESTRICT_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.selectable !== undefined)
-        {
-            textView.selectable = textViewProperties.selectable;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), SELECTABLE_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.selectionVisibility !== undefined)
-        {
-            textView.selectionVisibility = textViewProperties.selectionVisibility;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
-                SELECTION_VISIBILITY_PROPERTY_FLAG, true);
-        }
-            
-        // Text is special.            
-        if (_text != null)
-        {
-            textView.text = _text;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), TEXT_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.widthInChars !== undefined)
-        {
-            textView.widthInChars = textViewProperties.widthInChars;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
-                WIDTH_IN_CHARS_PROPERTY_FLAG, true);
-        }
-            
-        // Switch from storing properties to bit mask of stored properties.
-         textViewProperties = newTextViewProperties;    
-    }
-    
-    /**
-     *  @private
-     *  Copy values stored in textView back to local storage since textView is
-     *  about to be removed.
-     */
-    private function textViewRemoved():void
-    {        
-        var newTextViewProperties:Object = {};
-        
-        if (BitFlagUtil.isSet(uint(textViewProperties), AUTO_SIZE_PROPERTY_FLAG))
-            newTextViewProperties.autoSize = textView.autoSize;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), CONTENT_PROPERTY_FLAG))
-            newTextViewProperties.content = textView.content;
- 
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            DISPLAY_AS_PASSWORD_PROPERTY_FLAG))
-        {
-            newTextViewProperties.displayAsPassword = textView.displayAsPassword;
-        }
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), EDITABLE_PROPERTY_FLAG))
-            newTextViewProperties.editable = textView.editable;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            HEIGHT_IN_LINES_PROPERTY_FLAG))
-        {
-            newTextViewProperties.heightInLines = textView.heightInLines;
-        }
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), IME_MODE_PROPERTY_FLAG))
-            newTextViewProperties.imeMode = textView.imeMode;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            MAX_CHARS_PROPERTY_FLAG))
-        {
-            newTextViewProperties.maxChars = textView.maxChars;
-        }
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            MAX_WIDTH_PROPERTY_FLAG))
-        {
-            newTextViewProperties.maxWidth = textView.maxWidth;
-        }
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), RESTRICT_PROPERTY_FLAG))
-            newTextViewProperties.restrict = textView.restrict;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            SELECTABLE_PROPERTY_FLAG))
-        {
-            newTextViewProperties.selectable = textView.selectable;
-        }
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            SELECTION_VISIBILITY_PROPERTY_FLAG))
-        {
-            newTextViewProperties.selectionVisibility = 
-                textView.selectionVisibility;
-        }
-            
-        // Text is special.            
-        if (BitFlagUtil.isSet(uint(textViewProperties), TEXT_PROPERTY_FLAG))
-            _text = textView.text;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            WIDTH_IN_CHARS_PROPERTY_FLAG))
-        {
-            newTextViewProperties.widthInChars = textView.widthInChars;
-        }
-            
-        // Switch from storing bit mask to storing properties.
-        textViewProperties = newTextViewProperties;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers
@@ -1300,15 +1039,15 @@ public class TextBase extends SkinnableComponent
      */
     protected function textView_changeHandler(event:TextOperationEvent):void
     {        
-        //trace(id, "textView_changeHandler", textView.text);
-        
-        // Use the setter so that the textChanged event is dispatched.  Set
-        // proxyText to false so the setter doesn't try to push the text down to
-        // textView.
-        proxyText = false;
+        // Update our storage variable for the text string.  Use the setter
+        // so that the textChanged event is dispatched which will maintain
+        // compatibility with the TextInput control.
         text = textView.text;
-        proxyText = true;
-        
+                
+        // Kill any programmatic change, including binding firing, that we 
+        // might be looking at.
+        mx_internal::textChanged = false;
+
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
@@ -1339,19 +1078,6 @@ public class TextBase extends SkinnableComponent
     private function textView_enterHandler(event:Event):void
     {
         // Redispatch the event that came from the RichEditableText.
-        dispatchEvent(event);
-    }
-
-    /**
-     *  @private
-     *  Called when the RichEditableText dispatches a 
-     *  'FlexEvent.UPDATE_COMPLETE' event in response to validation being
-     *  completed.
-     */
-    private function textView_updateCompleteHandler(event:Event):void
-    {
-        // Since this doesn't validate anything it doesn't generate it's own 
-        // event.
         dispatchEvent(event);
     }
 }
