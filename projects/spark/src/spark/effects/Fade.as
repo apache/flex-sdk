@@ -16,9 +16,12 @@ import flash.display.MovieClip;
 
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
 import spark.effects.supportClasses.FadeInstance;
+
+use namespace mx_internal;
 
 /**
  *  The Fade effect animates the <code>alpha</code> property of a component.
@@ -176,6 +179,45 @@ public class Fade extends Animate
         }
         
         return super.getValueFromTarget(target, property);
+    }
+
+    /**
+     * @private
+     * This override handles the case caused by transition interruption
+     * where the target object may not have reached its final fade-in value, or 
+     * may not have had the end value of '1' applied correctly because the
+     * transition was interrupted and the animation stopped. The logic
+     * checks to see whether the object was being faded in or out, based on
+     * the 'visible' or 'parent' properties. It then sets the end alpha to either
+     * the proper state value (the typical case) or to 1 (as a backup).
+     * Note that a faded-out object due to going away or becoming invisible
+     * should still have an alpha value of 1; it just won't be visible because
+     * it is either invisible or has no parent. But we want the alpha value
+     * to be opaque the next time it is made visible.
+     */
+    override mx_internal function applyEndValues(propChanges:Array,
+                                                 targets:Array):void
+    {
+        super.applyEndValues(propChanges, targets);
+        if (transitionInterruption && propChanges)
+        {
+            var n:int = propChanges.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                var target:Object = propChanges[i].target;
+                if (this.targets.indexOf(target ) >= 0 &&
+                    (propChanges[i].start["parent"] !== undefined &&
+                     propChanges[i].end["parent"] !== undefined &&
+                     propChanges[i].start["parent"] != propChanges[i].end["parent"]) ||
+                    (propChanges[i].start["visible"] !== undefined &&
+                        propChanges[i].end["visible"] !== undefined &&
+                        propChanges[i].start["visible"] != propChanges[i].end["visible"]))
+                {
+                    target.alpha = (propChanges[i].end["alpha"] !== undefined) ?
+                            propChanges[i].end["alpha"] : 1;
+                }
+            }
+        }
     }
 
     /**
