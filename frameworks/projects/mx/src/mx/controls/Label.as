@@ -1418,6 +1418,8 @@ public class Label extends UIComponent
      * 
      *  @param lineIndex The zero-based index of the line for which to get the metrics. 
      *  For the Label control, which has only a single line, must be 0.
+     * 
+     *  @return The TextLineMetrics object that contains information about the text.
      *
      *  @see flash.text.TextField
      *  @see flash.text.TextLineMetrics
