@@ -12,6 +12,7 @@
 package mx.components
 {
 
+import flash.display.BlendMode;
 import flash.display.Graphics;
 import flash.events.Event;
 import flash.geom.Rectangle;
@@ -32,6 +33,7 @@ import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.ISelectionManager;
+import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
@@ -110,6 +112,7 @@ include "../styles/metadata/BasicParagraphFormatTextStyles.as"
 include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../styles/metadata/SelectionFormatTextStyles.as"
 
 //--------------------------------------
 //  Other metadata
@@ -701,6 +704,45 @@ public class TextView extends UIComponent implements IViewport
     }
 
     //----------------------------------
+    //  selectionVisibility
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _selectionVisibility:String =
+        TextSelectionVisibility.WHEN_FOCUSED;
+
+    /**
+     *  @private
+     */
+    private var selectionVisibilityChanged:Boolean = false;
+
+    /**
+     *  Documentation is not currently available.
+     * 
+     *  @default null
+     */
+    public function get selectionVisibility():String 
+    {
+        return _selectionVisibility;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set selectionVisibility(value:String):void
+    {
+        if (value == _selectionVisibility)
+            return;
+        
+        _selectionVisibility = value;
+        selectionVisibilityChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
@@ -978,7 +1020,27 @@ public class TextView extends UIComponent implements IViewport
             textFlow.flowComposer = flowComposer;
             
             // Give it an EditManager to make it editable.
-            textFlow.interactionManager = new TextViewEditManager();
+            var editManager:TextViewEditManager = new TextViewEditManager();
+            // TODO! Temporary workaround because selectionColor
+            // isn't getting set for FxApplications.
+            var selectionColor:* = getStyle("selectionColor");
+            if (selectionColor === undefined)
+                selectionColor = 0xB5D5FF;
+            var unfocusedAlpha:Number =
+                selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ? 
+                1.0 : 0.0;
+            var inactiveAlpha:Number =
+                selectionVisibility == TextSelectionVisibility.ALWAYS ?
+                1.0 : 0.0;
+            editManager.focusSelectionFormat = new SelectionFormat(
+                selectionColor, 1.0, BlendMode.NORMAL);
+            editManager.noFocusSelectionFormat = new SelectionFormat(
+                getStyle("unfocusedSelectionColor"), unfocusedAlpha,
+                BlendMode.NORMAL);
+            editManager.inactiveSelectionFormat = new SelectionFormat(
+                getStyle("inactiveSelectionColor"), inactiveAlpha,
+                BlendMode.NORMAL);
+            textFlow.interactionManager = editManager;
 
             // Listen to events from the TextFlow and its EditManager.
             addListeners(textFlow);
@@ -1181,7 +1243,7 @@ public class TextView extends UIComponent implements IViewport
             }
             else
             {
-                throw new Error("invalid content");
+                textFlow = createTextFlowFromMarkup(_content.toString());
             }
             textInvalid = true;
             dispatchEvent(new Event("textInvalid"));
