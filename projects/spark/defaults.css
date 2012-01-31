@@ -23,6 +23,7 @@ Application
 
 Border
 {
+    backgroundColor: #FFFFFF;
     borderStyle : "solid"; 
     cornerRadius: 0;
     skinClass: ClassReference("spark.skins.spark.BorderSkin");
@@ -64,23 +65,6 @@ DropDownList
     skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
-SkinnableComponent
-{
-    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
-    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
-}
-
-SkinnableContainer
-{
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
-}
-
-SkinnableDataContainer
-{
-	skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
-}
-
 HScrollBar
 {
     skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
@@ -110,6 +94,7 @@ NumericStepper
 
 Panel
 {
+    backgroundColor: #FFFFFF;
     borderAlpha: 0.5;
     borderColor: 0;
     cornerRadius: 0;
@@ -130,6 +115,22 @@ Scroller
 ScrubBar
 {
     skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.ScrubBarSkin");
+}
+
+SkinnableDataContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
+}
+
+SkinnableComponent
+{
+    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
+    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
+}
+
+SkinnableContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
 Spinner
