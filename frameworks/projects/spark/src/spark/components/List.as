@@ -1158,7 +1158,7 @@ public class List extends ListBase implements IFocusManagerComponent
                            createDragIndicator(), 
                            0 /*xOffset*/, 
                            0 /*yOffset*/, 
-                           0.8 /*imageAlpha*/, 
+                           0.5 /*imageAlpha*/, 
                            dragMoveEnabled);
     }
     
