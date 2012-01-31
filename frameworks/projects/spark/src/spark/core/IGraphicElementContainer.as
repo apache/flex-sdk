@@ -28,14 +28,14 @@ package spark.core
 public interface IGraphicElementContainer
 {
     /**
-     *  Notify the host that an element layer has changed.
+     *  Notify the host component that an element layer has changed.
      *
-     *  The <code>IGraphicElementContainer</code> must re-evaluates the sequences of 
+     *  <p>The <code>IGraphicElementContainer</code> must re-evaluates the sequences of 
      *  graphic elements with shared DisplayObjects and may need to re-assign the 
-     *  DisplayObjects and redraw the sequences as a result. 
+     *  DisplayObjects and redraw the sequences as a result.</p>
      * 
-     *  Typically the host will perform this in its 
-     *  <code>validateProperties()</code> method.
+     *  <p>Typically the host will perform this in its 
+     *  <code>validateProperties()</code> method.</p>
      *
      *  @param element The element that has changed size.
      * 
@@ -49,11 +49,11 @@ public interface IGraphicElementContainer
     /**
      *  Notify the host component that an element changed and needs to validate properties.
      * 
-     *  The <code>IGraphicElementContainer</code> must call the <code>validateProperties()</code>
-     *  method on the IGraphicElement to give it a chance to commit its properties.
+     *  <p>The <code>IGraphicElementContainer</code> must call the <code>validateProperties()</code>
+     *  method on the IGraphicElement to give it a chance to commit its properties.</p>
      * 
-     *  Typically the host will validate the elements' properties in its
-     *  <code>validateProperties()</code> method.
+     *  <p>Typically the host will validate the elements' properties in its
+     *  <code>validateProperties()</code> method.</p>
      *
      *  @param element The element that has changed.
      * 
@@ -67,11 +67,11 @@ public interface IGraphicElementContainer
     /**
      *  Notify the host component that an element size has changed.
      * 
-     *  The <code>IGraphicElementContainer</code> must call the <code>validateSize()</code>
-     *  method on the IGraphicElement to give it a chance to validate its size.
+     *  <p>The <code>IGraphicElementContainer</code> must call the <code>validateSize()</code>
+     *  method on the IGraphicElement to give it a chance to validate its size.</p>
      * 
-     *  Typically the host will validate the elements' size in its
-     *  <code>validateSize()</code> method.
+     *  <p>Typically the host will validate the elements' size in its
+     *  <code>validateSize()</code> method.</p>
      *
      *  @param element The element that has changed size.
      * 
@@ -85,11 +85,11 @@ public interface IGraphicElementContainer
     /**
      *  Notify the host component that an element has changed and needs to be redrawn.
      * 
-     *  The <code>IGraphicElementContainer</code> must call the <code>validateDisplayList()</code>
-     *  method on the IGraphicElement to give it a chance to redraw.
+     *  <p>The <code>IGraphicElementContainer</code> must call the <code>validateDisplayList()</code>
+     *  method on the IGraphicElement to give it a chance to redraw.</p>
      * 
-     *  Typically the host will validate the elements' display lists in its
-     *  <code>validateDisplayList()</code> method.
+     *  <p>Typically the host will validate the elements' display lists in its
+     *  <code>validateDisplayList()</code> method.</p>
      *
      *  @param element The element that has changed.
      * 
