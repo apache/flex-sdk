@@ -30,27 +30,12 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.ItemClickEvent;
+import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
+use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
+
 [IconFile("ButtonBar.png")]
-
-//--------------------------------------
-//  Events
-//--------------------------------------
-
-/**
- *  Dispatched when a button is selected.
- *
- *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="itemClick", type="mx.events.ItemClickEvent")]
-
 
 [Alternative(replacement="mx.controls.ButtonBar", since="4.0")]
 
@@ -60,7 +45,7 @@ import mx.managers.IFocusManagerComponent;
  *
  *  <p>The typical use for a button bar is for grouping
  *  a set of related buttons together, which gives them a common look
- *  and navigation, and handling the logic for the <code>itemClick</code> event
+ *  and navigation, and handling the logic for the <code>change</code> event
  *  in a single place. </p>
  *
  *  <p>The ButtonBar control creates Button controls based on the value of 
@@ -76,11 +61,6 @@ import mx.managers.IFocusManagerComponent;
  *  <pre>
  *  &lt;ButtonBar
  *
- *    <strong>Properties</strong>
- *    arrowKeysWrapFocus="false"
- * 
- *    <strong>Events</strong>
- *    itemClick="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *
@@ -123,13 +103,13 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         super();
         itemRendererFunction = defaultButtonBarItemRendererFunction;
         
-        //Add a keyDown event listener so we can adjust
-        //selection accordingly.  
-        addEventListener(KeyboardEvent.KEY_DOWN, buttonBar_keyDownHandler);
-        addEventListener(KeyboardEvent.KEY_UP, buttonBar_keyUpHandler);
-
         tabChildren = false;
         tabEnabled = true;
+
+        addEventListener(IndexChangedEvent.CARET_CHANGE, caretChangeHandler);
+
+        // start off with a button under the caret
+        _caretIndex = 0;
     }
     
     //--------------------------------------------------------------------------
@@ -138,12 +118,6 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     *  Index of currently focused child.
-     */
-    private var focusedIndex:int = 0;
-
     /**
      *  @private
      */
@@ -155,23 +129,6 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  arrowKeysWrapFocus
-    //---------------------------------- 
-    
-    /**
-     *  If <code>true</code>, using arrow keys to navigate within
-     *  the ButtonBar wraps when it hits either end.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var arrowKeysWrapFocus:Boolean;
-
     //----------------------------------
     //  firstButton
     //---------------------------------- 
@@ -308,8 +265,8 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-        adjustLayering(focusedIndex);
-        drawButtonFocus(focusedIndex, isFocused);
+        adjustLayering(caretIndex);
+        drawButtonFocus(caretIndex, isFocused);
     }
 
 
@@ -325,18 +282,13 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         
         if (renderer)
         {
-            focusedIndex = index;
+            setCurrentCaretIndex(index);
             renderer.selected = selected;
         }
     }
         
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -351,12 +303,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -369,6 +316,19 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         }
         
         super.partRemoved(partName, instance);
+    }
+
+    /**
+     *  @private
+     *  button bar always keeps something under the caret so don't let it
+     *  become -1
+     */
+    override mx_internal function setCurrentCaretIndex(value:Number):void
+    {
+        if (value == -1)
+            return;
+
+        super.setCurrentCaretIndex(value);
     }
 
     //--------------------------------------------------------------------------
@@ -435,60 +395,63 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var index:int = dataGroup.getElementIndex(
+        var newIndex:int = dataGroup.getElementIndex(
                             event.currentTarget as IVisualElement);
 
         var currentRenderer:IItemRenderer;
-        if (focusedIndex >= 0  && !inKeyUpHandler)
+        if (caretIndex >= 0 && !inKeyUpHandler) // don't remove caret when keybd nav
         {
-            currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+            currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
             currentRenderer.showsCaret = false;
         }
 
-        if (index == selectedIndex)
+        if (newIndex == selectedIndex)
         {
             if (!requireSelection)
-                selectedIndex = -1;
+                selectedIndex = NO_SELECTION;
         }
         else
         {
-            focusedIndex = selectedIndex = index;
+            selectedIndex = newIndex;
         }
 
-        var newEvent:ItemClickEvent =
-            new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
-        if ("label" in event.currentTarget)
-            newEvent.label = event.currentTarget.label;
-        newEvent.index = index;
-        newEvent.relatedObject = InteractiveObject(event.currentTarget);
-        newEvent.item = dataProvider ?
-                        dataProvider.getItemAt(index) :
-                        null;
-        dispatchEvent(newEvent);
     }
     
+    /**
+     *  @private
+     */
+    private function caretChangeHandler(event:Event):void
+    {
+        adjustLayering(caretIndex);
+    }
+
     /**
      *  @private
      *  Attempt to lift the focused button above the others
      *  so that the focus ring can show.
      */
-    private function adjustLayering(focusedIndex:int):void
+    private function adjustLayering(caretIndex:int):void
     {
         var n:int = dataProvider ? dataProvider.length : 0;
         for (var i:int = 0; i < n; i++)
         {
             var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
-            if (i == focusedIndex)
-                renderer.depth = 1;
-            else
-                renderer.depth = 0;
+            // renderer may not exist in commitProps
+            // should get called again when we get focus
+            if (renderer)
+            {
+                if (i == caretIndex)
+                    renderer.depth = 1;
+                else
+                    renderer.depth = 0;
+            }
         }
     }
 
     /**
      *  @private
      */
-    private function buttonBar_keyDownHandler(event:KeyboardEvent):void
+    override protected function keyDownHandler(event:KeyboardEvent):void
     {
         var currentRenderer:IItemRenderer;
         var renderer:IItemRenderer;
@@ -502,22 +465,30 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         if (!dataProvider)
             return;
 
+        super.keyDownHandler(event);
+
+        var oldCaretIndex:Number = caretIndex; 
+        var e:IndexChangedEvent;
         var length:int = dataProvider.length;
         switch (event.keyCode)
         {
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-                if (focusedIndex > 0 || arrowKeysWrapFocus)
+                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
+                if (caretIndex > 0 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
                         currentRenderer.showsCaret = false;
-                    focusedIndex = (focusedIndex - 1 + length) % length;
-                    adjustLayering(focusedIndex);
-                    renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                    setCurrentCaretIndex((caretIndex - 1 + length) % length);
+                    adjustLayering(caretIndex);
+                    renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                     if (renderer)
                         renderer.showsCaret = true;
+                    e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                    e.oldIndex = oldCaretIndex; 
+                    e.newIndex = caretIndex; 
+                    dispatchEvent(e);    
                 }
 
                 event.stopPropagation();
@@ -526,16 +497,20 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-                if (focusedIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
+                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
+                if (caretIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
                         currentRenderer.showsCaret = false;
-                    focusedIndex = (focusedIndex + 1) % length;
-                    adjustLayering(focusedIndex);
-                    renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                    setCurrentCaretIndex((caretIndex + 1) % length);
+                    adjustLayering(caretIndex);
+                    renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                     if (renderer)
                         renderer.showsCaret = true;
+                    e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                    e.oldIndex = oldCaretIndex; 
+                    e.newIndex = caretIndex; 
+                    dispatchEvent(e);    
                 }
 
                 event.stopPropagation();
@@ -543,7 +518,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             }            
             case Keyboard.SPACE:
             {
-                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                 if (!currentRenderer || (currentRenderer.selected && requireSelection))
                     return;
                 currentRenderer.dispatchEvent(event);
@@ -555,7 +530,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    private function buttonBar_keyUpHandler(event:KeyboardEvent):void
+    override protected function keyUpHandler(event:KeyboardEvent):void
     {
         var currentRenderer:IItemRenderer;
         var renderer:IItemRenderer;
@@ -568,11 +543,13 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
 
         inKeyUpHandler = true;
 
+        super.keyUpHandler(event);
+
         switch (event.keyCode)
         {
             case Keyboard.SPACE:
             {
-                  currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                  currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                 if (!currentRenderer || (currentRenderer.selected && requireSelection))
                     return;
                 currentRenderer.dispatchEvent(event);
