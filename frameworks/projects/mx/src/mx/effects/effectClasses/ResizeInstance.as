@@ -744,9 +744,12 @@ public class ResizeInstance extends TweenEffectInstance
 		// other two values.
 		if (isNaN(widthFrom))
 		{
-			widthFrom = (!isNaN(widthTo) && !isNaN(widthBy)) ?
-						widthTo - widthBy :
-						target.width;
+            if (!isNaN(widthTo) && !isNaN(widthBy))
+                widthFrom = widthTo - widthBy;
+            else if (propertyChanges && propertyChanges.start["width"] != undefined)
+                widthFrom = propertyChanges.start["width"];
+            else
+				widthFrom = target.width;
 		}
 		if (isNaN(widthTo))
 		{		
@@ -776,9 +779,12 @@ public class ResizeInstance extends TweenEffectInstance
 		// Ditto for heightFrom, heightTo, and heightBy.
 		if (isNaN(heightFrom))
 		{
-			heightFrom = (!isNaN(heightTo) && !isNaN(heightBy)) ?
-						 heightTo - heightBy :
-						 target.height;
+            if (!isNaN(heightTo) && !isNaN(heightBy))
+                heightFrom = heightTo - heightBy;
+            else if (propertyChanges && propertyChanges.start["height"] != undefined)
+                heightFrom = propertyChanges.start["height"];
+            else
+                heightFrom = target.height;
 		}
 		if (isNaN(heightTo))
 		{		
