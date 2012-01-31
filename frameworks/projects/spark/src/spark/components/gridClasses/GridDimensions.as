@@ -13,9 +13,9 @@ package spark.components.supportClasses
 {
 import flash.geom.Rectangle;
 
+import mx.collections.IList;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.collections.IList;
 
 public class GridDimensions 
 {
@@ -668,14 +668,22 @@ public class GridDimensions
         if (y < 0)
             return -1;
         
+        var index:int;
+        
         if (!isNaN(fixedRowHeight))
-            return y / (fixedRowHeight + rowGap);
+        {
+            index = y / (fixedRowHeight + rowGap);
+            return index < _rowCount ? index : -1;
+        }
         
         if (rowList.length == 0)
-            return y / (defaultRowHeight + rowGap);
+        {
+            index = y / (defaultRowHeight + rowGap);
+            return index < _rowCount ? index : -1;
+        }
         
         if (y == 0)
-            return 0;
+            return _rowCount > 0 ? 0 : -1;
         
         // initialize first node.
         if (!recentNode)
@@ -683,8 +691,6 @@ public class GridDimensions
             recentNode = rowList.first;
             startY = recentNode.rowIndex * (defaultRowHeight + rowGap);
         }
-        
-        var index:int;
         
         // if we are already at the right row, then use the index.
         if (isYInRow(y, startY, recentNode))
@@ -694,7 +700,7 @@ public class GridDimensions
         else
             index = getNextRowIndexAt(y, recentNode, startY);
         
-        return index;
+        return index < _rowCount ? index : -1;
     }
     
     /**
@@ -827,9 +833,9 @@ public class GridDimensions
             }
             
             // check if target Y is within default row heights range.
-            if (targetY >= currentY && targetY < nextY)
+            if (targetY > currentY && targetY < nextY)
             {
-                index = index - Math.ceil(Number(currentY - targetY)/(defaultRowHeight + rowGap));
+                index = index + Math.ceil(Number(targetY - currentY)/(defaultRowHeight + rowGap));
                 break;
             }
             
