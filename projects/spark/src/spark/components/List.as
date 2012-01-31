@@ -20,7 +20,16 @@ import mx.events.ItemExistenceChangedEvent;
 import mx.skins.spark.FxDefaultItemRenderer;
 
 /**
- *  The List class.
+ *  The FxList control displays a vertical list of items.
+ *  Its functionality is very similar to that of the SELECT
+ *  form element in HTML.
+ *  If there are more items than can be displayed at once, it
+ *  can display a vertical scroll bar so the user can access
+ *  all items in the list.
+ *  An optional horizontal scroll bar lets the user view items
+ *  when the full width of the list items is unlikely to fit.
+ *  The user can select one or more items from the list, depending
+ *  on the value of the <code>allowMultipleSelection</code> property.
  */
 public class FxList extends FxListBase
 {
@@ -56,12 +65,13 @@ public class FxList extends FxListBase
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  Flag that determines if the list supports multiple selection.
-     * 
+    /*
      *  TODO: description of how single selection properties
      *  work when multiple selection is enabled. multiple selection
      *  doesn't support selectionChanging event. etc.
+     */
+    /**
+     *  <code>true</code> if the list supports multiple selection.
      * 
      *  @default false
      */
@@ -71,23 +81,24 @@ public class FxList extends FxListBase
     //  selectedIndex
     //----------------------------------
     
-   /**
+    
+    [Bindable("selectionChanged")]
+    /**
      *  The 0-based index of the selected item, or -1 if no item is selected.
-     *  Setting the selectedIndex property de-selects the currently selected
+     *  Setting the <code>selectedIndex</code> property deselects the currently selected
      *  item and selects the item at the specified index.
      *
-     *  The value of selectedIndex is always pinned between -1 and 
-     *  (numItems - 1). If items at a lower index than selectedIndex are 
+     *  <p>The value of <code>selectedIndex</code> is always between -1 and 
+     *  (<code>numItems</code> - 1). 
+     *  If items at a lower index than <code>selectedIndex</code> are 
      *  removed from the component, the selected index is adjusted downward
-     *  accordingly. 
+     *  accordingly. </p>
      * 
-     *  When the value of the <code>allowMultipleSelection</code> property
-     *  is true, the getter returns the first selected item.
+     *  <p>When the value of the <code>allowMultipleSelection</code> property
+     *  is <code>true</code>, the property is set to the first selected item.</p>
      *
      *  @default -1
      */
-    
-    [Bindable("selectionChanged")]
     override public function get selectedIndex():int
     {
         if (!allowMultipleSelection)
@@ -99,6 +110,9 @@ public class FxList extends FxListBase
         return NO_SELECTION;
     }
     
+    /**
+     *  @private
+     */
     override public function set selectedIndex(value:int):void
     {
         if (!allowMultipleSelection)
@@ -120,14 +134,19 @@ public class FxList extends FxListBase
     private var _proposedSelectedIndices:Array;
     private var multipleSelectionChanged:Boolean = false;
     
-    /**
+    [Bindable("selectionChanged")]
+    /*
      *  Selected indices for this component.
      *  
      *  TODO: describe
      * 
      *  @default null
      */
-    [Bindable("selectionChanged")]
+    /**
+     *  Selected indices for this component.
+     *  
+     *  @default null
+     */
     public function get selectedIndices():Array
     {
         if (!allowMultipleSelection)
@@ -136,6 +155,9 @@ public class FxList extends FxListBase
         return _selectedIndices;
     }
     
+    /**
+     *  @private
+     */
     public function set selectedIndices(value:Array):void
     {
         if (!allowMultipleSelection)
@@ -148,14 +170,19 @@ public class FxList extends FxListBase
         invalidateProperties();
     }
     
-    /**
+    [Bindable("selectionChanged")]
+    /*
      *  Selected items for this component.
      * 
      *  TODO: describe
      * 
      *  @default null
      */
-    [Bindable("selectionChanged")]
+    /**
+     *  Selected items for this component.
+     * 
+     *  @default null
+     */
     public function get selectedItems():Array
     {
         var result:Array;
@@ -173,6 +200,9 @@ public class FxList extends FxListBase
         return result;
     }
     
+    /**
+     *  @private
+     */
     public function set selectedItems(value:Array):void
     {
         var indices:Array;
@@ -230,40 +260,37 @@ public class FxList extends FxListBase
             }
         }
     }
-	
-	/**
-	 *  Called when a skin part has been added or assigned. 
-	 *  This method pushes the content, layout, itemRenderer, and
-	 *  itemRendererFunction properties down to the contentGroup
-	 *  skin part.
-	 */
-	override protected function partAdded(partName:String, instance:Object):void
-	{
-		super.partAdded(partName, instance);
-		if (instance == dataGroup)
-		{
-			dataGroup.addEventListener(
-			    ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
-			dataGroup.addEventListener(
-			    ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
-		}
-	}
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        if (instance == dataGroup)
+        {
+            dataGroup.addEventListener(
+                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+            dataGroup.addEventListener(
+                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+        }
+    }
 
-	/**
-	 *  Called when a skin part is removed.
-	 */
-	override protected function partRemoved(partName:String, instance:Object):void
-	{
-		if (instance == dataGroup)
-		{
-			dataGroup.removeEventListener(
-			    ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
-			dataGroup.removeEventListener(
-			    ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
-		}
-		
-		super.partRemoved(partName, instance);
-	}
+    /**
+     *  @inheritDoc
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        if (instance == dataGroup)
+        {
+            dataGroup.removeEventListener(
+                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+            dataGroup.removeEventListener(
+                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+        }
+        
+        super.partRemoved(partName, instance);
+    }
     
     //--------------------------------------------------------------------------
     //
