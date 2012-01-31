@@ -19,13 +19,16 @@ import flash.utils.*;
 import mx.core.IFactory;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.components.Skin;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.modules.ModuleManager;
+import flash.geom.Point;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 
 use namespace mx_internal;
 
@@ -86,27 +89,6 @@ public class FxComponent extends UIComponent
         skinStateIsDirty = true;
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        // TODO
-        // The baselinePosition calculation in UIComponent
-        // works only for TextField-based components.
-        return 0;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -721,6 +703,39 @@ public class FxComponent extends UIComponent
         systemManager.removeEventListener(eventType, onstageHandler, true /*capture*/);
         // For off-stage events
         systemManager.stage.removeEventListener(eventType, offstageHandler);
+    }
+
+    /**
+     * @private
+     * 
+     * Utility method to calculate a skin part's position relative to our component.
+     *
+     * @param part The skin part instance to obtain coordinates of.
+     *
+     * @return The component relative position of the part.
+     */ 
+    protected function getSkinPartPosition(part:IVisualElement):Point
+    {
+        return (!part || !part.parent) ? new Point(0, 0) :
+            globalToLocal(part.parent.localToGlobal(new Point(part.x, part.y)));
+    }
+    
+    /**
+     * @private
+     * 
+     * Utility method to calculate a skin part's baseline position relative to 
+     * the component.
+     *
+     * @param part The skin part instance to obtain baseline of.
+     *
+     * @return The baseline position of the part.
+     */ 
+    protected function getBaselinePositionForPart(part:IVisualElement):Number
+    {
+        if (!part || !mx_internal::validateBaselinePosition())
+            return super.baselinePosition;
+
+        return getSkinPartPosition(part).y + part.baselinePosition;
     }
 
     //--------------------------------------------------------------------------
