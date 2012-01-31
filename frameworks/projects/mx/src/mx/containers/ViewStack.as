@@ -20,8 +20,8 @@ import mx.core.Container;
 import mx.core.ContainerCreationPolicy;
 import mx.core.EdgeMetrics;
 import mx.core.IInvalidating;
-import mx.core.INavigatable;
 import mx.core.INavigatorContent;
+import mx.core.ISelectableList;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
@@ -233,7 +233,7 @@ include "../styles/metadata/GapStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class ViewStack extends Container implements IHistoryManagerClient, INavigatable
+public class ViewStack extends Container implements IHistoryManagerClient, ISelectableList
 {
     include "../core/Version.as";
 
@@ -1265,7 +1265,6 @@ public class ViewStack extends Container implements IHistoryManagerClient, INavi
         event.newIndex = newIndex;
         event.relatedObject = getChildAt(newIndex);
         dispatchEvent(event);
-        dispatchEvent(new Event("navigationChange"));
     }
 
     //--------------------------------------------------------------------------
