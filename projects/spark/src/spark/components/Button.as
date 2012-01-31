@@ -65,7 +65,7 @@ import mx.utils.BitFlagUtil;
 
 [DefaultTriggerEvent("click")]
 
-[DefaultProperty("content")]
+[DefaultProperty("label")]
 
 [IconFile("FxButton.png")]
 
@@ -141,21 +141,59 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
     //
     //--------------------------------------------------------------------------
     
-    [Bindable]
+    /**
+     *  @private
+     *  Storage for the data property.
+     */
+    private var _data:Object;
+    
+    [Bindable("dataChange")]
+
+    /**
+     *  The <code>data</code> property lets you pass an arbitrary object
+     *  to be used in a custom skin of the button.
+     * 
+     *  When a skin defines the optional part <code>labelField</code> then
+     *  a string representation of <code>data</code> will be pushed down to
+     *  that part's <code>text</code> property.
+     *
+     *  The default skin uses this mechanism to render the <code>data</code>
+     *  as the button label.  
+     * 
+     *  <p>When FxButton is used as an item renderer, the <code>data</code>
+     *  property will be set to the item value.</p>
+     *
+     *  <p>The <code>label</code> property is a <code>String</code> typed
+     *  facade of this property.  This property is bindable and it shares
+     *  the "dataChange" event with the <code>label</code> property.</p>
+     * 
+     *  @default null
+     *  @eventType dataChange
+     *  @see #label
+     *  @see mx.core.IDataRenderer
+     */
     public function get data():Object
     {
-        return content;
-    }
-    
-    public function set data(value:Object):void
-    {
-        content = value;
+        return _data;
     }
 
-    [Bindable("labelChanged")]
+    /**
+     *  @private
+     */
+    public function set data(value:Object):void
+    {
+        _data = value;
+
+        // Push to the optional labelField skin part
+        if (labelField)
+            labelField.text = label;
+        dispatchEvent(new Event("dataChange"));
+    }
+
+    [Bindable("dataChange")]
     /**
      *  Text to appear on the FxButton control.
-     *
+     * 
      *  <p>If the label is wider than the FxButton control,
      *  the label is truncated and terminated by an ellipsis (...).
      *  The full label displays as a tooltip
@@ -163,27 +201,32 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  If you have also set a tooltip by using the <code>tooltip</code>
      *  property, the tooltip is displayed rather than the label text.</p>
      *
+     *  <p>This is the default FxButton property.</p>
+     *
+     *  <p>This property is a <code>String</code> typed facade to the
+     *  <code>data</code> property.  This property is bindable and it shares
+     *  dispatching the "dataChange" event with the <code>data</code>
+     *  property.</p> 
+     *  
      *  @default ""
+     *  @see #data
+     *  @eventType dataChange
      */
     public function set label(value:String):void
     {
-        content = value;
-        dispatchEvent(new Event("labelChanged"));
-        
-        if (labelField)
-            labelField.text = label;
+        // label property is just a proxy to the data.
+        // The data setter will dispatch the event.
+        data = value;
     }
+
     /**
      *  @private
      */
     public function get label():String          
     {
-        return (content != null) ? content.toString():"";
+        return (data != null) ? data.toString() : "";
     }
     
-    [Bindable]
-    public var content:*
-
     // -----------------------------------------------------------------------
     //
     // Public properties defining the state of the button.
