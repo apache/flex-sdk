@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import flash.display.DisplayObjectContainer;
@@ -29,7 +29,7 @@ import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
 
@@ -40,31 +40,31 @@ import mx.graphics.baseClasses.TextGraphicElement;
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
 
-[IconFile("TextBox.png")]
+[IconFile("SimpleText.png")]
 
 /**
  *  A box, specified in the parent Group element's coordinate space, that contains text.
  *  
- *  <p>The TextBox class is similar to the mx.controls.Label control, although it can display 
+ *  <p>The SimpleText class is similar to the mx.controls.Label control, although it can display 
  *  multiple lines.</p>
  *  
- *  <p>TextBox does not support drawing a background or border; it only renders text. It supports only the basic formatting styles.
- *  If you want to use more advanced formatting styles, use the TextGraphic or TextView control.</p> 
+ *  <p>SimpleText does not support drawing a background or border; it only renders text. It supports only the basic formatting styles.
+ *  If you want to use more advanced formatting styles, use the RichText or RichEditableText control.</p> 
  *  
  *  <p>The specified text is wrapped at the right edge of the component's bounds. If it extends below the bottom, it is clipped.
  *  The display cannot be scrolled.</p>
  *  
- *  @see mx.components.TextView
- *  @see mx.graphics.TextGraphic
+ *  @see mx.components.RichEditableText
+ *  @see mx.graphics.RichText
  *  
- *  @includeExample examples/TextBoxExample.mxml
+ *  @includeExample examples/SimpleTextExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextBox extends TextGraphicElement
+public class SimpleText extends TextGraphicElement
 {
     include "../core/Version.as";
 
@@ -145,7 +145,7 @@ public class TextBox extends TextGraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function TextBox()
+    public function SimpleText()
     {
         super();
     }
@@ -218,14 +218,14 @@ public class TextBox extends TextGraphicElement
 	/**
 	 *  @private
 	 *  Creates an ElementFormat (and its FontDescription)
-	 *  based on the TextBox's CSS styles.
+	 *  based on the SimpleText's CSS styles.
 	 *  These must be recreated each time because FTE
 	 *  does not allow them to be reused.
 	 */
 	private function createElementFormat():ElementFormat
 	{
-		// When you databind to a text formatting style on a TextBox,
-		// as in <TextBox fontFamily="{fontCombo.selectedItem}"/>
+		// When you databind to a text formatting style on a SimpleText,
+		// as in <SimpleText fontFamily="{fontCombo.selectedItem}"/>
 		// the databinding can cause the style to be set to null.
 		// Setting null values for properties in an FTE FontDescription
 		// or ElementFormat throw an error, so the following code does
