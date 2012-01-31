@@ -37,6 +37,7 @@ import mx.controls.listClasses.MXItemRenderer;
  *  </pre>
  *  
  *  @see mx.controls.DataGrid
+ *  @includeExample examples/MXDataGridItemRenderer.mxml
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
