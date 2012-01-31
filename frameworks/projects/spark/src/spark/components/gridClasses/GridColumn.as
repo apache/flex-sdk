@@ -315,6 +315,8 @@ public class GridColumn extends EventDispatcher
      *  specify a different property name.  
      *  For example, you could set the value to "FullName" when a user views a
      *  set of people's names included from a database.
+     *
+     *  <p><code>GridColumn.dataTipField</code> takes precedence over this property.</p>
      * 
      *  <p>If this column or its grid specifies a value for the 
      *  <code>dataTipFunction</code> property, then the
