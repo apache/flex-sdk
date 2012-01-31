@@ -24,12 +24,22 @@ use namespace mx_internal;
 /**
  * Dispatched when an Operation invocation successfully returns.
  * @eventType mx.rpc.events.ResultEvent.RESULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="result", type="mx.rpc.events.ResultEvent")]
 
 /**
  * Dispatched when an Operation call fails.
  * @eventType mx.rpc.events.FaultEvent.FAULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="fault", type="mx.rpc.events.FaultEvent")]
 
@@ -44,6 +54,11 @@ use namespace mx_internal;
  * @see mx.rpc.AbstractService
  * @see mx.rpc.remoting.RemoteObject
  * @see mx.rpc.soap.WebService
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AbstractOperation extends AbstractInvoker
 {
@@ -62,6 +77,11 @@ public class AbstractOperation extends AbstractInvoker
      *  @param service The service on which the Operation is being invoked.
      *  
      *  @param name The name of the new Operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AbstractOperation(service:AbstractService = null, name:String = null)
     {
@@ -87,12 +107,22 @@ public class AbstractOperation extends AbstractInvoker
      * parameters are used instead of whatever is stored in this property.
      * For RemoteObject Operations the associated argumentNames array determines
      * the order of the arguments passed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var arguments:Object;
 
     /**
      * This is a hook primarily for framework developers to register additional user 
      * specified properties for your operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var properties:Object;
 
@@ -111,6 +141,11 @@ public class AbstractOperation extends AbstractInvoker
     /**
      * The name of this Operation. This is how the Operation is accessed off the
      * service. It can only be set once.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
@@ -135,6 +170,11 @@ public class AbstractOperation extends AbstractInvoker
      * Provides convenient access to the service on which the Operation
      * is being invoked. Note that the service cannot be changed after
      * the Operation is constructed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get service():AbstractService
     {
@@ -178,6 +218,11 @@ public class AbstractOperation extends AbstractInvoker
      * The same object is available in the <code>result</code> and
      * <code>fault</code> events from the <code>token</code> property.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     /* abstract */ public function send(... args:Array):AsyncToken
     {
@@ -193,6 +238,11 @@ public class AbstractOperation extends AbstractInvoker
     * event bubbling; dispatch the event if there's someone listening on us,
     * otherwise have the RemoteObject dispatch it in case there's a default
     * handler.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     override mx_internal function dispatchRpcEvent(event:AbstractEvent):void
     {
