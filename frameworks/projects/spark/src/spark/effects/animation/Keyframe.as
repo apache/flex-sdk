@@ -38,7 +38,7 @@ use namespace mx_internal;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Keyframe&gt;</code> tag
+ *  <p>The <code>&lt;s:Keyframe&gt;</code> tag
  *  inherits the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *  
