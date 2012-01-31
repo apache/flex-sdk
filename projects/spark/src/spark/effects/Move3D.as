@@ -98,11 +98,11 @@ public class Move3D extends Move
     {
         if(affectLayout)
         {
-           addMotionPath("translationZ", zFrom, zTo, zBy);
+            addMotionPath("translationZ", zFrom, zTo, zBy);
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addPostLayoutMotionPath("postLayoutTranslationZ", zFrom, zTo, zBy);
         }
         super.initInstance(instance);
     }    
