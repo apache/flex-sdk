@@ -291,7 +291,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         if (instance == thumb)
         {
             thumb.addEventListener(KeyboardEvent.KEY_DOWN, 
-                                   thumb_keyboardHandler);
+                                   thumb_keyDownHandler);
         }
     }
     
@@ -305,7 +305,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         if (instance == thumb)
         {
             thumb.removeEventListener(KeyboardEvent.KEY_DOWN, 
-                                      thumb_keyboardHandler);
+                                      thumb_keyDownHandler);
         }
     }
 
@@ -456,7 +456,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  Right/Up arrows. The Home and End keys set the value
      *  to the min and max respectively.
      */
-    protected function thumb_keyboardHandler(event:KeyboardEvent):void
+    protected function thumb_keyDownHandler(event:KeyboardEvent):void
     {
         // TODO: Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
