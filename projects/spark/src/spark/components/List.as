@@ -13,6 +13,7 @@ package mx.components
 {
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
@@ -21,7 +22,9 @@ import mx.core.IVisualElement;
 import mx.events.ItemExistenceChangedEvent;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
+import mx.managers.IFocusManagerComponent;
 import mx.skins.spark.FxDefaultItemRenderer;
+import flash.geom.Point;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
@@ -64,7 +67,7 @@ import mx.skins.spark.FxDefaultItemRenderer;
  *
  *  @includeExample examples/FxListExample.mxml
  */
-public class FxList extends FxListBase
+public class FxList extends FxListBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -87,8 +90,9 @@ public class FxList extends FxListBase
     {
         super();
         
-        //Add a keyDown event listener so we can adjust
-        //selection accordingly.  
+        // This listener handles the arrow keys.   It runs at capture time 
+        // so that can cancel - Event.preventDefault() - events we've processed
+        // before they're seen by the skin's FxScroller
         addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler, true);
     }
     
@@ -463,83 +467,55 @@ public class FxList extends FxListBase
     
     /**
      *  @private
+     *  If the layout element at the specified index isn't completely 
+     *  visible, scroll this IViewport.
+     * 
+     *  In the future, this method may animate the scroll.
+     */
+    private function ensureIndexIsVisible(index:int):void
+    {
+        if (!layout)
+            return;
+
+        var spDelta:Point = layout.getScrollPositionDelta(index);
+        if (spDelta)
+        { 
+            horizontalScrollPosition += spDelta.x;
+            verticalScrollPosition += spDelta.y;
+        }
+    }
+    
+    
+    /**
+     *  @private
      *  Build in basic keyboard navigation support in List. 
      *  TODO: Deepa - add overrideable methods to control 
      *  keyboard navigation across components and layout. 
      */
     private function list_keyDownHandler(event:KeyboardEvent):void
     {
-        var nextInView:Number;
-        switch (event.keyCode)
+        super.keyDownHandler(event);
+        var delta:int = 0;
+
+        if (layout is VerticalLayout)
+            switch(event.keyCode)
+            {
+                case Keyboard.UP: delta = -1; break;
+                case Keyboard.DOWN: delta = +1; break;
+            }
+        else if (layout is HorizontalLayout)
+            switch(event.keyCode)
+            {
+                case Keyboard.LEFT: delta = -1; break;
+                case Keyboard.RIGHT: delta = +1; break;
+            }
+        
+        if (delta != 0)
         {
-            case Keyboard.UP:
-            {
-                if (layout is VerticalLayout)
-                {
-                    nextInView = VerticalLayout(layout).inView(selectedIndex-1); 
-                    //The next item is already in full or partial view - don't scroll, just select it.
-                    if ((nextInView == 1) || (nextInView < 0))
-                        event.stopPropagation();
-                    //The last item was selected and partially in view, don't increment selection 
-                    if (nextInView == 0 && (VerticalLayout(layout).firstIndexInView == selectedIndex))
-                        return;
-                    //Adjust selection 
-                    if (selectedIndex > 0)
-                        selectedIndex--;
-                }
-                break;
-            }
-            case Keyboard.DOWN:
-            {
-                if (layout is VerticalLayout)
-                {
-                    nextInView = VerticalLayout(layout).inView(selectedIndex+1);
-                    //The next item is already in full or partial view - don't scroll
-                    if ((nextInView == 1) || (nextInView < 0))
-                        event.stopPropagation();
-                    //The last item was selected and partially in view, don't increment selection 
-                    if (nextInView == 0 && (VerticalLayout(layout).lastIndexInView == selectedIndex))
-                        return;
-                    //Adjust selection 
-                    if (selectedIndex < (dataProvider.length - 1))
-                        selectedIndex++;
-                }
-                break;
-            }
-            case Keyboard.LEFT:
-            {
-                if (layout is HorizontalLayout)
-                {
-                    nextInView = HorizontalLayout(layout).inView(selectedIndex-1); 
-                    //The next item is already in full or partial view - don't scroll
-                    if ((nextInView == 1) || (nextInView < 0))
-                        event.stopPropagation();
-                    //The last item was selected and partially in view, don't increment selection 
-                    if (nextInView == 0 && (HorizontalLayout(layout).firstIndexInView == selectedIndex))
-                        return;
-                    //Adjust selection 
-                    if (selectedIndex > 0)
-                        selectedIndex--;
-                }
-                break;
-            }
-            case Keyboard.RIGHT:
-            {
-                if (layout is HorizontalLayout)
-                {
-                    nextInView = HorizontalLayout(layout).inView(selectedIndex+1); 
-                    //The next item is already in full or partial view - don't scroll
-                    if ((nextInView == 1) || (nextInView < 0))
-                        event.stopPropagation();
-                    //The last item was selected and partially in view, don't increment selection 
-                    if (nextInView == 0 && (HorizontalLayout(layout).lastIndexInView == selectedIndex))
-                        return;
-                    //Adjust selection 
-                    if (selectedIndex < (dataProvider.length - 1))
-                        selectedIndex++;
-                }
-                break;
-            }            
+            event.preventDefault();
+            var maxSelectedIndex:int = dataProvider.length - 1;
+            selectedIndex = Math.min(Math.max(0, selectedIndex + delta), maxSelectedIndex);
+            ensureIndexIsVisible(selectedIndex);
         }
     }
   
