@@ -45,24 +45,27 @@
             <target-player>10</target-player>
             <include-resource-bundles bundle="empty"/>
             <include-namespaces/>
-            <include-classes/>
+            <include-classes>Empty</include-classes>
             <source-path path-element="${basedir}/bundles/${locale}"/>
             <source-path path-element="${basedir}/src"/>
             <include-libraries/>
             <library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-                <include name="framework.swc"/>
-			</external-library-path>
+				<include name="framework.swc"/>
+            </external-library-path>
         </compc>
     </target>
 
     <!-- updates playerglobal_rb.swc with asdoc xml -->
+	<!-- Use dita.dir until we have all the translated dita files -->
     <target name="fat-swc">
         <mkdir dir="${basedir}/bundles/${locale}/docs" />
         <zip destfile="${FLEX_HOME}/frameworks/locale/${locale}/playerglobal_rb.swc" update="true">
-            <zipfileset dir="${basedir}/bundles/${locale}/docs" prefix="docs">
+            <zipfileset dir="${dita.dir}" prefix="docs">
                 <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
             </zipfileset>
         </zip>
     </target>
@@ -74,6 +77,7 @@
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="de_DE"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
@@ -83,6 +87,7 @@
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="en_US"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
@@ -92,6 +97,7 @@
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="fr_FR"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
@@ -101,15 +107,18 @@
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="ja_JP"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
     <target name="ru_RU" description="Swedish resources">
         <antcall target="bundle">
             <param name="locale" value="ru_RU"/>
+			
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="ru_RU"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
@@ -119,10 +128,12 @@
         </antcall>
         <antcall target="fat-swc">
             <param name="locale" value="zh_CN"/>
+			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
         </antcall>
     </target>
 
     <target name="doc">
-    </target>
+    
+	</target>
 
 </project>
