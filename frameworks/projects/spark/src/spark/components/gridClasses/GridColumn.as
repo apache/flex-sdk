@@ -200,7 +200,7 @@ public class GridColumn extends EventDispatcher
      */
     private function get dataGrid():spark.components.DataGrid
     {
-        return (grid) ? grid.gridOwner as DataGrid : null;
+        return (grid) ? grid.dataGrid : null;
     }
     
     //----------------------------------
@@ -353,11 +353,7 @@ public class GridColumn extends EventDispatcher
      */
     public function get headerRenderer():IFactory
     {
-        if (_headerRenderer)
-            return _headerRenderer;
-        
-        const dataGrid:DataGrid = dataGrid;
-        return (dataGrid) ? dataGrid.headerRenderer : null;
+        return _headerRenderer;
     }
     
     /**
@@ -472,8 +468,8 @@ public class GridColumn extends EventDispatcher
      *  this column.
 
      *  If this property is null, and the column grid's owner is a DataGrid, 
-     *  then the value of the DataGrid's itemEditor property is used.   The
-     *  default DataGrid item editor is TextGridItemEditor.
+     *  then the value of the DataGrid's itemEditor property is used.   If no
+     *  item editor is specified then TextGridItemEditor is used.
      * 
      *  @default null
      *
