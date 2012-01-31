@@ -407,6 +407,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 	
 	/**
 	 *  @private
+	 *  When faking a mouseDown after a mouse up has occurred, if we get a rollOut
+	 *  event, we don't want to immediately set hovered = false so we can maintain 
+	 *  the down state until the mouseUpDeselectTimer is finished.  So we keep track
+	 *  that a rollOut event occurred and honor it later.
+	 */
+	private var rollOutWhileFakingDownState:Boolean = false;
+	
+	/**
+	 *  @private
 	 *  When there is a touchDelay and the touch interaction is complete (user mouseUp) before 
 	 *  the touchDelay is over, usually the component goes in to the down state for a period 
 	 *  of time to ensure the user gets visual feedback on this operation. 
@@ -1166,7 +1175,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         // that you don't get one so we force one on FOCUS_OUT.
         super.focusOutHandler(event);
 
-        mouseCaptured = false;
+		// If faking down state, let's not interrupt it because of a focusOut
+		if (!(mouseUpDeselectTimer && mouseUpDeselectTimer.running))
+			mouseCaptured = false;
+		
         keyboardPressed = false;
     }
 
@@ -1252,12 +1264,22 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
                 hovered = true;
+				rollOutWhileFakingDownState = false;
                 break;
             }
 
             case MouseEvent.ROLL_OUT:
             {
-                hovered = false;
+				if (mouseUpDeselectTimer && mouseUpDeselectTimer.running)
+				{
+					// We're trying to flash the down state for longer, 
+					// so let's not leave the hovered state just yet
+					rollOutWhileFakingDownState = true;
+				}
+				else
+				{
+					hovered = false;
+				}
                 break;
             }
             
@@ -1302,12 +1324,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 {
                     hovered = true;
                     
-                    if (mouseCaptured)
-                    {
-                        buttonReleased();
-                        mouseCaptured = false;
-                    }
-                    
                     if (mouseDownSelectTimer && mouseDownSelectTimer.running)
                     {
                         // We never even flashed the down state for this click operation.
@@ -1324,6 +1340,11 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                         mouseCaptured = true;
                         startDeselectButtonAfterDelayTimer();
                     }
+					else if (mouseCaptured)
+					{
+						buttonReleased();
+						mouseCaptured = false;
+					}
                 }
                 break;
             }
@@ -1371,7 +1392,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (event.target == this)
             return;
         
-        mouseCaptured = false;
+		// If faking down state, let's not interrupt it because of a mouseUp somewhere 
+		// else on the screen
+		if (!(mouseUpDeselectTimer && mouseUpDeselectTimer.running))
+       		mouseCaptured = false;
         
         // If the mouseDownSelectTimer is still running, 
         // we don't want to ever go in to the down state in this case, so stop it
@@ -1414,7 +1438,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent = null):void
     {
         buttonReleased();
-        mouseCaptured = false;
+		
+		mouseCaptured = false;
+		
+		// if we got a rollout, we should honor it now
+		if (rollOutWhileFakingDownState)
+		{
+			rollOutWhileFakingDownState = false;
+			hovered = false;
+		}
     }
     
     /**
