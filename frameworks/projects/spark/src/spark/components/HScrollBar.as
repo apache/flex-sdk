@@ -67,7 +67,6 @@ use namespace mx_internal;
  *        </tr>
  *     </table>
  *
- *
  *  @mxml
  *  <p>The <code>&lt;s:HScrollBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -83,6 +82,9 @@ use namespace mx_internal;
  *  @see spark.skins.spark.HScrollBarSkin
  *  @see spark.skins.spark.HScrollBarThumbSkin
  *  @see spark.skins.spark.HScrollBarTrackSkin
+ *
+ *  @includeExample examples/HScrollBarExample.mxml
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -250,24 +252,19 @@ public class HScrollBar extends ScrollBarBase
     
 
     /**
-     *  If <code>viewport</code> is not null, 
-     *  changes the horizontal scroll position for a page up or page down operation
-     *  by scrolling the viewport.
-     *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.getHorizontalScrollPositionDelta()</code> method 
-     *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
-     *  or <code>flash.ui.Keyboard.PAGE_DOWN</code>.
-     *  It then calls the <code>setValue()</code> method to 
-     *  set the <code>IViewport.horizontalScrollPosition</code> property 
-     *  to the appropriate value.
+     *  Increment <code>value</code> by a page if <code>increase</code> is <code>true</code>, 
+     *  or decrement <code>value</code>  by a page if <code>increase</code> is <code>false</code>.
+     *  Increasing the scrollbar's <code>value</code> scrolls the viewport to the right. 
+     *  Decreasing the <code>value</code> scrolls to the viewport to the left.
+     *  
+     *  <p>If the <code>viewport</code> property is set, then its 
+     *  <code>getHorizontalScrollPositionDelta()</code> method 
+     *  is used to compute the size of the page increment.  
+     *  If <code>viewport</code> is null, then the scrollbar's
+     *  <code>pageSize</code> property is used.</p>
      *
-     *  <p>If <code>viewport</code> is null, 
-     *  calling this method changes the scroll position for 
-     *  a page up or page down operation by calling 
-     *  the <code>changeValueByPage()</code> method.</p>
-     *
-     *  @param increase Whether the page scroll is up (<code>true</code>) or
-     *  down (<code>false</code>). 
+     *  @param increase Whether to increment (<code>true</code>) or
+     *  decrement (<code>false</code>) <code>value</code>. 
      * 
      *  @see spark.components.supportClasses.ScrollBarBase#changeValueByPage()
      *  @see spark.components.supportClasses.Range#setValue()
