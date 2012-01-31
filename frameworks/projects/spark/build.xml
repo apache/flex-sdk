@@ -52,9 +52,8 @@
 			   output="${FLEX_HOME}/frameworks/libs/flex4.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library:adobe/flex/gumbo" manifest="${basedir}/manifest.xml"/>
-		    <namespace uri="http://ns.adobe.com/mxml/2009" manifest="${FLEX_HOME}/frameworks/mxml-2009-manifest.xml"/>
-			<include-namespaces uri="library:adobe/flex/gumbo"/>
+			<namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/manifest.xml"/>
+			<include-namespaces uri="http://ns.adobe.com/mxml/2009"/>
 			<include-classes>Flex4Classes</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path />
@@ -68,10 +67,10 @@
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<locale/>
-                        <keep-as3-metadata name="SkinPart"/>
-                        <keep-as3-metadata name="States"/>
-                        <keep-as3-metadata name="SkinStates"/>
-                        <keep-as3-metadata name="HostComponent"/>
+            <keep-as3-metadata name="SkinPart"/>
+            <keep-as3-metadata name="States"/>
+            <keep-as3-metadata name="SkinStates"/>
+            <keep-as3-metadata name="HostComponent"/>
 			<accessible>true</accessible>
 		</compc>
 		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
