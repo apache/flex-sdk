@@ -30,6 +30,11 @@ import flashx.textLayout.formats.LineBreak;
  *  Dispatched when the user pressed the Enter key.
  *
  *  @eventType mx.events.FlexEvent.ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -43,11 +48,21 @@ import flashx.textLayout.formats.LineBreak;
 
 /**
  *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("normal")]
 
 /**
  *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
 
@@ -55,6 +70,11 @@ import flashx.textLayout.formats.LineBreak;
  *  Documentation is not currently available.
  *
  *  @includeExample examples/FxTextInputExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxTextInput extends FxTextBase
 {
@@ -68,6 +88,11 @@ public class FxTextInput extends FxTextBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function FxTextInput()
     {
@@ -102,6 +127,11 @@ public class FxTextInput extends FxTextBase
      *  to let the user enter 5 digits.
      *
      *  @default
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get widthInChars():Number
     {
