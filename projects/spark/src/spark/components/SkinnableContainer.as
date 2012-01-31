@@ -127,6 +127,26 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:fixedThumbSize
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="fixedThumbSize", type="Boolean", inherit="yes")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:smoothScrolling
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="smoothScrolling", type="Boolean", inherit="yes")]
+
 
 [IconFile("SkinnableContainer.png")]
 
