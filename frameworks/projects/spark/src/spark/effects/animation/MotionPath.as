@@ -210,7 +210,7 @@ public class MotionPath
             // only if it's not set already, then it only works the
             // first time through, since an Effect will retain its
             // MotionPaty, which retains its KeyFrames, etc.
-            kf.mx_internal::timeFraction = kf.time / duration;
+            kf.timeFraction = kf.time / duration;
         }
     }
     
