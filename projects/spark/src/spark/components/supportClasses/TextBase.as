@@ -766,7 +766,7 @@ public class TextGraphicElement extends GraphicElement
                 // recompose if the height changes.
                 compose = true;
             }
-            else (unscaledHeight < mx_internal::bounds.height)
+            else if (unscaledHeight < mx_internal::bounds.height)
             {
                 // Don't need to recompose but need to clip since not all the
                 // height is needed.
