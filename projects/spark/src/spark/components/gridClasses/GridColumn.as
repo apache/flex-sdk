@@ -399,7 +399,7 @@ public class GridColumn extends EventDispatcher
     [Bindable("labelFunctionChanged")]
     
     /**
-     *  A function that converts a dataProvider item into a column-specific string
+     *  A idempotent function that converts a dataProvider item into a column-specific string
      *  that's used to initialize the item renderer's <code>label</code> property.
      *  A labelFunction can be use to combine the values of several dataProvider item
      *  properties into a single string.  If specified, this property is used by the 
