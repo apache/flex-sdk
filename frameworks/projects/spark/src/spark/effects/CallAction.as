@@ -26,7 +26,7 @@ import spark.effects.supportClasses.CallActionInstance;
 /**
  * The CallAction effect calls the function specified by 
  * <code>functionName</code> property on the <code>target</code> object with
- * optional parameters specified by the <code>parameters</code> property. 
+ * optional arguments specified by the <code>args</code> property. 
  * The effect is useful in
  * effect sequences where a function call can be included as part of 
  * a composite effect.
@@ -42,7 +42,7 @@ import spark.effects.supportClasses.CallActionInstance;
  *    <b>Properties</b>
  *    id="ID"
  *    functionName="no default"
- *    parameters="no default"
+ *    args="no default"
  *  /&gt;
  *  </pre>
  *  
@@ -101,11 +101,11 @@ public class CallAction extends Effect
     public var functionName:String;
     
     //----------------------------------
-    //  parameters
+    //  args
     //----------------------------------
 
     /** 
-     * Parameters passed to the function that is called
+     * Arguments passed to the function that is called
      * by this effect.
      *  
      *  @langversion 3.0
@@ -113,7 +113,7 @@ public class CallAction extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var parameters:Array;
+    public var args:Array;
 
     //--------------------------------------------------------------------------
     //
@@ -131,7 +131,7 @@ public class CallAction extends Effect
         var callInstance:CallActionInstance = CallActionInstance(instance);
 
         callInstance.functionName = functionName;
-        callInstance.parameters = parameters;
+        callInstance.args = args;
     }
 
 }
