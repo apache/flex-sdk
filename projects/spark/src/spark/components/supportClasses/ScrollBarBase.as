@@ -58,13 +58,13 @@ import spark.effects.easing.Sine;
 
 /**
  *  If true (the default), the thumb's visibility will be reset
- *  whenever it's size is updated.  
+ *  whenever its size is updated.  
  * 
  *  Overrides of <code>sizeThumb()</code> in <code>HScrollBar</code> and 
  *  <code>VScrollBar</code> make the thumb visible if it's smaller than
  *  the track, unless this style is false.   
  * 
- *  Set this style to control thumb visiblity directly.  
+ *  Set this style to false to control thumb visiblity directly.  
  * 
  *  @default true
  * 
@@ -255,7 +255,7 @@ public class ScrollBar extends TrackBase
     /**
      * @private
      * This variable tracks whether we are currently running an animation to
-     * do a single page() operation. This is used to end that operation properly
+     * do a single changeValueByPage() operation. This is used to end that operation properly
      * if another operation interrupts it.
      */ 
     private var animatingSinglePage:Boolean;
@@ -297,11 +297,11 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     override public function set valueInterval(value:Number):void
+     override public function set snapInterval(value:Number):void
     {
-        super.valueInterval = value;
+        super.snapInterval = value;
         
-        // setting valueInterval may change the pageSize
+        // setting snapInterval may change the pageSize
         pageSizeChanged = true;
     }
 
@@ -321,7 +321,7 @@ public class ScrollBar extends TrackBase
 
     /**
      *  The change in the value of the <code>value</code> property 
-     *  when you call the <code>page()</code> method.
+     *  when you call the <code>changeValueByPage()</code> method.
      *
      *  @default 20
      *  
@@ -372,7 +372,7 @@ public class ScrollBar extends TrackBase
      * 
      *  <p>The VScrollBar and HScrollBar classes override these methods to 
      *  keep their <code>pageSize</code>, <code>maximum</code>, and <code>value</code> properties in sync with the
-     *  viewport.   Similarly, they override their <code>page()</code> and <code>step()</code> methods to
+     *  viewport.   Similarly, they override their <code>changeValueByPage()</code> and <code>changeValueByStep()</code> methods to
      *  use the viewport's <code>scrollPositionDelta</code> methods to compute page and
      *  and step offsets.</p>
      *    
@@ -439,6 +439,33 @@ public class ScrollBar extends TrackBase
     
     /**
      *  @private
+     *  Returns the integer multiple of snapInterval that's closest to size.
+     * 
+     *  <p>If snapInterval is 0, which means that values are only constrained
+     *  by the minimum and maximum properties, then size is returned unchanged.</p>
+     * 
+     *  <p>This method is used by commitProperties() to validate the 
+     *  pageSize.  There's a copy of this method in Range.as</p>
+     * 
+     *  @param size The input size.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    private function nearestValidSize(size:Number):Number
+    {
+        var interval:Number = snapInterval;
+        if (interval == 0)
+            return size;
+        
+        var validSize:Number = Math.round(size / interval) * interval
+        return (Math.abs(validSize) < interval) ? interval : validSize;
+    }
+
+    /**
+     *  @private
      */
     override protected function commitProperties():void
     {
@@ -446,9 +473,7 @@ public class ScrollBar extends TrackBase
         
         if (pageSizeChanged)
         {
-            if (valueInterval != 0)
-                _pageSize = nearestValidInterval(_pageSize, valueInterval);
-            
+            _pageSize = nearestValidSize(_pageSize);
             pageSizeChanged = false;
         }
     }
@@ -550,7 +575,7 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function page(increase:Boolean = true):void
+    public function changeValueByPage(increase:Boolean = true):void
     {
         var val:Number;
         if (increase)
@@ -566,31 +591,6 @@ public class ScrollBar extends TrackBase
             setValue(val);
             dispatchEvent(new Event("change"));
         }
-    }
-
-    /**
-     *  Calculates the size for the thumb from the current range, pageSize, and
-     *  trackSize settings.
-     * 
-     *  If fixedThumbSize is true, then subclasses should return a value based
-     *  on the thumb's preferred size instead.
-     * 
-     *  @see #fixedThumbSize
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function calculateThumbSize():Number
-    {
-        var range:Number = maximum - minimum;
-        
-        // Thumb takes up entire track.
-        if (range == 0)
-            return trackSize;
-        
-        return Math.min((pageSize / (range + pageSize) ) * trackSize, trackSize);
     }
 
     //--------------------------------------------------------------------------
@@ -716,13 +716,7 @@ public class ScrollBar extends TrackBase
             // TODO (chaase): first step is non-animated, just to simplify the delayed
             // start of the animated stepping. Seems okay, but worth thinking
             // about whether we should animate the first step too
-            step(increment);
-            
-            if (value != oldValue)
-            {
-                positionThumb(valueToPosition(value));
-                dispatchEvent(new Event("change"));
-            }
+            changeValueByStep(increment);
 
             if (getStyle("smoothScrolling"))
             {
@@ -802,26 +796,28 @@ public class ScrollBar extends TrackBase
         if (animatingSinglePage)
             animator.end();
         
-        var pt:Point = new Point(event.stageX, event.stageY);
         // Cache original event location for use on later repeating events
-        trackPosition = track.globalToLocal(pt);
-        var newScrollPosition:Number = pointToPosition(trackPosition.x, trackPosition.y);
-        var newScrollValue:Number = positionToValue(newScrollPosition);
+        trackPosition = track.globalToLocal(new Point(event.stageX, event.stageY));
         
+        // If the user shift-clicks on the track, then offset the event coordinates so 
+        // that the thumb ends up centered under the mouse.
+        if (event.shiftKey)
+        {
+            var thumbW:Number = (thumb) ? thumb.getLayoutBoundsWidth() : 0;
+            var thumbH:Number = (thumb) ? thumb.getLayoutBoundsHeight() : 0;
+            trackPosition.x -= (thumbW / 2);
+            trackPosition.y -= (thumbH / 2);        
+        }
+
+        var newScrollValue:Number = pointToValue(trackPosition.x, trackPosition.y);
         trackScrollDown = (newScrollValue > value);
-        
-        var oldValue:Number = value;
         
         if (event.shiftKey)
         {
             // shift-click positions jumps to the clicked location instead
             // of incrementally paging
             var slideDuration:Number = getStyle("slideDuration");
-            // Adjust the position - we want the clicked position to be at the
-            // half-way point of the thumb when it's done moving
-            newScrollPosition -= thumbSize/2;
-            newScrollValue = positionToValue(newScrollPosition);
-            var adjustedValue:Number = nearestValidValue(newScrollValue, valueInterval);
+            var adjustedValue:Number = nearestValidValue(newScrollValue, snapInterval);
             if (getStyle("smoothScrolling") && 
                 slideDuration != 0 && 
                 (maximum - minimum) != 0)
@@ -839,7 +835,7 @@ public class ScrollBar extends TrackBase
             return;
         }
         
-        page(trackScrollDown);
+        changeValueByPage(trackScrollDown);
         
         trackScrolling = true;
 
@@ -967,7 +963,7 @@ public class ScrollBar extends TrackBase
             // If we're animating stepping, end on a final real step call in the
             // appropriate direction, ensuring that we stop on a content 
             // item boundary 
-            step(steppingDown);
+            changeValueByStep(steppingDown);
             steppingUp = steppingDown = false;
             animator.startDelay = 0;
         }
@@ -986,10 +982,8 @@ public class ScrollBar extends TrackBase
         // Only repeat the scrolling if the current scroll position
         // (represented by fraction) is not past the current
         // mouse position on the track 
-        var newScrollPosition:Number = pointToPosition(
-            trackPosition.x, trackPosition.y);
-        var newScrollValue:Number = positionToValue(newScrollPosition);
-                
+        var newScrollValue:Number = pointToValue(trackPosition.x, trackPosition.y);
+
         if (trackScrollDown)
         {
             var range:Number = maximum - minimum;
@@ -1015,13 +1009,7 @@ public class ScrollBar extends TrackBase
 
         var oldValue:Number = value;
         
-        page(trackScrollDown);
-        
-        if (value != oldValue)
-        {
-            positionThumb(valueToPosition(value));
-            dispatchEvent(new Event("change"));
-        }
+        changeValueByPage(trackScrollDown);
 
         if (trackScrollTimer && trackScrollTimer.repeatCount == 1)
         {
