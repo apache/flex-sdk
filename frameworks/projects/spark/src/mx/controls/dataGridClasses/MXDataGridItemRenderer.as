@@ -20,12 +20,14 @@ import mx.controls.listClasses.MXItemRenderer;
 [Exclude(name="listData", kind="property")]
 
 /**
- *  The MXItemRenderer class is the base class for Spark item renderers in 
- *  Halo (mx) classes
+ *  The MXDataGridItemRenderer class defines the Spark item renderer class 
+ *  for use with the MX DataGrid control.
+ *  This class lets you use the Spark item renderer architecture with the 
+ *  MX DataGrid control. 
  * 
  *  @mxml
  *
- *  <p>The <code>&lt;s:MXItemRenderer&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:MXDataGridItemRenderer&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
@@ -34,6 +36,8 @@ import mx.controls.listClasses.MXItemRenderer;
  *  /&gt;
  *  </pre>
  *  
+ *  @see mx.controls.DataGrid
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -69,6 +73,8 @@ public class MXDataGridItemRenderer extends MXItemRenderer
     /**
      *  The implementation of the <code>listData</code> property
      *  as defined by the IDropInListItemRenderer interface.
+     *  Use this property to access information about the 
+     *  data item displayed by the item renderer.     
      *
      *  @see mx.controls.listClasses.IDropInListItemRenderer
      *  
