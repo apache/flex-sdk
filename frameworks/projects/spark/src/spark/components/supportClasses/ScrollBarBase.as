@@ -55,6 +55,25 @@ import spark.effects.easing.Sine;
 [Style(name="fixedThumbSize", type="Boolean", inherit="no")]
 
 /**
+ *  If true (the default), the thumb's visibility will be reset
+ *  whenever it's size is updated.  
+ * 
+ *  Overrides of <code>sizeThumb()</code> in <code>HScrollBar</code> and 
+ *  <code>VScrollBar</code> make the thumb visible if it's smaller than
+ *  the track, unless this style is false.   
+ * 
+ *  Set this style to control thumb visiblity directly.  
+ * 
+ *  @default true
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="autoThumbVisibility", type="Boolean", inherit="no")]
+
+/**
  *  Number of milliseconds after the first page event
  *  until subsequent page events occur.
  * 
@@ -495,6 +514,16 @@ public class ScrollBar extends TrackBase
             track.removeEventListener(MouseEvent.ROLL_OUT, 
                                       track_rollOutHandler);
         }
+    }
+
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        if (styleProp == "autoThumbVisibility")
+            invalidateDisplayList();
     }
 
     /**
