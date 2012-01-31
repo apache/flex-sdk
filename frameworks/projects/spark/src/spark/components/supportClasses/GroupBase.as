@@ -30,7 +30,7 @@ import mx.events.PropertyChangeEventKind;
 import mx.graphics.Graphic;
 import mx.graphics.IGraphicElement;
 import mx.graphics.MaskType;
-import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.baseClasses.GraphicElement;
 import mx.layout.BasicLayout;
 import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
