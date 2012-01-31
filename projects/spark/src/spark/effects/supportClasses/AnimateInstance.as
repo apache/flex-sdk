@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.events.TimerEvent;
 import flash.utils.Timer;
@@ -19,14 +19,13 @@ import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.effects.Animation;
-import mx.effects.AnimationProperty;
+import spark.effects.animation.Animation;
 import mx.effects.EffectInstance;
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.NumberInterpolator;
-import mx.events.AnimationEvent;
-import mx.layout.LayoutElementFactory;
+import spark.effects.easing.IEaser;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.interpolation.NumberInterpolator;
+import spark.events.AnimationEvent;
+import spark.layout.supportClasses.LayoutElementFactory;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
@@ -43,20 +42,20 @@ use namespace mx_internal;
 [ResourceBundle("sparkEffects")]
 
 /**
- * The FxAnimateInstance class implements the instance class for the
- * FxAnimate effect. Flex creates an instance of this class when
- * it plays a FxAnimate effect; you do not create one yourself.
+ * The AnimateInstance class implements the instance class for the
+ * Animate effect. Flex creates an instance of this class when
+ * it plays a Animate effect; you do not create one yourself.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateInstance extends EffectInstance
+public class AnimateInstance extends EffectInstance
 {
     public var animation:Animation;
     
-    public function FxAnimateInstance(target:Object)
+    public function AnimateInstance(target:Object)
     {
         super(target);
     }
