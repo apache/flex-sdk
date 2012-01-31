@@ -66,6 +66,7 @@
                 <include name="textLayout_conversion.swc"/>
                 <include name="textLayout_core.swc"/>
                 <include name="textLayout_edit.swc"/>
+                <include name="videoPlayer.swc"/>
 			</external-library-path>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
