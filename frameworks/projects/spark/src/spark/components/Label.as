@@ -1544,9 +1544,7 @@ public class Label extends TextBase
 
             charPosition = line.getAtomTextBlockEndIndex(atomIndex);
         }
-        
-        line.flushAtomData();
-        
+                
         return charPosition;
     }
         
@@ -1609,9 +1607,7 @@ public class Label extends TextBase
         // 4. Get the char index for this atom index
         var nextTruncationPosition:int = 
                         line.getAtomTextBlockBeginIndex(atomIndex);
-        
-        line.flushAtomData();
-        
+                
         return nextTruncationPosition;
     }
     
