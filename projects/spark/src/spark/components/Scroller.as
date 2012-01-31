@@ -2822,6 +2822,18 @@ public class Scroller extends SkinnableComponent
                     // The throwFunction is called once when dragging is done and the finger is released.
                     touchScrollHelper.throwFunction = performThrow;
                 }
+                
+                // We don't support directly interacting with the scrollbars in touch mode
+                if (horizontalScrollBar)
+                {
+                    horizontalScrollBar.mouseEnabled = false;
+                    horizontalScrollBar.mouseChildren = false;
+                }
+                if (verticalScrollBar)
+                {
+                    verticalScrollBar.mouseEnabled = false;
+                    verticalScrollBar.mouseChildren = false;
+                }
             }
             else
             {
@@ -2831,6 +2843,17 @@ public class Scroller extends SkinnableComponent
                 ensureDeferredHScrollBarCreated();
                 
                 uninstallTouchListeners();
+                
+                if (horizontalScrollBar)
+                {
+                    horizontalScrollBar.mouseEnabled = true;
+                    horizontalScrollBar.mouseChildren = true;
+                }
+                if (verticalScrollBar)
+                {
+                    verticalScrollBar.mouseEnabled = true;
+                    verticalScrollBar.mouseChildren = true;
+                }
             }
         }
         
@@ -2889,6 +2912,7 @@ public class Scroller extends SkinnableComponent
         
         const liveScrolling:* = getStyle("liveScrolling");
         const liveScrollingSet:Boolean = (liveScrolling === true) || (liveScrolling === false);
+        const inTouchMode:Boolean =  (getStyle("interactionMode") == InteractionMode.TOUCH);
         
         if (instance == verticalScrollBar)
         {
@@ -2896,7 +2920,15 @@ public class Scroller extends SkinnableComponent
             if (liveScrollingSet)
                 verticalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
             verticalScrollBar.contentMinimum = minVerticalScrollPosition;
-            verticalScrollBar.contentMaximum = maxVerticalScrollPosition; 
+            verticalScrollBar.contentMaximum = maxVerticalScrollPosition;
+
+            // We don't support directly interacting with the scrollbars in touch mode
+            if (inTouchMode)
+            {
+                verticalScrollBar.mouseEnabled = false;
+                verticalScrollBar.mouseChildren = false;
+            }
+                
         }
         else if (instance == horizontalScrollBar)
         {
@@ -2905,6 +2937,13 @@ public class Scroller extends SkinnableComponent
                 horizontalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));            
             horizontalScrollBar.contentMinimum = minHorizontalScrollPosition;
             horizontalScrollBar.contentMaximum = maxHorizontalScrollPosition; 
+
+            // We don't support directly interacting with the scrollbars in touch mode
+            if (inTouchMode)
+            {
+                horizontalScrollBar.mouseEnabled = false;
+                horizontalScrollBar.mouseChildren = false;
+            }
         }
     }
     
