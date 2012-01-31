@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TextGraphicExample.mxml -->
+<!-- RichTextExample.mxml -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <s:Panel title="RichText Example"
+    <s:Panel title="Spark RichText Example"
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:Group left="10" right="10" top="10" bottom="10">
