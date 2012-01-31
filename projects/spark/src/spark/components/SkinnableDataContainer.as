@@ -672,7 +672,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     }
 
     /**
-     *  @copy spark.components.DataGroup#updateRendererInformation()
+     *  @inheritDoc 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -680,15 +680,12 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  @productversion Flex 4
      * 
      */
-    public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
+    public function updateRenderer(renderer:IVisualElement):void
     {
-        if (!renderer)
-           return; 
-           
-        IVisualElement(renderer).owner = this;
+        renderer.owner = this;
         
         if (renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
+            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);  
     }
 
     //--------------------------------------------------------------------------
@@ -960,7 +957,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     {
         var renderer:IVisualElement = event.renderer;
         
-        updateRendererInformation(renderer); 
+        updateRenderer(renderer); 
         
         dispatchEvent(event);
     }
