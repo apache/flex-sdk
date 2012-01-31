@@ -351,54 +351,58 @@ public class TileBase extends ListBase
             setColumnCount(numCols);
             colNum = firstCol;
             xx = left;
+            yy = top;
 
             lastColumnMade = colNum - 1;
             more = (iterator != null && !iterator.afterLast && iteratorValid);
 
-            while ((byCount && rowsNeeded--) || (!byCount && (colNum < numCols + firstCol)))
+            if ((!byCount && yy < bottom) || byCount)
             {
-                rowNum = firstRow;
-                yy = top;
-                while (rowNum < numRows)
+                while ((byCount && rowsNeeded--) || (!byCount && (colNum < numCols + firstCol)))
                 {
-                    valid = more;
-                    wrappedData = more ? iterator.current : null;
-                    data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
-                    more = moveNextSafely(more);
-
-                    if (!listItems[rowNum])
-                        listItems[rowNum] = [];
-
-                    if (valid && yy < bottom)
+                    rowNum = firstRow;
+                    yy = top;
+                    while (rowNum < numRows)
                     {
-                        uid = itemToUID(wrappedData);
-                        rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
-                        item = getPreparedItemRenderer(rowNum, colNum, wrappedData, data, uid);
-                        placeAndDrawItemRenderer(item,xx,yy,uid);
-                        lastColumnMade = Math.max(colNum,lastColumnMade);
-                    }
-                    else
-                    {
-                        oldItem = listItems[rowNum][colNum];
-                        if (oldItem)
-                        {
-                            addToFreeItemRenderers(oldItem);
-//                          delete rowMap[oldItem.name];
-                            listItems[rowNum][colNum] = null;
-                        }
-                        rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
-                    }
-                    yy += rowHeight;
-                    rowNum++;
-                }
-                colNum ++;
-                if (firstRow)
-                {
-                    // we're doing a row along the bottom so we have to skip the beginning of the next column
-                    for (i = 0; i < firstRow; i++)
+                        valid = more;
+                        wrappedData = more ? iterator.current : null;
+                        data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
                         more = moveNextSafely(more);
+    
+                        if (!listItems[rowNum])
+                            listItems[rowNum] = [];
+    
+                        if (valid && yy < bottom)
+                        {
+                            uid = itemToUID(wrappedData);
+                            rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
+                            item = getPreparedItemRenderer(rowNum, colNum, wrappedData, data, uid);
+                            placeAndDrawItemRenderer(item,xx,yy,uid);
+                            lastColumnMade = Math.max(colNum,lastColumnMade);
+                        }
+                        else
+                        {
+                            oldItem = listItems[rowNum][colNum];
+                            if (oldItem)
+                            {
+                                addToFreeItemRenderers(oldItem);
+    //                          delete rowMap[oldItem.name];
+                                listItems[rowNum][colNum] = null;
+                            }
+                            rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
+                        }
+                        yy += rowHeight;
+                        rowNum++;
+                    }
+                    colNum ++;
+                    if (firstRow)
+                    {
+                        // we're doing a row along the bottom so we have to skip the beginning of the next column
+                        for (i = 0; i < firstRow; i++)
+                            more = moveNextSafely(more);
+                    }
+                    xx += columnWidth;
                 }
-                xx += columnWidth;
             }
         }
         else // horizontal
@@ -409,59 +413,63 @@ public class TileBase extends ListBase
             setRowCount(numRows);
             rowNum = firstRow;
             yy = top;
+            xx = left;
             more = (iterator != null && !iterator.afterLast && iteratorValid);
 
             lastRowMade = rowNum-1;
 
-            while ((byCount && rowsNeeded--) || (!byCount && rowNum < numRows + firstRow))
+            if ((!byCount && xx < right) || byCount)
             {
-                colNum = firstCol;
-                xx = left;
-                rowInfo[rowNum] = null;
-
-                while (colNum < numCols)
+                while ((byCount && rowsNeeded--) || (!byCount && rowNum < numRows + firstRow))
                 {
-                    valid = more;
-                    wrappedData = more ? iterator.current : null;
-                    data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
-                    more = moveNextSafely(more);
-
-                    if (!listItems[rowNum])
-                        listItems[rowNum] = [];
-
-                    if (valid && xx < right)
+                    colNum = firstCol;
+                    xx = left;
+                    rowInfo[rowNum] = null;
+    
+                    while (colNum < numCols)
                     {
-                        uid = itemToUID(wrappedData);
-
-                        if (!rowInfo[rowNum])
-                            rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
-                        item = getPreparedItemRenderer(rowNum, colNum, wrappedData, data, uid);
-                        placeAndDrawItemRenderer(item,xx,yy,uid);
-                        lastRowMade = rowNum;
-                    }
-                    else
-                    {
-                        if (!rowInfo[rowNum])
-                            rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
-                        oldItem = listItems[rowNum][colNum];
-                        if (oldItem)
-                        {
-                            addToFreeItemRenderers(oldItem);
-                            listItems[rowNum][colNum] = null;
-                        }
-                    }
-
-                    xx += columnWidth;
-                    colNum++;
-                }
-                rowNum ++;
-                if (firstCol)
-                {
-                    // we're doing a column along the side so we have to skip the beginning of the next column
-                    for (i = 0; i < firstCol; i++)
+                        valid = more;
+                        wrappedData = more ? iterator.current : null;
+                        data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
                         more = moveNextSafely(more);
+    
+                        if (!listItems[rowNum])
+                            listItems[rowNum] = [];
+    
+                        if (valid && xx < right)
+                        {
+                            uid = itemToUID(wrappedData);
+    
+                            if (!rowInfo[rowNum])
+                                rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
+                            item = getPreparedItemRenderer(rowNum, colNum, wrappedData, data, uid);
+                            placeAndDrawItemRenderer(item,xx,yy,uid);
+                            lastRowMade = rowNum;
+                        }
+                        else
+                        {
+                            if (!rowInfo[rowNum])
+                                rowInfo[rowNum] = new ListRowInfo(yy, rowHeight, uid);
+                            oldItem = listItems[rowNum][colNum];
+                            if (oldItem)
+                            {
+                                addToFreeItemRenderers(oldItem);
+                                listItems[rowNum][colNum] = null;
+                            }
+                        }
+    
+                        xx += columnWidth;
+                        colNum++;
+                    }
+                    rowNum ++;
+                    if (firstCol)
+                    {
+                        // we're doing a column along the side so we have to skip the beginning of the next column
+                        for (i = 0; i < firstCol; i++)
+                            more = moveNextSafely(more);
+                    }
+                    yy += rowHeight;
                 }
-                yy += rowHeight;
             }
         }
 
