@@ -50,6 +50,8 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
 [DefaultProperty("content")]
 
+[IconFile("TextGraphic.png")]
+
 /**
  *  Defines text in FXG.
  *  
