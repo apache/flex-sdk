@@ -293,7 +293,12 @@ public class ScrollBar extends TrackBase
      */
     private var steppingDown:Boolean;
     private var steppingUp:Boolean;
-	private var isStepping:Boolean;
+    
+    /**
+     * @private
+     * This variable tracks whether we are currently stepping the ScrollBar
+     */
+    private var isStepping:Boolean;
 
     /**
      * @private
@@ -301,7 +306,7 @@ public class ScrollBar extends TrackBase
      * do a single changeValueByPage() operation. This is used to end that operation properly
      * if another operation interrupts it.
      */ 
-    private var animatingSinglePage:Boolean;
+    private var animatingOnce:Boolean;
     
     /**
      * @private
@@ -665,9 +670,14 @@ public class ScrollBar extends TrackBase
         else
             val = Math.max(value - pageSize, minimum);
         if (getStyle("smoothScrolling"))
+        {
             startAnimation(getStyle("repeatInterval"), val, linearEaser);
+        }
         else
+        {
             setValue(val);
+            dispatchEvent(new Event(Event.CHANGE));
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -742,26 +752,22 @@ public class ScrollBar extends TrackBase
     mx_internal function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
     }   
-	
-	//---------------------------------
-	// Thumb dragging handlers
-	//---------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override protected function thumb_mouseDownHandler(event:MouseEvent) : void
-	{
-		// Stop animation before thumb dragging
-		if (animatingSinglePage)
-		{
-			animationEndHandler(animator);
-			animator.stop();
-		}
-		
-		super.thumb_mouseDownHandler(event);
-	}
-	
+    
+    //---------------------------------
+    // Thumb dragging handlers
+    //---------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function thumb_mouseDownHandler(event:MouseEvent) : void
+    {
+        // Stop animation before thumb dragging
+        stopAnimation();
+        
+        super.thumb_mouseDownHandler(event);
+    }
+    
     //---------------------------------
     // Mouse up/down handlers
     //---------------------------------
@@ -782,38 +788,35 @@ public class ScrollBar extends TrackBase
      */
     protected function button_buttonDownHandler(event:Event):void
     {
-		// Make sure we finish any running page animation before starting
-		// to step.
-		if (animatingSinglePage)
-		{
-			animationEndHandler(animator);
-			animator.stop();
-		}
-		
+        // Make sure we finish any running page animation before starting
+        // to step.
+        if (!isStepping)
+            stopAnimation();
+        
+        var increment:Boolean = (event.target == incrementButton);
+        
+        // Dispatch changeStart for the first step if we can make a step.
+        if (!isStepping && 
+            ((increment && value < maximum) ||
+                (!increment && value > minimum)))
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
+            isStepping = true;
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+                button_buttonUpHandler, true);
+            systemManager.getSandboxRoot().addEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
+        }
+        
         // Noop if we're currently running a stepping animation. We get
         // called repeatedly here due to the button's autoRepeat
         if (!steppingDown && !steppingUp)
         {
-            var increment:Boolean = (event.target == incrementButton);
-
-			if (!isStepping && 
-				((increment && value < maximum) ||
-				 (!increment && value > minimum)))
-			{
-				dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
-				isStepping = true;
-			}
-			
             // FIXME (chaase): first step is non-animated, just to simplify the delayed
             // start of the animated stepping. Seems okay, but worth thinking
             // about whether we should animate the first step too
             changeValueByStep(increment);
             
-			systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
-				button_buttonUpHandler, true);
-			systemManager.getSandboxRoot().addEventListener(
-				SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
-			
             // Only animate if smoothScrolling enabled and we're not at the end already
             if (getStyle("smoothScrolling") &&
                 ((increment && value < maximum) ||
@@ -847,30 +850,25 @@ public class ScrollBar extends TrackBase
     {
         if (steppingDown || steppingUp)
         {
-            if (animator.isPlaying)
-            {
-                animationEndHandler(animator);
-            }
-            // stop even if !isPlaying - it might just be startDelayed
-            animator.stop();
-
-			// Dispatch change event after animation is finished or stopped
-			dispatchEvent(new Event(Event.CHANGE));
-			
-			steppingUp = steppingDown = false;
-			isStepping = false;
+        	// stopAnimation will not dispatch a changeEnd.
+            stopAnimation();
+            
+            dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+            
+            steppingUp = steppingDown = false;
+            isStepping = false;
         }
-		else if (isStepping)
-		{
-			// Dispatch change event for no animation case
-			dispatchEvent(new Event(Event.CHANGE));
-			isStepping = false;
-		}
-		
-		systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
-			button_buttonUpHandler, true);
-		systemManager.getSandboxRoot().removeEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
+        else if (isStepping)
+        {
+            // Dispatch changeEnd event for no animation case
+            dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+            isStepping = false;
+        }
+        
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+            button_buttonUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
     }
     
     //---------------------------------
@@ -894,16 +892,11 @@ public class ScrollBar extends TrackBase
 
         // Make sure we finish any running page animation before starting
         // a new one.
-        if (animatingSinglePage)
-		{
-			animationEndHandler(animator);
-            animator.stop();
-		}
+        stopAnimation();
+        
         // Cache original event location for use on later repeating events
         trackPosition = track.globalToLocal(new Point(event.stageX, event.stageY));
-		
-		dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
-		
+        
         // If the user shift-clicks on the track, then offset the event coordinates so 
         // that the thumb ends up centered under the mouse.
         if (event.shiftKey)
@@ -927,11 +920,12 @@ public class ScrollBar extends TrackBase
                 slideDuration != 0 && 
                 (maximum - minimum) != 0)
             {
+                dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
                 // Animate the shift-click operation
                 startAnimation(slideDuration * 
                     (Math.abs(value - newScrollValue) / (maximum - minimum)),
                     adjustedValue, deceleratingSineEaser);
-				animatingSinglePage = true;
+                animatingOnce = true;
             }
             else
             {
@@ -940,6 +934,10 @@ public class ScrollBar extends TrackBase
             }
             return;
         }
+        
+        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
+        // Assume we're repeating unless user releases 
+        animatingOnce = false;
         
         changeValueByPage(trackScrollDown);
         
@@ -998,7 +996,7 @@ public class ScrollBar extends TrackBase
      */
     protected function animatePaging(newValue:Number, pageSize:Number):void
     {
-        animatingSinglePage = false;
+        animatingOnce = false;
         // FIXME (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
@@ -1047,6 +1045,7 @@ public class ScrollBar extends TrackBase
      */
     private function animationUpdateHandler(animation:Animation):void
     {
+        // TODO (klin): Add support to send change events at the right intervals.
         setValue(animation.currentValue["value"]);
     }
     
@@ -1062,20 +1061,44 @@ public class ScrollBar extends TrackBase
         if (trackScrolling)
             trackScrolling = false;
 
+        // End stepping animation
         if (steppingDown || steppingUp)
         {
             // If we're animating stepping, end on a final real step call in the
             // appropriate direction, ensuring that we stop on a content 
             // item boundary 
             changeValueByStep(steppingDown);
+
             animator.startDelay = 0;
-			return;
+            return;
         }
-		
-		if (animatingSinglePage)
-			dispatchEvent(new Event(Event.CHANGE));
-		
-        animatingSinglePage = false;
+        
+        // End paging or shift-click animation.
+        setValue(nearestValidValue(this.value, snapInterval));
+        dispatchEvent(new Event(Event.CHANGE));
+        
+        // We only dispatch the changeEnd event in the endHandler
+        // for paging when we are not repeating.
+        if (animatingOnce)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+            animatingOnce = false;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Stops a running animation prematurely and calls the 
+     *  animationEndHandler.
+     */
+    private function stopAnimation():void
+    {
+        if (animator.isPlaying)
+            animationEndHandler(animator);
+        
+        // Stop it regardless, in case the animation is startDelayed and
+        // thus not 'playing', but still active
+        animator.stop();
     }
     
     /**
@@ -1194,49 +1217,41 @@ public class ScrollBar extends TrackBase
         systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
             track_mouseUpHandler);
 
-		// First, we check for smoothScrolling and also if we are
-		// not in a shift-click case.
+        // First, we check for smoothScrolling and also if we are
+        // in the non-repeating case.
         if (getStyle("smoothScrolling"))
         {
-			if (!animatingSinglePage)
-			{
-				// We check the timer to see if the user released the mouse
-				// before or after the repeat delay has expired. If not,
-				// we are currently repeating and we should end the animation
-				// as well as dispatch a change event.
-				if (trackScrollTimer && trackScrollTimer.running)
-				{
-					// If the animation has not yet finished before the repeat delay
-					// we set animatingSinglePage to true. Otherwise, the animation
-					// is done but repeating has not begun so we dispatch a change
-					// event.
-					if (animator.isPlaying)
-						animatingSinglePage = true;
-					else
-						dispatchEvent(new Event(Event.CHANGE));
-				}
-				else
-				{
-					if (animator.isPlaying)
-					{
-						animationEndHandler(animator);
-					}
-					// Stop it regardless, in case the animation is startDelayed and
-					// thus not 'playing', but still active
-					animator.stop();
-					
-					dispatchEvent(new Event(Event.CHANGE));
-				}
-			}
+            if (!animatingOnce)
+            {
+                // We check the timer to see if the user released the mouse
+                // before the repeat delay has expired.
+                if (trackScrollTimer && trackScrollTimer.running)
+                {
+                    // If the animation has not yet finished before the repeat delay
+                    // we set animatingOnce to true. Otherwise, the animation
+                    // is done but repeating has not begun so we dispatch a changeEnd
+                    // event.
+                    if (animator.isPlaying)
+                        animatingOnce = true;
+                    else
+                        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+                }
+                else
+                {
+                    // repeating case
+                    stopAnimation();
+                    dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+                }
+            }
         }
-		else
-		{
-			// Dispatch change if there's no animation.
-			dispatchEvent(new Event(Event.CHANGE));
-		}
-		
-		if (trackScrollTimer)
-			trackScrollTimer.reset();
+        else
+        {
+            // Dispatch changeEnd if there's no animation.
+            dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
+        }
+        
+        if (trackScrollTimer)
+            trackScrollTimer.reset();
     }
 
     /**
@@ -1246,6 +1261,8 @@ public class ScrollBar extends TrackBase
      */
     private function track_rollOverHandler(event:MouseEvent):void
     {
+        // TODO (klin): Fix up roll over/roll out handling so that
+        // it works with animation.
         if (trackScrolling && trackScrollTimer)
             trackScrollTimer.start();
     }
