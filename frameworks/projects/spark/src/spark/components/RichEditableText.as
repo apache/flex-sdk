@@ -2460,15 +2460,12 @@ public class RichEditableText extends UIComponent
                 bounds = measureTextSize(composeWidth);
                 
                 measuredWidth = _textContainerManager.compositionWidth;
-                measuredHeight = Math.ceil(bounds.height);
+                measuredHeight = Math.ceil(bounds.bottom);
             }
             else if (!isNaN(heightConstraint) || !isNaN(explicitHeight) || 
                      !isNaN(_heightInLines))
             {
                 // if no text, 1 char wide with specified height and grow
-                
-                composeWidth = 
-                    hostFormat.lineBreak == "toFit" ? maxWidth : NaN;
                 
                 if (!isNaN(heightConstraint))
                     composeHeight = heightConstraint;
@@ -2478,12 +2475,12 @@ public class RichEditableText extends UIComponent
                     composeHeight = calculateHeightInLines();
 
                 // The composeWidth may be adjusted for minWidth/maxWidth.
-                bounds = measureTextSize(composeWidth);
+                bounds = measureTextSize(NaN);
                 
                 // Have we already hit the limit with the existing text?  If we
                 // are beyond the composeHeight we can assume we've maxed out on
                 // the compose width as well.
-                if (bounds.height > composeHeight)
+                if (bounds.bottom > composeHeight)
                 {
                     measuredWidth = _textContainerManager.compositionWidth;
                     measuredHeight = composeHeight;
@@ -2491,24 +2488,17 @@ public class RichEditableText extends UIComponent
                 }
                 else
                 {
-                    measuredWidth = Math.ceil(bounds.width);               
+                    measuredWidth = Math.ceil(bounds.right);               
                     measuredHeight = composeHeight;
                 }
             }
             else
             {
-                // If toFit line breaks and no text, start at explicitMaxWidth
-                // or default to maxWidth.
-                // If explicit line breaks and no text, width is NaN
-
-                composeWidth = 
-                    hostFormat.lineBreak == "toFit" ? maxWidth : NaN;
-
                 // The composeWidth may be adjusted for minWidth/maxWidth.
-                bounds = measureTextSize(composeWidth);
+                bounds = measureTextSize(NaN);
 
-                measuredWidth = Math.ceil(bounds.width);
-                measuredHeight = Math.ceil(bounds.height);
+                measuredWidth = Math.ceil(bounds.right);
+                measuredHeight = Math.ceil(bounds.bottom);
             }
 
             // Clamp the height, except if we're using the explicitHeight.
@@ -3277,17 +3267,22 @@ public class RichEditableText extends UIComponent
      */
     private function measureTextSize(composeWidth:Number):Rectangle
     {             
-        var clampWidth:Boolean = isNaN(explicitWidth);
-               
         // Don't want to trigger a another remeasure when we compose the text.
         ignoreDamageEvent = true;
 
-        // Up the composeWidth if it isn't at least minWidth so we get an 
-        // accurate measurement.
-        if (clampWidth &&
-            !isNaN(explicitMinWidth) && composeWidth < explicitMinWidth)
+        // Adjust for explicit min/maxWidth so the measurement is accurate.
+        if (isNaN(explicitWidth))
         {
-            composeWidth = explicitMinWidth;
+            if (!isNaN(explicitMinWidth) &&
+                isNaN(composeWidth) || composeWidth < minWidth)
+            {
+                composeWidth = minWidth;
+            }
+            if (!isNaN(explicitMaxWidth) &&
+                isNaN(composeWidth) || composeWidth > maxWidth)
+            {
+                composeWidth = maxWidth;
+            }
         }
         
         // The bottom border can grow to allow all the text to fit.
@@ -3297,21 +3292,12 @@ public class RichEditableText extends UIComponent
         // Compose only.  The display should not be updated.
         _textContainerManager.compose();
 
-        var bounds:Rectangle = _textContainerManager.getContentBounds();        
-
-        // Remeasure if the composed width was restricted by max width.
-        // Typical this is done in validateSize() after returing from measure() 
-        // but it impacts our calculations so we need to do it now.
-        if (clampWidth && bounds.width > maxWidth)
-        {
-            _textContainerManager.compositionWidth = composeWidth;
-            _textContainerManager.compose();
-            bounds = _textContainerManager.getContentBounds();
-        }
-            
+        // Adjust width and height for text alignment.
+        var bounds:Rectangle = _textContainerManager.getContentBounds();
+                
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line but we
-        // need to give it some width.
+        // need to give it some width other than optional padding.
         
          if (_textContainerManager.getText().length == 0) 
         {
