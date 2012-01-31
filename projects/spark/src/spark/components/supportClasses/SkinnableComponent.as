@@ -21,11 +21,13 @@ import flash.utils.*;
 
 import mx.core.FlexVersion;
 import mx.core.IFactory;
+import mx.core.IContainerInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerContainerClient;
 
 import spark.events.SkinPartEvent;
 import spark.utils.FTETextUtil;
@@ -515,6 +517,42 @@ public class SkinnableComponent extends UIComponent
                 measuredMinHeight = skin.minHeight;
             }
         }
+    }
+    
+    /**
+     *  Skin is always constrained to the size of the component
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
+    {
+        var cw:Number;
+        var ch:Number;
+        var c:Number;
+        var oldcw:Number = child.estimatedWidth;
+        var oldch:Number = child.estimatedHeight;
+        cw = estimatedWidth;
+        if (isNaN(cw) && !isNaN(explicitWidth))
+            cw = explicitWidth;
+        ch = estimatedHeight;
+        if (isNaN(ch) && !isNaN(explicitHeight))
+            ch = explicitHeight;
+        
+        child.setEstimatedSize(cw, ch);
+		if (child is ILayoutManagerContainerClient)
+		{
+			var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
+			var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
+            if (!(sameHeight && sameWidth))
+            {
+                if (child is IContainerInvalidating)
+                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
+                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
+            }
+		}
     }
     
     /**
