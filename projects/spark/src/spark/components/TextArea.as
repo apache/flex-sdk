@@ -54,6 +54,60 @@ public class FxTextArea extends FxTextBase
 		super();
 	}
 
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 */
+    private var textInvalid:Boolean = false;
+
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden properties
+	//
+	//--------------------------------------------------------------------------
+
+	//----------------------------------
+	//  text
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+    override public function get text():String
+    {
+        if (textInvalid)
+        {
+            mx_internal::_text = textView.text;
+            textInvalid = false;
+        }
+
+        return mx_internal::_text;
+    }
+
+	/**
+	 *  @private
+	 */
+    override public function set text(value:String):void
+    {
+		// If 'text' is being set after 'content', ignore it
+        // because 'content' has precedence.
+        if (contentChanged)
+            return;
+
+        // Setting 'text' temporarily causes 'content' to become null.
+        // Later, after the 'text' has been committed into the TextFlow,
+        // getting 'content' will return the TextFlow.
+        _content = null;
+        contentChanged = false;
+        
+        super.text = value;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -93,6 +147,12 @@ public class FxTextArea extends FxTextBase
 	{
 		if (value == _content)
 			return;
+
+        // Setting 'content' temporarily causes 'text' to become null.
+        // Later, after the 'content' has been committed into the TextFlow,
+        // getting 'text' will extract the text from the TextFlow.
+        mx_internal::_text = null;
+        mx_internal::textChanged = false;
 
 		_content = value;
 		contentChanged = true;
@@ -310,6 +370,10 @@ public class FxTextArea extends FxTextBase
 			textView.heightInLines = 10;
 			textView.multiline = true;
             textView.setStyle("lineBreak", "toFit");
+
+            textView.addEventListener("textInvalid",
+									  textView_textInvalidHandler);
+
         }
 	}
 
@@ -370,6 +434,20 @@ public class FxTextArea extends FxTextBase
             return;
 
         textView.setAttributes(attributes);
+    }
+
+	//--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private function textView_textInvalidHandler(event:Event):void
+    {
+        textInvalid = true;
     }
 }
 
