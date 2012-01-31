@@ -864,7 +864,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         
         itemAdded(item, index);
         
-        assignDisplayObjects(index);
+        assignDisplayObjects();
         
         return item;
     }
@@ -908,7 +908,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             }    
         }
             
-        assignDisplayObjects(index);
+        assignDisplayObjects();
         
         return item;
     }
@@ -1233,7 +1233,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
                 else if (index == 0)
                     insertIndex = 0;
                 else
-                    insertIndex = index -1;
+                    insertIndex = index;
                     
                 super.setChildIndex(child, insertIndex);
                 return child;
