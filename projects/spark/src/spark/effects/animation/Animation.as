@@ -171,7 +171,7 @@ public class Animation extends EventDispatcher
     {
         this.duration = duration;
         if (startValue !== null || endValue !== null)
-            animationProperties = [new AnimationProperty("", startValue, endValue)];
+            animationProperties = [new AnimationProperty("", startValue, endValue, duration)];
     }
     
 
