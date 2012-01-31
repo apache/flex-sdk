@@ -100,9 +100,6 @@ public class GridLayout extends LayoutBase
         
         // Only invalidate if we're clipping and scrollR extends outside validBounds
         
-        // FIXME: the hover indicator may need to be updated if the grid
-        // underneath the pointer scrolls.
-        
         const scrollR:Rectangle = grid.scrollRect;
         if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
             grid.invalidateDisplayList();
@@ -160,6 +157,13 @@ public class GridLayout extends LayoutBase
         
         const scrollX:Number = horizontalScrollPosition;
         const scrollY:Number = verticalScrollPosition;
+        
+        // TBD(hmuller): use this state variable rather than passing scrollX,.. around.  And get rid of 
+        // scrollX,Y vars above
+        visibleGridBounds.x = scrollX;
+        visibleGridBounds.y = scrollY;
+        visibleGridBounds.width = unscaledWidth;
+        visibleGridBounds.height = unscaledHeight;
         
 		updateGridDimensions(scrollX, scrollY, unscaledWidth, unscaledHeight);
 
@@ -492,6 +496,12 @@ public class GridLayout extends LayoutBase
      */
     private const visibleItemRenderersBounds:Rectangle = new Rectangle();
     
+    /**
+     *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
+     */
+    private const visibleGridBounds:Rectangle = new Rectangle();
+    
+    
     private function layoutItemRenderers(itemRendererGroup:Group, scrollX:Number, scrollY:Number, width:Number, height:Number):void
     {
         var rowIndex:int;
@@ -576,7 +586,8 @@ public class GridLayout extends LayoutBase
             }
            
             // If gridDimensions.rowHeight is now larger, we need to make another
-            // pass to fix up the item renderer heights.           
+            // pass to fix up the item renderer heights. 
+            
             const finalRowHeight:Number = gridDimensions.getRowHeight(rowIndex);
             if (rowHeight != finalRowHeight)
             {
@@ -1048,7 +1059,7 @@ public class GridLayout extends LayoutBase
     {
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = 1;  // TBD: should be max(1, rowGap)
-        const height:Number = r.height; 
+        const height:Number = Math.max(r.height, visibleGridBounds.height); 
         const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
         if (!bounds)
             return;
