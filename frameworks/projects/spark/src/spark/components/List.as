@@ -110,7 +110,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The user can select one or more items from the list, depending
  *  on the value of the <code>allowMultipleSelection</code> property.
  *
- *  @mxml <p>The <code>&lt;List&gt;</code> tag inherits all of the tag 
+ *  @mxml <p>The <code>&lt;s:List&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
