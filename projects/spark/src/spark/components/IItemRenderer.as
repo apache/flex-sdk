@@ -18,42 +18,78 @@ import mx.core.IVisualElement;
 
 /**
  *  The IItemRenderer interface defines the basic set of APIs
- *  that you must implement to create a renderer that can 
- *  communicate with an IItemRendererOwner, like a List or
- *  ButtonBar. 
+ *  that a class must implement to create an item renderer that can 
+ *  communicate with a host component.
+ *  The host component, such as the List or ButtonBar controls, 
+ *  must implement the IItemRendererOwner interface, 
+ *  . 
+ *  
+ *  @see spark.components.IItemRendererOwner
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  *  
  */
 public interface IItemRenderer extends IDataRenderer, IVisualElement
 {
     /**
-	 *  True if the renderer should allow interaction to change its
-	 *  selected state to selected=false
+     *  Contains <code>true</code> if the item renderer allows user interaction 
+     *  to change its selected state to 
+     *  <code>selected</code> = <code>false</code>.
      *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get allowDeselection():Boolean;
     function set allowDeselection(value:Boolean):void;
 
     /**
-	 *  True if the renderer should show itself as selected
+     *  Contains <code>true</code> if the item renderer 
+     *  can show itself as selected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      *  
      */
     function get selected():Boolean;
     function set selected(value:Boolean):void;
 
     /**
-	 *  True if the renderer should show itself as focused
-	 *  even if it doesn't have focus
+     *  Contains <code>true</code> if the item renderer 
+     *  can show itself as focused even if it doesn't have focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      *  
      */
     function get showFocusIndicator():Boolean;
     function set showFocusIndicator(value:Boolean):void;
     
     /**
-     *  The text to display for this renderer. For 
-     *  controls like List and ButtonBar, this is the result 
-     *  of either a labelField or labelFunction applied to the 
-     *  renderer's data, otherwise the toString() representation
-     *  of the renderer's data. 
+     *  The String to display in the item renderer. 
+     *
+     *  <p>The host component of the item renderer can use the 
+     *  <code>itemToLabel()</code> method to convert the data item 
+     *  to a String for display by the item renderer. </p>
+     * 
+     *  <p>For controls like List and ButtonBar, you can use the 
+     *  <code>labelField</code> or <code>labelFunction</code> properties 
+     *  to specify the field of the data item that contains the String.
+     *  Otherwise the host component uses the <code>toString()</code> method 
+     *  to convert the data item to a String. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      *  
      */
     function get labelText():String;
