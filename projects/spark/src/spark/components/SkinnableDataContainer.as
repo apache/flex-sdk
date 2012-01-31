@@ -13,7 +13,6 @@ package flex.component
 {
 
 import flex.core.DataGroup;
-import flex.core.SkinnableComponent;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 import flex.layout.LayoutBase;
@@ -39,7 +38,7 @@ import mx.managers.IFocusManagerContainer;
  * data content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class DataComponent extends SkinnableComponent implements IFocusManagerContainer
+public class DataComponent extends ContainerBase
 {
     include "../core/Version.as";
 
