@@ -443,7 +443,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function adjustLayering(focusedIndex:int):void
     {
-        var n:int = dataProvider.length;
+        var n:int = dataProvider ? dataProvider.length : 0;
         for (var i:int = 0; i < n; i++)
         {
             var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
@@ -466,6 +466,9 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             return;
 
         if (!enabled)
+            return;
+
+        if (!dataProvider)
             return;
 
         var length:int = dataProvider.length;
@@ -554,7 +557,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function drawButtonFocus(index:int, focused:Boolean):void
     {
-        var n:int = dataProvider.length;
+        var n:int = dataProvider ? dataProvider.length : 0;
         if (n > 0 && index < n)
         {
             var renderer:IItemRenderer = 
