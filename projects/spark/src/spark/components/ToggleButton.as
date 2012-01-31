@@ -69,12 +69,12 @@ public class ToggleButton extends Button
     
     [Bindable]
     
-	override public function get selected():Boolean
+	public function get selected():Boolean
     {
         return flags.isSet(selectedFlag);
     }
     
-	override public function set selected(value:Boolean):void
+	public function set selected(value:Boolean):void
     {
         if (!flags.update(selectedFlag, value))
             return;
