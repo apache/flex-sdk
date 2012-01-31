@@ -20,13 +20,14 @@ import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
+import spark.components.Group;
 import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.core.IViewport;
+import spark.core.NavigationUnit;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.ScrollPolicy;
-import spark.core.NavigationUnit;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 import flash.display.InteractiveObject;
@@ -175,7 +176,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  The Scroller component displays a single scrollable component, 
  *  called a viewport, and horizontal and vertical scroll bars. 
- *  The viewport must implement the IViewport interface.
+ *  The viewport must implement the IViewport interface.  Its skin
+ *  must be a derivative of the Group class.
  *
  *  <p>The Spark Group, DataGroup, and RichEditableText components implement 
  *  the IViewport interface and can be used as the children of the Scroller control,
@@ -478,7 +480,7 @@ public class Scroller extends SkinnableComponent
         if (skin && viewport)
         {
             viewport.clipAndEnableScrolling = true;
-            skin.addElementAt(viewport, 0);
+            Group(skin).addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
         if (verticalScrollBar)
@@ -496,7 +498,7 @@ public class Scroller extends SkinnableComponent
         if (skin && viewport)
         {
             viewport.clipAndEnableScrolling = false;
-            skin.removeElement(viewport);
+            Group(skin).removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
     }
@@ -820,7 +822,7 @@ public class Scroller extends SkinnableComponent
     override protected function attachSkin():void
     {
         super.attachSkin();
-        skin.layout = new ScrollerLayout();
+        Group(skin).layout = new ScrollerLayout();
         installViewport();
         skin.addEventListener(MouseEvent.MOUSE_WHEEL, skin_mouseWheelHandler);
     }
@@ -831,7 +833,7 @@ public class Scroller extends SkinnableComponent
     override protected function detachSkin():void
     {    
         uninstallViewport();
-        skin.layout = null;
+        Group(skin).layout = null;
         skin.removeEventListener(MouseEvent.MOUSE_WHEEL, skin_mouseWheelHandler);
         super.detachSkin();
     }
