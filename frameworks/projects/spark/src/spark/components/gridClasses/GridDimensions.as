@@ -186,7 +186,7 @@ public class GridDimensions
     //  defaultRowHeight
     //----------------------------------
     
-    private var _defaultRowHeight:Number = 22;
+    private var _defaultRowHeight:Number = 26;
     
     /**
      *  The default height of a row. The defaultRowHeight is always
@@ -629,12 +629,15 @@ public class GridDimensions
     public function getRowBounds(row:int):Rectangle
     {
         // TBD: provide optional return value (Rectangle) parameter    
-        if ((row < 0) || (row >= rowCount))
+        if ((row < 0) || (row >= _rowCount))
             return null;  // TBD: return empty Rectangle instead
+        
+        if (_columnCount == 0 || _rowCount == 0)
+            return new Rectangle(0, 0, 0, 0);
         
         const x:Number = getCellX(row, 0);
         const y:Number = getCellY(row, 0);
-        const rowWidth:Number = getCellX(row, columnCount - 1) + getColumnWidth(columnCount - 1) - x;
+        const rowWidth:Number = getCellX(row, _columnCount - 1) + getColumnWidth(_columnCount - 1) - x;
         const rowHeight:Number = getRowHeight(row);
         return new Rectangle(x, y, rowWidth, rowHeight);
     }
@@ -645,13 +648,16 @@ public class GridDimensions
     public function getColumnBounds(col:int):Rectangle
     {
         // TBD: provide optional return value (Rectangle) parameter
-        if ((col < 0) || (col >= columnCount))
+        if ((col < 0) || (col >= _columnCount))
             return null;  // TBD: return empty Rectangle instead
+        
+        if (_columnCount == 0 || _rowCount == 0)
+            return new Rectangle(0, 0, 0, 0);
 
         const x:Number = getCellX(0, col);
         const y:Number = getCellY(0, col);
         const colWidth:Number = getColumnWidth(col);
-        const colHeight:Number = getCellY(rowCount - 1, col) + getCellHeight(rowCount - 1, col) - y;
+        const colHeight:Number = getCellY(_rowCount - 1, col) + getRowHeight(_rowCount - 1) - y;
         return new Rectangle(x, y, colWidth, colHeight);
     }
     
@@ -1002,7 +1008,7 @@ public class GridDimensions
     {
         typicalCellWidths.length = 0;
         typicalCellHeights.length = 0;
-        defaultRowHeight = 22;
+        defaultRowHeight = 26;
         isFirstTypicalCellHeight = true;
     }
         
