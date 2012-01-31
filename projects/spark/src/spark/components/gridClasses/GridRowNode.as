@@ -60,14 +60,20 @@ public final class GridRowNode
 
     /**
      *  Updates the current max height.
+     * 
+     *  @return true if changed
      */
-    public function updateMaxHeight():void
+    public function updateMaxHeight():Boolean
     {
         // FIXME (klin): use max heap? might not be worth the overhead.
         var max:Number = 0;
+        var changed:Boolean = false;
         for (var i:int = 0; i < _numColumns; i++)
             max = Math.max(max, cellHeights[i]);
+        
+        changed = maxCellHeight != max;
         maxCellHeight = max;
+        return changed;
     }
     
     public function toString():String
