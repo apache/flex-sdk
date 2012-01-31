@@ -2821,7 +2821,7 @@ public class Grid extends Group implements IDataGridElement
      *  approximate when variableRowHeight=true, so calling this method once will
      *  not necessarily scroll far enough to expose the specified element.
      */
-    private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean):void
+    private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean, scrollVertically:Boolean):void
     {
         var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(elementIndex);
         if (!spDelta)
@@ -2829,16 +2829,19 @@ public class Grid extends Group implements IDataGridElement
         
         if (scrollHorizontally)
             horizontalScrollPosition += spDelta.x;
-        verticalScrollPosition += spDelta.y;
+        if (scrollVertically)
+            verticalScrollPosition += spDelta.y;
     }
     
     /**
      *  If necessary, set the verticalScrollPosition and horizontalScrollPosition 
-     *  properties so that the specified cell is completely visible.  If columnIndex
-     *  is -1, then just adjust the verticalScrollPosition so that the specified
+     *  properties so that the specified cell is completely visible. If rowIndex
+     *  is -1 and columnIndex is specified, then just adjust the horizontalScrollPosition
+     *  so that the specified column is visible. If columnIndex is -1 and rowIndex
+     *  is specified, then just adjust the verticalScrollPosition so that the specified
      *  row is visible.
      * 
-     *  @param rowIndex The 0-based row index of the item renderer's cell.
+     *  @param rowIndex The 0-based row index of the item renderer's cell, or -1 to specify a column.
      *  @param columnIndex The 0-based column index of the item renderer's cell, or -1 to specify a row.
      *  
      *  @langversion 3.0
@@ -2846,34 +2849,45 @@ public class Grid extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function ensureCellIsVisible(rowIndex:int, columnIndex:int = -1):void
+    public function ensureCellIsVisible(rowIndex:int = -1, columnIndex:int = -1):void
     {
         const columns:IList = this.columns;
         
+        // Check that each index is within range.
         if (!columns || columnIndex < -1 || columnIndex >= columns.length || 
-            !dataProvider || rowIndex < 0 || rowIndex >= dataProvider.length)
+            !dataProvider || rowIndex < -1 || rowIndex >= dataProvider.length || 
+            (columnIndex == -1 && rowIndex == -1))
+            return;
+        
+        // Check to see if any columns are visible or specified column is visible.
+        if ((columnIndex == -1 && getNextVisibleColumnIndex(-1) == -1) || 
+            (columnIndex != -1 && !(GridColumn(columns.getItemAt(columnIndex)).visible)))
             return;
         
         const columnsLength:int = columns.length;
+        const scrollHorizontally:Boolean = columnIndex != -1;
+        const scrollVertically:Boolean = rowIndex != -1;
+
+        // When not scrolling horizontally, columnIndex can just be 0.
+        if (!scrollHorizontally)
+            columnIndex = 0;
         
-        // Make sure either all columns or the specified column is visible.
-        if (columnIndex == -1)
-            columnIndex = getNextVisibleColumnIndex(-1);
-            
-        var columnIsVisible:Boolean = (columnIndex != -1) && (GridColumn(columns.getItemAt(columnIndex)).visible);
-        if (!columnIsVisible)
-            return;
+        // If the row index isn't specified, use the first one that's visible.
+        if (!scrollVertically)
+        {
+            const visibleRowIndices:Vector.<int> = this.getVisibleRowIndices();
+            rowIndex = (visibleRowIndices.length > 0) ?  visibleRowIndices[0] : 0;
+        }
 
         // A cell's index as defined by LayoutBase it's just its position
         // in the row-major linear ordering of the grid's cells.  
         const elementIndex:int = (rowIndex * columnsLength) + columnIndex;
-        const scrollHorizontally:Boolean = columnIndex != -1;
         
         // Iterate until we've scrolled elementIndex at least partially into view.
         do
         {
-            scrollToIndex(elementIndex, scrollHorizontally);
-            if (variableRowHeight || scrollHorizontally)
+            scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
+            if (variableRowHeight || scrollHorizontally || scrollVertically)
                 validateNow();
             else
                 break;  // fixed row heights, and we're only scrolling vertically
@@ -2883,7 +2897,7 @@ public class Grid extends Group implements IDataGridElement
         // At this point we've only ensured that the requested cell is at least 
         // partially visible.  Ensure that it's completely visible.
       
-        scrollToIndex(elementIndex, scrollHorizontally);
+        scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
     }        
     
     /**
@@ -3091,7 +3105,7 @@ public class Grid extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */        
-    public function isCellVisible(rowIndex:int, columnIndex:int = -1):Boolean
+    public function isCellVisible(rowIndex:int = -1, columnIndex:int = -1):Boolean
     {
         return gridLayout.isCellVisible(rowIndex, columnIndex);
     }
@@ -3680,6 +3694,14 @@ public class Grid extends Group implements IDataGridElement
      */
     private function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
+        // If no columns exist, we should try to generate them.
+        if (!columns && dataProvider.length > 0)
+        {
+            columns = generateColumns();
+            generatedColumns = (columns != null);
+            gridDimensions.columnCount = generatedColumns ? columns.length : 0;
+        }
+        
         if (gridDimensions)
             gridDimensions.dataProviderCollectionChanged(event);
         
