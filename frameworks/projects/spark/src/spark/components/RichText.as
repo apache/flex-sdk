@@ -1094,6 +1094,25 @@ public class RichText extends TextBase
 		invalidateDisplayList();
 	}
 
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
+    {
+        // The factory will compose just enough lines to fill the 
+        // compositionHeight.  If not all the text is composed, the reported
+        // contentHeight will be an estimate of what the height will be when
+        // it is all composed and there will not be textLines to back it up.
+        // There is no easy way to tell if the contentHeight is the actual
+        // value or an estimated value.
+        if (!isNaN(_composeHeight) && unscaledHeight != _composeHeight)
+        {
+            invalidateTextLines();
+        }
+
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+    }    
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods: TextBase
@@ -1248,6 +1267,38 @@ public class RichText extends TextBase
         
         bounds = factory.getContentBounds();
         setIsTruncated(factory.isTruncated);
+    }
+
+    /**
+     *  @private
+     *  Uses StringTextLineFactory to compose an empty string so we can 
+     *  determine the baseline from the text line.  The height is important
+     *  if the text is vertically aligned.
+     */
+    override mx_internal function createEmptyTextLine(height:Number=NaN):void
+
+    {
+        // Clear any previously generated TextLines from the textLines Array.
+        textLines.length = 0;
+        
+        // Note: 
+        // Use the StringTextLineFactory to compose an empty string.
+        // Since it appends the paragraph terminator "\u2029",
+        // it actually creates and measures one TextLine.
+        // Its width is 0 but its height is equal to the font's
+        // ascent plus descent.
+        
+        bounds.width = width;
+        bounds.height = height;
+        
+        staticStringFactory.compositionBounds = bounds;   
+        
+        // Set up the truncation options.
+        staticStringFactory.truncationOptions = null;
+        
+        staticStringFactory.text = "";
+        staticStringFactory.textFlowFormat = hostFormat;
+        staticStringFactory.createTextLines(addTextLine);
     }
 
     /**
