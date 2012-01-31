@@ -125,7 +125,7 @@ public class MotionPath
      *  during that interval. The sequence of keyframes must be sorted in 
      *  order of increasing time values.
      * 
-     *  <p>Animations always start at time=0 and will last for a duration
+     *  <p>Animations always start at time=0 and lasts for a duration
      *  equal to the <code>time</code> value in the final keyframe. 
      *  If no keyframe is defined at time=0, 
      *  that keyframe is implicit, using the value of the
@@ -136,7 +136,7 @@ public class MotionPath
      *  of the final keyframe of all MotionPaths in the effect.
      *  For example, if an effect has keyframes
      *  at times 0, 500, 1000, and 2000, then the effective duration of that
-     *  effect will be 2000 ms, regardless of any <code>duration</code> property set on the
+     *  effect is 2000 ms, regardless of any <code>duration</code> property set on the
      *  effect itself. 
      *  Because the final keyframe determines the duration, there
      *  must always be a final keyframe in any MotionPath. That is, 
