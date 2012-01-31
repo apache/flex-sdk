@@ -227,6 +227,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  as the value of the <code>layout</code> property. 
  *  Do not use BasicLayout with the Spark list-based controls.</p>
  *
+ *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+ *  create an item renderer.
+ *  For information about creating an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>The List control has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
