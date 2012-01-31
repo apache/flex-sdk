@@ -27,30 +27,28 @@ use namespace mx_internal;
 [Exclude(name="duration", kind="property")]
 
 /**
- *  The RemoveChildAction class defines an action effect that corresponds
+ *  The RemoveAction class defines an action effect that corresponds
  *  to the RemoveChild property of a view state definition.
- *  You use a RemoveChildAction effect within a transition definition
+ *  You use a RemoveAction effect within a transition definition
  *  to control when the view state change defined by a RemoveChild property
  *  occurs during the transition.
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:RemoveChildAction&gt;</code> tag
+ *  <p>The <code>&lt;mx:RemoveAction&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
 
  *  <pre>
- *  &lt;mx:RemoveChildAction
+ *  &lt;mx:RemoveAction
  *    <b>Properties</b>
  *    id="ID"
  *  /&gt;
  *  </pre>
  *  
- *  @see mx.effects.effectClasses.RemoveChildActionInstance
+ *  @see spark.effects.supportClasses.RemoveActionInstance
  *  @see mx.states.RemoveChild
  *
- *  @includeExample ../states/examples/TransitionExample.mxml
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -60,105 +58,105 @@ public class RemoveAction extends Effect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     private static var AFFECTED_PROPERTIES:Array = [ "parent", "index" ];
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function RemoveAction(target:Object = null)
-	{
-		super(target);
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function RemoveAction(target:Object = null)
+    {
+        super(target);
         duration = 0;
-		instanceClass = RemoveActionInstance;
-	}
+        instanceClass = RemoveActionInstance;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function getAffectedProperties():Array /* of String */
-	{
-		return AFFECTED_PROPERTIES;
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function propChangesSortHandler(
-					first:PropertyChanges, 
-					second:PropertyChanges):Number
-	{
-		if (first.start.index > second.start.index)
-			return 1;
-		else if (first.start.index < second.start.index)
-			return -1;
-		
-		return 0;
-	}
-	
-	/**
-	 *  @private
-	 */
-	override mx_internal function applyStartValues(propChanges:Array,
-									 		  targets:Array):void
-	{
-		if (propChanges)
-			propChanges.sort(propChangesSortHandler);
-		
-		super.applyStartValues(propChanges, targets);
-	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function getValueFromTarget(target:Object,
-												   property:String):*
-	{
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
+    
+    /**
+     *  @private
+     */
+    private function propChangesSortHandler(
+                    first:PropertyChanges, 
+                    second:PropertyChanges):Number
+    {
+        if (first.start.index > second.start.index)
+            return 1;
+        else if (first.start.index < second.start.index)
+            return -1;
+        
+        return 0;
+    }
+    
+    /**
+     *  @private
+     */
+    override mx_internal function applyStartValues(propChanges:Array,
+                                              targets:Array):void
+    {
+        if (propChanges)
+            propChanges.sort(propChangesSortHandler);
+        
+        super.applyStartValues(propChanges, targets);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function getValueFromTarget(target:Object,
+                                                   property:String):*
+    {
         var container:* = target.parent;
         if (property == "index")
             return container ? 
                     ((container is IVisualElementContainer) ? 
                     IVisualElementContainer(container).getElementIndex(target as IVisualElement) : container.getChildIndex(target))
                 : 0;
-		
-		return super.getValueFromTarget(target, property);
-	}
-	
-	/**
-	 *  @private
-	 */	
-	override protected function applyValueToTarget(target:Object,
-												   property:String, 
-												   value:*,
-												   props:Object):void
-	{
+        
+        return super.getValueFromTarget(target, property);
+    }
+    
+    /**
+     *  @private
+     */ 
+    override protected function applyValueToTarget(target:Object,
+                                                   property:String, 
+                                                   value:*,
+                                                   props:Object):void
+    {
         if (property == "parent" && value)
         {
             if (target.parent == null)
@@ -173,9 +171,9 @@ public class RemoveAction extends Effect
                         value.numChildren));
             }
         }
-		
-		// Ignore index - it's applied along with parent
-	}
+        
+        // Ignore index - it's applied along with parent
+    }
 }
 
 }
