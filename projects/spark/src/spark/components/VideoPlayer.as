@@ -1989,9 +1989,14 @@ public class VideoPlayer extends SkinnableComponent
      *  Formats a time value, specified in seconds, into a String that 
      *  gets used for <code>currentTime</code> and the <code>duration</code>.
      * 
-     *  @param value Value in seconds of the time to format
+     *  @param value Value in seconds of the time to format.
      * 
-     *  @return Formatted time value
+     *  @return Formatted time value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function formatTimeValue(value:Number):String
     {
