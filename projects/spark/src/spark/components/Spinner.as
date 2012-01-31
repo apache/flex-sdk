@@ -26,18 +26,9 @@ import spark.components.supportClasses.Range;
 
 use namespace mx_internal;
 
-/**
- *  Dispatched when the value of the Spinner control changes
- *  as a result of user interaction.
- *
- *  @eventType flash.events.Event.CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="change", type="flash.events.Event")]
+//--------------------------------------
+//  Styles
+//--------------------------------------
 
 /**
  *  The radius of the corners of this component.
@@ -79,6 +70,27 @@ use namespace mx_internal;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the value of the Spinner control changes
+ *  as a result of user interaction.
+ *
+ *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="change", type="flash.events.Event")]
+
+//--------------------------------------
+//  Skin states
+//--------------------------------------
+
 /**
  *  Normal State
  *  
@@ -99,9 +111,14 @@ use namespace mx_internal;
  */
 [SkinState("disabled")]
 
-[IconFile("Spinner.png")]
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
+
+[IconFile("Spinner.png")]
+
 /**
  *  A Spinner component selects a value from an
  *  ordered set. It uses two buttons that increase or
@@ -228,20 +245,10 @@ public class Spinner extends Range implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart(required="false")]
-    
-    /**
-     *  A skin part that defines the  button that, 
-     *  when pressed, increments the <code>value</code> property
-     *  by <code>stepSize</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var incrementButton:Button;
-    
+	//----------------------------------
+	//  decrementButton
+	//----------------------------------
+
     [SkinPart(required="false")]
     
     /**
@@ -255,6 +262,24 @@ public class Spinner extends Range implements IFocusManagerComponent
      *  @productversion Flex 4
      */
     public var decrementButton:Button;
+    
+	//----------------------------------
+	//  incrementButton
+	//----------------------------------
+
+    [SkinPart(required="false")]
+    
+    /**
+     *  A skin part that defines the  button that, 
+     *  when pressed, increments the <code>value</code> property
+     *  by <code>stepSize</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var incrementButton:Button;
     
     //--------------------------------------------------------------------------
     //
@@ -312,26 +337,6 @@ public class Spinner extends Range implements IFocusManagerComponent
             Spinner.createAccessibilityImplementation(this);
     }
 
-    
-    //--------------------------------------------------------------------------
-    //
-    // Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function getCurrentSkinState():String
-    {
-        return enabled ? "normal" : "disabled";
-    }
-
     /**
      *  @private
      */
@@ -372,6 +377,19 @@ public class Spinner extends Range implements IFocusManagerComponent
     }
     
     /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function getCurrentSkinState():String
+    {
+        return enabled ? "normal" : "disabled";
+    }
+
+    /**
      *  @private
      */
     override public function changeValueByStep(increase:Boolean = true):void
@@ -391,14 +409,10 @@ public class Spinner extends Range implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     // 
-    // Event Handlers
+    //  Event handlers
     //
     //--------------------------------------------------------------------------
-    
-    //--------------------------------- 
-    // Mouse handlers
-    //---------------------------------
-   
+       
     /**
      *  @private
      *  Handle a click on the incrementButton. This should
@@ -488,13 +502,17 @@ public class Spinner extends Range implements IFocusManagerComponent
     
     /**
      *  @private
-     *  If the component is in focus, then it should respond to mouseWheel events. We listen to these
-     *  events on systemManager in the capture phase because this behavior should have the highest priority. 
+     *  If the component is in focus,
+	 *  then it should respond to mouseWheel events.
+	 *  We listen to these events on systemManager in the capture phase
+	 *  because this behavior should have the highest priority. 
      */ 
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
-        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+
+        systemManager.getSandboxRoot().addEventListener(
+			MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
@@ -503,12 +521,16 @@ public class Spinner extends Range implements IFocusManagerComponent
     override protected function focusOutHandler(event:FocusEvent):void
     {
         super.focusOutHandler(event);
-        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+
+        systemManager.getSandboxRoot().removeEventListener(
+			MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
-     *  Handles the <code>mouseWheel</code> event when the component is in focus. The spinner is 
-     *  moved by the amount of the mouse event delta multiplied by the <code>stepSize</code>.  
+     *  Handles the <code>mouseWheel</code> event
+	 *  when the component is in focus.
+	 *  The spinner is moved by the amount of the mouse event delta
+	 *  multiplied by the <code>stepSize</code>.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -525,8 +547,6 @@ public class Spinner extends Range implements IFocusManagerComponent
             event.preventDefault();
         }
     }
-    
-    
 }
 
 }
