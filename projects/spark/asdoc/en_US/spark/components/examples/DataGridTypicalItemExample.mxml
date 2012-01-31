@@ -28,15 +28,15 @@ In this example each input field calls invalidateTypicalItem() when a typicalIte
 -->
 
 <s:Application applicationComplete="items.addItemAt(dataGrid.typicalItem, 0)"
-    xmlns:fx="http://ns.adobe.com/mxml/2009" 
-    xmlns:s="library://ns.adobe.com/flex/spark">
+               xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark">
     
     <s:Panel title="Spark DataGrid Control Example that demonstrates using the typicalItem property to size the DataGrid"
              width="75%" height="75%" 
              horizontalCenter="0" verticalCenter="0">
         
         <s:controlBarContent>
-            <s:VGroup paddingTop="10" paddingBottom="10">
+            <s:VGroup gap="5">
                 <s:Label text="Typical Item:" fontWeight="bold" />
                 <s:HGroup verticalAlign="baseline">
                     <s:Label text="key:"  textAlign="right" width="40"/>
@@ -60,14 +60,14 @@ In this example each input field calls invalidateTypicalItem() when a typicalIte
         <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5"
                     requestedRowCount="5">
             <!--
-                The typicalItem defines the width of each column.  We also insert it at rowIndex=0
-                (see applicationComplete above) to help visualize the impact of typicalItem changes.
-                Usually the typicalItem is not displayed.
+            The typicalItem defines the width of each column.  We also insert it at rowIndex=0
+            (see applicationComplete above) to help visualize the impact of typicalItem changes.
+            Usually the typicalItem is not displayed.
             -->
             <s:typicalItem>
                 <s:DataItem key="99999" name="Typical Item" price="123.45" call="false"/>
             </s:typicalItem>
-    
+            
             <s:ArrayCollection id="items">
                 <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
                 <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
