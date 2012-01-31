@@ -22,6 +22,8 @@ import mx.effects.effectClasses.ActionEffectInstance;
 import spark.effects.AddAction;
 import mx.core.IVisualElementContainer;
 
+use namespace mx_internal;
+
 /**
  *  The AddActionInstance class implements the instance class
  *  for the AddAction effect.
@@ -172,7 +174,7 @@ public class AddActionInstance extends ActionEffectInstance
             }
         }
         
-        if (!mx_internal::playReversed)
+        if (!playReversed)
         {
             // Set the style property
             if (target && getContainer(target) == null && relativeTo)
