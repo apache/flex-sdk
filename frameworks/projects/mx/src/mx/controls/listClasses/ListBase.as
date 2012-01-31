@@ -1788,8 +1788,9 @@ public class ListBase extends ScrollControlBase
         listContent.bottomOffset = (offscreenExtraRowsBottom > 0) ?
             listItems[listItems.length-1][0].y + rowHeight - oldContentHeight + listContent.topOffset :
             0;
-       
-        iterator.seek(cursorPos, 0);
+        
+        if (iteratorValid)
+            iterator.seek(cursorPos, 0);
 
         // make sure list content is moved to the appropriate place.
         // might be able to optimize and not do this every time
