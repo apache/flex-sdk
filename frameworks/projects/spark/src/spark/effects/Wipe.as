@@ -21,8 +21,9 @@ import mx.effects.IEffectInstance;
  *  animation in a direction indicated by the <code>direction</code>
  *  property.
  * 
- *  <p>The underlying bitmap effect is run by a pixel-shader program
- *  that is loaded by the effect. If you want to use 
+ *  <p>A pixel-shader program loaded by the effect
+ *  runs the underlying bitmap effect. 
+ *  If you want to use 
  *  a different Wipe behavior, you can specify a custom pixel-shader program. 
  *  The pixel-shader program must adhere to the constraints 
  *  specified for the <code>shaderByteCode</code>
