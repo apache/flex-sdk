@@ -500,6 +500,7 @@ public class DataGroup extends GroupBase
         _dataProvider = value;
         dataProviderChanged = true;
         invalidateProperties();
+        dispatchEvent(new Event("dataProviderChanged"));        
     }
     
     /**
