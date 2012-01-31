@@ -214,6 +214,11 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The user can select one or more items from the list, depending
  *  on the value of the <code>allowMultipleSelection</code> property.
  *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
+ *  as the value of the <code>layout</code> property. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
+ *
  *  <p>The List control has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
@@ -880,9 +885,9 @@ public class List extends ListBase implements IFocusManagerComponent
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
         else if (instance == scroller)
-		{
+        {
             scroller.hasFocusableChildren = hasFocusableChildren;
-		}
+        }
     }
 
     /**
