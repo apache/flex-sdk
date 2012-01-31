@@ -12,19 +12,23 @@
 package spark.components.supportClasses
 {
 import flash.events.Event;
-import mx.events.FlexEvent;
-import spark.events.RendererExistenceEvent;
 
-import mx.collections.IList;
+import spark.events.RendererExistenceEvent;
 import spark.components.SkinnableDataContainer;
 import spark.components.IItemRendererOwner; 
 import spark.components.IItemRenderer; 
 import spark.layouts.supportClasses.LayoutBase;
+import spark.utils.LabelUtil; 
+
+import mx.collections.IList;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import spark.utils.LabelUtil; 
+
+use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
 /*
  TODO (jszeto) 
@@ -135,7 +139,7 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  @private
      */
-    public var doingWholesaleChanges:Boolean = false;
+    mx_internal var doingWholesaleChanges:Boolean = false;
     
     //----------------------------------
     //  dataProvider
@@ -256,7 +260,7 @@ public class ListBase extends SkinnableDataContainer
      *  The proposed selected index. This is a temporary variable that is
      *  used until the selected index is committed.
      */
-    public var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
+    mx_internal var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
     
     /** 
      *  @private
@@ -265,13 +269,13 @@ public class ListBase extends SkinnableDataContainer
      *  of the selectedIndex has changed, but the actual selected item
      *  is the same. This flag is cleared in commitProperties().
      */
-    private var selectedIndexAdjusted:Boolean = false;
+    mx_internal var selectedIndexAdjusted:Boolean = false;
     
     /**
      *  @private
      *  Internal storage for the selectedIndex property.
      */
-    public var _selectedIndex:int = NO_SELECTION;
+    mx_internal var _selectedIndex:int = NO_SELECTION;
     
     [Bindable("selectionChanged")]
     /**
@@ -627,7 +631,7 @@ public class ListBase extends SkinnableDataContainer
                     dataProvider.length > 0)
             {
                 // Set the proposed selected index here to make sure
-                // commitSelectedIndex() is called below.
+                // commitSelection() is called below.
                 _proposedSelectedIndex = 0;
             }
         }
@@ -640,7 +644,7 @@ public class ListBase extends SkinnableDataContainer
         }
         
         if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
-            changedSelection = commitSelectedIndex();
+            changedSelection = commitSelection();
         
         // If the selectedIndex has been adjusted to account for items that
         // have been added or removed, send out a "selectionChanged" event so
@@ -819,6 +823,7 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  @private
+     *  The selection validation and commitment workhorse method. 
      *  Called to commit the pending selected index. This method dispatches
      *  the "selectionChanging" event, and if the event is not cancelled,
      *  commits the selection change and then dispatches the "selectionChanged"
@@ -827,7 +832,7 @@ public class ListBase extends SkinnableDataContainer
      *  Returns true if the selection was committed, or false if the selection
      *  was cancelled.
      */
-    protected function commitSelectedIndex():Boolean
+    protected function commitSelection(dispatchSelectionChanged:Boolean = true):Boolean
     {
         // Step 1: make sure the proposed selected index is in range.
         var maxIndex:int = dataProvider ? dataProvider.length - 1 : -1;
@@ -856,7 +861,7 @@ public class ListBase extends SkinnableDataContainer
             return false;
         }
         
-        // Step 3: commit the selection change
+        // Step 3: commit the selection change 
         if (_selectedIndex != NO_SELECTION)
             itemSelected(_selectedIndex, false);
         if (_proposedSelectedIndex != NO_SELECTION)
@@ -864,11 +869,17 @@ public class ListBase extends SkinnableDataContainer
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
-        // Step 4: dispatch the "selectionChanged" event
-        e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
-        e.oldIndex = oldIndex;
-        e.newIndex = _selectedIndex;
-        dispatchEvent(e);
+        // Step 4: dispatch the "selectionChanged" event based on the 
+        // dispatchSelectionChanged parameter. Overrides may chose to 
+        // dispatch the selectionChanged event themselves, in which 
+        // case we wouldn't want to dispatch the event here. 
+        if (dispatchSelectionChanged)
+        {
+            e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+            e.oldIndex = oldIndex;
+            e.newIndex = _selectedIndex;
+            dispatchEvent(e);
+        }
         
         return true;
      }
