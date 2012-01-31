@@ -19,6 +19,11 @@ import mx.effects.FxAnimateFilter;
  * The AnimateFilterInstance class implements the instance class for the
  * AnimateFilter effect. Flex creates an instance of this class when
  * it plays a AnimateFilter effect; you do not create one yourself.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimateFilterInstance extends FxAnimateInstance
 {
@@ -30,6 +35,11 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
     
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxAnimateFilterInstance(target:Object)
     {
@@ -48,6 +58,11 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
     
     /**
      * IBitmapFilter instance to apply and animate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
     public var bitmapFilter:IBitmapFilter;
     
@@ -72,6 +87,11 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
     
     /**
      *  @copy mx.effects.IEffectInstance#finishEffect()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function finishEffect():void
     {   
