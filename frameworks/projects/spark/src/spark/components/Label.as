@@ -477,12 +477,15 @@ public class Label extends TextBase
         var allLinesComposed:Boolean = createTextLines(elementFormat);
         
         // Need truncation if all the following are true
+        // - there is text (even if there is no text there is may be padding
+        //       which may not fit and the text would be reported as truncated)
         // - truncation options exist (0=no trunc, -1=fill up bounds then trunc,
         //      n=n lines then trunc)
         // - compose width is specified
         // - content doesn't fit
         var lb:String = getStyle("lineBreak");
-        if (maxDisplayedLines &&
+        if (text != null && text.length > 0 &&
+            maxDisplayedLines &&
             !doesComposedTextFit(height, width, allLinesComposed, maxDisplayedLines, lb))
         {
             truncateText(width, height, lb);
