@@ -369,7 +369,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
-        var renderer:IEventDispatcher = IEventDispatcher(event.renderer);
+        var renderer:IVisualElement = event.renderer; 
         var index:int = event.index;
         
         if (renderer)
@@ -377,14 +377,9 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             renderer.addEventListener("click", item_clickHandler);
             if (renderer is IFocusManagerComponent)
                 IFocusManagerComponent(renderer).focusEnabled = false;
-            if (renderer is IVisualElement)
-                IVisualElement(renderer).owner = this; 
             if (renderer is IItemRenderer)
-            {
-            	var data:Object = IItemRenderer(renderer).data;
                 IItemRenderer(renderer).allowDeselection = !requiresSelection;
-                IItemRenderer(renderer).labelText = itemToLabel(data);
-            }
+            IItemRendererOwner(renderer.owner).updateRendererInformation(renderer);
         }
             
         if (isItemIndexSelected(index))
@@ -397,7 +392,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
     {        
-        var renderer:Object = event.renderer;
+        var renderer:IVisualElement = event.renderer;
         
         if (renderer)
             renderer.removeEventListener("click", item_clickHandler);
