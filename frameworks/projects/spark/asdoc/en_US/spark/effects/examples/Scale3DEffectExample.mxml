@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the s:Move class. -->
+<!-- Simple example to demonstrate the s:Scale3D class. -->
 <s:Application
-	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Declarations>
         <s:Scale3D id="atScale3D" target="{targetBox}" scaleXBy="-.25" repeatCount="2"
-	        repeatBehavior="reverse" effectStart="playButton.enabled=false"
-	        effectEnd="playButton.enabled=true;"/>
+            repeatBehavior="reverse" effectStart="playButton.enabled=false"
+            effectEnd="playButton.enabled=true;"/>
     </fx:Declarations>
 
-    <s:Panel title="AnimateTransformScale3D Effect Example"
-    	width="75%" height="75%" >
+    <s:Panel title="Scale3D Effect Example"
+        width="75%" height="75%" >
 
         <mx:HBox width="100%" height="100%">
             <!-- Our target to affect-->
@@ -21,7 +21,7 @@
             </mx:VBox>
             <mx:VBox id="detailsBox" width="50%" left="0">
                 <mx:Text width="99%" color="blue"
-		        	text="The AnimateTransformScale3D effect changes the scale of a target using the following parameters: scaleXFrom, scaleXTo, scaleXBy, scaleYFrom, scaleYTo, scaleYBy, scaleZFrom, scaleZTo, scaleZBy. Click 'AnimateTransformScale3D' to watch the effect."/>
+                    text="The Scale3D effect changes the scale of a target using the following parameters: scaleXFrom, scaleXTo, scaleXBy, scaleYFrom, scaleYTo, scaleYBy, scaleZFrom, scaleZTo, scaleZBy. Click 'Scale3D' to watch the effect."/>
             </mx:VBox>
         </mx:HBox>
 
@@ -34,7 +34,7 @@
             </s:fill>
         </s:Rect>
         <s:Button id="playButton"
-        	left="5" bottom="5"
-        	label="AnimateTransformScale3D" click="atScale3D.play();"/>
+            left="5" bottom="5"
+            label="Scale3D" click="atScale3D.play();"/>
     </s:Panel>
 </s:Application>
