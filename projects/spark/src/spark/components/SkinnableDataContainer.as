@@ -124,6 +124,14 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  <p>If you want a container of data items and don't need a skin, then 
  *  it is recommended to use a DataGroup (which cannot be skinned) to 
  *  improve performance and application size.</p>
+ *
+ *  <p>The SkinnableDataContainer container has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
  * 
  *  @mxml
  *
@@ -182,6 +190,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @see SkinnableContainer
  *  @see DataGroup
  *  @see spark.skins.spark.SkinnableDataContainerSkin
+ *
+ *  @includeExample examples/SkinnableDataContainerExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
