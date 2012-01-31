@@ -11,6 +11,7 @@
 
 package mx.components
 {
+import flash.ui.Keyboard;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxScrollBar;	
@@ -113,6 +114,42 @@ public class FxVScrollBar extends FxScrollBar
     {
         return localY;
     }
+    
+    
+    /**
+     *  Implicitly update the viewport's verticalScrollPosition per the
+     *  specified scrolling unit, by setting the scrollbar's value.
+     *
+     *  @private
+     */
+    private function updateViewportVSP(unit:uint):void
+    {
+        var delta:Number = viewport.verticalScrollPositionDelta(unit);
+        setValue(viewport.verticalScrollPosition + delta);
+    }
+    
+    /**
+     * 
+     */
+    override public function page(increase:Boolean = true):void
+    {
+        if (!viewport)
+            super.page(increase);
+        else
+            updateViewportVSP((increase) ? Keyboard.PAGE_DOWN : Keyboard.PAGE_UP);
+    }
+    
+    /**
+     * 
+     */
+    override public function step(increase:Boolean = true):void
+    {
+        if (!viewport)
+            super.step(increase);
+        else
+            updateViewportVSP((increase) ? Keyboard.DOWN : Keyboard.UP);
+    }    
+    
 }
 
 }
