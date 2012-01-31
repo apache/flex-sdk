@@ -25,6 +25,8 @@ import spark.components.IItemRenderer;
 import spark.components.MXMLComponent; 
 import spark.primitives.supportClasses.TextGraphicElement;
 
+use namespace mx_internal; 
+
 /**
  *  The ItemRenderer class is the base class for Spark item renderers.
  * 
@@ -191,6 +193,13 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     private var rendererStateIsDirty:Boolean = false;
     
+    /**
+     *  @private
+     *  A flag determining if this renderer should play any 
+     *  associated transitions when a state change occurs. 
+     */
+    mx_internal var playTransitions:Boolean = true; 
+    
     //--------------------------------------------------------------------------
     //
     //  Public Properties 
@@ -274,7 +283,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
             return;
 
         _caret = value;
-        currentState = getCurrentRendererState(); 
+        setCurrentState(getCurrentRendererState(), playTransitions);  
     }
     
     //----------------------------------
@@ -304,7 +313,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         if (value != _selected)
         {
             _selected = value;
-            currentState = getCurrentRendererState();
+            setCurrentState(getCurrentRendererState(), playTransitions); 
         }
     }
        
@@ -409,7 +418,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         
         if (rendererStateIsDirty)
         {
-            currentState = getCurrentRendererState();
+            setCurrentState(getCurrentRendererState(), playTransitions); 
             rendererStateIsDirty = false;
         }
     }
@@ -484,7 +493,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         if (!anyButtonDown(event))
         {
             hovered = true;
-            currentState = getCurrentRendererState();
+            setCurrentState(getCurrentRendererState(), playTransitions); 
         }
     }
     
@@ -495,7 +504,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     protected function itemRenderer_rollOutHandler(event:MouseEvent):void
     {
         hovered = false;
-        currentState = getCurrentRendererState();
+        setCurrentState(getCurrentRendererState(), playTransitions); 
     }
 
 }
