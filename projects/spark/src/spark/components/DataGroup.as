@@ -27,6 +27,7 @@ import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
+import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind
@@ -229,31 +230,6 @@ public class DataGroup extends GroupBase
                 itemAdded(_dataProvider.getItemAt(i), i);
             }
         }
-        
-        /* if (maskElements)
-        {
-            for (var k:Object in maskElements)
-            {
-                var maskElement:DisplayObject = k as DisplayObject;
-                if (maskElement && (!maskElement.parent || maskElement.parent !== this))
-                {
-                    super.addChild(maskElement);
-                    var maskComp:UIComponent = maskElement as UIComponent;
-                    if (maskComp)
-                    {
-                        maskComp.validateNow();
-                        maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                               maskComp.getExplicitOrMeasuredHeight());
-                    }
-                    
-                    var maskTarget:IGraphicElement = maskElements[k] as IGraphicElement;
-                    if (maskTarget)
-                    {
-                        maskTarget.applyMask();
-                    }
-                }
-            }
-        } */
     }
     
     /**
@@ -362,17 +338,20 @@ public class DataGroup extends GroupBase
      *  @private
      */
     override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
+    { 
         if (dataProviderChanged || itemRendererChanged)
         {
             dataProviderChanged = false;
             itemRendererChanged = false;
             initializeDataProvider();
             
-            // maskChanged = true; TODO (rfrishbe): need this maskChanged?
+            mx_internal::maskChanged = true;
         }
+        
+        // Need to initializeDataProvider before calling super.commitProperties
+    	// initializeDataProvider removes all of the display list children.
+    	// GroupBase's commitProperties reattaches the mask
+        super.commitProperties();
 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
@@ -769,45 +748,6 @@ public class DataGroup extends GroupBase
         }
         
         return null;
-    }
-    
-    /**
-     *  Dictionary to keep track of mask elements.  Because mask elements can be applied 
-     *  to GraphicElements, which may not be DisplayObjects, the DataGroup needs to know this
-     *  to map GraphicElements to DisplayObjects later on since masking takes place
-     *  at the Flash Player level.
-     */ 
-    protected var maskElements:Dictionary;
-    
-    /**
-     *  @private
-     */
-    override public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        if (!maskElements)
-            maskElements = new Dictionary();
-            
-        maskElements[mask] = target;
-        dataProviderChanged = true;
-        // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-        // callLater is necessary because addMaskElement gets called inside of commitProperties
-        callLater(invalidateProperties); 
-            
-    }
-    
-    /**
-     *  @private
-     */
-    override public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        if (maskElements && mask in maskElements)
-        {
-            delete maskElements[mask];
-            dataProviderChanged = true;
-             // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-            // callLater is necessary because removeMaskElement gets called inside of commitProperties
-            callLater(invalidateProperties);
-        }
     }
     
     /**
