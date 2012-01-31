@@ -31,6 +31,7 @@ package spark.components
     import spark.components.supportClasses.CellPosition;
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
+    import spark.components.supportClasses.GridLayer;    
     import spark.components.supportClasses.GridLayout;
     import spark.components.supportClasses.GridSelection;
     import spark.components.supportClasses.GridSelectionMode;
@@ -208,9 +209,10 @@ package spark.components
         
         /**
          *  @private
-         *  True while updateDisplayList is running.
+         *  True while updateDisplayList is running.  Use to disable invalidateSize(),
+         *  invalidateDisplayList() here and in the GridLayer class.
          */
-        private var inUpdateDisplayList:Boolean = false;
+        mx_internal var inUpdateDisplayList:Boolean = false;  
         
         
         // TODO(hmuller): the following public variables are temporary 
@@ -226,18 +228,15 @@ package spark.components
             super();
             layout = new GridLayout();
             
-            backgroundGroup = new Group();
-            backgroundGroup.layout = new NullLayout();
+            backgroundGroup = new GridLayer();
             addElement(backgroundGroup);
             
-            selectionGroup = new Group();
-            selectionGroup.layout = new NullLayout();
+            selectionGroup = new GridLayer();
             addElement(selectionGroup);
             
-            itemRendererGroup = this;  
+            itemRendererGroup = this;
             
-            overlayGroup = new Group();
-            overlayGroup.layout = new NullLayout();
+            overlayGroup = new GridLayer();
             addElement(overlayGroup);        
             
             MouseEventUtil.addDownDragUpListeners(this, 
@@ -3394,15 +3393,5 @@ package spark.components
                 dispatchEvent(caretChangeEvent);
             }
         }
-    }
-}
-
-import spark.layouts.supportClasses.LayoutBase;
-
-class NullLayout extends LayoutBase
-{
-    public function NullLayout()
-    {
-        super();
     }
 }
