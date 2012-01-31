@@ -26,6 +26,11 @@ import mx.core.IUIComponent;
  *  or item editor. Changing these values can lead to unexpected results.</p>
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridListData extends BaseListData
 {
@@ -54,6 +59,11 @@ public class DataGridListData extends BaseListData
 	 *
 	 *  @param rowIndex The index of the item in the data provider
 	 *  for the DataGrid control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DataGridListData(text:String, dataField:String,
 									 columnIndex:int, uid:String,
@@ -72,6 +82,11 @@ public class DataGridListData extends BaseListData
 
 	/**
 	 *  Name of the field or property in the data provider associated with the column. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dataField:String;
 
