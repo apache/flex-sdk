@@ -902,33 +902,6 @@ public class TextBase extends UIComponent
         }
     }
 
-    /**
-     *  @private
-     *  Used to ensure baselinePosition will reflect something
-     *  reasonable.
-     */ 
-    override mx_internal function validateBaselinePosition():Boolean
-    {
-        if (!parent)
-            return false;
-        
-        // Ensure we're validated and that we have something to 
-        // compute our baseline from.
-        var isEmpty:Boolean = (text == "");
-        text = isEmpty ? "Wj" : text;
-        
-        if (invalidatePropertiesFlag ||
-        	invalidateSizeFlag || 
-            invalidateDisplayListFlag ||
-            isEmpty)
-        {
-            validateNow();  
-            text = isEmpty ? "" : text;
-        }
-        
-        return true;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
