@@ -1206,7 +1206,8 @@ public class ListBase extends SkinnableDataContainer
      *  @productversion Flex 4
      */
     protected function adjustSelection(newIndex:int, add:Boolean=false):void
-    {
+    {   // FIXME (rfrishbe): when someone calls this method, we shouldn't dispatch a 
+        // change event
         if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
             _proposedSelectedIndex = newIndex;
         else
