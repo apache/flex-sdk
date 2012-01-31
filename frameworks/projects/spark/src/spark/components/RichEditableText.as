@@ -4679,24 +4679,26 @@ package spark.components
                 // Note: Must process restrict first, then maxChars,
                 // then displayAsPassword last.
                 
-                if (_restrict != null)
-                {
-                    textToInsert = StringUtil.restrict(textToInsert, restrict);
-                    if (textToInsert.length == 0)
-                    {
-                        event.preventDefault();
-                        return;
-                    }
-                }
-                
                 // The text deleted by this operation.  If we're doing our
-                // own manipulation of the textFlow we have to take the deleted
-                // text into account as well as the inserted text.
+                // own manipulation of the textFlow or thisis a result of a paste operation
+                // we have to take the deleted text into account as well as the inserted text.
                 var delSelOp:SelectionState = 
                     insertTextOperation.deleteSelectionState;
                 
                 var delLen:int = (delSelOp == null) ? 0 :
                     delSelOp.absoluteEnd - delSelOp.absoluteStart;
+                
+                if (_restrict != null)
+                {
+                    textToInsert = StringUtil.restrict(textToInsert, restrict);
+                    // If restrict is the result of a paste the text has already been inserted
+                    // into the buffer and has to be removed so don't short-circuit the operation.
+                    if (textToInsert.length == 0 && delLen == 0)
+                    {
+                        event.preventDefault();
+                        return;
+                    }
+                }
                 
                 if (maxChars != 0)
                 {
