@@ -18,6 +18,8 @@ import mx.events.RendererExistenceEvent;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 
+use namespace mx_internal;  // for mx_internal property contentChangeDelta
+
 
 /**
  *  Dispatched when a renderer is added to the content holder.
@@ -777,6 +779,7 @@ public class DataGroup extends GroupBase
             finishVirtualLayout();
             virtualLayoutUnderway = false;
         }
+        _contentChangeDeltas = null;
     }
     
     /**
@@ -921,7 +924,29 @@ public class DataGroup extends GroupBase
         _layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
         invalidateProperties();
     }
+    
+    private var _contentChangeDeltas:Vector.<int> = null;
+    
 
+    /**
+     *  @private
+     *  Provisional support for notifying the layout of upcoming changes to the
+     *  layout elements (item renderers).   The value of this property is a
+     *  vector where positive values indicate item addditions, and negative values
+     *  indicate item removals.   In both cases the index values are offset by one.
+     */  
+    override mx_internal function get contentChangeDeltas():Vector.<int>
+    {
+        return _contentChangeDeltas;
+    }
+    
+    private function appendContentChangeDelta(index:int):void
+    {
+        if (!_contentChangeDeltas)
+            _contentChangeDeltas = new Vector.<int>();
+        _contentChangeDeltas.push(index);
+    }
+    
     /**
      *  Adds the itemRenderer for the specified dataProvider item to this DataGroup.
      * 
@@ -940,18 +965,11 @@ public class DataGroup extends GroupBase
     {
         if (layout && layout.useVirtualLayout)
         {
-            if (index < virtualLayoutStartIndex)
-            {
-                invalidateSize();
-                invalidateDisplayList();
-                return;
-            }
-            else if (index > virtualLayoutEndIndex)
-            {
-                invalidateSize();
-                return;
-            }
-            // otherwise, we'll add it to the display list
+            appendContentChangeDelta(index+1);
+            indexToRenderer.splice(index, 0, null);
+            invalidateSize();
+            invalidateDisplayList();
+            return;
         }
         
         var myItemRenderer:IVisualElement = createRendererForItem(item);
@@ -985,19 +1003,12 @@ public class DataGroup extends GroupBase
     {
         if (layout && layout.useVirtualLayout)
         {
-            if (index < virtualLayoutStartIndex)
-            {
-                invalidateSize();
-                invalidateDisplayList();
-                return;
-            }
-            else if (index > virtualLayoutEndIndex)
-            {
-                invalidateSize();
-                return;
-            }
-            // otherwise, we'll add it to the display list
-        }
+            appendContentChangeDelta(-(index+1));
+            indexToRenderer.splice(index, 1);
+            invalidateSize();
+            invalidateDisplayList();
+            return;
+        }        
         
         var myItemRenderer:IVisualElement = indexToRenderer[index];
         indexToRenderer.splice(index, 1);
