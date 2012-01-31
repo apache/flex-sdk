@@ -25,6 +25,41 @@ import flex.effects.interpolation.NumberInterpolator;
 import flex.events.AnimationEvent;
 
 /**
+ * Dispatched when the animation starts. The first 
+ * <code>animationUpdate</code> event is dispatched at the 
+ * same time.
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_START
+ */
+[Event(name="animationStart", type="flex.events.AnimationEvent")]
+
+/**
+ * Dispatched every time the animation updates the target.
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_UPDATE
+ */
+[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
+
+/**
+ * Dispatched when the animation begins a new repetition, for
+ * any effect that is repeated more than once.
+ * An <code>animationUpdate</code> event is also dispatched 
+ * at the same time.
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_REPEAT
+ */
+[Event(name="animationRepeat", type="flex.events.AnimationEvent")]
+
+/**
+ * Dispatched when the effect ends. An <code>animationUpdate</code> event 
+ * is also dispatched at the same time. A repeating animation dispatches 
+ * this event only after the final repetition.</p>
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_END
+ */
+[Event(name="animationEnd", type="flex.events.AnimationEvent")]
+
+/**
  * The Animation class defines an animation that happens between 
  * start and end values over a specified period of time.
  * The animation can be a change in position, such as performed by
@@ -128,6 +163,17 @@ public class Animation extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * This variable indicates whether the animation is currently
+     * running or not. The value is <code>false</code> unless the animation
+     * has been played and not yet stopped (either programmatically or
+     * automatically) or paused.
+     */
+    public function get isPlaying():Boolean
+    {
+        return _isPlaying;
+    }
+    
     /**
      * The value that the animation will produce at the beginning of the
      * animation. Values during the animation are calculated using the
@@ -258,13 +304,15 @@ public class Animation extends EventDispatcher
      * @private
      * Storage for the startDelay property. 
      */
-    private var _startDelay:Number;
+    private var _startDelay:Number = 0;
     /**
      * The amount of time spent waiting before the animation
      * begins.
      *
      * @param value Amount of time, in milliseconds, to wait before beginning
      * the animation. Must be a value >= 0.
+     * 
+     * @default 0
      */
     public function set startDelay(value:Number):void
     {
@@ -359,6 +407,22 @@ public class Animation extends EventDispatcher
     public function get elapsedTime():Number
     {
         return _elapsedTime;
+    }
+
+    
+    //----------------------------------
+    //  elapsedFraction
+    //----------------------------------
+
+    private var _elapsedFraction:Number;
+    /**
+     *  @private
+     *  The current fraction elapsed in the animation, after easing
+     *  has been applied. This value is between 0 and 1.
+     */
+    public function get elapsedFraction():Number
+    {
+        return _elapsedFraction;
     }
 
     //----------------------------------
@@ -582,9 +646,9 @@ public class Animation extends EventDispatcher
         if (_invertValues)
             currentTime = duration - currentTime;
     
-        var elapsedFraction:Number = easer.ease(currentTime/duration);
+        _elapsedFraction = easer.ease(currentTime/duration);
 
-        return interpolator.interpolate(elapsedFraction, startValue, endValue);
+        return interpolator.interpolate(_elapsedFraction, startValue, endValue);
     }
 
     /**
