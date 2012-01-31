@@ -206,6 +206,8 @@ public class ButtonBar extends ButtonBarBase implements IFocusManagerComponent
     //  dataProvider
     //----------------------------------
      
+    [Inspectable(category="Data")]
+    
     /**
      *  @private
      */    
