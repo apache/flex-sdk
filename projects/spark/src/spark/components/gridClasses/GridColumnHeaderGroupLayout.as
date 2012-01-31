@@ -211,6 +211,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             var elementWidth:Number;
             var elementHeight:Number;            
             
+			/*
             // FIXME: this isn't right.  It isn't using a typicalItem.  And
             // it is only working because the DefaultColumnHeaderItemRenderer
             // has width set to 150, height set to 32.
@@ -227,7 +228,9 @@ public class ColumnHeaderBarLayout extends LayoutBase
             
             // FIXME: access this through cover method
             gridDimensions.setColumnWidth(columnIndex, elementWidth);
+			*/
             
+			elementWidth = gridDimensions.getColumnWidth(columnIndex);
             elementHeight = element.getPreferredBoundsHeight();
             
             element.setLayoutBoundsSize(elementWidth, elementHeight);
