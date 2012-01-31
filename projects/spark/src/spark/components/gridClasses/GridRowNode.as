@@ -28,8 +28,8 @@ public final class GridRowNode
     public var rowIndex:int;
     
     private var cellHeights:Vector.<Number>;
-    public var maxCellHeight:Number = NaN;
-    public var fixedHeight:Number = NaN;
+    public var maxCellHeight:Number = -1;
+    public var fixedHeight:Number = -1;
     
     public var next:GridRowNode;
     public var prev:GridRowNode;
@@ -49,8 +49,9 @@ public final class GridRowNode
         this.rowIndex = rowIndex;
         _numColumns = numColumns;
         
-        // initialize cellHeights. all are 0 to start out with.
+        // initialize cellHeights. all are -1 to start out with.
         cellHeights = new Vector.<Number>(numColumns);
+        GridDimensions.clearVector(cellHeights, -1);
     }
     
     private var _numColumns:uint;
@@ -81,7 +82,7 @@ public final class GridRowNode
         if (value > _numColumns)
         {
             for (var i:int = value - _numColumns; i < value; i++)
-                cellHeights[i] = 0;
+                cellHeights[i] = -1;
         }
         else
         {
@@ -98,7 +99,7 @@ public final class GridRowNode
      */
     private function updateMaxHeight():Boolean
     {
-        var max:Number = 0;
+        var max:Number = -1;
         for each (var cellHeight:Number in cellHeights)
         {
             if (cellHeight > max)
@@ -106,7 +107,8 @@ public final class GridRowNode
         }
         
         const changed:Boolean = maxCellHeight != max;
-        maxCellHeight = max;
+        if (changed)
+            maxCellHeight = max;
         return changed;
     }
     
@@ -174,7 +176,7 @@ public final class GridRowNode
      */
     public function insertColumns(startColumn:int, count:int):void
     {
-        GridDimensions.insertValueToVector(cellHeights, startColumn, count, 0);
+        GridDimensions.insertValueToVector(cellHeights, startColumn, count, -1);
     }
     
     /**
@@ -200,7 +202,7 @@ public final class GridRowNode
      */
     public function clearColumns(startColumn:int, count:int):void
     {
-        GridDimensions.clearVector(cellHeights, 0, startColumn, count);
+        GridDimensions.clearVector(cellHeights, -1, startColumn, count);
         updateMaxHeight();
     }
     
