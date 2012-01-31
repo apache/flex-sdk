@@ -52,8 +52,7 @@ public class VGroup extends Group
      */  
 	public function VGroup():void
 	{
-		super();
-		layout = new VerticalLayout();
+		super(new VerticalLayout());
 	}
 	
     private function get verticalLayout():VerticalLayout
