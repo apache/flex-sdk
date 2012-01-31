@@ -713,6 +713,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  @copy mx.controls.TextInput#imeMode
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      **/
     public function get imeMode():String
     {
@@ -1141,7 +1146,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 addChild(DisplayObject(border));
                 
                 if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-                	border.visible = false;
+                    border.visible = false;
             }
         }
 
@@ -1274,10 +1279,10 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             // non-editable states.
             if (useFullDropdownSkin)
             {
-            	if (e && getStyle("editableSkin") != null)
-            		downArrowButton.skinName = "editableSkin";
-            	else
-            		downArrowButton.skinName = "skin";
+                if (e && getStyle("editableSkin") != null)
+                    downArrowButton.skinName = "editableSkin";
+                else
+                    downArrowButton.skinName = "skin";
                 downArrowButton.upSkinName = e ? "editableUpSkin" : "upSkin";
                 downArrowButton.overSkinName = e ? "editableOverSkin" : "overSkin";
                 downArrowButton.downSkinName = e ? "editableDownSkin" : "downSkin";
@@ -1419,7 +1424,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             downArrowButton.setActualSize(wh, wh);
             downArrowButton.move(w - arrowWidth - vm.right, vm.top);
             if (border)
-            	border.setActualSize(w, h);
+                border.setActualSize(w, h);
             textInput.setActualSize(w - arrowWidth, textInputHeight);
         }
         else
@@ -1431,7 +1436,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 
                 downArrowButton.move(0, 0);
                 if (border)
-                	border.setActualSize(w, h);
+                    border.setActualSize(w, h);
                 textInput.setActualSize(w - arrowWidth, textInputHeight);
                 textInput.showBorderAndBackground(false);
                 textInput.move(textInput.x, ((h - textInputHeight - paddingTop - paddingBottom) / 2) + paddingTop);
@@ -1441,7 +1446,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             {
                 downArrowButton.move(w - arrowWidth, 0);
                 if (border)
-                	border.setActualSize(w - arrowWidth, h);
+                    border.setActualSize(w - arrowWidth, h);
                 textInput.setActualSize(w - arrowWidth, h);
                 downArrowButton.setActualSize(arrowWidth, unscaledHeight);
                 textInput.showBorderAndBackground(true);
