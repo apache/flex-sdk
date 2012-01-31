@@ -15,6 +15,7 @@ package mx.messaging
 import flash.errors.IllegalOperationError;
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
+import flash.utils.getDefinitionByName;
 import flash.utils.Timer;
 
 import mx.collections.ArrayCollection;
@@ -215,7 +216,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      *  Indicates whether the Channel was previously connected successfully. Used for pinned reconnect
-     *  attempt before trying failover options.
+     *  attempts before trying failover options.
      */
     private var _previouslyConnected:Boolean;
     
@@ -224,6 +225,15 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	 *  Primary URI; the initial URI for this channel.
 	 */
 	private var _primaryURI:String
+	
+	/**
+     *  @private
+     *  Used for pinned reconnect attempts.
+     */
+    mx_internal var reliableReconnectDuration:int = -1;
+    private var _reliableReconnectBeginTimestamp:Number;
+    private var _reliableReconnectLastTimestamp:Number;
+    private var _reliableReconnectAttempts:int;
 
     /**
      *  @private
@@ -1289,7 +1299,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
     private function shouldAttemptFailover():Boolean
     {
         return (_shouldBeConnected && 
-               (_previouslyConnected || ((_failoverURIs != null) &&  (_failoverURIs.length > 0))));  
+                   (_previouslyConnected ||
+                   (reliableReconnectDuration != -1) || 
+                   ((_failoverURIs != null) &&  (_failoverURIs.length > 0))));  
     } 
     
     /**
@@ -1300,15 +1312,58 @@ public class Channel extends EventDispatcher implements IMXMLObject
     {
         var timer:Timer = null;
         
-        // Special-case retry on current URI.
+        // Potentially enter reliable reconnect loop.
         if (_previouslyConnected)
         {
-            _previouslyConnected = false;
-            setReconnecting(true);
-            timer = new Timer(1, 1);
-            timer.addEventListener(TimerEvent.TIMER, reconnect);
-            timer.start();
-            return; // Exit early - if this fails the remaining failoverURIs will be tried next.
+            _previouslyConnected = false;              
+                      
+            var acs:Class = getDefinitionByName("mx.messaging.AdvancedChannelSet") as Class; 
+            var duration:int = -1;                      
+            if (acs != null)
+            {                
+                for each (var channelSet:ChannelSet in channelSets)
+                {
+                    if (channelSet is acs)
+                    {
+                        var d:int = (channelSet as acs)["reliableReconnectDuration"];
+                        if (d > duration)
+                            duration = d;
+                    }                     
+                }
+            }
+                       
+            if (duration != -1)
+            {
+                setReconnecting(true);
+                reliableReconnectDuration = duration;
+                _reliableReconnectBeginTimestamp = new Date().valueOf();
+                timer = new Timer(1, 1);
+                timer.addEventListener(TimerEvent.TIMER, reconnect);
+                timer.start();
+                return; // Exit early.
+            }
+        }
+        
+        // Potentially continue reliable reconnect loop.
+        if (reliableReconnectDuration != -1)
+        {
+            _reliableReconnectLastTimestamp = new Date().valueOf();
+            var remaining:Number = reliableReconnectDuration - (_reliableReconnectLastTimestamp - _reliableReconnectBeginTimestamp);            
+            if (remaining > 0)
+            {                                
+                // Apply exponential backoff.
+                var delay:int = 1000; // 1 second.
+                delay << ++_reliableReconnectAttempts;
+                if (delay < remaining)
+                {
+                    timer = new Timer(delay, 1);
+                    timer.addEventListener(TimerEvent.TIMER, reconnect);
+                    timer.start();
+                    return; // Exit early. 
+                }
+            }
+            // At this point the reliable reconnect duration has been exhausted.
+            reliableReconnectCleanup();
         }
         
         // General failover handling.
@@ -1366,6 +1421,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
         _connecting = false;
         
         setReconnecting(false); // Ensure the reconnecting flag is turned off; failover is not being attempted.
+        
+        reliableReconnectCleanup();
     }
     
     /**
@@ -1377,6 +1434,18 @@ public class Channel extends EventDispatcher implements IMXMLObject
     private function reconnect(event:TimerEvent):void
     {
         internalConnect();
+    }
+
+    /**
+     *  @private
+     *  Cleanup following a reliable reconnect attempt.
+     */
+    private function reliableReconnectCleanup():void
+    {
+        reliableReconnectDuration = -1;
+        _reliableReconnectBeginTimestamp = 0;
+        _reliableReconnectLastTimestamp = 0;
+        _reliableReconnectAttempts = 0;
     }
     
     /**
