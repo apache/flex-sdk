@@ -166,7 +166,7 @@ public class Scroller extends SkinnableComponent
     //  horizontalScrollBar
     //---------------------------------- 
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     [Bindable]    
 
     /**
@@ -188,7 +188,7 @@ public class Scroller extends SkinnableComponent
     //  verticalScrollBar
     //---------------------------------- 
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     [Bindable]
     
     /**
