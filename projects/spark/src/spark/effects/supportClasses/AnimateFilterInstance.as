@@ -14,7 +14,6 @@ package mx.effects.effectClasses
     
 import mx.filters.IBitmapFilter;
 import mx.effects.FxAnimateFilter;
-import mx.filters.ShaderFilter;
 
 /**
  * The AnimateFilterInstance class implements the instance class for the
