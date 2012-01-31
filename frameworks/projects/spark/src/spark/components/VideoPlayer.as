@@ -39,14 +39,16 @@ import mx.managers.IFocusManagerContainer;
 import mx.managers.LayoutManager;
 import mx.utils.BitFlagUtil;
 
+import spark.components.mediaClasses.MuteButton;
+import spark.components.mediaClasses.ScrubBar;
+import spark.components.mediaClasses.StreamingVideoSource;
+import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.Range;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.StreamingVideoSource;
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
-import spark.events.VideoPlayerVolumeBarEvent;
 import spark.primitives.VideoElement;
 import spark.primitives.supportClasses.TextGraphicElement;
 
@@ -435,17 +437,16 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for the mute button.  When the 
-     *  video is muted, the selected property will be set to 
-     *  <code>true</code>.  When the video is not muted, 
-     *  the selected property will be set to <code>false</code>.
+     *  An optional skin part for the mute button.  The mute 
+     *  button has both a <code>muted</code> property and a 
+     *  <code>volume</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var muteButton:ToggleButtonBase;
+    public var muteButton:MuteButton;
     
     [SkinPart(required="false")]
     
@@ -511,7 +512,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var scrubBar:VideoPlayerScrubBar;
+    public var scrubBar:ScrubBar;
     
     [SkinPart(required="false")]
     
@@ -547,7 +548,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var volumeBar:VideoPlayerVolumeBar;
+    public var volumeBar:VolumeBar;
     
     //--------------------------------------------------------------------------
     //
@@ -765,6 +766,7 @@ public class VideoPlayer extends SkinnableComponent
     //----------------------------------
     
     [Inspectable(category="General", defaultValue="false")]
+    [Bindable("volumeChanged")]
     
     /**
      *  @copy spark.primitives.VideoElement#muted
@@ -809,6 +811,8 @@ public class VideoPlayer extends SkinnableComponent
         
         if (volumeBar)
             volumeBar.muted = value;
+        if (muteButton)
+            muteButton.muted = value;
     }
     
     //----------------------------------
@@ -1042,7 +1046,7 @@ public class VideoPlayer extends SkinnableComponent
             state="disabled"
         
         if (fullScreen)
-            return "fullScreen" + state.charAt(0).toUpperCase() + state.substring(1);
+            return state + "AndFullScreen";
         
         return state;
     }
@@ -1144,6 +1148,12 @@ public class VideoPlayer extends SkinnableComponent
                 volumeBar.muted = videoElement.muted;
             }
             
+            if (muteButton)
+            {
+                muteButton.volume = videoElement.volume;
+                muteButton.muted = videoElement.muted;
+            }
+            
             if (scrubBar)
                 updateScrubBar();
 
@@ -1152,9 +1162,6 @@ public class VideoPlayer extends SkinnableComponent
             
             if (totalTimeLabel)
                 updateTotalTime();
-            
-            if (muteButton)
-                muteButton.selected = videoElement.muted;
         }
         else if (instance == playButton)
         {
@@ -1175,9 +1182,12 @@ public class VideoPlayer extends SkinnableComponent
         else if (instance == muteButton)
         {
             if (videoElement)
-                muteButton.selected = muted;
+            {
+                muteButton.muted = muted;
+                muteButton.volume = volume;
+            }
             
-            muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
+            muteButton.addEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
         }
         else if (instance == volumeBar)
         {
@@ -1190,7 +1200,7 @@ public class VideoPlayer extends SkinnableComponent
             }
             
             volumeBar.addEventListener(Event.CHANGE, volumeBar_changeHandler);
-            volumeBar.addEventListener(VideoPlayerVolumeBarEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
+            volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
         {
@@ -1345,12 +1355,12 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == muteButton)
         {
-            playButton.removeEventListener(MouseEvent.CLICK, muteButton_clickHandler);
+            playButton.removeEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
         }
         else if (instance == volumeBar)
         {
             volumeBar.removeEventListener(Event.CHANGE, volumeBar_changeHandler);
-            volumeBar.removeEventListener(VideoPlayerVolumeBarEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
+            volumeBar.removeEventListener(FlexEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
         {
@@ -1450,7 +1460,8 @@ public class VideoPlayer extends SkinnableComponent
             scrubBar.value = isNaN(videoElement.playheadTime) ? 0 : videoElement.playheadTime;
         }
         
-        scrubBar.bufferedRange = [0, videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime];
+        scrubBar.bufferedStart = 0;
+        scrubBar.bufferedEnd = videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime;
     }
      
    /**
@@ -1616,7 +1627,16 @@ public class VideoPlayer extends SkinnableComponent
     private function videoElement_volumeChangedHandler(event:Event):void
     {
         if (volumeBar)
+        {
             volumeBar.value = volume;
+            volumeBar.muted = muted;
+        }
+        
+        if (muteButton)
+        {
+            muteButton.muted = muted;
+            muteButton.volume = volume;
+        }
         
         dispatchEvent(event);
     }
@@ -1784,14 +1804,15 @@ public class VideoPlayer extends SkinnableComponent
         // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
         systemManager.stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
-        fullScreenHideControlTimer.stop();
-        fullScreenHideControlTimer = null;
         
         // remove the event listeners to hide the controls
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
         systemManager.getSandboxRoot().removeEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+        
+        fullScreenHideControlTimer.stop();
+        fullScreenHideControlTimer = null;
         
         // make the controls visible no matter what
         playerControls.visible = true;
@@ -1857,12 +1878,9 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function muteButton_clickHandler(event:MouseEvent):void
+    private function muteButton_mutedChangeHandler(event:FlexEvent):void
     {
-        if (muted)
-            muted = false;
-        else
-            muted = true;
+        muted = muteButton.muted;
     }
     
     /**
@@ -1876,9 +1894,9 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function volumeBar_mutedChangeHandler(event:VideoPlayerVolumeBarEvent):void
+    private function volumeBar_mutedChangeHandler(event:FlexEvent):void
     {
-        muted = event.muted;
+        muted = volumeBar.muted;
     }
     
     /**
