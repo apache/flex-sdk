@@ -1288,8 +1288,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     mx_internal function getHeightInLines():Number
     {
-        if (textDisplay)
-            return textDisplay.heightInLines;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
+        if (richEditableText)
+            return richEditableText.heightInLines;
             
         // want the default to be NaN
         var v:* = textDisplayProperties.heightInLines;        
@@ -1303,7 +1305,10 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         if (textDisplay)
         {
-            textDisplay.heightInLines = value;
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
+            if (richEditableText)
+                richEditableText.heightInLines = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), 
                 HEIGHT_IN_LINES_PROPERTY_FLAG, true);
@@ -1375,8 +1380,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     mx_internal function getWidthInChars():Number
     {
-        if (textDisplay)
-            return textDisplay.widthInChars
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
+        if (richEditableText)
+            return richEditableText.widthInChars
             
         // want the default to be NaN
         var v:* = textDisplayProperties.widthInChars;
@@ -1390,7 +1397,10 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         if (textDisplay)
         {
-            textDisplay.widthInChars = value;
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
+            if (richEditableText)
+                richEditableText.widthInChars = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), 
                 WIDTH_IN_CHARS_PROPERTY_FLAG, true);
@@ -1437,9 +1447,9 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), EDITABLE_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.heightInLines !== undefined)
+        if (textDisplayProperties.heightInLines !== undefined && richEditableText)
         {
-            textDisplay.heightInLines = textDisplayProperties.heightInLines;
+            richEditableText.heightInLines = textDisplayProperties.heightInLines;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), 
                 HEIGHT_IN_LINES_PROPERTY_FLAG, true);
@@ -1510,9 +1520,9 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), TEXT_FLOW_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.widthInChars !== undefined)
+        if (textDisplayProperties.widthInChars !== undefined && richEditableText)
         {
-            textDisplay.widthInChars = textDisplayProperties.widthInChars;
+            richEditableText.widthInChars = textDisplayProperties.widthInChars;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), 
                 WIDTH_IN_CHARS_PROPERTY_FLAG, true);
@@ -1546,9 +1556,9 @@ public class SkinnableTextBase extends SkinnableComponent
         }
         
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              HEIGHT_IN_LINES_PROPERTY_FLAG))
+                              HEIGHT_IN_LINES_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.heightInLines = textDisplay.heightInLines;
+            newTextDisplayProperties.heightInLines = richEditableText.heightInLines;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
@@ -1609,9 +1619,9 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              WIDTH_IN_CHARS_PROPERTY_FLAG))
+                              WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.widthInChars = textDisplay.widthInChars;
+            newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
         }
             
         // Switch from storing bit mask to storing properties.
