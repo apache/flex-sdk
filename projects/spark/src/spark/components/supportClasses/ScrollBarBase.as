@@ -134,6 +134,7 @@ use namespace mx_internal;
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
 
 /**
