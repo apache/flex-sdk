@@ -493,7 +493,7 @@ public class AnimateTransform extends Animate
                 // For now, just make sure that we can transform the current target
                 // and that the target exists on the display tree, 
                 // then go ahead and capture its transform values
-                if (!(target is ILayoutElement) || !target.parent)
+                if (!(target is ILayoutElement) || (!target.parent && setStartValues))
                     continue;
     
                 valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
