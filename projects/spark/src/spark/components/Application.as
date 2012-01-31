@@ -316,7 +316,15 @@ public class Application extends SkinnableContainer
      */
     private var softKeyboardHandlersAdded:Boolean = false;
     
+    /**
+     *  @private
+     */
     private static var _softKeyboardBehavior:String = null;
+    
+    /**
+     *  @private
+     */
+    mx_internal var isSoftKeyboardActive:Boolean = false;
     
     /**
      *  @private
@@ -1578,11 +1586,14 @@ public class Application extends SkinnableContainer
      *  has been activated. 
      */    
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
-    {
+    {        
         if (this === FlexGlobals.topLevelApplication)
         {
             // Get the keyboard size
             var keyboardRect:Rectangle = stage.softKeyboardRect;
+     
+            if (keyboardRect.height > 0)
+                isSoftKeyboardActive = true;
             
             var sm:SystemManager = systemManager as SystemManager;
             var scaleFactor:Number = 1;
@@ -1609,7 +1620,8 @@ public class Application extends SkinnableContainer
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
     {
         if (this === FlexGlobals.topLevelApplication)
-        {                        
+        {            
+            isSoftKeyboardActive = false;
             var sm:SystemManager = systemManager as SystemManager;
             var scaleFactor:Number = 1;
             
