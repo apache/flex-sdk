@@ -277,14 +277,8 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
+     *  @private 
      *  Set this scrollbar's value to the viewport's current horizontalScrollPosition.
-     * 
-     *  @see IViewport#horizontalScrollPosition
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -293,13 +287,9 @@ public class HScrollBar extends ScrollBar
     } 
     
     /**
+     *  @private 
      *  Set this scrollbar's maximum to the viewport's contentWidth 
      *  less the viewport width and its pageSize to the viewport's width. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -316,16 +306,9 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
+     *  @private 
      *  Set this scrollbar's maximum to the viewport's contentWidth 
      *  less the viewport width. 
-     *
-     *  @see IViewport#contentWidth
-     *  @see IViewport#width 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
