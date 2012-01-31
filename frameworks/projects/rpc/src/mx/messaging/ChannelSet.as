@@ -1435,6 +1435,10 @@ public class ChannelSet extends EventDispatcher
             throw new NoChannelAvailableError(message);
         }
         
+        // Unwire from the current channel.
+        if (_currentChannel != null)
+            disconnectChannel();
+        
         // Advance to next channel, and reset to beginning if all Channels in the set
         // have been attempted.
         if (++_currentChannelIndex >= _channels.length)
