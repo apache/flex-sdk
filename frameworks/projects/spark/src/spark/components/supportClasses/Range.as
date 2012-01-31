@@ -411,9 +411,9 @@ public class Range extends SkinnableComponent
      * 
      *  <p>All updates to the value property cause a call to this method.</p>
      * 
-     *  <p>Subclasses that ensure compliance with <code>minimum</code>, 
-     *  <code>maximum</code>, and <code>valueInterval</code> 
-     *  can call this method to update the <code>value</code> property.</p>
+     *  <p>This method clamps value to <code>minimum</code> and <code>maxmimum</code>
+     *  if that's necessary and possible, however typcially subclasses will have
+     *  already done so.</p>
      * 
      *  @param value The new value of the <code>value</code> property.
      *
@@ -428,8 +428,10 @@ public class Range extends SkinnableComponent
     {
         if (_value == value)
             return;
-        
-        _value = value;
+        if (!isNaN(maximum) && !isNaN(minimum) && (maximum > minimum))
+            _value = Math.min(maximum, Math.max(minimum, value));
+        else
+            _value = value;
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
