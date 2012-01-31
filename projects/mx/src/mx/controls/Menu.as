@@ -37,7 +37,7 @@ import mx.controls.menuClasses.IMenuItemRenderer;
 import mx.controls.menuClasses.MenuItemRenderer;
 import mx.controls.menuClasses.MenuListData;
 import mx.controls.treeClasses.DefaultDataDescriptor;
-import mx.core.Application;
+import mx.core.ApplicationGlobals;
 import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
@@ -458,7 +458,7 @@ public class Menu extends List implements IFocusManagerContainer
     {
         var menu:Menu = new Menu();
         menu.tabEnabled = false;
-        menu.owner = DisplayObjectContainer(Application.application);
+        menu.owner = DisplayObjectContainer(ApplicationGlobals.application);
         menu.showRoot = showRoot;
         popUpMenu(menu, parent, mdp);
         return menu;
@@ -487,7 +487,7 @@ public class Menu extends List implements IFocusManagerContainer
     {
         menu.parentDisplayObject = parent ?
                                    parent :
-                                   DisplayObject(Application.application);
+                                   DisplayObject(ApplicationGlobals.application);
 
         if (!mdp)
             mdp = new XML();
