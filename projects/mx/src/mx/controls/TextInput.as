@@ -2350,6 +2350,13 @@ public class TextInput extends UIComponent
             case Keyboard.ENTER:
             {
                 dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+                 
+                // The user's enter handler may have modified the text.
+                // Make sure _text and _htmlText are commited to the textField
+                // before the change handler for the ENTER overwrites 
+                // _text and _htmlText with the values in textField.
+                if (textChanged || htmlTextChanged)
+                    validateNow();        
                 break;
             }
         }
