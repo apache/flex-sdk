@@ -70,6 +70,11 @@ use namespace mx_internal;
  *  the pop-up submenu.
  *
  *  @eventType mx.events.MenuEvent.CHANGE 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.MenuEvent")]
 
@@ -77,6 +82,11 @@ use namespace mx_internal;
  *  Dispatched when the user selects an item in a pop-up submenu.
  *
  *  @eventType mx.events.MenuEvent.ITEM_CLICK 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.MenuEvent")]
 
@@ -84,6 +94,11 @@ use namespace mx_internal;
  *  Dispatched when a pop-up submenu closes.
  *
  *  @eventType mx.events.MenuEvent.MENU_HIDE 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="menuHide", type="mx.events.MenuEvent")]
 
@@ -92,6 +107,11 @@ use namespace mx_internal;
  *  user selects a menu bar item with no drop-down menu.
  *
  *  @eventType mx.events.MenuEvent.MENU_SHOW 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="menuShow", type="mx.events.MenuEvent")]
 
@@ -99,6 +119,11 @@ use namespace mx_internal;
  *  Dispatched when the mouse pointer rolls out of a menu item.
  *
  *  @eventType mx.events.MenuEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.MenuEvent")]
 
@@ -106,6 +131,11 @@ use namespace mx_internal;
  *  Dispatched when the mouse pointer rolls over a menu item.
  *
  *  @eventType mx.events.MenuEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.MenuEvent")]
 
@@ -123,6 +153,11 @@ include "../styles/metadata/TextStyles.as"
  *  property.
  *  Valid values range from 0.0 to 1.0.
  *  @default 1.0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no", deprecatedReplacement="menuStyleName", deprecatedSince="3.0")]
 
@@ -142,6 +177,11 @@ include "../styles/metadata/TextStyles.as"
  *      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/&gt;
  *  &lt;/mx:<i>Container</i>&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="menuStyleName", deprecatedSince="3.0")]
 
@@ -149,6 +189,11 @@ include "../styles/metadata/TextStyles.as"
  *  The background skin of the MenuBar control. 
  *   
  *  @default mx.skins.halo.MenuBarBackgroundSkin 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundSkin", type="Class", inherit="no")]
 
@@ -156,6 +201,11 @@ include "../styles/metadata/TextStyles.as"
  *  The default skin for a MenuBar item
  * 
  *  @default mx.skins.halo.ActivatorSkin 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="itemSkin", type="Class", inherit="no", states="up, over, down")]
 
@@ -163,6 +213,11 @@ include "../styles/metadata/TextStyles.as"
  *  The skin when a MenuBar item is not selected.
  * 
  *  @default mx.skins.halo.ActivatorSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="itemUpSkin", type="Class", inherit="no")]
 
@@ -170,6 +225,11 @@ include "../styles/metadata/TextStyles.as"
  *  The skin when focus is over a MenuBar item either. 
  * 
  *  @default mx.skins.halo.ActivatorSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="itemOverSkin", type="Class", inherit="no")]
 
@@ -177,6 +237,11 @@ include "../styles/metadata/TextStyles.as"
  *  The skin when a MenuBar item is selected. 
  * 
  *  @default mx.skins.halo.ActivatorSkin 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="itemDownSkin", type="Class", inherit="no")]
 
@@ -190,17 +255,32 @@ include "../styles/metadata/TextStyles.as"
  *  of the Menu class, including <code>backgroundAlpha</code> and <code>backgroundColor</code>.</p>
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="menuStyleName", type="String", inherit="no")]
 
 
 /**
  *  @copy mx.controls.Menu#style:rollOverColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.controls.Menu#style:selectionColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -318,6 +398,11 @@ include "../styles/metadata/TextStyles.as"
  *
  *  @includeExample examples/MenuBarExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MenuBar extends UIComponent implements IFocusManagerComponent
 {
@@ -354,6 +439,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MenuBar()
     {
@@ -527,6 +617,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *
      *  <p>The default value is an internal instance of the
      *  DefaultDataDescriptor class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataDescriptor():IMenuDataDescriptor
     {
@@ -571,6 +666,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  </p>
      * 
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -656,6 +756,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
 
     /**
      *  @copy mx.controls.Menu#hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hasRoot():Boolean
     {
@@ -692,6 +797,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  with that name and expects that property to map to a Class.</p>
      *
      *  @default "icon"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconField():String
     {
@@ -735,6 +845,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  Setting the <code>labelFunction</code> property overrides this property.
      *
      *  @default "label"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -778,6 +893,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  <code>myLabelFunction(item:Object):String</code> </pre>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var labelFunction:Function;
 
@@ -809,6 +929,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  @default "mx.controls.menuClasses.MenuBarItem"
      * 
      *  @see mx.controls.menuClasses.MenuBarItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get menuBarItemRenderer():IFactory
     {
@@ -846,6 +971,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  @default [ ]
      * 
      *  @see mx.controls.menuClasses.MenuBarItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var menuBarItems:Array = [];
 
@@ -857,6 +987,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  The set of styles to pass from the MenuBar to the menuBar items.
      *  @see mx.styles.StyleProxy
      *  @review
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get menuBarItemStyleFilters():Object
     {
@@ -882,6 +1017,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  control's data provider.
      * 
      *  @default [ ] 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var menus:Array = [];
 
@@ -903,6 +1043,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  or the last opened Menu if none are currently open.    
      *  
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -948,6 +1093,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *
      *  @default true
      *  @see #hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showRoot():Boolean
     {
@@ -1008,6 +1158,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      * 
      *  This method is called when MenuBar children are created or when 
      *  any styles on the MenuBar changes. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateBackground():void
     {
@@ -1146,6 +1301,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     /**
      *  Calculates the preferred width and height of the MenuBar based on the
      *  default widths of the MenuBar items. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -1425,6 +1585,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
 
     /**
      *  @copy mx.controls.listClasses.ListBase#itemToLabel()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToLabel(data:Object):String
     {
@@ -1487,6 +1652,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  @param data The item from which to extract the icon class
      *  @return The icon for the item, as a class reference or 
      *  <code>null</code> if none.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToIcon(data:Object):Class
     {
@@ -1591,6 +1761,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
      *  @param index Index of the Menu instance to return.
      *
      *  @return Reference to the Menu contained at the specified index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getMenuAt(index:int):Menu
     {
