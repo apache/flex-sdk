@@ -183,11 +183,11 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  we want to carry around if the dataGroup changes (via a new skin). 
      *  In order to store this info effeciently, dataGroupProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitely set on this SkinnableDataContainer.  When the 
+     *  property has been explicitly set on this SkinnableDataContainer.  When the 
      *  dataGroup is not around, dataGroupProperties is a typeless 
      *  object to store these proxied properties.  When dataGroup is around,
      *  dataGroupProperties stores booleans as to whether these properties 
-     *  have been explicitely set or not.
+     *  have been explicitly set or not.
      */
     private var dataGroupProperties:Object = {};
     
@@ -458,8 +458,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //  layout
     //----------------------------------
     
-    private var _layout:LayoutBase;
-    
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
      *  
@@ -720,7 +718,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
             
-            // copy proxied values from dataGroup (if explicitely set) to dataGroupProperties
+            // copy proxied values from dataGroup (if explicitly set) to dataGroupProperties
             
             var newDataGroupProperties:Object = {};
             
