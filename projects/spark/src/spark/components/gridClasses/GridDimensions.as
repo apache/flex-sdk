@@ -131,6 +131,14 @@ public class GridDimensions
             return;
         
         _columnCount = value;
+        if (_columnCount == 0)
+        {
+            rowList.removeAll();
+            recentNode = null;
+            recentNode2 = null;
+            return;
+        }
+        
         rowList.numColumns = value;        
         
         var i:int;
@@ -1056,6 +1064,25 @@ public class GridDimensions
 
         return contentWidth;
     }
+    
+    /**
+     *  Returns the content height which is maximum cell height of the
+     *  typical item times the total number of rows including gaps. 
+     *  If rowCountOverride is specified, then we only include that many rows.
+     */
+    public function getTypicalContentHeight(rowCountOverride:int = -1):Number
+    {
+        const nRows:int = (rowCountOverride == -1) ? rowCount : rowCountOverride;
+        var contentHeight:Number = 0;
+        
+        if (nRows > 1)
+            contentHeight += (nRows - 1) * rowGap;
+        
+        if (!isNaN(fixedRowHeight))
+            return contentHeight + nRows * fixedRowHeight;
+        
+        return contentHeight + nRows * defaultRowHeight;
+    }
         
     /**
      *  Return the preferred bounds width of the grid's typicalItem when rendered with the item renderer 
@@ -1316,7 +1343,7 @@ public class GridDimensions
             case CollectionEventKind.MOVE: return dataProviderCollectionMove(event);
             case CollectionEventKind.REFRESH: return dataProviderCollectionRefresh(event);
             case CollectionEventKind.RESET: return dataProviderCollectionReset(event);
-            case CollectionEventKind.UPDATE: return dataProviderCollectionReplace(event); return true;
+            case CollectionEventKind.UPDATE: return true;
                 break;
         }
         
