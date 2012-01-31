@@ -234,7 +234,7 @@ public class List extends Selector
 	 *  itemRendererFunction properties down to the contentGroup
 	 *  skin part.
 	 */
-	override protected function partAdded(partName:String, instance:*):void
+	override protected function partAdded(partName:String, instance:Object):void
 	{
 		super.partAdded(partName, instance);
 		if (instance == dataGroup)
@@ -249,7 +249,7 @@ public class List extends Selector
 	/**
 	 *  Called when a skin part is removed.
 	 */
-	override protected function partRemoved(partName:String, instance:*):void
+	override protected function partRemoved(partName:String, instance:Object):void
 	{
 		if (instance == dataGroup)
 		{
