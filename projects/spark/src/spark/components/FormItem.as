@@ -102,7 +102,8 @@ public class FormItem extends SkinnableContainer
     //----------------------------------
     //  helpContent
     //----------------------------------
-    private var _helpContent:IDeferredInstance; 
+    private var _helpContent:IDeferredInstance;
+    private var helpContentChanged:Boolean = false;
     
     [Bindable("labelChanged")]
     [Inspectable(category="General", defaultValue="")]
@@ -116,8 +117,8 @@ public class FormItem extends SkinnableContainer
     public function set helpContent(value:IDeferredInstance):void
     {
         _helpContent = value;
-        
-        createHelpContent();
+        helpContentChanged = true;
+        invalidateProperties();
     }
     
     /**
@@ -268,6 +269,15 @@ public class FormItem extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
  
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        createHelpContent();
+    }
     
     /**
      *  @private
@@ -378,8 +388,10 @@ public class FormItem extends SkinnableContainer
      */
     private function createHelpContent():void
     {
-        if (_helpContent && helpContentGroup)
+        if (_helpContent && helpContentGroup && helpContentChanged)
         {            
+            helpContentChanged = false;
+            
             var content:Object = _helpContent.getInstance();
             
             if (!(content is Array))
