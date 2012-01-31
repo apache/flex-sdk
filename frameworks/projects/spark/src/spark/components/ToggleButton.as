@@ -106,7 +106,7 @@ public class FxToggleButton extends FxButton
             return;
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-        invalidateSkinState();
+        invalidateButtonState();
     }
 
     //--------------------------------------------------------------------------
@@ -118,12 +118,12 @@ public class FxToggleButton extends FxButton
     /**
      *  @inheritDoc
      */ 
-    protected override function getUpdatedSkinState():String
+    protected override function getCurrentSkinState():String
     {
         if( !selected )
-            return super.getUpdatedSkinState();
+            return super.getCurrentSkinState();
         else
-            return super.getUpdatedSkinState() + "AndSelected";
+            return super.getCurrentSkinState() + "AndSelected";
     }
 
     /**
