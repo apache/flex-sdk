@@ -21,31 +21,6 @@ import spark.layouts.supportClasses.LayoutBase;
 use namespace mx_internal;
 
 /**
- *  Alpha level of the background for this component.
- *  Valid values range from 0.0 to 1.0. 
- *  
- *  @default 1.0
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark")]
-
-/**
- *  Background color of a component.
- *  
- *  @default 0xFFFFFF
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark")]
-
-/**
  *  The alpha of the border for this component.
  * 
  *  @langversion 3.0
