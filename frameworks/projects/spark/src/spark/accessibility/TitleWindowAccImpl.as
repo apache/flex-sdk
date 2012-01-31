@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import spark.components.Panel;
 import spark.components.TitleWindow;
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -35,32 +36,6 @@ public class TitleWindowAccImpl extends PanelAccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_MOVEABLE:uint = 0x00040000;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_CREATE:uint = 0x8000;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_DESTROY:uint = 0x8001;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_LOCATIONCHANGE:uint = 0x800B;
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -110,7 +85,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
                 titleDisplay.tabIndex = TitleWindow(component).tabIndex;
          }
 
-		Accessibility.sendEvent(titleDisplay, 0, EVENT_OBJECT_CREATE);
+		Accessibility.sendEvent(titleDisplay, 0, AccConst.EVENT_OBJECT_CREATE);
 		Accessibility.updateProperties();
 	}
 
@@ -135,7 +110,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	{
 		super(master);
 		
-        role = 0x10; // ROLE_SYSTEM_PANE
+        role = AccConst.ROLE_SYSTEM_PANE;
         
 		TitleWindow(master).titleDisplay.addEventListener(MouseEvent.MOUSE_UP,
 													 eventHandler);
@@ -166,7 +141,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	{
 		var accState:uint = getState(childID);
 		
-		accState |= STATE_SYSTEM_MOVEABLE;
+		accState |= AccConst.STATE_SYSTEM_MOVEABLE;
 		
 		return accState;
 	}
@@ -196,13 +171,13 @@ public class TitleWindowAccImpl extends PanelAccImpl
 				if (event.target == TitleWindow(master).titleDisplay)
 				{
 					Accessibility.sendEvent(TitleWindow(master).titleDisplay, 0,
-											EVENT_OBJECT_LOCATIONCHANGE, true);
+											AccConst.EVENT_OBJECT_LOCATIONCHANGE, true);
 				}
 
 				if (event.target == TitleWindow(master).closeButton)
 				{
 					Accessibility.sendEvent(TitleWindow(master).titleDisplay, 0,
-											EVENT_OBJECT_DESTROY, true);
+											AccConst.EVENT_OBJECT_DESTROY, true);
 				}
 
 				Accessibility.updateProperties();
