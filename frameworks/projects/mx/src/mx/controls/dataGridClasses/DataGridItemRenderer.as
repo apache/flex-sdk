@@ -15,9 +15,10 @@ package mx.controls.dataGridClasses
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.getQualifiedSuperclassName;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
+import flash.utils.getQualifiedSuperclassName;
+
 import mx.controls.DataGrid;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
@@ -37,6 +38,7 @@ import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
+import mx.utils.PopUpUtil;
 
 use namespace mx_internal;
 
@@ -727,22 +729,15 @@ public class DataGridItemRenderer extends UITextField
     {
         var toolTip:IToolTip = event.toolTip;
 
-        // Calculate global position of label.
-        var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
-        var pt:Point = new Point(0, 0);
-        pt = localToGlobal(pt);
-        pt = sbRoot.globalToLocal(pt);          
-        
-        toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
-
-        var screenRight:Number = screen.x + screen.width;
-        pt.x = toolTip.x;
-        pt.y = toolTip.y;
-        pt = sbRoot.localToGlobal(pt);
-        if (pt.x + toolTip.width > screenRight)
-            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
+        // We need to position the tooltip at same x coordinate, 
+        // center vertically and make sure it doesn't overlap the screen.
+        // Call the helper function to handle this for us.
+        var pt:Point = PopUpUtil.positionOverComponent(this,
+                                                       systemManager,
+                                                       toolTip.width, 
+                                                       toolTip.height,
+                                                       height / 2); 
+        toolTip.move(pt.x, pt.y);
     }
 }
 
