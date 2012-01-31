@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.easing
+package mx.effects.fxEasing
 {
 /**
  * IEaser is an interface implemented by classes that provide time-easing
