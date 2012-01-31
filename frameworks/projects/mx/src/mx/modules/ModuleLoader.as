@@ -289,7 +289,7 @@ public class ModuleLoader extends VBox
 
         dispatchEvent(new FlexEvent(FlexEvent.URL_CHANGED));
 
-        if (_url != null && loadRequested)
+        if (_url != null && _url != "" && loadRequested)
             loadModule();
     }
 
@@ -350,9 +350,9 @@ public class ModuleLoader extends VBox
         if (url != null)
             _url = url;
             
-        if (_url == null)
+        if (_url == null || _url == "")
         {
-            //trace("loadModule() - null url");
+            //trace("loadModule() - null url or empty string url");
             return;
         }
         
