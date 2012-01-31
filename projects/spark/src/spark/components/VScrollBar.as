@@ -283,8 +283,8 @@ public class VScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // The minimum size we'll shrink the thumb to is either thumb.width or thumbSize: whichever is smaller.
-                thumbSize = Math.max(Math.min(thumb.width, thumbSize), thumbSize + pendingValue);
+                // The minimum size we'll shrink the thumb to is either thumb.minHeight or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.minHeight, thumbSize), thumbSize + pendingValue);
             }
             thumbPosTrackY = min;
         }
@@ -292,8 +292,8 @@ public class VScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // The minimum size we'll shrink the thumb to is either thumb.width or thumbSize: whichever is smaller.
-                thumbSize = Math.max(Math.min(thumb.width, thumbSize), thumbSize - (pendingValue - max));
+                // The minimum size we'll shrink the thumb to is either thumb.minHeight or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.minHeight, thumbSize), thumbSize - (pendingValue - max));
             }
             thumbPosTrackY = trackSize - thumbSize;
         }
