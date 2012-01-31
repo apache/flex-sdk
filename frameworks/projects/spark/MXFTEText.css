@@ -27,6 +27,13 @@
 */
 
 @namespace "library://ns.adobe.com/flex/halo";
+@namespace s "library://ns.adobe.com/flex/spark";
+
+
+s|TLFTextInput
+{
+	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
+}
 
 AlertForm
 {
@@ -45,11 +52,13 @@ CalendarLayout
 
 ColorPicker
 {
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
 	textInputClass: ClassReference("mx.controls.TLFTextInput");
 }
 
 ComboBox
 {
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
 	textInputClass: ClassReference("mx.controls.TLFTextInput");
 }
 
