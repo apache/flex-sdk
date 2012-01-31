@@ -2620,7 +2620,7 @@ public class FTETextField extends Sprite
 			
 			i = j + 1;
 		}
-		while (j != n);
+		while (j < n);
 		
 		// At this point, all TextLines have been composed
 		// and have the correct spacing, but are all left-aligned
