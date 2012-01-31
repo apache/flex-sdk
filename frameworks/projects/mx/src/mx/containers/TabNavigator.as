@@ -25,6 +25,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
 import mx.core.IProgrammaticSkin;
 import mx.core.IUIComponent;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManagerComponent;
@@ -754,6 +755,10 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
                     Container(parent).rawChildren.setChildIndex(
                         focusObj, Math.max(0, (fci == n) ? n - 1 : fci));
                 }
+                else if (parent is UIComponent)
+                {
+                    UIComponent(parent).$setChildIndex(focusObj, 0);
+                }
                 else
                 {
                     parent.setChildIndex(focusObj, 0);
@@ -770,6 +775,10 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
                 {
                     Container(parent).rawChildren.setChildIndex(
                             focusObj, Container(parent).rawChildren.numChildren - 1);
+                }
+                else if (parent is UIComponent)
+                {
+                    UIComponent(parent).$setChildIndex(focusObj, parent.numChildren - 1);
                 }
                 else
                 {
