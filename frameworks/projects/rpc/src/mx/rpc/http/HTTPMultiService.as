@@ -87,6 +87,9 @@ use namespace mx_internal;
  *  the <code>useProxy </code> property to true and you use the server-based proxy service, you
  *  can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.</p>
  *
+ *  <p><b>Note:</b> Unlike the HTTPService class, the HTTPMultiService class does not 
+ *  define a <code>request</code> property.</p>
+ *
  *  <p><b>Note:</b> Due to a software limitation, like HTTPService, the HTTPMultiService does 
  *  not generate user-friendly error messages when using GET and not using a proxy.</p>
  * 
@@ -96,6 +99,8 @@ use namespace mx_internal;
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
+ * 
+ *  @see mx.rpc.http.HTTPService
  */
 public dynamic class HTTPMultiService extends AbstractService
 {
