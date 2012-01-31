@@ -34,6 +34,12 @@ use namespace mx_internal;
  *  @see mx.messaging.events.MessageQueueStatusCode
  *
  *  @eventType flash.events.StatusEvent.STATUS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="status", type="flash.events.StatusEvent")]    
 
@@ -42,6 +48,12 @@ use namespace mx_internal;
  * the message queue completes successfully.
  * 
  * @eventType mx.rpc.events.ResultEvent.RESULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="result", type="mx.rpc.events.ResultEvent")]
 
@@ -50,6 +62,12 @@ use namespace mx_internal;
  * the message queue fails.
  * 
  * @eventType mx.rpc.events.FaultEvent.FAULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="fault", type="mx.rpc.events.FaultEvent")]
 
@@ -75,6 +93,12 @@ public class AbstractMessageStore extends ArrayCollection
     [Deprecated(since="3.0.0")]
     /**
      *  Constructs an AbstractMessageStore.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function AbstractMessageStore() 
     {
@@ -98,6 +122,12 @@ public class AbstractMessageStore extends ArrayCollection
     /**
      *  Indicates whether queued messages are automatically sent upon
      *  connect or reconnect of the associated Producer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get autoSend():Boolean
     {
@@ -137,6 +167,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  A developer must set this property to a unique value for the 
      *  application.
      *  A value of <code>null</code> or empty string is considered unset. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */  
     public function get cacheID():String
     {
@@ -168,6 +204,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  Indicates if the store has been initialized.
      *  If not initialized call the <code>initialize()</code> method before
      *  using this store.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
      public function get isInitialized():Boolean
      {
@@ -184,6 +226,12 @@ public class AbstractMessageStore extends ArrayCollection
     
     /**
      *  True if the persistent state for the store has been loaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get loaded():Boolean
     {
@@ -200,6 +248,12 @@ public class AbstractMessageStore extends ArrayCollection
     
     /**
      *  The Producer the queue is assigned to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get producer():AbstractProducer
     {
@@ -218,6 +272,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  the message is sent directly rather than being queued.
      * 
      *  @param item The message to add to the queue.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function addItem(item:Object):void
     {
@@ -238,6 +298,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  ResultEvents and FaultEvents dispatched by the MessageStore.
      * 
      *  @throws IllegalOperationError if no cacheID has been set
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function clearCache():AsyncToken
     {
@@ -270,6 +336,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  filled with all cache identifiers previously used in the application.
 	 *  @return AsyncToken reference to the token that will identify this 
 	 *  operation in a result or fault event dispatched from this service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function getCacheIDs(view:ListCollectionView):AsyncToken
     {
@@ -284,6 +356,12 @@ public class AbstractMessageStore extends ArrayCollection
      * 
      *  @return AsyncToken which can be used to respond to the success or 
      *  failure of the operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function initialize():AsyncToken
     {
@@ -318,6 +396,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  @throws IllegalOperationError if the <code>cacheID</code> property is 
      *  invalid.
      *  @see mx.messaging.MessageStore#cacheID
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function loadCache():AsyncToken
     {
@@ -348,6 +432,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  If this method is invoked before the MessageStore has initialized or 
      *  after it has been released it is a no-op; however it will still return 
      *  a token and dispatch a ResultEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function release():AsyncToken
     {     
@@ -374,6 +464,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  ResultEvents and FaultEvents dispatched by the MessageStore.
      * 
      *  @throws IllegalOperationError If the cacheID has not been set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function saveCache():AsyncToken
     {
@@ -411,6 +507,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  DSMessageStore header by the store implementation. 
      *
      *  @param msg The message to queue. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     mx_internal function addMessage(msg:IMessage):void {}
     
@@ -422,6 +524,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  removed from the store before being sent over the network.
      *
      *  @param msg The message to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     mx_internal function removeMessage(msg:IMessage):void {}
     
@@ -429,6 +537,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  Sets the producer for this message store.
      *  This method is called by the AbstractProducer when it's messageStore
      *  property is set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     mx_internal function setProducer(value:AbstractProducer):void
     {
@@ -479,6 +593,12 @@ public class AbstractMessageStore extends ArrayCollection
      * 
      *  @param token The token associated with the fault.
      *  @param fault The fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function dispatchFaultEvent(fault:Fault, token:AsyncToken):void
     {        
@@ -495,6 +615,12 @@ public class AbstractMessageStore extends ArrayCollection
      * 
      *  @param token The token associated with the result.
      *  @param generalDispatch Allows code to trigger responders without dispatching a general result event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function dispatchResultEvent(event:ResultEvent, token:AsyncToken):void
     {
@@ -505,18 +631,36 @@ public class AbstractMessageStore extends ArrayCollection
     
     /**
      * The decendant class must clear the local disk of any cached data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalClearCache(token:AsyncToken):void {}
     
     /**
      *  The descendant class must retrieve the cache ids from the local store and
      *  add them to the specified view.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalGetCacheIDs(view:ListCollectionView, 
                                            token:AsyncToken):void {}
 
     /**
      *  The descendant class must initialize the local store.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalInitialize(success:Function, failed:Function):void
     {
@@ -526,21 +670,45 @@ public class AbstractMessageStore extends ArrayCollection
     /**
      *  The descendant class must load the store with any data found for the
      *  specified cacheID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalLoadCache(token:AsyncToken):void {}
     
     /**
      *  The descendant class must release any disk/local store resources
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalRelease(token:AsyncToken):void {}
     
     /**
      *  The descendant class must perform any local storage configuration here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalSetCacheId(value:String):void {}
     
     /**
      *  The descendant class must save the current state of the store to disk.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalSaveCache(token:AsyncToken):void {}
 
@@ -569,6 +737,12 @@ public class AbstractMessageStore extends ArrayCollection
     /**
      *  This method is called by implementations once all data is loaded from
      *  disk.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	protected function setLoaded(value:Boolean):void
 	{
@@ -632,6 +806,12 @@ public class AbstractMessageStore extends ArrayCollection
      *  originate from the proper queue and have been removed from the queue before
      *  being sent. This header is automatically removed from the message before it 
      *  is sent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const MESSAGE_STORE_HEADER:String = "DSMessageStore";
 }
