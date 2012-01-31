@@ -581,7 +581,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // array is returned. Consider reversed HSliders or VSliders.
         var prevValue:Number = this.value;
         var newValue:Number;
-        var stopPropagation:Boolean = false;
         
         switch (event.keyCode)
         {
@@ -590,7 +589,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             {
                 newValue = nearestValidValue(pendingValue - stepSize, snapInterval);
                 setValue(newValue);
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
 
@@ -599,38 +598,28 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             {
                 newValue = nearestValidValue(pendingValue + stepSize, snapInterval);
                 setValue(newValue);
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
             
             case Keyboard.HOME:
             {
                 value = minimum;
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.END:
             {
                 value = maximum;
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
         }
 
         if (value != prevValue)
             dispatchEvent(new Event(Event.CHANGE));
-          
-        // Flex 4 redispatches scrolling keyboard events with cancelable=true
-        // so typically we will preventDefault (read "cancel") here, rather
-        // than stopping dispatching.
-        if (stopPropagation)
-        {
-            if (event.cancelable)
-                event.preventDefault();
-            else
-                event.stopPropagation();
-        }
+
     }
 
     //---------------------------------
