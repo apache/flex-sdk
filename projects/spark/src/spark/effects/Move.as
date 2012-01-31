@@ -15,6 +15,7 @@ import flash.geom.Vector3D;
 
 import mx.effects.IEffectInstance;
 
+import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
@@ -223,7 +224,7 @@ public class Move extends AnimateTransform
      */
     override public function createInstance(target:Object = null):IEffectInstance
     {
-        motionPaths = [];
+        motionPaths = new Vector.<MotionPath>();
         return super.createInstance(target);
     }
 
