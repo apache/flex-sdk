@@ -36,7 +36,7 @@ import spark.core.NavigationUnit;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
@@ -46,7 +46,7 @@ import spark.core.NavigationUnit;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#rollOverColor
@@ -56,7 +56,7 @@ import spark.core.NavigationUnit;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#selectionColor
@@ -66,7 +66,7 @@ import spark.core.NavigationUnit;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
+[Style(name="selectionColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#symbolColor
@@ -76,7 +76,7 @@ import spark.core.NavigationUnit;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 //--------------------------------------
 //  Other metadata
