@@ -994,6 +994,8 @@ public class ScrollControlBase extends UIComponent
         {
             // We need to remove this scrollBar.
             horizontalScrollPosition = 0;
+            horizontalScrollBar.setScrollProperties(
+                 visibleColumns, 0, 0);
             horizontalScrollBar.visible = false;
             viewableColumns = NaN;
             scrollAreaChanged = true;
@@ -1041,6 +1043,8 @@ public class ScrollControlBase extends UIComponent
                  verticalScrollBar && verticalScrollBar.visible)
         {
             verticalScrollPosition = 0;
+            verticalScrollBar.setScrollProperties(
+                    visibleRows, 0, 0);
             verticalScrollBar.visible = false;
             viewableRows = NaN;
             scrollAreaChanged = true;
