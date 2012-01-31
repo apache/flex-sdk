@@ -27,7 +27,7 @@ and localized strings.
     </fx:Declarations>    
     
     <s:Panel title='Spark DataGrid Control Example demonstrates the use of selectedItem to connect "master" and "detail" views'
-             width="75%" height="100%" 
+             width="75%" height="75%" 
              horizontalCenter="0" verticalCenter="0">
         
         <s:VGroup horizontalAlign="justify" left="5" right="5" top="5" bottom="5">
