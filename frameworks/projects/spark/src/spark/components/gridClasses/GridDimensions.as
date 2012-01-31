@@ -123,7 +123,8 @@ public class GridDimensions
         if (value == _columnCount)
             return;
         
-        _columnCount = rowList.numColumns = value;
+        _columnCount = value;
+        rowList.numColumns = value;        
         
         var i:int;
         
