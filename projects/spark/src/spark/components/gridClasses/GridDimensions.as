@@ -1819,7 +1819,7 @@ public class GridDimensions
     {
         const column:GridColumn = pcEvent.source as GridColumn;
         const columnIndex:int = column.columnIndex;
-        if (!column || columnIndex == -1)
+        if (!column || columnIndex < 0 || columnIndex >= _columnCount)
             return;
         
         clearColumns(columnIndex, 1);
