@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.primitives.supportClasses
 {
 
 import flash.display.BlendMode;
@@ -26,7 +26,7 @@ import flashx.undo.UndoManager;
 
 import mx.core.mx_internal;
 
-import spark.components.RichEditableText;
+import spark.primitives.RichEditableText;
 import spark.components.TextSelectionVisibility;
 
 /**
