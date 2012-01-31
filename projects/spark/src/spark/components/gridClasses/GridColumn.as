@@ -468,16 +468,12 @@ public class GridColumn extends EventDispatcher
     [Bindable("itemEditorChanged")]
     
     /**
-     *  A factory for IGridItemEditors used to edit individual grid cells.
-     *  This property is only applies to grid columns that are used with
-     *  DataGrids.
-     * 
-     *  <p>If a column is editable this property determines the editor that
-     *  will be used. If this property is not specified, then the <code>
-     *  itemEditor</code> property of the DataGrid will be used. If the
-     *  DataGrid does not supply and editor then the <code>TextGridItemEditor
-     *  </code> will be used.
-     * </p>
+     *  A factory for IGridItemEditors used to edit individual grid cells in 
+     *  this column.
+
+     *  If this property is null, and the column grid's owner is a DataGrid, 
+     *  then the value of the DataGrid's itemEditor property is used.   The
+     *  default DataGrid item editor is TextGridItemEditor.
      * 
      *  @default null
      *
