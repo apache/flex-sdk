@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the s:Move class. -->
+<!-- Simple example to demonstrate the s:Move3D class. -->
 <s:Application
-	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Declarations>
         <s:Move3D id="moveEffect" target="{targetBox}" xBy="100" zBy="100"
-        	repeatCount="2" repeatBehavior="reverse" 
-        	effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
+            repeatCount="2" repeatBehavior="reverse" 
+            effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
     </fx:Declarations>
 
-    <s:Panel title="AnimateTransformMove3D Effect Example"
-    	width="75%" height="75%" >
+    <s:Panel title="Move3D Effect Example"
+        width="75%" height="75%" >
 
         <mx:HBox width="100%" height="100%">
             <!-- Our target to affect-->
@@ -22,7 +22,7 @@
             </mx:VBox>
             <mx:VBox id="detailsBox" width="50%" left="0">
                 <mx:Text width="99%" color="blue"
-		        	text="The AnimateTransformMove3D effect changes the location of a target using the following parameters: xFrom, xTo, xBy, yFrom, xTo, yBy. Click 'AnimateTransformMove3D' to watch the effect."/>
+                    text="The Move3D effect changes the location of a target using the following parameters: xFrom, xTo, xBy, yFrom, xTo, yBy. Click 'Move3D' to watch the effect."/>
             </mx:VBox>
         </mx:HBox>
 
@@ -35,7 +35,7 @@
             </s:fill>
         </s:Rect>
         <s:Button id="playButton"
-        	left="5" bottom="5"
-        	label="AnimateTransformMove3D" click="moveEffect.play();"/>
+            left="5" bottom="5"
+            label="Move3D" click="moveEffect.play();"/>
     </s:Panel>
 </s:Application>
