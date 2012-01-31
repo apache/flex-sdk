@@ -9,17 +9,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
-import flex.core.Group;
-import flex.effects.Animation;
-import flex.effects.PropertyValuesHolder;
-import flex.effects.easing.IEaser;
-import flex.effects.interpolation.IInterpolator;
-import flex.events.AnimationEvent;
+import mx.components.Group;
+import mx.effects.Animation;
+import mx.effects.PropertyValuesHolder;
+import mx.effects.easing.IEaser;
+import mx.effects.interpolation.IInterpolator;
+import mx.events.AnimationEvent;
 
 import mx.core.UIComponent;
 import mx.effects.EffectInstance;
@@ -31,11 +31,11 @@ import mx.styles.IStyleClient;
  * Animate effect. Flex creates an instance of this class when
  * it plays a Animate effect; you do not create one yourself.
  */
-public class AnimateInstance extends EffectInstance
+public class FxAnimateInstance extends EffectInstance
 {
     public var animation:Animation;
     
-    public function AnimateInstance(target:Object)
+    public function FxAnimateInstance(target:Object)
     {
         super(target);
     }
