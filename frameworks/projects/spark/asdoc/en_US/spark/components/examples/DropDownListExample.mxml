@@ -30,8 +30,8 @@
 		<s:VGroup left="10" right="10" top="10" bottom="10">
 
 			<!-- Text components used to display current selection and price -->
-			<s:SimpleText id="currSel" text="Current Product = -"/>
-			<s:SimpleText id="currPrc" text="Price = $ -"/>
+			<s:Label id="currSel" text="Current Product = -"/>
+			<s:Label id="currPrc" text="Price = $ -"/>
 
 			<!-- DropDownList will call the updateSelection function when the
 			selectionChanged event is dispatched -->
