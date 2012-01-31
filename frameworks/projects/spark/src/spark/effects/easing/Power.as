@@ -20,7 +20,7 @@ package spark.effects.easing
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Power extends EaseInOut
+public class Power extends EaseInOutBase
 {
     /**
      * Storage for the exponent property
