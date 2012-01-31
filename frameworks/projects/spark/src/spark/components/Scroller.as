@@ -756,6 +756,11 @@ public class Scroller extends SkinnableComponent
      */
     private var lastFocusedElementCaretBounds:Rectangle;
     
+    /**
+     *  @private 
+     */
+    private var captureNextCaretBoundsChange:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1881,6 +1886,9 @@ public class Scroller extends SkinnableComponent
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
                 softKeyboardActivateHandler, false, 
                 EventPriority.DEFAULT, true);
+            addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                softKeyboardActivateCaptureHandler, true, 
+                EventPriority.DEFAULT, true);
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
                 softKeyboardDeactivateHandler, false, 
                 EventPriority.DEFAULT, true);  
@@ -2627,8 +2635,25 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Called when the soft keyboard is activated. Tells the top level 
-     *  application to resize itself
+     *  Called when the soft keyboard is activated. 
+     * 
+     *  There are three use cases for Scroller and text component interaction
+     * 
+     *  A. Pressing a TextInput to open up the soft keyboard
+     *  B. Pressing in the middle of a TextArea to open up the soft keyboard
+     *  C. Pressing in a text component on a device that doesn't support soft keyboard
+     * 
+     *  For use case A, lastFocusedElementCaretBounds is never set, so we just
+     *  call ensureElementIsVisible on the TextInput
+     * 
+     *  For use case B, we first get a softKeyboard active event in the 
+     *  capture phase. We then receive a caretBoundsChange event from the 
+     *  TextArea skin. We store the bounds in lastFocusedElementCaretBounds
+     *  and use that value in the call to ensureElementPositionIsVisible in
+     *  the softKeyboard activate bubble phase. 
+     * 
+     *  For use case C, we never receive a soft keyboard activate event, so 
+     *  we just listen for caretBoundsChange. 
      */  
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {
@@ -2662,6 +2687,22 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
+     *  @private 
+     *  Listen for softKeyboard activate in the capture phase so we know if
+     *  we need to delay calling ensureElementPositionIsVisible if we get
+     *  a caretBoundsChange event
+     */ 
+    private function softKeyboardActivateCaptureHandler(event:SoftKeyboardEvent):void
+    {
+        var keyboardRect:Rectangle = stage.softKeyboardRect;
+        
+        if (keyboardRect.width > 0 && keyboardRect.height > 0)
+        {
+            captureNextCaretBoundsChange = true;
+        }
+    }
+    
+    /**
      *  @private
      *  Called when the soft keyboard is deactivated. Tells the top level 
      *  application to resize itself and fix the scroll position if necessary
@@ -2690,23 +2731,26 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
+     * 
+     *  If we just received a softKeyboardActivate event in the capture phase,
+     *  we will wait until the bubble phase to call ensureElementPositionIsVisible
+     *  For now, store the caret bounds to be used. 
      */
     private function caretBoundsChangeHandler(event:CaretBoundsChangeEvent):void
     {
         if (event.isDefaultPrevented())
             return;
         
-        // If the soft keyboard is not up yet, then just store the caretBounds
-        // It will be used in the softKeyboardActivateHandler
-        if (!isNaN(oldSoftKeyboardHeight))
+        event.preventDefault();
+
+        if (captureNextCaretBoundsChange)
         {
-            ensureElementPositionIsVisible(lastFocusedElement, event.newCaretBounds, false);
-            event.preventDefault();
+            lastFocusedElementCaretBounds = event.newCaretBounds;
+            captureNextCaretBoundsChange = false;
+            return;
         }
         
-        lastFocusedElementCaretBounds = event.newCaretBounds;
-        
-        
+        ensureElementPositionIsVisible(lastFocusedElement, event.newCaretBounds, false);
     }
 }
 
