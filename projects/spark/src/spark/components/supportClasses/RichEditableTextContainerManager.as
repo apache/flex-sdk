@@ -15,6 +15,7 @@ package spark.primitives.supportClasses
 import flash.display.BlendMode;
 import flash.display.Graphics;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
 
 import flashx.textLayout.container.TextContainerManager;
@@ -232,6 +233,19 @@ public class RichEditableTextContainerManager extends TextContainerManager
         textView.focusInHandler(event);
 
         super.focusInHandler(event);
+    }    
+
+    /**
+     *  @private
+     */
+    override public function keyDownHandler(event:KeyboardEvent):void
+    {
+        super.keyDownHandler(event);
+        
+        // Assume when this has focus it handles all keys.  Setting this will
+        // tell our scroller, if there is one, that it shouldn't act on the
+        // key.
+        event.preventDefault();
     }    
 }
 
