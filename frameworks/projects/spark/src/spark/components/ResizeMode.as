@@ -22,6 +22,11 @@ package mx.components
  *
  *  <p>Alternative option for the component is to change its scale, in which case
  *  the children don't need to change at all. This is supported by <code>Group</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public final class ResizeMode
 {
@@ -30,6 +35,11 @@ public final class ResizeMode
      *
      *  <p>The component always sizes itself, and then lays out 
      *  its children at the actual size specified by the layout or the user.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const NORMAL:String = "normal";
 
@@ -40,6 +50,11 @@ public final class ResizeMode
      *  <p>The component always sizes itself, and then lays out 
      *  Its children at its measured size. 
      *  The scale is adjusted to match the specified size by the layout or the user.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const SCALE:String = "scale";
 }
