@@ -26,34 +26,36 @@ import mx.events.PropertyChangeEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
-import org.osmf.display.MediaPlayerSprite;
-import org.osmf.display.ScaleMode;
-import org.osmf.display.ScaleModeUtils;
+
+import org.osmf.containers.MediaContainer;
+import org.osmf.elements.VideoElement;
 import org.osmf.events.AudioEvent;
-import org.osmf.events.DimensionEvent;
+import org.osmf.events.DisplayObjectEvent;
 import org.osmf.events.LoadEvent;
 import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 import org.osmf.events.MediaPlayerStateChangeEvent;
-import org.osmf.events.PlayingChangeEvent;
 import org.osmf.events.SeekEvent;
 import org.osmf.events.TimeEvent;
-import org.osmf.gateways.RegionGateway;
-import org.osmf.layout.LayoutUtils;
-import org.osmf.layout.RegistrationPoint;
-import org.osmf.media.IMediaResource;
+import org.osmf.layout.HorizontalAlign;
+import org.osmf.layout.LayoutMetadata;
+import org.osmf.layout.ScaleMode;
+import org.osmf.layout.VerticalAlign;
+import org.osmf.media.DefaultMediaFactory;
+import org.osmf.media.MediaElement;
+import org.osmf.media.MediaFactory;
+import org.osmf.media.MediaFactoryItem;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.MediaPlayerState;
+import org.osmf.media.MediaResourceBase;
 import org.osmf.media.URLResource;
-import org.osmf.metadata.MediaType;
-import org.osmf.metadata.MediaTypeFacet;
+import org.osmf.media.MediaType;
 import org.osmf.net.NetLoader;
-import org.osmf.net.dynamicstreaming.DynamicStreamingItem;
-import org.osmf.net.dynamicstreaming.DynamicStreamingNetLoader;
-import org.osmf.net.dynamicstreaming.DynamicStreamingResource;
-import org.osmf.utils.FMSURL;
+import org.osmf.net.DynamicStreamingItem;
+import org.osmf.net.rtmpstreaming.RTMPDynamicStreamingNetLoader;
+import org.osmf.net.DynamicStreamingResource;
+import org.osmf.net.FMSURL;
 import org.osmf.utils.OSMFStrings;
 import org.osmf.utils.URL;
-import org.osmf.video.VideoElement;
 
 import spark.components.mediaClasses.DynamicStreamingVideoItem;
 import spark.components.mediaClasses.DynamicStreamingVideoSource;
@@ -237,6 +239,84 @@ public class VideoDisplay extends UIComponent
         return resourceManager.getString("osmf", resourceName, args);
     }
     
+    /**
+     * Copied from OSMF ScaleModeUtils.getScaledSize. ScaleModeUtils became
+     * an internal OSMF class in OSMF 1.0 so it is copied here.
+     * 
+     * Calculates the scaled size based on the scaling algorithm.  
+     * The available width and height are the width and height of the container.
+     * The intrinsic width and height are the width and height of the content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion OSMF 1.0
+     */ 
+    private static function getScaledSize
+        ( scaleMode:String
+          , availableWidth:Number, availableHeight:Number
+            , intrinsicWidth:Number, intrinsicHeight:Number
+        ):Point
+    {
+        var result:Point;
+        
+        switch (scaleMode)
+        {
+            case ScaleMode.ZOOM:
+            case ScaleMode.LETTERBOX:
+                
+                var availableRatio:Number
+                = availableWidth
+                / availableHeight;
+                
+                var componentRatio:Number 
+                = (intrinsicWidth || availableWidth)
+                / (intrinsicHeight || availableHeight);
+                
+                if 	(	(scaleMode == ScaleMode.ZOOM && componentRatio < availableRatio) 
+                    ||	(scaleMode == ScaleMode.LETTERBOX && componentRatio > availableRatio)
+                )
+                {
+                    result 
+                    = new Point
+                        ( availableWidth
+                            , availableWidth / componentRatio
+                        );
+                }
+                else
+                {
+                    result
+                    = new Point
+                        ( availableHeight * componentRatio
+                            , availableHeight
+                        );
+                }
+                
+                break;
+            
+            case ScaleMode.STRETCH:
+                
+                result 
+                = new Point
+                ( availableWidth
+                    , availableHeight
+                );
+                break;
+            
+            case ScaleMode.NONE:
+                
+                result
+                = new Point
+                ( intrinsicWidth	|| availableWidth
+                    , intrinsicHeight	|| availableHeight
+                );
+                
+                break;
+        }
+        
+        return result;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -263,8 +343,8 @@ public class VideoDisplay extends UIComponent
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
         
-        // Set the TLF hook used for localizing runtime error messages.
-        // TLF itself has English-only messages,
+        // Set the OSMF hook used for localizing runtime error messages.
+        // OSMF itself has English-only messages,
         // but higher layers like Flex can provide localized versions.
         OSMFStrings.resourceStringFunction = getResourceString;
     }
@@ -284,11 +364,18 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  This is the underlying gateway object used to display
+     *  This is the underlying container used to display
      *  the underlying videoPlayer.
      */
-    mx_internal var videoGateway:RegionGateway;
-    
+    mx_internal var videoContainer:MediaContainer;
+      
+    /**
+     *  @private
+     *  How the correct media elements are created based on the url of
+     *  the resource.
+     */
+    mx_internal var mediaFactory:MediaFactory;
+      
     /**
      *  @private
      *  Whether the video is on the display list or not
@@ -356,7 +443,7 @@ public class VideoDisplay extends UIComponent
      *  video because of autoDisplayFirstFrame.
      * 
      *  <p>In this case we are in "state2" of loading, 
-     *  which means have set videoPlayer.view.visible=false  
+     *  which means have set videoPlayer.displayObject.visible=false  
      *  and videoPlayer.muted=true.  We've also called play() and are 
      *  waiting for the DimensionChangeEvent.</p>
      * 
@@ -869,8 +956,13 @@ public class VideoDisplay extends UIComponent
         }
         
         // set scaleMode on the videoElement object
-        if (videoPlayer.element)
-            LayoutUtils.setLayoutAttributes(videoPlayer.element.metadata, scaleMode, RegistrationPoint.CENTER);
+        if (videoPlayer.media)
+        {
+            var layout:LayoutMetadata = videoPlayer.media.
+                                getMetadata(LayoutMetadata.LAYOUT_NAMESPACE) as LayoutMetadata;
+            if (layout)
+                layout.scaleMode = _scaleMode;
+        }
         
         invalidateSize();
         invalidateDisplayList();
@@ -1081,7 +1173,7 @@ public class VideoDisplay extends UIComponent
      */
     public function get videoObject():Video
     {
-        return videoPlayer.view as Video;
+        return videoPlayer.displayObject as Video;
     }
     
     //----------------------------------
@@ -1190,8 +1282,15 @@ public class VideoDisplay extends UIComponent
         }
         else
         {
-            intrinsicWidth = videoPlayer.width;
-            intrinsicHeight = videoPlayer.height;
+            // If there is no media the width/height will be NaN.
+            // Convert it to zero for our purposes.
+            intrinsicWidth = videoPlayer.mediaWidth;
+            if (isNaN(intrinsicWidth))
+                intrinsicWidth = 0;
+
+            intrinsicHeight = videoPlayer.mediaHeight;
+            if (isNaN(intrinsicHeight))
+                intrinsicHeight = 0;
         }
 
         measuredWidth = intrinsicWidth;
@@ -1220,7 +1319,7 @@ public class VideoDisplay extends UIComponent
         if (thumbnailSource && thumbnailGroup)
         {
             // get what the size of our image should be
-            var newSize:Point = ScaleModeUtils.getScaledSize(scaleMode, unscaledWidth, unscaledHeight, 
+            var newSize:Point = getScaledSize(scaleMode, unscaledWidth, unscaledHeight, 
                 thumbnailBitmapImage.getPreferredBoundsWidth(), thumbnailBitmapImage.getPreferredBoundsHeight());
             
             // set the thumbnailGroup to be the size of the component.
@@ -1236,13 +1335,12 @@ public class VideoDisplay extends UIComponent
             return;
         }
         
-        // set the gateway's dimensions
-        LayoutUtils.setAbsoluteLayout(videoGateway.metadata, 
-            Math.floor(unscaledWidth), Math.floor(unscaledHeight));
-        
-        // need to validate the gateway immediately--otherwise we may run out of synch 
+        videoContainer.width = Math.floor(unscaledWidth);
+        videoContainer.height = Math.floor(unscaledHeight);
+
+        // need to validate the gateway immediately--otherwise we may run out of synch
         // as they may wait a frame by default before validating (see SDK-24880)
-        videoGateway.validateContentNow();
+        videoContainer.validateNow();
     }
     
     //--------------------------------------------------------------------------
@@ -1277,9 +1375,9 @@ public class VideoDisplay extends UIComponent
         // if inLoadingState1 && !pausable, then let the loading state handle it
         // if !inLoadingState1 && pausable, then just pause
         // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
-        if (!inLoadingState1 && videoPlayer.pausable)
+        if (!inLoadingState1 && videoPlayer.canPause)
             videoPlayer.pause();
-        else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+        else if (!videoPlayer.canPause && autoDisplayFirstFrame)
             load();
     }
     
@@ -1304,7 +1402,7 @@ public class VideoDisplay extends UIComponent
         // and to start playing again.  Otherwise, go ahead and play
         if (inLoadingState1)
             cancelLoadAndPlay();
-        else if (videoPlayer.playable)
+        else if (videoPlayer.canPlay)
             videoPlayer.play();
     }
     
@@ -1346,7 +1444,7 @@ public class VideoDisplay extends UIComponent
         
         // TODO (rfrishbe): could handle what to do if this gets called when loading() better.
         // Need to store where we want to seek to.
-        if (videoPlayer.seekable)
+        if (videoPlayer.canSeek)
             videoPlayer.seek(time);
     }
     
@@ -1378,9 +1476,9 @@ public class VideoDisplay extends UIComponent
         // if inLoadingState1 && !pausable, then let the loading state handle it
         // if !inLoadingState1 && pausable, then just pause
         // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
-        if (!inLoadingState1 && videoPlayer.pausable)
+        if (!inLoadingState1 && videoPlayer.canPause)
             videoPlayer.stop();
-        else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+        else if (!videoPlayer.canPause && autoDisplayFirstFrame)
             load();
     }
     
@@ -1429,11 +1527,25 @@ public class VideoDisplay extends UIComponent
     {
         // create new video player
         videoPlayer = new MediaPlayer();
-        videoGateway = new RegionGateway();
-        videoGateway.clipChildren = true;
+        videoContainer = new MediaContainer();
+        videoContainer.clipChildren = true;
         
+        mediaFactory = new DefaultMediaFactory();
+        
+        // remove unsupport media types
+        var unsupportedMediaTypes:Array = ["org.osmf.elements.video.dvr.dvrcast",
+                                           "org.osmf.elements.image", 
+                                           "org.osmf.elements.swf"];
+        
+        for each (var mediaType:String in unsupportedMediaTypes)
+        {
+            var mediaFactoryItem:MediaFactoryItem = mediaFactory.getItemById(mediaType);
+            if (mediaFactoryItem)
+                mediaFactory.removeItem(mediaFactoryItem);
+        }
+
         // internal events
-        videoPlayer.addEventListener(DimensionEvent.DIMENSION_CHANGE, videoPlayer_dimensionChangeHandler);
+        videoPlayer.addEventListener(DisplayObjectEvent.MEDIA_SIZE_CHANGE, videoPlayer_mediaSizeChangeHandler);
         videoPlayer.addEventListener(AudioEvent.VOLUME_CHANGE, videoPlayer_volumeChangeHandler);
         videoPlayer.addEventListener(AudioEvent.MUTED_CHANGE, videoPlayer_mutedChangeHandler);
         
@@ -1444,7 +1556,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(TimeEvent.COMPLETE, dispatchEvent);
         
-        addChild(videoGateway);
+        addChild(videoContainer);
     }
     
     /**
@@ -1458,10 +1570,12 @@ public class VideoDisplay extends UIComponent
         cleanUpSource()
         
         // if was playing a previous video, let's remove it now
-        if (videoPlayer.element)
-            videoGateway.removeElement(videoPlayer.element);
+        if (videoPlayer.media && videoContainer.containsMediaElement(videoPlayer.media))
+        {
+            videoContainer.removeMediaElement(videoPlayer.media);
+        }
         
-        var videoElement:org.osmf.video.VideoElement;
+        var videoElement:org.osmf.media.MediaElement = null;
         
         // check for 4 cases: streaming video, progressive download, 
         // an IMediaResource, or a VideoElement.  
@@ -1481,14 +1595,14 @@ public class VideoDisplay extends UIComponent
             // around serverName vs. streamName.
             if (streamingSource.host is String)
             {
-                dsr = new DynamicStreamingResource(new FMSURL(streamingSource.host as String), 
-                    streamingSource.streamType);
+                dsr = new DynamicStreamingResource(streamingSource.host as String, 
+                                                   streamingSource.streamType);
             }
             else if (streamingSource.host is URL)
             {
-                dsr = new DynamicStreamingResource(streamingSource.host as URL, 
-                    streamingSource.streamType);
-            }
+                dsr = new DynamicStreamingResource(URL(streamingSource.host).host, 
+                                                   streamingSource.streamType);
+            }       
             
             if (dsr)
             {
@@ -1509,28 +1623,33 @@ public class VideoDisplay extends UIComponent
                 
                 // add video type metadata so if the URL is ambiguous, OSMF will 
                 // know what type of file we're trying to connect to
-                dsr.metadata.addFacet(new MediaTypeFacet(MediaType.VIDEO));
+                dsr.mediaType = MediaType.VIDEO;
                 
-                videoElement = new org.osmf.video.VideoElement(new DynamicStreamingNetLoader(), dsr);
+                videoElement = new org.osmf.elements.VideoElement(dsr, new RTMPDynamicStreamingNetLoader());
             }
         }
         else if (source is String)
         {
-            var urlResource:URLResource = new URLResource(new URL(source as String));
+            var urlResource:URLResource = new URLResource(source as String);
+            videoElement = mediaFactory.createMediaElement(urlResource);
             
-            // add video type metadata so if the URL is ambiguous, OSMF will 
-            // know what type of file we're trying to connect to
-            urlResource.metadata.addFacet(new MediaTypeFacet(MediaType.VIDEO)); 
-            
-            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource);
+            // If the url could not be resolved to a media element then try 
+            // telling osmf the media is a video and try again.
+            // We do not specify the media type as video the first time,
+            // so we can have the chance to play audio.
+            if (videoElement == null)
+            {
+                urlResource.mediaType = MediaType.VIDEO;
+                videoElement = mediaFactory.createMediaElement(urlResource);                
+            }
         }
-        else if (source is IMediaResource)
+        else if (source is MediaResourceBase)
         {
-            videoElement = new org.osmf.video.VideoElement(new NetLoader(), source as IMediaResource);
+            videoElement = mediaFactory.createMediaElement(MediaResourceBase(source));
         }
-        else if (source is org.osmf.video.VideoElement)
+        else if (source is org.osmf.elements.VideoElement)
         {
-            videoElement = source as org.osmf.video.VideoElement;
+            videoElement = source as org.osmf.elements.VideoElement;
         }
         
         // reset the visibilityPausedTheVideo flag
@@ -1548,18 +1667,26 @@ public class VideoDisplay extends UIComponent
         
         // set videoPlayer's element to the newly constructed VideoElement
         // set the newly constructed videoElement's gateway to be the videoGateway
-        videoPlayer.element = videoElement;
+        videoPlayer.media = videoElement;
         
         if (videoElement)
         {
-            videoElement.gateway = videoGateway;
-            
-            // set the video's width within the gateway to be 100%, 100%
-            LayoutUtils.setRelativeLayout(videoElement.metadata, 100, 100);
-            
-            // set the element scale (and distribute surplus space such that the
-            // element stays center)
-            LayoutUtils.setLayoutAttributes(videoElement.metadata, scaleMode, RegistrationPoint.CENTER);
+
+            if (videoElement.getMetadata(LayoutMetadata.LAYOUT_NAMESPACE) == null)
+            {
+                var layout:LayoutMetadata = new LayoutMetadata();
+                layout.scaleMode = scaleMode;
+                layout.verticalAlign = VerticalAlign.MIDDLE;
+                layout.horizontalAlign = HorizontalAlign.CENTER;
+                layout.percentWidth = 100;
+                layout.percentHeight = 100;
+                videoElement.addMetadata(LayoutMetadata.LAYOUT_NAMESPACE, layout);
+            }				
+
+            if (videoElement && !videoContainer.containsMediaElement(videoElement) )
+            {
+                videoContainer.addMediaElement(videoElement);
+            }				
         }
         else
         {
@@ -1674,7 +1801,7 @@ public class VideoDisplay extends UIComponent
                 // source has loaded up and it's playable
                 if (inLoadingState1)
                     cancelLoadAndPlay();
-                else if (videoPlayer.playable)
+                else if (videoPlayer.canPlay)
                     videoPlayer.play();
             }
         }
@@ -1701,9 +1828,9 @@ public class VideoDisplay extends UIComponent
                 // if inLoadingState1 && !pausable, then let the loading state handle it
                 // if !inLoadingState1 && pausable, then just pause
                 // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
-                if (!inLoadingState1 && videoPlayer.pausable)
+                if (!inLoadingState1 && videoPlayer.canPause)
                     videoPlayer.pause();
-                else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+                else if (!videoPlayer.canPause && autoDisplayFirstFrame)
                     load();
             }
         }
@@ -1730,7 +1857,9 @@ public class VideoDisplay extends UIComponent
             {
                 // second step
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.view.visible = true;
+                
+                if (videoPlayer.displayObject)
+                    videoPlayer.displayObject.visible = true;
                 
                 // don't need to do anything to play except change state info and reset 
                 // properties above
@@ -1738,12 +1867,13 @@ public class VideoDisplay extends UIComponent
             else
             {
                 // third step
-                videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+                videoPlayer.removeEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.view.visible = true;
+                if (videoPlayer.displayObject)
+                    videoPlayer.displayObject.visible = true;
                 
                 // wasn't playing
-                if (videoPlayer.playable)
+                if (videoPlayer.canPlay)
                     videoPlayer.play();
             }
             
@@ -1776,7 +1906,7 @@ public class VideoDisplay extends UIComponent
             {
                 // second step
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.view.visible = true;
+                videoPlayer.displayObject.visible = true;
                 
                 // going to call pause() now to stop immediately
                 videoPlayer.pause();
@@ -1784,9 +1914,9 @@ public class VideoDisplay extends UIComponent
             else
             {
                 // third step
-                videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+                videoPlayer.removeEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
                 videoPlayer.muted = beforeLoadMuted;
-                videoPlayer.view.visible = true;
+                videoPlayer.displayObject.visible = true;
                 
                 // already called pause(), so don't do anything
             }
@@ -2047,7 +2177,9 @@ public class VideoDisplay extends UIComponent
             {
                 beforeLoadMuted = videoPlayer.muted;
                 videoPlayer.muted = true;
-                videoPlayer.view.visible = false;
+                
+                if (videoPlayer.displayObject)
+                    videoPlayer.displayObject.visible = false;
                 
                 inLoadingState2 = true;
             }
@@ -2061,20 +2193,57 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private function videoPlayer_dimensionChangeHandler(event:DimensionEvent):void
+    private function videoPlayer_mediaSizeChangeHandler(event:DisplayObjectEvent):void
     {
         invalidateSize();
         
         // if we're loading up the video, then let's finish the load in here
         if (inLoadingState2)
         {
-            inLoadingState3 = true;
-            // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
-            videoPlayer.addEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
-            
-            // called play(), now call pause() and seek(0);
-            videoPlayer.pause();
-            videoPlayer.seek(0);
+            if (videoPlayer.canSeek && videoPlayer.canSeekTo(0))
+            {
+                inLoadingState3 = true;
+                
+                // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
+                videoPlayer.addEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
+                
+                // called play(), now call pause() and seek(0);
+                videoPlayer.pause();
+                videoPlayer.seek(0);
+            }
+            else
+            {
+                //trace("videoPlayer_mediaSizeChangeHandler: waiting for media to become seekable");
+                
+                // wait for the media to become seekable.
+                videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, videoPlayer_canSeekChangeHandler);
+            }
+        }
+    }
+
+    /**
+     *  @private
+     *  Wait until the media is seekable before we call pause() and seek().
+     */  
+    private function videoPlayer_canSeekChangeHandler(event:Event):void
+    {
+        //trace("videoPlayer_canSeekChangeHandler: seeking = " + videoPlayer.canSeek);
+        
+        videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, videoPlayer_canSeekChangeHandler);
+
+        if (inLoadingState2)
+        {
+            if (videoPlayer.canSeek && videoPlayer.canSeekTo(0))
+            {
+                inLoadingState3 = true;
+                
+                // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
+                videoPlayer.addEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
+                
+                // called play(), now call pause() and seek(0);
+                videoPlayer.pause();
+                videoPlayer.seek(0);
+            }
         }
     }
     
@@ -2085,15 +2254,19 @@ public class VideoDisplay extends UIComponent
      *  This will be called after the video has loaded up and 
      *  we have finished seeking back to the first frame.
      */
-    private function videoPlayer_seekEndHandler(event:SeekEvent):void
+    private function videoPlayer_seekChangeHandler(event:SeekEvent):void
     {
-        inLoadingState1 = false;
-        inLoadingState2 = false;
-        inLoadingState3 = false;
-        
-        videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
-        videoPlayer.muted = beforeLoadMuted;
-        videoPlayer.view.visible = true;
+        if (!event.seeking)
+        {
+            inLoadingState1 = false;
+            inLoadingState2 = false;
+            inLoadingState3 = false;
+            
+            videoPlayer.removeEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
+            videoPlayer.muted = beforeLoadMuted;
+            if (videoPlayer.displayObject)
+                videoPlayer.displayObject.visible = true;
+        }
     }
 }
 }
