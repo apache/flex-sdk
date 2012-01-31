@@ -92,7 +92,7 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var titleField:TextGraphicElement;
+    public var titleDisplay:TextGraphicElement;
 
     //----------------------------------
     //  title
@@ -125,8 +125,8 @@ public class Panel extends SkinnableContainer
     {
         _title = value;
 
-        if (titleField)
-            titleField.text = title;
+        if (titleDisplay)
+            titleDisplay.text = title;
     }
 
     //--------------------------------------------------------------------------
@@ -144,7 +144,7 @@ public class Panel extends SkinnableContainer
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(titleField);
+        return getBaselinePositionForPart(titleDisplay);
     } 
     
     /**
@@ -154,9 +154,9 @@ public class Panel extends SkinnableContainer
     {
         super.partAdded(partName, instance);
         
-        if (instance == titleField)
+        if (instance == titleDisplay)
         {
-            titleField.text = title;
+            titleDisplay.text = title;
         }
     }
 }
