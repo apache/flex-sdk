@@ -15,22 +15,22 @@ package spark.components.mediaClasses
 [DefaultProperty("streamItems")]
 
 /**
- *  The StreamingVideoSource class represents a streaming video source and can be 
+ *  The DynamicStreamingVideoSource class represents a streaming video source and can be 
  *  used for streaming pre-recorded video or live streaming video.  In addition, 
  *  it can support a single stream or multiple streams associated with different 
- *  bitrates.  The <code>VideoPlayer</code> and <code>VideoElement</code>
- *  classes can take a StreamingVideoSource instance as its <code>source</code>
+ *  bitrates.  The <code>VideoPlayer</code> and <code>VideoDisplay</code>
+ *  classes can take a DynamicStreamingVideoSource instance as its <code>source</code>
  *  property.
  *
  *  @see spark.components.VideoPlayer 
- *  @see spark.primitives.VideoElement
+ *  @see spark.components.VideoDisplay
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class StreamingVideoSource extends Object
+public class DynamicStreamingVideoSource extends Object
 {
     //--------------------------------------------------------------------------
     //
@@ -38,7 +38,7 @@ public class StreamingVideoSource extends Object
     //
     //--------------------------------------------------------------------------
     
-    public function StreamingVideoSource()
+    public function DynamicStreamingVideoSource()
     {
         super();
     }
@@ -50,38 +50,33 @@ public class StreamingVideoSource extends Object
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  live
+    //  initialIndex
     //----------------------------------
-    
-    private var _live:Boolean = false;
-    
-    [Inspectable(category="General", defaultValue="false")]
-    
+   
+    private var _initialIndex:int;
+
+    [Inspectable(category="General")]
+
     /**
-     *  A Boolean value that is <code>true</code> if the video stream is live. 
-     * 
-     *  <p>Set the <code>live</code> property to <code>false</code> when sending 
-     *  a prerecorded video stream to the video player and to <code>true</code> 
-     *  when sending real-time data such as a live broadcast.</p>
-     * 
-     *  @default false
+     *  The preferred starting index.  This corresponds to 
+     *  the stream item that should be attempted first.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function get live():Boolean
+     */ 
+    public function get initialIndex():int
     {
-        return _live;
+        return _initialIndex;
     }
 
     /**
      *  @private
      */
-    public function set live(value:Boolean):void
+    public function set initialIndex(value:int):void
     {
-        _live = value;
+        _initialIndex = value;
     }
     
     //----------------------------------
@@ -117,12 +112,9 @@ public class StreamingVideoSource extends Object
     //  streamItems
     //----------------------------------
     
-    private var _streamItems:Array;
+    private var _streamItems:Vector.<DynamicStreamingVideoItem>;
 
     [Inspectable(category="General")]
-    [ArrayElementType("spark.components.mediaClasses.StreamItem")]
-    
-    // FIXME (rfrishbe): change to vectors when possible
 
     /**
      *  The metadata info object with properties describing the FLB file.
@@ -132,7 +124,7 @@ public class StreamingVideoSource extends Object
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function get streamItems():Array
+    public function get streamItems():Vector.<DynamicStreamingVideoItem>
     {
         return _streamItems;
     }
@@ -140,9 +132,45 @@ public class StreamingVideoSource extends Object
     /**
      *  @private
      */
-    public function set streamItems(value:Array):void
+    public function set streamItems(value:Vector.<DynamicStreamingVideoItem>):void
     {
         _streamItems = value;
+    }
+    
+    //----------------------------------
+    //  streamType
+    //----------------------------------
+    
+    private var _streamType:String = "any";
+    
+    [Inspectable(category="General", enumeration="any,live,recorded", defaultValue="any")]
+    
+    /**
+     *  The type of stream we are trying to connect to.
+     * 
+     *  <p>If the streamType is <code>any</code>, then we will attempt to 
+     *  connect to a live stream first.  If no live stream is found, we will 
+     *  attempt to connect to a recorded stream.  If no recorded stream is found, 
+     *  then a live stream will be created.</p>
+     * 
+     *  @default any
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get streamType():String
+    {
+        return _streamType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set streamType(value:String):void
+    {
+        _streamType = value;
     }
 
 }
