@@ -15,6 +15,12 @@ import flash.utils.ByteArray;
 import mx.effects.IEffectInstance;
 
 /**
+ *  The Wipe effect uses Pixel Bender, which is not supported
+ *  for AIR mobile applications.
+ */
+[DiscouragedForProfile("mobileDevice")]
+
+/**
  *  The Wipe effect performs a bitmap transition effect by running a
  *  directional wipe between the first and second bitmaps.
  *  This wipe exposes the second bitmap over the course of the 
