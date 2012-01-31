@@ -465,18 +465,23 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Dispatched before the sort has been applied to the data provder's collection.
- *  Calling the <code>preventDefault()</code> method
- *  on the event prevents the sort from being applied.
- *  Alternatively you can modify the <code>columnIndices</code> and 
- *  <code>newSortFields</code> parameters of the event if you want to change the default 
- *  behavior of the sort.
+ *  Typically this is when the user releases the mouse button on a column header
+ *  to request the control to sort the grid contents based on the contents of the column.
+ *  Only dispatched if the column is sortable and the data provider supports sorting.<p>
  *  
+ *  <p>The DataGrid control has a default handler for this event that implements
+ *  a single-column sort and updates the <code>visibleSortIndices</code> in the grid's
+ *  <code>columnHeaderGroup</code> with the <code>columnIndices</code>.
+ *  Multiple-column sort can be implemented by calling the <code>preventDefault()</code> method 
+ *  to prevent the single column sort and setting the <code>columnIndices</code> and 
+ *  <code>newSortFields</code> parameters of the event to change the default behavior.
+ *   
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you sort the data provider's collection programmatically, 
  *  the component does not dispatch the <code>sortChanging</code> event. </p>
  *
  *  @eventType spark.events.GridSelectionEvent.SORT_CHANGING
- *  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -486,11 +491,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Dispatched after the sort has been applied to the data provder's collection. 
+ *  Typcically this is after the user releases the mouse button on a column header and 
+ *  the sort has been applied to the data provider's collection. 
  *  
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you sort the data provider's collection programmatically, 
- *  the component does not dispatch the <code>sortChanging</code> event.
- *  In either case it dispatches the <code>valueCommit</code> event as well.</p>
+ *  the component does not dispatch the <code>sortChanging</code> event.</p>
  *
  *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGE
  *  
@@ -3679,9 +3685,6 @@ public class DataGrid extends SkinnableContainerBase
                 columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;            
         }           
 
-        // Dispatch the "valueCommit" event.
-        dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        
         return true;
     }
     
