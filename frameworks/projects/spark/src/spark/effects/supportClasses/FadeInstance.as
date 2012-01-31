@@ -17,10 +17,8 @@ import mx.components.Group;
 import mx.effects.Animation;
 import mx.effects.PropertyValuesHolder;
 import mx.events.AnimationEvent;
-import mx.graphics.graphicsClasses.GraphicElement;
-
-import mx.effects.effectClasses.PropertyChanges;
 import mx.events.FlexEvent;
+import mx.graphics.graphicsClasses.GraphicElement;
 import mx.managers.LayoutManager;
     
 public class FxFadeInstance extends FxAnimateInstance
@@ -71,7 +69,7 @@ public class FxFadeInstance extends FxAnimateInstance
      *  where 0.0 means transparent and 1.0 means fully opaque.
      */
     public var alphaTo:Number;
-    
+
     /**
      *  @private
      */
@@ -79,8 +77,6 @@ public class FxFadeInstance extends FxAnimateInstance
     {
         // Remember the original value of the target object's alpha
         origAlpha = target.alpha;
-        var revalidate:Boolean = false;
-        
         var propChanges:PropertyChanges = propertyChanges;
         
         // If nobody assigned a value, make this a "show" effect.
@@ -103,6 +99,8 @@ public class FxFadeInstance extends FxAnimateInstance
                 alphaFrom = propChanges.start["parent"] ? origAlpha : 0;
                 alphaTo = propChanges.end["parent"] ? origAlpha : 0;
                 restoreAlpha = true;
+                if (alphaFrom == 0)
+                    target.alpha = 0;
             }
             else if (propChanges && propChanges.end["elementHost"] !== undefined)
             {
@@ -169,11 +167,11 @@ public class FxFadeInstance extends FxAnimateInstance
      *  be visible (or not) or removed (or not). 
      *  @private
      */
-    override protected function endHandler(event:AnimationEvent):void
+    override public function finishEffect():void
     {
         // Call super function first so we don't clobber resetting the alpha.
-        super.endHandler(event);    
-            
+        super.finishEffect();    
+
         if (restoreAlpha)
             target.alpha = origAlpha;
 
