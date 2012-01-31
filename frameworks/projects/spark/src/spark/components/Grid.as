@@ -983,7 +983,31 @@ package spark.components
             if (value)
                 invalidateDisplayList();
         }
-                
+ 
+        //----------------------------------
+        //  resizableColumns
+        //----------------------------------
+        
+        /**
+         *  A flag that indicates whether the user can change the size of the
+         *  columns.
+         *  If <code>true</code>, the user can stretch or shrink the columns of 
+         *  the DataGrid control by dragging the grid lines between the header cells.
+         *  If <code>true</code>, individual columns must also have their 
+         *  <code>resizable</code> properties set to <code>false</code> to 
+         *  prevent the user from resizing a particular column.  
+         *
+         *  @default true
+         *    
+         *  @see spark.components.supportClasses.GridColumn
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var resizableColumns:Boolean = true;
+                        
         //----------------------------------
         //  rowBackground
         //----------------------------------
@@ -1924,6 +1948,19 @@ package spark.components
         }
         
         /**
+         *  @copy spark.components.supportClasses.GridLayout#getColumnIndexAt()
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function getColumnIndexAt(x:Number, y:Number):int
+        {
+            return gridLayout.getColumnIndexAt(x, y); 
+        }
+
+        /**
          *  @copy spark.components.supportClasses.GridLayout#getCellAt()
          *  
          *  @langversion 3.0
@@ -2289,7 +2326,7 @@ package spark.components
         
         /**
          *  @private
-         *  This listener is runs in the capture phase (before any other MouseEvent listeners)
+         *  This listener is run in the capture phase (before any other MouseEvent listeners)
          *  so that it can redispatch a cancelable=true copy of the event.
          */ 
         private static function redispatchMouseDownHandler(e:MouseEvent):void
