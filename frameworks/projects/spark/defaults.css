@@ -58,6 +58,11 @@ RadioButton
 	skinZZ: ClassReference("flex.skin.RadioButtonSkin");
 }
 
+Scroller
+{
+    skinZZ: ClassReference("flex.skin.ScrollerSkin");
+}
+
 Selector
 {
 	skinZZ: ClassReference("flex.skin.SelectorSkin");
