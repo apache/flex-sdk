@@ -998,55 +998,37 @@ public class RichText extends TextBase implements IFontContextComponent
 		return textFlow;
 	}
 	
-	/**
-	 *  @private
-	 */
-	private function getEmbeddedFontContext():IFlexModuleFactory
-	{
-		var moduleFactory:IFlexModuleFactory;
-		
-		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup != FontLookup.DEVICE)
-		{
-			var font:String = getStyle("fontFamily");
-			var bold:Boolean = getStyle("fontWeight") == "bold";
-			var italic:Boolean = getStyle("fontStyle") == "italic";
-			
-			moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-				font, bold,	italic,
-				this, fontContext);
-			
-			// If we found the font, then it is embedded. 
-			// But some fonts are not listed in info()
-			// and are therefore not in the above registry.
-			// So we call isFontFaceEmbedded() which gets the list
-			// of embedded fonts from the player.
-			if (!moduleFactory) 
-			{
-				var sm:ISystemManager;
-				if (fontContext != null && fontContext is ISystemManager)
-					sm = ISystemManager(fontContext);
-				else if (parent is IUIComponent)
-					sm = IUIComponent(parent).systemManager;
-				
-				staticTextFormat.font = font;
-				staticTextFormat.bold = bold;
-				staticTextFormat.italic = italic;
-				
-				if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-					moduleFactory = sm;
-			}
-		}
-		
-		if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
-		{
-			// if we couldn't find the font and somebody insists it is
-			// embedded, try the default fontContext
-			moduleFactory = fontContext;
-		}
-		
-		return moduleFactory;
-	}
+    /**
+     *  @private
+     */
+    private function getEmbeddedFontContext():IFlexModuleFactory
+    {
+        var moduleFactory:IFlexModuleFactory;
+        
+        var fontLookup:String = getStyle("fontLookup");
+        if (fontLookup != FontLookup.DEVICE)
+        {
+            var font:String = getStyle("fontFamily");
+            var bold:Boolean = getStyle("fontWeight") == "bold";
+            var italic:Boolean = getStyle("fontStyle") == "italic";
+            
+            var localLookup:ISystemManager = 
+                fontContext && fontContext is ISystemManager ? 
+                ISystemManager(fontContext) : systemManager;
+                
+            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
+                font, bold, italic, this, fontContext, localLookup, true);
+        }
+        
+        if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
+        {
+            // if we couldn't find the font and somebody insists it is
+            // embedded, try the default fontContext
+            moduleFactory = fontContext;
+        }
+        
+        return moduleFactory;
+    }
 		
 	/**
 	 *  @private
