@@ -34,13 +34,12 @@ use namespace mx_internal;
 
 /**
  *  The ButtonBarButton class defines the custom item renderer
- *  used by the ButtobBar control. 
+ *  used by the ButtonBar control. 
  *  This item renderer is used in the ButtonBarSkin class, 
  *  the default skin for the ButtonBar.
  *
  *  @see spark.components.ButtonBar
  *  @see spark.skins.spark.ButtonBarSkin
- *  
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
