@@ -309,7 +309,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         // Default is to batch text input.  If the component, like ComboBox
         // wants to act on each keystroke then set this to false.
-        editManager.delayedOperations = textDisplay.batchTextInput;
+        editManager.allowDelayedOperations = textDisplay.batchTextInput;
         
         return editManager;
     }
@@ -385,7 +385,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var operationState:SelectionState =
             new SelectionState(textFlow, anchorPosition, activePosition);
         
-        // On point selection remember pendling formats for next char typed.
+        // On point selection remember pending formats for next char typed.
         operationState.selectionManagerOperationState = true;
         
         var op:ApplyFormatOperation = 
