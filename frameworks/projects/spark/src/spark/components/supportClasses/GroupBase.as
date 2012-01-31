@@ -25,11 +25,9 @@ import flash.geom.Rectangle;
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
-import spark.components.ResizeMode;
 import mx.controls.Label;
 import mx.core.IFactory;
 import mx.core.ILayoutElement;
-import spark.core.IViewport;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -37,11 +35,14 @@ import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import spark.events.RendererExistenceEvent;
+import mx.utils.MatrixUtil;
+
+import spark.components.ResizeMode;
+import spark.core.IViewport;
 import spark.core.MaskType;
+import spark.events.RendererExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
-import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
 
@@ -341,13 +342,13 @@ public class GroupBase extends UIComponent implements IViewport
         if (_layout)
         {
             _layout.target = null;
-            _layout.removeEventListener("propertyChange", redispatchLayoutEvent);
+            _layout.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
         }
         _layout = value; 
         if (_layout)
         {
             _layout.target = this;
-            _layout.addEventListener("propertyChange", redispatchLayoutEvent);
+            _layout.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
         }
 
         invalidateSize();
@@ -1063,7 +1064,7 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General")]    
 
     /**
-     *  @copy spark.core.IViewport#contentWidth
+     *  @copy spark.core.IViewport#contentHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
