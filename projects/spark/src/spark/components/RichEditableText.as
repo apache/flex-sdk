@@ -2534,8 +2534,8 @@ package spark.components
                 textChanged = false;
                 textFlowChanged = false;
                 contentChanged = false;
-				invalidateSize();
-				invalidateDisplayList();
+                invalidateSize();
+                invalidateDisplayList();
             }
             
             // If displayAsPassword changed, it only applies to the display, 
@@ -3336,6 +3336,8 @@ package spark.components
          *
          *  @param activePosition A character position specifying
          *   the movable end of the selection.
+         *
+         *  @return A TextLayoutFormat object.
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
