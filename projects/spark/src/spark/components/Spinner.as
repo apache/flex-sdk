@@ -42,7 +42,7 @@ import mx.managers.IFocusManagerComponent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#symbolColor
@@ -52,7 +52,7 @@ import mx.managers.IFocusManagerComponent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Normal State
