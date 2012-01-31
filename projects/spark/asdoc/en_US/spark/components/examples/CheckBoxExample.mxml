@@ -1,57 +1,51 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the Spark CheckBox control -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    xmlns:mx="library://ns.adobe.com/flex/halo">
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
     <fx:Script>
         <![CDATA[
-
            [Bindable]
            public var totalCost:Number = 4.50;
 
            // This event handler adding and removing condiments from the hamburger.
-           private function modifyBurger(event:MouseEvent):void
-           {
+           private function modifyBurger(evt:MouseEvent):void {
                // Add 0.25 to the total cost for every condiment. Delete 0.25 for
                // every condiment removed.
-               if(CheckBox(event.target).selected)
-               {
+               if(CheckBox(evt.target).selected) {
                    totalCost += 0.25;
-               }
-               else
-               {
+               } else {
                    totalCost -= 0.25;
                }
-
                // Format the totalCost and then display it in a label.
                totalString.text = usdFormatter.format(totalCost);
-      	   }
-
+             }
         ]]>
     </fx:Script>
 
     <fx:Declarations>
-		<mx:CurrencyFormatter id="usdFormatter" precision="2" currencySymbol="$"
-		    decimalSeparatorFrom="." decimalSeparatorTo="." useNegativeSign="true"
-			useThousandsSeparator="true" alignSymbol="left"/>
+        <mx:CurrencyFormatter id="usdFormatter" precision="2" currencySymbol="$"
+                decimalSeparatorFrom="." decimalSeparatorTo="." useNegativeSign="true"
+                useThousandsSeparator="true" alignSymbol="left"/>
     </fx:Declarations>
 
-    <mx:Panel title="Spark CheckBox Control Example"
-        height="75%" width="75%" horizontalCenter="0" layout="vertical"
-        verticalCenter="0" paddingTop="10" paddingBottom="10" paddingLeft="10"
-        paddingRight="10">
-        <s:VGroup>
-            <mx:Label text="Hamburger Base Price: $4.50" />
-            <mx:Label text="Select condiments for your hamburger (0.25 each):" />
+    <s:Panel title="Spark CheckBox Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText text="Hamburger Base Price: $4.50" />
+            <s:SimpleText text="Select condiments for your hamburger (0.25 each):" />
             <s:CheckBox id="lettuceCB" label="Pickles" click="modifyBurger(event);"/>
             <s:CheckBox id="tomatoCB" label="Tomato" click="modifyBurger(event);"/>
             <s:CheckBox id="pickleCB" label="Lettuce" click="modifyBurger(event);"/>
             <s:CheckBox id="mayoCB" label="Mayonnaise" click="modifyBurger(event);"/>
+
+            <mx:Spacer height="20" />
+            <s:HGroup>
+                <s:SimpleText text="Total Price: " />
+                <s:SimpleText id="totalString" text="$4.50"/>
+            </s:HGroup>
         </s:VGroup>
-        <mx:Spacer height="20" />
-        <s:HGroup>
-            <mx:Label text="Total Price: " />
-            <mx:Label id="totalString" text="$4.50"/>
-        </s:HGroup>
-    </mx:Panel>
+    </s:Panel>
+
 </s:Application>
