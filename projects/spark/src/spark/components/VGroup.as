@@ -15,6 +15,8 @@ import flash.events.Event;
 import mx.components.Group;
 import mx.layout.VerticalLayout;
 
+[IconFile("VGroup.png")]
+
 /**
  *  A Group with a VerticalLayout.  
  * 
