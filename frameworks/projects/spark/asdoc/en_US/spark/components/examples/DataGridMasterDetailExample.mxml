@@ -1,74 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Simple example to demonstrate the Spark DataGrid control. -->
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-               xmlns:s="library://ns.adobe.com/flex/spark"
-               xmlns:mx="library://ns.adobe.com/flex/mx">
+
+<!--
+A simple combination of Spark DataGrid and Form that demonstrates using the DataGrid 
+selectedItem property to connect "master" and "detail" views.
+
+The value of the DataGrid's selectedItem property is the dataProvider item that's 
+currently selected.  This example displays a Datagrid and a Form, and the Form
+displays various aspects of the selectedItem.  Elements of the Form bind to the 
+DataGrid's selectedItem, so when the selection changes the form is updated
+automatically.  In a configuration like this, the DataGrid is the "master" view
+and the Form is the "detail" view.
+
+The selectedItem bindings are not valid unless there's a non-null selection, so
+we've specified requireSelection="true" for the DataGrid.  Note also that we've 
+used a CurrencyFormatter to convert Numbers that represent prices, to nicely formatted
+and localized strings.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark">
     
     <fx:Declarations>
-        <s:ArrayCollection id="employees">
-            <s:DataItem name="Christina Coenraets" phone="555-219-2270" email="ccoenraets@fictitious.com" active="true"/>
-            <s:DataItem name="Joanne Wall" phone="555-219-2012" email="jwall@fictitious.com" active="true"/>
-            <s:DataItem name="Maurice Smith" phone="555-219-2012" email="maurice@fictitious.com" active="false"/>
-            <s:DataItem name="Mary Jones" phone="555-219-2000" email="mjones@fictitious.com" active="true"/>
-        </s:ArrayCollection>
-     </fx:Declarations>
+        <s:CurrencyFormatter id="cf" useCurrencySymbol="true"/>
+    </fx:Declarations>    
     
-    <s:Panel title="Spark DataGrid Control Example"
-             width="75%" height="75%" 
+    <s:Panel title='Spark DataGrid Control Example demonstrates the use of selectedItem to connect "master" and "detail" views'
+             width="75%" height="100%" 
              horizontalCenter="0" verticalCenter="0">
-        <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:Label width="100%" color="blue"
-                     text="Select a row in the DataGrid control."/>			
-            <s:DataGrid id="dg"
-                        dataProvider="{employees}"
-                        editable="true"
-                        width="100%" height="100%">
+        
+        <s:VGroup horizontalAlign="justify" left="5" right="5" top="5" bottom="5">
+            <s:DataGrid id="dataGrid" requestedRowCount="4" requireSelection="true">
                 <s:columns>
-                    <s:ArrayCollection>
+                    <s:ArrayList>
                         <s:GridColumn dataField="name" headerText="Name"/>
-                        <s:GridColumn dataField="phone" headerText="Phone"/>
-                        <s:GridColumn dataField="email" headerText="Email">
-                            <!-- Declare a custom itemRenderer for the email column -->
-                            <s:itemRenderer>
-                                <fx:Component>
-                                    <s:GridItemRenderer>
-                                        <fx:Script>
-                                            <![CDATA[
-                                                import flashx.textLayout.conversion.TextConverter;									            
-                                                override public function prepare(hasBeenRecycled:Boolean):void 
-                                                {
-                                                    anchor.textFlow = TextConverter.importToFlow(
-                                                        "<a href='mailto:" + data.email + "'>" + 
-                                                        data.email + "</a>", 
-                                                        TextConverter.TEXT_FIELD_HTML_FORMAT);
-                                                }
-                                            ]]>
-                                        </fx:Script>									    
-                                        <s:RichEditableText id="anchor" editable="false" 
-                                                            paddingLeft="5" paddingRight="5"
-                                                            paddingTop="5" paddingBottom="5"
-                                                            verticalCenter="0"
-                                                            heightInLines="1"/>
-                                    </s:GridItemRenderer>
-                                </fx:Component>
-                            </s:itemRenderer>
-                        </s:GridColumn>
-                        <s:GridColumn dataField="active" headerText="Active" />
-                    </s:ArrayCollection>
+                        <s:GridColumn dataField="price" headerText="Price"/>
+                    </s:ArrayList>
                 </s:columns>
+                
+                <s:ArrayCollection>
+                    <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+                    <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+                    <s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+                    <s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+                    <s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+                    <s:DataItem key="1005" name="File" price="150.05" call="true"/>
+                    <s:DataItem key="1006" name="Gouge" price="160.06" call="false"/>
+                    <s:DataItem key="1007" name="Hook" price="170.07" call="true"/>
+                    <s:DataItem key="1008" name="Ink" price="180.08" call="false"/>
+                    <s:DataItem key="1009" name="Jack" price="190.09" call="true"/>             
+                </s:ArrayCollection>
             </s:DataGrid>
             
-            <s:Form width="100%" height="100%">
-                <s:FormItem label="Name">
-                    <s:Label text="{dg.selectedItem.name}"/>
+            <s:Form height="100%">
+                <s:FormHeading label="Selected Product Detail" textAlign="center"/>            
+                <s:FormItem label="Product Key:">
+                    <s:Label text="{dataGrid.selectedItem.key}"/>
                 </s:FormItem>
-                <s:FormItem label="Email">
-                    <s:Label text="{dg.selectedItem.email}"/>
+                <s:FormItem label="Product Name:">
+                    <s:Label text="{dataGrid.selectedItem.name}"/>
                 </s:FormItem>
-                <s:FormItem label="Phone">
-                    <s:Label text="{dg.selectedItem.phone}"/>
-                </s:FormItem>
+                <s:FormItem label="Product Price:">
+                    <s:HGroup verticalAlign="baseline">
+                        <s:Label text="{cf.format(dataGrid.selectedItem.price)}"/>
+                        <s:Label text="Tax: {cf.format(dataGrid.selectedItem.price * 0.0975)}"/>
+                        <s:Label text="Total: {cf.format(dataGrid.selectedItem.price * 1.0975)}"/>
+                    </s:HGroup>
+                </s:FormItem>              
+                <s:FormItem label="Followup Needed:">
+                    <s:HGroup verticalAlign="baseline">
+                        <s:Label text="{(dataGrid.selectedItem.call) ? 'Yes' : 'No'}"/>
+                        <s:Button label="Call Now"
+                                  enabled="{dataGrid.selectedItem.call}"
+                                  click="dataGrid.selectedItem.call=false"/>
+                    </s:HGroup>                              
+                </s:FormItem>            
             </s:Form>
         </s:VGroup>
-    </s:Panel>	
+    </s:Panel>
 </s:Application>
