@@ -199,6 +199,9 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedIndex():int
     {   
+        if (dataProvider == null)
+            return NO_SELECTION; 
+        
         if (selectedIndices && selectedIndices.length > 0)
             return selectedIndices[selectedIndices.length - 1];
             
@@ -215,12 +218,13 @@ public class List extends ListBase implements IFocusManagerComponent
                  
         super.selectedIndex = value;
         
-        if (value !== NO_SELECTION) 
+        if (value > NO_SELECTION) 
             _proposedSelectedIndices = [value];
         else 
             _proposedSelectedIndices = [];
             
-        commitMultipleSelection(); 
+        multipleSelectionChanged = true;
+        invalidateProperties();  
     }
     
     //----------------------------------
@@ -233,9 +237,12 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedItem():*
     {   
+        if (dataProvider == null)
+            return undefined; 
+        
         if (selectedIndices && selectedIndices.length > 0)
             return dataProvider.getItemAt(selectedIndices[selectedIndices.length - 1]); 
-            
+        
         return super.selectedItem; 
     }
     
@@ -249,12 +256,13 @@ public class List extends ListBase implements IFocusManagerComponent
         
         super.selectedItem = value;
         
-        if (value !== undefined && dataProvider)
-            _proposedSelectedIndices = [dataProvider.getItemAt(value)]; 
+        if (value !== undefined && dataProvider && dataProvider.getItemIndex(value) > 0)
+            _proposedSelectedIndices = [dataProvider.getItemIndex(value)]; 
         else
             _proposedSelectedIndices = [];
             
-        commitMultipleSelection(); 
+        multipleSelectionChanged = true;
+        invalidateProperties();  
     }
     
     
@@ -343,7 +351,20 @@ public class List extends ListBase implements IFocusManagerComponent
             var count:int = value.length;
             
             for (var i:int = 0; i < count; i++)
-                indices[i] = dataProvider.getItemIndex(value[i]);
+            {
+                //TODO (dsubrama) What exactly should we do if an 
+                //invalid item is in the selectedItems array? 
+                var index:Number = dataProvider.getItemIndex(value[i]);
+                if (index != -1)
+                { 
+                    indices[i] = index;  
+                }
+                if (index == -1)
+                {
+                    indices = [];
+                    break;  
+                }
+            }
         }
         
         selectedIndices = indices;
@@ -517,7 +538,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  selection properties and view accordingly. Additionally, dispatch the 
      *  selectionChanged event. 
      */
-    private function commitMultipleSelection():void
+    protected function commitMultipleSelection():void
     {
         var removedItems:Array = [];
         var addedItems:Array = [];
@@ -589,7 +610,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 itemSelected(addedItems[i], true);
             }
         }
-        
+         
         //Dispatch the selectionChanged event
         var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
         e.multipleSelectionChange = true; 
@@ -809,7 +830,10 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         var i:int; 
         var curr:Number; 
-        var newInterval:Array = []; 
+        var newInterval:Array = [];
+        
+        if (!selectedIndices || (_proposedSelectedIndices != null))
+            validateNow(); 
         
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
@@ -818,7 +842,8 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             for (i = 0; i < selectedIndices.length; i++)
             {
-                curr = selectedIndices[i]; 
+                curr = selectedIndices[i];
+                 
                 //adding an item above one of the selected items,
                 //bump the selected item up. 
                 if (curr >= index)
@@ -867,7 +892,14 @@ public class List extends ListBase implements IFocusManagerComponent
                 }
             }
         }
-        selectedIndices = newInterval;
+        _selectedIndices = newInterval;
+        _selectedIndex = (newInterval.length > 0) ? newInterval[newInterval.length - 1] : -1;  
+        // If the selection properties have been adjusted to account for items that
+        // have been added or removed, send out a "selectionChanged" event so
+        // any bindings to them are updated correctly.
+        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+        e.multipleSelectionChange = true; 
+        dispatchEvent(e);
     }
     
     /**
