@@ -12,14 +12,15 @@
 package mx.components.baseClasses
 {
 	
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
 import mx.components.TextView;
 import mx.components.baseClasses.FxComponent;
-import mx.events.TextOperationEvent;
-
 import mx.events.FlexEvent;
+import mx.events.TextOperationEvent;
+import mx.managers.IFocusManagerComponent;
 
 import flashx.tcal.events.SelectionEvent;
 import flashx.tcal.formats.LineBreak;
@@ -50,7 +51,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  Documentation is not currently available.
  */
-public class FxTextBase extends FxComponent
+public class FxTextBase extends FxComponent implements IFocusManagerComponent
 {
     include "../../core/Version.as";
 
@@ -67,6 +68,20 @@ public class FxTextBase extends FxComponent
 	{
 		super();
 	}
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  If true, pass calls to drawFocus() up to the parent.
+     *  This is used when a TextInput is part of a composite control
+     *  like NumericStepper or ComboBox;
+     */
+    mx_internal var parentDrawsFocus:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -106,11 +121,6 @@ public class FxTextBase extends FxComponent
 	 */
 	private var _selectionActivePosition:int = -1;
 
-	/**
-	 *  @private
-	 */
-	private var selectionActivePositionChanged:Boolean = false;
-
 	[Bindable("selectionChange")]
 	
 	/**
@@ -127,22 +137,6 @@ public class FxTextBase extends FxComponent
 		return _selectionActivePosition;
 	}
 
-	/**
-	 *  @private
-	 */
-	public function set selectionActivePosition(value:int):void
-	{
-		if (value == _selectionActivePosition)
-			return;
-		
-		_selectionActivePosition = value;
-		selectionActivePositionChanged = true;
-
-		invalidateProperties();
-		
-		dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
-	}
-
 	//----------------------------------
 	//  selectionAnchorPosition
     //----------------------------------
@@ -151,11 +145,6 @@ public class FxTextBase extends FxComponent
 	 *  @private
 	 */
 	private var _selectionAnchorPosition:int = -1;
-
-	/**
-	 *  @private
-	 */
-	private var selectionAnchorPositionChanged:Boolean = false;
 
 	[Bindable("selectionChange")]
 	
@@ -171,22 +160,6 @@ public class FxTextBase extends FxComponent
 	public function get selectionAnchorPosition():int
 	{
 		return _selectionAnchorPosition;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set selectionAnchorPosition(value:int):void
-	{
-		if (value == _selectionAnchorPosition)
-			return;
-		
-		_selectionAnchorPosition = value;
-		selectionAnchorPositionChanged = true;
-
-		invalidateProperties();
-
-		dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
 	}
 
     //----------------------------------
@@ -261,18 +234,6 @@ public class FxTextBase extends FxComponent
 			textView.text = _text;
 			textChanged = false;
 		}
-
-		if (selectionAnchorPositionChanged)
-		{
-			textView.selectionAnchorPosition = _selectionAnchorPosition;
-			selectionAnchorPositionChanged = false
-		}
-
-		if (selectionActivePositionChanged)
-		{
-			textView.selectionActivePosition = _selectionActivePosition;
-			selectionActivePositionChanged = false
-		}
 	}
 
 	/**
@@ -328,6 +289,100 @@ public class FxTextBase extends FxComponent
 		}
 	}
     
+    /**
+     *  @private
+     *  Focus should always be on the internal TextView.
+     */
+    override public function setFocus():void
+    {
+        textView.setFocus();
+    }
+
+    /**
+     *  @private
+     */
+    override protected function isOurFocus(target:DisplayObject):Boolean
+    {
+        return target == textView || super.isOurFocus(target);
+    }
+
+    /**
+     *  @private
+     *  Forward the drawFocus to the parent, if requested.
+     */
+    override public function drawFocus(isFocused:Boolean):void
+    {
+        if (mx_internal::parentDrawsFocus)
+        {
+            IFocusManagerComponent(parent).drawFocus(isFocused);
+            return;
+        }
+
+        super.drawFocus(isFocused);
+    }
+    
+	//--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+	/**
+	 *  Documentation is not currently available.
+	 */
+    public function setSelection(anchorIndex:int = 0,
+                                 activeIndex:int = int.MAX_VALUE):void
+    {
+        if (!textView)
+            return;
+
+        textView.setSelection(anchorIndex, activeIndex);
+    }
+
+	/**
+	 *  Documentation is not currently available.
+	 */
+    public function insertText(text:String):void
+    {
+        if (!textView)
+            return;
+
+        textView.insertText(text);
+    }
+
+	/**
+	 *  Documentation is not currently available.
+	 */
+    public function appendText(text:String):void
+    {
+        if (!textView)
+            return;
+
+        textView.appendText(text);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden event handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+        // An editable TCAL Sprite has the concept of "no selection",
+        // represented by (-1, -1), even when the Sprite has focus.
+        // But then no insertion point blinks and you can't enter any text.
+        // So if this component is in that state when it takes focus,
+        // it changes the selection to (0, 0).
+        if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
+            setSelection(0, 0);
+        
+        super.focusInHandler(event);
+    }
+
 	//--------------------------------------------------------------------------
     //
     //  Event handlers
