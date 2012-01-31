@@ -72,6 +72,7 @@
                         <keep-as3-metadata name="SkinPart"/>
                         <keep-as3-metadata name="States"/>
                         <keep-as3-metadata name="SkinStates"/>
+                        <keep-as3-metadata name="HostComponent"/>
 			<accessible>true</accessible>
 		</compc>
 		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
