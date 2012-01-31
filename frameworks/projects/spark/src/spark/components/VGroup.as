@@ -14,6 +14,7 @@ package flex.component
 import flex.core.Group;
 import flex.intf.ILayout;
 import flex.layout.VerticalLayout;
+import flash.events.Event;
 
 /**
  *  A Group with a VerticalLayout.  
@@ -144,6 +145,30 @@ public class VGroup extends Group
     {
         verticalLayout.variableRowHeight = value;
     }
+    
+    //----------------------------------
+    //  firstIndexInView
+    //----------------------------------
+ 
+    /**
+     * @copy flex.layout.VerticalLayout#firstIndexInView
+     */
+    public function get firstIndexInView():int
+    {
+        return verticalLayout.firstIndexInView;
+    }
+    
+    //----------------------------------
+    //  lastIndexInView
+    //----------------------------------
 
+    /**
+     * @copy flex.layout.VerticalLayout#lastIndexInview
+     */
+    public function get lastIndexInView():int
+    {
+        return verticalLayout.lastIndexInView;
+    }   
+    
 }
 }
