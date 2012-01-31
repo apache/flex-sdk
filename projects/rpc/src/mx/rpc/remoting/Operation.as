@@ -49,9 +49,13 @@ public class Operation extends AbstractOperation
     //---------------------------------
 
     /**
-     * Creates a new Operation. This is usually done directly automatically by the RemoteObject
-     * when an unknown operation has been accessed. It is not recommended that a developer use this constructor
-     * directly.
+     *  Creates a new Operation. This is usually done directly automatically by the RemoteObject
+     *  when an unknown operation has been accessed. It is not recommended that a developer use this constructor
+     *  directly.
+     * 
+     *  @param service The ReoteObject object defining the service.
+     *
+     *  @param name The name of the service.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
