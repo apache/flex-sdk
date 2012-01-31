@@ -17,7 +17,7 @@ import flash.display.GradientType;
 import flash.filters.BlurFilter;
 import flash.utils.getQualifiedClassName;
 import flash.utils.describeType;
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.skins.Border;
 import mx.styles.IStyleClient;
 import mx.utils.ColorUtil;
@@ -233,7 +233,7 @@ public class ActivatorSkin extends Border
 			// The docked bar always has a background, so take the
 			// main application's background color.
 			var pabc:Object =
-				ApplicationGlobals.application.getStyle("backgroundColor");
+				FlexGlobals.topLevelApplication.getStyle("backgroundColor");
 			backgroundColor = pabc ? pabc : 0x919999;
 		}
 
