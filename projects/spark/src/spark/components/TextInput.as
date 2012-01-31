@@ -181,8 +181,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.skins.spark.TextInputSkin
- *  @see spark.primitives.SimpleText
- *  @see spark.primitives.RichEditableText
+ *  @see spark.components.Label
+ *  @see spark.components.RichEditableText
  *  @see TextArea
  *  
  *  @langversion 3.0
