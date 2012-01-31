@@ -93,7 +93,7 @@ public interface IViewport extends IEventDispatcher
      * 
      *  @see ScrollUnit
      */
-    function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number;
     
     /**
      *  Returns the amount one would have to add to the viewport's current 
@@ -107,7 +107,7 @@ public interface IViewport extends IEventDispatcher
      * 
      *  @see ScrollUnit
      */
-    function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    function getVerticalScrollPositionDelta(unit:ScrollUnit):Number;
      
     /**
      *  If true then clip the viewport's contents by setting its scrollRect
