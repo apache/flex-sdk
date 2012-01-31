@@ -1692,9 +1692,17 @@ public class List extends ListBase implements IFocusManagerComponent
             // are in touch interactionMode, we need to delay the item renderer highlight for a bit 
             if ((event.ctrlKey && selectedIndex == newIndex) || getStyle("interactionMode") == InteractionMode.TOUCH)
             {
-                pendingSelectionOnMouseUp = true;
-                pendingSelectionCtrlKey = event.ctrlKey;
-                pendingSelectionShiftKey = event.shiftKey;
+                // Immediately unselect if we don't support dragging. 
+                if (!dragEnabled && getStyle("interactionMode") != InteractionMode.TOUCH)
+                {
+                    setSelectedIndex(NO_SELECTION, true);    
+                }
+                else
+                {
+                    pendingSelectionOnMouseUp = true;
+                    pendingSelectionCtrlKey = event.ctrlKey;
+                    pendingSelectionShiftKey = event.shiftKey;
+                }
             }
             else
 			{
