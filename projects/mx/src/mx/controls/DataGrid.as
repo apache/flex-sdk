@@ -49,7 +49,6 @@ import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
-import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -910,16 +909,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            var top:Number = 0;
-    
-            if (border && border is IRectangularBorder)
-                top = IRectangularBorder(border).borderMetrics.top;
-    
-            return top + measureText(" ").ascent;
-        }
-                    
         if (!validateBaselinePosition())
             return NaN;
 
