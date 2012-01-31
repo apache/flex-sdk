@@ -47,7 +47,6 @@ import spark.components.gridClasses.GridSortField;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemEditor;
 import spark.components.gridClasses.IGridItemRenderer;
-import spark.components.gridClasses.IGridItemRendererOwner;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.NavigationUnit;
 import spark.events.GridCaretEvent;
@@ -531,9 +530,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */  
-public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, 
-                                                                IGridItemRendererOwner, 
-                                                                IIMESupport
+public class DataGrid extends SkinnableContainerBase 
+    implements IFocusManagerComponent, IIMESupport
 {
     include "../core/Version.as";
 
@@ -3227,27 +3225,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         grid.caretRowIndex = newCaretRowIndex;
         grid.caretColumnIndex = newCaretColumnIndex;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  IGridItemRendererOwner Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    public function prepareItemRenderer(renderer:IGridItemRenderer, willBeRecycled:Boolean):void
-    {            
-        renderer.owner = this;
-    }
-    
-    /**
-     *  @private
-     */
-    public function discardItemRenderer(renderer:IGridItemRenderer, hasBeenRecycled:Boolean):void
-    {
     }
     
     //--------------------------------------------------------------------------
