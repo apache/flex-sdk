@@ -379,7 +379,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 IFocusManagerComponent(renderer).focusEnabled = false;
             if (renderer is IItemRenderer)
                 IItemRenderer(renderer).allowDeselection = !requiresSelection;
-            IItemRendererOwner(renderer.owner).updateRendererInformation(renderer);
+            updateRendererInformation(renderer);
         }
             
         if (isItemIndexSelected(index))
