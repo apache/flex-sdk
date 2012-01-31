@@ -43,7 +43,7 @@ use namespace mx_internal;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Move&gt;</code> tag
+ *  <p>The <code>&lt;s:Move&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
