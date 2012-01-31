@@ -22,6 +22,12 @@ import spark.utils.LabelUtil;
     
 use namespace mx_internal;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("DropDownList.png")]
+
 /**
  *  The DropDownList control contains a drop-down list
  *  from which the user can select a single value.
