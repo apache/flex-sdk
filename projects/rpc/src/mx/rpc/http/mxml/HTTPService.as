@@ -97,6 +97,10 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     /**
      * Creates a new HTTPService. This constructor is usually called by the generated code of an MXML document.
      * You usually use the mx.rpc.http.HTTPService class to create an HTTPService in ActionScript.
+     *
+     * @param rootURL The URL the HTTPService should use when computing relative URLS.
+     *
+     * @param destination An HTTPService destination name in the service-config.xml file.
      */
     public function HTTPService(rootURL:String = null, destination:String = null)
     {
