@@ -392,10 +392,13 @@ public class FxRange extends FxComponent
      */
     public function step(increase:Boolean = true):void
     {
+    	if (stepSize == 0)
+            return;
+
         if (increase)
-            setValue(nearestValidValue(value + stepSize, stepSize));
+            setValue(nearestValidValue(value + stepSize, valueInterval));
         else
-            setValue(nearestValidValue(value - stepSize, stepSize));
+            setValue(nearestValidValue(value - stepSize, valueInterval));
     }
 }
 
