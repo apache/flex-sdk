@@ -30,7 +30,10 @@ import spark.components.IGridItemEditor;
 import spark.components.IGridItemRenderer;
 
 use namespace mx_internal;
-    
+
+/**
+ *  Base class for grid item editors. 
+ */
 public class GridItemEditor extends Group implements IGridItemEditor
 {
     include "../../core/Version.as";    
@@ -89,26 +92,13 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //----------------------------------
 
     /**
-     *  @private
-     */
-    private var _columnIndex:int;
-    
-    /**
      *  @inheritDoc 
      */
     public function get columnIndex():int
     {
-        return _columnIndex;
+        return column.columnIndex;;
     }
 
-    /**
-     *  @private
-     */
-    public function set columnIndex(value:int):void
-    {
-        _columnIndex = value;
-    }
-    
     //----------------------------------
     //  data
     //----------------------------------
@@ -129,6 +119,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     public function set data(value:Object):void
     {
         _data = value;
+        
+        if (_data && column.dataField)
+        {
+            this.value = _data[column.dataField];            
+        }
     }
 
     //----------------------------------
@@ -288,9 +283,19 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //  value
     //----------------------------------
     
-    /**
-     *  @inheritDoc 
-     */
+    /** 
+     *  Many custom GridItemEditor subclasses will only need to override the 
+     *  get and set methods for this property.   Override the set method to 
+     *  initialize the editor’s input  controls based on the value. The value
+     *  property is initialized by the set data method, which sets the value 
+     *  to data.dataField. The get value method should be overridden to return
+     *  a new value for data.dataField based on the user’s input. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */ 
     public function get value():Object
     {
         return null;
@@ -363,7 +368,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
             }
         }
         
-        if (typeInfo == "")
+        if (typeInfo == "" && newData != null)
         {
             if (data[property] is String)
                 typeInfo = "String";
@@ -420,9 +425,17 @@ public class GridItemEditor extends Group implements IGridItemEditor
     }
     
     /**
-     *  @inheritDoc 
-     */
-    public function validate():Boolean
+     *  Tests if the value in the editor is valid and may be saved.
+     * 
+     *  @returns true if the value in the editor is valid. Otherwise
+     *  false is returned.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */  
+    protected function validate():Boolean
     {
         return validateContainer(this);
     }
@@ -440,7 +453,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
             return false;
         
         // loop thru the children, looking for errors.
-        var n:int = numElements;
+        var n:int = container.numElements;
         for (var i:int = 0; i < n; i++)
         {
             var child:IVisualElement = container.getElementAt(i);
@@ -476,7 +489,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
         }
         
         // loop thru the children, looking for errors to clear.
-        var n:int = numElements;
+        var n:int = container.numElements;
         for (var i:int = 0; i < n; i++)
         {
             var child:IVisualElement = container.getElementAt(i);
@@ -493,6 +506,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
         
     }    
     
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
