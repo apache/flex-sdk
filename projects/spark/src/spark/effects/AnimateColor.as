@@ -8,9 +8,9 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects
+package mx.effects
 {
-import flex.effects.effectClasses.TintInstance;
+import mx.effects.effectClasses.FxAnimateColorInstance;
 
 import mx.effects.IEffectInstance;
 import mx.styles.StyleManager;
@@ -19,7 +19,7 @@ import mx.styles.StyleManager;
  * This effect animates a change in color over time, interpolating
  * between given from/to color values on a per-channel basis.
  */
-public class Tint extends Animate
+public class FxAnimateColor extends FxAnimate
 {
     include "../core/Version.as";
 
@@ -57,10 +57,10 @@ public class Tint extends Animate
     /**
      * Constructs a Tint effect with an optional target object
      */
-    public function Tint(target:Object=null)
+    public function FxAnimateColor(target:Object=null)
     {
         super(target);
-        instanceClass = TintInstance;
+        instanceClass = FxAnimateColorInstance;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Tint extends Animate
     {
         super.initInstance(instance);
         
-        var tintInstance:TintInstance = TintInstance(instance);
+        var tintInstance:FxAnimateColorInstance = FxAnimateColorInstance(instance);
         tintInstance.colorFrom = colorFrom;
         tintInstance.colorTo = colorTo;
         tintInstance.colorPropertyName = colorPropertyName;
