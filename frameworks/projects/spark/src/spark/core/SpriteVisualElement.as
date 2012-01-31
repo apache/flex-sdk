@@ -13,6 +13,7 @@ package spark.core
 {
 
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -29,6 +30,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.geom.Transform;
+import mx.geom.TransformOffsets;
 import mx.utils.MatrixUtil;
 
 import spark.components.ResizeMode;
@@ -249,6 +251,42 @@ public class SpriteVisualElement extends FlexSprite
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  postLayoutTransformOffsets
+    //----------------------------------
+
+    /**
+     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get postLayoutTransformOffsets():TransformOffsets
+    {
+        return (_layoutFeatures == null)? 
+            null :
+            _layoutFeatures.postLayoutTransformOffsets;
+    }
+    
+    /**
+     * @private
+     */
+    public function set postLayoutTransformOffsets(value:TransformOffsets):void
+    {
+        if(value != null && _layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        
+        if(_layoutFeatures.postLayoutTransformOffsets != null)
+            _layoutFeatures.postLayoutTransformOffsets.removeEventListener
+                (Event.CHANGE,transformOffsetsChangedHandler);
+        _layoutFeatures.postLayoutTransformOffsets = value;
+        if(_layoutFeatures.postLayoutTransformOffsets != null)
+            _layoutFeatures.postLayoutTransformOffsets.addEventListener
+                (Event.CHANGE,transformOffsetsChangedHandler);
+    }
 
     //----------------------------------
     //  alpha
@@ -1349,6 +1387,14 @@ public class SpriteVisualElement extends FlexSprite
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     */
+    private function transformOffsetsChangedHandler(e:Event):void
+    {
+        invalidateTransform();
+    }
+
     private function get preferredWidth():Number
     {
         if (!isNaN(_explicitWidth))
@@ -1747,7 +1793,94 @@ public class SpriteVisualElement extends FlexSprite
 			invalidateParentSizeAndDisplayList();
 	}
 	
-	public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+    /**
+     * @copy mx.core.ILayoutElement#transformAround
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function transformAround(transformCenter:Vector3D,
+                                    scale:Vector3D = null,
+                                    rotation:Vector3D = null,
+                                    translation:Vector3D = null,
+                                    postLayoutScale:Vector3D = null,
+                                    postLayoutRotation:Vector3D = null,
+                                    postLayoutTranslation:Vector3D = null):void
+    {
+        if (_layoutFeatures == null)
+        {
+            var needAdvancedLayout:Boolean = 
+                (scale != null && scale.z != 1 && !isNaN(scale.z)) ||
+                (rotation != null && ((!isNaN(rotation.x) && rotation.x != 0) || 
+                    (!isNaN(rotation.y) && rotation.y != 0))) || 
+                (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
+                postLayoutScale != null ||
+                postLayoutRotation != null ||
+                (postLayoutTranslation != null &&
+                    (postLayoutTranslation.x != translation.x ||
+                     postLayoutTranslation.y != translation.y ||
+                     postLayoutTranslation.z != translation.z));
+            if (needAdvancedLayout)
+                initAdvancedLayoutFeatures();
+        }
+        if (_layoutFeatures)
+        {
+            _layoutFeatures.transformAround(transformCenter, scale, rotation, translation,
+                postLayoutScale, postLayoutRotation, postLayoutTranslation);
+            invalidateTransform();
+            invalidateParentSizeAndDisplayList();
+        }
+        else
+        {
+            if (translation == null && transformCenter != null)
+            {
+                if (xformPt == null)
+                    xformPt = new Point();
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;                
+                var xformedPt:Point = 
+                    super.transform.matrix.transformPoint(xformPt);
+            }
+            if (rotation != null && !isNaN(rotation.z))
+                this.rotation = rotation.z;
+            if (scale != null)
+            {
+                scaleX = scale.x;
+                scaleY = scale.y;
+            }            
+            if (transformCenter == null)
+            {
+                if (translation != null)
+                {
+                    x = translation.x;
+                    y = translation.y;
+                }
+            }
+            else
+            {
+                if (xformPt == null)
+                    xformPt = new Point();
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;                
+                var postXFormPoint:Point = 
+                    super.transform.matrix.transformPoint(xformPt);
+                if (translation != null)
+                {
+                    x += translation.x - postXFormPoint.x;
+                    y += translation.y - postXFormPoint.y;
+                }
+                else
+                {
+                    x += xformedPt.x - postXFormPoint.x;
+                    y += xformedPt.y - postXFormPoint.y;                                   
+                }
+            }
+        }
+    }
+
+    public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
 	{
 		if (_layoutFeatures != null)
 		{
