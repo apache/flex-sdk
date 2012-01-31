@@ -23,7 +23,6 @@ import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ISort;
 import mx.collections.ISortField;
-import mx.collections.Sort;
 import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
@@ -34,7 +33,9 @@ import mx.events.FlexEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
+import mx.styles.AdvancedStyleClient;
 
+import spark.collections.Sort;
 import spark.components.gridClasses.CellPosition;
 import spark.components.gridClasses.CellRegion;
 import spark.components.gridClasses.DataGridEditor;
@@ -3489,6 +3490,32 @@ public class DataGrid extends SkinnableContainerBase
         var sortFields:Array = createSortFields(columnIndices, sort.fields);
         if (!sortFields)
             return false;
+        
+        // Remove each old SortField that's not a member of the new sortFields Array
+        // as a "styleClient" of this DataGrid.
+        
+        const oldSortFields:Array = (dataProvider.sort) ? dataProvider.sort.fields : null;
+        if (oldSortFields)
+        {
+            for each (var oldSortField:ISortField in oldSortFields)
+            {
+                var oldASC:AdvancedStyleClient = oldSortField as AdvancedStyleClient;
+                if (!oldASC || (oldASC.styleParent != this) || (sortFields.indexOf(oldASC) != -1))
+                    continue;
+                removeStyleClient(oldASC);
+            }
+        }
+        
+        // Add new SortFields as "styleClients" of this DataGrid so that they
+        // inherit this DataGrid's locale style. 
+        
+        for each (var newSortField:ISortField in sortFields)
+        {
+            var newASC:AdvancedStyleClient = newSortField as AdvancedStyleClient;
+            if (!newASC || (newASC.styleParent == this))
+                continue;
+            addStyleClient(newASC);
+        }
         
         sort.fields = sortFields;
         
