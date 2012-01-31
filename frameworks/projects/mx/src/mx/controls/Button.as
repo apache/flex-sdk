@@ -315,6 +315,20 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="disabledSkin", type="Class", inherit="no")]
 
 /**
+ *  Name of the class to use as the skin for the button when the button
+ *  is <code>emphasized</code> (such as when serving as the default
+ *  button for a container).
+ * 
+ *  @default "mx.skins.spark.DefaultButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="emphasizedSkin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
+
+/**
  *  Name of the class to use as the skin for the background and border
  *  when a toggle button is selected and the mouse is not over the control.
  * 
