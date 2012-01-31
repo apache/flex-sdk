@@ -1380,12 +1380,16 @@ public class SkinnableTextBase extends SkinnableComponent
      *  Hint indicating what captialization behavior soft keyboards should
      *  use. 
      *
-     *  Supported values are defined in flash.text.AutoCapitalize:
-     *      "none" - no automatic capitalization
-     *      "word" - capitalize the first letter following any space or
-     *          punctuation
-     *      "sentence" - captitalize the first letter following any period
-     *      "all" - capitalize every letter
+     *  <p>Supported values are defined in flash.text.AutoCapitalize:</p>
+     * 
+     *  <ul>
+     *      <li><code>"none"</code> - no automatic capitalization</li>
+     *      <li><code>"word"</code> - capitalize the first letter following any 
+     *          space or punctuation</li>
+     *      <li><code>"sentence"</code> - captitalize the first letter following 
+     *          any period</li>
+     *      <li><code>"all"</code> - capitalize every letter</li>
+     *  </ul>
      *
      *  <p><b>For the Desktop theme, this is not supported.</b></p>
      * 
@@ -1486,13 +1490,19 @@ public class SkinnableTextBase extends SkinnableComponent
      *  Hint indicating what label should be displayed for the return key on
      *  soft keyboards.
      *
-     *  Supported values are defined in flash.text.ReturnKeyLabel:
-     *      "default" - default icon or label text
-     *      "done" - icon or label text indicating completed text entry
-     *      "go" - icon or label text indicating that an action should start
-     *      "next" - icon or label text indicating a move to the next field
-     *      "search" - icon or label text indicating that the entered text
-     *          should be searched for
+     *  <p>Supported values are defined in flash.text.ReturnKeyLabel:</p>
+     * 
+     *  <ul>
+     *      <li><code>"default"</code> - default icon or label text</li>
+     *      <li><code>"done"</code> - icon or label text indicating completed 
+     *          text entry</li>
+     *      <li><code>"go"</code> - icon or label text indicating that an action
+     *          should start</li>
+     *      <li><code>"next"</code> - icon or label text indicating a move to 
+     *          the next field</li>
+     *      <li><code>"search"</code> - icon or label text indicating that the 
+     *          entered text should be searched for</li>
+     *  </ul>
      *
      *  <p><b>For the Desktop theme, this is not supported.</b></p>
      * 
@@ -1544,17 +1554,22 @@ public class SkinnableTextBase extends SkinnableComponent
      *  Hint indicating what kind of soft keyboard should be displayed for
      *  this component.
      *
-     *  Supported values are defined in flash.text.SoftKeyboardType:
-     *      "default" - the default keyboard
-     *      "punctuation" - puts the keyboard into punctuation/symbol entry
-     *          mode
-     *      "url" - present soft keys appropriate for URL entry, such as a
-     *          specialized key that inserts '.com'
-     *      "number" - puts the keyboard into numeric keypad mode
-     *      "contact" - puts the keyboard into a mode appropriate for
-     *          entering contact information
-     *      "email" - puts the keyboard into e-mail addres entry mode, which
-     *          may make it easier to enter the at sign or '.com'
+     *  <p>Supported values are defined in flash.text.SoftKeyboardType:</p>
+     * 
+     *  <ul>
+     *      <li><code>"default"</code> - the default keyboard</li>
+     *      <li><code>"punctuation"</code> - puts the keyboard into 
+     *          punctuation/symbol entry mode</li>
+     *      <li><code>"url"</code> - present soft keys appropriate for URL 
+     *          entry, such as a specialized key that inserts '.com'</li>
+     *      <li><code>"number"</code> - puts the keyboard into numeric keypad
+     *          mode</li>
+     *      <li><code>"contact"</code> - puts the keyboard into a mode 
+     *          appropriate for entering contact information</li>
+     *      <li><code>"email"</code> - puts the keyboard into e-mail addres 
+     *          entry mode, which may make it easier to enter the at sign or
+     *          '.com'</li>
+     *  </ul>
      *
      *  <p><b>For the Desktop theme, this is not supported.</b></p>
      * 
