@@ -44,6 +44,7 @@ import mx.messaging.messages.HTTPRequestMessage;
 import mx.messaging.messages.MessagePerformanceInfo;
 import mx.messaging.messages.RemotingMessage;
 import mx.messaging.messages.SOAPMessage;
+import mx.utils.ObjectProxy;
 
 public class RpcClassAliasInitializer
 {
@@ -75,8 +76,7 @@ public class RpcClassAliasInitializer
         registerClassAlias("flex.messaging.messages.ErrorMessage", ErrorMessage);
         registerClassAlias("flex.messaging.messages.HTTPMessage", HTTPRequestMessage);
         registerClassAlias("flex.messaging.messages.MessagePerformanceInfo", MessagePerformanceInfo);
-        registerClassAlias("flex.messaging.io.ObjectProxy", ObjectProxy);
-        registerClassAlias("flex.messaging.messages.ObjectProxy", RemotingMessage);
+        registerClassAlias("flex.messaging.messages.RemotingMessage", RemotingMessage);
         registerClassAlias("flex.messaging.messages.SOAPMessage", SOAPMessage);
 
         // management classes - these are used in the flexadmin GUI program,
