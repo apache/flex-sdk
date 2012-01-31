@@ -297,6 +297,7 @@ public class DropDownController extends EventDispatcher
             {
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
                 systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                // MOUSEUP triggers may be added in systemManager_mouseMoveHandler
                 systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             
@@ -324,12 +325,53 @@ public class DropDownController extends EventDispatcher
             {
                 systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
                 systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler);
+                systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
                 systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
             
             openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     } 
+    
+    /**
+     *  @private
+     *  Helper method for the mouseMove and mouseUp handlers to see if 
+     *  the mouse is over a "valid" region.  This is used to help determine 
+     *  when the dropdown should be closed.
+     */ 
+    private function isTargetOverDropDownOrOpenButton(target:DisplayObject):Boolean
+    {
+        if (target)
+        {
+            // check if the target is the openButton or contained within the openButton
+            if (openButton.contains(target))
+                return true;
+            if (hitAreaAdditions != null)
+            {
+                for (var i:int = 0;i<hitAreaAdditions.length;i++)
+                {
+                    if (hitAreaAdditions[i] == target ||
+                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(target as DisplayObject)))
+                        return true;
+                }
+            }
+            
+            // check if the target is the dropdown or contained within the dropdown
+            if (dropDown is DisplayObjectContainer)
+            {
+                if (DisplayObjectContainer(dropDown).contains(target))
+                    return true;
+            }
+            else
+            {
+                if (target == dropDown)
+                    return true;
+            }
+        }
+        
+        return false;
+    }
 
     /**
      *  Open the drop down and dispatch a <code>DropdownEvent.OPEN</code> event. 
@@ -516,40 +558,45 @@ public class DropDownController extends EventDispatcher
     protected function systemManager_mouseMoveHandler(event:Event):void
     {
         var target:DisplayObject = event.target as DisplayObject;
+        var containedTarget:Boolean = isTargetOverDropDownOrOpenButton(target);
         
-        // if the mouse is down, wait until it's released
-        // FIXME (rfrishbe): Need to do something when they mouse up in 
-        // this case if they mouseup outside of the openButton/dropdown.
-        if ((event is MouseEvent && MouseEvent(event).buttonDown) ||
-            (event is SandboxMouseEvent && SandboxMouseEvent(event).buttonDown))
+        if (containedTarget)
             return;
         
-        if (target)
+        // if the mouse is down, wait until it's released to close the drop down
+        if ((event is MouseEvent && MouseEvent(event).buttonDown) ||
+            (event is SandboxMouseEvent && SandboxMouseEvent(event).buttonDown))
         {
-            // check if the target is the openButton or contained within the openButton
-            if (openButton.contains(target))
-                return;
-            if (hitAreaAdditions != null)
-            {
-                for (var i:int = 0;i<hitAreaAdditions.length;i++)
-                {
-                    if (hitAreaAdditions[i] == target ||
-                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(target as DisplayObject)))
-                        return;
-                }
-            }
-            
-            // check if the target is the dropdown or contained within the dropdown
-            if (dropDown is DisplayObjectContainer)
-            {
-                if (DisplayObjectContainer(dropDown).contains(target))
-                    return;
-            }
-            else
-            {
-                if (target == dropDown)
-                    return;
-            }
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler);
+            systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            return;
+        }
+        
+        closeDropDown(true);
+    }
+    
+    /**
+     *  @private
+     *  Called when the dropdown is popped up from a rollover and the mouse is released 
+     *  anywhere on the screen.  This will close the popup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function systemManager_mouseUpHandler(event:Event):void
+    {
+        var target:DisplayObject = event.target as DisplayObject;
+        var containedTarget:Boolean = isTargetOverDropDownOrOpenButton(target);
+
+        // if we're back over the target area, remove this event listener
+        // and do nothing.  we handle this in mouseMoveHandler()
+        if (containedTarget)
+        {
+            systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler);
+            systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            return;
         }
         
         closeDropDown(true);
