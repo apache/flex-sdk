@@ -1332,6 +1332,21 @@ public class ListBase extends ScrollControlBase
      *  and selectedItems.
      */
     private var lastSelectionData:ListBaseSelectionData;
+	
+    /**
+     *  The first proposed selectedItem.  Because the loop where it is used
+     *  can be called several times becaouse of IPEs, we have to store stuff like
+     *  this outside the loop
+     */
+    private var firstSelectedItem:Object;
+
+    /**
+     *  A map of proposed selectedItems to the original order
+     *  they were proposed.  Because the loop where it is used
+     *  can be called several times becaouse of IPEs, we have to store stuff like
+     *  this outside the loop
+     */
+    private var proposedSelectedItemIndexes:Dictionary;
 
     /**
      *  The renderer that is or was rolled over or under the caret.
@@ -1365,13 +1380,18 @@ public class ListBase extends ScrollControlBase
      */
     private var lastHighlightItemIndices:Point;
 
+    /**
+     *  Temporary array to manage order of selectedItems
+     */
+    private var selectionDataArray:Array;
+
     mx_internal var dragScrollingInterval:int = 0;
 
     /**
      *  @private
      *  An Array of Shapes that are used as clip masks for the list items
      */
-    private var itemMaskFreeList:Array;
+    mx_internal var itemMaskFreeList:Array;
 
     /**
      *  @private
@@ -3495,6 +3515,54 @@ public class ListBase extends ScrollControlBase
         }
 
         commitSelectedItems(items);
+    }
+
+    //----------------------------------
+    //  selectedItemsCompareFunction
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for labelFunction property.
+     */
+    private var _selectedItemsCompareFunction:Function;
+
+    [Bindable("selectedItemsCompareFunctionChanged")]
+    [Inspectable(category="Data")]
+
+    /**
+     *  A function used to compare selectedItems against items in the
+     *  dataProvider.  If there is a match, the item in the dataProvider
+     *  becomes part of the selection.
+   	 *  By default, or if selectedItemsCompareFunction is set to null
+     *  the default comparision function is used which uses
+     *  strict equality (===).  Note that earlier releases of
+     *  Flex used simple equality (==) so there could be behavioral
+     *  differences in certain cases.
+     *  A common compare function might simply compare UIDs of objects
+     *  or test that a particular property matches.
+     *
+     *  <p>The compare function takes a two arguments, the first being the
+     *  object in the dataProvider, the other an object in the list of
+     *  selectedItems, and returns TRUE if the item should be selected.</p>
+     *  <pre>
+     *  myCompareFunction(itemInDataProvider:Object, itemInSelectedItems):Boolean</pre>
+     *
+     *  @default null (which will use strict equality)
+     */
+    public function get selectedItemsCompareFunction():Function
+    {
+        return _selectedItemsCompareFunction;
+    }
+
+    /**
+     *  @private
+     */
+    public function set selectedItemsCompareFunction(value:Function):void
+    {
+        _selectedItemsCompareFunction = value;
+
+        dispatchEvent(new Event("selectedItemsCompareFunctionChanged"));
     }
 
     //----------------------------------
@@ -6274,7 +6342,7 @@ public class ListBase extends ScrollControlBase
      *  Creates a clip mask with the specified dimensions.
      */
     mx_internal function createItemMask(x:Number, y:Number,
-                                    width:Number, height:Number):DisplayObject
+                width:Number, height:Number, contentHolder:DisplayObjectContainer = null):DisplayObject
     {
         var mask:Shape;
 
@@ -6304,7 +6372,11 @@ public class ListBase extends ScrollControlBase
             g.endFill();
 
             mask.visible = false;
-            listContent.addChild(mask);
+
+            if (contentHolder)
+                contentHolder.addChild(mask)
+            else
+                listContent.addChild(mask);
         }
 
         if (mask.x != x)
@@ -7155,6 +7227,16 @@ public class ListBase extends ScrollControlBase
             return;
         }
 
+        var n:int = items.length;
+        selectionDataArray = new Array(n);
+        firstSelectedItem = n ? items[0] : null;
+        proposedSelectedItemIndexes = new Dictionary();
+        for (var i:int = 0; i < n; i++)
+        {
+            var uid:String = itemToUID(items[i]);
+            proposedSelectedItemIndexes[uid] = i;
+        }
+
         setSelectionDataLoop(items, 0, useFind);
     }
 
@@ -7217,24 +7299,25 @@ public class ListBase extends ScrollControlBase
             }
         }
         else
-        {            
+        {   
+            var compareFunction:Function = selectedItemsCompareFunction;
+            if (compareFunction == null)
+                compareFunction = strictEqualityCompareFunction;
             while (items.length && !collectionIterator.afterLast)
             {
                 var len:int = items.length;
                 var data:Object = collectionIterator.current;
-                var prevSelectionData:ListBaseSelectionData = null;
                 for (var i:int = 0; i < len; i++)
                 {
-                    if (data == items[i])
+                    item = items[i];
+                    if (compareFunction(data, item))
                     {
                         uid = itemToUID(data);
                         
-                        if (prevSelectionData == null)
-                            insertSelectionDataBefore(uid, new ListBaseSelectionData(data, index, false), firstSelectionData);
-                        else
-                            insertSelectionDataAfter(uid, new ListBaseSelectionData(data, index, false), prevSelectionData);
-                        
-                        if (i == 0)
+                        selectionDataArray[proposedSelectedItemIndexes[uid]] = new ListBaseSelectionData(data, index, false);
+
+                        items.splice(i, 1);
+                        if (item === firstSelectedItem)
                         {
                             _selectedIndex = index;
                             _selectedItem = data;
@@ -7246,9 +7329,6 @@ public class ListBase extends ScrollControlBase
                         break;
                     }
                     
-                    uid = itemToUID(items[i]);
-                    if (selectedData[uid] != null)
-                        prevSelectionData = selectedData[uid];
                 }
                 try
                 {
@@ -7258,10 +7338,25 @@ public class ListBase extends ScrollControlBase
                 catch(e2:ItemPendingError)
                 {
                     e2.addResponder(new ItemResponder(selectionDataPendingResultHandler, selectionDataPendingFailureHandler,
-                                                            new ListBaseSelectionDataPending(false, index, items.slice(i + 1), CursorBookmark.FIRST, index)));
+                                                            new ListBaseSelectionDataPending(false, index, items, CursorBookmark.FIRST, index)));
                     return;
                 }
             }
+
+            len = selectionDataArray.length;
+            if (len)
+            {
+                uid = itemToUID(selectionDataArray[0].data);
+                insertSelectionDataBefore(uid, selectionDataArray[0], firstSelectionData);
+            }
+            for (i = 1; i < len; i++)
+            {
+                uid = itemToUID(selectionDataArray[i].data);
+                insertSelectionDataAfter(uid, selectionDataArray[i], selectionDataArray[i - 1]);
+            }
+            selectionDataArray = null;
+            proposedSelectedItemIndexes = null;
+            firstSelectedItem = null;
         }
 
         if (initialized)
@@ -8970,7 +9065,7 @@ public class ListBase extends ScrollControlBase
 
             default:
             {
-                if (findKey(event.keyCode))
+                if (findKey(event.charCode))
                     event.stopPropagation();
             }
         }
@@ -10428,6 +10523,14 @@ public class ListBase extends ScrollControlBase
             // are representing selected items.
             drawItem(renderer,true);
         }
+    }
+
+    /**
+     *  @private
+     */ 
+    private function strictEqualityCompareFunction(a:Object, b:Object):Boolean
+    {
+        return a === b;
     }
 
     /**
