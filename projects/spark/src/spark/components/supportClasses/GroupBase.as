@@ -17,18 +17,18 @@ import mx.collections.ListCollectionView;
 import mx.components.ResizeMode;
 import mx.controls.Label;
 import mx.core.IFactory;
+import mx.core.ILayoutElement;
 import mx.core.IViewport;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
-import mx.events.RendererExistenceEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.events.RendererExistenceEvent;
 import mx.graphics.MaskType;
 import mx.layout.BasicLayout;
-import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 import mx.utils.MatrixUtil;
 
@@ -141,23 +141,26 @@ public class GroupBase extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
     
     /**
-     * Constructor.
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function GroupBase()
+    public function GroupBase(layout:LayoutBase = null)
     {
         super();
         tabChildren = true;
         
-        if(_layout == null)
-        {
-	        _layout = new BasicLayout();
-    	    _layout.target = this;
-    	}  
+        // our default layout is null.  Otherwise, use the layout 
+        // passed in via the constructor
+        if(layout == null)
+            _layout = new BasicLayout();
+        else
+            _layout = layout;
+        
+    	_layout.target = this;
     }
         
     //--------------------------------------------------------------------------
