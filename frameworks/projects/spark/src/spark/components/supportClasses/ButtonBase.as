@@ -27,10 +27,7 @@ import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.utils.StringUtil;
 
-import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.TextBase;
 import spark.core.IDisplayText;
 import spark.primitives.BitmapImage;
 
