@@ -14,6 +14,8 @@ package mx.effects.effectClasses
 
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  The SetPropertyActionInstance class implements the instance class
  *  for the SetPropertyAction effect.
@@ -98,7 +100,7 @@ public class SetPropertyActionInstance extends ActionEffectInstance
 	{
 		var val:*;
 	
-		if (mx_internal::playReversed)
+		if (playReversed)
 		{
 			 val = getStartValue();
 			 if (val != undefined)
