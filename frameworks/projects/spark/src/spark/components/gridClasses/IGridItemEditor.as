@@ -82,8 +82,6 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     
     /** 
      *  The zero-based index of the column being edited.
-     *  That means that values are 0, 1, 2, ... , n - 1, 
-     *  where n is the total number of columns.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -98,8 +96,6 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     
     /** 
      *  The zero-based index of the row of the cell being edited.
-     *  That means that values are 0, 1, 2, ... , n - 1, 
-     *  where n is the total number of rows.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
