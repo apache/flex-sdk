@@ -539,7 +539,7 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("tracking", oldValue, value);
 
 			invalidateTextLines("style");
-			invalidateSize(); // TODO: does tracking change our size?
+			invalidateSize();
 			invalidateDisplayList();
 		}
 	}
