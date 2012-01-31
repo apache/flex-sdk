@@ -177,32 +177,6 @@ public class Resize extends Animate
      */
     public var widthTo:Number;
 
-    //----------------------------------
-    //  hideChildrenTargets
-    //----------------------------------
-
-    // TODO: We should axe this from Resize and enable the
-    // functionality in a different manner, such as setting hiding
-    // effects manually on the children themselves
-    /**
-     *  An Array of Panel containers.
-     *  The children of these Panel containers are hidden while the Resize
-     *  effect plays.
-     *
-     *  <p>You use data binding syntax to set this property in MXML, 
-     *  as the following example shows, where panelOne and panelTwo 
-     *  are the names of two Panel containers in your application:</p>
-     *
-     *  <pre>&lt;mx:Resize id="e" heightFrom="100" heightTo="400"
-     *  hideChildrenTargets="{[panelOne, panelTwo]}" /&gt;</pre>        
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var hideChildrenTargets:Array /* of Panel */;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -246,7 +220,6 @@ public class Resize extends Animate
             resizeInstance.heightTo = heightTo;
         if (!isNaN(heightBy))
             resizeInstance.heightBy = heightBy;
-        resizeInstance.hideChildrenTargets = hideChildrenTargets;
     }
 }
 }
