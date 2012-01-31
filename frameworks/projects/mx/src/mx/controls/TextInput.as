@@ -799,6 +799,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editable():Boolean
     {
@@ -860,6 +865,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPosition():Number
     {
@@ -1279,6 +1289,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxChars():int
     {
@@ -1335,6 +1350,11 @@ public class TextInput extends UIComponent implements ITextInput
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentDrawsFocus():Boolean
     {
@@ -1369,6 +1389,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get restrict():String
     {
@@ -1409,6 +1434,11 @@ public class TextInput extends UIComponent implements ITextInput
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get selectable():Boolean
     {
@@ -1554,6 +1584,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get text():String
     {
@@ -2209,6 +2244,11 @@ public class TextInput extends UIComponent implements ITextInput
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionActivePosition():int
     {
@@ -2218,6 +2258,11 @@ public class TextInput extends UIComponent implements ITextInput
    
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionAnchorPosition():int
     {
