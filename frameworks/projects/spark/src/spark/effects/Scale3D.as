@@ -11,9 +11,18 @@
 
 package spark.effects
 {
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
 import spark.effects.supportClasses.AnimateTransformInstance;
+
+use namespace mx_internal;
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="motionPaths", kind="property")]
 
 /**
  *  The Scale3D class scales a target object
@@ -40,6 +49,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  &lt;mx:Scale3D
  *    <b>Properties</b>
  *    id="ID"
+ *    applyChangesPostLayout="true"
  *    scaleZBy="no default"
  *    scaleZFrom="no default"
  *    scaleZTo="no default"
@@ -69,7 +79,7 @@ public class Scale3D extends Scale
     {
         super(target);
         applyLocalProjection = true;
-        affectLayout = false;
+        applyChangesPostLayout = true;
     }
 
     //--------------------------------------------------------------------------
@@ -78,6 +88,27 @@ public class Scale3D extends Scale
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  applyChangesPostLayout
+    //----------------------------------
+    [Inspectable(category="General")]
+    /** 
+     *  @copy AnimateTransform#applyChangesPostLayout
+     *  The default value for this property is true for 3D effects,
+     *  because the Flex layout system ignores 3D transformation properties.
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get applyChangesPostLayout():Boolean
+    {
+        return super.applyChangesPostLayout;
+    }
+
     //----------------------------------
     //  scaleZFrom
     //----------------------------------
@@ -143,7 +174,7 @@ public class Scale3D extends Scale
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if(affectLayout)
+        if (!applyChangesPostLayout)
         {
            addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
         }
