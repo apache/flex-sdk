@@ -90,10 +90,6 @@ public class FadeInstance extends AnimateInstance
                 alphaFrom = propChanges.start["visible"] ? origAlpha : 0;
                 alphaTo = propChanges.end["visible"] ? origAlpha : 0;
                 // Force target to be visible at effect start
-                if (alphaFrom == 0 && alphaTo != 0)
-                {
-                    target.visible = true;
-                }
                 restoreAlpha = true;
             }
             else if (propChanges && propChanges.end["parent"] !== undefined)
@@ -135,15 +131,21 @@ public class FadeInstance extends AnimateInstance
                 alphaTo = (alphaFrom == 0) ? origAlpha : 0; 
             }
         }
-
+        
+        // Extra logic to handle making the object visible if we're supposed
+        // to be fading it in
+        if (!target.visible && alphaFrom == 0 && alphaTo != 0 &&
+            propChanges && propChanges.end["visible"] !== undefined)
+        {
+            target.visible = true;
+        }
+        
         propertyValuesList = 
             [new PropertyValuesHolder("alpha", [alphaFrom, alphaTo])];
         
         super.play();
     }
 
-    private var hideOnEffectEnd:Boolean = false;
-    
     /**
      *  Handle any cleanup from this effect, such as setting the target to
      *  be visible (or not) or removed (or not). 
@@ -154,13 +156,6 @@ public class FadeInstance extends AnimateInstance
         // Call super function first so we don't clobber resetting the alpha.
         super.animationEnd(tween, value);    
             
-        // TODO: ideally, we would put the visible=false logic in this effect
-        // We don't want to depend on a private variable on the target
-        // to do this
-        if (hideOnEffectEnd)
-        {
-            target.setVisible(false, true);
-        }
         if (restoreAlpha)
         {
             target.alpha = origAlpha;
