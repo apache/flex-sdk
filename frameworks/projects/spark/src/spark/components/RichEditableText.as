@@ -17,6 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.system.IME;
@@ -482,9 +483,17 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Holds the last recorded value of the module factory used to create the font.
+     *  Holds the last recorded value of the module factory used to create the 
+     *  font.
      */
     mx_internal var embeddedFontContext:IFlexModuleFactory;
+
+    /**
+     *  @private
+     *  True if we've seen a MOUSE_DOWN event and haven't seen the 
+     *  corresponding MOUSE_UP event.
+     */
+    private var mouseDown:Boolean = false;
 
     /**
      *  @private
@@ -512,7 +521,15 @@ public class RichEditableText extends UIComponent
      *  so that text reflow can be calculated during a subsequent measure pass.
      */
     private var heightConstraint:Number = NaN;
-
+    
+    /**
+     *  @private
+     *  If the selection was via the selectRange() or selectAll() api, remember
+     *  that until the next selection is set, either interactively or via the
+     *  API.
+     */
+    private var hasProgrammaticSelectionRange:Boolean = false;
+   
     /**
      *  @private
      *  True if this component sizes itself based on its actual
@@ -560,22 +577,6 @@ public class RichEditableText extends UIComponent
 
         invalidateProperties();
         invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  maxWidth
-    //----------------------------------
-    
-    override public function get maxWidth():Number
-    {
-        if (autoSize)
-        {
-            return !isNaN(explicitMaxWidth) ?
-                   explicitMaxWidth :
-                   UIComponent.DEFAULT_MEASURED_WIDTH;      // 160 not 10000
-        }
-        
-        return super.maxWidth;
     }
 
     //--------------------------------------------------------------------------
@@ -2023,7 +2024,7 @@ public class RichEditableText extends UIComponent
             else
             {
                 // If toFit line breaks and no text, start at explicitMaxWidth
-                // or default to 160 and grow.
+                // or default to maxWidth.
                 // If explicit line breaks and no text, width is NaN
 
                 composeWidth = 
@@ -2163,6 +2164,9 @@ public class RichEditableText extends UIComponent
     // explicitHeight
     //----------------------------------
 
+    /**
+     *  @private
+     */
     override public function set explicitHeight(value:Number):void
     {
         super.explicitHeight = value;
@@ -2178,6 +2182,9 @@ public class RichEditableText extends UIComponent
     // explicitWidth
     //----------------------------------
 
+    /**
+     *  @private
+     */
     override public function set explicitWidth(value:Number):void
     {
         super.explicitWidth = value;
@@ -2193,6 +2200,9 @@ public class RichEditableText extends UIComponent
     // percentHeight
     //----------------------------------
 
+    /**
+     *  @private
+     */
     override public function set percentHeight(value:Number):void
     {
         super.percentHeight = value;
@@ -2208,6 +2218,9 @@ public class RichEditableText extends UIComponent
     // percentWidth
     //----------------------------------
 
+    /**
+     *  @private
+     */
     override public function set percentWidth(value:Number):void
     {
         super.percentWidth = value;
@@ -2336,6 +2349,7 @@ public class RichEditableText extends UIComponent
     mx_internal function createTextContainerManager():TextContainerManager
     {
         // Use the default configuration.
+        // TODO:(cframpto) should set enableEnterKey = false
         return new RichEditableTextContainerManager(this, null);
     }
 
@@ -2419,7 +2433,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  The editingMode is set to READ_WRITE.
-     *  When done call releaseEditManager().
+     *  When done call releaseEditManager().  Should only be used by API calls.
      */
     private function getEditManager():IEditManager
     {
@@ -2436,6 +2450,7 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  Should only be used by API calls.
      */
     private function releaseEditManager():void
     {
@@ -2491,8 +2506,7 @@ public class RichEditableText extends UIComponent
         // Remeasure if the composed width was restricted by max width.
         // Typical this is done in validateSize() after returing from measure() 
         // but it impacts our calculations so we need to do it now.
-        if (clampWidth &&
-            !isNaN(explicitMaxWidth) && bounds.width > explicitMaxWidth)
+        if (clampWidth && bounds.width > maxWidth)
         {
             _textContainerManager.compositionWidth = composeWidth;
             _textContainerManager.compose();
@@ -2789,6 +2803,10 @@ public class RichEditableText extends UIComponent
         selectionManager.refreshSelection();
         
         releaseSelectionManager();
+
+        // Remember if the current selection is a range which was set
+        // programatically.
+        hasProgrammaticSelectionRange = (anchorPosition != activePosition);
     }
     
     /**
@@ -3107,7 +3125,8 @@ public class RichEditableText extends UIComponent
         var pastedText:String = TextUtil.extractText(op.textScrap.textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
-        var editManager:IEditManager = getEditManager();
+        var editManager:IEditManager = 
+            EditManager(_textContainerManager.beginInteraction());
 
         // Generate a CHANGING event for the PasteOperation but not for the
         // DeleteTextOperation or the InsertTextOperation which are also part
@@ -3127,7 +3146,7 @@ public class RichEditableText extends UIComponent
         editManager.insertText(pastedText, selectionState);        
 
         // All done with the edit manager.
-        releaseEditManager();
+        _textContainerManager.endInteraction();
         
         dispatchChangeAndChangingEvents = true;
     }
@@ -3195,22 +3214,30 @@ public class RichEditableText extends UIComponent
         //trace("focusIn handler");
             
         if (editingMode == EditingMode.READ_WRITE)
-        {
-            var selectionManager:ISelectionManager = getSelectionManager();        
-    
-            if (!selectionManager.hasSelection())
+        {  
+            // If the focusIn was because of a mouseDown event, let TLF
+            // handle the selection.  Otherwise it was because we tabbed in
+            // or we programatically set the focus.
+            if (!mouseDown)
             {
+                var selectionManager:ISelectionManager = 
+                    _textContainerManager.beginInteraction();       
+    
                 if (multiline)
-                    selectionManager.selectRange(0, 0); 
-                else
-                    selectionManager.selectRange(0, int.MAX_VALUE);
-            }             
-                     
-            // Refresh the selection.  This does not cause a damage event.
-            selectionManager.refreshSelection();
+                {
+                    if (!selectionManager.hasSelection())
+                        selectionManager.selectRange(0, 0);
+                } 
+                else if (!hasProgrammaticSelectionRange)
+                {
+                    selectionManager.selectAll();
+                }
+                
+                selectionManager.refreshSelection();
+                
+                _textContainerManager.endInteraction();       
+            }
             
-            releaseSelectionManager();       
-
             if (_imeMode != null)
             {
                 // When IME.conversionMode is unknown it cannot be
@@ -3248,6 +3275,8 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function focusOutHandler(event:FocusEvent):void
     {
+        //trace("focusOut handler");
+
         // By default, we clear the undo history when a RichEditableText loses 
         // focus.
         if (clearUndoOnFocusOut && undoManager)
@@ -3280,7 +3309,35 @@ public class RichEditableText extends UIComponent
             }
          }
     }
-    
+
+    /**
+     *  @private
+     */
+    mx_internal function mouseDownHandler(event:MouseEvent):void
+    {
+        mouseDown = true;
+            
+        // Need to get called even if mouse events are dispatched
+        // outside of this component.  For example, when the user does
+        // a mouse down in RET, drags the mouse outside of the 
+        /// component, and then releases the mouse.
+        systemManager.getSandboxRoot().addEventListener(
+                          MouseEvent.MOUSE_UP, 
+                          systemManager_mouseUpHandler, true /*useCapture*/);
+    }
+        
+    /**
+     *  @private
+     */
+    private function systemManager_mouseUpHandler(event:MouseEvent):void
+    {
+        mouseDown = false;
+        
+        systemManager.getSandboxRoot().removeEventListener(
+                         MouseEvent.MOUSE_UP, 
+                         systemManager_mouseUpHandler, true /*useCapture*/);
+    }
+
     /**
      *  @private
      *  Called when the TextContainerManager dispatches a 'compositionComplete'
@@ -3305,6 +3362,7 @@ public class RichEditableText extends UIComponent
             Math.round(newContentWidth) == 
             _textContainerManager.compositionWidth)
         { 
+            trace("***contentWidth > compositionWidth", newContentWidth, _textContainerManager.compositionWidth);
             newContentWidth = _textContainerManager.compositionWidth;
         }
             
@@ -3328,6 +3386,7 @@ public class RichEditableText extends UIComponent
             Math.round(newContentHeight) == 
             _textContainerManager.compositionHeight)
         { 
+            trace("***contentHeight > compositionHeight", newContentHeight, _textContainerManager.compositionHeight);
             newContentHeight = _textContainerManager.compositionHeight;
         }
             
@@ -3437,13 +3496,17 @@ public class RichEditableText extends UIComponent
         var oldAnchor:int = _selectionAnchorPosition;
         var oldActive:int = _selectionActivePosition;
         
-        var selectionManager:ISelectionManager = getSelectionManager();
+        var selectionManager:ISelectionManager = 
+            _textContainerManager.beginInteraction();
         
         _selectionAnchorPosition = selectionManager.anchorPosition;
         _selectionActivePosition = selectionManager.activePosition;
         
-        releaseSelectionManager();
+        _textContainerManager.endInteraction();
 
+        // Selection changed so reset.
+        hasProgrammaticSelectionRange = false;
+        
         // Only dispatch the event if the selection has really changed.
         var changed:Boolean = oldAnchor != _selectionAnchorPosition ||
                               oldActive != _selectionActivePosition;
@@ -3622,8 +3685,6 @@ public class RichEditableText extends UIComponent
             invalidateDisplayList();
         } 
     }    
-
-
 }
 
 }
