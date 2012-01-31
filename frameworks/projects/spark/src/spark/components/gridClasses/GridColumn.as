@@ -58,6 +58,15 @@ public class GridColumn extends EventDispatcher
             dispatchEvent(new Event(type));
     }
     
+    private function maybeInvalidateGrid():void
+    {
+        if (grid)
+        {
+            grid.invalidateSize();
+            grid.invalidateDisplayList();
+        }
+    }
+    
     //----------------------------------
     //  grid
     //----------------------------------
@@ -348,8 +357,6 @@ public class GridColumn extends EventDispatcher
         }
         
         dispatchChangeEvent("itemRendererChanged");
-        
-        // TBD invalidate grid    
     }
     
     //----------------------------------
@@ -473,8 +480,10 @@ public class GridColumn extends EventDispatcher
             return;
         
         _width = value;
+        
+        maybeInvalidateGrid();
+
         dispatchChangeEvent("widthChanged");
-        // TBD invalidate grid
     }
     
     //----------------------------------
@@ -507,8 +516,10 @@ public class GridColumn extends EventDispatcher
             return;
         
         _minWidth = value;
+        
+        maybeInvalidateGrid();
+        
         dispatchChangeEvent("minWidthChanged");
-        // TBD invalidate grid
     }    
        
     //----------------------------------
@@ -541,8 +552,10 @@ public class GridColumn extends EventDispatcher
             return;
         
         _maxWidth = value;
+        
+        maybeInvalidateGrid();
+        
         dispatchChangeEvent("maxWidthChanged");
-        // TBD invalidate grid
     }
     
     //----------------------------------
