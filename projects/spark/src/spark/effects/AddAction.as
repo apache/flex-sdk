@@ -15,6 +15,7 @@ package mx.effects
 import flash.display.DisplayObjectContainer;
 
 import mx.components.Group;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.effects.effectClasses.AddActionInstance;
 import mx.effects.effectClasses.PropertyChanges;
@@ -267,7 +268,10 @@ public class AddAction extends Effect
 	    var container:* = target.parent;
 		if (property == "index")
 			return container ? 
-                ((container is Group) ? container.getItemIndex(target) : container.getChildIndex(target)) : 0;
+                ((container is IVisualElementContainer) ? 
+                    IVisualElementContainer(container).getElementIndex(target) : 
+                    container.getChildIndex(target)) 
+                : 0;
 		
 		return super.getValueFromTarget(target, property);
 	}
@@ -287,8 +291,8 @@ public class AddAction extends Effect
 		    {
                 // TODO : workaround for current situation of mis-match between
                 // Group having 'item's and Flex3 components having 'parent's
-                if (target.parent is Group)
-                    target.parent.removeItem(target);
+                if (target.parent is IVisualElementContainer)
+                    IVisualElementContainer(target.parent).removeElement(target);
                 else
                     target.parent.removeChild(target);
             }
