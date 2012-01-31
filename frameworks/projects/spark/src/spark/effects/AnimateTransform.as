@@ -245,8 +245,10 @@ public class AnimateTransform extends Animate
     //----------------------------------
     //  applyChangesPostLayout
     //----------------------------------
-    [Inspectable(category="General")]
+    
     private var _applyChangesPostLayout:Boolean = false;
+    
+    [Inspectable(category="General", enumeration="true,false")]
     /** 
      *  This flag is used by the subclasses of AnimateTransform to specify
      *  whether the effect changes transform values used by the layout 
