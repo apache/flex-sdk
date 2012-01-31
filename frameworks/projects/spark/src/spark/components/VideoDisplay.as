@@ -34,8 +34,8 @@ import flash.media.Video;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.mx_internal;
 
-import spark.components.supportClasses.StreamItem;
-import spark.components.supportClasses.StreamingVideoSource;
+import spark.components.mediaClasses.StreamingVideoSource;
+import spark.components.mediaClasses.StreamItem;
 import spark.core.IGraphicElement;
 import spark.events.VideoEvent;
 import spark.primitives.supportClasses.GraphicElement;
@@ -451,6 +451,7 @@ public class VideoElement extends GraphicElement
     private var mutedVolume:Number = -1;
     
     [Inspectable(category="General", defaultValue="false")]
+    [Bindable("volumeChanged")]
     
     /**
      *  Set to <code>true</code> to mute the video, <code>false</code> 
