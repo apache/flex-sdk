@@ -2040,6 +2040,31 @@ public class FTETextField extends Sprite
 			   preservingHTMLImporter;
 	}	
 		
+    /**
+     *  @private
+     *  The start margin.  Used when using FTE to construct the individual 
+     *  text lines and textLine alignment is done in this class.
+     */
+    private function get leftMargin():Number
+    {
+        return (direction == "ltr" ?
+            Number(_defaultTextFormat.leftMargin) :
+            Number(_defaultTextFormat.rightMargin));        
+        
+    }
+    
+    /**
+     *  @private
+     *  The end margin.  Used when using FTE to construct the individual 
+     *  text lines and textLine alignment is done in this class.
+     */
+    private function get rightMargin():Number
+    {
+        return (direction == "ltr" ?
+            Number(_defaultTextFormat.rightMargin) :
+            Number(_defaultTextFormat.leftMargin));        
+    }
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Methods: TextField
@@ -2550,9 +2575,7 @@ public class FTETextField extends Sprite
                     
                     var blockIndent:Number = Number(_defaultTextFormat.blockIndent);
                     var indent:Number = Number(_defaultTextFormat.indent);
-                    var leftMargin:Number = Number(_defaultTextFormat.leftMargin);
-                    var rightMargin:Number = Number(_defaultTextFormat.rightMargin);
-                    
+
                     // Factor in indents and margins if the combined total
                     // is positive.
                     if (blockIndent + indent + leftMargin > 0)
@@ -2856,8 +2879,6 @@ public class FTETextField extends Sprite
 		
         var blockIndent:Number = Number(_defaultTextFormat.blockIndent);
         var indent:Number = Number(_defaultTextFormat.indent);
-        var leftMargin:Number = Number(_defaultTextFormat.leftMargin);
-        var rightMargin:Number = Number(_defaultTextFormat.rightMargin);
         
 		var maxLineWidthBeforeIndent:Number =
 			wordWrap ? innerWidth : TextLine.MAX_LINE_WIDTH;
@@ -2893,12 +2914,12 @@ public class FTETextField extends Sprite
                     totalIndent = 0;                
                else if (totalIndent > _width - PADDING_LEFT - PADDING_RIGHT)                
                     totalIndent = _width - PADDING_LEFT - PADDING_RIGHT;
-                
-                if (!wordWrap)
-                    rightMargin = 0;
-                
+
                 maxLineWidth = 
-                    maxLineWidthBeforeIndent - totalIndent - rightMargin;
+                    maxLineWidthBeforeIndent - totalIndent;
+                
+                if (wordWrap)
+                    maxLineWidthBeforeIndent -= rightMargin;
 
                 // Stay within the bounds to avoid exception.  Since 
                 // fitSomething is true it is okay if maxLineWidth is < 0.
@@ -2996,8 +3017,6 @@ public class FTETextField extends Sprite
         if (isNaN(innerWidth))
             innerWidth = 0;
     
-        var rightMargin:Number = Number(_defaultTextFormat.rightMargin);        
-
 		var align:String = _defaultTextFormat.align;
 		var leftAligned:Boolean = 
 			align == "left" ||
