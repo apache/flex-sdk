@@ -653,13 +653,21 @@ public class DateField extends ComboBase
 
             if (mask == "M")
             {
-                output += month;
-                i++;
+            	if ( outputFormat.charAt(i+1) == "/" && value.getMonth() < 9 ) {
+	            	output += month.substring(1) + "/";
+	            } else {
+	            	output += month;
+	            }
+	            i++;	
             }
             else if (mask == "D")
             {
-                output += date;
-                i++;
+            	if ( outputFormat.charAt(i+1) == "/" && value.getDate() < 10 ) {
+	            	output += date.substring(1) + "/";
+	            } else {	
+	            	output += date;	                		
+	            }
+	            i++;
             }
             else if (mask == "Y")
             {
