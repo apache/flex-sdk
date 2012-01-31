@@ -1201,10 +1201,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Internal function to allow the DataGrid to set the width of the
      *  column without locking it as an explicitWidth
      */
-    mx_internal function setWidth(value:Number):void
-    {
-        _width = value;
-    }
+     mx_internal function setWidth(value:Number):void
+     {
+         var oldValue:Number = _width;
+         _width = value;
+         if (oldValue != value)
+             dispatchEvent(new Event("widthChanged"));
+     }
 
     //----------------------------------
     //  wordWrap
