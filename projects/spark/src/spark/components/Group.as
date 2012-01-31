@@ -738,6 +738,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */ 
     override protected function commitProperties():void
     {
+        super.commitProperties();
+        invalidatePropertiesFlag = false;
+        
         if (blendModeChanged)
         {
             blendModeChanged = false;
@@ -809,7 +812,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             }
         }
         
-        super.commitProperties();
+        // Due to dependent properties alpha and blendMode there may be a need
+        // for a second pass at committing properties (to ensure our new
+        // blendMode or blendShader is assigned to our underlying display 
+        // object).
+        if (invalidatePropertiesFlag)
+        {
+            super.commitProperties();
+            invalidatePropertiesFlag = false;
+        }
         
         if (needsDisplayObjectAssignment)
         {
