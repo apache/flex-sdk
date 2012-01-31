@@ -2028,12 +2028,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // if the last column is visible and partially offscreen (but it isn't the only
         // column) then adjust the column count so we can scroll to see it
         if (collectionHasRows && rowCount > 0 && colCount > 1 && 
-            visibleColumns[colCount - 1] == displayableColumns[displayableColumns.length - 1]
-            && listItems[0][colCount - 1].x + 
+            listItems[0][colCount - 1].x + 
             visibleColumns[colCount - 1].width > (displayWidth - listContent.x + viewMetrics.left))
             colCount--;
-        else if (colCount > 1 && !collectionHasRows && 
-            visibleColumns[colCount - 1] == displayableColumns[displayableColumns.length - 1])
+        else if (colCount > 1 && !collectionHasRows)
         {
             // the slower computation requires adding up the previous columns
             var colX:int = 0;
