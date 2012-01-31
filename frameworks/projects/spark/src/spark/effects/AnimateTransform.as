@@ -21,7 +21,7 @@ import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
 import mx.styles.IStyleClient;
 
-import spark.effects.effectClasses.AnimateTransformInstance;
+import spark.effects.supportClasses.AnimateTransformInstance;
 
 use namespace mx_internal;
 
@@ -318,10 +318,9 @@ public class AnimateTransform extends Animate
         {
             target = propChanges[i].target;
             valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
-            if (targets.indexOf(target) >= 0 &&
-                (valueMap.translationX === undefined ||
-                 valueMap.translationY === undefined ||
-                 valueMap.translationZ === undefined))
+            if (valueMap.translationX === undefined ||
+                valueMap.translationY === undefined ||
+                valueMap.translationZ === undefined)
             {
                 // TODO (chaase): do we really need this?
                 propChanges[i].stripUnchangedValues = false;
