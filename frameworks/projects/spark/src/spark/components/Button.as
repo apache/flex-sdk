@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 	
 import flash.events.Event;
@@ -20,9 +20,9 @@ import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
-import flex.core.Flags32;
-import flex.core.SkinnableComponent;
-import flex.graphics.TextBox;
+import mx.utils.Flags32;
+import mx.components.baseClasses.FxComponent;
+import mx.graphics.TextBox;
 
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
@@ -32,9 +32,9 @@ import mx.managers.IFocusManagerComponent;
  *  If the <code>autoRepeat</code> property is <code>true</code>,
  *  this event is dispatched repeatedly as long as the button stays down.
  *
- *  @eventType mx.events.FlexEvent.BUTTON_DOWN
+ *  @eventType mx.events.AnimationEvent.BUTTON_DOWN
  */
-[Event(name="buttonDown", type="mx.events.FlexEvent")]
+[Event(name="buttonDown", type="mx.events.AnimationEvent")]
 
 /**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
@@ -69,7 +69,7 @@ import mx.managers.IFocusManagerComponent;
 /**
  *  Documentation is not currently available.
  */
-public class Button extends SkinnableComponent implements IFocusManagerComponent
+public class FxButton extends FxComponent implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -82,7 +82,7 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
     /**
      *  Constructor. 
      */    
-	public function Button()
+	public function FxButton()
 	{
 		super();
 
