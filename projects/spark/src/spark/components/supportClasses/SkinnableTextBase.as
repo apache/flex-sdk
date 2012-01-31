@@ -2512,7 +2512,7 @@ public class SkinnableTextBase extends SkinnableComponent
         
         // If we already have focus, make sure to open soft keyboard
         // on mouse up
-        if (focusManager.getFocus() == this)
+        if (focusManager && focusManager.getFocus() == this)
             delaySetFocus = true;
         
         // Wait for a mouseUp somewhere
