@@ -23,6 +23,7 @@ import mx.core.mx_internal;
 import spark.components.Group;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
+import spark.skins.IHighlightBitmapCaptureClient;
 
 use namespace mx_internal;
 
@@ -55,7 +56,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Skin extends Group
+public class Skin extends Group implements IHighlightBitmapCaptureClient
 {
     include "../../core/Version.as";
 
@@ -79,7 +80,7 @@ public class Skin extends Group
 	}
 
     /**
-     *  List of id's of items that should be included when rendering the focus ring.
+     *  List of id's of items that should be excluded when rendering the focus ring.
      *  Only items of type DisplayObject or GraphicElement should be excluded. Items
      *  of other types will be ignored.
      *  
