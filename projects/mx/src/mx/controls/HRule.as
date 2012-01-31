@@ -87,6 +87,8 @@ import mx.core.UIComponent;
 
 [IconFile("HRule.png")]
 
+[Alternative(replacement="spark.primitives.Line", since="4.0")]
+
 /**
  *  The HRule control creates a single horizontal line.
  *  You typically use this control to create a dividing line
