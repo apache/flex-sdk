@@ -27,6 +27,7 @@ import mx.core.InteractionMode;
 import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.events.EffectEvent;
+import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
@@ -601,6 +602,18 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
+     *  The final position in the throw effect's vertical motion path
+     */
+    private var throwFinalVSP:Number;
+    
+    /**
+     *  @private
+     *  The final position in the throw effect's horizontal motion path
+     */
+    private var throwFinalHSP:Number;
+    
+    /**
+     *  @private
      *  Used to keep track of whether the throw animation 
      *  was stopped pre-emptively.  We stop propogation of 
      *  the mouse event, but in the throwEffect.EFFECT_END
@@ -660,6 +673,12 @@ public class Scroller extends SkinnableComponent
      *  both cases, so we must keep track of it ourselves.
      */
     private var hideScrollBarAnimationPrematurelyStopped:Boolean;
+    
+    /**
+     *  @private
+     *  Keeps track of whether a touch interaction is in progress. 
+     */
+    private var inTouchInteraction:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -762,7 +781,7 @@ public class Scroller extends SkinnableComponent
         installViewport();
         dispatchEvent(new Event("viewportChanged"));
     }
-
+    
     private function installViewport():void
     {
         if (skin && viewport)
@@ -876,7 +895,88 @@ public class Scroller extends SkinnableComponent
     // Event Handlers
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Helper function for viewport_propertyChangeHandler below 
+     */
+    private function checkForInvalidScrollPositions():void
+    {
+        var snapVSP:Number;
+        var snapHSP:Number;
+        var doVerticalSnap:Boolean = false;
+        var doHorizontalSnap:Boolean = false;
+        
+        function updateCompleteHandler(event:FlexEvent):void
+        {
+            viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
+                updateCompleteHandler);
+            
+            if (doHorizontalSnap)
+                viewport.horizontalScrollPosition = snapHSP;
+            
+            if (doVerticalSnap)
+                viewport.verticalScrollPosition = snapVSP;
+        }
+        
+        // There are two cases in which we'll potentially need to fix invalid 
+        // scroll positions...
+        if (throwEffect && throwEffect.isPlaying)
+        {
+            // 1) A throw effect animation is in progress, and may have been 
+            // set up to end at a scroll position that is now invalid.
+            snapVSP = throwFinalVSP;
+            snapHSP = throwFinalHSP;
+        }
+        else if (!inTouchInteraction)
+        {
+            // 2) There's no touch gesture in progress.  The content may be 
+            // at a scroll position that is now invalid.
+            snapVSP = viewport.verticalScrollPosition;
+            snapHSP = viewport.horizontalScrollPosition;
+        } 
+        else
+        {
+            // If we get here we know that a touch gesture is in progress but 
+            // the throw animation portion is not playing.  The user's finger 
+            // is down.  We don't need to worry about the scroll position being 
+            // invalid because when the finger is released the throw animation 
+            // will get us back to a valid position.
+            return;
+        }
+        
+        // Determine the maximum valid scroll positions
+        var maxVSP:Number = viewport.contentHeight > viewport.height ? 
+            viewport.contentHeight-viewport.height : 0; 
+        var maxHSP:Number = viewport.contentWidth > viewport.width ? 
+            viewport.contentWidth-viewport.width : 0; 
 
+        // See whether the current scroll positions are invalid
+        if (snapVSP > maxVSP)
+        {
+            snapVSP = maxVSP;
+            doVerticalSnap = true;
+        }
+        if (snapHSP > maxHSP)
+        {
+            snapHSP = maxHSP;
+            doHorizontalSnap = true;
+        }
+
+        if (doHorizontalSnap || doVerticalSnap)
+        {
+            // One or both scroll positions are invalid
+            
+            // If a throw effect is playing, we need to stop it
+            if (throwEffect && throwEffect.isPlaying)
+                throwEffect.stop();
+            
+            // We need to wait until after the current update to change to the new 
+            // valid scroll positions.
+            viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
+                updateCompleteHandler);
+        }
+    }
     
     private function viewport_propertyChangeHandler(event:PropertyChangeEvent):void
     {
@@ -885,6 +985,14 @@ public class Scroller extends SkinnableComponent
             case "contentWidth": 
             case "contentHeight": 
                 invalidateSkin();
+                if (getStyle("interactionMode") == InteractionMode.TOUCH)
+                {
+                    // If the content size changed, particularly because of a device 
+                    // orientation (i.e. landscape/portrait) change, then the valid 
+                    // scroll position ranges may have changed.  In this case, we may
+                    // need to snap the content scroll position back to a valid value. 
+                    checkForInvalidScrollPositions();
+                }
                 break;
         }
     }
@@ -1367,6 +1475,7 @@ public class Scroller extends SkinnableComponent
         scrollingHorizontally = false;
         var horizontalTime:Number = 0;
         var finalKeyframe:int;
+        throwFinalHSP = 0;
         if (scrollerLayout && scrollerLayout.canScrollHorizontally)
         {
             var hsp:Number = viewport.horizontalScrollPosition;
@@ -1381,12 +1490,14 @@ public class Scroller extends SkinnableComponent
             {
                 throwEffectMotionPaths.push(horizontalMP);
                 horizontalTime = horizontalMP.keyframes[horizontalMP.keyframes.length-1].time;
+                throwFinalHSP = Number(horizontalMP.keyframes[horizontalMP.keyframes.length-1].value); 
                 scrollingHorizontally = true;
             }
         }
         
         scrollingVertically = false;
         var verticalTime:Number = 0;
+        throwFinalVSP = 0;
         if (scrollerLayout && scrollerLayout.canScrollVertically)
         {
             var vsp:Number = viewport.verticalScrollPosition;
@@ -1401,6 +1512,7 @@ public class Scroller extends SkinnableComponent
             {
                 throwEffectMotionPaths.push(verticalMP);
                 verticalTime = verticalMP.keyframes[verticalMP.keyframes.length-1].time;
+                throwFinalVSP = Number(verticalMP.keyframes[verticalMP.keyframes.length-1].value); 
                 scrollingVertically = true;
             }
         }
@@ -1810,7 +1922,26 @@ public class Scroller extends SkinnableComponent
             
             if (verticalScrollBar)
                 verticalScrollBar.alpha = viewport.contentHeight > viewport.height ? 1.0 : 0.0;
+            
+            inTouchInteraction = true;
         }
+    }
+    
+    /**
+     *  @private
+     *  Snap the scroll positions to valid values.
+     */
+    private function snapContentScrollPosition():void
+    {
+        var maxHsp:Number = viewport.contentWidth > viewport.width ? 
+            viewport.contentWidth-viewport.width : 0; 
+        viewport.horizontalScrollPosition = 
+            Math.min(Math.max(0,viewport.horizontalScrollPosition),maxHsp);
+
+        var maxVsp:Number = viewport.contentHeight > viewport.height ? 
+            viewport.contentHeight-viewport.height : 0; 
+        viewport.verticalScrollPosition = 
+            Math.min(Math.max(0,viewport.verticalScrollPosition),maxVsp);
     }
     
     /**
@@ -1827,10 +1958,7 @@ public class Scroller extends SkinnableComponent
                     
             // Snap the scroll position to the content in case the empty space beyond the edge was visible
             // due to bounce/pull.
-            var maxHsp:Number = viewport.contentWidth > viewport.width ? viewport.contentWidth-viewport.width : 0; 
-            viewport.horizontalScrollPosition = Math.min(Math.max(0,viewport.horizontalScrollPosition),maxHsp);
-            var maxVsp:Number = viewport.contentHeight > viewport.height ? viewport.contentHeight-viewport.height : 0; 
-            viewport.verticalScrollPosition = Math.min(Math.max(0,viewport.verticalScrollPosition),maxVsp);
+            snapContentScrollPosition();
             
             // get new values in case we start scrolling again
             hspBeforeTouchScroll = viewport.horizontalScrollPosition;
@@ -1964,6 +2092,7 @@ public class Scroller extends SkinnableComponent
             // after that, so we want to block this next mouseClick
             
             hideScrollBars();
+            inTouchInteraction = false;
         }
     }
     
@@ -2619,7 +2748,7 @@ class TouchScrollHelper
         scrollEndEvent.reason = TouchInteractionReason.SCROLL;
 		dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
     }
-    
+
 }
     
 import spark.effects.easing.EaseInOutBase;
