@@ -172,6 +172,8 @@ use namespace mx_internal;
  */
 [Effect(name="itemsChangeEffect", event="itemsChange")]
 
+[Alternative(replacement="spark.components.List", since="4.0")]
+
 /**
  *  The List control displays a vertical list of items.
  *  Its functionality is very similar to that of the SELECT
