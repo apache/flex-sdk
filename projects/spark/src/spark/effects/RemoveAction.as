@@ -65,7 +65,7 @@ public class RemoveAction extends Effect
 	/**
 	 *  @private
 	 */
-    private static var AFFECTED_PROPERTIES:Array = [ "parent", "elementHost", "index" ];
+    private static var AFFECTED_PROPERTIES:Array = [ "parent", "index" ];
 
 	//--------------------------------------------------------------------------
 	//
@@ -132,17 +132,10 @@ public class RemoveAction extends Effect
 	override protected function getValueFromTarget(target:Object,
 												   property:String):*
 	{
-	    var hasParent:Boolean;
-        try {
-            target.parent;
-            hasParent = true;
-        } catch (e:Error) {
-            hasParent = false;
-        }
-        var container:* = (hasParent ? target.parent : target.elementHost);
+        var container:* = target.parent;
         if (property == "index")
             return container ? 
-                (hasParent ? container.getChildIndex(target) : container.getItemIndex(target)) : 0;
+                (!(container is Group) ? container.getChildIndex(target) : container.getItemIndex(target)) : 0;
 		
 		return super.getValueFromTarget(target, property);
 	}
@@ -155,26 +148,20 @@ public class RemoveAction extends Effect
 												   value:*,
 												   props:Object):void
 	{
-	    var hasParent:Boolean;
-        try {
-            target.parent;
-            hasParent = true;
-        } catch (e:Error) {
-            hasParent = false;
-        }
         if (property == "parent" && value)
-            if (hasParent && target.parent == null)
+        {
+            if (target.parent == null)
+            {
                 // TODO : workaround for current situation of mis-match between
                 // Group having 'item's and Flex3 components having 'parent's
                 if (value is Group)
                     value.addItemAt(target, Math.min(props.index, 
-                        value.numChildren));
+                        value.numItems));
                 else
                     value.addChildAt(target, Math.min(props.index, 
                         value.numChildren));
-        if (property == "elementHost" && value)
-            if (!hasParent && target.elementHost == null)
-                value.addItemAt(target, Math.min(props.index, value.numChildren));
+            }
+        }
 		
 		// Ignore index - it's applied along with parent
 	}
