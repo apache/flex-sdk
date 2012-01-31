@@ -157,21 +157,22 @@ public class VSlider extends SliderBase
         
         if (tipAsDisplayObject && thumb)
         {
+            // Get the tips bounds. We only care about the dimensions.
+            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
             var relY:Number = thumb.getLayoutBoundsY() + 
                             (thumb.getLayoutBoundsHeight() - tipAsDisplayObject.height) / 2;
-            var o:Point = new Point(initialPosition.x, relY);
+            var relX:Number = layoutDirection == "rtl" ? initialPosition.x + tipBounds.width : initialPosition.x;
+            var o:Point = new Point(relX, relY);
             var r:Point = thumb.parent.localToGlobal(o);        
             
             // Get the screen bounds
             var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
-            // Get the tips bounds. We only care about the dimensions.
-            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
             
-                // Make sure the tip doesn't exceed the bounds of the screen
-                r.x = Math.floor( Math.max(screenBounds.left, 
-                                    Math.min(screenBounds.right - tipBounds.width, r.x)));
-                r.y = Math.floor( Math.max(screenBounds.top, 
-                                    Math.min(screenBounds.bottom - tipBounds.height, r.y)));
+            // Make sure the tip doesn't exceed the bounds of the screen
+            r.x = Math.floor( Math.max(screenBounds.left, 
+                                Math.min(screenBounds.right - tipBounds.width, r.x)));
+            r.y = Math.floor( Math.max(screenBounds.top, 
+                                Math.min(screenBounds.bottom - tipBounds.height, r.y)));
             
             r = tipAsDisplayObject.parent.globalToLocal(r);
             tipAsDisplayObject.x = r.x;
