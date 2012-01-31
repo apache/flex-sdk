@@ -60,9 +60,6 @@ public class PopUpAnchor extends UIComponent
 		addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 	}
 	
-	private var layoutWidth:Number = 0;
-	private var layoutHeight:Number = 0;
-	
 	private var popUpWidth:Number = 0;
 	private var popUpHeight:Number = 0;
 	
@@ -275,11 +272,7 @@ public class PopUpAnchor extends UIComponent
 	 */
 	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
-					
-		layoutWidth = unscaledWidth;
-		layoutHeight = unscaledHeight;
-				
+		super.updateDisplayList(unscaledWidth, unscaledHeight);				
 		applyPopUpTransform(unscaledWidth, unscaledHeight);			
 	}
 	
@@ -300,7 +293,7 @@ public class PopUpAnchor extends UIComponent
 	 */
 	public function updatePopUpTransform():void
 	{
-		applyPopUpTransform(layoutWidth, layoutHeight);
+		applyPopUpTransform(width, height);
 	}
 	
 	/**
@@ -330,12 +323,8 @@ public class PopUpAnchor extends UIComponent
 	 */
 	private function updatePopUpState():void
 	{
-		// If we haven't been initialized, we need to perform this function 
-		// in commitProperties
 		if (!addedToStage)
-		{
 			return;
-		}	
 		
 		/*if (popUpFactory && popUp == null && displayPopUp)
 		{
@@ -352,7 +341,7 @@ public class PopUpAnchor extends UIComponent
 			popUpIsDisplayed = true;
 			popUpWidth = popUp.explicitWidth;
 			popUpHeight = popUp.explicitHeight;
-			applyPopUpTransform(layoutWidth, layoutHeight);
+			applyPopUpTransform(width, height);
 		}
 		else if (popUp.parent != null && displayPopUp == false)
 		{
