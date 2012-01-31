@@ -102,6 +102,7 @@ public class FxFadeInstance extends FxAnimateInstance
                 if (alphaFrom == 0)
                 {
                     target.alpha = 0;
+                    // TODO: is Group or is UIComponent?
                     if (target.parent is Group)
                         target.parent.validateNow();
                 }
