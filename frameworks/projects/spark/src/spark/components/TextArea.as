@@ -20,7 +20,7 @@ import mx.events.FlexEvent;
 import spark.events.TextOperationEvent;
 
 //--------------------------------------
-//  Other metadata
+//  Styles
 //--------------------------------------
 
 /**
@@ -53,9 +53,9 @@ import spark.events.TextOperationEvent;
  */ 
 [Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
-[DefaultProperty("content")]
-
-[IconFile("TextArea.png")]
+//--------------------------------------
+//  Skin states
+//--------------------------------------
 
 /**
  *  Normal State
@@ -76,6 +76,14 @@ import spark.events.TextOperationEvent;
  *  @productversion Flex 4
  */
 [SkinState("disabled")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[DefaultProperty("content")]
+
+[IconFile("TextArea.png")]
 
 /**
  *  The TextArea component is a text field that lets users enter
