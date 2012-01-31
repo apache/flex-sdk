@@ -3808,8 +3808,12 @@ package spark.components
             if (width == 0 || height == 0) 
                 return false;
             
-            // if we're using typical text, no need to remeasure
+            // If we're using typical text, no need to remeasure.
             if (typicalText != null)
+                return false;
+            
+            // No reflow for explicit lineBreak
+            if (_textContainerManager.hostFormat.lineBreak == "explicit")
                 return false;
             
             if (!isNaN(widthConstraint))
@@ -3821,10 +3825,6 @@ package spark.components
                 {
                     return false;
                 }
-                
-                // No reflow for explicit lineBreak
-                if (_textContainerManager.hostFormat.lineBreak == "explicit")
-                    return false;
             } 
             
             if (!isNaN(heightConstraint))
