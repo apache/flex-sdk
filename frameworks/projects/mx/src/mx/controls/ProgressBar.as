@@ -20,7 +20,6 @@ import flash.events.ProgressEvent;
 import flash.events.TimerEvent;
 import flash.text.TextLineMetrics;
 import flash.utils.Timer;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -1098,15 +1097,8 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
 
         if (!_barMask)
         {
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            {
-                var barMaskClass:Class = getStyle("maskSkin");
-                _barMask = new barMaskClass();
-            }
-            else
-            {
-                _barMask = new UIComponent();
-            }    
+            var barMaskClass:Class = getStyle("maskSkin");
+            _barMask = new barMaskClass();
 
             _barMask.visible = true;
             _bar.addChild(DisplayObject(_barMask));
@@ -1447,18 +1439,7 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
         {
             _barMask.move(0,0);
             
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            {
-                _barMask.setActualSize(_track.width, _track.height);
-            }
-            else
-            {
-                var g:Graphics = UIComponent(_barMask).graphics;
-                g.clear();
-                g.beginFill(0xFFFF00);
-                g.drawRect(1, 1, _track.width - 2, _track.height - 2);
-                g.endFill();
-            }
+            _barMask.setActualSize(_track.width, _track.height);
         }
         // Print position/sizes of children
         //trace("_labelField x",_labelField.x,"y",_labelField.y,"w",_labelField.width,"h",_labelField.height);
