@@ -740,16 +740,13 @@ public class SkinnableContainer extends SkinnableContainerBase
                 {
                     var sourceContent:Array = _placeHolderGroup.getMXMLContent();
                     
-                    // FIXME (rfrishbe): investigate why we need this, especially if these elements shouldn't 
-                    // be added to the place holder Group's display list
-                    // (aharui) They are added via calls to addElement if no other mxmlContent has been
-                    // set.  This is a typical pattern when creating views from AS.  Create the child, 
-                    // create the parent, addElement the child to the parent.
-                    
                     // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
                     // especially if we make it mx_internal.  Also look at controlBarContent.
                     
-                    // Temporary workaround because copying content from one Group to another throws RTE
+                    // If a child element has been addElemented() to the placeHolderGroup, 
+                    // then it wouldn't been added to the display list and we can't just 
+                    // copy the mxmlContent from the placeHolderGroup, but we must also 
+                    // call removeElement() on those children.
                     for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
                     {
                         _placeHolderGroup.removeElementAt(0);  
@@ -876,14 +873,8 @@ public class SkinnableContainer extends SkinnableContainerBase
             
             if (_mxmlContentFactory)
             {
-                // FIXME (rfrishbe): If we have compiler support for deferred content
-                // to do autotype conversion (do I create a single object, 
-                // an array, or an IList in the function)
                 var deferredContent:Object = _mxmlContentFactory.getInstance();
-                if (deferredContent is Array)
-                    mxmlContent = deferredContent as Array;
-                else
-                    mxmlContent = [deferredContent];
+                mxmlContent = deferredContent as Array;
                 _deferredContentCreated = true;
                 dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
             }
