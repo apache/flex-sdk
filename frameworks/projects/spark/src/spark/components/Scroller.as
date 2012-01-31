@@ -1745,8 +1745,6 @@ public class Scroller extends SkinnableComponent
      */
     private function hideScrollBars():void
     {
-        // FIXME (rfrishbe): need to make sure this coordinates with ScrollerLayout
-        // better.
         if (!hideScrollBarAnimation)
         {
             hideScrollBarAnimation = new Animate();
@@ -2122,7 +2120,7 @@ public class Scroller extends SkinnableComponent
             hspBeforeTouchScroll = viewport.horizontalScrollPosition;
             vspBeforeTouchScroll = viewport.verticalScrollPosition;
             
-            // FIXME (rfrishbe): should the ScrollerLayout just listen to 
+            // TODO (rfrishbe): should the ScrollerLayout just listen to 
             // Scroller events to determine this rather than doing it here.
             // Also should figure out who's in charge of fading the alpha of the
             // scrollbars...Scroller or ScrollerLayout (or even HScrollbar/VScrollbar)?
@@ -2330,8 +2328,6 @@ public class Scroller extends SkinnableComponent
      *  @private
      *  Called when the effect finishes playing on the scrollbars.  This is so ScrollerLayout 
      *  can hide the scrollbars completely and go back to controlling its visibility.
-     *  FIXME (rfrishbe): Not sure if this return to ScrollerLayout control is 
-     *  actually necessary
      */
     private function hideScrollBarAnimation_effectEndHandler(event:EffectEvent):void
     {
@@ -2343,7 +2339,7 @@ public class Scroller extends SkinnableComponent
         horizontalScrollInProgress = false;
         verticalScrollInProgress = false;
         
-        // need to invaliadte the ScrollerLayout object so it'll update the
+        // need to invalidate the ScrollerLayout object so it'll update the
         // scrollbars in overlay mode
         skin.invalidateDisplayList();
     }
