@@ -12,18 +12,24 @@
 package mx.effects.effectClasses
 {
 import flash.events.TimerEvent;
+import flash.geom.Point;
 import flash.utils.Timer;
 
+import mx.components.baseClasses.GroupBase;
 import mx.components.Group;
 import mx.effects.Animation;
 import mx.effects.PropertyValuesHolder;
-import mx.effects.fxEasing.IEaser;
+import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
 
+import mx.core.Container;
 import mx.core.UIComponent;
 import mx.effects.EffectInstance;
 import mx.effects.EffectManager;
+import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
 
 /**
@@ -111,6 +117,9 @@ public class FxAnimateInstance extends EffectInstance
      */
     protected var autoRemoveTarget:Boolean = false;
         
+    public var adjustConstraints:Boolean;    
+
+    public var disableLayout:Boolean;
     
     private var _easer:IEaser;    
     public function set easer(value:IEaser):void
@@ -283,8 +292,11 @@ public class FxAnimateInstance extends EffectInstance
             
         isStyleMap = new Array(propertyValuesList.length);
         
-        if (affectsConstraints)
-            disableConstraints();
+        if (affectsConstraints || adjustConstraints)
+            cacheConstraints(affectsConstraints);
+        
+        if (disableLayout)
+            setupParentLayout(false);
             
         // These two temporary arrays will hold the values passed into the
         // Animation to be interpolated between during the animation. The order
@@ -453,11 +465,13 @@ public class FxAnimateInstance extends EffectInstance
     protected function endHandler(event:AnimationEvent):void
     {
         dispatchEvent(event);
-        finishEffect();
-        if (affectsConstraints)
+        if (affectsConstraints || adjustConstraints)
             reenableConstraints();
         if (autoRemoveTarget)
             removeDisappearingTarget();
+        if (disableLayout)
+            setupParentLayout(true);
+        finishEffect();
     }
 
     /**
@@ -541,12 +555,16 @@ public class FxAnimateInstance extends EffectInstance
 
     private var constraintsHolder:Object;
     
+    // TODO (chaase): Use IConstraintClient for this
     private function reenableConstraint(name:String):void
     {
         var value:* = constraintsHolder[name];
         if (value !== undefined)
         {
-            target.setStyle(name, value);
+            if (name in target)
+                target[name] = value;
+            else
+                target.setStyle(name, value);
             delete constraintsHolder[name];
         }
     }
@@ -557,6 +575,52 @@ public class FxAnimateInstance extends EffectInstance
         // there must have been no constraints to worry about
         if (constraintsHolder)
         {
+            if (adjustConstraints)
+            {
+                var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(target);
+                var location:Point = layoutItem.actualPosition;
+                var size:Point = layoutItem.actualSize;
+                if (constraintsHolder["left"] !== undefined)
+                    constraintsHolder["left"] = Math.round(location.x);
+                if (constraintsHolder["top"] !== undefined)
+                    constraintsHolder["top"] = Math.round(location.y);
+                if (constraintsHolder["right"] !== undefined)
+                {
+                    var parentW:int = 0;
+                    if ("parent" in target && target.parent)
+                    {
+                        parentW = target.parent.width;
+                    }
+                    else if ("elementHost" in target && target.elementHost)
+                    {
+                        parentW = target.elementHost.width;
+                    }
+                    if (parentW > 0)
+                    {
+                        // Only bother adjusting 'right' if our target is
+                        // parented to an object with a positive width
+                        constraintsHolder["right"] = parentW - location.x - size.x;
+                    }
+                }
+                if (constraintsHolder["bottom"] !== undefined)
+                {
+                    var parentH:int = 0;
+                    if ("parent" in target && target.parent)
+                    {
+                        parentH = target.parent.height;
+                    }
+                    else if ("elementHost" in target && target.elementHost)
+                    {
+                        parentH = target.elementHost.height;
+                    }
+                    if (parentH > 0)
+                    {
+                        // Only bother adjusting 'bottom' if our target is
+                        // parented to an object with a positive height
+                        constraintsHolder["bottom"] = parentH - location.y - size.y;
+                    }
+                }
+            }
             reenableConstraint("left");
             reenableConstraint("right");
             reenableConstraint("top");
@@ -568,30 +632,41 @@ public class FxAnimateInstance extends EffectInstance
         }
     }
     
-    private function disableConstraint(name:String):void
+    // TODO (chaase): Use IConstraintClient for this
+    private function cacheConstraint(name:String, disable:Boolean):void
     {
-        var value:* = target.getStyle(name);
-        if (value !== undefined)
+        var isProperty:Boolean = (name in target);
+        var value:*;
+        if (isProperty)
+            value = target[name];
+        else
+            value = target.getStyle(name);
+        if (!isNaN(value))
         {
             if (!constraintsHolder)
                 constraintsHolder = new Object();
             constraintsHolder[name] = value;
-            target.setStyle(name, undefined);
+            if (disable)
+            {
+                if (isProperty)
+                    target[name] = NaN;
+                else if (target is IStyleClient)
+                    target.setStyle(name, undefined);
+            }
         }        
     }
-    private function disableConstraints():void
+    
+    private function cacheConstraints(disable:Boolean):void
     {
-        if (target is IStyleClient)
-        {
-            disableConstraint("left");
-            disableConstraint("right");
-            disableConstraint("top");
-            disableConstraint("bottom");
-            disableConstraint("verticalCenter");
-            disableConstraint("horizontalCenter");
-            disableConstraint("baseline");
-        }
+        cacheConstraint("left", disable);
+        cacheConstraint("right", disable);
+        cacheConstraint("top", disable);
+        cacheConstraint("bottom", disable);
+        cacheConstraint("verticalCenter", disable);
+        cacheConstraint("horizontalCenter", disable);
+        cacheConstraint("baseline", disable);
     }
+
     /**
      * Utility function to handle situation where values may be queried or
      * set on the target prior to completely setting up the effect's
@@ -656,6 +731,31 @@ public class FxAnimateInstance extends EffectInstance
             return target[property];
         else
             return target.getStyle(property);
+    }
+
+    /**
+     * Enables or disables autoLayout in the target's container.
+     * This is used to disable layout during the course of an animation,
+     * and to re-enable it when the animation finishes.
+     */
+    private function setupParentLayout(enable:Boolean):void
+    {
+        var parent:* = null;
+        if ("parent" in target && target.parent)
+        {
+            parent = target.parent;
+        }
+        else if ("elementHost" in target && target.elementHost)
+        {
+            parent = target.elementHost;
+        }
+        if (parent)
+        {
+            if (parent is Container)
+                Container(parent).autoLayout = enable;
+            else if (parent is GroupBase)
+                GroupBase(parent).autoLayout = enable;
+        }
     }
 }
 }
