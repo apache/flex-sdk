@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package spark.components { 
-	
+    
 import mx.core.IDataRenderer;
 import mx.events.FlexEvent;
 
@@ -36,7 +36,7 @@ import mx.events.FlexEvent;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;DataRenderer
+ *  &lt;s:DataRenderer
  *    <strong>Properties</strong>
  *    data=""
  *  
