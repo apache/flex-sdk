@@ -86,7 +86,7 @@ use namespace mx_internal;
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
  *  @productversion Flex 4
- */	 
+ */  
 [Event(name="complete", type="org.osmf.events.TimeEvent")]
 
 /**
@@ -192,7 +192,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.VideoPlayer
+ *  @see spark.components.VideoPlayer
  *
  *  @includeExample examples/VideoDisplayExample.mxml
  *  
@@ -776,13 +776,15 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  The <code>scaleMode</code> property describes different ways of 
-     *  sizing the video content.  <code>scaleMode</code> can be set to 
-     *  <code>NONE</code>, <code>STRETCH</code>, <code>LETTERBOX</code> or <code>ZOOM</code>.
+     *  sizing the video content.  
+     *  You can set <code>scaleMode</code> to 
+     *  <code>"none"</code>, <code>"stretch"</code>, 
+     *  <code>"letterbox"</code>, or <code>"zoom"</code>.
      * 
      *  <p>If no width, height, or constraints are specified on the component, 
      *  this property has no effect.</p>
      *
-     *  @default letterbox
+     *  @default "letterbox"
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
