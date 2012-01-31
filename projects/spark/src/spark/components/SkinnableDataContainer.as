@@ -9,13 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
-import flex.core.DataGroup;
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
-import flex.layout.LayoutBase;
+import mx.components.DataGroup;
+import mx.components.baseClasses.FxContainerBase;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
+import mx.layout.LayoutBase;
 
 import mx.collections.IList;
 import mx.core.IFactory;
@@ -28,7 +29,7 @@ import mx.managers.IFocusManagerContainer;
  * data content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class DataComponent extends ContainerBase
+public class FxDataComponent extends FxContainerBase
 {
     include "../core/Version.as";
 
@@ -41,7 +42,7 @@ public class DataComponent extends ContainerBase
     /**
      *  Constructor. 
      */
-	public function DataComponent()
+	public function FxDataComponent()
 	{
 		super();
 		
@@ -76,7 +77,7 @@ public class DataComponent extends ContainerBase
 	private var _dataProvider:IList;
 	
 	/**
-	 *  @copy flex.core.DataGroup#dataProvider
+	 *  @copy mx.components.DataGroup#dataProvider
 	 */
 	[Bindable]
 	public function get dataProvider():IList
@@ -103,7 +104,7 @@ public class DataComponent extends ContainerBase
 	//----------------------------------
 	
 	/**
-	 *  @copy flex.core.DataGroup#layout
+	 *  @copy mx.components.DataGroup#layout
 	 */
 	 
 	private var _layout:LayoutBase;
@@ -130,7 +131,7 @@ public class DataComponent extends ContainerBase
 	private var _itemRenderer:IFactory;
 	
 	/**
-	 *  @copy flex.core.Group#itemRenderer
+	 *  @copy mx.components.Group#itemRenderer
 	 */
 	public function get itemRenderer():IFactory
 	{
@@ -158,7 +159,7 @@ public class DataComponent extends ContainerBase
 	private var _itemRendererFunction:Function;
 	
 	/**
-	 *  @copy flex.core.Group#itemRendererFunction
+	 *  @copy mx.components.Group#itemRendererFunction
 	 */
 	public function get itemRendererFunction():Function
 	{
