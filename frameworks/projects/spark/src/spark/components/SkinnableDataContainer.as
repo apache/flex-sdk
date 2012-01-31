@@ -202,7 +202,7 @@ public class DataComponent extends SkinnableComponent implements IFocusManagerCo
 	 *  itemRendererFunction properties down to the contentGroup
 	 *  skin part.
 	 */
-	override protected function partAdded(partName:String, instance:*):void
+	override protected function partAdded(partName:String, instance:Object):void
 	{
 		if (instance == dataGroup)
 		{
@@ -228,7 +228,7 @@ public class DataComponent extends SkinnableComponent implements IFocusManagerCo
 	/**
 	 *  Called when a skin part is removed.
 	 */
-	override protected function partRemoved(partName:String, instance:*):void
+	override protected function partRemoved(partName:String, instance:Object):void
 	{
 		if (instance == dataGroup)
 		{
