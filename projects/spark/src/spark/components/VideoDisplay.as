@@ -14,7 +14,9 @@ package spark.primitives
 import fl.video.DynamicStream;
 import fl.video.DynamicStreamItem;
 import fl.video.MetadataEvent;
+import fl.video.NCManagerDynamicStream;
 import fl.video.VideoAlign;
+import fl.video.VideoError;
 import fl.video.VideoEvent;
 import fl.video.VideoPlayer;
 import fl.video.VideoScaleMode;
@@ -175,7 +177,10 @@ public class VideoElement extends GraphicElement
     public function VideoElement()
     {
         super();
-        VideoPlayer.iNCManagerClass = fl.video.NCManagerDynamicStream;
+        
+        // set up the VideoPlayer's iNCManagerClass to point to our FlexNCManager, 
+        // which is a private class
+        VideoPlayer.iNCManagerClass = FlexNCManager;
         
         // we wrap the VideoPlayer inside of another container because 
         // the video player doesn't handle setting x/y correctly. we could allocate
@@ -793,7 +798,15 @@ public class VideoElement extends GraphicElement
             videoPlayerProperties = {autoRewind: videoPlayer.autoRewind,
                                      scaleMode: videoPlayer.scaleMode};
         
-            videoPlayer.stop();
+            // if we try to stop and are throwing away this video, just 
+            // ignore any errors. This might happen if the connection went 
+            // bad or something else and we're trying to throw it away anyways.
+            try
+            {
+                videoPlayer.stop();
+            } catch (e:VideoError) {};
+            
+            // clear out old video player and close the connection
             videoPlayer.close();
             videoPlayer.clear();
             
@@ -948,6 +961,11 @@ public class VideoElement extends GraphicElement
                 sourceLastPlayed = source;
         
                 flvSource.uri = streamingSource.serverURI;
+                
+                // if dealing with a live streaming video, set start = -1
+                // otherwise we don't worry about the start parameter
+                if (streamingSource.live)
+                    flvSource.start = -1;
             
                 var n:int = streamingSource.streamItems.length;
                 var item:StreamItem;
@@ -1199,4 +1217,110 @@ public class VideoElement extends GraphicElement
         dispatchEvent(event);
     }
 }
+}
+
+import fl.video.flvplayback_internal;
+import fl.video.NCManagerDynamicStream;
+import fl.video.VideoError;
+import fl.video.SMILManager;
+import fl.video.ParseResults;
+
+use namespace flvplayback_internal;
+
+/**
+ *  @private
+ *  We only have this class to fix a bug when handling "?"
+ *  in URLs.  Hopefully Strobe will fix this directly.
+ */
+class FlexNCManager extends NCManagerDynamicStream
+{
+    public function FlexNCManager()
+    {
+        super();
+    }
+    
+    /**
+     * @copy INCManager#connectToURL()
+     * @see INCManager#connectToURL() 
+     *
+     * @langversion 3.0
+     * @playerversion Flash 9.0.28.0
+     */
+    override public function connectToURL(url:String):Boolean {
+        //ifdef DEBUG
+        //debugTrace("connectToURL(" + url + ")");
+        //endif
+
+        // init
+        initOtherInfo();
+        _contentPath = url;
+        if (_contentPath == null || _contentPath == "") {
+            throw new VideoError(VideoError.INVALID_SOURCE);
+        }
+
+        // parse URL to determine what to do with it
+        var parseResults:ParseResults = parseURL(_contentPath);
+        if (parseResults.streamName == null || parseResults.streamName == "") {
+            throw new VideoError(VideoError.INVALID_SOURCE, url);
+        }
+
+        // connect to either rtmp or http or download and parse smil
+        var canReuse:Boolean;
+        if (parseResults.isRTMP) {
+            canReuse = canReuseOldConnection(parseResults);
+            _isRTMP = true;
+            _protocol = parseResults.protocol;
+            _streamName = parseResults.streamName;
+            _serverName = parseResults.serverName;
+            _wrappedURL = parseResults.wrappedURL;
+            _portNumber = parseResults.portNumber;
+            _appName = parseResults.appName;
+            if ( _appName == null || _appName == "" ||
+                 _streamName == null || _streamName == "" ) {
+                throw new VideoError(VideoError.INVALID_SOURCE, url);
+            }
+            _autoSenseBW = (_streamName.indexOf(",") >= 0);
+            return (canReuse || connectRTMP());
+        } else {
+            var name:String = parseResults.streamName;
+            if ( name.indexOf("?") < 0 &&
+                 (name.length < 4 || name.slice(-4).toLowerCase() != ".txt") &&
+                 (name.length < 4 || name.slice(-4).toLowerCase() != ".xml") &&
+                 (name.length < 5 || name.slice(-5).toLowerCase() != ".smil") ) {
+                canReuse = canReuseOldConnection(parseResults);
+                _isRTMP = false;
+                _streamName = name;
+                return (canReuse || connectHTTP());
+            }
+            // special flex case to deal with blah.flv?t=ojoj
+            else if ( name.indexOf("?") != -1 ) 
+            {
+                // common types of video files
+                var streamTypes:Array = ["mp4", "mov", "m4v", "m4a", "f4v", "3gp", "3g2", "flv"];
+                // if "?" then idx 0 should always be stream name, unless someone messed up URL
+                var preQueryString:String = name.split("?")[0];
+                // check extension and treat as vid file if exists
+                if (preQueryString.length >= 3 && streamTypes.indexOf(preQueryString.slice(-3).toLowerCase()) != -1) 
+                {
+                    canReuse = canReuseOldConnection(parseResults);
+                    _isRTMP = false;
+                    _streamName = name;
+                    return (canReuse || connectHTTP());
+                }
+            }
+            
+            if (name.indexOf("/fms/fpad") >= 0) {
+                try {
+                    return connectFPAD(name);
+                } catch (err:Error) {
+                    // just use SMILManager if there is any error
+                    //ifdef DEBUG
+                    //debugTrace("fpad error: " + err);
+                    //endif
+                }
+            }
+            _smilMgr = new SMILManager(this);
+            return _smilMgr.connectXML(name);
+        }
+    }
 }
