@@ -1799,6 +1799,11 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         var pt:Point = new Point(0, 0);
         pt = DisplayObject(item).localToGlobal(pt);
         
+        // If the layout has been mirrored, then the 0,0 is the uppper
+        // right corner; compensate here.
+        if (layoutDirection == "rtl")
+            pt.x -= menu.getExplicitOrMeasuredWidth();
+
         // check to see if we'll go offscreen
         if (pt.y + item.height + 1 + menu.getExplicitOrMeasuredHeight() > screen.height + screen.y)
             pt.y -= menu.getExplicitOrMeasuredHeight();
