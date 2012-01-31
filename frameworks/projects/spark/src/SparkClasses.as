@@ -42,7 +42,6 @@ import spark.skins.spark.ButtonBarSkin; ButtonBarSkin;
 import spark.skins.spark.ButtonBarFirstButtonSkin; ButtonBarFirstButtonSkin;
 import spark.skins.spark.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
 import spark.skins.spark.ButtonBarLastButtonSkin; ButtonBarLastButtonSkin;
-import spark.skins.spark.ColumnHeaderBarSkin; ColumnHeaderBarSkin;
 import spark.skins.spark.CheckBoxSkin; CheckBoxSkin;
 import spark.skins.spark.ComboBoxButtonSkin; ComboBoxButtonSkin;
 import spark.skins.spark.ComboBoxSkin; ComboBoxSkin;
