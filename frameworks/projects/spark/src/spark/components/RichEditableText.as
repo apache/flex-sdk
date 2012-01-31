@@ -619,6 +619,14 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  Holds the last recorded value of the textFlow generation.  Used to
+     *  determine whether to return immediately from damage event if there 
+     *  have been no changes.
+     */
+    private var lastGeneration:uint = 0;    // 0 means not set
+        
+    /**
+     *  @private
      *  True if TextOperationEvent.CHANGING and TextOperationEvent.CHANGE 
      *  events should be dispatched.
      */
@@ -2259,6 +2267,8 @@ public class RichEditableText extends UIComponent
          
         if (textChanged || textFlowChanged || contentChanged)
         {
+            lastGeneration = _textFlow ? _textFlow.generation : 0;
+            
             // If the text, textFlow or content changed, there is no selection.
             // If we already have focus, set the selection to 0,0 so there is
             // an insertion point.  Since the text was changed programatically
@@ -3914,9 +3924,22 @@ public class RichEditableText extends UIComponent
      */
     private function textContainerManager_damageHandler(event:DamageEvent):void
     {
-        // setText triggers a damage event which we want to ignore.  We 
-        // override TCM.setText() in RETCM and set this flag before calling the
-        // superclass.
+        // The following textContainerManager functions can trigger a damage
+        // event:
+        //    setText/setTextFlow
+        //    set hostFormat
+        //    set compositionWidth/compositionHeight
+        //    set horizontalScrollPosition/veriticalScrollPosition
+        //    set textLineCreator
+        //    updateContainer or compose: always if TextFlowFactory, sometimes 
+        //        if flowComposer
+
+        // If no changes, don't recompose/update.  The TextFlowFactory 
+        // createTextLines dispatches damage events every time the textFlow
+        // is composed, even if there are no changes. 
+        if (_textFlow && _textFlow.generation == lastGeneration)
+            return;
+
         if (ignoreDamageEvent || event.damageLength == 0)
             return;
 
@@ -3937,6 +3960,8 @@ public class RichEditableText extends UIComponent
         _text = null;
         _content = null;        
         _textFlow = _textContainerManager.getTextFlow();
+
+        lastGeneration = _textFlow.generation;
         
         // We don't need to call invalidateProperties()
         // because the hostFormat and the _textFlow are still valid.
