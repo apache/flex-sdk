@@ -125,7 +125,8 @@ public class PopUpAnchor extends UIComponent
     private var _popUpHeightMatchesAnchorHeight:Boolean = false;
     
     /**
-     *  If true, the height of the <code>popUp</code> control is set to the value of the PopUpAnchor's height.
+     *  If <code>true</code>, the height of the <code>popUp</code> control is set 
+     *  to the value of the PopUpAnchor's height.
      * 
      *  @default false
      *  
@@ -159,7 +160,8 @@ public class PopUpAnchor extends UIComponent
     private var _popUpWidthMatchesAnchorWidth:Boolean = false;
     
     /**
-     *  If true, the width of the <code>popUp</code> control is set to the value of the PopUpAnchor's width.
+     *  If <code>true</code>, the width of the <code>popUp</code> control 
+     *  is set to the value of the PopUpAnchor's width.
      * 
      *  @default false
      *  
@@ -194,7 +196,8 @@ public class PopUpAnchor extends UIComponent
     
     
     /**
-     *  If true, adds the <code>popUp</code> control to the PopUpManager. If false, removes it.  
+     *  If <code>true</code>, adds the <code>popUp</code> control to the PopUpManager. 
+     *  If <code>false</code>, it removes the control.  
      *  
      *  @default false
      * 
