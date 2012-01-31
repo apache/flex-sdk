@@ -305,7 +305,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         if (_blendMode == "auto")
         {
-            // If alpha changes from an opaque/transparent (1/0) and translucent
+            // if alpha changes from an opaque/transparent (1/0) and translucent
             // (0 < value < 1), then trigger a blendMode change
             if ((value > 0 && value < 1 && (super.alpha == 0 || super.alpha == 1)) ||
                 ((value == 0 || value == 1) && (super.alpha > 0 && super.alpha < 1)))
@@ -1579,14 +1579,12 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (scrollRect)
             return false;
  
-        // We can't share ourselves if we're in blendMode != normal, or we have 
-        // to deal with any layering. The reason is because we handle layer = 0 first
+        // we can't share ourselves if we're in blendMode != normal, or we have 
+        // to deal with any layering.  The reason is because we handle layer = 0 first
         // in our implementation, and we don't want those to use our display object to 
         // draw into because there could be something further down the line that has 
-        // layer < 0. The cases where we are in blendMode != normal is when blendMode
-        // has been explicitly set or blendMode is auto and there is a fractional alpha. 
-        return (_blendMode == "normal" || _blendMode == "auto" && (alpha > 0 && alpha < 1)) 
-            && (layeringMode == ITEM_ORDERED_LAYERING);
+        // layer < 0
+        return (_blendMode == "normal" || _blendMode == "auto") && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
     /**
