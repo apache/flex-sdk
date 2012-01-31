@@ -34,7 +34,6 @@ import mx.layout.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
-[IconFile("FxContainer.png")]
 
 /**
  *  Dispatched after the content for this component has been created. With deferred 
@@ -58,6 +57,42 @@ import mx.utils.BitFlagUtil;
  *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
+
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/SelectionFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ */
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ */ 
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+
+[IconFile("FxContainer.png")]
 
 //--------------------------------------
 //  Excluded APIs
