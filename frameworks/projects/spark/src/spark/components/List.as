@@ -305,7 +305,7 @@ public class List extends ListBase implements IFocusManagerComponent
             
             for (var i:int = 0; i < count; i++)
             {
-                //TODO (dsubrama) What exactly should we do if an 
+                // FIXME (dsubrama): What exactly should we do if an 
                 //invalid item is in the selectedItems vector? 
                 var index:int = dataProvider.getItemIndex(value[i]);
                 if (index != -1)
@@ -678,7 +678,7 @@ public class List extends ListBase implements IFocusManagerComponent
                         {
                             interval.push(selectedIndices[0]); 
                             return interval; 
-                        }
+                    }
                     }
                     else
                     {
@@ -708,14 +708,14 @@ public class List extends ListBase implements IFocusManagerComponent
                 { 
                     interval.push(index); 
                     return interval; 
-                }
+            }
             }
             // A single item was newly selected, add that to the selection interval.  
             else 
             { 
                 interval.push(index); 
                 return interval; 
-            }
+        }
         }
         else // shiftKey
         {
@@ -968,7 +968,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // commitProperties, the caretIndex will be adjusted to 
             // match the selectedIndex; 
             
-            // TODO: We should revisit the synchronous nature of the 
+            // FIXME (dsubrama): We should revisit the synchronous nature of the 
             // de-careting/re-careting behavior. 
             itemShowingCaret(caretIndex, false); 
             caretIndexAdjusted = true; 
@@ -1114,11 +1114,11 @@ public class List extends ListBase implements IFocusManagerComponent
             return; 
             
         // Delegate to the layout to tell us what the next item is we should select or focus into.
-        // TODO (jszeto) At some point we should refactor this so we don't depend on layout
+        // FIXME (dsubrama): At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
         var proposedNewIndex:int = layout.getNavigationDestinationIndex(caretIndex, navigationUnit, arrowKeysWrapFocus); 
         
-        // TODO (jszeto) proposedNewIndex depends on CTRL key
+        // FIXME (dsubrama): proposedNewIndex depends on CTRL key
         // move CTRL key logic into single selection
         // add SPACE logic - add to selection for multi-select or change selection for single-select
 
