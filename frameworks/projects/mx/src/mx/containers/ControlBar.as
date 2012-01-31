@@ -137,7 +137,11 @@ public class ControlBar extends Box
     public function ControlBar()
     {
         super();
-    }
+
+        // ControlBar defaults to direction="horizontal", but can be changed
+        // later if desired
+        direction = BoxDirection.HORIZONTAL;
+     }
 
     //--------------------------------------------------------------------------
     //
