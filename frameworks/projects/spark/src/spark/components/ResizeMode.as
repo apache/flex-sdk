@@ -41,7 +41,7 @@ public final class ResizeMode
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const NOSCALE:String = "noScale";
+    public static const NO_SCALE:String = "noScale";
 
     /**
      *  Resizes by setting the <code>scaleX</code> 
