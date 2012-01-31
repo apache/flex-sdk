@@ -172,7 +172,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         if (value == _allowMultipleSelection)
             return 
             
-        _allowMultipleSelection = true;
+        _allowMultipleSelection = value;
     }
     
     //----------------------------------
