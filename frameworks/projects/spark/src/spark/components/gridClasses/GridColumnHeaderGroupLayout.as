@@ -18,6 +18,8 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 
 import spark.components.Grid;
 import spark.components.GridColumnHeaderGroup;
@@ -147,7 +149,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             rendererHeights[renderer.column.columnIndex] = renderer.getPreferredBoundsHeight();
         }
         
-        const columns:IList = grid.columns;
+        const columns:IList = columns;
         rendererHeights.length = (columns) ? columns.length : 0;
         
         var maxRendererHeight:Number = 0;
@@ -220,7 +222,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
-        const columns:IList = grid.columns;
+        const columns:IList = columns;
         const columnsLength:int = (columns) ? columns.length : 0;
         const lastVisibleColumnIndex:int = grid.getPreviousVisibleColumnIndex(columnsLength);
         const rendererY:Number = paddingTop;
@@ -388,8 +390,9 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     {
         const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
+        const columns:IList = columns;
         
-        if (!columnHeaderGroup || !grid || !grid.columns)
+        if (!columnHeaderGroup || !grid || !columns)
             return -1; 
         
         const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
@@ -399,7 +402,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             return -1;
         
         const isFirstColumn:Boolean = columnIndex == grid.getNextVisibleColumnIndex(-1);
-        const isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(grid.columns.length);
+        const isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(columns.length);
         
         const columnLeft:Number = grid.getCellX(0, columnIndex);
         const columnRight:Number = columnLeft + grid.getColumnWidth(columnIndex);
@@ -438,7 +441,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         if (!columnHeaderGroup || !grid)
             return null;
         
-        const columns:IList = grid.columns;
+        const columns:IList = columns;
         const columnsLength:int = (columns) ? columns.length : 0;
         
         if (columnIndex >= columnsLength)
@@ -512,10 +515,10 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             
         // create a new renderer
 
-        const columns:IList = grid.columns;
+        const columns:IList = columns;
         if (!columns || (columns.length <= columnIndex))
             return null;
-        const column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
+        const column:GridColumn = columns.getItemAt(columnIndex) as GridColumn;
         if (!column.visible)
             return null;
         
@@ -622,19 +625,191 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         element.visible = false;
     }
     
-    
     private function get columnHeaderGroup():GridColumnHeaderGroup
     {
         return target as GridColumnHeaderGroup;
-    }       
+    }
     
     private function get grid():Grid
     {
-        const chb:GridColumnHeaderGroup = columnHeaderGroup;
-        if (chb.dataGrid)
-            return chb.dataGrid.grid;
+        const chg:GridColumnHeaderGroup = columnHeaderGroup;
+        if (chg.dataGrid)
+            return chg.dataGrid.grid;
         
         return null;
+    }
+    
+    private var _columns:IList;
+    
+    /**
+     *  @private
+     *  The columns IList on the current Grid. A local reference is kept so
+     *  that we can remove the colllection change handler if the columns
+     *  list changes.
+     */
+    private function get columns():IList
+    {
+        const grid:Grid = grid;
+        const newColumns:IList = (grid) ? grid.columns : null;
+        
+        if (newColumns != _columns)
+        {
+            if (_columns)
+                _columns.removeEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler);
+            
+            _columns = newColumns;
+            
+            if (_columns)
+                _columns.addEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler);
+        }
+        
+        return _columns;
+    }
+    
+    /**
+     *  @private
+     *  Handles changes to the columns IList that might affect the visible sort
+     *  indicators.
+     */
+    private function columns_collectionChangeHandler(event:CollectionEvent):void
+    {
+        switch (event.kind)
+        {
+            case CollectionEventKind.ADD: 
+            {
+                columns_collectionChangeAdd(event);
+                break;
+            }
+            
+            case CollectionEventKind.REMOVE:
+            {
+                columns_collectionChangeRemove(event);
+                break;
+            }
+                
+            case CollectionEventKind.MOVE:
+            {
+                columns_collectionChangeMove(event);
+                break;
+            }
+                
+            case CollectionEventKind.REPLACE:
+            case CollectionEventKind.UPDATE:
+            {
+                // Do nothing.
+                break;
+            }
+                
+            case CollectionEventKind.REFRESH:
+            case CollectionEventKind.RESET:
+            {
+                columnHeaderGroup.visibleSortIndicatorIndices = null;
+                break;
+            }                
+        }
+    }
+    
+    /**
+     *  @private
+     *  Adjusts the visibleSortIndicatorIndices to the correct columns
+     *  after columns are added.
+     */
+    private function columns_collectionChangeAdd(event:CollectionEvent):void
+    {   
+        const itemsLength:int = event.items.length;
+        if (itemsLength <= 0)
+            return;
+        
+        const chg:GridColumnHeaderGroup = columnHeaderGroup;
+        const indices:Vector.<int> = chg.visibleSortIndicatorIndices;
+        const indicesLength:int = indices.length;
+        const startIndex:int = event.location;
+        
+        for (var i:int = 0; i < indicesLength; i++)
+        {
+            if (indices[i] >= startIndex)
+                indices[i] += itemsLength;
+        }
+        chg.visibleSortIndicatorIndices = indices;
+    }
+    
+    /**
+     *  @private
+     *  Adjusts the visibleSortIndicatorIndices to the correct columns
+     *  after columns are removed.
+     */
+    private function columns_collectionChangeRemove(event:CollectionEvent):void
+    {
+        const itemsLength:int = event.items.length;
+        if (itemsLength <= 0)
+            return;
+        
+        const chg:GridColumnHeaderGroup = columnHeaderGroup;
+        const indices:Vector.<int> = chg.visibleSortIndicatorIndices;
+        const indicesLength:int = indices.length;
+        const startIndex:int = event.location;
+        const lastIndex:int = startIndex + itemsLength;
+        const newIndices:Vector.<int> = new Vector.<int>();
+        var index:int;
+        
+        for each (index in indices)
+        {
+            if (index < startIndex)
+                newIndices.push(index);
+            else if (index >= lastIndex)
+                newIndices.push(index - lastIndex);
+        }
+        chg.visibleSortIndicatorIndices = newIndices;
+    }
+    
+    /**
+     *  @private
+     *  Adjusts the visibleSortIndicatorIndices to the correct columns
+     *  after columns are moved.
+     */
+    private function columns_collectionChangeMove(event:CollectionEvent):void
+    {
+        const itemsLength:int = event.items.length;
+        if (itemsLength <= 0)
+            return;
+        
+        const chg:GridColumnHeaderGroup = columnHeaderGroup;
+        const indices:Vector.<int> = chg.visibleSortIndicatorIndices;
+        const indicesLength:int = indices.length;
+        const oldStart:int = event.oldLocation;
+        const oldEnd:int = event.oldLocation + itemsLength;
+        const newStart:int = event.location;
+        const newEnd:int = event.location + itemsLength;
+        var index:int;
+        
+        for (var i:int = 0; i < indicesLength; i++)
+        {
+            index = indices[i];
+            
+            if (index >= oldStart && index < oldEnd)
+            {
+                // Moved items move up to new position
+                indices[i] = newStart + (index - oldStart);
+                continue;
+            }
+            
+            // Two cases:
+            //      1) New position is greater than old position, so we
+            //         decrement their position by the number of moved items.
+            //      2) New position is less than old position, so we
+            //         increment their position by the number of moved items.
+            if (newStart > oldStart)
+            {
+                if (index >= oldEnd && index < newEnd)
+                    indices[i] -= itemsLength;
+            }
+            else if (newStart < oldStart)
+            {
+                if (index >= newStart && index < oldStart)
+                    indices[i] += itemsLength;
+            }
+        }
+        chg.visibleSortIndicatorIndices = indices;
     }
     
     //----------------------------------
