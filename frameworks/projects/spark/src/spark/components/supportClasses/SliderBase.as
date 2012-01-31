@@ -417,8 +417,8 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
     
     /**
      *  If set to <code>true</code>, shows a data tip during user interaction
-     *  containing the current value of the slider. In addition, the skinPart
-     *  <code>dataTipFactory</code> must be defined in the skin in order to 
+     *  containing the current value of the slider. In addition, the skinPart,
+     *  <code>dataTip</code>, must be defined in the skin in order to 
      *  display a data tip. 
      *  @default true
      *  
