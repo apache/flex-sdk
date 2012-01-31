@@ -524,6 +524,38 @@ package spark.components
         }
         
         //----------------------------------
+        //  fixedRowHeight
+        //----------------------------------
+        
+        [Bindable("fixedRowHeightChanged")]        
+        
+        /**
+         *  If fixedRowHeight is set, calling getRowBounds() will return
+         *  its value as the height for every row. Individual cell heights are not
+         *  affected, but calling getCellBounds will return bounds
+         *  respecting fixedRowHeight. The fixedRowHeight is always
+         *  bounded by the minRowHeight and maxRowHeight.
+         * 
+         *  @default NaN
+         */
+        public function get fixedRowHeight():Number
+        {
+            return gridDimensions.fixedRowHeight;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set fixedRowHeight(value:Number):void
+        {
+            if (value == fixedRowHeight)
+                return;
+            
+            gridDimensions.fixedRowHeight = value;
+            dispatchChangeEvent("fixedRowHeightChanged");            
+        }        
+        
+        //----------------------------------
         //  hoverIndicator
         //----------------------------------
         
@@ -1218,7 +1250,7 @@ package spark.components
             
             _rowBackground = value;
             dispatchChangeEvent("rowBackgroundChanged");
-        }    
+        }
         
         //----------------------------------
         //  rowSeparator
