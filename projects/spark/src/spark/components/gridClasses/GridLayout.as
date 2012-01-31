@@ -1547,8 +1547,37 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns the index of the column at the specified coordinates.
+     *  Returns the row index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. The coordinates are 
+     *  resolved with respect to the grid.
      * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The x coordinate.
+     *  @param y The y coordinate.
+     *  @return The index of the row corresponding to the specified coordinates.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getRowIndexAt(x:Number, y:Number):int
+    {
+        return gridDimensions.getRowIndexAt(x, y); 
+    }
+    
+    /**
+     *  Returns the column index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. The coordinates are 
+     *  resolved with respect to the grid.
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
      *  @param x The pixel's x coordinate relative to the grid.
      *  @param y The pixel's y coordinate relative to the grid.
      *  @return the index of the column or -1 if the coordinates are out of bounds. 
