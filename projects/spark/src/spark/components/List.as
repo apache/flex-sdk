@@ -196,7 +196,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.ListBaseAccImpl")]
+[AccessibilityClass(implementation="spark.accessibility.ListAccImpl")]
 
 [DefaultTriggerEvent("change")]
 
@@ -277,7 +277,7 @@ public class List extends ListBase implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Placeholder for mixin by ListBaseAccImpl.
+     *  Placeholder for mixin by ListAccImpl.
      */
     mx_internal static var createAccessibilityImplementation:Function;
 
