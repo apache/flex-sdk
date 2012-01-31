@@ -14,7 +14,6 @@ package mx.components
 	
 import flash.events.Event;
 
-import mx.components.baseClasses.FxScrollBar;
 import mx.components.baseClasses.FxTextBase;
 import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
@@ -29,9 +28,9 @@ import mx.events.TextOperationEvent;
 [IconFile("FxTextArea.png")]
 
 /**
- *  The built-in set of states for the TextArea component.
+ *  The built-in set of states for the FxTextArea component.
  */
-[SkinStates("enabledNoScrollBars", "enabledHScrollBar", "enabledVScrollBar", "enabledBothScrollBars", "disabledNoScrollBars", "disabledHScrollBar", "disabledVScrollBar", "disabledBothScrollBars")]
+[SkinStates("normal", "disabled")]
 
 /**
  *  Documentation is not currently available.
@@ -198,18 +197,6 @@ public class FxTextArea extends FxTextBase
 		invalidateProperties();
 	}
     
-    //----------------------------------
-	//  horizontalScrollBar
-    //----------------------------------
-
-    [SkinPart(required="false")]
-
-	/**
-	 *  The ScrollBar for horizontal scrolling that may be present
-	 *  in skins assigned to this TextArea.
-	 */
-	public var horizontalScrollBar:FxScrollBar;
-    
 	//----------------------------------
 	//  horizontalScrollPolicy
     //----------------------------------
@@ -217,7 +204,12 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	private var _horizontalScrollPolicy:String = ScrollPolicy.OFF;
+	private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
+
+    /**
+     *  @private
+     */
+    private var horizontalScrollPolicyChanged:Boolean = false;
 	
 	/**
 	 *  Documentation is not currently available.
@@ -236,22 +228,22 @@ public class FxTextArea extends FxTextBase
 			return;
 
 		_horizontalScrollPolicy = value;
+        horizontalScrollPolicyChanged = true;
 
-		invalidateSkinState();
+		invalidateProperties();
 	}
     
-    //----------------------------------
-	//  verticalScrollBar
+	//----------------------------------
+	//  scroller
     //----------------------------------
 
     [SkinPart(required="false")]
 
-	/**
-	 *  The ScrollBar for vertical scrolling that may be present
-	 *  in skins assigned to this TextArea.
-	 */
-	public var verticalScrollBar:FxScrollBar;
-    
+    /**
+     *  The optional FxScroller used to scroll the TextView.
+     */
+    public var scroller:FxScroller;
+
 	//----------------------------------
 	//  verticalScrollPolicy
     //----------------------------------
@@ -259,7 +251,12 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	private var _verticalScrollPolicy:String = ScrollPolicy.ON;
+	private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
+
+    /**
+     *  @private
+     */
+    private var verticalScrollPolicyChanged:Boolean = false;
 	
 	/**
 	 *  Documentation is not currently available.
@@ -278,8 +275,9 @@ public class FxTextArea extends FxTextBase
 			return;
 
 		_verticalScrollPolicy = value;
+        verticalScrollPolicyChanged = true;
 
-		invalidateSkinState();
+		invalidateProperties();
 	}
     
 	//----------------------------------
@@ -338,6 +336,20 @@ public class FxTextArea extends FxTextBase
 	{
         super.commitProperties();
         
+        if (horizontalScrollPolicyChanged)
+        {
+            if (scroller)
+                scroller.horizontalScrollPolicy = _horizontalScrollPolicy;
+            horizontalScrollPolicyChanged = false;
+        }
+
+        if (verticalScrollPolicyChanged)
+        {
+            if (scroller)
+                scroller.verticalScrollPolicy = _verticalScrollPolicy;
+            verticalScrollPolicyChanged = false;
+        }
+
         if (widthInCharsChanged)
 		{
 			textView.widthInChars = _widthInChars;
@@ -375,26 +387,6 @@ public class FxTextArea extends FxTextBase
 									  textView_textInvalidHandler);
 
         }
-	}
-
-	/**
-	 *  @private
-	 */
-	override protected function getCurrentSkinState():String
-	{
-        var hOn:Boolean = horizontalScrollPolicy == ScrollPolicy.ON;
-        var vOn:Boolean = verticalScrollPolicy == ScrollPolicy.ON;
-
-        if (hOn && vOn)
-            return enabled ? "enabledBothScrollBars" : "disabledBothScrollBars";
-
-        if (hOn)
-            return enabled ? "enabledHScrollBar" : "disabledHScrollBar";
-
-        if (vOn)
-            return enabled ? "enabledVScrollBar" : "disabledVScrollBar";
-
-        return enabled ? "enabledNoScrollBars" : "disabledNoScrollBars";
 	}
 
 	//--------------------------------------------------------------------------
