@@ -645,34 +645,36 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     {
         // Have to make sure we don't move to a radio button that's not enabled
         // because it's in a different container that is not enabled.
-                
+        if (event.isDefaultPrevented())
+            return;
+        
         switch (event.keyCode)
         {
             case Keyboard.DOWN:
             {
                 setNext(!event.ctrlKey);
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.UP:
             {
                 setPrev(!event.ctrlKey);
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.LEFT:
             {
                 setPrev(!event.ctrlKey);
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.RIGHT:
             {
                 setNext(!event.ctrlKey);
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }
 
