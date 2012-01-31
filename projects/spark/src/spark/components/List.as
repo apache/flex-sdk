@@ -142,19 +142,16 @@ public class FxList extends FxListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    /*
-     *  TODO: description of how single selection properties
-     *  work when multiple selection is enabled. multiple selection
-     *  doesn't support selectionChanging event. etc.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
+    //----------------------------------
+    //  allowMultipleSelection
+    //----------------------------------
+    
+    private var _allowMultipleSelection:Boolean = false;
+    
     /**
-     *  <code>true</code> if the list supports multiple selection.
-     * 
+     *  Boolean flag controlling whether multiple selection
+     *  is enabled or not. 
+     *
      *  @default false
      *  
      *  @langversion 3.0
@@ -162,7 +159,21 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var allowMultipleSelection:Boolean = false;
+    public function get allowMultipleSelection():Boolean
+    {
+        return _allowMultipleSelection;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set allowMultipleSelection(value:Boolean):void
+    {
+    	if (value == _allowMultipleSelection)
+    		return 
+    		
+    	_allowMultipleSelection = true;
+    }
     
     //----------------------------------
     //  selectedIndex
@@ -192,13 +203,13 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @productversion Flex 4
      */
     override public function get selectedIndex():int
-    {
+    {	
         if (!allowMultipleSelection)
             return super.selectedIndex;
             
         if (_selectedIndices && _selectedIndices.length > 0)
             return _selectedIndices[0];
-        
+            
         return NO_SELECTION;
     }
     
@@ -373,7 +384,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      */
     override public function isItemIndexSelected(index:int):Boolean
     {
-        if (allowMultipleSelection)
+        if (allowMultipleSelection && (selectedIndices != null))
             return selectedIndices.indexOf(index) != -1;
         
         return index == selectedIndex;
