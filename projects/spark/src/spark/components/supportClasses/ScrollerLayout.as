@@ -75,6 +75,8 @@ public class ScrollerLayout extends LayoutBase
             measuredH += viewportElt.getPreferredBoundsHeight();
         }
         
+        // TBD: if the viewport's explicitSize is set, then add it to the minW,H
+        
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
         switch(scroller.horizontalScrollPolicy) {
@@ -236,22 +238,11 @@ public class ScrollerLayout extends LayoutBase
         if (!showVSB)
             viewportW -= minViewportInset;
             
-        // Unless the viewport's size is explicitly set and larger than the
-        // available space, the scrollbar's size will match the viewport's.
-        var hsbW:Number = viewportW;  
-        var vsbH:Number = viewportH;
-        
         // Special case: viewport's size is explicitly set
         if (!isNaN(explicitViewportW))
-        {
             viewportW = explicitViewportW;
-            hsbW = Math.min(hsbW, viewportW);
-        }
         if (!isNaN(explicitViewportH))
-        {
             viewportH = explicitViewportH;
-            vsbH = Math.min(vsbH, viewportH);
-        }
         
         // layout the viewport
         if (viewport)
@@ -265,14 +256,14 @@ public class ScrollerLayout extends LayoutBase
         if (hsb) hsb.visible = showHSB;
         if (showHSB)
         {
-            hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
-            hsb.setLayoutBoundsPosition(minViewportInset, h - Math.max(minViewportInset, hsbH));
+            hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), w - vsbW), hsbH);
+            hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
         if (vsb) vsb.visible = showVSB;
         if (showVSB)
         {
-            vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
-            vsb.setLayoutBoundsPosition(w - Math.max(minViewportInset, vsbW), minViewportInset);
+            vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), h - hsbH));
+            vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
         
         // If the scroller's size isn't explicit and we've added a scrollbar, then
