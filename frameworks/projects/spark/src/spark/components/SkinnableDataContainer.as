@@ -24,6 +24,8 @@ import mx.managers.IFocusManagerContainer;
 
 [DefaultProperty("dataProvider")]
 
+[IconFile("FxDataContainer.png")]
+
 /**
  *  The FxDataContainer class is the base class for all skinnable components that have 
  *  data content. This class is not typically instantiated in MXML. It is primarily
