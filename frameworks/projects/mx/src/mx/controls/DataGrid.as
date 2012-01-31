@@ -1087,6 +1087,26 @@ public class DataGrid extends DataGridBase implements IIMESupport
         invalidateDisplayList();
     }
 
+    //----------------------------------
+    //  itemRenderer
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set itemRenderer(value:IFactory):void
+    {
+        super.itemRenderer = value;
+        if (columns)
+        {
+            var n:int = columns.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                columns[i].resetFactories();
+            }
+        }
+    }
+
     /**
      *  @private
      */
@@ -5619,6 +5639,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (lockedColumnCount)
             {
                 drawLinesAndColumnGraphics(lockedColumnContent, visibleLockedColumns, { right: 1})
+            }
+        }
+        else
+        {
+            var lines:Sprite = Sprite(listContent.getChildByName("lines"));
+            if (lines)
+                listContent.setChildIndex(lines, listContent.numChildren - 1);
+            if (lockedColumnCount)
+            {
+                lines = Sprite(lockedColumnContent.getChildByName("lines"));
+                if (lines)
+                    lockedColumnContent.setChildIndex(lines, lockedColumnContent.numChildren - 1);
             }
         }
     }
