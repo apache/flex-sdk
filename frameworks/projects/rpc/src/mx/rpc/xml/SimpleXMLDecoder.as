@@ -30,7 +30,7 @@ public class SimpleXMLDecoder
     //--------------------------------------------------------------------------
 
     /**
-     *  Converts an ActionScript object into a Number, Boolean, or String.
+     *  @private
      */
     public static function simpleType(val:Object):Object
     {
@@ -92,6 +92,10 @@ public class SimpleXMLDecoder
 
     /**
      *  Converts a tree of XMLNodes into a tree of ActionScript Objects.
+     *
+     *  @param dataNode An XMLNode to be converted into a tree of ActionScript Objects.
+     *
+     *  @return A tree of ActionScript Objects.
      */
     public function decodeXML(dataNode:XMLNode):Object
     {
@@ -189,6 +193,11 @@ public class SimpleXMLDecoder
         return result;
     }
 
+    /**
+     * Returns the local name of an XMLNode.
+     *
+     * @return The local name of an XMLNode.
+     */
     public static function getLocalName(xmlNode:XMLNode):String
     {
         var name:String = xmlNode.nodeName;
