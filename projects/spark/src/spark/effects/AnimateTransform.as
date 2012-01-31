@@ -131,6 +131,9 @@ public class AnimateTransform extends Animate
          "left", "right", "top", "bottom",
          "horizontalCenter", "verticalCenter"];
     
+    // FIXME (chaase): We probably need to advertise percentWidth/Height
+    // in the affected properties/styles arrays; we don't pick these up
+    // in the transition propertyChanges automatically otherwise 
     /**
      *  @private
      */
@@ -631,7 +634,7 @@ public class AnimateTransform extends Animate
             
             if (apply)
             {
-                var effectProps:Array = relevantProperties;
+                var effectProps:Array = AFFECTED_PROPERTIES;
                 var valueMap:Object = start ? propChanges[i].start : propChanges[i].end;
                 var otherValueMap:Object = start ? propChanges[i].end : propChanges[i].start;
                 var transitionValues:Object = {
@@ -1053,6 +1056,15 @@ public class AnimateTransform extends Animate
             for (i = 0; i < instanceAnimProps.length; ++i)
                 transformInstance.addMotionPath(instanceAnimProps[i], globalStartTime);
         }
+        // Tell the instance which properties/styles to check for state
+        // transition changes
+        var s:String;
+        for each (s in getAffectedProperties())
+            if (relevantStyles.indexOf(s) < 0)
+                transformInstance.affectedProperties[s] = s;
+        for each (s in relevantStyles)
+            transformInstance.layoutConstraints[s] = s;
+            
         // Multiple effects can feed into this one instance, so only init
         // it once    
         if (transformInstance.initialized)
