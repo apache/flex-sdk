@@ -447,7 +447,7 @@ public class DropDownListBase extends List
         else
             return false;
     }
-    
+        
     //----------------------------------
     //  userProposedSelectedIndex
     //----------------------------------
@@ -532,7 +532,7 @@ public class DropDownListBase extends List
      */ 
     override protected function getCurrentSkinState():String
     {
-        return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
+        return !enabled ? "disabled" : isDropDownOpen ? "open" : "normal";
     }   
        
     /**
@@ -643,8 +643,41 @@ public class DropDownListBase extends List
             dataGroup.verticalScrollPosition += spDelta.y;
         }
     }
-      
- 
+          
+    override protected function findKey(eventCode:int):Boolean
+    {
+        if (!dataProvider || dataProvider.length == 0)
+            return false;
+        
+        if (eventCode >= 33 && eventCode <= 126)
+        {
+            var matchingIndex:Number;
+            var keyString:String = String.fromCharCode(eventCode);
+            var startIndex:int = isDropDownOpen ? userProposedSelectedIndex  + 1 : selectedIndex + 1;
+            startIndex = Math.max(0, startIndex);
+            
+            matchingIndex = findStringLoop(keyString, startIndex, dataProvider.length); 
+            
+            // We didn't find the item, loop back to the top 
+            if (matchingIndex == -1)
+            {
+                matchingIndex = findStringLoop(keyString, 0,  startIndex); 
+            }
+            
+            
+            if (matchingIndex != -1)
+            {
+                if (isDropDownOpen)
+                    changeHighlightedSelection(matchingIndex);
+                else
+                    selectedIndex = matchingIndex; 
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -687,13 +720,20 @@ public class DropDownListBase extends List
         if (!dropDownController.processKeyDown(event))
         {
             var navigationUnit:uint = event.keyCode;
+                        
+            if (findKey(event.charCode))
+            {
+                event.preventDefault();
+                return;
+            }
+            
             if (!NavigationUnit.isNavigationUnit(navigationUnit))
                 return;
 
             var proposedNewIndex:int = NO_SELECTION;
             var currentIndex:int;
             
-            if (dropDownController.isOpen)
+            if (isDropDownOpen)
             {   
                 // Normalize the proposed index for getNavigationDestinationIndex
                 currentIndex = userProposedSelectedIndex < NO_SELECTION ? NO_SELECTION : userProposedSelectedIndex;
@@ -708,7 +748,7 @@ public class DropDownListBase extends List
             else if (dataProvider)
             {
                 // Normalize the proposed index for getNavigationDestinationIndex
-                currentIndex = selectedIndex < NO_SELECTION ? NO_SELECTION : selectedIndex;
+                currentIndex = caretIndex < NO_SELECTION ? NO_SELECTION : caretIndex;
                 
                 // FIXME (jszeto) : SDK-24036 Add arrowKeysWrapFocus support
                 
@@ -831,6 +871,10 @@ public class DropDownListBase extends List
         if (!event.isDefaultPrevented())
         {
             selectedIndex = userProposedSelectedIndex;  
+        }
+        else
+        {
+            changeHighlightedSelection(selectedIndex);
         }
     }
 
