@@ -171,6 +171,16 @@ public class AnimateTransformInstance extends AnimateInstance
     private static var offsetTranslation:Vector3D = new Vector3D();
     private static var offsetScale:Vector3D = new Vector3D();
 
+    /**
+     * These maps hold the properties and layout constraints used to
+     * set up automatic property animations based on state changes. They
+     * are populated when the effect instance is set up according to 
+     * the properties/constraints affected by each transform effect.
+     */
+    mx_internal var layoutConstraints:Object = new Object();
+    mx_internal var affectedProperties:Object = new Object();
+    
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -432,17 +442,23 @@ public class AnimateTransformInstance extends AnimateInstance
     override public function play():void
     {
         var autoProps:Object = new Object();
+        var s:String;
         
         if (propertyChanges)
         {
-            for (var s:String in propertyChanges.end)
-                if (TRANSFORM_PROPERTIES.indexOf(s) >= 0 &&
+            // autoProps holds the properties that we want to automatically
+            // create animations for. Only do this for properties that
+            // are directly related to this effect instance (affectedProperties)
+            // and which change between states (propertyChanges values)
+            for (s in propertyChanges.end)
+                if (affectedProperties[s] !== undefined &&
                     propertyChanges.end[s] !== undefined &&
+                    propertyChanges.start[s] !== undefined &&
                     propertyChanges.start[s] != propertyChanges.end[s])
                 {
                     autoProps[s] = s;
                 }
-        } 
+        }  
         if (motionPaths)
         {
             var i:int;
@@ -473,15 +489,6 @@ public class AnimateTransformInstance extends AnimateInstance
                 }
             }
         }
-        // FIXME (chaase): autoProps automatically animates all transform properties
-        // that are not explicitly specified via the effect properties.
-        // This handles, for example, transitions, to pick up all changes and turn
-        // them into motionPaths on the transform properties.
-        // This is great, but may have unintended consequences, such as performing
-        // an animated Rotate when only a Move was requested (but the rotation angle
-        // change was picked up automatically).
-        // Ideally, we would have this behavior for the superclass effect, but not
-        // carry over into the Move/Rotate/etc. effects.
         for (s in autoProps)
         {
             var mp:MotionPath = new MotionPath(s);
@@ -492,21 +499,11 @@ public class AnimateTransformInstance extends AnimateInstance
                 motionPaths = new Vector.<MotionPath>();
             motionPaths.push(mp);
         }
-        // FIXME (chaase): We probably need to advertise percentWidth/Height
-        // in the affected properties/styles arrays; we don't pick these up
-        // in the transition propertyChanges automatically otherwise 
         if (propertyChanges && !disableLayout)
-        {
-            setupConstraintAnimation("left");
-            setupConstraintAnimation("right");
-            setupConstraintAnimation("top");
-            setupConstraintAnimation("bottom");
-            setupConstraintAnimation("percentWidth");
-            setupConstraintAnimation("percentHeight");
-            setupConstraintAnimation("horizontalCenter");
-            setupConstraintAnimation("verticalCenter");
-            // FIXME (chaase): also deal with baseline when it works in BasicLayout
-        }
+            // automatically animate layout constraints affected by this
+            // effect instance if we are in a transition
+            for (s in layoutConstraints)
+                setupConstraintAnimation(s);
         super.play();
     }
 
