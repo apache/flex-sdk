@@ -16,12 +16,14 @@ import mx.core.LayoutContainer;
 
 [Frame(factoryClass="mx.core.FlexModuleFactory")]
 
+[Alternative(replacement="spark.modules.Module", since="4.5")]
+
 /**
  *  The base class for MXML-based dynamically-loadable modules. You extend this
  *  class in MXML by using the <code>&lt;mx:Module&gt;</code> tag in an MXML file, as the
  *  following example shows:
  *  
- *  <PRE>
+ *  <pre>
  *  &lt;?xml version="1.0"?&gt;
  *  &lt;!-- This module loads an image. --&gt;
  *  &lt;mx:Module  width="100%" height="100%" xmlns:mx="http://www.adobe.com/2006/mxml"&gt;
@@ -29,7 +31,7 @@ import mx.core.LayoutContainer;
  *    &lt;mx:Image source="trinity.gif"/&gt;
  *  
  *  &lt;/mx:Module&gt;
- *  </PRE>
+ *  </pre>
  *  
  *  <p>Extending the Module class in ActionScript is the same as using the <code>&lt;mx:Module&gt;</code> tag
  *  in an MXML file. You extend this class if your module interacts with the framework. 
