@@ -584,13 +584,15 @@ public class DropDownList extends List
         
         if (!dropDownController.processKeyDown(event))
         {
-            var navigationUnit:uint;
+            var navigationUnit:uint = event.keyCode;
+            if (!NavigationUnit.isNavigationUnit(navigationUnit))
+                return;
+
             var proposedNewIndex:int = -1;
             
             if (dropDownController.isOpen)
             {   
-                navigationUnit = mapEventToNavigationUnit(event);
-                proposedNewIndex = layout.getDestinationIndex(navigationUnit, proposedSelectedIndex)
+                proposedNewIndex = layout.getNavigationDestinationIndex(proposedSelectedIndex, navigationUnit);
                 
                 if (proposedNewIndex != -1)
                 {
@@ -602,8 +604,6 @@ public class DropDownList extends List
             }
             else if (dataProvider)
             {
-                navigationUnit = mapEventToNavigationUnit(event);
-                
                 switch (navigationUnit)
                 {
                     case NavigationUnit.UP:
