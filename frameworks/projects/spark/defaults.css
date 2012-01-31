@@ -176,6 +176,11 @@ SkinnableContainer
     skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
+SkinnablePopUpContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnablePopUpContainerSkin");
+}
+
 SkinnableTextBase:normalWithPrompt 
 {
     color: #BABABA;
