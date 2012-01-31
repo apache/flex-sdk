@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -33,6 +34,10 @@ import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
 
 use namespace mx_internal;
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
 
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 
@@ -84,6 +89,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //--------------------------------------
 
 [AccessibilityClass(implementation="spark.accessibility.SliderAccImpl")]
+
 /**
  *  The Slider class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
@@ -182,12 +188,13 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     public function Slider():void
     {
         super();
+
         maximum = 10;
     }
 
     //--------------------------------------------------------------------------
     //
-    //  Skin Parts
+    //  Skin parts
     //
     //--------------------------------------------------------------------------
 
@@ -211,31 +218,88 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @private
+	 */
     private var dataFormatter:NumberFormatter;
 
+	/**
+	 *  @private
+	 */
     private var animator:Animation = null;
     
+	/**
+	 *  @private
+	 */
     private var dataTipInitialPosition:Point;
     
+	/**
+	 *  @private
+	 */
     private var dataTipInstance:IDataRenderer;
 
+	/**
+	 *  @private
+	 */
     private var slideToValue:Number;
 	
+	/**
+	 *  @private
+	 */
 	private var isKeyDown:Boolean = false;
 
+    /**
+     *  @private
+     *  Location of the mouse down event on the thumb, relative to the thumb's origin.
+     *  Used to update the value property when the mouse is dragged. 
+     */
+    private var clickOffset:Point;  
+        
     //--------------------------------------------------------------------------
     //
-    // Properties
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------    
+
+    //---------------------------------
+    //  maximum
+    //---------------------------------   
+        
+    /**
+     *  Number which represents the maximum value possible for 
+     *  <code>value</code>. If the values for either 
+     *  <code>minimum</code> or <code>value</code> are greater
+     *  than <code>maximum</code>, they will be changed to 
+     *  reflect the new <code>maximum</code>
+     *
+     *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get maximum():Number
+    {
+        return super.maximum;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
     //
     //--------------------------------------------------------------------------    
 
     //--------------------------------- 
-    // dataTipformatFunction
+    //  dataTipformatFunction
     //---------------------------------
 
+	/**
+	 *  @private
+	 */
     private var _dataTipFormatFunction:Function;
     
-     /**
+    /**
      *  Callback function that formats the data tip text.
      *  The function takes a single Number as an argument
      *  and returns a formatted String.
@@ -264,19 +328,23 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    public function get dataTipFormatFunction():Function
+    {
+        return _dataTipFormatFunction;
+    }
+
+	/**
+	 *  @private
+	 */
     public function set dataTipFormatFunction(value:Function):void
     {
         _dataTipFormatFunction = value;
     }
     
-    public function get dataTipFormatFunction():Function
-    {
-        return _dataTipFormatFunction;
-    }
-    
     //--------------------------------- 
-    // dataTipPrecision
+    //  dataTipPrecision
     //---------------------------------
+
     /**
      *  Number of decimal places to use for the data tip text.
      *  A value of 0 means to round all values to an integer.
@@ -291,47 +359,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     public var dataTipPrecision:int = 2;
     
-    //---------------------------------
-    // maximum
-    //---------------------------------   
-        
-    /**
-     *  Number which represents the maximum value possible for 
-     *  <code>value</code>. If the values for either 
-     *  <code>minimum</code> or <code>value</code> are greater
-     *  than <code>maximum</code>, they will be changed to 
-     *  reflect the new <code>maximum</code>
-     *
-     *  @default 10
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function get maximum():Number
-    {
-        return super.maximum;
-    }
-    
-    //--------------------------------- 
-    // showDataTip
-    //---------------------------------
-    
-    /**
-     *  If set to <code>true</code>, shows a data tip during user interaction
-     *  containing the current value of the slider. In addition, the skinPart
-     *  <code>dataTipFactory</code> must be defined in the skin in order to 
-     *  display a data tip. 
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var showDataTip:Boolean = true;
-
     //----------------------------------
     //  pendingValue
     //----------------------------------
@@ -378,31 +405,37 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         invalidateDisplayList();
     }
     
+    //--------------------------------- 
+    //  showDataTip
+    //---------------------------------
+    
+    /**
+     *  If set to <code>true</code>, shows a data tip during user interaction
+     *  containing the current value of the slider. In addition, the skinPart
+     *  <code>dataTipFactory</code> must be defined in the skin in order to 
+     *  display a data tip. 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var showDataTip:Boolean = true;
+
     //--------------------------------------------------------------------------
     //
-    // Methods
+    //  Overridden methods
     //
     //--------------------------------------------------------------------------
     
-     /**
+    /**
      *  @private
      */
     override protected function initializeAccessibility():void
     {
         if (Slider.createAccessibilityImplementation != null)
             Slider.createAccessibilityImplementation(this);
-    }
-
-    
-    /**
-     *  @private
-     *  Keep the pendingValue in sync with the actual value so that updateSkinDisplayList()
-     *  overrides can just use pendingValue.
-     */
-    override protected function setValue(value:Number):void
-    {
-        _pendingValue = value;
-        super.setValue(value);
     }
 
     /**
@@ -439,6 +472,49 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Keep the pendingValue in sync with the actual value so that updateSkinDisplayList()
+     *  overrides can just use pendingValue.
+     */
+    override protected function setValue(value:Number):void
+    {
+        _pendingValue = value;
+
+        super.setValue(value);
+    }
+
+    /**
+     *  @private
+     */
+    override mx_internal function updateErrorSkin():void
+    {
+        // Don't draw the error skin
+    }
+
+	//--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Used to position the data tip when it is visible. Subclasses must implement
+     *  this function. 
+     *  
+     *  @param dataTipInstance The <code>dataTip</code> instance to update and position
+     *  @param initialPosition The initial position of the <code>dataTip</code> in the skin
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
+    {
+        // Override in the subclasses
+    }
+
+    /**
+     *  @private
      *  Returns a formatted version of the value
      */
     private function formatDataTipText(value:Number):Object
@@ -462,40 +538,53 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         return formattedValue;
     }
   
-   
     /**
-     *  Used to position the data tip when it is visible. Subclasses must implement
-     *  this function. 
-     *  
-     *  @param dataTipInstance The <code>dataTip</code> instance to update and position
-     *  @param initialPosition The initial position of the <code>dataTip</code> in the skin
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
+     *  Handles events from the Animation that runs the animated slide.
+     *  We just call setValue() with the current animated value
      */
-    protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
+    private function animationUpdateHandler(animation:Animation):void
     {
-        // Override in the subclasses
+		// FIXME (klin): Should the animation be setting the value
+		// as it goes like ScrollBar does? Should this behavior
+		// depend on liveDraggin?
+        pendingValue = animation.currentValue["value"];
     }
+    
+    /**
+     *  @private
+     *  Handles end event from the Animation that runs the animated slide.
+     *  We dispatch the "change" event at this time, after the animation
+     *  is done since each animation occurs after a user interaction.
+     */
+    private function animationEndHandler(animation:Animation):void
+    {
+        setValue(slideToValue);
+
+        dispatchEvent(new Event(Event.CHANGE));
+    }
+	
+	/**
+	 *  @private
+	 *  Stops a running animation prematurely and sets the value
+	 *  of the slider to the current pendingValue. We also dispatch
+	 *  a "change" event since the user has started another interaction.
+	 */
+	private function stopAnimation():void
+	{
+		animator.stop();
+
+		setValue(nearestValidValue(pendingValue, snapInterval));
+
+		dispatchEvent(new Event(Event.CHANGE));
+	}
 
     //--------------------------------------------------------------------------
     // 
-    // Event Handlers
+    //  Overridden event handlers
     //
     //--------------------------------------------------------------------------
 
-    //---------------------------------
-    // Thumb dragging handlers
-    //---------------------------------
-    /**
-     *  @private
-     *  Location of the mouse down event on the thumb, relative to the thumb's origin.
-     *  Used to update the value property when the mouse is dragged. 
-     */
-    private var clickOffset:Point;  
-        
     /**
      *  @private
      */
@@ -597,18 +686,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         super.system_mouseUpHandler(event);
     }
     
-    /**
-     *  @private
-     */
-    override mx_internal function updateErrorSkin():void
-    {
-        // Don't draw the error skin
-    }
-
-    //---------------------------------
-    // Keyboard handlers
-    //---------------------------------
-
     /**
      *  @private
      *  Handle keyboard events. Left/Down decreases the value
@@ -720,11 +797,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 			}
 		}
 	}
-	
-    //---------------------------------
-    // Track down handlers
-    //---------------------------------
-    
+	    
     /**
      *  @private
      *  Handle mouse-down events for the slider track. We
@@ -786,43 +859,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
         event.updateAfterEvent();
     }
-    
-    /**
-     * @private
-     * Handles events from the Animation that runs the animated slide.
-     * We just call setValue() with the current animated value
-     */
-    private function animationUpdateHandler(animation:Animation):void
-    {
-		// FIXME (klin): Should the animation be setting the value
-		// as it goes like ScrollBar does? Should this behavior
-		// depend on liveDraggin?
-        pendingValue = animation.currentValue["value"];
-    }
-    
-    /**
-     * @private
-     * Handles end event from the Animation that runs the animated slide.
-     * We dispatch the "change" event at this time, after the animation
-     * is done since each animation occurs after a user interaction.
-     */
-    private function animationEndHandler(animation:Animation):void
-    {
-        setValue(slideToValue);
-        dispatchEvent(new Event(Event.CHANGE));
-    }
-	
-	/**
-	 * @private
-	 * Stops a running animation prematurely and sets the value
-	 * of the slider to the current pendingValue. We also dispatch
-	 * a "change" event since the user has started another interaction.
-	 */
-	private function stopAnimation():void
-	{
-		animator.stop();
-		setValue(nearestValidValue(pendingValue, snapInterval));
-		dispatchEvent(new Event(Event.CHANGE));
-	}
 }
+
 }
