@@ -33,7 +33,7 @@ import flashx.tcal.formats.LineBreak;
  *  <code>selectionActivePosition</code> properties have changed
  *  due to a user interaction.
  */
-[Event(name="selectionChange", type="mx.events.AnimationEvent")]
+[Event(name="selectionChange", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched before a user editing operation occurs.
