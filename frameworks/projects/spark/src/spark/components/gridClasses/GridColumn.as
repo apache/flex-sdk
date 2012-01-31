@@ -53,7 +53,7 @@ use namespace mx_internal;
  *    editable="true"
  *    formatter="null"
  *    headerRenderer="null"
- *    headerText="<i>value of dataField<i>"
+ *    headerText="<i>value of dataField</i>"
  *    imeMode="null"
  *    itemEditor="null"
  *    itemRendererFunction="null"
