@@ -1397,6 +1397,25 @@ public class Panel extends Container
             g.drawRect(0, 0, titleBarWidth, headerHeight);
             g.endFill();
             
+            // Also draw an invisible unfilled rect whose height
+			// is the height of the entire Panel, not just the headerHeight.
+            // This is for accessibility; the titlebar of the Panel
+            // has an AccessibilityImplementation (see PanelAccImpl)
+            // which makes it act like a grouping (ROLE_SYSTEM_GROUPING)
+            // for the controls inside the panel.
+            // Drawing this rect makes the accLocation rect of the grouping
+            // enclose the controls inside the grouping,
+            // even though it is a sibling of them, not their parent.
+            // (This is because the Player doesn't support Sprites
+            // with AccessibilityImplementations inside other Sprites
+            // with AccessibilityImplementations; the accessible objects
+            // in a Flash SWF are a flat list, not a hierarchy.)
+            // This rectangle must be unfilled because the titleBar is
+            // actually on top of the content area and would otherwise
+            // block mouse events to the controls in the Panel.
+            g.lineStyle(0, 0x000000, 0);
+            g.drawRect(0, 0, titleBarWidth, unscaledHeight);
+            
             // Position the titleBar.
             titleBar.move(x, y);
             titleBar.setActualSize(titleBarWidth, headerHeight);
