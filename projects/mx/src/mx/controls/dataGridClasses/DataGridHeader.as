@@ -1053,6 +1053,8 @@ public class DataGridHeader extends DataGridHeaderBase
                         break;
                     }
                 }
+                if (i >= visibleColumns.length)
+                    return;
             }
             else
             {
