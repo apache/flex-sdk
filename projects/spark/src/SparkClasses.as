@@ -23,6 +23,7 @@ internal class Flex4Classes
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
+import mx.core.SpriteVisualElement; SpriteVisualElement;
 import mx.skins.spark.FxApplicationSkin; FxApplicationSkin;
 import mx.skins.spark.FxButtonSkin; FxButtonSkin;
 import mx.skins.spark.FxDefaultButtonSkin; FxDefaultButtonSkin;
