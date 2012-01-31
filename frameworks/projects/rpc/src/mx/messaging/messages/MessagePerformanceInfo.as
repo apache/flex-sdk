@@ -79,7 +79,7 @@ package mx.messaging.messages
 	 	 *  @productversion BlazeDS 4
 	 	 *  @productversion LCDS 3 
 	 	 */			
-		public var receiveTime:Number;
+		private var _receiveTime:Number;
 		
 		/**
 	 	 * Amount of time in milliseconds that this message was being processed on the server
@@ -222,7 +222,7 @@ package mx.messaging.messages
 			if (_infoType=="OUT")
 			{			
 				var curDate:Date = new Date();
-				this.receiveTime = curDate.getTime();
+				this._receiveTime = curDate.getTime();
 			}
 		}
 		
@@ -241,6 +241,34 @@ package mx.messaging.messages
 		{
 			return this._infoType;
 		}
-		
-	}
+        
+        /**
+         *  Sets reveive time of this message.  
+         *  When the infoType is "OUT", we should skip override the receive time
+         *  See the set infoType for details
+         * 
+         * @param time - the receive time to set
+         */		
+        public function set receiveTime(time:Number):void
+        {
+            // Check whether infoType is out and receiveTime would already set
+            // If it is the case, we should skip the reset the receive time of the message
+            if (_infoType == null || _infoType != "OUT")
+            {			
+                //var curDate:Date = new Date();
+                this._receiveTime = time;
+            }
+        }
+        
+        /**
+         *  Get the receive time of this message (IN or OUT).
+         * 
+         * @return Number the receive time that the client receives the message
+         */			
+        public function get receiveTime():Number
+        {
+            return this._receiveTime;
+        }
+      
+    } 
 }
