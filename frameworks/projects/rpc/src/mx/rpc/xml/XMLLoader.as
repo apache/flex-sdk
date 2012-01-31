@@ -45,6 +45,11 @@ public class XMLLoader extends EventDispatcher
 
     /**
      * Asynchronously loads an XML document for the given URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load(url:String):void
     {
@@ -98,6 +103,11 @@ public class XMLLoader extends EventDispatcher
     /**
      * If a fault occured trying to load the XML document, a FaultEvent
      * is simply redispatched.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function faultHandler(event:FaultEvent):void
     {
@@ -108,6 +118,11 @@ public class XMLLoader extends EventDispatcher
     /**
      * Dispatches an XMLLoadEvent with the XML formatted result
      * and location (if known).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function resultHandler(event:ResultEvent):void
     {
