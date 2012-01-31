@@ -39,12 +39,12 @@ import flashx.textLayout.formats.LineBreak;
 
 [DefaultProperty("text")]
 
+[IconFile("FxTextInput.png")]
+
 /**
- *  The built-in set of states for the TextInput component.
+ *  The built-in set of states for the FxTextInput component.
  */
 [SkinStates("normal", "disabled")]
-
-[IconFile("FxTextInput.png")]
 
 /**
  *  Documentation is not currently available.
@@ -90,7 +90,7 @@ public class FxTextInput extends FxTextBase
     private var widthInCharsChanged:Boolean = false;
     
     /**
-     *  The default width for the TextInput, measured in characters.
+     *  The default width for the FxTextInput, measured in characters.
      *  The width of the "0" character is used for the calculation,
      *  since in most fonts the digits all have the same width.
      *  So if you set this property to 5, it will be wide enough
@@ -125,7 +125,7 @@ public class FxTextInput extends FxTextBase
         
     /**
      *  @private
-     *  Pushes various TextInput properties down into the TextView. 
+     *  Pushes various FxTextInput properties down into the TextView. 
      */
     override protected function commitProperties():void
     {
@@ -152,14 +152,6 @@ public class FxTextInput extends FxTextBase
             textView.multiline = false;
             textView.setStyle("lineBreak", "explicit");
         }
-    }
-
-    /**
-     *  @private
-     */
-    override protected function getCurrentSkinState():String
-    {
-        return enabled ? "normal" : "disabled";
     }
 }
 
