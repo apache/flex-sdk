@@ -176,9 +176,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         super();
         
         setCurrentStateNeeded = true;
+        accessibilityEnabled = false;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
-						 GridItemRenderer.toolTipShowHandler);           
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, GridItemRenderer.toolTipShowHandler);           
     }
     
     //--------------------------------------------------------------------------
