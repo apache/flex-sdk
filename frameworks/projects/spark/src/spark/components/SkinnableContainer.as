@@ -39,6 +39,11 @@ import mx.utils.BitFlagUtil;
  *  component is created.
  *
  *  @eventType mx.events.FlexEvent.CONTENT_CREATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
 
@@ -47,6 +52,11 @@ import mx.utils.BitFlagUtil;
  *  <code>event.element</code> is the visual element that was added.
  *
  *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
 
@@ -55,6 +65,11 @@ import mx.utils.BitFlagUtil;
  *  <code>event.element</code> is the visual element that's being removed.
  *
  *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
 
@@ -64,26 +79,51 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
  * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -101,6 +141,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  visual content.
  *
  *  @see FxDataContainer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxContainer extends FxContainerBase 
        implements IDeferredContentOwner, IViewport, IVisualElementContainer
@@ -146,6 +191,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxContainer()
     {
@@ -165,6 +215,11 @@ public class FxContainer extends FxContainerBase
     /**
      *  A required skin part that defines the Group where the content 
      *  children get pushed into and laid out.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var contentGroup:Group;
     
@@ -230,6 +285,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get creationPolicy():String
     {
@@ -261,6 +321,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get autoLayout():Boolean
     {
@@ -295,6 +360,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get clipAndEnableScrolling():Boolean 
     {
@@ -327,6 +397,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentWidth():Number 
     {
@@ -342,6 +417,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentHeight():Number 
     {
@@ -356,6 +436,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -385,6 +470,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @copy mx.components.baseClasses.GroupBase#layout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get layout():LayoutBase
     {
@@ -419,6 +509,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @copy mx.components.Group#mxmlContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set mxmlContent(value:Array):void
     {
@@ -452,6 +547,11 @@ public class FxContainer extends FxContainerBase
     /**
      *  A factory object that creates the initial value for the
      *  content property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set mxmlContentFactory(value:IDeferredInstance):void
     {
@@ -470,6 +570,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalScrollPosition():Number 
     {
@@ -501,6 +606,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get numElements():int
     {
@@ -509,6 +619,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getElementAt(index:int):IVisualElement
     {
@@ -518,6 +633,11 @@ public class FxContainer extends FxContainerBase
         
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getElementIndex(element:IVisualElement):int
     {
@@ -526,6 +646,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
@@ -534,6 +659,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
@@ -542,6 +672,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
@@ -550,6 +685,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElementAt(index:int):IVisualElement
     {
@@ -558,6 +698,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
@@ -566,6 +711,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
@@ -574,6 +724,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
@@ -586,6 +741,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -595,6 +755,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -610,6 +775,11 @@ public class FxContainer extends FxContainerBase
     
     /**
      *  Create our content, if the creationPolicy is != "none".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function createChildren():void
     {
@@ -627,6 +797,11 @@ public class FxContainer extends FxContainerBase
      *  This method pushes the content, layout, itemRenderer, and
      *  itemRendererFunction properties down to the contentGroup
      *  skin part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -718,6 +893,11 @@ public class FxContainer extends FxContainerBase
 
     /**
      *  Called when a skin part is removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -826,6 +1006,11 @@ public class FxContainer extends FxContainerBase
      *  "all", this function is called automatically by the Flex framework.
      *  When creationPolicy="none", this method must be called to initialize
      *  the content property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function createDeferredContent():void
     {
