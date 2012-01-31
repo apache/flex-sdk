@@ -4163,6 +4163,7 @@ public class Container extends UIComponent
         numChildrenCreated = numChildren - numChildrenBefore;
 
         processedDescriptors = true;
+        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
     }
 
     /**
@@ -4180,7 +4181,6 @@ public class Container extends UIComponent
     public function createDeferredContent():void
     {
         createComponentsFromDescriptors(true);
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
     }
 
    /**
