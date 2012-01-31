@@ -133,8 +133,8 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="Flex4Classes"/>
-		    <doc-namespaces uri="http://ns.adobe.com/mxml/2009"/>
-		    <namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/manifest.xml"/>
+		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
