@@ -533,6 +533,8 @@ public class FxListBase extends FxDataContainer
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
+                // Data provider is being reset, clear out the selection
+                _selectedIndex = -1;
             }
             else if (ce.kind == CollectionEventKind.UPDATE)
             {
