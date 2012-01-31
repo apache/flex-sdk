@@ -16,6 +16,7 @@ import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
+import mx.core.IFlexModule;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
@@ -1343,6 +1344,20 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (element.depth != 0)
             invalidateLayering();
 
+        // Set the moduleFactory to the child, but don't overwrite an existing moduleFactory.
+        // Propagate moduleFactory to the child, but don't overwrite an existing moduleFactory.
+        if (element is IFlexModule && IFlexModule(element).moduleFactory == null)
+        {
+            if (moduleFactory != null)
+                IFlexModule(element).moduleFactory = moduleFactory;
+                
+            else if (document is IFlexModule && document.moduleFactory != null)
+                IFlexModule(element).moduleFactory = document.moduleFactory;
+                
+            else if (parent is IFlexModule && IFlexModule(element).moduleFactory != null)
+                IFlexModule(element).moduleFactory = IFlexModule(parent).moduleFactory;
+        }
+        
         // Set the font context in non-UIComponent children.
         // UIComponent children use moduleFactory.
         if (element is IFontContextComponent && !(element is UIComponent) &&
