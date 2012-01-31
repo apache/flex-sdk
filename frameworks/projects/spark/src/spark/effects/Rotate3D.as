@@ -285,18 +285,19 @@ public class Rotate3D extends AnimateTransform3D
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if (!applyChangesPostLayout)
-        {
-            addMotionPath("rotationX", angleXFrom, angleXTo);
-            addMotionPath("rotationY", angleYFrom, angleYTo);
-            addMotionPath("rotationZ", angleZFrom, angleZTo);
-        }
-        else
-        {
-            addMotionPath("postLayoutRotationX", angleXFrom, angleXTo);
-            addMotionPath("postLayoutRotationY", angleYFrom, angleYTo);
-            addMotionPath("postLayoutRotationZ", angleZFrom, angleZTo);
-        }
+        var xProp:String = applyChangesPostLayout ? "postLayoutRotationX" : "rotationX";
+        var yProp:String = applyChangesPostLayout ? "postLayoutRotationY" : "rotationY";
+        var zProp:String = applyChangesPostLayout ? "postLayoutRotationZ" : "rotationZ";
+        
+        if (!(isNaN(angleXFrom) && isNaN(angleXTo)))
+            addMotionPath(xProp, angleXFrom, angleXTo);
+            
+        if (!(isNaN(angleYFrom) && isNaN(angleYTo)))
+            addMotionPath(yProp, angleYFrom, angleYTo);
+            
+        if (!(isNaN(angleZFrom) && isNaN(angleZTo)))
+            addMotionPath(zProp, angleZFrom, angleZTo);
+            
         super.initInstance(instance);
     }    
 }
