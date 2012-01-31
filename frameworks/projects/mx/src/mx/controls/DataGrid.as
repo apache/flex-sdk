@@ -1362,9 +1362,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
     public function set editable(value:Boolean):void
     {
         _editable = value;
-        
-        if (focusManager)
-            focusManager.defaultButtonEnabled = !value;
     }
 
     //----------------------------------
@@ -4169,6 +4166,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
+        if (focusManager)
+            focusManager.defaultButtonEnabled = false;
         // we disappear on any mouse down outside the editor
         systemManager.getSandboxRoot().
             addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
@@ -4276,6 +4275,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (itemEditorInstance)
         {
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
+            if (focusManager)
+                focusManager.defaultButtonEnabled = true;
             systemManager.getSandboxRoot().
                 removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
             systemManager.getSandboxRoot().
@@ -4714,9 +4715,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
             addEventListener(MouseEvent.MOUSE_DOWN, mouseFocusChangeHandler);
-            
-            if (focusManager)
-                focusManager.defaultButtonEnabled = false;
         }
 
         if (event.target != this)
@@ -4813,9 +4811,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        if (focusManager)
-            focusManager.defaultButtonEnabled = true;
-            
         // trace(">>DGFocusOut " + itemEditorInstance + " " + event.relatedObject, event.target);
         if (event.target == this)
             super.focusOutHandler(event);
@@ -4925,6 +4920,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
 			return;
 
         endEdit(DataGridEventReason.OTHER);
+        // set focus back to the grid so grid logic will deal if focus doesn't
+        // end up somewhere else
+        losingFocus = true;
+        setFocus();
     }
 
     /**
@@ -4955,7 +4954,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
             // the enter key is down, but the keyCode is 229 instead of the enter key code.
             // Thanks to Yukari for this little trick...
             if (endEdit(DataGridEventReason.NEW_ROW) && !dontEdit)
+            {
                 findNextEnterItemRenderer(event);
+                if (focusManager)
+                    focusManager.defaultButtonEnabled = false;
+            }
         }
     }
 
