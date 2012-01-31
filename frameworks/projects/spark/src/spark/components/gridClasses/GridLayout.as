@@ -18,15 +18,19 @@ import flash.utils.getTimer;
 import mx.collections.IList;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
+import mx.core.IContainerInvalidating;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.Singleton;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
+import mx.managers.ILayoutManagerContainerClient;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
@@ -2034,8 +2038,28 @@ public class GridLayout extends LayoutBase
         {
             if (!isNaN(width) || !isNaN(height))
             {
+                var oldcw:Number = renderer.estimatedWidth;
+                var oldch:Number = renderer.estimatedHeight;
+                renderer.setEstimatedSize(width, height);
+                if (renderer is ILayoutManagerContainerClient)
+                {
+                    var sameWidth:Boolean = isNaN(width) && isNaN(oldcw) || width == oldcw;
+                    var sameHeight:Boolean = isNaN(height) && isNaN(oldch) || height == oldch;
+                    if (!(sameHeight && sameWidth))
+                    {
+                        if (renderer is IContainerInvalidating)
+                            IContainerInvalidating(renderer).invalidateEstimatedSizesOfChildren();
+                        ILayoutManagerContainerClient(renderer).validateEstimatedSizesOfChildren();
+                    }
+                }
+
                 if (validatingElt)
-                    validatingElt.validateNow();
+                {
+                    if (validatingElt is ILayoutManagerClient)
+                        UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(validatingElt), true);
+                    else
+                        validatingElt.validateNow();
+                }
                 renderer.setLayoutBoundsSize(width, height);
             }
             if (validatingElt)
