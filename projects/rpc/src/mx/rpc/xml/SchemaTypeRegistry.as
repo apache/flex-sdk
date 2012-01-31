@@ -26,6 +26,11 @@ import flash.utils.getQualifiedClassName;
  * new instance of the type, otherwise an anonymous Object will be used to
  * hold the decoded properties.
  * </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SchemaTypeRegistry
 {
@@ -41,6 +46,11 @@ public class SchemaTypeRegistry
      *
      * @return Returns the sole instance of this singleton class, creating it
      * if it does not already exist.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():SchemaTypeRegistry
     {
@@ -76,6 +86,11 @@ public class SchemaTypeRegistry
      * @param type The QName or String representing the type name.
      * @return Returns the Class for the given type, or null of the type
      * has not been registered.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getClass(type:Object):Class
     {
@@ -99,6 +114,11 @@ public class SchemaTypeRegistry
      *
      * @return Returns the Class for the collection type represented by 
      * the given Qname or String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getCollectionClass(type:Object):Class
     {
@@ -120,6 +140,11 @@ public class SchemaTypeRegistry
      * Class itself.
      * @param type The QName or String representation of the type name.
      * @param definition The Class itself or class name as a String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerClass(type:Object, definition:Object):void
     {
@@ -135,6 +160,11 @@ public class SchemaTypeRegistry
      * @param type The QName or String representation of the type name.
      *
      * @param definition The Class itself or class name as a String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerCollectionClass(type:Object, definition:Object):void
     {
@@ -144,6 +174,11 @@ public class SchemaTypeRegistry
     /**
      * Removes a Class from the registry for the given type.
      * @param type The QName or String representation of the type name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unregisterClass(type:Object):void
     {
@@ -158,6 +193,11 @@ public class SchemaTypeRegistry
      * Removes a collection Class from the registry for the given type.
      * @param type The QName or String representation of the collection type
      * name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unregisterCollectionClass(type:Object):void
     {
