@@ -146,6 +146,12 @@ import spark.components.SkinnableContainer;
  */
 [Style(name="dropShadowVisible", type="Boolean", inherit="no")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("BorderContainer.png")]
+
 /**
  *  The BorderContainer class defines a set of CSS styles that control
  *  the appearance of the border and background fill of the container. 
