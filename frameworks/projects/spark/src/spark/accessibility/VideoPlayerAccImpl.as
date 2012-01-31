@@ -17,8 +17,6 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 
-import org.osmf.events.TimeEvent;
-
 import mx.accessibility.AccConst;
 import mx.accessibility.AccImpl;
 import mx.core.UIComponent;
@@ -27,12 +25,14 @@ import mx.events.FlexEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
+import org.osmf.events.TimeEvent;
+
 import spark.components.Button;
-import spark.components.mediaClasses.VolumeBar;
-import spark.components.supportClasses.ToggleButtonBase;
 import spark.components.VideoPlayer;
 import spark.components.mediaClasses.ScrubBar;
+import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ButtonBase;
+import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.SkinPartEvent;
 import spark.events.VideoEvent;
 
@@ -605,7 +605,7 @@ public class VideoPlayerAccImpl extends AccImpl
            !videoPlayer.scrubBar.enabled)) ||
            ((childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && !videoPlayer.currentTimeDisplay) || 
            (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
-           !videoPlayer.currentTimeDisplay.enabled)) ||
+           !(videoPlayer.currentTimeDisplay is UIComponent && UIComponent(videoPlayer.currentTimeDisplay).enabled))) ||
            ((childID == VIDEOPLAYER_MUTEBUTTON && !videoPlayer.volumeBar) || (childID == VIDEOPLAYER_MUTEBUTTON && 
            !videoPlayer.volumeBar.enabled)) ||
            ((childID == VIDEOPLAYER_VOLUMEBAR && !videoPlayer.volumeBar) || (childID == VIDEOPLAYER_VOLUMEBAR && 
