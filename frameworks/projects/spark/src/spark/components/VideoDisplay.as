@@ -9,32 +9,53 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives
+package spark.components
 {
-
-// FIXME (rfrishbe): Change package name and classname
-
-import fl.video.DynamicStreamItem;
-import fl.video.MetadataEvent;
-import fl.video.NCManagerDynamicStream;
-import fl.video.VideoError;
-import fl.video.VideoEvent;
-import fl.video.VideoPlayer;
-import fl.video.VideoScaleMode;
-import fl.video.VideoState;
-import fl.video.flvplayback_internal;
 
 import flash.events.Event;
 import flash.events.ProgressEvent;
+import flash.geom.Point;
 import flash.media.Video;
 
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
-import spark.components.Group;
-import spark.components.mediaClasses.StreamItem;
-import spark.components.mediaClasses.StreamingVideoSource;
+import org.osmf.display.MediaPlayerSprite;
+import org.osmf.display.ScaleMode;
+import org.osmf.events.BufferTimeChangeEvent;
+import org.osmf.events.BytesDownloadedChangeEvent;
+import org.osmf.events.DimensionChangeEvent;
+import org.osmf.events.DurationChangeEvent;
+import org.osmf.events.LoadableStateChangeEvent;
+import org.osmf.events.MediaPlayerStateChangeEvent;
+import org.osmf.events.MutedChangeEvent;
+import org.osmf.events.PlayheadChangeEvent;
+import org.osmf.events.PlayingChangeEvent;
+import org.osmf.events.SeekingChangeEvent;
+import org.osmf.events.TraitEvent;
+import org.osmf.events.VolumeChangeEvent;
+import org.osmf.media.IMediaResource;
+import org.osmf.media.MediaFactory;
+import org.osmf.media.MediaPlayer;
+import org.osmf.media.MediaPlayerState;
+import org.osmf.media.URLResource;
+import org.osmf.net.NetLoader;
+import org.osmf.net.NetStreamCodes;
+import org.osmf.net.dynamicstreaming.DynamicStreamingItem;
+import org.osmf.net.dynamicstreaming.DynamicStreamingNetLoader;
+import org.osmf.net.dynamicstreaming.DynamicStreamingResource;
+import org.osmf.traits.ILoadable;
+import org.osmf.traits.LoadState;
+import org.osmf.traits.MediaTraitType;
+import org.osmf.utils.FMSURL;
+import org.osmf.utils.MediaFrameworkStrings;
+import org.osmf.utils.URL;
+import org.osmf.video.VideoElement;
+
+import spark.components.mediaClasses.DynamicStreamingVideoItem;
+import spark.components.mediaClasses.DynamicStreamingVideoSource;
 import spark.events.VideoEvent;
+import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
@@ -143,10 +164,10 @@ use namespace mx_internal;
 
 [DefaultProperty("source")]
 
-[IconFile("VideoElement.png")]
+[IconFile("VideoDisplay.png")]
 
 /**
- *  The VideoElement class is chromeless video player that supports
+ *  The VideoDisplay class is chromeless video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
  *  <p><code>VideoPlayer</code> is the skinnable version.</p>
@@ -158,7 +179,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoElement extends UIComponent
+public class VideoDisplay extends UIComponent
 {
     include "../core/Version.as";
     
@@ -170,16 +191,14 @@ public class VideoElement extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function VideoElement()
+    public function VideoDisplay()
     {
-        super();
-        
-        // set up the VideoPlayer's iNCManagerClass to point to our FlexNCManager, 
-        // which is a private class
-        VideoPlayer.iNCManagerClass = FlexNCManager;
-        
-        // create the underlying FLVPlayback class
+        // create the underlying MediaPlayer class first because 
+        // the super() call will set enabled=true, and we have assumptions baked 
+        // in to the component that videoPlayer is always around.
         createUnderlyingVideoPlayer();
+        
+        super();
         
         // added and removed event listeners to see whether we should
         // start or stop the video
@@ -198,7 +217,14 @@ public class VideoElement extends UIComponent
      *  This is the underlying VideoPlayer object. At some point in the 
      *  future, we may change to a new implementation.
      */
-    mx_internal var videoPlayer:VideoPlayer;
+    mx_internal var videoPlayer:MediaPlayer;
+    
+    /**
+     *  @private
+     *  This is the underlying VideoPlayer object. At some point in the 
+     *  future, we may change to a new implementation.
+     */
+    mx_internal var videoSprite:MediaPlayerSprite;
     
     //--------------------------------------------------------------------------
     //
@@ -210,13 +236,9 @@ public class VideoElement extends UIComponent
     //  autoPlay
     //----------------------------------
     
-    /**
-     *  @private
-     *  Storage for autoPlay property.
-     */
-    private var _autoPlay:Boolean = true;
-    
     [Inspectable(category="General", defaultValue="true")]
+    
+    private var _autoPlay:Boolean = true;
     
     /**
      *  Specifies whether the video should start playing immediately when the
@@ -231,6 +253,10 @@ public class VideoElement extends UIComponent
      *  the first frame to display.
      *  In the case of an HTTP download, Flex starts downloading the stream
      *  and shows the first frame.</p>
+     * 
+     *  If <code>playWhenHidden</code> is set to <code>false</code>, then 
+     *  <code>autoPlay</code> also affects what happens when the video 
+     *  comes back on stage and is enabled and visible.
      *  
      *  @default true
      *  
@@ -249,28 +275,34 @@ public class VideoElement extends UIComponent
      */
     public function set autoPlay(value:Boolean):void
     {
-        if (_autoPlay == value)
+        if (autoPlay == value)
             return;
         
         _autoPlay = value;
+        effectiveAutoPlayChanged(false);
     }
     
-    /**
-     *  @private
-     *  Whether we should be playing or not
-     */
-    private function get effectivePlay():Boolean
+    // FIXME (rfrishbe): Copy this behavior correctly from the spark checked-in versions
+    private function effectiveAutoPlayChanged(takeAction:Boolean):void
     {
-        return playWhenHidden || (visible && _isOnDisplayList && enabled && _parentVisibility);
-    }
-    
-    /**
-     *  @private
-     *  Whether we should autoPlay or not
-     */
-    private function get effectiveAutoPlay():Boolean
-    {
-        return autoPlay && effectivePlay;
+        if (!playWhenHidden)
+        {
+            var shouldBePlaying:Boolean = visible && _isOnDisplayList && enabled && _parentVisibility;
+            
+            if (shouldBePlaying)
+            {
+                if (!playing && takeAction && videoPlayer.playable)
+                    play(); 
+            }
+            else
+            {
+                if (playing && takeAction && videoPlayer.playable)
+                    pause();
+            }
+            
+            if (videoPlayer)
+                videoPlayer.autoPlay = shouldBePlaying && autoPlay;
+        }
     }
     
     //----------------------------------
@@ -295,7 +327,7 @@ public class VideoElement extends UIComponent
      */
     public function get autoRewind():Boolean
     {
-        var myVideoPlayer:VideoPlayer = videoPlayer;
+        var myVideoPlayer:MediaPlayer = videoPlayer;
         return myVideoPlayer.autoRewind;
     }
     
@@ -334,24 +366,106 @@ public class VideoElement extends UIComponent
         if (value == enabled)
             return;
         
-        if (!value)
-        {
-            if (playing)
-                pause();
-        }
-        
         super.enabled = value;
+        
+        effectiveAutoPlayChanged(true);
+    }
+    
+    //----------------------------------
+    //  bytesDownloaded
+    //----------------------------------
+    
+    [Bindable("bytesDownloadedChange")]
+    [Inspectable(Category="General", defaultValue="0")]
+    
+    /**
+     *  The number of bytes of data that have been downloaded into the application.
+     *
+     *  @return The number of bytes of data that have been downloaded into the application.
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bytesLoaded():Number
+    {
+        return videoPlayer.bytesDownloaded;
+    }
+    
+    //----------------------------------
+    //  bytesTotal
+    //----------------------------------
+    
+    [Inspectable(Category="General", defaultValue="0")]
+    
+    /**
+     *  The total size in bytes of the data being downloaded into the application.
+     *
+     *  @return The total size in bytes of the data being downloaded into the application.
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bytesTotal():Number
+    {
+        return videoPlayer.bytesTotal;
+    }
+    
+    //----------------------------------
+    //  currentTime
+    //----------------------------------
+    
+    [Bindable("playheadUpdate")]
+    [Bindable("playheadTimeChanged")]
+    [Inspectable(Category="General", defaultValue="0")]
+    
+    /**
+     *  Current time of the playhead, measured in seconds, 
+     *  since the video starting playing. 
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get currentTime():Number
+    {
+        return videoPlayer.currentTime;
+    }
+    
+    //----------------------------------
+    //  duration
+    //----------------------------------
+    
+    [Bindable("totalTimeChanged")]
+    [Inspectable(Category="General", defaultValue="0")]
+    
+    /**
+     *  Duration of the video's playback, in seconds
+     *
+     *  @return The total running time of the video in seconds
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get duration():Number
+    {
+        return videoPlayer.duration;
     }
     
     //----------------------------------
     //  loop
     //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for loop property.
-     */
-    private var _loop:Boolean = false;
     
     [Inspectable(Category="General", defaultValue="false")]
     
@@ -370,7 +484,7 @@ public class VideoElement extends UIComponent
      */
     public function get loop():Boolean
     {
-        return _loop;
+        return videoPlayer.loop;
     }
     
     /**
@@ -378,7 +492,10 @@ public class VideoElement extends UIComponent
      */
     public function set loop(value:Boolean):void
     {
-        _loop = value;
+        if (loop == value)
+            return;
+        
+        videoPlayer.loop = value;
     }
     
     //----------------------------------
@@ -391,59 +508,56 @@ public class VideoElement extends UIComponent
      */
     private var _maintainAspectRatio:Boolean = true;
     
-    [Inspectable(Category="General", defaultValue="true")]
+    [Inspectable(Category="General", enumeration="none,stretch,letterBox,zoom", defaultValue="letterBox")]
     
     /**
-     *  Specifies whether the control should maintain the original aspect ratio
-     *  while resizing the video.
+     *  The <code>scaleMode</code> property describes different ways of 
+     *  sizing the video content.  <code>scaleMode</code> can be set to 
+     *  <code>NONE</code>, <code>STRETCH</code>, <code>LETTERBOX</code> or <code>ZOOM</code>.
      * 
-     *  <p>If no width, height, or constraints are specified on the VideoElement, 
+     *  <p>If no width, height, or constraints are specified on the component, 
      *  this property has no effect.</p>
      *
-     *  @default true
+     *  @default letterbox
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get maintainAspectRatio():Boolean
+    public function get scaleMode():String
     {
-        return _maintainAspectRatio;
+        return videoSprite.scaleMode.toString().toLowerCase();
     }
     
     /**
      *  @private
      */
-    public function set maintainAspectRatio(value:Boolean):void
+    public function set scaleMode(value:String):void
     {
-        if (_maintainAspectRatio != value)
+        if (scaleMode != value)
         {
-            _maintainAspectRatio = value;
-            
-            // VideoPlayer has MAINTAIN_ASPECT_RATIO, EXACT_FIT, and NO_SCALE
-            // We don't need to worry about NO_SCALE as that's just not putting 
-            // an explicit width on the VideoElement.
-            if (value)
-                videoPlayer.scaleMode = VideoScaleMode.MAINTAIN_ASPECT_RATIO;
-            else
-                videoPlayer.scaleMode = VideoScaleMode.EXACT_FIT;
-            
-            invalidateSize();
-            invalidateDisplayList();
+            switch(value.toLowerCase())
+            {
+                case "none":
+                    videoSprite.scaleMode = ScaleMode.NONE;
+                    break;
+                case "stretch":
+                    videoSprite.scaleMode = ScaleMode.STRETCH;
+                    break;
+                case "letterbox":
+                    videoSprite.scaleMode = ScaleMode.LETTERBOX;
+                    break;
+                case "zoom":
+                    videoSprite.scaleMode = ScaleMode.ZOOM;
+                    break;
+            }
         }
     }
     
     //----------------------------------
     //  muted
     //----------------------------------
-    
-    /**
-     *  @private
-     *  mutedVolume tracks what the volume was before we were 
-     *  muted. If we aren't muted, mutedVolume = -1.
-     */
-    private var mutedVolume:Number = -1;
     
     [Inspectable(category="General", defaultValue="false")]
     [Bindable("volumeChanged")]
@@ -459,7 +573,7 @@ public class VideoElement extends UIComponent
      */
     public function get muted():Boolean
     {
-        return mutedVolume != -1;
+        return videoPlayer.muted;
     }
     
     /**
@@ -467,109 +581,15 @@ public class VideoElement extends UIComponent
      */
     public function set muted(value:Boolean):void
     {
-        // if trying to unmute and we're muted
-        if (!value && mutedVolume != -1)
-        {
-            videoPlayer.volume = mutedVolume;
-            mutedVolume = -1;
-            dispatchEvent(new Event("volumeChanged"));
-        }
-        // if trying to mute and we're not muted
-        else if (value && mutedVolume == -1)
-        {
-            mutedVolume = videoPlayer.volume;
-            videoPlayer.volume = 0;
-            dispatchEvent(new Event("volumeChanged"));
-        }
-    }
-    
-    //----------------------------------
-    //  parentVisibility
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _parentVisibility:Boolean = true;
-    
-    /**
-     *  @private
-     *  Used so that VideoPlayer can reach down and change our effectivePlay/effectiveAutoPlay flag
-     */
-    mx_internal function set parentVisibility(value:Boolean) : void
-    {
-        _parentVisibility = value;
+        if (muted == value)
+            return;
         
-        // if we want our playback to be controlled by visibility
-        if (!playWhenHidden)
-        {
-            // if we shouldn't be playing and we are, then pause it
-            // otherwise if we aren't playing and we should be, then play
-            if (!effectivePlay && playing)
-                pause();
-            else if (effectiveAutoPlay && !playing)
-                play();
-        }
-    }
-    
-    //----------------------------------
-    //  playheadTime
-    //----------------------------------
-    
-    [Bindable("playheadUpdate")]
-    [Bindable("playheadTimeChanged")]
-    [Inspectable(Category="General", defaultValue="0")]
-    
-    /**
-     *  Playhead position, measured in seconds, since the video starting
-     *  playing. 
-     *  The event object for many of the VideoPlay events include the playhead
-     *  position so that you can determine the location in the video file where
-     *  the event occurred.
-     * 
-     *  <p>Setting this property to a value in seconds performs a seek
-     *  operation. 
-     *  If the video is currently playing,
-     *  it continues playing from the new playhead position.  
-     *  If the video is paused, it seeks to
-     *  the new playhead position and remains paused.  
-     *  If the video is stopped, it seeks to
-     *  the new playhead position and enters the paused state.  
-     *  Setting this property has no effect with live video streams.</p>
-     *
-     *  <p>If the new playhead position is less than 0 or NaN, 
-     *  the control throws an exception. If the new playhead position
-     *  is past the end of the video, or past the amount of the video file
-     *  downloaded so far, then the control still attempts the seek.</p>
-     *
-     *  <p>For an FLV file, setting the <code>playheadTime</code> property seeks 
-     *  to the keyframe closest to the specified position, where 
-     *  keyframes are specified in the FLV file at the time of encoding. 
-     *  Therefore, you might not seek to the exact time if there 
-     *  is no keyframe specified at that position.</p>
-     *
-     *  <p>This property throws an exception if set when no stream is
-     *  connected.  Use the <code>stateChange</code> event and the
-     *  <code>connected</code> property to determine when it is
-     *  safe to set this property.</p>
-     *
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get playheadTime():Number
-    {
-        return videoPlayer.playheadTime;
+        videoPlayer.muted = value;
     }
     
     //----------------------------------
     //  playing
     //----------------------------------
-    
-    private var _playing:Boolean = false;
     
     [Inspectable(category="General")]
     [Bindable("playingChanged")]
@@ -591,24 +611,7 @@ public class VideoElement extends UIComponent
      */
     public function get playing():Boolean
     {
-        return _playing;
-    }
-    
-    /**
-     *  @private
-     *  Sets the playing variable to true or false and dispatches 
-     *  the appropriate event.  We don't check to compare it to 
-     *  the last value because we want this event to dispatch every 
-     *  time.  This way when the playPauseButton is toggled in VideoPlayer, 
-     *  this binding event has the last word as to whether we are actually 
-     *  playing or paused (Someone could click the play button, but if there's 
-     *  no source, we want to still show the play button rather than toggle it 
-     *  as ToggleButton's do naturally).
-     */
-    private function setPlaying(value:Boolean):void
-    {
-        _playing = value;
-        dispatchEvent(new Event("playingChanged"));
+        return videoPlayer.playing;
     }
     
     //----------------------------------
@@ -651,16 +654,8 @@ public class VideoElement extends UIComponent
     {
         _playWhenHidden = value;
         
-        // if we want our playback to be controlled by visibility
-        if (!playWhenHidden)
-        {
-            // if we shouldn't be playing and we are, then pause it
-            // otherwise if we aren't playing and we should be, then play
-            if (!effectivePlay && playing)
-                pause();
-            else if (effectiveAutoPlay && !playing)
-                play();
-        }
+        if (value)
+            videoPlayer.autoPlay = autoPlay;
     }
     
     //----------------------------------
@@ -669,15 +664,7 @@ public class VideoElement extends UIComponent
     
     private var _source:Object;
     private var sourceChanged:Boolean;
-    
-    /**
-     *  @private
-     *  Keeps track of the last source that's been played.  That way if 
-     *  we've been paused, we pass in play(null) to the underlying video player.  
-     *  Passing in play(source) resets the stream back to 0.
-     */
-    private var sourceLastPlayed:Object;
-    
+        
     [Bindable("sourceChanged")]
     [Inspectable(category="General", defaultValue="null")]
     
@@ -685,7 +672,7 @@ public class VideoElement extends UIComponent
      *  For progressive download, the source is just a path or URL pointing 
      *  to the video file to play.  For streaming (streaming, live streaming, 
      *  or multi-bitrate streaming), the source property is a 
-     *  StreamingVideoSource object.
+     *  DynamicStreamingVideoSource object.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -727,30 +714,67 @@ public class VideoElement extends UIComponent
         dispatchEvent(new Event("sourceChanged"));
     }
     
+    override public function setVisible(value:Boolean, noEvent:Boolean=false) : void
+    {
+        super.setVisible(value, noEvent);
+        
+        effectiveAutoPlayChanged(true);
+    }
+    
+    private var _parentVisibility:Boolean = true;
+    
+    mx_internal function set parentVisibility(value:Boolean) : void
+    {
+        _parentVisibility = value;
+        
+        effectiveAutoPlayChanged(true);
+    }
+    
     /**
      *  @private
-     *  Sets up the source for use.  Also throws away the underlying video player object 
-     *  if needed.
+     *  Sets up the source for use.
      */
     private function setUpSource():void
     {
-        // Reset the video component under certain conditions: 
-        // Only keep the video player if the last item played was a 
-        // String and the current item being played is a String
-        // or if the last item was null or an empty string
-        if ( !((sourceLastPlayed is String && source is String) ||
-            (sourceLastPlayed == null || (sourceLastPlayed is String && String(sourceLastPlayed).length == 0))))
+        var videoElement:org.osmf.video.VideoElement;
+        
+        // check for 2 cases: streaming video or progressive download
+        if (source is DynamicStreamingVideoSource)
         {
-            createUnderlyingVideoPlayer();
+            // the streaming video case.
+            // build up a DynamicStreamingResource to pass in to OSMF
+            var streamingSource:DynamicStreamingVideoSource = source as DynamicStreamingVideoSource;
+            var dsr:DynamicStreamingResource;
+            
+            dsr =  new DynamicStreamingResource(new FMSURL(streamingSource.serverURI));
+            
+            // if dealing with a live streaming video, set start = -1
+            // otherwise we don't worry about the start parameter
+            if (streamingSource.streamType == "live")
+                dsr.start = DynamicStreamingResource.START_LIVE;
+            else if (streamingSource.streamType == "recorded")
+                dsr.start = DynamicStreamingResource.START_VOD;
+            
+            var n:int = streamingSource.streamItems.length;
+            var item:DynamicStreamingVideoItem;
+            for (var i:int = 0; i < n; i++)
+            {
+                item = DynamicStreamingVideoItem(streamingSource.streamItems[i]);
+                var dsi:DynamicStreamingItem = new DynamicStreamingItem(item.streamName, item.bitrate);
+                dsr.addItem(dsi);
+            }
+            
+            dsr.initialIndex = streamingSource.initialIndex;
+            
+            videoElement = new org.osmf.video.VideoElement(new DynamicStreamingNetLoader(), dsr);
+        }
+        else if (source is String)
+        {
+            var urlResource:URLResource = new URLResource(new URL(source as String));
+            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource );
         }
         
-        sourceLastPlayed = null;
-        
-        // play if we should be autoPlaying.  Otherwise, just load the video.
-        if (effectiveAutoPlay)
-            play();
-        else
-            load();
+        videoPlayer.element = videoElement;
     }
     
     //----------------------------------
@@ -846,34 +870,6 @@ public class VideoElement extends UIComponent
     }
     
     //----------------------------------
-    //  totalTime
-    //----------------------------------
-    
-    [Bindable("complete")]
-    [Bindable("metadataReceived")]
-    [Bindable("totalTimeChanged")]
-    [Inspectable(Category="General", defaultValue="0")]
-    
-    /**
-     *  Total time for the video feed.  -1 means that property
-     *  was not pass into <code>play()</code> or
-     *  we were unable to detect the total time automatically,
-     *  or have not yet.
-     *
-     *  @return The total running time of the FLV in seconds
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get totalTime():Number
-    {
-        return videoPlayer.totalTime;
-    }
-    
-    //----------------------------------
     //  videoObject
     //----------------------------------
     
@@ -909,6 +905,9 @@ public class VideoElement extends UIComponent
      */
     public function get volume():Number
     {
+        if (muted)
+            return 0;
+        
         return videoPlayer.volume;
     }
     
@@ -917,9 +916,10 @@ public class VideoElement extends UIComponent
      */
     public function set volume(value:Number):void
     {
-        mutedVolume = -1;
+        if (volume == value)
+            return;
+        
         videoPlayer.volume = value;
-        dispatchEvent(new Event("volumeChanged"));
     }
     
     //--------------------------------------------------------------------------
@@ -927,26 +927,6 @@ public class VideoElement extends UIComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Override setVisible to see if we should pause or play or video
-     */
-    override public function setVisible(value:Boolean, noEvent:Boolean=false) : void
-    {
-        super.setVisible(value, noEvent);
-        
-        // if we want our playback to be controlled by visibility
-        if (!playWhenHidden)
-        {
-            // if we shouldn't be playing and we are, then pause it
-            // otherwise if we aren't playing and we should be, then play
-            if (!effectivePlay && playing)
-                pause();
-            else if (effectiveAutoPlay && !playing)
-                play();
-        }
-    }
     
     /**
      *  @private
@@ -985,60 +965,21 @@ public class VideoElement extends UIComponent
      */
     private function createUnderlyingVideoPlayer():void
     {
-        // if old one, destroy it
-        if (videoPlayer)
-        {
-            videoPlayerProperties = {autoRewind: videoPlayer.autoRewind,
-                                     scaleMode: videoPlayer.scaleMode};
-            
-            // if we try to stop and are throwing away this video, just 
-            // ignore any errors. This might happen if the connection went 
-            // bad or something else and we're trying to throw it away anyways.
-            try
-            {
-                videoPlayer.stop();
-            } catch (e:VideoError) {};
-            
-            // clear out old video player and close the connection
-            videoPlayer.close();
-            videoPlayer.clear();
-            
-            videoPlayer.removeEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
-            videoPlayer.removeEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
-            videoPlayer.removeEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
-            videoPlayer.removeEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
-            videoPlayer.removeEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
-            videoPlayer.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-            videoPlayer.removeEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
-            videoPlayer.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
-            
-            removeChild(videoPlayer);
-        }
-        
         // create new video player
-        videoPlayer = new VideoPlayer();
+        videoPlayer = new MediaPlayer();
+        videoSprite = new MediaPlayerSprite(videoPlayer);
         
-        if (videoPlayerProperties)
-        {
-            videoPlayer.autoRewind = videoPlayerProperties.autoRewind;
-            videoPlayer.scaleMode = videoPlayerProperties.scaleMode;
-            
-            videoPlayerProperties = null;
-        }
+        videoPlayer.addEventListener(DimensionChangeEvent.DIMENSION_CHANGE, videoPlayer_dimensionChangeHandler);
+        videoPlayer.addEventListener(VolumeChangeEvent.VOLUME_CHANGE, videoPlayer_volumeChangeHandler);
+        videoPlayer.addEventListener(MutedChangeEvent.MUTED_CHANGE, videoPlayer_mutedChangeHandler);
+        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(PlayheadChangeEvent.PLAYHEAD_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(BytesDownloadedChangeEvent.BYTES_DOWNLOADED_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(DurationChangeEvent.DURATION_CHANGE, dispatchEvent);
         
-        videoPlayer.addEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
-        videoPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
-        videoPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
-        videoPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
-        videoPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
-        videoPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-        videoPlayer.addEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
-        videoPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
+        videoPlayer.autoPlay = false;
         
-        addChild(videoPlayer);
-        
-        dispatchEvent(new Event("playheadTimeChanged"));
-        dispatchEvent(new Event("totalTimeChanged"));
+        addChild(videoSprite);
     }
     
     /**
@@ -1057,8 +998,8 @@ public class VideoElement extends UIComponent
         }
         
         // otherwise grab the width/height from the video
-        var vw:Number = videoPlayer.videoWidth;
-        var vh:Number = videoPlayer.videoHeight;
+        var vw:Number = videoPlayer.width;
+        var vh:Number = videoPlayer.height;
         
         measuredWidth = vw;
         measuredHeight = vh;
@@ -1088,78 +1029,22 @@ public class VideoElement extends UIComponent
         // otherwise we'll push it in to the video object
         if (thumbnailSource && thumbnailGroup)
         {
-            var imageWidth:Number;
-            var imageHeight:Number;
-            var bitmapImage:BitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
+            // get what the size of our image should be
+            var newSize:Point = videoSprite.scaleMode.getScaledSize(unscaledWidth, unscaledHeight, 
+                thumbnailGroup.getPreferredBoundsWidth(), thumbnailGroup.getPreferredBoundsHeight());
             
-            if (!maintainAspectRatio)
-            {
-                // if not maintainAspectRatio, the width and height of the image 
-                // are what the layout wants them to be and the image is stretched or shrunken
-                imageWidth = unscaledWidth;
-                imageHeight = unscaledHeight;
-                
-                thumbnailGroup.setLayoutBoundsSize(imageWidth, imageHeight);
-            }
-            else
-            {
-                // the image dimensions need to maintain aspect ratio
-                var realRatio:Number = thumbnailGroup.getPreferredBoundsWidth()/thumbnailGroup.getPreferredBoundsHeight();
-                
-                if (unscaledWidth / realRatio < unscaledHeight)
-                {
-                    // width is restrictive size
-                    imageWidth = unscaledWidth;
-                    imageHeight = unscaledWidth / realRatio;
-                }
-                else
-                {
-                    // height is restrictive size
-                    imageWidth = unscaledHeight * realRatio;
-                    imageHeight = unscaledHeight;
-                }
-                
-                thumbnailGroup.setLayoutBoundsSize(imageWidth, imageHeight);
-                
-                // center the thumbnailGroup
-                thumbnailGroup.x = (unscaledWidth - imageWidth)/2;
-                thumbnailGroup.y = (unscaledHeight - imageHeight)/2;
-            }
+            thumbnailGroup.setLayoutBoundsSize(newSize.x, newSize.y);
+            
+            // center the thumbnailGroup
+            thumbnailGroup.x = (unscaledWidth - newSize.x)/2;
+            thumbnailGroup.y = (unscaledHeight - newSize.y)/2;
             
             return;
         }
         
-        var flvPlayer:VideoPlayer = videoPlayer;
-        
-        // check to see whether the video width/height has been set before to this value.
-        // if it has, let's not set it again as we could be in an animation where we keep 
-        // setting this value, and if that's the case, then the video won't play at all.
-        if (lastSetVideoWidth != Math.floor(unscaledWidth) || lastSetVideoHeight != Math.floor(unscaledHeight))
-        {
-            lastSetVideoWidth = Math.floor(unscaledWidth);
-            lastSetVideoHeight = Math.floor(unscaledHeight);
-            
-            flvPlayer.width = lastSetVideoWidth;
-            flvPlayer.height = lastSetVideoHeight;
-        }
+        videoSprite.width = Math.floor(unscaledWidth);
+        videoSprite.height = Math.floor(unscaledHeight);
     }
-    
-    // FIXME (rfrishbe): remove these "lastSet" variables...should not be needed 
-    // when switching to Strobe
-    
-    /**
-     *  @private 
-     *  Used to store the last video width/height we've set the 
-     *  underlying video player to
-     */
-    private var lastSetVideoWidth:Number;
-    
-    /**
-     *  @private 
-     *  Used to store the last video width/height we've set the 
-     *  underlying video player to
-     */
-    private var lastSetVideoHeight:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -1181,19 +1066,10 @@ public class VideoElement extends UIComponent
      */
     public function pause():void
     {
-        // can't call any methods before we've initialized
-        if (!initializedOnce)
+        // check to see if we can call methods on the video player object yet
+        if (!videoPlayerResponsive())
             return;
         
-        // if source is null or in a bad connection state, don't do anything
-        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
-            return;
-        
-        // if have a thumbnailSource, no method calls are valid
-        if (thumbnailSource)
-            return;
-        
-        setPlaying(false);
         videoPlayer.pause();
     }
     
@@ -1208,128 +1084,39 @@ public class VideoElement extends UIComponent
      */
     public function play():void
     {
-        // can't call any methods before we've initialized
-        if (!initializedOnce || thumbnailSource)
+        // check to see if we can call methods on the video player object yet
+        if (!videoPlayerResponsive())
             return;
         
-        // check for 2 cases: streaming video or progressive download
-        if (source is StreamingVideoSource)
-        {
-            // the streaming video case.
-            // build up a DynamicStreamItem to pass in to 
-            // play2();
-            var streamingSource:StreamingVideoSource = source as StreamingVideoSource;
-            var flvSource:DynamicStreamItem;
-            
-            // if paused, pass in null as the flvSource.  Otherwise, calling 
-            // play(source) will reset the stream back to zero.  To restart the 
-            // stream where it was paused, one needs to call play(null).
-            if (sourceLastPlayed == this.source)
-            {
-                if (videoPlayer.state == VideoState.CONNECTION_ERROR)
-                {
-                    setPlaying(false);
-                    return;
-                }
-                flvSource = null;
-            }
-            else
-            {
-                flvSource =  new DynamicStreamItem();
-                sourceLastPlayed = source;
-                
-                flvSource.uri = streamingSource.serverURI;
-                
-                // if dealing with a live streaming video, set start = -1
-                // otherwise we don't worry about the start parameter
-                if (streamingSource.live)
-                    flvSource.start = -1;
-                
-                var n:int = streamingSource.streamItems.length;
-                var item:StreamItem;
-                for (var i:int = 0; i < n; i++)
-                {
-                    item = StreamItem(streamingSource.streamItems[i]);
-                    flvSource.addStream(item.streamName, item.bitRate);
-                }
-            }
-            
-            // could wait for stateChange event, but let's do it early
-            // so the UI is more responsive
-            setPlaying(true);
-            
-            // if it's null, we just call the play() method
-            if (flvSource == null)
-            {
-                videoPlayer.play(null, NaN, streamingSource.live);
-            }
-            else
-            {
-                videoPlayer.play2(flvSource);
-            }
-        }
-        else if (source is String && String(source).length > 0)
-        {
-            // The progressive case
-            var sourceString:String;
-            
-            // if paused, pass in null as the flvSource.  Otherwise, calling 
-            // play(source) will reset the stream back to zero.  To restart the 
-            // stream where it was paused, one needs to call play(null).
-            if (sourceLastPlayed == this.source)
-            {
-                if (videoPlayer.state == VideoState.CONNECTION_ERROR)
-                {
-                    setPlaying(false);
-                    return;
-                }
-                
-                sourceString = null;
-            }
-            else
-            {
-                sourceString = String(this.source);
-                sourceLastPlayed = sourceString;
-            }
-            
-            // could wait for stateChange event, but let's do it early
-            // so the UI is more responsive
-            setPlaying(true);
-            
-            videoPlayer.play(sourceString);
-        }
-        else
-        {
-            setPlaying(false);
-        }
+        videoPlayer.play();
     }
     
     /**
      *  @private
-     *  Load the video.  This allows seeks and other operations to 
-     *  be performed before the video's started to play.
+     *  If the video player is responsive, then methods can be called on the underlying 
+     *  video player.
      */
-    private function load():void
-    {        
-        // check for 2 cases: streaming video or progressive download
-        if (source is StreamingVideoSource)
-        {
-            // can't load in the streaming video case, so just call play(), then pause()
-            play();
-            pause();
-            seek(0);
-        }
-        else if (source is String && String(source).length > 0)
-        {
-            // The progressive case
-            var sourceString:String = String(this.source);
-            sourceLastPlayed = sourceString;
-            
-            // load the video up
-            videoPlayer.load(sourceString);
-        }
+    private function videoPlayerResponsive():Boolean
+    {
+        // can't call any methods before we've initialized
+        if (!initializedOnce)
+            return false;
         
-        setPlaying(false);
+        // if displaying a thumbnail, no methods can be called b/c there's no video 
+        // loaded up
+        if (thumbnailSource)
+            return false;
+        
+        // if the video player's in a bad state, we can't do anything
+        if (videoPlayer.state == MediaPlayerState.PLAYBACK_ERROR)
+            return false;
+        
+        // if no source, return false as well
+        if (!source)
+            return false;
+        
+        // otherwise, we are in a good state and have a source, so let's go
+        return true;
     }
     
     /**
@@ -1367,16 +1154,8 @@ public class VideoElement extends UIComponent
      */
     public function seek(time:Number):void
     {
-        // can't call any methods before we've initialized
-        if (!initializedOnce)
-            return;
-        
-        // if source is null or in a bad connection state, don't do anything
-        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
-            return;
-        
-        // if have a thumbnailSource, no method calls are valid
-        if (thumbnailSource)
+        // check to see if we can call methods on the video player object yet
+        if (!videoPlayerResponsive())
             return;
         
         if (time < 0)
@@ -1401,20 +1180,13 @@ public class VideoElement extends UIComponent
      */
     public function stop():void
     {
-        // can't call any methods before we've initialized
-        if (!initializedOnce)
+        // check to see if we can call methods on the video player object yet
+        if (!videoPlayerResponsive())
             return;
         
-        // if source is null or in a bad connection state, don't do anything
-        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
-            return;
-        
-        // if have a thumbnailSource, no method calls are valid
-        if (thumbnailSource)
-            return;
-        
-        setPlaying(false);
-        videoPlayer.stop();
+        videoPlayer.pause();
+        videoPlayer.seek(0);
+        // should be stop()
     }
     
     //--------------------------------------------------------------------------
@@ -1423,10 +1195,6 @@ public class VideoElement extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     *  Keeps track of whether we are on the display list or not
-     */
     private var _isOnDisplayList:Boolean = false;
     
     /**
@@ -1436,13 +1204,7 @@ public class VideoElement extends UIComponent
     {
         _isOnDisplayList = true;
         
-        // if visiblity/onstage shouldn't effect whether we are playing or not, just return
-        if (playWhenHidden)
-            return;
-        
-        // if we should start autoPlaying and we're not, let's do that
-        if (effectiveAutoPlay && !playing)
-            play();
+        effectiveAutoPlayChanged(true);
     }
     
     /**
@@ -1452,210 +1214,31 @@ public class VideoElement extends UIComponent
     {
         _isOnDisplayList = false;
         
-        // if visiblity/onstage shouldn't effect whether we are playing or not, just return
-        if (playWhenHidden)
-            return;
-        
-        // if we're removed from the stage and we're playing, let's pause
-        if (playing)
-            pause();
+        effectiveAutoPlayChanged(true);
     }
     
     /**
      *  @private
      */
-    private function videoPlayer_autoRewoundHandler(event:fl.video.VideoEvent):void
-    {
-        // just for binding purposes on VideoElement.playheadTime
-        dispatchEvent(new Event("playheadTimeChanged"));
-    }
-    
-    /**
-     *  @private
-     */
-    private function videoPlayer_closeHandler(event:fl.video.VideoEvent):void
-    {
-        var sparkVideoEvent:spark.events.VideoEvent = 
-            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
-        dispatchEvent(sparkVideoEvent);
-    }
-    
-    /**
-     *  @private
-     */
-    private function videoPlayer_completeHandler(event:fl.video.VideoEvent):void
-    {
-        var sparkVideoEvent:spark.events.VideoEvent = 
-            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
-        dispatchEvent(sparkVideoEvent);
-        
-        if (loop)
-        {
-            seek(0);
-            play();
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function videoPlayer_metaDataReceivedHandler(event:fl.video.MetadataEvent):void
+    private function videoPlayer_dimensionChangeHandler(event:DimensionChangeEvent):void
     {
         invalidateSize();
-        var sparkVideoEvent:spark.events.VideoEvent = 
-            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, playheadTime, event.info);
-        dispatchEvent(sparkVideoEvent);
     }
     
     /**
      *  @private
      */
-    private function videoPlayer_playHeadUpdateHandler(event:fl.video.VideoEvent):void
+    private function videoPlayer_volumeChangeHandler(event:VolumeChangeEvent):void
     {
-        var sparkVideoEvent:spark.events.VideoEvent = 
-            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
-        dispatchEvent(sparkVideoEvent);
+        dispatchEvent(new Event("volumeChanged"));
     }
     
     /**
      *  @private
      */
-    private function videoPlayer_readyHandler(event:fl.video.VideoEvent):void
+    private function videoPlayer_mutedChangeHandler(event:MutedChangeEvent):void
     {
-        // sometimes we don't get a metadata event, so let's check the size here and see 
-        // if we need to invalidateSize()
-        if (measuredWidth != videoPlayer.videoWidth || measuredHeight != videoPlayer.videoHeight)
-            invalidateSize();
-        
-        var sparkVideoEvent:spark.events.VideoEvent = 
-            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
-        dispatchEvent(sparkVideoEvent);
-    }
-    
-    /**
-     *  @private
-     */
-    private function videoPlayer_stateChangeHandler(event:fl.video.VideoEvent):void
-    {
-        switch (event.state)
-        {
-            case VideoState.STOPPED:
-            case VideoState.DISCONNECTED:
-            case VideoState.CONNECTION_ERROR:
-                dispatchEvent(new Event("playheadTimeChanged"));
-                dispatchEvent(new Event("totalTimeChanged"));
-                setPlaying(false);
-                break;
-            case VideoState.PLAYING:
-                setPlaying(true);
-                break;
-        }
-        
-        dispatchEvent(event);
+        dispatchEvent(new Event("volumeChanged"));
     }
 }
-}
-
-import fl.video.flvplayback_internal;
-import fl.video.NCManagerDynamicStream;
-import fl.video.VideoError;
-import fl.video.SMILManager;
-import fl.video.ParseResults;
-
-use namespace flvplayback_internal;
-
-/**
- *  @private
- *  We only have this class to fix a bug when handling "?"
- *  in URLs.  Hopefully Strobe will fix this directly.
- */
-class FlexNCManager extends NCManagerDynamicStream
-{
-    public function FlexNCManager()
-    {
-        super();
-    }
-    
-    /**
-     * @copy INCManager#connectToURL()
-     * @see INCManager#connectToURL() 
-     *
-     */
-    override public function connectToURL(url:String):Boolean {
-        //ifdef DEBUG
-        //debugTrace("connectToURL(" + url + ")");
-        //endif
-        
-        // init
-        initOtherInfo();
-        _contentPath = url;
-        if (_contentPath == null || _contentPath == "") {
-            throw new VideoError(VideoError.INVALID_SOURCE);
-        }
-        
-        // parse URL to determine what to do with it
-        var parseResults:ParseResults = parseURL(_contentPath);
-        if (parseResults.streamName == null || parseResults.streamName == "") {
-            throw new VideoError(VideoError.INVALID_SOURCE, url);
-        }
-        
-        // connect to either rtmp or http or download and parse smil
-        var canReuse:Boolean;
-        if (parseResults.isRTMP) {
-            canReuse = canReuseOldConnection(parseResults);
-            _isRTMP = true;
-            _protocol = parseResults.protocol;
-            _streamName = parseResults.streamName;
-            _serverName = parseResults.serverName;
-            _wrappedURL = parseResults.wrappedURL;
-            _portNumber = parseResults.portNumber;
-            _appName = parseResults.appName;
-            if ( _appName == null || _appName == "" ||
-                 _streamName == null || _streamName == "" ) {
-                throw new VideoError(VideoError.INVALID_SOURCE, url);
-            }
-            _autoSenseBW = (_streamName.indexOf(",") >= 0);
-            return (canReuse || connectRTMP());
-        } else {
-            var name:String = parseResults.streamName;
-            if ( name.indexOf("?") < 0 &&
-                (name.length < 4 || name.slice(-4).toLowerCase() != ".txt") &&
-                (name.length < 4 || name.slice(-4).toLowerCase() != ".xml") &&
-                (name.length < 5 || name.slice(-5).toLowerCase() != ".smil") ) {
-                canReuse = canReuseOldConnection(parseResults);
-                _isRTMP = false;
-                _streamName = name;
-                return (canReuse || connectHTTP());
-            }
-            // special flex case to deal with blah.flv?t=ojoj
-            else if ( name.indexOf("?") != -1 ) 
-            {
-                // common types of video files
-                var streamTypes:Array = ["mp4", "mov", "m4v", "m4a", "f4v", "3gp", "3g2", "flv"];
-                // if "?" then idx 0 should always be stream name, unless someone messed up URL
-                var preQueryString:String = name.split("?")[0];
-                // check extension and treat as vid file if exists
-                if (preQueryString.length >= 3 && streamTypes.indexOf(preQueryString.slice(-3).toLowerCase()) != -1) 
-                {
-                    canReuse = canReuseOldConnection(parseResults);
-                    _isRTMP = false;
-                    _streamName = name;
-                    return (canReuse || connectHTTP());
-                }
-            }
-            
-            if (name.indexOf("/fms/fpad") >= 0) {
-                try {
-                    return connectFPAD(name);
-                } catch (err:Error) {
-                    // just use SMILManager if there is any error
-                    //ifdef DEBUG
-                    //debugTrace("fpad error: " + err);
-                    //endif
-                }
-            }
-            _smilMgr = new SMILManager(this);
-            return _smilMgr.connectXML(name);
-        }
-    }
 }
