@@ -11,12 +11,15 @@
 
 package spark.components
 {
+import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
 import spark.components.supportClasses.ScrollBar;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
@@ -275,6 +278,7 @@ public class VScrollBar extends ScrollBar
     }     
 
     /**
+     *  @private
      *  Set this scrollbar's value to the viewport's current 
      *  verticalScrollPosition.
      * 
@@ -285,13 +289,14 @@ public class VScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    override mx_internal function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
             value = viewport.verticalScrollPosition;
     }
     
     /**
+     *  @private
      *  Set this scrollbar's maximum to the viewport's contentHeight 
      *  less the viewport height and its pageSize to the viewport's height. 
      *  
@@ -300,7 +305,7 @@ public class VScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportResizeHandler(event:ResizeEvent):void
+    override mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
         if (viewport)
         {
@@ -315,6 +320,7 @@ public class VScrollBar extends ScrollBar
     }
 
     /**
+     *  @private
      *  Set this scrollbar's maximum to the viewport's contentHeight 
      *  less the viewport height. 
      *
@@ -326,7 +332,7 @@ public class VScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
+    override mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
             maximum = viewport.contentHeight - viewport.height;
