@@ -226,7 +226,7 @@ public class Border extends SkinnableContainer
      *     &lt;s:backgroundFill&gt; 
      *         &lt;s:SolidColor 
      *             color="red" 
-     *             alpha="100"/&gt; 
+     *             alpha="1"/&gt; 
      *     &lt;/s:backgroundFill&gt; 
      *  &lt;/s:Border&gt; </pre>
      *
