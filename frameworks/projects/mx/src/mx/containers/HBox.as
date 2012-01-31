@@ -36,6 +36,8 @@ import mx.core.mx_internal;
 
 [IconFile("HBox.png")]
 
+[Alternative(replacement="spark.components.HGroup", since="4.0")]
+
 /**
  *  The Halo HBox container lays out its children in a single horizontal row.
  *  You use the <code>&lt;mx:HBox&gt;</code> tag instead of the
