@@ -522,7 +522,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  Returns true if the sort indicator for the specified column
      *  is visible.
      *  
-     *  This is just a more effient version of:
+     *  This is just a more efficient version of:
      *      visibleSortIndicatorIndices.indexOf(columnIndex) != -1
      * 
      *  @langversion 3.0
