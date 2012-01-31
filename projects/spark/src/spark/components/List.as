@@ -21,6 +21,7 @@ import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
+import mx.collections.ArrayCollection;
 import mx.collections.IList;
 import mx.core.DragSource;
 import mx.core.EventPriority;
@@ -1969,6 +1970,10 @@ public class List extends ListBase implements IFocusManagerComponent
         if (caretIndex != -1)
             newSelection.push(dropIndex + caretIndex);
 
+        // Create dataProvider if needed
+        if (!dataProvider)
+            dataProvider = new ArrayCollection();
+        
         var copyItems:Boolean = (event.action == DragManager.COPY);
         for (i = 0; i < items.length; i++)
         {
