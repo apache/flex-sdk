@@ -286,7 +286,7 @@ public class AnimateTransitionShader extends Animate
                 bmData = GraphicElement(target).captureBitmapData(true, 0, false);
                 // The GraphicElement version does not calculate the visual bounds,
                 // so just create dummy bounds with the correct width/height
-                bounds = new Rectangle(0, 0, bmData.width, bmData.height);
+                bounds = new Rectangle(0, 0, bmData ? bmData.width : 0, bmData ? bmData.height : 0);
             }
             else
             {
