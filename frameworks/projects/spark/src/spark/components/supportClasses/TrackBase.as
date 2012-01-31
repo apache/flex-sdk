@@ -24,16 +24,31 @@ import mx.components.FxButton;
  *  as a result of user interaction.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
 
 /**
  *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("normal")]
 
 /**
  *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
 
@@ -47,6 +62,11 @@ import mx.components.FxButton;
  * 
  *  @see mx.components.baseClasses.FxSlider
  *  @see mx.components.baseClasses.FxScrollBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxTrackBase extends FxRange
 {
@@ -60,6 +80,11 @@ public class FxTrackBase extends FxRange
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxTrackBase():void
     {
@@ -81,6 +106,11 @@ public class FxTrackBase extends FxRange
      *  Updates to the <code>value</code> property 
      *  automatically update the position of the thumb button
      *  with respect to the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var thumb:FxButton;
     
@@ -90,6 +120,11 @@ public class FxTrackBase extends FxRange
      *  A skin part that defines a button
      *  that when  pressed sets the <code>value</code> property
      *  to the value corresponding with the current button position on the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var track:FxButton; 
 
@@ -115,6 +150,11 @@ public class FxTrackBase extends FxRange
      *  Enable (<code>true</code>) or disable (<code>false</code>) this component. 
      *  This property also enables and disables any of the 
      *  skin parts for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get enabled():Boolean
     {
@@ -228,6 +268,11 @@ public class FxTrackBase extends FxRange
      *
      *  @return Point object rerpresenting, in the local coordinates of 
      *  the thumb button, where the last mouse down event occurred. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get clickOffset():Point
     {
@@ -250,6 +295,11 @@ public class FxTrackBase extends FxRange
      *  and <code>valueToPosition()</code> methods.</p>
      *
      *  @return The size of the logical track. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get trackSize():Number
     {
@@ -269,6 +319,11 @@ public class FxTrackBase extends FxRange
      *  the <code>pointToPosition()</code> and <code>valueToPosition()</code> methods. 
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get thumbSize():Number
     {
@@ -308,6 +363,11 @@ public class FxTrackBase extends FxRange
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function getCurrentSkinState():String
     {
@@ -316,6 +376,11 @@ public class FxTrackBase extends FxRange
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -339,6 +404,11 @@ public class FxTrackBase extends FxRange
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -362,6 +432,11 @@ public class FxTrackBase extends FxRange
      *
      *  @param value <code>true</code> to enable the skin parts, 
      *  and <code>false</code> to disable them.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function enableSkinParts(value:Boolean):void
     {
@@ -382,6 +457,11 @@ public class FxTrackBase extends FxRange
      *
      *  @return A value, between <code>minimum</code> and <code>maximum</code>, 
      *  corresponding to <code>position</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function positionToValue(position:Number):Number
     {
@@ -407,6 +487,11 @@ public class FxTrackBase extends FxRange
      *  @param value A value, between <code>minimum</code> and <code>maximum</code>.
      *
      *  @return A position on the track corresponding to <code>value</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function valueToPosition(value:Number):Number
     {
@@ -438,6 +523,11 @@ public class FxTrackBase extends FxRange
      *  track.
      *
      *  @return The posisiton on the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function pointToPosition(localX:Number, localY:Number):Number
     {
@@ -451,6 +541,11 @@ public class FxTrackBase extends FxRange
      *  the thumb button.</p>
      *
      *  @param thumbPos The new position of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function positionThumb(thumbPos:Number):void {}
     
@@ -461,6 +556,11 @@ public class FxTrackBase extends FxRange
      *  the thumb button.</p>
      *
      *  @param thembSize The new size of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function sizeThumb(thumbSize:Number):void {}
 
@@ -473,6 +573,11 @@ public class FxTrackBase extends FxRange
      * 
      *  @return The size of the thumb button. 
      *  The default size is 0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function calculateThumbSize():Number
     {
@@ -495,6 +600,11 @@ public class FxTrackBase extends FxRange
      *
      *  @return The value that corresponds to the new track position
      *  as calculated by the <code>nearestValidValue()</code> method.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function calculateNewValue(prevValue:Number, event:MouseEvent):Number
     {
@@ -550,6 +660,11 @@ public class FxTrackBase extends FxRange
     /**
      *  Handles the mouseWheel event when the component is in focus. The thumb is 
      *  moved by the amount of the mouse event delta multiplied by the stepSize.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function system_mouseWheelHandler(event:MouseEvent):void
     {
