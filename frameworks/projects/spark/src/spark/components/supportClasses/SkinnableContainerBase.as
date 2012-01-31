@@ -20,16 +20,31 @@ import mx.utils.MouseShieldUtil;
 
 /**
  *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("normal")]
 
 /**
  *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
 
 /**
  *  Base class for skinnable container components.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxContainerBase extends FxComponent implements IFocusManagerContainer
 {
@@ -43,6 +58,11 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxContainerBase()
     {
@@ -76,6 +96,11 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
  
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function getCurrentSkinState():String
     {
@@ -84,6 +109,11 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
