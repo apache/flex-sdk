@@ -1025,10 +1025,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (allStyles || styleManager.isSizeInvalidatingStyle(styleName))
             {  
                 grid.invalidateSize();
-                if (grid.layout)
-                    grid.layout.clearVirtualLayoutCache();               
-                if (grid.gridDimensions)
-                    grid.gridDimensions.clearTypicalCellWidthsAndHeights();                
+                grid.clearGridLayoutCache(true);               
             }
             
             if (allStyles || (styleName == "alternatingRowColors"))
