@@ -89,9 +89,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @default 2
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="focusThickness", type="Number", format="Length", inherit="no", minValue="0.0")]
 
