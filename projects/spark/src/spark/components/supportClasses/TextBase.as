@@ -14,7 +14,6 @@ package spark.primitives.supportClasses
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Shape;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -23,6 +22,7 @@ import flash.text.engine.TextLine;
 import flashx.textLayout.compose.TextLineRecycler;
 
 import mx.core.IVisualElementContainer;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.IResourceManager;
@@ -35,7 +35,8 @@ import mx.utils.NameUtil;
 
 import spark.components.Group;
 import spark.core.IGraphicElement;
-import spark.layouts.BasicLayout;
+
+use namespace mx_internal;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -87,9 +88,9 @@ public class TextGraphicElement extends GraphicElement
         
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
-		if (!mx_internal::truncationIndicatorResource)
+		if (!truncationIndicatorResource)
         {
-            mx_internal::truncationIndicatorResource = resourceManager.getString(
+            truncationIndicatorResource = resourceManager.getString(
                 "core", "truncationIndicator");
         }
                 
@@ -186,6 +187,11 @@ public class TextGraphicElement extends GraphicElement
      */
     private var _measuredOneTextLine:Boolean = false;
 
+    /**
+     *  @private
+     */
+    private var displayObjectChanged:Boolean;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: GraphicElement
@@ -203,42 +209,32 @@ public class TextGraphicElement extends GraphicElement
      */
     override public function get baselinePosition():Number
     {
-        mx_internal::validateBaselinePosition();
+        validateBaselinePosition();
         
         // Return the baseline of the first line of composed text.
-        return mx_internal::textLines.length > 0 ?
-			   mx_internal::textLines[0].y : 0;
+        return textLines.length > 0 ? textLines[0].y : 0;
     }
 
+    //----------------------------------
+    //  visible
+    //----------------------------------
+    
     /**
      *  @private
      */
-    private var displayObjectChanged:Boolean;
+    private var visibleChanged:Boolean = false;
 
     /**
      *  @private
      */
-    override protected function setDisplayObject(value:DisplayObject):void
+    override public function set visible(value:Boolean):void
     {        
-        if (displayObject == value)
-            return;
+    	super.visible = value;
+    	visibleChanged = true;
 
-        // There is an exisiting d.o. so this element is either being moved
-        // to a different container (value != null) or it is being removed 
-        // (value == null).
-        if (displayObject)
-        {
-            // If there was a scroll rect remove it before we lose the reference
-            // to the display object. 
-            mx_internal::clip(false, 0, 0);
-        
-            displayObjectChanged = true;        
-            invalidateProperties();
+    	invalidateDisplayList();
         }
              
-        super.setDisplayObject(value);
-    }    
-  
     //--------------------------------------------------------------------------
     //
     //  Properties: ISimpleStyleClient
@@ -478,7 +474,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function get text():String 
     {
-        return mx_internal::_text;
+        return _text;
     }
     
     /**
@@ -486,9 +482,9 @@ public class TextGraphicElement extends GraphicElement
      */
     public function set text(value:String):void
     {
-        if (value != mx_internal::_text)
+        if (value != _text)
         {
-            mx_internal::_text = value;
+            _text = value;
 
             invalidateTextLines("text");
             invalidateSize();
@@ -527,7 +523,7 @@ public class TextGraphicElement extends GraphicElement
     	{
     		_truncation = value;
     		
-            mx_internal::invalidateCompose = true;
+            invalidateCompose = true;
                  		
     		invalidateSize();
     		invalidateDisplayList();
@@ -562,11 +558,11 @@ public class TextGraphicElement extends GraphicElement
         {
             // If there is a container, move any existing text to it, otherwise
             // remove the text from the previous container.
-            mx_internal::removeTextLines();
+            removeTextLines();
             if (drawnDisplayObject)
-                mx_internal::addTextLines(drawnDisplayObject);
+                addTextLines(DisplayObjectContainer(drawnDisplayObject));
             else
-                mx_internal::releaseTextLines();
+                releaseTextLines();
                        
             displayObjectChanged = false;
         }  
@@ -590,8 +586,8 @@ public class TextGraphicElement extends GraphicElement
 		// In that case, the text lines must go away.
 	    if (!value)
         {
-        	mx_internal::removeTextLines();
-        	mx_internal::releaseTextLines();
+        	removeTextLines();
+        	releaseTextLines();
         }
         
         super.parentChanged(value);
@@ -608,7 +604,7 @@ public class TextGraphicElement extends GraphicElement
         // The measure() method of a GraphicElement can get called
         // when its style chain hasn't been initialized.
         // In that case, composeTextLines() must not be called.
-        if (!mx_internal::styleChainInitialized)
+        if (!styleChainInitialized)
             return;
 
         // _widthConstraint trumps even explicitWidth as some layouts may choose
@@ -624,12 +620,12 @@ public class TextGraphicElement extends GraphicElement
         invalidateDisplayList();
         
         // Put on next pixel boundary for crisp edges.
-        mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);        
-        mx_internal::bounds.height = Math.ceil(mx_internal::bounds.height);
+        bounds.width = Math.ceil(bounds.width);        
+        bounds.height = Math.ceil(bounds.height);
 
         // If the measured height is not affected, then constrained
         // width measurement is not neccessary.
-        if (!isNaN(_widthConstraint) && measuredHeight == mx_internal::bounds.height)
+        if (!isNaN(_widthConstraint) && measuredHeight == bounds.height)
             return;
             
         // Call super.measure() here insted of in the beginning of the method,
@@ -637,13 +633,13 @@ public class TextGraphicElement extends GraphicElement
         // still be valid if we decided to do an early return above.
         super.measure();
 
-        measuredWidth = mx_internal::bounds.width;
-        measuredHeight = mx_internal::bounds.height;
+        measuredWidth = bounds.width;
+        measuredHeight = bounds.height;
         
         // Remember the number of text lines during measure. We can use this to
         // optimize the double measure scheme for text reflow.
         _measuredOneTextLine = allLinesComposed && 
-                               mx_internal::textLines.length == 1; 
+                               textLines.length == 1; 
 
         //trace(id, drawnDisplayObject.name, "measure", measuredWidth, measuredHeight);
     }
@@ -725,7 +721,7 @@ public class TextGraphicElement extends GraphicElement
         // The updateDisplayList() method of a GraphicElement can get called
         // when its style chain hasn't been initialized.
         // In that case, composeTextLines() must not be called.
-        if (!mx_internal::styleChainInitialized)
+        if (!styleChainInitialized)
             return;
 
         // Figure out if a compose is needed or maybe just clip what is already
@@ -736,16 +732,16 @@ public class TextGraphicElement extends GraphicElement
         
         // ToDo: optimize for right-to-left text so compose isn't always done
         // when height or width changes.
-        if (mx_internal::invalidateCompose || 
+        if (invalidateCompose || 
             composeForAlignStyles(unscaledWidth, unscaledHeight))
         {
             compose = true;
         }
-        else if (unscaledHeight != mx_internal::bounds.height)
+        else if (unscaledHeight != bounds.height)
         {
             // Height changed.
-            if ((unscaledHeight > mx_internal::bounds.height && 
-                mx_internal::isOverset) ||
+            if ((unscaledHeight > bounds.height && 
+                isOverset) ||
                 composeOnHeightChange(unscaledHeight) ||
                 getStyle("blockProgression") != "tb")
             {
@@ -754,7 +750,7 @@ public class TextGraphicElement extends GraphicElement
                 // recompose if the height changes.
                 compose = true;
             }
-            else if (unscaledHeight < mx_internal::bounds.height)
+            else if (unscaledHeight < bounds.height)
             {
                 // Don't need to recompose but need to clip since not all the
                 // height is needed.
@@ -763,7 +759,7 @@ public class TextGraphicElement extends GraphicElement
         }
 
         // Width changed.        
-        if (!compose && unscaledWidth != mx_internal::bounds.width)
+        if (!compose && unscaledWidth != bounds.width)
         {
             if (getStyle("lineBreak") == "toFit" || 
                 getStyle("blockProgression") != "tb")
@@ -772,7 +768,7 @@ public class TextGraphicElement extends GraphicElement
                 // require a recompose if the width changes.
                 compose = true;
             }
-            else if (unscaledWidth < mx_internal::bounds.width)
+            else if (unscaledWidth < bounds.width)
             {
                 // Explicit line breaks.  Don't need to recompose but need to 
                 // clip since the not all the width is needed.
@@ -786,11 +782,11 @@ public class TextGraphicElement extends GraphicElement
         if (compose)
             composeTextLines(unscaledWidth, unscaledHeight);
         else if (sharedIndex != -1)
-            mx_internal::adjustTextLines();
+            adjustTextLines();
             
         // If the text is overset it always has to be clipped (as well as if 
         // it is being clipped to reduce the size to avoid a recomposition).              
-        if (mx_internal::isOverset)
+        if (isOverset)
             clipText = true;
 
         // We need to clip this text and it is in a container with other
@@ -800,18 +796,61 @@ public class TextGraphicElement extends GraphicElement
         // object.  Once it's in it's own display object leave it there.
         if (clipText)
         {
-            mx_internal::alwaysCreateDisplayObject = true;
+            alwaysCreateDisplayObject = true;
             if (sharedIndex > 0)
                 return;
         }
         
         //trace(id, drawnDisplayObject.name, "udl", "compose", compose, "clip", 
-        //      clipText, "bounds", mx_internal::bounds);        
+        //      clipText, "bounds", bounds);        
 
         // Set the scrollRect used for clipping appropriately.              
-        mx_internal::clip(clipText, unscaledWidth, unscaledHeight);
+        clip(clipText, unscaledWidth, unscaledHeight);
     }
             
+    /**
+     *  @private
+     */
+    override protected function setDisplayObject(value:DisplayObject):void
+    {        
+        if (displayObject == value)
+            return;
+
+        // There is an exisiting d.o. so this element is either being moved
+        // to a different container (value != null) or it is being removed 
+        // (value == null).
+        if (displayObject)
+        {
+            // If there was a scroll rect remove it before we lose the reference
+            // to the display object. 
+            clip(false, 0, 0);
+        
+            displayObjectChanged = true;        
+            invalidateProperties();
+        }
+             
+        super.setDisplayObject(value);
+    }    
+  
+    /**
+     *  @private
+     */
+    override mx_internal function doUpdateDisplayList():void
+    {
+		super.doUpdateDisplayList();
+		
+		if (visibleChanged)
+		{
+			visibleChanged = false;
+			
+			var n:int = textLines.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				textLines[i].visible = visible;
+			}
+		}
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods: ISimpleStyleClient
@@ -830,7 +869,7 @@ public class TextGraphicElement extends GraphicElement
     {
         StyleProtoChain.styleChanged(this, styleProp);
 
-        mx_internal::invalidateCompose = true;
+        invalidateCompose = true;
     }
 
     //--------------------------------------------------------------------------
@@ -916,7 +955,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
-        mx_internal::initProtoChain();
+        initProtoChain();
     }
 
     /**
@@ -991,7 +1030,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function stylesInitialized():void
     {
-        mx_internal::invalidateCompose = true;
+        invalidateCompose = true;
     }
 
     /**
@@ -1008,7 +1047,7 @@ public class TextGraphicElement extends GraphicElement
     {
         // For some reason, the compiler needs an explicit cast to Boolean
         // to avoid a warning even though at runtime "is Boolean" is true.
-        return Boolean(mx_internal::isTextTruncated);
+        return Boolean(isTextTruncated);
     }
     
     /**
@@ -1021,18 +1060,16 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function invalidateTextLines(cause:String):void
+    mx_internal function invalidateTextLines(cause:String):void
     {
-        mx_internal::invalidateCompose = true;
+        invalidateCompose = true;
     }
     
     /**
      *  @private
-     *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function composeForAlignStyles(unscaledWidth:Number, 
+    private function composeForAlignStyles(unscaledWidth:Number, 
                                              unscaledHeight:Number):Boolean
     {
         // For textAlign, if the composeWidth isn't the same
@@ -1070,9 +1107,8 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function composeOnHeightChange(unscaledHeight:Number):Boolean
+    private function composeOnHeightChange(unscaledHeight:Number):Boolean
     {
         if (truncation != 0 && getStyle("lineBreak") == "toFit")
         {
@@ -1085,8 +1121,8 @@ public class TextGraphicElement extends GraphicElement
             // redo the truncation if we don't already have the number of
             // truncation lines needed.
             if (truncation > 0 &&
-               (unscaledHeight < mx_internal::bounds.height ||
-               mx_internal::textLines.length != truncation))
+               (unscaledHeight < bounds.height ||
+               textLines.length != truncation))
             {
                 return true;
             }
@@ -1098,16 +1134,14 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      *  Returns false to indicate no lines were composed.
-     * 
-     *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function composeTextLines(width:Number = NaN,
+    mx_internal function composeTextLines(width:Number = NaN,
 										height:Number = NaN):Boolean
 	{
 	    _composeWidth = width;
 	    _composeHeight = height;
 	    
-	    mx_internal::isTextTruncated = false;
+	    isTextTruncated = false;
 	    
 	    return false;
 	}
@@ -1120,23 +1154,24 @@ public class TextGraphicElement extends GraphicElement
 	mx_internal function addTextLines(container:DisplayObjectContainer,
 								      index:int = 0):void
 	{
-		var n:int = mx_internal::textLines.length;
+		var n:int = textLines.length;
         if (n == 0)
             return;
 
+        var addChildAtMethod:Function = container is UIComponent ?
+        								UIComponent(container).$addChildAt :
+        								container.addChildAt;
+            
         for (var i:int = n - 1; i >= 0; i--)
 		{
-			var textLine:DisplayObject = mx_internal::textLines[i];
+			var textLine:DisplayObject = textLines[i];
 						
             //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
 
             textLine.x += drawX;
             textLine.y += drawY;
             
-			if (container is IVisualElementContainer)
-                IVisualElementContainer(container).mx_internal::$addChildAt(textLine, index);
-			else
-                container.addChildAt(textLine, index);
+			addChildAtMethod(textLine, index);
 		}
 		
 		// If these lines went into a shared container these need to be saved
@@ -1155,22 +1190,24 @@ public class TextGraphicElement extends GraphicElement
 	 */
 	mx_internal function removeTextLines():void
 	{
-		var n:int = mx_internal::textLines.length;		
+		var n:int = textLines.length;		
 		if (n == 0)
 			return;
 
 		// The old TextLines might have been added to a different
 		// container than the one we'd use now to add new TextLines.
 		var container:DisplayObjectContainer =
-			mx_internal::textLines[0].parent;
+			textLines[0].parent;
 
+         var removeChildMethod:Function = container is UIComponent ?
+										 UIComponent(container).$removeChild :
+										 container.removeChild;
+            
 		for (var i:int = 0; i < n; i++)
 		{
-			var textLine:DisplayObject = mx_internal::textLines[i];
-            if (container is IVisualElementContainer)
-                IVisualElementContainer(container).mx_internal::$removeChild(textLine);
-            else
-                container.removeChild(textLine);
+			var textLine:DisplayObject = textLines[i];
+			
+            removeChildMethod(textLine);
 
             // Reset x and y to be relative to 0,0.
             textLine.x -= _lastDrawX;
@@ -1186,14 +1223,15 @@ public class TextGraphicElement extends GraphicElement
      *  Adds the TextLines to the reuse cache, and clears the textLines array.
      */
     mx_internal function releaseTextLines(
-    	textLines:Vector.<DisplayObject> = null):void
+    	textLinesVector:Vector.<DisplayObject> = null):void
     {
-        if (!textLines)
-            textLines = mx_internal::textLines;
+        if (!textLinesVector)
+            textLinesVector = textLines;
             
-        for (var i:int = 0; i < textLines.length; i++)
+        var n:int = textLinesVector.length;
+        for (var i:int = 0; i < n; i++)
         {
-            var textLine:DisplayObject = textLines[i];
+            var textLine:DisplayObject = textLinesVector[i];
             
             // This method does the Flash Player version check so we don't
             // have to.
@@ -1201,7 +1239,7 @@ public class TextGraphicElement extends GraphicElement
             	TextLineRecycler.addLineForReuse(TextLine(textLine));
         }
         
-        textLines.length = 0;
+        textLinesVector.length = 0;
    }
 
     /**
@@ -1213,7 +1251,7 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal function adjustTextLines():void
     {
-        var n:int = mx_internal::textLines.length;
+        var n:int = textLines.length;
         if (n == 0)
             return;
 
@@ -1223,7 +1261,7 @@ public class TextGraphicElement extends GraphicElement
             
         for (var i:int = 0; i < n; i++)
         {
-            var textLine:DisplayObject = mx_internal::textLines[i];
+            var textLine:DisplayObject = textLines[i];
             
             textLine.x +=  drawX - _lastDrawX;
             textLine.y += drawY - _lastDrawY;
@@ -1246,13 +1284,13 @@ public class TextGraphicElement extends GraphicElement
         	new Rectangle(0, 0, composeWidth, composeHeight);
     
         // Add in a half-pixel slop factor to the throw-away rectangle (do
-        // not modify mx_internal::bounds).  This covers the case where the
+        // not modify bounds).  This covers the case where the
         // y (textLine.y - textLine.ascent) is slightly less than 0 because of
         // rounding errors.
         compositionRect.inflate(0.25, 0.25);
 
         // The bounds of the composed text.
-        var contentRect:Rectangle = mx_internal::bounds;
+        var contentRect:Rectangle = bounds;
        
         // Does the text fit totally within the composition area?  This is
         // a Rectangle.contains but allows for composition width and/or height
@@ -1298,12 +1336,12 @@ public class TextGraphicElement extends GraphicElement
             	r = new Rectangle(0, 0, w, h);
             }
             drawnDisplayObject.scrollRect = r;
-            mx_internal::hasScrollRect = true;
+            hasScrollRect = true;
         }
-        else if (mx_internal::hasScrollRect)
+        else if (hasScrollRect)
         {
             drawnDisplayObject.scrollRect = null;
-            mx_internal::hasScrollRect = false;
+            hasScrollRect = false;
         }
     }
 
@@ -1319,9 +1357,9 @@ public class TextGraphicElement extends GraphicElement
         var isEmpty:Boolean = (text == "");
         text = isEmpty ? "Wj" : text;
         
-        if (mx_internal::invalidatePropertiesFlag ||
-        	mx_internal::invalidateSizeFlag || 
-            mx_internal::invalidateDisplayListFlag ||
+        if (invalidatePropertiesFlag ||
+        	invalidateSizeFlag || 
+            invalidateDisplayListFlag ||
             isEmpty)
         {
             validateNow();  
@@ -1342,13 +1380,13 @@ public class TextGraphicElement extends GraphicElement
     {
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
 
-        mx_internal::truncationIndicatorResource = resourceManager.getString(
+        truncationIndicatorResource = resourceManager.getString(
             "core", "truncationIndicator");
 
         // If we're truncating, recompose the text.
         if (truncation != 0)
         {
-            mx_internal::invalidateCompose = true;
+            invalidateCompose = true;
 
             invalidateSize();
             invalidateDisplayList();
