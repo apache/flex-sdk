@@ -559,7 +559,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function get baselinePosition():Number
     {
-        if (!mx_internal::validateBaselinePosition())
+        if (!validateBaselinePosition())
             return NaN;
         
         // Fabricate temporary data provider if necessary.
