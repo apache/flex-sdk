@@ -16,20 +16,55 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
- * This class is a utility wrapper around the AnimateTransform effect, exposing the
- * properties that make sense for someone wishing to merely scale a target object
- * in 3D around some transform center.
+ *  The Scale3D class scales a target object
+ *  in three dimensions around the transform center.
+ *  A scale of 2.0 means the object has been magnified by a factor of 2, 
+ *  and a scale of 0.5 means the object has been reduced by a factor of 2.
+ *  A scale value of 0.0 is invalid.
  * 
- * <p>Like all AnimateTransform-based effects, this effect will only work on subclasses
- * of UIComponent and GraphicElement, as these effects depend on specific
- * transform functions in those classes. Also, all of these effects run one single
- * effect instance on any given target at a time, which means that they will
- * share the transform center set by any of the contributing effects.</p>
+ *  <p>Like all AnimateTransform-based effects, this effect only works on subclasses
+ *  of UIComponent and GraphicElement, as these effects depend on specific
+ *  transform functions in those classes. 
+ *  Also, transform effects running in parallel on the same target run as a single
+ *  effect instance
+ *  Therefore, the transform effects share the transform center 
+ *  set by any of the contributing effects.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Scale3D&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Scale3D
+ *    <b>Properties</b>
+ *    id="ID"
+ *    scaleZBy="no default"
+ *    scaleZFrom="no default"
+ *    scaleZTo="no default"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */   
 public class Scale3D extends Scale
 {
     include "../core/Version.as";
 
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function Scale3D(target:Object=null)
     {
         super(target);
@@ -50,7 +85,13 @@ public class Scale3D extends Scale
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The starting scale factor in the z direction.
+     *  The starting scale factor in the z direction.
+     *  A scale value of 0.0 is invalid.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scaleZFrom:Number;
 
@@ -61,7 +102,13 @@ public class Scale3D extends Scale
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The ending scale factor in the z direction.
+     *  The ending scale factor in the z direction.
+     *  A scale value of 0.0 is invalid.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scaleZTo:Number;
             
@@ -72,11 +119,16 @@ public class Scale3D extends Scale
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The factor by which to scale the object in the z direction.
-     * This is an optional parameter that can be used instead of one
-     * of the other from/to values to specify the delta to add to the
-     * from value or to derive the from value by subtracting from the
-     * to value.
+     *  The factor by which to scale the object in the z direction.
+     *  This is an optional parameter that can be used instead of one
+     *  of the other from/to values to specify the delta to add to the
+     *  from value or to derive the from value by subtracting from the
+     *  to value.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scaleZBy:Number;
     
