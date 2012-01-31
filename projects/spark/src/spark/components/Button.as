@@ -29,6 +29,8 @@ import mx.core.IButton;
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+[Exclude(name="textAlign", kind="style")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
