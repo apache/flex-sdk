@@ -36,6 +36,18 @@ include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 
 /**
+ *  Color of the content area of the component.
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  Dispatched when the NetConnection object is closed, whether by timing
  *  out or by calling the <code>close()</code> method.
  *  You use this event when working with Flash Media Server.
@@ -1829,7 +1841,11 @@ public class VideoDisplay extends UIComponent
                 return true;
             }
         }
-
+        
+        v = getStyle("contentBackgroundColor");
+        if (v !== null && v !== "")
+            return true;
+        
         v = getStyle("backgroundColor");
         if (v !== null && v !== "")
             return true;
