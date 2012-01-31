@@ -122,6 +122,9 @@ use namespace mx_internal;
  *  the volume of the video player.  By default it pops up when the
  *  muteButton is rolled over (with a delay of 200 milliseconds).  The  
  *  muteButton functions as a mute/unmute button when clicked.
+ *
+ *  @see spark.components.VideoPlayer 
+ *  @see spark.primitives.VideoElement
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
