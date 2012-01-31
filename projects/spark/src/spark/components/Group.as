@@ -54,10 +54,15 @@ use namespace mx_internal;
 [DefaultProperty("content")] 
 
 /**
- *  The Group class.
+ *  The Group class is the base container class for visual elements.
+ *
+ *  @see mx.components.DataGroup
  */
 public class Group extends GroupBase 
 {
+    /**
+     *  Constructor.
+     */
     public function Group():void
     {
         super();      
@@ -87,28 +92,28 @@ public class Group extends GroupBase
      */
     override public function set alpha(value:Number):void
     {
-    	//The default blendMode in FXG is 'layer'. There are only
-    	//certain cases where this results in a rendering difference,
-    	//one being when the alpha of the Group is > 0 and < 1. In that
-    	//case we set the blendMode to layer to avoid the performance
-    	//overhead that comes with a non-normal blendMode. 
-    	
-    	if (value > 0 && value < 1 && !blendModeExplicitlySet)
-    	{
-    		_blendMode = BlendMode.LAYER;
-    		blendModeChanged = true;
-    	}
-    	else if ((value == 1 || value == 0) && !blendModeExplicitlySet)
-    	{
-    		_blendMode = BlendMode.NORMAL;
-    		blendModeChanged = true;
-    	}
-    		
-    	super.alpha = value;
-    	
-		if (blendModeChanged) 
-    		needsDisplayObjectAssignment = true;
-    	invalidateProperties();
+        //The default blendMode in FXG is 'layer'. There are only
+        //certain cases where this results in a rendering difference,
+        //one being when the alpha of the Group is > 0 and < 1. In that
+        //case we set the blendMode to layer to avoid the performance
+        //overhead that comes with a non-normal blendMode. 
+        
+        if (value > 0 && value < 1 && !blendModeExplicitlySet)
+        {
+            _blendMode = BlendMode.LAYER;
+            blendModeChanged = true;
+        }
+        else if ((value == 1 || value == 0) && !blendModeExplicitlySet)
+        {
+            _blendMode = BlendMode.NORMAL;
+            blendModeChanged = true;
+        }
+            
+        super.alpha = value;
+        
+        if (blendModeChanged) 
+            needsDisplayObjectAssignment = true;
+        invalidateProperties();
     }
     
     //----------------------------------
@@ -123,11 +128,21 @@ public class Group extends GroupBase
     private var blendModeChanged:Boolean;
     private var blendModeExplicitlySet:Boolean;
 
-	[Bindable("propertyChange")]
+    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
 
     /**
-     *  Documentation is not currently available. 
+     *  A value from the BlendMode class that specifies which blend mode to use. 
+     *  A bitmap can be drawn internally in two ways. 
+     *  If you have a blend mode enabled or an external clipping mask, the bitmap is drawn 
+     *  by adding a bitmap-filled square shape to the vector render. 
+     *  If you attempt to set this property to an invalid value, 
+     *  Flash Player or Adobe AIR sets the value to <code>BlendMode.NORMAL</code>. 
+     *
+     *  @default BlendMode.NORMAL
+     *
+     *  @see flash.display.DisplayObject#blendMode
+     *  @see flash.display.BlendMode
      */
     override public function get blendMode():String
     {
@@ -141,18 +156,18 @@ public class Group extends GroupBase
      */
     override public function set blendMode(value:String):void
     {
-    	if (blendModeExplicitlySet && value == _blendMode)
-    		return;
-    		
-    	var oldValue:String = _blendMode;
-    	_blendMode = value;
+        if (blendModeExplicitlySet && value == _blendMode)
+            return;
+            
+        var oldValue:String = _blendMode;
+        _blendMode = value;
         dispatchPropertyChangeEvent("blendMode", oldValue, value);
-    		
-    	blendModeExplicitlySet = true;
-    	
-		blendModeChanged = true;
-		needsDisplayObjectAssignment = true;
-    	invalidateProperties();
+            
+        blendModeExplicitlySet = true;
+        
+        blendModeChanged = true;
+        needsDisplayObjectAssignment = true;
+        invalidateProperties();
     }
     
     /**
@@ -334,7 +349,6 @@ public class Group extends GroupBase
     /**
      *  The number of items in this group.
      *
-     *  @return The number of items in this group
      */
     public function get numItems():int
     {
@@ -354,7 +368,7 @@ public class Group extends GroupBase
      *
      *  @return The item at the specified index.
      * 
-     *  @throws RangeError Throws if the index position does not exist in the child list.
+     *  @throws RangeError If the index position does not exist in the child list.
      */ 
     public function getItemAt(index:int):Object
     {
@@ -397,19 +411,19 @@ public class Group extends GroupBase
     /**
      *  Adds an item to this Group. The item is added after all other
      *  items and on top of all other items.  (To add an item to a specific 
-     *  index position, use the addChildAt() method.)
+     *  index position, use the <code>addChildAt()</code> method.)
      * 
      * <p>If you add an item object that already has a different
      * container as a parent, the object is removed from the child 
      * list of the other container.</p>  
      *
-     *  @param item The item to add as a child of this Group instance
+     *  @param item The item to add as a child of this Group instance.
      *
      *  @return The item that was added to the Group.
      * 
-     *  @event itemAdded Dispatched when the item is added to the child list
+     *  @event itemAdded ItemExistenceChangedEvent Dispatched when the item is added to the child list.
      * 
-     *  @throws ArgumentError if the child is the same as the parent.
+     *  @throws ArgumentError If the child is the same as the parent.
      */   
     public function addItem(item:Object):Object
     {
@@ -421,7 +435,8 @@ public class Group extends GroupBase
      *  position specified.  An index of 0 represents the first item
      *  and the back (bottom) of the display list.
      *
-     *  @param item The item to add as a child of this Group instance
+     *  @param item The item to add as a child of this Group instance.
+     * 
      *  @param index The index position to which the item is added. If 
      *  you specify a currently occupied index position, the child object 
      *  that exists at that position and all higher positions are moved 
@@ -431,8 +446,9 @@ public class Group extends GroupBase
      * 
      *  @event itemAdded Dispatched when the item is added to the child list
      * 
-     *  @throws ArgumentError if the child is the same as the parent.
-     *  @throws RangeError Throws if the index position does not exist in the child list.
+     *  @throws ArgumentError If the child is the same as the parent.
+     * 
+     *  @throws RangeError If the index position does not exist in the child list.
      */
     public function addItemAt(item:Object, index:int):Object
     {
@@ -476,7 +492,7 @@ public class Group extends GroupBase
      *
      *  @return The item removed from the Group.
      * 
-     *  @throws ArgumentError Throws if the item parameter is not a child of this object.
+     *  @throws ArgumentError If the item parameter is not a child of this object.
      */
     public function removeItem(item:Object):Object
     {
@@ -490,7 +506,7 @@ public class Group extends GroupBase
      *
      *  @return The item removed from the Group.
      * 
-     *  @throws RangeError Throws if the index does not exist in the child list.
+     *  @throws RangeError If the index does not exist in the child list.
      */
     public function removeItemAt(index:int):Object
     {
@@ -532,13 +548,13 @@ public class Group extends GroupBase
     }
     
     /**
-     *  Returns the index position of an item
+     *  Returns the index position of an item.
      *
-     *  @param item The item to identify
+     *  @param item The item to identify.
      *
-     *  @return The index position of the item to identify
+     *  @return The index position of the item to identify.
      * 
-     *  @throws ArgumentError Throws if the item is not a child of this object
+     *  @throws ArgumentError If the item is not a child of this object.
      */ 
     public function getItemIndex(item:Object):int
     {
@@ -569,21 +585,25 @@ public class Group extends GroupBase
     /**
      *  Changes the position of an existing child in the Group.
      * 
-     *  <p>When you use the setItemIndex() method and specify an 
+     *  <p>When you call the <code>setItemIndex()</code> method and specify an 
      *  index position that is already occupied, the only positions 
      *  that change are those in between the item's former and new position.
-     *  All others will stay the same.  If an item is moved to an index 
-     *  LOWER than its current index, all items in between will INCREASE 
-     *  by 1 for their index reference.  If an item is moved to an index
-     *  HIGHER than its current index, all items in between will 
-     *  DECREASE by 1 for their index reference.</p>
+     *  All others will stay the same.</p>
+     *
+     *  <p>If an item is moved to an index 
+     *  lower than its current index, the index of all items in between increases
+     *  by 1.  If an item is moved to an index
+     *  higher than its current index, the index of all items in between 
+     *  decreases by 1.</p>
      *
      *  @param item The item for which you want to change the index number.
-     *  @param index The resulting index number for the item
      * 
-     *  @throws RangeError - Throws if the index does not exist in the child list.
-     *  @throws ArgumentError - Throws if the item parameter is not a child 
-     *  of this object
+     *  @param index The resulting index number for the item.
+     * 
+     *  @throws RangeError - If the index does not exist in the child list.
+     *
+     *  @throws ArgumentError - If the item parameter is not a child 
+     *  of this object.
      */
     public function setItemIndex(item:Object, index:int):void
     {
@@ -600,9 +620,10 @@ public class Group extends GroupBase
      *  remain in the same index position.
      *
      *  @param item1 The first item.
+     * 
      *  @param item2 The second item.
      * 
-     *  @throws ArgumentError Throws if either item is not a child of this object
+     *  @throws ArgumentError If either item is not a child of this object.
      */
     public function swapItems(item1:Object, item2:Object):void
     {
@@ -614,9 +635,10 @@ public class Group extends GroupBase
      *  the Group.  All other items remain in the same index position.
      *
      *  @param index1 The index of the first item.
+     * 
      *  @param index2 The index of the second item.
      * 
-     *  @throws RangeError If either index does not exist in the child list
+     *  @throws RangeError If either index does not exist in the child list.
      */
     public function swapItemsAt(index1:int, index2:int):void
     {
@@ -661,7 +683,7 @@ public class Group extends GroupBase
     /**
      *  @inheritDoc
      * 
-     *  @throws RangeError Throws if the index position does not exist in the child list.
+     *  @throws RangeError If the index position does not exist in the child list.
      */ 
     override public function getLayoutItemAt(index:int):ILayoutItem
     {
@@ -682,18 +704,19 @@ public class Group extends GroupBase
      */
     override public function invalidateLayering():void
     {
-    	if (layeringMode == ITEM_ORDERED_LAYERING)
-    		layeringMode = SPARSE_LAYERING;
-    	if (needsDisplayObjectAssignment == true)
-    		return;
-    	needsDisplayObjectAssignment = true;
-    	invalidateProperties();
+        if (layeringMode == ITEM_ORDERED_LAYERING)
+            layeringMode = SPARSE_LAYERING;
+        if (needsDisplayObjectAssignment == true)
+            return;
+        needsDisplayObjectAssignment = true;
+        invalidateProperties();
     }
 
     /**
      *  Internal Group method called to add an item to this Group.
      *
      *  @param item The item that was added.
+     *
      *  @param index The index where the item was added.
      */
     protected function itemAdded(item:Object, index:int):void
@@ -701,7 +724,7 @@ public class Group extends GroupBase
         var child:DisplayObject;
                 
         if (item is IVisualItem && (item as IVisualItem).layer != 0)
-        	invalidateLayering();
+            invalidateLayering();
 
         if (item is GraphicElement) 
         {
@@ -762,7 +785,7 @@ public class Group extends GroupBase
      */
     private function get canShareDisplayObject():Boolean
     {
-    	return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
+        return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
     /**
@@ -786,60 +809,60 @@ public class Group extends GroupBase
         {  
             var item:Object = getItemAt(i);
             
-        	if (layeringMode != ITEM_ORDERED_LAYERING)
-        	{
-        		var layer:Number = 0;
-        		if (item is IVisualItem)
-        			layer = (item as IVisualItem).layer;
-        		if (layer != 0)
-        		{        		
-            		if (layer > 0)
-            		{
-            			if (topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
-            			topLayerItems.push(item);
-            			continue;            		
-            		}
-            		else
-            		{
-            			if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
-            			bottomLayerItems.push(item);
-            			continue;            		
-            		}
-            	}
-         	}
-			assignDisplayObjectTo(item,mergeData);
+            if (layeringMode != ITEM_ORDERED_LAYERING)
+            {
+                var layer:Number = 0;
+                if (item is IVisualItem)
+                    layer = (item as IVisualItem).layer;
+                if (layer != 0)
+                {               
+                    if (layer > 0)
+                    {
+                        if (topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
+                        topLayerItems.push(item);
+                        continue;                   
+                    }
+                    else
+                    {
+                        if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
+                        bottomLayerItems.push(item);
+                        continue;                   
+                    }
+                }
+            }
+            assignDisplayObjectTo(item,mergeData);
         }
         if (topLayerItems != null)
         {
-        	keepLayeringEnabled = true;
-        	//topLayerItems.sortOn("layer",Array.NUMERIC);
-        	sortOnLayer(topLayerItems);
-        	len = topLayerItems.length;
-        	for (i=0;i<len;i++)
-        	{
-        		assignDisplayObjectTo(topLayerItems[i],mergeData);
-        	}
+            keepLayeringEnabled = true;
+            //topLayerItems.sortOn("layer",Array.NUMERIC);
+            sortOnLayer(topLayerItems);
+            len = topLayerItems.length;
+            for (i=0;i<len;i++)
+            {
+                assignDisplayObjectTo(topLayerItems[i],mergeData);
+            }
         }
         
         if (bottomLayerItems != null)
         {
-        	keepLayeringEnabled = true;
-	        mergeData.currentAssignableDO  = null;
-	        mergeData.lastDisplayObject = this;
-	        mergeData.insertIndex = 0;
+            keepLayeringEnabled = true;
+            mergeData.currentAssignableDO  = null;
+            mergeData.lastDisplayObject = this;
+            mergeData.insertIndex = 0;
 
-        	//bottomLayerItems.sortOn("layer",Array.NUMERIC);
-        	sortOnLayer(bottomLayerItems);
-        	len = bottomLayerItems.length;
+            //bottomLayerItems.sortOn("layer",Array.NUMERIC);
+            sortOnLayer(bottomLayerItems);
+            len = bottomLayerItems.length;
 
-        	for (i=0;i<len;i++)
-        	{
-        		assignDisplayObjectTo(bottomLayerItems[i],mergeData);
-        	}
+            for (i=0;i<len;i++)
+            {
+                assignDisplayObjectTo(bottomLayerItems[i],mergeData);
+            }
         }
         
         if (keepLayeringEnabled == false)
-        	layeringMode = ITEM_ORDERED_LAYERING;        
+            layeringMode = ITEM_ORDERED_LAYERING;        
     }
     
     /**
@@ -851,42 +874,42 @@ public class Group extends GroupBase
      *  first the layer property, and then the item order, so a stable sort is important (and the 
      *  built in flash sort is not stable).
      */
-	private static function sortOnLayer(a:Vector.<IVisualItem>):void
-	{
-		var len:Number = a.length;
-		var tmp:IVisualItem;
-		if (len<= 1)
-			return;
-		for (var i:int = 1;i<len;i++)
-		{
-			for (var j:int = i;j > 0;j--)
-			{
-				if ( a[j].layer < a[j-1].layer )
-				{
-					tmp = a[j];
-					a[j] = a[j-1];
-					a[j-1] = tmp;
-				}
-				else
-					break;
-			}
-		}
-	}
+    private static function sortOnLayer(a:Vector.<IVisualItem>):void
+    {
+        var len:Number = a.length;
+        var tmp:IVisualItem;
+        if (len<= 1)
+            return;
+        for (var i:int = 1;i<len;i++)
+        {
+            for (var j:int = i;j > 0;j--)
+            {
+                if ( a[j].layer < a[j-1].layer )
+                {
+                    tmp = a[j];
+                    a[j] = a[j-1];
+                    a[j-1] = tmp;
+                }
+                else
+                    break;
+            }
+        }
+    }
 
     /**
      *  @private
      */
     private function assignDisplayObjectTo(item:Object,mergeData:GroupDisplayObjectMergeData):void
     {
-    	if (mergeData.lastDisplayObject == this)
-    		mergeData.insertIndex = 0;
-    	else
-    		mergeData.insertIndex = super.getChildIndex(mergeData.lastDisplayObject) + 1;
-    		
+        if (mergeData.lastDisplayObject == this)
+            mergeData.insertIndex = 0;
+        else
+            mergeData.insertIndex = super.getChildIndex(mergeData.lastDisplayObject) + 1;
+            
         if (item is DisplayObject)
         {
-        	super.setChildIndex(item as DisplayObject, mergeData.insertIndex);
-        	
+            super.setChildIndex(item as DisplayObject, mergeData.insertIndex);
+            
             mergeData.lastDisplayObject = item as DisplayObject;
             // Null this out so that we are forced to create one for the next item
             mergeData.currentAssignableDO = null; 
@@ -1220,7 +1243,7 @@ public class Group extends GroupBase
 }
 
 
-import flash.display.DisplayObject;	
+import flash.display.DisplayObject; 
 
 class GroupDisplayObjectMergeData
 {
