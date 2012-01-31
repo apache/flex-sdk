@@ -233,7 +233,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
-        // TODO: autoRepeat as a property on Spinner?        
+        // FIXME (hmuller): autoRepeat as a property on Spinner?        
         if (instance == incrementButton)
         {
             incrementButton.focusEnabled = false;
