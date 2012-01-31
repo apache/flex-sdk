@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -42,7 +42,7 @@ import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 
 import spark.core.CSSTextLayoutFormat;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -79,9 +79,9 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  high-quality international typography.</p>
  *
  *  <p>The Spark architecture provides three text "primitives" -- 
- *  SimpleText, RichText, and RichEditableText --
+ *  Label, RichText, and RichEditableText --
  *  as part of its pay-only-for-what-you-need philosophy.
- *  SimpleText is the fastest and most lightweight
+ *  Label is the fastest and most lightweight
  *  because it uses only FTE, not TLF,
  *  but it is limited in its capabilities: no rich text,
  *  no scrolling, no selection, and no editing.
@@ -119,9 +119,9 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  (Please see the description of the <code>textFlow</code>
  *  property for information about how to create one.)
  *  You can also set the <code>text</code> property that
- *  is inherited from TextGraphicElement, but if you don't need
+ *  is inherited from TextBase, but if you don't need
  *  the richness of a TextFlow, you should consider using
- *  SimpleText instead.</p>
+ *  Label instead.</p>
  *
  *  <p>At compile time, you can simply put TLF markup tags inside
  *  the RichText tag, as in
@@ -149,7 +149,7 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *
  *  <p>If you don't specify any kind of width for a RichText,
  *  then the longest line, as determined by these explicit line breaks,
- *  will determine the width of the SimpleText.</p>
+ *  will determine the width of the Label.</p>
  *
  *  <p>When you specify some kind of width, the text wraps at the right
  *  edge of the component and the text is clipped when there is more
@@ -197,8 +197,8 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  about individual glyphs; for more info, see
  *  flash.text.engine.TextLineValidity.STATIC.</p>
  *
- *  @see spark.primitives.RichEditableText
- *  @see spark.primitives.SimpleText
+ *  @see spark.components.RichEditableText
+ *  @see spark.components.Label
  *  
  *  @includeExample examples/RichTextExample.mxml
  *  
@@ -207,7 +207,7 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichText extends TextGraphicElement
+public class RichText extends TextBase
 	implements IFontContextComponent
 {
     include "../core/Version.as";
@@ -403,7 +403,7 @@ public class RichText extends TextGraphicElement
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
     
-    // The _text storage var is mx_internal in TextGraphicElement.
+    // The _text storage var is mx_internal in TextBase.
     
 	/**
 	 *  @private
@@ -639,7 +639,7 @@ public class RichText extends TextGraphicElement
 	 *
 	 *  @see spark.utils.TextFlowUtil#importFromString()
 	 *  @see spark.utils.TextFlowUtil#importFromXML()
-     *  @see spark.primitives.RichEditableText#text
+     *  @see spark.components.RichEditableText#text
 	 */
 	public function get textFlow():TextFlow
 	{
@@ -814,7 +814,7 @@ public class RichText extends TextGraphicElement
 
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden methods: TextGraphicElement
+	//  Overridden methods: TextBase
 	//
 	//--------------------------------------------------------------------------
 	
@@ -851,7 +851,8 @@ public class RichText extends TextGraphicElement
 		
 		createTextLines();
 		
-		addTextLines(DisplayObjectContainer(drawnDisplayObject));
+        // TODO (rfrishbe): can we optimize the "this" away since we know what the displayObject is now
+		addTextLines(this);
 		
 		// Figure out if the text overruns the available space for composition.
 		isOverset = isTextOverset(width, height);
@@ -982,7 +983,7 @@ public class RichText extends TextGraphicElement
             truncationOptions = new TruncationOptions();
             truncationOptions.lineCountLimit = maxDisplayedLines;
             truncationOptions.truncationIndicator =
-                TextGraphicElement.truncationIndicatorResource;
+                TextBase.truncationIndicatorResource;
         }        
 		factory.truncationOptions = truncationOptions;
 		
