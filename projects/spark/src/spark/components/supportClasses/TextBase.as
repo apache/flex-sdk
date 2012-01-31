@@ -468,7 +468,14 @@ public class TextBase extends UIComponent
      */
     public function set showTruncationTip(value:Boolean):void
     {
-		_showTruncationTip = value;
+        _showTruncationTip = value;
+
+        // Typically the toolTip gets set when the text is composed,
+        // based on showToolTip and isTruncated.
+        // But showToolTip can change at runtime
+        // without later recomposing the text,
+        // so we handle that by also setting toolTip here.
+        toolTip = _isTruncated && _showTruncationTip ? text : null;
     }
 
     //----------------------------------
