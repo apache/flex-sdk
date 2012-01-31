@@ -237,10 +237,10 @@ public class Grid extends Group
     
     // TODO(hmuller): the following public variables are temporary 
     
-    public var backgroundGroup:Group;
-    public var selectionGroup:Group;    
-    public var itemRendererGroup:Group;
-    public var overlayGroup:Group;
+    public var backgroundLayer:GridLayer;
+    public var selectionLayer:GridLayer;    
+    public var rendererLayer:GridLayer
+    public var overlayLayer:GridLayer;
     
     
     //--------------------------------------------------------------------------
@@ -262,16 +262,13 @@ public class Grid extends Group
         super();
         layout = new GridLayout();
         
-        backgroundGroup = new GridLayer();
-        addElement(backgroundGroup);
+        backgroundLayer = new GridLayer();
+        selectionLayer = new GridLayer();
+        rendererLayer = new GridLayer(this);
+        overlayLayer = new GridLayer();
         
-        selectionGroup = new GridLayer();
-        addElement(selectionGroup);
-        
-        itemRendererGroup = this;
-        
-        overlayGroup = new GridLayer();
-        addElement(overlayGroup);        
+        for each (var layer:GridLayer in [backgroundLayer, selectionLayer, overlayLayer])
+            addElement(layer.root);      
         
         MouseEventUtil.addDownDragUpListeners(this, 
             grid_mouseDownDragUpHandler, 
