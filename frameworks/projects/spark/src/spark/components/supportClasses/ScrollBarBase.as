@@ -294,6 +294,42 @@ public class ScrollBar extends TrackBase
     }
     
     //---------------------------------
+    // fixedThumbSize
+    //--------------------------------- 
+    
+    private var _fixedThumbSize:Boolean = false;
+    
+    /**
+     *  If true, the thumb's size along the scrollbar's axis will be
+     *  its preferred size.
+     *    
+     *  @default false
+     *  @see #calculateThumbSize
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get fixedThumbSize():Boolean
+    {
+        return _fixedThumbSize;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set fixedThumbSize(value:Boolean):void
+    {
+        if (value == _fixedThumbSize)
+            return;
+            
+        _fixedThumbSize = value;
+        invalidateSize();
+        invalidateDisplayList();
+    }
+
+    //---------------------------------
     // pageSize
     //--------------------------------- 
 
@@ -359,7 +395,7 @@ public class ScrollBar extends TrackBase
      *  and step offsets.</p>
      *    
      *  @default null
-     *  @see mx.components.VScrollBar
+     *       mx.components.VScrollBar
      *  @see mx.components.HScrollBar
      *
      *  
@@ -558,9 +594,13 @@ public class ScrollBar extends TrackBase
     }
 
     /**
-     *  Calculate the size for
-     *  the thumb from the current range, pageSize, and
+     *  Calculate the size for the thumb from the current range, pageSize, and
      *  trackSize settings.
+     * 
+     *  If fixedThumbSize is true, then subclasses should return a value based
+     *  on the thumb's preferred size instead.
+     * 
+     *  @see fixedThumbSize
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
