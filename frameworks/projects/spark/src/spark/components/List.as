@@ -1097,8 +1097,10 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!dataProvider || !layout || event.isDefaultPrevented())
             return;
         
-        // Hitting the space bar means the current caret item, that is 
-        // the item currently in focus, is being selected. 
+        // 1. Was the space bar hit? 
+        // Hitting the space bar means the current caret item, 
+        // that is the item currently in focus, is being 
+        // selected. 
         if (event.keyCode == Keyboard.SPACE)
         {
             selectedIndex = caretIndex; 
@@ -1106,12 +1108,46 @@ public class List extends ListBase implements IFocusManagerComponent
             return; 
         }
 
+        // 2. Or was an alphanumeric key hit? 
+        // Hitting an alphanumeric key causes List's
+        // findKey method to run to find a matching 
+        // item in the dataProvider whose first char 
+        // matches the keystroke. 
         if (findKey(event.charCode))
         {
             event.preventDefault();
             return;
         }
             
+        // 3. Was a navigation key hit (like an arrow key,
+        // or Shift+arrow key)?  
+        // Delegate to the layout to interpret the navigation
+        // key and adjust the selection and caret item based
+        // on the combination of keystrokes encountered.      
+        adjustSelectionAndCaretUponNavigation(event); 
+    }
+    
+    /**
+     *  Adjusts the selection based on what keystroke or 
+     *  keystroke combinations were encountered. The keystroke
+     *  is sent down to the layout and its up to the layout's
+     *  getNavigationDestinationIndex() method to determine 
+     *  what the index to navigate to based on the item that 
+     *  is currently in focus. Once the index is determined, 
+     *  single selection, caret item and if necessary, multiple 
+     *  selection are fixed up to reflect the newly selected
+     *  item.  
+     *
+     *  @param event The Keyboard Event encountered
+     * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function adjustSelectionAndCaretUponNavigation(event:KeyboardEvent):void
+    {
         // Some unrecognized key stroke was entered, return. 
         var navigationUnit:uint = event.keyCode;    
         if (!NavigationUnit.isNavigationUnit(event.keyCode))
@@ -1176,7 +1212,6 @@ public class List extends ListBase implements IFocusManagerComponent
             ensureIndexIsVisible(proposedNewIndex);
         }
     }
-  
 }
 
 }
