@@ -15,11 +15,8 @@ package mx.effects
 import flash.display.DisplayObjectContainer;
 
 import mx.components.Group;
-import mx.effects.effectClasses.AddActionInstance;
-
 import mx.core.mx_internal;
-import mx.effects.Effect;
-import mx.effects.IEffectInstance;
+import mx.effects.effectClasses.AddActionInstance;
 import mx.effects.effectClasses.PropertyChanges;
 
 //--------------------------------------
@@ -70,6 +67,37 @@ public class AddAction extends Effect
 	 *  @private
 	 */
 	private static var AFFECTED_PROPERTIES:Array = [ "parent", "elementHost", "index" ];
+	
+	/**
+	 * Constant used to specify the position to add the item.
+	 * 
+	 * @see #position
+	 */ 
+    public static const BEFORE:String = "before"; 
+    /**
+     * Constant used to specify the position to add the item.
+     * 
+     * @see #position
+     */ 
+    public static const AFTER:String = "after"; 
+    /**
+     * Constant used to specify the position to add the item.
+     * 
+     * @see #position
+     */ 
+    public static const FIRST_CHILD:String = "firstChild"; 
+    /**
+     * Constant used to specify the position to add the item.
+     * 
+     * @see #position
+     */ 
+    public static const LAST_CHILD:String = "lastChild"; 
+    /**
+     * Constant used to specify the position to add the item.
+     * 
+     * @see #position
+     */ 
+    public static const INDEX:String = "index";
 
 	//--------------------------------------------------------------------------
 	//
@@ -136,14 +164,20 @@ public class AddAction extends Effect
 	/** 
 	 *  The position of the child in the display list, relative to the
 	 *  object specified by the <code>relativeTo</code> property.
-	 *  Valid values are <code>"before"</code>, <code>"after"</code>, 
-	 *  <code>"firstChild"</code>, <code>"lastChild"</code>, and <code>"index"</code>,
-	 *  where <code>"index"</code> specifies to use the <code>index</code> property 
+	 *  Valid values are <code>AddAction.BEFORE</code>, <code>AddAction.AFTER</code>, 
+	 *  <code>AddAction.FIRST_CHILD</code>, <code>AddAction.LAST_CHILD</code>, 
+	 *  and <code>AddAction.INDEX</code>, where <code>AddAction.INDEX</code> 
+	 *  specifies the use of the <code>index</code> property 
 	 *  to determine the position of the child.
 	 *
-	 *  @default "index"
+	 *  @default AddAction.INDEX
+     *  @see #BEFORE
+     *  @see #AFTER
+     *  @see #FIRST_CHILD
+     *  @see #LAST_CHILD
+     *  @see #INDEX
 	 */
-	public var position:String = "index";
+	public var position:String = INDEX;
 	
 	//--------------------------------------------------------------------------
 	//
