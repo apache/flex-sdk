@@ -15,11 +15,13 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.text.TextFormat;
 
+import flashx.textLayout.tlf_internal;
 import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextConverter;
+import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.GlobalSettings;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
@@ -43,6 +45,7 @@ import spark.utils.MaskUtil;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
+use namespace tlf_internal
 
 //--------------------------------------
 //  Styles
@@ -282,19 +285,20 @@ public class RichText extends TextBase
 		if (classInitialized)
 			return;
 			
-		/**
-		 *  Set the TLF hook used for localizing runtime error messages.
-		 *  TLF itself has English-only messages,
-		 *  but higher layers like Flex can provide localized versions.
-		 */
+        // Set the TLF hook used for localizing runtime error messages.
+		// TLF itself has English-only messages,
+		// but higher layers like Flex can provide localized versions.
 		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
 
-        /**
-         *  Set the TLF hook used to specify the callback used for changing 
-         *  the FontLookup based on SWFContext.  
-         */
+        // Set the TLF hook used to specify the callback used for changing 
+        // the FontLookup based on SWFContext.  
         GlobalSettings.resolveFontLookupFunction = TextUtil.resolveFontLookup;
 
+        // Pre-FP10.1, set default tab stops in TLF.  Without this, if there
+        // is a tab and TLF is measuring width, the tab will
+        // measure as the rest of the remaining width up to 10000.
+        GlobalSettings.enableDefaultTabStops = !Configuration.playerEnablesArgoFeatures;
+        
 		staticStringFactory = new StringTextLineFactory();
 		
 		staticTextFlowFactory = new TextFlowTextLineFactory();
