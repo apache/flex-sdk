@@ -1020,7 +1020,7 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
                 offsetDirection = 1; // Positive.    
             else if ((tzIndex = timePart.indexOf("-", 8)) != -1)
                 offsetDirection = -1; // Negative.
-                
+
             if (tzIndex != -1)
             {
                 index = tzIndex + 1;
@@ -1036,15 +1036,19 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
         {
             utc = true;
         }
+
         var millis:int = 0;
         if (millisStart != -1)
         {
-            if (utc)
-                millis = int(timePart.substring(millisStart + 1, tzIndex));
+            var fractionalSecond:Number; 
+            if (tzIndex != -1)
+                fractionalSecond = Number(timePart.substring(millisStart, tzIndex));
             else
-                millis = int(timePart.substring(millisStart + 1));
+                fractionalSecond = Number(timePart.substring(millisStart));
+
+            millis = int(Math.floor(fractionalSecond*1000));
         }
-        
+
         // Now parse the datePart if it exists.
         if (datePart != null)
         {
