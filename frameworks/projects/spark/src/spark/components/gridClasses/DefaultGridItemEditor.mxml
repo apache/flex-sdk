@@ -16,13 +16,11 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script>
         <![CDATA[
-            import spark.core.IEditableText;
-            import mx.events.FlexEvent;
-            import spark.primitives.Rect;
             import mx.core.IUITextField;
             import mx.core.IVisualElement;
-            import mx.core.UIComponent;
-            import mx.managers.ISystemManager;
+
+            import spark.core.IEditableText;
+            import spark.primitives.Rect;
             
             //--------------------------------------------------------------------------
             //
@@ -43,7 +41,7 @@ in accordance with the terms of the license agreement accompanying it.
              */ 
             override public function set value(newValue:Object):void
             {
-                textArea.text = newValue.toString();
+                textArea.text = newValue != null ? newValue.toString() : "";
             }
             
             //--------------------------------------------------------------------------
@@ -91,14 +89,13 @@ in accordance with the terms of the license agreement accompanying it.
                     // Set a max width of six inches for the text or the visible edge of
                     // the application.
                     const MAX_WIDTH_INCHES:uint = 6;
-                    var sm:ISystemManager = systemManager.topLevelSystemManager;
-                    var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
+                    var gridRect:Rectangle = dataGrid.grid.getVisibleRect();
                     var globalCellTopLeft:Point = dataGrid.grid.localToGlobal(cellBounds.topLeft);
 
                     // Bug in text width: the width is allowed to grow larger than maxWidth so
-                    // subtract 10 pixels to stay within the max.
-                    textArea.maxWidth = Math.min(screen.right - globalCellTopLeft.x - 1, 
-                                                 MAX_WIDTH_INCHES * Capabilities.screenDPI) - 10;
+                    // subtract 3 pixels to stay within the max.
+                    textArea.maxWidth = Math.min(gridRect.right - globalCellTopLeft.x - 1, 
+                                                 MAX_WIDTH_INCHES * Capabilities.screenDPI) - 3;
                 }
                 else
                 {
