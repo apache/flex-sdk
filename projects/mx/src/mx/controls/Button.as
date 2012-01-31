@@ -262,6 +262,17 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="skin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
 
 /**
+ *  Name of the class to use as the emphasized skin for the background and border. 
+ *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="emphasizedSkin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
+
+/**
  *  Name of the class to use as the skin for the background and border
  *  when the button is not selected and the mouse is not over the control.
  *  
