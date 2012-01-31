@@ -57,7 +57,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an error occurs anywhere in the application,
- *  such as an HTTPService, WebService, or RemoteObject fails.
+ *  or when an HTTPService call fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
  *  
@@ -447,7 +447,7 @@ public class Application extends LayoutContainer
      *    HTML <code>&lt;title&gt;</code> tag.
      *
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code. 
-     * 	  The value set in MXML code is designed to be used by a tool to update the HTML templates 
+     *    The value set in MXML code is designed to be used by a tool to update the HTML templates 
      *    provided with the SDK.</p>
      *
      *    @default ""
@@ -1299,10 +1299,10 @@ public class Application extends LayoutContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-			var awm:IActiveWindowManager = 
-				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
-			if (awm)
-           		awm.activate(this);
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            if (awm)
+                awm.activate(this);
             else
                 focusManager.activate();
         }
@@ -1314,23 +1314,23 @@ public class Application extends LayoutContainer
      */
     private function initContextMenu():void
     {
-    	// context menu already set
-    	// nothing to init
-    	if (flexContextMenu != null)
-    	{
-    		// make sure we set it back on systemManager b/c it may have been overriden by now
-    		if (systemManager is InteractiveObject)
-        		InteractiveObject(systemManager).contextMenu = contextMenu;
-        	return;
-    	}
-    	
+        // context menu already set
+        // nothing to init
+        if (flexContextMenu != null)
+        {
+            // make sure we set it back on systemManager b/c it may have been overriden by now
+            if (systemManager is InteractiveObject)
+                InteractiveObject(systemManager).contextMenu = contextMenu;
+            return;
+        }
+        
         var defaultMenu:ContextMenu = new ContextMenu();
         defaultMenu.hideBuiltInItems();
         defaultMenu.builtInItems.print = true;
 
         if (_viewSourceURL)
         {
-        	// don't worry! this gets updated in resourcesChanged()
+            // don't worry! this gets updated in resourcesChanged()
             const caption:String = resourceManager.getString("core", "viewSource");
             
             viewSourceCMI = new ContextMenuItem(caption, true);
@@ -1342,7 +1342,7 @@ public class Application extends LayoutContainer
         contextMenu = defaultMenu;
         
         if (systemManager is InteractiveObject)
-        	InteractiveObject(systemManager).contextMenu = defaultMenu;
+            InteractiveObject(systemManager).contextMenu = defaultMenu;
     }
 
     /**
