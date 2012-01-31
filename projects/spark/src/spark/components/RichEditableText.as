@@ -36,9 +36,9 @@ import text.elements.FlowElement;
 import text.elements.ParagraphElement;
 import text.elements.SpanElement;
 import text.elements.TextFlow;
-import text.events.ComposeDoneEvent;
-import text.events.OperationEvent;
-import text.events.SelectionChangeEvent;
+import text.events.CompositionCompletionEvent;
+import text.events.FlowOperationEvent;
+import text.events.SelectionEvent;
 import text.formats.BlockProgression;
 import text.formats.CharacterFormat;
 import text.formats.ContainerFormat;
@@ -166,7 +166,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _blockProgression:String = BlockProgression.TOP_TO_BOTTOM;
+    private var _blockProgression:String = BlockProgression.TB;
 
     /**
      *  Documentation is not currently available.
@@ -234,7 +234,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _direction:String = Direction.LEFT_TO_RIGHT;
+    private var _direction:String = Direction.LTR;
 
     /**
      *  Documentation is not currently available.
@@ -1524,7 +1524,7 @@ public class TextView extends UIComponent
             textFlow.container = this;
             
             // Give it an EditManager to make it editable.
-            textFlow.selectionManager = new TextViewEditManager(); 
+            textFlow.interactionManager = new TextViewEditManager(); 
             
             // Listen to events from the TextFlow and its EditManager.
             addListeners(textFlow);
@@ -1537,7 +1537,7 @@ public class TextView extends UIComponent
         // Apply the specified selection indices to the TextFlow.
         if (selectionAnchorPositionChanged || selectionActivePositionChanged)
         {
-            textFlow.selectionManager.setActiveSelection(
+            textFlow.interactionManager.setActiveSelection(
                 _selectionAnchorPosition, _selectionActivePosition);
             
             selectionAnchorPositionChanged = false;
@@ -1781,18 +1781,21 @@ public class TextView extends UIComponent
      */
     private function addListeners(textFlow:TextFlow):void
     {
-        textFlow.addEventListener(ComposeDoneEvent.COMPOSE_DONE,
-                                  textFlow_composeDoneHandler);
+        textFlow.addEventListener(
+            CompositionCompletionEvent.COMPOSITION_COMPLETE,
+            textFlow_compositionCompleteHandler);
         
-        textFlow.selectionManager.addEventListener(
-            SelectionChangeEvent.SELECTION_CHANGED,
+        textFlow.addEventListener(
+            SelectionEvent.SELECTION_CHANGE,
             editManager_selectionChangeHandler);
 
-        textFlow.selectionManager.addEventListener(
-            OperationEvent.OPERATION_BEGIN, editManager_operationBeginHandler);
+        textFlow.addEventListener(
+            FlowOperationEvent.FLOW_OPERATION_BEGIN,
+            editManager_flowOperationBeginHandler);
 
-        textFlow.selectionManager.addEventListener(
-            OperationEvent.OPERATION_END, editManager_operationEndHandler);
+        textFlow.addEventListener(
+            FlowOperationEvent.FLOW_OPERATION_END,
+            editManager_flowOperationEndHandler);
     }
 
     /**
@@ -1801,7 +1804,7 @@ public class TextView extends UIComponent
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
     {
-        textFlow.selectionManager.setActiveSelection(anchorPosition, activePosition);
+        textFlow.interactionManager.setActiveSelection(anchorPosition, activePosition);
     }
     
     /**
@@ -1812,7 +1815,7 @@ public class TextView extends UIComponent
      */
     public function insertText(text:String):void
     {
-        EditManager(textFlow.selectionManager).insertText(text);
+        EditManager(textFlow.interactionManager).insertText(text);
     }
     
     /**
@@ -1824,8 +1827,8 @@ public class TextView extends UIComponent
      */
     public function appendText(text:String):void
     {
-        textFlow.selectionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
-        EditManager(textFlow.selectionManager).insertText(text);
+        textFlow.interactionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
+        EditManager(textFlow.interactionManager).insertText(text);
     }
 
     /**
@@ -1856,7 +1859,7 @@ public class TextView extends UIComponent
      */
     public function getAttributes(names:Array = null):Object
     {
-        var selectionManager:ISelectionManager = textFlow.selectionManager;
+        var selectionManager:ISelectionManager = textFlow.interactionManager;
                 
         var p:String;
         var kind:String;
@@ -1969,7 +1972,7 @@ public class TextView extends UIComponent
         }
         
         var editManager:TextViewEditManager =
-            TextViewEditManager(textFlow.selectionManager);
+            TextViewEditManager(textFlow.interactionManager);
         
         if (containerFormat)
         {
@@ -1999,7 +2002,8 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private function textFlow_composeDoneHandler(event:ComposeDoneEvent):void
+    private function textFlow_compositionCompleteHandler(
+                                    event:CompositionCompletionEvent):void
     {
         var newContentWidth:Number =
             textFlow.controller.maxHorizontalScrollPosition;
@@ -2020,10 +2024,11 @@ public class TextView extends UIComponent
      *  @private
      *  Called when the EditManager dispatches a 'selectionChange' event.
      */
-    private function editManager_selectionChangeHandler(event:SelectionChangeEvent):void
+    private function editManager_selectionChangeHandler(
+                        event:SelectionEvent):void
     {
-        _selectionAnchorPosition = textFlow.selectionManager.anchorPosition; // event.target isn't useful
-        _selectionActivePosition = textFlow.selectionManager.activePosition;
+        _selectionAnchorPosition = textFlow.interactionManager.anchorPosition; // event.target isn't useful
+        _selectionActivePosition = textFlow.interactionManager.activePosition;
         
         dispatchEvent(new Event("selectionChange"));
     }
@@ -2033,8 +2038,8 @@ public class TextView extends UIComponent
      *  Called when the EditManager dispatches an 'operationEnd' event
      *  before an editing operation.
      */
-    private function editManager_operationBeginHandler(
-                                    event:OperationEvent):void
+    private function editManager_flowOperationBeginHandler(
+                        event:FlowOperationEvent):void
     {
         //trace("operationBegin");
         
@@ -2071,7 +2076,8 @@ public class TextView extends UIComponent
      *  Called when the EditManager dispatches an 'operationEnd' event
      *  after an editing operation.
      */
-    private function editManager_operationEndHandler(event:OperationEvent):void
+    private function editManager_flowOperationEndHandler(
+                        event:FlowOperationEvent):void
     {
         //trace("operationEnd");
 
