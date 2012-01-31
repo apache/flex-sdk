@@ -37,7 +37,8 @@ public final class RepeatBehavior
     
     /**
      * Specifies that a repeating animation should reverse direction on
-     * every iteration.
+     * every iteration. For example, a reversing animation would play forward
+     * on the even iterations and in reverse on the odd iterations.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
