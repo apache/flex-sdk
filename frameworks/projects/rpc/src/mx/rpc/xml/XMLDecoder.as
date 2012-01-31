@@ -2034,6 +2034,10 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                 return list.toString();
             }
         }
+        else if (isSimpleValue(parent))
+        {
+            return parent;
+        }
 
         return getValue(parent, name);
     }
