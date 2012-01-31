@@ -2307,7 +2307,7 @@ public class DateField extends ComboBase
             // B. Bottom Right Placement
             // C. Top Right Placement
             var sm:ISystemManager = systemManager.topLevelSystemManager;
-            var screen:Rectangle = sm.getVisibleApplicationRect();
+            var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
 
             if (screen.right > dd.getExplicitOrMeasuredWidth() + point.x &&
                 screen.bottom < dd.getExplicitOrMeasuredHeight() + point.y)
