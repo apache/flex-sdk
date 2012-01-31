@@ -227,7 +227,7 @@ public class FxList extends FxListBase
         
         selectedIndices = value;
     }
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods
