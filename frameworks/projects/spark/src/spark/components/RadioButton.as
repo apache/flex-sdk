@@ -395,6 +395,8 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
      */
     private var _value:Object;
 
+    [Bindable("change")]
+    [Bindable("valueChanged")]
     [Inspectable(category="General", defaultValue="")]
 
     /**
