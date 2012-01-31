@@ -498,8 +498,14 @@ public class Group extends GroupBase implements IVisualElementContainer,
         if (value == "auto")
         {
             _blendMode = value;
-            if (((alpha > 0 && alpha < 1) && super.blendMode != BlendMode.LAYER) ||
-                ((alpha == 1 || alpha == 0) && super.blendMode != BlendMode.NORMAL) )
+            // SDK-29631: Use super.$blendMode instead of super.blendMode
+            // since Group completely overrides blendMode and we 
+            // want to bypass the extra logic in UIComponent which
+            // has its own override.
+            // TODO (egeorgie): figure out whether we can share some
+            // of that logic in the future.
+            if (((alpha > 0 && alpha < 1) && super.$blendMode != BlendMode.LAYER) ||
+                ((alpha == 1 || alpha == 0) && super.$blendMode != BlendMode.NORMAL) )
             {
                 invalidateDisplayObjectOrdering();
             }
@@ -886,16 +892,22 @@ public class Group extends GroupBase implements IVisualElementContainer,
             
             // Figure out the correct blendMode value
             // to set. 
+            // SDK-29631: Use super.$blendMode instead of super.blendMode
+            // since Group completely overrides blendMode and we 
+            // want to bypass the extra logic in UIComponent which
+            // has its own override.
+            // TODO (egeorgie): figure out whether we can share some
+            // of that logic in the future.
             if (_blendMode == "auto")
             {
                 if (alpha == 0 || alpha == 1) 
-                    super.blendMode = BlendMode.NORMAL;
+                    super.$blendMode = BlendMode.NORMAL;
                 else
-                    super.blendMode = BlendMode.LAYER;
+                    super.$blendMode = BlendMode.LAYER;
             }
             else if (!isAIMBlendMode(_blendMode))
             {
-                super.blendMode = _blendMode;
+                super.$blendMode = _blendMode;
             }
             
             if (blendShaderChanged) 
