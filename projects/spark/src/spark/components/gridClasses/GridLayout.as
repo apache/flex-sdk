@@ -679,7 +679,7 @@ public class GridLayout extends LayoutBase
      *  @private
      *  Use the specified GridColumn's itemRenderer (IFactory) to create a temporary
      *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
-     *  after it's used.
+     *  and removed from the rendererLayer after it's used.
      */
     private function createTypicalItemRenderer(columnIndex:int):IGridItemRenderer
     {
@@ -721,9 +721,7 @@ public class GridLayout extends LayoutBase
             columnWidth = 4096;
         
         layoutItemRenderer(renderer, 0, 0, columnWidth, NaN);
-                
-        rendererLayer.removeElement(renderer);
-            
+  
         return renderer;
     }
     
@@ -740,6 +738,10 @@ public class GridLayout extends LayoutBase
      */
     private function updateVisibleTypicalCellSizes(width:Number, scrollX:Number, firstVisibleColumnIndex:int):void
     {
+        const rendererLayer:GridLayer = getLayer("rendererLayer");
+        if (!rendererLayer)
+            return;        
+        
         const gridDimensions:GridDimensions = gridDimensions;
         const columnCount:int = gridDimensions.columnCount;
         const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
@@ -772,6 +774,8 @@ public class GridLayout extends LayoutBase
                     cellHeight = renderer.getPreferredBoundsHeight();
                     gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
                 }
+                
+                rendererLayer.removeElement(renderer);                
                 freeGridElement(renderer);
             }
             
@@ -789,6 +793,10 @@ public class GridLayout extends LayoutBase
      */
     private function updateTypicalCellSizes():void
     {
+        const rendererLayer:GridLayer = getLayer("rendererLayer");
+        if (!rendererLayer)
+            return;  
+        
         const gridDimensions:GridDimensions = gridDimensions;
         const columnCount:int = gridDimensions.columnCount;
         const columnGap:int = gridDimensions.columnGap;
@@ -833,6 +841,8 @@ public class GridLayout extends LayoutBase
                     cellHeight = renderer.getPreferredBoundsHeight();
                     gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
                 }
+                
+                rendererLayer.removeElement(renderer);
                 freeGridElement(renderer);
             }
             measuredColumnCount++;
@@ -2133,18 +2143,16 @@ public class GridLayout extends LayoutBase
         if (enablePerformanceStatistics)
             startTime = getTimer();
         
-        const validateNowRenderer:IInvalidating = renderer as IInvalidating;
-        const graphicElementRenderer:IGraphicElement = renderer as IGraphicElement;
-        
         if (!isNaN(width) || !isNaN(height))
         {
-            const validateClientRenderer:ILayoutManagerClient = renderer as ILayoutManagerClient
-            if (validateClientRenderer)
+            if (renderer is ILayoutManagerClient) 
             {
+                const validateClientRenderer:ILayoutManagerClient = renderer as ILayoutManagerClient;                
                 LayoutManager.getInstance().validateClient(validateClientRenderer, true); // true => skip validateDisplayList()
             }
-            else if (graphicElementRenderer)
+            else if (renderer is IGraphicElement)
             {
+                const graphicElementRenderer:IGraphicElement = renderer as IGraphicElement;                
                 graphicElementRenderer.validateProperties();
                 graphicElementRenderer.validateSize();
             }
@@ -2152,16 +2160,8 @@ public class GridLayout extends LayoutBase
             renderer.setLayoutBoundsSize(width, height);            
         }
         
-        // For graphic elements we don't want to call validateNow() since it calls
-        // validateClient on the parent of the graphic element which is the GridLayer.  
-        
-        if (graphicElementRenderer)
-            graphicElementRenderer.validateDisplayList();              
-        else if (validateNowRenderer)
-            validateNowRenderer.validateNow();
-        
         renderer.setLayoutBoundsPosition(x, y);
-        
+
         if (enablePerformanceStatistics)
         {
             var elapsedTime:Number = getTimer() - startTime;
