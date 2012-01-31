@@ -27,6 +27,8 @@ use namespace mx_internal;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *
+ *  @default 0x000000
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -87,9 +89,12 @@ use namespace mx_internal;
  *  @mxml
  *
  *  <p>The <code>&lt;s:CheckBox&gt;</code> tag inherits all of the tag 
- *  attributes of its superclass and adds no tag attributes:</p>
+ *  attributes of its superclass and adds the following attributes:</p>
  *  <pre>
- *  &lt;s:CheckBox/&gt;
+ *  &lt;s:CheckBox
+ *    <strong>Properties</strong>
+ *    symbolColor="0x000000"
+ *  /&gt;
  *  </pre>
  *
  *  @includeExample examples/CheckBoxExample.mxml
