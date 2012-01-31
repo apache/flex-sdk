@@ -78,7 +78,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
+ *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -88,7 +88,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -98,7 +98,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -108,7 +108,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- * @copy spark.components.supportClasses.GroupBase#rollOverColor
+ * @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -118,7 +118,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
