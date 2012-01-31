@@ -139,11 +139,9 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  Color of the background of an item renderer when it is pressed down
- * 
- *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *   
- *  @default 0xA8C6EE
+ *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
