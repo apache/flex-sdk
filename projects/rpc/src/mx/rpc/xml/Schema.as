@@ -189,9 +189,9 @@ public class Schema
         xml.appendChild(fragment);
     }
 
-    public function getNamedDefinition(name:QName, ...componentTypes:Array):Object
+    public function getNamedDefinition(definitionName:QName, ...componentTypes:Array):Object
     {
-        var uri:String = name.uri;
+        var uri:String = definitionName.uri;
         var schemas:Array = [this]
         
         // Also consider any imports at this level for the given URI
@@ -242,15 +242,15 @@ public class Schema
                 // namespace (it can't be unqualified).
                 if (componentType != schemaConstants.elementTypeQName
                     && componentType != schemaConstants.attributeQName
-                    && currentTargetNamespace.uri != name.uri)
+                    && currentTargetNamespace.uri != definitionName.uri)
                     continue;
 
                 // ...and ensure we have the qualified name of the schema component
                 // as defined in a particular schema...
                 var localComponentType:QName = new QName(constants.xsdURI, componentType.localName);
 
-                // ...then look for <[localComponentType] name="[name.localName]">
-                var definition:XML = schemaXML[localComponentType].(@name == name.localName)[0];
+                // ...then look for <[localComponentType] name="[definitionName.localName]">
+                var definition:XML = schemaXML[localComponentType].(@name == definitionName.localName)[0];
                 if (definition != null)
                 {
                     return {definition:definition, schema:schema};
