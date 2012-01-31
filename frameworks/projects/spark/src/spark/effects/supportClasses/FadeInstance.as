@@ -14,6 +14,7 @@ package flex.effects.effectClasses
 import flash.events.Event;
 
 import flex.core.Group;
+import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
 import flex.graphics.graphicsClasses.GraphicElement;
 
@@ -21,7 +22,7 @@ import mx.effects.effectClasses.PropertyChanges;
 import mx.events.FlexEvent;
 import mx.managers.LayoutManager;
     
-public class FadeInstance extends AnimatePropertiesInstance
+public class FadeInstance extends AnimateInstance
 {
     public function FadeInstance(target:Object)
     {
@@ -148,10 +149,10 @@ public class FadeInstance extends AnimatePropertiesInstance
      *  be visible (or not) or removed (or not). 
      *  @private
      */
-    override public function onTweenEnd(value:Object):void
+    override public function animationEnd(tween:Animation, value:Object):void
     {
         // Call super function first so we don't clobber resetting the alpha.
-        super.onTweenEnd(value);    
+        super.animationEnd(tween, value);    
             
         // TODO: ideally, we would put the visible=false logic in this effect
         // We don't want to depend on a private variable on the target
