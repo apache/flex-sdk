@@ -349,11 +349,9 @@ public class TextArea extends TextBase
             // TextArea rather than RichEditableText so that if changed later it
             // will be inherited.
 
-            // ToDo: The skin is loaded after the intial properties have been
-            // set so these could wipe out explicit sets.
-            textView.heightInLines = 10;
-            textView.multiline = true;
-            textView.autoSize = false;
+            // The skin is loaded after the intial properties have been
+            // set so these wipe out explicit sets.
+			textView.multiline = true;
         }
         
         // The scroller, between textView and this in the chain, should not 
