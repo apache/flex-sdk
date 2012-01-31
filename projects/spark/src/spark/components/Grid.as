@@ -3861,7 +3861,7 @@ public class Grid extends Group implements IDataGridElement
             case CollectionEventKind.RESET:
                 hoverColumnIndex = gridDimensions.getColumnIndexAt(mouseX, mouseY);
                 break;
-        }                        
+        }
     }
 
     /**
@@ -4015,13 +4015,7 @@ public class Grid extends Group implements IDataGridElement
         }
 
         if (gridDimensions)
-        {
             gridDimensions.columnsCollectionChanged(event);
-        
-            // ToDo(klin): Manipulating columns should not change the rowCount.
-            if (dataProvider)
-                gridDimensions.rowCount = dataProvider.length;
-        }
         
         if (gridLayout)
             gridLayout.columnsCollectionChanged(event);
@@ -4062,7 +4056,7 @@ public class Grid extends Group implements IDataGridElement
             
             gridDimensions.clear();
             
-            // clearing the gridDimensions resets rowCount
+            // Reset row count because dataProvider length may have changed.
             gridDimensions.rowCount = _dataProvider ? _dataProvider.length : 0;
         }
         
