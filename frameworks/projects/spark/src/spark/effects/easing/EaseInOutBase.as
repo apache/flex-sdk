@@ -11,11 +11,25 @@
 package spark.effects.easing
 {
 /**
- * The superclass for classes that provide easing capability where there
- * is an easing-in portion of the animation followed by an easing-out portion.
- * The default behavior of this class will simply return a linear
- * interpolation for both easing phases; developers should create a subclass
- * of EaseInOutBase to get more interestion behavior.
+ *  The EaseInOutBase class is the base class that provide easing capability.
+ *  The EaseInOutBase class  defines easing as consisting of two phases: 
+ *  the acceleration, or ease in phase, followed by the deceleration, or ease out phase. 
+ *  The default behavior of this class returns a linear
+ *  interpolation for both easing phases. You can create a subclass
+ *  of EaseInOutBase to get more interestion behavior.
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:EaseInOutBase&gt;</code> tag
+ *  inherits all of the tag attributes of its of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:EaseInOutBase
+ *    id="ID"
+ *    easeInFraction="0.5" 
+ *   /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -26,13 +40,12 @@ public class EaseInOutBase implements IEaser
 {
 
     /**
-     * Constructs an EaseInOutBase instance with an optional easeInFraction
-     * parameter.
+     *  Constructor.
      * 
-     * @param easeInFraction Optional parameter that sets the value of
-     * the <code>easeInFraction</code> property. The default value is
-     * <code>EasingFraction.IN_OUT</code>, which eases in for the first half
-     * of the time and eases out for the remainder.
+     *  @param easeInFraction Sets the value of
+     *  the <code>easeInFraction</code> property. The default value is
+     *  <code>EasingFraction.IN_OUT</code>, which eases in for the first half
+     *  of the time and eases out for the remainder.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -55,18 +68,16 @@ public class EaseInOutBase implements IEaser
     private var _easeInFraction:Number = .5;
     
     /**
-     * The percentage of an animation that should be spent accelerating. 
-     * This factor sets an implicit
-     * "easeOut" parameter, equal to (1 - easeIn), so that any time not
-     * spent easing in is spent easing out. For example, to have an easing
-     * equation that spends half the time easing in and half easing out,
-     * set easeIn equal to .5.
-     * 
-     * @see IN
-     * @see OUT
-     * @see IN_OUT
-     * 
-     * @default .5
+     *  The percentage of an animation that should be spent accelerating. 
+     *  This factor sets an implicit
+     *  "easeOut" parameter, equal to (1 - <code>easeIn</code>), so that any time not
+     *  spent easing in is spent easing out. For example, to have an easing
+     *  equation that spends half the time easing in and half easing out,
+     *  set <code>easeIn</code> to .5.
+     *
+     *  <p>Valid values are between 0.0 and 1.0.</p>
+     *  
+     *  @default .5
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -83,17 +94,23 @@ public class EaseInOutBase implements IEaser
     }
 
     /**
-     * @inheritDoc
+     *  Takes the fraction representing the elapsed duration of an animation
+     *  (a value between 0.0 to 1.0) and returns a new elapsed value. 
+     *  This  value is used to calculate animated property values. 
+     *  By changing the value of the elapsed fraction, you effectively change
+     *  the animation of the property.
      * 
-     * Calculates the eased fraction value based on the 
-     * <code>easeInFraction</code> property. If the given
-     * <code>fraction</code> is less than <code>easeInFraction</code>,
-     * this will call the <code>easeIn()</code> function, otherwise it
-     * will call the <code>easeOut()</code> function. It is expected
-     * that these functions are overridden in a subclass.
-     * 
-     * @param fraction The elapsed fraction of the animation
-     * @return The eased fraction of the animation
+     *  For EaseInOutBase, this method calculates the eased fraction 
+     *  value based on the <code>easeInFraction</code> property. If 
+     *  <code>fraction</code> is less than <code>easeInFraction</code>,
+     *  this method calls the <code>easeIn()</code> method. Otherwise it
+     *  calls the <code>easeOut()</code> method. 
+     *  It is expected
+     *  that these functions are overridden in a subclass.
+     *  
+     *  @param fraction The elapsed fraction of the animation.
+     *
+     *  @return The eased fraction of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -112,16 +129,17 @@ public class EaseInOutBase implements IEaser
     }
     
     /**
-     * Returns a value that represents the eased fraction during the 
-     * ease-in part of the curve. The value returned by this class 
-     * is simply the fraction itself, which represents a linear 
-     * interpolation of the fraction. More interesting behavior is
-     * implemented by subclasses of <code>EaseInOutBase</code>.
+     *  Returns a value that represents the eased fraction during the 
+     *  ease in phase of the animation. The value returned by this class 
+     *  is simply the fraction itself, which represents a linear 
+     *  interpolation of the fraction. More interesting behavior is
+     *  implemented by subclasses of EaseInOutBase.
      * 
-     * @param fraction The fraction elapsed of the easing-in portion
-     * of the animation.
-     * @return A value that represents the eased value for this
-     * part of the animation.
+     *  @param fraction The fraction elapsed of the easing in phase
+     *  of the animation, between 0.0 and 1.0.
+     * 
+     *  @return A value that represents the eased value for this
+     *  phase of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -134,16 +152,17 @@ public class EaseInOutBase implements IEaser
     }
     
     /**
-     * Returns a value that represents the eased fraction during the 
-     * ease-out part of the curve. The value returned by this class 
-     * is simply the fraction itself, which represents a linear 
-     * interpolation of the fraction. More interesting behavior is
-     * implemented by subclasses of <code>EaseInOutBase</code>.
+     *  Returns a value that represents the eased fraction during the 
+     *  ease out phase of the animation. The value returned by this class 
+     *  is simply the fraction itself, which represents a linear 
+     *  interpolation of the fraction. More interesting behavior is
+     *  implemented by subclasses of EaseInOutBase.
+     *  
+     *  @param fraction The fraction elapsed of the easing out phase
+     *  of the animation, between 0.0 and 1.0.
      * 
-     * @param fraction The fraction elapsed of the easing-out portion
-     * of the animation.
-     * @return A value that represents the eased value for this
-     * part of the animation.
+     *  @return A value that represents the eased value for this
+     *  phase of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
