@@ -214,15 +214,21 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             propertyChanges.start["bitmapInfo"] !== undefined)
         {
             bmHolder = propertyChanges.start["bitmapInfo"];
-            bitmapFrom = bmHolder["bitmap"];
-            boundsFrom = bmHolder["bounds"];
+            if (bmHolder)
+            {
+                bitmapFrom = bmHolder["bitmap"];
+                boundsFrom = bmHolder["bounds"];
+            }
         }
         if (!bitmapTo && propertyChanges &&
             propertyChanges.end["bitmapInfo"] !== undefined)
         {
             bmHolder = propertyChanges.end["bitmapInfo"];
-            bitmapTo = bmHolder["bitmap"];
-            boundsTo = bmHolder["bounds"];
+            if (bmHolder)
+            {
+                bitmapTo = bmHolder["bitmap"];
+                boundsTo = bmHolder["bounds"];
+            }
         }
         if (!bitmapFrom)
             if (propertyChanges &&
