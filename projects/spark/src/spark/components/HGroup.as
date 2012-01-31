@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 import flash.events.Event;
-import mx.components.Group;
-import mx.layout.HorizontalLayout;
+import spark.components.Group;
+import spark.layout.HorizontalLayout;
 
 [IconFile("HGroup.png")]
 
