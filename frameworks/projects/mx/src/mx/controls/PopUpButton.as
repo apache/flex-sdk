@@ -35,6 +35,7 @@ import mx.events.DropdownEvent;
 import mx.events.ListEvent;
 import mx.events.MenuEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.MarshalMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
@@ -482,6 +483,10 @@ public class PopUpButton extends Button
                                     popMouseDownOutsideHandler);
             
             _popUp.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
+                                    popMouseDownOutsideHandler);
+            _popUp.addEventListener(MarshalMouseEvent.MOUSE_DOWN,
+                                    popMouseDownOutsideHandler);
+            _popUp.addEventListener(MarshalMouseEvent.MOUSE_WHEEL,
                                     popMouseDownOutsideHandler);
                 
             _popUp.owner = this;
@@ -1113,21 +1118,27 @@ public class PopUpButton extends Button
     /**
      *  @private
      */    
-    private function popMouseDownOutsideHandler(event:MouseEvent):void
+    private function popMouseDownOutsideHandler(event:Event):void
     {
-        // for automated testing, since we're generating this event and
-        // can only set localX and localY, transpose those coordinates
-        // and use them for the test point.
-        var p:Point = event.target.localToGlobal(new Point(event.localX, 
-                                                           event.localY));
-        if (hitTestPoint(p.x, p.y, true))
+        if (event is MouseEvent)
         {
-            // do nothing
+            // for automated testing, since we're generating this event and
+            // can only set localX and localY, transpose those coordinates
+            // and use them for the test point.
+            var mouseEvent:MouseEvent = MouseEvent(event);
+            var p:Point = event.target.localToGlobal(new Point(mouseEvent.localX, 
+                                                               mouseEvent.localY));
+            if (hitTestPoint(p.x, p.y, true))
+            {
+                // do nothing
+            }
+            else
+            {
+                close();
+            }
         }
-        else
-        {
+        else if (event is MarshalMouseEvent)
             close();
-        }
     }    
     
     /**
