@@ -343,8 +343,6 @@ public class RichText extends TextGraphicElement
             // Once we have a TextFlow, we can export its plain text.
             _text = staticPlainTextExporter.export(
             	_textFlow, ConversionType.STRING_TYPE) as String;
-			// Remove the trailing paragraph terminator.
-            _text = _text.substring(0, _text.length - 1);
         }
 
         return _text;
