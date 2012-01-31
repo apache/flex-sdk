@@ -24,6 +24,7 @@ import mx.events.CollectionEventKind;
 import spark.components.Grid;
 import spark.components.GridColumnHeaderGroup;
 import spark.components.Group;
+import spark.components.supportClasses.GroupBase;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -53,18 +54,39 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     //  Internal variables
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Layers for header renderers and separators.
+     */
+    private var rendererLayer:Group;
+    private var overlayLayer:Group;
     
     /**
      *  @private
-     *  Cached header renderer heights maintained by the measure() method.
+     *  Cached header renderer heights maintained by the measure() method, 
+     *  and the current content height.
      */
     private const rendererHeights:Array = new Array();
+    private var maxRendererHeight:Number = 0;
     
     /**
      *  @private
      *  Bounds of all currently visible header renderers.
      */
     private const visibleRenderersBounds:Rectangle = new Rectangle();
+    
+    /**
+     *  @private
+     *  Currently visible header renderers.
+     */
+    private const visibleHeaderRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
+    
+    /**
+     *  @private
+     *  Currently visible header separators.
+     */
+    private const visibleHeaderSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>();
     
     /**
      *  @private
@@ -90,6 +112,28 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     /**
      *  @private
      */
+    override public function set target(value:GroupBase):void
+    {
+        super.target = value;
+        
+        const chg:GridColumnHeaderGroup = value as GridColumnHeaderGroup;
+        
+        if (chg)
+        {
+            // Create layers
+            rendererLayer = new Group();
+            rendererLayer.layout = new LayoutBase();
+            chg.addElement(rendererLayer);
+            
+            overlayLayer = new Group();
+            overlayLayer.layout = new LayoutBase();
+            chg.addElement(overlayLayer);
+        }
+    }
+    
+    /**
+     *  @private
+     */
     override public function get useVirtualLayout():Boolean
     {
         return true;
@@ -109,9 +153,15 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     override public function clearVirtualLayoutCache():void
     {
         rendererHeights.length = 0;
+        visibleHeaderRenderers.length = 0;
+        visibleHeaderSeparators.length = 0;
         visibleRenderersBounds.setEmpty();
         elementToFactoryMap = new Dictionary();
         freeElementMap = new Dictionary();
+        if (rendererLayer)
+            rendererLayer.removeAllElements();
+        if (overlayLayer)
+            overlayLayer.removeAllElements();
     }     
     
     /**
@@ -140,27 +190,9 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const grid:Grid = grid;
         
         if (!columnHeaderGroup || !grid)
-            return;        
+            return;
         
-        const columnHeaderGroupNumElements:int = columnHeaderGroup.numElements;
-        for (var eltIndex:int = 0; eltIndex < columnHeaderGroupNumElements; eltIndex++)
-        {
-            var renderer:IGridItemRenderer = columnHeaderGroup.getElementAt(eltIndex) as IGridItemRenderer;
-            if (!renderer || !renderer.visible)
-                continue;
-            
-            rendererHeights[renderer.column.columnIndex] = renderer.getPreferredBoundsHeight();
-        }
-        
-        const columns:IList = columns;
-        rendererHeights.length = (columns) ? columns.length : 0;
-        
-        var maxRendererHeight:Number = 0;
-        for each (var rendererHeight:Number in rendererHeights)
-        {
-            if (!isNaN(rendererHeight))
-                maxRendererHeight = Math.max(maxRendererHeight, rendererHeight);
-        }
+        updateRendererHeights();
         
         const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
         const paddingRight:Number = columnHeaderGroup.getStyle("paddingRight");
@@ -187,20 +219,18 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
 
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
         const oldRenderers:Dictionary = new Dictionary();
-
-        const overlayGroup:Group = this.overlayGroup;
+        const rendererLayer:Group = this.rendererLayer;
+        const overlayLayer:Group = this.overlayLayer;
         const columnSeparatorFactory:IFactory = columnHeaderGroup.columnSeparator;
+        
         var renderer:IGridItemRenderer;
+        var separator:IVisualElement;
         var column:GridColumn;
         
         // Add all of the renderers whose column is still visible to oldRenderers and free the rest
         
-        for (var eltIndex:int = 0; eltIndex < columnHeaderGroup.numElements; eltIndex++)
+        for each (renderer in visibleHeaderRenderers)
         {
-            renderer = columnHeaderGroup.getElementAt(eltIndex) as IGridItemRenderer;
-            if (!renderer || !renderer.visible)
-                continue;
-            
             column = renderer.column;
             if (column && (visibleColumnIndices.indexOf(column.columnIndex) != -1))
             {
@@ -212,11 +242,15 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
                 renderer.discard(true);
             }
         }
+        visibleHeaderRenderers.length = 0;
         
-        // Add all of the separators to the free-list, since laying them out is cheap
+        // Add all of the separators to the free-list, since laying them out is cheap.
         
-        for (eltIndex = 0; eltIndex < overlayGroup.numElements; eltIndex++)
-            freeVisualElement(overlayGroup.getElementAt(eltIndex));
+        for each (separator in visibleHeaderSeparators)
+        {
+            freeVisualElement(separator);
+        }
+        visibleHeaderSeparators.length = 0;
         
         // Layout the header renderers and update the CHB's content size
         
@@ -265,19 +299,20 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
                     factory = columnHeaderGroup.headerRenderer;
                 renderer = allocateVisualElement(factory) as IGridItemRenderer;
             }
-                
+            visibleHeaderRenderers.push(renderer);
+            
             // initialize the renderer
             
             initializeItemRenderer(renderer, columnIndex, column, true);
-            if (renderer.parent != columnHeaderGroup)
-                columnHeaderGroup.addElement(renderer);
+            if (renderer.parent != rendererLayer)
+                rendererLayer.addElement(renderer);
             
             // layout the renderer
             
             var isLastColumn:Boolean = columnIndex == lastVisibleColumnIndex;
             var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
-            var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
-
+            var rendererWidth:Number = grid.getColumnWidth(columnIndex);
+            
             if (isLastColumn)
                 rendererWidth = horizontalScrollPosition + unscaledWidth - rendererX - paddingRight;
             
@@ -288,29 +323,30 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
                 visibleLeft = rendererX;
             visibleRight = rendererX + rendererWidth;
             
+            renderer.prepare(!createdVisualElement);
+            
             if ((rendererX + rendererWidth) > maxRendererX)
                 break;
-         
-            renderer.prepare(!createdVisualElement);
             
             // allocate and layout a column separator
             
             if (columnSeparatorFactory && !isLastColumn)
             {
-                var separator:IVisualElement = allocateVisualElement(columnSeparatorFactory);
+                separator = allocateVisualElement(columnSeparatorFactory);
+                visibleHeaderSeparators.push(separator);
                 separator.visible = true;
-                if (separator.parent != overlayGroup)
-                    overlayGroup.addElement(separator);
-               
+                if (separator.parent != overlayLayer)
+                    overlayLayer.addElement(separator);
+                
                 var separatorWidth:Number = separator.getPreferredBoundsWidth();
                 var separatorX:Number = rendererX + rendererWidth;
                 separator.setLayoutBoundsSize(separatorWidth, rendererHeight);
                 separator.setLayoutBoundsPosition(separatorX, rendererY);
             }
         }
-        
+
         columnHeaderGroup.setContentSize(grid.contentWidth, rendererHeight);
-        
+
         visibleRenderersBounds.left = visibleLeft;
         visibleRenderersBounds.right = visibleRight;
         visibleRenderersBounds.top = rendererY;
@@ -318,9 +354,13 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         // We may have created new renderers or changed their visibility.  Force
         // validation to avoid a display list flash.
-        
-        overlayGroup.validateNow();
+
         columnHeaderGroup.validateNow();
+        
+        // Update the renderer heights cache.
+        // Invalidates the target's size if the maxRendererHeight has changed.
+        
+        updateRendererHeights(true);
     }
     
     //---------------------------------------------------------------
@@ -513,14 +553,15 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         // If columnIndex refers to a visible header renderer, return it
         
+        const rendererLayer:Group = rendererLayer;
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
         const eltIndex:int = visibleColumnIndices.indexOf(columnIndex);
         if (eltIndex != -1)
         {
-            const columnHeaderGroupNumElements:int = columnHeaderGroup.numElements;
-            for (var index:int = 0; index < columnHeaderGroupNumElements; index++)
+            const rendererLayerNumElements:int = rendererLayer.numElements;
+            for (var index:int = 0; index < rendererLayerNumElements; index++)
             {
-                var elt:IGridItemRenderer = columnHeaderGroup.getElementAt(index) as IGridItemRenderer;
+                var elt:IGridItemRenderer = rendererLayer.getElementAt(index) as IGridItemRenderer;
                 if (elt && elt.visible && elt.column && (elt.column.columnIndex == columnIndex))
                     return elt;
             }
@@ -541,7 +582,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             factory = columnHeaderGroup.headerRenderer;
         const renderer:IGridItemRenderer = allocateVisualElement(factory) as IGridItemRenderer;
         
-        columnHeaderGroup.addElement(renderer);
+        rendererLayer.addElement(renderer);
 
         // initialize the renderer
         
@@ -566,7 +607,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         renderer.setLayoutBoundsSize(rendererWidth, rendererHeight);
         renderer.setLayoutBoundsPosition(rendererX, rendererY);
         
-        columnHeaderGroup.removeElement(renderer);
+        rendererLayer.removeElement(renderer);
         renderer.visible = false;
         
         return renderer;
@@ -648,11 +689,63 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         if (!freeElements)
         {
             freeElements = new Vector.<IVisualElement>();
-            freeElementMap[factory] = freeElements;            
+            freeElementMap[factory] = freeElements;
         }
         freeElements.push(element);
         
         element.visible = false;
+    }
+    
+    /**
+     *  @private
+     *  Updates the renderer heights cache and the current max renderer height.
+     *  Invalidates the target's size if the max renderer height has changed.
+     * 
+     *  <p>If the max live renderer height is the same as the max cached height, then
+     *  just update the cache.
+     *  If the max live renderer height is greater than the max cached height, then
+     *  update the cache, cache the new height, and invalidate the target's size if
+     *  necessary.
+     *  If the max live renderer height is less than the max cached height, then
+     *  update the cache, check to see if the cached max height has lowered, and
+     *  invalidate the target's size if necessary.
+     */
+    private function updateRendererHeights(inUpdateDisplayList:Boolean = false):void
+    {
+        const columns:IList = columns;
+        rendererHeights.length = (columns) ? columns.length : 0;
+        
+        var newHeight:Number = 0;
+        
+        // update cached renderer heights with live renderer heights.
+        for each (var renderer:IGridItemRenderer in visibleHeaderRenderers)
+        {
+            var preferredHeight:Number = renderer.getPreferredBoundsHeight();
+            rendererHeights[renderer.column.columnIndex] = preferredHeight;
+            if (preferredHeight > newHeight)
+                newHeight = preferredHeight;
+        }
+        
+        // Do nothing if the heights are the same.
+        if (newHeight == maxRendererHeight)
+            return;
+        
+        if (newHeight < maxRendererHeight)
+        {
+            // If the live renderers' max height is less than the current
+            // max height, check if this also lowers the maxRendererHeight.
+            for (var i:int = 0; i < rendererHeights.length; i++)
+            {
+                var rendererHeight:Number = rendererHeights[i];
+                if (!isNaN(rendererHeight) && rendererHeight > newHeight)
+                    newHeight = rendererHeight;
+            }
+        }
+        
+        maxRendererHeight = newHeight;
+        
+        if (inUpdateDisplayList)
+            columnHeaderGroup.invalidateSize();
     }
     
     //----------------------------------
@@ -858,29 +951,6 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             }
         }
         chg.visibleSortIndicatorIndices = indices;
-    }
-    
-    //----------------------------------
-    //  overlayGroup
-    //----------------------------------
- 
-    private var _overlayGroup:Group = null;
-    
-    /**
-     *  @private
-     *  The container for columnSeparator visual elements.  By default it's an 
-     *  element of the GridColumnHeaderGroup's overlay.
-     */
-    private function get overlayGroup():Group
-    {
-        if (!_overlayGroup)
-        {
-            _overlayGroup = new Group();
-            _overlayGroup.layout = new LayoutBase(); // no layout
-            target.overlay.addDisplayObject(overlayGroup);            
-        }
-        
-        return _overlayGroup;
     }
 }
 }
