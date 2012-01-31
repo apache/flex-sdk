@@ -21,6 +21,11 @@ import mx.effects.effectClasses.ActionEffectInstance;
  *  effect; you do not create one yourself.
  *
  *  @see flex.effects.CallFunctionAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class CallActionInstance extends ActionEffectInstance
 {
@@ -36,6 +41,11 @@ public class CallActionInstance extends ActionEffectInstance
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function CallActionInstance(target:Object)
     {
@@ -54,6 +64,11 @@ public class CallActionInstance extends ActionEffectInstance
 
     /** 
      * Function that will be called on the target when this effect plays
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var functionName:String;
     
@@ -64,6 +79,11 @@ public class CallActionInstance extends ActionEffectInstance
     /** 
      * Parameters that will be supplied to the function that is called
      * by this effect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var parameters:Array;
 
