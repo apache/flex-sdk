@@ -3230,7 +3230,6 @@ class TLFTextFieldHostFormat implements ITextLayoutFormat
  *  @private
  *  To attach TextField styling via a style sheet to a TextFlow.
  */
-[ExcludeClass]
 
 class FTETextFieldStyleResolver implements IFormatResolver
 {
