@@ -2918,7 +2918,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                             ratio = (lastColumn.width - lastColumn.minWidth)/ (totalWidth - fixedWidth);
                         else
                             ratio = lastColumn.width / totalWidth;
-                        newSize = lastColumn.width - (totalWidth - displayWidth) * ratio;
+                        newSize = Math.floor(lastColumn.width - (totalWidth - displayWidth) * ratio);
                         minWidth = visibleLockedColumns[i].minWidth;
                         visibleLockedColumns[i].setWidth(newSize > minWidth ? newSize : minWidth);
                         // trace("column " + i + " set to " + visibleLockedColumns[i].width);
@@ -2936,7 +2936,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                             ratio = (lastColumn.width - lastColumn.minWidth)/ (totalWidth - fixedWidth);
                         else
                             ratio = lastColumn.width / totalWidth;
-                        newSize = lastColumn.width - (totalWidth - displayWidth) * ratio;
+                        newSize = Math.floor(lastColumn.width - (totalWidth - displayWidth) * ratio);
                         minWidth = visibleColumns[i].minWidth;
                         visibleColumns[i].setWidth(newSize > minWidth ? newSize : minWidth);
                         // trace("column " + i + " set to " + visibleColumns[i].width);
