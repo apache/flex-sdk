@@ -161,7 +161,10 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
     /**
      *  The FxRadioButtonGroup object to which this FxRadioButton belongs.
-     *  All radio buttons in the group must have the same parent.
+     *  When creating radio buttons to put in a FxRadioButtonGroup, it is 
+     *  advisable to use group for all of the buttons or groupName for all of 
+     *  the buttons.  In addition, all radio buttons in the group must have the 
+     *  same parent.  
      *
      *  @default "undefined"
      *  @see #groupName
@@ -260,8 +263,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  Specifies the name of the group to which this FxRadioButton control belongs, or 
      *  specifies the value of the <code>id</code> property of a FxRadioButtonGroup control
      *  if this FxRadioButton is part of a group defined by a FxRadioButtonGroup control.
-     *  All radio buttons with the same groupName will be in the same tab group.
-     *  All radio buttons in the group must have the same parent.  
+     *  All radio buttons with the same groupName will be in the same tab group
+     *  even if they belong to different radio button groups.  When creating
+     *  radio buttons to put in a FxRadioButtonGroup, it is advisable to
+     *  use group for all of the buttons or groupName for all of the buttons.
+     *  In addition, all radio buttons in the group must have the same parent.  
      *
      *  @default "radioButton"
      *  @see #group
