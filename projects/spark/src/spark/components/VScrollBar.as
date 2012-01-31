@@ -216,9 +216,9 @@ public class VScrollBar extends ScrollBar
      * 
      *  @see mx.components.baseClasses.TrackBase#page()
      *  @see mx.components.baseClasses.TrackBase#setValue()
-     *  @see mx.core.IViewport
-     *  @see mx.core.IViewport#verticalScrollPosition
-     *  @see mx.core.IViewport#getVerticalScrollPositionDelta()     
+     *  @see spark.core.IViewport
+     *  @see spark.core.IViewport#verticalScrollPosition
+     *  @see spark.core.IViewport#getVerticalScrollPositionDelta()     
     *  
     *  @langversion 3.0
     *  @playerversion Flash 10
@@ -254,9 +254,9 @@ public class VScrollBar extends ScrollBar
      * 
      *  @see mx.components.baseClasses.TrackBase#step()
      *  @see mx.components.baseClasses.TrackBase#setValue()
-     *  @see mx.core.IViewport
-     *  @see mx.core.IViewport#verticalScrollPosition
-     *  @see mx.core.IViewport#getVerticalScrollPositionDelta()
+     *  @see spark.core.IViewport
+     *  @see spark.core.IViewport#verticalScrollPosition
+     *  @see spark.core.IViewport#getVerticalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
