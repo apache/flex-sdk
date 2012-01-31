@@ -2178,9 +2178,9 @@ public class CalendarLayout extends UIComponent
 
         var daysInMonth:int = getNumberOfDaysInMonth(displayedYear, displayedMonth);
 
-        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event);
                 
         for (var i:uint = 0; i < 31; i++)
         {
