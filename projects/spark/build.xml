@@ -40,11 +40,11 @@
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/osmf/bundles/@{locale}"/>
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/textLayout/bundles/@{locale}"/>
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/spark/src"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 				<include-libraries/>
 				<library-path/>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+					<include name="player/${global.playerglobal.version}/playerglobal.swc"/>
+					<include name="framework.swc"/>
 				</external-library-path>
 			</compc>
 		</sequential>
