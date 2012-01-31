@@ -42,9 +42,14 @@ import flashx.textLayout.formats.LineBreak;
 [IconFile("FxTextInput.png")]
 
 /**
- *  The built-in set of states for the FxTextInput component.
+ *  Normal State
  */
-[SkinStates("normal", "disabled")]
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ */
+[SkinState("disabled")]
 
 /**
  *  Documentation is not currently available.
