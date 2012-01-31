@@ -127,7 +127,7 @@ public class FxListBase extends FxDataContainer
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider)
-            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
     
         dataProviderChanged = true;
         doingWholesaleChanges = true;
@@ -136,7 +136,7 @@ public class FxListBase extends FxDataContainer
 		// the base class setter if the dataGroup already exists.  If the dataGroup isn't
 		// created yet, then we still be first.
         if (value)
-            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
 
         super.dataProvider = value;
         invalidateProperties();
@@ -677,7 +677,7 @@ public class FxListBase extends FxDataContainer
     /**
      *  @private
      */
-    protected function collectionChangeHandler(event:Event):void
+    protected function dataProvider_collectionChangeHandler(event:Event):void
     {
         if (event is CollectionEvent)
         {
