@@ -17,16 +17,15 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
-import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
-import flashx.textLayout.compose.ISWFContext;
+
 import flashx.textLayout.elements.GlobalSettings;
+
 import mx.automation.IAutomationObject;
-import mx.core.FTETextField;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
@@ -40,6 +39,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
+
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
