@@ -96,6 +96,7 @@ FxVSlider
 FxApplication
 {
 	skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
+	backgroundColor: #FFFFFF;
 }
 
 FxComponent
