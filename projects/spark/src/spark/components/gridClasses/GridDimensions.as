@@ -16,6 +16,7 @@ import flash.geom.Rectangle;
 import mx.collections.IList;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.PropertyChangeEvent;
 
 [ExcludeClass]
 
@@ -241,7 +242,7 @@ public class GridDimensions
         // There might be a new set of columns which is the same length
         // as the old set of columns.
 
-        // clear cached information
+        // clear cached information including rowCount
         clear();
         
         // fix up the number of columns
@@ -1782,7 +1783,16 @@ public class GridDimensions
                 
             case CollectionEventKind.UPDATE:
             {
-                // handled by GridLayout
+                // column may have changed visiblity                
+                var pcEvent:PropertyChangeEvent;
+                
+                const itemsLength:int = event.items ? event.items.length : 0;                
+                for (var i:int = 0; i < itemsLength; i++)
+                {
+                    pcEvent = event.items[i] as PropertyChangeEvent;
+                    if (pcEvent && pcEvent.property == "visible")
+                        columns_visibleChangedHandler(pcEvent);
+                }
                 break;
             }
             
@@ -1791,6 +1801,39 @@ public class GridDimensions
                 clearColumns(event.location, event.items.length);
                 break;
             }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Handle CollectionEventKind.UPDATE for a column whose 'visibility' 
+     *  property changed.
+     */
+    private function columns_visibleChangedHandler(pcEvent:PropertyChangeEvent):void
+    {
+        const column:GridColumn = pcEvent.source as GridColumn;
+        const columnIndex:int = column.columnIndex;
+        if (!column || columnIndex == -1)
+            return;
+        
+        clearColumns(columnIndex, 1);
+        
+        // column.visible==true columns need to have their typical sizes and 
+        // actual column width updated, while column.visible==false column
+        // have their typical sizes updated to 0 and actual column width
+        // set to NaN.
+        if (column.visible)
+        {
+            setTypicalCellWidth(columnIndex, NaN);
+            setTypicalCellHeight(columnIndex, NaN);
+            if (!isNaN(column.width))
+                setColumnWidth(columnIndex, column.width);
+        }
+        else
+        {
+            setTypicalCellWidth(columnIndex, 0);
+            setTypicalCellHeight(columnIndex, 0);
+            setColumnWidth(columnIndex, NaN);
         }
     }
     
