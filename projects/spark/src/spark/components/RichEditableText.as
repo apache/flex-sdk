@@ -3983,10 +3983,19 @@ package spark.components
             // more to do.
             if (!hasConstraints && pastedText.indexOf("\n") == -1)
                 return;
-
+            
             // Save this in case we modify the pasted text.  We need to know
             // how much text to delete.
             var textLength:int = pastedText.length;
+            
+            // Keep _text in sync with the text flow.  If there was a selection
+            // for the paste, delete that text, then insert the pasted
+            // text.
+            if (_displayAsPassword)
+            {
+                _text = splice(_text, op.absoluteStart, op.absoluteEnd, "");
+                _text = splice(_text, op.absoluteStart, op.absoluteStart, pastedText);
+            }
             
             // If multiline is false, strip newlines out of pasted text
             // This will not strip newlines out of displayAsPassword fields
@@ -4003,16 +4012,11 @@ package spark.components
             // of the paste.
             dispatchChangeAndChangingEvents = false;
             
-            var selectionState:SelectionState = new SelectionState(
-                op.textFlow, op.absoluteStart, 
-                op.absoluteStart + textLength);             
-            editManager.deleteText(selectionState);
-            
-            // Insert the same text, the same place where the paste was done.
+            // Replace the same text, the same place where the paste was done.
             // This will go thru the InsertPasteOperation and do the right
-            // things with restrict, maxChars and displayAsPassword.
-            selectionState = new SelectionState(
-                op.textFlow, op.absoluteStart, op.absoluteStart);
+            // things with restrict, maxChars, displayAsPassword and _text.
+            var selectionState:SelectionState = new SelectionState(
+                  op.textFlow, op.absoluteStart, op.absoluteStart + textLength);
             editManager.insertText(pastedText, selectionState);        
             
             // All done with the edit manager.
@@ -4558,16 +4562,19 @@ package spark.components
                     if (delLen > 0)
                     {
                         _text = splice(_text, delSelOp.absoluteStart, 
-                            delSelOp.absoluteEnd, "");                                    
+                                       delSelOp.absoluteEnd, "");                                    
                     }
                     
                     // Add in the inserted text.
-                    _text = splice(_text, insertTextOperation.absoluteStart,
-                        insertTextOperation.absoluteEnd, textToInsert);
-                    
-                    // Display the passwordChar rather than the actual text.
-                    textToInsert = StringUtil.repeat(passwordChar,
-                        textToInsert.length);
+                    if (textToInsert.length > 0)
+                    {
+                        _text = splice(_text, insertTextOperation.absoluteStart,
+                            insertTextOperation.absoluteStart, textToInsert);
+                        
+                        // Display the passwordChar rather than the actual text.
+                        textToInsert = StringUtil.repeat(passwordChar,
+                            textToInsert.length);
+                    }
                 }
                 
                 insertTextOperation.text = textToInsert;
