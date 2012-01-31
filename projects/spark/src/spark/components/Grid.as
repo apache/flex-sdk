@@ -848,6 +848,74 @@ public class Grid extends Group
     }
     
     //----------------------------------
+    //  dataTipField
+    //----------------------------------
+    
+    private var _dataTipField:String = null;
+    
+    [Bindable("dataTipFieldChanged")]    
+    
+    /**
+     *  The dataTipField that's used for columns that do not specify one.
+     * 
+     *  @default null
+     * 
+     *  @see spark.components.supportClasses.GridColumn#dataTipField
+     */
+    public function get dataTipField():String
+    {
+        return _dataTipField;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataTipField(value:String):void
+    {
+        if (_dataTipField == value)
+            return;
+        
+        _dataTipField = value;
+        
+        invalidateDisplayList();
+        dispatchChangeEvent("dataTipFieldChanged");
+    }
+    
+    //----------------------------------
+    //  dataTipFunction
+    //----------------------------------
+    
+    private var _dataTipFunction:Function = null;
+    
+    [Bindable("dataTipFunctionChanged")]
+    
+    /**
+     *  The dataTipFunction that's used for columns that do not specify one.
+     * 
+     *  @default null
+     * 
+     *  @see spark.components.supportClasses.GridColumn#dataTipField
+     */
+    public function get dataTipFunction():Function
+    {
+        return _dataTipFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataTipFunction(value:Function):void
+    {
+        if (_dataTipFunction == value)
+            return;
+        
+        _dataTipFunction = value;
+        
+        invalidateDisplayList();        
+        dispatchChangeEvent("dataTipFunctionChanged");
+    }    
+    
+    //----------------------------------
     //  itemRenderer
     //----------------------------------
     
@@ -1877,6 +1945,47 @@ public class Grid extends Group
         
         dispatchChangeEvent("selectionModeChanged");
     }
+    
+    
+    //----------------------------------
+    //  showDataTips
+    //----------------------------------
+    
+    private var _showDataTips:Boolean = false;
+    
+    [Bindable("showDataTipsChanged")]
+    [Inspectable(category="Data", defaultValue="false")]
+    
+    /**
+     *  If true then a dataTip is displayed for all visible cells.  If false (the default),
+     *  then a dataTip is only displayed if the column's showDataTip property is true.
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get showDataTips():Boolean
+    {
+        return _showDataTips;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set showDataTips(value:Boolean):void
+    {
+        if (_showDataTips == value)
+            return;
+        
+        _showDataTips = value;
+
+        invalidateDisplayList();
+        dispatchEvent(new Event("showDataTipsChanged"));
+    }
+        
     
     //----------------------------------
     //  typicalItem
