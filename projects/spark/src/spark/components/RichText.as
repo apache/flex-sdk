@@ -258,7 +258,7 @@ public class TextGraphic extends TextGraphicElement
     [Inspectable(category="General")]
 
     /**
-     *  The y-coordinate of the baseline of the first line of text.
+     *  @private
      */
     override public function get baselinePosition():Number
     {
@@ -356,7 +356,7 @@ public class TextGraphic extends TextGraphicElement
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function measure():void
     {
@@ -378,7 +378,7 @@ public class TextGraphic extends TextGraphicElement
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
@@ -414,7 +414,7 @@ public class TextGraphic extends TextGraphicElement
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function stylesInitialized():void
     {
@@ -424,7 +424,7 @@ public class TextGraphic extends TextGraphicElement
     }
 
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function styleChanged(styleProp:String):void
     {
