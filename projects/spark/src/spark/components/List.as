@@ -19,7 +19,7 @@ import flash.ui.Keyboard;
 import mx.components.baseClasses.FxListBase;
 import mx.core.ClassFactory;
 import mx.core.IVisualElement;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.RendererExistenceEvent;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 import mx.managers.IFocusManagerComponent;
@@ -289,7 +289,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.getRendererForItemAt(index);
+        var renderer:Object = dataGroup.getElementAt(index);
         
         if (renderer)
         {
@@ -318,9 +318,9 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         if (instance == dataGroup)
         {
             dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
     }
 
@@ -332,9 +332,9 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         if (instance == dataGroup)
         {
             dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
         
         super.partRemoved(partName, instance);
@@ -434,7 +434,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been added to this component.
      */
-    private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
+    private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
         var index:int = event.index;
         var renderer:Object = event.renderer;
@@ -450,7 +450,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been removed from this component.
      */
-    private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
+    private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
     {
         var index:int = event.index;
         var renderer:Object = event.renderer;
@@ -467,7 +467,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
     {
         // Multiple selection needs to be added here....
         
-        selectedIndex = dataGroup.getItemIndexForRenderer(event.currentTarget as IVisualElement);
+        selectedIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
     }
     
     /**
