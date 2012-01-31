@@ -1,6 +1,7 @@
 package spark.components
 {
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.utils.Dictionary;
 
 import mx.collections.IList;
@@ -211,6 +212,8 @@ public class DataGroup extends GroupBase
     //  layout
     //----------------------------------
 
+    private var useVirtualLayoutChanged:Boolean = false;
+    
     /**
      *  @private
      *  Sync the typicalLayoutElement var with this group's layout.
@@ -221,9 +224,15 @@ public class DataGroup extends GroupBase
         if (value == oldLayout)
             return; 
 
-        super.layout = value;    
         if (oldLayout)
+        {
             oldLayout.typicalLayoutElement = null;
+            oldLayout.removeEventListener("useVirtualLayoutChanged", layout_useVirtualLayoutChangedHandler);
+        }
+        // Changing the layout may implicitly change layout.useVirtualLayout
+        if (oldLayout && value && (oldLayout.useVirtualLayout != value.useVirtualLayout))
+            changeUseVirtualLayout();
+        super.layout = value;    
         if (value)
         {
             // If typicalLayoutElement was specified for this DataGroup, then use
@@ -232,9 +241,29 @@ public class DataGroup extends GroupBase
                 value.typicalLayoutElement = typicalLayoutElement;
             else
                 typicalLayoutElement = value.typicalLayoutElement;
+            value.addEventListener("useVirtualLayoutChanged", layout_useVirtualLayoutChangedHandler);
         }
-    } 
+    }
     
+    /**
+     *  @private
+     *  If layout.useVirtualLayout changes, recreate the ItemRenderers.  This can happen
+     *  if the layout's useVirtualLayout property is changed directly, or if the DataGroup's
+     *  layout is changed. 
+     */    
+    private function changeUseVirtualLayout():void
+    {
+        trace("DataGroup::changeUseVirtualLayout()");
+        cleanUpDataProvider();
+        invalidateProperties();
+        useVirtualLayoutChanged = true;
+    }
+    
+    private function layout_useVirtualLayoutChangedHandler(event:Event):void
+    {
+        changeUseVirtualLayout();
+    }
+
     //----------------------------------
     //  itemRenderer
     //----------------------------------
@@ -548,10 +577,11 @@ public class DataGroup extends GroupBase
      */
     override protected function commitProperties():void
     { 
-        if (dataProviderChanged || itemRendererChanged)
+        if (dataProviderChanged || itemRendererChanged || useVirtualLayoutChanged)
         {
             dataProviderChanged = false;
             itemRendererChanged = false;
+            useVirtualLayoutChanged = false;
             initializeDataProvider();
             
             mx_internal::maskChanged = true;
@@ -708,8 +738,8 @@ public class DataGroup extends GroupBase
 
         for (var index:int = oldVirtualLayoutStartIndex; index <= oldVirtualLayoutEndIndex; index++)
         {
-            // Skip the inView renderers 
-            if (index >= virtualLayoutStartIndex && index <= virtualLayoutEndIndex)
+            // Skip the inView renderers.  If vitrualLayoutStartIndex is -1, there aren't any. 
+            if (virtualLayoutStartIndex != -1 && index >= virtualLayoutStartIndex && index <= virtualLayoutEndIndex)
             {
                 index = virtualLayoutEndIndex;
                 continue;
