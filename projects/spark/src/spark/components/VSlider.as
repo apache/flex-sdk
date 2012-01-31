@@ -19,7 +19,7 @@ import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxSlider;
 
 /**
- *  VSlider
+ *  The FxVSlider class defines a vertical slider component.
  */
 public class FxVSlider extends FxSlider
 {
@@ -46,8 +46,7 @@ public class FxVSlider extends FxSlider
     //--------------------------------------------------------------------------
 
     /**
-     *  The size of the track on an VSlider equals the height 
-     *  of the track.
+     *  The size of the track, which equals the height of the track.
      */
     override protected function get trackSize():Number
         {
@@ -62,7 +61,7 @@ public class FxVSlider extends FxSlider
     }
     
     /**
-     *  The size of the thumb is equal to the height of the thumb.
+     *  The size of the thumb button, which equals the height of the thumb button.
      */
     override protected function calculateThumbSize():Number
     {
@@ -78,9 +77,9 @@ public class FxVSlider extends FxSlider
     //--------------------------------------------------------------------------
 
     /**
-     *  Position the thumb button according to the given thumbPos
-     *  parameter, relative to the current y location of the track
-     *  in the VSlider control.
+     *  Position the thumb button based on the specified thumb position,
+     *  relative to the current Y location of the track
+     *  in the control.
      * 
      *  @param thumbPos A number representing the new position of
      *  the thumb button in the control.
@@ -111,14 +110,16 @@ public class FxVSlider extends FxSlider
     }
     
     /**
-     *  The position of the thumb on a VSlider is equal to the
-     *  track height subtracted by the y position of the thumb
-     *  (relative to the track) and the height of the thumb.
-     *  This is because we want the thumb to start at the 
-     *  bottom by default.
+     *  Return the position of the thumb button on a FxVSlider component.
+     *  This value is equal to the
+     *  track height subtracted by the Y position of the thumb button
+     *  relative to the track, and subtracted by the height of the thumb button.
      * 
-     *  @param localX The x position relative to the track
-     *  @param localY The y position relative to the track
+     *  @param localX The x position relative to the track.
+     * 
+     *  @param localY The y position relative to the track.
+     *
+     *  @return The position of the thumb button.
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -135,8 +136,7 @@ public class FxVSlider extends FxSlider
     }
     
     /**
-     *  We adjust the position to center the thumb when clicking
-     *  on the track.
+     *  @inheritDoc
      */
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
