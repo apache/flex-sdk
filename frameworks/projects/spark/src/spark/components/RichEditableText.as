@@ -33,7 +33,7 @@ import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
-import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.conversion.TextConverter;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.IEditManager;
@@ -261,14 +261,14 @@ public class RichEditableText extends UIComponent
     	staticTextContainerManagerConfiguration.manageEnterKey = false;
     	
         staticPlainTextImporter =
-            TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
+            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
         staticPlainTextImporter.throwOnError = true;
     
         staticPlainTextExporter =
-            TextFilter.getExporter(TextFilter.PLAIN_TEXT_FORMAT);
+            TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
             
         // Used for embedded fonts.        	
     	staticTextFormat = new TextFormat();
