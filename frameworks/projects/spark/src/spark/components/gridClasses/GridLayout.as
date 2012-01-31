@@ -115,9 +115,7 @@ public class GridLayout extends LayoutBase
         
         freeItemRenderers(visibleItemRenderers);
         
-        freeGridElements(visibleSelectionIndicators);
-        visibleRowSelectionIndices.length = 0;
-        visibleColumnSelectionIndices.length = 0;
+        clearSelectionIndicators();
         
         freeGridElement(hoverIndicator)
         hoverIndicator = null;
@@ -1035,14 +1033,17 @@ public class GridLayout extends LayoutBase
         
         for (var index:int = 0; index < newVisibleElementCount; index++) 
         {
-            var newEltIndex:int = (index < newVisibleIndices.length) ? newVisibleIndices[index] : index;
+            var newEltIndex:int = newVisibleIndices[index];
             if (newEltIndex == lastIndex)
+            {
+                newVisibleElements.length = index;
                 break;
+            }
             
             // If an element already exists for visibleIndex then use it, otherwise create one
             
             var eltOffset:int = oldVisibleIndices.indexOf(newEltIndex);
-            var elt:IVisualElement = (eltOffset != -1) ? oldVisibleElements[eltOffset] : null;
+            var elt:IVisualElement = (eltOffset != -1 && eltOffset < oldVisibleElements.length) ? oldVisibleElements[eltOffset] : null;
             if (elt == null)
                 elt = allocateGridElement(factory);
             
@@ -1246,10 +1247,7 @@ public class GridLayout extends LayoutBase
 
     private function layoutRowSeparator(separator:IVisualElement, rowIndex:int):void
     {
-        const r:Rectangle = visibleItemRenderersBounds;
-        const width:Number = r.width;  
         const height:Number = separator.getPreferredBoundsHeight();
-        const x:Number = r.x;
         const rowCount:int = gridDimensions.rowCount;
         const bounds:Rectangle = (rowIndex < rowCount) 
             ? gridDimensions.getRowBounds(rowIndex)
@@ -1258,6 +1256,8 @@ public class GridLayout extends LayoutBase
         if (!bounds)
             return;
         
+        const x:Number = bounds.x;
+        const width:Number = bounds.width;
         const y:Number = bounds.bottom; // TBD: should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1267,12 +1267,7 @@ public class GridLayout extends LayoutBase
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
-        const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
-        
-        if (!bounds)
-            return;
-        
-        const x:Number = bounds.right; // TBD: should center on gap here.
+        const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TBD: should center on gap here.
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1321,20 +1316,20 @@ public class GridLayout extends LayoutBase
     {
         const selectionIndicatorFactory:IFactory = grid.selectionIndicator;
         
+        if (!selectionIndicatorFactory)
+        {
+            clearSelectionIndicators();
+            return;
+        }
+        
         // layout and update visibleSelectionIndicators,Indices
                 
         if (isRowSelectionMode())
         {
             // Selection is row-based so if there are existing cell selections, 
             // free them since they can't be reused.
-            // TBD: this check won't work with column selections.
             if (visibleColumnSelectionIndices.length > 0)
-            {
-                freeGridElements(visibleSelectionIndicators);
-                visibleSelectionIndicators.length = 0;
-                visibleRowSelectionIndices.length = 0;
-                visibleColumnSelectionIndices.length = 0;
-            }
+                clearSelectionIndicators();
 
             var oldVisibleRowSelectionIndices:Vector.<int> = 
                 visibleRowSelectionIndices;
@@ -1364,13 +1359,10 @@ public class GridLayout extends LayoutBase
         
         // Selection is not row-based so if there are existing row selections, 
         // free them since they can't be reused.
-        // TBD: this check won't work with column selections.
         if (visibleRowSelectionIndices.length > 0 && 
             visibleColumnSelectionIndices.length == 0)
         {
-            freeGridElements(visibleSelectionIndicators);
-            visibleSelectionIndicators.length = 0;
-            visibleRowSelectionIndices.length = 0;
+            clearSelectionIndicators();
         }
         
         if (isCellSelectionMode())
@@ -1410,14 +1402,8 @@ public class GridLayout extends LayoutBase
         
         // If there are existing cell selections, 
         // free them since there is no selection.
-        // TBD: this check won't work with column selections.
         if (visibleColumnSelectionIndices.length > 0)
-        {
-            freeGridElements(visibleSelectionIndicators);
-            visibleSelectionIndicators.length = 0;
-            visibleRowSelectionIndices.length = 0;
-            visibleColumnSelectionIndices.length = 0;
-        }
+            clearSelectionIndicators();
     }
     
     private function layoutRowSelectionIndicator(indicator:IVisualElement, rowIndex:int):void
@@ -1432,6 +1418,13 @@ public class GridLayout extends LayoutBase
         layoutGridElementR(indicator, gridDimensions.getCellBounds(rowIndex, columnIndex));
     }    
 
+    private function clearSelectionIndicators():void
+    {
+        freeGridElements(visibleSelectionIndicators);
+        visibleRowSelectionIndices.length = 0;
+        visibleColumnSelectionIndices.length = 0;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Indicators: hover, caret
@@ -1448,6 +1441,13 @@ public class GridLayout extends LayoutBase
         rowIndex:int,
         columnIndex:int):IVisualElement
     {
+        if (!indicatorFactory)
+        {
+            freeGridElement(indicator);
+            indicator = null;
+            return indicator;
+        }
+        
         if (rowIndex == -1 || grid.selectionMode == GridSelectionMode.NONE)
         {
             if (indicator)
@@ -1466,7 +1466,7 @@ public class GridLayout extends LayoutBase
                 layoutGridElementR(indicator, bounds);
                 container.addElement(indicator);  // add or move to the top
                 indicator.visible = true;
-            }
+        }
         
         return indicator;
     }
