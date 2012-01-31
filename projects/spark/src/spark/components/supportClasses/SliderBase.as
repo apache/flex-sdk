@@ -722,11 +722,6 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         if (animator && animator.isPlaying)
             stopAnimation();
         
-        // FIXME (hmuller): Provide a way to easily override the keyboard
-        // behavior. This means having a callback in the subclasses
-        // that tell the superclass all the positions in an array
-        // but defaulting to the normal stepping behavior when no
-        // array is returned. Consider reversed HSliders or VSliders.
         var prevValue:Number = this.value;
         var newValue:Number;
         
