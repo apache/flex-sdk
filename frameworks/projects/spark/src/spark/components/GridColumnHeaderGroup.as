@@ -48,7 +48,8 @@ use namespace mx_internal;
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched after a GRID_MOUSE_DOWN event if the mouse moves before the button is released.
+ *  Dispatched after a <code>gridMouseDown</code> event 
+ *  if the mouse moves before the button is released.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_DRAG
  * 
@@ -60,7 +61,8 @@ use namespace mx_internal;
 [Event(name="gridMouseDrag", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched after a GRID_MOUSE_DOWN event when the mouse button is released, even
+ *  Dispatched after a <code>gridMouseDown</code> event 
+ *  when the mouse button is released, even
  *  if the mouse is no longer within the GridColumnHeaderGroup.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_UP
@@ -133,8 +135,8 @@ use namespace mx_internal;
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched after a SEPARATOR_MOUSE_DOWN event if the mouse moves before 
- *  the button is released.
+ *  Dispatched after a <code>separatorMouseDown</code> event 
+ *  if the mouse moves before the button is released.
  *
  *  @eventType spark.events.GridEvent.SEPARATOR_MOUSE_DRAG
  * 
@@ -146,8 +148,9 @@ use namespace mx_internal;
 [Event(name="separatorMouseDrag", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched after a SEPARATOR_MOUSE_DOWN event when the mouse button is 
- *  released, even if the mouse is no longer within the separator affordance.
+ *  Dispatched after a <code>separatorMouseDown</code> event 
+ *  when the mouse button is released, even if the mouse is 
+ *  no longer within the separator affordance.
  *
  *  @eventType spark.events.GridEvent.SEPARATOR_MOUSE_UP
  * 
@@ -219,7 +222,7 @@ use namespace mx_internal;
  * 
  *  <p>Separators are often just one pixel wide which makes interacting with them difficult.
  *  This value is used by <code>getSeparatorIndexAt()</code> to give separators a wider
- *  berth, so that separator events are dispatched when the mouse is closer than 
+ *  area, so that separator events are dispatched when the mouse is closer than 
  *  <code>separatorMouseWidth</code> to the horizontal midpoint of a separator.</p> 
  * 
  *  @default 5
@@ -286,11 +289,15 @@ use namespace mx_internal;
 [IconFile("GridColumnHeaderGroup.png")]
 
 /**
- *  Displays a row of column headers and separators aligned with the grid's layout.  
+ *  The GridColumnHeaderGroup class displays a row of column headers 
+ *  and separators aligned with the grid's layout.  
  * 
- *  <p>Headers are rendered with the headerRenderer and separators with the columnSeparator.
- *  The layout, which can not be changed, is virtual: renderers and separators that have been 
+ *  <p>Headers are rendered by the class specified by the <code>headerRenderer</code> property.
+ *  Separators are rendered by the class specified by the <code>columnSeparator</code> property.
+ *  The layout, which cannot be changed, is virtual; that means renderers and separators that have been 
  *  scrolled out of view are reused.</p>
+ *
+ *  @see Grid
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -353,7 +360,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     [Bindable("columnSeparatorChanged")]
     
     /**
-     *  A visual element that's displayed in between each column.
+     *  A visual element that's displayed between each column.
      * 
      *  @default null
      * 
@@ -389,8 +396,10 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     [Bindable("dataGridChanged")]
     
     /**
-     *  The DataGrid that defines the column layout and horizontal scroll position for this component.
-     *  This property is set by the DataGrid after its grid skin part has been added.
+     *  The DataGrid control that defines the column layout and 
+     *  horizontal scroll position for this component.
+     *  This property is set by the DataGrid control after 
+     *  its <code>grid</code> skin part has been added.
      * 
      *  @default null
      * 
@@ -448,8 +457,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  Specifies the column index of the header renderer currently
      *  being pressed down by the user.
      *  
-     *  <p>Setting downColumnIndex to -1 (the default) means that the column index
-     *  is undefined and the header renderer will have its down property set to false.</p>
+     *  <p>Setting <code>downColumnIndex</code> to -1 (the default) means 
+     *  that the column index is undefined, and the header renderer has 
+     *  its <code>down</code> property set to <code>false</code>.</p>
      * 
      *  @default -1
      * 
@@ -526,8 +536,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  Specifies the column index of the header renderer currently
      *  being hovered over by the user.
      *  
-     *  <p>Setting hoverColumnIndex to -1 (the default) means that the column index
-     *  is undefined and the header renderer will have its hovered property set to false.</p>
+     *  <p>Setting <code>hoverColumnIndex</code> to -1, the default, means that 
+     *  the column index is undefined, and the header renderer has its 
+     *  <code>hovered</code> property set to <code>false</code>.</p>
      * 
      *  @default -1
      * 
@@ -566,7 +577,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  A vector of column indices corresponding to the header renderers
      *  which currently have their sort indicators visible.
      * 
-     *  @default An empty Vector.<int>
+     *  @default An empty Vector.&lt;int&gt;
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -593,11 +604,16 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
-     *  Returns true if the sort indicator for the specified column
+     *  Returns <code>true</code> if the sort indicator for the specified column
      *  is visible.
-     *  
      *  This is just a more efficient version of:
-     *      visibleSortIndicatorIndices.indexOf(columnIndex) != -1
+     *  <pre>
+     *      visibleSortIndicatorIndices.indexOf(columnIndex) != -1</pre>
+     *
+     *  @param columnIndex The 0-based column index of the header renderer's column.
+     *
+     *  @return <code>true</code> if the sort indicator for the specified column
+     *  is visible.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -622,10 +638,12 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      * 
      *  <p>If all of the columns or rows for the grid have not yet been scrolled
      *  into view, the returned index may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  based on the <code>typicalItem</code> property of all columns.</p>
      *  
-     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
-     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
+     *  @param x The pixel's x coordinate relative to the <code>columnHeaderGroup</code>.
+     * 
+     *  @param y The pixel's y coordinate relative to the <code>columnHeaderGroup</code>.
+     * 
      *  @return the index of the column or -1 if the coordinates are out of bounds. 
      * 
      *  @langversion 3.0
@@ -647,18 +665,20 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  x coordinate is within <code>separatorMouseWidth</code> of separator's
      *  horizontal midpoint.</p>
      *  
-     *  <p>The separator index is the same as the index of the column on the left
-     *  (assuming that this component's layoutDirection is "ltr").  That means 
-     *  that all column headers are flanked by two separators, except for the first
+     *  <p>The separator index is the same as the index of the column on the left,
+     *  assuming that this component's <code>layoutDirection</code> is <code>"ltr"</code>.  
+     *  That means all column headers are flanked by two separators, except for the first
      *  visible column, which just has a separator on the right, and the last visible
      *  column, which just has a separator on the left.</p>
      * 
      *  <p>If all of the columns or rows for the grid have not yet been scrolled
      *  into view, the returned index may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  based on the <code>typicalItem</code> property of all columns.</p>
      *  
-     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
-     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
+     *  @param x The pixel's x coordinate relative to the <code>columnHeaderGroup</code>.
+     * 
+     *  @param y The pixel's y coordinate relative to the <code>columnHeaderGroup</code>.
+     * 
      *  @return the index of the column or -1 if the coordinates don't overlap a separator.
      * 
      *  @langversion 3.0
@@ -678,13 +698,14 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  may be recycled and its properties reset.  
      * 
      *  <p>If the requested header renderer is not visible then, 
-     *  each time this method is called, a new header renderer is created.  The
-     *  new item renderer is not visible</p>
+     *  each time this method is called, a new header renderer is created.  
+     *  The new item renderer is not visible</p>
      * 
      *  <p>The width of the returned renderer is the same as for item renderers
      *  returned by DataGrid/getItemRendererAt().</p>
      *  
-     *  @param columnIndex The 0-based column index of the header renderer's column
+     *  @param columnIndex The 0-based column index of the header renderer's column.
+     * 
      *  @return The item renderer or null if the column index is invalid.
      * 
      *  @langversion 3.0
@@ -701,7 +722,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  Returns the current pixel bounds of the specified header (renderer), or null if 
      *  no such column exists.  Header bounds are reported in GridColumnHeaderGroup coordinates.
      * 
-     *  <p>If all of the visible columns preceeding the specified column have not 
+     *  <p>If all of the visible columns preceding the specified column have not 
      *  yet been scrolled into view, the returned bounds may only be an approximation, 
      *  based on all of the Grid's <code>typicalItem</code>s.</p>
      * 
