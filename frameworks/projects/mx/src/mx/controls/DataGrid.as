@@ -29,7 +29,9 @@ import flash.utils.describeType;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.ItemResponder;
+import mx.collections.ISort;
 import mx.collections.Sort;
+import mx.collections.ISortField;
 import mx.collections.SortField;
 import mx.collections.errors.ItemPendingError;
 import mx.controls.dataGridClasses.DataGridBase;
@@ -3844,7 +3846,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             return;
 
         var view:ICollectionView = ICollectionView(dataProvider);
-        var sort:Sort = view.sort;
+        var sort:ISort = view.sort;
         if (!sort)
         {
             sortIndex = lastSortIndex = -1;
@@ -3867,7 +3869,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         }
 
         // fields.length == 1, so the collection is sorted on a single field.
-        var sortField:SortField = fields[0];
+        var sortField:ISortField = fields[0];
         var n:int = _columns.length;
         sortIndex = -1;
         for (var i:int = 0; i < n; i++)
@@ -3917,8 +3919,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // do the sort if we're allowed to
         if (c.sortable)
         {
-            var s:Sort = collection.sort;
-            var f:SortField;
+            var s:ISort = collection.sort;
+            var f:ISortField;
             if (s)
             {
                 s.compareFunction = null;
