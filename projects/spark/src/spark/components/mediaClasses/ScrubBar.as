@@ -193,11 +193,24 @@ public class ScrubBar extends HSlider
     /**
      *  @private
      */
-    override protected function completeTrackLayout():void
+    private function calculateAreaSize(value:Number):Number
     {
-        super.completeTrackLayout();
-        sizeBufferedArea(valueToPosition(bufferedEnd) + thumbSize);
-        sizePlayedArea(valueToPosition(value) + thumbSize);
+        var trackPos:Number = track.getLayoutBoundsX();
+        var trackSize:Number = track.getLayoutBoundsWidth();
+        var thumbSize:Number = thumb.getLayoutBoundsWidth();
+        var range:Number = maximum - minimum;
+        var thumbPos:Number = (range > 0) ? (pendingValue - minimum) * ((trackSize - thumbSize) / range) : 0;
+        return thumbSize + thumbPos;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateSkinDisplayList():void
+    {
+        super.updateSkinDisplayList();
+        sizeBufferedArea(calculateAreaSize(bufferedEnd));
+        sizePlayedArea(calculateAreaSize(value));
     }
     
     /**
