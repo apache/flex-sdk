@@ -1499,17 +1499,17 @@ public class GridLayout extends LayoutBase
         if  ((rowIndex < rowCount) && (bounds.width == 0)) // implies no columns
             bounds.width = visibleGridBounds.width;
         
-        // Call initializeRowBackground() if possible
-        
-        const gridRowBackground:IGridRowBackground = rowBackground as IGridRowBackground;
-        if (gridRowBackground)
-            gridRowBackground.initializeRowBackground(grid, rowIndex);
+        // Initialize this visual element
+        intializeGridVisualElement(rowBackground, rowIndex);
         
         layoutGridElementR(rowBackground, bounds);
     }
 
     private function layoutRowSeparator(separator:IVisualElement, rowIndex:int):void
     {
+        // Initialize this visual element
+        intializeGridVisualElement(separator, rowIndex);
+        
         const height:Number = separator.getPreferredBoundsHeight();
         const rowCount:int = gridDimensions.rowCount;
         const bounds:Rectangle = (rowIndex < rowCount) 
@@ -1527,6 +1527,9 @@ public class GridLayout extends LayoutBase
     
     private function layoutColumnSeparator(separator:IVisualElement, columnIndex:int):void
     {
+        // Initialize this visual element
+        intializeGridVisualElement(separator, -1, columnIndex);
+        
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
@@ -1648,6 +1651,8 @@ public class GridLayout extends LayoutBase
     
     private function layoutRowSelectionIndicator(indicator:IVisualElement, rowIndex:int):void
     {
+        // Initialize this visual element
+        intializeGridVisualElement(indicator, rowIndex);
         layoutGridElementR(indicator, gridDimensions.getRowBounds(rowIndex));
     }    
     
@@ -1655,6 +1660,8 @@ public class GridLayout extends LayoutBase
                                                   rowIndex:int,
                                                   columnIndex:int):void
     {
+        // Initialize this visual element
+        intializeGridVisualElement(indicator, rowIndex, columnIndex);
         layoutGridElementR(indicator, gridDimensions.getCellBounds(rowIndex, columnIndex));
     }    
 
@@ -1708,6 +1715,9 @@ public class GridLayout extends LayoutBase
             const bounds:Rectangle = isRowSelectionMode() ? 
                 gridDimensions.getRowBounds(rowIndex) :
                 gridDimensions.getCellBounds(rowIndex, columnIndex);
+            
+            // Initialize this visual element
+            intializeGridVisualElement(indicator, rowIndex, columnIndex);
             
             // TODO (klin): Remove this special case for the caret overlapping separators
             // when we implement column/row gaps.
@@ -1788,6 +1798,9 @@ public class GridLayout extends LayoutBase
         if (editorIndicator)
         {
             const bounds:Rectangle = gridDimensions.getCellBounds(rowIndex, columnIndex);
+            
+            // Initialize this visual element
+            intializeGridVisualElement(editorIndicator, rowIndex, columnIndex);
             
             layoutGridElementR(editorIndicator, bounds);
             layer.addElement(editorIndicator);
@@ -2211,6 +2224,20 @@ public class GridLayout extends LayoutBase
         
         elt.setLayoutBoundsSize(width, height);
         elt.setLayoutBoundsPosition(x, y);
+    }
+    
+    /**
+     *  @private
+     *  Calls <code>prepareGridVisualElement()</code> on the element if it is an
+     *  IGridVisualElement.
+     */
+    private function intializeGridVisualElement(elt:IVisualElement, rowIndex:int = -1, columnIndex:int = -1):void
+    {
+        const gridVisualElement:IGridVisualElement = elt as IGridVisualElement;
+        if (gridVisualElement)
+        {
+            gridVisualElement.prepareGridVisualElement(grid, rowIndex, columnIndex);
+        }
     }
     
     //--------------------------------------------------------------------------
