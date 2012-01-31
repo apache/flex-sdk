@@ -135,6 +135,8 @@ public class FadeInstance extends AnimateInstance
                 {
                     if (isNaN(alphaFrom))
                         alphaFrom = 0;
+                    if (alphaFrom == 0)
+                        target.alpha = 0;
                     alphaTo = toValue;
                     if ("visible" in target)
                         target.visible = true;
