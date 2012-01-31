@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 
 import flash.display.DisplayObjectContainer;
@@ -24,9 +24,9 @@ import flashx.tcal.formats.ICharacterFormat;
 import flashx.tcal.formats.IContainerFormat;
 import flashx.tcal.formats.IParagraphFormat;
 
-import flex.graphics.graphicsClasses.TextFlowComposer;
-import flex.graphics.graphicsClasses.TextGraphicElement;
-import flex.utils.TextUtil;
+import mx.graphics.graphicsClasses.TextFlowComposer;
+import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.utils.TextUtil;
 
 //--------------------------------------
 //  Styles
