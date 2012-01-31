@@ -135,6 +135,9 @@ public class Producer extends AbstractProducer
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     */ 
     override protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
     {
         if (subtopic.length > 0)
