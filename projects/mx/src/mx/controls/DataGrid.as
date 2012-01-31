@@ -78,7 +78,7 @@ import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
@@ -3886,7 +3886,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
         // we disappear on any mouse down outside the editor
-        systemManager.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.getSandboxRoot().
+            addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
         // we disappear if stage is resized
         systemManager.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
     }
@@ -3979,11 +3980,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (itemEditorInstance)
         {
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
-            if (stage)
-            {
-                stage.removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
-                stage.removeEventListener(Event.RESIZE, editorStageResizeHandler, true);
-            }
+            systemManager.getSandboxRoot().
+                removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
+            systemManager.removeEventListener(Event.RESIZE, editorStageResizeHandler, true);
 
             var event:DataGridEvent =
                 new DataGridEvent(DataGridEvent.ITEM_FOCUS_OUT);
