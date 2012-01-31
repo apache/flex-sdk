@@ -35,6 +35,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:ItemRenderer
  *    <strong>Properties</strong>
+ *    autoDrawBackground="true"
  *    selected="false"
  *    showsCaret="false"
  *  /&gt;
@@ -110,7 +111,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  Specifies whether the item renderer draws the 
      *  background of the data item during user interaction.
      *  Interactions include moving the mouse over the item, 
-     *  selecting the item, and moving the caret of the item .
+     *  selecting the item, and moving the caret of the item.
      * 
      *  <p>If <code>true</code>, the background for 
      *  the item renderer is automatically drawn, and it 
