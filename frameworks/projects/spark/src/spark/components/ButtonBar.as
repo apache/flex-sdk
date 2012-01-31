@@ -55,6 +55,28 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The ButtonBar control automatically adds or removes the necessary children based on 
  *  changes to the <code>dataProvider</code> property.</p>
  *
+ *  <p>You can use the ButtonBar control to set the active child of a ViewStack container, 
+ *  as the following example shows:</p>
+ *  
+ *  <pre>
+ *  &lt;s:ButtonBar dataProvider="{myViewStack}"/&gt; 
+ *  
+ *  &lt;mx:ViewStack id="myViewStack" 
+ *      borderStyle="solid"&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="search" label="Search"&gt; 
+ *          &lt;s:Label text="Search Screen"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="custInfo" label="Customer Info"&gt; 
+ *          &lt;s:Label text="Customer Info"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="accountInfo" label="Account Info"&gt; 
+ *          &lt;s:Label text="Account Info"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *      &lt;/mx:ViewStack&gt; </pre>
+ *  
  *  @mxml <p>The <code>&lt;s:ButtonBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
@@ -64,6 +86,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  /&gt;
  *  </pre>
  *
+ *  @see mx.containers.ViewStack
  *  @see spark.components.ButtonBarButton
  *  @see spark.skins.spark.ButtonBarSkin
  *
