@@ -14,10 +14,10 @@
 <project name="graphics" default="main" basedir=".">
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
-	
+
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of flex4.swc"/>
+	<target name="main" depends="clean,compile,doc" description="Clean build of flex4.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
@@ -75,7 +75,29 @@
 		</compc>
 		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
 	</target>
-	
+
+
+	<target name="doc" depends="clean-temp-docs" description="updates flex4.swc with asdoc xml">
+
+		<!-- Call asdoc to generate dita xml files -->
+		<exec executable="${FLEX_HOME}/bin/asdoc.exe" failonerror="true">
+			<arg line="-doc-classes Flex4Classes -doc-namespaces http://ns.adobe.com/mxml/2009 -namespace http://ns.adobe.com/mxml/2009 ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+		</exec>
+
+		<!-- updates flex4.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/flex4.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+
 </project>
 
 
