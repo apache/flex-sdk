@@ -11,6 +11,7 @@
 
 package spark.components.gridClasses
 {
+import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
@@ -28,12 +29,14 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ILayoutManagerContainerClient;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
+import spark.components.supportClasses.GroupBase;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -191,6 +194,30 @@ public class GridLayout extends LayoutBase
     //----------------------------------
     //  useVirtualLayout
     //----------------------------------
+    
+    //----------------------------------
+    //  target
+    //----------------------------------
+    
+    private var _target:GroupBase;
+    
+    /**
+     * @private
+     */
+    override public function set target(value:GroupBase):void
+    {
+        if (_target == value)
+            return;
+        
+        if (_target)
+            _target.removeEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler);
+        
+        _target = value;
+        super.target = value;
+        
+        if (_target)
+            _target.addEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler, false, 0, true);
+    }    
 
     /**
      *  GridLayout only supports virtual layout, the value of this property can not be changed.
@@ -212,7 +239,7 @@ public class GridLayout extends LayoutBase
      */
     override public function set useVirtualLayout(value:Boolean):void
     {
-    }   
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -363,6 +390,36 @@ public class GridLayout extends LayoutBase
         if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
             grid.invalidateDisplayList();
     }
+    
+    /**
+     *  @private
+     *  Runs when a renderer's measured size has changed, typically because an asynchronously
+     *  loaded image has completed loading.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    private function measuredSizeFinalHandler(event:FlexEvent):void
+    {
+        if (!grid || !grid.variableRowHeight)
+            return;
+        
+        var target:DisplayObject = event.target.parent as DisplayObject;
+        var renderer:IGridItemRenderer = null;
+        
+        while (target)
+        {
+            renderer = target as IGridItemRenderer;
+            if (renderer)
+                break;
+            target = target.parent as DisplayObject;
+        }
+        
+        if (renderer && renderer.grid)
+            renderer.grid.invalidateCell(renderer.rowIndex, renderer.columnIndex);
+    }    
     
     /**
 	 *  @private
@@ -532,7 +589,7 @@ public class GridLayout extends LayoutBase
 
     //--------------------------------------------------------------------------
     //
-    //  DataGrid Access
+    //  Grid Access
     //
     //--------------------------------------------------------------------------
     
