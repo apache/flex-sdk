@@ -140,7 +140,7 @@ public class ButtonSkin extends Border
 		var cornerRadius:Number = getStyle("cornerRadius");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");				
 		var themeColor:uint = getStyle("themeColor");
 
