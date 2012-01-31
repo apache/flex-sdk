@@ -69,6 +69,9 @@ public class Operation extends AbstractOperation
     {
         super(service, name);
 
+        // Set this to false even if the super constructor initialized concurrency to the default.
+        _concurrencySet = false;
+
         _multiService = service;
 
         _log = Log.getLogger("mx.rpc.http.HTTPMultiService");
@@ -83,6 +86,56 @@ public class Operation extends AbstractOperation
      *  @productversion Flex 3
      */
     private var _multiService:HTTPMultiService;
+
+
+    /**
+     * @private
+     */
+    private var _concurrency:String;
+    /**
+     * @private
+     */
+    private var _concurrencySet:Boolean;
+
+    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
+    /**
+     * Value that indicates how to handle multiple calls to the same service operation. The default
+     * value is <code>multiple</code>. The following values are permitted:
+     * <ul>
+     * <li><code>multiple</code> Existing requests are not cancelled, and the developer is
+     * responsible for ensuring the consistency of returned data by carefully
+     * managing the event stream. This is the default value.</li>
+     * <li><code>single</code> Only a single request at a time is allowed on the operation;
+     * multiple requests generate a fault.</li>
+     * <li><code>last</code> Making a request cancels any existing request.</li>
+     * </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function get concurrency():String
+    {
+        // This override is necessary because unlike the old-style HttpService HttpOperation setup
+        // each HttpMultiService can have many http.Operations and concurrency settings don't have
+        // to be the same for the service and all its operations. If concurrency is not set on this
+        // operation, the setting from HttpMultiService is used. This code cannot be in AbstractOperation
+        // because the old HttpService doesn't hold a value for concurrency (and doesn't need to). It
+        // simply gets/sets concurrency for its only operation.
+        if (_concurrencySet)
+        {
+            return _concurrency;
+        }
+        //else
+        return _multiService.concurrency;
+    }
+    override public function set concurrency(c:String):void
+    {
+        _concurrency = c;
+        _concurrencySet = true;
+    }
+
 
     /**
      * Keep track of whether or not this has been set explicitly on the
