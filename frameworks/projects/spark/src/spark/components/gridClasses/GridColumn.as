@@ -40,6 +40,37 @@ use namespace mx_internal;
  *  It also specifies the item renderer used to display that value, the item editor
  *  used to change the value, and other properties of the column.
  *
+ *  @mxml <p>The <code>&lt;s:GridColumn&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:GridColumn
+ *    <strong>Properties</strong>
+ *    dataField="null"
+ *    dataTipField="null"
+ *    dataTipFormatter="null"
+ *    dataTipFunction="null"
+ *    editable="true"
+ *    formatter="null"
+ *    headerRenderer="null"
+ *    headerText="<i>value of dataField<i>"
+ *    imeMode="null"
+ *    itemEditor="null"
+ *    itemRendererFunction="null"
+ *    labelFunction="null"
+ *    maxWidth="NaN"
+ *    minWidth="20"
+ *    rendererIsEditable="false"
+ *    resizeable="true"
+ *    showDataTips="undefined"
+ *    sortable="true"
+ *    sortCompareFunction="null"
+ *    sortDescending="false"
+ *    visible="true"
+ *    width="NaN"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @see spark.components.Grid
  *  @see spark.components.DataGrid
  * 
@@ -1375,7 +1406,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  <p>If the data provider is not an ICollectionView, then this property has no effect.</p>
      * 
-     *  @default false;
+     *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
