@@ -49,11 +49,6 @@ CheckBox
     skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 
-ColumnHeaderBar
-{
-    stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
-}
-
 ComboBox
 {
     dropShadowVisible: true;
@@ -67,6 +62,7 @@ ComboBox
 DataGrid
 {
     skinClass: ClassReference("spark.skins.spark.DataGridSkin");
+    stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");    
 }
 
 DropDownList
