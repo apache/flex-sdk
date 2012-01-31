@@ -19,9 +19,11 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.IFlexDisplayObject;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
+import mx.styles.ISimpleStyleClient;
 import mx.utils.MatrixUtil;
 
 import spark.core.RelativePosition;
@@ -83,10 +85,10 @@ public class PopUpAnchor extends UIComponent
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  autoSizePopUpHeight
+    //  popUpHeightMatchesAnchorHeight
     //----------------------------------
     
-    private var _autoSizePopUpHeight:Boolean = false;
+    private var _popUpHeightMatchesAnchorHeight:Boolean = false;
     
     /**
      *  If true, the popUp's height is set to the value of the PopUpAnchor's height.
@@ -98,12 +100,12 @@ public class PopUpAnchor extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function set autoSizePopUpHeight(value:Boolean):void
+    public function set popUpHeightMatchesAnchorHeight(value:Boolean):void
     {
-        if (_autoSizePopUpHeight == value)
+        if (_popUpHeightMatchesAnchorHeight == value)
             return;
             
-        _autoSizePopUpHeight = value;
+        _popUpHeightMatchesAnchorHeight = value;
         
         invalidateDisplayList();
     }
@@ -111,16 +113,16 @@ public class PopUpAnchor extends UIComponent
     /**
      *  @private
      */
-    public function get autoSizePopUpHeight():Boolean
+    public function get popUpHeightMatchesAnchorHeight():Boolean
     {
-        return _autoSizePopUpHeight;
+        return _popUpHeightMatchesAnchorHeight;
     }
     
     //----------------------------------
-    //  autoSizePopUpWidth
+    //  popUpWidthMatchesAnchorWidth
     //----------------------------------
     
-    private var _autoSizePopUpWidth:Boolean = false;
+    private var _popUpWidthMatchesAnchorWidth:Boolean = false;
     
     /**
      *  If true, the popUp's width is set to the value of the PopUpAnchor's width.
@@ -132,12 +134,12 @@ public class PopUpAnchor extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function set autoSizePopUpWidth(value:Boolean):void
+    public function set popUpWidthMatchesAnchorWidth(value:Boolean):void
     {
-        if (_autoSizePopUpWidth == value)
+        if (_popUpWidthMatchesAnchorWidth == value)
             return;
             
-        _autoSizePopUpWidth = value;
+        _popUpWidthMatchesAnchorWidth = value;
         
         invalidateDisplayList();
     }
@@ -145,9 +147,9 @@ public class PopUpAnchor extends UIComponent
     /**
      *  @private
      */
-    public function get autoSizePopUpWidth():Boolean
+    public function get popUpWidthMatchesAnchorWidth():Boolean
     {
-        return _autoSizePopUpWidth;
+        return _popUpWidthMatchesAnchorWidth;
     }
 
     //----------------------------------
@@ -206,12 +208,12 @@ public class PopUpAnchor extends UIComponent
     //  popUp
     //----------------------------------
     
-    private var _popUp:UIComponent;
+    private var _popUp:IFlexDisplayObject;
     
     [Bindable ("popUpChanged")]
     
     /**
-     *  UIComponent to add to the PopUpManager when the PopUpAnchor is opened. 
+     *  IFlexDisplayObject to add to the PopUpManager when the PopUpAnchor is opened. 
      *  If the popUp implements IFocusManagerContainer, the popUp will have its
      *  own FocusManager so that, if the user uses the Tab key to navigate between
      *  controls, only the controls in the popUp are accessed. 
@@ -221,15 +223,15 @@ public class PopUpAnchor extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function set popUp(value:UIComponent):void
+    public function set popUp(value:IFlexDisplayObject):void
     {
         if (_popUp == value)
             return;
             
         _popUp = value;
                 
-        if (_popUp)
-            _popUp.styleName = this;
+        if (_popUp is ISimpleStyleClient)
+            ISimpleStyleClient(_popUp).styleName = this;
             
         dispatchEvent(new Event("popUpChanged"));
     }
@@ -237,7 +239,7 @@ public class PopUpAnchor extends UIComponent
     /**
      *  @private
      */
-    public function get popUp():UIComponent 
+    public function get popUp():IFlexDisplayObject 
     { 
         return _popUp 
     }
@@ -324,14 +326,16 @@ public class PopUpAnchor extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function positionPopUp():Point
+    protected function calculatePopUpPosition():Point
     {
         // This implementation doesn't handle rotation
         var matrix:Matrix = $transform.concatenatedMatrix;
         var regPoint:Point = new Point();
         
         var popUpBounds:Rectangle = new Rectangle(); 
-        determinePosition(popUpPosition, popUp.width, popUp.height,
+        var popUpAsDisplayObject:DisplayObject = popUp as DisplayObject;
+        
+        determinePosition(popUpPosition, popUpAsDisplayObject.width, popUpAsDisplayObject.height,
                           matrix, regPoint, popUpBounds);
         
         var adjustedPosition:String;
@@ -366,7 +370,8 @@ public class PopUpAnchor extends UIComponent
         {
             var adjustedRegPoint:Point = new Point();
             var adjustedBounds:Rectangle = new Rectangle(); 
-            determinePosition(adjustedPosition, popUp.width, popUp.height,
+            determinePosition(adjustedPosition, popUpAsDisplayObject.width, 
+            				  popUpAsDisplayObject.height,
                               matrix, adjustedRegPoint, adjustedBounds);
          
             if (screen)
@@ -445,15 +450,19 @@ public class PopUpAnchor extends UIComponent
         if(popUp == null)
             return;
                         
-        if(popUp.parent == null && displayPopUp)
+        if(DisplayObject(popUp).parent == null && displayPopUp)
         {
             PopUpManager.addPopUp(popUp,this,false);
             popUpIsDisplayed = true;
-            popUpWidth = popUp.explicitWidth;
-            popUpHeight = popUp.explicitHeight;
+            if (popUp is UIComponent)
+            {
+            	popUpWidth = UIComponent(popUp).explicitWidth;
+            	popUpHeight = UIComponent(popUp).explicitHeight;
+			}	
+           
             applyPopUpTransform(width, height);
         }
-        else if (popUp.parent != null && displayPopUp == false)
+        else if (DisplayObject(popUp).parent != null && displayPopUp == false)
         {
             removeAndResetPopUp();
         }
@@ -466,8 +475,12 @@ public class PopUpAnchor extends UIComponent
     {
         PopUpManager.removePopUp(popUp);
         popUpIsDisplayed = false;
-        popUp.explicitWidth = popUpWidth;
-        popUp.explicitHeight = popUpHeight;
+        
+        if (popUp is UIComponent)
+        {
+        	UIComponent(popUp).explicitWidth = popUpWidth;
+        	UIComponent(popUp).explicitHeight = popUpHeight;
+        }
         
         /*if (popUpFactory)
         {
@@ -509,15 +522,17 @@ public class PopUpAnchor extends UIComponent
                 // already 0,0
                 break;
         }
+        
+        var popUpAsDisplayObject:DisplayObject = popUp as DisplayObject;
                 
         var globalTL:Point = matrix.transformPoint(registrationPoint);
-        registrationPoint.y += popUp.height;
+        registrationPoint.y += popUpAsDisplayObject.height;
         var globalBL:Point = matrix.transformPoint(registrationPoint);
-        registrationPoint.x += popUp.width;
+        registrationPoint.x += popUpAsDisplayObject.width;
         var globalBR:Point = matrix.transformPoint(registrationPoint);
-        registrationPoint.y -= popUp.height;
+        registrationPoint.y -= popUpAsDisplayObject.height;
         var globalTR:Point = matrix.transformPoint(registrationPoint);
-        registrationPoint.x -= popUp.width;
+        registrationPoint.x -= popUpAsDisplayObject.width;
         
         bounds.left = Math.min(globalTL.x, globalBL.x, globalBR.x, globalTR.x);
         bounds.right = Math.max(globalTL.x, globalBL.x, globalBR.x, globalTR.x);
@@ -537,12 +552,21 @@ public class PopUpAnchor extends UIComponent
         
         // Set the dimensions explicitly because UIComponents always set themselves to their
         // measured / explicit dimensions if they are parented by the SystemManager. 
-        if (autoSizePopUpWidth)
-            popUp.width = unscaledWidth;
-        if (autoSizePopUpHeight)
-            popUp.height = unscaledHeight;
+        if (popUp is UIComponent)
+        {
+	        if (popUpWidthMatchesAnchorWidth)
+	            UIComponent(popUp).width = unscaledWidth;
+	        if (popUpHeightMatchesAnchorHeight)
+	            UIComponent(popUp).height = unscaledHeight;
+        }
+        else
+        {
+        	var w:Number = popUpWidthMatchesAnchorWidth ? unscaledWidth : popUp.measuredWidth;
+        	var h:Number = popUpHeightMatchesAnchorHeight ? unscaledHeight : popUp.measuredHeight;
+        	popUp.setActualSize(w, h);
+        }
         
-        var popUpPoint:Point = positionPopUp();
+        var popUpPoint:Point = calculatePopUpPosition();
         
         // the transformation doesn't take the fullScreenRect in to account
         // if we are in fulLScreen mode
@@ -555,10 +579,13 @@ public class PopUpAnchor extends UIComponent
         // Position the popUp. 
         m.tx = popUpPoint.x;
         m.ty = popUpPoint.y;
-        popUp.setLayoutMatrix(m,false);
+        if (popUp is UIComponent)
+        	UIComponent(popUp).setLayoutMatrix(m,false);
+        else if (popUp is DisplayObject)
+        	DisplayObject(popUp).transform.matrix = m;
         
         // apply the color transformation
-        popUp.transform.colorTransform = $transform.concatenatedColorTransform
+        DisplayObject(popUp).transform.colorTransform = $transform.concatenatedColorTransform
     }
     
     //--------------------------------------------------------------------------
@@ -581,7 +608,7 @@ public class PopUpAnchor extends UIComponent
      */ 
     private function removedFromStageHandler(event:Event):void
     {
-        if (popUp.parent != null)
+        if (DisplayObject(popUp).parent != null)
             removeAndResetPopUp();
         
         addedToStage = false;
