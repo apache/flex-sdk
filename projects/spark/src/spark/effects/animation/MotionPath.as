@@ -208,12 +208,12 @@ public class MotionPath
         for (var i:int; i < n; ++i)
         {
             var kf:Keyframe = keyframes[i];
-            // FIXME (chaase): Must be some way to allow callers
+            // TODO (chaase): Must be some way to allow callers
             // to supply timeFraction, but currently we clobber it
             // with this operation. But if we choose to clobber it
             // only if it's not set already, then it only works the
             // first time through, since an Effect will retain its
-            // MotionPaty, which retains its Keyframes, etc.
+            // MotionPath, which retains its Keyframes, etc.
             kf.timeFraction = kf.time / duration;
         }
     }
