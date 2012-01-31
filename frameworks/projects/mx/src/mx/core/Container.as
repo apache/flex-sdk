@@ -2212,11 +2212,6 @@ public class Container extends UIComponent
         if ((child is UIComponent) && UIComponent(child).isDocument)
             BindingManager.setEnabled(child, true);
 
-        // Execute bindings to initialize new children and to refresh
-        // existing children.
-        if (child is IDeferredInstantiationUIComponent)
-            IDeferredInstantiationUIComponent(child).executeBindings(true);
-
         return child;
     }
 
@@ -3677,6 +3672,8 @@ public class Container extends UIComponent
             // This needs to run before child.executeBindings(), because
             // executeBindings() depends on the parent being set.
             addChild(DisplayObject(child));
+
+            child.executeBindings();
 
             if (creationPolicy == ContainerCreationPolicy.QUEUED ||
                 creationPolicy == ContainerCreationPolicy.NONE)
