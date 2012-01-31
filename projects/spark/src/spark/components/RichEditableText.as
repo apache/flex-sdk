@@ -485,13 +485,10 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  If true, the content of the textFlow has changed in some way.  In most
-     *  cases this is the same as damaged.  The one exception is if setText 
-     *  is used to initialize the TextContainerManager.  It does not dispatch
-     *  a damage event (although it probably should).
+     *  cases this is the same as damaged.
      * 
      *  At the end of composition, the change event should be dispatched if it
      *  wasn't already dispatched one or more times for editing operations.
-     *
      */    
     private var textFlowChanged:Boolean = false;
             
@@ -1358,7 +1355,7 @@ public class RichEditableText extends UIComponent
      */
     private var textChanged:Boolean = false;
 
-    //[Bindable("change")]
+    [Bindable("change")]
 
     /**
      *  The text String displayed by this TextView.
