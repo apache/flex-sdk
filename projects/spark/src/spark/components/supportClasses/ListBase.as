@@ -159,6 +159,9 @@ public class Selector extends ItemsComponent
     [Bindable("selectionChanged")]
     public function get selectedItem():*
     {
+    	if (selectedIndex == NO_SELECTION)
+    	   return undefined;
+    	   
         return getItemAt(selectedIndex);
     }
     
