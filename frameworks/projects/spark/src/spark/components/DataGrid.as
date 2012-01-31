@@ -702,15 +702,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         itemRenderer: uint(1 << 2),
         requestedRowCount: uint(1 << 3),
         requestedColumnCount: uint(1 << 4),
-        requestedMinRowCount: uint(1 << 5),
-        requestedMinColumnCount: uint(1 << 6),
-        rowHeight: uint(1 << 7),
-        showDataTips: uint(1 << 8),
-        typicalItem: uint(1 << 9),
-        variableRowHeight: uint(1 << 10),
-        dataTipField: uint(1 << 11),
-        dataTipFunction: uint(1 << 12),
-        resizableColumns: uint(1 << 13)
+        requestedMaxRowCount: uint(1 << 5),
+        requestedMinRowCount: uint(1 << 6),
+        requestedMinColumnCount: uint(1 << 7),
+        rowHeight: uint(1 << 8),
+        showDataTips: uint(1 << 9),
+        typicalItem: uint(1 << 10),
+        variableRowHeight: uint(1 << 11),
+        dataTipField: uint(1 << 12),
+        dataTipFunction: uint(1 << 13),
+        resizableColumns: uint(1 << 14)
     };
     
     /**
@@ -736,9 +737,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         dataProvider: null,
         itemRenderer: null,
         resizableColumns: true,
-        requestedRowCount: int(10),
-        requestedColumnCount: int(-1),
+        requestedRowCount: int(-1),
+        requestedMaxRowCount: int(10),        
         requestedMinRowCount: int(-1),
+        requestedColumnCount: int(-1),
         requestedMinColumnCount: int(-1),
         rowHeight: NaN,
         showDataTips: false,
@@ -1413,6 +1415,31 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         setGridProperty("requestedColumnCount", value);
     }
+    
+    //----------------------------------
+    //  requestedMaxRowCount (delegates to grid.requestedMaxRowCount)
+    //----------------------------------
+    
+    /**
+     *  @copy spark.components.Grid#requestedMaxRowCount
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get requestedMaxRowCount():int
+    {
+        return getGridProperty("requestedMaxRowCount");
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set requestedMaxRowCount(value:int):void
+    {
+        setGridProperty("requestedMaxRowCount", value);
+    }    
     
     //----------------------------------
     //  requestedMinRowCount (delegates to grid.requestedMinRowCount)
