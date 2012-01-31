@@ -3459,6 +3459,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // fields.length == 1, so the collection is sorted on a single field.
         var sortField:SortField = fields[0];
         var n:int = _columns.length;
+        sortIndex = -1;
         for (var i:int = 0; i < n; i++)
         {
             if (_columns[i].dataField == sortField.name)
