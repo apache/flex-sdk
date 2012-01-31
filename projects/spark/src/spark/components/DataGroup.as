@@ -113,7 +113,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;DataGroup
+ *  &lt;s:DataGroup
  *    <strong>Properties</strong>
  *    dataProvider="null"
  *    itemRenderer="null"
