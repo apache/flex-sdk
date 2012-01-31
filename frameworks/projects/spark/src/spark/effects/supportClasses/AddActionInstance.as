@@ -9,17 +9,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
-import mx.components.Group;
+import spark.components.Group;
 
 import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
-import mx.effects.AddAction;
+import spark.effects.AddAction;
 import mx.core.IVisualElementContainer;
 
 /**
