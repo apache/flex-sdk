@@ -408,7 +408,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         
         if (renderer)
         {
-            renderer.addEventListener("click", item_clickHandler);
+            renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
             if (renderer is IFocusManagerComponent)
                 IFocusManagerComponent(renderer).focusEnabled = false;
             if (renderer is IItemRenderer)
@@ -426,7 +426,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         var renderer:IVisualElement = event.renderer;
         
         if (renderer)
-            renderer.removeEventListener("click", item_clickHandler);
+            renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
     }
     
     /**
