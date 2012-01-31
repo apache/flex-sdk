@@ -84,7 +84,7 @@ public class VSlider extends Slider
      */
     override protected function calculateThumbSize():Number
     {
-        return thumb.getLayoutBoundsHeight();
+        return thumb ? thumb.getLayoutBoundsHeight() : 0;
     }
 
     //--------------------------------------------------------------------------
