@@ -1965,6 +1965,9 @@ package spark.components
          *  it will be a TextFlow containing a single ParagraphElement
          *  with a single SpanElement.</p>
          *
+         *  <p>If you set the <code>text</code> to null, it will be
+         *  set to the default value which is an empty string.</p>
+         * 
          *  <p>If the text contains explicit line breaks --
          *  CR ("\r"), LF ("\n"), or CR+LF ("\r\n") --
          *  then the content will be set to a TextFlow
