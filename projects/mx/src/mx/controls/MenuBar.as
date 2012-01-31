@@ -1847,6 +1847,13 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             menu.addEventListener(MenuEvent.MENU_HIDE, menuHideHandler, false, EventPriority.DEFAULT_HANDLER);
         }
         
+        // pop it up if we haven't already.  this allows us to validate the menu and get correct sizes
+        if (menu.parentDisplayObject && (!menu.parent || !menu.parent.contains(menu.parentDisplayObject)))
+        {
+            PopUpManager.addPopUp(menu, this, false);
+            menu.addEventListener(MenuEvent.MENU_HIDE, menuHideHandler, false, EventPriority.DEFAULT_HANDLER);
+        }
+        
         UIComponentGlobals.layoutManager.validateClient(menu, true);
         
         // popups go on the root of the swf which if loaded, is not
