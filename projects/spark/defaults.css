@@ -156,10 +156,12 @@ global
 {
     /* Looks */
     /* color: #000000; */
+    backgroundImageResizeMode : "scale";
     baseColor: #CCCCCC;
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #FFFFFF;
+    dropShadowVisible : false;
     rollOverColor: #CEDBEF;
     focusColor: #70B2EE;
     symbolColor: #000000;
