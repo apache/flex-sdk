@@ -4,8 +4,13 @@ package spark.components.supportClasses
 [ExcludeClass]
     
 /**
- *  A GridRowNode contains the heights of each cell
- *  for the row at rowIndex.
+ *  A GridRowNode contains the heights of each cell for the row at rowIndex
+ *  as well as the maximum height of the row's cells.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 public final class GridRowNode
 {
@@ -35,13 +40,16 @@ public final class GridRowNode
     private var _numColumns:uint;
     
     /**
-     *  Number of columns
+     *  Number of columns in this row.
      */
     public function get numColumns():uint
     {
         return _numColumns;
     }
     
+    /**
+     *  @private
+     */
     public function set numColumns(value:uint):void
     {
         if (value == _numColumns)
