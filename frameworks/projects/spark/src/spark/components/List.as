@@ -14,11 +14,10 @@ package mx.components
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
 
+import mx.components.baseClasses.FxListBase;
+import mx.core.ClassFactory;
 import mx.events.ItemExistenceChangedEvent;
 import mx.skins.spark.FxDefaultItemRenderer;
-
-import mx.core.ClassFactory;
-import mx.components.baseClasses.FxListBase;
 
 /**
  *  The List class.
@@ -27,6 +26,9 @@ public class FxList extends FxListBase
 {
     include "../core/Version.as";
 
+    // Force a dependency on scroller to work around bug SDK-17222
+    private static var scrollerDep:FxScroller;
+    
     //--------------------------------------------------------------------------
     //
     //  Constants
