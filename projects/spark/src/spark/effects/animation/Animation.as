@@ -478,7 +478,12 @@ public final class Animation
      *  An animation 'cycle' is defined as a single repetition of the animation,
      *  where the <code>repeatCount</code> property defines the number of
      *  cycles that will be played.
-     *  Use the seek() method to change the position of the animation.
+     *  Use the <code>seek()</code> method to change the position of the animation.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get cycleTime():Number
     {
@@ -497,6 +502,11 @@ public final class Animation
      *  An animation 'cycle' is defined as a single repetition of the animation,
      *  where the <code>repeatCount</code> property defines the number of
      *  cycles that will be played.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get cycleFraction():Number
     {
