@@ -537,9 +537,10 @@ public class DropDownListBase extends List
             if (dropDownController)
                 dropDownController.openButton = openButton;
         }
-        
-        if (instance == dropDown && dropDownController)
+        else if (instance == dropDown && dropDownController)
+		{
             dropDownController.dropDown = dropDown;
+		}
     }
     
     /**
@@ -555,7 +556,7 @@ public class DropDownListBase extends List
             if (instance == dropDown)
                 dropDownController.dropDown = null;
         }
-        
+
         super.partRemoved(partName, instance);
     }
     
