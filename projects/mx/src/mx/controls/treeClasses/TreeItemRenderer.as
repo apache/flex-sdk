@@ -99,29 +99,29 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 public class TreeItemRenderer extends UIComponent
-	   implements IDataRenderer, IDropInListItemRenderer, IListItemRenderer,
-	   		      IFontContextComponent
+       implements IDataRenderer, IDropInListItemRenderer, IListItemRenderer,
+                     IFontContextComponent
 {
     include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function TreeItemRenderer()
-	{
-		super();
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function TreeItemRenderer()
+    {
+        super();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -129,10 +129,10 @@ public class TreeItemRenderer extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var listOwner:Tree;
+    /**
+     *  @private
+     */
+    private var listOwner:Tree;
 
     //--------------------------------------------------------------------------
     //
@@ -151,13 +151,13 @@ public class TreeItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			super.baselinePosition;
-			
-		if (!validateBaselinePosition())
-			return NaN;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+            super.baselinePosition;
+            
+        if (!validateBaselinePosition())
+            return NaN;
 
-		return label.y + label.baselinePosition;
+        return label.y + label.baselinePosition;
     }
 
     //--------------------------------------------------------------------------
@@ -167,60 +167,60 @@ public class TreeItemRenderer extends UIComponent
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  data
+    //  data
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the data property.
-	 */
-	private var _data:Object;
+    /**
+     *  @private
+     *  Storage for the data property.
+     */
+    private var _data:Object;
 
-	[Bindable("dataChange")]
+    [Bindable("dataChange")]
 
-	/**
-	 *  The implementation of the <code>data</code> property as 
-	 *  defined by the IDataRenderer interface.
-	 *
-	 *  @see mx.core.IDataRenderer
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get data():Object
-	{
-		return _data;
-	}
+    /**
+     *  The implementation of the <code>data</code> property as 
+     *  defined by the IDataRenderer interface.
+     *
+     *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get data():Object
+    {
+        return _data;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set data(value:Object):void
-	{
-		_data = value;
-		
-		invalidateProperties();
+    /**
+     *  @private
+     */
+    public function set data(value:Object):void
+    {
+        _data = value;
+        
+        invalidateProperties();
 
-		dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-	}
-	
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+    
     //----------------------------------
-	//  disclosureIcon
+    //  disclosureIcon
     //----------------------------------
 
-	/**
-	 *  The internal IFlexDisplayObject that displays the disclosure icon
-	 *  in this renderer.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	protected var disclosureIcon:IFlexDisplayObject;
-	
+    /**
+     *  The internal IFlexDisplayObject that displays the disclosure icon
+     *  in this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected var disclosureIcon:IFlexDisplayObject;
+    
     //----------------------------------
     //  fontContext
     //----------------------------------
@@ -242,70 +242,70 @@ public class TreeItemRenderer extends UIComponent
     }
     
     //----------------------------------
-	//  icon
+    //  icon
     //----------------------------------
 
-	/**
-	 *  The internal IFlexDisplayObject that displays the icon in this renderer.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	protected var icon:IFlexDisplayObject;
-	
+    /**
+     *  The internal IFlexDisplayObject that displays the icon in this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected var icon:IFlexDisplayObject;
+    
     //----------------------------------
-	//  label
-    //----------------------------------
-
-	/**
-	 *  The internal UITextField that displays the text in this renderer.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	protected var label:IUITextField;
-	
-    //----------------------------------
-	//  listData
+    //  label
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the listData property.
-	 */
-	private var _listData:TreeListData;
+    /**
+     *  The internal UITextField that displays the text in this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected var label:IUITextField;
+    
+    //----------------------------------
+    //  listData
+    //----------------------------------
 
-	[Bindable("dataChange")]
+    /**
+     *  @private
+     *  Storage for the listData property.
+     */
+    private var _listData:TreeListData;
 
-	/**
-	 *  The implementation of the <code>listData</code> property as 
-	 *  defined by the IDropInListItemRenderer interface.
-	 *
-	 *  @see mx.controls.listClasses.IDropInListItemRenderer
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get listData():BaseListData
-	{
-		return _listData;
-	}
+    [Bindable("dataChange")]
 
-	/**
-	 *  @private
-	 */
-	public function set listData(value:BaseListData):void
-	{
-		_listData = TreeListData(value);
-		
-		invalidateProperties();
-	}
+    /**
+     *  The implementation of the <code>listData</code> property as 
+     *  defined by the IDropInListItemRenderer interface.
+     *
+     *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get listData():BaseListData
+    {
+        return _listData;
+    }
+
+    /**
+     *  @private
+     */
+    public function set listData(value:BaseListData):void
+    {
+        _listData = TreeListData(value);
+        
+        invalidateProperties();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -313,233 +313,237 @@ public class TreeItemRenderer extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function createChildren():void
-	{
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
         super.createChildren();
 
-		createLabel(-1);
+        createLabel(-1);
 
-		addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
-	}
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function commitProperties():void
-	{
-		super.commitProperties();
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
 
-	    // if the font changed and we already created the label, we will need to 
+        // if the font changed and we already created the label, we will need to 
         // destory it so it can be re-created, possibly in a different swf context.
-		if (hasFontContextChanged() && label != null)
+        if (hasFontContextChanged() && label != null)
         {
-      		var index:int = getChildIndex(DisplayObject(label));
+              var index:int = getChildIndex(DisplayObject(label));
             removeLabel();
- 			createLabel(index);
+             createLabel(index);
         }
 
-		if (icon)
-		{
-			removeChild(DisplayObject(icon));
-			icon = null;
-		}
+        if (icon)
+        {
+            removeChild(DisplayObject(icon));
+            icon = null;
+        }
 
-		if (disclosureIcon)
-		{
-			disclosureIcon.removeEventListener(MouseEvent.MOUSE_DOWN, 
-			      							   disclosureMouseDownHandler);
-			removeChild(DisplayObject(disclosureIcon));
-			disclosureIcon = null;
-		}
+        if (disclosureIcon)
+        {
+            disclosureIcon.removeEventListener(MouseEvent.MOUSE_DOWN, 
+                                                 disclosureIcon_mouseDownHandler);
+            disclosureIcon.removeEventListener(MouseEvent.CLICK, 
+                disclosureIcon_clickHandler);
+            removeChild(DisplayObject(disclosureIcon));
+            disclosureIcon = null;
+        }
 
-		if (_data != null)
-		{
-			listOwner = Tree(_listData.owner);
+        if (_data != null)
+        {
+            listOwner = Tree(_listData.owner);
 
-			if (_listData.disclosureIcon)
-			{
-				var disclosureIconClass:Class = _listData.disclosureIcon;
-				var disclosureInstance:* = new disclosureIconClass();
-				
-				// If not already an interactive object, then we'll wrap 
-				// in one so we can dispatch mouse events.
-				if (!(disclosureInstance is InteractiveObject))
-				{
-					var wrapper:SpriteAsset = new SpriteAsset();
-					wrapper.addChild(disclosureInstance as DisplayObject);
-					disclosureIcon = wrapper as IFlexDisplayObject;
-				}
-				else
-				{
-					disclosureIcon = disclosureInstance;
-				}
+            if (_listData.disclosureIcon)
+            {
+                var disclosureIconClass:Class = _listData.disclosureIcon;
+                var disclosureInstance:* = new disclosureIconClass();
+                
+                // If not already an interactive object, then we'll wrap 
+                // in one so we can dispatch mouse events.
+                if (!(disclosureInstance is InteractiveObject))
+                {
+                    var wrapper:SpriteAsset = new SpriteAsset();
+                    wrapper.addChild(disclosureInstance as DisplayObject);
+                    disclosureIcon = wrapper as IFlexDisplayObject;
+                }
+                else
+                {
+                    disclosureIcon = disclosureInstance;
+                }
 
-				addChild(disclosureIcon as DisplayObject);
-				disclosureIcon.addEventListener(MouseEvent.MOUSE_DOWN,
-												disclosureMouseDownHandler);
-			}
-			
-			if (_listData.icon)
-			{
-				var iconClass:Class = _listData.icon;
-				icon = new iconClass();
+                addChild(disclosureIcon as DisplayObject);
+                disclosureIcon.addEventListener(MouseEvent.MOUSE_DOWN,
+                        disclosureIcon_mouseDownHandler);
+                disclosureIcon.addEventListener(MouseEvent.CLICK,
+                    disclosureIcon_clickHandler);
+            }
+            
+            if (_listData.icon)
+            {
+                var iconClass:Class = _listData.icon;
+                icon = new iconClass();
 
-				addChild(DisplayObject(icon));
-			}
-			
-			label.text = _listData.label;
-			label.multiline = listOwner.variableRowHeight;
-			label.wordWrap = listOwner.wordWrap;
-		}
-		else
-		{
-			label.text = " ";
-			toolTip = null;
-		}
+                addChild(DisplayObject(icon));
+            }
+            
+            label.text = _listData.label;
+            label.multiline = listOwner.variableRowHeight;
+            label.wordWrap = listOwner.wordWrap;
+        }
+        else
+        {
+            label.text = " ";
+            toolTip = null;
+        }
 
-		invalidateDisplayList();
-	}
+        invalidateDisplayList();
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function measure():void
-	{
-		super.measure();
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();
 
-		var w:Number = _data ? _listData.indent : 0;
+        var w:Number = _data ? _listData.indent : 0;
 
-		if (disclosureIcon)
-			w += disclosureIcon.width;
+        if (disclosureIcon)
+            w += disclosureIcon.width;
 
-		if (icon)
-			w += icon.measuredWidth;
+        if (icon)
+            w += icon.measuredWidth;
 
-		// guarantee that label width isn't zero because it messes up ability to measure
-		if (label.width < 4 || label.height < 4)
-		{
-			label.width = 4;
-			label.height = 16;
-		}
+        // guarantee that label width isn't zero because it messes up ability to measure
+        if (label.width < 4 || label.height < 4)
+        {
+            label.width = 4;
+            label.height = 16;
+        }
 
-		if (isNaN(explicitWidth))
-		{
-			w += label.getExplicitOrMeasuredWidth();	
-			measuredWidth = w;
-			measuredHeight = label.getExplicitOrMeasuredHeight();
-		}
-		else
-		{
-			label.width = Math.max(explicitWidth - w, 4);
-			measuredHeight = label.getExplicitOrMeasuredHeight();
-			if (icon && icon.measuredHeight > measuredHeight)
-				measuredHeight = icon.measuredHeight;
-		}
-	}
+        if (isNaN(explicitWidth))
+        {
+            w += label.getExplicitOrMeasuredWidth();    
+            measuredWidth = w;
+            measuredHeight = label.getExplicitOrMeasuredHeight();
+        }
+        else
+        {
+            label.width = Math.max(explicitWidth - w, 4);
+            measuredHeight = label.getExplicitOrMeasuredHeight();
+            if (icon && icon.measuredHeight > measuredHeight)
+                measuredHeight = icon.measuredHeight;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		var startx:Number = _data ? _listData.indent : 0;
-		
-		if (disclosureIcon)
-		{
-			disclosureIcon.x = startx;
+        var startx:Number = _data ? _listData.indent : 0;
+        
+        if (disclosureIcon)
+        {
+            disclosureIcon.x = startx;
 
-			startx = disclosureIcon.x + disclosureIcon.width;
-			
-			disclosureIcon.setActualSize(disclosureIcon.width,
-										 disclosureIcon.height);
-			
-			disclosureIcon.visible = _data ?
-									 _listData.hasChildren :
-									 false;
-		}
-		
-		if (icon)
-		{
-			icon.x = startx;
-			startx = icon.x + icon.measuredWidth;
-			icon.setActualSize(icon.measuredWidth, icon.measuredHeight);
-		}
-		
-		label.x = startx;
-		label.setActualSize(unscaledWidth - startx, measuredHeight);
+            startx = disclosureIcon.x + disclosureIcon.width;
+            
+            disclosureIcon.setActualSize(disclosureIcon.width,
+                                         disclosureIcon.height);
+            
+            disclosureIcon.visible = _data ?
+                                     _listData.hasChildren :
+                                     false;
+        }
+        
+        if (icon)
+        {
+            icon.x = startx;
+            startx = icon.x + icon.measuredWidth;
+            icon.setActualSize(icon.measuredWidth, icon.measuredHeight);
+        }
+        
+        label.x = startx;
+        label.setActualSize(unscaledWidth - startx, measuredHeight);
 
-		var verticalAlign:String = getStyle("verticalAlign");
-		if (verticalAlign == "top")
-		{
-			label.y = 0;
-			if (icon)
-				icon.y = 0;
-			if (disclosureIcon)
-				disclosureIcon.y = 0;
-		}
-		else if (verticalAlign == "bottom")
-		{
-			label.y = unscaledHeight - label.height + 2; // 2 for gutter
-			if (icon)
-				icon.y = unscaledHeight - icon.height;
-			if (disclosureIcon)
-				disclosureIcon.y = unscaledHeight - disclosureIcon.height;
-		}
-		else
-		{
-			label.y = (unscaledHeight - label.height) / 2;
-			if (icon)
-				icon.y = (unscaledHeight - icon.height) / 2;
-			if (disclosureIcon)
-				disclosureIcon.y = (unscaledHeight - disclosureIcon.height) / 2;
-		}
+        var verticalAlign:String = getStyle("verticalAlign");
+        if (verticalAlign == "top")
+        {
+            label.y = 0;
+            if (icon)
+                icon.y = 0;
+            if (disclosureIcon)
+                disclosureIcon.y = 0;
+        }
+        else if (verticalAlign == "bottom")
+        {
+            label.y = unscaledHeight - label.height + 2; // 2 for gutter
+            if (icon)
+                icon.y = unscaledHeight - icon.height;
+            if (disclosureIcon)
+                disclosureIcon.y = unscaledHeight - disclosureIcon.height;
+        }
+        else
+        {
+            label.y = (unscaledHeight - label.height) / 2;
+            if (icon)
+                icon.y = (unscaledHeight - icon.height) / 2;
+            if (disclosureIcon)
+                disclosureIcon.y = (unscaledHeight - disclosureIcon.height) / 2;
+        }
 
-		var labelColor:Number;
+        var labelColor:Number;
 
-		if (data && parent)
-		{
-			if (!enabled)
-				labelColor = getStyle("disabledColor");
+        if (data && parent)
+        {
+            if (!enabled)
+                labelColor = getStyle("disabledColor");
 
-			else if (listOwner.isItemHighlighted(listData.uid))
-        		labelColor = getStyle("textRollOverColor");
+            else if (listOwner.isItemHighlighted(listData.uid))
+                labelColor = getStyle("textRollOverColor");
 
-			else if (listOwner.isItemSelected(listData.uid))
-        		labelColor = getStyle("textSelectedColor");
+            else if (listOwner.isItemSelected(listData.uid))
+                labelColor = getStyle("textSelectedColor");
 
-			else
-        		labelColor = getStyle("color");
+            else
+                labelColor = getStyle("color");
 
-       		label.setColor(labelColor);
-		}
-		
-		if (_data != null)
-		{			
-			if (listOwner.showDataTips)
-			{
-				if (label.textWidth > label.width ||
-					listOwner.dataTipFunction != null)
-				{
-					toolTip = listOwner.itemToDataTip(_data);
-				}
-				else
-				{
-					toolTip = null;
-				}
-			}
-			else
-			{
-				toolTip = null;
-			}
-		}
-	}
-	
+               label.setColor(labelColor);
+        }
+        
+        if (_data != null)
+        {            
+            if (listOwner.showDataTips)
+            {
+                if (label.textWidth > label.width ||
+                    listOwner.dataTipFunction != null)
+                {
+                    toolTip = listOwner.itemToDataTip(_data);
+                }
+                else
+                {
+                    toolTip = null;
+                }
+            }
+            else
+            {
+                toolTip = null;
+            }
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -551,15 +555,15 @@ public class TreeItemRenderer extends UIComponent
      *  Creates the label and adds it as a child of this component.
      * 
      *  @param childIndex The index of where to add the child.
-	 *  If -1, the text field is appended to the end of the list.
+     *  If -1, the text field is appended to the end of the list.
      */
     mx_internal function createLabel(childIndex:int):void
     {
         if (!label)
         {
-			label = IUITextField(createInFontContext(UITextField));
-			label.styleName = this;
-			
+            label = IUITextField(createInFontContext(UITextField));
+            label.styleName = this;
+            
             if (childIndex == -1)
                 addChild(DisplayObject(label));
             else 
@@ -575,79 +579,90 @@ public class TreeItemRenderer extends UIComponent
     {
         if (label != null)
         {
-        	removeChild(DisplayObject(label));
-        	label = null;
+            removeChild(DisplayObject(label));
+            label = null;
         }
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function toolTipShowHandler(event:ToolTipEvent):void
-	{
-		var toolTip:IToolTip = event.toolTip;
+    /**
+     *  @private
+     */
+    private function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
 
-		// Calculate global position of label.
+        // Calculate global position of label.
         var sm:ISystemManager = systemManager.topLevelSystemManager;
         var sbRoot:DisplayObject = sm.getSandboxRoot();
         var screen:Rectangle = sm.getVisibleApplicationRect();
-		var pt:Point = new Point(0, 0);
-		pt = label.localToGlobal(pt);
-		pt = sbRoot.globalToLocal(pt);			
-		
-		toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
+        var pt:Point = new Point(0, 0);
+        pt = label.localToGlobal(pt);
+        pt = sbRoot.globalToLocal(pt);            
+        
+        toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
 
-		var screenRight:Number = screen.x + screen.width;
+        var screenRight:Number = screen.x + screen.width;
         pt.x = toolTip.x;
         pt.y = toolTip.y;
         pt = sbRoot.localToGlobal(pt);
         if (pt.x + toolTip.width > screenRight)
             toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
-	}
+    }
 
-	/**
-	 *  @private
-	 */
-	private function disclosureMouseDownHandler(event:Event):void
-	{
-		event.stopPropagation();
-		
-		if (listOwner.isOpening || !listOwner.enabled)
-			return;
+    /**
+     *  @private
+     */
+    private function disclosureIcon_mouseDownHandler(event:Event):void
+    {
+        event.stopPropagation();
+        
+        if (listOwner.isOpening || !listOwner.enabled)
+            return;
 
-		var open:Boolean = _listData.open;
-		_listData.open = !open;
-		
-		listOwner.dispatchTreeEvent(TreeEvent.ITEM_OPENING,
-		                        _listData.item, //item
-                                this,  	//renderer
-                                event, 	//trigger
-                                !open, 	//opening
-    							true,  	//animate
-    							true)   //dispatch
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function getLabel():IUITextField
-	{
-		return label;
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function getDisclosureIcon():IFlexDisplayObject
-	{
-		return disclosureIcon;
-	}
+        var open:Boolean = _listData.open;
+        _listData.open = !open;
+        
+        listOwner.dispatchTreeEvent(TreeEvent.ITEM_OPENING,
+                                _listData.item, //item
+                                this,      //renderer
+                                event,     //trigger
+                                !open,     //opening
+                                true,      //animate
+                                true)   //dispatch
+    }
+    
+    /**
+     *  @private
+     */
+    private function disclosureIcon_clickHandler(event:Event):void
+    {
+        // stop this event from bubbling up because the click is 
+        // for item selection and clicking on the disclosureIcon doesn't
+        // select the items (only expands/closes them).
+        event.stopPropagation();
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function getLabel():IUITextField
+    {
+        return label;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function getDisclosureIcon():IFlexDisplayObject
+    {
+        return disclosureIcon;
+    }
 
 }
 
