@@ -45,6 +45,11 @@ use namespace mx_internal;
  *  styles for the Alert buttons. 
  * 
  *  @default "alertButtonStyle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonStyleName", type="String", inherit="no")]
 
@@ -58,6 +63,11 @@ use namespace mx_internal;
  *  size itself incorrectly.</p>
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="messageStyleName", type="String", inherit="no")]
 
@@ -71,6 +81,11 @@ use namespace mx_internal;
  *  size itself incorrectly.</p>
  * 
  *  @default "windowStyles" 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleStyleName", type="String", inherit="no")]
 
@@ -100,6 +115,11 @@ use namespace mx_internal;
  *
  *  @see mx.managers.SystemManager
  *  @see mx.managers.PopUpManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Alert extends Panel
 {
@@ -117,6 +137,11 @@ public class Alert extends Panel
      *  You can use the | operator to combine this bitflag
      *  with the <code>OK</code>, <code>CANCEL</code>,
      *  <code>NO</code>, and <code>NONMODAL</code> flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const YES:uint = 0x0001;
     
@@ -126,6 +151,11 @@ public class Alert extends Panel
      *  You can use the | operator to combine this bitflag
      *  with the <code>OK</code>, <code>CANCEL</code>,
      *  <code>YES</code>, and <code>NONMODAL</code> flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NO:uint = 0x0002;
     
@@ -135,6 +165,11 @@ public class Alert extends Panel
      *  You can use the | operator to combine this bitflag
      *  with the <code>CANCEL</code>, <code>YES</code>,
      *  <code>NO</code>, and <code>NONMODAL</code> flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const OK:uint = 0x0004;
     
@@ -144,6 +179,11 @@ public class Alert extends Panel
      *  You can use the | operator to combine this bitflag
      *  with the <code>OK</code>, <code>YES</code>,
      *  <code>NO</code>, and <code>NONMODAL</code> flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CANCEL:uint= 0x0008;
 
@@ -153,6 +193,11 @@ public class Alert extends Panel
      *  You can use the | operator to combine this bitflag
      *  with the <code>OK</code>, <code>CANCEL</code>,
      *  <code>YES</code>, and <code>NO</code> flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NONMODAL:uint = 0x8000;
 
@@ -220,6 +265,11 @@ public class Alert extends Panel
      *  All buttons must be the same height.
      *
      *  @default 22
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var buttonHeight:Number = 22;
     
@@ -234,6 +284,11 @@ public class Alert extends Panel
      *  All buttons must be the same width.
      *
      *  @default 60
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var buttonWidth:Number = FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ? 60 : 65;
     
@@ -261,6 +316,11 @@ public class Alert extends Panel
      *  <code>buttonWidth</code> property to fully display it.</p>
      *
      *  The English resource bundle sets this property to "CANCEL". 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static function get cancelLabel():String
 	{
@@ -306,6 +366,11 @@ public class Alert extends Panel
      *  <code>buttonWidth</code> property to fully display it.</p>
      *
      *  The English resource bundle sets this property to "NO". 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static function get noLabel():String
 	{
@@ -351,6 +416,11 @@ public class Alert extends Panel
      *  <code>buttonWidth</code> property to fully display the label.</p>
      *
      *  The English resource bundle sets this property to "OK". 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static function get okLabel():String
 	{
@@ -396,6 +466,11 @@ public class Alert extends Panel
      *  <code>buttonWidth</code> property to fully display the label.</p>
      *
      *  The English resource bundle sets this property to "YES". 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static function get yesLabel():String
 	{
@@ -468,6 +543,11 @@ public class Alert extends Panel
      *  @return A reference to the Alert control. 
      *
      *  @see mx.events.CloseEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function show(text:String = "", title:String = "",
                                 flags:uint = 0x4 /* Alert.OK */, 
@@ -591,6 +671,11 @@ public class Alert extends Panel
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Alert()
     {
@@ -633,6 +718,11 @@ public class Alert extends Panel
 	 *  the buttons available in the Alert control.
      *
      *  @default Alert.OK
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var buttonFlags:uint = OK;
     
@@ -648,6 +738,11 @@ public class Alert extends Panel
      *  or <code>Alert.NO</code> to specify the default button.
      *
      *  @default Alert.OK
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var defaultButtonFlag:uint = OK;
     
@@ -664,6 +759,11 @@ public class Alert extends Panel
      *  to specify the value of this property.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var iconClass:Class;
     
@@ -677,6 +777,11 @@ public class Alert extends Panel
      *  The text to display in this alert dialog box.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var text:String = "";
     
