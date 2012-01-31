@@ -81,6 +81,22 @@ public class Operation extends AbstractOperation
         _makeObjectsBindableSet = true;
     }
 
+    private var _methodSet:Boolean = false;
+    private var _method:String;
+
+    override public function get method():String
+    {
+        if (_methodSet)
+            return _method;
+
+        return _multiService.method;
+    }
+    override public function set method(m:String):void
+    {
+        _method = m;
+        _methodSet = m != null;
+    }
+
     override mx_internal function setService(s:AbstractService):void
     {
         super.setService(s);
@@ -96,7 +112,16 @@ public class Operation extends AbstractOperation
     override public function get rootURL():String
     {
         if (_rootURL == null)
-            return _multiService.rootURL;
+        {
+            if (_multiService.baseURL != null)
+            {
+                if (_multiService.baseURL.charAt(_multiService.baseURL.length - 1) != '/')
+                    return _multiService.baseURL + "/";
+                return _multiService.baseURL;
+            }
+            else
+                return super.rootURL; // defaults to SWF's URL
+        }
         return _rootURL;
     }
 
