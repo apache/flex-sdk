@@ -25,6 +25,14 @@ import spark.layouts.supportClasses.LayoutBase;
  *  Do not modify the <code>layout</code> property. 
  *  Instead, use the properties of the VGroup class to modify the 
  *  characteristics of the VerticalLayout class.
+ *
+ *  <p>The VGroup container has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
  * 
  *  @mxml
  *
