@@ -112,26 +112,26 @@ use namespace mx_internal;
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
  *
- *  @eventType mx.events.FlexEvent.CHANGING
+ *  @eventType spark.events.TextOperationEvent.CHANGING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="mx.events.TextOperationEvent")]
+[Event(name="changing", type="spark.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
  *
- *  @eventType mx.events.FlexEvent.CHANGE
+ *  @eventType spark.events.TextOperationEvent.CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="change", type="mx.events.TextOperationEvent")]
+[Event(name="change", type="spark.events.TextOperationEvent")]
 
 /**
  *  Dispatched when the user pressed the Enter key.
@@ -166,7 +166,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo")]
+[Style(name="backgroundAlpha", type="Number", inherit="no")]
 
 /**
  *  The color of the background of the entire
@@ -367,8 +367,7 @@ public class RichEditableText extends UIComponent
         // as the DisplayObjectContainer for its TextLines.
         // This TextContainerManager instance persists for the lifetime
         // of the component.
-        _textContainerManager = new RichEditableTextContainerManager(
-                                this, staticTextContainerManagerConfiguration);
+        _textContainerManager = createTextContainerManager();
 
         // Add event listeners on this component.
 
@@ -1073,7 +1072,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var _textContainerManager:TextContainerManager; /*** public? ***/
+    private var _textContainerManager:TextContainerManager;
             
     /**
      *  @private
@@ -1982,6 +1981,15 @@ public class RichEditableText extends UIComponent
     //
     //--------------------------------------------------------------------------
     
+	/**
+	 *  @private
+	 */
+	mx_internal function createTextContainerManager():TextContainerManager
+	{
+		return new RichEditableTextContainerManager(
+			this, staticTextContainerManagerConfiguration);
+	}
+
 	/**
 	 *  @private
 	 *  Uses the component's CSS styles to determine the module factory
