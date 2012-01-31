@@ -49,6 +49,40 @@ include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  The main color for a component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  Color of the content area of the component.
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Style name for horizontal scrollbar.  This allows more control over
  *  the appearance of the scrollbar.
  *
@@ -60,6 +94,19 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="horizontalScrollBarStyleName", type="String", inherit="no")]
+
+/**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a ScrollBar button.
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Style name for vertical scrollbar.  This allows more control over
