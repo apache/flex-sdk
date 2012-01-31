@@ -175,6 +175,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
             return;
         _explicitHeight = value;
         invalidateParentSizeAndDisplayList();
+        super.height = _layoutHeight;
     }
     
     //----------------------------------
@@ -562,6 +563,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
             return;
         _explicitWidth = value;
         invalidateParentSizeAndDisplayList();
+        super.width = _layoutWidth;
     }
     
     //----------------------------------
@@ -884,6 +886,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
         _layoutWidth = width;
         _layoutHeight = height;
+        super.width = _layoutWidth;
+        super.height = _layoutHeight;
     }
 
     /**
