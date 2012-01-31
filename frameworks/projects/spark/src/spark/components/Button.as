@@ -9,41 +9,41 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.events.Event;
-import mx.components.baseClasses.ButtonBase;
+import spark.components.supportClasses.ButtonBase;
 import mx.core.IButton;
  
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
 
-[IconFile("FxButton.png")]
+[IconFile("Button.png")]
 
 /**
- *  The FxButton component is a commonly used rectangular button.
- *  The FxButton component looks like it can be pressed.
+ *  The Button component is a commonly used rectangular button.
+ *  The Button component looks like it can be pressed.
  *  It can have a text label, an icon, or both on its face.
  *
  *  <p>Buttons typically use event listeners to perform an action 
  *  when the user selects the control. When a user clicks the mouse 
- *  on a FxButton control, and the FxButton control is enabled, 
+ *  on a Button control, and the Button control is enabled, 
  *  it dispatches a <code>click</code> event and a <code>buttonDown</code> event. 
  *  A button always dispatches events such as the <code>mouseMove</code>, 
  *  <code>mouseOver</code>, <code>mouseOut</code>, <code>rollOver</code>, 
  *  <code>rollOut</code>, <code>mouseDown</code>, and 
  *  <code>mouseUp</code> events whether enabled or disabled.</p>
  *
- *  @includeExample examples/FxButtonExample.mxml
+ *  @includeExample examples/ButtonExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxButton extends ButtonBase implements IButton
+public class Button extends ButtonBase implements IButton
 {
     include "../core/Version.as";
 
@@ -61,7 +61,7 @@ public class FxButton extends ButtonBase implements IButton
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function FxButton()
+    public function Button()
     {
         super();
     }   
