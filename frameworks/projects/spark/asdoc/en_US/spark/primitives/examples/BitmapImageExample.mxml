@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BitmapGraphicExample.mxml -->
-<Application xmlns="http://ns.adobe.com/mxml/2009">
-     <Panel title="Bitmap Graphic Example"
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+     <s:Panel title="Bitmap Graphic Example"
         height="75%" width="75%" layout="horizontal"
         paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
           <Canvas top="0" bottom="0" left="0" right="0">
                <!-- Single image, not resized, not repeated. -->
-               <Graphic x="0" y="0">             
+               <s:Graphic x="0" y="0">             
                     <BitmapGraphic id="bg1" source="@Embed('assets/AirIcon12x12.gif')"/>
-               </Graphic>
+               </s:Graphic>
                <!-- Single image, scaled to fit specified dimensions. -->
-               <Graphic x="150" y="0">
+               <s:Graphic x="150" y="0">
                     <BitmapGraphic id="bg2" source="@Embed('assets/AirIcon12x12.gif')" width="60" height="60" resizeMode="scale"/>
-               </Graphic>
+               </s:Graphic>
                <!-- Repeated image to fit specified dimensions. -->
-               <Graphic x="300" y="0">
+               <s:Graphic x="300" y="0">
                     <BitmapGraphic id="bg3" source="@Embed('assets/AirIcon12x12.gif')" width="120" height="120" repeat="true"/>
-               </Graphic>
+               </s:Graphic>
           </Canvas>
-     </Panel>
-</Application>
+     </s:Panel>
+</s:Application>
