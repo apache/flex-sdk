@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.effects
+package spark.effects.animation
 {
 import spark.effects.interpolation.ArrayInterpolator;
     
@@ -63,7 +63,8 @@ public class SimpleMotionPath extends MotionPath
     {
         super();
         this.property = property;
-        keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(duration, valueTo, valueBy)];
+        keyframes = new <Keyframe>[new Keyframe(0, valueFrom), 
+            new Keyframe(duration, valueTo, valueBy)];
         if (valueFrom is Array && valueTo is Array)
         {
             if (!numberArrayInterpolator)
