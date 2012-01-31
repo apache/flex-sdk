@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Animate
+ *  &lt;s:Animate
  *    <b>Properties</b>
  *    id="ID"
  *    disableLayout="false"
