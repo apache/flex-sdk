@@ -90,6 +90,11 @@ FormItem
     skinClass : ClassReference("spark.skins.spark.FormItemSkin");
 }
 
+GridColumnHeaderGroup
+{
+    separatorAffordance: 5;
+}
+
 HScrollBar
 {
     skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
