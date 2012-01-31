@@ -150,7 +150,16 @@ public class Rotate extends AnimateTransform
     //----------------------------------
     [Inspectable(category="General")]
     /** 
-     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     *  Specifies whether the parent container of the effect target 
+     *  updates its layout based on changes to the effect target
+     *  while the effect plays.
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var affectLayout:Boolean = true;
    
