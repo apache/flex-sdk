@@ -21,10 +21,11 @@ import flash.ui.Keyboard;
 import flash.utils.Timer;
 
 import mx.core.IVisualElement;
+import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.events.GestureCaptureEvent;
+import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.StringUtil;
 
@@ -113,7 +114,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark")]
 
 /**
- *  When there is a touchDelay, and the user gesture is complete (user mouseUp) before 
+ *  When there is a touchDelay, and the touch interaction is complete (user mouseUp) before 
  *  the touchDelay is over, then the component goes in to the down state for a period 
  *  of time to ensure the user gets visual feedback on this operation.  This period of 
  *  time after mouseUp that the component is in the down state is the 
@@ -891,12 +892,12 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (isDown())
             return "down";
         
-        // if inputMode == "touch", then we have no over state
-        // if inputMode == "mouse", then only go in to the over state if 
+        // if interactionMode == InteractionMode.TOUCH, then we have no over state
+        // if interactionMode == InteractionMode.MOUSE, then only go in to the over state if 
         // we are currently hovered or if someone pressed down on us 
         // and then rolled away (and stickyHighlighting is off--otherwise 
         // isDown() would have returned true)
-        if (getStyle("inputMode") == "mouse" && (hovered || mouseCaptured))
+        if (getStyle("interactionMode") == InteractionMode.MOUSE && (hovered || mouseCaptured))
             return "over";
         
         return "up";
@@ -918,7 +919,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
-        addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_START, gestureCaptureStartHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, touchInteractionStartHandler);
     }
     
     /**
@@ -1166,7 +1167,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    private function gestureCaptureStartHandler(event:GestureCaptureEvent):void
+    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
         // if we have a timer going on, let's stop it to make sure we don't
         // select the button later
@@ -1234,7 +1235,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 
                 // if we're in touchMode, let's delay our selection until later
                 // otherwise, when touch scrolling, the button might flicker
-                if (getStyle("inputMode") == "touch")
+                if (getStyle("interactionMode") == InteractionMode.TOUCH)
                 {
                     startSelectButtonAfterDelayTimer();
                 }
