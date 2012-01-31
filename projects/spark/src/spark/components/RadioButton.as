@@ -441,8 +441,8 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     /**
      *  @private
      *  automaticRadioButtonGroups is shared with halo radio button groups.
-     *  Gumbo radio button groups are prefixed with _fx to differentiate the
-     *  halo groups which are stored in the same table.
+     *  Spark radio button groups are prefixed with _fx to differentiate the
+     *  Halo groups which are stored in the same table.
      */
     private function get autoGroupIndex():String
     {
