@@ -115,7 +115,7 @@ public class FxButtonBar extends FxListBase
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.mx_internal::getRendererForItemAt(index);
+        var renderer:Object = dataGroup.getRendererForItemAt(index);
         
         if (renderer)
         {
@@ -246,7 +246,7 @@ public class FxButtonBar extends FxListBase
 		var zz:int = 0;
 		for (var i:int = 0; i < n; i++)
 		{
-			renderer = dataGroup.mx_internal::getRendererForItemAt(i);
+			renderer = dataGroup.getRendererForItemAt(i);
 			if (renderer == currentButton)
 				renderer.layer = n - 1;
 			else
@@ -274,7 +274,7 @@ public class FxButtonBar extends FxListBase
 		                  currentButton as IVisualElement);
 				if (index > 0)
 				{
-					renderer = dataGroup.mx_internal::getRendererForItemAt(index-1);
+					renderer = dataGroup.getRendererForItemAt(index-1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
@@ -289,7 +289,7 @@ public class FxButtonBar extends FxListBase
 		                  currentButton as IVisualElement);
 				if (index < dataProvider.length - 1)
 				{
-					renderer = dataGroup.mx_internal::getRendererForItemAt(index+1);
+					renderer = dataGroup.getRendererForItemAt(index+1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
