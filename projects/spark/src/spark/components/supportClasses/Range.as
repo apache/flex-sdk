@@ -23,9 +23,9 @@ import mx.events.FlexEvent;
  *  and <code>maximum</code> are always constrained
  *  to be in the proper numerical order such that
  *  (minimum &lt;= value &lt;= maximum) is <code>true</code>. 
- *  If <code>valueInterval</code> is not 0, 
+ *  If <code>snapInterval</code> is not 0, 
  *  then <code>value</code> is also constrained to be a multiple of 
- *  <code>valueInterval</code>.
+ *  <code>snapInterval</code>.
  * 
  *  <p>Range is a base class for various controls that require range
  *  functionality, including TrackBase and Spinner.</p>
@@ -76,13 +76,14 @@ public class Range extends SkinnableComponent
     private var maxChanged:Boolean = false;
     
     /**
-     *  Number which represents the maximum value possible for 
-     *  <code>value</code>. If the values for either 
-     *  <code>minimum</code> or <code>value</code> are greater
-     *  than <code>maximum</code>, they will be changed to 
-     *  reflect the new <code>maximum</code>
+     *  The maximum valid <code>value</code>.
+     * 
+     *  <p>Changes to the value property are constrained
+     *  by commitProperties() to be less than or equal to
+     *  maximum with the nearestValidValue() method.</p> 
      *
      *  @default 100
+     *  @see #nearestValidValue
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -114,13 +115,14 @@ public class Range extends SkinnableComponent
     private var minChanged:Boolean = false;
     
     /**
-     *  Number which represents the minimum value possible for 
-     *  <code>value</code>. If the values for either 
-     *  <code>maximum</code> or <code>value</code> are less
-     *  than <code>minimum</code>, they will be changed to 
-     *  reflect the new <code>minimum</code>
+     *  The minimum valid <code>value</code>.
+     * 
+     *  <p>Changes to the value property are constrained
+     *  by commitProperties() to be greater than or equal to
+     *  minimum with the nearestValidValue() method.</p> 
      *
      *  @default 0
+     *  @see #nearestValidValue
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -153,12 +155,12 @@ public class Range extends SkinnableComponent
 
     /**
      *  The amount that the <code>value</code> property 
-     *  changes when <code>step()</code> method is called. It must
-     *  be a multiple of <code>valueInterval</code> unless 
-     *  <code>valueInterval</code> is 0. 
+     *  changes when the <code>changeValueByStep()</code> method is called. It must
+     *  be a multiple of <code>snapInterval</code> unless 
+     *  <code>snapInterval</code> is 0. 
      *  If <code>stepSize</code>
      *  is not a multiple, it is rounded to the nearest 
-     *  multiple &gt;= <code>valueInterval</code>.
+     *  multiple &gt;= <code>snapInterval</code>.
      *
      *  @default 1
      *  
@@ -194,14 +196,17 @@ public class Range extends SkinnableComponent
     [Bindable(event="valueCommit")]
 
     /**
-     *  Number which represents the current value for this range. 
-     *  <code>value</code> will always be constrained to lie 
-     *  within the current <code>minimum</code> and 
-     *  <code>maximum</code> values. It also must be a multiple
-     *  of <code>valueInterval</code>.
+     *  The current value for this range.
+     *  
+     *  <p>Changes to the value property are constrained
+     *  by commitProperties() to be greater than or equal to
+     *  minimum, less than or equal to the maximum, and a
+     *  multiple of snapInterval with the nearestValidValue() 
+     *  method.</p> 
      * 
      *  @default 0
      *  @see #setValue
+     *  @see #nearestValidValue
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -232,44 +237,42 @@ public class Range extends SkinnableComponent
     }
     
     //---------------------------------
-    // valueInterval
+    // snapInterval
     //---------------------------------   
      
-    private var _valueInterval:Number = 1;
+    private var _snapInterval:Number = 1;
 
-    private var valueIntervalChanged:Boolean = false;
+    private var snapIntervalChanged:Boolean = false;
 
     /**
-     *  If greater than 0, <code>valueInterval</code> constrains
-     *  <code>value</code> to multiples of <code>valueInterval</code>. 
-     *  If it is 0, then 
-     *  <code>value</code> can be any number between <code>minimum</code> and 
-     *  <code>maximum</code>. 
-     *  You can always set <code>value</code> to 
-     *  <code>minimum</code> or <code>maximum</code>.
-     *  Changing <code>valueInterval</code> also may change 
-     *  <code>stepSize</code> to be a multiple of 
-     *  <code>valueInterval</code> and &gt;= <code>valueInterval</code>.
-     * 
-     *  @default 1
+     *  If non-zero, valid values must be an integer multiple of this property,
+     *  or equal to the minimum or the maximum.
      *  
+     *  <p>If the value of this property is zero, then valid values are only constrained
+     *  to be between minimum and maximum inclusive.</p>
+     * 
+     *  <p>This property also constrains valid values for the stepSize property.</p>
+     *  
+     *  @default 1
+     *  @see #nearestValidValue
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get valueInterval():Number
+    public function get snapInterval():Number
     {
-        return _valueInterval;
+        return _snapInterval;
     }
 
-    public function set valueInterval(value:Number):void
+    public function set snapInterval(value:Number):void
     {
-        if (value == _valueInterval)
+        if (value == _snapInterval)
             return;
         
-        _valueInterval = value;
-        valueIntervalChanged = true;
+        _snapInterval = value;
+        snapIntervalChanged = true;
         
         stepSizeChanged = true;
         
@@ -298,64 +301,72 @@ public class Range extends SkinnableComponent
                 _maximum = _minimum;
         }
 
-        if (valueChanged || maxChanged || minChanged || valueIntervalChanged)
+        if (valueChanged || maxChanged || minChanged || snapIntervalChanged)
         {
             var currentValue:Number = (valueChanged) ? _changedValue : _value;
             valueChanged = false;
             maxChanged = false;
             minChanged = false;
-            valueIntervalChanged = false;
-            setValue(nearestValidValue(currentValue, valueInterval));
+            snapIntervalChanged = false;
+            setValue(nearestValidValue(currentValue, snapInterval));
         }
         
         if (stepSizeChanged)
         {
-            if (valueInterval != 0)
-                _stepSize = nearestValidInterval(_stepSize, valueInterval);
-            
+            _stepSize = nearestValidSize(_stepSize);
             stepSizeChanged = false;
         }
     }
 
     /**
-     *  Round a value 
-     *  to the closets multiple of the specified interval.
-     *
-     *  @param value The value to round.
-     *
-     *  @param interval The interval.
-     *
-     *  @return The multiple of <code>interval</code> closest to <code>value</code>. 
-     *  The minimum returned Number is <code>interval</code>.
-     *  
+     *  @private
+     *  Returns the integer multiple of snapInterval that's closest to size.
+     * 
+     *  <p>If snapInterval is 0, which means that values are only constrained
+     *  by the minimum and maximum properties, then size is returned unchanged.</p>
+     * 
+     *  <p>This method is used by commitProperties() to validate the 
+     *  stepSize.</p>
+     * 
+     *  @param size The input size.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function nearestValidInterval(value:Number, interval:Number):Number
+    private function nearestValidSize(size:Number):Number
     {
-        var closest:Number = Math.round(value / interval)
-                             * interval;
+        var interval:Number = snapInterval;
+        if (interval == 0)
+            return size;
         
-        if (Math.abs(closest) < interval)
-            return interval;
-        else
-            return closest;
+        var validSize:Number = Math.round(size / interval) * interval
+        return (Math.abs(validSize) < interval) ? interval : validSize;
     }
-
+    
     /**
-     *  Rounds a value to the closest multiple of  
-     *  the specified interval, and constrains the result to the range 
-     *  defined by the Range object. 
+     *  Returns the integer multiple of interval that's closest to value, unless
+     *  value is closer to either the minimum or the maximum limit, in which
+     *  case the corresponding limit is returned.
      * 
-     *  @param value The value to round.
+     *  <p>If interval=0 then the value is just clipped to the minimum, maximum 
+     *  limits.</p>
      * 
-     *  @param interval The interval to round the value against.
-     *  If <code>interval</code> is 0, then the returned Number  
-     *  is only bound to the range.
+     *  <p>The valid values for a range are minimum, maximum, and the multiples
+     *  of interval in between. 
      * 
-     *  @return The rounded value, or 0 if <code>value</code> is NaN.
+     *  The minimum and maximum need not be a multiple of snapInterval.</p>
+     * 
+     *  <p>For example if minimum=1, maximum=5, and snapInterval=2, the valid
+     *  values for the Range are 1, 2, 4, 5.
+     * 
+     *  Similarly, if minimum=2, maximum=8, and snapInterval=1.5, the valid
+     *  values for the Range are 2, 3, 4.5. 6, 7.5, 8.</p>
+     * 
+     *  @param value The input value.
+     *  @param interval Must be snapInterval or an integer multiple of snapInterval.
+     *  @return The valid value that's closest to the input.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -363,61 +374,26 @@ public class Range extends SkinnableComponent
      *  @productversion Flex 4
      */
     protected function nearestValidValue(value:Number, interval:Number):Number
-    {
-        var closest:Number = value;
-        
-        if (isNaN(closest))
-            closest = 0;
-
-        // Round value to closest multiple of valueInterval
-        if (interval != 0)
-        {	
-            closest = Math.round(closest / interval) * interval;    
-            
-            if (interval != Math.round(interval))
-            {
-	            var parts:Array = (new String(1 + interval)).split(".");
-				var scale:Number = Math.pow(10, parts[1].length);
-            	closest = Math.round(closest * scale) / scale;
-            }
-        }
-        
-        if (closest >= maximum)
-            return maximum;
-        else if (closest <= minimum)
-            return minimum;
-
+    { 
         if (interval == 0)
-            return closest;
+            return Math.max(minimum, Math.min(maximum, value));
 
-        // Round to the closest value (closest multiple, min, or max).
-        var cdiff:Number = Math.abs(closest - value);
-        var mindiff:Number = Math.abs(minimum - value);
-        var maxdiff:Number = Math.abs(maximum - value);
-        var min:Number = Math.min(cdiff, mindiff, maxdiff);
-
-        // Return order maintains rounding up when in the middle.
-        if (min == maxdiff)
-            return maximum;
-        else if (min == cdiff)
-            return closest;
-        else 
-            return minimum;
+        var lower:Number = Math.max(minimum, Math.floor(value / interval) * interval);
+        var upper:Number = Math.min(maximum, Math.floor((value + interval) / interval) * interval);
+        return ((value - lower) >= ((upper - lower) / 2)) ? upper : lower;
     }
     
     /**
-     *  Directly sets the <code>value</code> property and 
+     *  Sets the backing store for the <code>value</code> property and 
      *  dispatches a <code>valueCommit</code> event if the property changes.  
      * 
      *  <p>All updates to the value property cause a call to this method.</p>
      * 
-     *  <p>This method clamps value to <code>minimum</code> and <code>maxmimum</code>
-     *  if that's necessary and possible, however typcially subclasses will have
-     *  already done so.</p>
+     *  <p>This method assumes that the caller has already used nearestValidValue() 
+     *  to constrain the value parameter</p>
      * 
      *  @param value The new value of the <code>value</code> property.
-     *
-     *  @param value The new value of <code>value</code>.
+     *  @see #nearestValidValue
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -437,25 +413,21 @@ public class Range extends SkinnableComponent
     
     /**
      *  Increase or decrease <code>value</code> by <code>stepSize</code>.
-     *  The new value of <code>value</code> is a multiple of <code>stepSize</code>.
      *
-     *  @param increase Whether the stepping action increases (<code>true</code>) or
-     *  decreases (<code>false</code>) the <code>value</code>.
+     *  @param increase If true, add stepSize to value, otherwise subtract it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function step(increase:Boolean = true):void
+    public function changeValueByStep(increase:Boolean = true):void
     {
     	if (stepSize == 0)
             return;
 
-        if (increase)
-            setValue(nearestValidValue(value + stepSize, valueInterval));
-        else
-            setValue(nearestValidValue(value - stepSize, valueInterval));
+        var newValue:Number = (increase) ? value + stepSize : value - stepSize;
+        setValue(nearestValidValue(newValue, snapInterval));
     }
 }
 
