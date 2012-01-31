@@ -47,8 +47,10 @@ use namespace mx_internal;
 
 /**
  *  MXFTETextInput is a UIComponent which is used to support TLF text
- *  in Halo controls and data grid renderers.  It can be used in place
- *  of a Halo TextInput control.
+ *  in MX controls and data grid renderers. It can be used in place
+ *  of an MX TextInput control.
+ * 
+ *  @see mx.controls.TextInput
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -277,6 +279,9 @@ public class MXFTETextInput extends TextInput implements ITextInput
     /**
      *  Used to determine if the control's border and background are 
      *  visible.
+     *  
+     *  @param visible Set to <code>true</code> to make the border and background
+     *  visible. Otherwise, set to <code>false</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
