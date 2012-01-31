@@ -24,8 +24,9 @@ import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
 /**
- *  Dispatched when a renderer is added to the dataGroup.
- * <code>event.renderer</code> is the renderer that was added.
+ *  Dispatched when a renderer is added to the container.
+ *  The <code>event.renderer</code> property contains 
+ *  the renderer that was added.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_ADD
  *  
@@ -37,8 +38,9 @@ import spark.layouts.supportClasses.LayoutBase;
 [Event(name="rendererAdd", type="spark.events.RendererExistenceEvent")]
 
 /**
- *  Dispatched when a renderer is removed from the dataGroup.
- * <code>event.renderer</code> is the renderer that was removed.
+ *  Dispatched when a renderer is removed from the container.
+ *  The <code>event.renderer</code> property contains 
+ *  the renderer that was removed.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_REMOVE
  *  
@@ -662,9 +664,15 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //--------------------------------------------------------------------------
     
     /**
-     *  Given a data item, return the toString() representation 
-     *  of the data item for an item renderer to display. Null 
-     *  data items return the empty string. 
+     *  From the specified data item, return the String representation 
+     *  of the data item for an item renderer to display.
+     *  This method uses the <code>toString()</code> method of 
+     *  the data item to convert it to a String representation.
+     *  A Null data item returns an empty string.
+     *
+     *  @param item The data item.
+     *
+     *  @return The String representation of the data item.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -679,15 +687,12 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     }
 
     /**
-     *  Updates the renderer for use/re-use. When a renderer is first 
-     *  created, or when it is recycled because of virtualization, this 
-     *  SkinnableDataContainer gets the chance to come in and set the 
-     *  renderer's <code>label</code> property as well as the 
-     *  <code>owner</code> property. This is how, from a renderer, one 
-     *  can access the parent component "owning" the renderer. In cases 
-     *  like Lists and SkinnableDataContainers, the owner property points
-     *  to the List or SkinnableDataContainer even though the dataGroup
-     *  part is actually parenting the renderers. 
+     *  Updates an item renderer for use or reuse. 
+     *  When an item renderer is first created,
+     *  or when it is recycled because of virtualization, this 
+     *  SkinnableDataContainer instance can set the 
+     *  item renderer's <code>label</code> property and 
+     *  <code>owner</code> property. 
      *  
      *  @param renderer The renderer being updated 
      * 
