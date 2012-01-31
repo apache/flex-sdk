@@ -14,6 +14,7 @@ package spark.components
 import flash.events.Event;
 
 import mx.core.ContainerCreationPolicy;
+import mx.core.IDeferredContentOwner;
 import mx.core.INavigatorContent
 
 /**
@@ -64,7 +65,7 @@ public class NavigatorContent extends SkinnableContainer
     public function NavigatorContent()
     {
         super();
-        creationPolicy = ContainerCreationPolicy.NONE;
+        creationPolicy = null;
     }
     
     
@@ -172,6 +173,35 @@ public class NavigatorContent extends SkinnableContainer
     }
 
     
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Create components that are children of this Container.
+     */
+    override protected function createChildren():void
+    {
+        // if nobody has overridden creationPolicy, get it from the
+        // navigator parent
+        if (creationPolicy == null)
+        {
+            if (parent is IDeferredContentOwner)
+            {
+                var parentCreationPolicy:String = IDeferredContentOwner(parent).creationPolicy;
+                creationPolicy = parentCreationPolicy == 
+                        ContainerCreationPolicy.ALL ? ContainerCreationPolicy.ALL : 
+                                                        ContainerCreationPolicy.NONE;
+
+            }
+        }
+
+        super.createChildren();
+    }
+
 }
 
 }
