@@ -329,9 +329,9 @@ public class Move3D extends AnimateTransform3D
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
-            addPostLayoutMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
-            addPostLayoutMotionPath("postLayoutTranslationZ", zFrom, zTo, zBy);
+            addMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
+            addMotionPath("postLayoutTranslationZ", zFrom, zTo, zBy);
         }
         super.initInstance(instance);
     }    
