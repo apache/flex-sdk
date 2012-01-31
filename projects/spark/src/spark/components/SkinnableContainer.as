@@ -63,8 +63,8 @@ import mx.managers.IFocusManagerContainer;
  * visual content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class ItemsComponent extends SkinnableComponent 
-	   implements IFocusManagerContainer, IDeferredContentOwner
+public class ItemsComponent extends ContainerBase 
+	   implements IDeferredContentOwner
 {
     include "../core/Version.as";
 
