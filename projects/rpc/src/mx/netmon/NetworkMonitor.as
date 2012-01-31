@@ -20,7 +20,7 @@ import flash.net.URLRequest;
  *  classes to send information to the Flash Builder Network Monitor feature.
  * 
  *  The NetworkMonitor declares a number of Impl functions which are to be
- *  filled in by a mix-in class provided by FlexBuilder.
+ *  filled in by a mix-in class provided by Flash Builder.
  *  If those functions are not assigned the stub will do nothing,
  *  will or return false or null as appropriate.
  *  We don't use a singleton or an instance object at the moment to simplify
