@@ -11,7 +11,7 @@
 
 package mx.components.baseClasses
 {
-	
+    
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
@@ -34,6 +34,8 @@ import flashx.textLayout.formats.LineBreak;
  *  Dispached after the <code>selectionAnchorPosition</code> and/or
  *  <code>selectionActivePosition</code> properties have changed
  *  due to a user interaction.
+ *
+ *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
  */
 [Event(name="selectionChange", type="mx.events.FlexEvent")]
 
@@ -41,11 +43,15 @@ import flashx.textLayout.formats.LineBreak;
  *  Dispatched before a user editing operation occurs.
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
+ *
+ *  @eventType mx.events.TextOperationEvent.CHANGING
  */
 [Event(name="changing", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
+ *
+ *  @eventType mx.events.TextOperationEvent.CHANGE
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
@@ -65,10 +71,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     /**
      *  Constructor. 
      */    
-	public function FxTextBase()
-	{
-		super();
-	}
+    public function FxTextBase()
+    {
+        super();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -90,22 +96,22 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  enabled
+    //----------------------------------
+    //  enabled
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function set enabled(value:Boolean):void
-	{
-		if (value == enabled)
-			return;
-		
-		super.enabled = value;
-		
-		invalidateSkinState();
-	}
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        if (value == enabled)
+            return;
+        
+        super.enabled = value;
+        
+        invalidateSkinState();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -113,150 +119,150 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  selectionActivePosition
+    //----------------------------------
+    //  selectionActivePosition
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _selectionActivePosition:int = -1;
+    /**
+     *  @private
+     */
+    private var _selectionActivePosition:int = -1;
 
-	[Bindable("selectionChange")]
-	
-	/**
-	 *  The active position of the selection.
-	 *  The "active" point is the end of the selection
-	 *  which is changed when the selection is extended.
-	 *  The active position may be either the start
-	 *  or the end of the selection. 
-	 *
-	 *  @default -1
-	 */
-	public function get selectionActivePosition():int
-	{
-		return _selectionActivePosition;
-	}
-
-	//----------------------------------
-	//  selectionAnchorPosition
-    //----------------------------------
-
-	/**
-	 *  @private
-	 */
-	private var _selectionAnchorPosition:int = -1;
-
-	[Bindable("selectionChange")]
-	
-	/**
-	 *  The anchor position of the selection.
-	 *  The "anchor" point is the stable end of the selection
-	 *  when the selection is extended.
-	 *  The anchor position may be either the start
-	 *  or the end of the selection.
-	 *
-	 *  @default -1
-	 */
-	public function get selectionAnchorPosition():int
-	{
-		return _selectionAnchorPosition;
-	}
+    [Bindable("selectionChange")]
+    
+    /**
+     *  The active position of the selection.
+     *  The "active" point is the end of the selection
+     *  which is changed when the selection is extended.
+     *  The active position may be either the start
+     *  or the end of the selection. 
+     *
+     *  @default -1
+     */
+    public function get selectionActivePosition():int
+    {
+        return _selectionActivePosition;
+    }
 
     //----------------------------------
-	//  text
+    //  selectionAnchorPosition
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	mx_internal var _text:String = "";
+    /**
+     *  @private
+     */
+    private var _selectionAnchorPosition:int = -1;
 
-	/**
-	 *  @private
-	 */
-	mx_internal var textChanged:Boolean = false;
+    [Bindable("selectionChange")]
+    
+    /**
+     *  The anchor position of the selection.
+     *  The "anchor" point is the stable end of the selection
+     *  when the selection is extended.
+     *  The anchor position may be either the start
+     *  or the end of the selection.
+     *
+     *  @default -1
+     */
+    public function get selectionAnchorPosition():int
+    {
+        return _selectionAnchorPosition;
+    }
 
-	[Bindable("change")]
-	[Bindable("textChanged")]
-	
-	/**
-	 *  The text String displayed by this component.
-	 */
-	public function get text():String
-	{
-		return mx_internal::_text;
-	}
+    //----------------------------------
+    //  text
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	public function set text(value:String):void
-	{
-		if (value == mx_internal::_text)
-			return;
+    /**
+     *  @private
+     */
+    mx_internal var _text:String = "";
 
-		mx_internal::_text = value;
-		mx_internal::textChanged = true;
+    /**
+     *  @private
+     */
+    mx_internal var textChanged:Boolean = false;
 
-		invalidateProperties();
-		
-		dispatchEvent(new Event("textChanged"));
-	}
+    [Bindable("change")]
+    [Bindable("textChanged")]
+    
+    /**
+     *  The text String displayed by this component.
+     */
+    public function get text():String
+    {
+        return mx_internal::_text;
+    }
+
+    /**
+     *  @private
+     */
+    public function set text(value:String):void
+    {
+        if (value == mx_internal::_text)
+            return;
+
+        mx_internal::_text = value;
+        mx_internal::textChanged = true;
+
+        invalidateProperties();
+        
+        dispatchEvent(new Event("textChanged"));
+    }
     
     //----------------------------------
-	//  textView
+    //  textView
     //----------------------------------
 
     [SkinPart]
 
-	/**
-	 *  The TextView that must be present
-	 *  in any skin assigned to this component.
-	 */
-	public var textView:TextView;
+    /**
+     *  The TextView that must be present
+     *  in any skin assigned to this component.
+     */
+    public var textView:TextView;
     
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
         
-	/**
-	 *  @private
-	 *  Pushes various properties down into the TextView. 
-	 */
+    /**
+     *  @private
+     *  Pushes various properties down into the TextView. 
+     */
     override protected function commitProperties():void
-	{
-		super.commitProperties();
+    {
+        super.commitProperties();
 
-		if (mx_internal::textChanged)
-		{
-			textView.text = mx_internal::_text;
-			mx_internal::textChanged = false;
-		}
-	}
+        if (mx_internal::textChanged)
+        {
+            textView.text = mx_internal::_text;
+            mx_internal::textChanged = false;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function partAdded(partName:String, instance:Object):void
-	{
-		super.partAdded(partName, instance);
+    /**
+     *  @private
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
 
-		if (instance == textView)
-		{
-			// Start listening for various events from the TextView.
+        if (instance == textView)
+        {
+            // Start listening for various events from the TextView.
 
             textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
-									  textView_selectionChangeHandler);
+                                      textView_selectionChangeHandler);
 
-			textView.addEventListener("changing",
+            textView.addEventListener("changing",
                                       textView_changingHandler);
 
-			textView.addEventListener("change",
+            textView.addEventListener("change",
                                       textView_changeHandler);
-			
+            
             textView.addEventListener(FlexEvent.ENTER,
                                       textView_enterHandler);
                                       
@@ -268,33 +274,33 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
             // stylesheet. This is a temporary workaround to support
             // inline text styles for Buttons and subclasses.
             textView.styleName = this;
-		}
-	}
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function partRemoved(partName:String, instance:Object):void
-	{
-		super.partRemoved(partName, instance);
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
 
-		if (instance == textView)
-		{
-			// Stop listening for various events from the TextView.
+        if (instance == textView)
+        {
+            // Stop listening for various events from the TextView.
 
-			textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
-										 textView_selectionChangeHandler);
+            textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
+                                         textView_selectionChangeHandler);
 
-			textView.removeEventListener("changing",
+            textView.removeEventListener("changing",
                                          textView_changingHandler);
 
-			textView.removeEventListener("change",
+            textView.removeEventListener("change",
                                          textView_changeHandler);
 
-			textView.removeEventListener(FlexEvent.ENTER,
+            textView.removeEventListener(FlexEvent.ENTER,
                                          textView_enterHandler);
-		}
-	}
+        }
+    }
     
     /**
      *  @private
@@ -328,15 +334,15 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         super.drawFocus(isFocused);
     }
     
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Documentation is not currently available.
-	 */
+    /**
+     *  Documentation is not currently available.
+     */
     public function setSelection(anchorIndex:int = 0,
                                  activeIndex:int = int.MAX_VALUE):void
     {
@@ -346,9 +352,9 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         textView.setSelection(anchorIndex, activeIndex);
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 */
+    /**
+     *  Documentation is not currently available.
+     */
     public function insertText(text:String):void
     {
         if (!textView)
@@ -357,9 +363,9 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         textView.insertText(text);
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 */
+    /**
+     *  Documentation is not currently available.
+     */
     public function appendText(text:String):void
     {
         if (!textView)
@@ -390,67 +396,67 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         super.focusInHandler(event);
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Event handlers
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Called when the TextView dispatches a 'selectionChange' event.
-	 */
-	private function textView_selectionChangeHandler(event:Event):void
-	{
-		// Update our storage variables for the selection indices.
-		_selectionAnchorPosition = textView.selectionAnchorPosition;
-		_selectionActivePosition = textView.selectionActivePosition;
-		
-		// Redispatch the event that came from the TextView.
-		dispatchEvent(event);
-	}
+    /**
+     *  @private
+     *  Called when the TextView dispatches a 'selectionChange' event.
+     */
+    private function textView_selectionChangeHandler(event:Event):void
+    {
+        // Update our storage variables for the selection indices.
+        _selectionAnchorPosition = textView.selectionAnchorPosition;
+        _selectionActivePosition = textView.selectionActivePosition;
+        
+        // Redispatch the event that came from the TextView.
+        dispatchEvent(event);
+    }
 
-	/**
-	 *  Called when the TextView dispatches a 'change' event
-	 *  after an editing operation.
-	 */
-	protected function textView_changeHandler(event:TextOperationEvent):void
-	{
-		// Update our storage variable for the text string.
-		mx_internal::_text = textView.text;
+    /**
+     *  Called when the TextView dispatches a 'change' event
+     *  after an editing operation.
+     */
+    protected function textView_changeHandler(event:TextOperationEvent):void
+    {
+        // Update our storage variable for the text string.
+        mx_internal::_text = textView.text;
 
-		// Redispatch the event that came from the TextView.
-		dispatchEvent(event);
-	}
+        // Redispatch the event that came from the TextView.
+        dispatchEvent(event);
+    }
 
-	/**
-	 *  @private
-	 *  Called when the TextView dispatches a 'changing' event
-	 *  before an editing operation.
-	 */
-	private function textView_changingHandler(event:TextOperationEvent):void
-	{
-		// Redispatch the event that came from the TextView.
-		var newEvent:Event = event.clone();
-		dispatchEvent(newEvent);
-		
-		// If the event dispatched from this component is canceled,
-		// cancel the one from the TextView, which will prevent
-		// the editing operation from being processed.
-		if (newEvent.isDefaultPrevented())
-			event.preventDefault();
-	}
+    /**
+     *  @private
+     *  Called when the TextView dispatches a 'changing' event
+     *  before an editing operation.
+     */
+    private function textView_changingHandler(event:TextOperationEvent):void
+    {
+        // Redispatch the event that came from the TextView.
+        var newEvent:Event = event.clone();
+        dispatchEvent(newEvent);
+        
+        // If the event dispatched from this component is canceled,
+        // cancel the one from the TextView, which will prevent
+        // the editing operation from being processed.
+        if (newEvent.isDefaultPrevented())
+            event.preventDefault();
+    }
 
-	/**
-	 *  @private
-	 *  Called when the TextView dispatches an 'enter' event
-	 *  in response to the Enter key.
-	 */
-	private function textView_enterHandler(event:Event):void
-	{
-		// Redispatch the event that came from the TextView.
-		dispatchEvent(event);
-	}
+    /**
+     *  @private
+     *  Called when the TextView dispatches an 'enter' event
+     *  in response to the Enter key.
+     */
+    private function textView_enterHandler(event:Event):void
+    {
+        // Redispatch the event that came from the TextView.
+        dispatchEvent(event);
+    }
 }
 
 }
