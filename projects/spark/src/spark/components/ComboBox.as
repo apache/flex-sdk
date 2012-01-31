@@ -27,6 +27,7 @@ import flashx.textLayout.operations.InsertTextOperation;
 
 import mx.core.mx_internal;
 import mx.styles.StyleProxy;
+import mx.core.IIMESupport;
 
 import spark.components.supportClasses.DropDownListBase;
 import spark.components.supportClasses.ListBase;
@@ -185,7 +186,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ComboBox extends DropDownListBase
+public class ComboBox extends DropDownListBase implements IIMESupport
 {
     //--------------------------------------------------------------------------
     //
@@ -961,6 +962,61 @@ public class ComboBox extends DropDownListBase
     {
         removeEventListener(DropDownEvent.OPEN, editingOpenHandler);
         processInputField();
+    }
+
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+
+    /**
+     *  @copy spark.components.TextInput#enableIME
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public  function get enableIME():Boolean
+    {
+        if (textInput)
+        {
+            return textInput.enableIME;
+        }
+                  
+        return false;
+    }
+
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @copy spark.components.TextInput#imeMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public  function get imeMode():String
+    {
+        if (textInput)
+        {
+            return textInput.imeMode;
+        }
+        return null;
+    }
+
+    /**
+     *  @public
+     */
+    public function set imeMode(value:String):void
+    {
+        if (textInput)
+        {
+            textInput.imeMode = value;
+            invalidateProperties();                    
+        }
     }
         
 }
