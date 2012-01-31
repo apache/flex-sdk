@@ -179,9 +179,10 @@ public class SkinnableComponent extends UIComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  @private
+     *  The state to be used when matching CSS pseudo-selectors. This override
+     *  returns the current skin state instead of the component state.
      */ 
-    override public function get pseudoSelectorState():String
+    override protected function get currentCSSState():String
     {
         return getCurrentSkinState();
     }
@@ -195,9 +196,9 @@ public class SkinnableComponent extends UIComponent
     /**
      *  @private 
      */
-    override public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    override public function matchesCSSState(cssState:String):Boolean
     {
-        return getCurrentSkinState() == pseudoState || currentState == pseudoState;
+        return getCurrentSkinState() == cssState || currentState == cssState;
     }
 
     /**
@@ -247,19 +248,19 @@ public class SkinnableComponent extends UIComponent
     override protected function commitProperties():void
     {
         super.commitProperties();
-        
+
         if (skinChanged)
         {
             skinChanged = false;
             validateSkinChange();
         }
-        
+
         if (skinStateIsDirty)
         {
             // This component must first be updated to the pending state as the
             // skin inherits styles from this component.
             var pendingState:String = getCurrentSkinState();
-            applyStateStyles(skin.currentState, pendingState, false);
+            stateChanged(skin.currentState, pendingState, false);
             skin.currentState = pendingState;
             skinStateIsDirty = false;
         }
