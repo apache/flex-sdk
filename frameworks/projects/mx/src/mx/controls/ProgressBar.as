@@ -41,6 +41,11 @@ use namespace mx_internal;
  *  Dispatched when the load completes.
  *
  *  @eventType flash.events.Event.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="flash.events.Event")]
 
@@ -48,6 +53,11 @@ use namespace mx_internal;
  *  Dispatched when an object's state changes from visible to invisible.
  *
  *  @eventType mx.events.FlexEvent.HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="hide", type="mx.events.FlexEvent")]
 
@@ -56,6 +66,11 @@ use namespace mx_internal;
  *  or polled mode.
  *
  *  @eventType flash.events.ProgressEvent.PROGRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
@@ -63,6 +78,11 @@ use namespace mx_internal;
  *  Dispatched when the component becomes visible.
  *
  *  @eventType mx.events.FlexEvent.SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="show", type="mx.events.FlexEvent")]
 
@@ -80,6 +100,11 @@ include "../styles/metadata/TextStyles.as"
  *  Skin style for a determinate progress bar.
  *
  *  @default mx.skins.halo.ProgressBarSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="barSkin", type="Class", inherit="no")]
 
@@ -87,6 +112,11 @@ include "../styles/metadata/TextStyles.as"
  *  Black section of a three-dimensional border, or the color section
  *  of a two-dimensional border.
  *  @default 0xB7BABC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
@@ -96,6 +126,11 @@ include "../styles/metadata/TextStyles.as"
  *  its starting point. A value of 0 means that the bar is not moved. 
  *
  *  @default 26
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indeterminateMoveInterval", type="Number", inherit="no")]
 
@@ -103,6 +138,11 @@ include "../styles/metadata/TextStyles.as"
  *  Skin style for an indeterminate progress bar.
  *
  *  @default mx.skins.halo.ProgressIndeterminateSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indeterminateSkin", type="Class", inherit="no")]
 
@@ -110,6 +150,11 @@ include "../styles/metadata/TextStyles.as"
  *  Skin style for the mask of the determinate and indeterminate bars.
  *
  *  @default mx.skins.halo.ProgressMaskSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="maskSkin", type="Class", inherit="no")]
 
@@ -117,6 +162,11 @@ include "../styles/metadata/TextStyles.as"
  *  Skin style for the progress indicator track.
  *
  *  @default mx.skins.halo.ProgressTrackSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackSkin", type="Class", inherit="no")]
 
@@ -128,6 +178,11 @@ include "../styles/metadata/TextStyles.as"
  *  individual controls. 
  *
  *  @default "haloBlue"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="themeColor", type="uint", format="Color", inherit="yes")]
 
@@ -136,6 +191,11 @@ include "../styles/metadata/TextStyles.as"
  *  You can use the same color twice for a solid track color.
  *
  *  @default [ 0xE6EEEE, 0xE6EEEE ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -144,6 +204,11 @@ include "../styles/metadata/TextStyles.as"
  *  use the height of the skin specified by the <code>trackSkin</code> property. 
  *  
  *  @default NaN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackHeight", type="Number", format="Length", inherit="no")]
 
@@ -152,12 +217,22 @@ include "../styles/metadata/TextStyles.as"
  *  the ProgressBar control sets it to the width of the control.
  *
  *  @default NaN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelWidth", type="Number", format="Length", inherit="yes")]
 
 /**
  *  Effect called when Flex dispatches the <code>complete</code> event, 
  *  which occurs when the load completes.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="completeEffect", event="complete")]
 
@@ -271,6 +346,11 @@ include "../styles/metadata/TextStyles.as"
  *  @see mx.controls.ProgressBarMode
  *
  *  @includeExample examples/SimpleProgressBar.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ProgressBar extends UIComponent implements IFontContextComponent
 {
@@ -284,6 +364,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ProgressBar()
     {
@@ -401,6 +486,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  value in the label string. A value of 1 does no conversion.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get conversion():Number
     {
@@ -447,6 +537,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *
      *  @see mx.controls.ProgressBarDirection
      *  @default ProgressBarDirection.RIGHT
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -511,6 +606,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  If <code>true</code>, the appearance is indeterminate.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get indeterminate():Boolean
     {
@@ -567,6 +667,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  by using the <code>setProgress()</code> method.</p>
      *
      *  @default "LOADING %3%%"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get label():String
     {
@@ -615,6 +720,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *
      *  @see mx.controls.ProgressBarLabelPlacement
      *  @default ProgressBarLabelPlacement.BOTTOM
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelPlacement():String
     {
@@ -653,6 +763,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  can only use this property in manual mode.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maximum():Number
     {
@@ -690,6 +805,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  property is set by the developer only in manual mode.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minimum():Number
     {
@@ -759,6 +879,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  @see mx.controls.ProgressBarMode
      *
      *  @default ProgressBarMode.EVENT
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mode():String
     {
@@ -794,6 +919,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
     /**
      *  Percentage of process that is completed.The range is 0 to 100.
      *  Use the <code>setProgress()</code> method to change the percentage.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentComplete():Number
     {
@@ -845,6 +975,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
     /**
      *  Refers to the control that the ProgressBar is measuring the progress of. Use this property only in
      *  event and polled mode. A typical usage is to set this property to a Loader control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Object
     {
@@ -907,6 +1042,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
     /**
      *  Read-only property that contains the amount of progress
      *  that has been made - between the minimum and maximum values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Number
     {
@@ -1382,6 +1522,11 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *  @param value Current value.
      *
      *  @param maximum Total or target value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setProgress(value:Number, total:Number):void
     {
