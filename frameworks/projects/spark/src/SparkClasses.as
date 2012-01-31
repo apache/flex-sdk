@@ -27,6 +27,8 @@ import mx.controls.dataGridClasses.FTEDataGridItemRenderer; FTEDataGridItemRende
 import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
 import spark.core.ContentCache; ContentCache;
+import spark.core.IDisplayText; IDisplayText;
+import spark.core.IEditableText; IEditableText;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.components.supportClasses.CellPosition; CellPosition;
 import spark.components.supportClasses.CellRegion; CellRegion;
