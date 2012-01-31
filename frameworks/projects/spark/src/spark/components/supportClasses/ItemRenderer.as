@@ -20,6 +20,11 @@ import mx.graphics.baseClasses.TextGraphicElement;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ItemRenderer extends MXMLComponent
 {    
@@ -134,6 +139,11 @@ public class ItemRenderer extends MXMLComponent
     /**
      * Optional item renderer label component, used primarily for 
      * auto-computation of baseline.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var labelField:TextGraphicElement;
 
