@@ -75,28 +75,26 @@ use namespace mx_internal;
  *  multiple lines of richly formatted text. It can display horizontal and vertical scrollbars
  *  for scrolling through the text and supports vertical scrolling with the mouse wheel.
  *
- *  <p>It does not include any user interface for changing
+ *  <p><b>The skin for the Spark theme
+ *  uses the RichEditableText class. This means that the Spark TextArea control supports 
+ *  the Text Layout Framework (TLF) library,
+ *  which builds on the Flash Text Engine (FTE).</b>
+ *  In combination, these layers provide text editing with
+ *  high-quality international typography and layout.</p>
+ * 
+ *  <p><b>The skin for the mobile theme uses the StyleableTextField class instead of RichEditableText.</b>
+ *  As a result, TLF-only features are not supported in the mobile theme including
+ *  TextFlow, right-to-left or bidirectional text, and advanced text 
+ *  styles.</p>
+ *
+ *  <p>The TextArea control does not include any user interface for changing
  *  the formatting of the text but contains 
  *  APIs that you can use to programmatically format text.
  *  For example, you can create a 
  *  a button that, when clicked, makes the selected text bold.</p>
  *
- *  <p>The Spark version of TextArea 
- *  uses the Text Layout Framework (TLF) library,
- *  which builds on the Flash Text Engine (FTE)
- *  in Flash Player 10.
- *  In combination, these layers provide text editing with
- *  high-quality international typography and layout.
- *  The older MX version of TextArea displays text using the older
- *  TextField class.</p>
- * 
- *  <p>The mobile theme uses TextField-based text instead of RichEditableText.
- *  Some TLF-only features are not supported in the mobile theme including
- *  TextFlow, right-to-left or bidirectional text, and advanced text 
- *  styles.</p>
- *
  *  <p>The most important differences between Spark TextArea and the
- *  MX TextArea control are as follows:
+ *  MX/mobile TextArea control are as follows:
  *  <ul>
  *    <li>Spark TextArea offers better typography, better support
  *        for international languages, and better text layout.</li>
@@ -180,10 +178,11 @@ use namespace mx_internal;
  *  to limit which characters the user can enter.</p>
  *
  *  <p>This control is a skinnable control whose default skin uses a
- *  RichEditableText control to display and edit the text
+ *  RichEditableText class to display and edit the text
  *  and a Scroller control to provide scrollbars.
  *  The RichEditableText can be accessed as <code>textDisplay</code>
- *  and the Scroller as <code>scroller</code>.</p>
+ *  and the Scroller as <code>scroller</code>. When used with the mobile theme, this control uses 
+ *  the StyleableTextField class to display and edit text.</p>
  *
  *  <p>The Spark TextArea
  *  can display left-to-right (LTR) text, such as French,
