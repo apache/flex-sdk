@@ -326,14 +326,9 @@ public class Scale3D extends AnimateTransform3D
         var yProp:String = applyChangesPostLayout ? "postLayoutScaleY" : "scaleY";
         var zProp:String = applyChangesPostLayout ? "postLayoutScaleZ" : "scaleZ";
         
-        if (!(isNaN(scaleXFrom) && isNaN(scaleXTo) && isNaN(scaleXBy)))
-            addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
-        
-        if (!(isNaN(scaleYFrom) && isNaN(scaleYTo) && isNaN(scaleYBy)))
-            addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
-        
-        if (!(isNaN(scaleZFrom) && isNaN(scaleZTo) && isNaN(scaleZBy)))
-            addMotionPath(zProp, scaleZFrom, scaleZTo, scaleZBy);
+        addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
+        addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
+        addMotionPath(zProp, scaleZFrom, scaleZTo, scaleZBy);
         
         super.initInstance(instance);
     }    
