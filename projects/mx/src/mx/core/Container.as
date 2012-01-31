@@ -4696,6 +4696,30 @@ public class Container extends UIComponent
     }
 
     /**
+     *  @private 
+     *  Store references to the default border classes here so we don't have to look them up
+     *  every time.
+     */
+    private static var haloBorder:Class;
+    private static var sparkBorder:Class;
+    private static var sparkContainerBorder:Class;
+    private static var didLookup:Boolean = false;
+    
+    private static function getDefinition(name:String):Class
+    {
+        var result:Object = null;
+        
+        try
+        {
+            result = getDefinitionByName(name);
+        }
+        catch(e:Error)
+        {
+        }
+        
+        return result as Class;
+    }
+    /**
      *  @private
      */
     private function isBorderNeeded():Boolean
@@ -4704,29 +4728,19 @@ public class Container extends UIComponent
 
         // If the borderSkin is a custom class, always assume the border is needed.
         var c:Class = getStyle("borderSkin");
-        var haloBorder:Object = null;
-        var sparkBorder:Object = null;
         
-        // Lookup the default border classes by name to avoid a linkage dependency.
-        // Note: this code assumes either HaloBorder or spark BorderSkin is the default border skin. 
-        // If this is changed in defaults.css, it must also be changed here.
-        try 
+        if (!didLookup)
         {
-            haloBorder = getDefinitionByName("mx.skins.halo::HaloBorder");
-        }
-        catch(e:Error)
-        {
+            // Lookup the default border classes by name to avoid a linkage dependency.
+            // Note: this code assumes either HaloBorder or spark BorderSkin is the default border skin. 
+            // If this is changed in defaults.css, it must also be changed here.
+            haloBorder = getDefinition("mx.skins.halo::HaloBorder");
+            sparkBorder = getDefinition("mx.skins.spark::BorderSkin");
+            sparkContainerBorder = getDefinition("mx.skins.spark::ContainerBorderSkin");
+            didLookup = true;
         }
         
-        try 
-        {
-            sparkBorder = getDefinitionByName("mx.skins.spark::BorderSkin");
-        }
-        catch(e:Error)
-        {
-        }
-        
-        if (!(c == haloBorder || c == sparkBorder))
+        if (!(c == haloBorder || c == sparkBorder || c == sparkContainerBorder))
             return true;
             
         var v:Object = getStyle("borderStyle");
@@ -4738,7 +4752,7 @@ public class Container extends UIComponent
             if ((v != "none") || (v == "none" && getStyle("mouseShield")))
             {
                 return true;
-            }
+            }    
         }
 
         v = getStyle("contentBackgroundColor");
@@ -4760,7 +4774,7 @@ public class Container extends UIComponent
     {
         _viewMetricsAndPadding = null;
     }
-
+    
     /**
      *  @private
      */
