@@ -12,6 +12,7 @@
 package spark.accessibility
 {
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import spark.components.Panel;
@@ -102,7 +103,7 @@ public class PanelAccImpl extends AccImpl
     {
         super(master);
 
-        role = 0x14; // ROLE_SYSTEM_GROUPING
+        role = AccConst.ROLE_SYSTEM_GROUPING;
     }
 
     //--------------------------------------------------------------------------
