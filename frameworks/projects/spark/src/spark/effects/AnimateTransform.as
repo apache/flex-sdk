@@ -90,7 +90,7 @@ use namespace mx_internal;
  */  
 public class AnimateTransform extends Animate
 {
-    include "../../mx/core/Version.as";
+    include "../../spark.core.Version.as";
 
     //--------------------------------------------------------------------------
     //
