@@ -480,7 +480,15 @@ public class VideoDisplay extends UIComponent
      */
     public function set pauseWhenHidden(value:Boolean):void
     {
+        if (_pauseWhenHidden == value)
+            return;
+        
         _pauseWhenHidden = value;
+        
+        if (_pauseWhenHidden)
+            addVisibilityListeners();
+        else
+            removeVisibilityListeners();
         
         changePlayback();
     }
@@ -775,7 +783,7 @@ public class VideoDisplay extends UIComponent
      */
     public function get videoObject():Video
     {
-        return videoPlayer as Video;
+        return videoPlayer.view as Video;
     }
     
     //----------------------------------
@@ -1191,6 +1199,20 @@ public class VideoDisplay extends UIComponent
         _isOnDisplayList = true;
         
         // add listeners to current parents to see if their visibility has changed
+        if (pauseWhenHidden)
+            addVisibilityListeners();
+        
+        computeEffectiveVisibility();
+        changePlayback();
+    }
+    
+    /**
+     *  @private
+     *  Add event listeners for SHOW and HIDE on all the ancestors up the parent chain.
+     *  Adding weak event listeners just to be safe.
+     */
+    private function addVisibilityListeners():void
+    {
         var current:IVisualElement = this;
         while (current)
         {
@@ -1199,9 +1221,22 @@ public class VideoDisplay extends UIComponent
             
             current = current.parent as IVisualElement;
         }
-        
-        computeEffectiveVisibility();
-        changePlayback();
+    }
+    
+    /**
+     *  @private
+     *  Remove event listeners for SHOW and HIDE on all the ancestors up the parent chain.
+     */
+    private function removeVisibilityListeners():void
+    {
+        var current:IVisualElement = this;
+        while (current)
+        {
+            current.removeEventListener(FlexEvent.HIDE, visibilityChangedHandler, false);
+            current.removeEventListener(FlexEvent.SHOW, visibilityChangedHandler, false);
+            
+            current = current.parent as IVisualElement;
+        }
     }
     
     /**
@@ -1212,14 +1247,8 @@ public class VideoDisplay extends UIComponent
         _isOnDisplayList = false;
         
         // remove listeners from old parents
-        var current:IVisualElement = this;
-        while (current)
-        {
-            current.removeEventListener(FlexEvent.HIDE, visibilityChangedHandler, false);
-            current.removeEventListener(FlexEvent.SHOW, visibilityChangedHandler, false);
-            
-            current = current.parent as IVisualElement;
-        }
+        if (pauseWhenHidden)
+            removeVisibilityListeners();
         
         changePlayback();
     }
