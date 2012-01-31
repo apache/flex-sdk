@@ -11,6 +11,7 @@
 
 package spark.accessibility
 {
+import mx.accessibility.AccConst;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     
@@ -31,17 +32,6 @@ package spark.accessibility
     public class ToggleButtonAccImpl extends ButtonAccImpl
     {
         include "../core/Version.as";
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Class constants
-        //
-        //--------------------------------------------------------------------------
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_PRESSED:uint = 0x00000008;
         
         //--------------------------------------------------------------------------
         //
@@ -126,7 +116,7 @@ package spark.accessibility
         {
             var accState:uint = getState(childID);
             if (ToggleButtonBase(master).selected)
-                accState |= STATE_SYSTEM_PRESSED;
+                accState |= AccConst.STATE_SYSTEM_PRESSED;
             
             return accState;
         }
