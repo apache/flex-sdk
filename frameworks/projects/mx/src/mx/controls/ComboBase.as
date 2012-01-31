@@ -445,9 +445,6 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return textInput.y  + textInput.baselinePosition;
-            
         if (!validateBaselinePosition())
             return NaN;
 
@@ -1360,13 +1357,10 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             measuredHeight = DEFAULT_MEASURED_HEIGHT;
         }
         
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        {
-            // Add in the paddingTop and paddingBottom values
-            var padding:Number = getStyle("paddingTop") + getStyle("paddingBottom");
-            measuredMinHeight += padding;
-            measuredHeight += padding;
-        }
+        // Add in the paddingTop and paddingBottom values
+        var padding:Number = getStyle("paddingTop") + getStyle("paddingBottom");
+        measuredMinHeight += padding;
+        measuredHeight += padding;
     }
 
     /**
@@ -1425,8 +1419,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 	border.setActualSize(w, h);
                 textInput.setActualSize(w - arrowWidth, textInputHeight);
                 textInput.showBorder(false);
-                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-                    textInput.move(textInput.x, ((h - textInputHeight - paddingTop - paddingBottom) / 2) + paddingTop);
+                textInput.move(textInput.x, ((h - textInputHeight - paddingTop - paddingBottom) / 2) + paddingTop);
                 downArrowButton.setActualSize(unscaledWidth, unscaledHeight);
             }
             else
