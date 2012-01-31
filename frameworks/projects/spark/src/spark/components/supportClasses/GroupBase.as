@@ -1260,6 +1260,66 @@ public class GroupBase extends UIComponent implements IViewport
         }
     }
     
+    /**
+     *  @private 
+     */ 
+    override public function globalToLocal(point:Point):Point
+    {
+        if (resizeMode == ResizeMode.SCALE && _layoutFeatures != null)
+        {
+            // If resize mode is scale, then globalToLocal shouldn't account for 
+            // stretchX/Y
+            var sX:Number = _layoutFeatures.stretchX;
+            var sY:Number = _layoutFeatures.stretchY;
+            _layoutFeatures.stretchX = 1;
+            _layoutFeatures.stretchY = 1;
+            applyComputedMatrix();
+            
+            var p:Point = super.globalToLocal(point);
+            
+            // Restore stretch
+            _layoutFeatures.stretchX = sX;
+            _layoutFeatures.stretchY = sY;
+            applyComputedMatrix();
+            
+            return p;
+        }
+        else
+        {
+            return super.globalToLocal(point);    
+        }
+    }
+    
+    /**
+     *  @private 
+     */ 
+    override public function localToGlobal(point:Point):Point
+    {
+        if (resizeMode == ResizeMode.SCALE && _layoutFeatures != null)
+        {
+            // If resize mode is scale, then localToGlobal shouldn't account for 
+            // stretchX/Y
+            var sX:Number = _layoutFeatures.stretchX;
+            var sY:Number = _layoutFeatures.stretchY;
+            _layoutFeatures.stretchX = 1;
+            _layoutFeatures.stretchY = 1;
+            applyComputedMatrix();
+            
+            var p:Point = super.localToGlobal(point);
+            
+            // Restore stretch
+            _layoutFeatures.stretchX = sX;
+            _layoutFeatures.stretchY = sY;
+            applyComputedMatrix();
+            
+            return p;
+        }
+        else
+        {
+            return super.localToGlobal(point);    
+        }
+    }
+    
     //----------------------------------
     //  horizontal,verticalScrollPositionDelta
     //----------------------------------
