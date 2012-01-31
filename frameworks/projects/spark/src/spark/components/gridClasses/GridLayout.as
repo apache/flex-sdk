@@ -1043,8 +1043,6 @@ public class GridLayout extends LayoutBase
 
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
-                renderer.prepare(!createdGridElement);
-                
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
                 layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);
                 
@@ -1178,35 +1176,35 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
-        const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
-        
-        if (gridRenderer && gridColumn)
+        if (gridColumn)
         {
-            gridRenderer.rowIndex = rowIndex;
-            gridRenderer.column = gridColumn;
+            renderer.rowIndex = rowIndex;
+            renderer.column = gridColumn;
             if (dataItem == null)
                 dataItem = getDataProviderItem(rowIndex);
             
-            gridRenderer.label = gridColumn.itemToLabel(dataItem);
+            renderer.label = gridColumn.itemToLabel(dataItem);
             
             if (isRowSelectionMode())
             {
-                gridRenderer.selected = grid.selectionContainsIndex(rowIndex);
-                gridRenderer.showsCaret = grid.caretRowIndex == rowIndex;
-                gridRenderer.hovered = grid.hoverRowIndex == rowIndex;
+                renderer.selected = grid.selectionContainsIndex(rowIndex);
+                renderer.showsCaret = grid.caretRowIndex == rowIndex;
+                renderer.hovered = grid.hoverRowIndex == rowIndex;
             }
             else if (isCellSelectionMode())
             {
-                gridRenderer.selected = grid.selectionContainsCell(rowIndex, columnIndex);
-                gridRenderer.showsCaret = (grid.caretRowIndex == rowIndex) && (grid.caretColumnIndex == columnIndex);
-                gridRenderer.hovered = (grid.hoverRowIndex == rowIndex) && (grid.hoverColumnIndex == columnIndex);
+                renderer.selected = grid.selectionContainsCell(rowIndex, columnIndex);
+                renderer.showsCaret = (grid.caretRowIndex == rowIndex) && (grid.caretColumnIndex == columnIndex);
+                renderer.hovered = (grid.hoverRowIndex == rowIndex) && (grid.hoverColumnIndex == columnIndex);
             }
             
-            gridRenderer.data = dataItem;
+            renderer.data = dataItem;
             
             if (grid.dataGrid)
                 renderer.owner = grid.dataGrid;
+            
+            renderer.prepare(!createdGridElement);             
         }
     }
     
@@ -2375,6 +2373,7 @@ public class GridLayout extends LayoutBase
                 
         const factory:IFactory = itemToRenderer(column, dataItem);
         const renderer:IGridItemRenderer = factory.newInstance() as IGridItemRenderer;
+        createdGridElement = true;  // initializeItemRenderer() depends on this
        
         rendererLayer.addElement(renderer);
         
