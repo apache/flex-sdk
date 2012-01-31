@@ -118,6 +118,8 @@ include "../styles/metadata/GapStyles.as"
 
 [IconFile("ViewStack.png")]
 
+[Alternative(replacement="spark.components.Group", since="4.0")]
+
 /**
  *  A ViewStack navigator container consists of a collection of child
  *  Halo containers stacked on top of each other, where only one child
