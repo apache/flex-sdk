@@ -218,7 +218,7 @@ public class ButtonBase extends FxComponent implements IFocusManagerComponent
      *  @private
      *  Storage for the content property.
      */
-    private var _content:Object;
+    private var _content:*;
     
     [Bindable("contentChange")]
 
@@ -558,13 +558,13 @@ public class ButtonBase extends FxComponent implements IFocusManagerComponent
     {
         return getBaselinePositionForPart(labelElement);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private
      */
@@ -572,15 +572,11 @@ public class ButtonBase extends FxComponent implements IFocusManagerComponent
     {
         super.partAdded(partName, instance);
         
-        if (instance == labelElement)
-        {
+        // Push down to the part only if the label was explicitly set
+        if (_content !== undefined && instance == labelElement)
             labelElement.text = label;
-            
-            // Temporary ...
-            labelElement.setStyle("verticalAlign", getStyle("verticalAlign"));
-        }
     }
-    
+
     /**
      *  @private
      *  Remember whether we have fired an event already,
