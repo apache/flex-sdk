@@ -723,6 +723,16 @@ function xmlEncoder (myObj)
         return super.cancel(id);
     }
 
+	/**
+	 *  Executes the http request for this operation. The parameters are optional, but if specified should
+     *  be an Object containing name-value pairs or an XML object depending on the <code>contentType</code>.
+     *
+     *  @param parameters An Object containing name-value pairs or an
+     *  XML object, depending on the content type for service requests.
+     * 
+     *  @return An object representing the asynchronous completion token. It is the same object
+     *  available in the <code>result</code> or <code>fault</code> event's <code>token</code> property.
+	 */
     public function sendBody(parameters:Object):AsyncToken
     {
         var filter:SerializationFilter = getSerializationFilter();
