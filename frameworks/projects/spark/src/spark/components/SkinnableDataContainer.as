@@ -69,7 +69,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  Color of focus ring when the component is in focus.
@@ -81,7 +81,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Thickness, in pixels, of the focus rectangle outline.
