@@ -542,21 +542,6 @@ public class SimpleText extends TextGraphicElement
     private function setKerning(elementFormat:ElementFormat):void
     {
         var kerning:Object = getStyle("kerning");
-        switch(kerning)
-        {
-            case true: 
-                elementFormat.kerning = Kerning.ON;
-                break;
-            case false:
-                elementFormat.kerning = Kerning.OFF
-                break;
-        }
-    }
-     
-    /*
-    private function setKerning(elementFormat:ElementFormat):void
-    {
-        var kerning:Object = getStyle("kerning");
         
         if (kerning === true)
             kerning = Kerning.ON;
@@ -567,7 +552,6 @@ public class SimpleText extends TextGraphicElement
         if (s != null)
            elementFormat.kerning = s;
     }
-    */
 
     /**
      *  @private
