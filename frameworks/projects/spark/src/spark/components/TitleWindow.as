@@ -38,8 +38,6 @@ use namespace mx_internal;
  *  Dispatched when the user selects the close button.
  *
  *  @eventType mx.events.CloseEvent.CLOSE
- *  @helpid 3985
- *  @tiptext close event
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -49,8 +47,8 @@ use namespace mx_internal;
 [Event(name="close", type="mx.events.CloseEvent")]
 
 /**
- *  Dispatched when the user presses the moveArea and
- *  begins to drag the window.
+ *  Dispatched when the user presses and hold the mouse button 
+ *  in the move area and begins to drag the window.
  *
  *  @eventType spark.events.TitleWindowBoundsEvent.WINDOW_MOVE_START
  * 
@@ -62,7 +60,7 @@ use namespace mx_internal;
 [Event(name="windowMoveStart", type="spark.events.TitleWindowBoundsEvent")]
 
 /**
- *  Dispatched when the user tries to drag the window.
+ *  Dispatched when the user drags the window.
  *
  *  @eventType spark.events.TitleWindowBoundsEvent.WINDOW_MOVING
  * 
@@ -74,7 +72,7 @@ use namespace mx_internal;
 [Event(name="windowMoving", type="spark.events.TitleWindowBoundsEvent")]
 
 /**
- *  Dispatched when the user moves the window successfully.
+ *  Dispatched after the user dragged the window successfully.
  *
  *  @eventType spark.events.TitleWindowBoundsEvent.WINDOW_MOVE
  * 
@@ -86,7 +84,7 @@ use namespace mx_internal;
 [Event(name="windowMove", type="spark.events.TitleWindowBoundsEvent")]
 
 /**
- *  Dispatched when the user releases the moveArea after
+ *  Dispatched when the user releases the mouse button after
  *  dragging.
  *
  *  @eventType spark.events.TitleWindowBoundsEvent.WINDOW_MOVE_END
@@ -103,8 +101,8 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Inactive State which is used for a TitleWindow
- *  when it or all of its children are not in focus.
+ *  Inactive view state used for a TitleWindow
+ *  when it, or all of its children, are not in focus.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -114,7 +112,7 @@ use namespace mx_internal;
 [SkinState("inactive")]
 
 /**
- *  Inactive State with control bar present.
+ *  Inactive view state with a control bar visible.
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -126,9 +124,32 @@ use namespace mx_internal;
 [IconFile("TitleWindow.png")]
 
 /**
- *  The TitleWindow Class extends Panel to include
- *  a close button and drag area. TitleWindow is 
- *  designed as a floating or pop-up window.
+ *  The TitleWindow class extends Panel to include
+ *  a close button and move area.
+ * 
+ *  <p>The TitleWindow is designed as a pop-up window.
+ *  Do not create a TitleWindow in MXML as part of an application.
+ *  Instead, you typically create a custom MXML component based on 
+ *  the TitleWindow class, and then use the 
+ *  <code>PopUpManager.createPopUp()</code> method to pop up the component, 
+ *  and the <code>PopUpManager.removePopUp()</code> method 
+ *  to remove the component.</p>
+ *  
+ *  <p>The TitleWindow container has the following default sizing characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>Height is large enough to hold all of the children in the content area at the default or 
+ *               explicit heights of the children, plus the title bar and border, plus any vertical gap between 
+ *               the children, plus the top and bottom padding of the container.<br/> 
+ *               Width is the larger of the default or explicit width of the widest child, plus the left and 
+ *               right container borders padding, or the width of the title text.</td>
+ *        </tr>
+ *     </table>
  *  
  *  @mxml
  *  
@@ -149,8 +170,9 @@ use namespace mx_internal;
  *  @includeExample examples/SimpleTitleWindowExample.mxml -noswf
  *  @includeExample examples/TitleWindowApp.mxml
  *  
- *  @see Panel
+ *  @see spark.components.Panel
  *  @see spark.skins.spark.TitleWindowSkin
+ *  @see spark.skins.spark.TitleWindowCloseButtonSkin
  *  @see mx.managers.PopUpManager
  *  
  *  @langversion 3.0
@@ -160,435 +182,451 @@ use namespace mx_internal;
  */
 public class TitleWindow extends Panel
 {
-	include "../core/Version.as";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Constructor.
-	 * 
-	 *  @langversion 3.0
+    include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
+     */
     public function TitleWindow()
     {
         super();
     }
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	private var addedHandlers:Boolean = false;
-	private var active:Boolean = false;
-	
-	/**
-	 *  @private
-	 *  Horizontal location where the user pressed the mouse button
-	 *  on the moveArea to start dragging, relative to the original
-	 *  horizontal location of the TitleWindow.
-	 */
-	private var offsetX:Number;
-	
-	/**
-	 *  @private
-	 *  Vertical location where the user pressed the mouse button
-	 *  on the moveArea to start dragging, relative to the original
-	 *  vertical location of the TitleWindow.
-	 */
-	private var offsetY:Number;
-	
-	/**
-	 *  @private
-	 *  The starting bounds of the TitleWindow before a user
-	 *  moves or resizes it.
-	 */
-	private var startBounds:Rectangle;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties 
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  closeButton
-	//---------------------------------- 
-	
-	[SkinPart(required="false")]
-	
-	/**
-	 *  The Button that when clicked dispatches a "close" event.
-	 *  Focus is disabled for this button.
-	 */
-	public var closeButton:Button;
-	
-	//----------------------------------
-	//  moveArea
-	//---------------------------------- 
-	
-	[SkinPart(required="false")]
-	
-	/**
-	 *  The area where the user may click and drag to move the window.
-	 */
-	public var moveArea:InteractiveObject;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent, SkinnableComponent
-	//
-	//--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	override public function parentChanged(p:DisplayObjectContainer):void
-	{
-		if (focusManager)
-		{
-			focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
-											 activateHandler);
-			focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
-											 deactivateHandler);
-		}
-		
-		super.parentChanged(p);
-		
-		if (focusManager)
-		{
-			addActivateHandlers();
-		}
-		else
-		{
-			// if no focusmanager yet, add capture phase to detect when it
-			// gets added
-			if (systemManager)
-			{
-				systemManager.getSandboxRoot().addEventListener(
-					FlexEvent.ADD_FOCUS_MANAGER, addFocusManagerHandler, true, 0, true);
-			}
-			else
-			{
-				// no systemManager yet?  Check again when added to stage
-				addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			}
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private var addedHandlers:Boolean = false;
+    private var active:Boolean = false;
+    
+    /**
+     *  @private
+     *  Horizontal location where the user pressed the mouse button
+     *  on the moveArea to start dragging, relative to the original
+     *  horizontal location of the TitleWindow.
+     */
+    private var offsetX:Number;
+    
+    /**
+     *  @private
+     *  Vertical location where the user pressed the mouse button
+     *  on the moveArea to start dragging, relative to the original
+     *  vertical location of the TitleWindow.
+     */
+    private var offsetY:Number;
+    
+    /**
+     *  @private
+     *  The starting bounds of the TitleWindow before a user
+     *  moves or resizes it.
+     */
+    private var startBounds:Rectangle;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties 
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  closeButton
+    //---------------------------------- 
+    
+    [SkinPart(required="false")]
+    
+    /**
+     *  The skin part that defines the appearance of the 
+     *  close icon (a small x in the upper-right corner of the TitleWindow title bar).
+     *  When clicked, the close icon dispatches a <code>close</code> event.
+     *
+     *  <p>Flex does not close the window automatically. 
+     *  To suport the close icon, you must create a handler for the <code>close</code> event 
+     *  and close the TitleWindow from that event handler.</p>
+     *
+     *  <p>Focus is disabled for this skin part.</p>
+     */
+    public var closeButton:Button;
+    
+    //----------------------------------
+    //  moveArea
+    //---------------------------------- 
+    
+    [SkinPart(required="false")]
+    
+    /**
+     *  The area where the user must click and drag to move the window.
+     *  By default, the move area is the title bar of the TitleWindow container.
+     *
+     *  <p>To drag the TitleWindow container, click and hold the mouse pointer in 
+     *  the title bar area of the window, then move the mouse. 
+     *  Create a custom skin class to change the move area.</p>
+     */
+    public var moveArea:InteractiveObject;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent, SkinnableComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function parentChanged(p:DisplayObjectContainer):void
+    {
+        if (focusManager)
+        {
+            focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+                                             activateHandler);
+            focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+                                             deactivateHandler);
+        }
+        
+        super.parentChanged(p);
+        
+        if (focusManager)
+        {
+            addActivateHandlers();
+        }
+        else
+        {
+            // if no focusmanager yet, add capture phase to detect when it
+            // gets added
+            if (systemManager)
+            {
+                systemManager.getSandboxRoot().addEventListener(
+                    FlexEvent.ADD_FOCUS_MANAGER, addFocusManagerHandler, true, 0, true);
+            }
+            else
+            {
+                // no systemManager yet?  Check again when added to stage
+                addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */
     override protected function partAdded(partName:String, instance:Object) : void
     {
         super.partAdded(partName, instance);
         
         if (instance == moveArea)
-		{
-			moveArea.addEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
-		}
-		else if (instance == closeButton)
-		{
-			closeButton.focusEnabled = false;
-			closeButton.addEventListener(MouseEvent.CLICK, closeButton_clickHandler);	
-		}
+        {
+            moveArea.addEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
+        }
+        else if (instance == closeButton)
+        {
+            closeButton.focusEnabled = false;
+            closeButton.addEventListener(MouseEvent.CLICK, closeButton_clickHandler);   
+        }
     }
     
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-		super.partRemoved(partName, instance);
-												
+        super.partRemoved(partName, instance);
+                                                
         if (instance == moveArea)
-			moveArea.removeEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
-		else if (instance == closeButton)
+            moveArea.removeEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
+        else if (instance == closeButton)
             closeButton.removeEventListener(MouseEvent.CLICK, closeButton_clickHandler);
     }
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	override protected function getCurrentSkinState():String
-	{
-		// In focus window is the active window.
-		if (enabled && isPopUp && !active)
-		{
-			var state:String = "inactive";
-			
-			if (controlBarGroup)
-			{
-				if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG) &&
-					BitFlagUtil.isSet(controlBarGroupProperties as uint, VISIBLE_PROPERTY_FLAG))
-					state += "WithControlBar";
-			}
-			else
-			{
-				if (controlBarGroupProperties.controlBarContent &&
-					controlBarGroupProperties.visible)
-					state += "WithControlBar";
-			}
-			
-			return state;
-		}
-		
-		return super.getCurrentSkinState();
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function move(x:Number, y:Number) : void
-	{
-		var beforeBounds:Rectangle = new Rectangle(this.x, this.y, width, height);
-		
-		super.move(x, y);
-		
-		// Dispatch "windowMove" event when TitleWindow is moved.
-		var afterBounds:Rectangle = new Rectangle(this.x, this.y, width, height);
-		var e2:TitleWindowBoundsEvent =
-			new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE,
-									   false, false, beforeBounds, afterBounds);
-		
-		dispatchEvent(e2);
-	}
-	
-	//--------------------------------------------------------------------------
-	// 
-	// Event Handlers
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  closeButton Handler
-	//---------------------------------- 
-	
-	/**
-	 *  Dispatches the "close" event when the closeButton
-	 *  is clicked.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	protected function closeButton_clickHandler(event:MouseEvent):void
-	{
-		dispatchEvent(new CloseEvent(CloseEvent.CLOSE));
-	}
-	
-	//----------------------------------
-	//  moveArea Handlers
-	//---------------------------------- 
-	
-	/**
-	 *  Called when the user starts dragging a TitleWindow.
-	 *  It begins a move on the TitleWindow if it was popped
-	 *  up either by PopUpManager or PopUpAnchor.
-	 * 
+    
+    /**
+     *  @inheritDoc
+     *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function getCurrentSkinState():String
+    {
+        // In focus window is the active window.
+        if (enabled && isPopUp && !active)
+        {
+            var state:String = "inactive";
+            
+            if (controlBarGroup)
+            {
+                if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG) &&
+                    BitFlagUtil.isSet(controlBarGroupProperties as uint, VISIBLE_PROPERTY_FLAG))
+                    state += "WithControlBar";
+            }
+            else
+            {
+                if (controlBarGroupProperties.controlBarContent &&
+                    controlBarGroupProperties.visible)
+                    state += "WithControlBar";
+            }
+            
+            return state;
+        }
+        
+        return super.getCurrentSkinState();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function move(x:Number, y:Number) : void
+    {
+        var beforeBounds:Rectangle = new Rectangle(this.x, this.y, width, height);
+        
+        super.move(x, y);
+        
+        // Dispatch "windowMove" event when TitleWindow is moved.
+        var afterBounds:Rectangle = new Rectangle(this.x, this.y, width, height);
+        var e2:TitleWindowBoundsEvent =
+            new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE,
+                                       false, false, beforeBounds, afterBounds);
+        
+        dispatchEvent(e2);
+    }
+    
+    //--------------------------------------------------------------------------
+    // 
+    // Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  closeButton Handler
+    //---------------------------------- 
+    
+    /**
+     *  @private
+     *  Dispatches the "close" event when the closeButton
+     *  is clicked.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function closeButton_clickHandler(event:MouseEvent):void
+    {
+        dispatchEvent(new CloseEvent(CloseEvent.CLOSE));
+    }
+    
+    //----------------------------------
+    //  moveArea Handlers
+    //---------------------------------- 
+    
+    /**
+     *  @private
+     *  Called when the user starts dragging a TitleWindow.
+     *  It begins a move on the TitleWindow if it was popped
+     *  up either by PopUpManager or PopUpAnchor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     protected function moveArea_mouseDownHandler(event:MouseEvent):void
     {
-		// Only allow dragging of pop-upped windows
+        // Only allow dragging of pop-upped windows
         if (enabled && isPopUp)
-		{
-			// Calculate the mouse's offset in the window
-			// TODO (klin): Investigate globalToLocal method
-			offsetX = event.stageX - x;
-			offsetY = event.stageY - y;
-			
-			var sbRoot:DisplayObject = systemManager.getSandboxRoot();
-			
-			sbRoot.addEventListener(
-				MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
-			sbRoot.addEventListener(
-				MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
-			sbRoot.addEventListener(
-				SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler)
-			
-			// add the mouse shield so we can drag over untrusted applications.
-			systemManager.deployMouseShields(true);
-		}
+        {
+            // Calculate the mouse's offset in the window
+            // TODO (klin): Investigate globalToLocal method
+            offsetX = event.stageX - x;
+            offsetY = event.stageY - y;
+            
+            var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+            
+            sbRoot.addEventListener(
+                MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
+            sbRoot.addEventListener(
+                MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
+            sbRoot.addEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler)
+            
+            // add the mouse shield so we can drag over untrusted applications.
+            systemManager.deployMouseShields(true);
+        }
     }
-	
-	/**
-	 *  Called when the user drags a TitleWindow.
-	 * 
+    
+    /**
+     *  @private
+     *  Called when the user drags a TitleWindow.
+     * 
      *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	protected function moveArea_mouseMoveHandler(event:MouseEvent):void
-	{
-		// Check to see if this is the first mouseMove
-		if (!startBounds)
-		{
-			// First dispatch a cancellable "windowMoveStart" event
-			startBounds = new Rectangle(x, y, width, height);
-			var startEvent:TitleWindowBoundsEvent =
-				new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE_START,
-					false, true, startBounds, null);
-			dispatchEvent(startEvent);
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function moveArea_mouseMoveHandler(event:MouseEvent):void
+    {
+        // Check to see if this is the first mouseMove
+        if (!startBounds)
+        {
+            // First dispatch a cancellable "windowMoveStart" event
+            startBounds = new Rectangle(x, y, width, height);
+            var startEvent:TitleWindowBoundsEvent =
+                new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE_START,
+                    false, true, startBounds, null);
+            dispatchEvent(startEvent);
 
-			if (startEvent.isDefaultPrevented())
-			{
-				// Clean up code if entire move is canceled.
+            if (startEvent.isDefaultPrevented())
+            {
+                // Clean up code if entire move is canceled.
                 var sbRoot:DisplayObject = systemManager.getSandboxRoot();
 
-				sbRoot.removeEventListener(
-					MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
-				sbRoot.removeEventListener(
-					MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
-				sbRoot.removeEventListener(
-					SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler);
-				
-				systemManager.deployMouseShields(false);
-				
-				offsetX = NaN;
-				offsetY = NaN;
-				startBounds = null;
-				return;
-			}
-		}
-		
-		// Dispatch cancelable "windowMoving" event with before and after bounds.
-		var beforeBounds:Rectangle = new Rectangle(x, y, width, height);
-		var afterBounds:Rectangle = 
-			new Rectangle(Math.round(event.stageX - offsetX),
-						  Math.round(event.stageY - offsetY),
-						  width, height);
-		
-		var e1:TitleWindowBoundsEvent =
-			new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVING,
-									   false, true, beforeBounds, afterBounds);
-		dispatchEvent(e1);
-		
-		// Move only if not canceled.
-		if (!(e1.isDefaultPrevented()))
-			move(afterBounds.x, afterBounds.y);
+                sbRoot.removeEventListener(
+                    MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
+                sbRoot.removeEventListener(
+                    MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
+                sbRoot.removeEventListener(
+                    SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler);
+                
+                systemManager.deployMouseShields(false);
+                
+                offsetX = NaN;
+                offsetY = NaN;
+                startBounds = null;
+                return;
+            }
+        }
+        
+        // Dispatch cancelable "windowMoving" event with before and after bounds.
+        var beforeBounds:Rectangle = new Rectangle(x, y, width, height);
+        var afterBounds:Rectangle = 
+            new Rectangle(Math.round(event.stageX - offsetX),
+                          Math.round(event.stageY - offsetY),
+                          width, height);
+        
+        var e1:TitleWindowBoundsEvent =
+            new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVING,
+                                       false, true, beforeBounds, afterBounds);
+        dispatchEvent(e1);
+        
+        // Move only if not canceled.
+        if (!(e1.isDefaultPrevented()))
+            move(afterBounds.x, afterBounds.y);
 
-		event.updateAfterEvent();
-	}
-	
-	/**
-	 *  Called when the user releases the TitleWindow.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	protected function moveArea_mouseUpHandler(event:Event):void
-	{
-		var sbRoot:DisplayObject = systemManager.getSandboxRoot();
-		
-		sbRoot.removeEventListener(
-			MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
-		sbRoot.removeEventListener(
-			MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
-		sbRoot.removeEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler);
-		
-		systemManager.deployMouseShields(false);
-		
-		// Check to see that a move actually occurred and that the
-		// user did not just click on the moveArea
-		if (startBounds)
-		{
-			// Dispatch "windowMoveEnd" event with the starting bounds and current bounds.
-			var endEvent:TitleWindowBoundsEvent =
-				new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE_END,
-										   false, false, startBounds,
-										   new Rectangle(x, y, width, height));
-			dispatchEvent(endEvent);
-			startBounds = null;
-		}
-		
-		offsetX = NaN;
-		offsetY = NaN;
-	}
+        event.updateAfterEvent();
+    }
+    
+    /**
+     *  @private
+     *  Called when the user releases the TitleWindow.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function moveArea_mouseUpHandler(event:Event):void
+    {
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        
+        sbRoot.removeEventListener(
+            MouseEvent.MOUSE_MOVE, moveArea_mouseMoveHandler, true);
+        sbRoot.removeEventListener(
+            MouseEvent.MOUSE_UP, moveArea_mouseUpHandler, true);
+        sbRoot.removeEventListener(
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, moveArea_mouseUpHandler);
+        
+        systemManager.deployMouseShields(false);
+        
+        // Check to see that a move actually occurred and that the
+        // user did not just click on the moveArea
+        if (startBounds)
+        {
+            // Dispatch "windowMoveEnd" event with the starting bounds and current bounds.
+            var endEvent:TitleWindowBoundsEvent =
+                new TitleWindowBoundsEvent(TitleWindowBoundsEvent.WINDOW_MOVE_END,
+                                           false, false, startBounds,
+                                           new Rectangle(x, y, width, height));
+            dispatchEvent(endEvent);
+            startBounds = null;
+        }
+        
+        offsetX = NaN;
+        offsetY = NaN;
+    }
 
-	//----------------------------------
-	//  Active Window Handlers and helper methods
-	//---------------------------------- 
-	
-	/**
-	 *  @private
-	 */
+    //----------------------------------
+    //  Active Window Handlers and helper methods
+    //---------------------------------- 
+    
+    /**
+     *  @private
+     */
     private function activateHandler(event:Event):void
     {
         active = true;
         invalidateSkinState();
     }
-	
-	/**
-	 *  @private
-	 */
+    
+    /**
+     *  @private
+     */
     private function deactivateHandler(event:Event):void
     {
         active = false;
         invalidateSkinState();
     }
-	
-	/**
-	 *  @private
-	 *  add listeners to focusManager
-	 */
-	private function addActivateHandlers():void
-	{
-		focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
-			activateHandler, false, 0, true);
-		focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
-			deactivateHandler, false, 0, true);
-	}
-	
-	/**
-	 *  @private
-	 *  find the right time to listen to the focusmanager
-	 */
-	private function addedToStageHandler(event:Event):void
-	{
-		if (event.target == this)
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			callLater(addActivateHandlers);
-		}    
-	}
-	
-	/**
-	 *  @private
-	 *  Called when a FocusManager is added to an IFocusManagerContainer.
-	 *  We need to check that it belongs to us before listening to it.
-	 *  Because we listen to sandboxroot, you cannot assume the type of
-	 *  the event.
-	 */
-	private function addFocusManagerHandler(event:Event):void
-	{
-		if (focusManager == event.target["focusManager"])
-		{
-			systemManager.getSandboxRoot().removeEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
-				addFocusManagerHandler, true);
-			addActivateHandlers();
-		}
-	}
+    
+    /**
+     *  @private
+     *  add listeners to focusManager
+     */
+    private function addActivateHandlers():void
+    {
+        focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+            activateHandler, false, 0, true);
+        focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+            deactivateHandler, false, 0, true);
+    }
+    
+    /**
+     *  @private
+     *  find the right time to listen to the focusmanager
+     */
+    private function addedToStageHandler(event:Event):void
+    {
+        if (event.target == this)
+        {
+            removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+            callLater(addActivateHandlers);
+        }    
+    }
+    
+    /**
+     *  @private
+     *  Called when a FocusManager is added to an IFocusManagerContainer.
+     *  We need to check that it belongs to us before listening to it.
+     *  Because we listen to sandboxroot, you cannot assume the type of
+     *  the event.
+     */
+    private function addFocusManagerHandler(event:Event):void
+    {
+        if (focusManager == event.target["focusManager"])
+        {
+            systemManager.getSandboxRoot().removeEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
+                addFocusManagerHandler, true);
+            addActivateHandlers();
+        }
+    }
 }
 }
