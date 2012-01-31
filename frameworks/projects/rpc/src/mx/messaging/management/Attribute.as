@@ -18,11 +18,23 @@ import mx.utils.ObjectUtil;
 
 /**
  * Client representation of a MBean attribute.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class Attribute
 {
     /**
      *  Creates a new instance of an empty Attribute.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function Attribute()
     {
@@ -31,11 +43,23 @@ public class Attribute
 
     /**
      * The attribute name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var name:String;
 
     /**
      * The attribute value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var value:Object;
     
@@ -43,6 +67,12 @@ public class Attribute
      *  Returns a string representation of the attribute.
      * 
      *  @return String representation of the attribute.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function toString():String
     {
