@@ -58,9 +58,9 @@ import spark.events.TrackBaseEvent;
  *  @eventType spark.events.TrackBaseEvent
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="thumbDrag", type="spark.events.TrackBaseEvent")]
 
@@ -71,9 +71,9 @@ import spark.events.TrackBaseEvent;
  *  @eventType mx.events.SliderEvent
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="thumbPress", type="spark.events.TrackBaseEvent")]
 
@@ -85,9 +85,9 @@ import spark.events.TrackBaseEvent;
  *  @eventType mx.events.SliderEvent
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="thumbRelease", type="spark.events.TrackBaseEvent")]
 
@@ -218,7 +218,7 @@ public class TrackBase extends Range
     //
     //--------------------------------------------------------------------------
 
-	private var mouseDownTarget:DisplayObject;
+    private var mouseDownTarget:DisplayObject;
 
     //--------------------------------------------------------------------------
     //
@@ -418,7 +418,7 @@ public class TrackBase extends Range
     {
         super.focusInHandler(event);
         
-    	addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+        addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
     }
     
     /**
@@ -428,7 +428,7 @@ public class TrackBase extends Range
     {
         super.focusOutHandler(event);
         
-    	removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+        removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
     }
     
     /**
@@ -507,9 +507,9 @@ public class TrackBase extends Range
      */ 
     protected function system_mouseWheelHandler(event:MouseEvent):void
     {
-    	var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
+        var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
         setValue(newValue);
-        event.preventDefault();  	
+        event.preventDefault();     
     }
     
     /**
@@ -519,7 +519,7 @@ public class TrackBase extends Range
      */ 
     private function stage_mouseWheelHandler(event:MouseEvent):void
     {
-    	if (event.target != stage)
+        if (event.target != stage)
             return;
 
         system_mouseWheelHandler(event);
@@ -622,42 +622,42 @@ public class TrackBase extends Range
      *  Capture any mouse down event and listen for a mouse up event
      */  
     private function mouseDownHandler(event:MouseEvent):void
-	{
-		systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
-														system_mouseUpSomewhereHandler);
-		systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
-														system_mouseUpSomewhereHandler);
-		
-		mouseDownTarget = DisplayObject(event.target);		
-	}
-	
-	/**
+    {
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+                                                        system_mouseUpSomewhereHandler);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+                                                        system_mouseUpSomewhereHandler);
+        
+        mouseDownTarget = DisplayObject(event.target);      
+    }
+    
+    /**
      *  @private
      */
-	private function system_mouseUpSomewhereHandler(event:Event):void
-	{
-		systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
-														   system_mouseUpSomewhereHandler);
-		systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
-														   system_mouseUpSomewhereHandler);
-		
-		// If we got a mouse down followed by a mouse up on a different target in the skin, 
-		// we want to dispatch a click event. 
-		if (mouseDownTarget != event.target && event is MouseEvent && contains(DisplayObject(event.target)))
-		{ 
-			var mEvent:MouseEvent = event as MouseEvent;
-			// Convert the mouse coordinates from the target to the TrackBase
-			var mousePoint:Point = new Point(mEvent.localX, mEvent.localY);
-			mousePoint = globalToLocal(DisplayObject(event.target).localToGlobal(mousePoint));
-			
-			dispatchEvent(new MouseEvent(MouseEvent.CLICK, mEvent.bubbles, mEvent.cancelable, mousePoint.x,
-									 mousePoint.y, mEvent.relatedObject, mEvent.ctrlKey, mEvent.altKey,
-									 mEvent.shiftKey, mEvent.buttonDown, mEvent.delta));
-		}
-		
-		mouseDownTarget = null;
-		
-	}
+    private function system_mouseUpSomewhereHandler(event:Event):void
+    {
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+                                                           system_mouseUpSomewhereHandler);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+                                                           system_mouseUpSomewhereHandler);
+        
+        // If we got a mouse down followed by a mouse up on a different target in the skin, 
+        // we want to dispatch a click event. 
+        if (mouseDownTarget != event.target && event is MouseEvent && contains(DisplayObject(event.target)))
+        { 
+            var mEvent:MouseEvent = event as MouseEvent;
+            // Convert the mouse coordinates from the target to the TrackBase
+            var mousePoint:Point = new Point(mEvent.localX, mEvent.localY);
+            mousePoint = globalToLocal(DisplayObject(event.target).localToGlobal(mousePoint));
+            
+            dispatchEvent(new MouseEvent(MouseEvent.CLICK, mEvent.bubbles, mEvent.cancelable, mousePoint.x,
+                                     mousePoint.y, mEvent.relatedObject, mEvent.ctrlKey, mEvent.altKey,
+                                     mEvent.shiftKey, mEvent.buttonDown, mEvent.delta));
+        }
+        
+        mouseDownTarget = null;
+        
+    }
 }
 
 }
