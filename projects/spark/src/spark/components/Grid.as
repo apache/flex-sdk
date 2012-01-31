@@ -27,6 +27,7 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
+import mx.events.PropertyChangeEvent;
 import mx.utils.ObjectUtil;
 
 import spark.components.supportClasses.CellPosition;
@@ -756,7 +757,7 @@ public class Grid extends Group
         const newColumns:IList = _columns;
         if (newColumns)
         {
-            newColumns.addEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler, false, 0, true);            
+            newColumns.addEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler, false, 0, true);
             for (index = 0; index < newColumns.length; index++)
             {
                 var newColumn:GridColumn = GridColumn(newColumns.getItemAt(index));
@@ -3671,6 +3672,25 @@ public class Grid extends Group
                 
             case CollectionEventKind.UPDATE:
             {
+                // column may have changed visiblity                
+                const itemsLength:int = event.items.length;
+                var itemsLeft:int = count;
+                var pcEvent:PropertyChangeEvent;
+                
+                for (i = 0; i < itemsLength; i++)
+                {
+                    pcEvent = event.items[i] as PropertyChangeEvent;
+                    if (pcEvent && pcEvent.property == "visible")
+                    {
+                        columns_visibleChangedHandler(pcEvent);
+                        itemsLeft--;
+                    }
+                }
+                
+                // return if all were visible property changes
+                if (itemsLeft == 0)
+                    return;
+                
                 break;
             }
                 
@@ -3738,6 +3758,47 @@ public class Grid extends Group
         invalidateSize();
         invalidateDisplayList();        
     } 
+    
+    /**
+     *  @private
+     */
+    private function columns_visibleChangedHandler(event:PropertyChangeEvent):void
+    {
+        const column:GridColumn = event.source as GridColumn;
+        const columnIndex:int = columns.getItemIndex(column);
+        if (!column || columnIndex == -1)
+            return;
+        
+        // Fix up gridDimensions
+        if (gridDimensions)
+        {
+            gridDimensions.clearColumns(columnIndex, 1);
+            
+            // column.visible==true columns need to have their typical sizes and 
+            // actual column width updated, while column.visible==false column
+            // have their typical sizes updated to 0 and actual column width
+            // set to NaN.
+            if (column.visible)
+            {
+                gridDimensions.setTypicalCellWidth(columnIndex, NaN);
+                gridDimensions.setTypicalCellHeight(columnIndex, NaN);
+                if (!isNaN(column.width))
+                    gridDimensions.setColumnWidth(columnIndex, column.width);
+            }
+            else
+            {
+                gridDimensions.setTypicalCellWidth(columnIndex, 0);
+                gridDimensions.setTypicalCellHeight(columnIndex, 0);
+                gridDimensions.setColumnWidth(columnIndex, NaN);
+            }
+        }
+        
+        // Clear out gridLayout
+        gridLayout.clearVirtualLayoutCache();
+        
+        invalidateSize();
+        invalidateDisplayList();
+    }
     
     //--------------------------------------------------------------------------
     //
