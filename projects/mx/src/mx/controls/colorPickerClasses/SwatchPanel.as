@@ -19,6 +19,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
+
 import mx.collections.ArrayList;
 import mx.collections.IList;
 import mx.controls.ColorPicker;
@@ -983,22 +984,7 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
                 textInput = new textInputClass();
             }
 			
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			{
-				textInput.styleName = this;
-				textInput.setStyle("borderCapColor", 0x919999);
-				textInput.setStyle("buttonColor", 0x6F7777);
-				textInput.setStyle("highlightColor", 0xC4CCCC);
-				textInput.setStyle("shadowColor", 0xc);
-				textInput.setStyle("shadowCapColor", 0xD5DDDD);
-				textInput.setStyle("borderStyle", "inset");
-				textInput.setStyle("backgroundColor", 0xFFFFFF);
-				textInput.setStyle("borderColor", 0xD5DDDD);
-			}
-			else
-			{
-				textInput.styleName = getStyle("textFieldStyleName");
-			}
+			textInput.styleName = getStyle("textFieldStyleName");
 			
 			textInput.editable = _editable;
 			textInput.maxChars = 6;
