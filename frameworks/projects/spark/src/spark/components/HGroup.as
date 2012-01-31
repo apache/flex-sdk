@@ -45,6 +45,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  </pre>
  * 
  *  @see spark.layouts.HorizontalLayout
+ *  @includeExample examples/HGroupExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
