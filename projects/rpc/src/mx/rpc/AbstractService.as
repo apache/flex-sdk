@@ -542,8 +542,8 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * accessing a remote, third-party endpoint such as a web service through a
      * proxy or a remote object through a custom adapter when using Data Services on the server side.
      *
-     * @param remoteUsername the username to pass to the remote endpoint
-     * @param remotePassword the password to pass to the remote endpoint
+     * @param remoteUsername The username to pass to the remote endpoint
+     * @param remotePassword The password to pass to the remote endpoint
      * @param charset The character set encoding to use while encoding the
      * remote credentials. The default is null, which implies the legacy charset
      * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
