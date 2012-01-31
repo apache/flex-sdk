@@ -147,7 +147,8 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels of vertical offset to apply to the label position.
  *  Positive numbers move the label down.
  *  
- *  @default 1 
+ *  The default value for the Halo theme is <code>0</code>.
+ *  The default value for the Spark theme is <code>1</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -160,7 +161,8 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the component's bottom border
  *  and the bottom of its content area.
  *  
- *  @default 2 
+ *  The default value for the Halo theme is <code>2</code>.
+ *  The default value for the Spark theme is <code>0</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -173,7 +175,8 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the component's top border
  *  and the top of its content area.
  *  
- *  @default 2
+ *  The default value for the Halo theme is <code>2</code>.
+ *  The default value for the Spark theme is <code>0</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -212,7 +215,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Text color of the label as the user moves the mouse pointer over the button.
  *  
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -224,7 +228,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Text color of the label as the user presses it.
  *  
- *  @default 0x000000
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -251,8 +256,10 @@ include "../styles/metadata/TextStyles.as"
 //--------------------------------------
 
 /**
- *  Name of the class to use as the default skin for the background and border. 
- *  @default "mx.skins.halo.ButtonSkin"
+ *  Name of the class to use as the default skin for the background and border.
+ *  
+ *  The default value for the Halo theme is <code>mx.skins.halo.ButtonSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.ButtonSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -260,17 +267,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="skin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
-
-/**
- *  Name of the class to use as the emphasized skin for the background and border. 
- *  @default "mx.skins.halo.ButtonSkin"
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="emphasizedSkin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
 
 /**
  *  Name of the class to use as the skin for the background and border
@@ -329,7 +325,8 @@ include "../styles/metadata/TextStyles.as"
  *  is <code>emphasized</code> (such as when serving as the default
  *  button for a container).
  * 
- *  @default "mx.skins.spark.DefaultButtonSkin"
+ *  The default value for the Halo theme is <code>mx.skins.halo.ButtonSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.DefaultButtonSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
