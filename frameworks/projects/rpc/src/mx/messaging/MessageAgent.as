@@ -165,7 +165,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  The type of MessageAgent.
      *  This variable is used for logging and MUST be assigned by subclasses.
      */
-    protected var _agentType:String;
+    protected var _agentType:String = "mx.messaging.MessageAgent";
 
     /**
      *  @private
