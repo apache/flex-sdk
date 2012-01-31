@@ -6,12 +6,10 @@ import flash.events.Event;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import flash.geom.Transform;
 import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
-import flex.geom.Transform;
 import flex.graphics.Graphic;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
