@@ -161,6 +161,8 @@ include "../styles/metadata/ModalTransparencyStyles.as";
 
 [ResourceBundle("core")]
 
+[Alternative(replacement="spark.components.Application", since="4.0")]
+
 /**
  *  Flex defines a default, or Application, container that lets you start
  *  adding content to your application without explicitly defining
