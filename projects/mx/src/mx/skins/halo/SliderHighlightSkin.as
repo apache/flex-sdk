@@ -16,6 +16,11 @@ import mx.skins.Border;
 
 /**
  *  The skin for the highlighted state of the track of a Slider.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderHighlightSkin extends Border
 {
@@ -29,6 +34,11 @@ public class SliderHighlightSkin extends Border
 
     /**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderHighlightSkin()
 	{
