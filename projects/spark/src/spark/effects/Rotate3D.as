@@ -13,7 +13,7 @@ package spark.effects
 {
 import mx.effects.IEffectInstance;
 
-import spark.effects.effectClasses.AnimateTransformInstance;
+import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
  * This class is a utility wrapper around the AnimateTransform effect, exposing the
