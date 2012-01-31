@@ -20,7 +20,10 @@ import mx.collections.IList;
 import mx.collections.IViewCursor;
 import mx.collections.XMLListCollection;
 import mx.controls.menuClasses.IMenuDataDescriptor;
+import mx.core.mx_internal;
 import mx.utils.UIDUtil;
+
+use namespace mx_internal;
 
 /**
  *  The DefaultDataDescriptor class provides a default implementation for
@@ -130,7 +133,7 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
             else
             {
                 childrenCollection = oldArrayCollection;
-                ArrayCollection(childrenCollection).mx_internal::dispatchResetEvent = false;
+                ArrayCollection(childrenCollection).dispatchResetEvent = false;
                 ArrayCollection(childrenCollection).source = children;
             }
             
@@ -161,7 +164,7 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
                 childrenCollection = oldXMLCollection;
                 
                 //We don't want to send a RESET type of collectionChange event in this case. 
-                XMLListCollection(childrenCollection).mx_internal::dispatchResetEvent = false; 
+                XMLListCollection(childrenCollection).dispatchResetEvent = false; 
                 XMLListCollection(childrenCollection).source = children;
             }
         }
