@@ -5,7 +5,7 @@ import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
 
 /**
  *  <code>GraphicElement</code> creates shared <code>DsiplayObject</code> of type
- *  <code>InvalidatingSprite</code>.
+ *  <code>InvalidatingSprite</code>. This class does not support mouse interaction. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -17,6 +17,8 @@ public class InvalidatingSprite extends Sprite implements ISharedGraphicsDisplay
     public function InvalidatingSprite()
     {
         super();
+        mouseChildren = false;
+        mouseEnabled = false;
     }
     
     private var _redrawRequested:Boolean = false;
