@@ -12,23 +12,23 @@ package spark.components.calendarClasses
 {
 /**
  *  The DateSelectorMode class defines the valid constant values for the 
- *  <code>mode</code> property of the Spark DateChooser and DateSpinner controls.
+ *  <code>displayMode</code> property of the Spark DateSpinner control.
  *  
  *  <p>Use the constants in ActionsScript, as the following example shows: </p>
  *  <pre>
- *    myDateChooser.mode = DateSelectorMode.DATE_AND_TIME;
+ *    myDateSpinner.mode = DateSelectorMode.DATE_AND_TIME;
  *  </pre>
  *
  *  <p>In MXML, use the String value of the constants, 
  *  as the following example shows:</p>
  *  <pre>
- *    &lt;s:DataChooser id="myChooser" 
- *        mode="dateAndTime"&gt; 
+ *    &lt;s:DateSpinner id="mySpinner" 
+ *        displayMode="dateAndTime"&gt; 
  *        ...
- *    &lt;/s:DataChooser&gt; 
+ *    &lt;/s:DateSpinner&gt; 
  *  </pre>
  * 
- *  @see spark.components.DateChooser#mode
+ *  @see spark.components.DateSpinner
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
