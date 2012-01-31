@@ -14,6 +14,7 @@ package spark.accessibility
 
 import flash.accessibility.AccessibilityImplementation;
 import flash.display.Graphics;
+import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -24,7 +25,6 @@ import mx.core.mx_internal;
 import mx.events.ResizeEvent;
 
 import spark.components.Panel;
-import spark.components.supportClasses.TextBase;
 import spark.events.SkinPartEvent;
 
 use namespace mx_internal;
@@ -308,8 +308,8 @@ public class PanelAccImpl extends AccImpl
 		if (panel.titleDisplay)
 		{
 			titleDisplayAccImpl =
-				panel.titleDisplay.accessibilityImplementation;
-			panel.titleDisplay.accessibilityImplementation = null;
+				InteractiveObject(panel.titleDisplay).accessibilityImplementation;
+			InteractiveObject(panel.titleDisplay).accessibilityImplementation = null;
 		}
 		
 		if (panel.tabIndex > 0 && accImplSprite.tabIndex == -1)
@@ -334,7 +334,7 @@ public class PanelAccImpl extends AccImpl
 	{
 		super.eventHandler(event);
 		
-		var titleDisplay:TextBase;
+		var titleDisplay:InteractiveObject;
 
 		switch (event.type)
 		{
@@ -363,7 +363,7 @@ public class PanelAccImpl extends AccImpl
 				
 			case SkinPartEvent.PART_ADDED:
 			{
-				titleDisplay = Panel(master).titleDisplay;
+				titleDisplay = Panel(master).titleDisplay as InteractiveObject;
 				if (SkinPartEvent(event).instance == titleDisplay)
 				{
 					titleDisplayAccImpl = titleDisplay.accessibilityImplementation;
@@ -374,7 +374,7 @@ public class PanelAccImpl extends AccImpl
 				
 			case SkinPartEvent.PART_REMOVED:
 			{
-				titleDisplay = Panel(master).titleDisplay;
+				titleDisplay = Panel(master).titleDisplay as InteractiveObject;
 				if (SkinPartEvent(event).instance == titleDisplay)
 				{
 					titleDisplay.accessibilityImplementation = titleDisplayAccImpl;
