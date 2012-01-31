@@ -39,6 +39,11 @@ import mx.effects.effectClasses.FxWipeInstance;
  * order for the effect to function correctly.</p>
  * 
  * @see mx.effects.FxAnimateShaderTransition#shaderCode
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxWipe extends FxAnimateShaderTransition
 {
@@ -57,6 +62,11 @@ public class FxWipe extends FxAnimateShaderTransition
      * @see WipeDirection#UP
      * @see WipeDirection#LEFT
      * @see WipeDirection#DOWN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var direction:String = WipeDirection.RIGHT;
     
