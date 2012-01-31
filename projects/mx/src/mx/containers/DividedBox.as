@@ -464,16 +464,6 @@ public class DividedBox extends Box
 	 */
 	private var numLayoutChildren:int = 0;
 
-    /**
-     * @private
-     * If last child was stretched to fill remaining space it will be asigned
-     * to this variable.
-     * See preLayoutAdjustment() for detailed description of the initial layout
-     * algorithm.
-     * Note that after resizing using dividers this property will be set to null.
-     */
-    private var stretchedChild:IUIComponent;
-
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
@@ -491,12 +481,6 @@ public class DividedBox extends Box
 	{
 		if (super.direction != value)
 		{
-            // Direction has changed so we reset the last child's
-            // percentWidth/percentHeight setting. Note that
-            // we call this before assigning the new direction value
-            // as resetStrechedChild() depends on the direction.
-            resetStretchedChild();
-
 			super.direction = value;
 
 			// Need to invalidate all our dividers
@@ -1363,10 +1347,6 @@ public class DividedBox extends Box
                 ++dividerIndex;
         }
 
-        // There's no need to track the last stretched child, as
-        // we are about to assing percentWidth/percentHeight.
-        stretchedChild = null;
-
 		// Distribute space starting from the center and 
 		// moving upwards.
         var curChildIndex:int = activeDividerChildIndex;
@@ -1459,24 +1439,6 @@ public class DividedBox extends Box
 
 	/**
 	 *  @private
-     * If the last child is stretched to fill
-     * the remaining space this function resets its size
-     * and sets stretchedChild property to null.
-     */
-    private function resetStretchedChild():void
-    {
-        if (stretchedChild)
-        {
-            if (isVertical())
-                stretchedChild.percentHeight = NaN;
-            else
-                stretchedChild.percentWidth = NaN;
-            stretchedChild = null;
-        }
-    }
-
-    /**
-     *  @private
 	 *  Algorithm employed pre-layout to ensure that 
 	 *  we don't leave any dangling space and to ensure
 	 *  that only explicit min/max values are honored.
@@ -1537,7 +1499,6 @@ public class DividedBox extends Box
 						child.percentHeight = 100;
 					else
 						child.percentWidth = 100;
-                    stretchedChild = child;
                     break;
 				}
 			}
@@ -1615,10 +1576,6 @@ public class DividedBox extends Box
         if (numLayoutChildren > 1)
             createDivider(numLayoutChildren - 2);
 			
-        // Clear the stretched child as the new last child
-        // will be set to 100% in preLayoutAdjustment().
-        resetStretchedChild();
-		
 		// Clear the cached values so that we do another 
 		// measurement pass.
 		dbMinWidth = NaN;
@@ -1645,10 +1602,6 @@ public class DividedBox extends Box
 		if (numLayoutChildren > 0)
 			dividerLayer.removeChild(getDividerAt(numLayoutChildren - 1));
 
-        // Clear the stretched child as the new last child
-        // will be set to 100% in preLayoutAdjustment().
-        resetStretchedChild();
-
 		// Clear the cached values so that we do another 
 		// measurement pass.
 		dbMinWidth = NaN;
@@ -1672,10 +1625,6 @@ public class DividedBox extends Box
 
 		else if (!child.includeInLayout && --numLayoutChildren > 0)
 			dividerLayer.removeChild(getDividerAt(numLayoutChildren - 1));
-
-        // Clear the stretched child as the new last child
-        // will be set to 100% in preLayoutAdjustment().
-        resetStretchedChild();
 
         // Clear the cached values so that we do another
         // measurement pass.
