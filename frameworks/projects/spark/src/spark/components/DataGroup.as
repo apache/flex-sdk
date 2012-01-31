@@ -365,7 +365,7 @@ public class DataGroup extends GroupBase
 
         if(_layeringFlags & LAYERING_DIRTY)
         {
-        	manageDisplayObjectLayers();
+            manageDisplayObjectLayers();
         }
         
         if (typicalItemChanged)
@@ -384,15 +384,12 @@ public class DataGroup extends GroupBase
         
         var insertIndex:uint = 0;
 
-		_layeringFlags &= ~LAYERING_DIRTY;
-		
-        // Iterate through all of the items
-        var len:int = super.numChildren; 
+        _layeringFlags &= ~LAYERING_DIRTY;
         
+        var len:int = numLayoutElements;
         for (var i:int = 0; i < len; i++)
         {  
-            var myItemRenderer:IVisualElement = IVisualElement(super.getChildAt(i));
-            
+            var myItemRenderer:IVisualElement = mx_internal::getRendererForItemAt(i);
             var layer:Number = myItemRenderer.layer;
             
             if (layer != 0)
@@ -421,8 +418,8 @@ public class DataGroup extends GroupBase
             len = topLayerItems.length;
             for (i=0;i<len;i++)
             {
-            	myItemRenderer = topLayerItems[i];
-	            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
+                myItemRenderer = topLayerItems[i];
+                super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
             }
         }
         
@@ -436,8 +433,8 @@ public class DataGroup extends GroupBase
 
             for (i=0;i<len;i++)
             {
-            	myItemRenderer = bottomLayerItems[i];
-	            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
+                myItemRenderer = bottomLayerItems[i];
+                super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
             }
         }
         
@@ -464,9 +461,9 @@ public class DataGroup extends GroupBase
         return dataProvider ? dataProvider.length : 0;
     }
 
+    private var itemToRenderer:Dictionary = new Dictionary(true); 
     private var virtualLayoutOffset:int = 0;
     private var virtualLayoutUnderway:Boolean = false;
-    private var renderersInView:Dictionary = new Dictionary(true); 
     private var freeRenderers:Array = new Array();
          
     /**
@@ -506,12 +503,12 @@ public class DataGroup extends GroupBase
 
             // Remove previously "in view" IRs from the item=>IR table
             var item:Object = elt;
-            if ((renderersInView[item] != item) && (elt is IDataRenderer))
+            if ((itemToRenderer[item] != elt) && (elt is IDataRenderer))
             {
                 item = IDataRenderer(elt).data;
                 IDataRenderer(elt).data = null;  // reduce probability of leaks
             }
-            delete renderersInView[item];
+            delete itemToRenderer[item];
               
             // Free or remove the IR
             if ((item != elt) && (elt is IDataRenderer))
@@ -559,15 +556,17 @@ public class DataGroup extends GroupBase
      */
     override public function getLayoutElementAt(index:int):ILayoutElement
     {
-        var elt:IVisualElement;   // an ItemRenderer or the dataProvider item itself
+        if (dataProvider == null)
+            return null;
+            
+        var item:Object = dataProvider.getItemAt(index);
+        var elt:IVisualElement = itemToRenderer[item];
         
-        if (layout && layout.virtualLayout)
+        if (virtualLayoutUnderway)
         {
-            var item:Object = dataProvider.getItemAt(index);
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
                         
-            elt = renderersInView[item];  // an IR that's currently displayed
             if (!elt)
             {
                 var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null); 
@@ -585,7 +584,7 @@ public class DataGroup extends GroupBase
                     createdIR = true;
                 }
                 
-                renderersInView[item] = elt;  // weak reference
+                itemToRenderer[item] = elt;  // weak reference
             }
 
             addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutOffset);
@@ -595,8 +594,6 @@ public class DataGroup extends GroupBase
             if (createdIR)
                 dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
         }
-        else
-            elt = IVisualElement(super.getChildAt(index));
 
         return LayoutElementFactory.getLayoutElementFor(elt);
     }
@@ -607,8 +604,9 @@ public class DataGroup extends GroupBase
      */
     mx_internal function getRendererForItemAt(index:int):IVisualElement
     {
-        var i:int = index - virtualLayoutOffset;
-        return ((i >= 0) && (i < super.numChildren)) ? IVisualElement(super.getChildAt(i)) : null;
+        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
+            return null;
+        return itemToRenderer[dataProvider.getItemAt(index)];
     }
 
     /**
@@ -617,8 +615,10 @@ public class DataGroup extends GroupBase
      */
     mx_internal function getItemIndexForRenderer(renderer:IVisualElement):int
     {
-        var child:DisplayObject = DisplayObject(renderer);
-        return (child.parent == this) ? super.getChildIndex(child) : -1;
+        if ((dataProvider == null) || (renderer == null))
+            return -1;
+        var item:Object = (renderer is IDataRenderer) ? IDataRenderer(renderer).data : renderer;
+        return dataProvider.getItemIndex(item);
     }
     
     
@@ -627,21 +627,23 @@ public class DataGroup extends GroupBase
      */
     override public function invalidateLayering():void
     {
-    	_layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
+        _layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
         invalidateProperties();
     }
 
     /**
-     *  Adds an item to this DataGroup.
-     *  Flex calls this method automatically; you do not call it directly.
+     *  Adds the itemRenderer for the specified dataProvider item to this DataGroup.
+     * 
+     *  This method is called as needed by the DataGroup implementation,
+     *  it should not be called directly.
      *
-     *  @param item The item that was added.
-     *
-     *  @param index The index where the item was added.
+     *  @param item The item that was added, the value of dataProvider[index].
+     *  @param index The index where the dataProvider item was added.
      */
     mx_internal function itemAdded(item:Object, index:int):void
     {
         var myItemRenderer:IVisualElement = createRendererForItem(item);
+        itemToRenderer[item] = myItemRenderer;
 
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -653,8 +655,10 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Removes an item from this DataGroup.
-     *  Flex calls this method automatically; you do not call it directly.
+     *  Removes the itemRenderer for the specified dataProvider item from this DataGroup.
+     * 
+     *  This method is called as needed by the DataGroup implementation,
+     *  it should not be called directly.
      *
      *  @param item The item that is being removed.
      * 
@@ -662,7 +666,8 @@ public class DataGroup extends GroupBase
      */
     mx_internal function itemRemoved(item:Object, index:int):void
     {       
-        var myItemRenderer:IVisualElement = IVisualElement(super.getChildAt(index));
+        var myItemRenderer:IVisualElement = itemToRenderer[item];
+        delete itemToRenderer[item];
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, 
@@ -716,8 +721,8 @@ public class DataGroup extends GroupBase
         }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
-        	(child is IVisualElement && (child as IVisualElement).layer != 0))
-        	invalidateLayering();
+            (child is IVisualElement && (child as IVisualElement).layer != 0))
+            invalidateLayering();
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
