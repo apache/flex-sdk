@@ -4305,7 +4305,7 @@ public class Container extends UIComponent
         //     <VBox>
         //         <Button>
         var id:String = descriptor.id;
-        if (id != null && document[id] == null)
+        if (id != null && (id in document) && document[id] == null)
             return false;
 
         var n:int = numChildren;
