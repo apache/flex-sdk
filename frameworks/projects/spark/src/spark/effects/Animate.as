@@ -208,8 +208,7 @@ public class Animate extends Effect
      * level and the Keyframe level (where Keyframes hold the values/times
      * used in the MotionPath structures).
      * These easing behaviors build on each other. 
-     * The <code>easer</code> specified by <code>easer</code>
-     * controls the easing of the overall effect.
+     * The <code>easer</code> controls the easing of the overall effect.
      * The Keyframe controls the easing in any particular interval of the animation.
      * By default, the easing for Animate is non-linear (Sine(.5)).
      * The easing for Keyframes is linear. If you desire an effect with easing
