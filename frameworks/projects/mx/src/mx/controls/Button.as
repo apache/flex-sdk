@@ -735,7 +735,7 @@ public class Button extends UIComponent
      *  which of the children are the icons.
      *  New icons are created and added to this array in viewIcon().
      */
-    private var icons:Array /* of Sprite */ = [];
+    protected var icons:Array /* of Sprite */ = [];
 
     /**
      *  @private
