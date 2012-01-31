@@ -364,7 +364,8 @@ public class SkinnableComponent extends UIComponent
     {
         super.createChildren();
         
-        validateSkinChange();
+        if (moduleFactory)
+            validateSkinChange();
     }
     
     /**
