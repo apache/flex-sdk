@@ -3491,19 +3491,6 @@ public class Container extends UIComponent
 
             var backgroundAlpha:Number = getStyle("backgroundAlpha");
             
-            // If the borderSkin is a spark skin, use contentBackgroundColor instead of backgroundColor.
-            if (FlexVersion.compatibilityVersion > FlexVersion.VERSION_3_0)
-            {
-                var borderSkin:Class = getStyle("borderSkin");
-                
-                // There is no guaranteed way to check for spark skins. The closest we can do 
-                // is to look for "skins.spark" in the qualified class name
-                if (borderSkin && (getQualifiedClassName(borderSkin).indexOf("skins.spark") >= 0))
-                {
-                    backgroundColor = getStyle("contentBackgroundColor");
-                }
-            }
-
             if (!_clipContent ||
                 isNaN(Number(backgroundColor)) ||
                 backgroundColor === "" ||
