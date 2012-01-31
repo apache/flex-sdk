@@ -1173,6 +1173,10 @@ public class ListBase extends ScrollControlBase
     //  horizontalScrollPosition
     //----------------------------------
 
+	[Bindable("scroll")]
+    [Bindable("viewChanged")]
+    [Inspectable(defaultValue="0")]
+
     /**
      *  @private
      */
