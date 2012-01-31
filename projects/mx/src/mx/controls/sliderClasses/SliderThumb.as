@@ -170,7 +170,8 @@ public class SliderThumb extends Button
 		{
 			systemManager.getSandboxRoot().removeEventListener(
 				MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
-
+            systemManager.deployMouseShields(false);
+            
 			Slider(owner).onThumbRelease(this);
 		}
 	}
@@ -317,7 +318,8 @@ public class SliderThumb extends Button
 			
 			systemManager.getSandboxRoot().addEventListener(
 				MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
-						
+			systemManager.deployMouseShields(true);
+			
 			Slider(owner).onThumbPress(this);
 		}
 	}
