@@ -29,6 +29,11 @@ package mx.controls
  *  <code>labelStyleName</code> style property of the FormItem class.</p>
  *
  *  @see mx.containers.FormItem
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FormItemLabel extends Label 
 {
@@ -42,6 +47,11 @@ public class FormItemLabel extends Label
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FormItemLabel() 
     {
