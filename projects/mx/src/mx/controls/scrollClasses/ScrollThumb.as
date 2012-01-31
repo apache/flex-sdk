@@ -135,12 +135,9 @@ public class ScrollThumb extends Button
         
 		scrollBar.oldPosition = NaN;
 		
-		systemManager.removeEventListener(
+		ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
 			MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
 
-		// in case we go offscreen
-		systemManager.removeEventListener(MarshalMouseEvent.MOUSE_MOVE, 
-			stage_mouseMoveHandler);
 	}
 	
 	//--------------------------------------------------------------------------
@@ -162,12 +159,9 @@ public class ScrollThumb extends Button
 		
 		lastY = event.localY;
 		
-		systemManager.addEventListener(
+		ISystemManager2(systemManager).getSandboxRoot().addEventListener(
 			MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
 
-		// in case we go offscreen
-		systemManager.addEventListener(MarshalMouseEvent.MOUSE_MOVE, 
-							stage_mouseMoveHandler);
 	}
 
 	//--------------------------------------------------------------------------
@@ -175,14 +169,6 @@ public class ScrollThumb extends Button
 	//  Event handlers
 	//
 	//--------------------------------------------------------------------------
-
-	private function stage_mouseMoveHandler(event:MouseEvent):void
-	{
-		if (event.target != stage)
-			return;
-
-		mouseMoveHandler(event);
-	}
 
 	/**
 	 *  @private
