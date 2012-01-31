@@ -20,6 +20,7 @@ import mx.components.Group;
 import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
 import mx.effects.AddAction;
+import mx.core.IVisualElementContainer;
 
 /**
  *  The AddActionInstance class implements the instance class
@@ -95,32 +96,34 @@ public class AddActionInstance extends ActionEffectInstance
 	
     private function addChild(container:*, child:*):void
     {
-        if (container is Group)
-           container.addItem(child);
+        // TODO: can remove once we're sure all parents are 
+        // IVisualElementContainers (Flash Component Kit)
+        if (container is IVisualElementContainer)
+           IVisualElementContainer(container).addElement(child);
         else
            container.addChild(child);
     }
     
     private function removeChild(container:*, child:*):void
     {
-        if (container is Group)
-           container.removeItem(child);
+        if (container is IVisualElementContainer)
+           IVisualElementContainer(container).removeElement(child);
         else
            container.removeChild(child);
     }
     
     private function addChildAt(container:*, child:*, index:int):void
     {
-        if (container is Group)
-           container.addItemAt(child, index);
+        if (container is IVisualElementContainer)
+           IVisualElementContainer(container).addElementAt(child, index);
         else
            container.addChildAt(child, index);
     }
     
     private function getChildIndex(container:*, child:*):int
     {
-        if (container is Group)
-           return container.getItemIndex(child);
+        if (container is IVisualElementContainer)
+           return IVisualElementContainer(container).getElementIndex(child);
         else
            return container.getChildIndex(child);
     }
