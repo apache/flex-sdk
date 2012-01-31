@@ -406,8 +406,8 @@ public class RichEditableText extends UIComponent
             inputManager_flowOperationEndHandler);
 
         _inputManager.addEventListener(
-            StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGED, 
-            inputManager_inlineGraphicStatusChangedHandlder);
+            StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE, 
+            inputManager_inlineGraphicStatusChangeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -3234,12 +3234,12 @@ public class RichEditableText extends UIComponent
      *  height as auto or percent and the graphic has finished loading.  The
      *  size of the graphic is now known.
      */
-    private function inputManager_inlineGraphicStatusChangedHandlder (
+    private function inputManager_inlineGraphicStatusChangeHandler (
                         event:StatusChangeEvent):void
     {
-        //trace("inlineGraphicStatusChangedHandlder", event.status);
+        //trace("inlineGraphicStatusChangedHandler", event.status);
 
-        // Now that the actual size of the graphic is availabe need to
+        // Now that the actual size of the graphic is available need to
         // optionally remeasure and updateContainer.
         if (event.status == InlineGraphicElementStatus.READY)
         {
