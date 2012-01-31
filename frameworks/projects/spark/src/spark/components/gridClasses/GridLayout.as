@@ -11,7 +11,6 @@
 
 package spark.components.gridClasses
 {
-import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
@@ -29,9 +28,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 
-import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.gridClasses.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -44,6 +41,12 @@ use namespace mx_internal;
 public class GridLayout extends LayoutBase
 {
     include "../../core/Version.as";    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //-------------------------------------------------------------------------- 
 
     // TBD: lazily create this so that if it's replaced we don't needlessly create two.
     // Perhaps it should be a constructor parameter.   That way there's no need to sort
@@ -191,7 +194,6 @@ public class GridLayout extends LayoutBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-  
     override public function get useVirtualLayout():Boolean
     {
         return true;
@@ -1132,7 +1134,7 @@ public class GridLayout extends LayoutBase
      *  it needs to be freed, even though it exists in the new layout (newVisibleIndices).   See
      *  freeLinearElements().
      */
-    private function layoutLinearElements (
+    private function layoutLinearElements(
         factory:IFactory,
         layer:GridLayer, 
         oldVisibleElements:Vector.<IVisualElement>,
@@ -1191,7 +1193,7 @@ public class GridLayout extends LayoutBase
         return newVisibleElements;
     }
     
-    private function layoutCellElements (
+    private function layoutCellElements(
         factory:IFactory,
         layer:GridLayer,
         oldVisibleElements:Vector.<IVisualElement>,
@@ -1937,7 +1939,7 @@ public class GridLayout extends LayoutBase
         return true;
     }
 
-    private function freeGridElements (elements:Vector.<IVisualElement>):void
+    private function freeGridElements(elements:Vector.<IVisualElement>):void
     {
         for each (var elt:IVisualElement in elements)
             freeGridElement(elt);
