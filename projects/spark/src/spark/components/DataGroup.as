@@ -712,12 +712,12 @@ public class DataGroup extends GroupBase
     
     /**
      *  @private 
-     *  Sets the renderer's data, owner and labelText properties. 
+     *  Sets the renderer's data, owner and label properties. 
      *  Then, gives the "true" owner a chance to call update the 
      *  renderer if this DataGroup is not the owner. "True" owners 
      *  would use their impl of updateRenderer to clear out stale 
      *  properties for when the renderer is being recycled, and set
-     *  new properties like owner, labelText, selected, etc. 
+     *  new properties like owner, label, selected, etc. 
      * 
      */
     private function updateRenderer(renderer:IVisualElement, data:Object):void
@@ -737,10 +737,10 @@ public class DataGroup extends GroupBase
         if (!renderer.owner)
             renderer.owner = this; 
 
-        //If we're the owner, set the labelText to the toString()
+        //If we're the owner, set the label to the toString()
         //of the data 
         if (renderer.owner == this && renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(data); 
+            IItemRenderer(renderer).label = itemToLabel(data); 
         
         //This dataGroup is not the "true" owner, give the true 
         //owner a chance to update the renderer. 
