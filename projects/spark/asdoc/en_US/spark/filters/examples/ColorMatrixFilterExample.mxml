@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- filters/examples/ColorMatrixFilterExample .mxml -->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="createFilters()">
+    
+  <fx:Script><![CDATA[ 
+     import spark.filters.*;
+     import flash.filters.BitmapFilterQuality;
+     import flash.filters.BitmapFilterType;
+  
+     private var myGreenMatrixFilter:ColorMatrixFilter;  
+     private var myBlueMatrixFilter:ColorMatrixFilter;  
+     private var myRedMatrixFilter:ColorMatrixFilter;  
+
+     public function createFilters():void {        
+         var greenMatrix:Array = new Array();
+                greenMatrix = greenMatrix.concat([0, 0, 0, 0, 0]); // red
+                greenMatrix = greenMatrix.concat([0, 1, 0, 0, 0]); // green
+                greenMatrix = greenMatrix.concat([0, 0, 0, 0, 0]); // blue
+                greenMatrix = greenMatrix.concat([0, 0, 0, 1, 0]); // alpha
+
+         var blueMatrix:Array = new Array();
+                blueMatrix = blueMatrix.concat([0, 0, 0, 0, 0]); // red
+                blueMatrix = blueMatrix.concat([0, 0, 0, 0, 0]); // green
+                blueMatrix = blueMatrix.concat([0, 0, 1, 0, 0]); // blue
+                blueMatrix = blueMatrix.concat([0, 0, 0, 1, 0]); // alpha
+
+         var redMatrix:Array = new Array();
+                redMatrix = redMatrix.concat([1, 0, 0, 0, 0]); // red
+                redMatrix = redMatrix.concat([0, 0, 0, 0, 0]); // green
+                redMatrix = redMatrix.concat([0, 0, 0, 0, 0]); // blue
+                redMatrix = redMatrix.concat([0, 0, 0, 1, 0]); // alpha
+
+        myGreenMatrixFilter = new ColorMatrixFilter(greenMatrix);
+        myBlueMatrixFilter = new ColorMatrixFilter(blueMatrix);
+        myRedMatrixFilter = new ColorMatrixFilter(redMatrix);
+
+        greenImage.filters = [myGreenMatrixFilter];
+        blueImage.filters = [myBlueMatrixFilter];
+        redImage.filters = [myRedMatrixFilter];
+     }
+  
+  ]]></fx:Script>
+
+    <s:VGroup>
+        <s:VGroup>
+            <s:Label text="Original Image"/>
+            <mx:Image id="originalImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Green Matrix Image"/>
+            <mx:Image id="greenImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Blue Matrix Image"/>
+            <mx:Image id="blueImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Red Matrix Image"/>
+            <mx:Image id="redImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+    </s:VGroup>        
+</s:Application>
