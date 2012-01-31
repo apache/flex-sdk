@@ -19,8 +19,21 @@ import flash.events.FocusEvent;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
-[IconFile("FxNumericStepper.png")]
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/SelectionFormatTextStyles.as"
 
+/**
+ *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ */
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+
+[IconFile("FxNumericStepper.png")]
 /**
  *  The FxNumericStepper control lets you select
  *  a number from an ordered set.
