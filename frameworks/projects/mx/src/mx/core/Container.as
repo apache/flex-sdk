@@ -175,6 +175,18 @@ include "../styles/metadata/BorderStyles.as"
 include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
+// Re-define backgroundAlpha and backgroundColor styles here to set the theme attribute to spark and halo
+
+/**
+ *  @inheritDoc
+ */
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark")]
+
+/**
+ *  @inheritDoc
+ */
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
+
 /**
  *  If a background image is specified, this style specifies
  *  whether it is fixed with regard to the viewport (<code>"fixed"</code>)
