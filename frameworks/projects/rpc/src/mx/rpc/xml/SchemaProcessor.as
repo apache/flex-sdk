@@ -66,6 +66,11 @@ public class SchemaProcessor
 
     /**
      * Clears the state in preparation for a fresh schema processing operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function reset():void
     {
@@ -125,6 +130,11 @@ public class SchemaProcessor
     /**
      * A utility method to determine whether an attribute actually exists
      * on a given node.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getAttributeFromNode(name:*, node:XML):String
     {
@@ -166,6 +176,11 @@ public class SchemaProcessor
      * Looks for a maxOccurs constraint on the given definition. The default
      * is 1. The constraint value "unbounded" is interpreted as
      * <code>uint.MAX_VALUE</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getMaxOccurs(definition:XML):uint
     {
@@ -180,6 +195,11 @@ public class SchemaProcessor
     /**
      * Looks for a minOccurs constraint on the given definition. The default
      * is 1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getMinOccurs(definition:XML):uint
     {
