@@ -3249,7 +3249,7 @@ public class ListBase extends ScrollControlBase
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
 
-    	validateTransform();
+    	validateMatrix();
 
         if (invalidateDisplayListFlag)
         {
