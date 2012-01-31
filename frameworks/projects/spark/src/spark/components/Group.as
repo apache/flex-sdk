@@ -30,12 +30,14 @@ import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
+import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.styles.IStyleClient;
 
+use namespace mx_internal;
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -190,6 +192,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             return;
             
         _resizeMode = value;
+        
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+        {
+            super.scaleX = 1; 
+            super.scaleY = 1;
+        }
 
         // We need the measured values and _resizeMode affects
         // our measure (skipMeasure implementation checks resizeMode) so
@@ -211,12 +219,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             // setting the scale!
             if (measuredWidth != 0)
             {
-                scaleX = w / measuredWidth;
+                $scaleX = w / measuredWidth;
                 w = measuredWidth;
             }
             if (measuredHeight != 0)
             {
-                scaleY = h / measuredHeight;
+                $scaleY = h / measuredHeight;
                 h = measuredHeight;
             }
         }
@@ -224,6 +232,72 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         super.setActualSize(w, h);
     }
     
+    /**
+     *  Make sure we return 1 whenever resizeMode is set to scale. 
+     */    
+    override public function get scaleX():Number
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return 1;
+
+        return super.scaleX;
+    }
+
+    /**
+     *  Make sure setting scale is no-op when resizeMode is set to scale. 
+     */    
+    override public function set scaleX(value:Number):void
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return;
+
+        super.scaleX = value;
+    }
+    
+    /**
+     *  Make sure we return 1 whenever resizeMode is set to scale. 
+     */    
+    override public function get scaleY():Number
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return 1;
+
+        return super.scaleX;
+    }
+
+    /**
+     *  Make sure setting scale is no-op when resizeMode is set to scale. 
+     */    
+    override public function set scaleY(value:Number):void
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return;
+
+        super.scaleX = value;
+    }
+
+    /**
+     *  Override so that we can return correct width when in scale mode. 
+     */    
+    override public function get width():Number
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return super.width * $scaleX;
+
+        return super.width;
+    }
+    
+    /**
+     *  Override so that we can return correct height when in scale mode. 
+     */    
+    override public function get height():Number
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+            return super.height * $scaleY;
+
+        return super.height;
+    }
+
     /**
      *  @inheritDoc
      */    
@@ -512,6 +586,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+        {
+            unscaledWidth = measuredWidth;
+            unscaledHeight = measuredHeight;
+        }  
+        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         if (_layout)
