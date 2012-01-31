@@ -20,6 +20,8 @@ import spark.core.IDisplayText;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 
+[ExcludeClass]
+
 /**
  *  Helper layout to layout a label relative to a sibling element.
  *
