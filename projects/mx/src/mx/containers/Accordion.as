@@ -1061,13 +1061,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         {
             firstTime = false;
             
-            // Add "added" and "removed" listeners to the system manager so we can
-            // register/un-register from the history manager when this component is
-            // added or removed from the display list.
-            systemManager.addEventListener(Event.ADDED, systemManager_addedHandler,
-                    false, 0, true);
-            systemManager.addEventListener(Event.REMOVED, systemManager_removedHandler,
-                    false, 0, true);
+            // Add "addedToStage" and "removedFromStage" listeners so we can 
+            // register/un-register from the history manager when this component
+            // is added or removed from the display list.
+            addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler, false, 0, true);
+            addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler, false, 0, true);
         }
     }
 
@@ -2145,24 +2143,21 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
     
     /**
      *  @private
-     *  Handles "added" event from system manager
+     *  Handles "addedToStage" event
      */
-    private function systemManager_addedHandler(event:Event):void
+    private function addedToStageHandler(event:Event):void
     {
-        if (event.target is DisplayObjectContainer &&
-                DisplayObjectContainer(event.target).contains(this))
-            HistoryManager.register(this);
+        if (historyManagementEnabled)
+                HistoryManager.register(this);
     }
     
     /**
      *  @private
-     *  Handles "removed" event from system manager
+     *  Handles "removedFromStage" event
      */
-    private function systemManager_removedHandler(event:Event):void
+    private function removedFromStageHandler(event:Event):void
     {
-        if (event.target is DisplayObjectContainer &&
-                DisplayObjectContainer(event.target).contains(this))
-            HistoryManager.unregister(this);
+        HistoryManager.unregister(this);
     }
     
     /**
