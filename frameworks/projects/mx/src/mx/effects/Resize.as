@@ -14,6 +14,8 @@ package mx.effects
 
 import mx.effects.effectClasses.ResizeInstance;
 
+[Alternative(replacement="spark.effects.Resize", since="4.0")]
+
 /**
  *  The Resize effect changes the width, height, or both dimensions
  *  of a component over a specified time interval. 
