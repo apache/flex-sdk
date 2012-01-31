@@ -21,7 +21,6 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.managers.IFocusManagerComponent;
 
 import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.GridColumnHeaderGroupLayout;
@@ -47,7 +46,6 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
-
 
 /**
  *  Dispatched after a GRID_MOUSE_DOWN event if the mouse moves before the button is released.
@@ -121,7 +119,6 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="gridDoubleClick", type="spark.events.GridEvent")]
-
 
 /**
  *  Dispatched when the mouse button is pressed over a column header.
@@ -212,7 +209,6 @@ use namespace mx_internal;
  */
 [Event(name="separatorDoubleClick", type="spark.events.GridEvent")]
 
-
 //--------------------------------------
 //  Styles
 //--------------------------------------
@@ -230,8 +226,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
 */
 [Style(name="separatorAffordance", type="Number", format="Length", inherit="no")]
 
@@ -242,8 +238,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -254,8 +250,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
@@ -266,8 +262,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
@@ -278,8 +274,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -310,8 +306,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function GridColumnHeaderGroup()
     {
@@ -323,14 +319,14 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         // Event handlers that dispatch GridEvents
         
         MouseEventUtil.addDownDragUpListeners(this, 
-            chb_mouseDownDragUpHandler, 
-            chb_mouseDownDragUpHandler, 
-            chb_mouseDownDragUpHandler);
+            gchg_mouseDownDragUpHandler, 
+            gchg_mouseDownDragUpHandler, 
+            gchg_mouseDownDragUpHandler);
 
-        addEventListener(MouseEvent.MOUSE_MOVE, chg_mouseMoveHandler);
-        addEventListener(MouseEvent.ROLL_OUT, chg_mouseRollOutHandler);
-        addEventListener(MouseEvent.CLICK, chg_clickHandler);
-        addEventListener(MouseEvent.DOUBLE_CLICK, chg_doubleClickHandler);
+        addEventListener(MouseEvent.MOUSE_MOVE, gchg_mouseMoveHandler);
+        addEventListener(MouseEvent.ROLL_OUT, gchg_mouseRollOutHandler);
+        addEventListener(MouseEvent.CLICK, gchg_clickHandler);
+        addEventListener(MouseEvent.DOUBLE_CLICK, gchg_doubleClickHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -349,51 +345,12 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }    
     
     //----------------------------------
-    //  headerRenderer
-    //----------------------------------    
-    
-    [Bindable("headerRendererChanged")]
-    
-    private var _headerRenderer:IFactory = null;
-    
-    /**
-     *  The IGridItemRenderer class used to renderer each column header.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get headerRenderer():IFactory
-    {
-        return _headerRenderer;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set headerRenderer(value:IFactory):void
-    {
-        if (value == _headerRenderer)
-            return;
-        
-        
-        _headerRenderer = value;
-        
-        layout.clearVirtualLayoutCache();
-        invalidateSize();
-        invalidateDisplayList();
-        
-        dispatchChangeEvent("headerRendererChanged");
-    }
-    
-    //----------------------------------
     //  columnSeparator
     //----------------------------------
     
-    [Bindable("columnSeparatorChanged")]
-    
     private var _columnSeparator:IFactory = null;
+    
+    [Bindable("columnSeparatorChanged")]
     
     /**
      *  A visual element that's displayed in between each column.
@@ -402,7 +359,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get columnSeparator():IFactory
@@ -427,9 +384,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     //  dataGrid
     //----------------------------------
     
-    [Bindable("dataGridChanged")]
-    
     private var _dataGrid:DataGrid = null;
+    
+    [Bindable("dataGridChanged")]
     
     /**
      *  The DataGrid that defines the column layout and horizontal scroll position for this component.
@@ -439,7 +396,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get dataGrid():DataGrid
@@ -457,7 +414,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         
         if (_dataGrid && _dataGrid.grid)
             _dataGrid.grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
-
+        
         _dataGrid = value;
 
         if (_dataGrid && _dataGrid.grid)
@@ -477,15 +434,133 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         if (event.property == "horizontalScrollPosition")
             horizontalScrollPosition = Number(event.newValue);
-    }        
+    }
+    
+    //----------------------------------
+    //  downColumnIndex
+    //----------------------------------
+    
+    private var _downColumnIndex:int = -1;
+    
+    [Bindable("downColumnIndexChanged")]
+    
+    /**
+     *  Specifies the column index of the header renderer currently
+     *  being pressed down by the user.
+     *  
+     *  <p>Setting downColumnIndex to -1 (the default) means that the column index
+     *  is undefined and the header renderer will have its down property set to false.</p>
+     * 
+     *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get downColumnIndex():int
+    {
+        return _downColumnIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set downColumnIndex(value:int):void
+    {
+        if (_downColumnIndex == value)
+            return;
+        
+        _downColumnIndex = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("downColumnIndexChanged");
+    }
+    
+    //----------------------------------
+    //  headerRenderer
+    //----------------------------------
+    
+    private var _headerRenderer:IFactory = null;
+    
+    [Bindable("headerRendererChanged")]
+    
+    /**
+     *  The IGridItemRenderer class used to renderer each column header.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get headerRenderer():IFactory
+    {
+        return _headerRenderer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerRenderer(value:IFactory):void
+    {
+        if (value == _headerRenderer)
+            return;
+        
+        _headerRenderer = value;
+        
+        layout.clearVirtualLayoutCache();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        dispatchChangeEvent("headerRendererChanged");
+    }
+    
+    //----------------------------------
+    //  hoverColumnIndex 
+    //----------------------------------
+    
+    private var _hoverColumnIndex:int = -1;
+    
+    [Bindable("hoverColumnIndexChanged")]
+    
+    /**
+     *  Specifies the column index of the header renderer currently
+     *  being hovered over by the user.
+     *  
+     *  <p>Setting hoverColumnIndex to -1 (the default) means that the column index
+     *  is undefined and the header renderer will have its hovered property set to false.</p>
+     * 
+     *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get hoverColumnIndex():int
+    {
+        return _hoverColumnIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set hoverColumnIndex(value:int):void
+    {
+        if (_hoverColumnIndex == value)
+            return;
+        
+        _hoverColumnIndex = value;
+        invalidateDisplayList();
+        dispatchChangeEvent("hoverColumnIndexChanged");
+    }
     
     //----------------------------------
     //  visibleSortIndicatorIndices
     //----------------------------------
     
-    [Bindable("visibleSortIndicatorIndicesChanged")]
-    
     private var _visibleSortIndicatorIndices:Vector.<int> = new Vector.<int>();
+    
+    [Bindable("visibleSortIndicatorIndicesChanged")]
     
     /**
      *  A vector of column indices corresponding to the header renderers
@@ -495,7 +570,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get visibleSortIndicatorIndices():Vector.<int>
@@ -526,7 +601,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function isSortIndicatorVisible(columnIndex:int):Boolean
@@ -603,8 +678,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     
     private var rollColumnIndex:int = -1;      // column mouse has rolled into
     private var rollSeparatorIndex:int = -1;   // separator mouse has rolled into
-    private var downColumnIndex:int = -1;      // column button press occurred on
-    private var downSeparatorIndex:int = -1;   // separator button press occurred on
+    private var pressColumnIndex:int = -1;      // column button press occurred on
+    private var pressSeparatorIndex:int = -1;   // separator button press occurred on
     
     /**
      *  This method is called when a MOUSE_DOWN event occurs within the column header group and 
@@ -627,7 +702,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */    
-    protected function chb_mouseDownDragUpHandler(event:MouseEvent):void
+    protected function gchg_mouseDownDragUpHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -638,28 +713,37 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         var gridEventType:String;
         switch(event.type)
         {
-            case MouseEvent.MOUSE_MOVE: 
-                gridEventType = (downSeparatorIndex != -1) ? GridEvent.SEPARATOR_MOUSE_DRAG : GridEvent.GRID_MOUSE_DRAG; 
+            case MouseEvent.MOUSE_MOVE:
+            {
+                gridEventType = (pressSeparatorIndex != -1) ? GridEvent.SEPARATOR_MOUSE_DRAG : GridEvent.GRID_MOUSE_DRAG;
                 break;
+            }
 
-            case MouseEvent.MOUSE_UP:  
-                gridEventType = (downSeparatorIndex != -1) ? GridEvent.SEPARATOR_MOUSE_UP : GridEvent.GRID_MOUSE_UP; 
+            case MouseEvent.MOUSE_UP:
+            {
+                gridEventType = (pressSeparatorIndex != -1) ? GridEvent.SEPARATOR_MOUSE_UP : GridEvent.GRID_MOUSE_UP;
+                downColumnIndex = -1; // update renderer property
                 break;
+            }
 
             case MouseEvent.MOUSE_DOWN:
+            {
                 if (eventSeparatorIndex != -1)
                 {
                     gridEventType = GridEvent.SEPARATOR_MOUSE_DOWN;
-                    downSeparatorIndex = eventSeparatorIndex;
-                    downColumnIndex = -1;
+                    pressSeparatorIndex = eventSeparatorIndex;
+                    pressColumnIndex = -1;
+                    downColumnIndex = -1; // update renderer property
                 }
                 else
                 {
                     gridEventType = GridEvent.GRID_MOUSE_DOWN;
-                    downSeparatorIndex = -1;
-                    downColumnIndex = eventColumnIndex;
+                    pressSeparatorIndex = -1;
+                    pressColumnIndex = eventColumnIndex;
+                    downColumnIndex = eventColumnIndex; // update renderer property
                 }
                 break;
+            }
         }
         
         const columnIndex:int = (eventSeparatorIndex != -1) ? eventSeparatorIndex : eventColumnIndex;
@@ -687,7 +771,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */    
-    protected function chg_mouseMoveHandler(event:MouseEvent):void
+    protected function gchg_mouseMoveHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -713,6 +797,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         
         rollColumnIndex = eventColumnIndex;
         rollSeparatorIndex = eventSeparatorIndex;
+        
+        // update renderer property
+        hoverColumnIndex = eventColumnIndex;
     }
     
     /**
@@ -727,7 +814,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chg_mouseRollOutHandler(event:MouseEvent):void
+    protected function gchg_mouseRollOutHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -739,6 +826,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 
         rollColumnIndex = -1;
         rollSeparatorIndex = -1;
+        
+        // update renderer property
+        hoverColumnIndex = -1;
     }
     
     /**
@@ -754,7 +844,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chg_clickHandler(event:MouseEvent):void 
+    protected function gchg_clickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -762,9 +852,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         const eventColumnIndex:int = 
             (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
-        if ((eventSeparatorIndex != -1) && (downSeparatorIndex == eventSeparatorIndex))
+        if ((eventSeparatorIndex != -1) && (pressSeparatorIndex == eventSeparatorIndex))
             dispatchGridEvent(event, GridEvent.SEPARATOR_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
-        else if ((eventColumnIndex != -1) && (downColumnIndex == eventColumnIndex))
+        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
             dispatchGridEvent(event, GridEvent.GRID_CLICK, eventHeaderGroupXY, eventColumnIndex);
     }
     
@@ -782,7 +872,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chg_doubleClickHandler(event:MouseEvent):void 
+    protected function gchg_doubleClickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -790,9 +880,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         const eventColumnIndex:int = 
             (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
-        if ((eventSeparatorIndex != -1) && (downSeparatorIndex == eventSeparatorIndex))
+        if ((eventSeparatorIndex != -1) && (pressSeparatorIndex == eventSeparatorIndex))
             dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
-        else if ((eventColumnIndex != -1) && (downColumnIndex == eventColumnIndex))
+        else if ((eventColumnIndex != -1) && (pressColumnIndex == eventColumnIndex))
             dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderGroupXY, eventColumnIndex);
     }    
     
@@ -826,6 +916,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     private function getColumnAt(columnIndex:int):GridColumn
     {
         const grid:Grid = (dataGrid) ? dataGrid.grid : null;
@@ -835,6 +928,5 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         const columns:IList = grid.columns;
         return ((columnIndex >= 0) && (columnIndex < columns.length)) ? columns.getItemAt(columnIndex) as GridColumn : null;
     }
-    
 }    
 }
