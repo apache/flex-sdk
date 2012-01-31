@@ -1737,13 +1737,10 @@ public class Button extends UIComponent
         var textWidth:Number = 0;
         var textHeight:Number = 0;
 
-        if (label || FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        if (label)
         {
             var lineMetrics:TextLineMetrics = measureText(label);
-            // Always account for text height, but only account for width
-            // if the label is non-null.
-            if (label)
-                textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
+            textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
             textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         }
     
