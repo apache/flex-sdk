@@ -1450,6 +1450,138 @@ public class SpriteVisualElement extends FlexSprite
 	{
 		return super.transform;
 	}
+
+    /**
+     *  Sets the x coordinate for the transform center of the component.
+     * 
+     *  <p>When this object is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
+     *
+     *  <p>Setting this property on the Spark effect class 
+     *  overrides the setting on the target object.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformX 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get transformX():Number
+    {
+        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformX;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transformX(value:Number):void
+    {
+        if (transformX == value)
+            return;
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        _layoutFeatures.transformX = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *  Sets the y coordinate for the transform center of the component.
+     * 
+     *  <p>When this object is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformY</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
+     *
+     *  <p>Setting this property on the Spark effect class 
+     *  overrides the setting on the target object.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformY 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get transformY():Number
+    {
+        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformY;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transformY(value:Number):void
+    {
+        if (transformY == value)
+            return;
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        _layoutFeatures.transformY = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *  Sets the z coordinate for the transform center of the component.
+     * 
+     *  <p>When this object is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformZ</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
+     *
+     *  <p>Setting this property on the Spark effect class 
+     *  overrides the setting on the target object.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformZ 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get transformZ():Number
+    {
+        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformZ;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transformZ(value:Number):void
+    {
+        if (transformZ == value)
+            return;
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        _layoutFeatures.transformZ = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
     
     //--------------------------------------------------------------------------
     //
