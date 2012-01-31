@@ -44,7 +44,6 @@ public class FxPanel extends FxContainer
     //
     //--------------------------------------------------------------------------
 
-
     //----------------------------------
     //  middleButton
     //---------------------------------- 
@@ -84,6 +83,24 @@ public class FxPanel extends FxContainer
 			titleField.text = title;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(titleField);
+    } 
+    
     /**
      *  @private
      */
@@ -102,7 +119,6 @@ public class FxPanel extends FxContainer
             titleField.styleName = this;
         }
     }
-
 }
 
 }
