@@ -218,23 +218,7 @@ public class PopUpAnchor extends UIComponent
         return _displayPopUp;
     }
 
-    /*[InstanceType("mx.core.UIComponent")]
-    private var _popUpFactory:ITransientDeferredInstance;
-    
-    public function set popUpFactory(value:ITransientDeferredInstance):void
-    {
-        if (_popUpFactory == value)
-            return;
-    
-        _popUpFactory = value;
-        
-        addOrRemovePopUp();
-    }
-    
-    public function get popUpFactory():ITransientDeferredInstance
-    {
-        return _popUpFactory;
-    }*/
+
     
     //----------------------------------
     //  popUp
@@ -370,6 +354,9 @@ public class PopUpAnchor extends UIComponent
              
         var regPoint:Point = new Point();
         
+        if (!matrix)
+            return regPoint;
+        
         var popUpBounds:Rectangle = new Rectangle(); 
         var popUpAsDisplayObject:DisplayObject = popUp as DisplayObject;
         
@@ -478,12 +465,6 @@ public class PopUpAnchor extends UIComponent
         if (!addedToStage)
             return;
         
-        /*if (popUpFactory && popUp == null && displayPopUp)
-        {
-            _popUp = UIComponent(popUpFactory.getInstance());
-            _popUp.styleName = this
-        }*/
-        
         if (popUp == null)
             return;
                         
@@ -518,13 +499,6 @@ public class PopUpAnchor extends UIComponent
             UIComponent(popUp).explicitWidth = popUpWidth;
             UIComponent(popUp).explicitHeight = popUpHeight;
         }
-        
-        /*if (popUpFactory)
-        {
-            _popUp.styleName = null;
-            _popUp = null;
-            popUpFactory.reset();
-        }*/
     }
     
     /**
@@ -535,8 +509,12 @@ public class PopUpAnchor extends UIComponent
         // Take the PopUpAnchor's concatenatedMatrix 
         // and subtract out the popUp parent's concatenatedMatrix
         var matrix:Matrix = systemManager.getSandboxRoot().transform.concatenatedMatrix;
-        matrix.invert();
-        matrix.concat(MatrixUtil.getConcatenatedMatrix(this));
+        
+        if (matrix)
+        {
+            matrix.invert();
+            matrix.concat(MatrixUtil.getConcatenatedMatrix(this));
+        }
         
         return matrix;
     }
@@ -598,9 +576,9 @@ public class PopUpAnchor extends UIComponent
     {
         if (!popUpIsDisplayed)
             return;
-        
-        var m:Matrix = $transform.concatenatedMatrix;
-        
+                
+        var m:Matrix = getPopUpMatrix();
+         
         // Set the dimensions explicitly because UIComponents always set themselves to their
         // measured / explicit dimensions if they are parented by the SystemManager. 
         if (popUp is UIComponent)
@@ -634,7 +612,10 @@ public class PopUpAnchor extends UIComponent
         {
             // Ignore the RTE
         }
-                
+        
+        if (!m)
+            return;
+        
         // Position the popUp. 
         m.tx = popUpPoint.x;
         m.ty = popUpPoint.y;
@@ -653,7 +634,7 @@ public class PopUpAnchor extends UIComponent
         }
         DisplayObject(popUp).transform.colorTransform = tmpColorTransform;
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
