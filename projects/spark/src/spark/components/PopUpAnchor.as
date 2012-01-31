@@ -13,15 +13,11 @@ package spark.components
 {
 	
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.core.IFactory;
-import mx.core.IFlexDisplayObject;
-import mx.core.ITransientDeferredInstance;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
@@ -69,6 +65,7 @@ public class PopUpAnchor extends UIComponent
 	private var popUpIsDisplayed:Boolean = false;
 	private var addedToStage:Boolean = false;
 	
+	// TODO (jszeto) Update to new vector syntax
 	private static var decomposition:Vector.<Number> = new Vector.<Number>();
 	decomposition.push(0);
 	decomposition.push(0);
@@ -156,6 +153,7 @@ public class PopUpAnchor extends UIComponent
 	
 	private var _displayPopUp:Boolean = false;
 	
+	
 	/**
 	 *  If true, adds the popUp to the PopUpManager. If false, removes it.  
 	 *  
@@ -207,6 +205,8 @@ public class PopUpAnchor extends UIComponent
 	
 	private var _popUp:UIComponent;
 	
+	[Bindable ("popUpChanged")]
+	
 	/**
 	 *  UIComponent to add to the PopUpManager when the PopUpAnchor is opened. 
 	 *  If the popUp implements IFocusManagerContainer, the popUp will have its
@@ -228,7 +228,7 @@ public class PopUpAnchor extends UIComponent
 		if (_popUp)
 			_popUp.styleName = this;
 			
-		
+		dispatchEvent(new Event("popUpChanged"));
 	}
 	
 	/**
