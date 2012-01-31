@@ -486,15 +486,15 @@ public class Application extends LayoutContainer
     public var preloader:Object;
     
     //----------------------------------
-    //  preloaderBaseColor
+    //  preloaderChromeColor
     //----------------------------------
     
     [Inspectable(defaultValue="0xCCCCCC", format="Color")]
     
     /**
      *    Specifies the base color used by the default preloader component. This property
-     *    has the same effect as the <code>baseColor</code> style used by the Spark skins.
-     *    Typically this property should be set to the same value as the <code>baseColor</code>
+     *    has the same effect as the <code>chromeColor</code> style used by the Spark skins.
+     *    Typically this property should be set to the same value as the <code>chromeColor</code>
      *    style used by the application.
      *    
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
@@ -509,7 +509,7 @@ public class Application extends LayoutContainer
      * component. It is here so that it gets picked up by the compiler and included 
      * in the info() structure for the generated system manager. The download progress bar
      * grabs the value directly from the info() structure. */
-    public var preloaderBaseColor:uint;
+    public var preloaderChromeColor:uint;
 
     //----------------------------------
     //  scriptRecursionLimit
