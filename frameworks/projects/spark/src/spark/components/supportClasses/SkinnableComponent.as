@@ -502,16 +502,8 @@ public class SkinnableComponent extends UIComponent
             }
             else
             {
-                measuredWidth = skin.measuredWidth; 
-                measuredHeight = skin.measuredHeight;
-
-                // Use Skin's explicit as minimum for the measured width: 
-                if (!isNaN(skin.explicitWidth) && measuredWidth < skin.explicitWidth)
-                    measuredWidth = skin.explicitWidth;
-
-                // Use Skin's explicit as minimum for the measured height: 
-                if (!isNaN(skin.explicitHeight) && measuredHeight < skin.explicitHeight)
-                    measuredHeight = skin.explicitHeight;
+                measuredWidth = skin.getExplicitOrMeasuredWidth(); 
+                measuredHeight = skin.getExplicitOrMeasuredHeight();
 
                 measuredMinWidth = skin.minWidth;
                 measuredMinHeight = skin.minHeight;
