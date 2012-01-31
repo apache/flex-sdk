@@ -1034,12 +1034,14 @@ public class Grid extends Group
      *  The measured height of this grid will be large enough to display 
      *  at least <code>requestedMinRowCount</code> rows.
      * 
-     *  <p>If <code>requestedRowCount</code> is set, then
-     *  this property has no effect.</p>
-     *
-     *  <p>If the actual size of the grid has been explicitly set,
-     *  then this property has no effect.</p>
-     *
+     *  <p>This property has no effect if any of the following are true;
+     *  <ul>
+     *      <li><code>requestedRowCount</code> is set
+     *      <li>the actual size of the grid has been explicitly set
+     *      <li>the grid is inside a Scroller component
+     *  </ul>
+     *  </p>
+     * 
      *  @default -1
      *  
      *  @langversion 3.0
@@ -1119,12 +1121,14 @@ public class Grid extends Group
      *  The measured width of this grid will be large enough to display 
      *  at least <code>requestedMinColumnCount</code> columns.
      * 
-     *  <p>If <code>requestedColumnCount</code> is set, then
-     *  this property has no effect.</p>
-     *
-     *  <p>If the actual size of the grid has been explicitly set,
-     *  then this property has no effect.</p>
-     * 
+     *  <p>This property has no effect if any of the following are true;
+     *  <ul>
+     *      <li><code>requestedColumnCount</code> is set
+     *      <li>the actual size of the grid has been explicitly set
+     *      <li>the grid is inside a Scroller component
+     *  </ul>
+     *  </p>
+     *  
      *  @default -1
      *  
      *  @langversion 3.0
