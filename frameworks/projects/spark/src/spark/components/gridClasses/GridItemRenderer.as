@@ -33,22 +33,37 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the bindable <code>data</code> property changes.
+ *  Dispatched when the <code>data</code> property changes.
  *
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
- *  A convenient base class for custom grid item renderers.   Grid item renderers
- *  are only required to display some column-specific aspect of their data.  They're
- *  not responsible for displaying the selection or hover indicators, the alternating
- *  background color (if any), or row/column separators.
+ *  The GridItemRenderer class defines the base class for custom item renderers
+ *  for the Spark grid controls, such as DataGrid and Grid.   
+ *  Item renderers are only required to display column-specific aspects of their data.  
+ *  They are not responsible for displaying the selection or hover indicators, 
+ *  the alternating background color (if any), or row or column separators.
+ *
+ *  <p>Item renderers are associated with each column of a grid.
+ *  Set the item renderer for a column by using 
+ *  the <code>GridColumn.itemRenderer property</code>.</p> 
+ *
+ *  @see spark.components.DataGrid
+ *  @see spark.components.Grid
+ *  @see spark.components.gridClasses.GridColumn
+ *  @see spark.components.gridClasses.GridColumn#itemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class GridItemRenderer extends Group implements IGridItemRenderer
 {
@@ -65,7 +80,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridItemRenderer()
@@ -148,7 +163,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get column():GridColumn
@@ -173,11 +188,13 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //----------------------------------
     
     /**
-     *  Returns <code>column.columnIndex</code>.
+     *  Returns the zero-based index of the column being rendered. 
+     *  That means that values are 0, 1, 2, ... , n - 1, 
+     *  where n is the total number of columns. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get columnIndex():int
@@ -194,15 +211,19 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("dataChange")]  // compatible with FlexEvent.DATA_CHANGE
     
     /**
-     *  The value of the dataProvider "item" for this row, i.e. <code>dataProvider.getItemAt(rowIndex)</code>.
-     *  Item renderers often bind visual element attributes to data properties.  Note 
-     *  that, despite its name, this property does not depend on the column's "dataField". 
+     *  The value of the data provider item for the grid row 
+     *  corresponding to the item renderer.
+     *  This value corresponds to the object returned by a call to the 
+     *  <code>dataProvider.getItemAt(rowIndex)</code> method.
+     *
+     *  <p>Item renderers can override this property definition to access 
+     *  the data for the entire row of the grid. </p>
      *  
      *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get data():Object
@@ -242,7 +263,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get down():Boolean
@@ -267,11 +288,12 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //----------------------------------
     
     /**
-     *  Returns the Grid associated with this item renderer (same value as <code>column.grid</code>).
+     *  Returns the Grid associated with this item renderer.
+     *  This is the same value as <code>column.grid</code>.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public function get grid():Grid
@@ -286,13 +308,13 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     private var _hovered:Boolean = false;
     
     /**
-     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
+     *  @inheritDoc
      *
      *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get hovered():Boolean
@@ -321,7 +343,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("rowIndexChanged")]
     
     /**
-     *  The index of the dataProvider item for this item renderer's row.
+     *  @inheritDoc
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
      *  before calling <code>prepare()</code></p>.   
@@ -330,7 +352,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get rowIndex():int
@@ -359,9 +381,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("showsCaretChanged")]    
     
     /**
-     *  True if the item renderer's cell is contained within the caret indicator.  
-     *  As with the selected property,  grid item renderers do not have exclusive 
-     *  responsibility for displaying the caret indicator.
+     *  @inheritDoc
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
      *  before calling <code>preprare()</code></p>.   
@@ -370,7 +390,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get showsCaret():Boolean
@@ -400,10 +420,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("selectedChanged")]    
     
     /**
-     *  True if the item renderer's cell is part of the current selection.  Unlike a list item renderer, 
-     *  grid item renderers do not have exclusive responsibility for displaying the selection indicator.   
-     *  The Grid itself renders the selection indicator for the selected row or cell.  The item renderer 
-     *  can also change its visual properties to emphasize that it's part of the selection.
+     *  @inheritDoc
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
      *  before calling <code>preprare()</code></p>.   
@@ -412,7 +429,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get selected():Boolean
@@ -442,7 +459,12 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("draggingChanged")]        
     
     /**
-     *  TBD
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dragging():Boolean
     {
@@ -471,17 +493,13 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("labelChanged")]
     
     /**
-     *  The string to display in the item renderer's cell.  This method copies
-     *  the (non null) value to the <code>text</code> property of <code>labelDisplay</code>.
-     *  
-     *  <p>The Grid sets this property to the value of the column's <code>itemToLabel()</code> method, before
-     *  calling <code>preprare()</code>.</p>   
+     *  @iheritDoc
      *
      *  @default ""
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get label():String
@@ -514,14 +532,17 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("labelDisplayChanged")]
     
     /**
-     *  An optional component for displaying the label property.   If specified, this component's
-     *  <code>text</code> will be kept in sync with this renderer's <code>label</code>.
+     *  An optional visual component in the item renderer 
+     *  for displaying the <code>label</code> property.   
+     *  If you use this property to specify a visual component, 
+     *  the component's <code>text</code> property is kept synchronized 
+     *  with the item renderer's <code>label</code> property.
      * 
      *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function get labelDisplay():TextBase
@@ -548,11 +569,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //--------------------------------------------------------------------------
     
     /**
-     *  Returns the name of the state to be applied to the renderer. For example, a
-     *  very basic Grid item renderer would return the String "normal", "hovered", 
+     *  Returns the name of the state to be applied to the renderer. 
+     *  For example, a basic item renderer returns the String "normal", "hovered", 
      *  or "selected" to specify the renderer's state. 
      *  If dealing with touch interactions (or mouse interactions where selection
-     *  is ignored), "down" and "downAndSelected" are also important states.
+     *  is ignored), "down" and "downAndSelected" can also be returned.
      * 
      *  <p>A subclass of GridItemRenderer must override this method to return a value 
      *  if the behavior desired differs from the default behavior.</p>
@@ -578,7 +599,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     protected function getCurrentRendererState():String
@@ -662,6 +683,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function prepare(hasBeenRecycled:Boolean):void
     {
@@ -669,6 +695,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function discard(willBeRecycled:Boolean):void
     {
