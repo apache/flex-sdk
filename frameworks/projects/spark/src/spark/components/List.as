@@ -871,12 +871,12 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!layout)
             return;
 
-        var spDelta:Point = layout.getScrollPositionDeltaToElement(index);
+        var spDelta:Point = dataGroup.layout.getScrollPositionDeltaToElement(index);
          
         if (spDelta)
         {
-            horizontalScrollPosition += spDelta.x;
-            verticalScrollPosition += spDelta.y;
+            dataGroup.horizontalScrollPosition += spDelta.x;
+            dataGroup.verticalScrollPosition += spDelta.y;
         }
     }
     
