@@ -966,7 +966,7 @@ use namespace mx_internal;
      */
     mx_internal function drawButtonFocus(index:int, focused:Boolean):void
     {
-        if (index < numChildren)
+        if (numChildren > 0 && index < numChildren)
         {
             var b:Button = Button(getChildAt(index));
             b.drawFocus(focused && focusManager.showFocusIndicator);
