@@ -55,7 +55,7 @@ public class FxAnimateColor extends FxAnimate
     public var colorPropertyName:String = "color";
     
     /**
-     * Constructs a Tint effect with an optional target object
+     * Constructs an FxAnimateColor effect with an optional target object
      */
     public function FxAnimateColor(target:Object=null)
     {
