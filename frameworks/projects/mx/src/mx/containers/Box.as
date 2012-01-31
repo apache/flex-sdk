@@ -71,6 +71,9 @@ include "../styles/metadata/GapStyles.as";
 
 [IconFile("Box.png")]
 
+[Alternative(replacement="spark.components.HGroup", since="4.0")]
+[Alternative(replacement="spark.components.VGroup", since="4.0")]
+
 /**
  *  A Halo Box container lays out its children in a single vertical column
  *  or a single horizontal row.
