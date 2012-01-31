@@ -97,6 +97,7 @@ use namespace mx_internal;
  *   <strong>Properties</strong>
  *    controlBarContent="null"
  *    controlBarLayout="HorizontalLayout"
+ *    controlBarVisible="true"
  *    title=""
  *   &gt;
  *      ...
@@ -119,7 +120,7 @@ public class Panel extends SkinnableContainer
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Class constants
     //
@@ -341,9 +342,9 @@ public class Panel extends SkinnableContainer
     }
 
     /**
-	 *  @private
-	 */
-	public function set controlBarLayout(value:LayoutBase):void
+     *  @private
+     */
+    public function set controlBarLayout(value:LayoutBase):void
     {
         if (controlBarGroup)
         {
@@ -381,8 +382,8 @@ public class Panel extends SkinnableContainer
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function set controlBarVisible(value:Boolean):void
     {
         if (controlBarGroup)
@@ -404,13 +405,13 @@ public class Panel extends SkinnableContainer
     //----------------------------------
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private var _title:String = "";
     
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private var titleChanged:Boolean;
 
     [Bindable]
@@ -460,9 +461,9 @@ public class Panel extends SkinnableContainer
      *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-	{
+    {
         // fixme (gosmith): this is not working to extend the height of the the titleDisplay
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
         var g:Graphics = titleDisplay.graphics;
         g.clear();
         // Also draw an invisible unfilled rect whose height
@@ -483,7 +484,7 @@ public class Panel extends SkinnableContainer
         // block mouse events to the controls in the Panel.
         g.lineStyle(0, 0x000000, 0);
         g.drawRect(0, 0, unscaledWidth, unscaledHeight);
-	}
+    }
         
     /**
      *  @private
