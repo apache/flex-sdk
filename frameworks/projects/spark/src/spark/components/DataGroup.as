@@ -117,7 +117,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *    dataProvider="null"
  *    itemRenderer="null"
  *    itemRendererFunction="null"
- *    typicalItem"null"
+ *    typicalItem="null"
  *  
  *    <strong>Events</strong>
  *    rendererAdd="<i>No default</i>"
