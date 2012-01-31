@@ -48,6 +48,8 @@ include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
+[Exclude(name="enabled", kind="property")] 
+
 /**
  *  The GroupBase class defines the base class for components that display visual elements.
  *  A group component does not control the layout of the visual items that it contains. 
