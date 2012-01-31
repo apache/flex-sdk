@@ -5604,8 +5604,6 @@ public class Container extends UIComponent
         // and prevent further bubbling
         if (verticalScrollBar && !event.isDefaultPrevented())
         {
-            event.stopPropagation();
-
             var scrollDirection:int = event.delta <= 0 ? 1 : -1;
 
             var lineScrollSize:int = verticalScrollBar ?
@@ -5625,6 +5623,8 @@ public class Container extends UIComponent
                                 event.delta <= 0 ?
                                 ScrollEventDetail.LINE_UP :
                                 ScrollEventDetail.LINE_DOWN);
+            
+            event.preventDefault();
         }
     }
 
