@@ -15,6 +15,11 @@ package mx.rpc.mxml
 /**
  * Concurrency is set via MXML based access to RPC services to indicate how to handle multiple
  * calls to the same service. The default concurrency value is <code>multiple</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class Concurrency
 {
@@ -23,12 +28,22 @@ public final class Concurrency
      * Only the result or fault for the most recent request will be dispatched on the client. 
      * This may simplify event handling in the client application, but care should be taken to only use 
      * this mode when results or faults for requests may be safely ignored.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LAST:String = "last";
 
     /**
      * Existing requests are not cancelled, and the developer is responsible for ensuring
      * the consistency of returned data by carefully managing the event stream.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const MULTIPLE:String = "multiple";
 
@@ -36,6 +51,11 @@ public final class Concurrency
     /**
      * Making only one request at a time is allowed on the method; additional requests made 
      * while a request is outstanding are immediately faulted on the client and are not sent to the server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SINGLE:String = "single";
 }
