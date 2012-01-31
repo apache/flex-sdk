@@ -1901,6 +1901,19 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     /**
      * @private
      * 
+     * Reset the factories so they get re-generated.
+     */
+    mx_internal function resetFactories():void
+    {
+        _contextHeaderRenderer = null;
+        _contextItemRenderer = null;
+        _contextNullItemRenderer = null;
+        determineFontContext();
+    }
+
+    /**
+     * @private
+     * 
      * Save the current font context to member fields.
      */
     mx_internal function determineFontContext():void
