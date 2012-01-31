@@ -80,6 +80,26 @@ use namespace mx_internal;
  *  of single-styled text. Can contain alphanumeric data, but
  *  input is interpreted as a String.
  *
+ *  <p>The TextInput control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>188 pixels wide by 22 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>2 pixels wide and 2 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @includeExample examples/TextInputExample.mxml
  *
  *  @mxml
