@@ -19,17 +19,24 @@ import flash.geom.Point;
 import flash.text.engine.FontPosture;
 import flash.text.engine.FontWeight;
 import flash.text.engine.Kerning;
+import flash.utils.getQualifiedClassName;
 
 import flex.graphics.IDisplayObjectElement;
 
 import text.model.TextAlign;
 import text.model.VerticalAlign;
 
+import mx.core.mx_internal;
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.ISimpleStyleClient;
+import mx.styles.IStyleClient;
+import mx.styles.StyleManager;
+
 /**
  *  Documentation is not currently available.
  */
 public class TextGraphicElement extends GraphicElement
-	implements IDisplayObjectElement
+	implements IDisplayObjectElement, ISimpleStyleClient, IStyleClient
 {
 	include "../../core/Version.as";
 
@@ -49,7 +56,7 @@ public class TextGraphicElement extends GraphicElement
 	
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden properties: IDisplayObjectElement
+	//  Overridden properties: GraphicElement
 	//
 	//--------------------------------------------------------------------------
 	
@@ -585,6 +592,152 @@ public class TextGraphicElement extends GraphicElement
 
 	//--------------------------------------------------------------------------
 	//
+	//  Properties: ISimpleStyleClient
+	//
+	//--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  styleName
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the styleName property.
+     */
+    private var _styleName:Object /* String, CSSStyleDeclaration, or UIComponent */;
+
+    [Inspectable(category="General")]
+
+    /**
+	 *  Documentation is not currently available.
+     */
+    public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
+    {
+        return _styleName;
+    }
+
+    /**
+     *  @private
+     */
+    public function set styleName(
+        value:Object /* String, CSSStyleDeclaration, or UIComponent */):void
+    {
+        // to be implemented
+    }
+
+	//--------------------------------------------------------------------------
+	//
+	//  Properties: IStyleClient
+	//
+	//--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  className
+    //----------------------------------
+
+    /**
+	 *  Documentation is not currently available.
+     */
+    public function get className():String
+    {
+        var name:String = getQualifiedClassName(this);
+        
+        // If there is a package name, strip it off.
+        var index:int = name.indexOf("::");
+        if (index != -1)
+            name = name.substr(index + 2);
+                
+        return name;
+    }
+    
+    //----------------------------------
+    //  inheritingStyles
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the inheritingStyles property.
+     */
+    private var _inheritingStyles:Object =
+        StyleManager.mx_internal::STYLE_UNINITIALIZED;
+    
+    [Inspectable(environment="none")]
+
+    /**
+	 *  Documentation is not currently available.
+     */
+    public function get inheritingStyles():Object
+    {
+        return _inheritingStyles;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set inheritingStyles(value:Object):void
+    {
+        _inheritingStyles = value;
+    }
+
+    //----------------------------------
+    //  nonInheritingStyles
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the nonInheritingStyles property.
+     */
+    private var _nonInheritingStyles:Object =
+        StyleManager.mx_internal::STYLE_UNINITIALIZED;
+
+    [Inspectable(environment="none")]
+
+    /**
+	 *  Documentation is not currently available.
+     */
+    public function get nonInheritingStyles():Object
+    {
+        return _nonInheritingStyles;
+    }
+
+    /**
+     *  @private
+     */
+    public function set nonInheritingStyles(value:Object):void
+    {
+        _nonInheritingStyles = value;
+    }
+
+    //----------------------------------
+    //  styleDeclaration
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the styleDeclaration property.
+     */
+    private var _styleDeclaration:CSSStyleDeclaration;
+
+    [Inspectable(environment="none")]
+
+    /**
+	 *  Documentation is not currently available.
+     */
+    public function get styleDeclaration():CSSStyleDeclaration
+    {
+        return _styleDeclaration;
+    }
+
+    /**
+     *  @private
+     */
+    public function set styleDeclaration(value:CSSStyleDeclaration):void
+    {
+        _styleDeclaration = value;
+    }
+
+	//--------------------------------------------------------------------------
+	//
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
@@ -651,9 +804,105 @@ public class TextGraphicElement extends GraphicElement
 
 	//--------------------------------------------------------------------------
 	//
+	//  Methods: ISimpleStyleClient
+	//
+	//--------------------------------------------------------------------------
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function styleChanged(styleProp:String):void
+    {
+        // to be implemented
+    }
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods: IStyleClient
+	//
+	//--------------------------------------------------------------------------
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function getStyle(styleProp:String):*
+    {
+        return StyleManager.isInheritingStyle(styleProp) ?
+               _inheritingStyles[styleProp] :
+               _nonInheritingStyles[styleProp];
+    }
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function setStyle(styleProp:String, newValue:*):void
+    {
+        // to be implemented
+    }
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function clearStyle(styleProp:String):void
+    {
+        setStyle(styleProp, undefined);
+    }
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function getClassStyleDeclarations():Array
+    {
+        // to be implemented
+        return null;
+    }
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function notifyStyleChangeInChildren(
+                        styleProp:String, recursive:Boolean):void
+    {
+        // to be implemented
+    }
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function regenerateStyleCache(recursive:Boolean):void
+    {
+        // to be implemented
+    }
+
+	/**
+	 *  Documentation is not currently available.
+	 */
+    public function registerEffects(effects:Array /* of String */):void
+    {
+        // to be implemented
+    }
+
+	//--------------------------------------------------------------------------
+	//
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
+
+    /**
+     *  Documentation is not currently available.
+     */
+    public function stylesInitialized():void
+    {
+    }
+
+    /**
+     *  @private
+     *  Documentation is not currently available.
+     */
+    mx_internal function initProtoChain():void
+    {
+        // to be implemented
+    }
 
 	/**
 	 *  Documentation is not currently available.
