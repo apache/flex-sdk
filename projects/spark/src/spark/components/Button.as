@@ -431,9 +431,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
-        // TODO EGeorgie: should revisit, we are handling the CLICK during capture phase,
-        // since instance handlers are registered before base class handlers.
-        addEventListener(MouseEvent.CLICK, mouseEventHandler, true /*useCapture*/);
+        addEventListener(MouseEvent.CLICK, mouseEventHandler);
         addEventListener("enabledChanged", enableChangedHandler);
     }
     
