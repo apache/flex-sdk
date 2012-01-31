@@ -101,6 +101,8 @@ use namespace mx_internal;
  *  The background color of the application. This color is used as the stage color for the
  *  application and the background color for the HTML embed tag.
  *
+ *  @default 0x464646
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
