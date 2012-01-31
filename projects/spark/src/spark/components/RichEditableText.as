@@ -1702,7 +1702,8 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  Inserts the specified text as if you had typed it.
      *  If a range was selected, the new text replaces the selected text;
-     *  if there was an insertion point, the new text is inserted there.
+     *  if there was an insertion point, the new text is inserted there,
+     *  otherwise the text is appended to the text that is there.
      *  An insertion point is then set after the new text.
      */
     public function insertText(text:String):void
@@ -1715,8 +1716,10 @@ public class TextView extends UIComponent implements IViewport
         var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
         switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         
-        // This does nothing if there is not an insertion point, ie
-        // there is no selection.
+        // If no selection, then it's an append.
+        if (!textFlow.interactionManager.hasSelection())
+            textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+        
         EditManager(textFlow.interactionManager).insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
@@ -1745,7 +1748,10 @@ public class TextView extends UIComponent implements IViewport
         
         // An append is an insert with the selection set to the end.
         textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-        insertText(text);
+        EditManager(textFlow.interactionManager).insertText(text);
+
+        // Update TLF display.  This initiates the InsertTextOperation.
+        textFlow.flowComposer.updateAllContainers();        
 
         // Restore the prior editing mode.
         switchToEditingMode(textFlow, priorEditingMode);
