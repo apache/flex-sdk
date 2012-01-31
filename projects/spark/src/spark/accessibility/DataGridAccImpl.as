@@ -307,7 +307,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
             return null;
         
         if (dgAccInfo.isColumnHeader)
-            return dgAccInfo.dataGrid.columnHeaderBar.dataGroup.getElementAt(childID-1);
+            return dgAccInfo.dataGrid.columnHeaderBar.getElementAt(childID-1);
             
         // TODO: return correct height for rows and cells as incorrect height 
         // is being returned
