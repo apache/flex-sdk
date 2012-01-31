@@ -16,9 +16,10 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script>
         <![CDATA[
+            import spark.components.IGridItemRenderer;
             import mx.core.IUITextField;
             import mx.core.IVisualElement;
-
+            
             import spark.core.IEditableText;
             import spark.primitives.Rect;
             
@@ -59,7 +60,7 @@ in accordance with the terms of the license agreement accompanying it.
                 
                 var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
                 var textDisplay:IEditableText = textArea.textDisplay;
-                var itemRenderer:IVisualElement = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex);
+                var itemRenderer:IGridItemRenderer = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex) as IGridItemRenderer;
 
                 if (itemRenderer is IUITextField)
                 {
@@ -80,7 +81,8 @@ in accordance with the terms of the license agreement accompanying it.
                     textDisplay.lineBreak = itemRenderer["lineBreak"];
                     
                 if (textDisplay.multiline == false &&
-                    textDisplay.lineBreak == "explicit")
+                    textDisplay.lineBreak == "explicit" &&
+                    textArea.getStyle("textAlign") == "start")
                 {
                     // Single line control. Set the initial width to be the width of the cell.
                     textArea.width = NaN;
@@ -104,8 +106,9 @@ in accordance with the terms of the license agreement accompanying it.
                 
                 textArea.minWidth = cellBounds.width;
                 textArea.height = cellBounds.height;
+                
             }
-            
+
             /**
              *  @private
              */ 
@@ -116,7 +119,8 @@ in accordance with the terms of the license agreement accompanying it.
             
         ]]>
     </fx:Script>
-    
+
+    <!--- The editor's TextArea component. -->
     <s:TextArea id="textArea" horizontalScrollPolicy="off" verticalScrollPolicy="off" />
     
 </s:GridItemEditor>
