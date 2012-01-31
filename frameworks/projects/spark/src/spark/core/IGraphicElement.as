@@ -193,13 +193,6 @@ public interface IGraphicElement
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  Draws the element.
-     *
-     *  @param g The graphics context where the element is drawn.
-     */
-	function draw(g:Graphics):void;
-	
 	function applyMask():void;
 }
 }
