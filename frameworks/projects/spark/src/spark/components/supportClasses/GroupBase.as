@@ -18,6 +18,7 @@ import mx.graphics.graphicsClasses.GraphicElement;
 import mx.graphics.IGraphicElement;
 import mx.layout.ILayoutItem;
 import mx.core.IViewport;
+import mx.core.ScrollUnit;
 import mx.layout.LayoutBase;
 import mx.layout.BasicLayout;
 import mx.layout.LayoutItemFactory;
@@ -499,6 +500,10 @@ public class GroupBase extends UIComponent implements IViewport
 
         if (autoLayout && _layout)
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
+            
+        if (_layout)
+            _layout.updateScrollRect(unscaledWidth, unscaledHeight);
+            
     }
     
     //----------------------------------
@@ -508,17 +513,17 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @copy mx.core.IViewport#horizontalScrollPositionDelta
      */
-    public function horizontalScrollPositionDelta(unit:uint):Number
+    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     {
-        return (layout) ? layout.horizontalScrollPositionDelta(unit) : 0;     
+        return (layout) ? layout.getHorizontalScrollPositionDelta(unit) : 0;     
     }
     
     /**
      *  @copy mx.core.IViewport#verticalScrollPositionDelta
      */
-    public function verticalScrollPositionDelta(unit:uint):Number
+    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
     {
-        return (layout) ? layout.verticalScrollPositionDelta(unit) : 0;     
+        return (layout) ? layout.getVerticalScrollPositionDelta(unit) : 0;     
     }
     
     //--------------------------------------------------------------------------
