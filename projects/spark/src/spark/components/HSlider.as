@@ -16,7 +16,7 @@ import flash.display.DisplayObject;
 import flash.geom.Point;
 
 import mx.components.baseClasses.FxSlider;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 
 [IconFile("FxHSlider.png")]
