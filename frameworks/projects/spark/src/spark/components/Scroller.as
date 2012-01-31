@@ -520,6 +520,13 @@ public class Scroller extends SkinnableComponent
      */
     private static const PULL_TENSION_RATIO:Number = 0.5;
     
+    /**
+     *  @private
+     *  Used so we don't have to keep allocating Point(0,0) to do coordinate conversions
+     *  while draggingg
+     */
+    private static const ZERO_POINT:Point = new Point(0,0); 
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -568,24 +575,10 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Threshold for screen distance they must move to count as a horizontal scroll
+     *  Threshold for screen distance they must move to count as a scroll
      *  Based on 20 pixels on a 252ppi device.
      */
-    mx_internal var minHorizontalSlopInches:Number = 0.079365; // 20.0/252.0
-    
-    /**
-     *  @private
-     *  Threshold for screen distance they must move to count as a vertical scroll
-     *  Based on 20 pixels on a 252ppi device.
-     */
-    mx_internal var minVerticalSlopInches:Number = 0.079365; // 20.0/252.0
-    
-    /**
-     *  @private
-     *  Threshold for screen distance they must move to count as a diagonal scroll
-     *  Based on 20 pixels on a 252ppi device.
-     */
-    mx_internal var minDiagonalSlopInches:Number = 0.079365; // 20.0/252.0
+    mx_internal var minSlopInches:Number = 0.079365; // 20.0/252.0
     
     /**
      *  @private
@@ -752,6 +745,11 @@ public class Scroller extends SkinnableComponent
      */
     private var oldSoftKeyboardWidth:Number = NaN;
     
+    /**
+     *  @private 
+     */
+    mx_internal var isSoftKeyboardActivated:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1018,6 +1016,14 @@ public class Scroller extends SkinnableComponent
         
         if (layout)
         {
+            // Before we change the scroll position, make sure there is
+            // no throw effect playing.
+            if (throwEffect && throwEffect.isPlaying)
+            {
+                throwEffect.stop();
+                snapContentScrollPosition();
+            }
+
             // Scroll the element into view
             var delta:Point = layout.getScrollPositionDeltaToAnyElement(element);
             
@@ -1688,7 +1694,15 @@ public class Scroller extends SkinnableComponent
                     // This is the simplest case.  The throw both begins and ends on the list (i.e. not past the 
                     // end of the list).  We create a single keyframe and clear the velocity to indicate that the
                     // motion path is complete.
-                    nowTime = addKeyframe(motionPath, nowTime + effectTime, finalPosition, new Power(0, THROW_CURVE_EXPONENT));
+                    // Note that we only use the first 62% of the actual deceleration curve, and stop the motion
+                    // path at that point.  That's the point in time at which most throws animations get to within
+                    // a single pixel of their final destination.  Since scrolling is done at whole pixel 
+                    // boundaries, there's no point in letting the rest of the animation play out, and stopping it 
+                    // allows us to release the mouse capture earlier for a better user experience.
+                    const CURVE_PORTION:Number = 0.62;
+                    nowTime = addKeyframe(
+                        motionPath, nowTime + (effectTime*CURVE_PORTION), finalPosition, 
+                        new PartialExponentialCurve(THROW_CURVE_EXPONENT,CURVE_PORTION));
                     velocity = 0;
                 }
             }
@@ -1873,10 +1887,7 @@ public class Scroller extends SkinnableComponent
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper(this);
-                    var dpi:Number = flash.system.Capabilities.screenDPI;
-                    touchScrollHelper.horizontalSlop = Math.round(minHorizontalSlopInches * dpi);
-                    touchScrollHelper.verticalSlop = Math.round(minVerticalSlopInches * dpi);
-                    touchScrollHelper.diagonalSlop = Math.round(minDiagonalSlopInches * dpi);
+                    touchScrollHelper.scrollSlop = Math.round(minSlopInches * flash.system.Capabilities.screenDPI);
                 }
             }
             else
@@ -2286,6 +2297,15 @@ public class Scroller extends SkinnableComponent
      */
     mx_internal function performDrag(dragX:Number, dragY:Number):void
     {
+        // dragX and dragY are delta value in the global coordinate space.
+        // In order to use them to change the scroll position we must convert
+        // them to the scroller's local coordinate space first.
+        // This code converts the deltas from global to local.
+        var localDragDeltas:Point = 
+            globalToLocal(new Point(dragX,dragY)).subtract(globalToLocal(ZERO_POINT));
+        dragX = localDragDeltas.x;
+        dragY = localDragDeltas.y;
+
         var xMove:int = 0;
         var yMove:int = 0;
 		
@@ -2558,6 +2578,8 @@ public class Scroller extends SkinnableComponent
      */  
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {
+        isSoftKeyboardActivated = true;
+
         // Size of app has changed, so run this logic again
         var keyboardRect:Rectangle = stage.softKeyboardRect;
         
@@ -2585,6 +2607,7 @@ public class Scroller extends SkinnableComponent
         adjustScrollPositionAfterSoftKeyboardDeactivate();
         oldSoftKeyboardHeight = NaN;
         oldSoftKeyboardWidth = NaN;
+        isSoftKeyboardActivated = false;
     }
     
     /**
@@ -2696,24 +2719,10 @@ class TouchScrollHelper
     
     /**
      *  @private
-     *  Horizontal slop - the scrolling threshold (minimum number of 
+     *  scrollSlop - the scrolling threshold (minimum number of 
      *  pixels needed to move before a scroll gesture is recognized
      */
-    public var horizontalSlop:Number;
-    
-    /**
-     *  @private
-     *  Vertical slop - the scrolling threshold (minimum number of 
-     *  pixels needed to move before a scroll gesture is recognized
-     */
-    public var verticalSlop:Number;
-    
-    /**
-     *  @private
-     *  Diagonal slop - the scrolling threshold (minimum number of 
-     *  pixels needed to move before a scroll gesture is recognized
-     */
-    public var diagonalSlop:Number;
+    public var scrollSlop:Number;
     
     /**
      *  @private
@@ -2963,12 +2972,10 @@ class TouchScrollHelper
                 possibleScrollVertically = true;
             
             // now figure out if we should scroll horizontally or vertically based on our slop
-            if (possibleScrollHorizontally && possibleScrollVertically)
-                shouldBeScrolling = Math.abs(mouseDownedDifference.length) >= diagonalSlop;
-            else if (possibleScrollHorizontally)
-                shouldBeScrolling = Math.abs(mouseDownedDifference.x) >= horizontalSlop;
-            else if (possibleScrollVertically)
-                shouldBeScrolling = Math.abs(mouseDownedDifference.y) >= verticalSlop;
+            if (possibleScrollHorizontally && Math.abs(mouseDownedDifference.x) >= scrollSlop)
+                shouldBeScrolling = true;
+            if (possibleScrollVertically && Math.abs(mouseDownedDifference.y) >= scrollSlop)
+                shouldBeScrolling = true;
             
             // If we should be scrolling, start scrolling
             if (shouldBeScrolling)
@@ -3008,14 +3015,23 @@ class TouchScrollHelper
                 if (possibleScrollHorizontally && possibleScrollVertically)
                 {
                     // diagonal case
-                    if (mouseDownedDifference.length >= diagonalSlop)
+                    var maxAxisDistance:Number = Math.max(Math.abs(mouseDownedDifference.x),Math.abs(mouseDownedDifference.y));
+                    if (maxAxisDistance >= scrollSlop)
                     {
                         var scrollAnchorDiffX:int;
                         var scrollAnchorDiffY:int;
                         
-                        // normalize the diff to keep the right angle
+                        // The anchor point is the point at which the line described by mouseDownedDifference
+                        // intersects with the perimeter of the slop area.  The slop area is a square with sides
+                        // of length scrollSlop*2. 
                         var normalizedDiff:Point = mouseDownedDifference.clone();
-                        normalizedDiff.normalize(diagonalSlop);
+                        
+                        // Use the ratio of scrollSlop to maxAxisDistance to determine the length of the line
+                        // from the mouse down point to the anchor point.
+                        var lineLength:Number = (scrollSlop / maxAxisDistance) * mouseDownedDifference.length;  
+                        
+                        // Normalize to create a line of that length with the same angle it had before.
+                        normalizedDiff.normalize(lineLength);
                         
                         // 4 possibilities: top-right, top-left, bottom-right, bottom-left
                         scrollAnchorDiffX = Math.round(normalizedDiff.x);
@@ -3028,25 +3044,23 @@ class TouchScrollHelper
                 else if (possibleScrollHorizontally)
                 {
                     // horizontal case
-                    if (mouseDownedDifference.x >= horizontalSlop)
-                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x + horizontalSlop, mouseDownedPoint.y);
-                    else //if (mouseDownedDifference.x >= -horizontalSlop)
-                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x - horizontalSlop, mouseDownedPoint.y);
+                    if (mouseDownedDifference.x >= scrollSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x + scrollSlop, mouseDownedPoint.y);
+                    else
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x - scrollSlop, mouseDownedPoint.y);
                 }
                 else if (possibleScrollVertically)
                 {
                     // vertical case
-                    if (mouseDownedDifference.y >= verticalSlop)
-                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y + verticalSlop);
-                    else //if (mouseDownedDifference.y >= -verticalSlop)
-                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y - verticalSlop);
+                    if (mouseDownedDifference.y >= scrollSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y + scrollSlop);
+                    else
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y - scrollSlop);
                 }
                 
                 // velocity calculations come from mouseDownedPoint.  The drag ones com from scrollStartPoint.
                 // This seems fine.
             }
-            
-            
         }
         
         // if we are scrolling (even if we just started scrolling)
@@ -3172,6 +3186,13 @@ class TouchScrollHelper
             dragTimer = null;
         }
         
+        // If the soft keyboard is up (or about to come up), don't start a throw.
+        if (scroller.isSoftKeyboardActivated)
+        {
+            endTouchScroll();
+            return;
+        }
+
         // This could be a SanboxMouseEvent
         if (event is MouseEvent)
             addMouseEventHistory(MouseEvent(event).stageX, MouseEvent(event).stageY);
@@ -3243,6 +3264,13 @@ class TouchScrollHelper
             throwVelocity.x = 0;
             throwVelocity.y = 0;
         }
+        
+        // The velocity values are deltas in the global coordinate space.
+        // In order to use them to change the scroll position we must convert
+        // them to the scroller's local coordinate space first.
+        // This code converts the deltas from global to local.
+        throwVelocity = 
+            scroller.globalToLocal(throwVelocity).subtract(scroller.globalToLocal(new Point(0,0)));
         
         // Note that we always call performThrow - even when the velocity is zero.
         // This is needed because we may be past the end of the list and need an 
