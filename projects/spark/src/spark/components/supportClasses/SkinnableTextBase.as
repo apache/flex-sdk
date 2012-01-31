@@ -719,6 +719,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         if (!textView)
             return;
 
+        // Make sure all properties are committed (i.e. pushed down to textView)
+        // before doing the insert.
+        validateNow();
+
         textView.insertText(text);
     }
 
@@ -729,6 +733,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     {
         if (!textView)
             return;
+
+        // Make sure all properties are committed (i.e. pushed down to textView)
+        // before doing the append.
+        validateNow();
 
         textView.appendText(text);
     }
