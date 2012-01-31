@@ -360,15 +360,17 @@ public class ModuleLoader extends VBox
         // this module factory is in.
         // This is a change in behavior so only do it for Flex 4 and newer
         // applications.
-        if (applicationDomain == null && moduleFactory &&         
+        var tempApplicationDomain:ApplicationDomain = applicationDomain; 
+        
+        if (tempApplicationDomain == null && moduleFactory &&         
             FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
         {
             var currentDomain:ApplicationDomain = moduleFactory.info()["currentDomain"];
             if (currentDomain)
-                applicationDomain = new ApplicationDomain(currentDomain); 
+                tempApplicationDomain = new ApplicationDomain(currentDomain); 
         }
             
-        module.load(applicationDomain, null, bytes, moduleFactory);
+        module.load(tempApplicationDomain, null, bytes, moduleFactory);
     }
 
     /**
