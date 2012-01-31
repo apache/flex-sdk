@@ -89,7 +89,6 @@ public class NavigatorContent extends SkinnableContainer
     public function NavigatorContent()
     {
         super();
-        creationPolicy = null;
     }
     
     
@@ -211,7 +210,7 @@ public class NavigatorContent extends SkinnableContainer
     {
         // if nobody has overridden creationPolicy, get it from the
         // navigator parent
-        if (creationPolicy == null)
+        if (creationPolicy == ContainerCreationPolicy.AUTO)
         {
             if (parent is IDeferredContentOwner)
             {
