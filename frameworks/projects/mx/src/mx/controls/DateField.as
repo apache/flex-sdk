@@ -418,8 +418,12 @@ public class DateField extends ComboBase
      *  It can contain <code>"M"</code>,<code>"D"</code>,<code>"Y"</code>,
      *  and delimiter and punctuation characters.
      *
-     *  The function does not check for the validity of the Date object.
-     *  If the value of the date, month, or year is NaN, this method returns null.
+     *  <p>The function does not check for the validity of the Date object.
+     *  If the value of the date, month, or year is NaN, this method returns null.</p>
+     * 
+     *  <p>For example:
+     *  <pre>var dob:Date = DateField.stringToDate("06/30/2005", "MM/DD/YYYY");</pre>        
+     *  </p>
      *
      *  @param valueString Date value to format.
      *
@@ -427,8 +431,6 @@ public class DateField extends ComboBase
      *
      *  @return The formatted date as a Date object.
      *
-     *  @example
-     *  <pre>var dob:Date = DateField.stringToDate("06/30/2005", "MM/DD/YYYY");</pre>
      */
     public static function stringToDate(valueString:String, inputFormat:String):Date
     {
