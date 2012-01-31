@@ -13,6 +13,11 @@
  *  Specifies the alpha transparency value of the focus skin.
  *  
  *  @default 0.4
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusAlpha", type="Number", inherit="no")]
 
@@ -27,5 +32,10 @@
  *  the radius of the rounded corners.
  *  The default value depends on the component class; if not overridden for
  *  the class, default value is <code>"tl tr bl br"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusRoundedCorners", type="String", inherit="no")]
