@@ -9,11 +9,11 @@
         <s:VGroup left="10" right="10" top="10" bottom="10">
             <s:SimpleText width="100%" text="Spark NumericStepper control with minimum=0, maximum=10, stepSize=1.5 and valueWrap=true"/>
             <s:SimpleText width="100%" text="Value increments and decrements in multiples of 1.5 and wraps around."/>
-            <s:SimpleText width="100%" text="NOTE: valueInterval must be set to the same value as stepSize or the NumericStepper value will be rounded."/>
+            <s:SimpleText width="100%" text="NOTE: snapInterval must be set to the same value as stepSize or the NumericStepper value will be rounded."/>
 
             <!-- Spark NumericStepper Control -->
             <s:NumericStepper id="myNS" width="55" value="1.5" stepSize="1.5" 
-                    valueInterval="1.5" valueWrap="true"/>
+                    snapInterval="1.5" valueWrap="true"/>
 
             <!-- Label that displays the current value of the Spark NumericStepper -->
             <s:SimpleText color="purple" text="Current value = {myNS.value}"/>
