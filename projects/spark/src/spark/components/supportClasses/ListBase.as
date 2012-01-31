@@ -80,6 +80,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  &lt;ListBase
  *
  *    <strong>Properties</strong>
+ *    arrowKeysWrapFocus="false"
  *    dataProvider="null"
  *    labelField="null"
  *    labelFunction="null"
@@ -158,7 +159,24 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  caretIndex
+    //  arrowKeysWrapFocus
+    //---------------------------------- 
+    
+    /**
+     *  If <code>true</code>, using arrow keys to navigate within
+     *  the component wraps when it hits either end.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var arrowKeysWrapFocus:Boolean;
+
+    //----------------------------------
+    //  CaretIndex
     //----------------------------------
     
     mx_internal var _caretIndex:Number = NO_CARET; 
@@ -833,7 +851,7 @@ public class ListBase extends SkinnableDataContainer
     {
         // Subclasses must override this method to display the caret.
     }
-        
+    
     /**
      *  Returns <code>true</code> if the item at the index is selected.
      * 
@@ -1022,7 +1040,7 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  Called when an item has been removed from this component. 
+     *  Called when an item has been removed from this component.
      *  Selection and caret related properties are adjusted 
      *  accordingly. 
      * 
@@ -1120,6 +1138,7 @@ public class ListBase extends SkinnableDataContainer
         }
             
     }
+    
 }
 
 }
