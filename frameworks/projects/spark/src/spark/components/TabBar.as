@@ -50,6 +50,8 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
 
 [AccessibilityClass(implementation="spark.accessibility.TabBarAccImpl")]
 
+[IconFile("TabBar.png")]
+
 /**
  *  The TabBar class displays a set of identical tabs.  
  *  One tab can be selected at a time, and the first tab is selected by default.
