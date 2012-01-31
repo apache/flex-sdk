@@ -49,6 +49,7 @@ include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
+include "../../styles/metadata/SparkColorStyles.as"
 
 [Exclude(name="enabled", kind="property")] 
 
