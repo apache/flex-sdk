@@ -72,14 +72,6 @@ public class TextGraphic extends TextGraphicElement
 		
 	/**
 	 *  @private
-	 *  This flag is set to true by the text, width, and height setters,
-	 *  to indicate that the TextLines must be regenerated.
-	 *  The regeneration occurs when draw() is called or 'bounds' is read.
-	 */
-	private var invalid:Boolean = false;
-
-	/**
-	 *  @private
 	 */
 	private var textChanged:Boolean = false;
 
@@ -88,53 +80,6 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private var contentChanged:Boolean = false;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: GraphicElement
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  bounds
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _bounds:Rectangle = new Rectangle();
-
-    /**
-     *  @inheritDoc
-     */
-    override public function get bounds():Rectangle
-	{
-		if (invalid)
-		{
-			compose();
-			invalid = false;
-		}
-
-		var w:Number;
-		var h:Number;
-
-		if (!isNaN(explicitWidth) && !isNaN(explicitHeight))
-		{
-			w = explicitWidth;
-			h = explicitHeight;
-		}
-		else
-		{
-			var r:Rectangle = textFlowComposer.bounds;
-			w = Math.ceil(r.width);
-			h = Math.ceil(r.height);
-		}
-
-		_bounds.width = w;
-		_bounds.height = h;
-				
-		return _bounds;
-	}
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Properties: Text Attributes
@@ -598,6 +543,20 @@ public class TextGraphic extends TextGraphicElement
 	/**
 	 *  @inheritDoc
 	 */
+    override protected function measure():void
+    {
+        var width:Number = !isNaN(explicitWidth) ? explicitWidth : NaN;
+        var height:Number = !isNaN(explicitHeight) ? explicitHeight : NaN;
+		compose(width, height);
+
+		var r:Rectangle = textFlowComposer.bounds;
+		measuredWidth = Math.ceil(r.width);
+		measuredHeight = Math.ceil(r.height);
+	}
+	
+	/**
+	 *  @inheritDoc
+	 */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
 	{
@@ -623,8 +582,6 @@ public class TextGraphic extends TextGraphicElement
 			textChanged = true;
 		else if (cause == "content")
 			contentChanged = true;
-
-		invalid = true;
 	}
 	
 	//--------------------------------------------------------------------------
