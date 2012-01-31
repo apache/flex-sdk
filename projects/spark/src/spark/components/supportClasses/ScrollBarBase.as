@@ -75,9 +75,10 @@ use namespace mx_internal;
  *  If true (the default), the thumb's visibility will be reset
  *  whenever its size is updated.  
  * 
- *  Overrides of <code>sizeThumb()</code> in <code>HScrollBar</code> and 
- *  <code>VScrollBar</code> make the thumb visible if it's smaller than
- *  the track, unless this style is false.   
+ *  Overrides of <code>updateSkinDisplayList()</code> in 
+ *  <code>HScrollBar</code> and <code>VScrollBar</code> 
+ *  make the thumb visible if it's smaller than the track, 
+ *  unless this style is false.   
  * 
  *  Set this style to false to control thumb visibility directly.  
  * 
