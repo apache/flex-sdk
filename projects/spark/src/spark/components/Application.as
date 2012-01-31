@@ -41,6 +41,7 @@ import mx.managers.ToolTipManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.utils.BitFlagUtil;
+import mx.utils.DensityUtil;
 import mx.utils.LoaderUtil;
 
 import spark.layouts.supportClasses.LayoutBase;
@@ -764,25 +765,69 @@ public class Application extends SkinnableContainer
     public var splashScreenMinimumDisplayTime:Number;
     
     //----------------------------------
-    //  authorDensity
+    //  applicationDPI
     //----------------------------------
     
-    [Inspectable(category="General", enumeration="160ppi,240ppi,320ppi")]
+    /**
+     *  Storage for the applicationDPI property.
+     * 
+     *  @private
+     */
+    private var _applicationDPI:int = -1;
+    
+    [Inspectable(category="General", enumeration="160,240,320")]
     
     /**
-     *  The density that the application is authored for.
+     *  The DPI of the application.
      *  
-     *  When set, Flex will automatically scale between the author density and
-     *  the density of the current device the application is running on.  
+     *  By default, this is the DPI of the device that the application is currently running on.
+     * 
+     *  When set in MXML, Flex will scale the Application to match its DPI to the
+     *  <code>runtimeDPI</code>.
      *  
      *  This property cannot be set by ActionScript code; it must be set in MXML code.
      * 
-     *  @see mx.core.DeviceDensity
-     *  @see mx.core.DensityUtil
-     *  @see mx.core.ISystemManager#densityScale
+     *  @see #runtimeDPI
+     *  @see mx.core.DPIClassification
      */
-    public var authorDensity:String;
+    public function get applicationDPI():int
+    {
+        if (_applicationDPI == -1)
+        {
+            var value:String = systemManager.info()["applicationDPI"];
+            _applicationDPI = value ? int(value) : runtimeDPI;
+        }
+        
+        return _applicationDPI;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set applicationDPI(value:int):void
+    {
+        // Can't change at run-time so do nothing here.
+        // The compiler will propagate the MXML value to the
+        // systemManager's info object.
+    }
+    
+    //----------------------------------
+    //  runtimeDPI
+    //----------------------------------
 
+    /**
+     *  The DPI of the device the application is currently running on.
+     *
+     *  Flex rounds the value to one of the <code>DPIClassification</code> choices. 
+     *   
+     *  @see #applicationDPI
+     *  @see mx.core.DPIClassification
+     */  
+    public function get runtimeDPI():int
+    {
+        return DensityUtil.classifyDPI(flash.system.Capabilities.screenDPI);
+    }
+    
     //----------------------------------
     //  usePreloader
     //----------------------------------
