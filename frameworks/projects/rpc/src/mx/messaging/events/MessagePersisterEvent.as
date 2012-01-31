@@ -44,6 +44,12 @@ public class MessagePersisterEvent extends Event
      *  @param The Id for the message agent that invoked the operation.
      *
      *  @param The operation that the message agent invoked.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MessagePersisterEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, 
             id:String = null, operation:String = null)
@@ -56,6 +62,12 @@ public class MessagePersisterEvent extends Event
     
     /**
      *  The Id for the message agent that invoked the operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get id():String
     {
@@ -64,6 +76,12 @@ public class MessagePersisterEvent extends Event
     
     /**
      *  The operation that the message agent invoked.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get operation():String
     {
@@ -72,6 +90,12 @@ public class MessagePersisterEvent extends Event
 
     /**
      *  The messages associated with an event having status <code>RESULT</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function set messages(value:Array):void
     {
@@ -86,6 +110,12 @@ public class MessagePersisterEvent extends Event
     /**
      *  The source message that was passed to <code>save</code>
      *  that was successfully saved or faulted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function set message(value:IMessage):void
     {
@@ -148,18 +178,36 @@ public class MessagePersisterEvent extends Event
     /**
      *  The <code>SUCCESS</code> status indicates that an operation invoked on a
      *  message persister completed without errors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const SUCCESS:String = "success";
 
     /**
      *  The <code>RESULT</code> status indicates that a <code>load</code> operation 
      *  invoked on a message persister is returning an array of stored messages.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const RESULT:String = "result";
     
     /**
      *  The <code>FAULT</code> status indicates that an operation invoked on a 
      *  message persister failed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const FAULT:String = "fault";
 
