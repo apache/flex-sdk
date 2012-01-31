@@ -1036,6 +1036,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable("columnsChanged")]
+    [Inspectable(category="General")]
     
     /**
      *  @copy spark.components.Grid#columns
@@ -1313,7 +1314,7 @@ public class DataGrid extends SkinnableContainerBase
     protected function get gridSelection():GridSelection
     {
         if (!_gridSelection)
-            _gridSelection = new GridSelection();  // TBD(hmuller):delegate to protected createGridSelection()
+            _gridSelection = createGridSelection();
         return _gridSelection;
     }
     
@@ -3225,6 +3226,22 @@ public class DataGrid extends SkinnableContainerBase
     {
         grid.caretRowIndex = newCaretRowIndex;
         grid.caretColumnIndex = newCaretColumnIndex;
+    }
+    
+    /**
+     *  Creates a grid selection object to use to manage selection. Override this method if you have a custom grid 
+     *  selection that you want to use in place of the default.
+     *
+     *  @see spark.components.Grid.createGridSelection
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function createGridSelection():GridSelection
+    {
+        return new GridSelection();    
     }
     
     //--------------------------------------------------------------------------
