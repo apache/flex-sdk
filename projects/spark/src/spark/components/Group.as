@@ -63,7 +63,7 @@ use namespace mx_internal;
 [Event(name="elementAdd", type="spark.events.ElementExistenceEvent")]
 
 /**
- *  Dispatched when a visual element is removed to the content holder.
+ *  Dispatched when a visual element is removed from the content holder.
  *  <code>event.element</code> is the visual element that's being removed.
  *
  *  @eventType spark.events.ElementExistenceEvent.ELEMENT_REMOVE
