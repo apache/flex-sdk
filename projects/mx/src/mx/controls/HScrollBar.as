@@ -12,7 +12,9 @@
 package mx.controls
 {
 
+import flash.geom.Matrix;
 import flash.ui.Keyboard;
+
 import mx.controls.scrollClasses.ScrollBar;
 import mx.controls.scrollClasses.ScrollBarDirection;
 import mx.core.mx_internal;
@@ -262,6 +264,22 @@ public class HScrollBar extends ScrollBar
         measuredWidth = _minHeight;
         measuredHeight = _minWidth;
     }
+	
+	/**
+	 *  @private
+	 * 	Since HScrollbar cheats with its own rotation,
+	 *	rotate the other way here so that the layout
+	 *	bounds calculations are correct in the most
+	 *	common cases - SDK-22012.
+	 */
+	override protected function nonDeltaLayoutMatrix():Matrix
+	{
+		var m:Matrix = new Matrix(0, 1, 1, 0);
+		var m1:Matrix = super.nonDeltaLayoutMatrix();
+		if (m1)
+			m.concat(m1);
+		return m;
+	}
 
     //--------------------------------------------------------------------------
     //
