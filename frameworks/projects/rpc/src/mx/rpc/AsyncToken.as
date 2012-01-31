@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  Dispatched when a property of the channel set changes.
  * 
  *  @eventType mx.events.PropertyChangeEvent.PROPERTY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="propertyChange", type="mx.events.PropertyChangeEvent")]
 
@@ -37,6 +42,11 @@ use namespace mx_internal;
  *  for an individual call.
  *  The AsyncToken can be referenced in <code>ResultEvent</code> and 
  *  <code>FaultEvent</code> from the <code>token</code> property.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class AsyncToken extends EventDispatcher
 {
@@ -50,6 +60,11 @@ public dynamic class AsyncToken extends EventDispatcher
      * Constructs an instance of the token with the specified message.
      *
      * @param message The message with which the token is associated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AsyncToken(message:IMessage=null)
     {
@@ -71,6 +86,11 @@ public dynamic class AsyncToken extends EventDispatcher
 
     /**
      *  Provides access to the associated message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get message():IMessage
     {
@@ -108,6 +128,11 @@ public dynamic class AsyncToken extends EventDispatcher
      * 
      * Note that this will not prevent the service or operation's 
      * <code>result</code> property from being assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get responders():Array
 	{
@@ -126,6 +151,11 @@ public dynamic class AsyncToken extends EventDispatcher
      * Once the result property on the token has been assigned
      * it will be strictly equal to the result property on the associated
      * ResultEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get result():Object
     {
@@ -146,6 +176,11 @@ public dynamic class AsyncToken extends EventDispatcher
 	 *  @param responder A handler which will be called when the asynchronous request completes.
 	 * 
 	 *  @see	mx.rpc.IResponder
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function addResponder(responder:IResponder):void
 	{
@@ -158,6 +193,11 @@ public dynamic class AsyncToken extends EventDispatcher
     /**
      * Determines if this token has at least one <code>mx.rpc.IResponder</code> registered.
      * @return true if at least one responder has been added to this token. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasResponder():Boolean
     {
