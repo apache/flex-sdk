@@ -685,7 +685,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
     {
         var item:* = getItemAt(index);   
                
-        if (item is IGraphicElement)
+        if (item is IGraphicElement && !alwaysUseItemRenderer)
             return item;
         else
             return getItemSkin(item);
