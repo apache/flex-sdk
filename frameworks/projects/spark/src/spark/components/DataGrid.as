@@ -473,15 +473,19 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public var columnSeparator:IFactory;
     
     //----------------------------------
-    //  editorLayer
+    //  editorIndicator
     //----------------------------------
-    [Bindable]    
-    [SkinPart(required="false", type="mx.core.IVisualElementContainer")]
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  The container for the itemEditor visual element.
+     *  The IVisualElement class used to render a background behind
+     *  item renderers that are being edited. Item renderers may only be edited
+     *  when the data grid and the column are both editable and the
+     *  column sets <code>rendererIsEditable</code> to true.
      */
-    public var itemEditorLayer:IVisualElementContainer;
+    public var editorIndicator:IFactory;
     
     //----------------------------------
     //  grid
@@ -1803,10 +1807,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (columnHeaderBar)
                 columnHeaderBar.dataGrid = this;
             
-            // Data grid editor
+            // Create the data grid editor
             editor = createEditor();
-            editor.initialize();
-
+            editor.initialize();                               
         }
         
         if (instance == alternatingRowColorsBackground)
@@ -1839,6 +1842,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 grid.selectionIndicator = selectionIndicator;
 
         }
+        
         
         if (instance == columnHeaderBar)
         {
@@ -1906,6 +1910,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             if (columnHeaderBar)
                 columnHeaderBar.dataGrid = null; 
+
+            // Data grid editor
+            if (editor)
+            {
+                editor.uninitialize();
+                editor = null;
+            }
         }
         
         if (grid)
@@ -1939,16 +1950,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
-        }
-        
-        if (instance == itemEditorLayer)
-        {
-            // Data grid editor
-            if (editor)
-            {
-                editor.uninitialize();
-                editor = null;
-            }
         }
         
     }
