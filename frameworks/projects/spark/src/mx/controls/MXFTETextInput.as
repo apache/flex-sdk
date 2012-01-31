@@ -265,8 +265,9 @@ public class TLFTextInput extends TextInput implements ITextInput
      */
     public function showBorder(visible:Boolean):void
     {
-        trace("TLFTextInput showBorder", visible, "noop");
+        // TLF-based text does not have a border.
     }    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
