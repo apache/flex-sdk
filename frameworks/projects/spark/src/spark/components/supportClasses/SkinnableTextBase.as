@@ -279,11 +279,6 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private static const MAX_HEIGHT_PROPERTY_FLAG:uint = 1 << 6;
-    
-    /**
-     *  @private
-     */
     private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
     
     /**
@@ -665,6 +660,8 @@ public class SkinnableTextBase extends SkinnableComponent
             
             if (richEditableText)
                 richEditableText.maxWidth = value;
+            else
+                super.maxWidth = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
@@ -1913,17 +1910,13 @@ public class SkinnableTextBase extends SkinnableComponent
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), MAX_CHARS_PROPERTY_FLAG, true);
         }
-
-        if (textDisplayProperties.maxHeight !== undefined && richEditableText)
-        {
-            richEditableText.maxHeight = textDisplayProperties.maxHeight;
-            newTextDisplayProperties = BitFlagUtil.update(
-                uint(newTextDisplayProperties), MAX_HEIGHT_PROPERTY_FLAG, true);
-        }
         
-        if (textDisplayProperties.maxWidth !== undefined && richEditableText)
+        if (textDisplayProperties.maxWidth !== undefined)
         {
-            richEditableText.maxWidth = textDisplayProperties.maxWidth;
+            if (richEditableText)
+                richEditableText.maxWidth = textDisplayProperties.maxWidth;
+            else
+                super.maxWidth = textDisplayProperties.maxWidth;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
@@ -2027,15 +2020,10 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-            MAX_HEIGHT_PROPERTY_FLAG) && richEditableText)
+                              MAX_WIDTH_PROPERTY_FLAG))
         {
-            newTextDisplayProperties.maxHeight = richEditableText.maxHeight;
-        }
-
-        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              MAX_WIDTH_PROPERTY_FLAG) && richEditableText)
-        {
-            newTextDisplayProperties.maxWidth = richEditableText.maxWidth;
+            newTextDisplayProperties.maxWidth = richEditableText ? 
+                richEditableText.maxWidth : super.maxWidth;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
