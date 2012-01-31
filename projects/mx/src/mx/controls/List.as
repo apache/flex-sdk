@@ -819,19 +819,6 @@ public class List extends ListBase implements IIMESupport
 		// ignore nonvisible rows off the top
 		var yy:Number;
 		var i:int;
-		if (listContent.topOffset)
-		{
-			yy = Math.abs(listContent.topOffset);
-			i = 0;
-			while (rowInfo[i].y + rowInfo[i].height <= yy)
-			{
-				rowCount--;
-				i++;
-				if (i == rowCount)
-					break;
-			}
-		}
-
 		var n:int = listItems.length;
         // if there is more than one row and it is a partial row we dont count it
         while (rowCount > 1 && rowInfo[n - 1].y + rowInfo[n-1].height > listContent.height - listContent.bottomOffset)
@@ -867,6 +854,19 @@ public class List extends ListBase implements IIMESupport
             if (adjustVerticalScrollPositionDownward(Math.max(rowCount, 1)))
                 return;
         }
+
+		if (listContent.topOffset)
+		{
+			yy = Math.abs(listContent.topOffset);
+			i = 0;
+			while (rowInfo[i].y + rowInfo[i].height <= yy)
+			{
+				rowCount--;
+				i++;
+				if (i == rowCount)
+					break;
+			}
+		}
 
         var colCount:int = listItems[0].length;
         var oldHorizontalScrollBar:Object = horizontalScrollBar;
@@ -907,7 +907,7 @@ public class List extends ListBase implements IIMESupport
 		var paddingRight:Number = getStyle("paddingRight");
 
         h = rowInfo[rowCount - 1].y + rowInfo[rowCount - 1].height;
-        h = listContent.heightExcludingOffsets - h;
+        h = listContent.heightExcludingOffsets - listContent.topOffset - h;
 		
         // back up one
         var numRows:int = 0;
