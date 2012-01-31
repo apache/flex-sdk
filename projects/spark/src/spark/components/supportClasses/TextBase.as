@@ -180,12 +180,6 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  True if the text was truncated.
-     */
-    mx_internal var isTextTruncated:Boolean = false;
-
-    /**
-     *  @private
      *  The value of bounds.width, before the compose was done.
      */
     private var _composeWidth:Number;
@@ -269,7 +263,7 @@ public class TextGraphicElement extends GraphicElement
     	visibleChanged = true;
 
     	invalidateDisplayList();
-        }
+    }
              
     //--------------------------------------------------------------------------
     //
@@ -478,6 +472,90 @@ public class TextGraphicElement extends GraphicElement
     //
     //--------------------------------------------------------------------------
 
+	//----------------------------------
+	//  isTruncated
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the isTruncated property.
+	 */
+	mx_internal var _isTruncated:Boolean = false;
+	
+	/**
+	 *  Determines if the text, once composed, has been truncated.
+	 *
+	 *  @return <code>true</code> if the text has been truncated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get isTruncated():Boolean
+	{
+		// For some reason, the compiler needs an explicit cast to Boolean
+		// to avoid a warning even though at runtime "is Boolean" is true.
+		return Boolean(_isTruncated);
+	}
+	
+	//----------------------------------
+	//  maxDisplayedLines
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _maxDisplayedLines:int = 0;
+	
+	/**
+	 *  Documentation is not currently available.
+	 *  This property is ignored if lineBreak="explicit".
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get maxDisplayedLines():int
+	{
+		return _maxDisplayedLines;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set maxDisplayedLines(value:int):void
+	{
+		if (value != _maxDisplayedLines)
+		{
+			_maxDisplayedLines = value;
+			
+			invalidateTextLines();
+			
+			invalidateSize();
+			invalidateDisplayList();
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function canShareWithNext(element:IGraphicElement):Boolean
+	{
+		return false;
+		// TODO: Returning false is a temporary workaround to fix SDK-21084
+		// for Beta 1. The real problem involves how Group does z-ordering
+		// of its children without taking TextLines into account.
+		// We should restore the code below after we have a proper fix
+		// for SDK-21084.
+		
+		// We can share with the next GraphicElement only if it is also
+		// a TextGraphicElement, as TextGraphicElements add child DisplayObjects
+		// instead of drawing the the DisplayObject's graphics.
+		//return element is TextGraphicElement && super.canShareWithNext(element);
+	}
+	
     //----------------------------------
     //  styleChainInitialized
     //----------------------------------
@@ -522,69 +600,12 @@ public class TextGraphicElement extends GraphicElement
         {
             _text = value;
 
-            invalidateTextLines("text");
+            invalidateTextLines();
             invalidateSize();
             invalidateDisplayList();
         }
     }
         
-    //----------------------------------
-    //  truncation
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _truncation:int = 0;
-    
-    /**
-     *  Documentation is not currently available.
-     *  This property is ignored if lineBreak="explicit".
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get truncation():int
-    {
-    	return _truncation;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set truncation(value:int):void
-    {
-    	if (value != _truncation)
-    	{
-    		_truncation = value;
-    		
-            invalidateCompose = true;
-                 		
-    		invalidateSize();
-    		invalidateDisplayList();
-    	}
-    }
-
-    /**
-     *  @private
-     */
-    override public function canShareWithNext(element:IGraphicElement):Boolean
-    {
-        return false;
-        // TODO: Returning false is a temporary workaround to fix SDK-21084
-        // for Beta 1. The real problem involves how Group does z-ordering
-        // of its children without taking TextLines into account.
-        // We should restore the code below after we have a proper fix
-        // for SDK-21084.
-        
-        // We can share with the next GraphicElement only if it is also
-        // a TextGraphicElement, as TextGraphicElements add child DisplayObjects
-        // instead of drawing the the DisplayObject's graphics.
-        //return element is TextGraphicElement && super.canShareWithNext(element);
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
@@ -914,7 +935,7 @@ public class TextGraphicElement extends GraphicElement
     {
         StyleProtoChain.styleChanged(this, styleProp);
 
-        invalidateCompose = true;
+        invalidateTextLines();
     }
 
     //--------------------------------------------------------------------------
@@ -1075,26 +1096,9 @@ public class TextGraphicElement extends GraphicElement
      */
     public function stylesInitialized():void
     {
-        invalidateCompose = true;
+        invalidateTextLines();
     }
 
-    /**
-     *  Determines if the text, once composed, has been truncated.
-     *
-     *  @return <code>true</code> if the text has been truncated.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function isTruncated():Boolean
-    {
-        // For some reason, the compiler needs an explicit cast to Boolean
-        // to avoid a warning even though at runtime "is Boolean" is true.
-        return Boolean(isTextTruncated);
-    }
-    
     /**
      *  @private
      */
@@ -1106,7 +1110,7 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    mx_internal function invalidateTextLines(cause:String):void
+    mx_internal function invalidateTextLines():void
     {
         invalidateCompose = true;
     }
@@ -1164,19 +1168,19 @@ public class TextGraphicElement extends GraphicElement
             (isOverset || !isNaN(_composeHeight)))
             return true;
             
-        if (truncation != 0 && getStyle("lineBreak") == "toFit")
+        if (maxDisplayedLines != 0 && getStyle("lineBreak") == "toFit")
         {
             // -1 is fill the bounds and the bounds changed so recompose.
-            if (truncation == -1)            
+            if (maxDisplayedLines == -1)            
                 return true;
                 
             // If truncating at n lines and the height got smaller, may need to
             // redo the truncation. Or if the height got larger, only have to
             // redo the truncation if we don't already have the number of
             // truncation lines needed.
-            if (truncation > 0 &&
-               (unscaledHeight < bounds.height ||
-               textLines.length != truncation))
+            if (maxDisplayedLines > 0 &&
+                (unscaledHeight < bounds.height ||
+                 textLines.length != maxDisplayedLines))
             {
                 return true;
             }
@@ -1219,7 +1223,7 @@ public class TextGraphicElement extends GraphicElement
 	    _composeWidth = width;
 	    _composeHeight = height;
 	    
-	    isTextTruncated = false;
+	    _isTruncated = false;
 	    
 	    return false;
 	}
@@ -1463,7 +1467,7 @@ public class TextGraphicElement extends GraphicElement
             "core", "truncationIndicator");
 
         // If we're truncating, recompose the text.
-        if (truncation != 0)
+        if (maxDisplayedLines != 0)
         {
             invalidateCompose = true;
 
