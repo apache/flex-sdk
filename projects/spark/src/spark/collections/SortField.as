@@ -59,8 +59,8 @@ import spark.globalization.SortingCollator;
  *  <pre><code>
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem({first:"Anders", last:"Dickerson"});
- *     var sort:ISort = new Sort();
- *     var sortfield:ISortField = new SortField("first", true);
+ *     var sort:Sort = new Sort();
+ *     var sortfield:SortField = new SortField("first", true);
  *     sortfield.setStyle("locale", "en-US");
  *     sort.fields = [sortfield];
  *     col.sort = sort;
@@ -77,8 +77,8 @@ import spark.globalization.SortingCollator;
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem("California");
  *     col.addItem("Arizona");
- *     var sort:ISort = new Sort();
- *     var sortfield:ISortField = new SortField(null, true);
+ *     var sort:Sort = new Sort();
+ *     var sortfield:SortField = new SortField(null, true);
  *     sortfield.setStyle("locale", "en-US");
  *     sort.fields = [sortfield];
  *     col.sort = sort;
@@ -120,7 +120,6 @@ import spark.globalization.SortingCollator;
  *  </li>
  *  </ul>
  *  
- 
  *  @mxml
  *
  *  <p>The <code>&lt;s:SortField&gt;</code> tag has the following attributes:</p>
@@ -135,6 +134,9 @@ import spark.globalization.SortingCollator;
  *  /&gt;
  *  </pre>
  *
+ *  @includeExample examples/SortExample1.mxml
+ *  @includeExample examples/SortExample2.mxml
+ * 
  *  @see mx.collections.ICollectionView
  *  @see spark.collections.Sort
  * 
