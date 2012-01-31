@@ -40,6 +40,11 @@ include "../styles/metadata/BorderStyles.as"
  *  You use this event when working with Flash Media Server.
  *
  *  @eventType mx.events.VideoEvent.CLOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.VideoEvent")]
 
@@ -47,6 +52,11 @@ include "../styles/metadata/BorderStyles.as"
  *  Dispatched when the playhead reaches the end of the FLV file.
  *
  *  @eventType mx.events.VideoEvent.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="mx.events.VideoEvent")]
 
@@ -55,6 +65,11 @@ include "../styles/metadata/BorderStyles.as"
  *  is equal to the current playhead location.
  *
  *  @eventType mx.events.CuePointEvent.CUE_POINT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="cuePoint", type="mx.events.CuePointEvent")]
 
@@ -62,6 +77,11 @@ include "../styles/metadata/BorderStyles.as"
  *  Dispatched the first time metadata in the FLV file is reached.
  *
  *  @eventType mx.events.MetadataEvent.METADATA_RECEIVED
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="metadataReceived", type="mx.events.MetadataEvent")]
 
@@ -73,6 +93,11 @@ include "../styles/metadata/BorderStyles.as"
  *  state.
  *
  *  @eventType mx.events.VideoEvent.PLAYHEAD_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="playheadUpdate", type="mx.events.VideoEvent")]
 
@@ -86,6 +111,11 @@ include "../styles/metadata/BorderStyles.as"
  *  loaded or if there is a network error.</p>
  *
  *  @eventType flash.events.ProgressEvent.PROGRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
@@ -98,6 +128,11 @@ include "../styles/metadata/BorderStyles.as"
  *  It is dispatched only once for each FLV file loaded.</p>
  *
  *  @eventType mx.events.VideoEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ready", type="mx.events.VideoEvent")]
 
@@ -107,6 +142,11 @@ include "../styles/metadata/BorderStyles.as"
  *  @see #autoRewind
  *
  *  @eventType mx.events.VideoEvent.REWIND
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="rewind", type="mx.events.VideoEvent")]
 
@@ -121,6 +161,11 @@ include "../styles/metadata/BorderStyles.as"
  *  executed when the player enters the responsive state.</p>
  *
  *  @eventType mx.events.VideoEvent.STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="stateChange", type="mx.events.VideoEvent")]
 
@@ -186,6 +231,11 @@ include "../styles/metadata/BorderStyles.as"
  *
  *  @includeExample examples/VideoDisplayExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VideoDisplay extends UIComponent
 {
@@ -250,6 +300,11 @@ public class VideoDisplay extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function VideoDisplay()
     {
@@ -266,6 +321,11 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  The border object for the control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var border:IFlexDisplayObject;
 
@@ -339,6 +399,11 @@ public class VideoDisplay extends UIComponent
      *  For more information on writing main.asc, see the FMS documentation.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoBandWidthDetection():Boolean
     {
@@ -382,6 +447,11 @@ public class VideoDisplay extends UIComponent
      *  This property has no effect for live streaming video.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoRewind():Boolean
     {
@@ -414,6 +484,11 @@ public class VideoDisplay extends UIComponent
      *  and <code>bottom</code>.
      *  The value of each property is equal to the thickness of one side
      *  of the border around the control, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get borderMetrics():EdgeMetrics
     {
@@ -441,6 +516,11 @@ public class VideoDisplay extends UIComponent
      *  this property from the default.  
      *
      *  @default 0.1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bufferTime():Number
     {
@@ -492,6 +572,11 @@ public class VideoDisplay extends UIComponent
      *  and shows the first frame.</p>
      *  
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoPlay():Boolean
     {
@@ -520,6 +605,11 @@ public class VideoDisplay extends UIComponent
      *  <p>Contains -1 when there
      *  is no input stream, when the stream is from Flash Media Server, 
      *  or if the information is not yet available. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesLoaded():int
     {
@@ -542,6 +632,11 @@ public class VideoDisplay extends UIComponent
      *  <p>Contains -1 when there
      *  is no input stream, when the stream is from Flash Media Server, 
      *  or if the information is not yet available. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesTotal():int
     {
@@ -569,6 +664,11 @@ public class VideoDisplay extends UIComponent
      * <code>metadata</code> property or the <code>metadataReceived</code> event.</p>
      *
      *  @see mx.controls.videoClasses.CuePointManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cuePointManager():Object
     {
@@ -591,6 +691,11 @@ public class VideoDisplay extends UIComponent
      *  point management.
      *
      *  @see mx.controls.videoClasses.CuePointManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cuePointManagerClass():Class
     {
@@ -640,6 +745,11 @@ public class VideoDisplay extends UIComponent
      *      contains the playhead location, in seconds, of the VideoDisplay
      *      control with which the cue point is associated.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cuePoints():Array
     {
@@ -682,6 +792,11 @@ public class VideoDisplay extends UIComponent
      *  it restarts the idle timeout with a new value.
      *
      *  @default 300000 (five minutes)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get idleTimeout():int
     {
@@ -725,6 +840,11 @@ public class VideoDisplay extends UIComponent
      *  live feed from Flash Media Server. 
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get live():Boolean
     {
@@ -757,6 +877,11 @@ public class VideoDisplay extends UIComponent
      *  while resizing the video.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maintainAspectRatio():Boolean
     {
@@ -819,6 +944,11 @@ public class VideoDisplay extends UIComponent
      * <tr><td><code>width</code></td><td>A Number that is the width of the FLV file.</td></tr>
      * <tr><td><code>duration</code></td><td>A Number that specifies the duration of the FLV file in seconds.</td></tr>
      * </table>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get metadata():Object 
     {
@@ -905,6 +1035,11 @@ public class VideoDisplay extends UIComponent
      *  safe to set this property.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playheadTime():Number
     {
@@ -946,6 +1081,11 @@ public class VideoDisplay extends UIComponent
      *  event occurs after the new time interval.</p>
      *
      *  @default 250 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playheadUpdateInterval():int
     {
@@ -979,6 +1119,11 @@ public class VideoDisplay extends UIComponent
 
     /**
      *  If <code>true</code>, the media is currently playing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playing():Boolean
     {
@@ -1009,6 +1154,11 @@ public class VideoDisplay extends UIComponent
      *  event occurs after the new time interval.</p>
      *
      *  @default 250 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get progressInterval():int
     {
@@ -1060,6 +1210,11 @@ public class VideoDisplay extends UIComponent
      *  @default VideoEvent.DISCONNECTED
      *
      *  @see mx.events.VideoEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get state():String
     {
@@ -1089,6 +1244,11 @@ public class VideoDisplay extends UIComponent
      *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
      *  and <code>pause()</code> methods are queued, 
      *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get stateResponsive():Boolean
     {
@@ -1114,6 +1274,11 @@ public class VideoDisplay extends UIComponent
      *  Total length of the media, in seconds.
      *  For FLV 1.0 video files, you manually set this property.
      *  For FLV 1.1 and later, the control calculates this value automatically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get totalTime():Number
     {
@@ -1152,6 +1317,11 @@ public class VideoDisplay extends UIComponent
 
     /**
      *  Relative path and filename of the FLV file to stream.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():String
     {
@@ -1185,6 +1355,11 @@ public class VideoDisplay extends UIComponent
     /**
      *  Height of the loaded FLV file.
      *  <code>-1</code> if no FLV file loaded yet.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get videoHeight():int
     {
@@ -1200,6 +1375,11 @@ public class VideoDisplay extends UIComponent
     /**
      *  Width of the loaded FLV file.
      *  <code>-1</code> if no FLV file loaded yet.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get videoWidth():int
     {
@@ -1223,6 +1403,11 @@ public class VideoDisplay extends UIComponent
      *  The volume level, specified as an value between 0 and 1.
      * 
      *  @default 0.75
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get volume():Number
     {
@@ -1367,6 +1552,11 @@ public class VideoDisplay extends UIComponent
      *
      *  @param camera A Camera object that 
      *  is capturing video data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function attachCamera(camera:Camera):void 
     {
@@ -1384,6 +1574,11 @@ public class VideoDisplay extends UIComponent
      *  Typically calling this method directly is not necessary
      *  because the connection is automatically closed when the idle period
      *  times out, as defined by the <code>idleTimeout</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close():void
     {
@@ -1402,6 +1597,11 @@ public class VideoDisplay extends UIComponent
      *  playing.  Autoresizing will occur if appropriate.
      *  After the load and autoresize, the state of the control is set to 
      *  <code>VideoEvent.PAUSED</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load():void
     {
@@ -1425,6 +1625,11 @@ public class VideoDisplay extends UIComponent
      *  <p>To start playback again, call the <code>play()</code> method.</p>
      *
      *  <p>If the control is in an unresponsive state, the request is queued.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pause():void
     {
@@ -1445,6 +1650,11 @@ public class VideoDisplay extends UIComponent
      *
      *  <p>To stream video from a camera, call the <code>attachCamera()</code> method, 
      *  instead of the <code>play()</code> method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function play():void
     {
@@ -1477,6 +1687,11 @@ public class VideoDisplay extends UIComponent
      *
      *  <p>If playback is already stopped, this method has no effect.
      *  If the control is in an unresponsive state, the request is queued.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function stop():void
     {
@@ -1510,6 +1725,11 @@ public class VideoDisplay extends UIComponent
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function layoutChrome(unscaledWidth:Number,
                                     unscaledHeight:Number):void
@@ -1527,6 +1747,11 @@ public class VideoDisplay extends UIComponent
      *  Normally the border is determined by the
      *  <code>borderStyle</code> and <code>borderSkin</code> styles.
      *  It must set the border property to the instance of the border.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createBorder():void
     {
@@ -1579,6 +1804,11 @@ public class VideoDisplay extends UIComponent
      *  Returns TRUE if a border is needed for this component based
      *  on the borderStyle and whether or not there is a background
      *  for the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function isBorderNeeded():Boolean
     {
