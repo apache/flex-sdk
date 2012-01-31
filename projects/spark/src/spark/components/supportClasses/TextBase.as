@@ -338,7 +338,7 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
