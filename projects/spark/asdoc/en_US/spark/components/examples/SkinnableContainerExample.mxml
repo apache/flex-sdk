@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate Spark SkinnableContainer component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <s:Panel title="SkinnableContainer Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+
+        <s:SkinnableContainer
+            skinClass="MyBorderSkin"
+            left="10" top="10">
+            <s:layout>
+                <s:HorizontalLayout gap="10"/> 
+            </s:layout>
+            <s:Button label="Button 1"/>
+            <s:Button label="Button 2"/>
+            <s:Button label="Button 3"/>
+            <s:Button label="Button 4"/>
+        </s:SkinnableContainer>
+    </s:Panel> 
+</s:Application>
