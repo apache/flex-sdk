@@ -246,7 +246,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         }
                 
         // Scrolling support - update the content size
-        layoutTarget.setContentSize(gridDimensions.contentWidth, maxHeight);
+        layoutTarget.setContentSize(gridDimensions.getContentWidth(), maxHeight);
         
         // ToDo(cframpto): refactor these methods so both GridLayout and
         // this layout can use them.
