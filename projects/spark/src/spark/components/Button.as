@@ -100,6 +100,9 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 		// and icons are Shapes, because Shapes never dispatch mouse events;
 		// they are dispatched from the Button in this case.)
 		mouseChildren = false;
+		
+		// add event listeners to the button
+		addHandlers();
 	}	
 	
 	[Bindable("labelChanged")]
@@ -302,10 +305,8 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 	//
 	//--------------------------------------------------------------------------
 
-	override protected function skinLoaded():void
+	protected function addHandlers():void
 	{
-		super.skinLoaded();
-		
 		addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
 		addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
 		addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
@@ -314,18 +315,6 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 		// since instance handlers are registered before base class handlers.
 		addEventListener(MouseEvent.CLICK, mouseEventHandler, true /*useCapture*/);
 		addEventListener("enabledChanged", enableChangedHandler);
-	}
-	
-	override protected function unloadingSkin():void
-	{
-		super.unloadingSkin();
-		
-		removeEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
-		removeEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
-		removeEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
-		removeEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
-		removeEventListener(MouseEvent.CLICK, mouseEventHandler, true);
-		removeEventListener("enabledChanged", enableChangedHandler);
 	}
 	
 	private function addSystemMouseHandlers():void
