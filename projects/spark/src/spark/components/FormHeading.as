@@ -9,13 +9,15 @@ package spark.components
 
     /**
      *  TODO
-     *  -  
-     * 
+     *  - Remove implements IFormItem  
+     *  - Remove canvasLayout skin part once FormItemLayout is ready
+     *  - Remove measuredColumnWidths and layoutColumnWidths once 
+     *    FormItemLayout and FormLayout are ready
      * 
      * 
      *  ISSUES:
      *  - Ideally this would subclass Label, but Label is not a SkinnableComponent
-     *  - Should we use text or label property?
+     *  - Should we use text or label property? (PARB says label)
      *  - What if we don't implement column spanning?
      * 
      */ 
@@ -40,13 +42,13 @@ package spark.components
         //--------------------------------------------------------------------------
         
         /**
-         *  Displays this FormItem's label.
+         *   A reference to the visual element that displays this FormItem's label.
          */
-        [Bindable] // compatability with Halo FormHeading itemLabel property
+        [Bindable]
         [SkinPart(required="false")]
         public var labelDisplay:TextBase;
         
-        // TODO Remove once we have a proper FormItemLayout
+        
         [SkinPart(required="false")]
         public var canvasLayout:Canvas;
         
@@ -98,35 +100,65 @@ package spark.components
             return _layoutColumnWidths;
         }
         
-        private var _label:String;
+        //--------------------------------------------------------------------------
+        //
+        //  Properties 
+        //
+        //--------------------------------------------------------------------------
+        
+        //----------------------------------
+        //  label
+        //----------------------------------
+        
+        private var _label:String = "";
         private var labelChanged:Boolean = false;
-                
+        
+        [Bindable("labelChanged")]
+        [Inspectable(category="General", defaultValue="")]
+        
+        /**
+         *  Text to display in the FormHeading 
+         * 
+         *  @default ""
+         */
         public function get label():String
         {
             return _label;
         }
         
+        /**
+         *  @private
+         */
         public function set label(value:String):void
         {
-            if (value == _label)
+            if (_label == value)
                 return;
             
             _label = value;
             labelChanged = true;
             invalidateProperties();
-            
         }
         
+        //--------------------------------------------------------------------------
+        //
+        //  Overridden Methods
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  @private
+         */
         override protected function partAdded(partName:String, instance:Object):void
         {
             super.partAdded(partName, instance);
             
             if (instance == labelDisplay)
-            {
                 labelDisplay.text = label;
-            }
         }
         
+        /**
+         *  @private
+         */
         override protected function commitProperties():void
         {
             super.commitProperties();
