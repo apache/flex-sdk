@@ -7,7 +7,7 @@
 	<fx:Script>
     	<![CDATA[
     	    import mx.collections.ArrayCollection;
-    	    import spark.events.IndexChangeEvent; 
+    	    import spark.events.IndexChangeEvent;
 
     	 [Bindable]
 			public var myDP:ArrayCollection = new ArrayCollection(
@@ -16,7 +16,7 @@
 				  {product:"Catalyst", price:300},
 				  {product:"FlashBuilder", price:400} ]);
 
-    		private function updateSelection(e:IndexChangEvent):void
+    		private function updateSelection(e:IndexChangeEvent):void
     		{
     			currSel.text = "Current Product = " + myDDL.selectedItem.product;
     			currPrc.text = "Price = $" + myDDL.selectedItem.price;
@@ -38,7 +38,7 @@
 			<s:DropDownList id="myDDL" prompt="Select One"
 				width="200" dataProvider="{myDP}"
 				labelField="product"
-				selectionChanged="updateSelection(event);"/>
+				change="updateSelection(event);"/>
 
 		</s:VGroup>
 
