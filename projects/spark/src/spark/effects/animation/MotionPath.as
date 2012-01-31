@@ -178,7 +178,7 @@ public class MotionPath
         if (!keyframes)
             return null;
         var n:int = keyframes.length;
-        if (n == 2)
+        if (n == 2 && keyframes[1].timeFraction == 1)
         {
             // The common case where we are just animating from/to, as in the
             // case of an AnimationProperty
