@@ -29,6 +29,11 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -38,6 +43,8 @@ use namespace mx_internal;
 //--------------------------------------
 
 [IconFile("FxRadioButton.png")]
+
+
 
 /**
  *  The FxRadioButton control lets the user make a single choice
