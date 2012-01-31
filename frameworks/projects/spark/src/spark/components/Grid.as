@@ -1776,15 +1776,15 @@ package spark.components
          *  mode ends when the selection is cleared using 
          *  <code>clearSelection</code> or reset using one of
          *  <code>setSelectedCell</code>, <code>setSelectedCells</code>,
-         *  <code>setSelectedIndex</code>, <code>setSelectedIndices</code>.</p>
+         *  <code>setSelectedIndex</code>, <code>selectIndices</code>.</p>
          * 
          *  @return True if the selection changed.
          *    
          *  @see spark.components.Grid#clearSelection
+         *  @see spark.components.Grid#selectIndices
          *  @see spark.components.Grid#setSelectedCell
          *  @see spark.components.Grid#setSelectedCells
          *  @see spark.components.Grid#setSelectedIndex
-         *  @see spark.components.Grid#setSelectedIndices
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -2026,7 +2026,7 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function setSelectedIndices(startRowIndex:int, endRowIndex:int):Boolean
+        public function selectIndices(startRowIndex:int, endRowIndex:int):Boolean
         {
             const selectionChanged:Boolean = 
                 gridSelection.setRows(startRowIndex, endRowIndex);
