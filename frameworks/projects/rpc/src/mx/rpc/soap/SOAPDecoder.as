@@ -72,6 +72,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
      * implementations sometimes encoded unbounded element sequences with
      * generic child <code>item</code> elements instead of repeating the
      * value element itself. The default is true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var supportGenericCompoundTypes:Boolean = false;
 
@@ -111,6 +116,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
      * Conversely, if a type <code>whiteSpace</code> restriction is set to
      * <code>replace</code> or <code>collapse</code> then that setting will
      * be honored even if ignoreWhitespace is set to false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ignoreWhitespace():Boolean
     {
@@ -197,6 +207,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
 
     /**
      * Decodes a SOAP response into a result and headers. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function decodeResponse(response:*):SOAPResult
     {
@@ -340,6 +355,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
     /**
      * Decodes the response SOAP Body. The contents may either be the encoded
      * output parameters, or a collection of SOAP faults.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function decodeBody(bodyXML:XML, soapResult:SOAPResult):void
     {
@@ -575,6 +595,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
      * 
      * FIXME: We need to add SOAP 1.2 Fault support which is very different
      * from SOAP 1.1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function decodeFaults(faultsXMLList:XMLList):Array
     {
@@ -872,6 +897,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
     /**
      * Resolves multi-refs in rpc/encoded. Substitutes each reference by its
      * referent node.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function resolveReferences(root:XML, cleanupElementsWithIdCache:Boolean=true):void
     {
@@ -951,6 +981,11 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
     /**
      * A RegEx pattern to help replace the whitespace between processing
      * instructions and root tags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var PI_WHITESPACE_PATTERN:RegExp = new RegExp("[\\?][>]\\s*[<]", "g");
 }  
