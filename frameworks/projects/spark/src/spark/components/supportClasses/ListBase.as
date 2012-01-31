@@ -1323,18 +1323,20 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  Adjusts the selected index to account for items being added to or 
      *  removed from this component. This method adjusts the selected index
-     *  value and dispatches a <code>change</code> event. 
-     *  It does not dispatch a <code>changing</code> event 
+     *  value and dispatches a <code>valueCommit</code> event. It does not 
+     *  dispatch a <code>change</code> event because the change did not 
+     *  occur as a direct result of user-interaction.  Moreover, 
+     *  it does not dispatch a <code>changing</code> event 
      *  or allow the cancellation of the selection. 
      *  It also does not call the <code>itemSelected()</code> method, 
      *  since the same item is selected; 
      *  the only thing that has changed is the index of the item.
      * 
-     *  <p>A <code>change</code> event is dispatched in the next call to 
+     *  <p>A <code>valueCommit</code> event is dispatched in the next call to 
      *  the <code>commitProperties()</code> method.</p>
      *
-     *  <p>The <code>changing</code> event is not sent when
-     *  the <code>selectedIndex</code> is adjusted.</p>
+     *  <p>The <code>change</code> and <code>changing</code> events are 
+     *  not sent when the <code>selectedIndex</code> is adjusted.</p>
      *
      *  @param newIndex The new index.
      *   
@@ -1347,8 +1349,7 @@ public class ListBase extends SkinnableDataContainer
      *  @productversion Flex 4
      */
     protected function adjustSelection(newIndex:int, add:Boolean=false):void
-    {   // FIXME (rfrishbe): when someone calls this method, we shouldn't dispatch a 
-        // change event
+    {
         if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
             _proposedSelectedIndex = newIndex;
         else
