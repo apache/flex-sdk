@@ -16,26 +16,56 @@ import mx.core.IVisualElement;
 
 /**
  *  The IItemRendererOwner interface defines the basic set of APIs
- *  that you must implement to create a component that can
- *  communicate with renderers implementing the IItemRenderer 
- *  interface. 
+ *  that a class must to  support items renderers. 
+ *  A class  that implements the IItemRendererOwner interface 
+ *  is called the host component of the item renderer.
+ *  
+ *  <p>The class defining the item renderer must implement the 
+ *  IItemRenderer interface.</p> 
+ *  
+ *  @see spark.components.IItemRenderer
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  *  
  */
 public interface IItemRendererOwner
 {
 
     /**
-     *  Method that returns the label an item renderer displays. 
+     *  Returns the String for display in an item renderer.
+     *  The String is written to the <code>labelText</code>
+     *  property of the item renderer.
+     *
+     *  @param item The date item to display.
+     *
+     *  @return The String for display in an item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function itemToLabel(item:Object):String;
-	
+    
     /**
-     *  Method that updates renderer-specific properties like 
-     *  data, labelText and owner. This is a convenience method which 
-     *  funnels all updates to the renderer properties owned by 
-     *  the owner.  
+     *  Updates renderer-specific properties of the item renderer, such as 
+     *  <code>data</code>, <code>labelText</code> and <code>owner</code>. 
+     *  This is a convenience method that you can implement to 
+     *  update all of the renderer properties from the host component.  
+     *
+     *  @param renderer The item renderer.
+     *
+     *  @param data The date item to display.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function updateRendererInformation(renderer:IVisualElement, data:Object=null):void;  
 
-}	
+}   
 }
