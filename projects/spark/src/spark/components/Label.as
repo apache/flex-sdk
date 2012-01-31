@@ -74,7 +74,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  international typography.
  *  Because Label is fast and lightweight, it is especially suitable
  *  for use cases that involve rendering many small pieces of non-interactive
- *  text, such as item renderers, labels in Button skins, etc.</p>
+ *  text, such as item renderers and labels in Button skins.</p>
  *
  *  <p>The Spark architecture provides three text "primitives" -- 
  *  Label, RichText, and RichEditableText --
@@ -88,7 +88,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  with complex formatting, but is still completely non-interactive.
  *  RichEditableText is the slowest and heaviest,
  *  but can do it all: it supports scrolling with virtualized TextLines,
- *  selection, editing, hyperlinks, images loaded from URLs, etc.
+ *  selection, editing, hyperlinks, and images loaded from URLs.
  *  You should use the fastest one that meets your needs.</p>
  *
  *  <p>The Spark Label control is similar to the MX Label control, mx.controls.Label.
@@ -110,18 +110,18 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *
  *  <p>If you don't specify any kind of width for a Label,
  *  then the longest line, as determined by these explicit line breaks,
- *  will determine the width of the Label.</p>
+ *  determines the width of the Label.</p>
  *
  *  <p>If you do specify some kind of width, then the specified text is
  *  word-wrapped at the right edge of the component's bounds, because the
  *  default value of the <code>lineBreak</code> style is <code>"toFit"</code>.
  *  If the text extends below the bottom of the component,
- *  it will be clipped.</p>
+ *  it is clipped.</p>
  *
  *  <p>To disable this automatic wrapping, set the <code>lineBreak</code>
- *  style to <code>"explicit"</code>. Then lines will be broken only where
+ *  style to <code>"explicit"</code>. Then lines are broken only where
  *  the <code>text</code> contains an explicit line break,
- *  and the ends of lines extending past the right edge will be clipped.</p>
+ *  and the ends of lines extending past the right edge is clipped.</p>
  *
  *  <p>If you have more text than you have room to display it,
  *  Label can truncate the text for you.
