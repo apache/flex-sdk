@@ -11,6 +11,8 @@
 
 package spark.effects
 {
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.effects.IEffectInstance;
 
 import spark.effects.supportClasses.FadeInstance;
@@ -145,7 +147,25 @@ public class Fade extends Animate
      */
     override public function getAffectedProperties():Array /* of String */
     {
-        return ["alpha", "visible", "parent"];
+        return ["alpha", "visible", "parent", "index"];
+    }
+
+    override protected function getValueFromTarget(target:Object, property:String):*
+    {
+        // We track 'index' for use in the addDisappearingTarget() function in
+        // AnimateInstance, in order to add the item in the correct order
+        if (property == "index" && "parent" in target)
+        {
+            var container:* = target.parent;
+            // if the target has no parent, return undefined for index to indicate that
+            // it has no index value.
+            if (container === undefined || container === null)
+                return undefined;
+            return IVisualElementContainer(container).
+                getElementIndex(target as IVisualElement);
+        }
+        
+        return super.getValueFromTarget(target, property);
     }
 
     /**
@@ -159,7 +179,7 @@ public class Fade extends Animate
         // We only want to track "parent" as it affects how
         // we fade; we don't actually want to change target properties
         // other than alpha or visibility
-        if (property == "parent")
+        if (property == "parent" || property == "index")
             return;
             
         super.applyValueToTarget(target, property, value, props);
