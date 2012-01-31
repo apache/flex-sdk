@@ -350,7 +350,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 var index:int = dataProvider.getItemIndex(value[i]);
                 if (index != -1)
                 { 
-                    indices[i] = index;  
+                    indices.splice(0, 0, index);   
                 }
                 if (index == -1)
                 {
@@ -445,7 +445,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
-           _proposedSelectedIndex = getLastItemValue(_proposedSelectedIndices); 
+           _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
         
         // Let ListBase handle the validating and commiting of the single-selection
         // properties.  
@@ -656,27 +656,27 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Returns the index of the first selected item. In single 
+     *  Returns the index of the last selected item. In single 
      *  selection, this is just selectedIndex. In multiple 
      *  selection, this is the index of the first selected item.  
      */
-    private function getFirstSelectedIndex():int
+    private function getLastSelectedIndex():int
     {
         if (selectedIndices && selectedIndices.length > 0)
-            return selectedIndices[0]; 
+            return selectedIndices[selectedIndices.length - 1]; 
         else 
             return 0; 
     }
     
     /**
      *  @private
-     *  Given a Vector, returns the value of the last item, 
+     *  Given a Vector, returns the value of the first item, 
      *  or -1 if there are no items in the Vector; 
      */
-    private function getLastItemValue(v:Vector.<int>):int
+    private function getFirstItemValue(v:Vector.<int>):int
     {
         if (v && v.length > 0)
-            return v[v.length - 1]; 
+            return v[0]; 
         else 
             return -1; 
     }
@@ -716,7 +716,7 @@ public class List extends ListBase implements IFocusManagerComponent
                             return interval; 
                         else 
                         {
-                            interval.push(selectedIndices[0]); 
+                            interval.splice(0, 0, selectedIndices[0]); 
                             return interval; 
                     }
                     }
@@ -731,14 +731,14 @@ public class List extends ListBase implements IFocusManagerComponent
                             if (_selectedIndices[i] == index)
                                 found = true; 
                             else if (_selectedIndices[i] != index)
-                                interval.push(_selectedIndices[i]);
+                                interval.splice(0, 0, _selectedIndices[i]);
                         }
                         if (!found)
                         {
                             // Nothing from the selection model was de-selected. 
                             // Instead, the Ctrl key was held down and we're doing a  
                             // new add. 
-                            interval.push(index);   
+                            interval.splice(0, 0, index);   
                         }
                         return interval; 
                     } 
@@ -746,14 +746,14 @@ public class List extends ListBase implements IFocusManagerComponent
                 // Ctrl+click with no previously selected items 
                 else
                 { 
-                    interval.push(index); 
+                    interval.splice(0, 0, index); 
                     return interval; 
             }
             }
             // A single item was newly selected, add that to the selection interval.  
             else 
             { 
-                interval.push(index); 
+                interval.splice(0, 0, index); 
                 return interval; 
         }
         }
@@ -767,14 +767,14 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 for (i = start; i <= end; i++)
                 {
-                    interval.push(i); 
+                    interval.splice(0, 0, i); 
                 }
             }
             else 
             {
                 for (i = start; i >= end; i--)
                 {
-                    interval.push(i); 
+                    interval.splice(0, 0, i); 
                 }
             }
             return interval; 
@@ -999,7 +999,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // an "caretChange" event to update any bindings and update the 
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
-            _caretIndex = getLastItemValue(newInterval);
+            _caretIndex = getFirstItemValue(newInterval);
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
@@ -1021,7 +1021,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var oldIndices:Vector.<int> = selectedIndices;  
         _selectedIndices = newInterval;
-        _selectedIndex = getLastItemValue(newInterval);
+        _selectedIndex = getFirstItemValue(newInterval);
         // If the selection has actually changed, trigger a pass to 
         // commitProperties where a change event will be 
         // fired to update any bindings to selection properties. 
@@ -1214,21 +1214,21 @@ public class List extends ListBase implements IFocusManagerComponent
         // interval.   
         if (allowMultipleSelection && event.shiftKey && selectedIndices)
         {
-            var startIndex:Number = getFirstSelectedIndex(); 
+            var startIndex:Number = getLastSelectedIndex(); 
             var newInterval:Vector.<int> = new Vector.<int>();  
             var i:int; 
             if (startIndex <= proposedNewIndex)
             {
                 for (i = startIndex; i <= proposedNewIndex; i++)
                 {
-                    newInterval.push(i); 
+                    newInterval.splice(0, 0, i); 
                 }
             }
             else 
             {
                 for (i = startIndex; i >= proposedNewIndex; i--)
                 {
-                    newInterval.push(i); 
+                    newInterval.splice(0, 0, i); 
                 }
             }
             selectedIndices = newInterval;  
