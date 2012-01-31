@@ -334,8 +334,67 @@ public class HGroup extends Group
     public function set paddingBottom(value:Number):void
     {
         horizontalLayout.paddingBottom = value;
+    }
+    
+    
+    //----------------------------------
+    //  requestedMaxColumnCount
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.HorizontalLayout#requestedMaxColumnCount
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMaxColumnCount():int
+    {
+        return horizontalLayout.requestedMaxColumnCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMaxColumnCount(value:int):void
+    {
+        horizontalLayout.requestedMaxColumnCount = value;
     }    
     
+    //----------------------------------
+    //  requestedMinColumnCount
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.HorizontalLayout#requestedMinColumnCount
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMinColumnCount():int
+    {
+        return horizontalLayout.requestedMinColumnCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMinColumnCount(value:int):void
+    {
+        horizontalLayout.requestedMinColumnCount = value;
+    }    
+
     //----------------------------------
     //  requestedColumnCount
     //----------------------------------
