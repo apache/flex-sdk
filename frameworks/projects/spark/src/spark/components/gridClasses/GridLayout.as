@@ -1124,6 +1124,15 @@ public class GridLayout extends LayoutBase
         if (!renderer)
             return;
         
+        // If the renderer at rowIndex,columnIndex is going to have to be replaced, because
+        // this columns itemRendererFunction now returns a different (IFactory) value, punt.
+       
+        if (itemRendererFunctionValueChanged(renderer))
+        {
+            renderer.grid.invalidateDisplayList();
+            return;
+        }
+        
         initializeItemRenderer(renderer, rowIndex, columnIndex);
         
         // We're using layoutBoundsX,Y,Width,Height instead of x,y,width,height because
@@ -1138,6 +1147,21 @@ public class GridLayout extends LayoutBase
         
         if (gridDimensions.variableRowHeight && (rendererHeight != renderer.getPreferredBoundsHeight()))
             grid.invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     *  Return true if the specified item renderer was defined by an itemRendererFunction whose
+     *  value has changed.
+     */
+    private function itemRendererFunctionValueChanged(renderer:IGridItemRenderer):Boolean
+    {
+        const column:GridColumn = renderer.column;
+        if (!column || (column.itemRendererFunction === null))
+            return false;
+        
+        const factory:IFactory = itemToRenderer(column, renderer.data);
+        return factory !== elementToFactoryMap[renderer];
     }
 
     /**
@@ -1180,6 +1204,17 @@ public class GridLayout extends LayoutBase
         
         const renderer:IGridItemRenderer = visibleItemRenderers[index];
         visibleItemRenderers[index] = null;
+        
+        // If the renderer at rowIndex,columnIndex is going to have to be replaced, because
+        // this column's itemRendererFunction now returns a different (IFactory) value, then 
+        // get rid of the old one and return null.
+        
+        if (renderer && itemRendererFunctionValueChanged(renderer))
+        {
+            freeItemRenderer(renderer);
+            return null;
+        }
+        
         return renderer;
     }
     
