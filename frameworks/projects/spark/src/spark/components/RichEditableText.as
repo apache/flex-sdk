@@ -418,8 +418,6 @@ public class RichEditableText extends UIComponent
         // The focusOutHandler is called by the TCMContainer focusOutHandler.
         // The keyDownHandler is called by the TCMContainer keyDownHandler.
                         
-        addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-        
         // Add event listeners on its TextContainerManager.
         
         _textContainerManager.addEventListener(
@@ -1003,7 +1001,6 @@ public class RichEditableText extends UIComponent
         _textContainerManager.editingMode = value;
     }
 
-
     //----------------------------------
     //  heightInLines
     //----------------------------------
@@ -1048,6 +1045,8 @@ public class RichEditableText extends UIComponent
         _heightInLines = value;
         heightInLinesChanged = true;
 
+        heightConstraint = NaN;
+        
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -1582,6 +1581,8 @@ public class RichEditableText extends UIComponent
         _widthInChars = value;
         widthInCharsChanged = true;
         
+        widthConstraint = NaN;
+        
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -1772,7 +1773,12 @@ public class RichEditableText extends UIComponent
             }
             
             // Must preserve the selection, if there was one.
-            selectRange(oldAnchorPosition, oldActivePosition);
+            var selectionManager:ISelectionManager = getSelectionManager();
+            
+            // The visible selection will be refreshed during the update.
+            selectionManager.selectRange(oldAnchorPosition, oldActivePosition);        
+                                 
+            releaseSelectionManager();            
             
             displayAsPasswordChanged = false;
         }
@@ -1978,8 +1984,12 @@ public class RichEditableText extends UIComponent
         // to be remeasured.  If one of the dimension changes, the text may
         // compose differently and have a different size which the layout 
         // manager needs to know.
-        if (autoSize && remeasureText(unscaledWidth, unscaledHeight))
-            return;
+        if (autoSize)
+        {
+            autoSize = remeasureText(unscaledWidth, unscaledHeight)
+            if (autoSize)
+                return;
+        }
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
@@ -1993,11 +2003,11 @@ public class RichEditableText extends UIComponent
         // FIXME:(cframpto) remove NaN check when TLF setter is fixed
         // to check for NaN correctly
         
-        _textContainerManager.compositionWidth = unscaledWidth;
         if (!autoSize)
+        {
+            _textContainerManager.compositionWidth = unscaledWidth;
             _textContainerManager.compositionHeight = unscaledHeight;
-        else if (!isNaN(_textContainerManager.compositionHeight))
-            _textContainerManager.compositionHeight = NaN;           
+        }
             
         if (debug)
             trace("updateContainer()");
@@ -2073,6 +2083,8 @@ public class RichEditableText extends UIComponent
     {
         super.explicitHeight = value;
         
+        heightConstraint = NaN;
+
         // Because of autoSizing, the size and display might be impacted.
         invalidateSize();
         invalidateDisplayList();
@@ -2086,6 +2098,8 @@ public class RichEditableText extends UIComponent
     {
         super.explicitWidth = value;
 
+        widthConstraint = NaN;
+        
         // Because of autoSizing, the size and display might be impacted.
         invalidateSize();
         invalidateDisplayList();
@@ -2098,6 +2112,8 @@ public class RichEditableText extends UIComponent
     override public function set percentHeight(value:Number):void
     {
         super.percentHeight = value;
+        
+        heightConstraint = NaN;
         
         // If we were autoSizing and now we are not we need to remeasure.
         invalidateSize();
@@ -2112,6 +2128,8 @@ public class RichEditableText extends UIComponent
     {
         super.percentWidth = value;
 
+        widthConstraint = NaN;
+        
         // If we were autoSizing and now we are not we need to remeasure.
         invalidateSize();
         invalidateDisplayList();
@@ -2387,7 +2405,7 @@ public class RichEditableText extends UIComponent
      *  @private
      *  Return true if there is a width and height to use for the measure.
      */
-    private function isMeasureFixed():Boolean
+    mx_internal function isMeasureFixed():Boolean
     {
         return ((!isNaN(explicitWidth) || !isNaN(_widthInChars)) &&
                 (!isNaN(explicitHeight) || !isNaN(_heightInLines)) ||
@@ -2474,13 +2492,10 @@ public class RichEditableText extends UIComponent
             // Do we have a constrained width and an explicit height?
             // If so, the sizes are set so no need to remeasure now.
             if (!isNaN(explicitHeight) || !isNaN(_heightInLines))
-            {
-                autoSize = false;
                 return false;
-            }
                         
-            // Did we already constrain the width or is there no width?
-            if (widthConstraint == width || width == 0) 
+            // Is there no width?
+            if (width == 0) 
                 return false;
                                        
             // No reflow for explicit lineBreak
@@ -2494,21 +2509,18 @@ public class RichEditableText extends UIComponent
             // Do we have a constrained height and an explicit width?
             // If so, the sizes are set so no need to remeasure now.
             if (!isNaN(explicitWidth) || !isNaN(_widthInChars))
-            {
-                autoSize = false;
                 return false;
-            }
 
-            // Did we already constrain the height or is there no height?
+            // Is there no height?
             if (height == heightConstraint || height == 0)
                 return false;
 
             heightConstraint = height;
         }                       
-        
-        // Force the remeasure now.  We don't want to do it in two passes
-        // because there is flicker as the display objects are updated with the 
-        // sizes and positions from layout pass1 and then from layout pass 2.
+
+        // Width or height is different than what was measured.  Since we're
+        // auto-sizing, need to remeasure, so the layout manager leaves the
+        // correct amount of space for the component.
         invalidateSize();
             
         return true;            
@@ -2728,7 +2740,7 @@ public class RichEditableText extends UIComponent
                                 activePosition:int):void
     {
         // Make sure all properties are committed before doing the operation.
-        validateProperties();
+        validateNow();
 
         var selectionManager:ISelectionManager = getSelectionManager();
         
@@ -2751,8 +2763,8 @@ public class RichEditableText extends UIComponent
     public function scrollToRange(anchorPosition:int = 0,
                                   activePosition:int = int.MAX_VALUE):void
     {
-        // Make sure all properties are committed before doing the operation.
-        validateProperties();
+        // Make sure the properties are commited and the text is composed.
+        validateNow();
 
         // Scrolls so that the text position is visible in the container. 
         textContainerManager.scrollToRange(anchorPosition, activePosition);       
@@ -2818,7 +2830,7 @@ public class RichEditableText extends UIComponent
         var format:TextLayoutFormat = new TextLayoutFormat();
  
          // Make sure all properties are committed before doing the operation.
-        validateProperties();
+        validateNow();
 
         var selectionManager:ISelectionManager = getSelectionManager();
                 
@@ -2946,7 +2958,7 @@ public class RichEditableText extends UIComponent
                                      activePosition:int=-1):void
     {
          // Make sure all properties are committed before doing the operation.
-        validateProperties();
+        validateNow();
         
         var editManager:IEditManager = getEditManager();
         
@@ -3013,7 +3025,7 @@ public class RichEditableText extends UIComponent
     private function handleInsertText(text:String, isAppend:Boolean=false):void
     {
         // Make sure all properties are committed before doing the append.
-        validateProperties();
+        validateNow();
 
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
@@ -3045,7 +3057,7 @@ public class RichEditableText extends UIComponent
     {
         if (!restrict && !maxChars && !displayAsPassword)
             return;
-                    
+
         // If copied/cut from displayAsPassword field the pastedText
         // is '*' characters but this is correct.
         var pastedText:String = TextUtil.extractText(op.textScrap.textFlow);
@@ -3203,17 +3215,6 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
-     */
-    private function updateCompleteHandler(event:FlexEvent):void
-    {
-        // Make sure that if we did a double pass, next time around we'll
-        // measure normally
-        widthConstraint = NaN;
-        heightConstraint = NaN;
-    }
-
-    /**
-     *  @private
      *  Called when the TextContainerManager dispatches a 'compositionComplete'
      *  event when it has recomposed the text into TextLines.
      */
@@ -3319,7 +3320,15 @@ public class RichEditableText extends UIComponent
         // We don't need to call invalidateProperties()
         // because the hostFormat and the _textFlow are still valid.
         
-        invalidateSize();        
+        // We don't need to call invalidateSize() for isMeasureFixed()
+        // because the width and height are still valid.  For the other cases,
+        // our override of EditManager.updateAllContainers(), will invalidate
+        // the size, if the content size has actually changed.
+            
+        // Style change by changing textFlow directly could change size.
+        if (_textContainerManager.hostFormat != _textFlow.hostFormat)
+            invalidateSize();
+            
         invalidateDisplayList();
     }
 
@@ -3336,6 +3345,8 @@ public class RichEditableText extends UIComponent
             
         if (newHorizontalScrollPosition != oldHorizontalScrollPosition)
         {
+            //trace("hsp scroll", oldHorizontalScrollPosition, "->", newHorizontalScrollPosition);
+
             _horizontalScrollPosition = newHorizontalScrollPosition;
             
             dispatchPropertyChangeEvent("horizontalScrollPosition",
