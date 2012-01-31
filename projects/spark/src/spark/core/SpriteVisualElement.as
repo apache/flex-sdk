@@ -2981,10 +2981,17 @@ public class SpriteVisualElement extends FlexSprite
     /**
      *  Transform the element's size.
      *
+     *  <p>This method calculates the bounding box of the graphic element as if the element’s width/height properties were set to the passed in values.
+     *  The method returns the width of the bounding box.</p>
+     * 
+     *  <p>In general, this method is not for use by developers. Instead, you should implement or override the methods defined by the ILayoutElement interface.</p>
+     * 
      *  @param width The target pre-transform width.
      *
      *  @param height The target pre-transform height.
      *
+     *  @param postLayoutTransform When <code>true</code>, the returned bounding box is around the transformed element in its parent space (the element's transform is applied first).  
+     *  
      *  @return Returns the transformed width. Transformation is this element's
      *  layout transformation matrix.
      *
@@ -3010,10 +3017,17 @@ public class SpriteVisualElement extends FlexSprite
     /**
      *  Transform the element's size.
      *
+     *  <p>This method calculates the bounding box of the graphic element as if the element’s width/height properties were set to the passed in values.
+     *  The method returns the height of the bounding box.</p>
+     * 
+     *  <p>In general, this method is not for use by developers. Instead, you should implement or override the methods defined by the ILayoutElement interface.</p>
+     *  
      *  @param width The target pre-transform width.
      *
      *  @param height The target pre-transform height.
      *
+     *  @param postLayoutTransform When <code>true</code>, the returned bounding box is around the transformed element in its parent space (the element's transform is applied first).  
+     *  
      *  @return Returns the transformed height. Transformation is this element's
      *  layout transformation matrix.
      *
