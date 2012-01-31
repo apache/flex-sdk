@@ -17,11 +17,29 @@ import spark.primitives.supportClasses.TextGraphicElement;
 [IconFile("Panel.png")]
 
 /**
- *  The Panel class is container whose skin usually contains a title.
+ *  The Panel class defines a container that includes a title bar, 
+ *  a caption, a border, and a content area for its children.
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;mx:Panel&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:Panel
+ *   <strong>Properties</strong>
+ *   title=""
+ *   &gt;
+ *      ...
+ *      <i>child tags</i>
+ *      ...
+ *  &lt;/mx:Panel&gt;
+ *  </pre>
  *
  *  @includeExample examples/PanelExample.mxml
  *
  *  @see SkinnableContainer
+ *  @see spark.skins.default.PanelSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -64,7 +82,10 @@ public class Panel extends SkinnableContainer
     [SkinPart(required="true")]
 
     /**
-     * A skin part that defines the middle button(s).
+     *  The skin part that defines the appearance of the 
+     *  title text in the container.
+     *
+     *  @see spark.skins.default.PanelSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -81,9 +102,11 @@ public class Panel extends SkinnableContainer
 
     private var _title:String = "";
     
-	[Bindable]
+    [Bindable]
     /**
-     *  title that should appear in the header of the skin
+     *  Title or caption displayed in the title bar. 
+     *
+     *  @default ""
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -102,8 +125,8 @@ public class Panel extends SkinnableContainer
     {
         _title = value;
 
-		if (titleField)
-			titleField.text = title;
+        if (titleField)
+            titleField.text = title;
     }
 
     //--------------------------------------------------------------------------
