@@ -20,6 +20,7 @@ import mx.events.PropertyChangeEvent;
 import mx.logging.ILogger;
 import mx.logging.Log;
 import mx.messaging.FlexClient;
+import mx.messaging.channels.PollingChannel;
 import mx.messaging.config.ConfigMap;
 import mx.messaging.config.ServerConfig;
 import mx.messaging.errors.InvalidDestinationError;
@@ -725,8 +726,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         if (Log.isInfo())
             _log.info("'{0}' {2} acknowledge of '{1}'.", id, msg.messageId, _agentType);
 
-        if (Log.isDebug() && channelSet != null && channelSet.currentChannel != null &&
-                channelSet.currentChannel.mpiEnabled)
+        if (Log.isDebug() && isCurrentChannelNotNull() && getCurrentChannel().mpiEnabled)
         {
             try
             {
@@ -832,42 +832,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         dispatchEvent(MessageFaultEvent.createEvent(errMsg));
         monitorRpcMessage(errMsg,msg);
 
-        // If we get an authentication fault on the server and our authenticated
-        // flag is true then the authentication fault must have been caused by a
-        // session expiration on the server.  Set our authentication state to false.
-        // If loginAfterDisconnect flag is on, resend credentials by doing a
-        // disconnect/connect and try sending the message again
-        if (errMsg.faultCode == "Client.Authentication" && authenticated &&
-            channelSet != null && channelSet.currentChannel != null)
-        {
-            channelSet.currentChannel.setAuthenticated(false);
-
-            if (channelSet.currentChannel.loginAfterDisconnect)
-            {
-                reAuthorize(msg);
-                _ignoreFault = true;
-            }
-        }
-    }
-
-    /**
-     * This function should be overriden by sublasses to implement re-authorization due to
-     * server session time-out behavior specific to them.  In general it should
-     * follow disconnect, connect, re-send message pattern
-     *
-     *  @param msg The message that caused the fault and should be resent once we have
-     *  disconnected/connected causing re-authentication.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3      
-     */
-    protected function reAuthorize(msg:IMessage):void
-    {
-        disconnect();
-        internalSend(msg);
+        handleAuthenticationFault(errMsg, msg);
     }
 
     /**
@@ -1190,6 +1155,70 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     }
 
     /**
+     * Handles the authentication fault on the server. If the authenticated flag is true, 
+     * the authentication fault must have been caused by a session expiration on the server.
+     * Set the authenticated state to false and if loginAfterDisconnect flag is enabled,
+     * resend credentials to the server by disconnecting and resending the message again.
+     *
+     *  @param errMsg The Error Message.
+     *  @param msg The message that caused the fault and should be resent once we have
+     *  disconnected/connected causing re-authentication.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3      
+     */
+    protected function handleAuthenticationFault(errMsg:ErrorMessage, msg:IMessage):void
+    {
+        if (errMsg.faultCode == "Client.Authentication" && authenticated && isCurrentChannelNotNull())
+        {
+            var currentChannel:Channel = getCurrentChannel();
+            currentChannel.setAuthenticated(false);
+
+            if (currentChannel is PollingChannel && (currentChannel as PollingChannel).loginAfterDisconnect)
+            {
+                reAuthorize(msg);
+                _ignoreFault = true;
+            }
+        }
+    }
+
+    /**
+     *  Used to automatically initialize the <code>channelSet</code> property for the
+     *  MessageAgent before it connects for the first time.
+     *  Subtypes may override to perform custom initialization.
+     *
+     *  @param message The message that needs to be sent.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3      
+     */
+    protected function initChannelSet(message:IMessage):void
+    {
+        if (_channelSet == null)
+        {
+            _channelSetMode = AUTO_CONFIGURED_CHANNELSET;
+            internalSetChannelSet(ServerConfig.getChannelSet(destination));
+        }
+
+        if (_channelSet.connected && needsConfig && !configRequested)
+        {
+            message.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
+            configRequested = true;
+        }
+
+        _channelSet.connect(this);
+
+        if (_credentials != null)
+            channelSet.setCredentials(_credentials, this, _credentialsCharset);
+    }
+
+    /**
      *  Sends a Message from the MessageAgent to its destination using the
      *  agent's ChannelSet. MessageAgent subclasses must use this method to
      *  send their messages.
@@ -1281,9 +1310,44 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     }
 
     /**
-     * Monitor a rpc message that is being send
-    */
+     * This function should be overriden by sublasses to implement re-authorization due to
+     * server session time-out behavior specific to them.  In general it should
+     * follow disconnect, connect, re-send message pattern
+     *
+     *  @param msg The message that caused the fault and should be resent once we have
+     *  disconnected/connected causing re-authentication.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3
+     */
+    protected function reAuthorize(msg:IMessage):void
+    {
+        disconnect();
+        internalSend(msg);
+    }
 
+    /**
+     *  @private
+     */
+    private function getCurrentChannel():Channel
+    {
+        return channelSet != null? channelSet.currentChannel : null;
+    }
+
+    /**
+     *  @private
+     */
+    private function isCurrentChannelNotNull():Boolean
+    {
+        return getCurrentChannel() != null;
+    }
+
+    /**
+     * Monitor a rpc message that is being send
+     */
     private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
     {
         if (NetworkMonitor.isMonitoring())
@@ -1310,39 +1374,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     mx_internal function getNetmonId():String
     {
         return null;
-    }
-
-    /**
-     *  Used to automatically initialize the <code>channelSet</code> property for the
-     *  MessageAgent before it connects for the first time.
-     *  Subtypes may override to perform custom initialization.
-     *
-     *  @param message The message that needs to be sent.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3      
-     */
-    protected function initChannelSet(message:IMessage):void
-    {
-        if (_channelSet == null)
-        {
-            _channelSetMode = AUTO_CONFIGURED_CHANNELSET;
-            internalSetChannelSet(ServerConfig.getChannelSet(destination));
-        }
-
-        if (_channelSet.connected && needsConfig && !configRequested)
-        {
-            message.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
-            configRequested = true;
-        }
-
-        _channelSet.connect(this);
-
-        if (_credentials != null)
-            channelSet.setCredentials(_credentials, this, _credentialsCharset);
     }
 }
 
