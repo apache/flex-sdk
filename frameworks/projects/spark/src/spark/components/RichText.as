@@ -19,7 +19,6 @@ import flash.display.Sprite;
 import flash.geom.Rectangle;
 import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
-import flash.text.engine.TextLine;
 
 import flashx.textLayout.compose.ITextLineCreator;
 import flashx.textLayout.conversion.ITextImporter;
@@ -36,10 +35,7 @@ import flashx.textLayout.factory.TextLineFactoryBase;
 import flashx.textLayout.factory.TruncationOptions;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
-import flashx.textLayout.formats.TextAlign;
 import flashx.textLayout.formats.TextLayoutFormat;
-import flashx.textLayout.formats.VerticalAlign;
-import flashx.textLayout.tlf_internal;
 
 import mx.core.EmbeddedFont;
 import mx.core.EmbeddedFontRegistry;
@@ -54,6 +50,8 @@ import mx.managers.ISystemManager;
 import spark.core.CSSTextLayoutFormat;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.TextUtil;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -331,11 +329,11 @@ public class RichText extends TextGraphicElement
         // you set the 'content' and then get the 'text'.
         if (textInvalid)
         {
-            mx_internal::_text = TextUtil.extractText(textFlow);
+            _text = TextUtil.extractText(textFlow);
             textInvalid = false;
         }
 
-        return mx_internal::_text;
+        return _text;
     }
 
     /**
@@ -446,7 +444,7 @@ public class RichText extends TextGraphicElement
     {
         // If there isn't any content and there is text, create a one paragraph 
         // text flow from the text.
-        if (!_content && mx_internal::_text)
+        if (!_content && _text)
             _content = convertTextToContent();
                 
         return _content;
@@ -466,7 +464,7 @@ public class RichText extends TextGraphicElement
             // Setting 'content' temporarily causes 'text' to become null.
             // Later, after the 'content' has been committed into the TextFlow,
             // getting 'text' will extract the text from the TextFlow.
-            mx_internal::_text = null;
+            _text = null;
             textChanged = false;
             
             _content = value;
@@ -492,7 +490,7 @@ public class RichText extends TextGraphicElement
     	super.updateDisplayList(unscaledWidth, unscaledHeight);
     	
     	// Draw an optional background for debugging.
-    	var bc:Object = mx_internal::backgroundColor;
+    	var bc:Object = backgroundColor;
     	if (bc != null)
     	{
 	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
@@ -538,7 +536,7 @@ public class RichText extends TextGraphicElement
     /**
      *  @private
      */
-    override protected function invalidateTextLines(cause:String):void
+    override mx_internal function invalidateTextLines(cause:String):void
     {
         super.invalidateTextLines(cause);
         
@@ -630,7 +628,7 @@ public class RichText extends TextGraphicElement
         textFlow.replaceChildren(0, 0, p);
 
         var span:SpanElement = new SpanElement();
-        span.text = mx_internal::_text;
+        span.text = _text;
         p.replaceChildren(0, 0, span);
         
         // Set formats and textLineCreator.
@@ -767,22 +765,21 @@ public class RichText extends TextGraphicElement
         contentChanged = false;
         textChanged = false;
 
-        var oldEmbeddedFontContext:IFlexModuleFactory =
-        	mx_internal::embeddedFontContext;
+        var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
         
         // If the CSS styles for this component specify an embedded font,
         // embeddedFontContext will be set to the module factory that
         // should create TextLines (since they must be created in the
         // SWF where the embedded font is.)
         // Otherwise, this will be null.
-        mx_internal::embeddedFontContext = getEmbeddedFontContext();
+        embeddedFontContext = getEmbeddedFontContext();
         
-        if (mx_internal::embeddedFontContext != oldEmbeddedFontContext)
+        if (embeddedFontContext != oldEmbeddedFontContext)
         {
             staticTextFlowFactory.textLineCreator =
-                ITextLineCreator(mx_internal::embeddedFontContext)
+                ITextLineCreator(embeddedFontContext)
             staticStringFactory.textLineCreator = 
-                ITextLineCreator(mx_internal::embeddedFontContext)
+                ITextLineCreator(embeddedFontContext)
         }
         
         if (hostFormatChanged)
@@ -837,8 +834,8 @@ public class RichText extends TextGraphicElement
      *  @private
      *  Returns true to indicate all lines were composed.
      */
-    override protected function composeTextLines(width:Number = NaN,
-												 height:Number = NaN):Boolean
+    override mx_internal function composeTextLines(width:Number = NaN,
+												   height:Number = NaN):Boolean
     {
         super.composeTextLines(width, height);
 
@@ -859,14 +856,13 @@ public class RichText extends TextGraphicElement
 		// The bounds are then used by the addTextLines() method
 		// to determine the isOverset flag.
 		// The composition bounds are also reported by the measure() method.
-		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = isNaN(width) ? maxWidth : width;
         bounds.height = height;
 
-        mx_internal::removeTextLines();
-        mx_internal::releaseTextLines();
+        removeTextLines();
+        releaseTextLines();
         
         createTextLines();
                     
@@ -874,18 +870,18 @@ public class RichText extends TextGraphicElement
         // This will save a recompose and/or clip in updateDisplayList() if 
         // the bounds width matches the unscaled width.
         if (getStyle("lineBreak") == "toFit" && !isNaN(width) && 
-            mx_internal::bounds.width < width)
+            bounds.width < width)
         {
-            mx_internal::bounds.width = width;
+            bounds.width = width;
         }                                                           
         
-        mx_internal::addTextLines(DisplayObjectContainer(drawnDisplayObject));
+        addTextLines(DisplayObjectContainer(drawnDisplayObject));
         
         // Figure out if the text overruns the available space for composition.
-        mx_internal::isOverset = mx_internal::isTextOverset(width, height);
+        isOverset = isTextOverset(width, height);
         
 		// Just recomposed so reset.
-        mx_internal::invalidateCompose = false;
+        invalidateCompose = false;
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
@@ -907,7 +903,7 @@ public class RichText extends TextGraphicElement
 	private function createTextLines():void
 	{
 		// Clear any previously generated TextLines from the textLines Array.
-		mx_internal::textLines.length = 0;
+		textLines.length = 0;
 		
 		var factory:TextLineFactoryBase;
 		if (textFlow)
@@ -922,7 +918,7 @@ public class RichText extends TextGraphicElement
 		// Its width is 0 but its height is equal to the font's
 		// ascent plus descent.
         
-        factory.compositionBounds = mx_internal::bounds;   
+        factory.compositionBounds = bounds;   
         
         // Set up the truncation options.
         var truncationOptions:TruncationOptions;
@@ -931,7 +927,7 @@ public class RichText extends TextGraphicElement
             truncationOptions = new TruncationOptions();
             truncationOptions.lineCountLimit = truncation;
             truncationOptions.truncationIndicator =
-                TextGraphicElement.mx_internal::truncationIndicatorResource;
+                TextGraphicElement.truncationIndicatorResource;
         }        
 		factory.truncationOptions = truncationOptions;
 		
@@ -942,12 +938,12 @@ public class RichText extends TextGraphicElement
         else
         {
             // We know text is non-null since it got this far.
-            staticStringFactory.text = mx_internal::_text;
+            staticStringFactory.text = _text;
             staticStringFactory.textFlowFormat = hostFormat;
             staticStringFactory.createTextLines(addTextLine);
         }
         
-        mx_internal::bounds = factory.contentBounds;
+        bounds = factory.contentBounds;
     }
 
     /**
@@ -956,7 +952,7 @@ public class RichText extends TextGraphicElement
      */
     private function addTextLine(textLine:DisplayObject):void
     {
-        mx_internal::textLines.push(textLine);
+        textLines.push(textLine);
     }
   
     //--------------------------------------------------------------------------
@@ -980,7 +976,7 @@ public class RichText extends TextGraphicElement
         textInvalid = true;
         
         // Force recompose since text and/or styles may have changed.
-        mx_internal::invalidateCompose = true;
+        invalidateCompose = true;
 
         // This is smart enough not to remeasure if the explicit width/height
         // were specified.
