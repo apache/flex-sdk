@@ -40,7 +40,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched after the Application has been initialized,
+ *  Dispatched after the FxApplication has been initialized,
  *  processed by the LayoutManager, and attached to the display list.
  * 
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
@@ -84,18 +84,20 @@ use namespace mx_internal;
 [ResourceBundle("core")]
 
 /**
- *  Flex defines a default, or Application, container that lets you start
+ *  Flex defines a default, or FxApplication, container that lets you start
  *  adding content to your application without explicitly defining
  *  another container.
  * 
  *  @mxml
  *
- *  <p>The <code>&lt;Application&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;FxApplication&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Application
+ *  &lt;FxApplication
  *    <strong>Properties</strong>
+ *    backgroundColor="white"
+ *    colorCorrection="default"
  *    frameRate="24"
  *    pageTitle"<i>No default</i>"
  *    preloader="<i>No default</i>"
@@ -133,7 +135,7 @@ public class FxApplication extends FxContainer
      */
     public function FxApplication()
     {
-        name = "application";
+        name = "fxApplication";
 
         UIComponentGlobals.layoutManager = ILayoutManager(
             Singleton.getInstance("mx.managers::ILayoutManager"));
@@ -170,19 +172,19 @@ public class FxApplication extends FxContainer
     
     /**
      *  @private
-     *  This flag indicates whether the width of the Application instance
+     *  This flag indicates whether the width of the FxApplication instance
      *  can change or has been explicitly set by the developer.
      *  When the stage is resized we use this flag to know whether the
-     *  width of the Application should be modified.
+     *  width of the FxApplication should be modified.
      */
     private var resizeWidth:Boolean = true;
     
     /**
      *  @private
-     *  This flag indicates whether the height of the Application instance
+     *  This flag indicates whether the height of the FxApplication instance
      *  can change or has been explicitly set by the developer.
      *  When the stage is resized we use this flag to know whether the
-     *  height of the Application should be modified.
+     *  height of the FxApplication should be modified.
      */
     private var resizeHeight:Boolean = true;
     
@@ -234,8 +236,10 @@ public class FxApplication extends FxContainer
     *  The value of the stage's <code>colorCorrection</code> property. If this application
     *  does not have access to the stage's <code>colorCorrection</code> property, 
     *  the value of the <code>colorCorrection</code> property will be reported as 
-    *  null. Also, only the main application is allowed to set the <code>colorCorrection</code>
-    *  property. 
+    *  null. Only the main application is allowed to set the <code>colorCorrection</code>
+    *  property. If a sub-application's needs to set the color correction property it will
+    *  need to set it via the main application's instance, either directly using an object
+    *  instance or via an event (there is no framework event for this purpose).  
     *
     *  @default ColorCorrection.DEFAULT
     */
@@ -275,7 +279,7 @@ public class FxApplication extends FxContainer
     //--------------------------------------------------------------------------
 
     // These declarations correspond to the MXML-compile-time attributes
-    // allowed on the <Application> tag. These attributes affect the MXML
+    // allowed on the <FxApplication> tag. These attributes affect the MXML
     // compiler, but they aren't actually used in the runtime framework.
     // The declarations appear here in order to provide metadata about these
     // attributes for FlexBuilder.
@@ -475,14 +479,14 @@ public class FxApplication extends FxContainer
 
     /**
      *  An Object containing name-value
-     *  pairs representing the parameters provided to this Application.
+     *  pairs representing the parameters provided to this FxApplication.
      *
      *  <p>You can use a for-in loop to extract all the names and values
      *  from the parameters Object.</p>
      *
      *  <p>There are two sources of parameters: the query string of the
-     *  Application's URL, and the value of the FlashVars HTML parameter
-     *  (this affects only the main Application).</p>
+     *  FxApplication's URL, and the value of the FlashVars HTML parameter
+     *  (this affects only the main FxApplication).</p>
      */
     public function get parameters():Object
     {
@@ -501,7 +505,7 @@ public class FxApplication extends FxContainer
     mx_internal var _url:String;
 
     /**
-     *  The URL from which this Application's SWF file was loaded.
+     *  The URL from which this FxApplication's SWF file was loaded.
      */
     public function get url():String
     {
@@ -528,9 +532,9 @@ public class FxApplication extends FxContainer
      *  using MXML, not using ActionScript, as the following example shows:</p>
      *
      *  <pre>
-     *    &lt;Application viewSourceURL="http://path/to/source"&gt;
+     *    &lt;FxApplication viewSourceURL="http://path/to/source"&gt;
      *      ...
-     *    &lt;/Application&gt;</pre>
+     *    &lt;/FxApplication&gt;</pre>
      *
      */
     public function get viewSourceURL():String
@@ -557,7 +561,7 @@ public class FxApplication extends FxContainer
      */
     override public function initialize():void
     {
-        // trace("app initialize app");
+        // trace("FxApp initialize FxApp");
         
         var sm:ISystemManager = systemManager;
         
