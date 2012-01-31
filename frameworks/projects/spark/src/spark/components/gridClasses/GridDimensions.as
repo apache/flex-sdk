@@ -68,8 +68,9 @@ public class GridDimensions
             vec[i + count] = vec[i];
         
         const endIndex:int = startIndex + values.length;
+        var j:int = 0;
         for (i = startIndex; i < endIndex; i++)
-            vec[i] = values[i];
+            vec[i] = values[j++];
     }
     
     /**
