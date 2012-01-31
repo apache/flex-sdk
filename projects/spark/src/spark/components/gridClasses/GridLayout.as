@@ -1768,10 +1768,12 @@ public class GridLayout extends LayoutBase
         
         element.visible = false;
         
-        // Reset back to (0,0), otherwise when the element is reused
-        // it will be validated at its last layout size which causes
-        // problems with text reflow.
-        element.setLayoutBoundsSize(0, 0, false);        
+        // Reset GridItemRenderers back to (0,0), otherwise when the element is reused
+        // it will be validated at its last layout size which causes problems with 
+        // text reflow.
+        
+        if (element is GridItemRenderer)
+            element.setLayoutBoundsSize(0, 0, false);        
         
         const factory:IFactory = elementToFactoryMap[element]; 
         if (!factory)
