@@ -46,8 +46,8 @@ import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.CompositionCompletionEvent;
+import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.Category;
@@ -506,6 +506,15 @@ public class RichEditableText extends UIComponent
      */
     private var widthConstraint:Number = NaN;
                 
+    /**
+     *  @private
+     *  True if this component sizes itself based on its actual
+     *  contents.  This happens if it's configured for autoSize, it is not
+     *  contained within a scroller and an explicit width and height are not
+     *  specified.
+     */
+    mx_internal var actuallyAutoSizing:Boolean = false;
+                
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -549,24 +558,6 @@ public class RichEditableText extends UIComponent
 
         invalidateProperties();
         invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  maxWidth
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get maxWidth():Number
-    {
-        if (!_autoSize || !isNaN(explicitMaxWidth))
-            return super.maxWidth;
-            
-        // The default for maxWidth is 10000 which isn't a 
-        // reasonable default for the autoSize width so use the default
-        // measured width which is 160 instead.
-        return  UIComponent.DEFAULT_MEASURED_WIDTH;
     }
 
     //--------------------------------------------------------------------------
@@ -616,11 +607,6 @@ public class RichEditableText extends UIComponent
     private var _clipAndEnableScrolling:Boolean = false;
 
     /**
-     *  @private
-     */
-    private var clipAndEnableScrollingChanged:Boolean = false;
-        
-    /**
      *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
      *  
      *  @langversion 3.0
@@ -635,6 +621,8 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
+     *  Set to true by a scroller when it installs this as a viewport.
+     *  Set to false by a scroller when it uninstalls this as a viewport.
      */
     public function set clipAndEnableScrolling(value:Boolean):void 
     {
@@ -643,9 +631,9 @@ public class RichEditableText extends UIComponent
     
         _clipAndEnableScrolling = value;
         
-        clipAndEnableScrollingChanged = true;
-        
-        // TBD implement this
+        // Value could impact whether we are actually autoSizing.
+        invalidateSize();
+        invalidateDisplayList();
     }
         
     //----------------------------------
@@ -799,11 +787,6 @@ public class RichEditableText extends UIComponent
     private var _autoSize:Boolean = true;
 
     /**
-     *  @private
-     */
-    private var autoSizeChanged:Boolean = _autoSize;
-    
-    /**
      *  Documentation is not currently available.
      *  
      *  @langversion 3.0
@@ -825,9 +808,7 @@ public class RichEditableText extends UIComponent
             return;
     
         _autoSize = value;
-        autoSizeChanged = true;
-        
-        invalidateProperties();
+
         invalidateSize();
         invalidateDisplayList();
     }
@@ -1627,28 +1608,7 @@ public class RichEditableText extends UIComponent
             editableChanged = false;
             selectableChanged = false;        	
         }
-        
-        // If this component is in a scroller, then we can't autoSize.  Every
-        // time we autoSize, the scroller responds to the size change, which
-        // causes us to remeasure, which causes the scroller to respond to the
-        // size change, and ask us to remeasure, etc.
-        if (clipAndEnableScrollingChanged)
-        {
-            if (_clipAndEnableScrolling)
-                autoSize = false;
-                
-            clipAndEnableScrollingChanged = false;                
-        }
-                
-        if (autoSizeChanged)
-        {
-            var value:String = _autoSize ? "off" : "auto";
-            _inputManager.horizontalScrollPolicy = value;
-            _inputManager.verticalScrollPolicy = value; 
-                         
-            autoSizeChanged = false;
-        }
-        
+                        
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
@@ -1689,7 +1649,7 @@ public class RichEditableText extends UIComponent
         super.setLayoutBoundsSize(width, height, postLayoutTransform);
 
         // Only autoSize cares about the real measured width.
-        if (!_autoSize)
+        if (!actuallyAutoSizing)
             return;
             
         // TODO Possible optimization - if we reflow the text
@@ -1709,7 +1669,7 @@ public class RichEditableText extends UIComponent
             return;
 
         // If we don't measure
-        if (skipMeasure())
+        if (super.skipMeasure())
             return;
 
         if (!isNaN(explicitHeight))
@@ -1742,13 +1702,30 @@ public class RichEditableText extends UIComponent
      */
     override protected function skipMeasure():Boolean
     {
-        // If autoSize, always measure.
-        if (_autoSize)
-            return false;
-                       
-        return super.skipMeasure();
+        // If explicit width and height then definately not autoSizing.
+        if (super.skipMeasure())
+        {
+            actuallyAutoSizing = false;
+            return true;
+        }
+        
+        var oldActuallyAutoSizing:Boolean = actuallyAutoSizing;
+        
+        // AutoSize if it is requested and this component isn't the viewport
+        // of a scroller.  autoSize and scrolling don't play well together.            
+        actuallyAutoSizing = _autoSize && !_clipAndEnableScrolling;
+        
+        // If we're autoSizing now, make sure we aren't scrolled from previously
+        // not being autoSized.
+        if (actuallyAutoSizing && !oldActuallyAutoSizing)
+        {
+            _inputManager.horizontalScrollPosition = 0;
+            _inputManager.verticalScrollPosition = 0;
+        }
+        
+        return false;        
     }
-
+    
     /**
      *  @private
      */
@@ -1759,7 +1736,7 @@ public class RichEditableText extends UIComponent
         // Recalculate the ascent, and descent, if fontMetrics changed.
         calculateFontMetrics();    
     
-        if (_autoSize)
+        if (actuallyAutoSizing)
         {
             measureForAutoSize();
         }
@@ -1785,7 +1762,11 @@ public class RichEditableText extends UIComponent
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        if (!_autoSize)
+        // If we're autoSizing we're telling the layout manager one set of
+        // values and TLF another set of values so there is room for the text
+        // to grow.  The composition values for autoSize were set when the 
+        // text was measured.
+        if (!actuallyAutoSizing)
         {
             _inputManager.compositionWidth = unscaledWidth;
             _inputManager.compositionHeight = unscaledHeight;
@@ -2085,15 +2066,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  The cases that require a second pass through the LayoutManager.
-     */
-    private function isSpecialCase():Boolean
-    {
-        return _autoSize && !isNaN(percentWidth);
-    }
-
-    /**
-     *  @private
      *  If the explicit widths and heights are not set to NaN, the 
      *  measuredWidth and measuredHeight are clamped down to these values
      *  when measure() returns to UIComponent.measureSizes().
@@ -2104,6 +2076,13 @@ public class RichEditableText extends UIComponent
 
         if (hostFormat.lineBreak == "toFit")
         {
+            // The default for maxWidth is 10000 which isn't a 
+            // reasonable default for the autoSize width so use the default
+            // measured width which is 160 instead.
+             var maxWidth:Number = !isNaN(explicitMaxWidth) ?
+                              explicitMaxWidth : 
+                              UIComponent.DEFAULT_MEASURED_WIDTH;
+            
             // Need to set a width to cause a wrap.  Never compose over the 
             // max width because the width will always be adjusted down to this 
             // and it's easy to get into an infinite measure/update display 
@@ -2137,18 +2116,18 @@ public class RichEditableText extends UIComponent
         
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
-        measuredHeight = Math.round(contentBounds.height);
+        measuredHeight = Math.ceil(contentBounds.height);
 
         if (_inputManager.getText().length > 0) 
         {
             // Text flow with a terminator (which has width).
-            measuredWidth = Math.round(contentBounds.width);
+            measuredWidth = Math.ceil(contentBounds.width);
         }
         else
         {
             // Empty text flow.  One Em wide so there
             // is a place to put the insertion cursor.
-            measuredWidth = Math.round(contentBounds.width +
+            measuredWidth = Math.ceil(contentBounds.width +
                                        getStyle("fontSize"));
        }
     }
@@ -2985,6 +2964,7 @@ public class RichEditableText extends UIComponent
         }
         textFlowChanged = false;
         
+        var contentChanged:Boolean = false;
         var oldContentWidth:Number = _contentWidth;
 
         var newContentBounds:Rectangle = _inputManager.getContentBounds();
@@ -3008,12 +2988,7 @@ public class RichEditableText extends UIComponent
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
 
-            // If autoSize and text size changed, need to remeasure.
-            if (_autoSize)
-            {
-                invalidateSize();
-                invalidateDisplayList();
-            }
+            contentChanged = true;
         }
         
         var oldContentHeight:Number = _contentHeight;
@@ -3036,14 +3011,16 @@ public class RichEditableText extends UIComponent
             
             dispatchPropertyChangeEvent(
                 "contentHeight", oldContentHeight, newContentHeight);
-                    
-            // If autoSize and text size changed, need to remeasure.
-            if (_autoSize)
-            {
-                invalidateSize();
-                invalidateDisplayList();
-            }
+                
+            contentChanged = true;
         } 
+
+        // If autoSize and text size changed, need to remeasure.
+        if (contentChanged && actuallyAutoSizing)
+        {
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }
     
     /**
