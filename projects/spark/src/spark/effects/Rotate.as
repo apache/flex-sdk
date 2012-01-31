@@ -13,6 +13,7 @@ package spark.effects
 {
 import mx.effects.IEffectInstance;
 
+import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
     
 /**
@@ -176,7 +177,7 @@ public class Rotate extends AnimateTransform
      */
     override public function createInstance(target:Object = null):IEffectInstance
     {
-        motionPaths = [];
+        motionPaths = new Vector.<MotionPath>();
         return super.createInstance(target);
     }
     
