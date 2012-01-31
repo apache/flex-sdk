@@ -14,6 +14,7 @@ package spark.effects
 import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
+import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 use namespace mx_internal;
@@ -49,10 +50,15 @@ use namespace mx_internal;
  *  &lt;mx:Scale3D
  *    <b>Properties</b>
  *    id="ID"
- *    applyChangesPostLayout="true"
- *    scaleZBy="no default"
+ *    scaleXFrom="no default"
+ *    scaleXTo="no default"
+ *    scaleXBy="no default"
+ *    scaleYFrom="no default"
+ *    scaleYTo="no default"
+ *    scaleYBy="no default"
  *    scaleZFrom="no default"
  *    scaleZTo="no default"
+ *    scaleZBy="no default"
  *  /&gt;
  *  </pre>
  *
@@ -61,7 +67,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */   
-public class Scale3D extends Scale
+public class Scale3D extends AnimateTransform3D
 {
     include "../core/Version.as";
 
@@ -89,26 +95,113 @@ public class Scale3D extends Scale
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  applyChangesPostLayout
+    //  scaleXFrom
     //----------------------------------
-    [Inspectable(category="General")]
-    /** 
-     *  @copy AnimateTransform#applyChangesPostLayout
-     *  The default value for this property is true for 3D effects,
-     *  because the Flex layout system ignores 3D transformation properties.
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     *  The starting scale factor in the x direction.
+     *  A scale value of 0.0 is invalid.
      *
-     *  @default true
-     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function get applyChangesPostLayout():Boolean
-    {
-        return super.applyChangesPostLayout;
-    }
+    public var scaleXFrom:Number;
+    
+    //----------------------------------
+    //  scaleXTo
+    //----------------------------------
 
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     *  The ending scale factor in the x direction.
+     *  A scale value of 0.0 is invalid.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scaleXTo:Number;
+
+    //----------------------------------
+    //  scaleXBy
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     *  The factor by which to scale the object in the x direction.
+     *  This is an optional parameter that can be used instead of one
+     *  of the other from/to values to specify the delta to add to the
+     *  from value or to derive the from value by subtracting from the
+     *  to value.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scaleXBy:Number;
+
+    //----------------------------------
+    //  scaleYFrom
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     *  The starting scale factor in the y direction.
+     *  A scale value of 0.0 is invalid.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scaleYFrom:Number;
+
+    //----------------------------------
+    //  scaleYTo
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     *  The ending scale factor in the y direction.
+     *  A scale value of 0.0 is invalid.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scaleYTo:Number;
+            
+    //----------------------------------
+    //  scaleYBy
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /**
+     * The factor by which to scale the object in the y direction.
+     * This is an optional parameter that can be used instead of one
+     * of the other from/to values to specify the delta to add to the
+     * from value or to derive the from value by subtracting from the
+     * to value.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scaleYBy:Number;
+    
     //----------------------------------
     //  scaleZFrom
     //----------------------------------
@@ -172,14 +265,27 @@ public class Scale3D extends Scale
     /**
      * @private
      */
+    override public function createInstance(target:Object = null):IEffectInstance
+    {
+        motionPaths = new Vector.<MotionPath>();
+        return super.createInstance(target);
+    }
+                        
+    /**
+     * @private
+     */
     override protected function initInstance(instance:IEffectInstance):void
     {
         if (!applyChangesPostLayout)
         {
-           addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
+            addMotionPath("scaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addMotionPath("scaleY", scaleYFrom, scaleYTo, scaleYBy);
+            addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
         }
         else
         {
+            addPostLayoutMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addPostLayoutMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
             addPostLayoutMotionPath("postLayoutScaleZ", scaleZFrom, scaleZTo, scaleZBy);
         }
         super.initInstance(instance);
