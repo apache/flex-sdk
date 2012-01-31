@@ -18,6 +18,8 @@ import flash.events.MouseEvent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+use namespace mx_internal;
+
 /**
  *  Dispatched when the <code>selected</code> property 
  *  changes for the ToggleButtonBase control. 
@@ -77,6 +79,12 @@ import mx.events.FlexEvent;
 // FIXME (egeorgie): figure out whether we need this?
 [DefaultBindingProperty(source="selected", destination="label")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.ToggleButtonAccImpl")]
+
 /**
  *  The ToggleButtonBase component is the base class for the Spark button components
  *  that support the <code>selected</code> property.
@@ -95,6 +103,18 @@ public class ToggleButtonBase extends ButtonBase
 {
     include "../../core/Version.as";
 
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by ToggleButtonAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -186,6 +206,21 @@ public class ToggleButtonBase extends ButtonBase
         selected = !selected;
         
         dispatchEvent(new Event(Event.CHANGE));
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ToggleButtonBase.createAccessibilityImplementation != null)
+            ToggleButtonBase.createAccessibilityImplementation(this);
     }
 }
 
