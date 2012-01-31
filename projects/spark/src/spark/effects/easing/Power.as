@@ -52,14 +52,15 @@ public class Power extends EaseInOutBase
      *  @productversion Flex 4
      */
     private var _exponent:Number;
+    
+    [Inspectable(minValue="1.0")]
+    
     /**
      *  The exponent used in the easing calculation.
      *  The higher the value of the <code>exponent</code> property,
      *  the greater the acceleration and deceleration.
      *  For example, to get quadratic behavior, set <code>exponent</code> to 2.
      *  To get cubic behavior, set <code>exponent</code> to 3.
-     *  A value of 1 represents linear motion, and a value of 0
-     *  returns 1 from the <code>ease()</code> method.
      *
      *  @default 2
      *
