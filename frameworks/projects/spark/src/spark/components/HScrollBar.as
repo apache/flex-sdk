@@ -294,8 +294,8 @@ public class HScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // The minimum size we'll shrink the thumb to is either thumb.height or thumbSize: whichever is smaller.
-                thumbSize = Math.max(Math.min(thumb.height, thumbSize), thumbSize + pendingValue);
+                // The minimum size we'll shrink the thumb to is either thumb.minWidth or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.minWidth, thumbSize), thumbSize + pendingValue);
             }
             thumbPosTrackX = min;
         }
@@ -303,8 +303,8 @@ public class HScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // The minimum size we'll shrink the thumb to is either thumb.height or thumbSize: whichever is smaller.
-                thumbSize = Math.max(Math.min(thumb.height, thumbSize), thumbSize - (pendingValue - max));
+                // The minimum size we'll shrink the thumb to is either thumb.minWidth or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.minWidth, thumbSize), thumbSize - (pendingValue - max));
             }
             thumbPosTrackX = trackSize - thumbSize;
         }
