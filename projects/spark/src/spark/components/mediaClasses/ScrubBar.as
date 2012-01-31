@@ -95,31 +95,32 @@ public class VideoPlayerScrubBar extends HSlider
     // bufferedValue
     //---------------------------------
     
-    private var _bufferedValue:Number;
+    private var _bufferedRange:Array;
     
     /**
-     *  The value of the video that's been buferred in.  This property 
-     *  should be greater than value and less than maximum.
+     *  The range of values that are currently in the buffer.  The first value 
+     *  the array indicates the starting buffered value.  The second value 
+     *  indicates the end of buffered in video.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get bufferedValue():Number
+    public function get bufferedRange():Array
     {
-        return _bufferedValue;
+        return _bufferedRange;
     }
     
     /**
      *  @private
      */
-    public function set bufferedValue(value:Number):void
+    public function set bufferedRange(value:Array):void
     {
-        if (value == _bufferedValue)
+        if (value == _bufferedRange)
             return;
         
-        _bufferedValue = value;
+        _bufferedRange = value;
         invalidateDisplayList();
     }
 
@@ -162,7 +163,7 @@ public class VideoPlayerScrubBar extends HSlider
     override protected function completeTrackLayout():void
     {
         super.completeTrackLayout();
-        sizeBufferedArea(valueToPosition(bufferedValue) + thumbSize);
+        sizeBufferedArea(valueToPosition(bufferedRange[1]) + thumbSize);
         sizePlayedArea(valueToPosition(value) + thumbSize);
     }
     
