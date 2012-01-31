@@ -930,6 +930,19 @@ public class List extends ListBase implements IFocusManagerComponent
         var oldSelectedIndex:Number = _selectedIndex;
         var oldCaretIndex:Number = _caretIndex;  
         
+        // Consistent with MX, all indices after the first invalid index 
+        // are ignored.
+        var count:int = _proposedSelectedIndices.length;
+        for (var i:int = 0; i < count; i++)
+        {
+            if (_proposedSelectedIndices[i] < 0 ||
+                _proposedSelectedIndices[i] >= dataProvider.length)
+            {
+                _proposedSelectedIndices.splice(i, count - i);
+                break;
+            }
+        }
+       
         // Ensure that multiple selection is allowed and that proposed 
         // selected indices honors it. For example, in the single 
         // selection case, proposedSelectedIndices should only be a 
