@@ -163,7 +163,7 @@ public class FaultEvent extends AbstractEvent
      *  @param value MessageFaultEvent reference to extract the appropriate
      *  fault information from.
      *  @param token AsyncToken [optional] associated with this fault.
-     *  @returns FaultEvent
+     *  @return Returns a FaultEvent.
      */ 
     public static function createEventFromMessageFault(value:MessageFaultEvent, token:AsyncToken = null):FaultEvent
     {
@@ -179,7 +179,7 @@ public class FaultEvent extends AbstractEvent
      *  @param fault Fault that contains the details of the FaultEvent.
      *  @param token AsyncToken [optional] associated with this fault.
      *  @param msg Message [optional] associated with this fault.
-     *  @returns FaultEvent
+     *  @return Returns a FaultEvent.
      */ 
     public static function createEvent(fault:Fault, token:AsyncToken = null, msg:IMessage = null):FaultEvent
     {
