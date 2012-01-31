@@ -83,8 +83,10 @@ public class MXTreeItemRenderer extends MXItemRenderer
 
     /**
      *  If supplied, the component that will be used as the Tree's
-     *  disclosure control.  Clicking on this control will result
-     *  in TreeEvents and the click event will not be propagated
+     *  disclosure control.  
+     *  Clicking on this control dispatches 
+     *  the tree events, such as <code>itemClose</code> and <code>itemOpen</code>, 
+     *  and the <code>click</code> event is not propagated
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
