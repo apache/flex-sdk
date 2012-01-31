@@ -1126,6 +1126,9 @@ public class SimpleText extends TextGraphicElement
             mx_internal::bounds.width = paddingLeft + paddingRight;
             mx_internal::bounds.height = paddingTop + paddingBottom;
         }
+        
+        // The text was truncated.
+        mx_internal::isTextTruncated = true;
     }
         
     /** 
