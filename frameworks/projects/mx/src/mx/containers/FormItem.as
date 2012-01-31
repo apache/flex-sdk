@@ -603,7 +603,7 @@ public class FormItem extends Container
         {
             for (i = 0; i < numChildren; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
                 
                 if (!child.includeInLayout)
                     continue;
@@ -620,7 +620,7 @@ public class FormItem extends Container
         // minWidth/height and the preferredWidth/Height
         for (i = 0; i < numChildren; i++)
         {
-            child = IUIComponent(getChildAt(i));
+            child = getLayoutChildAt(i);
             
             if (!child.includeInLayout)
                 continue;
@@ -742,7 +742,7 @@ public class FormItem extends Container
         {
             for (i = 0; i < n; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
                 maxPreferredWidth = Math.max(
                     maxPreferredWidth, child.getExplicitOrMeasuredWidth());
             }
@@ -750,7 +750,7 @@ public class FormItem extends Container
 
         for (i = 0; i < n; i++)
         {
-            child = IUIComponent(getChildAt(i));
+            child = getLayoutChildAt(i);
 
             if (col < numColumns)
             {
@@ -909,7 +909,7 @@ public class FormItem extends Container
         if (numChildren > 0)
         {
             // Center label with first child
-            child = IUIComponent(getChildAt(0));
+            child = getLayoutChildAt(0);
             childBaseline = child.baselinePosition;
             if (!isNaN(childBaseline))
                 y += childBaseline - labelObj.baselinePosition;
@@ -952,7 +952,7 @@ public class FormItem extends Container
         
         for (var i:Number = 0; i < n; i++)
         {
-            child = IUIComponent(getChildAt(i));
+            child = getLayoutChildAt(i);
             
             child.move(child.x + extraWidth, child.y);
         }
@@ -1061,7 +1061,7 @@ public class FormItem extends Container
 
             for (i = 0; i < numChildren; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
                 
                 if (!child.includeInLayout)
                     continue;
@@ -1078,7 +1078,7 @@ public class FormItem extends Container
             // don't know what controlWidth will be)
             for (i = 0; i < numChildren; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
                 
                 if (!child.includeInLayout)
                     continue;
@@ -1119,7 +1119,7 @@ public class FormItem extends Container
             // the fixed height and the percentage height for each row
             for (i = 0; i < numChildren; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
                 
                 if (!child.includeInLayout)
                 {
@@ -1230,7 +1230,7 @@ public class FormItem extends Container
                 // and we run the whole space to distribute calculation again.
                 for (i = 0; i < numChildren; i++)
                 {
-                    child = IUIComponent(getChildAt(i));
+                    child = getLayoutChildAt(i);
                     
                     if (!child.includeInLayout)
                         continue;
@@ -1354,7 +1354,7 @@ public class FormItem extends Container
         if (n > 0)
         {
             // Center label with first child
-            child = IUIComponent(getChildAt(0));
+            child = getLayoutChildAt(0);
             childBaseline = child.baselinePosition;
             if (!isNaN(childBaseline))
                 y += childBaseline - labelObj.baselinePosition;
@@ -1417,7 +1417,7 @@ public class FormItem extends Container
 
                 for (i = 0; i < n; i++)
                 {
-                    child = IUIComponent(getChildAt(i));
+                    child = getLayoutChildAt(i);
                     child.move(Math.floor(left), top);
                     left += child.width + horizontalGap;
                 }
@@ -1427,7 +1427,7 @@ public class FormItem extends Container
                 // Determine the widest child.
                 for (i = 0; i < n; i++)
                 {
-                    child = IUIComponent(getChildAt(i));
+                    child = getLayoutChildAt(i);
                     maxWidth = Math.max(maxWidth,
                                         child.getExplicitOrMeasuredWidth());
                 }
@@ -1444,7 +1444,7 @@ public class FormItem extends Container
                 // Place the children in columns
                 for (i = 0; i < n; i++)
                 {
-                    child = IUIComponent(getChildAt(i));
+                    child = getLayoutChildAt(i);
                     
                     childWidth = Math.min(maxWidth,
                                           child.getExplicitOrMeasuredWidth());
@@ -1472,7 +1472,7 @@ public class FormItem extends Container
 
             for (i = 0; i < n; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
 
                 // Round up to nearest 1/4 of controlWidth
                 if (!isNaN(child.percentWidth))
@@ -1515,7 +1515,7 @@ public class FormItem extends Container
         if (n > 0)
         {
             // Center label with first child
-            child = IUIComponent(getChildAt(0));
+            child = getLayoutChildAt(0);
             childBaseline = child.baselinePosition;
             if (!isNaN(childBaseline))
                 y += childBaseline - labelObj.baselinePosition;
@@ -1614,7 +1614,7 @@ public class FormItem extends Container
         
         for (var i:int = 0; i < numChildren; i++)
         {
-            var child:IUIComponent = IUIComponent(getChildAt(i));
+            var child:IUIComponent = getLayoutChildAt(i);
             
             if (!child.includeInLayout)
             {
