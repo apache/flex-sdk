@@ -289,14 +289,9 @@ public class Rotate3D extends AnimateTransform3D
         var yProp:String = applyChangesPostLayout ? "postLayoutRotationY" : "rotationY";
         var zProp:String = applyChangesPostLayout ? "postLayoutRotationZ" : "rotationZ";
         
-        if (!(isNaN(angleXFrom) && isNaN(angleXTo)))
-            addMotionPath(xProp, angleXFrom, angleXTo);
-            
-        if (!(isNaN(angleYFrom) && isNaN(angleYTo)))
-            addMotionPath(yProp, angleYFrom, angleYTo);
-            
-        if (!(isNaN(angleZFrom) && isNaN(angleZTo)))
-            addMotionPath(zProp, angleZFrom, angleZTo);
+        addMotionPath(xProp, angleXFrom, angleXTo);  
+        addMotionPath(yProp, angleYFrom, angleYTo);  
+        addMotionPath(zProp, angleZFrom, angleZTo);
             
         super.initInstance(instance);
     }    
