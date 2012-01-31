@@ -22,8 +22,7 @@ import spark.components.DataGrid;
  *  When the editor is closing the <code>discard()</code> method is called.</p>
  *  
  * <p>When the editor is closed the input value can be saved or cancelled. If saving, 
- * the <code>save()</code> function is called by the editor. If canceling the <code>
- * cancel()</code> function is called. 
+ * the <code>save()</code> function is called by the editor.
  * </p>
  */
 public interface IGridItemEditor extends IDataRenderer, IVisualElement, 
