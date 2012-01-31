@@ -535,9 +535,10 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             return "normal";
         
         // If none of the above states are defined in the item renderer,
-        // we return null. This means the user-defined renderer
-        // will display but essentially be non-interactive visually. 
-        return null;
+        // we return currentState, so we don't change the state just 
+        // in case the developer put the item renderer into its 
+        // own custom state.
+        return currentState;
     }
     
     /**
