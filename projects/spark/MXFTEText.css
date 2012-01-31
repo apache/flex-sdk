@@ -1,0 +1,121 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+/*
+    This style sheet should be used if you would like to use the new
+    Text Layout Framework (TLF) text in your Halo controls.  TLF
+    provides text editing with high-quality international typography 
+    and layout.  It supports displaying left-to-right (ltr) text such as 
+    French, right-to-left (rtl) text such as Arabic, and bidirectional text
+    such as a French phrase inside of an Arabic one.
+
+    You use this style sheet by applying it as theme to your application.
+
+    Alternatively you may apply this style sheet in your application with
+        <fx:Style source="path/TLFText.css" />
+    but you will see compiler warnings for any unused selectors.
+*/
+
+@namespace "library://ns.adobe.com/flex/halo";
+
+AlertForm
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+Button
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+CalendarLayout
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+ColorPicker
+{
+	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+ComboBox
+{
+	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+DataGrid
+{
+	defaultDataGridItemEditor: ClassReference("mx.controls.TLFTextInput");
+	defaultDataGridItemRenderer: ClassReference("mx.controls.dataGridClasses.TLFDataGridItemRenderer");
+}
+
+DateChooser
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+
+DateField
+{
+	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+ListItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+MenuBarItem
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+MenuItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+NumericStepper
+{
+	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+Panel
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+ProgressBar
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+SwatchPanel
+{
+	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+TileListItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+TreeItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
+
+ToolTip
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
+}
