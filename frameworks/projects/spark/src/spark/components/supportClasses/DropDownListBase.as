@@ -122,6 +122,12 @@ use namespace mx_internal;
 [Exclude(name="selectedIndices", kind="property")]
 [Exclude(name="selectedItems", kind="property")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.DropDownListBaseAccImpl")]
+
 /**
  *  The DropDownListBase control contains a drop-down list
  *  from which the user can select a single value.
@@ -172,6 +178,18 @@ public class DropDownListBase extends List
 {
     include "../core/Version.as";
  
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by DropDownListBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -479,6 +497,16 @@ public class DropDownListBase extends List
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     *  Called by the initialize() method of UIComponent
+     *  to hook in the accessibility code.
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (DropDownListBase.createAccessibilityImplementation != null)
+            DropDownListBase.createAccessibilityImplementation(this);
+    }
     /**
      *  @private
      */ 
