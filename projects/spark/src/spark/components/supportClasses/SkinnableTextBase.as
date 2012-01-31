@@ -23,8 +23,8 @@ import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
 import mx.managers.IFocusManagerComponent;
 
-import flashx.tcal.events.SelectionEvent;
-import flashx.tcal.formats.LineBreak;
+import flashx.textLayout.events.SelectionEvent;
+import flashx.textLayout.formats.LineBreak;
 
 //--------------------------------------
 //  Events
