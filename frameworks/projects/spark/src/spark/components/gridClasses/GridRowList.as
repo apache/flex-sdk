@@ -199,7 +199,7 @@ public class GridRowList
         
         // This part can be optimized by a better search mechanism
         // Bookmarks, LRU node...etc...
-        var cur:GridRowNode = findNearest(index);
+        var cur:GridRowNode = findNearestLTE(index);
         if (cur && cur.rowIndex == index)
             return cur;
         
@@ -220,7 +220,7 @@ public class GridRowList
      *  Inserts a new node after the specified node. Returns
      *  the new node.
      */
-    private function insertAfter(node:GridRowNode, newNode:GridRowNode):void
+    public function insertAfter(node:GridRowNode, newNode:GridRowNode):void
     {
         newNode.prev = node;
         newNode.next = node.next;
@@ -237,7 +237,7 @@ public class GridRowList
      *  Inserts a new node after the specified node. Returns
      *  the new node.
      */
-    private function insertBefore(node:GridRowNode, newNode:GridRowNode):void
+    public function insertBefore(node:GridRowNode, newNode:GridRowNode):void
     {
         newNode.prev = node.prev;
         newNode.next = node;
@@ -360,7 +360,7 @@ public class GridRowList
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function findNearest(index:int):GridRowNode
+    public function findNearestLTE(index:int):GridRowNode
     {
         // use bookmarks? or maybe a least recently used one.
         if (!_head || index < 0)
@@ -394,17 +394,17 @@ public class GridRowList
         else if (recentNode && temp < lastToIndex && temp < index)
         {
             if (indexToRecent > 0)
-                result = findNearestBefore(index, recentNode);
+                result = findNearestLTEBefore(index, recentNode);
             else
-                result = findNearestAfter(index, recentNode);
+                result = findNearestLTEAfter(index, recentNode);
         }
         else if (lastToIndex < index)
         {
-            result = findNearestBefore(index, _tail);
+            result = findNearestLTEBefore(index, _tail);
         }
         else
         {
-            result = findNearestAfter(index, _head);
+            result = findNearestLTEAfter(index, _head);
         }
         
         recentNode = result;
@@ -417,7 +417,7 @@ public class GridRowList
      *  Searches for the node with the closest value less than the specified
      *  index. Searches forwards from the specified node.
      */
-    private function findNearestAfter(index:int, node:GridRowNode):GridRowNode
+    private function findNearestLTEAfter(index:int, node:GridRowNode):GridRowNode
     {
         var cur:GridRowNode = node;
         while (cur && cur.rowIndex < index)
@@ -437,7 +437,7 @@ public class GridRowList
      *  Searches for the node with the closest value less than the specified
      *  index. Searches backwards from the specified node.
      */
-    private function findNearestBefore(index:int, node:GridRowNode):GridRowNode
+    private function findNearestLTEBefore(index:int, node:GridRowNode):GridRowNode
     {
         var cur:GridRowNode = node;
         while (cur && cur.rowIndex > index)
@@ -471,7 +471,7 @@ public class GridRowList
      *  @private
      *  Removes specified node.
      */
-    private function removeNode(node:GridRowNode):void
+    public function removeNode(node:GridRowNode):void
     {
         if (node.prev == null)
             _head = node.next;
