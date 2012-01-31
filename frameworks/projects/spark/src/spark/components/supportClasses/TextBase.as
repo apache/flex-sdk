@@ -31,7 +31,7 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 import spark.components.Group;
-import spark.layout.BasicLayout;
+import spark.layouts.BasicLayout;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
