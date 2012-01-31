@@ -343,6 +343,13 @@ include "../styles/metadata/IconColorStyles.as"
 [Exclude(name="iconFunction", kind="property")]
 [Exclude(name="labelField", kind="property")]
 [Exclude(name="offscreenExtraRowsOrColumns", kind="property")]
+[Exclude(name="offscreenExtraRows", kind="property")]
+[Exclude(name="offscreenExtraRowsTop", kind="property")]
+[Exclude(name="offscreenExtraRowsBottom", kind="property")]
+[Exclude(name="offscreenExtraColumns", kind="property")]
+[Exclude(name="offscreenExtraColumnsLeft", kind="property")]
+[Exclude(name="offscreenExtraColumnsRight", kind="property")]
+[Exclude(name="offscreenExtraRowsOrColumnsChanged", kind="property")]
 [Exclude(name="showDataTips", kind="property")]
 [Exclude(name="cornerRadius", kind="style")]
 
