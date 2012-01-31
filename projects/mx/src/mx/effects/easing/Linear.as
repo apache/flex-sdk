@@ -13,6 +13,15 @@ package mx.effects.easing
 {
 
 /**
+ *  The new effects provided as of Flex 4 use classes which implement the 
+ *  IEaser interface instead of the easing functions in classes like Linear for 
+ *  the earlier Flex 3 effects. To achieve the same functionality of the old
+ *  Linear class, create a new instance of spark.effects.easing.Linear or call
+ *  spark.effects.easing.Linear.getInstance() to get a singleton instance.
+ */
+[Alternative(replacement="spark.effects.easing.Linear", since="4.0")]
+
+/**
  *  The Linear class defines easing functions to implement 
  *  linear motion with Flex effect classes. 
  *
