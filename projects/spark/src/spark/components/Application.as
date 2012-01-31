@@ -237,6 +237,8 @@ public class Application extends SkinnableContainer
         super();
                     
         showInAutomationHierarchy = true;
+        
+        initResizeBehavior();
     }
 
     //--------------------------------------------------------------------------
@@ -278,6 +280,11 @@ public class Application extends SkinnableContainer
      *  height of the Application should be modified.
      */
     private var resizeHeight:Boolean = true;
+    
+    /**
+     *  @private
+     */ 
+    private var synchronousResize:Boolean = false;
     
     /**
      * @private
@@ -1167,6 +1174,19 @@ public class Application extends SkinnableContainer
             InteractiveObject(systemManager).contextMenu = defaultMenu;
     }
 
+    /**
+     *  @private
+     *  Check to see if we're able to synchronize our size with the stage
+     *  immediately rather than deferring (dependent on WATSON 2200950).
+     */
+    private function initResizeBehavior():void
+    {
+        var version:Array = Capabilities.version.split(' ')[1].split(',');
+        
+        synchronousResize = (parseFloat(version[0]) > 10 || 
+            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1));
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1185,7 +1205,14 @@ public class Application extends SkinnableContainer
         // If we're already due to update our bounds on the next
         // commitProperties pass, avoid the redundancy.
         if (!percentBoundsChanged)
+        {
             updateBounds();
+            
+            // Update immediately when stage resizes so that we may appear 
+            // in synch with the stage rather than visually "catching up".
+            if (synchronousResize) 
+                UIComponentGlobals.layoutManager.validateNow();
+        }
     }
     
     /**
