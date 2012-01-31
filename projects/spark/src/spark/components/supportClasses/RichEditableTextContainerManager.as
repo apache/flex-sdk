@@ -128,11 +128,15 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var width:Number = textDisplay.width;
         var height:Number = textDisplay.height;
         
-        // (FIXME) cframpto: is this still really needed?
-        if (!textDisplay.autoSize && (isNaN(width) || isNaN(height)))
-            return false;  // just measuring!
-        
         var contentBounds:Rectangle = getContentBounds();
+        
+        // If measuring width, use the content width.
+        if (isNaN(width))
+            width = contentBounds.right;
+        
+        // If measuring height, use the content height.
+        if (isNaN(height))
+            height = contentBounds.bottom;
         
         // If autoSize, and lineBreak="toFit there should never be 
         // a scroll rect but if lineBreak="explicit" the text may need
