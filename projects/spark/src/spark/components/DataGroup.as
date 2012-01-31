@@ -24,6 +24,11 @@ import mx.layout.LayoutElementFactory;
  * <code>event.renderer</code> is the renderer that was added.
  *
  *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
 
@@ -32,6 +37,11 @@ import mx.layout.LayoutElementFactory;
  * <code>event.renderer</code> is the renderer that was removed.
  *
  *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
 
@@ -52,11 +62,21 @@ import mx.layout.LayoutElementFactory;
  *  @see mx.components.Group
  *  @includeExample examples/DataGroupExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class DataGroup extends GroupBase 
 {
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function DataGroup()
     {
@@ -101,6 +121,11 @@ public class DataGroup extends GroupBase
      *  also be a member of the dataProvider IList.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get typicalItem():Object
     {
@@ -217,6 +242,11 @@ public class DataGroup extends GroupBase
      *  takes precedence over this property.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemRenderer():IFactory
     {
@@ -257,6 +287,11 @@ public class DataGroup extends GroupBase
      *    function itemRendererFunction(item:Object):IFactory</pre>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemRendererFunction():Function
     {
@@ -292,6 +327,11 @@ public class DataGroup extends GroupBase
      *
      *  @see #itemRenderer
      *  @see #itemRendererFunction
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get dataProvider():IList
     {
@@ -315,6 +355,11 @@ public class DataGroup extends GroupBase
     
     /**
      *  Cleans up all the old item renderers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function cleanUpDataProvider():void
     {
@@ -383,6 +428,11 @@ public class DataGroup extends GroupBase
     
     /**
      *  Adds the elements fo the dataProvider to the DataGroup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function initializeDataProvider():void
     {
@@ -427,6 +477,11 @@ public class DataGroup extends GroupBase
      *  @param item The data element.
      *
      *  @return The renderer that represents the data elelement.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function createRendererForItem(item:Object, failRTE:Boolean=true):IVisualElement
     {
@@ -739,6 +794,11 @@ public class DataGroup extends GroupBase
      *
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getElementAt(index:int):IVisualElement
     {
@@ -765,6 +825,11 @@ public class DataGroup extends GroupBase
              *  the same, or that some did implement IDataRenderer and others
              *  did not.   We can't handle the latter, and a DataGroup where
              *  all items are the same wouldn't be worth the trouble.
+             *  
+             *  @langversion 3.0
+             *  @playerversion Flash 10
+             *  @playerversion AIR 1.5
+             *  @productversion Flex 4
              */
             if (virtualLayoutStartIndex == -1)  // initialized in updateDisplayList()
             {
@@ -828,6 +893,11 @@ public class DataGroup extends GroupBase
      * 
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getElementIndex(element:IVisualElement):int
     {
@@ -855,6 +925,11 @@ public class DataGroup extends GroupBase
      *
      *  @param item The item that was added, the value of dataProvider[index].
      *  @param index The index where the dataProvider item was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     mx_internal function itemAdded(item:Object, index:int):void
     {
@@ -895,6 +970,11 @@ public class DataGroup extends GroupBase
      *  @param item The item that is being removed.
      * 
      *  @param index The index of the item that is being removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     mx_internal function itemRemoved(item:Object, index:int):void
     {
@@ -945,6 +1025,11 @@ public class DataGroup extends GroupBase
      *  @param index Index position where the display object will be added.
      * 
      *  @return DisplayObject that was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
     { 
@@ -984,6 +1069,11 @@ public class DataGroup extends GroupBase
      *  events and update our children based on that.
      *
      *  @param event The collection change event
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
@@ -1131,6 +1221,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>addChild()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
@@ -1144,6 +1239,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>addChildAt()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
@@ -1157,6 +1257,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>removeChild()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
@@ -1170,6 +1275,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>removeChildAt()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function removeChildAt(index:int):DisplayObject
     {
@@ -1183,6 +1293,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>setChildIndex()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
@@ -1196,6 +1311,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>swapChildren()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
@@ -1209,6 +1329,11 @@ public class DataGroup extends GroupBase
      *  and you should not call <code>swapChildrenAt()</code> directly.
      *  If you want to add, remove, or swap items around, modify the 
      *  <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
