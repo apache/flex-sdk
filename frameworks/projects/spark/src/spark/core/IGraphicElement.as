@@ -11,13 +11,11 @@
 package mx.graphics
 {
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
-
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
-
-import mx.components.baseClasses.GroupBase;
 
 /**
  *  The IGraphicElement interface is implemented by all child tags of Graphic and Group.
@@ -32,14 +30,14 @@ public interface IGraphicElement
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  elementHost
+    //  parent
     //----------------------------------
     
     /**
      *  @private
      */
-    function get elementHost():GroupBase;
-    function set elementHost(value:GroupBase):void;
+    function get parent():DisplayObjectContainer;
+    function set parent(value:DisplayObjectContainer):void;
 
     //----------------------------------
     //  alpha
