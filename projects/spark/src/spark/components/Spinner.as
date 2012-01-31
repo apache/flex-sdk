@@ -226,8 +226,6 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Adds complex behavior to step in order to adhere to
-     *  multiples of stepSize (including maximum and minimum).
      */
     override public function step(increase:Boolean = true):void
     {
@@ -235,47 +233,9 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
             return;
 
         if (increase)
-        {
-            if (value == maximum && valueWrap)
-            {
-                // Check for value wrapping
-                setValue(minimum);
-            }
-            else if (value == minimum)
-            {
-                // Edge case when going up from the minimum.
-                var steppedDown:Number = stepSize * Math.ceil(minimum / stepSize);
-                if (steppedDown == minimum)
-                    setValue(minimum + stepSize);
-                else
-                    setValue(steppedDown);
-            }
-            else
-            {
-                setValue(nearestValidValue(value + stepSize, stepSize));
-            }
-        }
+            value = (valueWrap && (value == maximum)) ? minimum : value + stepSize;
         else
-        {
-            if (value == minimum && valueWrap)
-            {
-                // Check for value wrapping
-                setValue(maximum);
-            }
-            else if (value == maximum)
-            {
-                // Edge case when coming down from the maximum
-                var steppedUp:Number = stepSize * Math.floor(maximum / stepSize);
-                if (steppedUp == maximum)
-                    setValue(maximum - stepSize);
-                else
-                    setValue(steppedUp);
-            }
-            else
-            {
-                setValue(nearestValidValue(value - stepSize, stepSize));
-            }
-        }
+            value = (valueWrap && (value == minimum)) ? maximum : value - stepSize;
     }
     
     //--------------------------------------------------------------------------
