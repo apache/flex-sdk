@@ -309,8 +309,12 @@ public class TitleWindow extends Panel
      */
     override protected function initializeAccessibility():void
     {
-        if (TitleWindow.createAccessibilityImplementation != null)
-            TitleWindow.createAccessibilityImplementation(this);
+		// Do nothing... don't even call super.
+		// The TitleWindowAccImpl needs to be attached not to the TitleWindow
+		// but to the TitleWindow's titleDisplay, which is a skin part
+		// which may not exist initially and which may come and go.
+		// So we have to create and attach the TitleWindowAccImpl
+		// in partAdded() instead.
     }
 
     /**
@@ -354,8 +358,22 @@ public class TitleWindow extends Panel
      */
     override protected function partAdded(partName:String, instance:Object) : void
     {
-        super.partAdded(partName, instance);
-        
+		if (instance == titleDisplay)
+		{
+			// Since the TitleWindowAccImpl must be attached to the TitleWindow's
+			// titleDisplay instead of to the TitleWindow itself, we delay doing this
+			// until we are sure there is a titleDisplay, and we do it again if it gets
+			// re-added.
+			// We also do it before calling the supermethod on Panel,
+			// which creates a PanelAccImpl but only if an acc impl doesn't already exist.
+			// In this way we avoid TitleWindow creating both a TitleWindowAccImpl
+			// and a PanelAccImpl.
+			if (TitleWindow.createAccessibilityImplementation != null)
+				TitleWindow.createAccessibilityImplementation(this);
+		}
+
+		super.partAdded(partName, instance);
+		
         if (instance == moveArea)
         {
             moveArea.addEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
@@ -373,6 +391,9 @@ public class TitleWindow extends Panel
     override protected function partRemoved(partName:String, instance:Object):void
     {
         super.partRemoved(partName, instance);
+
+		// Nulling of titleDisplay.accessibilityImplementation when the titleDisplay
+		// is removed is handled by the supermethod.
                                                 
         if (instance == moveArea)
             moveArea.removeEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
