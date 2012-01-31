@@ -11,12 +11,15 @@
 
 package spark.components
 {
+import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
+    
 import spark.components.supportClasses.ScrollBar;
 import spark.core.NavigationUnit;
 import spark.core.IViewport;
-import mx.core.ILayoutElement;
-import mx.events.PropertyChangeEvent;
-import mx.events.ResizeEvent;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
@@ -283,7 +286,7 @@ public class HScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    override mx_internal function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
             value = viewport.horizontalScrollPosition;
@@ -298,7 +301,7 @@ public class HScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportResizeHandler(event:ResizeEvent):void
+    override mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
         if (viewport)
         {
@@ -324,7 +327,7 @@ public class HScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
+    override mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
             maximum = viewport.contentWidth - viewport.width;
