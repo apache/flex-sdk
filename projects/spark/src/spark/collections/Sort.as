@@ -19,6 +19,7 @@ import flash.events.EventDispatcher;
 import mx.collections.ISort;
 import mx.collections.ISortField;
 import mx.collections.errors.SortError;
+import mx.core.FlexGlobals;
 import mx.core.UIComponent;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
@@ -52,10 +53,10 @@ import mx.utils.ObjectUtil;
 
 /**
  *  Provides the sorting information required to establish a sort on an
- *  existing view (ICollectionView interface or class that implements the
- *  interface). After you assign a Sort instance to the view's
+ *  existing view (<code>ICollectionView</code> interface or class that 
+ *  implements the interface). After you assign a <code>Sort</code> instance to the view's
  *  <code>sort</code> property, you must call the view's
- * <code>refresh()</code> method to apply the sort criteria.
+ *  <code>refresh()</code> method to apply the sort criteria.
  *
  *  <p>Typically the sort is defined for collections of complex items, that is 
  *  collections in which the sort is performed on one or more properties of 
@@ -106,13 +107,13 @@ import mx.utils.ObjectUtil;
  *  </code></pre>
  *  </p>
  *
- *  <p>The Flex implementations of the ICollectionView interface retrieve 
- *  all items from a remote location before executing a sort.
+ *  <p>The Flex implementations of the <code>ICollectionView</code> interface 
+ *  retrieve all items from a remote location before executing a sort.
  *  If you use paging with a sorted list, apply the sort to the remote
  *  collection before you retrieve the data.
  *  </p>
  *
- *  <p>The default comparison provided by the SortField class 
+ *  <p>The default comparison provided by the <code>SortField</code> class 
  *  provides correct language specific
  *  sorting for strings. The language is selected by the setting the locale
  *  style on an instance of the class in one of the following ways:
@@ -123,23 +124,23 @@ import mx.utils.ObjectUtil;
  *  locale from the document that contains the declaration.
  *  </li>
  *  Example:
- *  <listing version="3.0" >
+ *  <pre>
  *  &lt;fx:Declarations&gt; <br>
  *         &lt;s:SortField id="sf" /&gt; <br>
  *  &lt;/fx:Declarations&gt;
- *  </listing>
+ *  </pre>
  *  <li>
  *  By using an MXML declaration and specifying the locale value
  *  in the list of assignments.
  *  </li>
  *  Example:
- *  <listing version="3.0" >
+ *  <pre>
  *  &lt;fx:Declarations&gt; <br>
  *      &lt;s:SortField id="sf_SimplifiedChinese" locale="zh-Hans-CN" /&gt; <br>
  *  &lt;/fx:Declarations&gt;
- *  </listing>
+ *  </pre>
  *  <li>
- *  Calling the setStyle method,
+ *  Calling the <code>setStyle</code> method,
  *  e.g. <code>sf.setStyle("locale", "zh-Hans-CN")</code>
  *  </li>
  *  <li> 
@@ -162,7 +163,10 @@ import mx.utils.ObjectUtil;
  *  /&gt;
  *  </pre>
  *
-  
+ *  <p>In case items have inconsistent data types or items have complex data types, use of default
+ *  built-in compare functions is not desired. Inconsistent sort result may occur in such cases.
+ *  To avoid such problem, provide custom compare function and/or make item types consistent.</p>
+ *
  *  @includeExample examples/SortExample1.mxml
  *  @includeExample examples/SortExample2.mxml
  * 
@@ -396,6 +400,47 @@ public class Sort extends AdvancedStyleClient implements ISort
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+    *  @private
+    */
+    override public function getStyle(styleProp:String):*
+    {
+        if (styleProp != "locale")
+            return super.getStyle(styleProp);
+
+        if ((localeStyle !== undefined) && (localeStyle !== null))
+            return localeStyle;
+
+        if (styleParent)
+            return styleParent.getStyle(styleProp);
+
+        if (FlexGlobals.topLevelApplication)
+            return FlexGlobals.topLevelApplication.getStyle(styleProp);
+
+        return undefined;
+    }
+
+    /**
+     *  @private
+     *  Intercept style change for "locale".
+     *
+     *  In the case that there is no associated UI component or the
+     *  module factory of the UIComponent has not yet been intialized
+     *  style changes are only recorded but the styleChanged method
+     *  is not called.  Overriding the setStyle method allows
+     *  the class to be updated immediately when the locale style is
+     *  set directly on this class instance.
+     */
+    override public function setStyle(styleProp:String, newValue:*):void
+    {
+        super.setStyle(styleProp, newValue);
+
+        if (styleProp != "locale")
+            return;
+
+        localeChanged();
+    }
 
     /**
      *  @private
@@ -778,6 +823,32 @@ public class Sort extends AdvancedStyleClient implements ISort
 
     /**
      *  @private
+     *  Ensure some style source exists for this instance of a globalization
+     *  object.
+     *
+     *  A style source is considered exist if (A) styleParent value is non-null,
+     *  or (B) localeStyle value has some useable value.
+     *  If neither is the case, this style client will be added to the
+     *  FlexGlobals.topLevelApplication as a child if possible.
+     *
+     *  As a side effect this will call the styleChanged method and if the
+     *  locale has changed will cause the createWorkingInstance method
+     *  to be called.
+     */
+    private function ensureStyleSource():void
+    {
+        if (!styleParent &&
+            ((localeStyle === undefined) || (localeStyle === null)))
+        {
+            if (FlexGlobals.topLevelApplication) 
+            {
+                FlexGlobals.topLevelApplication.addStyleClient(this);
+            }
+        }
+    }
+
+    /**
+     *  @private
      *  Make sure all SortFields are ready to execute their comparators.
      */
     private function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
@@ -858,11 +929,13 @@ public class Sort extends AdvancedStyleClient implements ISort
     {
         if (!defaultEmptyField)
         {
+            ensureStyleSource();
+
             defaultEmptyField = new SortField();
-            const locale:String = getStyle("locale");
-            if (!locale)
-                throw new IllegalOperationError("Undefined locale");
-            defaultEmptyField.setStyle("locale", locale);
+            const locale:* = getStyle("locale");
+            if (locale !== undefined)
+                defaultEmptyField.setStyle("locale", locale);
+
             try
             {
                 defaultEmptyField.initializeDefaultCompareFunction(a);
@@ -899,12 +972,14 @@ public class Sort extends AdvancedStyleClient implements ISort
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:* = getStyle("locale");
+        const newlocaleStyle:* = super.getStyle("locale");
 
         if (localeStyle === newlocaleStyle)
             return;
 
         localeStyle = newlocaleStyle;
+        if (defaultEmptyField)
+            defaultEmptyField.setStyle("locale", localeStyle);
 
         dispatchEvent(new Event(Event.CHANGE));
     }
