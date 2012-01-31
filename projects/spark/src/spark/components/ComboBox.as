@@ -318,6 +318,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     //--------------------------------------------------------------------------
     //  labelToItemFunction
     //--------------------------------------------------------------------------
+    
     private var _labelToItemFunction:Function;
     private var labelToItemFunctionChanged:Boolean = false;
     
@@ -367,6 +368,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     
     private var _maxChars:int = 0;
     private var maxCharsChanged:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="0")]
     
     /**
      *  The maximum number of characters that the prompt area can contain, as entered by a user. 
@@ -420,6 +423,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     private var _prompt:String;
     private var promptChanged:Boolean;
     
+    [Inspectable(category="General")]
+    
     /**
      *  Text to be displayed if/when the input text is null.
      * 
@@ -471,6 +476,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     private var _restrict:String;
     private var restrictChanged:Boolean;
     
+    [Inspectable(category="General", defaultValue="")]
+    
     /**
      *  Specifies the set of characters that a user can enter into the prompt area.
      *  By default, the user can enter any characters, corresponding to a value of
@@ -507,6 +514,10 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     //
     //--------------------------------------------------------------------------
     
+    //--------------------------------------------------------------------------
+    //  baselinePosition
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      */
@@ -514,6 +525,12 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     {
         return getBaselinePositionForPart(textInput);
     }
+    
+    //--------------------------------------------------------------------------
+    //  selectedIndex
+    //--------------------------------------------------------------------------
+    
+    [Inspectable(category="General", defaultValue="-1")]
     
     /**
      *  @private 
@@ -524,7 +541,13 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         actualProposedSelectedIndex = value;
     }
     
+    //--------------------------------------------------------------------------
+    //  typicalItem
+    //--------------------------------------------------------------------------
+    
     private var typicalItemChanged:Boolean = false;
+    
+    [Inspectable(category="Data")]
     
     /**
      *  @private
@@ -539,6 +562,10 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         typicalItemChanged = true;
         invalidateProperties();
     }
+    
+    //--------------------------------------------------------------------------
+    //  userProposedSelectedIndex
+    //--------------------------------------------------------------------------
     
     /**
      *  @private 
@@ -1052,7 +1079,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public  function get enableIME():Boolean
+    public function get enableIME():Boolean
     {
         if (textInput)
         {
@@ -1074,7 +1101,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public  function get imeMode():String
+    public function get imeMode():String
     {
         if (textInput)
         {
