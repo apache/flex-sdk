@@ -613,15 +613,30 @@ public class RichText extends TextGraphicElement
 		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
-        bounds.width = width;
+        bounds.width = isNaN(width) ? maxWidth : width;
         bounds.height = height;
 
         mx_internal::removeTextLines();
+        mx_internal::textLines.length = 0;
+        
         createTextLines();
-        mx_internal::addTextLines(DisplayObjectContainer(displayObject));
+                    
+        // If toFit and explicit width, adjust the bounds to match.
+        // This will save a recompose and/or clip in updateDisplayList() if 
+        // the bounds width matches the unscaled width.
+        if (getStyle("lineBreak") == "toFit" && !isNaN(width) && 
+            mx_internal::bounds.width < width)
+        {
+            mx_internal::bounds.width = width;
+        }                                                           
+        
+        mx_internal::addTextLines(DisplayObjectContainer(drawnDisplayObject));
+        
+        // Figure out if the text overruns the available space for composition.
+        mx_internal::isOverset = mx_internal::isTextOverset(width, height);
         
 		// Just recomposed so reset.
-        mx_internal::stylesChanged = false;
+        mx_internal::invalidateCompose = false;
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
@@ -667,6 +682,9 @@ public class RichText extends TextGraphicElement
      */
     override protected function composeOnHeightChange():Boolean
     {
+        if (super.composeOnHeightChange())
+            return true;
+
         var topAligned:Boolean =
             textFlow.hostTextLayoutFormat.verticalAlign == "top";
 
@@ -680,6 +698,9 @@ public class RichText extends TextGraphicElement
      */
     override protected function composeOnWidthChange():Boolean
     {
+        if (super.composeOnWidthChange())
+            return true;
+
         var direction:String = textFlow.hostTextLayoutFormat.direction;
         var textAlign:String = textFlow.hostTextLayoutFormat.textAlign;
         var leftAligned:Boolean =
@@ -710,8 +731,8 @@ public class RichText extends TextGraphicElement
         // Invalidate text.
         textInvalid = true;
         
-        // Invalidate styles.
-        mx_internal::stylesChanged = true;
+        // Force recompose since text and/or styles may have changed.
+        mx_internal::invalidateCompose = true;
 
         // This is smart enough not to remeasure if the explicit width/height
         // were specified.
