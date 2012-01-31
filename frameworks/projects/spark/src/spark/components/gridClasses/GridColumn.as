@@ -23,7 +23,6 @@ import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 import mx.utils.ObjectUtil;
 
-import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.gridClasses.DefaultGridItemEditor;
 
@@ -42,7 +41,13 @@ use namespace mx_internal;
  */   
 public class GridColumn extends EventDispatcher
 {
-    include "../../core/Version.as";    
+    include "../../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  The return value for itemToLabel() or itemToDataTip() if resolving the corresponding
@@ -50,14 +55,29 @@ public class GridColumn extends EventDispatcher
      * 
      *  @see itemToLabel
      *  @see itemToDataTip
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public static const ERROR_TEXT:String = new String(" ");
     
-    /**
-     *  @private
-     */   
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables and methods
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  defaultItemEditorFactory
+    //----------------------------------
+    
     private static var _defaultItemEditorFactory:IFactory;
     
+    /**
+     *  @private
+     */
     mx_internal static function get defaultItemEditorFactory():IFactory
     {
         if (!_defaultItemEditorFactory)
@@ -147,6 +167,11 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  The Grid this whose list of columns contains this Column, or null.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get grid():Grid
     {
@@ -177,6 +202,11 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  The position of this column in the grid's column list, or -1 if this column's grid is null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get columnIndex():int
     {
@@ -205,6 +235,11 @@ public class GridColumn extends EventDispatcher
      * 
      *  @see itemToLabel
      *  @see labelFunction
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get dataField():String
     {
@@ -261,6 +296,11 @@ public class GridColumn extends EventDispatcher
      *  @default null
      *  @see dataTipFunction
      *  @see itemToDataTip
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get dataTipField():String
     {
@@ -314,6 +354,11 @@ public class GridColumn extends EventDispatcher
      * 
      *  @see itemToDataTip
      *  @see dataTipField
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get dataTipFunction():Function
     {
@@ -342,6 +387,7 @@ public class GridColumn extends EventDispatcher
     
     private var _editable:Boolean = true;
     
+    [Bindable("editableChanged")]
     [Inspectable(category="General")]
     
     /**
@@ -355,8 +401,8 @@ public class GridColumn extends EventDispatcher
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get editable():Boolean
@@ -369,7 +415,11 @@ public class GridColumn extends EventDispatcher
      */
     public function set editable(value:Boolean):void
     {
+        if (_editable == value)
+            return;
+        
         _editable = value;
+        dispatchChangeEvent("editableChanged");
     }
     
     //----------------------------------
@@ -388,6 +438,11 @@ public class GridColumn extends EventDispatcher
      *
      *  @see #headerText
      *  @see IGridItemRenderer
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get headerRenderer():IFactory
     {
@@ -404,7 +459,7 @@ public class GridColumn extends EventDispatcher
         
         _headerRenderer = value;
         
-        // TBD(hmuller) invalidate CHB
+        // TBD(hmuller): invalidate CHB
         
         dispatchChangeEvent("headerRendererChanged");
     }
@@ -413,10 +468,6 @@ public class GridColumn extends EventDispatcher
     //  headerText
     //----------------------------------
     
-    /**
-     *  @private
-     *  Storage for the headerText property.
-     */
     private var _headerText:String;
     
     [Bindable("headerTextChanged")]
@@ -428,7 +479,7 @@ public class GridColumn extends EventDispatcher
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get headerText():String
@@ -454,9 +505,6 @@ public class GridColumn extends EventDispatcher
     //  imeMode
     //----------------------------------
     
-    /**
-     *  @private
-     */
     private var _imeMode:String = null;
     
     [Inspectable(environment="none")]
@@ -476,8 +524,8 @@ public class GridColumn extends EventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get imeMode():String
@@ -512,8 +560,8 @@ public class GridColumn extends EventDispatcher
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get itemEditor():IFactory
@@ -555,6 +603,11 @@ public class GridColumn extends EventDispatcher
      *
      *  @see #dataField 
      *  @see GridItemRenderer
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get itemRenderer():IFactory
     {
@@ -609,6 +662,11 @@ public class GridColumn extends EventDispatcher
      *  </pre>
      *  
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get itemRendererFunction():Function
     {
@@ -665,6 +723,11 @@ public class GridColumn extends EventDispatcher
      * 
      *  @see itemToLabel
      *  @see dataField
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get labelFunction():Function
     {
@@ -701,6 +764,11 @@ public class GridColumn extends EventDispatcher
      *  typicalItem and this column's minWidth and maxWidth.
      * 
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get width():Number
     {
@@ -746,6 +814,11 @@ public class GridColumn extends EventDispatcher
      *  Setting this property will not change the width or maxWidth properties.
      *  
      *  @default 20
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get minWidth():Number
     {
@@ -789,6 +862,11 @@ public class GridColumn extends EventDispatcher
      *  Setting this property will not change the width or minWidth properties.
      *
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get maxWidth():Number
     {
@@ -830,6 +908,11 @@ public class GridColumn extends EventDispatcher
      *  renderer.
      * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get rendererIsEditable():Boolean
     {
@@ -857,6 +940,11 @@ public class GridColumn extends EventDispatcher
      *  <code>resizableColumns</code> property is also <code>true</code>.
      * 
      *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get resizable():Boolean
     {
@@ -893,6 +981,11 @@ public class GridColumn extends EventDispatcher
      *  @default undefined
      * 
      *  @see #getShowDataTips
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get showDataTips():*
     {
@@ -915,7 +1008,9 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("showDataTipsChanged");        
     }
     
-
+    /**
+     *  @private
+     */
     mx_internal function getShowDataTips():Boolean
     {
         return (showDataTips === undefined) ? grid && grid.showDataTips : showDataTips;    
@@ -940,6 +1035,11 @@ public class GridColumn extends EventDispatcher
      *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
      *  
      *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get sortable():Boolean
     {
@@ -965,10 +1065,6 @@ public class GridColumn extends EventDispatcher
     //  sortCompareFunction
     //----------------------------------
     
-    /**
-     *  @private
-     *  Storage for the sortCompareFunction property.
-     */
     private var _sortCompareFunction:Function;
     
     [Bindable("sortCompareFunctionChanged")]
@@ -1003,6 +1099,11 @@ public class GridColumn extends EventDispatcher
      *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
      *  
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get sortCompareFunction():Function
     {
@@ -1041,6 +1142,11 @@ public class GridColumn extends EventDispatcher
      *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
      * 
      *  @default false;
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get sortDescending():Boolean
     {
@@ -1077,6 +1183,11 @@ public class GridColumn extends EventDispatcher
      *  labelFunction is defined, then it assigns the compareFunction to a 
      *  closure that does a basic string compare on the labelFunction applied
      *  to the data objects.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get sortField():SortField
     {
@@ -1129,6 +1240,11 @@ public class GridColumn extends EventDispatcher
      *  for this column; it will not be included in the layout.
      * 
      *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get visible():Boolean
     {
@@ -1217,6 +1333,11 @@ public class GridColumn extends EventDispatcher
      *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
      * 
      *  @return A column-specific string for the specified dataProvider item or ERROR_TEXT.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function itemToLabel(item:Object):String
     {
@@ -1241,6 +1362,11 @@ public class GridColumn extends EventDispatcher
      *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
      * 
      *  @return A column-specific string for the specified dataProvider item or ERROR_TEXT.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function itemToDataTip(item:Object):String
     {
@@ -1260,6 +1386,11 @@ public class GridColumn extends EventDispatcher
      *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
      * 
      *  @return A column-specific item renderer factory for the specified dataProvider item.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function itemToRenderer(item:Object):IFactory
     {
@@ -1289,4 +1420,3 @@ public class GridColumn extends EventDispatcher
     }
 }
 }
-
