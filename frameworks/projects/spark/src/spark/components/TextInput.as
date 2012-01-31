@@ -11,15 +11,19 @@
 
 package spark.components
 {
-    
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import spark.components.supportClasses.TextBase;
+import flashx.textLayout.formats.LineBreak;
+
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+    
+import spark.components.supportClasses.SkinnableTextBase;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.TextOperationEvent;
 
-import flashx.textLayout.formats.LineBreak;
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -87,7 +91,7 @@ import flashx.textLayout.formats.LineBreak;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextInput extends TextBase
+public class TextInput extends SkinnableTextBase
 {
     include "../core/Version.as";
 
@@ -135,8 +139,36 @@ public class TextInput extends TextBase
         
         // Trigger bindings to textChanged.
         dispatchEvent(new Event("textChanged"));
+
+        // The default event to trigger a validator.
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                   
     }
 
+    //----------------------------------
+    //  widthInChars
+    //----------------------------------
+
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get widthInChars():Number
+    {
+        return getWidthInChars();
+    }
+
+    /**
+     *  @private
+     */
+    public function set widthInChars(value:Number):void
+    {
+        setWidthInChars(value);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -150,16 +182,12 @@ public class TextInput extends TextBase
     {
         super.partAdded(partName, instance);
 
-        if (instance == textView)
+        if (instance == textDisplay)
         {
-            // In default.css, the TextInput selector has a declaration
-            // for lineBreak which sets it to "explicit".  It needs to be on
-            // TextInput rather than RichEditableText so that if changed later it
-            // will be inherited.
-            textView.multiline = false;
+            textDisplay.multiline = false;
             
             // TextInput should always be 1 line.
-            textView.heightInLines = 1;
+            textDisplay.heightInLines = 1;
         }
     }
 }
