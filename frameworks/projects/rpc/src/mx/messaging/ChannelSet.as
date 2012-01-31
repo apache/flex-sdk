@@ -1498,10 +1498,11 @@ public class ChannelSet extends EventDispatcher
 //------------------------------------------------------------------------------
 
 import mx.core.mx_internal;
+import mx.logging.Log;
 import mx.messaging.ChannelSet;
 import mx.messaging.MessageAgent;
 import mx.messaging.MessageResponder;
-import mx.logging.Log;
+import mx.messaging.events.ChannelEvent;
 import mx.messaging.messages.IMessage;
 import mx.messaging.messages.AcknowledgeMessage;
 import mx.messaging.messages.CommandMessage;
@@ -1747,6 +1748,19 @@ class AuthenticationAgent extends MessageAgent
     {
         if (state == SHUTDOWN_STATE)
             return;
+        
+        // For some channel impls, when a logout request is processed the session at the remote host host
+        // is invalidated which may trigger a disconnection/drop of the channel connection.
+        // This channel disconnect may mask the logout ack. If the root cause for this error is a channel disconnect,
+        // assume logout succeeded and locally acknowledge it.
+        if (errMsg.rootCause is ChannelEvent && (errMsg.rootCause as ChannelEvent).type == ChannelEvent.DISCONNECT)
+        {
+            var ackMsg:AcknowledgeMessage = new AcknowledgeMessage();
+            ackMsg.clientId = clientId;            
+            ackMsg.correlationId = msg.messageId;
+            acknowledge(ackMsg, msg);
+            return;
+        }
         
         super.fault(errMsg, msg);
         
