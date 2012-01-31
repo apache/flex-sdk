@@ -510,15 +510,8 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      */
     override public function get baselinePosition():Number
     {
-        var isEmpty:Boolean = text == "";
-        
-        if (isEmpty)
-            text = "Wj";
-
-        validateBaselinePosition();
-        
-        if (isEmpty)
-            text = "";
+        // Update ascent, if fontMetrics changed.
+        calculateFontMetrics();    
 
         return getStyle("paddingTop") + ascent;
     }
@@ -1609,13 +1602,8 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     {
         super.measure();
         
-        // Recalculate the ascent, and descent
-        // if these might have changed.
-        if (fontMetricsInvalid)
-        {
-            calculateFontMetrics();    
-            fontMetricsInvalid = false;
-        }
+        // Recalculate the ascent, and descent, if fontMetrics changed.
+        calculateFontMetrics();    
     
         if (_autoSize)
         {
@@ -2175,6 +2163,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      */
     private function calculateFontMetrics():void
     {
+        if (!fontMetricsInvalid)
+            return;
+            
         // If the CSS styles for this component specify an embedded font,
         // embeddedFontContext will be set to the module factory that
         // should create TextLines (since they must be created in the
@@ -2233,6 +2224,8 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         
         ascent = textLine.ascent;
         descent = textLine.descent;
+
+        fontMetricsInvalid = false;                    
     }
     
     /**
