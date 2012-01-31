@@ -1056,14 +1056,7 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         super.partAdded(partName, instance);
 
-        if (instance == dataGroup)
-        {
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-        else if (instance == scroller)
+        if (instance == scroller)
         {
             scroller.hasFocusableChildren = hasFocusableChildren;
             
@@ -1082,22 +1075,6 @@ public class List extends ListBase implements IFocusManagerComponent
         }
     }
 
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        if (instance == dataGroup)
-        {
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-
-        super.partRemoved(partName, instance);
-    }
-    
     /**
      *  @private
      *  Called when an item has been added to this component.
@@ -2309,9 +2286,10 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been added to this component.
      */
-    private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
+    override protected function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
-        var index:int = event.index;
+        super.dataGroup_rendererAddHandler(event);
+        
         var renderer:IVisualElement = event.renderer;
         
         if (!renderer)
@@ -2324,9 +2302,10 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been removed from this component.
      */
-    private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
+    override protected function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
     {
-        var index:int = event.index;
+        super.dataGroup_rendererRemoveHandler(event);
+        
         var renderer:Object = event.renderer;
         
         if (!renderer)
