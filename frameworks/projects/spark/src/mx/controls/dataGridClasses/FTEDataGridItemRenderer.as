@@ -27,7 +27,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IToolTip;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
-import mx.core.UITLFTextField;
+import mx.core.UIFTETextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.InterManagerRequest;
@@ -59,8 +59,8 @@ use namespace mx_internal;
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
- *  The DataGridItemRenderer class defines the default item renderer for a DataGrid control. 
- *  By default, the item renderer 
+ *  The FTEDataGridItemRenderer class defines the default item renderer for a 
+ *  DataGrid control used with FTEText. By default, the item renderer 
  *  draws the text associated with each item in the grid.
  *
  *  <p>You can override the default item renderer by creating a custom item renderer.</p>
@@ -74,7 +74,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class TLFDataGridItemRenderer extends UITLFTextField
+public class FTEDataGridItemRenderer extends UIFTETextField
                                   implements IDataRenderer,
                                   IDropInListItemRenderer, ILayoutManagerClient,
                                   IListItemRenderer, IStyleClient
@@ -95,7 +95,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function TLFDataGridItemRenderer()
+    public function FTEDataGridItemRenderer()
     {
         super();
 
@@ -684,7 +684,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
 
         while (className != null &&
                className != "mx.core.UIComponent" &&
-               className != "mx.core.UITLFTextField")
+               className != "mx.core.UIFTETextField")
         {
             var s:CSSStyleDeclaration =
                 styleManager.getStyleDeclaration(className);
