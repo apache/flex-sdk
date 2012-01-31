@@ -39,17 +39,30 @@ import spark.events.TrackBaseEvent;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  Dispatched before the value of the control changes
- *  as a result of user interaction.
+ *  Dispatched at the end of a user interaction 
+ *  or when an animation ends.
  *
- *  @eventType mx.events.FlexEvent.CHANGING
+ *  @eventType mx.events.FlexEvent.CHANGE_END
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="mx.events.FlexEvent")]
+[Event(name="changeEnd", type="mx.events.FlexEvent")]
+
+/**
+ *  Dispatched at the start of a user interaction 
+ *  or when an animation starts.
+ *
+ *  @eventType mx.events.FlexEvent.CHANGE_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="changeStart", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the thumb is pressed and then moved by the mouse.
@@ -367,6 +380,19 @@ public class TrackBase extends Range
     }
 
     /**
+     *  @private
+     */
+    override public function changeValueByStep(increase:Boolean = true):void
+    {
+        var prevValue:Number = this.value;
+        
+        super.changeValueByStep(increase);
+        
+        if (value != prevValue)
+            dispatchEvent(new Event(Event.CHANGE));
+    }
+    
+    /**
      *  @private   
      */
     override protected function getCurrentSkinState():String
@@ -540,9 +566,9 @@ public class TrackBase extends Range
             system_mouseUpHandler);
         
         clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
+        
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
-
-		dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
+        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
     }
 
     /**
@@ -563,6 +589,7 @@ public class TrackBase extends Range
         {
             setValue(newValue); 
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
+            dispatchEvent(new Event(Event.CHANGE));
         }
     
         event.updateAfterEvent();
@@ -582,8 +609,7 @@ public class TrackBase extends Range
             system_mouseUpHandler);
         
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_RELEASE));
-		
-		dispatchEvent(new Event(Event.CHANGE));
+        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
     }
 
     //---------------------------------
@@ -641,7 +667,6 @@ public class TrackBase extends Range
         }
         
         mouseDownTarget = null;
-        
     }
 }
 
