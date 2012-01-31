@@ -748,7 +748,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private 
      */
-    mx_internal var isSoftKeyboardActivated:Boolean = false;
+    mx_internal var preventThrows:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -2175,6 +2175,7 @@ public class Scroller extends SkinnableComponent
             // we are scrolling
             captureNextClick = true;
             captureNextMouseDown = true;
+            preventThrows = false;
             
             hspBeforeTouchScroll = viewport.horizontalScrollPosition;
             vspBeforeTouchScroll = viewport.verticalScrollPosition;
@@ -2578,7 +2579,7 @@ public class Scroller extends SkinnableComponent
      */  
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {
-        isSoftKeyboardActivated = true;
+        preventThrows = true;
 
         // Size of app has changed, so run this logic again
         var keyboardRect:Rectangle = stage.softKeyboardRect;
@@ -2607,7 +2608,7 @@ public class Scroller extends SkinnableComponent
         adjustScrollPositionAfterSoftKeyboardDeactivate();
         oldSoftKeyboardHeight = NaN;
         oldSoftKeyboardWidth = NaN;
-        isSoftKeyboardActivated = false;
+        preventThrows = false;
     }
     
     /**
@@ -3187,7 +3188,7 @@ class TouchScrollHelper
         }
         
         // If the soft keyboard is up (or about to come up), don't start a throw.
-        if (scroller.isSoftKeyboardActivated)
+        if (scroller.preventThrows)
         {
             endTouchScroll();
             return;
