@@ -9,19 +9,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
     
 import mx.filters.IBitmapFilter;
-import flex.effects.AnimateFilter;
-import flex.filters.ShaderFilter;
+import mx.effects.FxAnimateFilter;
+import mx.filters.ShaderFilter;
 
 /**
  * The AnimateFilterInstance class implements the instance class for the
  * AnimateFilter effect. Flex creates an instance of this class when
  * it plays a AnimateFilter effect; you do not create one yourself.
  */
-public class AnimateFilterInstance extends AnimateInstance
+public class FxAnimateFilterInstance extends FxAnimateInstance
 {
     //--------------------------------------------------------------------------
     //
@@ -32,7 +32,7 @@ public class AnimateFilterInstance extends AnimateInstance
     /**
      *  Constructor. 
      */
-    public function AnimateFilterInstance(target:Object)
+    public function FxAnimateFilterInstance(target:Object)
     {
         super(target);
     }
