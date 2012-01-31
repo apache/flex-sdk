@@ -28,8 +28,7 @@ import mx.managers.IFocusManagerContainer;
 
 /**
  *  The FxDataContainer class is the base class for all skinnable components that have 
- *  data content. This class is not typically instantiated in MXML. It is primarily
- *  used as a base class, or as a skin part.
+ *  data content.
  *
  *  @see FxContainer
  */
@@ -60,6 +59,11 @@ public class FxDataContainer extends FxContainerBase
     //--------------------------------------------------------------------------
     
     [SkinPart]
+    
+    /**
+     *  A required skin part that defines the DataGroup where the data 
+     *  items get pushed into, rendered, and laid out.
+     */
     public var dataGroup:DataGroup;
     
     //--------------------------------------------------------------------------
