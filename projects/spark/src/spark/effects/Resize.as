@@ -261,7 +261,7 @@ public class Resize extends Animate
      * we need to restore explicit height/width values.
      */
     override mx_internal function captureValues(propChanges:Array,
-        setStartValues:Boolean):Array
+        setStartValues:Boolean, targetsToCapture:Array = null):Array
     {
         var propertyChanges:Array = super.captureValues(propChanges, setStartValues);
         
@@ -269,7 +269,13 @@ public class Resize extends Animate
         {
             var n:int = propertyChanges.length;
             for (var i:int = 0; i < n; i++)
-                propertyChanges[i].stripUnchangedValues = false;
+            {
+                if (targetsToCapture != null &&
+                    targetsToCapture.indexOf(propChanges[i].target) >= 0)
+                {
+                    propertyChanges[i].stripUnchangedValues = false;
+                }
+            }
         }
         return propertyChanges;
     }
