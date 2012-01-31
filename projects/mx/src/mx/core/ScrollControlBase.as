@@ -51,6 +51,19 @@ include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Accent color used by component skins. The default button skin uses this color
+ *  to tint the background. Slider track highlighting uses this color. 
+ * 
+ *  @default #0099FF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  The main color for a component.
  *  
  *  @langversion 3.0
