@@ -366,7 +366,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         if (alpha > 0 && alpha < 1 && !blendModeExplicitlySet && value == "auto")
         {
-            if (value != BlendMode.LAYER)
+            if (_blendMode != BlendMode.LAYER)
             {
                 _blendMode = BlendMode.LAYER;
                 blendModeChanged = true;
@@ -376,7 +376,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
         else if ((alpha == 1 || alpha == 0) && !blendModeExplicitlySet && value == "auto")
         {
-            if (value != BlendMode.NORMAL)
+            if (_blendMode != BlendMode.NORMAL)
             {
                 _blendMode = BlendMode.NORMAL;
                 blendModeChanged = true;
@@ -1484,7 +1484,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // in our implementation, and we don't want those to use our display object to 
         // draw into because there could be something further down the line that has 
         // layer < 0
-        return _blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
+        return (_blendMode == "normal" || _blendMode == "auto") && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
     /**
