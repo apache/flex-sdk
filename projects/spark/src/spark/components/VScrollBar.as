@@ -210,7 +210,7 @@ public class VScrollBar extends ScrollBarBase
             }
             
             // calculate new thumb position.
-            thumbPosTrackY = (value - minimum) * ((trackSize - thumbSize) / range);
+            thumbPosTrackY = (pendingValue - minimum) * ((trackSize - thumbSize) / range);
         }
 
         if (getStyle("fixedThumbSize") === false)
@@ -343,7 +343,7 @@ public class VScrollBar extends ScrollBarBase
         {
             // Want to use ScrollBarBase's changeValueByStep() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
-            // For now, just change pageSize temporarily and call the superclass
+            // For now, just change stepSize temporarily and call the superclass
             // implementation.
             oldStepSize = stepSize;
             stepSize = Math.abs(viewport.getVerticalScrollPositionDelta(
