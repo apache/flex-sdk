@@ -35,14 +35,14 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#style:baseColor
+ *  @copy spark.components.supportClasses.GroupBase#style:chromeColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Name of the skin class to use for this component when a validation error occurs. 
