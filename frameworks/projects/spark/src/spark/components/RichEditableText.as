@@ -782,7 +782,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  The default is true.
-     *  TODO! The default should be true.
+     *  TODO! The default should be true but the code needs to be fixed first.
      */
     private var _autoSize:Boolean = false;
 
@@ -1652,11 +1652,11 @@ public class RichEditableText extends UIComponent
 
         // Don't trigger a damage event since we know we're recomposing.
         _inputManager.removeEventListener(
-        	DamageEvent.DAMAGE, inputManager_damageHandler);
+           	DamageEvent.DAMAGE, inputManager_damageHandler);
         
         // If autoSize, the text flow is already composed (although there are
         // certain styles that require a recompose since the composition width
-        // and height matter).  Setting the composition size since it will 
+        // and height matter).  Setting the composition size will 
         // trigger a damage event.
         if (!_autoSize || recomposeForStyles())
         {                     
@@ -1917,7 +1917,20 @@ public class RichEditableText extends UIComponent
      */
     private function getSelectionManager():ISelectionManager
     {
-    	return SelectionManager(_inputManager.beginInteraction());
+        // This triggers a damage event if the interactionManager is
+        // changed.  Since changing the interactionManager doesn't change
+        // the text, there is no need to trigger the damage event.
+        
+        _inputManager.removeEventListener(
+            DamageEvent.DAMAGE, inputManager_damageHandler);
+                       
+    	var selectionManager:SelectionManager =
+    	   SelectionManager(_inputManager.beginInteraction());
+
+        _inputManager.addEventListener(
+            DamageEvent.DAMAGE, inputManager_damageHandler);
+            
+        return selectionManager;            
     }
 
     /**
@@ -1934,7 +1947,10 @@ public class RichEditableText extends UIComponent
      */
     private function getEditManager():IEditManager
     {
-    	return EditManager(_inputManager.beginInteraction());
+        // This triggers a damage event if the interactionManager is
+        // changed. 
+        
+        return EditManager(_inputManager.beginInteraction());
     }
 
     /**
@@ -2392,7 +2408,7 @@ public class RichEditableText extends UIComponent
         
         selectionManager.setSelection(anchorPosition, activePosition);        
                 
-        // Update the display with the new selection.
+        // Refresh the selection.  This does not cause a damage event.
         selectionManager.refreshSelection();
         
         releaseSelectionManager();
@@ -2423,11 +2439,12 @@ public class RichEditableText extends UIComponent
         
         // If no selection, then it's an append.
          if (!editManager.hasSelection())
-            editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);       
+            editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+            
+        // Our damage handler should be active.  Inserting the text invokes
+        // our damage handler to invalidate the text, maybe the size, and
+        // the display list.      
         editManager.insertText(text);
-
-        // Update TLF display.  This initiates the InsertTextOperation.
-        _inputManager.updateContainer();        
 
         // All done with edit manager.
         releaseEditManager();
@@ -2461,10 +2478,11 @@ public class RichEditableText extends UIComponent
         
         // An append is an insert with the selection set to the end.
         editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-        editManager.insertText(text);
 
-        // Update TLF display.  This initiates the InsertTextOperation.
-        _inputManager.updateContainer();        
+        // Our damage handler should be active.  Inserting the text invokes
+        // our damage handler to invalidate the text, maybe the size, and
+        // the display list.      
+        editManager.insertText(text);
 
         // All done with edit manager.
         releaseEditManager();
@@ -2677,8 +2695,11 @@ public class RichEditableText extends UIComponent
             return;
             
         var textScrap:TextScrap = op.scrapToPaste();
+        
+        // If copied/cut from displayAsPassword field the pastedText
+        // is '*' characters but this is correct.
         var pastedText:String = TextUtil.extractText(
-            tlf_internal::textScrap.textFlow);
+            textScrap.tlf_internal::textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
         var editManager:IEditManager = getEditManager();
@@ -2906,7 +2927,7 @@ public class RichEditableText extends UIComponent
      */
     private function inputManager_damageHandler(event:DamageEvent):void
     {
-        //trace("damageHandler", event.damageStart, event.damageLength);
+        //trace("damageHandler", event.damageAbsoluteStart, event.damageLength);
         
         // The text flow changed.  It could have been either/or content or
         // styles within the flow.
