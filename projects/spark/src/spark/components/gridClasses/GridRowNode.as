@@ -9,9 +9,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
-import spark.components.supportClasses.GridDimensions;
+
     
 [ExcludeClass]
     
