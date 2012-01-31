@@ -16,6 +16,7 @@ import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
@@ -43,8 +44,6 @@ import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.events.GridEvent;
 import spark.events.GridItemEditorEvent;
-import mx.core.IVisualElementContainer;
-import flash.events.IEventDispatcher;
 
 use namespace mx_internal;
 
@@ -1440,10 +1439,14 @@ public class DataGridEditor
     private function editor_focusOutHandler(event:FocusEvent):void
     {
         //trace("editor_focusOutHandler " + event.relatedObject);
-        if (event.relatedObject && 
-            dataGrid.contains(event.relatedObject))
+        
+        // If the focus goes to a component that is owned by the editor, 
+        // then don't end the editor session.
+        if (event.relatedObject)
         {
-            return;
+            var component:IUIComponent = getIUIComponent(event.relatedObject);
+            if (component && editorOwns(component))
+                return;                
         }
         
         // ignore textfields losing focus on mousedowns
@@ -1463,12 +1466,15 @@ public class DataGridEditor
     
     /**
      *  @private
-     *  Handle the ENTER event by closing the editor.
+     *  Special case for TextArea control. See editor_keyDownHandler.
+     *  ColorPicker also dispatches the "enter" event so keep the
+     *  parameter of type Event, not FlexEvent.
      */
-    private function editor_enterHandler(event:FlexEvent):void
+    private function editor_enterHandler(event:Event):void
     {
         //trace("FlexEvent" );
-        gotFlexEnterEvent = true;
+        if (event is FlexEvent)
+            gotFlexEnterEvent = true;
     }
     
     /**
@@ -1482,7 +1488,7 @@ public class DataGridEditor
         if (event.isDefaultPrevented())
         {
             // Special case the ENTER key since TextArea cancels the ENTER when it 
-            // doesn't use it but instead if dispatched an FlexEvent.ENTER.
+            // doesn't use it but instead it dispatches an FlexEvent.ENTER.
             // The problem is the ENTER event does not have the control and 
             // shift key flags we need.
             if (!(event.charCode == Keyboard.ENTER && gotFlexEnterEvent))
@@ -1544,9 +1550,14 @@ public class DataGridEditor
                             restoreFocusableChildrenFlags();
                         }
                     }                        
-                }                    
+                }
             }
         }
+        
+        // Prevent the DataGrid from processing any keystrokes that were 
+        // received by the editor. We don't cancel the keystokes here 
+        // because on AIR that cancels text input into the text field.
+        event.stopPropagation();
     }
     
     /**
