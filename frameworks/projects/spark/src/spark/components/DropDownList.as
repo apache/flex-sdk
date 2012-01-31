@@ -283,7 +283,10 @@ public class DropDownList extends List
      */
     override public function set allowMultipleSelection(value:Boolean):void
     {
-    	// Don't allow this value to be set
+        // Don't allow this value to be set. If the multiple
+        // selection related properties are set and 
+        // allowMultipleSelection is false, List will
+        // select the first item passed in. 
         return;
     }
     
@@ -371,33 +374,7 @@ public class DropDownList extends List
     	invalidateProperties();
     }
     
-    
-    //----------------------------------
-    //  selectedIndices
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set selectedIndices(value:Array):void
-    {
-    	throw new Error(resourceManager.getString("components", "selectedIndicesDropDownListError"));
-    }
-    
-    //----------------------------------
-    //  selectedItems
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set selectedItems(value:Array):void
-    {
-    	throw new Error(resourceManager.getString("components", "selectedItemsDropDownListError"));
-    }
-    
-    
- 	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
