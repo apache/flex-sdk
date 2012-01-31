@@ -75,12 +75,25 @@ public class FxAnimateInstance extends EffectInstance
     //
     //--------------------------------------------------------------------------
 
+    private var _propertyValuesList:Array;
     /**
      * An array of PropertyValuesHolder objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation.
      */
-    public var propertyValuesList:Array;
+    public function get propertyValuesList():Array
+    {
+        return _propertyValuesList;
+    }
+    public function set propertyValuesList(value:Array):void
+    {
+        // Only set the list to the given value if we have a 
+        // null list to begin with. Otherwise, we've already
+        // set up the list once and don't need to do it again
+        // (for example, in a repeating effect).
+        if (!_propertyValuesList)
+            _propertyValuesList = value;
+    }
     
     /**
      * This flag indicates whether values should be rounded before set on
