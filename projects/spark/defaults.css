@@ -144,6 +144,15 @@ TextInput
 	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
 }
 
+TitleWindow
+{
+	borderAlpha: 0.5;
+	borderColor: 0;
+	cornerRadius: 0;
+	dropShadowVisible: true;
+	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
+}
+
 ToggleButton
 {
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
