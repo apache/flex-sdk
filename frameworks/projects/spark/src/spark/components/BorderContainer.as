@@ -18,9 +18,9 @@ import spark.components.SkinnableContainer;
 
 /**
  *  Background image of a container.  
- *  You can have both a <code>backgroundColor</code> and a
- *  <code>backgroundImage</code> set at the same time. 
- *  The background image is displayed on top of the background color.
+ *  If you have both a <code>backgroundColor</code> and a
+ *  <code>backgroundImage</code> set at the same time,  <code>backgroundColor</code>
+ *  is ignored.  
  *  The default value is <code>undefined</code>, meaning "not set".
  *  If this style and the <code>backgroundColor</code> style are undefined,
  *  the component has a transparent background.
