@@ -656,6 +656,13 @@ public class RichEditableText extends UIComponent
         
     /**
      *  @private
+     *  The generation of the text flow that last reported its content
+     *  bounds. 
+     */
+    private var lastContentBoundsGeneration:int = 0;  // 0 means not set
+    
+    /**
+     *  @private
      *  True if TextOperationEvent.CHANGING and TextOperationEvent.CHANGE 
      *  events should be dispatched.
      */
@@ -2299,7 +2306,8 @@ public class RichEditableText extends UIComponent
         if (textChanged || textFlowChanged || contentChanged)
         {
             lastGeneration = _textFlow ? _textFlow.generation : 0;
-
+            lastContentBoundsGeneration = 0;
+            
             // Handle the case where the initial text, textFlow or content 
             // is displayed as a password.
             if (displayAsPassword)
@@ -3838,6 +3846,69 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  If the textFlow hasn't changed the generation remains the same.
+     *  Changing the composition width and/or height does not change the
+     *  generation.  The bounds can change as a result of different
+     *  composition dimensions or as a result of more of the text flow
+     *  being composed.  Only as much of the text flow as is displayed is
+     *  composed.  If not all of the text flow is composed, its content height
+     *  is estimated.  Until the entire text flow is composed its content
+     *  height can increase or decrease while scrolling thru the flow.  
+     *
+     *  If the following conditions are met with the contentWidth and the
+     *  contentHeight reported to the scroller, the scroller can avoid the 
+     *  situation we've seen where it tries to add a scroll bar which causes the 
+     *  text to reflow, which changes the content bounds, which causes the 
+     *  scroller to react, and potentially loop indefinately.
+     * 
+     *       if width is reduced the height should grow or stay the same
+     *       if height is reduced the width should grow or stay the same
+     *       if width and height are reduce then either the width or height
+     *           should grow or stay the same.
+     *
+     *  toFit
+     *      width       height      
+     *      smaller     smaller     height pinned to old height
+     *      smaller     larger      ok
+     *      larger      larger      ok
+     *      larger      smaller     ok
+     *       
+     *  explicit
+     *      width       height
+     *      smaller     smaller     width pinned to old width
+     *      smaller     larger      width pinned to old width
+     *      larger      larger      ok
+     *      larger      smaller     ok
+     */
+    private function adjustContentBoundsForScroller(bounds:Rectangle):void
+    {   
+        // Already reported bounds at least once for this generation of
+        // the text flow so we have to be careful to mantain consistency
+        // for the scroller.
+        if (_textFlow.generation == lastContentBoundsGeneration)
+        {            
+            if (bounds.width < _contentWidth)
+            {
+                if (_textContainerManager.hostFormat.lineBreak == "toFit")
+                {
+                    if (bounds.height < _contentHeight)
+                        bounds.height = _contentHeight;
+                }
+                else
+                {
+                    // The width may get smaller if the compose height is 
+                    // reduced and fewer lines are composed.  Use the old 
+                    // content width which is more accurate.
+                    bounds.width = _contentWidth;
+                }
+            }
+        }
+        
+        lastContentBoundsGeneration = _textFlow.generation;
+    }
+        
+    /**
+     *  @private
      *  Called when the TextContainerManager dispatches a 'compositionComplete'
      *  event when it has recomposed the text into TextLines.
      */
@@ -3847,53 +3918,37 @@ public class RichEditableText extends UIComponent
         //trace("compositionComplete");
                 
         var oldContentWidth:Number = _contentWidth;
+        var oldContentHeight:Number = _contentHeight;
 
         var newContentBounds:Rectangle = 
             _textContainerManager.getContentBounds();
-        var newContentWidth:Number = newContentBounds.width;
+        
+        // Try to prevent the scroller from getting into a loop while
+        // adding/removing scroll bars.
+        if (_textFlow && clipAndEnableScrolling)
+            adjustContentBoundsForScroller(newContentBounds);
+        
+        var newContentWidth:Number = newContentBounds.width;        
+        var newContentHeight:Number = newContentBounds.height;
         
         // TODO:(cframpto) handle blockProgression == RL
         
-        // TODO:(cframpto) Figure out if we still need these checks.
-        // Error correction for rounding errors.  It shouldn't be so but
-        // the contentWidth can be slightly larger than the requested
-        // compositionWidth.
-        if (newContentWidth > _textContainerManager.compositionWidth &&
-            Math.round(newContentWidth) == 
-            _textContainerManager.compositionWidth)
-        { 
-            newContentWidth = _textContainerManager.compositionWidth;
-        }
-
         if (newContentWidth != oldContentWidth)
         {
             _contentWidth = newContentWidth;
             
-            //trace("contentWidth", oldContentWidth, newContentWidth);
+            //trace("composeWidth", _textContainerManager.compositionWidth, "contentWidth", oldContentWidth, newContentWidth);
 
             // If there is a scroller, this triggers the scroller layout.
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
         }
         
-        var oldContentHeight:Number = _contentHeight;
-        var newContentHeight:Number = newContentBounds.height;
-
-        // Error correction for rounding errors.  It shouldn't be so but
-        // the contentHeight can be slightly larger than the requested
-        // compositionHeight.  
-        if (newContentHeight > _textContainerManager.compositionHeight &&
-            Math.round(newContentHeight) == 
-            _textContainerManager.compositionHeight)
-        { 
-            newContentHeight = _textContainerManager.compositionHeight;
-        }
-            
         if (newContentHeight != oldContentHeight)
         {
             _contentHeight = newContentHeight;
             
-            //trace("contentHeight", oldContentHeight, newContentHeight);
+            //trace("composeHeight", _textContainerManager.compositionHeight, "contentHeight", oldContentHeight, newContentHeight);
             
             // If there is a scroller, this triggers the scroller layout.
             dispatchPropertyChangeEvent(
