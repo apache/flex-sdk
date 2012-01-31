@@ -34,7 +34,7 @@ import spark.effects.animation.Animation;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
 
-include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
