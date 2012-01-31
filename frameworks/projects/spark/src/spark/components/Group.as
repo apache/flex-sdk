@@ -827,7 +827,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 	            // Do a special check for layer, we may stumble upon an element with layer != 0
 	            // before we're done with the current shared sequence and we don't want to mark
 	            // the sequence as valid, until we reach the next sequence.   
-                if (element.layer == 0)
+                if (element.depth == 0)
                 {
                     // Is this the start of a new shared sequence?         	
 	            	if (element.sharedIndex <= 0)
@@ -1220,7 +1220,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (layout)
             layout.elementAdded(index);        
                 
-        if (element.layer != 0)
+        if (element.depth != 0)
             invalidateLayering();
 
         // Set the font context in non-UIComponent children.
@@ -1471,7 +1471,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             
             if (layeringMode != ITEM_ORDERED_LAYERING)
             {
-                var layer:Number = item.layer;
+                var layer:Number = item.depth;
                 if (layer != 0)
                 {               
                     if (layer > 0)
