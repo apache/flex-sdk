@@ -60,10 +60,15 @@ use namespace mx_internal;
  */
 [Event(name="fault", type="mx.rpc.events.FaultEvent")]
 
+// Commenting out to avoid warnings while building rpc.swc dependencies.
+//[Deprecated(since="3.0.0")]
+
 [ExcludeClass]
 /**
  * @private
  *  The base class for message queue implementations.
+ * 
+ * NOTE: This class was deprecated in Flex 3.0 and should no longer be used.
  */   
 public class AbstractMessageStore extends ArrayCollection
 {
@@ -73,6 +78,7 @@ public class AbstractMessageStore extends ArrayCollection
     // 
     //--------------------------------------------------------------------------
 
+    [Deprecated(since="3.0.0")]
     /**
      *  Constructs an AbstractMessageStore.
      */
@@ -351,8 +357,9 @@ public class AbstractMessageStore extends ArrayCollection
      */
     public function release():AsyncToken
     {     
-        if (producer != null)
-            producer.messageStore = null;
+        // Commenting out as AbstractProducer no longer has a message store.
+        //if (producer != null)
+        //    producer.messageStore = null;
             
         setLoaded(false);  
         
