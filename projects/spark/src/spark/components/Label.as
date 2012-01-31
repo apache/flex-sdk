@@ -110,8 +110,6 @@ public class SimpleText extends TextGraphicElement
 		
 		staticEastAsianJustifier = new EastAsianJustifier();
 		
-		staticEmbeddedFont = new EmbeddedFont("", false, false);
-	
 		staticTextFormat = new TextFormat();
 
 		if ("recreateTextLine" in staticTextBlock)
@@ -149,12 +147,6 @@ public class SimpleText extends TextGraphicElement
      */
     private static var staticEastAsianJustifier:EastAsianJustifier;
     
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
-     */
-    private static var staticEmbeddedFont:EmbeddedFont;
-        
     /**
      *  @private
      *  Used in getEmbeddedFontContext().
@@ -517,10 +509,9 @@ public class SimpleText extends TextGraphicElement
 			var bold:Boolean = getStyle("fontWeight") == "bold";
 			var italic:Boolean = getStyle("fontStyle") == "italic";
 			
-			staticEmbeddedFont.initialize(font, bold, italic);
-            
             moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	staticEmbeddedFont, fontContext);
+            	font, bold, italic,
+                this, fontContext);
 
             // If we found the font, then it is embedded. 
             // But some fonts are not listed in info()
