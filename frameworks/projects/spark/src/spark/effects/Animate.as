@@ -198,19 +198,21 @@ public class Animate extends Effect
      * 
      * <p>Note that it is possible to have easing at both the effect
      * level and the Keyframe level (where Keyframes hold the values/times
-     * used in the MotionPath structures), and these easing behaviors will
-     * build on each other. The <code>easer</code> provided
-     * here controls the easing of the overall effect, whereas that in the
-     * Keyframes controls the easing in any particular interval of the animation.
-     * By default, the easing for Animate is non-linear (Sine(.5)), whereas
-     * the easing for Keyframes is linear. If you desire an effect with easing
-     * at the keyframe level instead, you may prefer to set the easing of the
-     * effect to linear and then set the easing specifically on the Keyframes
-     * directly.</p>
+     * used in the MotionPath structures).
+     * These easing behaviors build on each other. 
+     * The <code>easer</code> specified by <code>easer</code>
+     * controls the easing of the overall effect.
+     * The Keyframe controls the easing in any particular interval of the animation.
+     * By default, the easing for Animate is non-linear (Sine(.5)).
+     * The easing for Keyframes is linear. If you desire an effect with easing
+     * at the keyframe level instead, you can set the easing of the
+     * effect to linear, and then set the easing specifically on the Keyframes.</p>
      * 
      * @default spark.effects.easing.Sine(.5)
      *
      * @see spark.effects.easing.Sine
+     *
+     *  @includeExample examples/AnimateEffectExample.mxml
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
