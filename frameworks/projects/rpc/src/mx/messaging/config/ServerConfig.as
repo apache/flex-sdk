@@ -514,12 +514,6 @@ public class ServerConfig
                         oldChannels.appendChild(newChannel);
                     }
                 }
-                *  
-                *  @langversion 3.0
-                *  @playerversion Flash 9
-                *  @playerversion AIR 1.1
-                *  @productversion BlazeDS 4
-                *  @productversion LCDS 3 
                 */
             }
         }
