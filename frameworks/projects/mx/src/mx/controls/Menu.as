@@ -194,28 +194,28 @@ use namespace mx_internal;
 /**
  *  The icon for all enabled menu items that have submenus. 
  * 
- *  @default "MenuBranchIcon"
+ *  The default value is the "MenuBranchEnabled" symbol in the Assets.swf file.
  */
 [Style(name="branchIcon", type="Class", inherit="no")]
 
 /**
  *  The icon for all disabled menu items that have submenus. 
  * 
- *  @default "MenuBranchDisabled"
+ *  The default value is the "MenuBranchDisabled" symbol in the Assets.swf file.
  */
 [Style(name="branchDisabledIcon", type="Class", inherit="no")]
 
 /**
  *  The icon for all enabled menu items whose type identifier is a check box. 
  *  
- *  @default "MenuCheckEnabled"
+ *  The default value is the "MenuCheckEnabled" symbol in the Assets.swf file.
  */
 [Style(name="checkIcon", type="Class", inherit="no")]
 
 /**
  *  The icon for all dsiabled menu items whose type identifier is a check box. 
  *  
- *  @default "MenuCheckDisabled"
+ *  The default value is the "MenuCheckDisabled" symbol in the Assets.swf file.
  */
 [Style(name="checkDisabledIcon", type="Class", inherit="no")]
 
@@ -223,7 +223,7 @@ use namespace mx_internal;
  *  The icon for all enabled menu items whose type identifier is a radio 
  *  button. 
  *  
- *  @default "MenuRadioEnabled"
+ *  The default value is the "MenuRadioEnabled" symbol in the Assets.swf file.
  */
 [Style(name="radioIcon", type="Class", inherit="no")]
 
@@ -231,14 +231,14 @@ use namespace mx_internal;
  *  The icon for all disabled menu items whose type identifier is a radio 
  *  button. 
  * 
- *  @default "MenuRadioDisabled"
+ *  The default value is the "MenuRadioDisabled" symbol in the Assets.swf file.
  */
 [Style(name="radioDisabledIcon", type="Class", inherit="no")]
 
 /**
  *  The skin for all menu items which are identified as separators. 
  *  
- *  @default "MenuSeparator"
+ *  The default value is the "MenuSeparator" symbol in the Assets.swf file.
  */
 [Style(name="separatorSkin", type="Class", inherit="no")]
 
