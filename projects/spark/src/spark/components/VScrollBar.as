@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
@@ -140,11 +141,24 @@ public class VScrollBar extends ScrollBar
      */
     override public function set viewport(newViewport:IViewport):void
     {
+        const oldViewport:IViewport = super.viewport;
+        if (oldViewport == newViewport)
+            return;
+        
+        if (oldViewport)
+        {
+            oldViewport.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+            removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+        }
+        
         super.viewport = newViewport;
+
         if (newViewport)
         {
-            updateMaximumAndPageSize();
+            updateMaximumAndPageSize()
             value = newViewport.verticalScrollPosition;;
+            newViewport.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);  
         }
     }    
 
@@ -391,5 +405,38 @@ public class VScrollBar extends ScrollBar
             maximum = viewport.contentHeight - viewport.height;
         }
     }
+    
+    /**
+     *  @private
+     *  Scroll vertically by event.delta "steps".  This listener is added to both the scrollbar 
+     *  and the viewport so we short-ciruit if the viewport doesn't exist or isn't visible. 
+     * 
+     *  Note also: the HScrollBar class redispatches mouse wheel events that target the HSB 
+     *  to its viewport.  If a vertical scrollbar exists, this listener will handle those
+     *  events by scrolling vertically.   This is done so that if a VSB exists, the mouse
+     *  wheel always scrolls vertically, even if it's over the HSB.
+     */
+    mx_internal function mouseWheelHandler(event:MouseEvent):void
+    {
+        const vp:IViewport = viewport;
+        if (event.isDefaultPrevented() || !vp || !vp.visible)
+            return;
+        
+        var nSteps:uint = Math.abs(event.delta);
+        var navigationUnit:uint;
+        
+        // Scroll event.delta "steps".  
+        
+        navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
+        for (var vStep:int = 0; vStep < nSteps; vStep++)
+        {
+            var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
+            if (!isNaN(vspDelta))
+                vp.verticalScrollPosition += vspDelta;
+        }
+
+        event.preventDefault();
+    }
+    
 }
 }
