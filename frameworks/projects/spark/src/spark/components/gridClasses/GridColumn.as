@@ -268,6 +268,42 @@ public class GridColumn extends EventDispatcher
     }
     
     //----------------------------------
+    //  headerRenderer
+    //----------------------------------
+    
+    private var _headerRenderer:IFactory = null;
+    
+    [Bindable("headerRendererChanged")]
+    
+    /**
+     *  A factory for the IGridItemRenderer used as the header for this column.  
+     * 
+     *  @default null
+     *
+     *  @see #headerText
+     *  @see IGridItemRenderer
+     */
+    public function get headerRenderer():IFactory
+    {
+        return _headerRenderer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerRenderer(value:IFactory):void
+    {
+        if (_headerRenderer == value)
+            return;
+        
+        _headerRenderer = value;
+        
+        // TBD: invalidate the CHB
+        
+        dispatchChangeEvent("headerRendererChanged");
+    }
+    
+    //----------------------------------
     //  headerText
     //----------------------------------
     
