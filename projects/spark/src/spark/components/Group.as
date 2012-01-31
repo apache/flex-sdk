@@ -18,11 +18,13 @@ import flash.geom.Rectangle;
 
 import spark.components.supportClasses.GroupBase;
 import mx.core.Container;
+import mx.core.IFontContextComponent;
 import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
 import spark.events.ElementExistenceEvent;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
@@ -1087,6 +1089,14 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 
         if (element.layer != 0)
             invalidateLayering();
+
+        // Set the font context in non-UIComponent children.
+        // UIComponent children use moduleFactory.
+        if (child is IFontContextComponent && !child is UIComponent &&
+            IFontContextComponent(child).fontContext == null)
+        {
+            IFontContextComponent(child).fontContext = moduleFactory;
+        }
 
         if (element is IGraphicElement) 
         {
