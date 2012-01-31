@@ -33,6 +33,8 @@ import mx.messaging.messages.AcknowledgeMessage;
 import mx.messaging.messages.ErrorMessage;
 import mx.messaging.messages.HTTPRequestMessage;
 import mx.messaging.messages.IMessage;
+import mx.messaging.config.LoaderConfig;
+import mx.netmon.NetworkMonitor;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -231,6 +233,11 @@ public class DirectHTTPChannel extends Channel
             }
         }
         result.url = url;
+
+        if (NetworkMonitor.isMonitoring())
+        {
+            NetworkMonitor.adjustURLRequest(result, LoaderConfig.url, message.messageId);
+        }
 
         return result;
     }
