@@ -18,6 +18,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -728,17 +729,30 @@ public class UIFTETextField extends FTETextField
         if (!parent)
             return NaN;
             
+        // Ensure a textLine gets created.  Either a width and height must
+        // be set or autoSize.
+        var oldAutoSize:String;       
+        if (autoSize == TextFieldAutoSize.NONE && (width == 0 || height == 0))
+        {
+            oldAutoSize = autoSize;
+            autoSize = TextFieldAutoSize.LEFT;
+        }
+        
         // getLineMetrics() returns strange numbers for an empty string,
         // so instead we get the metrics for a non-empty string.
         var isEmpty:Boolean = text == "";
         if (isEmpty)
             super.text = "Wj";
         
-        tlm = getLineMetrics(0);
+       tlm = getLineMetrics(0);
 
-        if (isEmpty)
+       // Restore values.
+       if (isEmpty)
             super.text = "";
 
+        if (oldAutoSize != null)
+            autoSize = oldAutoSize;
+            
         // TextFields have 2 pixels of padding all around.
         return 2 + tlm.ascent;
     }
