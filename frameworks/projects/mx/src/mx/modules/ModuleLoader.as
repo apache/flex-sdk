@@ -15,6 +15,7 @@ package mx.modules
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.system.ApplicationDomain;
+import flash.utils.ByteArray;
 import mx.containers.VBox;
 import mx.core.IDeferredInstantiationUIComponent;
 import mx.events.FlexEvent;
@@ -239,15 +240,33 @@ public class ModuleLoader extends VBox
      *  
      *  <p>If the module has already been loaded, this method does nothing. It does
      *  not load the module a second time.</p>
+     * 
+     *  @param url The location of the module, expressed as a URL. This is an  
+     *  optional parameter. If this parameter is null the value of the
+     *  <code>url</code> property will be used. If the url parameter is provided
+     *  the <code>url</code> property will be updated to the value of the url.
+     * 
+     *  @param bytes A ByteArray object. The ByteArray is expected to contain 
+     *  the bytes of a SWF file that represents a compiled Module. The ByteArray
+     *  object can be obtained by using the URLLoader class. If this parameter
+     *  is specified the module will be loaded from the ByteArray and the url 
+     *  parameter will be used to identify the module in the 
+     *  <code>ModuleManager.getModule()</code> method and must be non-null. If
+     *  this parameter is null the module will be load from the url, either 
+     *  the url parameter if it is non-null, or the url property as a fallback.
      */
-    public function loadModule():void
+    public function loadModule(url:String = null, bytes:ByteArray = null):void
     {
-        if (url == null)
+        
+        if (url != null)
+            _url = url;
+            
+        if (_url == null)
         {
             //trace("loadModule() - null url");
             return;
         }
-
+        
         if (child)
         {
             //trace("loadModule() - already created the child");
@@ -262,7 +281,7 @@ public class ModuleLoader extends VBox
 
         dispatchEvent(new FlexEvent(FlexEvent.LOADING));
 
-        module = ModuleManager.getModule(url);
+        module = ModuleManager.getModule(_url);
         
         module.addEventListener(ModuleEvent.PROGRESS, moduleProgressHandler);
         module.addEventListener(ModuleEvent.SETUP, moduleSetupHandler);
@@ -270,7 +289,7 @@ public class ModuleLoader extends VBox
         module.addEventListener(ModuleEvent.ERROR, moduleErrorHandler);
         module.addEventListener(ModuleEvent.UNLOAD, moduleUnloadHandler);
 
-        module.load(applicationDomain);
+        module.load(applicationDomain, null, bytes);
     }
 
     /**
