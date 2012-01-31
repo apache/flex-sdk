@@ -123,7 +123,7 @@ public class AnimateColor extends Animate
      */
     override public function getAffectedProperties():Array /* of String */
     {
-        return AFFECTED_PROPERTIES;
+        return (colorPropertyName == "color") ? AFFECTED_PROPERTIES : [colorPropertyName];
     }
 
     /**
@@ -131,7 +131,7 @@ public class AnimateColor extends Animate
      */
     override public function get relevantStyles():Array /* of String */
     {
-        return RELEVANT_STYLES;
+        return (colorPropertyName == "color") ? RELEVANT_STYLES : [colorPropertyName];
     }   
 
     /**
@@ -146,10 +146,10 @@ public class AnimateColor extends Animate
     {
         super.initInstance(instance);
         
-        var tintInstance:AnimateColorInstance = AnimateColorInstance(instance);
-        tintInstance.colorFrom = colorFrom;
-        tintInstance.colorTo = colorTo;
-        tintInstance.colorPropertyName = colorPropertyName;
+        var animateColorInstance:AnimateColorInstance = AnimateColorInstance(instance);
+        animateColorInstance.colorFrom = colorFrom;
+        animateColorInstance.colorTo = colorTo;
+        animateColorInstance.colorPropertyName = colorPropertyName;
     }
 }
 }
