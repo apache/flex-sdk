@@ -20,7 +20,7 @@ import mx.components.baseClasses.FxTextBase;
 import mx.components.baseClasses.FxComponent;
 import mx.events.TextOperationEvent;
 
-import flashx.tcal.formats.LineBreak;
+import flashx.textLayout.formats.LineBreak;
 
 //--------------------------------------
 //  Events
