@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2010 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+<s:GridItemEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                                  xmlns:s="library://ns.adobe.com/flex/spark" 
+                                  xmlns:mx="library://ns.adobe.com/flex/mx" 
+                                  xmlns:gridEditorClasses="spark.components.gridEditorClasses.*">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.core.IVisualElement;
+            import mx.core.UIComponent;
+            
+            /**
+             *  @private
+             */ 
+            override public function get value():Object
+            {
+                return textArea.text;            
+            }
+            
+            /**
+             *  @private
+             */ 
+            override public function set value(newValue:Object):void
+            {
+                textArea.text = newValue.toString();
+            }
+            
+            /**
+             *  @private
+             */ 
+            override public function prepare():void
+            {
+                var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
+                //                width = cellBounds.width;
+                //                height = cellBounds.height;
+                textArea.textDisplay.multiline = false;
+                
+                var itemRenderer:IVisualElement = column.grid.getItemRendererAt(rowIndex, columnIndex);
+                if (itemRenderer && "singleLine" in itemRenderer && itemRenderer["singleLine"] == true)
+                {
+                    textArea.width = NaN;
+                    textArea.textDisplay.lineBreak = "explicit";
+                    textArea.widthInChars = NaN;
+                    
+                    // Set a max width of six inches for the text.
+                    const MAX_WIDTH_INCHES:uint = 6;
+                    textArea.maxWidth = MAX_WIDTH_INCHES * Capabilities.screenDPI;
+                    
+                    if (textArea.textDisplay is UIComponent)
+                        UIComponent(textArea.textDisplay).maxWidth = textArea.maxWidth;
+                }
+                else
+                {
+                    textArea.width = cellBounds.width;
+                }
+                
+                textArea.minWidth = cellBounds.width;
+                textArea.height = cellBounds.height;
+            }
+            
+            
+            /**
+             *  @private
+             */ 
+            override public function setFocus():void
+            {
+                textArea.setFocus();
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:TextArea id="textArea" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+    
+</s:GridItemEditor>
