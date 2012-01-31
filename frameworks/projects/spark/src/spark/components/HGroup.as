@@ -50,6 +50,8 @@ import spark.layouts.supportClasses.LayoutBase;
  *    paddingRight="0"
  *    paddingTop="0"
  *    requestedColumnCount="-1"
+ *    requestedMaxColumnCount="-1"
+ *    requestedMinColumnCount="-1"
  *    variableColumnWidth"true"
  *    verticalAlign="top"
  *  /&gt;
@@ -278,8 +280,8 @@ public class HGroup extends Group
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMaxColumnCount():int
     {
@@ -307,8 +309,8 @@ public class HGroup extends Group
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMinColumnCount():int
     {
