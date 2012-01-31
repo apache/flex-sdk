@@ -28,26 +28,51 @@ import flash.geom.Point;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#rollOverColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#selectionColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -71,6 +96,11 @@ import flash.geom.Point;
  *  on the value of the <code>allowMultipleSelection</code> property.
  *
  *  @includeExample examples/FxListExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxList extends FxListBase implements IFocusManagerComponent
 {
@@ -90,6 +120,11 @@ public class FxList extends FxListBase implements IFocusManagerComponent
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxList()
     {
@@ -111,11 +146,21 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  TODO: description of how single selection properties
      *  work when multiple selection is enabled. multiple selection
      *  doesn't support selectionChanging event. etc.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     /**
      *  <code>true</code> if the list supports multiple selection.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var allowMultipleSelection:Boolean = false;
     
@@ -140,6 +185,11 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  is <code>true</code>, the property is set to the first selected item.</p>
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get selectedIndex():int
     {
@@ -183,11 +233,21 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  TODO: describe
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     /**
      *  Selected indices for this component.
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedIndices():Array
     {
@@ -219,11 +279,21 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  TODO: describe
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     /**
      *  Selected items for this component.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedItems():Array
     {
@@ -311,6 +381,11 @@ public class FxList extends FxListBase implements IFocusManagerComponent
         
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -326,6 +401,11 @@ public class FxList extends FxListBase implements IFocusManagerComponent
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
