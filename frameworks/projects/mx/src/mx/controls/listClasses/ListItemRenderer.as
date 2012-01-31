@@ -77,48 +77,48 @@ use namespace mx_internal;
  *  @see mx.controls.listClasses.IDropInListItemRenderer
  */
 public class ListItemRenderer extends UIComponent
-							  implements IDataRenderer,
-							  IDropInListItemRenderer, IListItemRenderer,
-							  IFontContextComponent
+                              implements IDataRenderer,
+                              IDropInListItemRenderer, IListItemRenderer,
+                              IFontContextComponent
 {
-	include "../../core/Version.as";
+    include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function ListItemRenderer()
-	{
-		super();
+    /**
+     *  Constructor.
+     */
+    public function ListItemRenderer()
+    {
+        super();
 
-		addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
-	}
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var listOwner:ListBase;
+    /**
+     *  @private
+     */
+    private var listOwner:ListBase;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  baselinePosition
-	//----------------------------------
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
 
     /**
      *  @private
@@ -127,62 +127,62 @@ public class ListItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-		{
-	    	if (!label)
-	    		return 0;
-	    		
-	        return label.baselinePosition;
-		}
-		
-		if (!validateBaselinePosition())
-			return NaN;
-		
-		return label.y + label.baselinePosition;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+        {
+            if (!label)
+                return 0;
+                
+            return label.baselinePosition;
+        }
+        
+        if (!validateBaselinePosition())
+            return NaN;
+        
+        return label.y + label.baselinePosition;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  data
-	//----------------------------------
+    //----------------------------------
+    //  data
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the data property.
-	 */
-	private var _data:Object;
+    /**
+     *  @private
+     *  Storage for the data property.
+     */
+    private var _data:Object;
 
-	[Bindable("dataChange")]
+    [Bindable("dataChange")]
 
-	/**
-	 *  The implementation of the <code>data</code> property
-	 *  as defined by the IDataRenderer interface.
-	 *  When set, it stores the value and invalidates the component 
-	 *  to trigger a relayout of the component.
-	 *
-	 *  @see mx.core.IDataRenderer
-	 */
-	public function get data():Object
-	{
-		return _data;
-	}
+    /**
+     *  The implementation of the <code>data</code> property
+     *  as defined by the IDataRenderer interface.
+     *  When set, it stores the value and invalidates the component 
+     *  to trigger a relayout of the component.
+     *
+     *  @see mx.core.IDataRenderer
+     */
+    public function get data():Object
+    {
+        return _data;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set data(value:Object):void
-	{
-		_data = value;
+    /**
+     *  @private
+     */
+    public function set data(value:Object):void
+    {
+        _data = value;
 
-		invalidateProperties();
+        invalidateProperties();
 
-		dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-	}
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
 
    //----------------------------------
     //  fontContext
@@ -204,87 +204,87 @@ public class ListItemRenderer extends UIComponent
         this.moduleFactory = moduleFactory;
     }
     
-	//----------------------------------
-	//  icon
-	//----------------------------------
+    //----------------------------------
+    //  icon
+    //----------------------------------
 
-	/**
-	 *  The internal IFlexDisplayObject that displays the icon in this renderer.
-	 */
-	protected var icon:IFlexDisplayObject;
+    /**
+     *  The internal IFlexDisplayObject that displays the icon in this renderer.
+     */
+    protected var icon:IFlexDisplayObject;
 
-	//----------------------------------
-	//  label
-	//----------------------------------
+    //----------------------------------
+    //  label
+    //----------------------------------
 
-	/**
-	 *  The internal UITextField that displays the text in this renderer.
-	 */
-	protected var label:IUITextField;
+    /**
+     *  The internal UITextField that displays the text in this renderer.
+     */
+    protected var label:IUITextField;
 
-	//----------------------------------
-	//  listData
-	//----------------------------------
+    //----------------------------------
+    //  listData
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the listData property.
-	 */
-	private var _listData:ListData;
+    /**
+     *  @private
+     *  Storage for the listData property.
+     */
+    private var _listData:ListData;
 
-	[Bindable("dataChange")]
-	
-	/**
-	 *  The implementation of the <code>listData</code> property
-	 *  as defined by the IDropInListItemRenderer interface.
-	 *
-	 *  @see mx.controls.listClasses.IDropInListItemRenderer
-	 */
-	public function get listData():BaseListData
-	{
-		return _listData;
-	}
+    [Bindable("dataChange")]
+    
+    /**
+     *  The implementation of the <code>listData</code> property
+     *  as defined by the IDropInListItemRenderer interface.
+     *
+     *  @see mx.controls.listClasses.IDropInListItemRenderer
+     */
+    public function get listData():BaseListData
+    {
+        return _listData;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set listData(value:BaseListData):void
-	{
-		_listData = ListData(value);
+    /**
+     *  @private
+     */
+    public function set listData(value:BaseListData):void
+    {
+        _listData = ListData(value);
 
-		invalidateProperties();
-	}
+        invalidateProperties();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function createChildren():void
-	{
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
         super.createChildren();
 
-		if (!label)
-		{
-			label = IUITextField(createInFontContext(UITextField));
-			label.styleName = this;
-			addChild(DisplayObject(label));
-		}
-	}
+        if (!label)
+        {
+            label = IUITextField(createInFontContext(UITextField));
+            label.styleName = this;
+            addChild(DisplayObject(label));
+        }
+    }
 
-	/**
-	 *  @private
-	 *  Apply the data and listData.
-	 *  Create an instance of the icon if specified,
-	 *  and set the text into the text field.
-	 */
-	override protected function commitProperties():void
-	{
-		super.commitProperties();
+    /**
+     *  @private
+     *  Apply the data and listData.
+     *  Create an instance of the icon if specified,
+     *  and set the text into the text field.
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
 
         var childIndex:int = -1;
         if (hasFontContextChanged() && label != null) 
@@ -294,195 +294,195 @@ public class ListItemRenderer extends UIComponent
             label = null;
         }
 
-		if (!label)
-		{
-			label = IUITextField(createInFontContext(UITextField));
-			label.styleName = this;
-			
-			if (childIndex == -1)
-			    addChild(DisplayObject(label));			    
-			else
-			    addChildAt(DisplayObject(label), childIndex);
-		}
-		
-		if (icon)
-		{
-			removeChild(DisplayObject(icon));
-			icon = null;
-		}
+        if (!label)
+        {
+            label = IUITextField(createInFontContext(UITextField));
+            label.styleName = this;
+            
+            if (childIndex == -1)
+                addChild(DisplayObject(label));             
+            else
+                addChildAt(DisplayObject(label), childIndex);
+        }
+        
+        if (icon)
+        {
+            removeChild(DisplayObject(icon));
+            icon = null;
+        }
 
-		if (_data != null)
-		{
-			listOwner = ListBase(_listData.owner);
+        if (_data != null)
+        {
+            listOwner = ListBase(_listData.owner);
 
-			if (_listData.icon)
-			{
-				var iconClass:Class = _listData.icon;
-				icon = new iconClass();
+            if (_listData.icon)
+            {
+                var iconClass:Class = _listData.icon;
+                icon = new iconClass();
 
-				addChild(DisplayObject(icon));
-			}
-			
-			label.text = _listData.label ? _listData.label : " ";
-			label.multiline = listOwner.variableRowHeight;
-			label.wordWrap = listOwner.wordWrap;
+                addChild(DisplayObject(icon));
+            }
+            
+            label.text = _listData.label ? _listData.label : " ";
+            label.multiline = listOwner.variableRowHeight;
+            label.wordWrap = listOwner.wordWrap;
 
-			if (listOwner.showDataTips)
-			{
-				if (label.textWidth > label.width ||
-					listOwner.dataTipFunction != null)
-				{
-					toolTip = listOwner.itemToDataTip(_data);
-				}
-				else
-				{
-					toolTip = null;
-				}
-			}
-			else
-			{
-				toolTip = null;
-			}
-		}
-		else
-		{
-			label.text = " ";
-			toolTip = null;
-		}
-	}
+            if (listOwner.showDataTips)
+            {
+                if (label.textWidth > label.width ||
+                    listOwner.dataTipFunction != null)
+                {
+                    toolTip = listOwner.itemToDataTip(_data);
+                }
+                else
+                {
+                    toolTip = null;
+                }
+            }
+            else
+            {
+                toolTip = null;
+            }
+        }
+        else
+        {
+            label.text = " ";
+            toolTip = null;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function measure():void
-	{
-		super.measure();
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();
 
-		var w:Number = 0;
+        var w:Number = 0;
 
-		if (icon)
-			w = icon.measuredWidth;
+        if (icon)
+            w = icon.measuredWidth;
 
-		// Guarantee that label width isn't zero
-		// because it messes up ability to measure.
-		if (label.width < 4 || label.height < 4)
-		{
-			label.width = 4;
-			label.height = 16;
-		}
+        // Guarantee that label width isn't zero
+        // because it messes up ability to measure.
+        if (label.width < 4 || label.height < 4)
+        {
+            label.width = 4;
+            label.height = 16;
+        }
 
-		if (isNaN(explicitWidth))
-		{
-			w += label.getExplicitOrMeasuredWidth();
-			measuredWidth = w;
-			measuredHeight = label.getExplicitOrMeasuredHeight();
-		}
-		else
-		{
-			measuredWidth = explicitWidth;
-			label.setActualSize(Math.max(explicitWidth - w, 4), label.height);
-			measuredHeight = label.getExplicitOrMeasuredHeight();
-			if (icon && icon.measuredHeight > measuredHeight)
-				measuredHeight = icon.measuredHeight;
-		}
-	}
+        if (isNaN(explicitWidth))
+        {
+            w += label.getExplicitOrMeasuredWidth();
+            measuredWidth = w;
+            measuredHeight = label.getExplicitOrMeasuredHeight();
+        }
+        else
+        {
+            measuredWidth = explicitWidth;
+            label.setActualSize(Math.max(explicitWidth - w, 4), label.height);
+            measuredHeight = label.getExplicitOrMeasuredHeight();
+            if (icon && icon.measuredHeight > measuredHeight)
+                measuredHeight = icon.measuredHeight;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		var startX:Number = 0;
+        var startX:Number = 0;
 
-		if (icon)
-		{
-			icon.x = startX;
-			startX = icon.x + icon.measuredWidth;
-			icon.setActualSize(icon.measuredWidth, icon.measuredHeight);
-		}
+        if (icon)
+        {
+            icon.x = startX;
+            startX = icon.x + icon.measuredWidth;
+            icon.setActualSize(icon.measuredWidth, icon.measuredHeight);
+        }
 
-		label.x = startX;
-		label.setActualSize(unscaledWidth - startX, measuredHeight);
+        label.x = startX;
+        label.setActualSize(unscaledWidth - startX, measuredHeight);
 
-		var verticalAlign:String = getStyle("verticalAlign");
-		if (verticalAlign == "top")
-		{
-			label.y = 0;
-			if (icon)
-				icon.y = 0;
-		}
-		else if (verticalAlign == "bottom")
-		{
-			label.y = unscaledHeight - label.height + 2; // 2 for gutter
-			if (icon)
-				icon.y = unscaledHeight - icon.height;
-		}
-		else
-		{
-			label.y = (unscaledHeight - label.height) / 2;
-			if (icon)
-				icon.y = (unscaledHeight - icon.height) / 2;
-		}
+        var verticalAlign:String = getStyle("verticalAlign");
+        if (verticalAlign == "top")
+        {
+            label.y = 0;
+            if (icon)
+                icon.y = 0;
+        }
+        else if (verticalAlign == "bottom")
+        {
+            label.y = unscaledHeight - label.height + 2; // 2 for gutter
+            if (icon)
+                icon.y = unscaledHeight - icon.height;
+        }
+        else
+        {
+            label.y = (unscaledHeight - label.height) / 2;
+            if (icon)
+                icon.y = (unscaledHeight - icon.height) / 2;
+        }
 
-		var labelColor:Number;
+        var labelColor:Number;
 
-		if (data && parent)
-		{
-			if (!enabled)
-				labelColor = getStyle("disabledColor");
-			else if (listOwner.isItemHighlighted(listData.uid))
-        		labelColor = getStyle("textRollOverColor");
-			else if (listOwner.isItemSelected(listData.uid))
-        		labelColor = getStyle("textSelectedColor");
-			else
-        		labelColor = getStyle("color");
+        if (data && parent)
+        {
+            if (!enabled)
+                labelColor = getStyle("disabledColor");
+            else if (listOwner.isItemHighlighted(listData.uid))
+                labelColor = getStyle("textRollOverColor");
+            else if (listOwner.isItemSelected(listData.uid))
+                labelColor = getStyle("textSelectedColor");
+            else
+                labelColor = getStyle("color");
 
-       		label.setColor(labelColor);
-		}
-	}
+            label.setColor(labelColor);
+        }
+    }
 
  
- 	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Positions the tooltip.
-	 *
-	 *  @param The Event object.
-	 */
-	protected function toolTipShowHandler(event:ToolTipEvent):void
-	{
-		var toolTip:IToolTip = event.toolTip;
+    /**
+     *  Positions the ToolTip object.
+     *
+     *  @param The Event object.
+     */
+    protected function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
 
-		// Calculate global position of label.
-		var pt:Point = new Point(0, 0);
-		pt = label.localToGlobal(pt);
-		pt = stage.globalToLocal(pt);
+        // Calculate global position of label.
+        var pt:Point = new Point(0, 0);
+        pt = label.localToGlobal(pt);
+        pt = stage.globalToLocal(pt);
 
-		toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
+        toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
 
-		var screen:Rectangle = systemManager.screen;
-		var screenRight:Number = screen.x + screen.width;
-		if (toolTip.x + toolTip.width > screenRight)
-			toolTip.move(screenRight - toolTip.width, toolTip.y);
+        var screen:Rectangle = systemManager.screen;
+        var screenRight:Number = screen.x + screen.width;
+        if (toolTip.x + toolTip.width > screenRight)
+            toolTip.move(screenRight - toolTip.width, toolTip.y);
 
-	}
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function getLabel():IUITextField
-	{
-		return label;
-	}
-	
-	
+    /**
+     *  @private
+     */
+    mx_internal function getLabel():IUITextField
+    {
+        return label;
+    }
+    
+    
 }
 
 }
