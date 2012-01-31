@@ -23,9 +23,9 @@
 
     <fx:Script>
     <![CDATA[
-         import mx.events.IndexChangedEvent;
+         import spark.events.IndexChangeEvent; 
 
-         private function changeSelection(event:IndexChangedEvent): void {
+         private function changeSelection(event:IndexChangeEvent): void {
              selectionText.text = "Selected Item: " + ButtonBar(event.target).selectedItem;
          }
     ]]>
