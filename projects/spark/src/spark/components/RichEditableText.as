@@ -1922,7 +1922,8 @@ public class TextView extends UIComponent implements IViewport
     {
         // When gaining focus, show the selection.  Uses the SelectionFormat 
         // values defined by the SelectionManager.
-        textFlow.flowComposer.showSelection();
+        if (textFlow.interactionManager.hasSelection())
+            textFlow.flowComposer.showSelection();
     }
 
     /**
@@ -1936,7 +1937,8 @@ public class TextView extends UIComponent implements IViewport
             
         // When losing focus, hide the selection.  Uses the SelectionFormat 
         // values defined by the SelectionManager. 
-        textFlow.flowComposer.hideSelection();            
+        if (textFlow.interactionManager.hasSelection())
+            textFlow.flowComposer.hideSelection();            
     }
 
     //--------------------------------------------------------------------------
