@@ -395,25 +395,35 @@ public class Range extends SkinnableComponent
     { 
         if (interval == 0)
             return Math.max(minimum, Math.min(maximum, value));
+
+        var minValue:Number = minimum;
+        var maxValue:Number = maximum;
+        var scale:Number = 1;
+
+        // If interval isn't an integer, there's a possibility that the floating point 
+        // approximation of value or value/interval will be slightly larger or smaller 
+        // than the real value.  This can lead to errors in calculations like 
+        // floor(value/interval)*interval, which one might expect to just equal value, 
+        // when value is an exact multiple of interval.  Not so if value=0.58 and 
+        // interval=0.01, in that case the calculation yields 0.57!  To avoid problems, 
+        // we scale by the implicit precision of the interval and then round.  For 
+        // example if interval=0.01, then we scale by 100.    
         
-        var lower:Number = Math.max(minimum, Math.floor(value / interval) * interval);
-        var upper:Number = Math.min(maximum, Math.floor((value + interval) / interval) * interval);
-        var validValue:Number = ((value - lower) >= ((upper - lower) / 2)) ? upper : lower;
-        
-        // If interval isn't an integer, there's a possibility that the 
-        // floating point approximation of validValue will be slightly larger
-        // or smaller than what one would expect.  For example if value=6 and interval=0.1
-        // then validValue=0.6000000000000001.  This confuses code which converts Range
-        // values to/from strings, so we limit the number of significant decimals to the 
-        // number present in interval.
         if (interval != Math.round(interval)) 
         { 
-            var parts:Array = (new String(1 + interval)).split("."); 
-            var scale:Number = Math.pow(10, parts[1].length); 
-            validValue = Math.round(validValue * scale) / scale; 
-        } 
+            const parts:Array = (new String(1 + interval)).split("."); 
+            scale = Math.pow(10, parts[1].length); 
+            minValue *= scale;
+            maxValue *= scale;
+            value = Math.round(value * scale);
+            interval = Math.round(interval * scale);
+        }   
         
-        return validValue;
+        var lower:Number = Math.max(minValue, Math.floor(value / interval) * interval);
+        var upper:Number = Math.min(maxValue, Math.floor((value + interval) / interval) * interval);
+        var validValue:Number = ((value - lower) >= ((upper - lower) / 2)) ? upper : lower;
+
+        return validValue / scale;
     }
         
     /**
