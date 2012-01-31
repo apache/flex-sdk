@@ -243,7 +243,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A required skin part that defines the Group where the content 
