@@ -173,6 +173,7 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.skins.spark.ApplicationSkin
+ *  @includeExample examples/ApplicationContainerExample.mxml
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
