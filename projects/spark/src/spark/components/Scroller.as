@@ -1422,6 +1422,11 @@ public class Scroller extends SkinnableComponent
         else if (canScrollVertically)
             scrollProperty = VERTICAL_SCROLL_POSITION;
         
+        // If there's an animation playing, we need 	 
+        // to stop it before we snap the element into 	 
+        // position. 	 
+        stopAnimations(); 	 
+        
         if (animate)
         {
             if (!snapElementAnimation)
@@ -1443,6 +1448,17 @@ public class Scroller extends SkinnableComponent
 			return null;
         }
     }
+    
+    /** 	 
+     *  @private 	 
+     */ 	 
+    private function stopAnimations():void 	 
+    { 	 
+        if (throwEffect && throwEffect.isPlaying) 	 
+            throwEffect.stop(); 	 
+        if (snapElementAnimation && snapElementAnimation.isPlaying) 	 
+            snapElementAnimation.stop(); 	 
+    } 	 
     
     //--------------------------------------------------------------------------
     // 
@@ -1799,6 +1815,16 @@ public class Scroller extends SkinnableComponent
                         break;
                 }
             }
+        }
+        if (verticalScrollBar)
+        {
+            verticalScrollBar.contentMinimum = minVerticalScrollPosition;
+            verticalScrollBar.contentMaximum = maxVerticalScrollPosition;
+        }
+        if (horizontalScrollBar)
+        {
+            horizontalScrollBar.contentMinimum = minHorizontalScrollPosition;
+            horizontalScrollBar.contentMaximum = maxHorizontalScrollPosition;
         }
     }
 
@@ -2524,6 +2550,12 @@ public class Scroller extends SkinnableComponent
             {
                 installTouchListeners();
                 
+                // Need to make sure the scroll ranges are updated now, since they may 	 
+                // not have been if the scroller was in non-touch mode when the content 	 
+                // was created/changed. 	 
+                scrollRangesChanged = true; 	 
+                invalidateProperties(); 	 
+                
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper();
@@ -2609,12 +2641,16 @@ public class Scroller extends SkinnableComponent
             verticalScrollBar.viewport = viewport;
             if (liveScrollingSet)
                 verticalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
+            verticalScrollBar.contentMinimum = minVerticalScrollPosition;
+            verticalScrollBar.contentMaximum = maxVerticalScrollPosition; 
         }
         else if (instance == horizontalScrollBar)
         {
             horizontalScrollBar.viewport = viewport;
             if (liveScrollingSet)
                 horizontalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));            
+            horizontalScrollBar.contentMinimum = minHorizontalScrollPosition;
+            horizontalScrollBar.contentMaximum = maxHorizontalScrollPosition; 
         }
     }
     
@@ -2646,12 +2682,14 @@ public class Scroller extends SkinnableComponent
         
         if (pageScrollingChanged)
         {
+            stopAnimations();
             determineCurrentPageScrollPosition();
             pageScrollingChanged = false;
         }
         
         if (snappingModeChanged)
         {
+            stopAnimations();
             snapContentScrollPosition();
             snappingModeChanged = false;                
         }
@@ -3006,6 +3044,12 @@ public class Scroller extends SkinnableComponent
     {
         stopThrowEffectOnMouseDown();
         
+        // If the snap animation is playing, we need to stop it 	 
+        // before watching for a scroll and potentially beginning 	 
+        // a new touch interaction.
+        if (snapElementAnimation && snapElementAnimation.isPlaying) 	 
+            snapElementAnimation.stop(); 	 
+                
         captureNextClick = false;
         
         // Watch for a scroll to begin.  The helper object will call our
