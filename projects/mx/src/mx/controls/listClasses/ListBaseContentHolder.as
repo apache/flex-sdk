@@ -32,6 +32,11 @@ include "../../styles/metadata/PaddingStyles.as"
 
 /**
  *  Background color of the component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
@@ -50,6 +55,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  alternating row colors can show through the control.
  *
  *  @see mx.controls.listClasses.ListBase
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListBaseContentHolder extends UIComponent
 {
@@ -65,6 +75,11 @@ public class ListBaseContentHolder extends UIComponent
      *  Constructor.
      *
      *  @param parentList The list-based control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListBaseContentHolder(parentList:ListBase)
     {
@@ -103,6 +118,11 @@ public class ListBaseContentHolder extends UIComponent
     /**
      *  The layer in the content defined by the <code>:istbase.listContent</code> property 
      *  where all selection and highlight indicators are drawn.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var selectionLayer:Sprite;
 
@@ -110,6 +130,11 @@ public class ListBaseContentHolder extends UIComponent
      *  A hash table of data provider item renderers currently in view.
      *  The table is indexed by the data provider item's UID and is used
      *  to quickly get the renderer used to display a particular item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var visibleData:Object = {};
 
@@ -118,6 +143,11 @@ public class ListBaseContentHolder extends UIComponent
      *  the item renderer instances that render each data provider item.
      *  This is a two-dimensional, row-major array, which means 
      *  an Array of rows that are Arrays of columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var listItems:Array = [];
 
@@ -125,6 +155,11 @@ public class ListBaseContentHolder extends UIComponent
      *  An Array of ListRowInfo objects that cache row heights and 
      *  other tracking information for the rows defined in 
      *  the <code>listItems</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rowInfo:Array = [];
 
@@ -133,6 +168,11 @@ public class ListBaseContentHolder extends UIComponent
      *  data provider and pass the items to the renderers.
      *  At the end of any sequence of code, it must always
      *  be positioned at the top-most visible item being displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var iterator:IViewCursor;
 
@@ -224,6 +264,11 @@ public class ListBaseContentHolder extends UIComponent
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -260,6 +305,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var leftOffset:Number = 0;
 
@@ -268,6 +318,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var topOffset:Number = 0;
 
@@ -276,6 +331,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rightOffset:Number = 0;
 
@@ -284,6 +344,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var bottomOffset:Number = 0;
     
@@ -293,6 +358,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get heightExcludingOffsets():Number
     {
@@ -305,6 +375,11 @@ public class ListBaseContentHolder extends UIComponent
      *  by the <code>ListBase.listContent</code> property.
      *
      *  @see mx.controls.listClasses.ListBase#listContent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get widthExcludingOffsets():Number
     {
