@@ -61,6 +61,8 @@ include "../styles/metadata/TextStyles.as"
 
 [IconFile("FormHeading.png")]
 
+[Alternative(replacement="spark.components.FormHeading", since="4.5")]
+
 /**
  *  The FormHeading container is used to display a heading
  *  for a group of controls inside a Form container.
