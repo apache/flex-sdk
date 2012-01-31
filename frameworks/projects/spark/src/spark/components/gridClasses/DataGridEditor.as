@@ -551,9 +551,6 @@ public class DataGridEditor
         var col:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
         var item:IGridItemRenderer = grid.getItemRendererAt(rowIndex, columnIndex);
         var cellBounds:Rectangle = grid.getCellBounds(rowIndex,columnIndex);
-        
-        // convert the row origin from the grid to the editor layer.
-        var globalCellOrigin:Point = grid.localToGlobal(new Point(cellBounds.x, cellBounds.y));
         var localCellOrigin:Point = cellBounds.topLeft;
         
         _editedItemRenderer = item;
