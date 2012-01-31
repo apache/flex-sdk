@@ -11,7 +11,6 @@
 
 package spark.components.supportClasses
 {
-import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
@@ -25,15 +24,11 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
-import org.osmf.metadata.IFacet;
-
 import spark.components.ColumnHeaderBar;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
-import spark.layouts.HorizontalLayout;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.primitives.Rect;
 
 use namespace mx_internal;
 
@@ -151,24 +146,68 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        // ToDo: Need to take typicalLayoutElement into account
-        //var rowCount:int = grid.dataProvider.length;
-        //var columnCount:int = grid.columns.length;
+        var measuredWidth:Number;
+        var measuredHeight:Number;
+
+        if (!isNaN(grid.explicitWidth))
+        {
+            measuredWidth = grid.explicitWidth;
+        }
+        else
+        {
+            const columns:IList = grid.columns;
+            const numColumns:int = columns.length;
+            var columnCount:int;
+            for (var i:int = 0; i < numColumns; i++)
+            {
+                var c:GridColumn = columns.getItemAt(i) as GridColumn;
+                if (c && c.visible)
+                    columnCount ++;
+            }
+            
+            const defaultColumnWidth:Number = 
+                typicalLayoutElement.getPreferredBoundsWidth();
+            const columnGap:Number = gridDimensions.columnGap;
+            
+            measuredWidth = (columnCount * (defaultColumnWidth + columnGap)) - columnGap;         
+        }
         
-        var measuredWidth:Number = 640; //typicalLayoutElement.getPreferredBoundsWidth() * columnCount;
-        var measuredHeight:Number = 480; //typicalLayoutElement.getPreferredBoundsHeight() * rowCount;
-        var measuredMinWidth:Number = 640;
-        var measuredMinHeight:Number = 480;;
+        if (!isNaN(grid.explicitHeight))
+        {
+            measuredHeight = grid.explicitWidth;
+        }
+        else
+        {
+            const rowCount:int = grid.dataProvider.length;
+            const rowGap:Number = gridDimensions.rowGap;
+            const defaultRowHeight:Number = 
+                typicalLayoutElement.getPreferredBoundsHeight();
+
+            measuredHeight = rowCount * (defaultRowHeight + rowGap);
+            
+            // One less row gap if there isn't a column header bar.
+            const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+            if (!columnHeaderBar || !columnHeaderBar.visible)
+                measuredHeight -= rowGap;
+        }
+                    
+        // ToDo:(cframpto)  If there is a scroller without an explicit size, 
+        // what should the measured size of the grid?
+        
+        measuredWidth = Math.min(measuredWidth, 600);
+        measuredHeight = Math.min(measuredHeight, 480);
         
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
         
         grid.measuredWidth = Math.ceil(measuredWidth);    
-        grid.measuredHeight = Math.ceil(measuredHeight);    
-        grid.measuredMinWidth = Math.ceil(measuredMinWidth);    
-        grid.measuredMinHeight = Math.ceil(measuredMinHeight); 
+        grid.measuredHeight = Math.ceil(measuredHeight);
         
-       // trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
+        // Not used if virtual layout so don't bother to calculate.
+        grid.measuredMinWidth = grid.measuredWidth;    
+        grid.measuredMinHeight = grid.measuredHeight; 
+        
+       //trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
     }
     
     /**
@@ -211,6 +250,10 @@ public class GridLayout extends LayoutBase
         visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayGroup, 
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastColumnIndex);
         
+        // Tell the ColumnHeaderBar to update its layout.
+        
+        layoutColumnHeaderBar();
+        
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
         layoutHoverIndicator(grid.backgroundGroup);
@@ -227,7 +270,7 @@ public class GridLayout extends LayoutBase
         
         const contentWidth:Number = Math.ceil(gridDimensions.contentWidth);
         const contentHeight:Number = Math.ceil(gridDimensions.contentHeight);
-        grid.setContentSize(contentWidth, contentHeight);
+        grid.setContentSize(contentWidth, contentHeight);        
     }
     
     /**
@@ -283,10 +326,10 @@ public class GridLayout extends LayoutBase
     private function getGridColumnHeader(columnIndex:int):IVisualElement
     {
         const headerBar:ColumnHeaderBar = getColumnHeaderBar();
-        if (headerBar == null)
+        if (headerBar == null || headerBar.dataGroup == null)
             return null;
         
-        return headerBar.getElementAt(columnIndex);
+        return headerBar.dataGroup.getElementAt(columnIndex);
     }
     
     /**
@@ -402,30 +445,9 @@ public class GridLayout extends LayoutBase
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
                 layoutGridElement(renderer, cellX, cellY, colWidth, rowHeight);
                 
-                // If there is a column header, it should be the same width
-                // as the column.
-                var headerElement:IVisualElement = getGridColumnHeader(colIndex);
-                if (headerElement)
-                    headerElement.width = colWidth;
-                
                 // TBD(hmuller): need a local preferred bounds method once layoutGridElement supports constraints
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
-            }
-            
-            // ToDo(cframpto): where and how should this be done?
-            const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-            if (columnHeaderBar)
-            {
-                // Horizontal layout repositions all the elements.  The layout
-                // starts at paddingLeft.  There is "gap" between each element.
-                if (columnHeaderBar.layout is HorizontalLayout)
-                {
-                    var headerBarLayout:HorizontalLayout = 
-                        HorizontalLayout(columnHeaderBar.layout);
-                    headerBarLayout.gap = colGap;
-                    headerBarLayout.paddingLeft = grid.x;
-                }
             }
             
             // TBD: if gridDimensions.rowHeight is now larger, we need to make another
@@ -439,7 +461,7 @@ public class GridLayout extends LayoutBase
             else
                 availableHeight -= rowHeight + rowGap;            
         }
-        
+                
         // Free renderers that aren't in use
         
         for each (var oldRenderer:IVisualElement in visibleItemRenderers)
@@ -473,6 +495,59 @@ public class GridLayout extends LayoutBase
         visibleColumnIndices = newVisibleColumnIndices;
     }
 
+
+    /**
+     *  @private
+     *  ToDo(cframpto): what is the correct way to do this?
+     * 
+     *  For now, header width is determined by the grid column width and the
+     *  header height, is the column bar header height if it has been explicitly
+     *  set, otherwise it is the column header bar dataGroup's 
+     *  typicalLayoutElement height.
+     */
+    private function layoutColumnHeaderBar():void
+    {
+        const colGap:int = gridDimensions.columnGap;
+        
+        const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+        if (columnHeaderBar)
+        {
+            const layout:ColumnHeaderBarLayout = 
+                columnHeaderBar.layout as ColumnHeaderBarLayout;
+            if (layout)
+                layout.updateLayout(this);
+        }        
+    }
+
+    /**
+     *  @private
+     *  Callback for the ColumnHeaderBar layout to use to layout the column
+     *  header separators so all the layout code doesn't have to be duplicated.
+     */
+    mx_internal function layoutColumnHeaderSeparators(
+                        oldVisibleColumnIndices:Vector.<int>,
+                        visibleColumnIndices:Vector.<int>,
+                        visibleHeaderSeparators:Vector.<IVisualElement>):Vector.<IVisualElement>
+    {
+        // ToDo(cframpto): the factory and group should come in as args
+        
+        const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+        if (columnHeaderBar)
+        {
+            const factory:IFactory = 
+                columnHeaderBar.headerSeparator ?
+                columnHeaderBar.headerSeparator : grid.columnSeparator;
+            const lastColumnIndex:int = gridDimensions.columnCount - 1;
+            
+            visibleHeaderSeparators =  layoutLinearElements(factory,
+                columnHeaderBar.overlayGroup, visibleHeaderSeparators,
+                oldVisibleColumnIndices, visibleColumnIndices, 
+                layoutHeaderSeparator, lastColumnIndex);
+        }
+        
+        return visibleHeaderSeparators;
+    }
+    
     /**
      *  @private
      *  Creates a new IR for cell 0,0 using the grid's typicalItem.  If the
@@ -505,10 +580,10 @@ public class GridLayout extends LayoutBase
         
         grid.itemRendererGroup.addElement(renderer);
         
+        // Initialize cell 0,0.
         initializeItemRenderer(renderer, 0, 0, typicalItem, false);
-        
         layoutGridElement(renderer, 0, 0, NaN, NaN);
-                
+
         grid.itemRendererGroup.removeElement(renderer);
         
         return renderer;
@@ -874,6 +949,17 @@ public class GridLayout extends LayoutBase
         layoutGridElement(separator, x, y, width, height);
     }
     
+    private function layoutHeaderSeparator(separator:IVisualElement, columnIndex:int):void
+    {
+        var columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+        const width:Number = 1;  // TBD: should be max(1, rowGap)
+        const height:Number = columnHeaderBar.height; 
+        const columnBounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+        const x:Number = columnBounds.right;
+        const y:Number = columnBounds.top;
+        layoutGridElement(separator, x, y, width, height);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Selection Indicators
