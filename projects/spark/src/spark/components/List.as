@@ -562,7 +562,7 @@ public class List extends ListBase implements IFocusManagerComponent
      * 
      *  In the future, this method may animate the scroll.
      */
-    private function ensureIndexIsVisible(index:int):void
+    protected function ensureIndexIsVisible(index:int):void
     {
         if (!layout)
             return;
