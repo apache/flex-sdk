@@ -1347,7 +1347,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 	       
             else 
             {
-	        		NetworkMonitor.monitorInvocation(getNetmonId(), message);
+	        		NetworkMonitor.monitorInvocation(getNetmonId(), message, this);
 	        }
       }
    }    
