@@ -6,7 +6,7 @@
 
     <fx:Declarations>
         <s:Animate id="animateEffect"
-        	target="{targetBox}" repeatCount="2" repeatBehavior="reverse" disableConstraints="true" effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;">
+        	target="{targetBox}" repeatCount="2" repeatBehavior="reverse" disableLayout="true" effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;">
             <s:motionPaths>
                 <s:SimpleMotionPath property="x" valueFrom="0" valueTo="100"/>
                 <s:SimpleMotionPath property="alpha" valueFrom="1" valueTo="0"/>
