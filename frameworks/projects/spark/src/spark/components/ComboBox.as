@@ -412,6 +412,39 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      */ 
     public var openOnInput:Boolean = true;
     
+    //----------------------------------
+    //  prompt
+    //----------------------------------
+    
+    private var _prompt:String;
+    private var promptChanged:Boolean;
+    
+    /**
+     *  @default null
+     *
+     *  Text to be displayed if/when the actual
+     *  text property is a null or empty string.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get prompt():String
+    {
+        return _prompt;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set prompt(value:String):void
+    {
+        _prompt = value;
+        promptChanged = true;
+        invalidateProperties();
+    }
+
     //--------------------------------------------------------------------------
     //  restrict
     //--------------------------------------------------------------------------
@@ -649,6 +682,12 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             {
                 textInput.maxChars = _maxChars;
                 maxCharsChanged = false;
+            }
+            
+            if (promptChanged)
+            {
+                textInput.prompt = _prompt;
+                promptChanged = false;
             }
             
             if (restrictChanged)
