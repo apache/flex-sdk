@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the pseudo selectors -->
+<FxApplication xmlns="http://ns.adobe.com/mxml/2009" xmlns:custom="*">
+     <Style>
+        FxButton:up {
+            baseColor: #000000;
+            color: #FFFFFF;
+        }
+
+        FxButton:over {
+            baseColor: #484848;
+            fontWeight: "bold";
+            color: #FFFFFF;
+        }
+
+        FxButton:down {
+            baseColor: #484848;
+            fontWeight: "bold";
+            color: #FFFF66;
+        }
+
+        Box:normal {
+			fontSize: 10;
+		}
+
+		Box:zoomed {
+			fontSize: 20;
+			color: #330066;
+		}
+
+    </Style>
+    <Script>
+    	<![CDATA[
+    	    private function changeCompState(): void
+    	    {
+    	        if(dateComp.currentState=='zoomed')
+    	        {
+    	            dateComp.currentState = 'normal';
+    	        }
+    	        else
+    	        {
+    	            dateComp.currentState = 'zoomed';
+    	        }
+    	    }
+    	]]>
+    </Script>
+    <FxPanel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%" >
+        <Label text="The FxButton below uses pseudo selectors to define its baseColor for each of its states."
+        	x="10" y="10" />
+        <FxButton id="submitButton" label="Submit Form" x="10" y="35"/>
+
+        <FxButton label="change halo state" click="changeCompState()" x="10" y="65"/>
+        <custom:DateStateComp id="dateComp" currentState="normal" x="10" y="90"/>
+
+    </FxPanel>
+</FxApplication>
