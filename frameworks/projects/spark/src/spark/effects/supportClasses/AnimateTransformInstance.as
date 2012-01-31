@@ -16,18 +16,17 @@ import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Vector3D;
 
-import mx.core.ILayoutElement;
-import mx.core.mx_internal;
-import spark.effects.animation.Animation;
-import mx.effects.Effect;
-import spark.effects.Animate;
-import spark.effects.easing.IEaser;
-import spark.effects.easing.Linear;
-
+import mx.core.IUIComponent;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
+import mx.effects.Effect;
 
+import spark.effects.Animate;
 import spark.effects.KeyFrame;
 import spark.effects.MotionPath;
+import spark.effects.animation.Animation;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
 
 use namespace mx_internal;
 
@@ -365,8 +364,7 @@ public class AnimateTransformInstance extends AnimateInstance
             var parent:UIComponent = target.parent;
             
             if(parent != null)
-            {
-                    
+            {                    
                 originalProjection = parent.$transform.perspectiveProjection;
                 var p:PerspectiveProjection = new PerspectiveProjection();
                 if(!isNaN(fieldOfView))
@@ -374,17 +372,17 @@ public class AnimateTransformInstance extends AnimateInstance
                 if(!isNaN(focalLength))
                     p.focalLength = focalLength;
                 
-                if(autoCenterProjection)
-                {
-                    var le:ILayoutElement = target as ILayoutElement;
-                    p.projectionCenter = new Point(le.getLayoutBoundsX() + le.getLayoutBoundsWidth()/2,
-                                                   le.getLayoutBoundsY() + le.getLayoutBoundsHeight()/2);           
-                }
+                var projectionPoint:Point;
+                // Get the location in local coordinates and then get
+                // that location in the parent's coordinate system
+                if (autoCenterProjection)
+                    projectionPoint = new Point(target.getLayoutBoundsWidth(false)/2,
+                        target.getLayoutBoundsHeight(false)/2);
                 else
-                {
-                    p.projectionCenter = new Point(projectionX, projectionY);
-                }
-        
+                    projectionPoint = new Point(projectionX, projectionY);
+                projectionPoint = target.localToGlobal(projectionPoint);
+                p.projectionCenter = parent.globalToLocal(projectionPoint);
+                 
                 parent.$transform.perspectiveProjection = p;        
             }
         }       
@@ -510,6 +508,7 @@ public class AnimateTransformInstance extends AnimateInstance
      */
     override public function animationEnd(animation:Animation):void
     {
+        started = false;
         removeProjection();
         super.animationEnd(animation);
     }
