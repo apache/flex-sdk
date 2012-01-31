@@ -13,7 +13,9 @@ package spark.components
 {
 
 /**
- *  Documentation is not currently available.
+ *  This class specifies the allowed values for the
+ *  <code>selectionHighlighting</code> property
+ *  in RichEditableText, TextInput, and TextArea.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -31,7 +33,9 @@ public final class TextSelectionHighlighting
     //--------------------------------------------------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  Always show the text selection, even if the component
+     *  doesn't have the keyboard focus or if the component's window
+     *  isn't the active window.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -41,7 +45,8 @@ public final class TextSelectionHighlighting
     public static const ALWAYS:String = "always";
 
     /**
-     *  Documentation is not currently available.
+     *  Show the text selection whenever the component's window is active,
+     *  even if the component doesn't have the keyboard focus.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -51,7 +56,7 @@ public final class TextSelectionHighlighting
     public static const WHEN_ACTIVE:String = "whenActive";
 
     /**
-     *  Documentation is not currently available.
+     *  Show the text selection only when the component has keyboard focus.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -59,7 +64,6 @@ public final class TextSelectionHighlighting
      *  @productversion Flex 4
      */
     public static const WHEN_FOCUSED:String = "whenFocused";
-
 }
 
 }
