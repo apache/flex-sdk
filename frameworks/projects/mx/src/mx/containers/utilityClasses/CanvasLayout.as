@@ -25,7 +25,6 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.MoveEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
-import mx.styles.StyleManager;
 import flash.utils.Dictionary;
 
 use namespace mx_internal;
