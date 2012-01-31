@@ -75,6 +75,11 @@ package mx.containers
  *
  *  @see mx.containers.DividedBox
  *  @see mx.containers.HDividedBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VDividedBox extends DividedBox
 {
@@ -88,6 +93,11 @@ public class VDividedBox extends DividedBox
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function VDividedBox()
 	{
