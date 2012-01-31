@@ -15,6 +15,7 @@ package spark.components
 import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.utils.BitFlagUtil;
 
@@ -22,6 +23,8 @@ import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.IViewport;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
+
+use namespace mx_internal;
 
 /**
  *  Dispatched when a renderer is added to the container.
@@ -182,7 +185,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  @private
      */
     private static const TYPICAL_ITEM_PROPERTY_FLAG:uint = 1 << 8;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -703,7 +706,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     public function updateRenderer(renderer:IVisualElement):void
     {
         renderer.owner = this;
-        
+         
         if (renderer is IItemRenderer)
             IItemRenderer(renderer).label = itemToLabel(IItemRenderer(renderer).data);  
     }
@@ -780,7 +783,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
                                                             ITEM_RENDERER_FUNCTION_PROPERTY_FLAG, true);
             }
-            
+                       
             if (dataGroupProperties.typicalItem !== undefined)
             {
                 dataGroup.typicalItem = dataGroupProperties.typicalItem;
@@ -790,24 +793,26 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             dataGroupProperties = newDataGroupProperties;
             
-            // SkinnableDataContainer needs to do work when a renderer is added, so 
-            // listen for the 'rendererAdd' event and delegate to an event handler
-            dataGroup.addEventListener(
-                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
+            // Register our instance as the dataGroup's item renderer update delegate.
+            dataGroup.rendererUpdateDelegate = this;
             
-            
+            // The only reason we have these listeners is to re-dispatch events.  
+            // We only add as necessary.
+  
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
             {
-                // the only reason we have this listener is to re-dispatch events.  So only add it here
-                // if someone's listening on us.
                 dataGroup.addEventListener(
                     PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
             }
             
+            if (hasEventListener(RendererExistenceEvent.RENDERER_ADD))
+            {
+                dataGroup.addEventListener(
+                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+            }
+            
             if (hasEventListener(RendererExistenceEvent.RENDERER_REMOVE))
             {
-                // the only reason we have this listener is to re-dispatch events.  So only add it here
-                // if someone's listening on us.
                 dataGroup.addEventListener(
                     RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
             }
@@ -824,7 +829,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             dataGroup.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
             dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
+                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
             dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
             
@@ -858,11 +863,12 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             if (BitFlagUtil.isSet(dataGroupProperties as uint, TYPICAL_ITEM_PROPERTY_FLAG))
                 newDataGroupProperties.typicalItem = dataGroup.typicalItem;
-                
+            
             dataGroupProperties = newDataGroupProperties;
             
             dataGroup.dataProvider = null;
             dataGroup.layout = null;
+            dataGroup.rendererUpdateDelegate = null;
         }
     }
     
@@ -891,6 +897,12 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
         }
         
+        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
+        {
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+        }
+        
         if (type == RendererExistenceEvent.RENDERER_REMOVE && dataGroup)
         {
             dataGroup.addEventListener(
@@ -917,6 +929,15 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             {
                 dataGroup.removeEventListener(
                     PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+            }
+        }
+        
+        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
+        {
+            if (!hasEventListener(RendererExistenceEvent.RENDERER_ADD))
+            {
+                dataGroup.removeEventListener(
+                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
             }
         }
         
@@ -952,18 +973,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 dispatchEvent(event);
             }
         }
-    }
-    
-    /**
-     * @private
-     */
-    private function dataGroup_rendererAddChangeHandler(event:RendererExistenceEvent):void
-    {
-        var renderer:IVisualElement = event.renderer;
-        
-        updateRenderer(renderer); 
-        
-        dispatchEvent(event);
     }
 }
 
