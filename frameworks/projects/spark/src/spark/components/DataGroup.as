@@ -683,11 +683,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  Given a data item, return the toString() representation 
-     *  of the data item for an item renderer to display. Null 
-     *  data items return the empty string. 
+     *  <p>Given a data item, return the <code>toString()</code> representation 
+     *  of the data item for an item renderer to display. 
+     *  Null data items return the empty string. </p>
+     *
+     *  @copy spark.components.IItemRendererOwner#itemToLabel()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function itemToLabel(item:Object):String
     {
@@ -699,23 +704,34 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     /**
      *  Return the indices of the item renderers visible within this DataGroup.
      * 
-     *  <p>If clipAndEnableScrolling=true, return the indices of the visible=true 
-     *  ItemRenderers that overlap this DataGroup's scrollRect, i.e. the ItemRenders 
-     *  that are at least partially visible relative to this DataGroup.  If 
-     *  clipAndEnableScrolling=false, return a list of integers from 
-     *  0 to dataProvider.length - 1.  Note that if this DataGroup's owner is a 
-     *  Scroller, then clipAndEnableScrolling has been set to true.</p>
+     *  <p>If <code>clipAndEnableScrolling</code> is <code>true</code>, 
+     *  return the indices of the <code>visible</code> = <code>true</code> 
+     *  ItemRenderers that overlap this DataGroup's <code>scrollRect</code>.
+     *  That is, the ItemRenders 
+     *  that are at least partially visible relative to this DataGroup.  
+     *  If <code>clipAndEnableScrolling</code> is <code>false</code>, 
+     *  return a list of integers from 
+     *  0 to <code>dataProvider.length</code> - 1.  
+     *  Note that if this DataGroup's owner is a 
+     *  Scroller, then <code>clipAndEnableScrolling</code> has been 
+     *  set to <code>true</code>.</p>
      * 
      *  <p>The corresponding item renderer for each returned index can be 
-     *  retrieved with getElementAt(), even if the layout is virtual</p>
+     *  retrieved with the <code>getElementAt()</code> method, 
+     *  even if the layout is virtual</p>
      * 
      *  <p>The order of the items in the returned Vector is not guaranteed.</p>
      * 
      *  <p>Note that the VerticalLayout and HorizontalLayout classes provide bindable
-     *  firstIndexInView and lastIndexInView properties which convey the same information
-     *  as this method.</p>
+     *  <code>firstIndexInView</code> and <code>lastIndexInView</code> properties 
+     *  which contain the same information as this method.</p>
      * 
      *  @return The indices of the visible item renderers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function getItemIndicesInView():Vector.<int>
     {
@@ -1004,6 +1020,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
