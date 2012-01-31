@@ -15,12 +15,16 @@ import fl.video.VideoEvent;
 import fl.video.VideoState;
 import fl.video.flvplayback_internal;
 
+import flash.display.DisplayObject;
 import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.events.FullScreenEvent;
+import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
+import flash.events.TimerEvent;
 import flash.geom.Rectangle;
+import flash.utils.Timer;
 
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
@@ -325,6 +329,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     private static const VOLUME_PROPERTY_FLAG:uint = 1 << 5;
     
+    /**
+     *  @private
+     *  The default value that we wait in fullscreen mode with no user-interaction 
+     *  before the play controls go away.
+     *
+     *  @default 3000
+     */
+    private static const FULL_SCREEN_HIDE_CONTROLS_DELAY:Number = 3000;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -424,6 +437,20 @@ public class VideoPlayer extends SkinnableComponent
      *  @productversion Flex 4
      */
     public var playButton:ButtonBase;
+    
+    [SkinPart(required="false")]
+    
+    /**
+     *  An optional skin part for all of the player controls.  We 
+     *  need this skin part to know what to hide when in full screen 
+     *  mode and there's been no user-interaction.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var playerControls:DisplayObject;
     
     [SkinPart(required="false")]
     
@@ -961,6 +988,7 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.addEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
             videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
+            videoElement.addEventListener("playingChanged", videoElement_playingChangedHandler);
             
             // just strictly for binding purposes
             videoElement.addEventListener("sourceChanged", dispatchEvent);
@@ -1074,6 +1102,7 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.removeEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.removeEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
             videoElement.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
+            videoElement.removeEventListener("playingChanged", videoElement_playingChangedHandler);
             
             // just strictly for binding purposes
             videoElement.removeEventListener("sourceChanged", dispatchEvent);
@@ -1314,12 +1343,18 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_stateChangeHandler(event:fl.video.VideoEvent):void
     {
-        if (playPauseButton)
-            playPauseButton.selected = playing;
-        
         invalidateSkinState();
         
         // don't dispatch the event here...this is an internal event
+    }
+    
+   /**
+    *  @private
+    */
+    private function videoElement_playingChangedHandler(event:Event):void
+    {
+        if (playPauseButton)
+            playPauseButton.selected = playing;
     }
     
     /**
@@ -1342,22 +1377,74 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
+     *  X-value before going in to full screen mode.  This way we 
+     *  can reset it to this afterwards.
+     */
+    private var beforeFullScreenX:Number;
+    
+    /**
+     *  @private
+     *  Y-value before going in to full screen mode.  This way we 
+     *  can reset it to this afterwards.
+     */
+    private var beforeFullScreenY:Number;
+    
+    /**
+     *  @private
+     *  Timer, which waits for 3 seconds by default to hide the 
+     *  playback controls.  If there's interaction by the user, then 
+     *  these playback controls are show again, and the timer will reset 
+     *  and start the countdown.
+     */
+    private var fullScreenHideControlTimer:Timer;
+    
+    /**
+     *  @private
      */
     private function fullScreenButton_clickHandler(event:MouseEvent):void
     {
         if (!fullScreen)
         {
-            // TODO (rfrishbe): What should we do on full screen?
             fullScreen = true;
+            
+            // need it to go into full screen state for the skin
             invalidateSkinState();
+            
+            // let's get it off of our layout system so it doesn't interfere with 
+            // the sizing and positioning. Then let's resize it to be 
+            // the full size of our screen.  Then let's position it off-screen so
+            // there are no other elements in the way. 
+            beforeFullScreenX = this.x;
+            beforeFullScreenY = this.y;
             includeInLayout = false;
             setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
+            this.validateNow();
+            this.x = -(2*width);
+            this.y = -(2*height);
+            
+            // this is for video performance reasons
             videoElement.mx_internal::videoPlayer.smoothing = false;
             videoElement.mx_internal::videoPlayer.deblocking = 0;
-            validateNow();
-            stage.displayState = StageDisplayState.FULL_SCREEN;
-            stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
+            
+            // now into full screen we go
+            // TODO: what if we're sandboxed...can we get the stage?
             stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+            stage.fullScreenSourceRect = new Rectangle(x, y, width, height);
+            stage.displayState = StageDisplayState.FULL_SCREEN;
+            
+            // start timer for detecting for mouse movements/clicks to hide the controls
+            fullScreenHideControlTimer = new Timer(FULL_SCREEN_HIDE_CONTROLS_DELAY, 1);
+            fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
+                fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
+            
+            // use stage or systemManager?
+            systemManager.addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
+            systemManager.addEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
+            systemManager.addEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
+            
+            // keyboard events don't happen when in fullScreen mode, but could be in fullScreen and interactive mode
+            systemManager.addEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+            fullScreenHideControlTimer.start();
         }
         else
         {
@@ -1365,24 +1452,60 @@ public class VideoPlayer extends SkinnableComponent
         }
     }
     
+    /**
+     *  @private
+     *  After waiting a certain time perdiod, we hide the controls if no 
+     *  user-interaction has occurred on-screen.
+     */
+    private function fullScreenHideControlTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        playerControls.visible = false;
+    }
+    
+    /**
+     *  @private
+     *  Handles when mouse interaction happens, and we are in the fullscreen mode.  This 
+     *  resets the fullScreenHideControlTimer.
+     */
+    private function resetFullScreenHideControlTimer(event:Event):void
+    {
+        playerControls.visible = true;
+        
+        fullScreenHideControlTimer.reset();
+        fullScreenHideControlTimer.start();
+    }
+    
+    /**
+     *  @private
+     *  Handles when coming out the full screen mode
+     */
     private function fullScreenEventHandler(event:FullScreenEvent):void
     {
+        // going in to full screen is handled by the 
+        // fullScreenButton_clickHandler
         if (event.fullScreen)
             return;
         
+        // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
-        invalidateSkinState();
         stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+        
+        // remove the event listeners to hide the controls
+        systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
+        systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
+        systemManager.removeEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
+        systemManager.removeEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+        
+        // make the controls visible no matter what
+        playerControls.visible = true;
+        
+        // reset it so we're re-included in the layout
+        this.x = beforeFullScreenX;
+        this.y = beforeFullScreenY;
         includeInLayout = true;
+        invalidateSkinState();
         invalidateSize();
         invalidateDisplayList();
-//        var myParent:IVisualElementContainer = parent as IVisualElementContainer;
-//        if (myParent)
-//        {
-//            var index:int = myParent.getElementIndex(this);
-//            myParent.removeElement(this);
-//            myParent.addElementAt(this, index);
-//        }
     }
     
     /**
