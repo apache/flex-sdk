@@ -137,8 +137,15 @@ public class HSlider extends Slider
     
         var thumbRange:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
         var range:Number = maximum - minimum;
-        var thumbPos:Number = (range > 0) ? ((pendingValue - minimum) / range) * thumbRange : 0;
-        thumb.setLayoutBoundsPosition(Math.round(track.getLayoutBoundsX() + thumbPos), thumb.getLayoutBoundsY());
+        
+        // calculate new thumb position.
+        var thumbPosTrackX:Number = (range > 0) ? ((pendingValue - minimum) / range) * thumbRange : 0;
+        
+        // convert to parent's coordinates.
+        var thumbPos:Point = track.localToGlobal(new Point(thumbPosTrackX, 0));
+        var thumbPosParentX:Number = thumb.parent.globalToLocal(thumbPos).x;
+        
+        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
     }
 
     
