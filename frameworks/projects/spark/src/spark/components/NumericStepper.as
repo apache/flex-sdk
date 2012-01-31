@@ -126,6 +126,24 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
 
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(textInput);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
