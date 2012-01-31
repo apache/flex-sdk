@@ -307,6 +307,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *    trackingLeft="0"
  *    trackingRight="0"
  *    typographicCase="DEFAULT"
+ *    wordSpacing="100%"
  *  /&gt;
  *  </pre>
  *
