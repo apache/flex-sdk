@@ -72,6 +72,12 @@ use namespace mx_internal;
  *  property in the configuration file must be set to <code>true</code>, or the
  *  <code>pollingEnabled</code> property of the Channel must be set to <code>true</code>.
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class AMFChannel extends NetConnectionChannel
 {
@@ -87,6 +93,12 @@ public class AMFChannel extends NetConnectionChannel
      *  @param id The id of this Channel.
      *
      *  @param uri The uri for this Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function AMFChannel(id:String = null, uri:String = null)
     {
@@ -136,6 +148,12 @@ public class AMFChannel extends NetConnectionChannel
      *  with regular outbound messages when an outstanding poll is not in
      *  progress. This allows the server to piggyback data for the client
      *  along with its response to client's message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get piggybackingEnabled():Boolean
     {
@@ -156,6 +174,12 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  Indicates whether this channel is enabled to poll.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get pollingEnabled():Boolean
     {
@@ -182,6 +206,12 @@ public class AMFChannel extends NetConnectionChannel
      *
      *  @throws ArgumentError If the pollingInterval is assigned a value of 0 or
      *                        less.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get pollingInterval():Number
     {
@@ -202,6 +232,12 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  Reports whether the channel is actively polling.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get polling():Boolean
     {
@@ -214,6 +250,12 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  Returns the protocol for this channel (http).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function get protocol():String
     {
@@ -390,6 +432,12 @@ public class AMFChannel extends NetConnectionChannel
                      *
                      * In any case, at this point we need to indicate to the channel that
                      * it is disconnected which may trigger failover/hunting.
+                     *  
+                     *  @langversion 3.0
+                     *  @playerversion Flash 9
+                     *  @playerversion AIR 1.1
+                     *  @productversion BlazeDS 4
+                     *  @productversion LCDS 3 
                      */
                     internalDisconnect();
                 }
