@@ -284,14 +284,14 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-        if(value != null && _layoutFeatures == null)
+        if (value != null && _layoutFeatures == null)
             initAdvancedLayoutFeatures();
         
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.removeEventListener
                 (Event.CHANGE,transformOffsetsChangedHandler);
         _layoutFeatures.postLayoutTransformOffsets = value;
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.addEventListener
                 (Event.CHANGE,transformOffsetsChangedHandler);
     }
@@ -2027,6 +2027,32 @@ public class SpriteVisualElement extends FlexSprite
 			invalidateParentSizeAndDisplayList();
 	}
 
+    /**
+     *  @inheritDoc
+     *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+     */
+    public function get hasLayoutMatrix3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.layoutIs3D : false;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get is3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.is3D : false;
+    }
+    
 	/**
 	 *  @inheritDoc
 	 *
