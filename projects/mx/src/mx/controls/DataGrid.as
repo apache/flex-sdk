@@ -253,7 +253,7 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the vertical grid lines.
- *  @default 0x666666
+ *  @default 0xCCCCCC
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -264,12 +264,13 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the horizontal grid lines.
-  *  
-  *  @langversion 3.0
-  *  @playerversion Flash 9
-  *  @playerversion AIR 1.1
-  *  @productversion Flex 3
-  */
+ * @default 0xF7F7F7
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Style(name="horizontalGridLineColor", type="uint", format="Color", inherit="yes")]
 
 /**
@@ -287,7 +288,7 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the row background when the user rolls over the row.
- *  @default 0xE3FFD6
+ *  @default 0xB2E1FF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -299,7 +300,7 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The color of the background for the row when the user selects 
  *  an item renderer in the row.
- *  @default 0xCDFFC1
+ *  @default 0x7FCEFF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -335,7 +336,7 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the  
  *  background of the column headers in a DataGrid control.
- *  @default mx.skins.halo.DataGridHeaderSeparator
+ *  @default mx.skins.halo.DataGridHeaderBackgroundSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -587,16 +588,16 @@ include "../styles/metadata/IconColorStyles.as"
  *    headerDragProxyStyleName="headerDragProxyStyle"
  *    headerSeparatorSkin="DataGridHeaderSeparator"
  *    headerStyleName="dataGridStyles"
- *    horizontalGridLineColor="<i>No default</i>"
+ *    horizontalGridLineColor="0xF7F7F7"
  *    horizontalGridLines="false|true"
  *    horizontalLockedSeparatorSkin="undefined"
  *    horizontalSeparatorSkin="undefined"
  *    iconColor="0x111111"
- *    rollOverColor="#E3FFD6"
- *    selectionColor="#CDFFC1"
+ *    rollOverColor="0xB2E1FF"
+ *    selectionColor="0x7FCEFF"
  *    sortArrowSkin="DataGridSortArrow"
  *    stretchCursor="<i>"cursorStretch" symbol from the Assets.swf file</i>"
- *    verticalGridLineColor="#666666"
+ *    verticalGridLineColor="0xCCCCCC"
  *    verticalGridLines="false|true"
  *    verticalLockedSeparatorSkin="undefined"
  *    verticalSeparatorSkin="undefined"
