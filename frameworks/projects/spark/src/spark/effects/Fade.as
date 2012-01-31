@@ -83,7 +83,7 @@ public class Fade extends Animate
     //  alphaFrom
     //----------------------------------
 
-    [Inspectable(category="General", defaultValue="undefined")]
+    [Inspectable(category="General", defaultValue="undefined", minValue="0.0", maxValue="1.0")]
     
     /** 
      *  Initial value of the <code>alpha</code> property, between 0.0 and 1.0, 
@@ -106,7 +106,7 @@ public class Fade extends Animate
     //  alphaTo
     //----------------------------------
 
-    [Inspectable(category="General", defaultValue="NaN")]
+    [Inspectable(category="General", defaultValue="NaN", minValue="0.0", maxValue="1.0")]
     
     /** 
      *  Final value of the <code>alpha</code> property, between 0.0 and 1.0,
