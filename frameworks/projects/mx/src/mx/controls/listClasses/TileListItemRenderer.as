@@ -17,7 +17,6 @@ import flash.display.Sprite;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextFieldType;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -168,9 +167,6 @@ public class TileListItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            super.baselinePosition;
-            
         if (!validateBaselinePosition())
             return NaN;
 
