@@ -20,6 +20,11 @@ import mx.rpc.soap.SOAPConstants;
  * <p>
  * Currently only SOAP binding is supported for WSDL.
  * </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WSDLBinding
 {
@@ -28,6 +33,11 @@ public class WSDLBinding
     * supported for WSDL.
     *
     * @param name The unique name of this binding.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function WSDLBinding(name:String)
     {
@@ -44,6 +54,11 @@ public class WSDLBinding
 
     /**
      * The unique name of this binding.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get name():String
     {
@@ -53,6 +68,11 @@ public class WSDLBinding
     /**
      * The portType for this binding which provides the interface definitions
      * for the operations of this binding.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get portType():WSDLPortType
     {
@@ -73,6 +93,11 @@ public class WSDLBinding
      * <p>
      * The default is <code>document</code>.
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get style():String
     {
@@ -93,6 +118,11 @@ public class WSDLBinding
      * URI of the transport used to send SOAP encoded messages. 
      * The default URI is http://schemas.xmlsoap.org/soap/http/ which signifies
      * SOAP over HTTP (and is currently the only transport supported).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transport():String
     {
