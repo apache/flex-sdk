@@ -25,7 +25,7 @@ import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.ISystemManager;
@@ -1357,13 +1357,15 @@ public class ScrollBar extends UIComponent
 
         trackScrolling = true;
         
-        systemManager.getSandboxRoot().addEventListener(
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.addEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        systemManager.getSandboxRoot().addEventListener(
+        sbRoot.addEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.getSandboxRoot().addEventListener(
-			SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
+        sbRoot.addEventListener(
+			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
+        systemManager.deployMouseShields(true);
         
         var pt:Point = new Point(event.localX, event.localY);
         pt = event.target.localToGlobal(pt);
@@ -1423,14 +1425,16 @@ public class ScrollBar extends UIComponent
     {
         trackScrolling = false;
 
-        systemManager.getSandboxRoot().removeEventListener(
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.removeEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        systemManager.getSandboxRoot().removeEventListener(
+        sbRoot.removeEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.getSandboxRoot().removeEventListener(
-			SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
-
+        sbRoot.removeEventListener(
+			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
+        systemManager.deployMouseShields(false);
+        
         if (trackScrollTimer)
             trackScrollTimer.reset();
 
