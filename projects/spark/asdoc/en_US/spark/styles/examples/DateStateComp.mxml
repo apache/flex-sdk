@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Box xmlns="http://ns.adobe.com/mxml/2009" currentState="normal">
-    <states>
-        <State name="normal" />
-        <State name="zoomed" />
-    </states>
-    <transitions>
-    	<Transition fromState="*" toState="*">
-    		<Resize duration="1000" target="{date1}" />
-    	</Transition>
-    </transitions>
+<Box xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" currentState="normal">
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="zoomed" />
+    </s:states>
+    <s:transitions>
+    	<s:Transition fromState="*" toState="*">
+    		<s:Resize duration="1000" target="{date1}" />
+    	</s:Transition>
+    </s:transitions>
 	<DateChooser id="date1" />
 
 </Box>
