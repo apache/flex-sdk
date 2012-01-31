@@ -137,13 +137,6 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  The textLines created to measure the truncationResourceIndicator.
-     *  The array will be allocated the first time truncation is done.
-     */
-    mx_internal var truncationIndicatorLines:Array;
-    
-    /**
-     *  @private
      *  The value of bounds.width, before the compose was done.
      */
     private var _composeWidth:Number;
@@ -634,7 +627,9 @@ public class TextGraphicElement extends GraphicElement
         // to specify width different from the explicit.
         var constrainedWidth:Number =
             !isNaN(_widthConstraint) ? _widthConstraint : explicitWidth;
-        composeTextLines(constrainedWidth, explicitHeight);
+            
+        var allLinesComposed:Boolean =
+            composeTextLines(constrainedWidth, explicitHeight);
         
         // Anytime we are composing we need to invalidate the display list
         // as we may have messed up the text lines.
@@ -659,8 +654,8 @@ public class TextGraphicElement extends GraphicElement
         
         // Remember the number of text lines during measure. We can use this to
         // optimize the double measure scheme for text reflow.
-        _measuredOneTextLine = mx_internal::textLines.length == 1 && 
-                               !mx_internal::isOverset;
+        _measuredOneTextLine = allLinesComposed && 
+                               mx_internal::textLines.length == 1; 
 
         //trace(id, drawnDisplayObject.name, "measure", measuredWidth, measuredHeight);
     }
@@ -1097,13 +1092,17 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
+     *  Returns false to indicate no lines were composed.
+     * 
      *  TODO This should be mx_internal, but that causes a compiler error.
      */
     protected function composeTextLines(width:Number = NaN,
-										height:Number = NaN):void
+										height:Number = NaN):Boolean
 	{
 	    _composeWidth = width;
 	    _composeHeight = height;
+	    
+	    return false;
 	}
 
 	/**
@@ -1314,10 +1313,6 @@ public class TextGraphicElement extends GraphicElement
         mx_internal::truncationIndicatorResource = resourceManager.getString(
             "core", "truncationIndicator");
 
-        // Need to remeasure the new truncation indicator for SimpleText.
-        if (mx_internal::truncationIndicatorLines)
-            mx_internal::truncationIndicatorLines.length = 0;
-              
         // If we're truncating, recompose the text.
         if (truncation != 0)
         {
