@@ -3431,7 +3431,17 @@ public class RichEditableText extends UIComponent
         var textBlock:TextBlock = new TextBlock();
         textBlock.content = textElement;
         
-        var textLine:TextLine = textBlock.createTextLine(null, 1000);
+        var swfContext:ISWFContext = ISWFContext(embeddedFontContext);
+
+        var textLine:TextLine;
+        if (swfContext)
+        {
+            textLine = swfContext.callInContext(
+                        textBlock.createTextLine, textBlock,
+                        [ null, 1000 ]);
+        }
+        else
+            textLine = textBlock.createTextLine(null, 1000);
         
         ascent = textLine.ascent;
         descent = textLine.descent;
