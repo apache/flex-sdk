@@ -17,7 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.IMXMLObject;
 import mx.core.IRawChildrenContainer;
@@ -368,7 +368,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     {
         this.document = document ?
                         IFlexDisplayObject(document) :
-                        IFlexDisplayObject(ApplicationGlobals.application);
+                        IFlexDisplayObject(FlexGlobals.topLevelApplication);
     }
 
     /**
