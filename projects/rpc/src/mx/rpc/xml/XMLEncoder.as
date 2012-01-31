@@ -71,6 +71,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
      * @param definition If neither a top level element nor type exists in the
      * schema to describe how to encode this value, a custom element definition
      * can be provided.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encode(value:*, name:QName = null, type:QName = null, definition:XML = null):XMLList
     {
@@ -1478,6 +1483,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
      * 
      * @return content The element where xsi:nil was set, or null if xsi:nil was
      * not set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeXSINil(definition:XML, name:QName, value:*, isRequired:Boolean = true):XML
     {
@@ -1820,6 +1830,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     /**
      * Checks to see whether a value defines a custom XSI type to be used
      * during encoding, otherwise the default type is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getXSIType(value:*):QName
     {
@@ -1845,6 +1860,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     /**
      * Record custom XSI type information for this XML node by adding an
      * xsi:type attribute with the value set to the qualified type name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setXSIType(parent:XML, type:QName):void
     {
@@ -1885,6 +1905,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
 
     /**
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get strictNillability():Boolean
     {
@@ -1893,6 +1918,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
 
     /**
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set strictNillability(strict:Boolean):void
     {
@@ -1903,6 +1933,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     /**
      * Function to be used for escaping XML special characters in simple content.
      * Returns default implementation in this class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get xmlSpecialCharsFilter():Function
     {
@@ -1911,6 +1946,11 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
 
     /**
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set xmlSpecialCharsFilter(func:Function):void
     {
