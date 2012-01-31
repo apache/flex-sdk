@@ -354,7 +354,7 @@ public class ModuleLoader extends VBox
         module.addEventListener(ModuleEvent.ERROR, moduleErrorHandler);
         module.addEventListener(ModuleEvent.UNLOAD, moduleUnloadHandler);
 
-        module.load(applicationDomain, null, bytes);
+        module.load(applicationDomain, null, bytes, moduleFactory);
     }
 
     /**
