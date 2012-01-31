@@ -26,6 +26,7 @@ import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
+
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
@@ -2110,7 +2111,12 @@ public class TextInput extends UIComponent implements ITextInput
             textField.addEventListener("textInsert",
                                        textField_textModifiedHandler);                                       
             textField.addEventListener("textReplace",
-                                       textField_textModifiedHandler);                                       
+                                       textField_textModifiedHandler);
+            
+            // can't use NativeDragEvent.NATIVE_DRAG_DROP b/c we need AIR for that
+            // ideally we don't need to listen for this event as doing a dragDrop should 
+            // dispatch a TEXT_INPUT and a CHANGE event for us (see SDK-19816)
+            textField.addEventListener("nativeDragDrop", textField_nativeDragDropHandler);
 
             if (childIndex == -1)
                 addChild(DisplayObject(textField));
@@ -2138,8 +2144,9 @@ public class TextInput extends UIComponent implements ITextInput
             textField.removeEventListener("textInsert",
                                           textField_textModifiedHandler);                                       
             textField.removeEventListener("textReplace",
-                                          textField_textModifiedHandler);                                       
-
+                                          textField_textModifiedHandler);
+            textField.removeEventListener("nativeDragDrop", textField_nativeDragDropHandler);
+            
             removeChild(DisplayObject(textField));
             textField = null;
         }
@@ -2477,6 +2484,15 @@ public class TextInput extends UIComponent implements ITextInput
         event.stopImmediatePropagation();
         dispatchEvent(new Event(Event.CHANGE));
     }
+    
+    /**
+     *  @private
+     */
+    private function textField_nativeDragDropHandler(event:Event):void
+    {
+        // just call the "change" handler
+        textField_changeHandler(event);
+    }
 
     /**
      *  @private
@@ -2495,7 +2511,7 @@ public class TextInput extends UIComponent implements ITextInput
         // then stop the TextField from accepting the text.
         if (newEvent.isDefaultPrevented())
             event.preventDefault();
-    }
+    }    
 
     /**
      *  @private
