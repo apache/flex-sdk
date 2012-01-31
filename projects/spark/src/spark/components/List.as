@@ -20,18 +20,23 @@ import flash.ui.Keyboard;
 
 import mx.core.DragSource;
 import mx.core.EventPriority;
+import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IUID;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
+import mx.utils.ObjectUtil;
+import mx.utils.UIDUtil;
 
 import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
+import spark.layouts.supportClasses.DropLocation;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
@@ -259,6 +264,20 @@ public class List extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
+    [SkinPart(required="false", type="flash.display.DisplayObject")]
+
+    /**
+     *  A skin part that defines a drop indicator. The drop indicator is resized
+     *  and positioned by the layout to outline the insert location when dragging
+     *  over the List.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var dropIndicator:IFactory; 
+
     //----------------------------------
     //  scroller
     //----------------------------------
@@ -425,6 +444,73 @@ public class List extends ListBase implements IFocusManagerComponent
     public function set dragMoveEnabled(value:Boolean):void
     {
         _dragMoveEnabled = value;
+    }
+
+    //----------------------------------
+    //  dropEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the <code>dropEnabled</code> property.
+     */
+    private var _dropEnabled:Boolean = false;
+
+    [Inspectable(defaultValue="false")]
+
+    /**
+     *  A flag that indicates whether dragged items can be dropped onto the 
+     *  control.
+     *
+     *  <p>If you set this property to <code>true</code>,
+     *  the control accepts all data formats, and assumes that
+     *  the dragged data matches the format of the data in the data provider.
+     *  If you want to explicitly check the data format of the data
+     *  being dragged, you must handle one or more of the drag events,
+     *  such as <code>dragEnter</code> and <code>dragOver</code>, 
+     *  and call the DragEvent's <code>preventDefault()</code> method 
+     *  to customize the way the list class accepts dropped data.</p>
+     *
+     *  <p>When you set <code>dropEnabled</code> to <code>true</code>, 
+     *  Flex automatically calls the <code>showDropFeedback()</code> 
+     *  and <code>hideDropFeedback()</code> methods to display the drop
+     *  indicator.</p>
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get dropEnabled():Boolean
+    {
+        return _dropEnabled;
+    }
+
+    /**
+     *  @private
+     */
+    public function set dropEnabled(value:Boolean):void
+    {
+        if (value == _dropEnabled)
+            return;
+        _dropEnabled = value;
+        
+        if (_dropEnabled)
+        {
+            addEventListener(DragEvent.DRAG_ENTER, dragEnterHandler, false, EventPriority.DEFAULT_HANDLER);
+            addEventListener(DragEvent.DRAG_EXIT, dragExitHandler, false, EventPriority.DEFAULT_HANDLER);
+            addEventListener(DragEvent.DRAG_OVER, dragOverHandler, false, EventPriority.DEFAULT_HANDLER);
+            addEventListener(DragEvent.DRAG_DROP, dragDropHandler, false, EventPriority.DEFAULT_HANDLER);
+        }
+        else
+        {
+            removeEventListener(DragEvent.DRAG_ENTER, dragEnterHandler, false);
+            removeEventListener(DragEvent.DRAG_EXIT, dragExitHandler, false);
+            removeEventListener(DragEvent.DRAG_OVER, dragOverHandler, false);
+            removeEventListener(DragEvent.DRAG_DROP, dragDropHandler, false);
+        }
     }
 
     //----------------------------------
@@ -1007,9 +1093,14 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var dragSource:DragSource = new DragSource();
         addDragData(dragSource);
-        // FIXME (egeorgie): customizeable alpha? Move to the default dragSource class?
-        const imageAlpha:Number = 0.8;
-        DragManager.doDrag(this, dragSource, event, createDragIndicator(), 0, 0, 0.8, dragMoveEnabled);
+        DragManager.doDrag(this, 
+                           dragSource, 
+                           event, 
+                           createDragIndicator(), 
+                           0 /*xOffset*/, 
+                           0 /*yOffset*/, 
+                           0.8 /*imageAlpha*/, 
+                           dragMoveEnabled);
     }
     
     /**
@@ -1114,7 +1205,7 @@ public class List extends ListBase implements IFocusManagerComponent
     private function copySelectedItemsForDragDrop():Vector.<Object>
     {
         // Copy the vector so that we don't modify the original
-        // since selectedIndices returns a reference.
+         // since selectedIndices returns a reference.
         var draggedIndices:Vector.<int> = selectedIndices.slice(0, selectedIndices.length);
         var result:Vector.<Object> = new Vector.<Object>(draggedIndices.length);
 
@@ -1238,6 +1329,305 @@ public class List extends ListBase implements IFocusManagerComponent
         removeMouseHandlersForDragStart();
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Drop methods
+    //
+    //--------------------------------------------------------------------------
+    
+    private function calculateDropLocation(event:DragEvent):DropLocation
+    {
+        // Verify data format
+        if (!enabled || !event.dragSource.hasFormat("orderedItems"))
+            return null;
+        
+        // Calculate the drop location
+        return layout.calculateDropLocation(event);
+    }
+
+    /**
+     *  Handles <code>DragEvent.DRAG_ENTER</code> events.  This method
+     *  determines if the DragSource object contains valid elements and uses
+     *  the <code>DragManager.showDropFeedback()</code> method to set up the 
+     *  UI feedback as well as the layout's <code>showDropIndicator()</code>
+     *  method to display the drop indicator and initiate drag scrolling.
+     *
+     *  @param event The DragEvent object.
+     * 
+     *  @see spark.layouts.LayoutBase#showDropIndicator
+     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragEnterHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        var dropLocation:DropLocation = calculateDropLocation(event); 
+        if (dropLocation)
+        {
+            DragManager.acceptDragDrop(this);
+            
+            // Create the dropIndicator instance. The layout will take care of
+            // parenting, sizing, positioning and validating the dropIndicator.
+            if (dropIndicator)
+                layout.dropIndicator = DisplayObject(createDynamicPartInstance("dropIndicator"));
+            
+            // Show drop indicator
+            layout.showDropIndicator(dropLocation);
+            
+            // Show focus
+            drawFocusAnyway = true;
+            drawFocus(true);
+            
+            // Notify manager we can drop
+            DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
+        }
+        else
+        {
+            DragManager.showFeedback(DragManager.NONE);
+        }
+    }
+    
+    /**
+     *  Handles <code>DragEvent.DRAG_OVER</code> events. This method
+     *  determines if the DragSource object contains valid elements and uses
+     *  the <code>showDropFeedback()</code> method to set up the UI feedback 
+     *  as well as the layout's <code>showDropIndicator()</code> method
+     *  to display the drop indicator and initiate drag scrolling.
+     *
+     *  @param event The DragEvent object.
+     *  
+     *  @see spark.layouts.LayoutBase#showDropIndicator
+     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragOverHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        var dropLocation:DropLocation = calculateDropLocation(event);
+        if (dropLocation)
+        {
+            // Show drop indicator
+            layout.showDropIndicator(dropLocation);
+
+            // Show focus
+            drawFocusAnyway = true;
+            drawFocus(true);
+            
+            // Notify manager we can drop
+            DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
+        }
+        else
+        {
+            // Hide if previously showing
+            layout.hideDropIndicator();
+
+            // Hide focus
+            drawFocus(false);
+            drawFocusAnyway = false;
+            
+            // Notify manager we can't drop
+            DragManager.showFeedback(DragManager.NONE);
+        }
+    }
+    
+    /**
+     *  Handles <code>DragEvent.DRAG_EXIT</code> events. This method hides
+     *  the UI feedback by calling the <code>hideDropFeedback()</code> method
+     *  and also hides the drop indicator by calling the layout's 
+     *  <code>hideDropIndicator()</code> method.
+     *
+     *  @param event The DragEvent object.
+     *  
+     *  @see spark.layouts.LayoutBase#showDropIndicator
+     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragExitHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        // Hide if previously showing
+        layout.hideDropIndicator();
+        
+        // Hide focus
+        drawFocus(false);
+        drawFocusAnyway = false;
+        
+        // Destroy the dropIndicator instance
+        layout.dropIndicator = null;
+    }
+    
+    /**
+     *  Handles <code>DragEvent.DRAG_DROP events</code>. This method  hides
+     *  the drop feedback by calling the <code>hideDropFeedback()</code> method.
+     *
+     *  <p>If the action is a <code>COPY</code>, 
+     *  then this method makes a deep copy of the object 
+     *  by calling the <code>ObjectUtil.copy()</code> method, 
+     *  and replaces the copy's <code>uid</code> property (if present) 
+     *  with a new value by calling the <code>UIDUtil.createUID()</code> method.</p>
+     * 
+     *  @param event The DragEvent object.
+     *
+     *  @see mx.utils.ObjectUtil
+     *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragDropHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        // Hide the drop indicator
+        layout.hideDropIndicator();
+        
+        // Hide focus
+        drawFocus(false);
+        drawFocusAnyway = false;
+        
+        // Get the dropLocation
+        var dropLocation:DropLocation = calculateDropLocation(event);
+        if (!dropLocation)
+            return;
+        
+        // Find the dropIndex
+        var dropIndex:int = dropLocation.dropIndex;
+        
+        // Make sure the manager has the appropriate action
+        DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
+        
+        var dragSource:DragSource = event.dragSource;
+        var items:Vector.<Object> = dragSource.dataForFormat("orderedItems") as Vector.<Object>;
+
+        var caretIndex:int = -1;
+        if (dragSource.hasFormat("orderedItemsCaretIndex"))
+            caretIndex = event.dragSource.dataForFormat("orderedItemsCaretIndex") as int;
+        
+        // If we are reordering the list, remove the items now,
+        // adjusting the dropIndex in the mean time.
+        // If the items are drag moved to this list from a different list,
+        // the drag initiator will remove the items when it receives the
+        // DragEvent.DRAG_COMPLETE event.
+        if (dragMoveEnabled &&
+            event.action == DragManager.MOVE &&
+            event.dragInitiator == this)
+        {
+            var indices:Vector.<int> = selectedIndices;
+            indices.sort(compareValues);
+            
+            // Remove the previously selected items
+            for (var i:int = indices.length - 1; i >= 0; i--)
+            {
+                if (indices[i] < dropIndex)
+                    dropIndex--;
+                dataProvider.removeItemAt(indices[i]);
+            }
+        }
+        
+        // Drop the items at the dropIndex
+        var newSelection:Vector.<int> = new Vector.<int>();
+
+        // Update the selection with the index of the caret item
+        if (caretIndex != -1)
+            newSelection.push(dropIndex + caretIndex);
+
+        var copyItems:Boolean = (event.action == DragManager.COPY);
+        for (i = 0; i < items.length; i++)
+        {
+            // Get the item, clone if needed
+            var item:Object = items[i];
+            if (copyItems)
+                item = copyItemWithUID(item);
+
+            // Copy the data
+            dataProvider.addItemAt(items[i], dropIndex + i);
+
+            // Update the selection
+            if (i != caretIndex)
+                newSelection.push(dropIndex + i);
+        }
+
+        // Set the selection
+        selectedIndices = newSelection;
+
+        // Scroll the caret index in view
+        if (caretIndex != -1)
+        {
+            // Sometimes we may need to scroll several times as for virtual layouts
+            // this is not guaranteed to bring in the element in view the first try
+            // as some items in between may not be loaded yet and their size is only
+            // estimated.
+            var delta:Point;
+            var loopCount:int = 0;
+            while (loopCount++ < 10)
+            {
+                validateNow();
+                delta = layout.getScrollPositionDeltaToElement(dropIndex + caretIndex);
+                if (!delta || (delta.x == 0 && delta.y == 0))
+                    break;
+                layout.horizontalScrollPosition += delta.x;
+                layout.verticalScrollPosition += delta.y;
+            }
+        }
+    }
+
+    /**
+     *  Makes a deep copy of the object by calling the 
+     *  <code>ObjectUtil.copy()</code> method, and replaces 
+     *  the copy's <code>uid</code> property (if present) with a 
+     *  new value by calling the <code>UIDUtil.createUID()</code> method.
+     * 
+     *  <p>This method is used for a drag and drop copy.</p>
+     * 
+     *  @param item The item to copy.
+     *  
+     *  @return The copy of the object.
+     *
+     *  @see mx.utils.ObjectUtil
+     *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function copyItemWithUID(item:Object):Object
+    {
+        var copyObj:Object = ObjectUtil.copy(item);
+        
+        if (copyObj is IUID)
+        {
+            IUID(copyObj).uid = UIDUtil.createUID();
+        }
+        else if (copyObj is Object && "mx_internal_uid" in copyObj)
+        {
+            copyObj.mx_internal_uid = UIDUtil.createUID();
+        }
+        
+        return copyObj;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
