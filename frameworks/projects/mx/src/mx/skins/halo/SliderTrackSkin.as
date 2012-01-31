@@ -95,7 +95,7 @@ public class SliderTrackSkin extends Border
 		var borderColor:Number = getStyle("borderColor");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("trackColors") as Array;
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		
 		// Derivative styles.
 		var borderColorDrk:Number =
