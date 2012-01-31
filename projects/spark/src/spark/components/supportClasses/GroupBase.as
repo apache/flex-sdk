@@ -456,6 +456,8 @@ public class GroupBase extends UIComponent implements IViewport
     private var layoutInvalidateSizeFlag:Boolean = false;
     private var layoutInvalidateDisplayListFlag:Boolean = false;
     
+    [Inspectable(category="General")]
+    
     /**
      *  The layout object for this container.  
      *  This object is responsible for the measurement and layout of 
@@ -1821,10 +1823,12 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     //  mask
     //----------------------------------
+    
     private var _mask:DisplayObject;
     mx_internal var maskChanged:Boolean;
     
     [Inspectable(category="General")]
+    
     /**
      *  Sets the mask. The mask will be added to the display list. The mask must
      *  not already on a display list nor in the elements array.  
