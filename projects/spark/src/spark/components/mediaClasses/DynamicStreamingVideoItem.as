@@ -14,11 +14,31 @@ package spark.components.mediaClasses
 {
 
 /**
- *  The DynamicStreamingVideoItem class represents a stream on the server plus a 
- *  bitrate for that stream.
+ *  The DynamicStreamingVideoItem class represents a video stream on the server plus a 
+ *  bitrate for that stream. 
+ *  Use this class to define the values of the <code>streamItems</code> property
+ *  of the DynamicStreamingVideoSource class.
+ *  The DynamicStreamingVideoSource class represents a streaming video source and can be 
+ *  used for streaming pre-recorded video or live streaming video.  
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:DynamicStreamingVideoItem&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:DynamicStreamingVideoItem 
+ *    <strong>Properties</strong>
+ *    bitrate="0"
+ *    streamName=""
+ *  /&gt;
+ *  </pre>
  *
  *  @see spark.components.VideoPlayer 
  *  @see spark.components.VideoDisplay
+ *  @see spark.components.mediaClasses.DynamicStreamingVideoSource
+ *
+ *  @includeExample examples/DynamicStreamingVideoSourceExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -33,6 +53,14 @@ public class DynamicStreamingVideoItem extends Object
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
     public function DynamicStreamingVideoItem()
     {
         super();
@@ -53,7 +81,7 @@ public class DynamicStreamingVideoItem extends Object
     private var _bitrate:Number = 0;
 
     /**
-     *  The bitRate for this particular stream.
+     *  The bit rate for the video stream.
      * 
      *  @default 0
      *  
@@ -84,7 +112,11 @@ public class DynamicStreamingVideoItem extends Object
     [Inspectable(category="General")]
 
     /**
-     *  The stream name on the server
+     *  The stream name on the server.
+     *  Use the <code>host</code> property of the DynamicStreamingVideoSource class
+     *  to specify the URI of the server.
+     *
+     *  @see spark.components.mediaClasses.DynamicStreamingVideoSource#host
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
