@@ -715,6 +715,9 @@ public class Application extends SkinnableContainer
      *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
+     *  <p><b>Note:</b> You must add the frameworks\libs\mobile\mobilecomponents.swc to the 
+     *  library path of the application to support the splash screen in a desktop application.</p>
+     *
      *  @see spark.preloaders.SplashScreen
      *  @see #splashScreenScaleMode
      *  @see #splashScreenMinimumDisplayTime
@@ -774,6 +777,9 @@ public class Application extends SkinnableContainer
      *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
+     *  <p><b>Note:</b> You must add the frameworks\libs\mobile\mobilecomponents.swc to the 
+     *  library path of the application to support the splash screen in a desktop application.</p>
+     *
      *  @default "none"
      *  @see #splashScreenImage
      *  @see #splashScreenMinimumDisplayTime
@@ -797,6 +803,9 @@ public class Application extends SkinnableContainer
      *  is set and the <code>preloader</code> property is set to spark.preloaders.SplashScreen.
      *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *
+     *  <p><b>Note:</b> You must add the frameworks\libs\mobile\mobilecomponents.swc to the 
+     *  library path of the application to support the splash screen in a desktop application.</p>
      *
      *  @default 1000
      * 
