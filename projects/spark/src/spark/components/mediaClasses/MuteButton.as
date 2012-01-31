@@ -24,8 +24,7 @@ import spark.components.Button;
 //--------------------------------------
 
 /**
- *  Dispatched when the video mutes or unmutes the volume
- *  from user-interaction.
+ *  Dispatched when the user mutes or unmutes the video.
  *
  *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
@@ -37,12 +36,11 @@ import spark.components.Button;
 [Event(name="mutedChange", type="mx.events.FlexEvent")]
 
 /**
- *  The MuteButton is a mute button. The VideoPlayer
- *  hooks it up so that when the button is clicked it'll 
- *  mute/unmute the volume.  This button has a volume property 
- *  and a mute property so that the visuals of the button can 
- *  change based on them.
+ *  The MuteButton class defines the mute button used by the VideoPlayer control. 
+ *  Clicking the button mutes or unmutes the volume.  
  * 
+ *  @see spark.components.VideoPlayer 
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -82,8 +80,8 @@ public class MuteButton extends Button
     [Bindable("mutedChanged")]
     
     /**
-     *  <code>true</code> if the volume of the video is muted; 
-     *  <code>false</code> otherwise.
+     *  Contains <code>true</code> if the volume of the video is muted,  
+     *  and <code>false</code> if not.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -117,7 +115,7 @@ public class MuteButton extends Button
     [Bindable(event="valueCommit")]
 
     /**
-     *  The volume of the video player.
+     *  The volume of the video player, specified as a value between 0 and 1.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -147,6 +145,9 @@ public class MuteButton extends Button
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function clickHandler(event:MouseEvent):void
     {
         super.clickHandler(event);
