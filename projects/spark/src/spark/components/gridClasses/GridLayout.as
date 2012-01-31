@@ -228,7 +228,7 @@ public class GridLayout extends LayoutBase
         grid.measuredMinWidth = grid.measuredWidth;    
         grid.measuredMinHeight = grid.measuredHeight; 
         
-       //trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
+       trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
     }
     
     /**
@@ -236,18 +236,20 @@ public class GridLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
-        
         if (!grid)
             return;
+        
+        //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
         
         // HACK
         gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
         var numCols:int = gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;
         
         // HACK #2 - copy column explicit widths to gridDimensions
+        /*
         for (var i:int = 0; i < numCols; i++)
             gridDimensions.setColumnWidth(i, GridColumn(grid.columns.getItemAt(i)).width);
+        */
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
