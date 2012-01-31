@@ -43,7 +43,7 @@ import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 import spark.utils.LabelUtil;
 
 use namespace mx_internal;
@@ -169,7 +169,7 @@ public class DropDownList extends List
      *  @productversion Flex 4
      */
     [SkinPart(required="false")]
-    public var labelDisplay:TextGraphicElement;
+    public var labelDisplay:TextBase;
     
     /**
      *  A skin part that defines the drop-down list area. When the DropDownList is open,
