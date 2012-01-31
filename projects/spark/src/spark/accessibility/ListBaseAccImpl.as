@@ -22,6 +22,7 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import spark.components.List;
 import spark.components.supportClasses.ListBase;
+import spark.events.IndexChangeEvent;
 
 
 
@@ -63,8 +64,6 @@ public class ListBaseAccImpl extends AccImpl
     public static function enableAccessibility():void
     {
         ListBase.createAccessibilityImplementation =
-            createAccessibilityImplementation;
-        List.createAccessibilityImplementation =
             createAccessibilityImplementation;
     }
 
@@ -379,7 +378,7 @@ public class ListBaseAccImpl extends AccImpl
         {
             case "change":
             {
-                    index = ListBase(master).selectedIndex;
+                index = IndexChangeEvent(event).newIndex;
 
                 if (index >= 0)
                 {
@@ -391,7 +390,7 @@ public class ListBaseAccImpl extends AccImpl
             }
             case "caretChange":
             {
-                index = ListBase(master).caretIndex;
+                index = IndexChangeEvent(event).newIndex;
                 childID = index + 1;
                 Accessibility.sendEvent(master, childID,
                     AccConst.EVENT_OBJECT_FOCUS);
