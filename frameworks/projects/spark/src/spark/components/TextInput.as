@@ -19,7 +19,7 @@ import flex.component.TextView;
 import flex.core.SkinnableComponent;
 import flex.events.TextOperationEvent;
 
-import text.formats.LineBreak;
+import flashx.tcal.formats.LineBreak;
 
 //--------------------------------------
 //  Events
