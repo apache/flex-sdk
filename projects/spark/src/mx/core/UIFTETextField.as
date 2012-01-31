@@ -2156,7 +2156,7 @@ public class UITLFTextField extends TLFTextField
 		// we need to map "auto" and "on" to true
 		// and "off" to false for Halo components
 		// here and in TLFTextField.
-		// For Spark components, SimpleText and CSSTextLayoutFormat,
+		// For Spark components, Label and CSSTextLayoutFormat,
 		// do the opposite mapping of true to "on" and false to "off".
 		// We also support a value of "default"
 		// (which we set in the global selector)
