@@ -346,19 +346,32 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *           <td>Maximum size</td>
  *           <td>10000 pixels wide and 10000 pixels high</td>
  *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.spark.VideoPlayerSkin</td>
+ *        </tr>
  *     </table>
  *
  *  @see spark.primitives.VideoElement
  *  @see spark.skins.spark.VideoPlayerSkin
- *  @see spark.skins.spark.mediaClasses.FullScreenButtonSkin
- *  @see spark.skins.spark.mediaClasses.MuteButtonSkin
- *  @see spark.skins.spark.mediaClasses.PlayPauseButtonSkin
- *  @see spark.skins.spark.mediaClasses.ScrubBarSkin
- *  @see spark.skins.spark.mediaClasses.ScrubBarThumbSkin
- *  @see spark.skins.spark.mediaClasses.ScrubBarTrackSkin
- *  @see spark.skins.spark.mediaClasses.VolumeBarSkin
- *  @see spark.skins.spark.mediaClasses.VolumeBarThumbSkin
- *  @see spark.skins.spark.mediaClasses.VolumeBarTrackSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.FullScreenButtonSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.MuteButtonSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.PlayPauseButtonSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.ScrubBarSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.ScrubBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.ScrubBarTrackSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.VolumeBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.fullScreen.VolumeBarTrackSkin
+ *  @see spark.skins.spark.mediaClasses.normal.FullScreenButtonSkin
+ *  @see spark.skins.spark.mediaClasses.normal.MuteButtonSkin
+ *  @see spark.skins.spark.mediaClasses.normal.PlayPauseButtonSkin
+ *  @see spark.skins.spark.mediaClasses.normal.ScrubBarSkin
+ *  @see spark.skins.spark.mediaClasses.normal.ScrubBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.normal.ScrubBarTrackSkin
+ *  @see spark.skins.spark.mediaClasses.normal.VolumeBarSkin
+ *  @see spark.skins.spark.mediaClasses.normal.VolumeBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.normal.VolumeBarTrackSkin
  *
  *  @mxml
  *
