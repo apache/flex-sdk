@@ -27,14 +27,14 @@ import mx.events.CollectionEventKind;
  *  Calling the <code>preventDefault()</code> method
  *  on the event will prevent the selection from changing.
  *
- *  @eventType mx.events.IndexChangedEvent.ITEM_ADD
+ *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGING
  */
 [Event(name="selectionChanging", type="mx.events.IndexChangedEvent")]
 
 /**
  *  Dispatched after the selection has changed. 
  *
- *  @eventType mx.events.IndexChangedEvent.ITEM_ADD
+ *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGED
  */
 [Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
 
@@ -324,7 +324,7 @@ public class FxListBase extends FxDataContainer
             selectedIndexAdjusted = false;
             if (!changedSelection)
             {
-                var e:IndexChangedEvent = new IndexChangedEvent("selectionChanged");
+                var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
                 e.oldIndex = selectedIndex;
                 e.newIndex = selectedIndex;
                 dispatchEvent(e);
@@ -384,7 +384,7 @@ public class FxListBase extends FxDataContainer
         
         // Step 2: dispatch the "selectionChanging" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.
-        var e:IndexChangedEvent = new IndexChangedEvent("selectionChanging", false, true);
+        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGING, false, true);
         e.oldIndex = _selectedIndex;
         e.newIndex = _proposedSelectedIndex;
         if (!dispatchEvent(e))
@@ -403,7 +403,7 @@ public class FxListBase extends FxDataContainer
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
         // Step 4: dispatch the "selectionChanged" event
-        e = new IndexChangedEvent("selectionChanged");
+        e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
         e.oldIndex = oldIndex;
         e.newIndex = _selectedIndex;
         dispatchEvent(e);
