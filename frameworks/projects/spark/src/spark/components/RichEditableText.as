@@ -2610,33 +2610,30 @@ package spark.components
             }
             
             _textContainerManager.updateContainer();
-
-            widthConstraint = NaN;
-            heightConstraint = NaN;
         }
         
         /**
          *  @private
+         *  This is called by the layout manager the first time this
+         *  component is measured, or later if its size changes. This
+         *  is not always called before updateDisplayList().  For example,
+         *  for recycled item renderers this is not called if the measured
+         *  size doesn't change.
+         * 
+         *  width and height are NaN unless there are constraints on them.
          */
         override public function setLayoutBoundsSize(
                                     width:Number, height:Number,
                                     postLayoutTransform:Boolean = true):void
         {
-            // width and height are NaN unless there are constraints on them.
             // Save these so when we are auto-sizing we know which dimensions
             // are constrained.  Without this it is not possible to differentiate 
             // between a measured width/height that is the same as the
             // constrained width/height to know whether that dimension can
-            // be sized or must be fixed at the constrained value.
-            if (autoSize)
-            {
-                if (!isNaN(width))
-                    widthConstraint = width;
-                
-                if (!isNaN(height))
-                    heightConstraint = height;
-            }
-            
+            // be sized or must be fixed at the constrained value.                
+            widthConstraint = isNaN(width) ? NaN : width;
+            heightConstraint = isNaN(height) ? NaN : height;
+
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
         }
         
