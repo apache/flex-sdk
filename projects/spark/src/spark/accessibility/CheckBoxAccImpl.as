@@ -22,8 +22,84 @@ import spark.components.supportClasses.ToggleButtonBase;
 use namespace mx_internal;
 
 /**
- *  CheckBoxAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the CheckBox class.
+ *  CheckBoxAccImpl is the accessibility implementation class
+ *  for spark.components.CheckBox.
+ *
+ *  <p>When a Spark CheckBox is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the CheckBox.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A CheckBox has no MSAA children.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a CheckBox is ROLE_SYSTEM_CHECKBOX.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a CheckBox is, by default, the label that it displays.
+ *  When wrapped in a FormItem element,
+ *  this label will be combined with the FormItem's label.
+ *  To override this behavior,
+ *  set the CheckBox's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a CheckBox dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a CheckBox is, by default, the empty string,
+ *  but you can set the CheckBox's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a CheckBox is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED (when enabled is true
+ *    and the CheckBox has focus)</li>
+ *    <li>STATE_SYSTEM_CHECKED (when selected is true)</li>
+ *  </ul></p>
+ *
+ *  <p>When the Name changes,
+ *  a CheckBox dispatches the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>A CheckBox does not have an MSAA Value.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a CheckBox is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>The MSAA DefaultAction of a CheckBox is "Check" or "UnCheck",
+ *  depending on whether it is currently checked or not.</p>
+ *
+ *  <p>When an MSAA client tells the CheckBox to perform this action,
+ *  KEY_DOWN and KEY_UP MouseEvents for the SPACE key are generated,
+ *  to simulate pressing the CheckBox via the keyboard,
+ *  if the CheckBox is enabled.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A CheckBox accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A CheckBox does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
