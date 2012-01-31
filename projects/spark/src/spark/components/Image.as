@@ -608,6 +608,8 @@ public class Image extends SkinnableComponent
     //  preliminaryHeight
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="NaN")]
+    
     /**
      *  @copy spark.primitives.BitmapImage#preliminaryHeight
      *  @default NaN
@@ -638,6 +640,8 @@ public class Image extends SkinnableComponent
     //----------------------------------
     //  preliminaryWidth
     //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="NaN")]
     
     /**
      *  @copy spark.primitives.BitmapImage#preliminaryWidth
@@ -702,6 +706,8 @@ public class Image extends SkinnableComponent
     //----------------------------------
     //  smooth
     //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  @copy spark.primitives.BitmapImage#smooth
