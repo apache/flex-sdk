@@ -908,10 +908,10 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
-        // This is needed so DataGrid's NonInheriting styles will be seen
-        // by the renderer.
-        if (renderer is ISimpleStyleClient)
-            ISimpleStyleClient(renderer).styleName = grid.gridOwner;
+        // If this renderer has not specified a styleName then use the DataGrid's styles
+        const rendererStyleClient:ISimpleStyleClient = renderer as ISimpleStyleClient;
+        if (rendererStyleClient && !rendererStyleClient.styleName)
+            rendererStyleClient.styleName = grid.gridOwner;
 
         const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
