@@ -940,6 +940,8 @@ public class Grid extends Group
     
     private var _itemRenderer:IFactory = null;
     
+    private var itemRendererChanged:Boolean = false;
+    
     /**
      *  The item renderer that's used for columns that do not specify one.
      * 
@@ -965,11 +967,9 @@ public class Grid extends Group
         
         _itemRenderer = value;
         
+        itemRendererChanged = true;
         invalidateSize();
         invalidateDisplayList();
-        gridLayout.clearVirtualLayoutCache();
-        if (gridLayout.gridDimensions)
-            gridLayout.gridDimensions.clearTypicalCellWidthsAndHeights();
         
         dispatchChangeEvent("itemRendererChanged");
     }    
@@ -1395,7 +1395,11 @@ public class Grid extends Group
      *  this property specifies the actual height of each row, in pixels.
      * 
      *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
-     *  the default, then this property has no effect.</p>
+     *  the default, the value of this property is used as the estimated
+     *  height for rows that haven’t been scrolled into view yet, rather
+     *  than the preferred height of renderers configured with the typicalItem.
+     *  Similarly, when the Grid pads its display with empty rows, this property
+     *  specifies the empty rows’ height.</p>
      * 
      *  <p>If <code>variableRowHeight</code> is <code>false</code>, 
      *  the default value of this property is the maximum preferred height
@@ -1408,7 +1412,7 @@ public class Grid extends Group
      */
     public function get rowHeight():Number
     {
-        return (variableRowHeight) ? gridDimensions.defaultRowHeight : gridDimensions.fixedRowHeight;
+        return _rowHeight;
     }
     
     /**
@@ -2055,7 +2059,6 @@ public class Grid extends Group
             return;
         
         _typicalItem = value;
-        gridDimensions.clearTypicalCellWidthsAndHeights();
         
         typicalItemChanged = true;       
         invalidateProperties();
@@ -2967,7 +2970,7 @@ public class Grid extends Group
         {
             if (rowHeightChanged)
                 gridDimensions.defaultRowHeight = _rowHeight;
-            gridDimensions.fixedRowHeight = variableRowHeight ? NaN : _rowHeight;
+            gridDimensions.variableRowHeight = variableRowHeight;
             
             if ((!variableRowHeight && rowHeightChanged) || variableRowHeightChanged)
             {
@@ -2980,6 +2983,13 @@ public class Grid extends Group
             variableRowHeightChanged = false;
         }
 
+        // item renderer changed or typical item changed
+        if (itemRendererChanged || typicalItemChanged)
+        {
+            clearGridLayoutCache(true);
+            itemRendererChanged = false;
+        }
+        
         // Try to generate columns if there aren't any or there are generated
         // ones which need to be regenerated because the typicalItem or 
         // dataProvider changed.
@@ -3047,7 +3057,7 @@ public class Grid extends Group
                 caretColumnIndex =  _columns.length - 1;
             dispatchCaretChangeEvent();
             caretChanged = false;
-        }            
+        }
     }
     
     /**
