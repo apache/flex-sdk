@@ -146,7 +146,7 @@ use namespace mx_internal;
 
 /**
  *  The colors used for menu or submenu menu items in an alternating pattern. 
- *  The value can be an Array of two or more colors.
+ *  The value can be an Array of one or more colors.
  *  This style is only used if <code>backgroundColor</code> is not specified. 
  * 
  *  @default "undefined"
