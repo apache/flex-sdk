@@ -3194,6 +3194,12 @@ public class Container extends UIComponent
      *
      *  A more complete fix, guaranteeing correct behavior in both non-DI and reparented-component
      *  scenarios, is anticipated for updater 1.
+     *
+     *  @param recurse If <code>false</code>, then only execute the bindings
+     *  on this Container. 
+     *  If <code>true</code>, then also execute the bindings on this
+     *  container's children, grandchildren,
+     *  great-grandchildren, and so on.
      */
     override public function executeBindings(recurse:Boolean = false):void
     {
