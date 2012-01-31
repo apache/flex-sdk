@@ -624,7 +624,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @see spark.skins.spark.DataGridSkin
  *  
  *  @includeExample examples/DataGridSimpleExample.mxml
- *  @includeExample examples/DataGridExample.mxml
+ *  @includeExample examples/DataGridMasterDetailExample.mxml
  *  @includeExample examples/DataGridTypicalItemExample.mxml
  *  @includeExample examples/DataGridRowHeightExample.mxml
  *  @includeExample examples/DataGridSelectionExample.mxml
