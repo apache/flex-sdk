@@ -52,9 +52,9 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[IconFile("RadioButton.png")]
-
 [AccessibilityClass(implementation="spark.accessibility.RadioButtonAccImpl")]
+
+[IconFile("RadioButton.png")]
 
 /**
  *  The RadioButton component allows the user make a single choice
@@ -187,16 +187,6 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (RadioButton.createAccessibilityImplementation != null)
-            RadioButton.createAccessibilityImplementation(this);
-    }
-
-
     //----------------------------------
     //  enabled
     //----------------------------------
@@ -227,6 +217,21 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  autoGroupIndex
+    //----------------------------------
+
+    /**
+     *  @private
+     *  automaticRadioButtonGroups is shared with halo radio button groups.
+     *  Spark radio button groups are prefixed with _fx to differentiate the
+     *  Halo groups which are stored in the same table.
+     */
+    private function get autoGroupIndex():String
+    {
+        return "_spark_" + groupName;
+    }
 
     //----------------------------------
     //  group
@@ -459,6 +464,15 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
 
     /**
      *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (RadioButton.createAccessibilityImplementation != null)
+            RadioButton.createAccessibilityImplementation(this);
+    }
+
+    /**
+     *  @private
      *  Update properties before measurement/layout.
      */
     override protected function commitProperties():void
@@ -475,23 +489,32 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         super.commitProperties();
     }
 
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // If this rb is selected and in a group, make sure it is the group
+        // selection.  If it is not selected and it's in a group, make sure it
+        // is not the group selection.
+        if (group)
+        {
+            if (selected)
+                _group.selection = this;
+            else if (group.selection == this)
+                _group.selection = null;   
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     *  automaticRadioButtonGroups is shared with halo radio button groups.
-     *  Spark radio button groups are prefixed with _fx to differentiate the
-     *  Halo groups which are stored in the same table.
-     */
-    private function get autoGroupIndex():String
-    {
-        return "_spark_" + groupName;
-    }
-
     /**
      *  @private
      *  Create radio button group if it does not exist
@@ -626,36 +649,11 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
             addToGroup();
 
         var g:RadioButtonGroup = group;
+
         if (g.selection != this)
             g.setSelection(this);
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden functions: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number,
-                                                  unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // If this rb is selected and in a group, make sure it is the group
-        // selection.  If it is not selected and it's in a group, make sure it
-        // is not the group selection.
-        if (group)
-        {
-            if (selected)
-                _group.selection = this;
-            else if (group.selection == this)
-                _group.selection = null;   
-        }
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers: UIComponent
