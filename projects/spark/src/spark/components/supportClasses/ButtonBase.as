@@ -30,6 +30,10 @@ import mx.utils.StringUtil;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
@@ -63,20 +67,6 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Dispatched when the user presses the ButtonBase control.
- *  If the <code>autoRepeat</code> property is <code>true</code>,
- *  this event is dispatched repeatedly as long as the button stays down.
- *
- *  @eventType mx.events.FlexEvent.BUTTON_DOWN
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="buttonDown", type="mx.events.FlexEvent")]
-
-/**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
  *  event before repeating <code>buttonDown</code> events at each 
  *  <code>repeatInterval</code>.
@@ -102,6 +92,28 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the user presses the ButtonBase control.
+ *  If the <code>autoRepeat</code> property is <code>true</code>,
+ *  this event is dispatched repeatedly as long as the button stays down.
+ *
+ *  @eventType mx.events.FlexEvent.BUTTON_DOWN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="buttonDown", type="mx.events.FlexEvent")]
+
+//--------------------------------------
+//  Skin states
+//--------------------------------------
 
 /**
  *  Up State of the Button
@@ -147,11 +159,11 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.ButtonAccImpl")]
+
 [DefaultTriggerEvent("click")]
 
 [DefaultProperty("label")]
-
-[AccessibilityClass(implementation="spark.accessibility.ButtonAccImpl")]
 
 /**
  *  The ButtonBase component is the base class for the all Spark button components.
@@ -275,10 +287,36 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         // add event listeners to the button
         addHandlers();
     }   
-
+    
     //--------------------------------------------------------------------------
     //
-    //  Skin Parts
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Remember whether we have fired an event already,
+     *  so that we don't fire a second time.
+     */
+    private var _downEventFired:Boolean = false;
+    
+    /**
+     *  @private
+     *  <code>true</code> when we need to check whether to dispatch
+     *  a button down event
+     */
+    private var checkForButtonDownConditions:Boolean = false;
+
+    /**
+     *  @private
+     *  Timer for doing auto-repeat.
+     */
+    private var autoRepeatTimer:Timer;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin parts
     //
     //--------------------------------------------------------------------------
 
@@ -296,9 +334,93 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 
     //--------------------------------------------------------------------------
     //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(labelDisplay);
+    }
+
+    //----------------------------------
+    //  toolTip
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="null")]
+    
+    /**
+     *  @private
+     */
+    private var _explicitToolTip:Boolean = false;
+
+    /**
+     *  @private
+     */
+    override public function set toolTip(value:String):void
+    {
+        super.toolTip = value;
+        
+        // If explicit tooltip is cleared, we need to make sure our
+        // updateDisplayList is called, so that we add automatic tooltip
+        // in case the label is truncated.
+        if (_explicitToolTip && !value)
+            invalidateDisplayList();
+
+        _explicitToolTip = value != null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  autoRepeat
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _autoRepeat:Boolean;
+
+    [Inspectable(defaultValue="false")]
+
+    /**
+     *  Specifies whether to dispatch repeated <code>buttonDown</code>
+     *  events if the user holds down the mouse button.
+     *
+     *  @default false
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoRepeat():Boolean
+    {
+        return _autoRepeat;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set autoRepeat(value:Boolean):void
+    {
+        if (value == _autoRepeat)
+            return;
+         
+        _autoRepeat = value;
+        checkAutoRepeatTimerConditions(isDown());
+    }
 
     //----------------------------------
     //  content
@@ -355,6 +477,110 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     }
 
     //----------------------------------
+    //  hovered
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the hovered property 
+     */
+    private var _hovered:Boolean = false;    
+
+    /**
+     *  Indicates whether the mouse pointer is over the button.
+     *  Used to determine the skin state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function get hovered():Boolean
+    {
+        return _hovered;
+    }
+    
+    /**
+     *  @private
+     */ 
+    protected function set hovered(value:Boolean):void
+    {
+        if (value == _hovered)
+            return;
+
+        _hovered = value;
+        invalidateButtonState();
+    }
+
+    //----------------------------------
+    //  keepDown
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+	private var _keepDown:Boolean = false;
+    
+    /**
+     *  @private
+     *  If true, forces the button to be in the down state
+     *  Set fireEvent to false if you want to supress the ButtonDown event. 
+     *  This is useful if you have programmatically set keepDown but the 
+     *  mouse is not over the button. 
+     */
+    mx_internal function keepDown(down:Boolean, fireEvent:Boolean = true):void
+    {
+        if (_keepDown == down)
+            return;
+        
+        _keepDown = down;
+        
+        if (!fireEvent) // Don't let the ButtonDown event get fired
+            _downEventFired = true;
+          
+        if (_keepDown)
+            invalidateSkinState();
+        else
+            invalidateButtonState();
+    }
+
+    //----------------------------------
+    //  keyboardPressed
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the keyboardPressed property 
+     */
+    private var _keyboardPressed:Boolean = false;    
+
+    /**
+     *  Indicates whether a keyboard key is pressed while the button is in focus.
+     *  Used to determine the skin state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function get keyboardPressed():Boolean
+    {
+        return _keyboardPressed;
+    }
+    
+    /**
+     *  @private
+     */
+    protected function set keyboardPressed(value:Boolean):void
+    {
+        if (value == _keyboardPressed)
+            return;
+
+        _keyboardPressed = value;
+        invalidateButtonState();
+    }
+    
+    //----------------------------------
     //  label
     //----------------------------------
 
@@ -402,42 +628,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     }
     
     //----------------------------------
-    //  hovered
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the hovered property 
-     */
-    private var _hovered:Boolean = false;    
-
-    /**
-     *  Indicates whether the mouse pointer is over the button.
-     *  Used to determine the skin state.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    protected function get hovered():Boolean
-    {
-        return _hovered;
-    }
-    
-    /**
-     *  @private
-     */ 
-    protected function set hovered(value:Boolean):void
-    {
-        if (value == _hovered)
-            return;
-
-        _hovered = value;
-        invalidateButtonState();
-    }
-
-    //----------------------------------
     //  mouseCaptured
     //----------------------------------
 
@@ -476,42 +666,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         // System mouse handlers are not needed when the button is not mouse captured
         if (!value)
             removeSystemMouseHandlers();
-    }
-    
-    //----------------------------------
-    //  keyboardPressed
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the keyboardPressed property 
-     */
-    private var _keyboardPressed:Boolean = false;    
-
-    /**
-     *  Indicates whether a keyboard key is pressed while the button is in focus.
-     *  Used to determine the skin state.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    protected function get keyboardPressed():Boolean
-    {
-        return _keyboardPressed;
-    }
-    
-    /**
-     *  @private
-     */
-    protected function set keyboardPressed(value:Boolean):void
-    {
-        if (value == _keyboardPressed)
-            return;
-
-        _keyboardPressed = value;
-        invalidateButtonState();
     }
     
     //----------------------------------
@@ -556,104 +710,13 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         invalidateButtonState();
     }
 
-    //----------------------------------
-    //  autoRepeat
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _autoRepeat:Boolean;
-
-    [Inspectable(defaultValue="false")]
-
-    /**
-     *  Specifies whether to dispatch repeated <code>buttonDown</code>
-     *  events if the user holds down the mouse button.
-     *
-     *  @default false
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get autoRepeat():Boolean
-    {
-        return _autoRepeat;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set autoRepeat(value:Boolean):void
-    {
-        if (value == _autoRepeat)
-            return;
-         
-        _autoRepeat = value;
-        checkAutoRepeatTimerConditions(isDown());
-    }
-
-    //----------------------------------
-    //  toolTip
-    //----------------------------------
-
-    [Inspectable(category="General", defaultValue="null")]
-    
-    private var _explicitToolTip:Boolean = false;
-
-    /**
-     *  @private
-     */
-    override public function set toolTip(value:String):void
-    {
-        super.toolTip = value;
-        
-        // If explicit tooltip is cleared, we need to make sure our
-        // updateDisplayList is called, so that we add automatic tooltip
-        // in case the label is truncated.
-        if (_explicitToolTip && !value)
-            invalidateDisplayList();
-
-        _explicitToolTip = value != null;
-    }
-    
-    //----------------------------------
-    //  keepDown
-    //----------------------------------
-    private var _keepDown:Boolean = false;
-    
-    /**
-     *  @private
-     *  If true, forces the button to be in the down state
-     *  Set fireEvent to false if you want to supress the ButtonDown event. 
-     *  This is useful if you have programmatically set keepDown but the 
-     *  mouse is not over the button. 
-     */
-    mx_internal function keepDown(down:Boolean, fireEvent:Boolean = true):void
-    {
-        if (_keepDown == down)
-            return;
-        
-        _keepDown = down;
-        
-        if (!fireEvent) // Don't let the ButtonDown event get fired
-            _downEventFired = true;
-          
-        if (_keepDown)
-            invalidateSkinState();
-        else
-            invalidateButtonState();
-    }
-
-
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent
+    //  Overridden properties
     //
     //--------------------------------------------------------------------------
-     /**
+    
+	/**
      *  @private
      */
     override protected function initializeAccessibility():void
@@ -661,43 +724,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (ButtonBase.createAccessibilityImplementation != null)
             ButtonBase.createAccessibilityImplementation(this);
     }
-    
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        return getBaselinePositionForPart(labelDisplay);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        
-        // Push down to the part only if the label was explicitly set
-        if (_content !== undefined && instance == labelDisplay)
-            labelDisplay.text = label;
-    }
-
-    /**
-     *  @private
-     *  Remember whether we have fired an event already,
-     *  so that we don't fire a second time.
-     */
-    private var _downEventFired:Boolean = false;
     
     /**
      *  @private
@@ -724,12 +750,107 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         }
     }
 
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // Bail out if we don't have a label or the tooltip is explicitly set.
+        if (!labelDisplay || _explicitToolTip)
+            return;
+
+        // Check if the label text is truncated
+        labelDisplay.validateNow();
+        var isTruncated:Boolean = labelDisplay.isTruncated;
+        
+        // If the label is truncated, show the whole label string as a tooltip
+        super.toolTip = isTruncated ? labelDisplay.text : null;
+    } 
+
+    /**
+     *  @private
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        
+        // Push down to the part only if the label was explicitly set
+        if (_content !== undefined && instance == labelDisplay)
+            labelDisplay.text = label;
+    }
+
+    /**
+     *  @private
+     */
+    override protected function getCurrentSkinState():String
+    {
+        if (!enabled)
+            return "disabled";
+
+        if (isDown())
+            return "down";
+            
+        if (hovered || mouseCaptured)
+            return "over";
+            
+        return "up";
+    }
+
     //--------------------------------------------------------------------------
     //
-    //  States
+    //  Methods
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    protected function addHandlers():void
+    {
+        addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
+        addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
+        addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
+        addEventListener(MouseEvent.CLICK, mouseEventHandler);
+    }
+    
+    /**
+     *  @private
+     *  This method adds the mouseEventHandler as an event listener to
+     *  the stage and the systemManager so that it gets called even if mouse events
+     *  are dispatched outside of the button. This is needed for example when the
+     *  user presses the button, drags out and releases the button.
+     */
+    private function addSystemMouseHandlers():void
+    {
+        systemManager.getSandboxRoot().addEventListener(
+			MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+
+        systemManager.getSandboxRoot().addEventListener(
+			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
+    }
+
+    /**
+     *  @private
+     *  This method removes the mouseEventHandler as an event listener from
+     *  the stage and the systemManager.
+     */
+    private function removeSystemMouseHandlers():void
+    {
+        systemManager.getSandboxRoot().removeEventListener(
+			MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+
+        systemManager.getSandboxRoot().removeEventListener(
+			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
+    }
+    
+    /**
+     *  @private
+     */
     private function isDown():Boolean
     {
         if (!enabled)
@@ -767,62 +888,91 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    override protected function getCurrentSkinState():String
+    private function checkAutoRepeatTimerConditions(buttonDown:Boolean):void
     {
-        if (!enabled)
-            return "disabled";
+        var needsTimer:Boolean = autoRepeat && buttonDown;
+        var hasTimer:Boolean = autoRepeatTimer != null;
+        
+        if (needsTimer == hasTimer)
+            return;
 
-        if (isDown())
-            return "down";
-            
-        if (hovered || mouseCaptured)
-            return "over";
-            
-        return "up";
+        if (needsTimer)
+            startTimer();
+        else
+            stopTimer();
+    }
+
+    /**
+     *  @private
+     */
+    private function startTimer():void
+    {
+        autoRepeatTimer = new Timer(1);
+        autoRepeatTimer.delay = getStyle("repeatDelay");
+        autoRepeatTimer.addEventListener(TimerEvent.TIMER, autoRepeat_timerDelayHandler);
+        autoRepeatTimer.start();
+    }
+
+    /**
+     *  @private
+     */
+    private function stopTimer():void
+    {
+        autoRepeatTimer.stop();
+        autoRepeatTimer = null;
     }
 
     //--------------------------------------------------------------------------
     //
-    //  Event handling
+    //  Overridden event handlers: UIComponent
     //
     //--------------------------------------------------------------------------
 
     /**
      *  @private
      */
-    protected function addHandlers():void
+    override protected function focusOutHandler(event:FocusEvent):void
     {
-        addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
-        addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
-        addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
-        addEventListener(MouseEvent.CLICK, mouseEventHandler);
-    }
-    
-    /**
-     *  @private
-     *  This method adds the mouseEventHandler as an event listener to
-     *  the stage and the systemManager so that it gets called even if mouse events
-     *  are dispatched outside of the button. This is needed for example when the
-     *  user presses the button, drags out and releases the button.
-     */
-    private function addSystemMouseHandlers():void
-    {
-        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
-        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
+        // Most of the time the system sends a rollout, but there are
+        // situations where the mouse is over something else
+        // that you don't get one so we force one on FOCUS_OUT.
+        super.focusOutHandler(event);
+
+        mouseCaptured = false;
+        keyboardPressed = false;
     }
 
     /**
      *  @private
-     *  This method removes the mouseEventHandler as an event listener from
-     *  the stage and the systemManager.
      */
-    private function removeSystemMouseHandlers():void
+    override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
-        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
+        if (event.keyCode != Keyboard.SPACE)
+            return;
+        keyboardPressed = true;
+        event.updateAfterEvent();
     }
-    
+
+    /**
+     *  @private
+     */
+    override protected function keyUpHandler(event:KeyboardEvent):void
+    {
+        if (event.keyCode != Keyboard.SPACE)
+            return;
+        keyboardPressed = false;
+        
+        if (enabled)
+            dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        event.updateAfterEvent();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  This method handles the mouse events, calls the <code>clickHandler</code> method 
      *  where appropriate and updates the <code>hovered</code> and
@@ -912,101 +1062,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden event handlers: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function focusOutHandler(event:FocusEvent):void
-    {
-        // Most of the time the system sends a rollout, but there are
-        // situations where the mouse is over something else
-        // that you don't get one so we force one on FOCUS_OUT.
-        super.focusOutHandler(event);
-
-        mouseCaptured = false;
-        keyboardPressed = false;
-    }
-
-    /**
-     *  @private
-     */
-    override protected function keyDownHandler(event:KeyboardEvent):void
-    {
-        if (event.keyCode != Keyboard.SPACE)
-            return;
-        keyboardPressed = true;
-        event.updateAfterEvent();
-    }
-
-    /**
-     *  @private
-     */
-    override protected function keyUpHandler(event:KeyboardEvent):void
-    {
-        if (event.keyCode != Keyboard.SPACE)
-            return;
-        keyboardPressed = false;
-        
-        if (enabled)
-            dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        event.updateAfterEvent();
-    }
-
-    /**
-     *  @private
-     *  <code>true</code> when we need to check whether to dispatch
-     *  a button down event
-     */
-    private var checkForButtonDownConditions:Boolean = false;
-
-    /**
-     *  @private
-     *  Timer for doing auto-repeat.
-     */
-    private var autoRepeatTimer:Timer;
-    
-    /**
-     *  @private
-     */
-    private function checkAutoRepeatTimerConditions(buttonDown:Boolean):void
-    {
-        var needsTimer:Boolean = autoRepeat && buttonDown;
-        var hasTimer:Boolean = autoRepeatTimer != null;
-        
-        if (needsTimer == hasTimer)
-            return;
-
-        if (needsTimer)
-            startTimer();
-        else
-            stopTimer();
-    }
-
-    /**
-     *  @private
-     */
-    private function startTimer():void
-    {
-        autoRepeatTimer = new Timer(1);
-        autoRepeatTimer.delay = getStyle("repeatDelay");
-        autoRepeatTimer.addEventListener(TimerEvent.TIMER, autoRepeat_timerDelayHandler);
-        autoRepeatTimer.start();
-    }
-
-    /**
-     *  @private
-     */
-    private function stopTimer():void
-    {
-        autoRepeatTimer.stop();
-        autoRepeatTimer = null;
-    }
-
     /**
      *  @private
      */
@@ -1027,26 +1082,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
     }
-    
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number,
-                                                  unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // Bail out if we don't have a label or the tooltip is explicitly set.
-        if (!labelDisplay || _explicitToolTip)
-            return;
-
-        // Check if the label text is truncated
-        labelDisplay.validateNow();
-        var isTruncated:Boolean = labelDisplay.isTruncated;
-        
-        // If the label is truncated, show the whole label string as a tooltip
-        super.toolTip = isTruncated ? labelDisplay.text : null;
-    } 
 }
 
 }
