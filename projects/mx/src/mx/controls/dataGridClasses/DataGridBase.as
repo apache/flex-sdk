@@ -586,7 +586,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
-        if (headerVisible && header)
+        if (header)
         {
             header.visibleColumns = visibleColumns;
             header.headerItemsChanged = true;
