@@ -3800,26 +3800,33 @@ public class RichEditableText extends UIComponent
         if (editingMode != EditingMode.READ_WRITE)
             return;
         
+        // We always handle the 'enter' key since we would have to recreate
+        // the container manager to change the configuration if multiline 
+        // changes.            
         if (event.keyCode == Keyboard.ENTER)
-        {            
-            // We always handle the 'enter' key since we would have to recreate
-            // the container manager to change the configuration if multiline 
-            // changes.            
-            if (multiline)
+        {        
+            if (!multiline)
             {
-                var editManager:IEditManager = 
-                    EditManager(_textContainerManager.beginInteraction());
-                
-                if (editManager.hasSelection())
-                    editManager.splitParagraph();
-                
-                _textContainerManager.endInteraction();
-            }
-            else
-            { 
                 dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+                event.preventDefault();
+                return;
             }
-
+            
+            // Multiline.  Make sure there is room before acting on it.
+            if (_maxChars != 0 && text.length >= _maxChars)
+            {
+                event.preventDefault();
+                return;
+            }
+            
+            var editManager:IEditManager = 
+                EditManager(_textContainerManager.beginInteraction());
+            
+            if (editManager.hasSelection())
+                editManager.splitParagraph();
+            
+            _textContainerManager.endInteraction();
+            
             event.preventDefault();
          }
     }
@@ -3924,6 +3931,11 @@ public class RichEditableText extends UIComponent
      */
     private function textContainerManager_damageHandler(event:DamageEvent):void
     {
+        if (ignoreDamageEvent || event.damageLength == 0)
+            return;
+        
+        //trace("damageHandler", "generation", _textFlow ? _textFlow.generation : -1, "lastGeneration", lastGeneration);
+
         // The following textContainerManager functions can trigger a damage
         // event:
         //    setText/setTextFlow
@@ -3939,11 +3951,6 @@ public class RichEditableText extends UIComponent
         // is composed, even if there are no changes. 
         if (_textFlow && _textFlow.generation == lastGeneration)
             return;
-
-        if (ignoreDamageEvent || event.damageLength == 0)
-            return;
-
-        //trace("damageHandler", id, event.damageAbsoluteStart, event.damageLength);
 
         // If there are pending changes, don't wipe them out.  We have
         // not gotten to commitProperties() yet.
