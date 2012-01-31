@@ -15,7 +15,6 @@ package spark.core
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
@@ -32,9 +31,11 @@ import mx.core.FlexSprite;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
+import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
@@ -46,7 +47,6 @@ import mx.graphics.shaderClasses.ColorDodgeShader;
 import mx.graphics.shaderClasses.ColorShader;
 import mx.graphics.shaderClasses.ExclusionShader;
 import mx.graphics.shaderClasses.HueShader;
-import mx.graphics.shaderClasses.LuminosityMaskShader;
 import mx.graphics.shaderClasses.LuminosityShader;
 import mx.graphics.shaderClasses.SaturationShader;
 import mx.graphics.shaderClasses.SoftLightShader;
@@ -2010,8 +2010,8 @@ public class SpriteVisualElement extends FlexSprite
         if (_layoutDirection != null)
             return _layoutDirection;
         
-        const parentElt:IVisualElement = parent as IVisualElement;
-        return (parentElt) ? parentElt.layoutDirection : "ltr";   
+        const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
+        return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR;   
 	}
 	
 	/**
@@ -2031,7 +2031,7 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:IVisualElement = parent as IVisualElement;
+        const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
         if (!parentElt)
             return;
         
