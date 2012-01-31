@@ -26,6 +26,7 @@ import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
+import mx.core.IVisualItem;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
@@ -258,7 +259,7 @@ public class DataGroup extends GroupBase
         
         if (item === null)
             throw new Error("DataGroup content can not contain null items.");
-            
+        
         // Rules for lookup:
         // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
         // 2. if itemRenderer is defined, instantiate one
@@ -284,7 +285,7 @@ public class DataGroup extends GroupBase
         if (!myItemRenderer && item is GraphicElement)
         {
             var graphicItem:GraphicElement = GraphicElement(item);
-            graphicItem.elementHost = this;
+            graphicItem.parent = this;
                             
             if (!graphicItem.displayObject)
                 graphicItem.displayObject = graphicItem.createDisplayObject();
@@ -495,7 +496,7 @@ public class DataGroup extends GroupBase
         // release the display objects
         if (item && (item is GraphicElement))
         {
-            item.elementHost = null;
+            item.parent = null;
             item.sharedDisplayObject = null;
         }
         
@@ -539,8 +540,9 @@ public class DataGroup extends GroupBase
     { 
         var host:DisplayObject;
         
-        if (item is GraphicElement)
-            host = DisplayObject(GraphicElement(item).elementHost); 
+        // TODO (rfrishbe): need to check for DisplayObject?
+        if (item is IVisualItem)
+            host = IVisualItem(item).parent; 
         else if (item is DisplayObject)
             host = DisplayObject(item).parent;
         
@@ -696,9 +698,9 @@ public class DataGroup extends GroupBase
             itemRemoved(items[i].oldValue, location + i);               
         }
         
-        for (var k:int = length-1; k >= 0; k--)
+        for (i = length-1; i >= 0; i--)
         {
-            itemAdded(items[k].newValue, location);
+            itemAdded(items[i].newValue, location);
         }
     }
     
