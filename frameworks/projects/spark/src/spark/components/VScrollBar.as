@@ -16,7 +16,7 @@ import mx.core.IViewport;
 import mx.core.ScrollUnit;  
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 
 [IconFile("FxVScrollBar.png")]
