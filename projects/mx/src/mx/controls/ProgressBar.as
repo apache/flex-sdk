@@ -869,6 +869,9 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
             }
         }
 
+	if (_source && _source is IEventDispatcher)
+            removeSourceListeners();
+ 
         if (value)
         {
             _source = value;
@@ -1097,8 +1100,7 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
                 {
                     if (_source is IEventDispatcher)
                     {
-                        _source.addEventListener(ProgressEvent.PROGRESS, progressHandler);
-                        _source.addEventListener(Event.COMPLETE, completeHandler);
+                        addSourceListeners();
                     }
                     else
                     {
@@ -1108,10 +1110,9 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
                         _source = null;
                     }
                 }
-                else
+                else if (_source is IEventDispatcher)
                 {
-                    _source.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
-                    _source.removeEventListener(Event.COMPLETE, completeHandler);
+                    removeSourceListeners();
                 }
             }
 
@@ -1609,6 +1610,24 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
             if (_mode != ProgressBarMode.POLLED)
                 pollTimer.reset();
         }
+    }
+
+    /**
+     *  @private
+     */
+    private function addSourceListeners():void
+    {
+        _source.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+        _source.addEventListener(Event.COMPLETE, completeHandler);
+    }
+
+    /**
+     *  @private
+     */
+    private function removeSourceListeners():void
+    {
+        _source.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
+        _source.removeEventListener(Event.COMPLETE, completeHandler);
     }
 
     //--------------------------------------------------------------------------
