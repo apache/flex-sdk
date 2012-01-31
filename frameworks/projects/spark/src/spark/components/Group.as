@@ -44,27 +44,27 @@ use namespace mx_internal;
  *  Dispatched when a visual element is added to the content holder.
  *  <code>event.element</code> is the visual element that was added.
  *
- *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
+ *  @eventType spark.events.ElementExistenceEvent.ELEMENT_ADD
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
+[Event(name="elementAdd", type="spark.events.ElementExistenceEvent")]
 
 /**
  *  Dispatched when a visual element is removed to the content holder.
  *  <code>event.element</code> is the visual element that's being removed.
  *
- *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
+ *  @eventType spark.events.ElementExistenceEvent.ELEMENT_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
+[Event(name="elementRemove", type="spark.events.ElementExistenceEvent")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -91,7 +91,7 @@ use namespace mx_internal;
 /**
  *  The Group class is the base container class for visual elements.
  *
- *  @see mx.components.DataGroup
+ *  @see spark.components.DataGroup
  *
  *  @includeExample examples/GroupExample.mxml
  *
