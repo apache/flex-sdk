@@ -2453,6 +2453,15 @@ public class UITLFTextField extends TLFTextField
     {
         return null;
     }
+    
+    /**
+     *  @private
+     */
+    public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, 
+                                                                 properties:Array):Object
+    {
+        return null;
+    }
 
     /**
      *  @private
@@ -2466,6 +2475,14 @@ public class UITLFTextField extends TLFTextField
      *  @private
      */
     public function getAutomationChildAt(index:int):IAutomationObject
+    {
+        return null;
+    }
+    
+    /**
+     *  @private
+     */
+    public function getAutomationChildren():Array
     {
         return null;
     }
