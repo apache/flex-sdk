@@ -52,6 +52,8 @@ import spark.utils.LabelUtil;
 
 use namespace mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  Dispatched when the drop-down list closes for any reason, such when 
  *  the user:
@@ -614,11 +616,11 @@ public class DropDownList extends List
                      
                     case NavigationUnit.PAGE_UP:
                        proposedNewIndex = selectedIndex == -1 ? 
-                                            -1 : Math.max(selectedIndex - mx_internal::PAGE_SIZE, 0);  
+                                            -1 : Math.max(selectedIndex - PAGE_SIZE, 0);  
                        break;
                     
                     case NavigationUnit.PAGE_DOWN:
-                       proposedNewIndex = selectedIndex + mx_internal::PAGE_SIZE;  
+                       proposedNewIndex = selectedIndex + PAGE_SIZE;  
                        break;
                        
                     case NavigationUnit.HOME:
