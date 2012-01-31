@@ -30,6 +30,16 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="change", type="flash.events.Event")]
 
 /**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Skin states for this component.
  */
 [SkinStates("normal", "disabled")]
