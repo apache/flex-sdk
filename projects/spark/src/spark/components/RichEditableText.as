@@ -457,18 +457,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  To preserve the selection anchor position across selection managers.
-     */
-    private var priorSelectionAnchorPosition:int = -1;
-
-    /**
-     *  @private
-     *  To preserve the selection active position across selection managers.
-     */
-    private var priorSelectionActivePosition:int = -1;
-    
-    /**
-     *  @private
      *  Holds the last recorded value of the module factory used to create the font.
      */
     mx_internal var embeddedFontContext:IFlexModuleFactory;
@@ -497,6 +485,15 @@ public class RichEditableText extends UIComponent
      */    
     private var textFlowChanged:Boolean = false;
             
+
+    /**
+     *  @private
+     *  Hold the previous editingMode while using a specific instance manager
+     *  so that the editingMode can be restored when the instance manager is
+     *  released.
+     */
+    private var priorEditingMode:String;
+                
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -991,6 +988,11 @@ public class RichEditableText extends UIComponent
     {
     	if (mx_internal::debug)
      		trace("editingMode = ", value);
+
+        // ToDo: TextContainerManager should do this check.
+        if (_inputManager.editingMode == value)
+            return;
+
      	_inputManager.editingMode = value;
     }
 
@@ -1968,10 +1970,17 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  When done call releaseSelectionManager();
+     *  The editingMode is set to READ_SELECT if not already READ_SELECT or
+     *  READ_WRITE.
+     *  When done call releaseSelectionManager().
      */
     private function getSelectionManager():ISelectionManager
     {
+        priorEditingMode = editingMode;
+        
+        if (editingMode == EditingMode.READ_ONLY)
+            editingMode = EditingMode.READ_SELECT;
+
     	return SelectionManager(_inputManager.beginInteraction());
     }
 
@@ -1981,16 +1990,24 @@ public class RichEditableText extends UIComponent
     private function releaseSelectionManager():void
     {
         _inputManager.endInteraction();
+        
+        editingMode = priorEditingMode;
     }
 
     /**
      *  @private
-     *  When done call releaseEditManager();
+     *  The editingMode is set to READ_WRITE.
+     *  When done call releaseEditManager().
      */
     private function getEditManager():IEditManager
     {
         // This triggers a damage event if the interactionManager is
         // changed. 
+                
+        priorEditingMode = editingMode;
+        
+        if (editingMode != EditingMode.READ_WRITE)
+            editingMode = EditingMode.READ_WRITE;
         
         return EditManager(_inputManager.beginInteraction());
     }
@@ -2001,6 +2018,8 @@ public class RichEditableText extends UIComponent
     private function releaseEditManager():void
     {
         _inputManager.endInteraction();
+
+        editingMode = priorEditingMode;
     }
 
     /**
@@ -2151,9 +2170,11 @@ public class RichEditableText extends UIComponent
     {
     	var em:Number = getStyle("fontSize");
     	
-    	return getStyle("paddingLeft") +
-    		  widthInChars * em +
-    		  getStyle("paddingRight");
+    	// Without the explicit casts, if padding values are non-zero, the
+    	// returned width is a very large number.
+    	return Number(getStyle("paddingLeft")) +
+    		   widthInChars * em +
+    		   Number(getStyle("paddingRight"));
     }
     
     /**
@@ -2163,7 +2184,8 @@ public class RichEditableText extends UIComponent
      */
     private function calculateHeightInLines():Number
     {
-        var height:Number = getStyle("paddingTop") + getStyle("paddingBottom");
+        var height:Number = Number(getStyle("paddingTop")) + 
+                            Number(getStyle("paddingBottom"));
             
         if (heightInLines == 0)
             return height;
@@ -2413,7 +2435,7 @@ public class RichEditableText extends UIComponent
         
         // Remove terminator on the last paragraph, ie remove the last char.
         // t true implies length > 0.
-        if (t && t.charAt(t.length-1) == "\n")
+        if (t != null && t.length > 0 && t.charAt(t.length-1) == "\n")
             t = t.slice(0, -1);
             
         return t;            
@@ -2432,12 +2454,6 @@ public class RichEditableText extends UIComponent
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
     {
-        if (editingMode == EditingMode.READ_ONLY)
-        {
-            editingMode = EditingMode.READ_SELECT;
-            _selectable = true;
-        }
-
 		var selectionManager:ISelectionManager = getSelectionManager();
         
         selectionManager.setSelection(anchorPosition, activePosition);        
@@ -2446,8 +2462,30 @@ public class RichEditableText extends UIComponent
         selectionManager.refreshSelection();
         
         releaseSelectionManager();
-      }
+    }
     
+    /**
+     *  Scrolls so that the text position is visible in the container. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function scrollToPosition(anchorPosition:int = 0,
+                                     activePosition:int = int.MAX_VALUE):void
+    {
+       var selectionManager:ISelectionManager = getSelectionManager();
+
+       var controller:ContainerController = 
+                            textFlow.flowComposer.getControllerAt(0);
+
+        // ToDo: TextContainerManager should expose this interface                            
+        controller.scrollToPosition(anchorPosition, activePosition);                            
+
+        releaseSelectionManager();
+    }
+        
     /**
      *  Inserts the specified text as if you had typed it.
      *  If a range was selected, the new text replaces the selected text;
@@ -2467,8 +2505,6 @@ public class RichEditableText extends UIComponent
 
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorEditingMode:String = editingMode;
-        editingMode = EditingMode.READ_WRITE;
         var editManager:IEditManager = getEditManager();
         
         // If no selection, then it's an append.
@@ -2482,9 +2518,6 @@ public class RichEditableText extends UIComponent
 
         // All done with edit manager.
         releaseEditManager();
-        
-        // Restore the prior editing mode.
-        editingMode = priorEditingMode;
     }
     
     /**
@@ -2506,8 +2539,6 @@ public class RichEditableText extends UIComponent
 
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorEditingMode:String = editingMode;
-        editingMode = EditingMode.READ_WRITE;
         var editManager:IEditManager = getEditManager();
         
         // An append is an insert with the selection set to the end.
@@ -2520,9 +2551,6 @@ public class RichEditableText extends UIComponent
 
         // All done with edit manager.
         releaseEditManager();
-        
-        // Restore the prior editing mode.
-        editingMode = priorEditingMode;
     }
 
     /**
@@ -2566,9 +2594,6 @@ public class RichEditableText extends UIComponent
     {
         var format:Object = {};
         
-        // Switch to the EditManager.
-        var priorEditingMode:String = editingMode;
-        editingMode = EditingMode.READ_WRITE;
         var selectionManager:ISelectionManager = getSelectionManager();
                 
         // This internal TLF object maps the names of format properties
@@ -2642,10 +2667,7 @@ public class RichEditableText extends UIComponent
         
         // All done with the selection manager.
         releaseSelectionManager();
-        
-        // Restore the prior editing mode.
-        editingMode = priorEditingMode;
-                
+
         return format;
     }
 
@@ -2667,9 +2689,6 @@ public class RichEditableText extends UIComponent
      */
     public function setSelectionFormat(attributes:Object):void
     {
-        // Switch to the EditManager.
-        var priorEditingMode:String = editingMode;
-        editingMode = EditingMode.READ_WRITE;
         var editManager:IEditManager = getEditManager();
         
         // Assign each specified attribute to one of three format objects,
@@ -2715,9 +2734,6 @@ public class RichEditableText extends UIComponent
         
         // All done with the edit manager.
         releaseEditManager();
-        
-        // Restore the prior editing mode.
-        editingMode = priorEditingMode;
     }
 
 	/**
@@ -3018,6 +3034,9 @@ public class RichEditableText extends UIComponent
     private function inputManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
+        var oldAnchor:int = _selectionAnchorPosition;
+        var oldActive:int = _selectionActivePosition;
+        
         var selectionManager:ISelectionManager = getSelectionManager();
         
         _selectionAnchorPosition = selectionManager.anchorPosition;
@@ -3025,9 +3044,14 @@ public class RichEditableText extends UIComponent
         
         releaseSelectionManager();
 
-        //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition);
-            
-        dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
+        // Only dispatch the event if the selection has really changed.
+        var changed:Boolean = oldAnchor != _selectionAnchorPosition ||
+                              oldActive != _selectionActivePosition;
+                              
+        //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition, "selection_change", changed);
+        
+        if (changed)    
+            dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
     }
 
     /**
@@ -3038,10 +3062,13 @@ public class RichEditableText extends UIComponent
     private function inputManager_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("flowOperationBegin");
+        //trace("flowOperationBegin", "generation", textFlow.generation);
         
         var op:FlowOperation = event.operation;
-
+   
+        // The text flow's generation will be incremented if the text flow
+        // is modified in any way by this operation.
+             
         if (op is InsertTextOperation)
         {
             var insertTextOperation:InsertTextOperation =
@@ -3091,11 +3118,13 @@ public class RichEditableText extends UIComponent
         {
             var flowTextOperation:FlowTextOperation =
                 FlowTextOperation(op);
-
-            // Eat 0-length selection.  This can happen when insertion point is 
-            // at start of container and a backspace generates a 
-            // DeleteTextOperation.  
-            if (flowTextOperation.absoluteStart == 0 && flowTextOperation.absoluteEnd == 0)
+                              
+            // Eat 0-length deletion.  This can happen when insertion point is 
+            // at start of container when a backspace is entered
+            // or when the insertion point is at the end of the
+            // container and a delete key is entered.
+            if (flowTextOperation.absoluteStart == 
+                flowTextOperation.absoluteEnd)
             {
                 event.preventDefault();
                 return;
@@ -3133,7 +3162,7 @@ public class RichEditableText extends UIComponent
     private function inputManager_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("flowOperationEnd");
+        //trace("flowOperationEnd", "generation", textFlow.generation);
         
         // Paste is a special case.  Any mods have to be made to the text
         // which includes what was pasted.
