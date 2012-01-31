@@ -29,6 +29,11 @@ import mx.events.CollectionEventKind;
  *  on the event will prevent the selection from changing.
  *
  *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="selectionChanging", type="mx.events.IndexChangedEvent")]
 
@@ -36,12 +41,22 @@ import mx.events.CollectionEventKind;
  *  Dispatched after the selection has changed. 
  *
  *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGED
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
 
 /**
  *  The FxListBase class is the base class for all components that support
  *  selection.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxListBase extends FxDataContainer
 {
@@ -73,6 +88,11 @@ public class FxListBase extends FxDataContainer
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxListBase()
     {
@@ -98,6 +118,11 @@ public class FxListBase extends FxDataContainer
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function set dataProvider(value:IList):void
     {
@@ -164,6 +189,11 @@ public class FxListBase extends FxDataContainer
      *  </ul>
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedIndex():int
     {
@@ -211,6 +241,11 @@ public class FxListBase extends FxDataContainer
      *  </ul>
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedItem():*
     {
@@ -259,6 +294,11 @@ public class FxListBase extends FxDataContainer
      *  or -1 if there are no items.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get requiresSelection():Boolean
     {
@@ -429,6 +469,11 @@ public class FxListBase extends FxDataContainer
      *
      *  @param selected <code>true</code> if the item is selected, 
      *  and <code>false</code> if it is deselected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function itemSelected(index:int, selected:Boolean):void
     {
@@ -447,6 +492,11 @@ public class FxListBase extends FxDataContainer
      *  @param item The item whose selection status is being checked
      *
      *  @return true if the item is selected, false otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function isItemSelected(item:Object):Boolean
     {
@@ -461,6 +511,11 @@ public class FxListBase extends FxDataContainer
      *  @param index The index of the item whose selection status is being checked
      *
      *  @return true if the item at that index is selected, false otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function isItemIndexSelected(index:int):Boolean
     {        
@@ -546,6 +601,11 @@ public class FxListBase extends FxDataContainer
      *  the <code>selectedIndex</code> is adjusted.</p>
      *
      *  @param newIndex The new index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function adjustSelectedIndex(newIndex:int):void
     {
