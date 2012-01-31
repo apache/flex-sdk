@@ -208,6 +208,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     //
     //--------------------------------------------------------------------------
     
+    [Inspectable(category="General", enumeration="noScale,scale", defaultValue="noScale")]
+    
     /**
      *  @private
      */
