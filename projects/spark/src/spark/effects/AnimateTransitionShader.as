@@ -274,10 +274,19 @@ public class AnimateTransitionShader extends Animate
         var bmData:BitmapData;
         var tempFilters:Array = target.filters;
         target.filters = [];
-        if (target is GraphicElement)
-            bmData = GraphicElement(target).captureBitmapData(true, 0, false);
-        else
-            bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        
+        try
+        {
+            if (target is GraphicElement)
+                bmData = GraphicElement(target).captureBitmapData(true, 0, false);
+            else
+                bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        }
+        catch (e:SecurityError)
+        {
+            // Do nothing and let it return null.
+        }
+        
         target.filters = tempFilters;
         
         return bmData;
