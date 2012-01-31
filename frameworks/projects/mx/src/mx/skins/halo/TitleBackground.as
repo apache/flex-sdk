@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for a title bar area of a Panel.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TitleBackground extends ProgrammaticSkin
 {
@@ -33,6 +38,11 @@ public class TitleBackground extends ProgrammaticSkin
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TitleBackground()
 	{
