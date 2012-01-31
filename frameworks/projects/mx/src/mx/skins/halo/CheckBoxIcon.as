@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of the icon in a CheckBox.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CheckBoxIcon extends Border
 {
@@ -79,6 +84,11 @@ public class CheckBoxIcon extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CheckBoxIcon()
 	{
