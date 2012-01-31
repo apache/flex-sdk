@@ -17,7 +17,7 @@ import flash.net.URLRequest;
     
 /**
  *  NetworkMonitor is a stub used by the framework and enterprise service
- *  classes to send information to the Flex Builder Network Monitor feature.
+ *  classes to send information to the Flash Builder Network Monitor feature.
  * 
  *  The NetworkMonitor declares a number of Impl functions which are to be
  *  filled in by a mix-in class provided by FlexBuilder.
@@ -68,7 +68,7 @@ public class NetworkMonitor
      *  @productversion Flex 3
      */
     public static var adjustNetConnectionURLImpl:Function;
-	
+    
     /**
      *  To be assigned by mix-in.
      *  
@@ -173,9 +173,9 @@ public class NetworkMonitor
      */ 
      public static function adjustNetConnectionURL(rootUrl:String, url:String):String
      {
-    	 if (adjustNetConnectionURLImpl != null)
-    		return adjustNetConnectionURLImpl(rootUrl, url);
-    	 return null;
+         if (adjustNetConnectionURLImpl != null)
+            return adjustNetConnectionURLImpl(rootUrl, url);
+         return null;
      } 
     
     /**
