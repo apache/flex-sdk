@@ -346,7 +346,6 @@ public class TextBox extends TextGraphicElement
 		var direction:String = getStyle("direction");
         var justificationRule:String = getStyle("justificationRule");
         var justificationStyle:String = getStyle("justificationStyle");
-		var tabStops:* = getStyle("tabStops");
         var textAlign:String = getStyle("textAlign");
         var textAlignLast:String = getStyle("textAlignLast");
         var textJustify:String = getStyle("textJustify");
@@ -384,28 +383,7 @@ public class TextBox extends TextGraphicElement
 			
             staticTextBlock.textJustifier = staticEastAsianJustifier;
 		}
-        				
-		// And its tabStops.
-		var tabStopsVector:Vector.<TabStop>;
-        if (tabStops is Vector.<TabStop>)
-        {
-            tabStopsVector = tabStops;
-        }
-        else if (tabStops is Array)
-        {
-            var n:int = tabStops.length;
-            tabStopsVector = new Vector.<TabStop>(n);
-            for (var i:int = 0; i < n; i++)
-            {
-                tabStopsVector[i] = tabStops[i];
-            }
-        }
-        else
-        {
-            tabStopsVector = new Vector.<TabStop>();
-        }   
-		staticTextBlock.tabStops = tabStopsVector;
-        
+                
 		// Then create TextLines using this TextBlock.
 		createTextLinesFromTextBlock(staticTextBlock);
 	}
