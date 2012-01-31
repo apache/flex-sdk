@@ -1402,10 +1402,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function addDragData(dragSource:DragSource):void
     {
-        dragSource.addHandler(copySelectedItemsForDragDrop, "orderedItems");
+        dragSource.addHandler(copySelectedItemsForDragDrop, "itemsByIndex");
         
         // Calculate the index of the focus item within the vector
-        // of ordered items returned for the "orderedItems" format.
+        // of ordered items returned for the "itemsByIndex" format.
         var caretIndex:int = 0;
         var draggedIndices:Vector.<int> = selectedIndices;
         var count:int = draggedIndices.length;
@@ -1414,7 +1414,7 @@ public class List extends ListBase implements IFocusManagerComponent
             if (mouseDownIndex > draggedIndices[i])
                 caretIndex++;
         }
-        dragSource.addData(caretIndex, "orderedItemsCaretIndex");
+        dragSource.addData(caretIndex, "caretIndex");
     }
 
     /**
@@ -1631,7 +1631,7 @@ public class List extends ListBase implements IFocusManagerComponent
     private function calculateDropLocation(event:DragEvent):DropLocation
     {
         // Verify data format
-        if (!enabled || !event.dragSource.hasFormat("orderedItems"))
+        if (!enabled || !event.dragSource.hasFormat("itemsByIndex"))
             return null;
         
         // Calculate the drop location
@@ -1898,11 +1898,11 @@ public class List extends ListBase implements IFocusManagerComponent
         DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
         
         var dragSource:DragSource = event.dragSource;
-        var items:Vector.<Object> = dragSource.dataForFormat("orderedItems") as Vector.<Object>;
+        var items:Vector.<Object> = dragSource.dataForFormat("itemsByIndex") as Vector.<Object>;
 
         var caretIndex:int = -1;
-        if (dragSource.hasFormat("orderedItemsCaretIndex"))
-            caretIndex = event.dragSource.dataForFormat("orderedItemsCaretIndex") as int;
+        if (dragSource.hasFormat("caretIndex"))
+            caretIndex = event.dragSource.dataForFormat("caretIndex") as int;
         
         // Clear the selection first to avoid extra work while adding and removing items.
         // We will set a new selection further below in the method.
