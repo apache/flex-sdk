@@ -82,6 +82,8 @@ use namespace mx_internal;
 
 [IconFile("TextInput.png")]
 
+[AccessibilityClass(implementation="spark.accessibility.TextInputAccImpl")]
+
 /**
  *  TextInput is a text-entry control that lets users enter and edit
  *  a single line of uniformly-formatted text.
@@ -203,6 +205,18 @@ public class TextInput extends SkinnableTextBase
 
     //--------------------------------------------------------------------------
     //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by TextInputAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -302,6 +316,17 @@ public class TextInput extends SkinnableTextBase
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (TextInput.createAccessibilityImplementation != null)
+            TextInput.createAccessibilityImplementation(this);
+    }
+
 
     /**
      *  @private
