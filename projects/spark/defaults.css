@@ -21,6 +21,7 @@ FxApplication
 
 FxButton
 {
+    lineBreak: "explicit";
 	skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
 	textAlign: "center";
 	verticalAlign: "middle";
@@ -34,6 +35,7 @@ FxButtonBar
 FxCheckBox
 {
 	skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
+    textAlign: "start";
 }
 
 FxComponent
@@ -79,6 +81,7 @@ FxPanel
 FxRadioButton
 {
 	skinClass: ClassReference("mx.skins.spark.FxRadioButtonSkin");
+    textAlign: "start";
 }
 
 FxScroller
