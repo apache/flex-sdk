@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of the down button in a NumericStepper.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumericStepperDownSkin extends Border
 {
@@ -80,6 +85,11 @@ public class NumericStepperDownSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function NumericStepperDownSkin()
 	{
