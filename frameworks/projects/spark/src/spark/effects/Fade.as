@@ -167,7 +167,7 @@ public class Fade extends Animate
             if (container is IVisualElementContainer)
                 return IVisualElementContainer(container).
                     getElementIndex(target as IVisualElement);
-            else
+            else if ("getChildIndex" in container)
                 return container.getChildIndex(target);
         }
         
