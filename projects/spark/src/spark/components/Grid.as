@@ -470,7 +470,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  <p>Setting caretColumnIndex to -1 means that the column index is undefined and 
      *  a cell caret will not be shown.</p>
-     * 
+     *  
      *  @default -1
      * 
      *  @langversion 3.0
@@ -488,11 +488,10 @@ public class Grid extends Group implements IDataGridElement
      */
     public function set caretColumnIndex(value:int):void
     {
-        _oldCaretColumnIndex = _caretColumnIndex;
-
-        if (caretColumnIndex == value || value < -1)
+        if (_caretColumnIndex == value || value < -1)
             return;
         
+        _oldCaretColumnIndex = _caretColumnIndex;        
         _caretColumnIndex = value;
         
         caretChanged = true;
@@ -542,11 +541,10 @@ public class Grid extends Group implements IDataGridElement
      */
     public function set caretRowIndex(value:int):void
     {
-        _oldCaretRowIndex = _caretRowIndex;
-
         if (_caretRowIndex == value || value < -1)
             return;
         
+        _oldCaretRowIndex = _caretRowIndex;        
         _caretRowIndex = value;
         
         caretChanged = true;
@@ -3298,10 +3296,14 @@ public class Grid extends Group implements IDataGridElement
         {
             // Validate values now.  Need to let caret be set in the same
             // update as the dp and/or columns.  -1 is a valid value.
+            
+            // If adjusting the index, don't use the setter.  Need to preserve 
+            // the old caret index so it can be reported in the caret change 
+            // event.
             if (_dataProvider && caretRowIndex >= _dataProvider.length)
-                caretRowIndex = _dataProvider.length - 1;
+                _caretRowIndex = _dataProvider.length - 1;
             if (_columns && caretColumnIndex >= _columns.length)
-                caretColumnIndex =  _columns.length - 1;
+                _caretColumnIndex = getPreviousVisibleColumnIndex(_columns.length - 1);
 
             caretSelectedItem = 
                 _dataProvider && _caretRowIndex >= 0 ?
@@ -3612,7 +3614,7 @@ public class Grid extends Group implements IDataGridElement
     {
         const oldCaretRowIndex:int = caretRowIndex;
         const location:int = event.location;
-        var itemsLength:int;
+        const itemsLength:int = event.items ? event.items.length : 0;                
         var newCaretRowIndex:int; 
         
         switch (event.kind)
@@ -3625,7 +3627,6 @@ public class Grid extends Group implements IDataGridElement
             case CollectionEventKind.REMOVE:
                 if (oldCaretRowIndex >= location)
                 {
-                    itemsLength = event.items.length;
                     if (oldCaretRowIndex < (location + itemsLength))
                         caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
                     else
@@ -3637,7 +3638,6 @@ public class Grid extends Group implements IDataGridElement
             case CollectionEventKind.MOVE:
                 {
                     const oldLocation:int = event.oldLocation;
-                    itemsLength = event.items.length;
                     if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
                         caretRowIndex += location - oldLocation;
                 }
@@ -3716,19 +3716,18 @@ public class Grid extends Group implements IDataGridElement
     {
         const oldCaretColumnIndex:int = caretColumnIndex;
         const location:int = event.location;
-        var itemsLength:int;
+        const itemsLength:int = event.items ? event.items.length : 0;
         
         switch (event.kind)
         {
             case CollectionEventKind.ADD:
                 if (oldCaretColumnIndex >= location)
-                    caretColumnIndex += event.items.length;
+                    caretColumnIndex += itemsLength;
                 break;
             
             case CollectionEventKind.REMOVE:
                 if (oldCaretColumnIndex >= location)
                 {
-                    itemsLength = event.items.length;
                     if (oldCaretColumnIndex < (location + itemsLength))
                         caretColumnIndex = _columns.length > 0 ? 0 : -1; 
                     else
@@ -3738,19 +3737,42 @@ public class Grid extends Group implements IDataGridElement
             
             case CollectionEventKind.MOVE:
                 const oldLocation:int = event.oldLocation;
-                itemsLength = event.items.length;
                 if ((oldCaretColumnIndex >= oldLocation) && (oldCaretColumnIndex < (oldLocation + itemsLength)))
                     caretColumnIndex += location - oldLocation;
                 break;                        
             
             case CollectionEventKind.REPLACE:
+                break;
+            
             case CollectionEventKind.UPDATE:
+                // column may have changed visiblity which matters if cell 
+                // selection mode.
+                var pe:PropertyChangeEvent;
+                
+                if (selectionMode == GridSelectionMode.SINGLE_CELL || 
+                    selectionMode == GridSelectionMode.MULTIPLE_CELLS)
+                {
+                    for (var i:int = 0; i < itemsLength; i++)
+                    {
+                        pe = event.items[i] as PropertyChangeEvent;
+                        if (pe && pe.property == "visible")
+                        {
+                            const column:GridColumn = pe.source as GridColumn;
+                            if (!column || column.visible)
+                                continue;
+                            
+                            if (column.columnIndex == caretColumnIndex)
+                                initializeCaretPosition(true);  // column only
+                            if (column.columnIndex == anchorColumnIndex)
+                                initializeAnchorPosition(true);  // column only
+                        }
+                    }
+                }
                 break;
             
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
-                // maintain row position
-                caretColumnIndex = _columns && _columns.length > 0 ? 0 : -1; 
+                initializeCaretPosition(true);  // column only
                 horizontalScrollPosition = 0;
                 break;
         }            
@@ -3853,8 +3875,6 @@ public class Grid extends Group implements IDataGridElement
      */
     private function columns_collectionChangeHandler(event:CollectionEvent):void
     {
-        // TBD - need to double-check all of these and perhaps move it elsewhere
-        
         var column:GridColumn;
         var columnIndex:int = event.location;
         var i:int;
@@ -3913,25 +3933,6 @@ public class Grid extends Group implements IDataGridElement
                 
             case CollectionEventKind.UPDATE:
             {
-                // column may have changed visiblity                
-                const itemsLength:int = event.items.length;
-                var itemsLeft:int = itemsLength;
-                var pcEvent:PropertyChangeEvent;
-                
-                for (i = 0; i < itemsLength; i++)
-                {
-                    pcEvent = event.items[i] as PropertyChangeEvent;
-                    if (pcEvent && pcEvent.property == "visible")
-                    {
-                        columns_visibleChangedHandler(pcEvent);
-                        itemsLeft--;
-                    }
-                }
-                
-                // return if all were visible property changes
-                if (itemsLeft == 0)
-                    return;
-                
                 break;
             }
                 
@@ -3980,9 +3981,14 @@ public class Grid extends Group implements IDataGridElement
             }                                
         }
 
-        gridDimensions.columnsCollectionChanged(event);
-        if (dataProvider)
-            gridDimensions.rowCount = dataProvider.length;
+        if (gridDimensions)
+        {
+            gridDimensions.columnsCollectionChanged(event);
+        
+            // ToDo(klin): Manipulating columns should not change the rowCount.
+            if (dataProvider)
+                gridDimensions.rowCount = dataProvider.length;
+        }
         
         if (gridLayout)
             gridLayout.columnsCollectionChanged(event);
@@ -3999,48 +4005,6 @@ public class Grid extends Group implements IDataGridElement
         invalidateSize();
         invalidateDisplayList();        
     } 
-    
-    /**
-     *  @private
-     */
-    private function columns_visibleChangedHandler(event:PropertyChangeEvent):void
-    {
-        const column:GridColumn = event.source as GridColumn;
-        const columnIndex:int = columns.getItemIndex(column);
-        if (!column || columnIndex == -1)
-            return;
-        
-        // Fix up gridDimensions
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        if (gridDimensions)
-        {
-            gridDimensions.clearColumns(columnIndex, 1);
-            
-            // column.visible==true columns need to have their typical sizes and 
-            // actual column width updated, while column.visible==false column
-            // have their typical sizes updated to 0 and actual column width
-            // set to NaN.
-            if (column.visible)
-            {
-                gridDimensions.setTypicalCellWidth(columnIndex, NaN);
-                gridDimensions.setTypicalCellHeight(columnIndex, NaN);
-                if (!isNaN(column.width))
-                    gridDimensions.setColumnWidth(columnIndex, column.width);
-            }
-            else
-            {
-                gridDimensions.setTypicalCellWidth(columnIndex, 0);
-                gridDimensions.setTypicalCellHeight(columnIndex, 0);
-                gridDimensions.setColumnWidth(columnIndex, NaN);
-            }
-        }
-        
-        // Clear out gridLayout
-        gridLayout.clearVirtualLayoutCache();
-        
-        invalidateSize();
-        invalidateDisplayList();
-    }
     
     //--------------------------------------------------------------------------
     //
@@ -4084,7 +4048,7 @@ public class Grid extends Group implements IDataGridElement
      *  To find the first GridColumn.visible==true column index, use
      *  getNextVisibleColumnIndex(-1).
      */
-    mx_internal function getNextVisibleColumnIndex(index:int):int
+    mx_internal function getNextVisibleColumnIndex(index:int=-1):int
     {
         if (index < -1)
             return -1;
@@ -4129,19 +4093,25 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  @private
      */
-    private function initializeAnchorPosition():void
+    private function initializeAnchorPosition(columnOnly:Boolean=false):void
     {
-        anchorRowIndex = 0; 
-        anchorColumnIndex = 0; 
+        if (!columnOnly)
+            anchorRowIndex = _dataProvider && _dataProvider.length > 0 ? 0 : -1; 
+
+        // First visible column, or -1, if there are no columns or none are visible.
+        anchorColumnIndex = getNextVisibleColumnIndex(); 
     }
     
     /**
      *  @private
      */
-    private function initializeCaretPosition():void
+    private function initializeCaretPosition(columnOnly:Boolean=false):void
     {
-        caretRowIndex = _dataProvider && _dataProvider.length > 0 ? 0 : -1; 
-        caretColumnIndex = _columns && _columns.length > 0 ? 0 : -1; 
+        if (!columnOnly)
+            caretRowIndex = _dataProvider && _dataProvider.length > 0 ? 0 : -1;
+        
+        // First visible column, or -1, if there are no columns or none are visible.
+        caretColumnIndex = getNextVisibleColumnIndex();
     }
     
     /**
