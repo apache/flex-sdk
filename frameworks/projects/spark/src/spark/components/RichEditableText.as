@@ -3397,8 +3397,15 @@ package spark.components
         }
         
         /**
-         *  Applies the specified format to the specified range.
-         *
+         *  Applies the specified formats to each elements in the specified
+         *  range that correspond to the given format.  
+         *  It applies the character formats to the text in the specified range
+         *  (no change is made if the specified range is a single point). 
+         *  It applies the paragraph formats to any paragraphs at least 
+         *  partially within the range (or a single paragraph if the range is a 
+         *  single point).
+         *  It applies the container formats to the container.
+         * 
          *  <p>The supported formats are those in TextFormatLayout.
          *  A value of <code>undefined</code> does not get applied.
          *  If you don't specify a range, the selected range is used.</p>
