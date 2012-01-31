@@ -23,6 +23,11 @@ use namespace mx_internal;
  *  the <code>VideoDisplay.state</code> property.
  *
  *  @see mx.controls.VideoDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VideoEvent extends Event 
 {
@@ -42,6 +47,11 @@ public class VideoEvent extends Event
      *  <p>This is a responsive state. In the responsive state, calls to 
      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>, 
      *  and <code>pause()</code> methods are executed immediately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	
 	public static const BUFFERING:String = "buffering";
 
@@ -72,6 +82,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType close
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CLOSE:String = "close";
 	
@@ -102,6 +117,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType complete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public static const COMPLETE:String = "complete"; 
 
@@ -115,6 +135,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CONNECTION_ERROR:String = "connectionError";
 	
@@ -125,6 +150,11 @@ public class VideoEvent extends Event
      *  <p>This is a responsive state. In the responsive state, calls to 
      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>, 
      *  and <code>pause()</code> methods are executed immediately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static const DISCONNECTED:String = "disconnected";
 
@@ -138,6 +168,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const EXEC_QUEUED_CMD:String = "execQueuedCmd";
 
@@ -150,6 +185,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LOADING:String = "loading";
 	
@@ -162,6 +202,11 @@ public class VideoEvent extends Event
      *  <p>This is a responsive state. In the responsive state, calls to 
      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>, 
      *  and <code>pause()</code> methods are executed immediately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static const PAUSED:String = "paused";
      
@@ -192,6 +237,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType playheadUpdate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public static const PLAYHEAD_UPDATE:String = "playheadUpdate"; 
     
@@ -204,6 +254,11 @@ public class VideoEvent extends Event
      *  <p>This is a responsive state. In the responsive state, calls to 
      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>, 
      *  and <code>pause()</code> methods are executed immediately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */		
     public static const PLAYING:String = "playing";
     
@@ -234,6 +289,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType ready
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    		
     public static const READY:String = "ready";
 
@@ -245,6 +305,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const RESIZING:String = "resizing";
 	
@@ -275,6 +340,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType rewind
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    		
     public static const REWIND:String = "rewind";
 
@@ -288,6 +358,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REWINDING:String = "rewinding";
 	
@@ -300,6 +375,11 @@ public class VideoEvent extends Event
 	 *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
 	 *  and <code>pause()</code> methods are queued, 
 	 *  and then executed when the control changes to the responsive state.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SEEKING:String = "seeking";	
      
@@ -330,6 +410,11 @@ public class VideoEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType stateChange
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */    		
     public static const STATE_CHANGE:String = "stateChange";
      
@@ -342,6 +427,11 @@ public class VideoEvent extends Event
      *  <p>This is a responsive state. In the responsive state, calls to 
      *  the <code>play()</code>, <code>load()</code>, <code>stop()</code>, 
      *  and <code>pause()</code> methods are executed immediately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	
     public static const STOPPED:String = "stopped";
     
@@ -365,6 +455,11 @@ public class VideoEvent extends Event
 	 *  when the event occurs.
 	 *
 	 *  @param playeheadTime The location of the playhead when the event occurs. 	
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function VideoEvent(type:String, bubbles:Boolean = false,
 							   cancelable:Boolean = false,
@@ -389,6 +484,11 @@ public class VideoEvent extends Event
     /**
 	 *  The location of the playhead of the VideoDisplay control 
 	 *  when the event occurs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */   
     public var playheadTime:Number;
 
@@ -401,6 +501,11 @@ public class VideoEvent extends Event
 	 *  when the event occurs.
 	 *
 	 *  @see mx.controls.VideoDisplay#state
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */      
 	public var state:String;
 
@@ -413,6 +518,11 @@ public class VideoEvent extends Event
 	 *  when the event occurs.
 	 *
 	 *  @see mx.controls.VideoDisplay#stateResponsive
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get stateResponsive():Boolean
 	{
