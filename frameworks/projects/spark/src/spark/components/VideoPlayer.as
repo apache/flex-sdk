@@ -23,21 +23,28 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.events.TimerEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
 
+import mx.core.ContainerGlobals;
+import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
+import mx.managers.IFocusManagerContainer;
+import mx.managers.LayoutManager;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.Range;
 import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.StreamingVideoSource;
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
+import spark.events.VideoPlayerVolumeBarEvent;
 import spark.primitives.VideoElement;
 import spark.primitives.supportClasses.TextGraphicElement;
 
@@ -139,6 +146,35 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *  @productversion Flex 4
  */
 [Event(name="ready", type="spark.events.VideoEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../styles/metadata/BasicTextLayoutFormatStyles.as";
+    
+/**
+ *  The time, in milli-seconds, to wait in fullscreen mode with no user-interaction 
+ *  before hiding the video playback controls.
+ *  
+ *  @default 3000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="fullScreenHideControlsDelay", type="Number", inherit="no")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 //--------------------------------------
 //  SkinStates
@@ -294,6 +330,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  */
 public class VideoPlayer extends SkinnableComponent
 {
+    
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -330,15 +367,6 @@ public class VideoPlayer extends SkinnableComponent
      */
     private static const VOLUME_PROPERTY_FLAG:uint = 1 << 5;
     
-    /**
-     *  @private
-     *  The default value that we wait in fullscreen mode with no user-interaction 
-     *  before the play controls go away.
-     *
-     *  @default 3000
-     */
-    private static const FULL_SCREEN_HIDE_CONTROLS_DELAY:Number = 3000;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -356,6 +384,8 @@ public class VideoPlayer extends SkinnableComponent
     public function VideoPlayer()
     {
         super();
+        
+        tabChildren = true;
     }
     
     //--------------------------------------------------------------------------
@@ -774,6 +804,9 @@ public class VideoPlayer extends SkinnableComponent
         {
             videoElementProperties = {muted: value};
         }
+        
+        if (volumeBar)
+            volumeBar.muted = value;
     }
     
     //----------------------------------
@@ -1020,7 +1053,7 @@ public class VideoPlayer extends SkinnableComponent
         if (instance == videoElement)
         {
             videoElement.addEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
-            videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, dispatchEvent);
+            videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, videoElement_completeHandler);
             videoElement.addEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.addEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
@@ -1088,7 +1121,10 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.enabled = enabled;
             
             if (volumeBar)
-                volumeBar.value = volume;
+            {
+                volumeBar.value = videoElement.volume;
+                volumeBar.muted = videoElement.muted;
+            }
             
             if (scrubBar)
                 updateScrubBar();
@@ -1120,28 +1156,33 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == muteButton)
         {
-            muteButton.selected = muted;
+            if (videoElement)
+                muteButton.selected = muted;
+            
             muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
         }
         else if (instance == volumeBar)
         {
-            volumeBar.addEventListener(Event.CHANGE, volumeBar_changeHandler);
-            // TODO (rfrishbe): Need this to be a real event
-            volumeBar.addEventListener("muteButtonClick", muteButton_clickHandler);
             volumeBar.minimum = 0;
             volumeBar.maximum = 1;
             if (videoElement)
+            {
                 volumeBar.value = volume;
+                volumeBar.muted = muted;
+            }
+            
+            volumeBar.addEventListener(Event.CHANGE, volumeBar_changeHandler);
+            volumeBar.addEventListener(VideoPlayerVolumeBarEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
         {
-            if (scrubBar)
+            if (videoElement)
                 updateScrubBar();
             
             scrubBar.addEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.addEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
             scrubBar.addEventListener(Event.CHANGE, scrubBar_changeHandler);
-            scrubBar.addEventListener("changing", scrubBar_changingHandler);
+            scrubBar.addEventListener(FlexEvent.CHANGING, scrubBar_changingHandler);
         }
         else if (instance == fullScreenButton)
         {
@@ -1154,7 +1195,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == totalTimeLabel)
         {
-            if (totalTimeLabel)
+            if (videoElement)
                 updateTotalTime();
         }
     }
@@ -1248,7 +1289,7 @@ public class VideoPlayer extends SkinnableComponent
         else if (instance == volumeBar)
         {
             volumeBar.removeEventListener(Event.CHANGE, volumeBar_changeHandler);
-            volumeBar.removeEventListener("muteButtonClick", muteButton_clickHandler);
+            volumeBar.removeEventListener(VideoPlayerVolumeBarEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
         {
@@ -1348,8 +1389,7 @@ public class VideoPlayer extends SkinnableComponent
             scrubBar.value = isNaN(videoElement.playheadTime) ? 0 : videoElement.playheadTime;
         }
         
-        if (scrubBar is VideoPlayerScrubBar)
-            VideoPlayerScrubBar(scrubBar).bufferedValue = videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime;
+        scrubBar.bufferedRange = [0, videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime];
     }
      
    /**
@@ -1440,7 +1480,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_playHeadChangedHandler(event:Event):void
     {
-        updateScrubBar();
+        if (scrubBar)
+            updateScrubBar();
         
         if (playheadTimeLabel)
             updatePlayheadTime();
@@ -1454,7 +1495,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_totalTimeChangedHandler(event:Event):void
     {
-        updateScrubBar();
+        if (scrubBar)
+            updateScrubBar();
         
         if (totalTimeLabel)
             updateTotalTime();
@@ -1468,7 +1510,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_playHeadUpdateHandler(event:spark.events.VideoEvent):void
     {
-        updateScrubBar();
+        if (scrubBar)
+            updateScrubBar();
         
         if (playheadTimeLabel)
             updatePlayheadTime();
@@ -1567,9 +1610,11 @@ public class VideoPlayer extends SkinnableComponent
             beforeFullScreenY = this.y;
             includeInLayout = false;
             setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
-            this.validateNow();
-            this.x = -(2*width);
-            this.y = -(2*height);
+            LayoutManager.getInstance().validateNow();
+            
+            var newLocation:Point = parent.globalToLocal(new Point((-2*width), (-2*height)));
+            this.x = newLocation.x;
+            this.y = newLocation.y;
             
             // this is for video performance reasons
             videoElement.mx_internal::videoPlayer.smoothing = false;
@@ -1578,11 +1623,13 @@ public class VideoPlayer extends SkinnableComponent
             // now into full screen we go
             // TODO: what if we're sandboxed...can we get the stage?
             stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
-            stage.fullScreenSourceRect = new Rectangle(x, y, width, height);
+            
+            var realPoint:Point = parent.localToGlobal(new Point(x, y));
+            stage.fullScreenSourceRect = new Rectangle(realPoint.x, realPoint.y, width, height);
             stage.displayState = StageDisplayState.FULL_SCREEN;
             
             // start timer for detecting for mouse movements/clicks to hide the controls
-            fullScreenHideControlTimer = new Timer(FULL_SCREEN_HIDE_CONTROLS_DELAY, 1);
+            fullScreenHideControlTimer = new Timer(getStyle("fullScreenHideControlsDelay"), 1);
             fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
                 fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
             
@@ -1627,7 +1674,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         else
         {
-            fullScreenHideControlTimer = new Timer(FULL_SCREEN_HIDE_CONTROLS_DELAY, 1);
+            fullScreenHideControlTimer = new Timer(getStyle("fullScreenHideControlsDelay"), 1);
             fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
                 fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
         }
@@ -1726,6 +1773,14 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
+     */
+    private function volumeBar_mutedChangeHandler(event:VideoPlayerVolumeBarEvent):void
+    {
+        muted = event.muted;
+    }
+    
+    /**
+     *  @private
      *  When someone is holding the scrubBar, we don't want to update the 
      *  range's value--for this time period, we'll let the user completely 
      *  control the range.
@@ -1787,13 +1842,23 @@ public class VideoPlayer extends SkinnableComponent
         if (scrubBarMouseCaptured)
         {
             videoElement.mx_internal::videoPlayer.flvplayback_internal::flushQueuedCmds();
-            seek(scrubBar.value);
+            
+            // check if streaming and play()...then don't seek to last value
+            if (videoElement.mx_internal::videoPlayer.isRTMP && !(source is StreamingVideoSource) && scrubBar.value == totalTime)
+            {
+                seek(Math.max(0, scrubBar.value-0.5));
+            }
+            else
+            {
+                seek(scrubBar.value);
+            }
         }
         else
         {
-            scrubBarChanging = false;
             seek(scrubBar.value);
         }
+        
+        scrubBarChanging = false;
     }
 }
 }
