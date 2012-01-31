@@ -6349,10 +6349,10 @@ public class ListBase extends ScrollControlBase
         {
             var item:DisplayObject = lastRowItems[i];
             var yOffset:Number = item.y - rowY;
-            if (item is IUITextField && !IUITextField(item).embedFonts)
-                item.height = Math.max(rowHeight - yOffset, 0);
+            if (item is IUITextField)
+                item.height = rowHeight - yOffset;
             else
-                item.mask = createItemMask(0, rowY + yOffset, rowWidth, Math.max(rowHeight - yOffset, 0));
+                item.mask = createItemMask(0, rowY + yOffset, rowWidth, rowHeight - yOffset);
         }
     }
 
@@ -6432,7 +6432,7 @@ public class ListBase extends ScrollControlBase
         for (var i:int = 0; i < numColumns; i++)
         {
             var item:DisplayObject = lastRowItems[i];
-            if (item is IUITextField && !IUITextField(item).embedFonts)
+            if (item is IUITextField)
             {
                 if (item.height != rowHeight - (item.y - lastRowInfo.y))
                     item.height = rowHeight - (item.y - lastRowInfo.y);
