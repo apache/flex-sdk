@@ -163,8 +163,13 @@ include "../styles/metadata/FocusStyles.as"
 [IconFile("TabNavigator.png")]
 
 /**
- *  The TabNavigator container extends the ViewStack container by including
- *  a TabBar container for navigating between its child containers.
+ *  The Halo TabNavigator container extends the Halo ViewStack container by including
+ *  a TabBar container for navigating between its child Halo containers.
+ * 
+ *  <p><b>Note:</b> The direct children of a Halo navigator container must be 
+ *  Halo containers, either Halo layout or Halo navigator containers. 
+ *  You cannot directly nest a control or a Spark container within a navigator; 
+ *  they must be children of a child Halo container.</p>
  *
  *  <p>Like a ViewStack container, a TabNavigator container has a collection
  *  of child containers, in which only one child at a time is visible.
@@ -335,36 +340,36 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
     /**
      *  @private
      *  The baselinePosition of a TabNavigator is calculated
-	 *  for the label of the first tab.
-  	 *  If there are no children, a child is temporarily added
-  	 *  to do the computation.
+     *  for the label of the first tab.
+     *  If there are no children, a child is temporarily added
+     *  to do the computation.
      */
     override public function get baselinePosition():Number
     {
-    	if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-    		return super.baselinePosition;
-	    
-		if (!validateBaselinePosition())
-			return NaN;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+            return super.baselinePosition;
+        
+        if (!validateBaselinePosition())
+            return NaN;
 
-	    var isEmpty:Boolean = numChildren == 0;
-	    if (isEmpty)
-	    {
-	    	var child0:Container = new Container();
-	    	addChild(child0);
-	    	validateNow();
-	    }
-	    
-	    var tab0:Button = getTabAt(0);
-	    var result:Number = tabBar.y + tab0.y + tab0.baselinePosition;
-	    
-	    if (isEmpty)
-	    {
-	   		removeChildAt(0);
-	   		validateNow();
-	    }
-	    
-	    return result;
+        var isEmpty:Boolean = numChildren == 0;
+        if (isEmpty)
+        {
+            var child0:Container = new Container();
+            addChild(child0);
+            validateNow();
+        }
+        
+        var tab0:Button = getTabAt(0);
+        var result:Number = tabBar.y + tab0.y + tab0.baselinePosition;
+        
+        if (isEmpty)
+        {
+            removeChildAt(0);
+            validateNow();
+        }
+        
+        return result;
     }
 
     //----------------------------------
@@ -439,7 +444,7 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
         return tabHeight - borderMetrics.top;
     }
 
-	//----------------------------------
+    //----------------------------------
     //  tabBarStyleFilters
     //----------------------------------
 
@@ -450,20 +455,20 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      */
     protected function get tabBarStyleFilters():Object
     {
-    	return _tabBarStyleFilters;
+        return _tabBarStyleFilters;
     }
     
     private static var _tabBarStyleFilters:Object =
     {
-    	"firstTabStyleName" : "firstTabStyleName",
-    	"horizontalAlign" : "horizontalAlign",
-    	"horizontalGap" : "horizontalGap",
-    	"lastTabStyleName" : "lastTabStyleName",
-    	"selectedTabTextStyleName" : "selectedTabTextStyleName",
-    	"tabStyleName" : "tabStyleName",
-    	"tabWidth" : "tabWidth",
-    	"verticalAlign" : "verticalAlign",
-    	"verticalGap" : "verticalGap"
+        "firstTabStyleName" : "firstTabStyleName",
+        "horizontalAlign" : "horizontalAlign",
+        "horizontalGap" : "horizontalGap",
+        "lastTabStyleName" : "lastTabStyleName",
+        "selectedTabTextStyleName" : "selectedTabTextStyleName",
+        "tabStyleName" : "tabStyleName",
+        "tabWidth" : "tabWidth",
+        "verticalAlign" : "verticalAlign",
+        "verticalGap" : "verticalGap"
     }; 
 
     //--------------------------------------------------------------------------
@@ -489,9 +494,9 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
             
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
             {
-            	tabBar.setStyle("paddingTop", 0);
-            	tabBar.setStyle("paddingBottom", 0);
-				tabBar.setStyle("borderStyle", "none");         	
+                tabBar.setStyle("paddingTop", 0);
+                tabBar.setStyle("paddingBottom", 0);
+                tabBar.setStyle("borderStyle", "none");             
             }
         }
     }
