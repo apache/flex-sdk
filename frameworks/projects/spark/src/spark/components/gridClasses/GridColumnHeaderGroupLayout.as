@@ -185,7 +185,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         // Only invalidate if we're clipping and scrollR extends outside visibleRenderersBounds
         const scrollR:Rectangle = columnHeaderGroup.scrollRect;
-        if (scrollR && !visibleRenderersBounds.containsRect(scrollR))
+		if (scrollR && !visibleRenderersBounds.containsRect(scrollR))
             columnHeaderGroup.invalidateDisplayList();
     }    
     
@@ -358,11 +358,12 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
 
         columnHeaderGroup.setContentSize(grid.contentWidth, rendererHeight);
 
-        visibleRenderersBounds.left = visibleLeft;
-        visibleRenderersBounds.right = visibleRight;
-        visibleRenderersBounds.top = rendererY;
-        visibleRenderersBounds.height = rendererHeight;
+		visibleRenderersBounds.left = visibleLeft - paddingLeft;
+		visibleRenderersBounds.right = visibleRight = paddingRight;
+		visibleRenderersBounds.top = rendererY - paddingTop;
+        visibleRenderersBounds.height = rendererHeight + paddingTop + paddingBottom;
         
+		
         // We may have created new renderers or changed their visibility.  Force
         // validation to avoid a display list flash.
 
