@@ -14,17 +14,19 @@ package spark.components.gridClasses
     
 /**
  *  The CellRegion class defines a data structure 
- *  used by the spark data grid classes to represent a rectangular region of
- *  cells in the DataGrid control. The origin of the region is specified with
- *  the rowIndex and columnIndex and the extent of the region is specified with
- *  the rowCount and the columnCount.
+ *  used by the Spark data grid classes to represent a rectangular region of
+ *  cells in the control. 
+ *  The origin of the region is specified by the  
+ *  <code>rowIndex</code> and <code>columnIndex</code> properties.
+ *  The extent of the region is specified by the 
+ *  <code>rowCount</code> and the <code>columnCount</code> properties.
  *
- *  @see spark.component.DataGrid
- *  @see spark.component.Grid
+ *  @see spark.components.DataGrid
+ *  @see spark.components.Grid
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class CellRegion
@@ -40,14 +42,19 @@ public class CellRegion
     /**
      *  Constructor.
      * 
-     *  @param rowIndex The 0-based row index of the origin cell. A value of -1 indicates "not set".
-     *  @param columnIndex The 0-based column index of the origin cell. A value of -1 indicates "not set".
-     *  @param rowCount The number of rows in the cell region. 
+     *  @param rowIndex The 0-based row index of the origin cell. 
+     *  A value of -1 indicates that the value is not set.
+     * 
+     *  @param columnIndex The 0-based column index of the origin cell. 
+     *  A value of -1 indicates that the value is not set.
+     * 
+     *  @param rowCount The number of rows in the cell region.
+     * 
      *  @param columnCount The number of columns in the cell region.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function CellRegion(rowIndex:int = -1, columnIndex:int = -1,
@@ -81,7 +88,7 @@ public class CellRegion
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get columnCount():int
@@ -105,13 +112,13 @@ public class CellRegion
     
     /**
      *  The 0-based column index of the origin of the cell region.
-     *  A value of -1 indicates "not set".
+     *  A value of -1 indicates that the value is not set.
      * 
      *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get columnIndex():int
@@ -140,7 +147,7 @@ public class CellRegion
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get rowCount():int
@@ -164,13 +171,13 @@ public class CellRegion
     
     /**
      *  The 0-based row index of the origin of the cell region.  
-     *  A value of -1 indicates "not set".
+     *  A value of -1 indicates that the value is not set.
      * 
      *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
 
      */
