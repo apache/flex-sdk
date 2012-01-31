@@ -903,7 +903,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  mouse events such as click and roll over.
      * 
      *  This property only goes in to effect if mouse, touch, or
-     *  gesture events are added to this instance.  In addition, 
+     *  flash player gesture events are added to this instance.  In addition, 
      *  it assumes that the calls to addEventListener()/removeEventListener()
      *  are not superfluous.
      * 
