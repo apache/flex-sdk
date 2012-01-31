@@ -1406,8 +1406,8 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
             // commitSelectedIndex() and set _selectedIndex explicitly here.
             if (currentSelectedIndex == 0)
             {
-                selectedIndex = -1;
                 _selectedIndex = -1;
+				dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             }
             else
             {
