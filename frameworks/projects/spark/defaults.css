@@ -59,6 +59,11 @@ ComboBox
     skinClass: ClassReference("spark.skins.spark.ComboBoxSkin");
 }
 
+DataGrid
+{
+    skinClass: ClassReference("spark.skins.spark.DataGridSkin");
+}
+
 DropDownList
 {
     dropShadowVisible: true;
@@ -211,6 +216,11 @@ TitleWindow
 ToggleButton
 {
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+}
+
+Tree
+{
+    skinClass: ClassReference("spark.skins.spark.DataGridSkin");
 }
 
 VideoDisplay
