@@ -107,12 +107,6 @@ import spark.layouts.VerticalLayout;
 public class List extends ListBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constants
-    //
-    //--------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------
     //
@@ -181,28 +175,9 @@ public class List extends ListBase implements IFocusManagerComponent
     //  selectedIndex
     //----------------------------------
     
-    
     [Bindable("selectionChanged")]
     /**
-     *  The 0-based index of the selected item, or -1 if no item is selected.
-     *  Setting the <code>selectedIndex</code> property deselects the currently selected
-     *  item and selects the item at the specified index.
-     *
-     *  <p>The value of <code>selectedIndex</code> is always between -1 and 
-     *  (<code>dataProvider.length</code> - 1). 
-     *  If items at a lower index than <code>selectedIndex</code> are 
-     *  removed from the component, the selected index is adjusted downward
-     *  accordingly. </p>
-     * 
-     *  <p>When the value of the <code>allowMultipleSelection</code> property
-     *  is <code>true</code>, the property is set to the first selected item.</p>
-     *
-     *  @default -1
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function get selectedIndex():int
     {   
@@ -240,13 +215,6 @@ public class List extends ListBase implements IFocusManagerComponent
     private var multipleSelectionChanged:Boolean = false;
     
     [Bindable("selectionChanged")]
-    /*
-     *  Selected indices for this component.
-     *  
-     *  TODO: describe
-     * 
-     *  @default null
-     */
     /**
      *  Selected indices for this component.
      *  
@@ -281,14 +249,6 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     [Bindable("selectionChanged")]
-    /*
-     *  Selected items for this component.
-     * 
-     *  TODO: describe
-     * 
-     *  @default null
-     *  
-     */
     /**
      *  Selected items for this component.
      * 
@@ -383,12 +343,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
         
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -403,12 +358,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -553,13 +503,20 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  @private
      *  If the layout element at the specified index isn't completely 
      *  visible, scroll this IViewport.
      * 
      *  In the future, this method may animate the scroll.
+     * 
+     *  @param index The index of the item that is brought into
+     *  visibility  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    protected function ensureIndexIsVisible(index:int):void
+    protected function ensureItemIsVisible(index:int):void
     {
         if (!layout)
             return;
@@ -611,7 +568,7 @@ public class List extends ListBase implements IFocusManagerComponent
 	            // TODO (jszeto) Added this because we want the selection to commit immediately
 	            // Explore better way to accomplish this. 
 	            commitSelectedIndex();
-	            ensureIndexIsVisible(selectedIndex);
+	            ensureItemIsVisible(selectedIndex);
 	        }
 		}
     }
