@@ -391,18 +391,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             removeSystemMouseHandlers();
     }
     
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        if (enabled == value)
-            return;
-
-        super.enabled = value;
-        invalidateButtonState();
-    }
-    
     //----------------------------------
     //  keyboardPressed
     //----------------------------------
