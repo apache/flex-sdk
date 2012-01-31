@@ -36,7 +36,22 @@ use namespace mx_internal;
  *  <p>Although you can use the HScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
+ *
+ *  @mxml
+ *  <p>The <code>&lt;HScrollBar&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;HScrollBar
+ *
+ *    <strong>Properties</strong>
+ *    viewport=""
+ *  /&gt;
+ *  </pre>
  *  
+ *  @see spark.skins.spark.HScrollBarSkin
+ *  @see spark.skins.spark.HScrollBarThumbSkin
+ *  @see spark.skins.spark.HScrollBarTrackSkin
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -71,6 +86,38 @@ public class HScrollBar extends ScrollBar
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  The viewport controlled by this scrollbar.
+     *  The viewport is the scrollable, rectangular subset of the area of a component
+     *  to display.
+     *  
+     *  If a viewport is specified, then changes to its actual size, content 
+     *  size, and scroll position cause the corresponding ScrollBar methods to
+     *  run:
+     *  <ul>
+     *  <li><code>viewportResizeHandler()</code></li>
+     *  <li><code>contentWidthChangeHandler()</code></li>
+     *  <li><code>contentHeightChangeHandler()</code></li>
+     *  <li><code>viewportVerticalScrollPositionChangeHandler()</code></li>
+     *  <li><code>viewportHorizontalScrollPositionChangeHandler()</code></li>
+     *  </ul>
+     * 
+     *  <p>The VScrollBar and HScrollBar classes override these methods to 
+     *  keep their <code>pageSize</code>, <code>maximum</code>, and <code>value</code> properties in sync with the
+     *  viewport.   Similarly, they override their <code>changeValueByPage()</code> and 
+     *  <code>changeValueByStep()</code> methods to
+     *  use the viewport's <code>scrollPositionDelta</code> methods to compute page and
+     *  and step offsets.</p>
+     *
+     *  @default null
+     *
+     *  @see spark.core.IViewport
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     *
+     */
     override public function set viewport(newViewport:IViewport):void
     {
         super.viewport = newViewport;
@@ -131,11 +178,11 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
-     *  Update the value property and, if viewport is non null, then set 
-     *  its horizontalScrollPosition to <code>value</code>.
+     *  Updates the <code>value</code> property and, if viewport is non-null, sets 
+     *  its <code>horizontalScrollPosition</code> to <code>value</code>.
      * 
      *  @param value The new value of the <code>value</code> property. 
-     *  @see viewport
+     *  @see #viewport
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -152,8 +199,8 @@ public class HScrollBar extends ScrollBar
 
     /**
      *  If <code>viewport</code> is not null, 
-     *  change the horizontal scroll position for page up or page down by 
-     *  scrolling the viewport.
+     *  changes the horizontal scroll position for a page up or page down operation
+     *  by scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
      *  <code>IViewport.getHorizontalScrollPositionDelta()</code> method 
      *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
@@ -163,14 +210,15 @@ public class HScrollBar extends ScrollBar
      *  to the appropriate value.
      *
      *  <p>If <code>viewport</code> is null, 
-     *  change the scroll position for page up or page down by calling 
+     *  calling this method changes the scroll position for 
+     *  a page up or page down operation by calling 
      *  the <code>changeValueByPage()</code> method.</p>
      *
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#changeValueByPage()
-     *  @see mx.components.baseClasses.TrackBase#setValue()
+     *  @see spark.components.supportClasses.ScrollBar#changeValueByPage()
+     *  @see spark.components.supportClasses.Range#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#horizontalScrollPosition
      *  @see spark.core.IViewport#getHorizontalScrollPositionDelta()
@@ -215,7 +263,8 @@ public class HScrollBar extends ScrollBar
     
     /**
      *  If <code>viewport</code> is not null, 
-     *  change the horizontal scroll position for line up or line down by 
+     *  changes the horizontal scroll position for a line up
+     *  or line down operation by 
      *  scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
      *  <code>IViewport.getHorizontalScrollPositionDelta()</code> method 
@@ -226,14 +275,15 @@ public class HScrollBar extends ScrollBar
      *  to the appropriate value.
      *
      *  <p>If <code>viewport</code> is null, 
-     *  change the scroll position for line up or line down by calling 
+     *  calling this method changes the scroll position for a line up
+     *  or line down operation by calling 
      *  the <code>changeValueByStep()</code> method.</p>
      *
      *  @param increase Whether the line scoll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#changeValueByStep()
-     *  @see mx.components.baseClasses.TrackBase#setValue()
+     *  @see spark.components.supportClasses.Range#changeValueByStep()
+     *  @see spark.components.supportClasses.Range#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#horizontalScrollPosition
      *  @see spark.core.IViewport#getHorizontalScrollPositionDelta()
