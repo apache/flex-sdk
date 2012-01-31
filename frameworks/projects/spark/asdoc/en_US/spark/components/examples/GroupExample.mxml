@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Group component -->
+<FxApplication xmlns="http://ns.adobe.com/mxml/2009">
+    <Panel title="Group Component Example" height="75%" width="75%" 
+        layout="vertical" horizontalCenter="0" verticalCenter="0" 
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+        <Group>
+            <!-- use a vertical layout with a 1 pixel gap between items -->
+            <layout><VerticalLayout gap="1" /></layout>
+
+            <Label text="Group with a vertical layout" />
+            <Rect width="150" height="20"><fill><SolidColor color="0xE3E3E3" /></fill></Rect>
+            <Rect width="150" height="20"><fill><SolidColor color="0xCCCCCC" /></fill></Rect>
+            <Rect width="150" height="20"><fill><SolidColor color="0x888888" /></fill></Rect>
+        </Group>
+
+        <Spacer height="20" />
+
+        <Group>
+            <!-- use a horizontal layout with a 1 pixel gap between items -->
+            <layout><HorizontalLayout gap="1" /></layout>
+
+            <Label text="Group with a horizontal layout" />
+            <Rect width="25" height="25"><fill><SolidColor color="0xE3E3E3" /></fill></Rect>
+            <Rect width="25" height="25"><fill><SolidColor color="0xCCCCCC" /></fill></Rect>
+            <Rect width="25" height="25"><fill><SolidColor color="0x888888" /></fill></Rect>
+        </Group>
+
+        <Spacer height="20" />
+
+        <Group width="150" height="100">
+            <!-- use the default basic layout where items are absolutely positioned -->
+
+            <!-- add a background rectangle to stretch to fit the group -->
+            <Rect top="0" left="0" right="0" bottom="0">
+                <fill><SolidColor color="0xCCCCCC" /></fill>
+            </Rect>
+
+            <Label x="0" y="0" text="Group with a basic layout" />
+            <Rect x="20" y="20" width="30" height="25"><fill><SolidColor color="0xE3E3E3" /></fill></Rect>
+            <Rect x="40" y="40" width="30" height="30"><fill><SolidColor color="0x888888" /></fill></Rect>
+            <Rect x="60" y="60" width="30" height="30"><fill><SolidColor color="0xBBBBBB" /></fill></Rect>	
+        </Group>
+
+    </Panel>
+</FxApplication>
