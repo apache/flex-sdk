@@ -23,65 +23,65 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 /**
- *  Documentation is not currently available.
+ *  The base class for text-related FXG classes such as TextGraphic.
  */
 public class TextGraphicElement extends GraphicElement
-	implements IStyleClient
+    implements IStyleClient
 {
-	include "../../core/Version.as";
+    include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function TextGraphicElement()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: GraphicElement
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  needsDisplayObject
-	//----------------------------------
+    /**
+     *  Constructor. 
+     */
+    public function TextGraphicElement()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: GraphicElement
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  needsDisplayObject
+    //----------------------------------
 
-	// TODO!!! Always return a DisplayObject for now.
+    // TODO!!! Always return a DisplayObject for now.
     // We need to optimize this later. 
     
     /**
      *  @private
      */
-	override public function get needsDisplayObject():Boolean
+    override public function get needsDisplayObject():Boolean
     {
-		return true;
-	}
-	
-	//----------------------------------
-	//  nextSiblingNeedsDisplayObject
-	//----------------------------------
+        return true;
+    }
+    
+    //----------------------------------
+    //  nextSiblingNeedsDisplayObject
+    //----------------------------------
 
     /**
      *  @private
      */
-	override public function get nextSiblingNeedsDisplayObject():Boolean
+    override public function get nextSiblingNeedsDisplayObject():Boolean
     {
-		return true;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: ISimpleStyleClient
-	//
-	//--------------------------------------------------------------------------
+        return true;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: ISimpleStyleClient
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  styleName
@@ -96,7 +96,7 @@ public class TextGraphicElement extends GraphicElement
     [Inspectable(category="General")]
 
     /**
-	 *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
     {
@@ -126,18 +126,18 @@ public class TextGraphicElement extends GraphicElement
         styleChanged("styleName");
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: IStyleClient
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IStyleClient
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  className
     //----------------------------------
 
     /**
-	 *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get className():String
     {
@@ -158,7 +158,7 @@ public class TextGraphicElement extends GraphicElement
     [Inspectable(environment="none")]
 
     /**
-	 *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get inheritingStyles():Object
     {
@@ -187,7 +187,7 @@ public class TextGraphicElement extends GraphicElement
     [Inspectable(environment="none")]
 
     /**
-	 *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get nonInheritingStyles():Object
     {
@@ -215,7 +215,7 @@ public class TextGraphicElement extends GraphicElement
     [Inspectable(environment="none")]
 
     /**
-	 *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get styleDeclaration():CSSStyleDeclaration
     {
@@ -230,94 +230,94 @@ public class TextGraphicElement extends GraphicElement
         _styleDeclaration = value;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  text
-	//----------------------------------
-
-	/**
-	 *  @private
-	 */
-	mx_internal var _text:String = "";
-		
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function get text():String 
-	{
-		return mx_internal::_text;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set text(value:String):void
-	{
-		if (value != mx_internal::_text)
-		{
-			var oldValue:String = mx_internal::_text;
-			mx_internal::_text = value;
-			dispatchPropertyChangeEvent("text", oldValue, value);
-
-			invalidateTextLines("text");
-			invalidateSize();
-			invalidateDisplayList();
-		}
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: GraphicElement
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @inheritDoc
-	 */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-	{
-		/*
-		var g:Graphics = Sprite(displayObject).graphics;
-		
-	    // TODO EGeorgie: clearing the graphics needs to be shared when
-	    // the display objects are shared.
-	    g.clear();
-
-		g.lineStyle()
-		g.beginFill(0xCCCCCC);
-		g.drawRect(0, 0, unscaledWidth, unscaledHeight);
-		g.endFill();
-		*/
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods: ISimpleStyleClient
-	//
-	//--------------------------------------------------------------------------
+    //----------------------------------
+    //  text
+    //----------------------------------
 
     /**
+     *  @private
+     */
+    mx_internal var _text:String = "";
+        
+    /**
      *  Documentation is not currently available.
+     */
+    public function get text():String 
+    {
+        return mx_internal::_text;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set text(value:String):void
+    {
+        if (value != mx_internal::_text)
+        {
+            var oldValue:String = mx_internal::_text;
+            mx_internal::_text = value;
+            dispatchPropertyChangeEvent("text", oldValue, value);
+
+            invalidateTextLines("text");
+            invalidateSize();
+            invalidateDisplayList();
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: GraphicElement
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
+    {
+        /*
+        var g:Graphics = Sprite(displayObject).graphics;
+        
+        // TODO EGeorgie: clearing the graphics needs to be shared when
+        // the display objects are shared.
+        g.clear();
+
+        g.lineStyle()
+        g.beginFill(0xCCCCCC);
+        g.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        g.endFill();
+        */
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: ISimpleStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
      */
     public function styleChanged(styleProp:String):void
     {
         StyleProtoChain.styleChanged(this, styleProp);
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods: IStyleClient
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IStyleClient
+    //
+    //--------------------------------------------------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function getStyle(styleProp:String):*
     {
@@ -327,7 +327,7 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
@@ -335,7 +335,7 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function clearStyle(styleProp:String):void
     {
@@ -343,7 +343,7 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function getClassStyleDeclarations():Array
     {
@@ -351,7 +351,7 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
@@ -359,25 +359,25 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
         mx_internal::initProtoChain();
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 */
+    /**
+     *  Documentation is not currently available.
+     */
     public function registerEffects(effects:Array /* of String */):void
     {
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Documentation is not currently available.
@@ -395,12 +395,12 @@ public class TextGraphicElement extends GraphicElement
         StyleProtoChain.initProtoChain(this);
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	protected function invalidateTextLines(cause:String):void
-	{
-	}
+    /**
+     *  Documentation is not currently available.
+     */
+    protected function invalidateTextLines(cause:String):void
+    {
+    }
 }
 
 }
