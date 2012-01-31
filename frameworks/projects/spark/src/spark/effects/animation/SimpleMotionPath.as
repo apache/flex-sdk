@@ -57,6 +57,11 @@ public class SimpleMotionPath extends MotionPath
      *  
      *  @param valueBy An optional parameter that specifies the delta with
      *  which to calculate either the from or to values, if one is omitted. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function SimpleMotionPath(property:String = null, 
         valueFrom:Object = null, valueTo:Object = null, 
