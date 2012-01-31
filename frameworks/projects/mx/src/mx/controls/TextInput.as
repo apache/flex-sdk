@@ -2272,6 +2272,8 @@ public class TextInput extends UIComponent implements ITextInput
     /**
      *  Used to determine if the control's border and background are 
      *  visible.
+     *
+     *  @param visible <code>true</code> if visible, and <code>false</code> if not.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2287,8 +2289,12 @@ public class TextInput extends UIComponent implements ITextInput
     /**
      *  Selects the text in the range specified by the parameters.  Unlike
      *  <code>setSelection</code> this is done immediately.
-     *  
-     *  @see mx.controls.TextInput#setSelection
+     *
+     *  @param anchorIndex The zero-based character index specifying the beginning 
+     *  of the selection that stays fixed when the selection is extended. 
+     *
+     *  @param activeIndex The zero-based character index specifying 
+     *  the end of the selection that moves when the selection is extended. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
