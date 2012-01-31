@@ -718,9 +718,6 @@ public class TextBase extends SkinnableComponent
         }
             
         // want the default to be the empty string
-        //var v:* = textViewProperties.text;
-        //return (v === undefined) ? "" : v;
-        
         return (_text == null) ? "" : _text;
     }
 
@@ -1303,7 +1300,7 @@ public class TextBase extends SkinnableComponent
      */
     protected function textView_changeHandler(event:TextOperationEvent):void
     {        
-        trace(id, "textView_changeHandler", textView.text);
+        //trace(id, "textView_changeHandler", textView.text);
         
         // Use the setter so that the textChanged event is dispatched.  Set
         // proxyText to false so the setter doesn't try to push the text down to
