@@ -30,6 +30,7 @@ import flash.ui.Keyboard;
 import flash.utils.getDefinitionByName;
 
 import mx.binding.BindingManager;
+import mx.containers.utilityClasses.PostScaleAdapter;
 import mx.controls.Button;
 import mx.controls.HScrollBar;
 import mx.controls.VScrollBar;
@@ -358,6 +359,11 @@ public class Container extends UIComponent
     //  Class methods
     //
     //--------------------------------------------------------------------------
+    
+    mx_internal function getLayoutChildAt(index:int):IUIComponent
+    {
+        return PostScaleAdapter.getCompatibleIUIComponent(getChildAt(index));
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -4208,20 +4214,39 @@ public class Container extends UIComponent
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
+            var x:Number;
+            var y:Number;
+            var width:Number;
+            var height:Number;
+            
             var child:DisplayObject = getChildAt(i);
+            if (child is IUIComponent)
+            {
+                if (!IUIComponent(child).includeInLayout)
+                    continue;
+                var uic:IUIComponent = PostScaleAdapter.getCompatibleIUIComponent(child);
+                width = uic.width;
+                height = uic.height;
+                x = uic.x;
+                y = uic.y;
+            }
+            else
+            {
+                width = child.width;
+                height = child.height;
+                x = child.x;
+                y = child.y;
+            }
 
-            if (child is IUIComponent && !IUIComponent(child).includeInLayout)
-                continue;
-
-            left = Math.min(left, child.x);
-            top = Math.min(top, child.y);
+            left = Math.min(left, x);
+            top = Math.min(top, y);
 
             // width/height can be NaN if using percentages and
             // hasn't been layed out yet.
-            if (!isNaN(child.width))
-                right = Math.max(right, child.x + child.width);
-            if (!isNaN(child.height))
-                bottom = Math.max(bottom, child.y + child.height);
+            if (!isNaN(width))
+                right = Math.max(right, x + width);
+            if (!isNaN(height))
+                bottom = Math.max(bottom, y + height);
         }
 
         // Add in the right/bottom margins and view metrics.
