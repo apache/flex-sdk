@@ -216,8 +216,7 @@ public class AbstractInvoker extends EventDispatcher
         event.callTokenResponders();
         if (!event.isDefaultPrevented())
         {
-            dispatchEvent(event);
-		monitorRpcEvent(event);
+            dispatchEvent(event);		
         }
     }
 
@@ -339,16 +338,7 @@ public class AbstractInvoker extends EventDispatcher
             fault = new Fault("InvokeFailed", e2.message);
             new AsyncDispatcher(dispatchRpcEvent, [FaultEvent.createEvent(fault, token, message)], 10);
         }
-        finally
-        {
-            if (NetworkMonitor.isMonitoring())
-            {
-            	//trace(" AbstractInvoker: monitorInvoke: message ",message.toString());
-                NetworkMonitor.monitorInvocation(getNetmonId(), message);
-            }
-        }    
-
-
+       
         return token;
     }
 
