@@ -1694,9 +1694,9 @@ import flash.geom.Point;
 import flash.utils.getTimer;
 
 import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.events.TouchInteractionReason;
-import mx.events.SandboxMouseEvent;
 import mx.utils.GetTimerUtil;
 
 import spark.components.Scroller;
@@ -1877,7 +1877,7 @@ class TouchScrollHelper
     public function startScrollWatch(event:Event):void
     {
         // this is the point from which all deltas are based.
-        startTime = GetTimerUtil.getTimerFunction();
+        startTime = GetTimerUtil.getTimer();
         
         if (event is MouseEvent && event.type == MouseEvent.MOUSE_DOWN)
         {
@@ -1952,7 +1952,7 @@ class TouchScrollHelper
         }
         
         // add time history as well
-        mouseEventTimeHistory[currentIndex] = GetTimerUtil.getTimerFunction() - startTime;
+        mouseEventTimeHistory[currentIndex] = GetTimerUtil.getTimer() - startTime;
         
         // increment current length if appropriate
         mouseEventLength ++;
@@ -2056,11 +2056,50 @@ class TouchScrollHelper
                 scrollStartEvent.reason = TouchInteractionReason.SCROLL;
                 mouseDownedDisplayObject.dispatchEvent(scrollStartEvent);
                 
-                // FIXME (rfrishbe): the difference should not be from the original point but from the slop.
-                // otherwise we "jump" on the first move.
-                // we should reset startPoint here to be this point minus slop (in the direction that caused the scroll)
-                scrollGestureAnchorPoint = new Point(event.stageX, event.stageY);
                 isScrolling = true;
+                
+                // now that we're scrolling, calculate the scrollAnchorPoint.  
+                // There are three cases: diagonal, horizontal, and vertical.
+                // if (0,0) is where you mouseDowned, (10,10) is where you are at now.  Then mouseDownedDiff is (10, 10)
+                // scrollAnchorPoint is calculated as where we "crossed the threshold" in to scrolling territory.
+                // so we figure out if they scrolled up, down, right, left (or a combination of that for 
+                // the diagonal case).
+                if (possibleScrollHorizontally && possibleScrollVertically)
+                {
+                    // diagonal case
+                    if (mouseDownedDifference.length >= diagonalSlop)
+                    {
+                        var scrollAnchorDiffX:int;
+                        var scrollAnchorDiffY:int;
+                        
+                        // normalize the diff to keep the right angle
+                        var normalizedDiff:Point = mouseDownedDifference.clone();
+                        normalizedDiff.normalize(diagonalSlop);
+                        
+                        // 4 possibilities: top-right, top-left, bottom-right, bottom-left
+                        scrollAnchorDiffX = Math.round(normalizedDiff.x);
+                        scrollAnchorDiffY = Math.round(normalizedDiff.y);
+                        
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x + scrollAnchorDiffX, 
+                            mouseDownedPoint.y + scrollAnchorDiffY);
+                    }
+                }
+                else if (possibleScrollHorizontally)
+                {
+                    // horizontal case
+                    if (mouseDownedDifference.x >= horizontalSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x + horizontalSlop, mouseDownedPoint.y);
+                    else //if (mouseDownedDifference.x >= -horizontalSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x - horizontalSlop, mouseDownedPoint.y);
+                }
+                else if (possibleScrollVertically)
+                {
+                    // vertical case
+                    if (mouseDownedDifference.y >= verticalSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y + verticalSlop);
+                    else //if (mouseDownedDifference.y >= -verticalSlop)
+                        scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y - verticalSlop);
+                }
                 
                 // see comment located above the variable for why this is needed
                 scrollDraggingCountForUpdateAfterEvent = 0;
@@ -2110,7 +2149,7 @@ class TouchScrollHelper
         // decide about throw
         
         // pad click and timeHistory if needed
-        var currentTime:Number = GetTimerUtil.getTimerFunction();
+        var currentTime:Number = GetTimerUtil.getTimer();
         
         // calculate average time b/w events and see if the last two (mouseMove and this mouseUp) 
         // were far apart.  If they were, then don't do anything if the velocity of them is small.
