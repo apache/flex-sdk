@@ -105,6 +105,18 @@ use namespace mx_internal;
 include "../styles/metadata/BasicInheritingTextStyles.as";
 
 /**
+ *  Controls the visibility of the drop shadow for this component.
+ *
+ *  @default true
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="dropShadowVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
  *  The time, in milli-seconds, to wait in fullscreen mode with no user-interaction 
  *  before hiding the video playback controls.
  *  
@@ -1887,6 +1899,9 @@ public class VideoPlayer extends SkinnableComponent
         
         if (durationDisplay)
             updateDuration();
+        
+        if (currentTimeDisplay)
+            updateCurrentTime();
         
         if (playPauseButton)
             playPauseButton.selected = playing;
