@@ -28,6 +28,7 @@ import flex.intf.IViewport;
 import flex.utils.TextUtil;
 
 import mx.core.UIComponent;
+import mx.events.FlexEvent;
 
 import text.container.IContainerController;
 import text.edit.EditManager;
@@ -69,7 +70,7 @@ import text.operations.SplitParagraphOperation;
  *  <code>selectionActivePosition</code> properties have changed.
  *  due to a user interaction.
  */
-[Event(name="selectionChange", type="flash.events.Event")]
+[Event(name="selectionChange", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched before a user editing operation occurs.
@@ -86,7 +87,7 @@ import text.operations.SplitParagraphOperation;
 /**
  *  Dispatched when the user pressed the Enter key.
  */
-[Event(name="enter", type="flash.events.Event")]
+[Event(name="enter", type="mx.events.FlexEvent")]
 
 [DefaultProperty("content")]
 
@@ -2061,7 +2062,7 @@ public class TextView extends UIComponent implements IViewport
         _selectionAnchorPosition = textFlow.interactionManager.anchorPosition;
         _selectionActivePosition = textFlow.interactionManager.activePosition;
         
-        dispatchEvent(new Event("selectionChange"));
+        dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
     }
     
     /**
@@ -2082,7 +2083,7 @@ public class TextView extends UIComponent implements IViewport
         if (op is SplitParagraphOperation && !multiline)
         {
             event.preventDefault();
-            dispatchEvent(new Event("enter"));
+            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
         }
         
         // Otherwise, we dispatch a 'changing' event from the TextView
