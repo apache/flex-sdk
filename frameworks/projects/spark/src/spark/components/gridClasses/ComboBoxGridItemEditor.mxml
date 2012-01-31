@@ -104,7 +104,7 @@ in accordance with the terms of the license agreement accompanying it.
                 {
                     comboBox.move(comboBox.x - (comboBox.width - availableWidth), comboBox.y);
                 }
-                
+            
                 comboBox.openDropDown();
                 bgRect.width = cellBounds.width - int(bgRect.left);
                 bgRect.height = cellBounds.height - int(bgRect.top);
@@ -142,7 +142,7 @@ in accordance with the terms of the license agreement accompanying it.
         </s:fill>
     </s:Rect>
 
-    <!-- The editor's ComboBox. -->
+    <!--- The editor's ComboBox component. -->
     <s:ComboBox id="comboBox" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
     
 </s:GridItemEditor>
