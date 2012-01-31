@@ -11,14 +11,11 @@
 
 package mx.effects
 {
-import mx.components.Group;
-import mx.effects.effectClasses.RemoveActionInstance;
-
-import mx.core.mx_internal;
-import mx.effects.Effect;
-import mx.effects.effectClasses.PropertyChanges;
-import mx.effects.effectClasses.RemoveChildActionInstance;
+import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.mx_internal;
+import mx.effects.effectClasses.PropertyChanges;
+import mx.effects.effectClasses.RemoveActionInstance;
 
 use namespace mx_internal;
 
@@ -137,7 +134,7 @@ public class RemoveAction extends Effect
         if (property == "index")
             return container ? 
                     ((container is IVisualElementContainer) ? 
-                    IVisualElementContainer(container).getElementIndex(target) : container.getChildIndex(target))
+                    IVisualElementContainer(container).getElementIndex(target as IVisualElement) : container.getChildIndex(target))
                 : 0;
 		
 		return super.getValueFromTarget(target, property);
@@ -158,7 +155,7 @@ public class RemoveAction extends Effect
                 // TODO : workaround for current situation of mis-match between
                 // Group having 'item's and Flex3 components having 'parent's
                 if (value is IVisualElementContainer)
-                    IVisualElementContainer(value).addElementAt(target, Math.min(props.index, 
+                    IVisualElementContainer(value).addElementAt(target as IVisualElement, Math.min(props.index, 
                         IVisualElementContainer(value).numElements));
                 else
                     value.addChildAt(target, Math.min(props.index, 
