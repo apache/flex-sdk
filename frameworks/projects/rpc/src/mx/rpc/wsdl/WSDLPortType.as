@@ -38,6 +38,11 @@ public class WSDLPortType
 
     /**
      * The unique name for this portType.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
