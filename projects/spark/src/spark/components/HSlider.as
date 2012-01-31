@@ -22,6 +22,8 @@ import mx.components.baseClasses.FxSlider;
 
 /**
  *  The FxHSlider class defines a horizontal slider component.
+ *
+ *  @includeExample examples/FxHSliderExample.mxml
  */
 public class FxHSlider extends FxSlider
 {
