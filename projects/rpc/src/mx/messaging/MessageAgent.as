@@ -677,8 +677,8 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                     
-        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));    
-        monitorRpcMessage(ackMsg,msg);              
+        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg)); 
+        monitorRpcMessage(ackMsg,msg);               
     }
         
     /**
@@ -697,12 +697,12 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             // connecting and the client fails to connect to the server, no faults will be
             // dispatched).
             if (connected)
-                _disconnectBarrier = true;
-            
+            _disconnectBarrier = true;
+
             if (_channelSetMode == AUTO_CONFIGURED_CHANNELSET)
                 internalSetChannelSet(null);
             else if (_channelSet != null)
-                _channelSet.disconnect(this);
+                _channelSet.disconnect(this);                
         }
     }   
     
@@ -736,9 +736,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                 
-        dispatchEvent(MessageFaultEvent.createEvent(errMsg));    
-        monitorRpcMessage(errMsg,msg);
-              
+        dispatchEvent(MessageFaultEvent.createEvent(errMsg));  
+        monitorRpcMessage(errMsg,msg);    
+        
         // If we get an authentication fault on the server and our authenticated
         // flag is true then the authentication fault must have been caused by a
         // session expiration on the server.  Set our authentication state to false.
@@ -1014,27 +1014,27 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
             if (clientId == null)
             {
-                // If we still don't have a clientId, remove the first queued message and send it.
-                // Leave the queue intact to buffer subsequent sends until we get a response/fault
-                // back for this one.
-                if (_clientIdWaitQueue.length > 0)
-                {
+            // If we still don't have a clientId, remove the first queued message and send it.
+            // Leave the queue intact to buffer subsequent sends until we get a response/fault
+            // back for this one.
+            if (_clientIdWaitQueue.length > 0)
+            {
                     var saveQueue:Array = _clientIdWaitQueue;
                     // Make sure we don't just put it back into the queue - we let the first
                     // one through if this is null.
                     _clientIdWaitQueue = null;
                     internalSend(saveQueue.shift() as IMessage);
                     _clientIdWaitQueue = saveQueue;
-                }
-                else
-                {
-                    // Regardless of whether the clientId is defined or not, if the wait queue
-                    // is empty set it to null to allow the next message to be processed by the
-                    // send code path rather than being routed to the queue.
-                    _clientIdWaitQueue = null;
-                }
+            }
+            else
+            {
+                // Regardless of whether the clientId is defined or not, if the wait queue
+                // is empty set it to null to allow the next message to be processed by the
+                // send code path rather than being routed to the queue.
+                _clientIdWaitQueue = null;
             }
         }
+    }
     }
 
     /**
@@ -1103,14 +1103,15 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
             
             channelSet.send(this, message);
-            monitorRpcMessage(message,message);           
+            monitorRpcMessage(message,message);  
         }
         else if (destination.length > 0)
         {
             initChannelSet(message);
-            if (channelSet != null){
+            if (channelSet != null)
+            {
                 channelSet.send(this, message);
-                monitorRpcMessage(message,message);      
+                monitorRpcMessage(message,message);     
             }
         }        
         else
@@ -1120,39 +1121,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             throw new InvalidDestinationError(msg);
         }
     }
-    
-    /**
-     * Monitor a rpc message that is being send
-    */
-    
-    private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
-    {
-        if (NetworkMonitor.isMonitoring())
-        {
-        	if (message is ErrorMessage)
-	        {
-	        		NetworkMonitor.monitorFault(actualMessage, MessageFaultEvent.createEvent(ErrorMessage(message)));
-	        }
-	        else if (message is AcknowledgeMessage)
-	        {
-	       	    	NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
-	        }	        
-	        else{
-	        		NetworkMonitor.monitorInvocation(getNetmonId(), message);
-	        }
-	       
-        }
-    }    
-	
-	/**
-     * Return the id for the NetworkMonitor.
-     * @private
-     */
-    mx_internal function getNetmonId():String
-    {
-        return null;
-    }
-    
+
     /**
      *  Used to automatically initialize the <code>channelSet</code> property for the
      *  MessageAgent before it connects for the first time. 
@@ -1178,7 +1147,40 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         
         if (_credentials != null)
             channelSet.setCredentials(_credentials, this, _credentialsCharset);
-    }        
+    }    
+    
+     /**
+    * Monitor a rpc message that is being send
+   */
+   private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
+   {
+       if (NetworkMonitor.isMonitoring())
+       {
+	        if (message is ErrorMessage)
+	        {
+                NetworkMonitor.monitorFault(actualMessage, MessageFaultEvent.createEvent(ErrorMessage(message)));
+	        }
+	        else if (message is AcknowledgeMessage)
+	        {
+	       	    	NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
+        	}
+	       
+            else 
+            {
+	        		NetworkMonitor.monitorInvocation(getNetmonId(), message);
+	        }
+      }
+   }    
+   	
+	/**
+     * Return the id for the NetworkMonitor.
+    * @private
+    */
+   mx_internal function getNetmonId():String
+   {
+       return null;
+   }
+       
 }
 
 }
