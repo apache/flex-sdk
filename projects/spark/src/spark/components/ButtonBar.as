@@ -190,7 +190,6 @@ public class ButtonBar extends ButtonBarBase implements IFocusManagerComponent
      */
     public var middleButton:IFactory;
 
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -230,9 +229,11 @@ public class ButtonBar extends ButtonBarBase implements IFocusManagerComponent
             {
                 // force reset here so first/middle/last skins
                 // get reassigned
-                ce = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-                ce.kind = CollectionEventKind.RESET;
-                dataProvider.dispatchEvent(ce);
+                if (dataGroup)
+                {
+                    dataGroup.layout.useVirtualLayout = true;
+                    dataGroup.layout.useVirtualLayout = false;
+                }
             }
         }
     }
