@@ -70,6 +70,11 @@ use namespace mx_internal;
  *  high-quality international typography.
  *  The MX version of TextInput displays text using the older
  *  TextField class.</p>
+ * 
+ *  <p>The mobile theme uses TextField-based text instead of RichEditableText.
+ *  Some TLF-only features are not supported in the mobile theme including
+ *  TextFlow, right-to-left or bidirectional text, and advanced text 
+ *  styles.</p>
  *
  *  <p>You can set the text to be displayed, or get the text that the user
  *  has entered, using the <code>text</code> property.
@@ -103,7 +108,7 @@ use namespace mx_internal;
  *  break, because this control does not support entering multiple
  *  lines of text. By default, this control has explicit line breaks.</p>
  *
- *  <p>This control is a skinnable control whose skin contains a
+ *  <p>This control is a skinnable control whose default skin contains a
  *  RichEditableText instance that handles displaying and editing the text.
  *  (The skin also handles drawing the border and background.)
  *  This RichEditableText can be accessed as the <code>textDisplay</code>
