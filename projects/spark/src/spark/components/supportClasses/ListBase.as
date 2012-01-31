@@ -13,10 +13,11 @@ package spark.components.supportClasses
 {
 import flash.events.Event;
 
-import spark.events.RendererExistenceEvent;
 import spark.components.SkinnableDataContainer;
 import spark.components.IItemRendererOwner; 
 import spark.components.IItemRenderer; 
+import spark.events.IndexChangeEvent;
+import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.LabelUtil; 
 
@@ -24,8 +25,7 @@ import mx.collections.IList;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.core.UIComponent; 
-import mx.events.FlexEvent;
-import mx.events.IndexChangedEvent;
+import mx.events.FlexEvent; 
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
@@ -36,38 +36,38 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  Calling the <code>preventDefault()</code> method
  *  on the event prevents the selection from changing.
  *
- *  @eventType mx.events.IndexChangedEvent.CHANGING
+ *  @eventType spark.events.IndexChangeEvent.CHANGING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="mx.events.IndexChangedEvent")]
+[Event(name="changing", type="spark.events.IndexChangeEvent")]
 
 /**
  *  Dispatched after the selection has changed. 
  *
- *  @eventType mx.events.IndexChangedEvent.CHANGE
+ *  @eventType spark.events.IndexChangeEvent.CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="change", type="mx.events.IndexChangedEvent")]
+[Event(name="change", type="spark.events.IndexChangeEvent")]
 
 /**
  *  Dispatched after the focus has changed.  
  *
- *  @eventType mx.events.IndexChangedEvent.CARET_CHANGE
+ *  @eventType spark.events.IndexChangeEvent.CARET_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="caretChange", type="mx.events.IndexChangedEvent")]
+[Event(name="caretChange", type="spark.events.IndexChangeEvent")]
 
 /**
  *  The ListBase class is the base class for all components that support
@@ -631,7 +631,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override protected function commitProperties():void
     {
-        var e:IndexChangedEvent; 
+        var e:IndexChangeEvent; 
         var changedSelection:Boolean = false;
         
         super.commitProperties();
@@ -684,7 +684,7 @@ public class ListBase extends SkinnableDataContainer
             selectedIndexAdjusted = false;
             if (!changedSelection)
             {
-                e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
+                e = new IndexChangeEvent(IndexChangeEvent.CHANGE);
                 e.oldIndex = selectedIndex;
                 e.newIndex = selectedIndex;
                 dispatchEvent(e);
@@ -703,7 +703,7 @@ public class ListBase extends SkinnableDataContainer
                 itemShowingCaret(selectedIndex, true); 
                 _caretIndex = selectedIndex; 
                 
-                e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
                 e.oldIndex = caretIndex; 
                 e.newIndex = caretIndex;
                 dispatchEvent(e);  
@@ -718,7 +718,7 @@ public class ListBase extends SkinnableDataContainer
                 for (var i:int = 0; i < dataGroup.numChildren; i++)
                 {
                     // FIXME (rfrishbe):(dsubrama) Ryan, figure out numChildren/numElement vs. getElement/getChild
-                    //and which is more performant. 
+                    //and which is more performant.
                     var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
                     //Push the correct text into the renderer by settings its label
                     //property 
@@ -942,7 +942,7 @@ public class ListBase extends SkinnableDataContainer
         
         // Step 2: dispatch the "changing" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.
-        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CHANGING, false, true);
+        var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGING, false, true);
         e.oldIndex = _selectedIndex;
         e.newIndex = _proposedSelectedIndex;
         if (!dispatchEvent(e))
@@ -969,13 +969,13 @@ public class ListBase extends SkinnableDataContainer
         if (dispatchChangedEvents)
         {
             // Dispatch the change event
-            e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
+            e = new IndexChangeEvent(IndexChangeEvent.CHANGE);
             e.oldIndex = oldSelectedIndex;
             e.newIndex = _selectedIndex;
             dispatchEvent(e);
             
             //Dispatch the caretChange event 
-            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+            e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
             e.newIndex = caretIndex; 
             dispatchEvent(e);  
