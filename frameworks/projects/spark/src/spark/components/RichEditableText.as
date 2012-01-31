@@ -1611,8 +1611,6 @@ public class TextView extends UIComponent implements IViewport
 
         // Need to regenerate text flow.
         invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
 
         stylesChanged = true;
     }
@@ -2066,13 +2064,15 @@ public class TextView extends UIComponent implements IViewport
             selectionColor, 1.0, BlendMode.NORMAL, 
             0x000000, 1.0, BlendMode.INVERT);
 
+        // No cursor when no focus.
         interactionManager.noFocusSelectionFormat = new SelectionFormat(
             unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
-            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL);
+            unfocusedSelectionColor, 0);
         
+        // No cursor when not active.
         interactionManager.inactiveSelectionFormat = new SelectionFormat(
             inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
-            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL);
+            inactiveSelectionColor, 0);
     }
         
     /**
@@ -2247,8 +2247,8 @@ public class TextView extends UIComponent implements IViewport
             _selectable = true;
         }
 
-        textFlow.interactionManager.setSelection(anchorPosition, activePosition);
-        textFlow.flowComposer.updateAllContainers();                               
+        // The damage handler will update the display.
+        textFlow.interactionManager.setSelection(anchorPosition, activePosition);        
       }
     
     /**
