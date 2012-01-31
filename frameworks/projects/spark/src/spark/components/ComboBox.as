@@ -576,13 +576,13 @@ public class ComboBox extends DropDownListBase
         {
             var itemFromInput:* = getCustomSelectedItem();
             if (itemFromInput != undefined)
-                selectedItem = itemFromInput;
+                setSelectedItem(itemFromInput, true);
             else
-                selectedIndex = NO_SELECTION;
+                setSelectedIndex(NO_SELECTION, true);
         }
         else
         {
-            selectedIndex = actualProposedSelectedIndex;
+            setSelectedIndex(actualProposedSelectedIndex, true);
         }
                 
         textInput.selectRange(-1, -1);
