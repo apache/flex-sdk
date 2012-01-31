@@ -19,13 +19,17 @@ import fl.video.VideoEvent;
 import fl.video.VideoPlayer;
 import fl.video.VideoScaleMode;
 import fl.video.VideoState;
+import fl.video.flvplayback_internal;
 
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.geom.Matrix;
 import flash.media.Video;
 
+import mx.core.AdvancedLayoutFeatures;
 import mx.core.mx_internal;
 
 import spark.components.supportClasses.StreamItem;
@@ -33,6 +37,8 @@ import spark.components.supportClasses.StreamingVideoSource;
 import spark.core.IGraphicElement;
 import spark.events.VideoEvent;
 import spark.primitives.supportClasses.GraphicElement;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -174,18 +180,19 @@ public class VideoElement extends GraphicElement
         var flvPlayer:VideoPlayer = new VideoPlayer();
         mx_internal::videoPlayer = flvPlayer;
         
-        flvPlayer.align = VideoAlign.CENTER;
-        // unfortunately, there's a bug in the video player that 
-        // won't easily let align center if we set x and y directly 
-        // on the video player.  So to work-around this, we always 
-        // create a transform and set x/y that way
-        allocateLayoutFeatures();
+        // we wrap the VideoPlayer inside of another container because 
+        // the video player doesn't handle setting x/y correctly. we could allocate
+        // layout features and subclass it so that layoutX always sets registrationX on the
+        // videoPlayer, but this seemed more straight forward
+        videoPlayerContainer = new Sprite();
+        videoPlayerContainer.addChild(flvPlayer);
                
         flvPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
         flvPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
         flvPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
         flvPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
         flvPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+        flvPlayer.addEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
         flvPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
     }
     
@@ -202,6 +209,15 @@ public class VideoElement extends GraphicElement
      */
     mx_internal var videoPlayer:VideoPlayer;
     
+    /**
+     *  @private
+     *  We wrap the VideoPlayer inside of another container because 
+     *  the video player doesn't handle setting x/y correctly. we could allocate
+     *  layout features and subclass it so that layoutX always sets registrationX on the
+     *  videoPlayer, but this seemed more straight forward
+     */
+    private var videoPlayerContainer:DisplayObjectContainer;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -214,7 +230,7 @@ public class VideoElement extends GraphicElement
     override public function get displayObject():DisplayObject
     {
         // The VideoElement always has its own DisplayObject
-        return mx_internal::videoPlayer;
+        return videoPlayerContainer;
     }
 
     /**
@@ -320,6 +336,60 @@ public class VideoElement extends GraphicElement
     public function set autoRewind(value:Boolean):void
     {
         mx_internal::videoPlayer.autoRewind = value;
+    }
+    
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _enabled:Boolean = true;
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
+    [Bindable("enabledChanged")]
+
+    /**
+     *  @copy mx.core.IUIComponent#enabled
+     * 
+     *  <p>Setting enabled to <code>false</code> 
+     *  pauses the video if it was currently playing.  Re-enabling the component
+     *  does not cause the video to continue playing again; you must 
+     *  explicitly call <code>play()</code>.</p>
+     * 
+     *  <p>Even though the component is initially paused while disabled, 
+     *  if you would like to play the video or perform some other action 
+     *  while disabled, you may still do so through method calls, like 
+     *  <code>play()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get enabled():Boolean
+    {
+        return _enabled;
+    }
+
+    /**
+     *  @private
+     */
+    public function set enabled(value:Boolean):void
+    {
+        if (value == _enabled)
+            return;
+        
+        _enabled = value;
+        
+        if (!value)
+        {
+            if (playing)
+                pause();
+        }
+        
+        dispatchEvent(new Event("enabledChanged"));
     }
         
     //----------------------------------
@@ -667,7 +737,7 @@ public class VideoElement extends GraphicElement
         if (sourceChanged)
         {
             sourceChanged = false;
-            if (autoPlay)
+            if (autoPlay && enabled)
             {
                 play();
             }
@@ -779,6 +849,12 @@ public class VideoElement extends GraphicElement
             }
             else
             {
+                if (sourceLastPlayed != null)
+                {
+                    videoPlayer.close();
+                    videoPlayer.clear();
+                }
+                
                 flvSource =  new DynamicStreamItem();
                 sourceLastPlayed = source;
         
@@ -797,15 +873,28 @@ public class VideoElement extends GraphicElement
             // so the UI is more responsive
             setPlaying(true);
             
-            // we don't do anything with the duration or startTime in 
+            // TODO: we don't do anything with the duration or startTime in 
             // the play2() case, as the underlying FLVPlayback VideoPlayer
             // doesn't handle it right now.
             
-            // TODO (rfrishbe): Could we just call play2() and then call seek()
-            // like we do in the progressive case?  Is it worth it?  Need to talk
-            // to Strobe team about this.
-
-            mx_internal::videoPlayer.play2(flvSource);
+            // if it's null, we just call the play() method
+            if (flvSource == null)
+            {
+                if (isNaN(duration))
+                    mx_internal::videoPlayer.play(null, NaN, streamingSource.live);
+                else
+                    mx_internal::videoPlayer.play(null, duration, streamingSource.live);
+                
+                if (!isNaN(startTime))
+                    seek(startTime);
+            }
+            else
+            {
+                mx_internal::videoPlayer.play2(flvSource);
+                
+                if (!isNaN(startTime))
+                    seek(startTime);
+            }
         }
         else if (source is String && String(source).length != 0)
         {
@@ -821,6 +910,12 @@ public class VideoElement extends GraphicElement
             }
             else
             {
+                if (sourceLastPlayed != null)
+                {
+                    videoPlayer.close();
+                    videoPlayer.clear();
+                }
+                
                 sourceString = String(this.source);
                 sourceLastPlayed = sourceString;
             }
@@ -847,7 +942,7 @@ public class VideoElement extends GraphicElement
                 if (isNaN(duration))
                     mx_internal::videoPlayer.play(null);
                 else
-                    mx_internal::videoPlayer.play(null, false, duration);
+                    mx_internal::videoPlayer.play(null, duration, false);
             }
             else
             {
@@ -860,11 +955,16 @@ public class VideoElement extends GraphicElement
                 if (isNaN(duration))
                     mx_internal::videoPlayer.play(sourceString);
                 else
-                    mx_internal::videoPlayer.play(sourceString, false, duration);
+                    mx_internal::videoPlayer.play(sourceString, duration, false);
             }
         }
         else
         {
+            if (sourceLastPlayed != null)
+            {
+                videoPlayer.close();
+                videoPlayer.clear();
+            }
             setPlaying(false);
         }
     }
@@ -881,9 +981,16 @@ public class VideoElement extends GraphicElement
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
         {
-            // can't load in the streaming video case
+            if (source != null && sourceLastPlayed != null)
+            {
+                videoPlayer.close();
+                videoPlayer.clear();
+            }
+            //videoPlayer.volume = 0;
+            // can't load in the streaming video case, so just call play(), then pause()
             play();
             pause();
+            seek(0);
         }
         else if (source is String && String(source).length != 0)
         {
@@ -901,10 +1008,24 @@ public class VideoElement extends GraphicElement
             {
                 sourceString = String(this.source);
                 sourceLastPlayed = sourceString;
+                
+                if (sourceLastPlayed != null)
+                {
+                    videoPlayer.close();
+                    videoPlayer.clear();
+                }
             }
            
             // load the video up
             mx_internal::videoPlayer.load(sourceString);
+        }
+        else
+        {
+            if (sourceLastPlayed != null)
+            {
+                videoPlayer.close();
+                videoPlayer.clear();
+            }
         }
         
         setPlaying(false);
@@ -1021,13 +1142,20 @@ public class VideoElement extends GraphicElement
     /**
      *  @private
      */
+    private function videoPlayer_readyHandler(event:fl.video.VideoEvent):void
+    {
+        var sparkVideoEvent:spark.events.VideoEvent = 
+            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
+        dispatchEvent(sparkVideoEvent);
+    }
+    
+    /**
+     *  @private
+     */
     private function videoPlayer_stateChangeHandler(event:fl.video.VideoEvent):void
     {
         switch (event.state)
         {
-            case VideoState.PLAYING:
-                setPlaying(true);
-                break;
             case VideoState.STOPPED:
             case VideoState.DISCONNECTED:
             case VideoState.CONNECTION_ERROR:
