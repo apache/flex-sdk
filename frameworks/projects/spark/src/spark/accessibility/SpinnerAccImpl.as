@@ -20,11 +20,14 @@ import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 import spark.components.Spinner;
 
 use namespace mx_internal;
 
+[ResourceBundle("components")]
 
 /**
  *  SpinnerAccImpl is a subclass of AccessibilityImplementation
@@ -192,7 +195,25 @@ public class SpinnerAccImpl extends AccImpl
      */
     override public function get_accState(childID:uint):uint
     {
-        var accState:uint = getState(childID);
+        var accState:uint;
+        switch(childID)
+        {
+            case 0: 
+                accState = getState(childID);
+                break;
+            case 1:
+            {
+                if (!Spinner(master).enabled)
+                    accState = AccConst.STATE_SYSTEM_UNAVAILABLE;
+                break;
+            }  
+            case 2:
+            {
+                if (!Spinner(master).enabled)
+                    accState = AccConst.STATE_SYSTEM_UNAVAILABLE;
+                break;
+            }
+        }
         return accState;
     }
 
@@ -238,15 +259,15 @@ public class SpinnerAccImpl extends AccImpl
         {
             case 1:
             {
-                if (Spinner(master).incrementButton.enabled)
-                    Spinner(master).changeValueByStep(true)
+                if (Spinner(master).enabled)
+                    Spinner(master).changeValueByStep(true);
                 break;
             }
 				
             case 2:
             {
-                if (Spinner(master).incrementButton.enabled)
-                    Spinner(master).changeValueByStep(false)
+                if (Spinner(master).enabled)
+                    Spinner(master).changeValueByStep(false);
                 break;
             }
         }
@@ -277,10 +298,11 @@ public class SpinnerAccImpl extends AccImpl
      */
     override protected function getName(childID:uint):String
     {
+        var resourceManager:IResourceManager = ResourceManager.getInstance();
         if (childID == 1)
-            return "More";
+            return resourceManager.getString("components","SpinnerMoreAccName");
         if (childID == 2)
-            return "Less";
+            return resourceManager.getString("components","SpinnerLessAccName");
         else
             return "";
     }
