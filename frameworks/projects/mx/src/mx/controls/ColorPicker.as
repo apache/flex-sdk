@@ -23,7 +23,6 @@ import flash.ui.Keyboard;
 import flash.utils.getTimer;
 import mx.controls.colorPickerClasses.SwatchPanel;
 import mx.controls.colorPickerClasses.WebSafePalette;
-import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -1161,8 +1160,6 @@ public class ColorPicker extends ComboBase
             swatchPreview.styleName = new StyleProxy(this, swatchStyleFilters);
             swatchPreview.color = selectedColor;
             swatchPreview.name = "colorPickerSwatch";
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                swatchPreview.setStyle("swatchBorderSize", 0);
 
             addChild(swatchPreview);
         }
@@ -1258,15 +1255,11 @@ public class ColorPicker extends ComboBase
 
         if (dropdownSwatch)
         {
-            // VERSION check
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
+            if (styleProp == "swatchPanelStyleName")
             {
-                if (styleProp == "swatchPanelStyleName")
-                {
-                    var swatchPanelStyleName:Object = getStyle("swatchPanelStyleName");
-                    if (swatchPanelStyleName)
-                        dropdownSwatch.styleName = swatchPanelStyleName;
-                }
+                var swatchPanelStyleName:Object = getStyle("swatchPanelStyleName");
+                if (swatchPanelStyleName)
+                    dropdownSwatch.styleName = swatchPanelStyleName;
             }
             dropdownSwatch.styleChanged(styleProp);
         }
@@ -1339,8 +1332,6 @@ public class ColorPicker extends ComboBase
             var swatchPanelStyleName:Object = getStyle("swatchPanelStyleName");
             if (swatchPanelStyleName)
                 dropdownSwatch.styleName = swatchPanelStyleName;
-            else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                dropdownSwatch.styleName = this;
 
             // Assign event handlers
             dropdownSwatch.addEventListener(ColorPickerEvent.ITEM_ROLL_OVER,
