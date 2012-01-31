@@ -78,6 +78,16 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  The alpha value when the container is disabled.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="disabledAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
  *  Color of focus ring when the component is in focus
  *   
  *  @default 0x70B2EE
@@ -178,6 +188,22 @@ public class GroupBase extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  alpha
+    //----------------------------------
+    
+    private var _explicitAlpha:Number = 1.0;
+    
+    /**
+     *  @private
+     */
+    override public function set alpha(value:Number):void
+    {
+        if (enabled)
+            super.alpha = value;
+        _explicitAlpha = value;
+    }
+    
+    //----------------------------------
     //  mouseChildren
     //----------------------------------
 
@@ -223,7 +249,18 @@ public class GroupBase extends UIComponent implements IViewport
         // If enabled, reset the mouseChildren, mouseEnabled to the previously
         // set explicit value, otherwise disable mouse interaction.
         super.mouseChildren = value ? _explicitMouseChildren : false;
-        super.mouseEnabled  = value ? _explicitMouseEnabled  : false; 
+        super.mouseEnabled  = value ? _explicitMouseEnabled  : false;
+        
+        if (value)
+            super.alpha = _explicitAlpha;
+        else
+        {
+            var disabledAlpha:Number = getStyle("disabledAlpha");
+            
+            if (!isNaN(disabledAlpha))
+                super.alpha = disabledAlpha;
+            // else if it is NaN, it'll get handled in styleChanged()
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -953,6 +990,23 @@ public class GroupBase extends UIComponent implements IViewport
                 
             if (_layout)
                 _layout.updateScrollRect(unscaledWidth, unscaledHeight);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+        
+        if (!enabled && (allStyles || styleProp == "disabledAlpha"))
+        {
+            var disabledAlpha:Number = getStyle("disabledAlpha");
+            
+            if (!isNaN(disabledAlpha))
+                super.alpha = disabledAlpha;
         }
     }
     
