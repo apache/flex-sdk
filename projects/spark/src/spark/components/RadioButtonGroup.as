@@ -28,6 +28,8 @@ import mx.events.FlexEvent;
 import mx.events.ItemClickEvent;
 import mx.utils.NameUtil;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -214,7 +216,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         // The group state changed.  Invalidate all the radio buttons.  The
         // radio button skin most likely will change.
         for (var i:int = 0; i < numRadioButtons; i++)
-            getRadioButtonAt(i).mx_internal::invalidateSkinState();
+            getRadioButtonAt(i).invalidateSkinState();
     }
 
     //----------------------------------
@@ -340,7 +342,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
             return;
         
         // Going through the selection setter should never fire a change event.
-        mx_internal::setSelection(value, false);
+        setSelection(value, false);
     }
 
     //--------------------------------------------------------------------------
@@ -424,15 +426,15 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         // Apply group indices in "breadth-first" order.
         radioButtons.sort(breadthOrderCompare);
         for (var i:int = 0; i < radioButtons.length; i++)
-            radioButtons[i].mx_internal::indexNumber = i;
+            radioButtons[i].indexNumber = i;
         
         // If this radio button is selected, then it becomes the selection
         // for the group.
         if (instance.selected == true)
             selection = instance;
 
-        instance.mx_internal::radioButtonGroup = this;
-        instance.mx_internal::invalidateSkinState();
+        instance.radioButtonGroup = this;
+        instance.invalidateSkinState();
         
 		dispatchEvent(new Event("numRadioButtonsChanged"));
     }
@@ -454,7 +456,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                 if (foundInstance)
                 {
                     // Decrement the indexNumber for each button after the removed button.
-                    rb.mx_internal::indexNumber = rb.mx_internal::indexNumber - 1;
+                    rb.indexNumber = rb.indexNumber - 1;
                 }
                 else if (rb == instance)
                 {
@@ -473,8 +475,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                     if (instance == _selection)
                         _selection = null;
 
-                    instance.mx_internal::radioButtonGroup = null;
-                    instance.mx_internal::invalidateSkinState();
+                    instance.radioButtonGroup = null;
+                    instance.invalidateSkinState();
 
                     // Remove the radio button from the internal array.
                     radioButtons.splice(i,1);
@@ -628,7 +630,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         {
             //trace("radioButton_addedHandler", rb.id);
             rb.removeEventListener(Event.ADDED, radioButton_addedHandler);
-            mx_internal::addInstance(rb);
+            addInstance(rb);
         }
     }
 
