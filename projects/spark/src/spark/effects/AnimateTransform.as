@@ -1163,7 +1163,9 @@ public class AnimateTransform extends Animate
             var instance:AnimateTransformInstance = 
                 AnimateTransformInstance(transformInstancePerTarget[target]);
             initInstance(instance);
-            return instance;
+            // return null to indicate that there is no 'new' instance. This 
+            // keeps it from being redundantly added to composite effects
+            return null;
         }
     }
     
