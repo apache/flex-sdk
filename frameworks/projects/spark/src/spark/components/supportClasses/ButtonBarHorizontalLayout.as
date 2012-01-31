@@ -14,7 +14,7 @@ package spark.components.supportClasses
 
 import spark.components.supportClasses.GroupBase;
 import mx.core.ILayoutElement;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutBase;
 
 /**
  *  The ButtonBarHorizontalLayout is a layout specifically designed for the
