@@ -94,6 +94,14 @@ use namespace mx_internal;
 [IconFile("Panel.png")]
 
 /**
+ * Because this component does not define a skin for the mobile theme, Adobe
+ * recommends that you not use it in a mobile application. Alternatively, you
+ * can define your own mobile skin for the component. For more information,
+ * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html"/>Spark Skinning</a>.
+ */
+[DiscouragedForProfile("mobileDevice")]
+
+/**
  *  The Panel class defines a container that includes a title bar, 
  *  a caption, a border, and a content area for its children.
  *
