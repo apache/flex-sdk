@@ -11,7 +11,6 @@
 
 package spark.components
 {
-import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
@@ -69,22 +68,6 @@ public class VScrollBar extends ScrollBar
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  The size of the track, which equals the height of the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function get trackSize():Number
-    {
-        if (track)
-            return track.height;
-        else
-            return 0;
-    }
-    
     override public function set viewport(newViewport:IViewport):void
     {
         super.viewport = newViewport;
@@ -108,6 +91,44 @@ public class VScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
+     */
+    override protected function pointToValue(x:Number, y:Number):Number
+    {
+        var r:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
+        return minimum + ((r != 0) ? (y / r) * (maximum - minimum) : 0); 
+    }
+
+    /**
+     *  @private
+     */
+    override protected function updateSkinDisplayList():void
+    {
+        if (!thumb || !track)
+            return;
+
+        var trackPos:Number = track.getLayoutBoundsY();
+        var trackSize:Number = track.getLayoutBoundsHeight();
+        var range:Number = maximum - minimum;
+
+        var thumbPos:Number = 0;
+        var thumbSize:Number = trackSize;
+        if (range > 0)
+        {
+            thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
+            thumbSize = Math.max(thumb.minHeight, thumbSize);
+            thumbPos = (value - minimum) * ((trackSize - thumbSize) / range);
+        }
+
+        if (getStyle("fixedThumbSize") === false)
+            thumb.setLayoutBoundsSize(NaN, thumbSize);
+        if (getStyle("autoThumbVisibility") === true)
+            thumb.visible = thumbSize < trackSize;
+        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(trackPos + thumbPos));
+    }
+    
+    
+    /**
      *  Update the value property and, if viewport is non null, then set 
      *  its verticalScrollPosition to <code>value</code>.
      * 
@@ -127,82 +148,6 @@ public class VScrollBar extends ScrollBar
     }
         
     /**
-     *  Position the thumb button according to the given thumbPos parameter,
-     *  relative to the current y location of the track in the scrollbar control.
-     * 
-     *  @param thumbPos A number representing the new position of the thumb
-     *  button in the control.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function positionThumb(thumbPos:Number):void
-    {
-        if (!thumb)
-            return;
-            
-        var trackPos:Number = track ? track.y : 0;
-        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(trackPos + thumbPos));
-    }
-
-    /**
-     *  @private
-     */
-    override protected function calculateThumbSize():Number
-    {
-        if (!thumb)
-            return super.calculateThumbSize();
-            
-        var size:Number = (getStyle("fixedThumbSize")) ? 
-            thumb.getPreferredBoundsHeight() : 
-            super.calculateThumbSize();
-        return Math.max(thumb.minHeight, size);
-    }
-
-    /**
-     *  @private
-     *  Note: we're comparing the "calculated", not fixed, size of the thumb with the trackSize
-     *  to decide if the thumb should be visible.  We want to know if the thumb needs to be visible,
-     *  and the comparison would fail if we always compared the track size and the fixed thumb size.
-     *  See calculateThumbSize().
-     */
-    override protected function sizeThumb(thumbSize:Number):void
-    {
-        if (!thumb)
-            return;
-
-        thumb.setLayoutBoundsSize(NaN, thumbSize);
-        var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
-            super.calculateThumbSize() : 
-            thumbSize;
-        if (getStyle("autoThumbVisibility"))
-            thumb.visible = calculatedThumbSize < trackSize;
-    }
-    
-    /**
-     *  Returns the position of the thumb button on an VScrollBar control, 
-     *  which is equal to the <code>localY</code> parameter.
-     * 
-     *  @param localX The X position relative to the scrollbar control.
-     *
-     *  @param localY The Y position relative to the scrollbar control.
-     *
-     *  @return The position of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function pointToPosition(localX:Number, 
-                                                localY:Number):Number
-    {
-        return localY;
-    }
-    
-    /**
      *  If <code>viewport</code> is not null, 
      *  change the vertical scroll position for page up or page down by 
      *  scrolling the viewport.
@@ -216,28 +161,28 @@ public class VScrollBar extends ScrollBar
      *
      *  <p>If <code>viewport</code> is null, 
      *  change the vertical scroll position for page up or page down by calling 
-     *  the <code>page()</code> method.</p>
+     *  the <code>changeValueByPage()</code> method.</p>
      *
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#page()
+     *  @see mx.components.baseClasses.TrackBase#changeValueByPage()
      *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#verticalScrollPosition
      *  @see spark.core.IViewport#getVerticalScrollPositionDelta()     
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
-    */
-     override public function page(increase:Boolean = true):void
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function changeValueByPage(increase:Boolean = true):void
     {
         var oldPageSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's page() implementation to get the same
+            // Want to use ScrollBar's changeValueByPage() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
@@ -245,7 +190,7 @@ public class VScrollBar extends ScrollBar
             pageSize = Math.abs(viewport.getVerticalScrollPositionDelta(
                 (increase) ? NavigationUnit.PAGE_DOWN : NavigationUnit.PAGE_UP));
         }
-        super.page(increase);
+        super.changeValueByPage(increase);
         if (viewport)
             pageSize = oldPageSize;
     } 
@@ -279,12 +224,12 @@ public class VScrollBar extends ScrollBar
      *
      *  <p>If <code>viewport</code> is null, 
      *  change the vertical scroll position for line up or line down by calling 
-     *  the <code>step()</code> method.</p>
+     *  the <code>changeValueByStep()</code> method.</p>
      *
      *  @param increase Whether the line scoll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#step()
+     *  @see mx.components.baseClasses.TrackBase#changeValueByStep()
      *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#verticalScrollPosition
@@ -295,12 +240,12 @@ public class VScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     override public function step(increase:Boolean = true):void
+     override public function changeValueByStep(increase:Boolean = true):void
     {
         var oldStepSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's step() implementation to get the same
+            // Want to use ScrollBar's changeValueByStep() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
@@ -308,7 +253,7 @@ public class VScrollBar extends ScrollBar
             stepSize = Math.abs(viewport.getVerticalScrollPositionDelta(
                 (increase) ? NavigationUnit.DOWN : NavigationUnit.UP));
         }
-        super.step(increase);
+        super.changeValueByStep(increase);
         if (viewport)
             stepSize = oldStepSize;
     } 
