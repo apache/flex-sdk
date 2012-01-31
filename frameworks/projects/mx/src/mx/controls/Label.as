@@ -30,7 +30,6 @@ import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
