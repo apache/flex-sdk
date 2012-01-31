@@ -366,7 +366,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;VideoPlayer
+ *  &lt;s:VideoPlayer
   
  *    <strong>Properties</strong>
  *    autoPlay="true"
