@@ -1637,7 +1637,7 @@ public class TextView extends UIComponent
 			    '<content>' + markup + '</content>' +
 			'</TextGraphic>';
 		
-		return TextFilter.importFromString(markup, "fxg");
+		return TextFilter.importFromString(markup, TextFilter.FXG_FORMAT);
 	}
 
 	/**
@@ -1678,7 +1678,7 @@ public class TextView extends UIComponent
 		{
 			if (text != null && text != "")
 			{
-				textFlow = TextFilter.importFromString(text, "text");
+				textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
 			}
 			else
 			{
