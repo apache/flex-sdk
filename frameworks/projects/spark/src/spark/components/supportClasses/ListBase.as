@@ -777,11 +777,16 @@ public class ListBase extends SkinnableDataContainer
         
         // Now run through and initialize the renderer correctly
         super.updateRenderer(renderer); 
-          
-        var index:Number = dataGroup.getElementIndex(renderer);
         
         // Set any new properties on the renderer now that it's going to 
         // come back into use. 
+        
+        var index:int
+        if (renderer is IItemRenderer)
+            index = IItemRenderer(renderer).index;
+        else
+            index = dataGroup.getElementIndex(renderer);
+        
         if (isItemIndexSelected(index))
             itemSelected(index, true);
     }
