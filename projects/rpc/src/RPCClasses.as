@@ -20,6 +20,7 @@ package
  */
 internal class RPCClasses
 {
+import mx.messaging.AbstractMessageStore; AbstractMessageStore;
 import mx.messaging.Consumer; Consumer;
 import mx.messaging.MultiTopicProducer; MultiTopicProducer;
 import mx.messaging.MultiTopicConsumer; MultiTopicConsumer;
