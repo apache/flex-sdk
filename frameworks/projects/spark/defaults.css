@@ -28,6 +28,11 @@ HScrollBar
     skinZZ: ClassReference("flex.skin.HScrollBarSkin");
 }
 
+HSlider
+{
+    skinZZ: ClassReference("flex.skin.HSliderSkin");
+}
+
 ItemsComponent
 {
 	skinZZ: ClassReference("flex.skin.ItemsComponentSkin");
@@ -76,6 +81,11 @@ ToggleButton
 VScrollBar
 {
 	skinZZ: ClassReference("flex.skin.VScrollBarSkin");
+}
+
+VSlider
+{
+    skinZZ: ClassReference("flex.skin.VSliderSkin");
 }
 
 .boldText 
