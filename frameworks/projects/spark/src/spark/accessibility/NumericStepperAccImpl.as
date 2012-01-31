@@ -21,9 +21,10 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 
 import spark.components.NumericStepper;
+import spark.components.TextInput;
+import spark.events.SkinPartEvent;
 
 use namespace mx_internal;
-
 
 /**
  *  NumericStepperAccImpl is a subclass of AccessibilityImplementation
@@ -99,17 +100,99 @@ public class NumericStepperAccImpl extends SpinnerAccImpl
         super(master);
         
         role = AccConst.ROLE_SYSTEM_TEXT;
-        
-        NumericStepper(master).textDisplay.addEventListener(Event.CHANGE,
-            eventHandler);
-        
-        NumericStepper(master).textDisplay.addEventListener(
-            FocusEvent.FOCUS_IN, focusInHandler);
+		
+		// NumericStepper has a TextInput as a skin part,
+		// and we need to listen to some of its events.
+		// It may or may not be present when this constructor is called.
+		// If it comes or goes later, we are notified via
+		// "partAdded" and "partRemoved" events.
+		var textDisplay:TextInput = NumericStepper(master).textDisplay;
+        if (textDisplay)
+		{
+        	textDisplay.addEventListener(Event.CHANGE, eventHandler);        
+        	textDisplay.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
+		}
     }
     
-    /**
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden properties: AccImpl
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  eventsToHandle
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Array of events that we should listen for from the master component.
+	 */
+	override protected function get eventsToHandle():Array
+	{
+		return super.eventsToHandle.concat([ SkinPartEvent.PART_ADDED,
+											 SkinPartEvent.PART_REMOVED ]);
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden event handlers: AccImpl
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  Override the generic event handler.
+	 *  All AccImpl must implement this
+	 *  to listen for events from its master component.
+	 */
+	override protected function eventHandler(event:Event):void
+	{
+		var textDisplay:TextInput;
+		
+		switch (event.type)
+		{
+			case SkinPartEvent.PART_ADDED:
+			{
+				textDisplay = NumericStepper(master).textDisplay;
+				if (SkinPartEvent(event).instance == textDisplay)
+				{
+					textDisplay.addEventListener(Event.CHANGE,
+												 eventHandler);        
+					textDisplay.addEventListener(FocusEvent.FOCUS_IN,
+												 focusInHandler);
+				}
+				break;
+			}
+				
+			case SkinPartEvent.PART_REMOVED:
+			{
+				textDisplay = NumericStepper(master).textDisplay;
+				if (SkinPartEvent(event).instance == textDisplay)
+				{
+					textDisplay.removeEventListener(Event.CHANGE,
+													eventHandler);        
+					textDisplay.removeEventListener(FocusEvent.FOCUS_IN,
+													focusInHandler);
+				}
+				break;
+			}
+				
+			default:
+			{
+				super.eventHandler(event);
+			}
+		}
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Event handlers
+	//
+	//--------------------------------------------------------------------------
+
+	/**
      *  @private
-     *
      */
     private function focusInHandler(event:Event):void
     {
