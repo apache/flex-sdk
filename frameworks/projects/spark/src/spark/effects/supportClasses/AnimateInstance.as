@@ -703,6 +703,14 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         dispatchEvent(event);
     }    
 
+    private function animationCleanup():void
+    {
+        if (disableConstraints)
+            reenableConstraints();
+        if (disableLayout)
+            setupParentLayout(true);
+    }
+    
     /**
      *  @private
      *  Called internally to handle end events for the animation. 
@@ -715,11 +723,23 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     public function animationEnd(animation:Animation):void
     {
-        if (disableConstraints)
-            reenableConstraints();
-        if (disableLayout)
-            setupParentLayout(true);
+        animationCleanup();
         finishEffect();
+    }
+
+    /**
+     *  @private
+     *  Called internally to handle stop events for the animation. 
+     *  If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function animationStop(animation:Animation):void
+    {
+        animationCleanup();
     }
 
     private function noopAnimationHandler(event:TimerEvent):void
