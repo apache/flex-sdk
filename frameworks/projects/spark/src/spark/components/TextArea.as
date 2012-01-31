@@ -157,10 +157,6 @@ public class TextArea extends TextBase
      */
     private var useTextFlowForContent:Boolean = false;
     
-    [Bindable("change")]
-    [Bindable("contentChanged")]
-    [Bindable("textChanged")]
-    
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
@@ -180,6 +176,9 @@ public class TextArea extends TextBase
         
     /**
      *  Documentation is not currently available.
+     * 
+     *  A TextFlow object is not shareable.  To clone a TextFlow use
+     *  TextFlow.deepCopy().
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -207,9 +206,6 @@ public class TextArea extends TextBase
         setContent(value);
 
         useTextFlowForContent = false;
-
-        // Trigger bindings to contentChanged.
-        dispatchEvent(new Event("contentChanged"));        
     }
     
     //----------------------------------
@@ -386,7 +382,17 @@ public class TextArea extends TextBase
         // The scroller, between textView and this in the chain, should not 
         // getFocus.
         if (instance == scroller)
+        {
             scroller.focusEnabled = false;
+            
+            // TLF does scrolling in real numbers.  If the scroller doesn't
+            // round to ints then the sets of verticalScrollPosition and
+            // horizontalScrollPosition will be no-ops which is desirable.
+            if (scroller.horizontalScrollBar)
+                scroller.horizontalScrollBar.valueInterval = 0;
+            if (scroller.verticalScrollBar)
+                scroller.verticalScrollBar.valueInterval = 0;
+        }            
     }
     
     //--------------------------------------------------------------------------
