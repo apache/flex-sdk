@@ -73,49 +73,6 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Style-driven properties
-    //
-    //--------------------------------------------------------------------------
-    
-    [Bindable("contentBackgroundColorChanged")]
-    [Bindable("dataChange")]
-    /**
-     *  Color of the fill of an item renderer
-     *   
-     *  @default 0xFFFFFF
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get contentBackgroundColor():uint
-    {
-        var alternatingColors:Array = getStyle("alternatingItemColors");
-        
-        if (alternatingColors && alternatingColors.length > 0)
-        {
-            var idx:int;
-            
-            // translate these colors into uints
-            styleManager.getColorNames(alternatingColors);
-            
-            return alternatingColors[index % alternatingColors.length];
-        }
-        
-        return getStyle("contentBackgroundColor");
-    }
-    
-    /**
-     *  @private
-     */
-    public function set contentBackgroundColor(value:uint):void
-    {
-        setStyle("contentBackgroundColor", value);
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     //  Private Properties
     //
     //--------------------------------------------------------------------------
@@ -151,40 +108,39 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     
     /**
      *  @private
-     *  storage for the handleHighlightBackground property 
+     *  storage for the autoDrawBackground property 
      */ 
-    private var _handleHighlightBackground:Boolean = false;
+    private var _autoDrawBackground:Boolean = false;
     
     /**
      *  Whether the item renderer should handle drawing the 
-     *  selection/highlight background.
+     *  selection/rollOver background.
      * 
      *  <p>If set to <code>true</code>, the background for 
      *  the item renderer is automatically drawn, and it 
      *  depends on the styles that are set (<code>contentBackgroundColor</code>, 
      *  <code>alternatingItemColor</code>, <code>rollOverColor</code>, 
      *  <code>selectionColor</code>) 
-     *  and the state that the item renderer is in (normal, 
-     *  selected, or hovered).</p>
+     *  and the state that the item renderer is in.</p>
      * 
      *  @default false
      */
-    public function get handleHighlightBackground():Boolean
+    public function get autoDrawBackground():Boolean
     {
-        return _handleHighlightBackground;
+        return _autoDrawBackground;
     }
     
     /**
      *  @private
      */
-    public function set handleHighlightBackground(value:Boolean):void
+    public function set autoDrawBackground(value:Boolean):void
     {
-        if (_handleHighlightBackground == value)
+        if (_autoDrawBackground == value)
             return;
         
-        _handleHighlightBackground = value;
+        _autoDrawBackground = value;
         
-        if (_handleHighlightBackground)
+        if (_autoDrawBackground)
         {
             redrawRequested = true;
             super.$invalidateDisplayList();
@@ -192,36 +148,36 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     }
     
     //----------------------------------
-    //  index
+    //  itemIndex
     //----------------------------------
     
     /**
      *  @private
-     *  storage for the index property 
+     *  storage for the itemIndex property 
      */    
-    private var _index:int;
+    private var _itemIndex:int;
     
     /**
      *  @inheritDoc 
      *
      *  @default false
      */    
-    public function get index():int
+    public function get itemIndex():int
     {
-        return _index;
+        return _itemIndex;
     }
     
     /**
      *  @private
      */    
-    public function set index(value:int):void
+    public function set itemIndex(value:int):void
     {
-        if (value == _index)
+        if (value == _itemIndex)
             return;
         
-        _index = value;
+        _itemIndex = value;
         dispatchEvent(new Event("contentBackgroundColorChanged"));
-        if (handleHighlightBackground)
+        if (autoDrawBackground)
         {
             redrawRequested = true;
             super.$invalidateDisplayList();
@@ -274,7 +230,12 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             return;
 
         _showsCaret = value;
-        setCurrentState(getCurrentRendererState(), playTransitions);  
+        setCurrentState(getCurrentRendererState(), playTransitions); 
+        if (autoDrawBackground)
+        {
+            redrawRequested = true;
+            super.$invalidateDisplayList();
+        }
     }
     
     //----------------------------------
@@ -305,7 +266,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         {
             _selected = value;
             setCurrentState(getCurrentRendererState(), playTransitions);
-            if (handleHighlightBackground)
+            if (autoDrawBackground)
             {
                 redrawRequested = true;
                 super.$invalidateDisplayList();
@@ -483,34 +444,32 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         
         super.styleChanged(styleName);
         
-        if (allStyles || styleName == "alternatingItemColors")
+        if (autoDrawBackground && (allStyles || styleName == "alternatingItemColors" || 
+            styleName == "contentBackgroundColor" || styleName == "rollOverColor" || 
+            styleName == "selectionColor"))
         {
-            conditionalEventDispatch("contentBackgroundColorChanged");
-        }
-        
-        if (allStyles || styleName == "contentBackgroundColor")
-        {
-            conditionalEventDispatch("contentBackgroundColorChanged");
+            redrawRequested = true;
+            super.$invalidateDisplayList();
         }
     }
     
     /**
      *  @private
      */
-    override protected function renderBackgroundFill():void
+    override mx_internal function drawBackground():void
     {
         // if handleHighlightBackground is set to true, we always 
         // draw a background and don't need to worry about mouseEnabledWhereTransparent.
-        // However, if it's false, then we should just let super.renderBackgroundFill()
+        // However, if it's false, then we should just let super.drawBackground()
         // do its job.
-        if (!handleHighlightBackground)
+        if (!autoDrawBackground)
         {
-            super.renderBackgroundFill();
+            super.drawBackground();
             return;
         }
         
         // TODO (rfrishbe): Would be good to remove this duplicate code with the 
-        // super.renderBackgroundFill() version
+        // super.drawBackground() version
         var w:Number = (resizeMode == ResizeMode.SCALE) ? measuredWidth : unscaledWidth;
         var h:Number = (resizeMode == ResizeMode.SCALE) ? measuredHeight : unscaledHeight;
         
@@ -534,27 +493,25 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
                 // translate these colors into uints
                 styleManager.getColorNames(alternatingColors);
                 
-                backgroundColor = alternatingColors[index % alternatingColors.length];
+                backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
+            }
+            else
+            {
+                backgroundColor = getStyle("contentBackgroundColor");
             }
             
-            backgroundColor = getStyle("contentBackgroundColor");
         }
         graphics.beginFill(backgroundColor, 1);
         
-        if (layout && layout.useVirtualLayout)
-            graphics.drawRect(horizontalScrollPosition, verticalScrollPosition, w, h);
+        if (showsCaret)
+        {
+            graphics.lineStyle(1, getStyle("selectionColor"));
+            graphics.drawRect(0.5, 0.5, w-1, h-1);
+        }
         else
         {
-            const tileSize:int = 4096;
-            const maxX:int = Math.round(Math.max(w, contentWidth));
-            const maxY:int = Math.round(Math.max(h, contentHeight));
-            for (var x:int = 0; x < maxX; x += tileSize)
-                for (var y:int = 0; y < maxY; y += tileSize)
-                {
-                    var tileWidth:int = Math.min(maxX - x, tileSize);
-                    var tileHeight:int = Math.min(maxY - y, tileSize);
-                    graphics.drawRect(x, y, tileWidth, tileHeight); 
-                }
+            graphics.lineStyle();
+            graphics.drawRect(0, 0, w, h);
         }
         
         graphics.endFill();
@@ -576,15 +533,6 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
     }
     
-    /**
-     *  @private
-     */
-    private function conditionalEventDispatch(eventName:String):void
-    {
-        if (hasEventListener(eventName))
-           dispatchEvent(new Event(eventName));
-    }
-    
     private function anyButtonDown(event:MouseEvent):Boolean
     {
         var type:String = event.type;
@@ -601,7 +549,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         {
             hovered = true;
             setCurrentState(getCurrentRendererState(), playTransitions);
-            if (handleHighlightBackground)
+            if (autoDrawBackground)
             {
                 redrawRequested = true;
                 super.$invalidateDisplayList();
@@ -617,7 +565,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     {
         hovered = false;
         setCurrentState(getCurrentRendererState(), playTransitions);
-        if (handleHighlightBackground)
+        if (autoDrawBackground)
         {
             redrawRequested = true;
             super.$invalidateDisplayList();
