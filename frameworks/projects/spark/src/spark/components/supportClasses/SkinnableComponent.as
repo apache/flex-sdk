@@ -508,7 +508,7 @@ public class SkinnableComponent extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function invalidateSkinState():void
+    public function invalidateSkinState():void
     {
         if (skinStateIsDirty)
             return; // State is already invalidated
