@@ -8,7 +8,8 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.components.supportClasses
+
+package spark.components.gridClasses
 {
 
 /**
