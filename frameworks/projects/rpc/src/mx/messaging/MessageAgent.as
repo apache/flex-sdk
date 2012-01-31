@@ -640,8 +640,15 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         if (Log.isDebug() && channelSet != null && channelSet.currentChannel != null && 
                 channelSet.currentChannel.mpiEnabled)
         {
-            var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(ackMsg);
-            _log.debug(mpiutil.prettyPrint());
+            try
+            {
+                var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(ackMsg);
+                _log.debug(mpiutil.prettyPrint());
+            }
+            catch (e:Error)
+            {
+                _log.debug("Could not get message performance information for: " + msg.toString());   
+            }
         }            
 
         // Remove error hint. ErrorMessages returned by the server are
