@@ -22,6 +22,11 @@ import flash.events.Event;
  *  @see mx.controls.DateChooser
  *  @see mx.controls.DateField
  *  @see mx.events.DateChooserEventDetail
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateChooserEvent extends Event
 {
@@ -56,6 +61,11 @@ public class DateChooserEvent extends Event
 	 *  </table>
 	 *
      *  @eventType scroll
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const SCROLL:String = "scroll";
 
@@ -84,6 +94,11 @@ public class DateChooserEvent extends Event
 	 *
 	 *  @param triggerEvent The event that triggered this change event;
 	 *   usually a <code>scroll</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DateChooserEvent(type:String, bubbles:Boolean = false,
 									 cancelable:Boolean = false,
@@ -116,6 +131,11 @@ public class DateChooserEvent extends Event
 	 *  <code>DateChooserEventDetail.PREVIOUS_YEAR</code>.
 	 *
 	 *  @see mx.events.DateChooserEventDetail
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var detail:String;
 
@@ -126,6 +146,11 @@ public class DateChooserEvent extends Event
 	/**
 	 *  The event that triggered this change;
 	 *  usually a <code>scroll</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var triggerEvent:Event;
 
