@@ -1011,7 +1011,12 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function get enableIME():Boolean
     {
-        return editable;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+        
+        if (richEditableText)        
+            return richEditableText.enableIME;
+        
+        return false;
     }
 
     //----------------------------------
