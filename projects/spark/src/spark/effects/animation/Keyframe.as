@@ -166,7 +166,7 @@ public class Keyframe
      *  <p>Note that the parent effect
      *  might have easing applied already over the entire
      *  animation. Therefore, if easing per keyframe interval is desired
-     *  instead, it may be necessary to set the overall effect  
+     *  instead, it is necessary to set the overall effect  
      *  easer to linear easing (spark.effects.easing.Linear) and then
      *  set the <code>easer</code> on each Keyframe as appropriate.</p>
      * 
