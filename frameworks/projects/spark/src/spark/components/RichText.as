@@ -15,8 +15,10 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
+import flashx.textLayout.conversion.ImportExportConfiguration;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
@@ -85,6 +87,32 @@ public class TextGraphic extends TextGraphicElement
 
     //--------------------------------------------------------------------------
     //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticCharacterFormat:CharacterFormat =
+        new CharacterFormat();
+    
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticConfiguration:Configuration =
+        new Configuration();
+    
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticImportExportConfiguration:ImportExportConfiguration;
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -94,6 +122,17 @@ public class TextGraphic extends TextGraphicElement
      */
     public function TextGraphic()
     {
+        // Initialize staticImportExportConfiguration at instance-creation
+        // time rather than at static initialization time, to avoid
+        // any class-initialization-order problems.
+        if (!staticImportExportConfiguration)
+        {
+            staticImportExportConfiguration =
+                ImportExportConfiguration.defaultConfiguration;
+            
+            ImportExportConfiguration.restoreDefaults();
+        }
+
         super();
 
         _content = textFlow = createEmptyTextFlow();
@@ -404,21 +443,44 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private function importStringMarkup(markup:String):TextFlow
+    private function createTextFlowFromMarkup(markup:Object):TextFlow
     {
-        markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                 markup +
-                 '</TextFlow>';
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when markup is imported.
+		staticCharacterFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+		staticConfiguration.textFlowInitialCharacterFormat =
+            staticCharacterFormat;
+		staticImportExportConfiguration.textFlowConfiguration =
+            staticConfiguration; 
+
+        if (markup is String)
+        {
+            markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
+                     markup +
+                     '</TextFlow>';
+        }
         
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
+                                       staticImportExportConfiguration);
     }
     
     /**
      *  @private
      */
-    private function importXMLMarkup(markup:XML):TextFlow
+    private function createTextFlowFromChildren(children:Array):TextFlow
     {
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
+        var textFlow:TextFlow = new TextFlow();
+
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when the children are set.
+        staticCharacterFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+        textFlow.hostCharacterFormat = staticCharacterFormat;
+
+        textFlow.mxmlChildren = children;
+
+        return textFlow;
     }
 
     /**
@@ -435,21 +497,15 @@ public class TextGraphic extends TextGraphicElement
             }
             else if (_content is Array)
             {
-                textFlow = new TextFlow();
-                textFlow.mxmlChildren = _content as Array;
+                textFlow = createTextFlowFromChildren(_content as Array);
             }
             else if (_content is FlowElement)
             {
-                textFlow = new TextFlow();
-                textFlow.mxmlChildren = [ _content ];
+                textFlow = createTextFlowFromChildren([ _content ]);
             }
-	        else if (_content is XML)
+	        else if (_content is String || _content is XML)
             {
-                textFlow = importXMLMarkup(XML(_content));
-            }
-            else if (_content is String)
-            {
-                textFlow = importStringMarkup(String(_content));
+                textFlow = createTextFlowFromMarkup(_content);
             }
             else if (_content == null)
             {
