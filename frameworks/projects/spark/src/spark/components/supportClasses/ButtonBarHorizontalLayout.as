@@ -134,6 +134,9 @@ public class ButtonBarHorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
+        var elementCount:int = 0;
+        var gap:Number = this.gap;
+
         var width:Number = 0;
         var height:Number = 0;
 
@@ -145,9 +148,13 @@ public class ButtonBarHorizontalLayout extends LayoutBase
                 continue;
 
             width += layoutElement.getPreferredBoundsWidth();
+            elementCount++;
             height = Math.max(height, layoutElement.getPreferredBoundsHeight());
 
         }
+
+        if (elementCount > 1)
+            width += gap * (elementCount - 1);
 
         layoutTarget.measuredWidth = width;
         layoutTarget.measuredHeight = height;
