@@ -22,6 +22,33 @@ in accordance with the terms of the license agreement accompanying it.
             
             //--------------------------------------------------------------------------
             //
+            //  Overriden properties
+            //
+            //--------------------------------------------------------------------------
+            
+            /**
+             *  @private
+             * 
+             *  returns the selected item in the comboBox.
+             */ 
+            override public function get value():Object
+            {
+                return comboBox.selectedItem;            
+            }
+            
+            /**
+             *  @private
+             * 
+             *  Set the selected item of the combo box with the data from the
+             *  item. 
+             */ 
+            override public function set value(newValue:Object):void
+            {
+                comboBox.selectedItem = newValue;
+            }
+            
+            //--------------------------------------------------------------------------
+            //
             //  Properties
             //
             //--------------------------------------------------------------------------
@@ -31,7 +58,7 @@ in accordance with the terms of the license agreement accompanying it.
             //----------------------------------
             
             private var _dataProvider:IList;
-
+            
             [Bindable("comboBoxGridItemEditorDataProviderChanged")]
             
             /**
@@ -54,26 +81,11 @@ in accordance with the terms of the license agreement accompanying it.
                 dispatchEvent(new Event("comboBoxGridItemEditorDataProviderChanged"));
             }
             
-            /**
-             *  @private
-             * 
-             *  returns the selected item in the comboBox.
-             */ 
-            override public function get value():Object
-            {
-                return comboBox.selectedItem;            
-            }
-            
-            /**
-             *  @private
-             * 
-             *  Set the selected item of the combo box with the data from the
-             *  item. 
-             */ 
-            override public function set value(newValue:Object):void
-            {
-                comboBox.selectedItem = newValue;
-            }
+            //--------------------------------------------------------------------------
+            //
+            //  Overridden methods
+            //
+            //--------------------------------------------------------------------------
             
             /**
              *  @private
