@@ -196,7 +196,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="baseColor", kind="style")]
+[Exclude(name="chromeColor", kind="style")]
 
 //--------------------------------------
 //  Other metadata
