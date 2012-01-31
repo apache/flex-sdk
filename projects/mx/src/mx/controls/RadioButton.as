@@ -395,6 +395,8 @@ public class RadioButton extends Button implements IFocusManagerGroup
         _value = value;
 
         dispatchEvent(new Event("valueChanged"));
+        if (selected && group)
+        	group.dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
 
     //--------------------------------------------------------------------------
