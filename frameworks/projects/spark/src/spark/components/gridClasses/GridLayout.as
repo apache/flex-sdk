@@ -156,7 +156,7 @@ public class GridLayout extends LayoutBase
         else
         {
             const columns:IList = grid.columns;
-            const numColumns:int = columns.length;
+            const numColumns:int = columns ? columns.length : 0;
             var columnCount:int;
             for (var i:int = 0; i < numColumns; i++)
             {
@@ -178,7 +178,7 @@ public class GridLayout extends LayoutBase
         }
         else
         {
-            const rowCount:int = grid.dataProvider.length;
+            const rowCount:int = grid.dataProvider ? grid.dataProvider.length : 0;
             const rowGap:Number = gridDimensions.rowGap;
             const defaultRowHeight:Number = 
                 typicalLayoutElement.getPreferredBoundsHeight();
@@ -221,8 +221,8 @@ public class GridLayout extends LayoutBase
             return;
         
         // HACK
-        gridDimensions.rowCount = grid.dataProvider.length;
-        gridDimensions.columnCount = grid.columns.length;
+        gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
+        gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
