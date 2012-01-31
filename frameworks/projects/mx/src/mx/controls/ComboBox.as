@@ -1745,6 +1745,9 @@ public class ComboBox extends ComboBase
         if (!initialized || show == _showingDropdown)
             return;
 
+		if (inTween)
+			tween.endTween();
+
         // Subclasses may extend to do pre-processing
         // before the dropdown is displayed
         // or override to implement special display behavior
