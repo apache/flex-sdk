@@ -27,10 +27,89 @@ import spark.components.supportClasses.ToggleButtonBase;
 
 use namespace mx_internal;
 
-
 /**
- *  ButtonBaseAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the Button class.
+ *  ButtonBaseAccImpl is the accessibility implementation class
+ *  for spark.components.ButtonBase.
+ *
+ *  <p>Although ToggleButton, CheckBox, and RadioButton have their own
+ *  accessibility implementation subclasses,
+ *  Button simply uses the one for ButtonBase.
+ *  Therefore, the rest of this description refers to
+ *  the commonly-used Button class rather than the ButtonBase base class.</p>
+ *
+ *  <p>When a Spark Button is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the Button.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A Button has no MSAA children.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a Button is ROLE_SYSTEM_PUSHBUTTON.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a Button is, by default, the label that it displays.
+ *  When wrapped in a FormItem element,
+ *  this label will be combined with the FormItem's label.
+ *  To override this behavior,
+ *  set the Button's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a Button dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a Button is, by default, the empty string,
+ *  but you can set the Button's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a Button is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED (when enabled is true
+ *    and the Button has focus)</li>
+ *  </ul></p>
+ *
+ *  <p>When the State changes,
+ *  a Button dispatches the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>A Button does not have an MSAA Value.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a Button is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>The MSAA DefaultAction of a Button is "Press".</p>
+ *
+ *  <p>When an MSAA client tells the Button to perform this action,
+ *  KEY_DOWN and KEY_UP MouseEvents for the SPACE key are generated,
+ *  to simulate pressing the ButtonBase via the keyboard,
+ *  if the Button is enabled.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A Button accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A Button does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
