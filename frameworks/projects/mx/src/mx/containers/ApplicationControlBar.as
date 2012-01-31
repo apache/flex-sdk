@@ -76,6 +76,12 @@ use namespace mx_internal;
 [IconFile("ApplicationControlBar.png")]
 
 /**
+ *  As of Flex 4, the ApplicationControlBar is no longer recommended. You can achieve
+ *  the same effect by compositing groups and graphics tags in your Application.
+ */
+[Alternative(replacement="none", since="4.0")]
+
+/**
  *  The ApplicationControlBar container holds components
  *  that provide global navigation and application commands 
  *  For the Halo Application container. 
