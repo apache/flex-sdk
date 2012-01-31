@@ -37,7 +37,7 @@ import mx.effects.IEffectInstance;
  *  and adds the following tag attributes:</p>
  * 
  *  <pre>
- *  &lt;mx:SetAction
+ *  &lt;s:SetAction
  *    <b>Properties</b>
  *    id="ID"
  *    property=""
