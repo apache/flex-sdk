@@ -1029,6 +1029,8 @@ public class Label extends TextBase
         var minY:Number = innerHeight;
         var maxX:Number = 0;
         
+        var clipping:Boolean = (n) ? (textLines[n - 1].y + TextLine(textLines[n - 1]).descent > innerHeight) : false;
+
 		// Reposition each line if necessary.
 		// based on the horizontal and vertical alignment.
 		for (var i:int = 0; i < n; i++)
@@ -1059,7 +1061,7 @@ public class Label extends TextBase
 			else if (rightAligned)
 				textLine.x = rightOffset - textLine.textWidth;
 
-			if (verticalAlign == "top")
+			if (verticalAlign == "top" || !createdAllLines || clipping)
 			{
 				textLine.y += topOffset;
 			}
