@@ -26,6 +26,7 @@ import mx.messaging.errors.InvalidDestinationError;
 import mx.messaging.events.ChannelEvent;
 import mx.messaging.events.ChannelFaultEvent;
 import mx.messaging.events.MessageAckEvent;
+import mx.messaging.events.MessageEvent;
 import mx.messaging.events.MessageFaultEvent;
 import mx.messaging.messages.AbstractMessage;
 import mx.messaging.messages.AcknowledgeMessage;
@@ -33,6 +34,7 @@ import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.ErrorMessage;
 import mx.messaging.messages.IMessage;
 import mx.messaging.messages.MessagePerformanceUtils;
+import mx.netmon.NetworkMonitor;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.utils.Base64Encoder;
@@ -675,7 +677,8 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                     
-        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));                
+        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));    
+        monitorRpcMessage(ackMsg,msg);              
     }
         
     /**
@@ -727,8 +730,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                 
-        dispatchEvent(MessageFaultEvent.createEvent(errMsg));      
-        
+        dispatchEvent(MessageFaultEvent.createEvent(errMsg));    
+        monitorRpcMessage(errMsg,msg);
+              
         // If we get an authentication fault on the server and our authenticated
         // flag is true then the authentication fault must have been caused by a
         // session expiration on the server.  Set our authentication state to false.
@@ -1084,12 +1088,15 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
             
             channelSet.send(this, message);
+            monitorRpcMessage(message,message);           
         }
         else if (destination.length > 0)
         {
             initChannelSet(message);
-            if (channelSet != null)
+            if (channelSet != null){
                 channelSet.send(this, message);
+                monitorRpcMessage(message,message);      
+            }
         }        
         else
         {
@@ -1098,7 +1105,39 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             throw new InvalidDestinationError(msg);
         }
     }
-
+    
+    /**
+     * Monitor a rpc message that is being send
+    */
+    
+    private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
+    {
+        if (NetworkMonitor.isMonitoring())
+        {
+        	if (message is ErrorMessage)
+	        {
+	        		NetworkMonitor.monitorFault(actualMessage, MessageFaultEvent.createEvent(ErrorMessage(message)));
+	        }
+	        else if (message is AcknowledgeMessage)
+	        {
+	       	    	NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
+	        }	        
+	        else{
+	        		NetworkMonitor.monitorInvocation(getNetmonId(), message);
+	        }
+	       
+        }
+    }    
+	
+	/**
+     * Return the id for the NetworkMonitor.
+     * @private
+     */
+    mx_internal function getNetmonId():String
+    {
+        return null;
+    }
+    
     /**
      *  Used to automatically initialize the <code>channelSet</code> property for the
      *  MessageAgent before it connects for the first time. 
