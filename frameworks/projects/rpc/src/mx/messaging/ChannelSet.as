@@ -1314,6 +1314,54 @@ public class ChannelSet extends EventDispatcher
     //--------------------------------------------------------------------------        
     
     /**
+     *  @private
+     *  Helper method to fault pending messages. 
+     *  The ErrorMessage is tagged with a __retryable__ header to indicate that 
+     *  the error was due to connectivity problems on the client as opposed to 
+     *  a server error response and the message can be retried (resent).
+     * 
+     *  @param event A ChannelEvent.DISCONNECT or a ChannelFaultEvent that is the root cause
+     *               for faulting these pending sends.
+     */
+    protected function faultPendingSends(event:ChannelEvent):void
+    {
+        while (_pendingSends.length > 0)
+        {
+            var ps:PendingSend = _pendingSends.shift() as PendingSend;
+            var pendingMsg:IMessage = ps.message;                       
+            delete _pendingMessages[pendingMsg];
+            // Fault the message to its agent.
+            var errorMsg:ErrorMessage = new ErrorMessage();
+            errorMsg.correlationId = pendingMsg.messageId;
+            errorMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER] = true;
+            errorMsg.faultCode = "Client.Error.MessageSend";
+            errorMsg.faultString = resourceManager.getString(
+                "messaging", "sendFailed");
+            if (event is ChannelFaultEvent)
+            {
+                var faultEvent:ChannelFaultEvent = event as ChannelFaultEvent;
+                errorMsg.faultDetail = faultEvent.faultCode + " " + 
+                                   faultEvent.faultString + " " +
+                                   faultEvent.faultDetail;
+                // This is to make streaming channels report authentication fault
+                // codes correctly as they don't report connected until streaming 
+                // connection is established and hence end up here.  
+                if (faultEvent.faultCode == "Channel.Authentication.Error")
+                    errorMsg.faultCode = faultEvent.faultCode;
+            }
+            // ChannelEvent.DISCONNECT is treated the same as never
+            // being able to connect at all.
+            else
+            {
+                errorMsg.faultDetail = resourceManager.getString(
+                    "messaging", "cannotConnectToDestination");
+            }
+            errorMsg.rootCause = event;
+            ps.agent.fault(errorMsg, pendingMsg);
+        }
+    }    
+    
+    /**
      *  Redispatches message events from the currently connected Channel.
      * 
      *  @param event The MessageEvent from the Channel.
@@ -1438,54 +1486,6 @@ public class ChannelSet extends EventDispatcher
         _reconnectTimer.removeEventListener(TimerEvent.TIMER, reconnectChannel);
         _reconnectTimer = null;
         connectChannel();        
-    }
-    
-    /**
-     *  @private
-     *  Helper method to fault pending messages. 
-     *  The ErrorMessage is tagged with a __retryable__ header to indicate that 
-     *  the error was due to connectivity problems on the client as opposed to 
-     *  a server error response and the message can be retried (resent).
-     * 
-     *  @param event A ChannelEvent.DISCONNECT or a ChannelFaultEvent that is the root cause
-     *               for faulting these pending sends.
-     */
-    private function faultPendingSends(event:ChannelEvent):void
-    {
-        while (_pendingSends.length > 0)
-        {
-            var ps:PendingSend = _pendingSends.shift() as PendingSend;
-            var pendingMsg:IMessage = ps.message;                       
-            delete _pendingMessages[pendingMsg];
-            // Fault the message to its agent.
-            var errorMsg:ErrorMessage = new ErrorMessage();
-            errorMsg.correlationId = pendingMsg.messageId;
-            errorMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER] = true;
-            errorMsg.faultCode = "Client.Error.MessageSend";
-            errorMsg.faultString = resourceManager.getString(
-                "messaging", "sendFailed");
-            if (event is ChannelFaultEvent)
-            {
-                var faultEvent:ChannelFaultEvent = event as ChannelFaultEvent;
-                errorMsg.faultDetail = faultEvent.faultCode + " " + 
-                                   faultEvent.faultString + " " +
-                                   faultEvent.faultDetail;
-                // This is to make streaming channels report authentication fault
-                // codes correctly as they don't report connected until streaming 
-                // connection is established and hence end up here.  
-                if (faultEvent.faultCode == "Channel.Authentication.Error")
-                    errorMsg.faultCode = faultEvent.faultCode;
-            }
-            // ChannelEvent.DISCONNECT is treated the same as never
-            // being able to connect at all.
-            else
-            {
-                errorMsg.faultDetail = resourceManager.getString(
-                    "messaging", "cannotConnectToDestination");
-            }
-            errorMsg.rootCause = event;
-            ps.agent.fault(errorMsg, pendingMsg);
-        }
     }
 }
 
