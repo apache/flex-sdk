@@ -149,6 +149,11 @@ TabBar
     cornerRadius: 4;
 }
 
+TextBase
+{
+    layoutDirection: "ltr";
+}
+
 TextArea
 {
     paddingBottom: 3;
