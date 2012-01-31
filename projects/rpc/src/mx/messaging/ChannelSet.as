@@ -1510,6 +1510,7 @@ public class ChannelSet extends EventDispatcher
         var command:CommandMessage = CommandMessage(token.message);
         var handlingLogin:Boolean = (command.operation == CommandMessage.LOGIN_OPERATION);
         var creds:String = (handlingLogin) ? String(command.body) : null;
+        var delay:Number = 0;
 
         if (handlingLogin)
         {
@@ -1538,6 +1539,10 @@ public class ChannelSet extends EventDispatcher
             // Shutdown the current logged out agent.
             agent.state = AuthenticationAgent.SHUTDOWN_STATE;
             _authAgent = null;
+            // Slight delay is used to make sure the disconnect message makes it
+            // to the server before result is dispatched to avoid duplicate session
+            // errors. See Watson 2780176 for details.
+            delay = 250;
             disconnect(agent);
 
             // Flip current channel to *not* authenticated; this percolates
@@ -1547,7 +1552,10 @@ public class ChannelSet extends EventDispatcher
 
         // Notify.
         var resultEvent:ResultEvent = ResultEvent.createEvent(ackMessage.body, token, ackMessage);
-        dispatchRPCEvent(resultEvent);
+        if (delay > 0)
+            new AsyncDispatcher(dispatchRPCEvent, [resultEvent], delay);
+        else
+            dispatchRPCEvent(resultEvent);
     }
 
     /**
@@ -1627,9 +1635,7 @@ public class ChannelSet extends EventDispatcher
      */
     protected function messageHandler(event:MessageEvent):void
     {
-        unscheduleHeartbeat();
         dispatchEvent(event);
-        scheduleHeartbeat();
     }
 
     /**
