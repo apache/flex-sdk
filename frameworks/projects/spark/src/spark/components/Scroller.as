@@ -1063,6 +1063,7 @@ public class Scroller extends SkinnableComponent
             viewport.clipAndEnableScrolling = true;
             Group(skin).addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            viewport.addEventListener(Event.RESIZE, viewport_resizeHandler);
         }
         if (verticalScrollBar)
             verticalScrollBar.viewport = viewport;
@@ -1081,6 +1082,7 @@ public class Scroller extends SkinnableComponent
             viewport.clipAndEnableScrolling = false;
             Group(skin).removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            viewport.removeEventListener(Event.RESIZE, viewport_resizeHandler);
         }
     }
     
@@ -1854,6 +1856,22 @@ public class Scroller extends SkinnableComponent
             handleContentSizeChangeOnUpdateComplete);
         
         handleContentSizeChange();
+    }
+    
+    /**
+     *  @private 
+     */
+    private function viewport_resizeHandler(event:Event):void
+    {
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // If the viewport dimensions have changed, then we may need to update the 
+            // scroll ranges and positions per the new viewport size.
+            // Note that the orientationChangeHandler serves the same purpose, but on 
+            // some platforms (i.e. Android) the runtime sends the "orientationChange"
+            // event before the new viewport dimensions are set.
+            checkScrollPosition();
+        }
     }
     
     /**
