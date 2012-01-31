@@ -88,24 +88,24 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.SliderAccImpl")]
+[AccessibilityClass(implementation="spark.accessibility.SliderBaseAccImpl")]
 
 /**
- *  The Slider class lets users select a value by moving a slider thumb between 
+ *  The SliderBase class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
  *  The current value of the slider is determined by the relative location of 
  *  the thumb between the end points of the slider, 
  *  corresponding to the slider's minimum and maximum values.
  *
- *  The Slider class is a base class for HSlider and VSlider.
+ *  The SliderBase class is a base class for HSlider and VSlider.
  *
  *  @mxml
  *
- *  <p>The <code>&lt;s:Slider&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:SliderBase&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;s:Slider
+ *  &lt;s:SliderBase
  *    <strong>Properties</strong>
  *    dataTipFormatFunction="20"
  *    dataTipPrecision="2"
@@ -155,7 +155,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Slider extends TrackBase implements IFocusManagerComponent
+public class SliderBase extends TrackBase implements IFocusManagerComponent
 {
     include "../../core/Version.as";
 
@@ -167,7 +167,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Placeholder for mixin by SliderAccImpl.
+     *  Placeholder for mixin by SliderBaseAccImpl.
      */
     mx_internal static var createAccessibilityImplementation:Function;
 
@@ -185,7 +185,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Slider():void
+    public function SliderBase():void
     {
         super();
 
@@ -311,7 +311,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *
      *  <p>The following example prefixes the data tip text with a dollar sign and 
      *  formats the text using the <code>dataTipPrecision</code> 
-     *  of a Slider Control named 'slide': </p>
+     *  of a SliderBase Control named 'slide': </p>
      *
      *  <pre>
      *  import mx.formatters.NumberBase;
@@ -436,8 +436,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     override protected function initializeAccessibility():void
     {
-        if (Slider.createAccessibilityImplementation != null)
-            Slider.createAccessibilityImplementation(this);
+        if (SliderBase.createAccessibilityImplementation != null)
+            SliderBase.createAccessibilityImplementation(this);
     }
 
     /**
@@ -447,7 +447,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     {
         super.partAdded(partName, instance);
         
-        // Prevent focus on our children so that focus remains with the Slider
+        // Prevent focus on our children so that focus remains with the SliderBase
         if (instance == thumb)
             thumb.focusEnabled = false;
         else if (instance == track)
@@ -611,7 +611,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             
             var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent;
             
-            // Allow styles to be inherited from Slider.
+            // Allow styles to be inherited from SliderBase.
             if (tipAsUIComponent)
             {
                 tipAsUIComponent.owner = this;
