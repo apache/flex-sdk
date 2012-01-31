@@ -17,7 +17,7 @@ import flash.events.Event;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 
-import spark.events.PopUpCloseEvent;
+import spark.events.PopUpEvent;
 
 //--------------------------------------
 //  Events
@@ -29,14 +29,14 @@ import spark.events.PopUpCloseEvent;
  *  This event is dispatched when the container switches from "closed" to "normal"
  *  state and the transition to that state completes.
  *
- *  @eventType mx.events.FlexEvent.OPEN
+ *  @eventType spark.events.PopUpEvent.OPEN
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="open", type="mx.events.FlexEvent")]
+[Event(name="open", type="spark.events.PopUpEvent")]
 
 /**
  *  Dispatched by the container when it's closed.
@@ -53,14 +53,14 @@ import spark.events.PopUpCloseEvent;
  *  it will dispatch this event.  Then, in the listener, the developer can check
  *  the <code>commit</code> parameter and perform the appropriate action.  </p>
  *
- *  @eventType mx.events.PopUpCloseEvent.CLOSE
+ *  @eventType spark.events.PopUpEvent.CLOSE
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="close", type="spark.events.PopUpCloseEvent")]
+[Event(name="close", type="spark.events.PopUpEvent")]
 
 //--------------------------------------
 //  States
@@ -77,18 +77,23 @@ import spark.events.PopUpCloseEvent;
 [SkinState("closed")]
 
 /**
- *  Disabled and Closed State
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[SkinState("disabledAndClosed")]
-
-// FIXME (egeorgie): ASDoc comment
-/**
- * 
+ *  The SkinnablePopUpContainer class is a SkinnableContainer that also acts as a pop-up.
+ *
+ *  The SkinnablePopUpContainer is initially in its "closed" state and when it's opened
+ *  it will add itself as a pop-up to the PopUpManager and transition to its "normal" state.
+ *
+ *  <p>When using SkinnablePopUpContainer the pop-up is defined in mxml as
+ *  a SkinnablePopUpContainer component.  To show the component create an instance and
+ *  call the <code>open()</code> method. The developers are responsible for the sizing and positioning
+ *  of the component.  To close the component call the <code>close()</code>
+ *  method.  If the pop-up needs to pass data back to a handler, you can add a listener for 
+ *  the <code>PopUp.CLOSE</code> event and specify the data in the <code>close()</code> method.</p>
+ *
+ *  To define open and close animations, use a custom skin with transitions between the "closed"
+ *  and "normal" states.
+ *
+ *  @see spark.skins.spark.SkinnablePopUpContainerSkin
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -127,7 +132,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      * 
      *  @private
      */    
-    private var closeEvent:PopUpCloseEvent;
+    private var closeEvent:PopUpEvent;
     
     /**
      *  Track whether the container is added to the PopUpManager.
@@ -135,7 +140,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  @private
      */    
     private var addedToPopUpManager:Boolean = false;
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -143,32 +148,32 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  opened
+    //  isOpen
     //----------------------------------
     
     /**
-     *  Storage for the opened property.
+     *  Storage for the isOpen property.
      *
      *  @private
      */
-    private var _opened:Boolean = false;
+    private var _isOpen:Boolean = false;
     
     [Inspectable(category="General", defaultValue="false")]
-    
+
     /**
-     *  True when the container is currently showing as a pop-up. 
-     *  
+     *  True when the container is open and is currently showing as a pop-up.  
+     *
      *  @see #open
-     *  @see #close
+     *  @see #close 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get opened():Boolean
+    public function get isOpen():Boolean
     {
-        return _opened;
+        return _isOpen;
     }
 
     //--------------------------------------------------------------------------
@@ -182,6 +187,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  waits till any state transitions are finished playing and dispatches <code>FlexEvent.OPEN</code> event.
      *
      *  @param owner The owner of the container.
+     *
      *  @param modal Whether the container should be modal.
      *
      *  @see #close 
@@ -191,9 +197,9 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function open(owner:DisplayObjectContainer, modal:Boolean = true):void
+    public function open(owner:DisplayObjectContainer, modal:Boolean = false):void
     {
-        if (_opened)
+        if (isOpen)
             return; 
         
         closeEvent = null; // Clear any pending close event
@@ -214,19 +220,19 @@ public class SkinnablePopUpContainer extends SkinnableContainer
 
         // Change state *after* we pop up, as the skin needs to go be in the initial "closed"
         // state while being created above in order for transitions to detect state change and play. 
-        _opened = true;
+        _isOpen = true;
         invalidateSkinState();
         if (skin)
-            skin.addEventListener(FlexEvent.STATE_TRANSITION_COMPLETE, stateTransitionComplete_handler);
+            skin.addEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         else
-            stateTransitionComplete_handler(null); // Call directly
+            stateChangeComplete_handler(null); // Call directly
     }
     
     /**
      *  Changes the current state to "closed", waits till any state transitions are finished playing,
-     *  dispatches a <code>PopUpClose.CLOSE</code> event and removes the container from the PopUpManager.
+     *  dispatches a <code>PopUpEvent.CLOSE</code> event and removes the container from the PopUpManager.
      *
-     *  <p>The PopUpCloseEvent provides a mechanism to pass commit information from the container to
+     *  <p>The PopUpEvent provides a mechanism to pass commit information from the container to
      *  a listener.  One typical usage scenario is building a multiple-choice dialog with a 
      *  cancel button.  When a valid option is selected, the developer closes the dialog
      *  with a call to the <code>SkinnablePopUpContainer.close()</code> method, passing
@@ -235,8 +241,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  it will dispatch this event.  Then, in the listener, the developer can check
      *  the <code>commit</code> parameter and perform the appropriate actions.  </p>
      *
-     *  @param commit The value for the <code>commit</code> property of the <code>PopUpClose</code> event.
-     *  @param data The value for the <code>data</code> property for the <code>PopUpClose</code> event.
+     *  @param commit The value for the <code>commit</code> property of the <code>PopUpEvent</code> event.
+     *  @param data The value for the <code>data</code> property for the <code>PopUpEvent</code> event.
      *
      *  @see #open
      * 
@@ -247,20 +253,20 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     public function close(commit:Boolean = false, data:* = undefined):void
     {
-        if (!_opened)
+        if (!isOpen)
             return;
         
         // We will dispatch the event later, when the close transition is complete.
-        closeEvent = new PopUpCloseEvent(commit, data);
+        closeEvent = new PopUpEvent(PopUpEvent.CLOSE, false, false, commit, data);
 
         // Change state
-        _opened = false;
+        _isOpen = false;
         invalidateSkinState();
 
         if (skin)
-            skin.addEventListener(FlexEvent.STATE_TRANSITION_COMPLETE, stateTransitionComplete_handler);
+            skin.addEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         else
-            stateTransitionComplete_handler(null); // Call directly
+            stateChangeComplete_handler(null); // Call directly
     }
     
     //--------------------------------------------------------------------------
@@ -268,7 +274,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private 
      */
@@ -278,14 +284,13 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // "normal"
         // "disabled"
         // "closed"
-        // "disabledAndClosed"
 
         var state:String = super.getCurrentSkinState();
-        if (!opened)
-            return state == "normal" ? "closed" : state + "AndClosed";
+        if (!isOpen)
+            return state == "normal" ? "closed" : state;
         return state;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -297,15 +302,15 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *
      *  Called when we have completed transitioning to opened/closed state.
      */
-    private function stateTransitionComplete_handler(event:Event):void
+    private function stateChangeComplete_handler(event:Event):void
     {
         // We get called directly with null if there's no skin to listen to.
         if (event)
-            event.target.removeEventListener(FlexEvent.STATE_TRANSITION_COMPLETE, stateTransitionComplete_handler);
+            event.target.removeEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         
-        if (opened)
+        if (isOpen)
         {
-            dispatchEvent(new FlexEvent(FlexEvent.OPEN));
+            dispatchEvent(new PopUpEvent(PopUpEvent.OPEN, false, false));
         }
         else
         {
