@@ -11,14 +11,16 @@
 
 package mx.components
 {
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
+
 import mx.core.IFlexDisplayObject;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.core.FlexVersion;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerGroup;
@@ -177,15 +179,12 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  The FxRadioButtonGroup object to which this FxRadioButton belongs.
      *  When creating radio buttons to put in a FxRadioButtonGroup, it is 
      *  advisable to use group for all of the buttons or groupName for all of 
-     *  the buttons.  In addition, all radio buttons in the group must have the 
-     *  same parent.  
-     *
-     *  @default "undefined"
+     *  the buttons.  The groupName will be set to the generated name of the 
+     *  FxRadioButtonGroup object.
+     *  
+     *  @default the default FxRadioButtonGroup
      *  @see #groupName
      * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -251,7 +250,12 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         // If the button was in another group, remove it.
         removeFromGroup();    
 
-        _group = value;
+        _group = value;  
+
+        // If the group is set then the groupName is the generated name of
+        // the rbg.  If it's set to null, then set the groupName back to the
+        // default group so this button will move back to that group.
+        _groupName = value ? group.mx_internal::name : "radioGroup";    
         
         // Make sure this gets added to it's FxRadioButtonGroup
         groupChanged = true;
@@ -285,14 +289,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  even if they belong to different radio button groups.  When creating
      *  radio buttons to put in a FxRadioButtonGroup, it is advisable to
      *  use group for all of the buttons or groupName for all of the buttons.
-     *  In addition, all radio buttons in the group must have the same parent.  
      *
-     *  @default "radioGroup"
+     *  @default "FxRadioButtonGroup_number" where number is an integer greater
+     *  than or equal to 0.
      *  @see #group
      * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -379,6 +380,9 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      */
     public function set value(value:Object):void
     {
+        if (_value == value)
+            return;
+            
         _value = value;
 
         if (selected && group)
@@ -449,25 +453,14 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     /**
      *  @private
      *  Create radio button group if it does not exist
-     *  and add the instance to the group.
-     * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
+     *  and add the instance to the group. 
      */
     private function addToGroup():FxRadioButtonGroup
     {        
         var g:FxRadioButtonGroup = group; // Trigger getting the group
         if (g)
-        {
-            if (g.numRadioButtons && g.getRadioButtonAt(0).parent != parent)
-            {
-                throw ArgumentError(
-                    resourceManager.getString("components", "rbMustHaveSameParent"));
-            }
-                        
             g.mx_internal::addInstance(this);
-        }
-        
+              
         return g;
     }
 
@@ -512,7 +505,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         {
             var radioButton:FxRadioButton = 
                     g.getRadioButtonAt(mx_internal::indexNumber - i);
-            if (radioButton && radioButton.enabled)
+            if (radioButton && isRadioButtonEnabled(radioButton))
             {
                 if (moveSelection)
                     g.mx_internal::setSelection(radioButton);
@@ -542,7 +535,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         for (var i:int = mx_internal::indexNumber + 1; i < g.numRadioButtons; i++)
         {
             var radioButton:FxRadioButton = g.getRadioButtonAt(i);
-            if (radioButton && radioButton.enabled)
+            if (radioButton && isRadioButtonEnabled(radioButton))
             {
                 if (moveSelection)
                     g.mx_internal::setSelection(radioButton);
@@ -556,6 +549,32 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         this.drawFocus(true);   
     }
 
+    /**
+     *  @private
+     *  When using keyboard navigation, need to make sure we don't move to
+     *  a radio button that's not enabled because it's in a different
+     *  container that isn't enabled.
+     */
+    private function isRadioButtonEnabled(rb:FxRadioButton):Boolean
+    {
+        if (!rb.enabled)
+            return false;
+            
+        var sbRoot:DisplayObject = rb.systemManager.getSandboxRoot(); 
+              
+        // If it's in another UIComponent like a container, is that enabled?
+        var p:DisplayObject = rb.parent;
+        while (p && p != sbRoot)
+        {
+            if (p is UIComponent && !UIComponent(p).enabled)
+                return false;
+            
+            p = p.parent;
+        }
+        
+        return true;                   
+    }
+    
     /**
      *  @private
      */
@@ -577,9 +596,14 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      */
     override public function get enabled():Boolean
     {
-        return super.enabled && 
-                    (!mx_internal::radioButtonGroup || 
-                        mx_internal::radioButtonGroup.enabled);
+        // Is the radio button itself enabled?
+        if (!super.enabled)
+            return false;
+            
+        // The button is enabled so it's enabled if it's not in a group
+        // or the group is enabled.
+        return !mx_internal::radioButtonGroup || 
+               mx_internal::radioButtonGroup.enabled;
     }
     
     //--------------------------------------------------------------------------
@@ -596,10 +620,16 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // If this button is in a rb group and it's selected, but it's not the 
-        // current selection, deselect the old rb and select this rb.
-        if (_group && selected && _group.selection != this)
-            _group.mx_internal::setSelection(this, false);        
+        // If this rb is selected and in a group, make sure it is the group
+        // selection.  If it is not selected and it's in a group, make sure it
+        // is not the group selection.
+        if (group)
+        {
+            if (selected)
+                _group.selection = this;
+            else if (group.selection == this)
+                _group.selection = null;   
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -614,9 +644,9 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        if (!enabled)
-            return;
-            
+        // Have to make sure we don't move to a radio button that's not enabled
+        // because it's in a different container that is not enabled.
+                
         switch (event.keyCode)
         {
             case Keyboard.DOWN:
