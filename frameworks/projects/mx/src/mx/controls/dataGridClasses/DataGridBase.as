@@ -72,6 +72,11 @@ use namespace mx_internal;
  *    showHeaders="true|false"
  *  /&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridBase extends ListBase implements IFontContextComponent
 {
@@ -85,6 +90,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridBase()
     {
@@ -110,6 +120,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  Item renderers are indexed by their DisplayObject name.
      *
      *  @see mx.controls.listClasses.ListBase#rowMap
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var columnMap:Object;
 
@@ -121,36 +136,71 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  The table is a Dictionary where the entries are Arrays indexed
      *  by the actual DataGridColumn (not the column's dataField or other
      *  properties), and each array is a stack of currently unused renderers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var freeItemRenderersTable:Dictionary;
 
     /**
      *  The set of visible columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var visibleColumns:Array;
 
     /**
      *  The set of visible locked columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var visibleLockedColumns:Array;
 
     /**
      *  The header sub-component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var header:DataGridHeaderBase;
 
     /**
      *  The class to use as the DGHeader.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var headerClass:Class = DataGridHeader;
 
     /**
      *  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var headerMask:Shape;
 
     /**
      *  The header sub-component for locked columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lockedColumnHeader:DataGridHeaderBase;
 
@@ -158,6 +208,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  The sub-component that contains locked rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lockedRowContent:DataGridLockedRowContentHolder;
 
@@ -165,6 +220,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  The sub-component that contains locked rows for locked columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lockedColumnAndRowContent:DataGridLockedRowContentHolder;
 
@@ -172,6 +232,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  The sub-component that contains locked columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var lockedColumnContent:ListBaseContentHolder;
 
@@ -225,6 +290,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  Flag specifying that the set of visible columns and/or their sizes needs to
      *  be recomputed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var columnsInvalid:Boolean = true;
 
@@ -285,6 +355,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -323,6 +398,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  the headers. If not set explicitly, 
      *  the height will based on style settings and the header
      *  renderer.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerHeight():Number
     {
@@ -361,6 +441,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  in view. Not supported by all list classes.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get lockedColumnCount():int
     {
@@ -400,6 +485,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  Rows above this one remain fixed in view.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get lockedRowCount():int
     {
@@ -437,6 +527,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  If <code>true</code>, the control shows column headers. 
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showHeaders():Boolean
     {
@@ -736,6 +831,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param contentHolder The set of rows (locked rows, regular rows).
      *  
      *  @param rowNum The row number.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function prepareRowArray(contentHolder:ListBaseContentHolder, rowNum:int):void
     {
@@ -772,6 +872,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param uid The uid for the data.
      *  
      *  @return Height of the row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function makeRow(contentHolder:ListBaseContentHolder, rowNum:int, left:Number, right:Number, yy:Number, data:Object, uid:String):Number
     {
@@ -840,6 +945,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  
      *  @param contentHolder The set of rows (locked rows, regular rows).
      *  @param rowNum The row number.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearRow(contentHolder:ListBaseContentHolder, rowNum:int):void
     {
@@ -882,6 +992,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param rowNum The row number.
      *  @param yy The y position of the row.
      *  @param hh The height of the row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function adjustRow(contentHolder:ListBaseContentHolder, rowNum:int, yy:Number, hh:Number):void
     {
@@ -969,6 +1084,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param yy The y position of the row.
      *  @param hh The height of the row.
      *  @param uid The UID for the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setRowInfo(contentHolder:ListBaseContentHolder, rowNum:int, yy:Number, hh:Number, uid:String):void
     {
@@ -994,6 +1114,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  Removes extra row from the end of the contentHolder.
      *  
      *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function removeExtraRow(contentHolder:ListBaseContentHolder):void
     {
@@ -1037,6 +1162,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param uid The uid for the data.
      *  
      *  @return The renderer for this column and row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setupColumnItemRenderer(c:DataGridColumn, contentHolder:ListBaseContentHolder,
                     rowNum:int, colNum:int, data:Object, uid:String):IListItemRenderer
@@ -1086,6 +1216,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param yy The y position.
      *  
      *  @return Size of the renderer as a Point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function layoutColumnItemRenderer(c:DataGridColumn, item:IListItemRenderer, xx:Number, yy:Number):Point
     {
@@ -1116,6 +1251,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  it is the selection caret.
      *  @param transition <code>true</code> if the selection state should fade in
      *  via an effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawVisibleItem(uid:String, 
                                        selected:Boolean = false,
@@ -1174,6 +1314,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  Redraws the renderer synchronously.
      *  
      *  @param r The renderer;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateRendererDisplayList(r:IListItemRenderer):void
     {
@@ -1314,6 +1459,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param column The column associated with this item.
      *  
      *  @return A newly constructed ListData object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function makeListData(data:Object, uid:String, 
         rowNum:int, columnNum:int, column:DataGridColumn):BaseListData
@@ -1360,6 +1510,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  renderers in visible columns.
      *
      *  @return The row height, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function calculateRowHeight(data:Object, hh:Number, skipVisible:Boolean = false):Number
     {
@@ -1385,6 +1540,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  the DataGridColumn instance.  
      * 
      *  @return The item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createColumnItemRenderer(c:DataGridColumn, forHeader:Boolean, data:Object):IListItemRenderer
     {
@@ -1450,6 +1610,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  
      *  @return <code>true</code> if the value of the column's <code>headerWordWrap</code> property is <code>true</code>, or
      *  <code>false</code> if the value is <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function columnHeaderWordWrap(c:DataGridColumn):Boolean
     {
@@ -1468,6 +1633,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      * 
      *  @return <code>true</code> if the value of the column's <code>wordWrap</code> property is <code>true</code>, or
      *  <code>false</code> if the value is <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function columnWordWrap(c:DataGridColumn):Boolean
     {
@@ -1516,12 +1686,22 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  The DisplayObject that contains the graphics that indicates
      *  which renderer is highlighted for lockedColumns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var columnHighlightIndicator:Sprite;
 
     /**
      *  The DisplayObject that contains the graphics that indicates
      *  which renderer is the caret for lockedColumns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var columnCaretIndicator:Sprite;
 
@@ -1752,6 +1932,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  Determines the column under the mouse for dropping a column, if any.
      *  This method only checks horizontal position, and assumes the y value is within headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function getAllVisibleColumns():Array
     {
@@ -2323,6 +2508,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  
      *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
      *  the keyboard key was pressed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function moveSelectionVertically(code:uint, shiftKey:Boolean,
                                                ctrlKey:Boolean):void
@@ -2517,6 +2707,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  This method is called by the keyboard selection handlers
      *  and by the <code>updateDisplayList()</code> method in case the 
      *  keyboard selection handler received a page fault while scrolling to get more items.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function finishKeySelection():void
     {
@@ -2611,6 +2806,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *
      *  @return A Point object. The <code>x</code> property is the <code>columnIndex</code>
      *  and the <code>y</code> property is the <code>rowIndex</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function itemRendererToIndices(item:IListItemRenderer):Point
     {
