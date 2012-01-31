@@ -370,7 +370,6 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
         if (instance == verticalScrollBar)
         {
         	verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
-        	//verticalScrollBar.minHeight = 0;
         }
         
         if (instance == horizontalScrollBar)
@@ -419,8 +418,8 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
                 case Keyboard.PAGE_DOWN:
                 case Keyboard.HOME:
                 case Keyboard.END:
-                    vspDelta = vp.verticalScrollPositionDelta(event.keyCode);
-                    break;
+                     vspDelta = vp.verticalScrollPositionDelta(event.keyCode);
+                     break;
             }
             if (!isNaN(vspDelta))
             {
@@ -436,6 +435,8 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
             {
                 case Keyboard.LEFT:
                 case Keyboard.RIGHT:
+                case Keyboard.HOME:
+                case Keyboard.END:                
                     hspDelta = vp.horizontalScrollPositionDelta(event.keyCode);
                     break;
             }
