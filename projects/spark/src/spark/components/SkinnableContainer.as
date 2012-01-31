@@ -28,8 +28,8 @@ import spark.core.IViewport;
 import mx.events.FlexEvent;
 import spark.events.ElementExistenceEvent;
 import mx.events.PropertyChangeEvent;
-import spark.layout.BasicLayout;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.BasicLayout;
+import spark.layouts.supportClasses.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
