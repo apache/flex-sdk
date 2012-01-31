@@ -31,7 +31,7 @@ import mx.utils.HSBColor;
  * and need not be done at every future call to the interpolate()
  * method during the animation.</p>
  * 
- * @see mx.utils.HSBColor
+ * @see spark.utils.HSBColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
