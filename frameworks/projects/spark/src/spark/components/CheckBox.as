@@ -65,7 +65,7 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  <p>The <code>&lt;CheckBox&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  *  <pre>
- *  &lt;CheckBox/&gt;
+ *  &lt;s:CheckBox/&gt;
  *  </pre>
  *
  *  @includeExample examples/CheckBoxExample.mxml
