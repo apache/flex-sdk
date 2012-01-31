@@ -19,20 +19,17 @@ import mx.components.baseClasses.FxComponent;
 import mx.events.FlexEvent;
 
 /**
- *  The FxRange class holds a value and a legal range for that 
- *  value, defined by a <code>minimum</code> and <code>maximum</code> property. 
+ *  The FxRange class holds a value and an allowed range for that 
+ *  value, defined by a <code>minimum</code> and <code>maximum</code> properties. 
  *  The <code>value</code> property 
  *  is always constrained to be between the current <code>minimum</code> and
  *  <code>maximum</code>, and the <code>minimum</code>,
  *  and <code>maximum</code> are always constrained
- *  to be in the proper numerical order such that, at any time,
+ *  to be in the proper numerical order such that
  *  (minimum &lt;= value &lt;= maximum) is <code>true</code>. 
- *  The <code>value</code> is also constrained to be multiples of 
- *  <code>valueInterval</code> if <code>valueInterval</code> is not 0.
- * 
- *  <p>FxRange has a <code>stepSize</code> property to control 
- *  how much <code>value</code> will change based on small 
- *  stepping operations.</p>
+ *  If <code>valueInterval</code> is not 0, 
+ *  then <code>value</code> is also constrained to be a multiple of 
+ *  <code>valueInterval</code>.
  * 
  *  <p>FxRange is a base class for various controls that require range
  *  functionality, including FxTrackBase and FxSpinner.</p>
@@ -209,10 +206,12 @@ public class FxRange extends FxComponent
 
     /**
      *  If greater than 0, <code>valueInterval</code> constrains
-     *  <code>value</code> to multiples of itself. If it is 0, then 
-     *  <code>value</code> can be any number between minimum and 
-     *  maximum. Also, <code>value</code> may always be set to the 
-     *  minimum and maximum.
+     *  <code>value</code> to multiples of <code>valueInterval</code>. 
+     *  If it is 0, then 
+     *  <code>value</code> can be any number between <code>minimum</code> and 
+     *  <code>maximum</code>. 
+     *  You can alsways set <code>value</code> to 
+     *  <code>minimum</code> or <code>maximum</code>.
      *  Changing <code>valueInterval</code> also may change 
      *  <code>stepSize</code> to be a multiple of 
      *  <code>valueInterval</code> and &gt;= <code>valueInterval</code>.
@@ -285,15 +284,15 @@ public class FxRange extends FxComponent
     }
 
     /**
-     *  Round a value (such as <code>stepSize</code>) 
-     *  to the closets multiple of <code>interval</code>.
+     *  Round a value 
+     *  to the closets multiple of the specified interval.
      *
      *  @param value The value to round.
      *
      *  @param interval The interval.
      *
-     *  @return The closets multiple of interval. 
-     *  The minimum value returned is <code>interval</code>.
+     *  @return The multiple of <code>interval</code> closesst to <code>value</code>. 
+     *  The minimum returned Number is <code>interval</code>.
      */
     protected function nearestValidInterval(value:Number, interval:Number):Number
     {
@@ -307,15 +306,15 @@ public class FxRange extends FxComponent
     }
 
     /**
-     *  Rounds <code>value</code> to the closest multiple of  
-     *  <code>interval</code>, and constrain the result to the range 
-     *  defined by Range. 
-     *  If <code>interval</code> is 0, then the <code>value</code> 
-     *  is only bound to the range.
+     *  Rounds a value to the closest multiple of  
+     *  the specified interval, and constrains the result to the range 
+     *  defined by the FxRange object. 
      * 
      *  @param value The value to round.
      * 
      *  @param interval The interval to round the value against.
+     *  If <code>interval</code> is 0, then the returned Number  
+     *  is only bound to the range.
      * 
      *  @return The rounded value, or 0 if <code>value</code> is NaN.
      */
