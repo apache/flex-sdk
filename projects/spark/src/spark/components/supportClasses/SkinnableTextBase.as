@@ -211,37 +211,42 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 6;
+    private static const MAX_HEIGHT_PROPERTY_FLAG:uint = 1 << 6;
     
     /**
      *  @private
      */
-    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 7;
+    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
+    
+    /**
+     *  @private
+     */
+    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 8;
 
     /**
      *  @private
      */
-    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 8;
+    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 9;
 
     /**
      *  @private
      */
-    private static const SELECTION_HIGHLIGHTING_FLAG:uint = 1 << 9;
+    private static const SELECTION_HIGHLIGHTING_FLAG:uint = 1 << 10;
 
     /**
      *  @private
      */
-    private static const TEXT_PROPERTY_FLAG:uint = 1 << 10;
+    private static const TEXT_PROPERTY_FLAG:uint = 1 << 11;
 
     /**
      *  @private
      */
-    private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 11;
+    private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 12;
 
     /**
      *  @private
      */
-    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
+    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 13;
         
     //--------------------------------------------------------------------------
     //
@@ -466,6 +471,46 @@ public class SkinnableTextBase extends SkinnableComponent
         return getBaselinePositionForPart(textDisplay);
     }
     
+    //----------------------------------
+    //  maxHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    /*
+    override public function get maxHeight():Number
+    {
+        if (textDisplay)
+            return textDisplay.maxHeight;
+        
+        // want the default to be default max height for UIComponent
+        var v:* = textDisplayProperties.maxHeight;
+        return (v === undefined) ? super.maxHeight : v;        
+    }
+    */
+    
+    /**
+     *  @private
+     */
+    /*
+    override public function set maxHeight(value:Number):void
+    {
+        if (textDisplay)
+        {
+            textDisplay.maxHeight = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), MAX_HEIGHT_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.maxHeight = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    */
     //----------------------------------
     //  maxWidth
     //----------------------------------
@@ -1357,6 +1402,13 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), MAX_CHARS_PROPERTY_FLAG, true);
         }
 
+        if (textDisplayProperties.maxHeight !== undefined)
+        {
+            textDisplay.maxHeight = textDisplayProperties.maxHeight;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), MAX_HEIGHT_PROPERTY_FLAG, true);
+        }
+        
         if (textDisplayProperties.maxWidth !== undefined)
         {
             textDisplay.maxWidth = textDisplayProperties.maxWidth;
@@ -1451,6 +1503,12 @@ public class SkinnableTextBase extends SkinnableComponent
                               MAX_CHARS_PROPERTY_FLAG))
         {
             newTextDisplayProperties.maxChars = textDisplay.maxChars;
+        }
+
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+            MAX_HEIGHT_PROPERTY_FLAG))
+        {
+            newTextDisplayProperties.maxHeight = textDisplay.maxHeight;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
