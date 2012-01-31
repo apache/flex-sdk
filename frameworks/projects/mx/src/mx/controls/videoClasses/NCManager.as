@@ -71,13 +71,13 @@ public class NCManager implements INCManager
      *  List of connections tried by connectRTMP, in order tried.
      */
     private static var RTMP_CONN:Array =
-	[
+    [
         { protocol: "rtmp:/", port: "1935" },
-		{ protocol: "rtmp:/", port:"443" },
-		{ protocol: "rtmpt:/", port:"80" },
-		{ protocol: "rtmps:/", port:"443" }
+        { protocol: "rtmp:/", port:"443" },
+        { protocol: "rtmpt:/", port:"80" },
+        { protocol: "rtmps:/", port:"443" }
     ];
-            	
+                
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -90,7 +90,7 @@ public class NCManager implements INCManager
      */    
     public function NCManager()    
     {
-		super();
+        super();
 
         initNCInfo();
         initOtherInfo();
@@ -144,8 +144,8 @@ public class NCManager implements INCManager
     /**
      *  @private
      */    
-	private var protocol:String;
-	
+    private var protocol:String;
+    
     /**
      *  @private
      *  The host name portion of the URL.
@@ -161,8 +161,8 @@ public class NCManager implements INCManager
     /**
      *  @private
      */    
-	private var wrappedURL:String;
-	
+    private var wrappedURL:String;
+    
     /**
      *  @private
      */
@@ -210,8 +210,8 @@ public class NCManager implements INCManager
     /**
      *  @private
      */
-	private var ncConnected:Boolean;
-	
+    private var ncConnected:Boolean;
+    
     /**
      *  @private
      *  Info on multiple connections we try.
@@ -230,12 +230,12 @@ public class NCManager implements INCManager
      */
     private var connTypeCounter:uint;
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -253,7 +253,7 @@ public class NCManager implements INCManager
      */
     private var _timeout:uint;
 
-    /*
+    /**
      *  @see INCManager#timeout
      *  
      *  @langversion 3.0
@@ -262,12 +262,12 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get timeout():uint 
-	{
+    {
         return _timeout;
     }
 
     public function set timeout(t:uint):void 
-	{
+    {
         _timeout = t;
         connectionTimer = new Timer(_timeout, 1);
         connectionTimer.addEventListener(TimerEvent.TIMER, onFCSConnectTimeOut);
@@ -295,7 +295,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get bitrate():Number 
-	{
+    {
         return _bitrate;
     }
 
@@ -311,7 +311,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function set bitrate(b:Number):void 
-	{
+    {
         if (_isRTMP == 0)
             _bitrate = b;
     }
@@ -329,15 +329,15 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get videoPlayer():VideoPlayer 
-	{
+    {
         return owner;
     }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     public function set videoPlayer(value:VideoPlayer):void 
-	{
+    {
         owner = value;
     }
 
@@ -359,7 +359,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get netConnection():NetConnection 
-	{
+    {
         return _netConnection;
     }
 
@@ -382,7 +382,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get streamName():String 
-	{
+    {
         return _streamName;
     }
 
@@ -405,7 +405,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get streamLength():Number 
-	{
+    {
         return _streamLength;
     }
 
@@ -428,7 +428,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get streamWidth():Number 
-	{
+    {
         return _streamWidth;
     }
 
@@ -451,7 +451,7 @@ public class NCManager implements INCManager
      *  @productversion Flex 3
      */
     public function get streamHeight():Number 
-	{
+    {
         return _streamHeight;
     }
 
@@ -499,68 +499,68 @@ public class NCManager implements INCManager
         // connect to either rtmp or http or download and parse smil
         if (parseResults.isRTMP)
         {
-			var canReuseRTMP:Boolean = canReuseOldConnection(parseResults);
-			_isRTMP = 1;
-			protocol = parseResults.protocol;
-			_streamName = parseResults.streamName;
-			serverName = parseResults.serverName;
-			wrappedURL = parseResults.wrappedURL;
-			portNumber = parseResults.portNumber;
-			appName = parseResults.appName;
-			if ( !appName || appName == "" ||
-			     !_streamName || _streamName == "" )
-				throw new VideoError(VideoError.INVALID_CONTENT_PATH, url);
-			autoSenseBW = (_streamName.indexOf(",") >= 0);
-			return (canReuseRTMP || connectRTMP());        	
+            var canReuseRTMP:Boolean = canReuseOldConnection(parseResults);
+            _isRTMP = 1;
+            protocol = parseResults.protocol;
+            _streamName = parseResults.streamName;
+            serverName = parseResults.serverName;
+            wrappedURL = parseResults.wrappedURL;
+            portNumber = parseResults.portNumber;
+            appName = parseResults.appName;
+            if ( !appName || appName == "" ||
+                 !_streamName || _streamName == "" )
+                throw new VideoError(VideoError.INVALID_CONTENT_PATH, url);
+            autoSenseBW = (_streamName.indexOf(",") >= 0);
+            return (canReuseRTMP || connectRTMP());         
         }
-		else
-		{
-			var canReuseHTTP:Boolean = canReuseOldConnection(parseResults);                
-			_isRTMP = 0;
-			_streamName = parseResults.streamName;
-			return (canReuseHTTP || connectHTTP());
-		}
+        else
+        {
+            var canReuseHTTP:Boolean = canReuseOldConnection(parseResults);                
+            _isRTMP = 0;
+            _streamName = parseResults.streamName;
+            return (canReuseHTTP || connectHTTP());
+        }
     }
 
-	/**
-	 *  @see INCManager#connectAgain()
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function connectAgain():Boolean
-	{
-		var slashIndex:Number = appName.indexOf("/");
-		if (slashIndex < 0) 
-		{
-			// return the appName and streamName back to original form
-			// so we can start this process all over again with the
-			// fallback server if necessary
-			slashIndex = _streamName.indexOf("/");
-			if (slashIndex >= 0) 
-			{
-				appName += "/";
-				appName += _streamName.slice(0, slashIndex);
-				_streamName = _streamName.slice(slashIndex + 1);
-			}
-			return false;
-		}
+    /**
+     *  @see INCManager#connectAgain()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function connectAgain():Boolean
+    {
+        var slashIndex:Number = appName.indexOf("/");
+        if (slashIndex < 0) 
+        {
+            // return the appName and streamName back to original form
+            // so we can start this process all over again with the
+            // fallback server if necessary
+            slashIndex = _streamName.indexOf("/");
+            if (slashIndex >= 0) 
+            {
+                appName += "/";
+                appName += _streamName.slice(0, slashIndex);
+                _streamName = _streamName.slice(slashIndex + 1);
+            }
+            return false;
+        }
 
-		var newStreamName:String = appName.slice(slashIndex + 1);
-		newStreamName += "/";
-		newStreamName += _streamName;
-		_streamName = newStreamName;
-		appName = appName.slice(0, slashIndex);
-		close();
-		payload = 0;
-		connTypeCounter = 0;
-		cleanConns();
-		connectRTMP();
-		return true;
-	}
-	
+        var newStreamName:String = appName.slice(slashIndex + 1);
+        newStreamName += "/";
+        newStreamName += _streamName;
+        _streamName = newStreamName;
+        appName = appName.slice(0, slashIndex);
+        close();
+        payload = 0;
+        connTypeCounter = 0;
+        cleanConns();
+        connectRTMP();
+        return true;
+    }
+    
     /**
      * INCManager#reconnect
      *  
@@ -572,11 +572,11 @@ public class NCManager implements INCManager
     public function reconnect():void
     {
         if (!_isRTMP)
-		{
-			var message:String = resourceManager.getString(
-				"controls", "invalidCall");
+        {
+            var message:String = resourceManager.getString(
+                "controls", "invalidCall");
             throw new Error(message);
-		}
+        }
 
         _netConnection.addEventListener(NetStatusEvent.NET_STATUS, reconnectOnStatus);
         _netConnection.client = new NCManagerReconnectClient(this);
@@ -676,132 +676,132 @@ public class NCManager implements INCManager
     private function parseURL(url:String):Object
     {
         var parseResults:Object = {};
-		
-		// get protocol
-		var startIndex:uint = 0;
-		var endIndex:int = url.indexOf(":/", startIndex);
-		if (endIndex >= 0) 
-		{
-			endIndex += 2;
-			parseResults.protocol = url.slice(startIndex, endIndex);
-			parseResults.isRelative = false;
-		} 
-		else
-			parseResults.isRelative = true;
-		
-		if ( parseResults.protocol != null &&
-			     ( parseResults.protocol == "rtmp:/" ||
-			       parseResults.protocol == "rtmpt:/" ||
-			       parseResults.protocol == "rtmps:/" ||
-			       parseResults.protocol == "rtmpe:/" ||
-			       parseResults.protocol == "rmpte:/" ) )
-		{
-			parseResults.isRTMP = true;
-			
-			startIndex = endIndex;
+        
+        // get protocol
+        var startIndex:uint = 0;
+        var endIndex:int = url.indexOf(":/", startIndex);
+        if (endIndex >= 0) 
+        {
+            endIndex += 2;
+            parseResults.protocol = url.slice(startIndex, endIndex);
+            parseResults.isRelative = false;
+        } 
+        else
+            parseResults.isRelative = true;
+        
+        if ( parseResults.protocol != null &&
+                 ( parseResults.protocol == "rtmp:/" ||
+                   parseResults.protocol == "rtmpt:/" ||
+                   parseResults.protocol == "rtmps:/" ||
+                   parseResults.protocol == "rtmpe:/" ||
+                   parseResults.protocol == "rmpte:/" ) )
+        {
+            parseResults.isRTMP = true;
+            
+            startIndex = endIndex;
 
-			if (url.charAt(startIndex) == '/') 
-			{
-				startIndex++;
-				// get server (and maybe port)
-				var colonIndex:Number = url.indexOf(":", startIndex);
-				var slashIndex:Number = url.indexOf("/", startIndex);
-				if (slashIndex < 0) 
-				{
-					if (colonIndex < 0)
-						parseResults.serverName = url.slice(startIndex);
-					else 
-					{
-						endIndex = colonIndex;
-						parseResults.portNumber = url.slice(startIndex, endIndex);
-						startIndex = endIndex + 1;
-						parseResults.serverName = url.slice(startIndex);
-					}
-					return parseResults;
-				}
-				if (colonIndex >= 0 && colonIndex < slashIndex) 
-				{
-					endIndex = colonIndex;
-					parseResults.serverName = url.slice(startIndex, endIndex);
-					startIndex = endIndex + 1;
-					endIndex = slashIndex;
-					parseResults.portNumber = url.slice(startIndex, endIndex);
-				} 
-				else 
-				{
-					endIndex = slashIndex;
-					parseResults.serverName = url.slice(startIndex, endIndex);
-				}
-				startIndex = endIndex + 1;
-			}
+            if (url.charAt(startIndex) == '/') 
+            {
+                startIndex++;
+                // get server (and maybe port)
+                var colonIndex:Number = url.indexOf(":", startIndex);
+                var slashIndex:Number = url.indexOf("/", startIndex);
+                if (slashIndex < 0) 
+                {
+                    if (colonIndex < 0)
+                        parseResults.serverName = url.slice(startIndex);
+                    else 
+                    {
+                        endIndex = colonIndex;
+                        parseResults.portNumber = url.slice(startIndex, endIndex);
+                        startIndex = endIndex + 1;
+                        parseResults.serverName = url.slice(startIndex);
+                    }
+                    return parseResults;
+                }
+                if (colonIndex >= 0 && colonIndex < slashIndex) 
+                {
+                    endIndex = colonIndex;
+                    parseResults.serverName = url.slice(startIndex, endIndex);
+                    startIndex = endIndex + 1;
+                    endIndex = slashIndex;
+                    parseResults.portNumber = url.slice(startIndex, endIndex);
+                } 
+                else 
+                {
+                    endIndex = slashIndex;
+                    parseResults.serverName = url.slice(startIndex, endIndex);
+                }
+                startIndex = endIndex + 1;
+            }
 
-			// handle wrapped RTMP servers bit recursively, if it is there
-			if (url.charAt(startIndex) == '?') 
-			{
-				var subURL:String = url.slice(startIndex + 1);
-				var subParseResults:Object = parseURL(subURL);
-				if (!subParseResults.protocol || !subParseResults.isRTMP)
-					throw new VideoError(VideoError.INVALID_CONTENT_PATH, url);
-				parseResults.wrappedURL = "?";
-				parseResults.wrappedURL += subParseResults.protocol;
-				if (subParseResults.serverName != null) 
-				{
-					parseResults.wrappedURL += "/";
-					parseResults.wrappedURL +=  subParseResults.server;
-				}
-				if (subParseResults.wrappedURL != null) 
-				{
-					parseResults.wrappedURL += "/?";
-					parseResults.wrappedURL +=  subParseResults.wrappedURL;
-				}
-				parseResults.appName = subParseResults.appName;
-				parseResults.streamName = subParseResults.streamName;
-				return parseResults;
-			}
-			
-			// get application name
-			endIndex = url.indexOf("/", startIndex);
-			if (endIndex < 0) 
-			{
-				parseResults.appName = url.slice(startIndex);
-				return parseResults;
-			}
-			parseResults.appName = url.slice(startIndex, endIndex);
-			startIndex = endIndex + 1;
+            // handle wrapped RTMP servers bit recursively, if it is there
+            if (url.charAt(startIndex) == '?') 
+            {
+                var subURL:String = url.slice(startIndex + 1);
+                var subParseResults:Object = parseURL(subURL);
+                if (!subParseResults.protocol || !subParseResults.isRTMP)
+                    throw new VideoError(VideoError.INVALID_CONTENT_PATH, url);
+                parseResults.wrappedURL = "?";
+                parseResults.wrappedURL += subParseResults.protocol;
+                if (subParseResults.serverName != null) 
+                {
+                    parseResults.wrappedURL += "/";
+                    parseResults.wrappedURL +=  subParseResults.server;
+                }
+                if (subParseResults.wrappedURL != null) 
+                {
+                    parseResults.wrappedURL += "/?";
+                    parseResults.wrappedURL +=  subParseResults.wrappedURL;
+                }
+                parseResults.appName = subParseResults.appName;
+                parseResults.streamName = subParseResults.streamName;
+                return parseResults;
+            }
+            
+            // get application name
+            endIndex = url.indexOf("/", startIndex);
+            if (endIndex < 0) 
+            {
+                parseResults.appName = url.slice(startIndex);
+                return parseResults;
+            }
+            parseResults.appName = url.slice(startIndex, endIndex);
+            startIndex = endIndex + 1;
 
-			// check for instance name to be added to application name
-			endIndex = url.indexOf("/", startIndex);
-			if (endIndex < 0) 
-			{
-				parseResults.streamName = url.slice(startIndex);
-				// strip off .flv and .flv2 if included
-				if (parseResults.streamName.slice(-5).toLowerCase() == ".flv2")
-					parseResults.streamName = parseResults.streamName.slice(0, -5);
-				else if (parseResults.streamName.slice(-4).toLowerCase() == ".flv")
-					parseResults.streamName = parseResults.streamName.slice(0, -4);
-				return parseResults;
-			}
-			parseResults.appName += "/";
-			parseResults.appName += url.slice(startIndex, endIndex);
-			startIndex = endIndex + 1;
-				
-			// get flv name
-			parseResults.streamName = url.slice(startIndex);
-			// strip off .flv and .flv2 if included
-			if (parseResults.streamName.slice(-5).toLowerCase() == ".flv2")
-				parseResults.streamName = parseResults.streamName.slice(0, -5);
-			else if (parseResults.streamName.slice(-4).toLowerCase() == ".flv")
-				parseResults.streamName = parseResults.streamName.slice(0, -4);
-			
-		} 
-		else 
-		{
-			// is http, just return the full url received as streamName
-			parseResults.isRTMP = false;
-			parseResults.streamName = url;
-		}
+            // check for instance name to be added to application name
+            endIndex = url.indexOf("/", startIndex);
+            if (endIndex < 0) 
+            {
+                parseResults.streamName = url.slice(startIndex);
+                // strip off .flv and .flv2 if included
+                if (parseResults.streamName.slice(-5).toLowerCase() == ".flv2")
+                    parseResults.streamName = parseResults.streamName.slice(0, -5);
+                else if (parseResults.streamName.slice(-4).toLowerCase() == ".flv")
+                    parseResults.streamName = parseResults.streamName.slice(0, -4);
+                return parseResults;
+            }
+            parseResults.appName += "/";
+            parseResults.appName += url.slice(startIndex, endIndex);
+            startIndex = endIndex + 1;
+                
+            // get flv name
+            parseResults.streamName = url.slice(startIndex);
+            // strip off .flv and .flv2 if included
+            if (parseResults.streamName.slice(-5).toLowerCase() == ".flv2")
+                parseResults.streamName = parseResults.streamName.slice(0, -5);
+            else if (parseResults.streamName.slice(-4).toLowerCase() == ".flv")
+                parseResults.streamName = parseResults.streamName.slice(0, -4);
+            
+        } 
+        else 
+        {
+            // is http, just return the full url received as streamName
+            parseResults.isRTMP = false;
+            parseResults.streamName = url;
+        }
 
-		return parseResults;
+        return parseResults;
     }
 
     /**
@@ -864,29 +864,29 @@ public class NCManager implements INCManager
     {
         tryNCTimer.reset();
 
-		var tempProtocol:String;
-		var port:String;
-		if (connTypeCounter == 0) 
-		{
-			tempProtocol = protocol;
-			if (portNumber)
-				port = portNumber;
-			else 
-				for (var i:Number = 0; i < RTMP_CONN.length; i++)
-					if (protocol == RTMP_CONN[i].protocol) 
-					{
-						port = RTMP_CONN[i].port;
-						break;
-					}
-		} 
-		else 
-		{
-			tempProtocol = RTMP_CONN[connTypeCounter].protocol;
-			port = RTMP_CONN[connTypeCounter].port;
-		}
-		var connectionURL:String = tempProtocol + ((!serverName) ? "" : 
-			"/" + serverName + ":" + port + "/") + ((!wrappedURL) ? "" : 
-			wrappedURL + "/") + appName;
+        var tempProtocol:String;
+        var port:String;
+        if (connTypeCounter == 0) 
+        {
+            tempProtocol = protocol;
+            if (portNumber)
+                port = portNumber;
+            else 
+                for (var i:Number = 0; i < RTMP_CONN.length; i++)
+                    if (protocol == RTMP_CONN[i].protocol) 
+                    {
+                        port = RTMP_CONN[i].port;
+                        break;
+                    }
+        } 
+        else 
+        {
+            tempProtocol = RTMP_CONN[connTypeCounter].protocol;
+            port = RTMP_CONN[connTypeCounter].port;
+        }
+        var connectionURL:String = tempProtocol + ((!serverName) ? "" : 
+            "/" + serverName + ":" + port + "/") + ((!wrappedURL) ? "" : 
+            wrappedURL + "/") + appName;
 
         tryNC[connTypeCounter].client.pending = true;
         tryNC[connTypeCounter].connect(connectionURL, autoSenseBW);
@@ -955,7 +955,7 @@ public class NCManager implements INCManager
         }
         else
         {
-        	connTypeCounter = 0;
+            connTypeCounter = 0;
             cleanConns();
             serverName = fallbackServerName;
             connectRTMP();
@@ -975,8 +975,8 @@ public class NCManager implements INCManager
      */
     public function onReconnected():void
     {
-    	_netConnection.removeEventListener(NetStatusEvent.NET_STATUS, connectOnStatus);
-    	ncConnected = true;
+        _netConnection.removeEventListener(NetStatusEvent.NET_STATUS, connectOnStatus);
+        ncConnected = true;
         owner.ncReconnected();
     }
 
@@ -1036,18 +1036,18 @@ public class NCManager implements INCManager
                         break;
                     }
                 } // for
-		        // strip off .flv and .flv2 if included
-		        if (_streamName.slice(-5).toLowerCase() == ".flv2")
-		            _streamName = _streamName.slice(0, -5);   
-		        else if (_streamName.slice(-4).toLowerCase() == ".flv")
-		            _streamName = _streamName.slice(0, -4);                
+                // strip off .flv and .flv2 if included
+                if (_streamName.slice(-5).toLowerCase() == ".flv2")
+                    _streamName = _streamName.slice(0, -5);   
+                else if (_streamName.slice(-4).toLowerCase() == ".flv")
+                    _streamName = _streamName.slice(0, -4);                
             }
         }
 
 
         // if we need to get the stream length from the server, do it here
-		// Donot call getStreamLength when main.asc is not present
-		// since getStreamLength is defined in main.asc
+        // Donot call getStreamLength when main.asc is not present
+        // since getStreamLength is defined in main.asc
         if ((!owner.isLive && _streamLength == -1) && owner.autoBandWidthDetection)
         {
             var res:Responder = new Responder(getStreamLengthResult,
@@ -1065,26 +1065,26 @@ public class NCManager implements INCManager
     public function connectOnStatus(event:NetStatusEvent):void
     {
         var stuff:Object;
-		var target:NetConnection = NetConnection(event.target);
+        var target:NetConnection = NetConnection(event.target);
 
         target.client.pending = false;
 
         if (event.info.code == "NetConnection.Connect.Success")
         {
             _netConnection = tryNC[target.client.connIndex];
-			// Force call to onConnected when main.asc is not present
-			// which would call this function through onBWDone
-			if (!owner.autoBandWidthDetection)
-				onConnected(_netConnection, 0);
+            // Force call to onConnected when main.asc is not present
+            // which would call this function through onBWDone
+            if (!owner.autoBandWidthDetection)
+                onConnected(_netConnection, 0);
             tryNC[target.client.connIndex] = null;
             cleanConns();
         }
         else if (((event.info.code == "NetConnection.Connect.Failed")
                     || (event.info.code == "NetConnection.Connect.Rejected"))
                     && (target.client.connIndex == (RTMP_CONN.length - 1)))
-			// Try rearranging the app URL, then the fallbackServer
-			if (!connectAgain())
-				tryFallBack();
+            // Try rearranging the app URL, then the fallbackServer
+            if (!connectAgain())
+                tryFallBack();
     }
 
     /**
@@ -1125,8 +1125,8 @@ public class NCManager implements INCManager
      */
     private function getStreamLengthResult(length:Number):void
     {
-		if (length > 0)
-	        _streamLength = length;
+        if (length > 0)
+            _streamLength = length;
         owner.ncConnected();
     }
 
@@ -1153,7 +1153,7 @@ public class NCManager implements INCManager
         _netConnection = null;
         ncConnected = false;
         if (!connectAgain())
-        	owner.ncConnected();
+            owner.ncConnected();
     }
     
     /**
@@ -1185,8 +1185,8 @@ public class NCManager implements INCManager
         if (_isRTMP) 
         {
             if (parseResults.serverName == serverName && parseResults.appName == appName &&
-			     parseResults.protocol == protocol && parseResults.portNumber == portNumber &&
-			     parseResults.wrappedURL == wrappedURL)
+                 parseResults.protocol == protocol && parseResults.portNumber == portNumber &&
+                 parseResults.wrappedURL == wrappedURL)
                 return true;
             // cannot reuse this rtmp--close
             owner.close();
