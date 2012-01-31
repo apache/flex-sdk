@@ -198,7 +198,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  The alpha value for the overlay that is placed on top of the
@@ -221,7 +221,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  The name of the horizontal scrollbar style.
@@ -284,7 +284,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 [ResourceBundle("core")]
 
