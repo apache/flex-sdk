@@ -157,8 +157,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no", minValueExclusive="0.0")]
 
 /**
- *  When in touch interaction mode, the number of milliseconds to wait before showing the 
- *  component in a visually down state.
+ *  When in touch interaction mode, the number of milliseconds to wait after the user 
+ *  interaction has occured before showing the component in a visually down state.
  * 
  *  <p>The reason for this delay is because when a user initiates a scroll gesture, we don't want 
  *  components to flicker as they touch the screen.  By having a reasonable delay, we make 
@@ -170,7 +170,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  components inside of a Scroller and 0 ms for components outside of a Scroller.</p>
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
