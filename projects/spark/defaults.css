@@ -59,12 +59,6 @@ SkinnableComponent
     focusSkin: ClassReference("spark.skins.spark.FocusSkin");
 }
 
-SkinnableContainerBase
-{
-    backgroundColor: #FFFFFF;
-    cornerRadius: 0;
-}
-
 SkinnableContainer
 {
     skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
@@ -102,6 +96,7 @@ NumericStepper
 
 Panel
 {
+    backgroundColor: #FFFFFF;
     borderAlpha: 0.5;
     borderColor: 0;
     cornerRadius: 0;
