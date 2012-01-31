@@ -18,7 +18,7 @@ import mx.core.ScrollPolicy;
 
 import spark.components.Scroller;
 import spark.core.IViewport;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutBase;
 
 [ExcludeClass]
 
