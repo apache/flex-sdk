@@ -416,7 +416,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     protected function itemRenderer_mouseDownHandler(event:MouseEvent):void
     {
-        dispatchEvent(new MouseEvent("click"));
+        //dispatchEvent(new MouseEvent("click"));
     }
 }
 }
