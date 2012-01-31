@@ -11,6 +11,8 @@
 
 package spark.components
 {
+import flash.geom.Point;
+    
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
@@ -170,11 +172,12 @@ public class HScrollBar extends ScrollBar
         if (!thumb || !track)
             return;
         
-        var trackPos:Number = track.getLayoutBoundsX();
         var trackSize:Number = track.getLayoutBoundsWidth();
         var range:Number = maximum - minimum;
         
-        var thumbPos:Number = 0;
+        var thumbPos:Point;
+        var thumbPosTrackX:Number = 0;
+        var thumbPosParentX:Number = 0;
         var thumbSize:Number = trackSize;
         if (range > 0)
         {
@@ -187,14 +190,21 @@ public class HScrollBar extends ScrollBar
             {
                 thumbSize = thumb ? thumb.width : 0;
             }
-            thumbPos = (value - minimum) * ((trackSize - thumbSize) / range);
+            
+            // calculate new thumb position.
+            thumbPosTrackX = (value - minimum) * ((trackSize - thumbSize) / range);
         }
         
         if (getStyle("fixedThumbSize") === false)
             thumb.setLayoutBoundsSize(thumbSize, NaN);
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
-        thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos), thumb.getLayoutBoundsY());
+        
+        // convert thumb position to parent's coordinates.
+        thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
+        thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
+        
+        thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
     }
     
     /**
