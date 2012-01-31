@@ -96,7 +96,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var width:Number = compositionWidth;
         var height:Number = compositionHeight;
         
-        if (!textDisplay.actuallyAutoSizing && (isNaN(width) || isNaN(height)))
+        if (!textDisplay.autoSize && (isNaN(width) || isNaN(height)))
             return false;  // just measuring!
         
         var contentBounds:Rectangle = getContentBounds();
@@ -104,7 +104,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // If autoSize, use the content values rather than the composition
         // values. The composition values allow room for growth 
         // (width=maxWidth, height=NaN).
-        if (textDisplay.actuallyAutoSizing)
+        if (textDisplay.autoSize)
         {
             width = contentBounds.width;
             height = contentBounds.height;
@@ -270,6 +270,16 @@ public class RichEditableTextContainerManager extends TextContainerManager
         if (!event.isDefaultPrevented())
             super.keyDownHandler(event);
     }    
+
+    /**
+     *  @private
+     */
+    override public function keyUpHandler(event:KeyboardEvent):void
+    {
+        if (!event.isDefaultPrevented())
+            super.keyUpHandler(event);
+    }    
+
 }
 
 }
