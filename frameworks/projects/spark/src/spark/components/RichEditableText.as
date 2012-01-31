@@ -44,6 +44,7 @@ import text.elements.FlowElement;
 import text.elements.ParagraphElement;
 import text.elements.SpanElement;
 import text.elements.TextFlow;
+import text.events.ComposeDoneEvent;
 import text.formats.BlockProgression;
 import text.formats.CharacterFormat;
 import text.formats.ContainerFormat;
@@ -1132,6 +1133,44 @@ public class TextView extends UIComponent
     }
     
     //----------------------------------
+    //  contentHeight
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _contentHeight:Number = 0;
+
+    [Bindable("contentSizeChanged")]
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get contentHeight():Number
+    {
+        return _contentHeight;
+    }
+
+    //----------------------------------
+    //  contentWidth
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _contentWidth:Number = 0;
+
+    [Bindable("contentSizeChanged")]
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get contentWidth():Number
+    {
+        return _contentWidth;
+    }
+
+    //----------------------------------
     //  heightInLines
     //----------------------------------
 
@@ -1168,6 +1207,42 @@ public class TextView extends UIComponent
         invalidateDisplayList();
     }
     
+    //----------------------------------
+    //  horizontalScrollPosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _horizontalScrollPosition:Number = 0;
+
+    /**
+     *  @private
+     */
+    private var horizontalScrollPositionChanged:Boolean = false;
+ 
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get horizontalScrollPosition():Number
+    {
+        return _horizontalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set horizontalScrollPosition(value:Number):void
+    {
+        if (value == _horizontalScrollPosition)
+            return;
+
+        _horizontalScrollPosition = value;
+        horizontalScrollPositionChanged = true;
+
+        invalidateProperties();
+    }
+        
     //----------------------------------
     //  multiline
     //----------------------------------
@@ -1327,6 +1402,42 @@ public class TextView extends UIComponent
     }
     
     //----------------------------------
+    //  verticalScrollPosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _verticalScrollPosition:Number = 0;
+
+    /**
+     *  @private
+     */
+    private var verticalScrollPositionChanged:Boolean = false;
+ 
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get verticalScrollPosition():Number
+    {
+        return _verticalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set verticalScrollPosition(value:Number):void
+    {
+        if (value == _verticalScrollPosition)
+            return;
+
+        _verticalScrollPosition = value;
+        verticalScrollPositionChanged = true;
+
+        invalidateProperties();
+    }
+        
+    //----------------------------------
     //  widthInChars
     //----------------------------------
 
@@ -1432,6 +1543,20 @@ public class TextView extends UIComponent
             
             selectionAnchorIndexChanged = false;
             selectionActiveIndexChanged = false;
+        }
+
+        if (horizontalScrollPositionChanged)
+        {
+            textFlow.controller.horizontalScrollPosition =
+                _horizontalScrollPosition;
+            horizontalScrollPositionChanged = false;
+        }
+
+        if (verticalScrollPositionChanged)
+        {
+            textFlow.controller.verticalScrollPosition =
+                _verticalScrollPosition;
+            verticalScrollPositionChanged = false;
         }
     }
 
@@ -1657,6 +1782,9 @@ public class TextView extends UIComponent
      */
     private function addListeners(textFlow:TextFlow):void
     {
+        textFlow.addEventListener(ComposeDoneEvent.COMPOSE_DONE,
+                                  textFlow_composeDoneHandler);
+        
         textFlow.selectionManager.addEventListener(
             SelectionChangedEvent.SELECTION_CHANGED,
             editManager_selectionChangeHandler);
@@ -1870,6 +1998,26 @@ public class TextView extends UIComponent
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private function textFlow_composeDoneHandler(event:ComposeDoneEvent):void
+    {
+        var newContentWidth:Number =
+            textFlow.controller.maxHorizontalScrollPosition;
+        var newContentHeight:Number =
+            textFlow.controller.maxVerticalScrollPosition;
+        
+        if (newContentWidth != _contentWidth ||
+            newContentHeight != _contentHeight)
+        {
+            _contentWidth = newContentWidth;
+            _contentHeight = newContentHeight;
+        
+            dispatchEvent(new Event("contentSizeChanged"));
+        }
+    }
+    
     /**
      *  @private
      *  Called when the EditManager dispatches a 'selectionChange' event.
