@@ -40,7 +40,7 @@ package spark.effects.easing
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Linear
+ *  &lt;s:Linear
  *    id="ID"
  *    easeInFraction="0" 
  *    easeOutFraction="0"
