@@ -19,6 +19,7 @@ import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
+import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.container.ContainerController;
@@ -101,6 +102,14 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     private var textDisplay:RichEditableText;
 
+    
+    /**
+     *  @private
+     *  TLF doesn't guarantee it won't touch the context menu.  It removes it
+     *  when it switches from the factory to the composer so we need to save it.
+     */
+    private var userContextMenu:ContextMenu;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -176,6 +185,34 @@ public class RichEditableTextContainerManager extends TextContainerManager
         return hasScrollRect;
     }
         
+    /**
+     *  @private
+     * 
+     * If the user specified a custom context menu then save it and use
+     * it rather than the default context menu. It must be set before the
+     * first mouse over/mouse hover or foucsIn event to be used.
+     * 
+     * TLF will remove the context menu when it switches from the factory
+     * to the composer and the controller will then request it again.
+     */
+    override tlf_internal function getContextMenu():ContextMenu
+    {
+        // ToDo(cframpto): can't differentiate between the user removing the
+        // context menu because they don't want it and TLF removing it and
+        // it is requesting it again.  Need additional API to support
+        // contextMenus correctly.  Ideally could specify the context
+        // menu on the TextArea or the TextInput and it wouldn't be obscured
+        // by TLF's context menu.
+        
+        if (textDisplay.contextMenu)
+            userContextMenu = textDisplay.contextMenu;
+
+        if (!userContextMenu)
+            userContextMenu = super.getContextMenu();
+        
+        return userContextMenu;        
+    }
+
     /**
      *  @private
      */
