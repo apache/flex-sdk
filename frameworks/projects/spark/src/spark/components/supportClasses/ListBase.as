@@ -72,16 +72,20 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  @private 
-     *  Constant representing the value "no selection".
+     *  Static constant representing the value "no selection".
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    protected static const NO_SELECTION:int = -1;
+    public static const NO_SELECTION:int = -1;
     
     /**
      *  @private
-     *  Constant representing no proposed selection.
+     *  Static constant representing no proposed selection.
      */
-    protected static const NO_PROPOSED_SELECTION:int = -2;
+    private static const NO_PROPOSED_SELECTION:int = -2;
     
     //--------------------------------------------------------------------------
     //
@@ -116,7 +120,6 @@ public class ListBase extends SkinnableDataContainer
     //----------------------------------
     //  dataProvider
     //----------------------------------
-    
     private var dataProviderChanged:Boolean;
     
     /**
@@ -152,8 +155,15 @@ public class ListBase extends SkinnableDataContainer
     private var _labelField:String;
     
     /**
-     *  labelField
+     *  The name of the field in the data provider items to display 
+     *  as the label. 
      *
+     *  @default null 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get labelField():String
     {
@@ -180,8 +190,24 @@ public class ListBase extends SkinnableDataContainer
     private var _labelFunction:Function; 
     
     /**
-     *  labelFunction
+     *  A user-supplied function to run on each item to determine its label.  
      *
+     *  <p>You can supply a <code>labelFunction</code> that finds the 
+     *  appropriate fields and returns a displayable string. The 
+     *  <code>labelFunction</code> is also good for handling formatting and 
+     *  localization. </p>
+     *
+     *  <p>The label function takes a single argument which is the item in 
+     *  the data provider and returns a String.</p>
+     *  <pre>
+     *  myLabelFunction(item:Object):String</pre>
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get labelFunction():Function
     {
@@ -283,8 +309,8 @@ public class ListBase extends SkinnableDataContainer
     [Bindable("selectionChanged")]
     /**
      *  The item that is currently selected. 
-     *  Setting this property
-     *  deselects the currently selected item and selects the specified item.
+     *  Setting this property deselects the currently selected 
+     *  item and selects the newly specified item.
      *
      *  <p>Setting <code>selectedItem</code> to an item that is not 
      *  in this component results in no selection, 
@@ -346,7 +372,7 @@ public class ListBase extends SkinnableDataContainer
     private var requiresSelectionChanged:Boolean = false;
 
     /**
-     *  Specifies whether an item must always be selected.
+     *  Specifies whether an item must always be selected in the dataProvider.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
      *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1), 
      *  or -1 if there are no items.
@@ -381,6 +407,49 @@ public class ListBase extends SkinnableDataContainer
             invalidateProperties();
         }
     }
+    
+    //----------------------------------
+    //  selectUponNavigation
+    //----------------------------------
+    /**
+     *  @private
+     *  Storage for the selectUponNavigation property.
+     */
+    private var _selectUponNavigation:Boolean = true;
+    
+    /**
+     *  Specifies whether an item must be selected when 
+     *  navigated to or simply focused into. If true, 
+     *  when an item is navigated to, it is selected and the
+     *  selection related properties update accordingly. 
+     *  If false, when an item is navigated to, the itemFocusIn/Out
+     *  events are dispatched accordingly and the item's 
+     *  associated item renderer is put into the focused state and 
+     *  none of the selection related properties are updated. 
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get selectUponNavigation():Boolean
+    {
+        return _selectUponNavigation;
+    }
+
+    /**
+     *  @private
+     */
+    public function set selectUponNavigation(value:Boolean):void
+    {
+        if (value == _selectUponNavigation)
+            return;
+            
+        _selectUponNavigation = value;
+    }
+
 
     //--------------------------------------------------------------------------
     //
@@ -717,12 +786,6 @@ public class ListBase extends SkinnableDataContainer
         invalidateProperties();
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Event Handlers
-    //
-    //--------------------------------------------------------------------------
-    
     /**
      *  @private
      *  Called when an item has been added to this component.
@@ -752,20 +815,20 @@ public class ListBase extends SkinnableDataContainer
         if (index == selectedIndex)
         {
             if (requiresSelection && dataProvider && dataProvider.length > 0)
-            {    	
-            	if (index == 0)
-            	{
-            		//We can't just set selectedIndex to 0 directly
-            		//since the previous value was 0 and the new value is
-            		//0, so the setter will return early.  
-            		_proposedSelectedIndex = 0;
-            		invalidateProperties();
-            	}
-            	else 
-            		selectedIndex = 0;
+            {       
+                if (index == 0)
+                {
+                    //We can't just set selectedIndex to 0 directly
+                    //since the previous value was 0 and the new value is
+                    //0, so the setter will return early.  
+                    _proposedSelectedIndex = 0;
+                    invalidateProperties();
+                }
+                else 
+                    selectedIndex = 0;
             }
             else
-            	adjustSelectedIndex(-1);
+                adjustSelectedIndex(-1);
         }
         else if (index < selectedIndex)
         {
@@ -775,8 +838,21 @@ public class ListBase extends SkinnableDataContainer
         }
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
     /**
-     *  @private
+     *  Called when contents within the dataProvider changes.  
+     *
+     *  @param event The collection change event
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dataProvider_collectionChangeHandler(event:Event):void
     {
