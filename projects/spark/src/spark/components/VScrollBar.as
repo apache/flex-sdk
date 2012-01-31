@@ -150,7 +150,9 @@ public class VScrollBar extends ScrollBar
         if (!thumb)
             return super.calculateThumbSize();
             
-        var size:Number = (fixedThumbSize) ? thumb.getPreferredBoundsHeight() : super.calculateThumbSize();
+        var size:Number = (getStyle("fixedThumbSize")) ? 
+            thumb.getPreferredBoundsHeight() : 
+            super.calculateThumbSize();
         return Math.max(thumb.minHeight, size);
     }
 
@@ -167,7 +169,9 @@ public class VScrollBar extends ScrollBar
             return;
 
         thumb.setLayoutBoundsSize(NaN, thumbSize);
-        var calculatedThumbSize:Number = (fixedThumbSize) ? super.calculateThumbSize() : thumbSize;        
+        var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
+            super.calculateThumbSize() : 
+            thumbSize;        
         thumb.visible = calculatedThumbSize < trackSize;
     }
     
