@@ -1310,12 +1310,12 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     }
 
     /**
-     * This function should be overriden by sublasses to implement re-authorization due to
-     * server session time-out behavior specific to them.  In general it should
-     * follow disconnect, connect, re-send message pattern
+     * This function should be overriden by sublasses to implement reauthentication due to
+     * server session time-out behavior specific to them. In general, it should follow disconnect, 
+     * connect, resend message pattern.
      *
      *  @param msg The message that caused the fault and should be resent once we have
-     *  disconnected/connected causing re-authentication.
+     *  disconnected/connected causing reauthentication.
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1325,7 +1325,11 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      */
     protected function reAuthorize(msg:IMessage):void
     {
-        disconnect();
+        // Disconnect all message agents from the Channel to make sure the Channel
+        // is fully disconnected and Channel#internalConnect gets called which 
+        // sends the login command to reauthenticate the Channel.
+        if (channelSet != null)
+            channelSet.disconnectAll();
         internalSend(msg);
     }
 
