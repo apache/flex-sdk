@@ -542,13 +542,14 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     private function processInputField():void
     {
         var matchingItems:Vector.<int>;
-                
-        if (!dataProvider || dataProvider.length <= 0)
-            return;
         
         // If the textInput has been changed, then use the input string as the selectedItem
         actualProposedSelectedIndex = CUSTOM_SELECTED_ITEM; 
-                    
+        
+        // Even if there is no data provider, we still want to allow custom items. 
+        if (!dataProvider || dataProvider.length <= 0)
+            return;
+        
         if (textInput.text != "")
         {
             if (itemMatchingFunction != null)
