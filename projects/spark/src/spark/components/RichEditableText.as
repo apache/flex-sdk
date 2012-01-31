@@ -63,6 +63,7 @@ import flashx.textLayout.operations.FlowTextOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.tlf_internal;
+import flashx.undo.IOperation;
 import flashx.undo.IUndoManager;
 
 import mx.core.IEmbeddedFontRegistry;
@@ -1744,6 +1745,9 @@ public class RichEditableText extends UIComponent
             // the fontLookup format is set to either
             // "device" or "embedded" depending on whether
             // embeddedFontContext is null or non-null.
+            
+            if (hasEventListener("styleChanged"))
+                dispatchEvent(new Event("styleChanged"));
         }
         
         if (selectionFormatsChanged)
@@ -2448,7 +2452,15 @@ public class RichEditableText extends UIComponent
         if (editingMode != EditingMode.READ_WRITE)
             editingMode = EditingMode.READ_WRITE;
         
-        return EditManager(_textContainerManager.beginInteraction());
+        var editManager:IEditManager =
+            EditManager(_textContainerManager.beginInteraction());
+            
+        // Combine all the edits from one API call into one operation so it 
+        // can be undone as a single operation.  It will also prevent this from
+        // possibibly being combined with the last operation.
+        editManager.beginCompositeOperation(); 
+        
+        return editManager;           
     }
 
     /**
@@ -2457,6 +2469,8 @@ public class RichEditableText extends UIComponent
      */
     private function releaseEditManager():void
     {
+        EditManager(textFlow.interactionManager).endCompositeOperation();
+                    
         _textContainerManager.endInteraction();
 
         editingMode = priorEditingMode;
