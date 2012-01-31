@@ -33,6 +33,27 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Orientation of the icon in relation to the label.
+ *  Valid MXML values are <code>right</code>, <code>left</code>,
+ *  <code>bottom</code>, and <code>top</code>.
+ *
+ *  <p>In ActionScript, you can use the following constants
+ *  to set this property:
+ *  <code>IconPlacement.RIGHT</code>,
+ *  <code>IconPlacement.LEFT</code>,
+ *  <code>IconPlacement.BOTTOM</code>, and
+ *  <code>IconPlacement.TOP</code>.</p>
+ *
+ *  @default IconPlacement.LEFT
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="mobile")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
