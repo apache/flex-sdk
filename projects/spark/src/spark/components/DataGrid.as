@@ -510,6 +510,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  The DataGrid skin also defines a default item renderer, 
  *  used to display the contents of each cell.</p>
  *
+ *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
+ *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
+ *
  *  @mxml <p>The <code>&lt;s:DataGrid&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
