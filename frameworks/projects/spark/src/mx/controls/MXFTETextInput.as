@@ -69,6 +69,11 @@ public class MXFTETextInput extends TextInput implements ITextInput
 
     /**
      *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function MXFTETextInput()
     {
@@ -167,6 +172,11 @@ public class MXFTETextInput extends TextInput implements ITextInput
 
     /**
      *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -187,6 +197,11 @@ public class MXFTETextInput extends TextInput implements ITextInput
     
     /**
      *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number
     {
@@ -252,6 +267,11 @@ public class MXFTETextInput extends TextInput implements ITextInput
 
     /**
      *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get parentDrawsFocus():Boolean
     {
