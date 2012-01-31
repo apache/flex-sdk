@@ -842,7 +842,7 @@ public class Application extends LayoutContainer
         // event handler (SDK-12664)
         invalidateProperties();
         
-        super.mx_internal::setUnscaledHeight(value);
+        super.setUnscaledHeight(value);
     }
     
     //----------------------------------
@@ -858,7 +858,7 @@ public class Application extends LayoutContainer
         // event handler (SDK-12664)
         invalidateProperties();
         
-        super.mx_internal::setUnscaledWidth(value);
+        super.setUnscaledWidth(value);
     }
 
     //----------------------------------
