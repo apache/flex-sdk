@@ -2060,7 +2060,7 @@ public class VideoDisplay extends UIComponent
                        
         // The NetConnection needs to be close on a connection error because at
         // this point it can no longer connect to new urls.
-        if(event.state == VideoEvent.CONNECTION_ERROR)
+        if (event.state == VideoEvent.CONNECTION_ERROR)
         	this.close();
 
         dispatchEvent(event.clone());
