@@ -96,7 +96,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 //--------------------------------------
 
 [IconFile("List.png")]
-[DefaultTriggerEvent("selectionChanged")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The List control displays a vertical list of items.
@@ -227,7 +227,7 @@ public class List extends ListBase implements IFocusManagerComponent
     private var _proposedSelectedIndices:Array = []; 
     private var multipleSelectionChanged:Boolean; 
     
-    [Bindable("selectionChanged")]
+    [Bindable("change")]
     /**
      *  An Array of inidices of the currently selected item or items. 
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
@@ -259,7 +259,7 @@ public class List extends ListBase implements IFocusManagerComponent
         invalidateProperties();
     }
     
-    [Bindable("selectionChanged")]
+    [Bindable("change")]
     /**
      *  An Array of the currently selected data items. 
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
@@ -390,7 +390,7 @@ public class List extends ListBase implements IFocusManagerComponent
     override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
         var oldSelectedIndex:Number = _selectedIndex;
-        var oldCaretIndex:Number = _currentCaretIndex;  
+        var oldCaretIndex:Number = _caretIndex;  
         
         // Ensure that multiple selection is allowed and that proposed 
         // selected indices honors it. For example, in the single 
@@ -425,21 +425,21 @@ public class List extends ListBase implements IFocusManagerComponent
         // Validate and commit the multiple selection related properties. 
         commitMultipleSelection(); 
         
-        // Set the currentCaretIndex based on the current selection 
+        // Set the caretIndex based on the current selection 
         setCurrentCaretIndex(selectedIndex);
         
-        // And dispatch selectionChanged and itemFocusChanged events so that all of 
+        // And dispatch change and caretChange events so that all of 
         // the bindings update correctly. 
         if (dispatchChangedEvents && retVal)
         {
-            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CHANGE);
             e.oldIndex = oldSelectedIndex;
             e.newIndex = _selectedIndex;
             dispatchEvent(e);
             
-            e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
-            e.newIndex = currentCaretIndex; 
+            e.newIndex = caretIndex; 
             dispatchEvent(e);    
         }
         
@@ -533,22 +533,22 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private 
      */
-    override protected function itemInCaret(index:int, caret:Boolean):void
+    override protected function itemShowingCaret(index:int, showsCaret:Boolean):void
     {
-    	super.itemInCaret(index, caret); 
+    	super.itemShowingCaret(index, showsCaret); 
     	
         var renderer:Object = dataGroup ? dataGroup.getElementAt(index) : null;
         
         if (renderer is IItemRenderer)
         {
-            IItemRenderer(renderer).caret = caret;
+            IItemRenderer(renderer).showsCaret = showsCaret;
         }
     }
     
     /**
      *  @private
      */
-    override public function isItemIndexSelected(index:int):Boolean
+    override mx_internal function isItemIndexSelected(index:int):Boolean
     {
         if (allowMultipleSelection && (selectedIndices != null))
             return selectedIndices.indexOf(index) != -1;
@@ -591,7 +591,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been added to this component.
      */
-    override protected function itemAddedHandler(item:*, index:int):void
+    override protected function itemAdded(index:int):void
     {
         adjustSelectedIndices(index, true); 
     }
@@ -600,7 +600,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been removed from this component.
      */
-    override protected function itemRemovedHandler(item:*, index:int):void
+    override protected function itemRemoved(index:int):void
     {
         adjustSelectedIndices(index, false);        
     }
@@ -668,8 +668,8 @@ public class List extends ListBase implements IFocusManagerComponent
                     // and that item was de-selected
                     if (selectedIndices.length == 1 && (selectedIndices[0] == index))
                     {
-                        // We need to respect requiresSelection 
-                        if (!requiresSelection)
+                        // We need to respect requireSelection 
+                        if (!requireSelection)
                             return [];
                         else 
                             return [selectedIndices[0]]; 
@@ -806,7 +806,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function ensureItemIsVisible(index:int):void
+    protected function ensureIndexIsVisible(index:int):void
     {
         if (!layout)
             return;
@@ -841,23 +841,23 @@ public class List extends ListBase implements IFocusManagerComponent
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
         {
             // The case where one item has been newly added and it needs to be 
-            // selected and careted because requiresSelection is true. 
-            if (dataProvider && dataProvider.length == 1 && requiresSelection)
+            // selected and careted because requireSelection is true. 
+            if (dataProvider && dataProvider.length == 1 && requireSelection)
             {
                 _selectedIndices = [0]; 
                 _selectedIndex = 0; 
-                itemInCaret(0, true); 
+                itemShowingCaret(0, true); 
                 // If the selection properties have been adjusted to account for items that
-                // have been added or removed, send out a "selectionChanged" event and 
-                // "itemFocusChanged" event so any bindings to them are updated correctly.
-                e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+                // have been added or removed, send out a "change" event and 
+                // "caretChange" event so any bindings to them are updated correctly.
+                e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
                 e.oldIndex = -1;
                 e.newIndex = _selectedIndex;
                 dispatchEvent(e);
                 
-                e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+                e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
                 e.oldIndex = -1; 
-                e.newIndex = _currentCaretIndex;
+                e.newIndex = _caretIndex;
                 dispatchEvent(e); 
             }
             return; 
@@ -891,9 +891,9 @@ public class List extends ListBase implements IFocusManagerComponent
         else
         {
             // Quick check to see if we're removing the only selected item
-            // in which case we need to honor requiresSelection. 
+            // in which case we need to honor requireSelection. 
             if (!isEmpty(selectedIndices) && selectedIndices.length == 1 
-                && index == selectedIndex && requiresSelection)
+                && index == selectedIndex && requireSelection)
             {
                 //Removing the last item 
                 if (dataProvider.length == 0)
@@ -929,30 +929,30 @@ public class List extends ListBase implements IFocusManagerComponent
             }
         }
         
-        if (currentCaretIndex == selectedIndex)
+        if (caretIndex == selectedIndex)
         {
-            // currentCaretIndex is not changing, so we just need to dispatch
-            // an "itemFocusChanged" event to update any bindings and update the 
-            // currentCaretIndex backing variable. 
-            var oldIndex:Number = currentCaretIndex; 
-            _currentCaretIndex = getLastItemValue(newInterval);
+            // caretIndex is not changing, so we just need to dispatch
+            // an "caretChange" event to update any bindings and update the 
+            // caretIndex backing variable. 
+            var oldIndex:Number = caretIndex; 
+            _caretIndex = getLastItemValue(newInterval);
         	 
-            e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
-            e.newIndex = currentCaretIndex; 
+            e.newIndex = caretIndex; 
             dispatchEvent(e); 
         }
         else 
         {
-            // De-caret the previous currentCaretIndex renderer and set the 
-            // currentCaretIndexAdjusted flag to true. This will mean in 
-            // commitProperties, the currentCaretIndex will be adjusted to 
+            // De-caret the previous caretIndex renderer and set the 
+            // caretIndexAdjusted flag to true. This will mean in 
+            // commitProperties, the caretIndex will be adjusted to 
             // match the selectedIndex; 
             
             // TODO: We should revisit the synchronous nature of the 
             // de-careting/re-careting behavior. 
-            itemInCaret(currentCaretIndex, false); 
-            currentCaretIndexAdjusted = true; 
+            itemShowingCaret(caretIndex, false); 
+            caretIndexAdjusted = true; 
             invalidateProperties(); 
         }
         
@@ -960,7 +960,7 @@ public class List extends ListBase implements IFocusManagerComponent
         _selectedIndices = newInterval;
         _selectedIndex = getLastItemValue(newInterval);
         // If the selection has actually changed, trigger a pass to 
-        // commitProperties where a selectionChanged event will be 
+        // commitProperties where a change event will be 
         // fired to update any bindings to selection properties. 
         if (_selectedIndices != oldIndices)
         {
@@ -1076,7 +1076,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (retVal != -1)
         {
             selectedIndex = retVal;
-            ensureItemIsVisible(retVal); 
+            ensureIndexIsVisible(retVal); 
             return true; 
         }
         else 
@@ -1119,7 +1119,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // the item currently in focus, is being selected. 
         if (event.keyCode == Keyboard.SPACE)
         {
-            selectedIndex = currentCaretIndex; 
+            selectedIndex = caretIndex; 
             event.preventDefault();
             return; 
         }
@@ -1137,7 +1137,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Delegate to the layout to tell us what the next item is we should select or focus into.
         // TODO (jszeto) At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
-        var proposedNewIndex:int = layout.getDestinationIndex(navigationUnit, currentCaretIndex); 
+        var proposedNewIndex:int = layout.getDestinationIndex(navigationUnit, caretIndex); 
         
         // TODO (jszeto) proposedNewIndex depends on CTRL key
         // move CTRL key logic into single selection
@@ -1173,24 +1173,24 @@ public class List extends ListBase implements IFocusManagerComponent
                 }
             }
             selectedIndices = newInterval;  
-            ensureItemIsVisible(proposedNewIndex); 
+            ensureIndexIsVisible(proposedNewIndex); 
         }
         // Entering the caret state with the Ctrl key down 
         else if (event.ctrlKey)
         {
-            var oldCaretIndex:Number = currentCaretIndex; 
+            var oldCaretIndex:Number = caretIndex; 
             setCurrentCaretIndex(proposedNewIndex);
-            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
-            e.newIndex = currentCaretIndex; 
+            e.newIndex = caretIndex; 
             dispatchEvent(e);    
-            ensureItemIsVisible(proposedNewIndex); 
+            ensureIndexIsVisible(proposedNewIndex); 
         }
         // Its just a new selection action, select the new index.
         else
         {
             selectedIndex = proposedNewIndex;
-            ensureItemIsVisible(proposedNewIndex);
+            ensureIndexIsVisible(proposedNewIndex);
         }
     }
   
