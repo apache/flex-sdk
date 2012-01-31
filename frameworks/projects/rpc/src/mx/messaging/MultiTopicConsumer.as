@@ -218,7 +218,8 @@ public class MultiTopicConsumer extends AbstractConsumer
      */
     public function removeSubscription(subtopic:String = null, selector:String = null):void
     {
-        for (var i:int = 0; i < subscriptions.length; i++)
+        var n:int = subscriptions.length;
+        for (var i:int = 0; i < n; ++i)
         {
             var si:SubscriptionInfo = SubscriptionInfo(subscriptions.getItemAt(i));
             if (si.subtopic == subtopic && si.selector == selector)
@@ -227,7 +228,8 @@ public class MultiTopicConsumer extends AbstractConsumer
                 break;
             }
         }
-        if (i == subscriptions.length)
+        
+        if (n == subscriptions.length)
             throw new MessagingError("Attempt to remove a subscription with subtopic: " + 
                 subtopic + " and selector: " + selector + " that this consumer does not have");
     }
