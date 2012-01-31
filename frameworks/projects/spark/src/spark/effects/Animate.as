@@ -87,6 +87,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.effects.supportClasses.AnimateInstance
+ *
+ *  @includeExample examples/AnimateEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -212,8 +214,6 @@ public class Animate extends Effect
      *
      * @see spark.effects.easing.Sine
      *
-     *  @includeExample examples/AnimateEffectExample.mxml
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
