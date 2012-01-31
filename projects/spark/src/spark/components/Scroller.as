@@ -555,6 +555,14 @@ public class Scroller extends SkinnableComponent
      */
     private var hideScrollBarAnimation:Animate;
     
+    /**
+     *  @private
+     *  Use to figure out whether the animation ended naturally and finished or 
+     *  whether we called stop() on it.  Unfortunately, we get an EFFECT_END in 
+     *  both cases, so we must keep track of it ourselves.
+     */
+    private var hideScrollBarAnimationPrematurelyStopped:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1188,6 +1196,10 @@ public class Scroller extends SkinnableComponent
             targets.push(verticalScrollBar);
         }
         
+        // we keep track of hideScrollBarAnimationPrematurelyStopped so that we know 
+        // if the effect ended naturally or if we prematurely called stop()
+        hideScrollBarAnimationPrematurelyStopped = false;
+        
         hideScrollBarAnimation.play(targets);
     }
     
@@ -1494,16 +1506,18 @@ public class Scroller extends SkinnableComponent
             
             // make sure our alpha is set back to normal from hideScrollBarAnimation
             if (hideScrollBarAnimation && hideScrollBarAnimation.isPlaying)
-                hideScrollBarAnimation.pause();
-            if (horizontalScrollBar)
             {
-                horizontalScrollBar.alpha = 1;
+                // stop the effect, but make sure our code for EFFECT_END doesn't actually 
+                // run since the effect didn't end on its own.
+                hideScrollBarAnimationPrematurelyStopped = true;
+                hideScrollBarAnimation.stop();
             }
             
+            if (horizontalScrollBar)
+                horizontalScrollBar.alpha = 1;
+            
             if (verticalScrollBar)
-            {
                 verticalScrollBar.alpha = 1;
-            }
         }
     }
     
@@ -1645,6 +1659,10 @@ public class Scroller extends SkinnableComponent
      */
     private function hideScrollBarAnimation_effectEndHandler(event:EffectEvent):void
     {
+        // distinguish between if we called stop() and if the effect ended naturally
+        if (hideScrollBarAnimationPrematurelyStopped)
+            return;
+        
         // now get rid of the scrollbars visibility
         horizontalScrollInProgress = false;
         verticalScrollInProgress = false;
