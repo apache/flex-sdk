@@ -26,6 +26,8 @@ import mx.events.TextOperationEvent;
 
 [DefaultProperty("content")]
 
+[IconFile("FxTextArea.png")]
+
 /**
  *  The built-in set of states for the TextArea component.
  */
