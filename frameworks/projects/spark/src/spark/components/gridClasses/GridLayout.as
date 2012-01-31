@@ -2246,7 +2246,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  @copy spark.components.Grid#getVisibleColumnIndices()
+     *  @copy spark.components.Grid#getCellBounds()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
