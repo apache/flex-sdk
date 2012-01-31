@@ -609,7 +609,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  keyboard navigation across components and layout. 
      */
     private function list_keyDownHandler(event:KeyboardEvent):void
-    {
+    {    	
         super.keyDownHandler(event);
         var delta:int = 0;
 
@@ -634,6 +634,9 @@ public class FxList extends FxListBase implements IFocusManagerComponent
             event.preventDefault();
             var maxSelectedIndex:int = dataProvider.length - 1;
             selectedIndex = Math.min(Math.max(0, selectedIndex + delta), maxSelectedIndex);
+            // TODO (jszeto) Added this because we want the selection to commit immediately
+            // Explore better way to accomplish this. 
+            commitSelectedIndex();
             ensureIndexIsVisible(selectedIndex);
         }
     }
