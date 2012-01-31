@@ -499,18 +499,24 @@ public class GroupBase extends UIComponent implements IViewport
         if (maskChanged)
         {
             maskChanged = false;
-            if (_mask && !_mask.parent)
+            if (_mask)
+            {
+            	maskTypeChanged = true;
+            
+	            if (!_mask.parent)
             {
             	// TODO!!! This needs to be a sibling because alpha
                 super.addChild(_mask);
                 var maskComp:UIComponent = _mask as UIComponent;
                 if (maskComp)
                 {
+	                	maskComp.validateProperties();
                     maskComp.validateSize();
                     maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
                                            maskComp.getExplicitOrMeasuredHeight());
                 }
             }
+        }
         }
         
         if (maskTypeChanged)    
