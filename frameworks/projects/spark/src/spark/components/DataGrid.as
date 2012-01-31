@@ -2997,6 +2997,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 grid.dispatchEvent(changeEvent);
         }
         
+        // Step 4: dispatch the "valueCommit" event.
+        dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
+
         return true;
     }
     
