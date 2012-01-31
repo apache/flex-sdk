@@ -220,8 +220,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             // Position the element.
             // FIXME: can this be calculated from the width of each element
             // plus the columnGap? (but there is not a columnGap property)
-            const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
-            element.setLayoutBoundsPosition(bounds.x, 0);
+            element.setLayoutBoundsPosition(gridDimensions.getCellX(0, columnIndex), 0);
             
             // Find maximum element extents.
             maxHeight = Math.max(maxHeight, elementHeight);
