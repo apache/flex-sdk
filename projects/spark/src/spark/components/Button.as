@@ -41,6 +41,7 @@ import mx.core.IButton;
  *  The Button component is a commonly used rectangular button.
  *  The Button component looks like it can be pressed.
  *  The default skin has a text label.
+ *  Define a custom skin class to add an image to the control.
  *
  *  <p>Buttons typically use event listeners to perform an action 
  *  when the user selects the control. When a user clicks the mouse 
