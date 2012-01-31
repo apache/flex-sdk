@@ -33,8 +33,8 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText text="Hamburger Base Price: $4.50" />
-            <s:SimpleText text="Select condiments for your hamburger (0.25 each):" />
+            <s:Label text="Hamburger Base Price: $4.50" />
+            <s:Label text="Select condiments for your hamburger (0.25 each):" />
             <s:CheckBox id="lettuceCB" label="Pickles" click="modifyBurger(event);"/>
             <s:CheckBox id="tomatoCB" label="Tomato" click="modifyBurger(event);"/>
             <s:CheckBox id="pickleCB" label="Lettuce" click="modifyBurger(event);"/>
@@ -42,8 +42,8 @@
 
             <mx:Spacer height="20" />
             <s:HGroup>
-                <s:SimpleText text="Total Price: " />
-                <s:SimpleText id="totalString" text="$4.50"/>
+                <s:Label text="Total Price: " />
+                <s:Label id="totalString" text="$4.50"/>
             </s:HGroup>
         </s:VGroup>
     </s:Panel>
