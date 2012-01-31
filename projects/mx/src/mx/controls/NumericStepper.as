@@ -1044,7 +1044,7 @@ public class NumericStepper extends UIComponent
                                   maximum;
         widestNumber += stepSize;
 
-        var lineMetrics:TextLineMetrics = measureText(widestNumber.toString());
+        var lineMetrics:TextLineMetrics = measureText(checkValidValue(widestNumber).toString());
         
         var textHeight:Number = inputField.getExplicitOrMeasuredHeight();
         var buttonHeight:Number = prevButton.getExplicitOrMeasuredHeight() +
