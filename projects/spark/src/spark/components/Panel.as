@@ -293,6 +293,17 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    public function get controlBarContent():Array
+    {
+        if (controlBarGroup)
+            return controlBarGroup.getMXMLContent();
+        else
+            return controlBarGroupProperties.controlBarContent;
+    }
+
+    /**
+     *  @private
+     */
     public function set controlBarContent(value:Array):void
     {
         if (controlBarGroup)
