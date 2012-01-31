@@ -13,6 +13,7 @@ package spark.components.supportClasses
 {
 
 import flash.events.Event;
+import flash.events.MouseEvent;
 
 import mx.collections.IList;
 import mx.core.FlexVersion;
@@ -27,11 +28,36 @@ import spark.components.IItemRenderer;
 import spark.components.IItemRendererOwner;
 import spark.components.SkinnableDataContainer;
 import spark.events.IndexChangeEvent;
+import spark.events.ListEvent;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.LabelUtil;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
+
+/**
+ *  Dispatched when the user rolls the mouse pointer over an item in the control.
+ *
+ *  @eventType spark.events.ListEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="itemRollOver", type="spark.events.ListEvent")]
+
+/**
+ *  Dispatched when the user rolls the mouse pointer out of an item in the control.
+ *
+ *  @eventType spark.events.ListEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="itemRollOut", type="spark.events.ListEvent")]
 
 //--------------------------------------
 //  Events
@@ -165,6 +191,14 @@ public class ListBase extends SkinnableDataContainer
      *  @private
      */
     mx_internal static var CUSTOM_SELECTED_ITEM:int = -3;
+
+    /**
+     *  @private
+     *  Static constant representing no item in focus. 
+     */
+    private static const TYPE_MAP:Object = { rollOver: "itemRollOver",
+                                             rollOut:  "itemRollOut" };
+    
 
     //--------------------------------------------------------------------------
     //
@@ -952,6 +986,27 @@ public class ListBase extends SkinnableDataContainer
             // Not your typical delegation, see 'set useVirtualLayout'
             if (_useVirtualLayout && dataGroup.layout)
                 dataGroup.layout.useVirtualLayout = true;
+            
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
+        }
+    }
+
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {        
+        super.partRemoved(partName, instance);
+        
+        if (instance == dataGroup)
+        {
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
     }
 
@@ -1437,6 +1492,78 @@ public class ListBase extends SkinnableDataContainer
     //  Event handlers
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Called when an item has been added to this component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
+    {
+        var renderer:IVisualElement = event.renderer;
+        
+        if (!renderer)
+            return;
+        
+        renderer.addEventListener(MouseEvent.ROLL_OVER, item_mouseEventHandler);
+        renderer.addEventListener(MouseEvent.ROLL_OUT, item_mouseEventHandler);
+    }
+    
+    /**
+     *  Called when an item has been removed from this component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
+    {
+        var renderer:IVisualElement = event.renderer;
+        
+        if (!renderer)
+            return;
+        
+        renderer.removeEventListener(MouseEvent.ROLL_OVER, item_mouseEventHandler);
+        renderer.removeEventListener(MouseEvent.ROLL_OUT, item_mouseEventHandler);
+    }
+
+    /**
+     *  @private
+     *  Called when an item has been removed from this component.
+     */
+    private function item_mouseEventHandler(event:MouseEvent):void
+    {
+        var type:String = event.type;
+        type = TYPE_MAP[type];
+        if (hasEventListener(type))
+        {
+            var itemRenderer:IItemRenderer = event.currentTarget as IItemRenderer;
+            
+            var itemIndex:int = -1;
+            if (itemRenderer)
+                itemIndex = itemRenderer.itemIndex;
+            else
+                itemIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
+            
+            var listEvent:ListEvent = new ListEvent(type, false, false,
+                                                    event.localX,
+                                                    event.localY,
+                                                    event.relatedObject,
+                                                    event.ctrlKey,
+                                                    event.altKey,
+                                                    event.shiftKey,
+                                                    event.buttonDown,
+                                                    event.delta,
+                                                    itemIndex,
+                                                    dataProvider.getItemAt(itemIndex),
+                                                    itemRenderer);
+            dispatchEvent(listEvent);
+        }
+    }
     
     /**
      *  @private
