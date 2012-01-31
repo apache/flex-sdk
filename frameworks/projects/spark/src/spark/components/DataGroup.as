@@ -36,14 +36,16 @@ import mx.events.PropertyChangeEventKind;
 import mx.styles.IStyleClient;
 
 /**
- *  Dispatched prior to the dataProvider being changed.
+ *  Dispatched when an item is added to the content holder.
+ *  event.relatedObject is the visual item that was added.
  */
-[Event(name="dataProviderChanging", type="flex.events.FlexEvent")]
+[Event(name="itemAdd", type="flex.events.ItemExistenceChangedEvent")]
 
 /**
- *  Dispatched after the dataProvider has changed.
+ *  Dispatched when an item is removed from the content holder.
+ *  event.relatedObject is the visual item that was removed.
  */
-[Event(name="dataProviderChanged", type="flex.events.FlexEvent")]
+[Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
 
 [DefaultProperty("dataProvider")] 
 /**
@@ -183,13 +185,27 @@ public class DataGroup extends GroupBase
     }
     
     protected function initializeDataProvider():void
-    {   
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_PROVIDER_CHANGING));  
-          
+    {
         // Get rid of existing display object children.
         // !!!!! This should probably be done through change notification
         for (var idx:int = numChildren; idx > 0; idx--)
             super.removeChildAt(0);
+        
+        // TODO: get rid of this code
+        // An item renderer who's rendering a graphic may not be used anymore and is
+        // removed above.  However, the graphic item's display object is still 
+        // attached to that item renderer.  We need to clear out these display objects.
+        // For now, this is a cheap way to do it.
+        // This might orphan the old display object in its previous container.
+        if (dataProvider != null)
+        {
+            for (var j:int = 0; j < dataProvider.length; j++)
+            {
+                var item:GraphicElement = dataProvider.getItemAt(j) as GraphicElement;
+                if (item)
+                    item.displayObject = item.sharedDisplayObject = null;
+            }
+        }
         
         if (_dataProvider != null)
         {
@@ -223,8 +239,6 @@ public class DataGroup extends GroupBase
                 }
             }
         } */
-        
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_PROVIDER_CHANGED)); 
     }
     
     protected function createVisualForItem(item:Object):DisplayObject
@@ -260,6 +274,7 @@ public class DataGroup extends GroupBase
         if (!itemSkin && item is GraphicElement)
         {
             var graphicItem:GraphicElement = GraphicElement(item);
+            graphicItem.elementHost = this;
                             
             if (!graphicItem.displayObject)
                 graphicItem.displayObject = graphicItem.createDisplayObject();
@@ -303,18 +318,13 @@ public class DataGroup extends GroupBase
     {
         super.commitProperties();
         
-        if (dataProviderChanged)
+        if (dataProviderChanged || itemRendererChanged)
         {
             dataProviderChanged = false;
+            itemRendererChanged = false;
             initializeDataProvider();
             
             // maskChanged = true; TODO (rfrishbe): need this maskChanged?
-        }
-        
-        if (itemRendererChanged)
-        {
-            itemRendererChanged = false;
-            initializeDataProvider();
         }
 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
@@ -405,7 +415,6 @@ public class DataGroup extends GroupBase
         if (item is GraphicElement) 
         {
             var graphicItem:GraphicElement = GraphicElement(item);
-            graphicItem.elementHost = this;
         
             // If a styleable GraphicElement is being added,
             // build its protochain for use by getStyle().
