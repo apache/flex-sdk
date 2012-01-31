@@ -1060,6 +1060,7 @@ public class NavBar extends Box
                 childRemoveHandler);
 
             targetStack.removeEventListener(Event.CHANGE, changeHandler);
+            targetStack.removeEventListener(FlexEvent.VALUE_COMMIT, changeHandler);
 
             targetStack.removeEventListener(
                 IndexChangedEvent.CHILD_INDEX_CHANGE, childIndexChangeHandler);
@@ -1094,6 +1095,7 @@ public class NavBar extends Box
                                      childRemoveHandler);
 
         targetStack.addEventListener(Event.CHANGE, changeHandler);
+        targetStack.addEventListener(FlexEvent.VALUE_COMMIT, changeHandler);
 
         targetStack.addEventListener(IndexChangedEvent.CHILD_INDEX_CHANGE,
                                      childIndexChangeHandler);
