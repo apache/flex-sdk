@@ -37,6 +37,7 @@ import mx.skins.spark.FxHSliderTrackSkin; FxHSliderTrackSkin;
 import mx.skins.spark.FxContainerSkin; FxContainerSkin;
 import mx.skins.spark.FxListSkin; FxListSkin;
 import mx.skins.spark.FxNumericStepperSkin; FxNumericStepperSkin;
+import mx.skins.spark.FxPanelSkin; FxPanelSkin;
 import mx.skins.spark.FxRadioButtonSkin; FxRadioButtonSkin;
 import mx.skins.spark.FxScrollBarUpButtonSkin; FxScrollBarUpButtonSkin;
 import mx.skins.spark.FxScrollBarDownButtonSkin; FxScrollBarDownButtonSkin;
