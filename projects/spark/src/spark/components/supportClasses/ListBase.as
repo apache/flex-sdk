@@ -395,6 +395,19 @@ public class ListBase extends SkinnableDataContainer
     mx_internal var doingWholesaleChanges:Boolean = false;
     
     //----------------------------------
+    //  caretItem
+    //---------------------------------- 
+
+    /**
+     *  @private
+     *  This private variable differs from selectedItem in that
+     *  the value is not computed, it's cached each time setCurrentCaretIndex() is called.  
+     *  It's used by List/dataProviderRefreshed() to provide a little scroll position and 
+     *  selection/caret stability after a dataProvider refresh.
+     */
+    mx_internal var caretItem:* = undefined;
+    
+    //----------------------------------
     //  labelField
     //----------------------------------
 
@@ -1164,7 +1177,15 @@ public class ListBase extends SkinnableDataContainer
         _caretIndex = value;
         
         if (caretIndex != CUSTOM_SELECTED_ITEM)
-            itemShowingCaret(caretIndex, true);
+        {
+            itemShowingCaret(_caretIndex, true);
+            
+            // Track the caretItem (often the same as the selectedItem), so that
+            // if the dataProvider is refreshed, we can relocate the caretIndex.
+            
+            const validIndex:Boolean = dataProvider && (_caretIndex >= 0) && (_caretIndex < dataProvider.length);
+            caretItem = (validIndex) ? dataProvider.getItemAt(_caretIndex) : undefined;
+        }
     }
     
     /**
@@ -1375,6 +1396,16 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  @private
+     *  Default response to dataProvider refresh events: clear the selection and caret.
+     */
+    mx_internal function dataProviderRefreshed():void
+    {
+        setSelectedIndex(NO_SELECTION, false);
+        setCurrentCaretIndex(NO_CARET);
+    }
+    
+    /**
+     *  @private
      *  Turns on selection transitions for one frame.  We turn it on for 
      *  one frame to make sure that no matter how the property gets set 
      *  (synchronously in the event handler or asynchronously during validation)
@@ -1566,8 +1597,7 @@ public class ListBase extends SkinnableDataContainer
             }
             else if (ce.kind == CollectionEventKind.REFRESH)
             {
-                setSelectedIndex(NO_SELECTION, false);
-                setCurrentCaretIndex(NO_CARET);
+                dataProviderRefreshed();
             }
             else if (ce.kind == CollectionEventKind.REPLACE ||
                 ce.kind == CollectionEventKind.MOVE)
