@@ -19,6 +19,7 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
+import flash.events.SoftKeyboardEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
@@ -1410,15 +1411,24 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override public function setFocus():void
     {
-        // If the mouse is down, then we don't want the TextField to get focus until mouse up. 
+        // If the mouse is down, then we don't want the TextField to open the soft keyboard until mouse up. 
         // Otherwise, this was called programmatically and we want the soft keyboard to appear immediately.
         // Note that isMouseDown can only be true when we are in InteractionMode == TOUCH. 
         if (textDisplay)
         {
             if (isMouseDown)
+            {
                 delaySetFocus = true;
-            else
+                
+                // Cancel the softKeyboard ACTIVATING event
+                addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
                 textDisplay.setFocus();
+                removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+            }
+            else
+            {
+                textDisplay.setFocus();
+            }
         }
     }
 
@@ -2112,6 +2122,14 @@ public class SkinnableTextBase extends SkinnableComponent
             delaySetFocus = false;
             mouseDownTarget = null;
         }
+    }
+    
+    /**
+     * @private
+     */
+    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+    {
+        event.preventDefault();
     }
     
     /**
