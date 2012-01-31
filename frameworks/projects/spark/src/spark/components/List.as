@@ -36,6 +36,8 @@ import mx.skins.spark.FxDefaultItemRenderer;
  *  when the full width of the list items is unlikely to fit.
  *  The user can select one or more items from the list, depending
  *  on the value of the <code>allowMultipleSelection</code> property.
+ *
+ *  @includeExample examples/FxListExample.mxml
  */
 public class FxList extends FxListBase
 {
@@ -267,10 +269,10 @@ public class FxList extends FxListBase
             }
         }
     }
-    	
-	/**
-	 *  Returns true if the item is selected.
-	 */
+        
+    /**
+     *  Returns true if the item is selected.
+     */
     public function isItemSelected(item:Object):Boolean
     {
         if (allowMultipleSelection)
@@ -450,76 +452,76 @@ public class FxList extends FxListBase
      */
     private function list_keyDownHandler(event:KeyboardEvent):void
     {
-    	var nextInView:Number;
-    	switch (event.keyCode)
+        var nextInView:Number;
+        switch (event.keyCode)
         {
             case Keyboard.UP:
             {
-            	if (layout is VerticalLayout)
-            	{
-            		nextInView = VerticalLayout(layout).inView(selectedIndex-1); 
-            		//The next item is already in full or partial view - don't scroll, just select it.
-            		if ((nextInView == 1) || (nextInView < 0))
-            			event.stopPropagation();
-            		//The last item was selected and partially in view, don't increment selection 
-            		if (nextInView == 0 && (VerticalLayout(layout).firstIndexInView == selectedIndex))
-            			return;
-            		//Adjust selection 
-            		if (selectedIndex > 0)
-            			selectedIndex--;
-            	}
-            	break;
+                if (layout is VerticalLayout)
+                {
+                    nextInView = VerticalLayout(layout).inView(selectedIndex-1); 
+                    //The next item is already in full or partial view - don't scroll, just select it.
+                    if ((nextInView == 1) || (nextInView < 0))
+                        event.stopPropagation();
+                    //The last item was selected and partially in view, don't increment selection 
+                    if (nextInView == 0 && (VerticalLayout(layout).firstIndexInView == selectedIndex))
+                        return;
+                    //Adjust selection 
+                    if (selectedIndex > 0)
+                        selectedIndex--;
+                }
+                break;
             }
             case Keyboard.DOWN:
             {
-            	if (layout is VerticalLayout)
-            	{
-            		nextInView = VerticalLayout(layout).inView(selectedIndex+1);
-            		//The next item is already in full or partial view - don't scroll
-            		if ((nextInView == 1) || (nextInView < 0))
-            			event.stopPropagation();
-            		//The last item was selected and partially in view, don't increment selection 
-            		if (nextInView == 0 && (VerticalLayout(layout).lastIndexInView == selectedIndex))
-            			return;
-            		//Adjust selection 
-    				if (selectedIndex < (dataProvider.length - 1))
-    					selectedIndex++;
-            	}
+                if (layout is VerticalLayout)
+                {
+                    nextInView = VerticalLayout(layout).inView(selectedIndex+1);
+                    //The next item is already in full or partial view - don't scroll
+                    if ((nextInView == 1) || (nextInView < 0))
+                        event.stopPropagation();
+                    //The last item was selected and partially in view, don't increment selection 
+                    if (nextInView == 0 && (VerticalLayout(layout).lastIndexInView == selectedIndex))
+                        return;
+                    //Adjust selection 
+                    if (selectedIndex < (dataProvider.length - 1))
+                        selectedIndex++;
+                }
                 break;
             }
             case Keyboard.LEFT:
             {
-            	if (layout is HorizontalLayout)
-            	{
-            		nextInView = HorizontalLayout(layout).inView(selectedIndex-1); 
-            		//The next item is already in full or partial view - don't scroll
-            		if ((nextInView == 1) || (nextInView < 0))
-            			event.stopPropagation();
-            		//The last item was selected and partially in view, don't increment selection 
-            		if (nextInView == 0 && (HorizontalLayout(layout).firstIndexInView == selectedIndex))
-            			return;
-            		//Adjust selection 
-            		if (selectedIndex > 0)
-            			selectedIndex--;
-            	}
-            	break;
+                if (layout is HorizontalLayout)
+                {
+                    nextInView = HorizontalLayout(layout).inView(selectedIndex-1); 
+                    //The next item is already in full or partial view - don't scroll
+                    if ((nextInView == 1) || (nextInView < 0))
+                        event.stopPropagation();
+                    //The last item was selected and partially in view, don't increment selection 
+                    if (nextInView == 0 && (HorizontalLayout(layout).firstIndexInView == selectedIndex))
+                        return;
+                    //Adjust selection 
+                    if (selectedIndex > 0)
+                        selectedIndex--;
+                }
+                break;
             }
             case Keyboard.RIGHT:
             {
-            	if (layout is HorizontalLayout)
-            	{
-            		nextInView = HorizontalLayout(layout).inView(selectedIndex+1); 
-            		//The next item is already in full or partial view - don't scroll
-            		if ((nextInView == 1) || (nextInView < 0))
-            			event.stopPropagation();
-            		//The last item was selected and partially in view, don't increment selection 
-            		if (nextInView == 0 && (HorizontalLayout(layout).lastIndexInView == selectedIndex))
-            			return;
-            		//Adjust selection 
-            		if (selectedIndex < (dataProvider.length - 1))
-            			selectedIndex++;
-            	}
-            	break;
+                if (layout is HorizontalLayout)
+                {
+                    nextInView = HorizontalLayout(layout).inView(selectedIndex+1); 
+                    //The next item is already in full or partial view - don't scroll
+                    if ((nextInView == 1) || (nextInView < 0))
+                        event.stopPropagation();
+                    //The last item was selected and partially in view, don't increment selection 
+                    if (nextInView == 0 && (HorizontalLayout(layout).lastIndexInView == selectedIndex))
+                        return;
+                    //Adjust selection 
+                    if (selectedIndex < (dataProvider.length - 1))
+                        selectedIndex++;
+                }
+                break;
             }            
         }
     }
