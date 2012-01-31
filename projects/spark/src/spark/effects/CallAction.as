@@ -24,13 +24,29 @@ import spark.effects.supportClasses.CallActionInstance;
 [Exclude(name="duration", kind="property")]
 
 /**
- * This effect, when played, calls the function specified by 
- * <code>functionName</code> on the <code>target</code> object with
- * optional <code>parameters</code>. The effect may be useful in
+ * The CallAction effect calls the function specified by 
+ * <code>functionName</code> property on the <code>target</code> object with
+ * optional parameters specified by the <code>parameters</code> property. 
+ * The effect is useful in
  * effect sequences where some function call can be choreographed
  * with other effects.
  *  
- * @see mx.effects.effectClasses.CallFunctionActionInstance
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:CallAction&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:CallAction
+ *    <b>Properties</b>
+ *    id="ID"
+ *    functionName="no default"
+ *    parameters="no default"
+ *  /&gt;
+ *  </pre>
+ *  
+ * @see spark.effects.supportClasses.CallActionInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -75,7 +91,7 @@ public class CallAction extends Effect
     //----------------------------------
 
     /** 
-     * Name of the function that will be called on the target when this effect plays
+     * Name of the function called on the target when this effect plays.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -89,8 +105,8 @@ public class CallAction extends Effect
     //----------------------------------
 
     /** 
-     * Parameters that will be supplied to the function that is called
-     * by this effect
+     * Parameters passed to the function that is called
+     * by this effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
