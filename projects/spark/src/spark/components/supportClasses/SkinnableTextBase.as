@@ -1295,6 +1295,17 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override protected function focusInHandler(event:FocusEvent):void
     {
+        if (event.target == this)
+        {
+            // call setFocus on ourselves to pass focus to the
+            // textDisplay.  This situation occurs when the
+            // player occasionally takes over the first TAB
+            // on a newly activated Window with nothing currently
+            // in focus
+            setFocus();
+            return;
+        }
+
         // Only editable text should have a focus ring.
         if (enabled && editable && focusManager)
             focusManager.showFocusIndicator = true;
