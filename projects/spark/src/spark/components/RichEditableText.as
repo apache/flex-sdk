@@ -47,12 +47,11 @@ import flashx.tcal.operations.ApplyFormatOperation;
 import flashx.tcal.operations.FlowOperation;
 import flashx.tcal.operations.SplitParagraphOperation;
 
-import mx.events.TextOperationEvent;
 import mx.core.IViewport;
-import mx.utils.TextUtil;
-
 import mx.core.UIComponent;
 import mx.events.FlexEvent;
+import mx.events.TextOperationEvent;
+import mx.utils.TextUtil;
 
 //--------------------------------------
 //  Events
@@ -189,6 +188,35 @@ public class TextView extends UIComponent implements IViewport
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+        
+    /**
+     *  @private
+     */
+    private var _clipContent:Boolean = true;
+    
+    /**
+     *  @copy mx.layout.LayoutBase#clipContent
+     */
+    public function get clipContent():Boolean 
+    {
+        return _clipContent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        if (value == _clipContent) 
+            return;
+    
+        _clipContent = value;
+        // TBD implement this
+    }
+        
     //----------------------------------
     //  content
     //----------------------------------
@@ -342,11 +370,11 @@ public class TextView extends UIComponent implements IViewport
     }
     
     //----------------------------------
-    //  horizontal,verticalScrollPositionDelta
+    //  horizontal ScrollPositionDelta
     //----------------------------------
 
     /**
-     * @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
+     *  @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -383,71 +411,6 @@ public class TextView extends UIComponent implements IViewport
         }       
     }
     
-    /**
-     * @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
-     */
-    public function verticalScrollPositionDelta(unit:uint):Number
-    {
-        // TBD: replace provisional implementation
-        var scrollR:Rectangle = scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y; 
-            
-        switch (unit)
-        {
-            case Keyboard.UP:
-                return (scrollR.y <= 0) ? 0 : -1;
-                
-            case Keyboard.DOWN:
-                return (scrollR.y >= maxDelta) ? 0 : 1;
-                
-            case Keyboard.PAGE_UP:
-                return Math.max(minDelta, -scrollR.height);
-                
-            case Keyboard.PAGE_DOWN:
-                return Math.min(maxDelta, scrollR.height);
-                
-            case Keyboard.HOME: 
-                return minDelta;
-                
-            case Keyboard.END: 
-                return maxDelta;
-                
-            default:
-                return 0;
-        }       
-    }
-    
-    //----------------------------------
-    //  clipContent
-    //----------------------------------
-        
-    private var _clipContent:Boolean = true;
-    
-    /**
-     * @copy mx.layout.LayoutBase#clipContent
-     */
-    public function get clipContent():Boolean 
-    {
-        return _clipContent;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set clipContent(value:Boolean):void 
-    {
-        if (value == _clipContent) 
-            return;
-    
-        _clipContent = value;
-        // TBD implement this
-    }
-        
-        
     //----------------------------------
     //  multiline
     //----------------------------------
@@ -488,11 +451,6 @@ public class TextView extends UIComponent implements IViewport
     private var _selectionActivePosition:int = -1;
 
     /**
-     *  @private
-     */
-    private var selectionActivePositionChanged:Boolean = false;
-    
-    /**
      *  The active position of the selection.
      *  The "active" point is the end of the selection
      *  which is changed when the selection is extended.
@@ -506,20 +464,6 @@ public class TextView extends UIComponent implements IViewport
         return _selectionActivePosition;
     }
 
-    /**
-     *  @private
-     */
-    public function set selectionActivePosition(value:int):void
-    {
-        if (value == _selectionActivePosition)
-            return;
-        
-        _selectionActivePosition = value;
-        selectionActivePositionChanged = true;
-
-        invalidateProperties();
-    }
-
     //----------------------------------
     //  selectionAnchorPosition
     //----------------------------------
@@ -529,11 +473,6 @@ public class TextView extends UIComponent implements IViewport
      */
     private var _selectionAnchorPosition:int = -1;
 
-    /**
-     *  @private
-     */
-    private var selectionAnchorPositionChanged:Boolean = false;
-    
     /**
      *  The anchor position of the selection.
      *  The "anchor" point is the stable end of the selection
@@ -546,20 +485,6 @@ public class TextView extends UIComponent implements IViewport
     public function get selectionAnchorPosition():int
     {
         return _selectionAnchorPosition;
-    }
-
-    /**
-     *  @private
-     */
-    public function set selectionAnchorPosition(value:int):void
-    {
-        if (value == _selectionAnchorPosition)
-            return;
-        
-        _selectionAnchorPosition = value;
-        selectionAnchorPositionChanged = true;
-
-        invalidateProperties();
     }
 
     //----------------------------------
@@ -644,6 +569,48 @@ public class TextView extends UIComponent implements IViewport
         invalidateProperties();
     }
         
+    //----------------------------------
+    //  verticalScrollPositionDelta
+    //----------------------------------
+
+    /**
+     *  @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
+     */
+    public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        // TBD: replace provisional implementation
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y; 
+            
+        switch (unit)
+        {
+            case Keyboard.UP:
+                return (scrollR.y <= 0) ? 0 : -1;
+                
+            case Keyboard.DOWN:
+                return (scrollR.y >= maxDelta) ? 0 : 1;
+                
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.height);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.height);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
+    }
+    
     //----------------------------------
     //  widthInChars
     //----------------------------------
@@ -734,16 +701,6 @@ public class TextView extends UIComponent implements IViewport
             textChanged = false;
             contentChanged = false;
             textAttributeChanged = false;
-        }
-
-        // Apply the specified selection indices to the TextFlow.
-        if (selectionAnchorPositionChanged || selectionActivePositionChanged)
-        {
-            textFlow.interactionManager.setSelection(
-                _selectionAnchorPosition, _selectionActivePosition);
-            
-            selectionAnchorPositionChanged = false;
-            selectionActivePositionChanged = false;
         }
 
         var containerController:IContainerController =
@@ -1012,7 +969,9 @@ public class TextView extends UIComponent implements IViewport
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
     {
-        textFlow.interactionManager.setSelection(anchorPosition, activePosition);
+        textFlow.interactionManager.setSelection(anchorPosition,
+                                                 activePosition);
+        textFlow.flowComposer.updateAllContainers();
     }
     
     /**
