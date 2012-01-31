@@ -13,7 +13,7 @@ package mx.rpc
 {
 
 /**
- * Object that represents a fault in a remote procedure call (RPC) service
+ * The Fault class represents a fault in a remote procedure call (RPC) service
  * invocation.
  */
 public class Fault extends Error
@@ -25,7 +25,7 @@ public class Fault extends Error
     {
         super("faultCode:" + faultCode + " faultString:'" + faultString + "' faultDetail:'" + faultDetail + "'");
         
-		this._faultCode = faultCode;
+        this._faultCode = faultCode;
         this._faultString = faultString ? faultString : "";
         this._faultDetail = faultDetail;
     }
@@ -81,6 +81,9 @@ public class Fault extends Error
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * Returns the string representation of a Fault object.
+     */
     public function toString():String
     {
         var s:String = "[RPC Fault";
@@ -90,11 +93,20 @@ public class Fault extends Error
         return s;
     }
 
+    /**
+     * @private
+     */
     protected var _faultCode:String;
     
-	protected var _faultString:String;
+    /**
+     * @private
+     */
+    protected var _faultString:String;
     
-	protected var _faultDetail:String;
+    /**
+     * @private
+     */
+    protected var _faultDetail:String;
 }
 
 }
