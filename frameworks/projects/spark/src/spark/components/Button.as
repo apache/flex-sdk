@@ -46,7 +46,7 @@ import mx.core.IButton;
  *  /&gt;
  *  </pre>
  *
- *  @see spark.skins.default.ButtonSkin
+ *  @see spark.skins.spark.ButtonSkin
  *  @includeExample examples/ButtonExample.mxml
  *  
  *  @langversion 3.0
