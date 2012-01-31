@@ -57,7 +57,9 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
+ *   
+ *  @default 0x70B2EE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -519,7 +521,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-	private var _keepDown:Boolean = false;
+    private var _keepDown:Boolean = false;
     
     /**
      *  @private
@@ -716,7 +718,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //
     //--------------------------------------------------------------------------
     
-	/**
+    /**
      *  @private
      */
     override protected function initializeAccessibility():void
@@ -828,10 +830,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     private function addSystemMouseHandlers():void
     {
         systemManager.getSandboxRoot().addEventListener(
-			MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+            MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
 
         systemManager.getSandboxRoot().addEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
     }
 
     /**
@@ -842,10 +844,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     private function removeSystemMouseHandlers():void
     {
         systemManager.getSandboxRoot().removeEventListener(
-			MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+            MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
 
         systemManager.getSandboxRoot().removeEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
     }
     
     /**
