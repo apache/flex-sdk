@@ -223,13 +223,13 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Internal storage for the selectedIndices property and invalidation variables.
      */
-    private var _selectedIndices:Vector.<Number>;
-    private var _proposedSelectedIndices:Vector.<Number> = new Vector.<Number>(); 
+    private var _selectedIndices:Vector.<int>;
+    private var _proposedSelectedIndices:Vector.<int> = new Vector.<int>(); 
     private var multipleSelectionChanged:Boolean; 
     
     [Bindable("change")]
     /**
-     *  A Vector of Numbers representing the indices of the currently selected  
+     *  A Vector of ints representing the indices of the currently selected  
      *  item or items. If multiple selection is disabled by setting 
      *  <code>allowMultipleSelection</code> to <code>false</code>, and this property  
      *  is set, the data item corresponding to the first index in the Vector is selected.  
@@ -241,7 +241,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get selectedIndices():Vector.<Number>
+    public function get selectedIndices():Vector.<int>
     {
         return _selectedIndices;
     }
@@ -249,7 +249,7 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    public function set selectedIndices(value:Vector.<Number>):void
+    public function set selectedIndices(value:Vector.<int>):void
     {
         if (_proposedSelectedIndices == value)
             return; 
@@ -295,11 +295,11 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function set selectedItems(value:Vector.<Object>):void
     {
-        var indices:Vector.<Number>;
+        var indices:Vector.<int>;
         
         if (value)
         {
-            indices = new Vector.<Number>();
+            indices = new Vector.<int>();
             
             var count:int = value.length;
             
@@ -307,14 +307,14 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 //TODO (dsubrama) What exactly should we do if an 
                 //invalid item is in the selectedItems vector? 
-                var index:Number = dataProvider.getItemIndex(value[i]);
+                var index:int = dataProvider.getItemIndex(value[i]);
                 if (index != -1)
                 { 
                     indices[i] = index;  
                 }
                 if (index == -1)
                 {
-                    indices = new Vector.<Number>();
+                    indices = new Vector.<int>();
                     break;  
                 }
             }
@@ -398,8 +398,11 @@ public class List extends ListBase implements IFocusManagerComponent
         // vector of 1 entry. If its not, we pare it down and select the 
         // first item.  
         if (!allowMultipleSelection && !isEmpty(_proposedSelectedIndices))
-            _proposedSelectedIndices = new Vector.<Number>(_proposedSelectedIndices[0]);
-        
+        {
+            var temp:Vector.<int> = new Vector.<int>(); 
+            temp.push(_proposedSelectedIndices[0]); 
+            _proposedSelectedIndices = temp; 
+        }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
            _proposedSelectedIndex = getLastItemValue(_proposedSelectedIndices); 
@@ -454,8 +457,8 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function commitMultipleSelection():void
     {
-        var removedItems:Vector.<Number> = new Vector.<Number>();
-        var addedItems:Vector.<Number> = new Vector.<Number>();
+        var removedItems:Vector.<int> = new Vector.<int>();
+        var addedItems:Vector.<int> = new Vector.<int>();
         var i:int;
         var count:int;
         
@@ -512,7 +515,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Commit the selected indices and put _proposedSelectedIndices
         // back to its default value.  
         _selectedIndices = _proposedSelectedIndices;
-        _proposedSelectedIndices = new Vector.<Number>();
+        _proposedSelectedIndices = new Vector.<int>();
     }
     
     /**
@@ -593,7 +596,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function itemAdded(index:int):void
     {
-        adjustSelectedIndices(index, true); 
+        adjustSelection(index, true); 
     }
     
     /**
@@ -602,7 +605,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function itemRemoved(index:int):void
     {
-        adjustSelectedIndices(index, false);        
+        adjustSelection(index, false);        
     }
     
     //--------------------------------------------------------------------------
@@ -617,7 +620,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  selection, this is just selectedIndex. In multiple 
      *  selection, this is the index of the first selected item.  
      */
-    private function getFirstSelectedIndex():Number
+    private function getFirstSelectedIndex():int
     {
         if (selectedIndices && selectedIndices.length > 0)
             return selectedIndices[0]; 
@@ -630,7 +633,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Given a Vector, returns the value of the last item, 
      *  or -1 if there are no items in the Vector; 
      */
-    private function getLastItemValue(v:Vector.<Number>):Number
+    private function getLastItemValue(v:Vector.<int>):int
     {
         if (v && v.length > 0)
             return v[v.length - 1]; 
@@ -642,7 +645,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Returns true if v is null or an empty Vector.
      */
-    private function isEmpty(v:Vector.<Number>):Boolean
+    private function isEmpty(v:Vector.<int>):Boolean
     {
         return v == null || v.length == 0;
     }
@@ -652,10 +655,10 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Taking into account which modifier keys were clicked, the new
      *  selectedIndices interval is calculated. 
      */
-    private function calculateSelectedIndicesInterval(renderer:IVisualElement, shiftKey:Boolean, ctrlKey:Boolean):Vector.<Number>
+    private function calculateSelectedIndicesInterval(renderer:IVisualElement, shiftKey:Boolean, ctrlKey:Boolean):Vector.<int>
     {
         var i:int; 
-        var interval:Vector.<Number> = new Vector.<Number>();  
+        var interval:Vector.<int> = new Vector.<int>();  
         var index:Number = dataGroup.getElementIndex(renderer); 
         
         if (!shiftKey)
@@ -670,9 +673,12 @@ public class List extends ListBase implements IFocusManagerComponent
                     {
                         // We need to respect requireSelection 
                         if (!requireSelection)
-                            return new Vector.<Number>();
+                            return interval; 
                         else 
-                            return new Vector.<Number>()(selectedIndices[0]); 
+                        {
+                            interval.push(selectedIndices[0]); 
+                            return interval; 
+                        }
                     }
                     else
                     {
@@ -698,19 +704,25 @@ public class List extends ListBase implements IFocusManagerComponent
                     } 
                 }
                 // Ctrl+click with no previously selected items 
-                else 
-                    return new Vector.<Number>(index); 
+                else
+                { 
+                    interval.push(index); 
+                    return interval; 
+                }
             }
             // A single item was newly selected, add that to the selection interval.  
             else 
-                return new Vector.<Number>(index);
+            { 
+                interval.push(index); 
+                return interval; 
+            }
         }
         else // shiftKey
         {
             // A contiguous selection action has occurred. Figure out which new 
             // indices to add to the selection interval and return that. 
-            var start:Number = (!isEmpty(selectedIndices)) ? selectedIndices[0] : 0; 
-            var end:Number = index; 
+            var start:int = (!isEmpty(selectedIndices)) ? selectedIndices[0] : 0; 
+            var end:int = index; 
             if (start < end)
             {
                 for (i = start; i <= end; i++)
@@ -837,11 +849,11 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function adjustSelectedIndices(index:int, add:Boolean):void
+    override protected function adjustSelection(index:int, add:Boolean=false):void
     {
         var i:int; 
         var curr:Number; 
-        var newInterval:Vector.<Number> = new Vector.<Number>(); 
+        var newInterval:Vector.<int> = new Vector.<int>(); 
         var e:IndexChangedEvent; 
         
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
@@ -850,7 +862,8 @@ public class List extends ListBase implements IFocusManagerComponent
             // selected and careted because requireSelection is true. 
             if (dataProvider && dataProvider.length == 1 && requireSelection)
             {
-                _selectedIndices = new Vector.<Number>(0); 
+                newInterval.push(0);
+                _selectedIndices = newInterval;   
                 _selectedIndex = 0; 
                 itemShowingCaret(0, true); 
                 // If the selection properties have been adjusted to account for items that
@@ -904,7 +917,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 //Removing the last item 
                 if (dataProvider.length == 0)
                 {
-                    newInterval = new Vector.<Number>(); 
+                    newInterval = new Vector.<int>(); 
                 }
                 else if (index == 0)
                 {
@@ -917,7 +930,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 }    
                 else
                 {
-                    newInterval = new Vector.<Number>(0); 
+                    newInterval.push(0);  
                 }
             }
             else
@@ -962,7 +975,7 @@ public class List extends ListBase implements IFocusManagerComponent
             invalidateProperties(); 
         }
         
-        var oldIndices:Vector.<Number> = selectedIndices;  
+        var oldIndices:Vector.<int> = selectedIndices;  
         _selectedIndices = newInterval;
         _selectedIndex = getLastItemValue(newInterval);
         // If the selection has actually changed, trigger a pass to 
@@ -1122,7 +1135,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (allowMultipleSelection && event.shiftKey && selectedIndices)
         {
             var startIndex:Number = getFirstSelectedIndex(); 
-            var newInterval:Vector.<Number> = new Vector.<Number>();  
+            var newInterval:Vector.<int> = new Vector.<int>();  
             var i:int; 
             if (startIndex <= proposedNewIndex)
             {
