@@ -47,6 +47,8 @@ import mx.managers.ISystemManager;
 
 import spark.primitives.supportClasses.TextGraphicElement;
 
+use namespace mx_internal;
+
 [DefaultProperty("text")]
 
 //--------------------------------------
@@ -318,7 +320,7 @@ public class SimpleText extends TextGraphicElement
     	super.updateDisplayList(unscaledWidth, unscaledHeight);
     	
     	// Draw an optional background for debugging.
-    	var bc:Object = mx_internal::backgroundColor;
+    	var bc:Object = backgroundColor;
     	if (bc != null)
     	{
 	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
@@ -345,8 +347,8 @@ public class SimpleText extends TextGraphicElement
      *  It stops composing when the composition rectangle has been filled.
      *  Returns true if all lines were composed, otherwise false.
      */
-    override protected function composeTextLines(width:Number = NaN,
-												 height:Number = NaN):Boolean
+    override mx_internal function composeTextLines(width:Number = NaN,
+												   height:Number = NaN):Boolean
     {
         super.composeTextLines(width, height);
         
@@ -358,7 +360,6 @@ public class SimpleText extends TextGraphicElement
 		// The bounds are then used by the addTextLines() method
 		// to determine the isOverset flag.
 		// The composition bounds are also reported by the measure() method.
-		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = width;
@@ -366,8 +367,8 @@ public class SimpleText extends TextGraphicElement
 
         // Remove the text lines from the container and then release them for
         // reuse, if supported by the player.
-        mx_internal::removeTextLines();
-        mx_internal::releaseTextLines();
+        removeTextLines();
+        releaseTextLines();
         
 		var allLinesComposed:Boolean = createTextLines(elementFormat);
         
@@ -390,19 +391,19 @@ public class SimpleText extends TextGraphicElement
         // This will save a recompose and/or clip in updateDisplayList()
         // if  bounds width matches the unscaled width.
         if (getStyle("lineBreak") == "toFit" && 
-            !isNaN(width) && mx_internal::bounds.width < width)
+            !isNaN(width) && bounds.width < width)
         {
-            mx_internal::bounds.width = width;
+            bounds.width = width;
         }
                                                
         // Add the new text lines to the container.
-        mx_internal::addTextLines(DisplayObjectContainer(drawnDisplayObject));
+        addTextLines(DisplayObjectContainer(drawnDisplayObject));
 
         // Figure out if a scroll rect is needed.
-        mx_internal::isOverset = mx_internal::isTextOverset(width, height);
+        isOverset = isTextOverset(width, height);
         
         // Just recomposed so reset.
-        mx_internal::invalidateCompose = false;     
+        invalidateCompose = false;     
         
         return allLinesComposed;           
     }
@@ -678,9 +679,7 @@ public class SimpleText extends TextGraphicElement
 		}
                 
 		// Then create TextLines using this TextBlock.
-		return createTextLinesFromTextBlock(staticTextBlock,
-		                                    mx_internal::textLines,
-		                                    mx_internal::bounds);
+		return createTextLinesFromTextBlock(staticTextBlock, textLines, bounds);
 	}
 
 	/**
@@ -699,7 +698,7 @@ public class SimpleText extends TextGraphicElement
                 	                              bounds:Rectangle):Boolean
 	{
 		// Start with 0 text lines.
-		mx_internal::releaseTextLines(textLines);
+		releaseTextLines(textLines);
 	       
 		// Get CSS styles for formats that we have to apply ourselves.
 		var direction:String = getStyle("direction");
@@ -990,8 +989,6 @@ public class SimpleText extends TextGraphicElement
                                          createdAllLines:Boolean,
                                          lineCountLimit:int):Boolean
     {
-        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
-
         // Not all text composed because it didn't fit within bounds.
         if (!createdAllLines)
             return false;
@@ -1038,7 +1035,7 @@ public class SimpleText extends TextGraphicElement
             // and formats.  The measured indicator lines could be cached but
             // as well as being dependent on the indicator string, they are 
             // dependent on the given width.            
-            staticTextElement.text = mx_internal::truncationIndicatorResource;
+            staticTextElement.text = truncationIndicatorResource;
             var indicatorLines:Vector.<DisplayObject> =
             	new Vector.<DisplayObject>();
             var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
@@ -1064,13 +1061,14 @@ public class SimpleText extends TextGraphicElement
                     measuredTextLine.unjustifiedTextWidth;                          
                                         
                 measuredTextLine = null;                                        
-                mx_internal::releaseTextLines(indicatorLines);
+                releaseTextLines(indicatorLines);
                                                         
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
-                var truncateAtCharPosition:int = 
-                    getTruncationPosition(mx_internal::textLines[truncLineIndex], 
-                                          allowedWidth);
+                // TODO: What if textLines[truncLineIndex] is a backgroundColor
+				// Shape instead of a TextLine?
+                var truncateAtCharPosition:int = getTruncationPosition(
+                	TextLine(textLines[truncLineIndex]), allowedWidth);
 
                 // The following loop executes repeatedly composing text until 
                 // it fits.  In each iteration, an atoms's worth of characters 
@@ -1079,21 +1077,19 @@ public class SimpleText extends TextGraphicElement
                 {
                     // Replace all content starting at the inital truncation 
                     // position with the truncation indicator.
-                    var truncText:String = 
-                            text.slice(0, truncateAtCharPosition) +
-                                       mx_internal::truncationIndicatorResource;
+                    var truncText:String = text.slice(0, truncateAtCharPosition) +
+                    					   truncationIndicatorResource;
 
                     // (Re)-initialize bounds for next compose.
-                    mx_internal::bounds.x = 0;
-                    mx_internal::bounds.y = 0;
-                    mx_internal::bounds.width = width;
-                    mx_internal::bounds.height = height;
+                    bounds.x = 0;
+                    bounds.y = 0;
+                    bounds.width = width;
+                    bounds.height = height;
                                                                                     
                     staticTextElement.text = truncText;
-                    var createdAllLines:Boolean = 
-                        createTextLinesFromTextBlock(staticTextBlock,
-                                                     mx_internal::textLines,
-                                                     mx_internal::bounds);
+                    
+                    var createdAllLines:Boolean = createTextLinesFromTextBlock(
+                    	staticTextBlock, textLines, bounds);
         
                     if (doesComposedTextFit(height, 
                                             createdAllLines, 
@@ -1121,21 +1117,21 @@ public class SimpleText extends TextGraphicElement
         // padding.
         if (!somethingFit)
         {
-            mx_internal::releaseTextLines();
+            releaseTextLines();
 
             var paddingBottom:Number = getStyle("paddingBottom");
             var paddingLeft:Number = getStyle("paddingLeft");
             var paddingRight:Number = getStyle("paddingRight");
             var paddingTop:Number = getStyle("paddingTop");
             
-            mx_internal::bounds.x = 0;
-            mx_internal::bounds.y = 0;
-            mx_internal::bounds.width = paddingLeft + paddingRight;
-            mx_internal::bounds.height = paddingTop + paddingBottom;
+            bounds.x = 0;
+            bounds.y = 0;
+            bounds.width = paddingLeft + paddingRight;
+            bounds.height = paddingTop + paddingBottom;
         }
         
         // The text was truncated.
-        mx_internal::isTextTruncated = true;
+        isTextTruncated = true;
     }
         
     /** 
@@ -1145,7 +1141,6 @@ public class SimpleText extends TextGraphicElement
     private function computeLastAllowedLineIndex(height:Number,
                                                  lineCountLimit:int):int
     {           
-        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
         var truncationLineIndex:int = textLines.length - 1;
         
         if (!isNaN(height))
@@ -1209,8 +1204,6 @@ public class SimpleText extends TextGraphicElement
     private function getNextTruncationPosition(truncationLineIndex:int,
                                                truncateAtCharPosition:int):int
     {
-        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
-
         // 1. Get the position of the last character of the preceding atom
         // truncateAtCharPosition-1, because truncateAtCharPosition is an 
         // atom boundary.
