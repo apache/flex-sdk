@@ -16,8 +16,11 @@ import flash.utils.Dictionary;
 
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
+import mx.effects.CompositeEffect;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
+import mx.effects.Parallel;
+import mx.effects.Sequence;
 import mx.events.EffectEvent;
 import mx.geom.TransformOffsets;
 import mx.styles.IStyleClient;
@@ -247,6 +250,10 @@ public class AnimateTransform extends Animate
     // end values
     // TODO (chaase): More correct approach might be to animate the 
     // transform center between start and end
+    // TODO (chaase): If we do keep some mechanism of caching the values,
+    // need to make sure to delete the map entries when effect is stopped.
+    // Current approach clears it at applyEndValues() time, but that won't
+    // catch the stop() case.
     private var transformCenterPerTarget:Dictionary = new Dictionary(true);
 
     /**
@@ -277,7 +284,8 @@ public class AnimateTransform extends Animate
 
     /**
      *  Specifies whether the transform effect occurs
-     *  around the center of the target, <code>(width/2, height/2)</code>.
+     *  around the center of the target, <code>(width/2, height/2)</code>
+     *  when the effect begins playing.
      *  If the flag is not set, the transform center is determined by
      *  the transform center of the object (<code>transformX, transformY,
      *  transformZ</code>) and the <code>transformX, transformY,
@@ -1194,9 +1202,11 @@ public class AnimateTransform extends Animate
      * and the transform center.
      */
     override mx_internal function captureValues(propChanges:Array,
-                                       setStartValues:Boolean):Array
+                                       setStartValues:Boolean,
+                                       targetsToCapture:Array = null):Array
     {
-        propChanges = super.captureValues(propChanges,setStartValues);
+        propChanges = super.captureValues(propChanges, setStartValues, 
+            targetsToCapture);
         var valueMap:Object;
         var i:int;
         var n:int;
@@ -1206,83 +1216,87 @@ public class AnimateTransform extends Animate
         for (i = 0; i < n; i++)
         {
             target = propChanges[i].target;
-            // TODO (chaase): should only capture values for targets of this effect.
-            // currently no easy way to determine this, since if we are
-            // running in a composite effect, that effect will create
-            // propertyChange targets for all effect children.
-            // Might want to change API of captureValues to specify the
-            // targets to iterate through
-            // For now, just make sure that we can transform the current target
-            // then go ahead and capture values for it
-            if (!(target is IUIComponent) && !(target is IGraphicElement))
-                continue;
-
-            // cache transform center at captureStartValues time; this will
-            // force captureEndValues to use the transform center
-            var computedTransformCenter:Vector3D;
-            if (!setStartValues && transformCenterPerTarget[target] !== undefined)
+            if (targetsToCapture == null || targetsToCapture.length == 0 ||
+                targetsToCapture.indexOf(target) >= 0)
             {
-                computedTransformCenter = transformCenterPerTarget[target];
-            }
-            else
-            {
-                computedTransformCenter = computeTransformCenterForTarget(target);
-                if (setStartValues)
-                    transformCenterPerTarget[target] = computedTransformCenter;
-            }
-
-            valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
-            if (valueMap.translationX === undefined ||
-                valueMap.translationY === undefined ||
-                valueMap.translationZ === undefined)
-            {
-                // TODO (chaase): do we really need this?
-                propChanges[i].stripUnchangedValues = false;
-                
-                target.transformPointToParent(computedTransformCenter, xformPosition,
-                    null);               
-                valueMap.translationX = xformPosition.x;
-                valueMap.translationY = xformPosition.y;
-                valueMap.translationZ = xformPosition.z;
-            }
-            
-            
-            // if someone has asked for the motionpaths to affect offsets, 
-            // they might not have explcitly defined any offsets.  If that's the case, 
-            // we still need to capture default start values, so let's initialize the offsets
-            // to a default set anyway.
-            if(postLayoutTransformPropertiesSet && target.offsets == null)
-            {
-                target.offsets = new TransformOffsets();
-            }
-            
-            // if the target doesn't have any offsets, there's no need to capture
-            // offset values.
-            if(target.offsets != null)
-            {
-                var offsets:TransformOffsets = target.offsets;
-                valueMap.postLayoutRotationX = offsets.rotationX;
-                valueMap.postLayoutRotationY = offsets.rotationY;
-                valueMap.postLayoutRotationZ = offsets.rotationZ;
-
-                valueMap.postLayoutScaleX = offsets.scaleX;
-                valueMap.postLayoutScaleY = offsets.scaleY;
-                valueMap.postLayoutScaleZ = offsets.scaleZ;
-
-                if (valueMap.postLayoutTranslationX === undefined ||
-                    valueMap.postLayoutTranslationY === undefined ||
-                    valueMap.postLayoutTranslationZ === undefined)
+                // TODO (chaase): should only capture values for targets of this effect.
+                // currently no easy way to determine this, since if we are
+                // running in a composite effect, that effect will create
+                // propertyChange targets for all effect children.
+                // Might want to change API of captureValues to specify the
+                // targets to iterate through
+                // For now, just make sure that we can transform the current target
+                // then go ahead and capture values for it
+                if (!(target is IUIComponent) && !(target is IGraphicElement))
+                    continue;
+    
+                // cache transform center at captureStartValues time; this will
+                // force captureEndValues to use the transform center
+                var computedTransformCenter:Vector3D;
+                if (!setStartValues && transformCenterPerTarget[target] !== undefined)
+                {
+                    computedTransformCenter = transformCenterPerTarget[target];
+                }
+                else
+                {
+                    computedTransformCenter = computeTransformCenterForTarget(target);
+                    if (setStartValues)
+                        transformCenterPerTarget[target] = computedTransformCenter;
+                }
+    
+                valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
+                if (valueMap.translationX === undefined ||
+                    valueMap.translationY === undefined ||
+                    valueMap.translationZ === undefined)
                 {
                     // TODO (chaase): do we really need this?
                     propChanges[i].stripUnchangedValues = false;
-
-                    computedTransformCenter = 
-                        computeTransformCenterForTarget(target); 
-                    target.transformPointToParent(computedTransformCenter, null,
-                        postLayoutPosition);               
-                    valueMap.postLayoutTranslationX = postLayoutPosition.x;
-                    valueMap.postLayoutTranslationY = postLayoutPosition.y;
-                    valueMap.postLayoutTranslationZ = postLayoutPosition.z;
+                    
+                    target.transformPointToParent(computedTransformCenter, xformPosition,
+                        null);               
+                    valueMap.translationX = xformPosition.x;
+                    valueMap.translationY = xformPosition.y;
+                    valueMap.translationZ = xformPosition.z;
+                }
+                
+                
+                // if someone has asked for the motionpaths to affect offsets, 
+                // they might not have explcitly defined any offsets.  If that's the case, 
+                // we still need to capture default start values, so let's initialize the offsets
+                // to a default set anyway.
+                if(postLayoutTransformPropertiesSet && target.offsets == null)
+                {
+                    target.offsets = new TransformOffsets();
+                }
+                
+                // if the target doesn't have any offsets, there's no need to capture
+                // offset values.
+                if(target.offsets != null)
+                {
+                    var offsets:TransformOffsets = target.offsets;
+                    valueMap.postLayoutRotationX = offsets.rotationX;
+                    valueMap.postLayoutRotationY = offsets.rotationY;
+                    valueMap.postLayoutRotationZ = offsets.rotationZ;
+    
+                    valueMap.postLayoutScaleX = offsets.scaleX;
+                    valueMap.postLayoutScaleY = offsets.scaleY;
+                    valueMap.postLayoutScaleZ = offsets.scaleZ;
+    
+                    if (valueMap.postLayoutTranslationX === undefined ||
+                        valueMap.postLayoutTranslationY === undefined ||
+                        valueMap.postLayoutTranslationZ === undefined)
+                    {
+                        // TODO (chaase): do we really need this?
+                        propChanges[i].stripUnchangedValues = false;
+    
+                        computedTransformCenter = 
+                            computeTransformCenterForTarget(target); 
+                        target.transformPointToParent(computedTransformCenter, null,
+                            postLayoutPosition);               
+                        valueMap.postLayoutTranslationX = postLayoutPosition.x;
+                        valueMap.postLayoutTranslationY = postLayoutPosition.y;
+                        valueMap.postLayoutTranslationZ = postLayoutPosition.z;
+                    }
                 }
             }
         }
@@ -1535,6 +1549,10 @@ public class AnimateTransform extends Animate
             applyValues(propChanges, targets, false);
             super.mx_internal::applyEndValues(propChanges, targets);
         }
+        if (targets != null)
+            for (var i:int = 0; i < targets.length; ++i)
+                if (transformCenterPerTarget[targets[i]] !== undefined)
+                    delete transformCenterPerTarget[targets[i]];
     }
 
     /**
@@ -1816,10 +1834,22 @@ public class AnimateTransform extends Animate
         transformInstance.projectionX = projectionX;
         transformInstance.projectionY = projectionY;
 
-
-        
-        transformInstance.transformCenter = 
-            computeTransformCenterForTarget(instance.target);
+        // If we're in a transition and we've captured the center already, use it.
+        // Otherwise, calculate it.
+        // TODO (chaase): double-check that calling play() directly on an effect
+        // that was previously used in a Transition won't mistakenly think that it's
+        // now being run in a transition.
+        if (propertyChangesArray != null && 
+            transformCenterPerTarget[instance.target] !== undefined)
+        {
+            transformInstance.transformCenter = 
+                transformCenterPerTarget[instance.target];
+        }
+        else
+        {
+            transformInstance.transformCenter = 
+                computeTransformCenterForTarget(instance.target);
+        }
         
         // Need to hide these properties from the superclass, as they are
         // already handled in our single instance. But restore them afterwards
@@ -1853,6 +1883,22 @@ public class AnimateTransform extends Animate
         while (parent)
         {
             globalStartTime += parent.startDelay;
+            if (parent is Sequence)
+            {
+                var sequence:Sequence = Sequence(parent);
+                for (var i:int = 0; i < sequence.children.length; ++i)
+                {
+                    var child:Effect = sequence.children[i];
+                    if (child == this)
+                        break;
+                    if (child is CompositeEffect)
+                        globalStartTime += CompositeEffect(child).compositeDuration;
+                    else
+                        globalStartTime += child.startDelay + 
+                            (child.duration * child.repeatCount) +
+                            (child.repeatDelay + (child.repeatCount - 1));
+                }
+            }
             parent = parent.mx_internal::parentCompositeEffect;
         }        
         return globalStartTime;
