@@ -591,6 +591,11 @@ public class DropDownController extends EventDispatcher
              || (dropDown is DisplayObjectContainer && 
                  !DisplayObjectContainer(dropDown).contains(DisplayObject(event.target))))))
         {
+            // don't close if it's on the openButton
+            var target:DisplayObject = event.target as DisplayObject;
+            if (openButton && target && openButton.contains(target))
+                return;
+            
             if (hitAreaAdditions != null)
             {
                 for (var i:int = 0;i<hitAreaAdditions.length;i++)
