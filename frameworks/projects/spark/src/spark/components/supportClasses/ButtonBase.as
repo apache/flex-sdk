@@ -205,7 +205,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelElement:TextGraphicElement;
+    public var labelDisplay:TextGraphicElement;
 
     //--------------------------------------------------------------------------
     //
@@ -229,7 +229,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  The <code>content</code> property lets you pass an arbitrary object
      *  to be used in a custom skin of the button.
      * 
-     *  When a skin defines the optional part <code>labelElement</code> then
+     *  When a skin defines the optional part <code>labelDisplay</code> then
      *  a string representation of <code>content</code> will be pushed down to
      *  that part's <code>text</code> property.
      *
@@ -261,9 +261,9 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         _content = value;
 
-        // Push to the optional labelElement skin part
-        if (labelElement)
-            labelElement.text = label;
+        // Push to the optional labelDisplay skin part
+        if (labelDisplay)
+            labelDisplay.text = label;
         dispatchEvent(new Event("contentChange"));
     }
 
@@ -577,7 +577,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(labelElement);
+        return getBaselinePositionForPart(labelDisplay);
     }
 
     //--------------------------------------------------------------------------
@@ -594,8 +594,8 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         super.partAdded(partName, instance);
         
         // Push down to the part only if the label was explicitly set
-        if (_content !== undefined && instance == labelElement)
-            labelElement.text = label;
+        if (_content !== undefined && instance == labelDisplay)
+            labelDisplay.text = label;
     }
 
     /**
@@ -943,15 +943,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // Bail out if we don't have a label or the tooltip is explicitly set.
-        if (!labelElement || _explicitToolTip)
+        if (!labelDisplay || _explicitToolTip)
             return;
 
         // Check if the label text is truncated
-        labelElement.validateNow();
-        var truncated:Boolean = labelElement.isTruncated();
+        labelDisplay.validateNow();
+        var truncated:Boolean = labelDisplay.isTruncated();
         
         // If the label is truncated, show the whole label string as a tooltip
-        super.toolTip = truncated ? labelElement.text : null;
+        super.toolTip = truncated ? labelDisplay.text : null;
     } 
 }
 
