@@ -287,6 +287,41 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
         _concurrency = c;
     }
 
+    //----------------------------------
+    //  requestTimeout
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _requestTimeout:int = -1;
+
+    /**
+     *  Provides access to the request timeout in seconds for sent messages.
+     *  If an acknowledgement, response or fault is not received from the
+     *  remote destination before the timeout is reached the message is faulted
+     *  on the client. A value less than or equal to zero prevents request timeout.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3           
+     */
+    public function get requestTimeout():int
+    {
+        return _requestTimeout;
+    }
+
+    /**
+     *  @private
+     */
+    public function set requestTimeout(value:int):void
+    {
+        if (_requestTimeout != value)
+            _requestTimeout = value;
+    }
+    
     /**
      *  @private
      */
@@ -643,7 +678,7 @@ function xmlEncoder (myObj)
     {
         _contentType = ct;
     }
-
+    
     //----------------------------------
     //  showBusyCursor
     //----------------------------------
@@ -1142,7 +1177,9 @@ function xmlEncoder (myObj)
         if (_directChannelSet == null)
         {
             var dcs:ChannelSet = new ChannelSet();
-            dcs.addChannel(new DirectHTTPChannel("direct_http_channel"));
+            var dhc:DirectHTTPChannel = new DirectHTTPChannel("direct_http_channel");
+            dhc.requestTimeout = requestTimeout;
+            dcs.addChannel(dhc);
             _directChannelSet = dcs;            
         }
         return _directChannelSet;  
