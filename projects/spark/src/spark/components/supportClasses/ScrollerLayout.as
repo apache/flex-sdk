@@ -13,7 +13,6 @@ package spark.components.supportClasses
 {
 import flash.geom.Point;
 
-import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.utils.MatrixUtil;
@@ -247,54 +246,56 @@ public class ScrollerLayout extends LayoutBase
 
     /**
      * @private
-     *  Computes the union of the preferred size of the visible 
-     *  scrollbars and the viewport.  
+     *  Computes the union of the preferred size of the visible scrollbars 
+     *  and the viewport if target.measuredSizeIncludesScrollbars=true, otherwise
+     *  it's just the preferred size of the viewport.
      * 
      *  This becomes the ScrollerSkin's measuredWidth,Height.
      *    
-     *  The ScrollerSkin's minimum size is only big enough to 
-     *  acccomodate the visible scrollbars.
-     * 
      *  The viewport does not contribute to the minimum size unless its
      *  explicit size has been set.
      */
     override public function measure():void
     {
-        var scroller:Scroller = getScroller();
+        const scroller:Scroller = getScroller();
         if (!scroller) 
             return;
             
-        var minViewportInset:Number = scroller.minViewportInset;
+        const minViewportInset:Number = scroller.minViewportInset;
+        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars;
+
         var measuredW:Number = minViewportInset;
         var measuredH:Number = minViewportInset;
         
-        var hsb:ScrollBar = scroller.horizontalScrollBar;
+        const hsb:ScrollBar = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
         var hAuto:Boolean = false;
-        switch(scroller.getStyle("horizontalScrollPolicy")) 
-        {
-            case ScrollPolicy.ON: 
-                if (hsb) showHSB = true; 
-                break;
-            case ScrollPolicy.AUTO: 
-                if (hsb) showHSB = hsb.visible;
-                hAuto = true;
-                break;
-        } 
+        if (measuredSizeIncludesScrollBars)
+            switch(scroller.getStyle("horizontalScrollPolicy")) 
+            {
+                case ScrollPolicy.ON: 
+                    if (hsb) showHSB = true; 
+                    break;
+                case ScrollPolicy.AUTO: 
+                    if (hsb) showHSB = hsb.visible;
+                    hAuto = true;
+                    break;
+            } 
 
-        var vsb:ScrollBar = scroller.verticalScrollBar;
+        const vsb:ScrollBar = scroller.verticalScrollBar;
         var showVSB:Boolean = false;
         var vAuto:Boolean = false;
-        switch(scroller.getStyle("verticalScrollPolicy")) 
-        {
-           case ScrollPolicy.ON: 
-                if (vsb) showVSB = true; 
-                break;
-            case ScrollPolicy.AUTO: 
-                if (vsb) showVSB = vsb.visible;
-                vAuto = true;
-                break;
-        }
+        if (measuredSizeIncludesScrollBars)
+            switch(scroller.getStyle("verticalScrollPolicy")) 
+            {
+               case ScrollPolicy.ON: 
+                    if (vsb) showVSB = true; 
+                    break;
+                case ScrollPolicy.AUTO: 
+                    if (vsb) showVSB = vsb.visible;
+                    vAuto = true;
+                    break;
+            }
         
         measuredH += (showHSB) ? hsbRequiredHeight() : minViewportInset;
         measuredW += (showVSB) ? vsbRequiredWidth() : minViewportInset;
@@ -310,25 +311,33 @@ public class ScrollerLayout extends LayoutBase
         var viewport:IViewport = scroller.viewport;
         if (viewport)
         {
-            var contentSize:Point = getLayoutContentSize(viewport);
-
-            var viewportPreferredW:Number =  viewport.getPreferredBoundsWidth();
-            var viewportContentW:Number = contentSize.x;
-            var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
-            var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + SDT) > viewportContentW);
-            if (hAuto && !showHSB && ((viewportPreferredW + SDT) <= viewportContentW) && currentSizeNoHSB)
-                measuredW += viewportW;
+            if (measuredSizeIncludesScrollBars)
+            {
+                var contentSize:Point = getLayoutContentSize(viewport);
+    
+                var viewportPreferredW:Number =  viewport.getPreferredBoundsWidth();
+                var viewportContentW:Number = contentSize.x;
+                var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
+                var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + SDT) > viewportContentW);
+                if (hAuto && !showHSB && ((viewportPreferredW + SDT) <= viewportContentW) && currentSizeNoHSB)
+                    measuredW += viewportW;
+                else
+                    measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
+    
+                var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
+                var viewportContentH:Number = contentSize.y;
+                var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
+                var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + SDT) > viewportContentH);
+                if (vAuto && !showVSB && ((viewportPreferredH + SDT) <= viewportContentH) && currentSizeNoVSB)
+                    measuredH += viewportH;
+                else
+                    measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
+            }
             else
-                measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
-
-            var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
-            var viewportContentH:Number = contentSize.y;
-            var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
-            var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + SDT) > viewportContentH);
-            if (vAuto && !showVSB && ((viewportPreferredH + SDT) <= viewportContentH) && currentSizeNoVSB)
-                measuredH += viewportH;
-            else
-                measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
+            {
+                measuredW += viewport.getPreferredBoundsWidth();
+                measuredH += viewport.getPreferredBoundsHeight();
+            }
         }
 
         var minW:Number = minViewportInset * 2;
@@ -353,7 +362,7 @@ public class ScrollerLayout extends LayoutBase
         g.measuredMinWidth = Math.ceil(minW); 
         g.measuredMinHeight = Math.ceil(minH);
     }
-    
+
     /** 
      *  @private
      *  Arrange the viewport and scrollbars conventionally within
