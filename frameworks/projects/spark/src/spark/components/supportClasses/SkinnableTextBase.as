@@ -198,7 +198,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [SkinState("disabled")]
 
 /**
- *  Normal state with Prompt.
+ *  Normal state with prompt.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -208,7 +208,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [SkinState("normalWithPrompt")]
 
 /**
- *  Disabled state with Prompt.
+ *  Disabled state with prompt.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -643,8 +643,30 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  Text to be displayed if/when the actual
-     *  text property is a null or empty string.
+     *  Text to be displayed if/when the actual text property is a null or empty string.
+     * 
+     *  <p>Prompt text appears when the text control is first created. Prompt text disappears 
+     *  when the control gets focus or when the control’s <code>text</code> property is non-null. 
+     *  Prompt text reappears when the control loses focus, but only if no text was entered 
+     *  (if the value of the text field is null or the empty string).</p>
+     *  
+     *  <p>For text controls, if the user enters text, but later deletes it, the prompt text 
+     *  reappears when the control loses focus. You can also cause the prompt text 
+     *  to reappear programmatically by setting the text control’s text property to null or the empty string.</p>
+     *  
+     *  <p>You can change the style of the prompt text with CSS. If the control has prompt text 
+     *  and is not disabled, the style is defined by the <code>normalWithPrompt</code> pseudo selector. 
+     *  If the control is disabled, then the styles defined by the <code>disabledWithPrompt</code> pseudo selector are used.</p>
+     *  
+     *  <p>The following example CSS changes the color of the prompt text in controls that sub-class SkinnableTextBase (this includes
+     *  the Spark TextInput and TextArea controls):
+     *  <pre>
+     *  &#64;namespace s "library://ns.adobe.com/flex/spark";
+     *  s|SkinnableTextBase:normalWithPrompt {
+     *      color: #CCCCFF;
+     *  }
+     *  </pre>
+     *  </p>
      *
      *  @default null
      *
