@@ -218,13 +218,13 @@ public class TextBase extends UIComponent
      *  @private
      *  The value of bounds.width, before the compose was done.
      */
-    private var _composeWidth:Number;
+    mx_internal var _composeWidth:Number;
 
     /**
      *  @private
      *  The value of bounds.height, before the compose was done.
      */
-    private var _composeHeight:Number;
+    mx_internal var _composeHeight:Number;
     
     /**
      *  @private
@@ -258,6 +258,13 @@ public class TextBase extends UIComponent
     {
         if (!validateBaselinePosition())
             return NaN;
+
+        // Create an empty text line so we can measure the height. If the
+        // text is vertically aligned then need the composeHeight so the 
+        // baseline remains consistent when the width is so narrow there
+        // are no textLines.
+        if (textLines.length == 0)
+            createEmptyTextLine(_composeHeight);
         
         // Return the baseline of the first line of composed text.
         return textLines.length > 0 ? textLines[0].y : 0;
@@ -720,6 +727,14 @@ public class TextBase extends UIComponent
     /**
      *  @private
      */
+    mx_internal function createEmptyTextLine(height:Number=NaN):void
+    {
+        // override this
+    }
+    
+    /**
+     *  @private
+     */
     mx_internal function invalidateTextLines():void
     {
         invalidateCompose = true;
@@ -876,15 +891,12 @@ public class TextBase extends UIComponent
 		if (n == 0)
 			return;
 
-		// The old TextLines might have been added to a different
-		// container than the one we'd use now to add new TextLines.
-		var container:DisplayObjectContainer =
-			textLines[0].parent;
-
 		for (var i:int = 0; i < n; i++)
 		{
-			var textLine:DisplayObject = textLines[i];			
-            UIComponent(container).$removeChild(textLine);
+			var textLine:DisplayObject = textLines[i];	
+            var parent:UIComponent = textLine.parent as UIComponent;
+            if (parent)
+                UIComponent(textLine.parent).$removeChild(textLine);
 		}
 	}
 
