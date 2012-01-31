@@ -80,16 +80,15 @@ in accordance with the terms of the license agreement accompanying it.
             override public function prepare():void
             {
                 super.prepare();
-                
+             
                 var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
                 var textDisplay:IEditableText = textArea.textDisplay;
                 var itemRenderer:IGridItemRenderer = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex);
-
+                
                 if (itemRenderer is IUITextField)
                 {
                     textDisplay.multiline = IUITextField(itemRenderer).multiline;
                     textDisplay.lineBreak = IUITextField(itemRenderer).wordWrap ? "toFit" : "explicit";
-                    
                 }
                 else if ("multiline" in itemRenderer)
                 {
@@ -149,6 +148,11 @@ in accordance with the terms of the license agreement accompanying it.
             override public function setFocus():void
             {
                 textArea.setFocus();
+                
+                // If textArea is multiline, it will not select all of the
+                // text by default. So select all of the text here.
+                if (textArea.textDisplay.multiline)
+                    textArea.selectAll();
             }
             
             /**
