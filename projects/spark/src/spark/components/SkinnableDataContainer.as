@@ -15,6 +15,7 @@ package spark.components
 import flash.events.Event;
 
 import mx.collections.IList;
+import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
@@ -524,12 +525,22 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      *  @productversion Flex 4
      * 
      */
-    public function updateRenderer(renderer:IVisualElement):void
+    public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
+        // set the owner
         renderer.owner = this;
-         
+        
+        // Set the index
         if (renderer is IItemRenderer)
-            IItemRenderer(renderer).label = itemToLabel(IItemRenderer(renderer).data);  
+            IItemRenderer(renderer).itemIndex = itemIndex;
+
+        // set the label to the toString() of the data 
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).label = itemToLabel(data);
+        
+        // always set the data last
+        if ((renderer is IDataRenderer) && (renderer !== data))
+            IDataRenderer(renderer).data = data;
     }
 
     //--------------------------------------------------------------------------
