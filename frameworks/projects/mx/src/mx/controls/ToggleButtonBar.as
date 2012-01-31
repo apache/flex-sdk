@@ -83,6 +83,8 @@ use namespace mx_internal;
 
 [IconFile("ButtonBar.png")]
 
+[Alternative(replacement="spark.components.ButtonBar", since="4.0")]
+
 /**
  *  The ToggleButtonBar control defines a horizontal or vertical 
  *  group of buttons that maintain their selected or deselected state.
