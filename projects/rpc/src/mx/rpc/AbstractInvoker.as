@@ -211,10 +211,10 @@ public class AbstractInvoker extends EventDispatcher
      *  This is useful when the result is a large object that is no longer being
      *  used.
      *
-     *  @param  fireBindingEvent Set to <code>true</code> if you want anything
-     *          bound to the result to update. Otherwise, set to
-     *          <code>false</code>.
-     *          The default value is <code>true</code>
+     *  @param fireBindingEvent Set to <code>true</code> if you want anything
+     *  bound to the result to update. Otherwise, set to
+     *  <code>false</code>.
+     *  The default value is <code>true</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -236,7 +236,7 @@ public class AbstractInvoker extends EventDispatcher
      *  always points to "the" managed instance for a given identity even if the
      *  the service returns a new copy of the same object.  
      *
-     *  @param the new value for the lastResult property.
+     *  @param result The new value for the lastResult property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -267,7 +267,7 @@ public class AbstractInvoker extends EventDispatcher
         event.callTokenResponders();
         if (!event.isDefaultPrevented())
         {
-            dispatchEvent(event);		
+            dispatchEvent(event);       
         }
     }
 
@@ -283,15 +283,15 @@ public class AbstractInvoker extends EventDispatcher
     {
         if (NetworkMonitor.isMonitoring())
         {
-	        if (event is mx.rpc.events.ResultEvent)
-	        {
-	            NetworkMonitor.monitorResult(event.message, mx.rpc.events.ResultEvent(event).result);    
-	        }
-	        else if (event is mx.rpc.events.FaultEvent)
-	        {
-	            //trace(" AbstractInvoker: MonitorFault - message:" + event.message);
-	            NetworkMonitor.monitorFault(event.message, mx.rpc.events.FaultEvent(event).fault);
-	        }
+            if (event is mx.rpc.events.ResultEvent)
+            {
+                NetworkMonitor.monitorResult(event.message, mx.rpc.events.ResultEvent(event).result);    
+            }
+            else if (event is mx.rpc.events.FaultEvent)
+            {
+                //trace(" AbstractInvoker: MonitorFault - message:" + event.message);
+                NetworkMonitor.monitorFault(event.message, mx.rpc.events.FaultEvent(event).fault);
+            }
         }
     }    
 
