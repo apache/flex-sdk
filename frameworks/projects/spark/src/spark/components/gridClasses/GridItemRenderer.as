@@ -496,7 +496,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         
         // TBD(hmuller) - this code should be common with DefaultGridItemRenderer        
         
-        const showDataTips:Boolean = column && column.getShowDataTips();
+        const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();
         const dataTip:String = toolTip;
         if (showDataTips && !dataTip)
             toolTip = "<dataTip>";
@@ -508,14 +508,14 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  @inheritDoc
      */
-    public function prepare(willBeRecycled:Boolean):void
+    public function prepare(hasBeenRecycled:Boolean):void
     {
     }
 
     /**
      *  @inheritDoc
      */
-    public function discard(hasBeenRecycled:Boolean):void
+    public function discard(willBeRecycled:Boolean):void
     {
     }
     
