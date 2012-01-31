@@ -738,6 +738,7 @@ public class Grid extends Group implements IDataGridElement
     private var columnsChanged:Boolean = false;
     
     [Bindable("columnsChanged")]
+    [Inspectable(category="General")]
     
     /**
      *  The list of GridColumn objectss displayed by this grid.  
@@ -857,6 +858,7 @@ public class Grid extends Group implements IDataGridElement
     private var dataProviderChanged:Boolean;
     
     [Bindable("dataProviderChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  A list of data items that correspond to the rows in the grid.   
@@ -912,7 +914,8 @@ public class Grid extends Group implements IDataGridElement
     
     private var _dataTipField:String = null;
     
-    [Bindable("dataTipFieldChanged")]    
+    [Bindable("dataTipFieldChanged")]
+    [Inspectable(category="Data", defaultValue="null")]
     
     /**
      *  @copy spark.components.gridClasses.GridColumn#dataTipField
@@ -949,6 +952,7 @@ public class Grid extends Group implements IDataGridElement
     private var _dataTipFunction:Function = null;
     
     [Bindable("dataTipFunctionChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.gridClasses.GridColumn#dataTipFunction
@@ -986,6 +990,7 @@ public class Grid extends Group implements IDataGridElement
     private var itemRendererChanged:Boolean = false;
     
     [Bindable("itemRendererChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  The item renderer that's used for columns that do not specify one.
@@ -1123,6 +1128,8 @@ public class Grid extends Group implements IDataGridElement
     //  preserveSelection (delegates to gridSelection.preserveSelection)
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="true")]
+    
     /**
      *  If <code>true</code>, the selection is preserved when the data provider 
      *  refreshes its collection. 
@@ -1155,7 +1162,7 @@ public class Grid extends Group implements IDataGridElement
     
     private var _requestedMaxRowCount:int = 10;
     
-    [Inspectable(category="General", minValue="-1")]
+    [Inspectable(category="General", defaultValue="10", minValue="-1")]
     
     /**
      *  The measured height of the grid is large enough to display 
@@ -1366,6 +1373,8 @@ public class Grid extends Group implements IDataGridElement
     //  requireSelection
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="false")]
+    
     /**
      *  If <code>true</code> and the <code>selectionMode</code> property is not 
      *  <code>GridSelectionMode.NONE</code>, an item must always be selected 
@@ -1401,6 +1410,7 @@ public class Grid extends Group implements IDataGridElement
     private var _resizableColumns:Boolean = true;
     
     [Bindable("resizableColumnsChanged")]
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  Indicates whether the user can change the size of the columns.
@@ -1478,7 +1488,7 @@ public class Grid extends Group implements IDataGridElement
     private var _rowHeight:Number = NaN;
     private var rowHeightChanged:Boolean;
     
-    [Bindable("rowBackgroundChanged")]
+    [Bindable("rowHeightChanged")]
     [Inspectable(category="General", minValue="0.0")]
     
     /**
@@ -1711,6 +1721,7 @@ public class Grid extends Group implements IDataGridElement
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="-1")]
 
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
@@ -1779,6 +1790,7 @@ public class Grid extends Group implements IDataGridElement
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
 
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
@@ -1851,6 +1863,7 @@ public class Grid extends Group implements IDataGridElement
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="null")]
     
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
@@ -1932,6 +1945,7 @@ public class Grid extends Group implements IDataGridElement
     
     [Bindable("selectionChange")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
 
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
@@ -2181,6 +2195,7 @@ public class Grid extends Group implements IDataGridElement
     private var typicalItemChanged:Boolean = false;
     
     [Bindable("typicalItemChanged")]
+    [Inspectable(category="Data")]
     
     /**
      *  The grid's layout ensures that columns whose width is not specified is wide
@@ -2216,7 +2231,6 @@ public class Grid extends Group implements IDataGridElement
         
         dispatchChangeEvent("typicalItemChanged");
     }
-    
 
     /**
      *  Clears cached column width data that had been based on the 
@@ -2249,6 +2263,7 @@ public class Grid extends Group implements IDataGridElement
     private var variableRowHeightChanged:Boolean = false;
     
     [Bindable("variableRowHeightChanged")]
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  If <code>true</code>, each row's height is the maximum of 
