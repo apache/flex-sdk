@@ -25,8 +25,8 @@ import spark.components.IItemRenderer;
 import spark.components.supportClasses.ItemRenderer;
 import spark.components.supportClasses.ListBase;  
 import spark.events.RendererExistenceEvent;
-import spark.layout.HorizontalLayout;
-import spark.layout.VerticalLayout;
+import spark.layouts.HorizontalLayout;
+import spark.layouts.VerticalLayout;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
