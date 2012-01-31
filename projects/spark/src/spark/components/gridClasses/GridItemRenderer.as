@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -23,8 +23,8 @@ import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
 
 import spark.components.Group;
-import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.ItemRenderer;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
