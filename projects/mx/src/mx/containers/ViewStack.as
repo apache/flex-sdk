@@ -259,10 +259,6 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     public function ViewStack()
     {
         super();
-
-        addEventListener(ChildExistenceChangedEvent.CHILD_ADD, childAddHandler);
-        addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, 
-                         childRemoveHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -333,6 +329,12 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     private var dispatchChangeEventPending:Boolean = false;
 
+    /**
+     *  @private
+     *  If we're in the middle of adding a child
+     */
+    private var addingChildren:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -695,6 +697,10 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     {
         // Bail if the index isn't changing.
         if (value == selectedIndex)
+            return;
+        
+        // ignore, probably coming from tabbar
+        if (addingChildren)
             return;
 
         // Propose the specified value as the new value for selectedIndex.
@@ -1328,9 +1334,8 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     /**
      *  @private
      */
-    private function childAddHandler(event:ChildExistenceChangedEvent):void
+    private function childAddHandler(child:DisplayObject):void
     {
-        var child:DisplayObject = event.relatedObject;
         var index:int = getChildIndex(child);
 
         if (child is IUIComponent)
@@ -1350,11 +1355,15 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         // been proposed, then propose this child to be selected.
         if (numChildren == 1 && proposedSelectedIndex == -1)
         {
-            selectedIndex = 0;
+            _selectedIndex = 0;
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+            needToInstantiateSelectedChild = true;
+            invalidateProperties();
         } 
         else if (index <= selectedIndex && numChildren > 1 && proposedSelectedIndex == -1)         
         {
-            selectedIndex++;
+            _selectedIndex++;
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
 
         if (child is IAutomationObject)
@@ -1369,11 +1378,8 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      *  next (or previous) child gets automatically selected; when the last
      *  remaining child is removed, the selectedIndex is set to -1.
      */
-    private function childRemoveHandler(event:ChildExistenceChangedEvent):void
+    private function childRemoveHandler(child:DisplayObject, index:int):void
     {
-        var child:DisplayObject = event.relatedObject;
-        var index:int = getChildIndex(child);
-        
         if (child is INavigatorContent)
         {
             child.removeEventListener("labelChanged", navigatorChildChangedHandler);
@@ -1405,7 +1411,8 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
             }
             else
             {
-                selectedIndex--;
+                _selectedIndex--;
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             }
         }
         else if (index == currentSelectedIndex)
@@ -1424,8 +1431,11 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     override public function addChildAt(item:DisplayObject, index:int):DisplayObject
     {
+        addingChildren = true;
         var obj:DisplayObject = super.addChildAt(item, index);
         internalDispatchEvent(CollectionEventKind.ADD, obj, index);
+        childAddHandler(item);
+        addingChildren = false;
         return obj;
     }
 
@@ -1437,6 +1447,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         var index:int = getChildIndex(item);
         var obj:DisplayObject = super.removeChild(item);
         internalDispatchEvent(CollectionEventKind.REMOVE, obj, index);
+        childRemoveHandler(item, index);
         return obj;
     }
 
