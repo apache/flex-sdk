@@ -900,6 +900,12 @@ public class VideoDisplay extends UIComponent
      *  stream.  However, if you do this, the streamType is assumed to be "any," 
      *  and you don't have as much control over the streaming as you would if 
      *  you used the DynamicStreamingVideoSource object.</p>
+     * 
+     *  <p>Note: Setting the source on a MediaPlayerStateChangeEvent.LOADING or a 
+     *  MediaPlayerStateChangeEvent.READY is not recommended if the source was 
+     *  previously set.  This could cause an infinite loop or an RTE.  
+     *  If you must do an operation like that, wait an additional frame to 
+     *  set the source.</p>
      *
      *  @see spark.components.mediaClasses.DynamicStreamingVideoSource
      *  
@@ -1444,6 +1450,10 @@ public class VideoDisplay extends UIComponent
      */
     private function setUpSource():void
     {
+        // clean up any listeners from the old source, especially if we 
+        // are in the processing of loading that video file up
+        cleanUpSource()
+        
         // if was playing a previous video, let's remove it now
         if (videoPlayer.element)
             videoGateway.removeElement(videoPlayer.element);
@@ -1732,6 +1742,50 @@ public class VideoDisplay extends UIComponent
                 // wasn't playing
                 if (videoPlayer.playable)
                     videoPlayer.play();
+            }
+            
+            inLoadingState1 = false;
+            inLoadingState2 = false;
+            inLoadingState3 = false;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Cancels the load, no matter what state it's in.  This is used when changing the source.
+     */
+    private function cleanUpSource():void
+    {
+        // TODO (rfrishbe): very similar to cancelLoadAndPlay(). Should collapse it down.
+        
+        // always remove listener as we could be out of loadState1 but still "loading to play"
+        videoPlayer.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandlerForLoading);
+        
+        if (inLoadingState1)
+        {
+            if (!inLoadingState2)
+            {
+                // first step
+                
+                // Just need to remove event listeners as we did above
+            }
+            else if (!inLoadingState3)
+            {
+                // second step
+                videoPlayer.muted = beforeLoadMuted;
+                videoPlayer.view.visible = true;
+                
+                // going to call pause() now to stop immediately
+                videoPlayer.pause();
+            }
+            else
+            {
+                // third step
+                videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+                videoPlayer.muted = beforeLoadMuted;
+                videoPlayer.view.visible = true;
+                
+                // already called pause(), so don't do anything
             }
             
             inLoadingState1 = false;
