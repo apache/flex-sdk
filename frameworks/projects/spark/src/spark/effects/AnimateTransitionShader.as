@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
 import flash.display.BitmapData;	
 import flash.display.IBitmapDrawable;
@@ -18,8 +18,9 @@ import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
-import mx.effects.effectClasses.FxAnimateShaderTransitionInstance;
-import mx.graphics.baseClasses.GraphicElement;
+import mx.effects.IEffectInstance;
+import spark.effects.supportClasses.AnimateShaderTransitionInstance;
+import spark.primitives.supportClasses.GraphicElement;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -78,14 +79,14 @@ import mx.resources.ResourceManager;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateShaderTransition extends FxAnimate
+public class AnimateShaderTransition extends Animate
 {
     
-    public function FxAnimateShaderTransition(target:Object=null)
+    public function AnimateShaderTransition(target:Object=null)
     {
         super(target);
 
-        instanceClass = FxAnimateShaderTransitionInstance;
+        instanceClass = AnimateShaderTransitionInstance;
     }
    
     
@@ -184,11 +185,11 @@ public class FxAnimateShaderTransition extends FxAnimate
      * @example <listing version="3.0">
      *   [Embed(source="MyShader.pbj", mimeType="application/octet-stream")]
      *   private var ShaderCodeClass:Class;
-     *   var shaderEffect = new FxAnimateShaderTransition();
+     *   var shaderEffect = new AnimateShaderTransition();
      *   shaderEffect.shaderCode = ShaderCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
      * or in MXML code, this:<listing version="3.0">
-     *   &lt;FxAnimateShaderTransition 
+     *   &lt;AnimateShaderTransition 
      *       shaderCode="&64;Embed(source='MyShader.pbj', mimeType='application/octet-stream')"
      *       shaderProperties="{{direction : 1}}}"/&gt;
      * </listing>
@@ -211,7 +212,7 @@ public class FxAnimateShaderTransition extends FxAnimate
      * @example <listing version="3.0">
      *   [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
      *   private var WipeCodeClass:Class;
-     *   var shaderEffect = new FxAnimateShaderTransition();
+     *   var shaderEffect = new AnimateShaderTransition();
      *   shaderEffect.shaderCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
      *  
@@ -277,8 +278,8 @@ public class FxAnimateShaderTransition extends FxAnimate
     {
         super.initInstance(instance);
         
-        var animateShaderTransitionInstance:FxAnimateShaderTransitionInstance = 
-            FxAnimateShaderTransitionInstance(instance);
+        var animateShaderTransitionInstance:AnimateShaderTransitionInstance = 
+            AnimateShaderTransitionInstance(instance);
 
         animateShaderTransitionInstance.bitmapFrom = bitmapFrom;
         animateShaderTransitionInstance.bitmapTo = bitmapTo;
