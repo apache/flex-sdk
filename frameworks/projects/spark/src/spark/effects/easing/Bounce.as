@@ -18,6 +18,11 @@ import mx.effects.easing.Bounce;
  * pulling on and bouncing the target object. The object
  * movement accelerates toward the end value and then bounces against
  * it several times.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Bounce implements IEaser
 {
@@ -29,6 +34,11 @@ public class Bounce implements IEaser
     
     /**
      *  Constructs a Bounce easer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Bounce()
     {
