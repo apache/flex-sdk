@@ -9,9 +9,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
-{	
+package spark.components.supportClasses
 
+
+{	
+    
+import spark.components.Group;
 /**
  *  The Skin class defines the base class for all skins used by skinnable components. 
  *  The SkinnableComponent class defines the base class for skinnable components.
@@ -43,7 +46,7 @@ package mx.components
  */
 public class Skin extends Group
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
