@@ -65,7 +65,7 @@ public class Panel extends SkinnableContainer
     /**
      *  @private
      */
-    private static const CONTROLS_PROPERTY_FLAG:uint = 1 << 0;
+    private static const CONTROLBAR_PROPERTY_FLAG:uint = 1 << 0;
 
     /**
      *  @private
@@ -99,25 +99,25 @@ public class Panel extends SkinnableContainer
 
     /**
      *  @private
-     *  Several properties are proxied to controlGroup.  However, when controlGroup
+     *  Several properties are proxied to controlBarGroup.  However, when controlBarGroup
      *  is not around, we need to store values set on SkinnableContainer.  This object 
-     *  stores those values.  If controlGroup is around, the values are stored 
-     *  on the controlGroup directly.  However, we need to know what values 
+     *  stores those values.  If controlBarGroup is around, the values are stored 
+     *  on the controlBarGroup directly.  However, we need to know what values 
      *  have been set by the developer on the SkinnableContainer (versus set on 
-     *  the controlGroup or defaults of the controlGroup) as those are values 
-     *  we want to carry around if the controlGroup changes (via a new skin). 
-     *  In order to store this info effeciently, controlGroupProperties becomes 
+     *  the controlBarGroup or defaults of the controlBarGroup) as those are values 
+     *  we want to carry around if the controlBarGroup changes (via a new skin). 
+     *  In order to store this info effeciently, controlBarGroupProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
      *  property has been explicitely set on this SkinnableContainer.  When the 
-     *  controlGroup is not around, controlGroupProperties is a typeless 
-     *  object to store these proxied properties.  When controlGroup is around,
-     *  controlGroupProperties stores booleans as to whether these properties 
+     *  controlBarGroup is not around, controlBarGroupProperties is a typeless 
+     *  object to store these proxied properties.  When controlBarGroup is around,
+     *  controlBarGroupProperties stores booleans as to whether these properties 
      *  have been explicitely set or not.
      */
-    private var controlGroupProperties:Object = {};
+    private var controlBarGroupProperties:Object = {};
 
     //----------------------------------
-    //  controlGroup
+    //  controlBarGroup
     //---------------------------------- 
     
     [SkinPart(required="false")]
@@ -133,37 +133,37 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var controlGroup:Group;
+    public var controlBarGroup:Group;
 
     //----------------------------------
-    //  controls
+    //  controlBarContent
     //---------------------------------- 
     
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
      *  The set of items that become the content of
-     *  the controlGroup
+     *  the controlBarGroup
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function set controls(value:Array):void
+    public function set controlBarContent(value:Array):void
     {
-        if (controlGroup)
+        if (controlBarGroup)
         {
-            controlGroup.mxmlContent = value;
-            controlGroupProperties = BitFlagUtil.update(controlGroupProperties as uint, 
-                                                        CONTROLS_PROPERTY_FLAG, true);
+            controlBarGroup.mxmlContent = value;
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
+                                                        CONTROLBAR_PROPERTY_FLAG, true);
         }
         else
-            controlGroupProperties.controls = value;
+            controlBarGroupProperties.controlBarContent = value;
     }
 
     //----------------------------------
-    //  controlLayout
+    //  controlBarLayout
     //---------------------------------- 
     
     /**
@@ -174,23 +174,23 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get controlLayout():LayoutBase
+    public function get controlBarLayout():LayoutBase
     {
-        return (controlGroup) 
-            ? controlGroup.layout 
-            : controlGroupProperties.layout;
+        return (controlBarGroup) 
+            ? controlBarGroup.layout 
+            : controlBarGroupProperties.layout;
     }
 
-    public function set controlLayout(value:LayoutBase):void
+    public function set controlBarLayout(value:LayoutBase):void
     {
-        if (controlGroup)
+        if (controlBarGroup)
         {
-            controlGroup.layout = value;
-            controlGroupProperties = BitFlagUtil.update(controlGroupProperties as uint, 
+            controlBarGroup.layout = value;
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
                                                         LAYOUT_PROPERTY_FLAG, true);
         }
         else
-            controlGroupProperties.layout = value;
+            controlBarGroupProperties.layout = value;
     }
 
     //----------------------------------
@@ -276,26 +276,26 @@ public class Panel extends SkinnableContainer
         {
             titleDisplay.text = title;
         }
-        else if (instance == controlGroup)
+        else if (instance == controlBarGroup)
         {
-            // copy proxied values from controlGroupProperties (if set) to contentGroup
-            var newControlGroupProperties:uint = 0;
+            // copy proxied values from controlBarGroupProperties (if set) to contentGroup
+            var newControlBarGroupProperties:uint = 0;
             
-            if (controlGroupProperties.controls !== undefined)
+            if (controlBarGroupProperties.controlBarContent !== undefined)
             {
-                controlGroup.mxmlContent = controlGroupProperties.controls;
-                newControlGroupProperties = BitFlagUtil.update(newControlGroupProperties, 
-                                                               CONTROLS_PROPERTY_FLAG, true);
+                controlBarGroup.mxmlContent = controlBarGroupProperties.controlBarContent;
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
+                                                               CONTROLBAR_PROPERTY_FLAG, true);
             }
 
-            if (controlGroupProperties.layout !== undefined)
+            if (controlBarGroupProperties.layout !== undefined)
             {
-                controlGroup.layout = controlGroupProperties.layout;
-                newControlGroupProperties = BitFlagUtil.update(newControlGroupProperties, 
+                controlBarGroup.layout = controlBarGroupProperties.layout;
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
                                                                LAYOUT_PROPERTY_FLAG, true);
             }
 
-            controlGroupProperties = newControlGroupProperties;
+            controlBarGroupProperties = newControlBarGroupProperties;
         }
     }
 
@@ -311,22 +311,22 @@ public class Panel extends SkinnableContainer
     {
         super.partRemoved(partName, instance);
 
-        if (instance == controlGroup)
+        if (instance == controlBarGroup)
         {
             // copy proxied values from contentGroup (if explicitely set) to contentGroupProperties
             
-            var newControlGroupProperties:Object = {};
+            var newControlBarGroupProperties:Object = {};
             
-            if (BitFlagUtil.isSet(controlGroupProperties as uint, CONTROLS_PROPERTY_FLAG))
-                newControlGroupProperties.controls = controlGroup.getMXMLContent();
+            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG))
+                newControlBarGroupProperties.controlBarContent = controlBarGroup.getMXMLContent();
             
-            if (BitFlagUtil.isSet(controlGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
-                newControlGroupProperties.layout = controlGroup.layout;
+            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
+                newControlBarGroupProperties.layout = controlBarGroup.layout;
             
-            controlGroupProperties = newControlGroupProperties;
+            controlBarGroupProperties = newControlBarGroupProperties;
 
-            controlGroup.mxmlContent = null;
-            controlGroup.layout = null;
+            controlBarGroup.mxmlContent = null;
+            controlBarGroup.layout = null;
         }
     }
 
@@ -341,15 +341,15 @@ public class Panel extends SkinnableContainer
     override protected function getCurrentSkinState():String
     {
         var state:String = enabled ? "normal" : "disabled";
-        if (controlGroup)
+        if (controlBarGroup)
         {
-            if (BitFlagUtil.isSet(controlGroupProperties as uint, CONTROLS_PROPERTY_FLAG))
-                state += "WithControls";
+            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG))
+                state += "WithControlBar";
         }
         else
         {
-            if (controlGroupProperties.controls)
-                state += "WithControls";
+            if (controlBarGroupProperties.controlBarContent)
+                state += "WithControlBar";
         }
 
         return state;
