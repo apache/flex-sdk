@@ -20,7 +20,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
-import spark.components.supportClasses.ListBase;
+import spark.components.supportClasses.ButtonBarBase;
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
 
@@ -37,13 +37,9 @@ import mx.managers.IFocusManagerComponent;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
-//--------------------------------------
-//  Other metadata
-//--------------------------------------
+[IconFile("ButtonBar.png")]
 
 [AccessibilityClass(implementation="spark.accessibility.ButtonBarAccImpl")]
-
-[IconFile("ButtonBar.png")]
 
 /**
  *  The ButtonBar control defines a horizontal group of 
@@ -103,7 +99,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ButtonBar extends ListBase implements IFocusManagerComponent 
+public class ButtonBar extends ButtonBarBase implements IFocusManagerComponent 
 {
     include "../core/Version.as";
 
@@ -136,30 +132,10 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     public function ButtonBar()
     {
         super();
-
-        itemRendererFunction = defaultButtonBarItemRendererFunction;
         
-        tabChildren = false;
-        tabEnabled = true;
-        tabFocusEnabled = true;
-
-        addEventListener(IndexChangeEvent.CARET_CHANGE, caretChangeHandler);
-
-        // start off with a button under the caret
-        _caretIndex = 0;
+        itemRendererFunction = defaultButtonBarItemRendererFunction;
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private var inKeyUpHandler:Boolean;
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -214,9 +190,10 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     public var middleButton:IFactory;
 
+    
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties
+    //  Overridden Properties
     //
     //--------------------------------------------------------------------------
 
@@ -230,230 +207,13 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider)
-        {
             dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler);
-            if (dataProvider is ISelectableList)
-                dataProvider.removeEventListener(Event.CHANGE, navigationChangeHandler);
-        }
     
         // not really a default handler, we just want it to run after the datagroup
         if (value)
-        {
             value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER);
-            if (value is ISelectableList)
-                value.addEventListener(Event.CHANGE, navigationChangeHandler);
-        }
 
         super.dataProvider = value;
-
-        if (value is ISelectableList)
-            if (ISelectableList(dataProvider).selectedIndex != selectedIndex)
-                selectedIndex = ISelectableList(dataProvider).selectedIndex;
-    }
-
-    //----------------------------------
-    //  requireSelection
-    //---------------------------------- 
-    
-    /**
-     *  @private
-     */
-    private var requireSelectionChanging:Boolean;
-    
-    /**
-     *  @private
-     */
-    override public function set requireSelection(value:Boolean):void
-    {
-        super.requireSelection = value;
-        requireSelectionChanging = true;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Called by the initialize() method of UIComponent
-     *  to hook in the accessibility code.
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (createAccessibilityImplementation != null)
-            createAccessibilityImplementation(this);
-    }
-
-    /**
-     *  @private
-     */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-
-        if (requireSelectionChanging && dataProvider)
-        {
-            requireSelectionChanging = false;
-            var n:int = dataProvider.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                var renderer:ButtonBarButton = 
-                    dataGroup.getElementAt(i) as ButtonBarButton;
-                if (renderer)
-                    renderer.allowDeselection = !requireSelection;
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        if (instance == dataGroup)
-        {
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-    }
-
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        if (instance == dataGroup)
-        {
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-        
-        super.partRemoved(partName, instance);
-    }
-
-    /**
-     *  @private
-     */
-    override public function drawFocus(isFocused:Boolean):void
-    {
-        adjustLayering(caretIndex);
-        drawButtonFocus(caretIndex, isFocused);
-    }
-
-
-    /**
-     *  @private
-     */
-    override protected function itemSelected(index:int, selected:Boolean):void
-    {
-        super.itemSelected(index, selected);
-        
-        var renderer:IItemRenderer = 
-            dataGroup.getElementAt(index) as IItemRenderer;
-        
-        if (renderer)
-        {
-            setCurrentCaretIndex(index);
-            renderer.selected = selected;
-        }
-        if (dataProvider is ISelectableList && selected)
-            ISelectableList(dataProvider).selectedIndex = index;
-    }
-        
-    /**
-     *  @private
-     *  button bar always keeps something under the caret so don't let it
-     *  become -1
-     */
-    override mx_internal function setCurrentCaretIndex(value:Number):void
-    {
-        if (value == -1)
-            return;
-
-        super.setCurrentCaretIndex(value);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-	 *  @private
-	 */
-	private function defaultButtonBarItemRendererFunction(data:Object):IFactory
-    {
-        var i:int = dataProvider.getItemIndex(data);
-        if (i == 0)
-            return firstButton ? firstButton : middleButton;
-
-        var n:int = dataProvider.length - 1;
-        if (i == n)
-            return lastButton ? lastButton : middleButton;
-
-        return middleButton;
-    }
-
-
-    /**
-     *  @private
-     */
-    private function drawButtonFocus(index:int, focused:Boolean):void
-    {
-        var n:int = dataProvider ? dataProvider.length : 0;
-        if (n > 0 && index < n)
-        {
-            var renderer:IItemRenderer = 
-                dataGroup.getElementAt(index) as IItemRenderer;
-            if (renderer)
-                renderer.showsCaret = focused;
-        }
-    }
-
-    /**
-     *  @private
-     *  Attempt to lift the focused button above the others
-     *  so that the focus ring can show.
-     */
-    private function adjustLayering(caretIndex:int):void
-    {
-        var n:int = dataProvider ? dataProvider.length : 0;
-        for (var i:int = 0; i < n; i++)
-        {
-            var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
-            // renderer may not exist in commitProps
-            // should get called again when we get focus
-            if (renderer)
-            {
-                if (i == caretIndex)
-                    renderer.depth = 1;
-                else
-                    renderer.depth = 0;
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private function navigationChangeHandler(event:Event):void
-    {
-        if (ISelectableList(dataProvider).selectedIndex != selectedIndex)
-            selectedIndex = ISelectableList(dataProvider).selectedIndex;
     }
 
     /**
@@ -479,181 +239,46 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Called when an item has been added to this component.
+     *  button bar always keeps something under the caret so don't let it
+     *  become -1
      */
-    private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
+    override mx_internal function setCurrentCaretIndex(value:Number):void
     {
-        var renderer:IVisualElement = event.renderer; 
-        var index:int = event.index;
-        
-        if (renderer)
-        {
-            renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
-            if (renderer is IFocusManagerComponent)
-                IFocusManagerComponent(renderer).focusEnabled = false;
-            if (renderer is ButtonBarButton)
-                ButtonBarButton(renderer).allowDeselection = !requireSelection;
-        }
-    }
-    
-    /**
-     *  @private
-     *  Called when an item has been removed from this component.
-     */
-    private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
-    {        
-        var renderer:IVisualElement = event.renderer;
-        
-        if (renderer)
-            renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
-    }
-    
-    /**
-     *  @private
-     *  Called when an item is clicked.
-     */
-    private function item_clickHandler(event:MouseEvent):void
-    {
-        var newIndex:int
-        if (event.currentTarget is IItemRenderer)
-            newIndex = IItemRenderer(event.currentTarget).itemIndex;
-        else
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-
-        var currentRenderer:IItemRenderer;
-        if (caretIndex >= 0 && !inKeyUpHandler) // don't remove caret when keybd nav
-        {
-            currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-            currentRenderer.showsCaret = false;
-        }
-
-        if (newIndex == selectedIndex)
-        {
-            if (!requireSelection)
-                selectedIndex = NO_SELECTION;
-        }
-        else
-        {
-            selectedIndex = newIndex;
-        }
-
-    }
-    
-    /**
-     *  @private
-     */
-    private function caretChangeHandler(event:Event):void
-    {
-        adjustLayering(caretIndex);
-    }
-
-    /**
-     *  @private
-     */
-    override protected function keyDownHandler(event:KeyboardEvent):void
-    {
-        var currentRenderer:IItemRenderer;
-        var renderer:IItemRenderer;
-        
-        if (event.eventPhase == EventPhase.BUBBLING_PHASE)
+        if (value == -1)
             return;
 
-        if (!enabled || !dataProvider || event.isDefaultPrevented())
-            return;
-        
-        super.keyDownHandler(event);
-
-        var oldCaretIndex:Number = caretIndex; 
-        var e:IndexChangeEvent;
-        var length:int = dataProvider.length;
-        switch (event.keyCode)
-        {
-            case Keyboard.UP:
-            case Keyboard.LEFT:
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (caretIndex > 0 || arrowKeysWrapFocus)
-                {
-                    if (currentRenderer)
-                        currentRenderer.showsCaret = false;
-                    setCurrentCaretIndex((caretIndex - 1 + length) % length);
-                    adjustLayering(caretIndex);
-                    renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                    if (renderer)
-                        renderer.showsCaret = true;
-                    e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
-                    e.oldIndex = oldCaretIndex; 
-                    e.newIndex = caretIndex; 
-                    dispatchEvent(e);    
-                }
-
-                event.preventDefault();
-                break;
-            }
-            case Keyboard.DOWN:
-            case Keyboard.RIGHT:
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (caretIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
-                {
-                    if (currentRenderer)
-                        currentRenderer.showsCaret = false;
-                    setCurrentCaretIndex((caretIndex + 1) % length);
-                    adjustLayering(caretIndex);
-                    renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                    if (renderer)
-                        renderer.showsCaret = true;
-                    e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
-                    e.oldIndex = oldCaretIndex; 
-                    e.newIndex = caretIndex; 
-                    dispatchEvent(e);    
-                }
-
-                event.preventDefault();
-                break;
-            }            
-            case Keyboard.SPACE:
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (!currentRenderer || (currentRenderer.selected && requireSelection))
-                    return;
-                currentRenderer.dispatchEvent(event);
-                break;
-            }            
-        }
+        super.setCurrentCaretIndex(value);
     }
-  
-    /**
+
+     /**
      *  @private
+     *  Called by the initialize() method of UIComponent
+     *  to hook in the accessibility code.
      */
-    override protected function keyUpHandler(event:KeyboardEvent):void
+    override protected function initializeAccessibility():void
     {
-        var currentRenderer:IItemRenderer;
-        var renderer:IItemRenderer;
+        if (createAccessibilityImplementation != null)
+            createAccessibilityImplementation(this);
+    }
 
-        if (event.eventPhase == EventPhase.BUBBLING_PHASE)
-            return;
 
-        if (!enabled)
-            return;
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
 
-        inKeyUpHandler = true;
+    private function defaultButtonBarItemRendererFunction(data:Object):IFactory
+    {
+        var i:int = dataProvider.getItemIndex(data);
+        if (i == 0)
+            return firstButton ? firstButton : middleButton;
 
-        super.keyUpHandler(event);
+        var n:int = dataProvider.length - 1;
+        if (i == n)
+            return lastButton ? lastButton : middleButton;
 
-        switch (event.keyCode)
-        {
-            case Keyboard.SPACE:
-            {
-                  currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (!currentRenderer || (currentRenderer.selected && requireSelection))
-                    return;
-                currentRenderer.dispatchEvent(event);
-                break;
-            }            
-        }
-
-        inKeyUpHandler = false;
+        return middleButton;
     }
 }
 
