@@ -1555,8 +1555,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         if (explicitRowCount != -1)
         {
-            measuredHeight += headerHeight;
-            measuredMinHeight += headerHeight;
+            measuredHeight += _explicitHeaderHeight ? headerHeight : header.getExplicitOrMeasuredHeight();
+            measuredMinHeight += _explicitHeaderHeight ? headerHeight : header.getExplicitOrMeasuredHeight();
         }
 
         var o:EdgeMetrics = viewMetrics;
