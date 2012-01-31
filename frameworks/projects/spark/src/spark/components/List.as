@@ -363,7 +363,7 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.getElementAt(index);
+        var renderer:Object = dataGroup ? dataGroup.getElementAt(index) : null;
         
         if (renderer is IItemRenderer)
         {
