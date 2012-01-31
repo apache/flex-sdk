@@ -692,11 +692,17 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             // Ensure wait queue for client id value is destroyed.
             _clientIdWaitQueue = null;
             
-            _disconnectBarrier = true;
+            // Only set the barrier used to discard post-disconnect results/faults 
+            // if the agent is currently connected (otherwise, if this is invoked before
+            // connecting and the client fails to connect to the server, no faults will be
+            // dispatched).
+            if (connected)
+                _disconnectBarrier = true;
+            
             if (_channelSetMode == AUTO_CONFIGURED_CHANNELSET)
                 internalSetChannelSet(null);
             else if (_channelSet != null)
-                _channelSet.disconnect(this);                
+                _channelSet.disconnect(this);
         }
     }   
     
