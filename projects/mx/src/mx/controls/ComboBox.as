@@ -395,7 +395,7 @@ include "../styles/metadata/TextStyles.as"
  *    <b>Styles</b>
  *    alternatingItemColors="undefined"
  *    arrowButtonWidth="22"
- *    borderColor="0xB7BAABC"
+ *    borderColor="0xB7BABC"
  *    borderThickness="1"
  *    closeDuration="250"
  *    closeEasingFunction="undefined"
