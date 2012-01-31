@@ -376,7 +376,7 @@ public class FTEDataGridItemRenderer extends UIFTETextField
 
             if (!styleDeclaration)
             {
-                styleDeclaration = new CSSStyleDeclaration();
+                styleDeclaration = new CSSStyleDeclaration(null, styleManager);
                 styleDeclaration.setLocalStyle(styleProp, newValue);
 
                 // If inheritingStyles is undefined, then this object is being
