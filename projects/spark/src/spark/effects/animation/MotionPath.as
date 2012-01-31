@@ -50,6 +50,8 @@ use namespace mx_internal;
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
+ *
+ *  @includeExample examples/KeyFrameEffectExample.mxml
  * 
  *  @see Keyframe
  *  @see spark.effects.interpolation.NumberInterpolator
