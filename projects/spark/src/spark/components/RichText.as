@@ -15,8 +15,6 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
-import flashx.textLayout.conversion.ImportExportConfiguration;
-import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
@@ -26,9 +24,6 @@ import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.formats.CharacterFormat;
 import flashx.textLayout.formats.ContainerFormat;
-import flashx.textLayout.formats.ICharacterFormat;
-import flashx.textLayout.formats.IContainerFormat;
-import flashx.textLayout.formats.IParagraphFormat;
 import flashx.textLayout.formats.ParagraphFormat;
 
 import mx.core.mx_internal;
@@ -404,26 +399,15 @@ public class TextGraphic extends TextGraphicElement
         // measuredWidth/Height/isOverset.  If the unscaledWidth/Height is the
         // same as measuredWidth/Height there is no need to redo the compose.        
         if (stylesChanged || 
-                unscaledWidth != measuredWidth || 
-                    unscaledHeight != measuredHeight)
-            isOverset = compose(unscaledWidth, unscaledHeight);   
+            unscaledWidth != measuredWidth || 
+            unscaledHeight != measuredHeight)
+        {
+			isOverset = compose(unscaledWidth, unscaledHeight);
+		}  
             
-        // Use scrollRect to clip overset lines.
-        // But don't read or write scrollRect if you can avoid it,
-        // because this causes Player 10.0 to allocate memory.
-        if (isOverset)
-        {
-            displayObject.scrollRect =
-                new Rectangle(0, 0, unscaledWidth, unscaledHeight);
-            mx_internal::hasScrollRect = true;
-        }
-        else if (mx_internal::hasScrollRect)
-        {
-            displayObject.scrollRect = null;
-            mx_internal::hasScrollRect = false;
-        }        
+        mx_internal::clip(isOverset, unscaledWidth, unscaledHeight);
     }
-
+    
     /**
      *  @inheritDoc
      */
@@ -670,7 +654,7 @@ public class TextGraphic extends TextGraphicElement
         textFlowComposer.composeTextFlow(textFlow);
         
         textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
-
+        
         // Just recomposed so reset.
         stylesChanged = false;
         
