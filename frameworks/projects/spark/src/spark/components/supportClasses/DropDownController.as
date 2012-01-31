@@ -25,8 +25,9 @@ import flash.utils.Timer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
+import mx.managers.ISystemManager;
 
-import spark.events.DropDownEvent; 
+import spark.events.DropDownEvent;
 
 use namespace mx_internal;
 
@@ -83,7 +84,7 @@ public class DropDownController extends EventDispatcher
     {
         if (_openButton === value)
             return;
-        
+		
         removeOpenTriggers();
             
         _openButton = value;
@@ -100,6 +101,47 @@ public class DropDownController extends EventDispatcher
         return _openButton;
     }
     
+	/**
+	 *  @private 
+	 */
+	private var _systemManager:ISystemManager;
+
+	/**
+	 *  A reference to the <code>SystemManager</code> used 
+	 *  for mouse tracking.  if none is specified, the controller
+	 *  will use the systemManager associated with the openButton.
+	 *         
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public function set systemManager(value:ISystemManager):void
+    {
+        _systemManager = value;	
+    }
+	/**
+	 *  @private 
+	 */
+    public function get systemManager():ISystemManager
+    {
+        return (_systemManager != null)?  _systemManager:
+                (openButton != null)?  openButton.systemManager:
+                                        null;
+    }
+	
+	/**
+	 *  A list of display objects to consider part of the hit area
+	 *  of the drop down.  Mouse clicks within any component listed
+	 *  as an inclusion will not automatically close the drop down.
+	 *         
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public var hitAreaAdditions:Vector.<DisplayObject>;
+	
     //----------------------------------
     //  dropDown
     //----------------------------------
@@ -243,19 +285,19 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addCloseTriggers():void
     {
-        if (openButton)
+        if (systemManager)
         {
             if (isNaN(rollOverOpenDelay))
             {
-                openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-                openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-                openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+                systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+                systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             else
             {
-                openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
-                openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
-                openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             
             openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
@@ -270,19 +312,19 @@ public class DropDownController extends EventDispatcher
      */ 
     private function removeCloseTriggers():void
     {
-        if (openButton)
+        if (systemManager)
         {
             if (isNaN(rollOverOpenDelay))
             {
-                openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-                openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-                openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
+                systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+                systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+                systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
             }
             else
             {
-                openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
-                openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
-                openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+                systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
             
             openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
@@ -315,7 +357,8 @@ public class DropDownController extends EventDispatcher
             
             _isOpen = true;
             // Force the button to stay in the down state
-            openButton.keepDown(true, !isProgrammatic); 
+            if(openButton)
+                openButton.keepDown(true, !isProgrammatic); 
             
             dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
         }
@@ -337,7 +380,8 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
         {   
             _isOpen = false;
-            openButton.keepDown(false);
+            if(openButton)
+                openButton.keepDown(false);
             
             var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
             
@@ -445,6 +489,15 @@ public class DropDownController extends EventDispatcher
              || (dropDown is DisplayObjectContainer && 
                  !DisplayObjectContainer(dropDown).contains(DisplayObject(event.target))))))
         {
+            if(hitAreaAdditions != null)
+            {
+                for(var i:int = 0;i<hitAreaAdditions.length;i++)
+                {
+                    if(hitAreaAdditions[i] == event.target ||
+                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(event.target as DisplayObject)))
+                        return;
+                }
+            }
             closeDropDown(true);
         } 
     }
@@ -476,6 +529,15 @@ public class DropDownController extends EventDispatcher
             // check if the target is the openButton or contained within the openButton
             if (openButton.contains(target))
                 return;
+            if(hitAreaAdditions != null)
+            {
+                for(var i:int = 0;i<hitAreaAdditions.length;i++)
+                {
+                    if(hitAreaAdditions[i] == target ||
+                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(target as DisplayObject)))
+                        return;
+                }
+            }
             
             // check if the target is the dropdown or contained within the dropdown
             if (dropDown is DisplayObjectContainer)
