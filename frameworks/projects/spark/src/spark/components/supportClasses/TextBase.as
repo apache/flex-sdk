@@ -81,9 +81,6 @@ public class TextGraphicElement extends GraphicElement
     {
         super();
         
-        // This is for mirroring, not the text direction.
-        dir = "ltr";
-
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
 		if (!mx_internal::truncationIndicatorResource)
