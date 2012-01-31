@@ -7,8 +7,7 @@
 	<fx:Style>
 		.popUpForm
 		{
-			backgroundColor : #FF0000;
-			borderStyle : "solid";
+			contentBackgroundColor : #FF0000;			
 			paddingTop : 2;
 			paddingBottom : 2; 
 			paddingLeft : 2; 
@@ -28,7 +27,7 @@
 			     popUp will be positioned relative to the button -->
 			<s:PopUpAnchor id="frmPUA" popUpPosition="below" styleName="popUpForm" width="92" height="21">
 				<!-- VBox to hold popUp contents -->
-				<mx:VBox paddingTop="5" paddingLeft="5">				
+				<mx:VBox paddingTop="5" paddingLeft="5" borderStyle="solid">				
 					<mx:Form>
 						<mx:FormItem label="Name :">
 							<s:TextInput/>
