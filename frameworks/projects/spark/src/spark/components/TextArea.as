@@ -78,7 +78,10 @@ public class FxTextArea extends FxTextBase
 
 	[Bindable("change")]
 	[Bindable("textChanged")]
-
+    
+    // Compiler will strip leading and trailing whitespace from text string.
+    [CollapseWhiteSpace]
+       
 	/**
 	 *  @private
 	 */
