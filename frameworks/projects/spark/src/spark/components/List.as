@@ -549,10 +549,6 @@ public class List extends ListBase implements IFocusManagerComponent
                             //new add. 
                             interval.push(index);   
                         }
-                        for (var i:int = 0; i < interval.length; i++)
-                        {
-                            trace(interval[i]);
-                        }
                         return interval; 
                     } 
                 }
