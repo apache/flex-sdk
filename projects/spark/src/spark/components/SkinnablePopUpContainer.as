@@ -11,16 +11,26 @@
 
 package spark.components
 {
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.events.SoftKeyboardEvent;
+import flash.geom.Rectangle;
 
 import mx.core.FlexGlobals;
 import mx.core.mx_internal;
+import mx.effects.IEffect;
+import mx.effects.Parallel;
 import mx.events.FlexEvent;
+import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
+import mx.managers.SystemManager;
 
+import spark.effects.Move;
+import spark.effects.Resize;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Power;
 import spark.events.PopUpEvent;
-import spark.transitions.SoftKeyboardPopUpTransition;
 
 use namespace mx_internal;
 
@@ -72,6 +82,22 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="close", type="spark.events.PopUpEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  Duration of the soft keyboard move and resize effect in milliseconds.
+ * 
+ *  @default 150
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 11
+ *  @playerversion AIR 3.1
+ *  @productversion Flex 4.6
+ */ 
+[Style(name="softKeyboardEffectDuration", type="Number", format="Time", inherit="no", minValue="0.0")]
 
 //--------------------------------------
 //  States
@@ -159,12 +185,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     public function SkinnablePopUpContainer()
     {
         super();
-        
-        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
-        var softKeyboardEnabled:Boolean = (topLevelApp && Application.softKeyboardBehavior == "none");
-        
-        if (softKeyboardEnabled)
-            _popUpTransition = new SoftKeyboardPopUpTransition();
     }
     
     //--------------------------------------------------------------------------
@@ -187,33 +207,36 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  @private
      */    
     private var addedToPopUpManager:Boolean = false;
+    
+    /**
+     *  @private
+     *  Soft keyboard effect.
+     */
+    private var effect:IEffect;
+    
+    /**
+     *  @private
+     *  Track keyboard height to avoid unnecessary transitions.
+     */
+    private var cachedKeyboardHeight:Number;
+    
+    /**
+     *  @private
+     *  Original pop-up y-position.
+     */
+    private var cachedYPosition:Number;
+    
+    /**
+     *  @private
+     *  Original pop-up height.
+     */
+    private var cachedHeight:Number;
 
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _popUpTransition:SoftKeyboardPopUpTransition;
-    
-    /**
-     *  Read-only access to the SoftKeyboardPopUpTransition.
-     * 
-     *  @default A SoftKeyboardPopUpTransition instance when
-     *           Application.softKeyboardBehavior="none", otherwise null.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    protected function get popUpTransition():SoftKeyboardPopUpTransition
-    {
-        return _popUpTransition;
-    }
     
     //----------------------------------
     //  isOpen
@@ -264,14 +287,17 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     private var _resizeForSoftKeyboard:Boolean = true;
     
     /**
-     *  @copy spark.transitions.SoftKeyboardPopUpTransition#resizeForSoftKeyboard
+     *  Enables resizing the pop-up when the soft keyboard is active. 
+     *  
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function get resizeForSoftKeyboard():Boolean
     {
-        if (!popUpTransition)
-            return false;
-        
-        return popUpTransition.resizeForSoftKeyboard;
+        return _resizeForSoftKeyboard;
     }
     
     /**
@@ -279,10 +305,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     public function set resizeForSoftKeyboard(value:Boolean):void
     {
-        if (!popUpTransition)
+        if (_resizeForSoftKeyboard == value)
             return;
         
-        popUpTransition.resizeForSoftKeyboard = value;
+        _resizeForSoftKeyboard = value;
     }
     
     //----------------------------------
@@ -292,14 +318,17 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     private var _moveForSoftKeyboard:Boolean = true;
     
     /**
-     *  @copy spark.transitions.SoftKeyboardPopUpTransition#moveForSoftKeyboard
+     *  Enables moving the pop-up when the soft keyboard is active. 
+     *  
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function get moveForSoftKeyboard():Boolean
     {
-        if (!popUpTransition)
-            return false;
-        
-        return popUpTransition.moveForSoftKeyboard;
+        return _moveForSoftKeyboard;
     }
     
     /**
@@ -307,35 +336,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     public function set moveForSoftKeyboard(value:Boolean):void
     {
-        if (!popUpTransition)
+        if (_moveForSoftKeyboard == value)
             return;
         
-        popUpTransition.moveForSoftKeyboard = value;
-    }
-    
-    //----------------------------------
-    //  resizeApplication
-    //----------------------------------
-    
-    private var _resizeApplication:Boolean = false;
-    
-    /**
-     *  @copy spark.transitions.SoftKeyboardPopUpTransition#resizeApplication
-     */
-    public function get resizeApplication():Boolean
-    {
-        if (!popUpTransition)
-            return false;
-        
-        return popUpTransition.resizeApplication;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set resizeApplication(value:Boolean):void
-    {
-        popUpTransition.resizeApplication = value;
+        _moveForSoftKeyboard = value;
     }
 
     //--------------------------------------------------------------------------
@@ -380,10 +384,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (!addedToPopUpManager)
         {
             addedToPopUpManager = true;
-            
-            // install transition
-            if (popUpTransition)
-                popUpTransition.popUp = this;
 
             // This will create the skin and attach it
             PopUpManager.addPopUp(this, owner, modal);
@@ -471,6 +471,157 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             stateChangeComplete_handler(null); // Call directly
     }
     
+    /**
+     *  @private
+     */
+    private function playEffect(yTo:Number, heightTo:Number):void
+    {
+        // stop the current effect
+        if (effect && effect.isPlaying)
+            effect.stop();
+        
+        var duration:Number = getStyle("softKeyboardEffectDuration");
+        
+        if (duration > 0)
+            effect = createSoftKeyboardEffect(yTo, heightTo);
+        
+        if (effect)
+        {
+            effect.duration = duration;
+            effect.play();
+        }
+        else
+        {
+            this.y = yTo;
+            this.height = heightTo;
+        }
+    }
+    
+    /**
+     *  Called by the soft keyboard activate and deactive event handlers, this
+     *  method is responsible for creating the Spark effect played on the pop-up.
+     * 
+     *  This method may be overridden by subclasses. By default, it
+     *  creates a parellel move and resize effect on the pop-up.
+     * 
+     *  @return An IEffect instance serving as the move and/or resize transition
+     *  for the pop-up. This effect is played after the soft keyboard is
+     *  activated or deactivated.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    protected function createSoftKeyboardEffect(yTo:Number, heightTo:Number):IEffect
+    {
+        var move:Move;
+        var resize:Resize;
+        var easer:IEaser = new Power(0, 5);
+        
+        if (yTo != this.y)
+        {
+            move = new Move();
+            move.target = this;
+            move.yTo = yTo;
+            move.disableLayout = true;
+            move.easer = easer;
+        }
+        
+        if (heightTo != this.height)
+        {
+            resize = new Resize();
+            resize.target = this;
+            resize.heightTo = heightTo;
+            resize.disableLayout = true;
+            resize.easer = easer;
+        }
+        
+        if (move && resize)
+        {
+            var parallel:Parallel = new Parallel();
+            parallel.addChild(move);
+            parallel.addChild(resize);
+            
+            return parallel;
+        }
+        else if (move || resize)
+        {
+            return (move) ? move : resize;
+        }
+        
+        return null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  mx_internal properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  isSoftKeyboardEffectActive
+    //----------------------------------
+    
+    private var _isSoftKeyboardEffectActive:Boolean;
+    
+    /**
+     *  @private
+     *  Returns true if the soft keyboard is active and the pop-up is moved
+     *  and/or resized.
+     */
+    mx_internal function get isSoftKeyboardEffectActive():Boolean
+    {
+        return _isSoftKeyboardEffectActive;
+    }
+    
+    //----------------------------------
+    //  marginTop
+    //----------------------------------
+    
+    private var _marginTop:Number = 0;
+    
+    /**
+     *  @private
+     *  Defines a margin at the top of the screen where the pop-up cannot be 
+     *  resized or moved to.
+     */
+    mx_internal function get softKeyboardEffectMarginTop():Number
+    {
+        return _marginTop;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set softKeyboardEffectMarginTop(value:Number):void
+    {
+        _marginTop = value;
+    }
+    
+    //----------------------------------
+    //  marginBottom
+    //----------------------------------
+    
+    private var _marginBottom:Number = 0;
+    
+    /**
+     *  @private
+     *  Defines a margin at the bottom of the screen where the pop-up cannot be 
+     *  resized or moved to.
+     */
+    mx_internal function get softKeyboardEffectMarginBottom():Number
+    {
+        return _marginBottom;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set softKeyboardEffectMarginBottom(value:Number):void
+    {
+        _marginBottom = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods
@@ -510,24 +661,144 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (event)
             event.target.removeEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         
+        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+        var softKeyboardEffectEnabled:Boolean = (topLevelApp && Application.softKeyboardBehavior == "none");
+        
         if (isOpen)
         {
             dispatchEvent(new PopUpEvent(PopUpEvent.OPEN, false, false));
+            
+            if (softKeyboardEffectEnabled)
+            {
+                // Install soft keyboard event handling on the stage
+                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
+                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                
+                // move and resize immediately if the soft keyboard is active
+                if (stage.softKeyboardRect.height > 0)
+                {
+                    softKeyboardActivatingHandler();
+                    softKeyboardActivateHandler();
+                }
+            }
         }
         else
         {
-            // uninstall transition
-            if (popUpTransition)
-                popUpTransition.popUp = null;
-            
             // Dispatch the close event before removing from the PopUpManager.
             dispatchEvent(closeEvent);
             closeEvent = null;
+            
+            if (softKeyboardEffectEnabled)
+            {
+                // Uninstall soft keyboard event handling
+                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
+                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                
+                _isSoftKeyboardEffectActive = false;
+            }
 
             // We just finished closing, remove from the PopUpManager.
             PopUpManager.removePopUp(this);
             addedToPopUpManager = false;
             owner = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent=null):void
+    {
+        if (isSoftKeyboardEffectActive)
+            return;
+        
+        // save the original y-position and height
+        cachedYPosition = this.y;
+        cachedHeight = this.height;
+        
+        // reset cached keyboard height
+        cachedKeyboardHeight = 0;
+    }
+    
+    /**
+     *  @private
+     */
+    private function softKeyboardActivateHandler(event:SoftKeyboardEvent=null):void
+    {
+        var softKeyboardRect:Rectangle = this.stage.softKeyboardRect;
+        
+        // do not update if the keyboard has no height or if the height
+        // is unchanged
+        if ((softKeyboardRect.height == 0) ||
+            (cachedKeyboardHeight == softKeyboardRect.height))
+            return;
+        
+        _isSoftKeyboardEffectActive = true;
+        
+        cachedKeyboardHeight = softKeyboardRect.height;
+        
+        var systemManager:ISystemManager = this.parent as ISystemManager;
+        var sandboxRoot:DisplayObject = systemManager.getSandboxRoot();
+        var scaleFactor:Number = 1;
+        
+        if (systemManager as SystemManager)
+            scaleFactor = SystemManager(systemManager).densityScale;
+        
+        // All calculations are done in stage coordinates and converted back to
+        // application coordinates when playing effects. Also note that
+        // softKeyboardRect is also in stage coordinates.
+        var overlapGlobal:Number = ((this.y + this.height) * scaleFactor) - softKeyboardRect.y;
+        
+        var popUpY:Number = this.y * scaleFactor;
+        var popUpHeight:Number = this.height * scaleFactor;
+        
+        var yToGlobal:Number = popUpY;
+        var heightToGlobal:Number = popUpHeight;
+        
+        if (overlapGlobal > 0)
+        {
+            // shift y-position up to remove offset overlap
+            if (moveForSoftKeyboard)
+                yToGlobal = Math.max((softKeyboardEffectMarginTop * scaleFactor), (popUpY - overlapGlobal));
+            
+            // adjust height based on new y-position
+            if (resizeForSoftKeyboard)
+            {
+                // compute new overlap
+                overlapGlobal = (yToGlobal + popUpHeight) - softKeyboardRect.y;
+                
+                // adjust height if there is overlap
+                if (overlapGlobal > 0)
+                    heightToGlobal = popUpHeight - overlapGlobal - (softKeyboardEffectMarginBottom * scaleFactor);
+            }
+        }
+        
+        // only play the effect if y-position or height changes
+        if ((yToGlobal != popUpY) || 
+            (heightToGlobal != popUpHeight))
+        {
+            // convert to application coordinates, move to pixel boundaries
+            var yToLocal:Number = Math.floor(yToGlobal / scaleFactor);
+            var heightToLocal:Number = Math.floor(heightToGlobal / scaleFactor);
+            
+            // preserve minimum height
+            heightToLocal = Math.max(heightToLocal, getMinBoundsHeight());
+            
+            playEffect(yToLocal, heightToLocal);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent=null):void
+    {
+        if (isSoftKeyboardEffectActive)
+        {
+            _isSoftKeyboardEffectActive = false;
+            playEffect(cachedYPosition, cachedHeight);
         }
     }
 }
