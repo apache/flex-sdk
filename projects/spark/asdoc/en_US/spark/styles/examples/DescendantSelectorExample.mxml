@@ -11,12 +11,12 @@
         s|ButtonBar s|ToggleButton:overAndSelected,
         s|ButtonBar s|ToggleButton:downAndSelected,
         s|ButtonBar s|ToggleButton:disabledAndSelected {
-            baseColor: #FF6633;
+            chromeColor: #FF6633;
             color: #FFFFCC;
         }
 
         s|ButtonBar {
-            baseColor: #FFFFCC;
+            chromeColor: #FFFFCC;
         }
 
         mx|VBox mx|Text {
