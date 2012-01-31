@@ -445,16 +445,16 @@ public class GridLayout extends LayoutBase
     }    
     
     /**
-	 *  @private
+     *  @private
      *  Computes new values for the grid's measuredWidth,Height and 
-	 *  measuredMinWidth,Height properties.  
+     *  measuredMinWidth,Height properties.  
      * 
      *  If grid.requestedRowCount is GTE 0, then measuredHeight is estimated 
-	 *  content height for as many rows.  Otherwise the measuredHeight is the estimated 
-	 *  content height for all rows.  The measuredWidth calculation is similar.  The 
-	 *  measuredMinWidth,Height properties are also similar however if the corresponding 
-	 *  requestedMin property isn't specified, then the measuredMin size is the same 
-	 *  as the measured size.
+     *  content height for as many rows.  Otherwise the measuredHeight is the estimated 
+     *  content height for all rows.  The measuredWidth calculation is similar.  The 
+     *  measuredMinWidth,Height properties are also similar however if the corresponding 
+     *  requestedMin property isn't specified, then the measuredMin size is the same 
+     *  as the measured size.
      */
     override public function measure():void
     {
@@ -479,9 +479,9 @@ public class GridLayout extends LayoutBase
         
         var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getTypicalContentHeight(measuredRowCount);
-		var measuredMinWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedMinColumnCount);
-		var measuredMinHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedMinRowCount);
-		
+        var measuredMinWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedMinColumnCount);
+        var measuredMinHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedMinRowCount);
+        
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
         
@@ -673,11 +673,11 @@ public class GridLayout extends LayoutBase
         return dataProvider.getItemAt(rowIndex);
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//  Updating the GridDimensions' typicalCell sizes and columnWidths
-	//
-	//-------------------------------------------------------------------------- 
+    //--------------------------------------------------------------------------
+    //
+    //  Updating the GridDimensions' typicalCell sizes and columnWidths
+    //
+    //-------------------------------------------------------------------------- 
     
     /**
      *  @private
@@ -695,30 +695,30 @@ public class GridLayout extends LayoutBase
        
        return width;
     }
-	
+    
     /**
-	 *  @private
-	 *  Use the specified GridColumn's itemRenderer (IFactory) to create a temporary
-	 *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
-	 *  after it's used.
-	 */
-	private function createTypicalItemRenderer(columnIndex:int):IGridItemRenderer
-	{
+     *  @private
+     *  Use the specified GridColumn's itemRenderer (IFactory) to create a temporary
+     *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
+     *  after it's used.
+     */
+    private function createTypicalItemRenderer(columnIndex:int):IGridItemRenderer
+    {
         const rendererLayer:GridLayer = getLayer("rendererLayer");
         if (!rendererLayer)
             return null;
         
-		var typicalItem:Object = grid.typicalItem;
-		if (typicalItem == null)
-			typicalItem = getDataProviderItem(0);
-		
-		const column:GridColumn = getGridColumn(columnIndex);
-		const factory:IFactory = itemToRenderer(column, typicalItem);
-		const renderer:IGridItemRenderer = allocateGridElement(factory) as IGridItemRenderer;
-		
-		rendererLayer.addElement(renderer);
+        var typicalItem:Object = grid.typicalItem;
+        if (typicalItem == null)
+            typicalItem = getDataProviderItem(0);
+        
+        const column:GridColumn = getGridColumn(columnIndex);
+        const factory:IFactory = itemToRenderer(column, typicalItem);
+        const renderer:IGridItemRenderer = allocateGridElement(factory) as IGridItemRenderer;
+        
+        rendererLayer.addElement(renderer);
 
-		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
+        initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
         
         // If the column's width isn't specified, then use the renderer's explicit
         // width, if any.   If that isn't specified, then use 4096, to avoid wrapping.
@@ -742,14 +742,14 @@ public class GridLayout extends LayoutBase
             columnWidth = 4096;
         
         layoutItemRenderer(renderer, 0, 0, columnWidth, NaN);
-        		
-		rendererLayer.removeElement(renderer);
+                
+        rendererLayer.removeElement(renderer);
             
-		return renderer;
-	}
-	
-	/**
-	 *  @private
+        return renderer;
+    }
+    
+    /**
+     *  @private
      *  Update the typicalCellWidth,Height for all of the columns starting 
      *  with x coordinate startX and column startIndex that fit within the 
      *  specified width.  Typical sizes are only updated if the current 
@@ -758,21 +758,21 @@ public class GridLayout extends LayoutBase
      *  The typicalCellWidth for GridColumns with an explicit width, is just 
      *  the explicit width.  Otherwise an item renderer is created for the column 
      *  and the item renderer's preferred bounds become the typical cell size.   
-	 */
-	private function updateVisibleTypicalCellSizes(width:Number, scrollX:Number, firstVisibleColumnIndex:int):void
-	{
-		const gridDimensions:GridDimensions = gridDimensions;
+     */
+    private function updateVisibleTypicalCellSizes(width:Number, scrollX:Number, firstVisibleColumnIndex:int):void
+    {
+        const gridDimensions:GridDimensions = gridDimensions;
         const columnCount:int = gridDimensions.columnCount;
-		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
-		const columnGap:int = gridDimensions.columnGap;
+        const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
+        const columnGap:int = gridDimensions.columnGap;
         
-		for (var columnIndex:int = firstVisibleColumnIndex;
+        for (var columnIndex:int = firstVisibleColumnIndex;
             (width > 0) && (columnIndex >= 0) && (columnIndex < columnCount);
             columnIndex = grid.getNextVisibleColumnIndex(columnIndex))
-		{
+        {
             var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
-			var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
-			
+            var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
+            
             var column:GridColumn = getGridColumn(columnIndex);
             if (!isNaN(column.width))
             {
@@ -800,7 +800,7 @@ public class GridLayout extends LayoutBase
                 width -= startCellX + cellWidth - scrollX;
             else
                 width -= cellWidth + columnGap;
-		}
+        }
     }
     
     /**
@@ -861,18 +861,18 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-	 *  @private
-	 *  Update the column widths for the columns visible beginning at scrollX, that will fit
-	 *  within the specified width, or for all columns if width is NaN.  The width of 
+     *  @private
+     *  Update the column widths for the columns visible beginning at scrollX, that will fit
+     *  within the specified width, or for all columns if width is NaN.  The width of 
      *  GridColumns that lack an explicit width is the preferred width of an item renderer 
      *  for the grid's typicalItem. 
      * 
      *  If width is specified and all columns are visible, then we'll increase the widths
      *  of GridDimensions columns for GridColumns without an explicit width so that all of
      *  the available space is consumed.
-	 */
- 	private function layoutColumns(scrollX:Number, scrollY:Number, width:Number):void
-	{
+     */
+    private function layoutColumns(scrollX:Number, scrollY:Number, width:Number):void
+    {
         const gridDimensions:GridDimensions = gridDimensions;
         var columnCount:int = gridDimensions.columnCount;
         if (columnCount <= 0)
@@ -880,7 +880,7 @@ public class GridLayout extends LayoutBase
         
         // Update the GridDimensions typicalCellWidth,Height values as needed.
 
-		const firstVisibleColumnIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
+        const firstVisibleColumnIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         updateVisibleTypicalCellSizes(width, scrollX, firstVisibleColumnIndex);
         
         // Set the GridDimensions columnWidth for no more than columnCount columns.
@@ -936,7 +936,7 @@ public class GridLayout extends LayoutBase
                 availableWidth -= (columnWidth - oldColumnWidth);
             }
         }    
-	}
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1124,7 +1124,7 @@ public class GridLayout extends LayoutBase
         visibleColumnIndices = newVisibleColumnIndices;
     }
 
-	/**
+    /**
      *  @private
      */
     private function getVisibleItemRendererIndex(rowIndex:int, columnIndex:int):int
@@ -2230,11 +2230,7 @@ public class GridLayout extends LayoutBase
     //--------------------------------------------------------------------------
 
     /**
-     *  Return the dataProvider indices of the currently visible rows.  Note that the 
-     *  item renderers for the first and last rows may only be partially visible.  The 
-     *  returned vector's contents are in the order they're displayed.
-     * 
-     *  @return A vector of the visible row indices.
+     *  @copy spark.components.Grid#getVisibleRowIndices()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2247,23 +2243,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  Return the indices of the currently visible columns.  Note that the 
-     *  item renderers for the first and last columns may only be partially visible.  The 
-     *  returned vector's contents are in the order they're displayed.
-     * 
-     *  <p>The following example function uses this method to compute a vector of 
-     *  visible GridColumn objects.</p>
-     *  <pre>
-     *  function getVisibleColumns():Vector.&lt;GridColumn&gt;
-     *  {
-     *      var visibleColumns = new Vector.&lt;GridColumn&gt;;
-     *      for each (var columnIndex:int in grid.getVisibleColumnIndices())
-     *          visibleColumns.push(grid.columns.getItemAt(columnIndex));
-     *      return visibleColumns;
-     *  }
-     *  </pre> 
-     * 
-     *  @return A vector of the visible column indices.
+     *  @copy spark.components.Grid#getVisibleColumnIndices()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2276,16 +2256,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  Returns the current pixel bounds of the specified cell, or null if no such cell exists.
-     *  Cell bounds are reported in grid coordinates.
-     * 
-     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
-     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
-     * 
-     *  @param rowIndex The 0-based index of the row.
-     *  @param columnIndex The 0-based index of the column. 
-     *  @return A <code>Rectangle</code> that represents the cell's pixel bounds, or null.
+     *  @copy spark.components.Grid#getVisibleColumnIndices()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2298,15 +2269,7 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns the current pixel bounds of the specified row, or null if no such row exists.
-     *  Row bounds are reported in grid coordinates.
-
-     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
-     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
-     * 
-     *  @param rowIndex The 0-based index of the row.
-     *  @return A <code>Rectangle</code> that represents the row's pixel bounds, or null.
+     *  @copy spark.components.Grid#getRowBounds()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2319,14 +2282,7 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns the current pixel bounds of the specified column, or null if no such column exists.
-     *  Column bounds are reported in grid coordinates.
-     * 
-     *  <p>If all of the cells in the specified column have not yet been scrolled into view, the 
-     *  returned bounds may only be an approximation, based on the column's <code>typicalItem</code>.</p>
-     *  
-     *  @param columnIndex The 0-based index of the column. 
-     *  @return A <code>Rectangle</code> that represents the column's pixel bounds, or null.
+     *  @copy spark.components.Grid#getColumnBounds()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2339,17 +2295,7 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns the row index corresponding to the specified coordinates,
-     *  or -1 if the coordinates are out of bounds. The coordinates are 
-     *  resolved with respect to the grid.
-     * 
-     *  <p>If all of the columns or rows for the grid have not yet been scrolled
-     *  into view, the returned index may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
-     *  
-     *  @param x The x coordinate.
-     *  @param y The y coordinate.
-     *  @return The index of the row corresponding to the specified coordinates.
+     *  @copy spark.components.Grid#getRowIndexAt()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2362,17 +2308,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  Returns the column index corresponding to the specified coordinates,
-     *  or -1 if the coordinates are out of bounds. The coordinates are 
-     *  resolved with respect to the grid.
-     * 
-     *  <p>If all of the columns or rows for the grid have not yet been scrolled
-     *  into view, the returned index may only be an approximation, 
-     *  based on all of the columns' <code>typicalItem</code>s.</p>
-     *  
-     *  @param x The pixel's x coordinate relative to the grid.
-     *  @param y The pixel's y coordinate relative to the grid.
-     *  @return the index of the column or -1 if the coordinates are out of bounds. 
+     *  @copy spark.components.Grid#getColumnIndexAt()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2385,26 +2321,7 @@ public class GridLayout extends LayoutBase
     }
         
     /**
-     *  Return the row and column indices of the cell that overlaps the pixel at the 
-     *  specified grid coordinate.
-     *  If no such cell exists, null is returned.
-     * 
-     *  <p>The example function below uses this method to compute the value of the 
-     *  <code>dataField</code> for a grid cell.</p> 
-     *  <pre>
-     *  function getCellData(x:Number, y:Number):Object
-     *  {
-     *      var cell:CellPosition = getCellAt(x, y);
-     *      if (!cell)
-     *          return null;
-     *      var GridColumn:column = grid.columns.getItemAt(cell.columnIndex);
-     *      return grid.dataProvider.getItemAt(cell.rowIndex)[column.dataField];
-     *  }
-     *  </pre> 
-     * 
-     *  @param x The pixel's x coordinate relative to the grid.
-     *  @param y The pixel's y coordinate relative to the grid.
-     *  @return The cell position or null. 
+     *  @copy spark.components.Grid#getCellAt()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2421,13 +2338,7 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns a vector of CellPosition objects whose "rowIndex" and "columnIndex" properties specify the 
-     *  row and column indices of the cells that overlap the specified grid region.  If no
-     *  such cells exist, an empty vector is returned.
-     *  
-     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid.
-     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid. 
-     *  @return A vector of objects like <code>Vector.&lt;Object&gt;([{rowIndex:0, columnIndex:0}, ...])</code>. 
+     *  @copy spark.components.Grid#getCellsAt()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2441,30 +2352,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  If the requested item renderer is visible, returns a reference to 
-     *  the item renderer currently displayed at the specified cell.  Note
-     *  that once the returned item renderer is no longer visible it may be 
-     *  recycled and its properties reset.  
-     * 
-     *  <p>If the requested item renderer is not visible then, 
-     *  each time this method is called, a new item renderer is created.  The
-     *  new item renderer is not visible</p>
-     * 
-     *  <p>If the specified column doesn't have an explicit width, then the width
-     *  of this cell will be based on the <code>typicalItem</code>.  If a 
-     *  <code>typicalItem</code> was not specified or hasn't been measured yet, 
-     *  then the item renderer's width will default to <code>150</code>.</p>
-     * 
-     *  <p>If the grid property <code>variableRowHeight</code> is 
-     *  <code>true</code> (the default) and an overall row height hasn't been 
-     *  cached for the specified row, then the item renderer's height is based 
-     *  on the <code>typicalItem</code>.  If the <code>typicalItem</code> wasn't 
-     *  specified or has not been measured yet, then the item renderer's height 
-     *  will default to its preferred height.</p>
-     *  
-     *  @param rowIndex The 0-based row index of the item renderer's cell.
-     *  @param columnIndex The 0-based column index of the item renderer's cell.
-     *  @return The item renderer or null if the cell location is invalid.
+     *  @copy spark.components.Grid#getItemRendererAt()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2513,14 +2401,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  True if the specified cell is at least partially visible. If columnIndex == -1 then 
-     *  true is returned if the specified row is at least partially visible. If
-     *  rowIndex == -1, then true is returned if the specified column is at least partially
-     *  visible. If both columnIndex and rowIndex are -1, then false is returned.
-     *  
-     *  @param rowIndex The 0-based row index of the item renderer's cell.
-     *  @param columnIndex The 0-based column index of the item renderer's cell.
-     *  @return True if the specified cell (or row if columnIndex == -1) is at least partially visible
+     *  @copy spark.components.Grid#isCellVisible()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
