@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import mx.collections.IList;
 import mx.events.FlexEvent;
 
 import spark.components.supportClasses.CellPosition;
@@ -166,6 +167,170 @@ public class DataGrid extends GridContainerBase
     
     //--------------------------------------------------------------------------
     //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  selectedCell
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedCell
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedCell():CellPosition
+    {
+        if (grid)
+            return grid.selectedCell;
+        
+        return selectedCells.length ? selectedCells[0] : null;
+    }
+    
+    //----------------------------------
+    //  selectedCells
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedCells
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedCells():Vector.<CellPosition>
+    {
+        return grid ? grid.selectedCells : gridSelection.allCells();
+    }
+    
+    //----------------------------------
+    //  selectedIndex
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedIndex
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedIndex():int
+    {
+        if (grid)
+            return grid.selectedIndex;
+        
+        return selectedIndices.length ? selectedIndices[0] : -1;
+    }
+    
+    //----------------------------------
+    //  selectedIndices
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedIndices
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedIndices():Vector.<int>
+    {
+        return grid ? grid.selectedIndices : gridSelection.allRows();
+    }
+    
+    //----------------------------------
+    //  selectedItem
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedItem():Object
+    {
+        if (grid)
+            return grid.selectedItem();
+        
+        return (dataProvider && (selectedIndex > 0)) ? 
+                dataProvider.getItemAt(selectedIndex) : undefined;
+    }
+    
+    //----------------------------------
+    //  selectedItems
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedItems
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectedItems():Vector.<Object>
+    {
+        if (grid)
+            return grid.selectedItems;
+                
+        var items:Vector.<Object> = new Vector.<Object>();
+        
+        for (var i:int = 0; i < selectedIndices.length; i++)
+            items.push(selectedIndices[i]);
+        
+        return items;
+    }
+    
+    //----------------------------------
+    //  selectionLength
+    //----------------------------------
+    
+    [Bindable("selectionChange")]
+    [Bindable("valueCommit")]
+    
+    /**
+     *  @copy spark.components.Grid#selectedItems
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectionLength():int
+    {
+        return grid ? grid.selectionLength : gridSelection.selectionLength;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Public Methods
     //
     //--------------------------------------------------------------------------
@@ -175,7 +340,7 @@ public class DataGrid extends GridContainerBase
     //----------------------------------    
     
     /**
-     *  @copy spark.components.Grid#selectionContainsIndex()
+     *  @copy spark.components.Grid#selectionContainsIndex
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -191,7 +356,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#selectionContainsIndices()
+     *  @copy spark.components.Grid#selectionContainsIndices
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -207,7 +372,7 @@ public class DataGrid extends GridContainerBase
     }
         
     /**
-     *  @copy spark.components.Grid#setSelectedIndex()
+     *  @copy spark.components.Grid#setSelectedIndex
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -236,7 +401,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#addSelectedIndex()
+     *  @copy spark.components.Grid#addSelectedIndex
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -265,7 +430,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#removeSelectedIndex()
+     *  @copy spark.components.Grid#removeSelectedIndex
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -294,24 +459,24 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#setSelectedIndices()
+     *  @copy spark.components.Grid#setSelectedIndices
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function setSelectedIndices(rowIndices:Vector.<int>):Boolean
+    public function setSelectedIndices(startRowIndex:int, endRowIndex:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.setSelectedIndices(rowIndices);
+            selectionChanged = grid.setSelectedIndices(startRowIndex, endRowIndex);
         }
         else
         {
-            selectionChanged = gridSelection.setRows(rowIndices);
+            selectionChanged = gridSelection.setRows(startRowIndex, endRowIndex);
             if (selectionChanged)
             {
                 invalidateDisplayList()
@@ -322,28 +487,12 @@ public class DataGrid extends GridContainerBase
         return selectionChanged;
     }
     
-    /**
-     *  @copy spark.components.Grid#selectedIndices()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectedIndices():Vector.<int>
-    {
-        if (grid)
-            return grid.selectedIndices;
-        else
-            return gridSelection.allRows();
-    }
-    
     //----------------------------------
     //  selection for cells
     //----------------------------------    
     
     /**
-     *  @copy spark.components.Grid#selectionContainsCell()
+     *  @copy spark.components.Grid#selectionContainsCell
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -359,7 +508,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#selectionContainsCellRegion()
+     *  @copy spark.components.Grid#selectionContainsCellRegion
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -382,7 +531,7 @@ public class DataGrid extends GridContainerBase
     }
         
     /**
-     *  @copy spark.components.Grid#setSelectedCell()
+     *  @copy spark.components.Grid#setSelectedCell
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -411,7 +560,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#addSelectedCell()
+     *  @copy spark.components.Grid#addSelectedCell
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -440,7 +589,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#removeSelectedCell()
+     *  @copy spark.components.Grid#removeSelectedCell
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -469,7 +618,7 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#selectCellRegion()
+     *  @copy spark.components.Grid#selectCellRegion
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -498,22 +647,6 @@ public class DataGrid extends GridContainerBase
         }
         
         return selectionChanged;
-    }
-    
-    /**
-     *  @copy spark.components.Grid#selectedCells()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectedCells():Vector.<CellPosition>
-    {
-        if (grid)
-            return grid.selectedCells;
-        else
-            return gridSelection.allCells();
     }
 }
 }
