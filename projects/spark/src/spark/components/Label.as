@@ -38,9 +38,7 @@ import mx.graphics.baseClasses.TextGraphicElement;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 [IconFile("TextBox.png")]
 
