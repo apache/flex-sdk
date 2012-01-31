@@ -52,7 +52,7 @@ use namespace mx_internal;
  * any effect that is repeated more than once.
  * This event corresponds to a call to 
  * the <code>AnimateInstance.repeatHandler()</code> method.
- * Flex also dispatches the first <code>animationUpdate</code> event 
+ * Flex also dispatches an <code>animationUpdate</code> event 
  * for the effect at the same time.
  *
  * @eventType flex.events.AnimationEvent.ANIMATION_END
@@ -63,7 +63,7 @@ use namespace mx_internal;
  * Dispatched when the effect ends.
  * This event corresponds to a call to 
  * the <code>AnimateInstance.endHandler()</code> method.
- * Flex also dispatches the first <code>animationUpdate</code> event 
+ * Flex also dispatches an <code>animationUpdate</code> event 
  * for the effect at the same time.
  *
  * <p>This event occurs just before an <code>effectEnd</code> event.
