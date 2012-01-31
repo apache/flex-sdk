@@ -13,13 +13,13 @@ package flex.core
 {
 
 /**
- *  An enum of the modes a componennt fills in the dimensions
+ *  An enum of the modes a component fills in the dimensions
  *  specified by the layout system.
  *
- *  For a given size the component may change it's own dimensions (width and eight)
+ *  For a given size the component may change it's own dimensions (width and height)
  *  and re-layout its children appropriately (this is the default resize mode).
  *
- *  Alternative option for the component is to  change its scale, in which case
+ *  Alternative option for the component is to change its scale, in which case
  *  the children don't need to change at all. This is supported by <code>Group</code>.
  */
 public final class ResizeMode
@@ -37,7 +37,7 @@ public final class ResizeMode
      *  Resize by setting scaleX and scaleY.
      *
      *  Component always sizes itself and lays out children at at its measured
-     *  size. Scale is adjusted to match the specified size by the layour or
+     *  size. Scale is adjusted to match the specified size by the layout or
      *  the user.
      */
     public static const _SCALE_UINT:uint = 1;
