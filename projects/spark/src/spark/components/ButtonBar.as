@@ -227,19 +227,19 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-    private var requiresSelectionChanging:Boolean;
+    private var requireSelectionChanging:Boolean;
     
     //----------------------------------
-    //  requiresSelection
+    //  requireSelection
     //---------------------------------- 
     
     /**
      *  @private
      */
-    override public function set requiresSelection(value:Boolean):void
+    override public function set requireSelection(value:Boolean):void
     {
-        super.requiresSelection = value;
-        requiresSelectionChanging = true;
+        super.requireSelection = value;
+        requireSelectionChanging = true;
     }
 
     //----------------------------------
@@ -289,16 +289,16 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     {
         super.commitProperties();
 
-        if (requiresSelectionChanging && dataProvider)
+        if (requireSelectionChanging && dataProvider)
         {
-            requiresSelectionChanging = false;
+            requireSelectionChanging = false;
             var n:int = dataProvider.length;
             for (var i:int = 0; i < n; i++)
             {
-                var renderer:IItemRenderer = 
-                    dataGroup.getElementAt(i) as IItemRenderer;
+                var renderer:ButtonBarButton = 
+                    dataGroup.getElementAt(i) as ButtonBarButton;
                 if (renderer)
-                    renderer.allowDeselection = !requiresSelection;
+                    renderer.allowDeselection = !requireSelection;
             }
         }
     }
@@ -411,8 +411,8 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
             if (renderer is IFocusManagerComponent)
                 IFocusManagerComponent(renderer).focusEnabled = false;
-            if (renderer is IItemRenderer)
-                IItemRenderer(renderer).allowDeselection = !requiresSelection;
+            if (renderer is ButtonBarButton)
+                ButtonBarButton(renderer).allowDeselection = !requireSelection;
             updateRenderer(renderer);
         }
     }
@@ -442,12 +442,12 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         if (focusedIndex >= 0  && !inKeyUpHandler)
         {
             currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-            currentRenderer.caret = false;
+            currentRenderer.showsCaret = false;
         }
 
         if (index == selectedIndex)
         {
-            if (!requiresSelection)
+            if (!requireSelection)
                 selectedIndex = -1;
         }
         else
@@ -512,12 +512,12 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 if (focusedIndex > 0 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
-                        currentRenderer.caret = false;
+                        currentRenderer.showsCaret = false;
                     focusedIndex = (focusedIndex - 1 + length) % length;
                     adjustLayering(focusedIndex);
                     renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
                     if (renderer)
-                        renderer.caret = true;
+                        renderer.showsCaret = true;
                 }
 
                 event.stopPropagation();
@@ -530,12 +530,12 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 if (focusedIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
-                        currentRenderer.caret = false;
+                        currentRenderer.showsCaret = false;
                     focusedIndex = (focusedIndex + 1) % length;
                     adjustLayering(focusedIndex);
                     renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
                     if (renderer)
-                        renderer.caret = true;
+                        renderer.showsCaret = true;
                 }
 
                 event.stopPropagation();
@@ -544,7 +544,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             case Keyboard.SPACE:
             {
                 currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-                if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+                if (!currentRenderer || (currentRenderer.selected && requireSelection))
                     return;
                 currentRenderer.dispatchEvent(event);
                 break;
@@ -573,7 +573,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             case Keyboard.SPACE:
             {
                   currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-                if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+                if (!currentRenderer || (currentRenderer.selected && requireSelection))
                     return;
                 currentRenderer.dispatchEvent(event);
                 break;
@@ -594,7 +594,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             var renderer:IItemRenderer = 
                 dataGroup.getElementAt(index) as IItemRenderer;
             if (renderer)
-                renderer.caret = focused;
+                renderer.showsCaret = focused;
         }
     }
 }
