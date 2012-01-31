@@ -84,9 +84,9 @@ public class LinkSeparator extends ProgrammaticSkin
 	/**
 	 *  We don't use 'is' to prevent dependency issues
 	 */
-	static private var boxes:Object = {};
+	private static var boxes:Object = {};
 
-	static private function isBox(parent:Object):Boolean
+	private static function isBox(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (boxes[s] == 1)
