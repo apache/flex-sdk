@@ -811,6 +811,9 @@ public class VideoElement extends GraphicElement
      */
     public function pause():void
     {
+        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
         setPlaying(false);
         videoPlayer.pause();
     }
@@ -1033,6 +1036,9 @@ public class VideoElement extends GraphicElement
      */
     public function stop():void
     {
+        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
         setPlaying(false);
         videoPlayer.stop();
     }
