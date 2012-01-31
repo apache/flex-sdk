@@ -134,19 +134,23 @@ public class Channel extends EventDispatcher implements IMXMLObject
 {
     //--------------------------------------------------------------------------
     //
-    // Private Static Constants
+    // Protected Static Constants
     //
     //--------------------------------------------------------------------------
 
-    private static const CLIENT_LOAD_BALANCING:String = "client-load-balancing"
-    private static const CONNECT_TIMEOUT_SECONDS:String = "connect-timeout-seconds";
-    private static const ENABLE_SMALL_MESSAGES:String = "enable-small-messages";
-    private static const FALSE:String = "false";
-    private static const RECORD_MESSAGE_TIMES:String = "record-message-times";
-    private static const RECORD_MESSAGE_SIZES:String = "record-message-sizes";
-    private static const REQUEST_TIMEOUT_SECONDS:String = "request-timeout-seconds";
-    private static const SERIALIZATION:String = "serialization";
-    private static const TRUE:String = "true";
+    /**
+     *  @private
+     *  Channel config parsing constants. 
+     */
+    protected static const CLIENT_LOAD_BALANCING:String = "client-load-balancing"
+    protected static const CONNECT_TIMEOUT_SECONDS:String = "connect-timeout-seconds";
+    protected static const ENABLE_SMALL_MESSAGES:String = "enable-small-messages";
+    protected static const FALSE:String = "false";
+    protected static const RECORD_MESSAGE_TIMES:String = "record-message-times";
+    protected static const RECORD_MESSAGE_SIZES:String = "record-message-sizes";
+    protected static const REQUEST_TIMEOUT_SECONDS:String = "request-timeout-seconds";
+    protected static const SERIALIZATION:String = "serialization";
+    protected static const TRUE:String = "true";
 
     //--------------------------------------------------------------------------
     //
@@ -423,21 +427,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
             calculateEndpoint();
         return _endpoint;
     }
-    
-    //----------------------------------
-    //  loginAfterDisconnect
-    //----------------------------------
-        
-    /**
-     *  @private
-     */
-    protected var _loginAfterDisconnect:Boolean = false;    
-    
-    mx_internal function get loginAfterDisconnect():Boolean
-    {
-        return _loginAfterDisconnect;
-    }   
-    
+
     //----------------------------------
     //  recordMessageTimes
     //----------------------------------
@@ -776,24 +766,23 @@ public class Channel extends EventDispatcher implements IMXMLObject
         if (Log.isInfo())
             _log.info("'{0}' channel settings are:\n{1}", id, settings);
 
-        if (settings.properties.length() != 0)
-        {
-            var props:XML = settings.properties[0];
+        if (settings.properties.length() == 0)
+            return;
 
-            applyClientLoadBalancingSettings(props);
-            if (props[CONNECT_TIMEOUT_SECONDS].length() != 0)
-                connectTimeout = props[CONNECT_TIMEOUT_SECONDS].toString();
-            if (props[RECORD_MESSAGE_TIMES].length() != 0)
-                _recordMessageTimes = props[RECORD_MESSAGE_TIMES].toString() == TRUE;
-            if (props[RECORD_MESSAGE_SIZES].length() != 0)
-                _recordMessageSizes = props[RECORD_MESSAGE_SIZES].toString()== TRUE;
-            if (props[REQUEST_TIMEOUT_SECONDS].length() != 0)
-                requestTimeout = props[REQUEST_TIMEOUT_SECONDS].toString();
-            var serializationProps:XMLList = props[SERIALIZATION];
-            if (serializationProps.length() != 0 && serializationProps[ENABLE_SMALL_MESSAGES].toString()== FALSE)
-                    enableSmallMessages = false;
-            }
-        }
+        var props:XML = settings.properties[0];
+        applyClientLoadBalancingSettings(props);
+        if (props[CONNECT_TIMEOUT_SECONDS].length() != 0)
+            connectTimeout = props[CONNECT_TIMEOUT_SECONDS].toString();
+        if (props[RECORD_MESSAGE_TIMES].length() != 0)
+            _recordMessageTimes = props[RECORD_MESSAGE_TIMES].toString() == TRUE;
+        if (props[RECORD_MESSAGE_SIZES].length() != 0)
+            _recordMessageSizes = props[RECORD_MESSAGE_SIZES].toString() == TRUE;
+        if (props[REQUEST_TIMEOUT_SECONDS].length() != 0)
+            requestTimeout = props[REQUEST_TIMEOUT_SECONDS].toString();
+        var serializationProps:XMLList = props[SERIALIZATION];
+        if (serializationProps.length() != 0 && serializationProps[ENABLE_SMALL_MESSAGES].toString() == FALSE)
+            enableSmallMessages = false;
+    }
 
     /**
      *  Applies the client load balancing urls if they exists. It randomly picks
@@ -1047,7 +1036,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
             msg.operation = CommandMessage.LOGIN_OPERATION;
             msg.body = credentials;
             if (charset != null)
-                msg.headers[CommandMessage.CREDENTIALS_CHARSET_HEADER] = charset;           
+                msg.headers[CommandMessage.CREDENTIALS_CHARSET_HEADER] = charset;
             internalSend(new AuthenticationMessageResponder(agent, msg, this, _log));  
         }
     }
