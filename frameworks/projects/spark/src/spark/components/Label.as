@@ -916,11 +916,11 @@ public class Label extends TextBase
 
         var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
         var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
-        
+                
         var measureWidth:Boolean = isNaN(innerWidth);
         if (measureWidth)
             innerWidth = maxWidth;
-
+        
         var maxLineWidth:Number = lineBreak == "explicit" ?
                                   TextLine.MAX_LINE_WIDTH :
                                   innerWidth;
@@ -1092,6 +1092,10 @@ public class Label extends TextBase
         if (isNaN(bounds.height))
             innerHeight = textLine.y + textLine.descent;
         
+        // Ensure we snap for consistent results.
+        innerWidth = Math.ceil(innerWidth);
+        innerHeight = Math.ceil(innerHeight);
+        
         var leftAligned:Boolean = 
             textAlign == "start" && direction == "ltr" ||
             textAlign == "end" && direction == "rtl" ||
@@ -1156,8 +1160,8 @@ public class Label extends TextBase
             else if (centerAligned)
                 textLine.x = centerOffset - textLine.textWidth / 2;
             else if (rightAligned)
-                textLine.x = rightOffset - textLine.textWidth;
-
+                textLine.x = rightOffset - textLine.textWidth;            
+            
             if (verticalAlign == "top" || !createdAllLines || clipping)
             {
                 textLine.y += topOffset;
