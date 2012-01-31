@@ -726,27 +726,25 @@ public class ListBase extends SkinnableDataContainer
         if (renderer is IItemRenderer)
         {
             // If there are transitions bound to the renderer, lets turn them 
-            // off while we clear stale properties
-            if (renderer is UIComponent)
-            {
-                transitions = UIComponent(renderer).transitions; 
-                UIComponent(renderer).transitions = null; 
-            }
+            // off while we clear stale properties by setting ItemRenderer's 
+            // mx_internal property, playTransitions, to false
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = false; 
             
             // TODO (dsubrama) - Go through helper methods to do this. 
             // Make itemSelected()/itemInCaret() pass around the renderer 
             // instead of index
             IItemRenderer(renderer).selected = false;
             IItemRenderer(renderer).caret = false;
+            
+            // Now turn the transitions back on by setting playTransitions
+            // back to true 
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = true;  
         }    
         
         // Now run through and initialize the renderer correctly
         super.updateRenderer(renderer); 
-        
-        // Re-apply any transitions bound to the renderer that may 
-        // have been previously nulled out 
-        if (transitions) 
-            UIComponent(renderer).transitions = transitions; 
           
         var index:Number = dataGroup.getElementIndex(renderer);
         
