@@ -270,6 +270,8 @@ include "../styles/metadata/TextStyles.as"
 
 [DefaultTriggerEvent("change")]
 
+[Alternative(replacement="spark.components.NumericStepper", since="4.0")]
+
 /**
  *  The NumericStepper control lets the user select
  *  a number from an ordered set.
