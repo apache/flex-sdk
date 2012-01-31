@@ -111,14 +111,15 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;Application
  *    <strong>Properties</strong>
- *    backgroundColor="white"
+ *    backgroundColor="0xFFFFFF"
  *    colorCorrection="default"
  *    frameRate="24"
- *    pageTitle"<i>No default</i>"
+ *    pageTitle""
  *    preloader="<i>No default</i>"
+ *    preloaderBaseColor="<i>No default</i>"
  *    scriptRecursionLimit="1000"
  *    scriptTimeLimit="60"
- *    usePreloader="true|false"
+ *    usePreloader="true"
  *    viewSourceURL=""
  *    xmlns:<i>No default</i>="<i>No default</i>"
  *  
@@ -128,7 +129,6 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -264,15 +264,17 @@ public class Application extends SkinnableContainer
     [Inspectable(enumeration="default,off,on", defaultValue="default" )]
     
    /**
-    *  The value of the stage's <code>colorCorrection</code> property. If this application
-    *  does not have access to the stage's <code>colorCorrection</code> property, 
-    *  the value of the <code>colorCorrection</code> property will be reported as 
-    *  null. Only the main application is allowed to set the <code>colorCorrection</code>
-    *  property. If a sub-application's needs to set the color correction property it will
-    *  need to set it via the main application's instance, either directly using an object
-    *  instance or via an event (there is no framework event for this purpose).  
+    *  The value of the stage's <code>colorCorrection</code> property. 
+    *  If this application does not have access to the stage's <code>colorCorrection</code> property, 
+    *  the value of the <code>colorCorrection</code> property is <code>null</code>.
+    *  
+    *  <p>Only the main application is allowed to set the <code>colorCorrection</code>
+    *  property. If a nested application's needs to set the color correction property, it 
+    *  must set it by referencing the the main application's instance.</p>
     *
     *  @default ColorCorrection.DEFAULT
+    *
+    *  @see flash.display.ColorCorrection
     *  
     *  @langversion 3.0
     *  @playerversion Flash 10
@@ -350,7 +352,7 @@ public class Application extends SkinnableContainer
      *    HTML <code>&lt;title&gt;</code> tag.
      * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code. 
-     * 	  The value set in MXML code is designed to be used by a tool to update the HTML templates 
+     *    The value set in MXML code is designed to be used by a tool to update the HTML templates 
      *    provided with the SDK.</p>
      *
      *    @default ""
@@ -369,13 +371,13 @@ public class Application extends SkinnableContainer
     [Inspectable(defaultValue="mx.preloaders.DownloadProgressBar")]
 
     /**
-     *    Specifies the path of a SWC component class or ActionScript
-     *    component class that defines a custom progress bar.
-     *    A SWC component must be in the same directory as the MXML file
-     *    or in the WEB-INF/flex/user_classes directory of your Flex
-     *    web application.
+     *  Specifies the path of a SWC component class or ActionScript
+     *  component class that defines a custom progress bar.
+     *  A SWC component must be in the same directory as the MXML file
+     *  or in the WEB-INF/flex/user_classes directory of your Flex
+     *  web application.
      * 
-     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -391,12 +393,12 @@ public class Application extends SkinnableContainer
     [Inspectable(defaultValue="0xCCCCCC", format="Color")]
     
     /**
-     *    Specifies the base color used by the default preloader component. This property
-     *    has the same effect as the <code>baseColor</code> style used by the Spark skins.
-     *    Typically this property should be set to the same value as the <code>baseColor</code>
-     *    style used by the application.
+     *  Specifies the base color used by the default preloader component. This property
+     *  has the same effect as the <code>baseColor</code> style used by Spark skins.
+     *  Typically this property should be set to the same value as the 
+     *  Application container's <code>baseColor</code> style property.
      *    
-     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
