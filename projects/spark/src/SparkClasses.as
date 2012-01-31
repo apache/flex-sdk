@@ -82,6 +82,7 @@ import spark.skins.spark.ScrollBarRightButtonSkin; ScrollBarRightButtonSkin;
 import spark.skins.spark.ScrollerSkin; ScrollerSkin;
 import spark.skins.spark.SkinnableContainerSkin; SkinnableContainerSkin;
 import spark.skins.spark.SkinnableDataContainerSkin; SkinnableDataContainerSkin;
+import spark.skins.spark.SkinnablePopUpContainerSkin; SkinnablePopUpContainerSkin;
 import spark.skins.spark.SpinnerDecrementButtonSkin; SpinnerDecrementButtonSkin;
 import spark.skins.spark.SpinnerIncrementButtonSkin; SpinnerIncrementButtonSkin;
 import spark.skins.spark.SpinnerSkin; SpinnerSkin;
