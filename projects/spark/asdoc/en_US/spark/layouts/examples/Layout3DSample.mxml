@@ -73,6 +73,6 @@
   </mx:VBox>
  </mx:HBox>
 <s:Scroller height="180" width="200">
-    <s:SkinnableContainer id="fc" creationComplete="addData()" />
+    <s:VGroup id="fc" creationComplete="addData()" />
 </s:Scroller>
 </s:Application>
