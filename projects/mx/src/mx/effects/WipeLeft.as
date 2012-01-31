@@ -51,6 +51,11 @@ import mx.effects.effectClasses.WipeLeftInstance;
  *  @see mx.effects.effectClasses.WipeLeftInstance
  *  
  *  @includeExample examples/WipeLeftExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WipeLeft extends MaskEffect
 {
@@ -66,6 +71,11 @@ public class WipeLeft extends MaskEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function WipeLeft(target:Object = null)
 	{
