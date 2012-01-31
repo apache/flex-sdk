@@ -484,7 +484,7 @@ public class Form extends Container
         {
             var child:DisplayObject = getChildAt(i);
 
-            if (child is FormItem)
+            if (child is FormItem && FormItem(child).includeInLayout)
             {
                 labelWidth = Math.max(labelWidth,
                                       FormItem(child).getPreferredLabelWidth());
