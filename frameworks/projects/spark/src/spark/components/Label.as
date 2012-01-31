@@ -1059,7 +1059,7 @@ public class Label extends TextBase
 			else if (rightAligned)
 				textLine.x = rightOffset - textLine.textWidth;
 
-			if (verticalAlign == "top")
+			if (verticalAlign == "top" || !createdAllLines || totalTextHeight > innerHeight)
 			{
 				textLine.y += topOffset;
 			}
