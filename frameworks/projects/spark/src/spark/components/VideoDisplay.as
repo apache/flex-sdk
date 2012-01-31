@@ -13,7 +13,6 @@ package spark.components
 {
 
 import flash.events.Event;
-import flash.events.ProgressEvent;
 import flash.geom.Point;
 import flash.media.Video;
 
@@ -25,39 +24,26 @@ import mx.events.FlexEvent;
 
 import org.osmf.display.MediaPlayerSprite;
 import org.osmf.display.ScaleMode;
-import org.osmf.events.BufferTimeChangeEvent;
-import org.osmf.events.BytesDownloadedChangeEvent;
-import org.osmf.events.DimensionChangeEvent;
-import org.osmf.events.DurationChangeEvent;
-import org.osmf.events.LoadableStateChangeEvent;
+import org.osmf.display.ScaleModeUtils;
+import org.osmf.events.AudioEvent;
+import org.osmf.events.DimensionEvent;
+import org.osmf.events.LoadEvent;
 import org.osmf.events.MediaPlayerStateChangeEvent;
-import org.osmf.events.MutedChangeEvent;
-import org.osmf.events.PlayheadChangeEvent;
 import org.osmf.events.PlayingChangeEvent;
-import org.osmf.events.SeekingChangeEvent;
-import org.osmf.events.TraitEvent;
-import org.osmf.events.VolumeChangeEvent;
-import org.osmf.media.IMediaResource;
-import org.osmf.media.MediaFactory;
+import org.osmf.events.TimeEvent;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.MediaPlayerState;
 import org.osmf.media.URLResource;
 import org.osmf.net.NetLoader;
-import org.osmf.net.NetStreamCodes;
 import org.osmf.net.dynamicstreaming.DynamicStreamingItem;
 import org.osmf.net.dynamicstreaming.DynamicStreamingNetLoader;
 import org.osmf.net.dynamicstreaming.DynamicStreamingResource;
-import org.osmf.traits.ILoadable;
-import org.osmf.traits.LoadState;
-import org.osmf.traits.MediaTraitType;
 import org.osmf.utils.FMSURL;
-import org.osmf.utils.MediaFrameworkStrings;
 import org.osmf.utils.URL;
 import org.osmf.video.VideoElement;
 
 import spark.components.mediaClasses.DynamicStreamingVideoItem;
 import spark.components.mediaClasses.DynamicStreamingVideoSource;
-import spark.events.VideoEvent;
 import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
@@ -67,34 +53,54 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- * Dispatched when the data is received as a download operation progresses.
+ *  Dispatched when the data is received as a download operation progresses.
  *
- * @eventType flash.events.ProgressEvent
+ *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
  */
-[Event(name="bytesDownloadedChange",type="org.osmf.events.BytesDownloadedChangeEvent")]
+[Event(name="bytesLoadedChange",type="org.osmf.events.LoadEvent")]
 
 /**
- * Dispatched when the MediaPlayer's state has changed.
+ *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
+ *  This value is updated at the interval set by 
+ *  the MediaPlayer's <code>currentTimeUpdateInterval</code> property.
+ *
+ *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
+ **/
+[Event(name="currentTimeChange",type="org.osmf.events.TimeEvent")]
+
+/**
+ *  Dispatched when the <code>duration</code> property of the media has changed.
  * 
- * @eventType org.osmf.events.PlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE
+ *  @eventType org.osmf.events.TimeEvent.DURATION_CHANGE
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
+ */
+[Event(name="durationChange", type="org.osmf.events.TimeEvent")]
+
+/**
+ *  Dispatched when the MediaPlayer's state has changed.
+ * 
+ *  @eventType org.osmf.events.MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
  */	
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
-
-/**
- * Dispatched when the <code>playhead</code> property of the MediaPlayer has changed.
- * This value is updated at the interval set by 
- * the MediaPlayer's <code>playheadUpdateInterval</code> property.
- *
- * @eventType org.osmf.events.PlayheadChangeEvent.PLAYHEAD_CHANGE
- **/
-[Event(name="playheadChange",type="org.osmf.events.PlayheadChangeEvent")]  
-
-/**
- * Dispatched when the <code>duration</code> property of the media has changed.
- * 
- * @eventType org.osmf.events.DurationChangeEvent.DURATION_CHANGE
- */
-[Event(name="durationChange", type="org.osmf.events.DurationChangeEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -322,8 +328,10 @@ public class VideoDisplay extends UIComponent
      */
     public function get bytesLoaded():Number
     {
-        return videoPlayer.bytesDownloaded;
+        return videoPlayer.bytesLoaded;
     }
+    
+    // FIXME (rfrishbe): Need to add mediaPlayerState property?
     
     //----------------------------------
     //  bytesTotal
@@ -671,24 +679,20 @@ public class VideoDisplay extends UIComponent
             var streamingSource:DynamicStreamingVideoSource = source as DynamicStreamingVideoSource;
             var dsr:DynamicStreamingResource;
             
-            dsr =  new DynamicStreamingResource(new FMSURL(streamingSource.serverURI));
-            
-            // if dealing with a live streaming video, set start = -1
-            // otherwise we don't worry about the start parameter
-            if (streamingSource.streamType == "live")
-                dsr.start = DynamicStreamingResource.START_LIVE;
-            else if (streamingSource.streamType == "recorded")
-                dsr.start = DynamicStreamingResource.START_VOD;
+            dsr =  new DynamicStreamingResource(new FMSURL(streamingSource.serverURI), streamingSource.streamType);
             
             var n:int = streamingSource.streamItems.length;
             var item:DynamicStreamingVideoItem;
             var dsi:DynamicStreamingItem;
+            var streamItems:Vector.<DynamicStreamingItem> = new Vector.<DynamicStreamingItem>(n);
+            
             for (var i:int = 0; i < n; i++)
             {
-                item = DynamicStreamingVideoItem(streamingSource.streamItems[i]);
+                item = streamingSource.streamItems[i];
                 dsi = new DynamicStreamingItem(item.streamName, item.bitrate);
-                dsr.addItem(dsi);
+                streamItems[i] = dsi;
             }
+            dsr.streamItems = streamItems;
             
             dsr.initialIndex = streamingSource.initialIndex;
             
@@ -961,7 +965,7 @@ public class VideoDisplay extends UIComponent
         if (thumbnailSource && thumbnailGroup)
         {
             // get what the size of our image should be
-            var newSize:Point = videoSprite.scaleMode.getScaledSize(unscaledWidth, unscaledHeight, 
+            var newSize:Point = ScaleModeUtils.getScaledSize(scaleMode, unscaledWidth, unscaledHeight, 
                 thumbnailGroup.getPreferredBoundsWidth(), thumbnailGroup.getPreferredBoundsHeight());
             
             thumbnailGroup.setLayoutBoundsSize(newSize.x, newSize.y);
@@ -1136,13 +1140,16 @@ public class VideoDisplay extends UIComponent
         videoPlayer = new MediaPlayer();
         videoSprite = new MediaPlayerSprite(videoPlayer);
         
-        videoPlayer.addEventListener(DimensionChangeEvent.DIMENSION_CHANGE, videoPlayer_dimensionChangeHandler);
-        videoPlayer.addEventListener(VolumeChangeEvent.VOLUME_CHANGE, videoPlayer_volumeChangeHandler);
-        videoPlayer.addEventListener(MutedChangeEvent.MUTED_CHANGE, videoPlayer_mutedChangeHandler);
+        // internal events
+        videoPlayer.addEventListener(DimensionEvent.DIMENSION_CHANGE, videoPlayer_dimensionChangeHandler);
+        videoPlayer.addEventListener(AudioEvent.VOLUME_CHANGE, videoPlayer_volumeChangeHandler);
+        videoPlayer.addEventListener(AudioEvent.MUTED_CHANGE, videoPlayer_mutedChangeHandler);
+        
+        // public events
         videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, dispatchEvent);
-        videoPlayer.addEventListener(PlayheadChangeEvent.PLAYHEAD_CHANGE, dispatchEvent);
-        videoPlayer.addEventListener(BytesDownloadedChangeEvent.BYTES_DOWNLOADED_CHANGE, dispatchEvent);
-        videoPlayer.addEventListener(DurationChangeEvent.DURATION_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
         
         addChild(videoSprite);
     }
@@ -1245,7 +1252,7 @@ public class VideoDisplay extends UIComponent
             // 3) loading
             // Here we are checking if we are playing or loading
             // and going to play soon (autoPlay = true)
-            if (causePause && (playing || (videoPlayer.state == MediaPlayerState.INITIALIZING && autoPlay)))
+            if (causePause && (playing || (videoPlayer.state == MediaPlayerState.LOADING && autoPlay)))
                 playTheVideoOnVisible = true;
 
             // always set autoPlay to false here and 
@@ -1422,7 +1429,7 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private function videoPlayer_dimensionChangeHandler(event:DimensionChangeEvent):void
+    private function videoPlayer_dimensionChangeHandler(event:DimensionEvent):void
     {
         invalidateSize();
     }
@@ -1430,7 +1437,7 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private function videoPlayer_volumeChangeHandler(event:VolumeChangeEvent):void
+    private function videoPlayer_volumeChangeHandler(event:AudioEvent):void
     {
         dispatchEvent(new Event("volumeChanged"));
     }
@@ -1438,7 +1445,7 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private function videoPlayer_mutedChangeHandler(event:MutedChangeEvent):void
+    private function videoPlayer_mutedChangeHandler(event:AudioEvent):void
     {
         dispatchEvent(new Event("volumeChanged"));
     }
