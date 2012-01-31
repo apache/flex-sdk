@@ -18,7 +18,6 @@ import flash.utils.getQualifiedClassName;
 import flash.utils.describeType;
 import mx.core.IContainer;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 
@@ -74,9 +73,6 @@ public class PanelSkin extends HaloBorder
      */
     override public function get borderMetrics():EdgeMetrics
     {   
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.borderMetrics;
-        
         var hasPanelParent:Boolean = isPanel(parent);
         var controlBar:IUIComponent = hasPanelParent ? Object(parent)._controlBar : null;        
         var hHeight:Number = hasPanelParent ? Object(parent).getHeaderHeightProxy() : NaN;
@@ -163,8 +159,6 @@ public class PanelSkin extends HaloBorder
     override mx_internal function drawBorder(w:Number, h:Number):void
     {
         super.drawBorder(w,h);
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return;
         
         var borderStyle:String = getStyle("borderStyle");
         
