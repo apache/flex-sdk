@@ -699,6 +699,8 @@ public class List extends ListBase implements IFocusManagerComponent
             else currentIndex = selectedIndex;  
             
 	        //Delegate to the layout to tell us what the next item is we should select.
+	        // TODO (jszeto) At some point we should refactor this so we don't depend on layout
+	        // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
 	        var proposedSelectedIndex:int = (layout) ? 
 	           layout.nextItemIndex(event.keyCode, currentIndex, dataProvider.length - 1) : -1;  
 	        
