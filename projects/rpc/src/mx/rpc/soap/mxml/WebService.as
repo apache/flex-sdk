@@ -307,6 +307,8 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
         {
             IEventDispatcher(document).addEventListener("creationComplete", creationComplete);
         }
+
+        initialize();
     }
 
 
