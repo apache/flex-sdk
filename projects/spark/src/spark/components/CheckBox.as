@@ -16,7 +16,14 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 
 /**
- *  Documentation is not currently available.
+ *  The FxCheckBox component consists of an optional label and a small box
+ *  that can contain a check mark or not. 
+ *  You can place the optional text label to the left, right, top, or bottom
+ *  of the CheckBox.
+ *
+ *  <p>When a user clicks a FxCheckBox component or its associated text,
+ *  the FxCheckBox component sets its <code>selected</code> property
+ *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
  */
 public class FxCheckBox extends FxToggleButton
 {
@@ -31,10 +38,10 @@ public class FxCheckBox extends FxToggleButton
     /**
      *  Constructor. 
      */
-	public function FxCheckBox()
-	{
-		super();
-	}
+    public function FxCheckBox()
+    {
+        super();
+    }
 }
 
 }
