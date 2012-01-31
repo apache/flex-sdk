@@ -469,6 +469,7 @@ public class Spinner extends Range implements IFocusManagerComponent
         {
             var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
             setValue(newValue);
+            dispatchEvent(new Event(Event.CHANGE));
             event.preventDefault();
         }
     }
