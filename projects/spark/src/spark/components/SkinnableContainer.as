@@ -704,6 +704,14 @@ public class FxContainer extends FxContainerBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    public function removeAllElements():void
+    {
+        mx_internal::currentContentGroup.removeAllElements();
+    }
+    
+    /**
+     *  @inheritDoc
+     */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
         mx_internal::currentContentGroup.setElementIndex(element, index);
