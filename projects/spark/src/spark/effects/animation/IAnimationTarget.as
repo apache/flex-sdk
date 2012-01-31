@@ -38,9 +38,11 @@ public interface IAnimationTarget
     function animationStart(animation:Animation):void;
 
     /**
-     *  Called when an Animation instance stops. This is different
-     *  than animationEnd, which is called when the animation ends,
-     *  automatically setting the end values of the targets. Stop
+     *  Called when an Animation instance stops. 
+     *  This is different than <code>animationEnd()</code> method, 
+     *  which is called when the animation ends,
+     *  automatically setting the end values of the targets. 
+     *  The <code>animationStop()</code> method
      *  is called when an animation is stopped where it's at.
      *  Handling this event allows necessary cleanup when the animation
      *  is interrupted.
@@ -85,9 +87,9 @@ public interface IAnimationTarget
      *  If an implementation class is listening to an Animation specifically to
      *  be able to do something after the Animation values are calculated for
      *  a given time, this is the function in which those values should be used.
-     *  The other functions in this interface are more informational, just to tell
-     *  the listeners when the Animation is starting, stopping, or repeating.
-     *  This function is called when values have been calculated and something can be
+     *  The other methods in this interface are more informational. 
+     *  They tell the listeners when the Animation starts, stops, or repeats.
+     *  This method is called when values have been calculated and something can be
      *  done with them. 
      *
      *  @param animation The Animation object.
