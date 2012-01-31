@@ -1267,7 +1267,8 @@ public class GridDimensions
         
         rowList.clearColumns(startColumn, count);
         
-        clearTypicalCellWidthsAndHeights();
+        clearVector(typicalCellWidths, NaN, startColumn, count);
+        clearVector(typicalCellHeights, NaN, startColumn, count);
         clearVector(_columnWidths, NaN, startColumn, count);
         
         // cache is invalid because node values might have changed
