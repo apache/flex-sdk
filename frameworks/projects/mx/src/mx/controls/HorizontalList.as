@@ -41,6 +41,13 @@ use namespace mx_internal;
 [IconFile("HorizontalList.png")]
 
 /**
+ *  The layout-specific List components in Flex 3 have been replaced by a more generic
+ *  List component that takes a generic layout. To get similar behavior from the new
+ *  List component, set the <code>layout</code> property to <code>HorizontalLayout</code>.
+ */
+[Alternative(replacement="spark.components.List", since="4.0")]
+
+/**
  *  The HorizontalList control displays a horizontal list of items. 
  *  If there are more items than can be displayed at once, it
  *  can display a horizontal scroll bar so the user can access
