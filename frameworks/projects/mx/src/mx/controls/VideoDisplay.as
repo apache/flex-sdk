@@ -1337,6 +1337,7 @@ public class VideoDisplay extends UIComponent
         {
             _source = value;
 
+            _playheadTime = NaN;
             sourceChanged = true;
 
             dispatchEvent(new Event("sourceChanged"));
