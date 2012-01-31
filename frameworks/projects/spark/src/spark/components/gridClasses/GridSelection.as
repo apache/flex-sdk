@@ -98,7 +98,8 @@ public class GridSelection
      *  True if all cells are selected.  In this case, the data structures are
      *  all reset and the flag should be used to determine the selection.
      */    
-    private var selectAllFlag:Boolean;
+    // Fixme: need interface to determine if everything is selected
+    mx_internal var selectAllFlag:Boolean;
     
     /**
      *  @private
@@ -702,8 +703,8 @@ public class GridSelection
      *  replaces the current selection with the rows starting at 
      *  <code>startRowIndex</code> and ending with <code>endRowIndex</code>.
      * 
-     *  @param startRowIndex 0-based row index of the first row in the selection
-     *  @param endRowIndex 0-based row index of the last row in the selection
+     *  @param rowIndex 0-based row index of the first row in the selection.
+     *  @param rowCount Number of rows in the selection.
      * 
      *  @return True if no errors, or false if any of the indices are invalid
      *  or <code>startRowIndex</code> is not less than or equal to <code>endRowIndex</code>
@@ -714,21 +715,19 @@ public class GridSelection
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */    
-    public function setRows(startRowIndex:int, endRowIndex:int):Boolean
+    public function setRows(rowIndex:int, rowCount:int):Boolean
     {
         // ToDo: convert selection to use rowRange internally
         // For now, just change the API to use it.
-        
-        // ToDo:  consider allowing startRowIndex to be either end of the range.
-        
-        const rowCount:int = endRowIndex - startRowIndex + 1;
-        if (rowCount < 0)
+                
+         if (rowCount < 0)
             return false;
         
         const rowIndices:Vector.<int> = new Vector.<int>(rowCount, true);
-        for (var i:int = startRowIndex; i <= endRowIndex; i++)
+        const endRowIndex:int = rowIndex + rowCount - 1;
+        for (var i:int = rowIndex; i <= endRowIndex; i++)
         {
-            rowIndices[i - startRowIndex] = i;
+            rowIndices[i - rowIndex] = i;
         }                 
         
         if (!validateIndices(rowIndices))
@@ -873,7 +872,7 @@ public class GridSelection
      */    
     public function addCell(rowIndex:int, columnIndex:int):Boolean
     {   
-        if (!validateCell(rowIndex, columnIndex))
+        if (!validateCellRegion(rowIndex, columnIndex, 1, 1))
             return false;
         
         if (selectAllFlag)
@@ -1166,6 +1165,7 @@ public class GridSelection
     /**
      *  @private
      *  True if the selection mode is <code>GridSelectionMode.SINGLE_CELL</code>
+     *  or code>GridSelectionMode.MULTIPLE_CELLS</code>
      *  and the 0-based index is valid index in <code>columns</code>.
      */    
     protected function validateCell(rowIndex:int, columnIndex:int):Boolean
@@ -1628,17 +1628,9 @@ public class GridSelection
             return true;
         
         if (isRowSelectionMode())
-            adjustRowsAfterRefresh();
-        
-        // FIXME:  don't think we should even try to support preserveSelection
-        // if a cell-based selectionMode.  Would need to duplicate selection
-        // since we need column information as well as the row information
-        // stored in selectedRowValues.  If we decide to not support this,
-        // then remove the code that stores the selectedRowValues when setting
-        // cell selections.
-        
-        //else if (isCellSelectionMode())
-        //    adjustCellsAfterRefresh();
+            adjustRowsAfterRefresh();        
+       else if (isCellSelectionMode())
+            adjustCellsAfterRefresh();
         
         ensureRequiredSelection();
         
@@ -1674,7 +1666,6 @@ public class GridSelection
      *  @private
      *  Sort or filter on collection changed.  Update selected cells.
      */
-    /*
     private function adjustCellsAfterRefresh():Boolean
     {
         // Make a pass thru the saved items, and if the item is still in 
@@ -1718,7 +1709,6 @@ public class GridSelection
                 
         return true;
     }
-    */
     
     /**
      *  @private
