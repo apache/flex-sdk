@@ -16,6 +16,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 
 import mx.collections.ArrayList;
 import mx.collections.IList;
@@ -237,14 +238,6 @@ public class Grid extends Group implements IDataGridElement
      */
     private var generatedColumns:Boolean = false;
     
-    // TODO(hmuller): the following public variables are temporary 
-    
-    public var backgroundLayer:GridLayer;
-    public var selectionLayer:GridLayer;    
-    public var rendererLayer:GridLayer;
-    public var overlayLayer:GridLayer;
-    public var editorIndicatorLayer:GridLayer;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -263,15 +256,6 @@ public class Grid extends Group implements IDataGridElement
     {
         super();
         layout = new GridLayout();
-        
-        backgroundLayer = new GridLayer();
-        selectionLayer = new GridLayer();
-        rendererLayer = new GridLayer(this);
-        overlayLayer = new GridLayer();
-        editorIndicatorLayer = new GridLayer();
-        
-        for each (var layer:GridLayer in [backgroundLayer, selectionLayer, editorIndicatorLayer, overlayLayer])
-            addElement(layer.root);      
         
         MouseEventUtil.addDownDragUpListeners(this, 
             grid_mouseDownDragUpHandler, 
@@ -1095,6 +1079,77 @@ public class Grid extends Group implements IDataGridElement
         
         _dataGrid = value;
         dispatchChangeEvent("dataGridChanged");
+    }
+    
+    //----------------------------------
+    //  layers
+    //----------------------------------
+    
+    private var _layers:Vector.<GridLayer> = null;
+    private var layersMap:Dictionary = new Dictionary();
+    
+    [Bindable("layersChanged")]
+    
+    /**
+     *  The GridLayer objects that define the stacking order or "layering" for Grid visual elements.
+     * 
+     *  <p>The GridLayout adds rowBackround and hoverIndicator elements to the backgroundLayer, 
+     *  selectionIndicators to the selectionLayer, item renderers to the rendererLayer, caretIndicator, 
+     *  row and column separators to the overlayLayer.</p>
+     * 
+     *  <p>If a value for this property isn't specified, then at commitProperties() time
+     *  a Vector of the four minimum GridLayers expected by the Grid's layout is created.  The layers
+     *  have the following ids: "backgroundLayer", "selectionLayer", "rendererLayer", "overlayLayer".
+     *  The rendererLayer's root is this Grid.</p>
+     * 
+     *  @default Four layers with the following ids: "backgroundLayer", "selectionLayer", "rendererLayer", "overlayLayer".
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get layers():Vector.<GridLayer>
+    {
+        return (_layers) ? _layers.concat() : new Vector.<GridLayer>(0);
+    }
+    
+    /**
+     *  @private
+     */        
+    public function set layers(value:Vector.<GridLayer>):void
+    {
+        _layers = (!value) ? new Vector.<GridLayer>(0) : value.concat();
+
+        layersMap = new Dictionary();
+        for each (var layer:GridLayer in _layers)
+        {
+            var layerID:String = layer.id;
+            if (layerID)
+                layersMap[layerID] = layer;
+            
+            if (layer.root != this)
+                addElement(layer.root)
+        }
+        
+        dispatchChangeEvent("layersChanged");            
+    }
+    
+    /**
+     *  Returns the GridLayer element of the layers property with the specified id, or null.
+     * 
+     *  <p>Grid's layout uses this method to lookup GridLayers.</p>
+     * 
+     *  @param id The id of the GridLayer to be returned.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function getLayer(id:String):GridLayer
+    {
+        return layersMap[id] as GridLayer;
     }
     
     //----------------------------------
@@ -2017,7 +2072,7 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  If true then a dataTip is displayed for all visible cells.  If false (the default),
-     *  then a dataTip is only displayed if the column's showDataTip property is true.
+     *  then a dataTip is only displayed if the column's showDataTips property is true.
      * 
      *  @default false
      *  
@@ -3070,12 +3125,34 @@ public class Grid extends Group implements IDataGridElement
         if (!inUpdateDisplayList)
             super.invalidateDisplayList();
     }
+    
+    /**
+     *  Used to create a default value for the layers property in commitProperties below.
+     */
+    private function createLayer(id:String):GridLayer
+    {
+        const layer:GridLayer = new GridLayer();
+        layer.id = id;
+        if (id == "rendererLayer")
+            layer.root = this;
+        return layer;
+    }
 
     /**
      *  @private
      */
     override protected function commitProperties():void
     {
+        // Create a default layers vector if necessary
+        if (_layers == null)
+        {
+            layers = new <GridLayer> [
+                createLayer("backgroundLayer"), 
+                createLayer("selectionLayer"), 
+                createLayer("rendererLayer"),
+                createLayer("overlayLayer")]
+        }
+                
         // rowHeight and variableRowHeight can be set in either order
         if (variableRowHeightChanged || rowHeightChanged)
         {
