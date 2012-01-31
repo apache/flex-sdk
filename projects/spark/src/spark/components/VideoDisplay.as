@@ -99,7 +99,7 @@ import spark.primitives.supportClasses.GraphicElement;
  *
  *  <p>Dispatched only for a progressive HTTP download. Indicates progress in number of 
  *  downloaded bytes. The event object has the <code>bytesLoaded</code> and <code>bytesTotal</code>
- *  properties</p>
+ *  properties.</p>
  * 
  *  @eventType flash.events.ProgressEvent.PROGRESS
  *  
@@ -181,7 +181,7 @@ public class VideoElement extends GraphicElement
     
     /**
      *  @private
-     *  This is the underlying VideoPlayer object.  At some point in the 
+     *  This is the underlying VideoPlayer object. At some point in the 
      *  future, we may change to a new implementation.
      */
     mx_internal var videoPlayer:VideoPlayer;
@@ -286,7 +286,7 @@ public class VideoElement extends GraphicElement
      *  when play stops, either by calling the <code>stop()</code> method or by
      *  reaching the end of the stream.
      *
-     *  This property has no effect for live streaming video.
+     *  <p>This property has no effect for live streaming video.</p>
      *
      *  @default true
      *  
@@ -412,7 +412,7 @@ public class VideoElement extends GraphicElement
     /**
      *  @private
      *  mutedVolume tracks what the volume was before we were 
-     *  muted.  If we aren't muted, mutedVolume = -1.
+     *  muted. If we aren't muted, mutedVolume = -1.
      */
     private var mutedVolume:Number = -1;
     
@@ -609,7 +609,7 @@ public class VideoElement extends GraphicElement
     //----------------------------------
 
     /**
-     *  The underlying video object
+     *  The underlying video object.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -781,13 +781,13 @@ public class VideoElement extends GraphicElement
     }
    
     /**
-     *  Seeks to given second in video.  If video is playing,
-     *  continues playing from that point.  If video is paused, seek to
-     *  that point and remain paused.  If video is stopped, seek to
-     *  that point and enters paused state.  Has no effect with live
+     *  Seeks to given second in video. If video is playing,
+     *  continues playing from that point. If video is paused, seek to
+     *  that point and remain paused. If video is stopped, seek to
+     *  that point and enters paused state. Has no effect with live
      *  streams.
      *
-     *  <p>If time is less than 0 or NaN, throws exeption.  If time
+     *  <p>If time is less than 0 or NaN, throws exeption. If time
      *  is past the end of the stream, or past the amount of file
      *  downloaded so far, then will attempt seek and when fails
      *  will recover.</p>
