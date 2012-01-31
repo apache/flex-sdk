@@ -35,25 +35,6 @@ import mx.core.IVisualElement;
  */
 public interface IViewport extends IVisualElement
 {
-    /**
-     *  The width of the component.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get width():Number;
-
-    /**
-     *  The height of the component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get height():Number;
     
     /**
      *  The width of the viewport along the x axis. 
