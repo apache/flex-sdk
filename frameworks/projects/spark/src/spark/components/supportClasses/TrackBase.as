@@ -18,9 +18,9 @@ import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
-import mx.events.SandboxMouseEvent;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
+import mx.events.SandboxMouseEvent;
 
 import spark.components.Button;
 import spark.events.TrackBaseEvent;
@@ -37,6 +37,19 @@ import spark.events.TrackBaseEvent;
  *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
+
+/**
+ *  Dispatched before the value of the control changes
+ *  as a result of user interaction.
+ *
+ *  @eventType mx.events.FlexEvent.CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="changing", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the thumb is pressed and then moved by the mouse.
@@ -404,11 +417,11 @@ public class TrackBase extends Range
     override public function step(increase:Boolean = true):void
     {
         var prevValue:Number = this.value;
-        
+
         super.step(increase);
         
         if (value != prevValue)
-            dispatchEvent(new Event("change"));
+            dispatchEvent(new Event(Event.CHANGE));
     }
 
     /**
@@ -638,7 +651,9 @@ public class TrackBase extends Range
      */ 
     override protected function focusInHandler(event:FocusEvent):void
     {
-    	 addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+        super.focusInHandler(event);
+        
+    	addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
     }
     
     /**
@@ -646,6 +661,8 @@ public class TrackBase extends Range
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
+        super.focusOutHandler(event);
+        
     	removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
     }
     
@@ -727,7 +744,7 @@ public class TrackBase extends Range
     {
     	var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
         positionThumb(valueToPosition(newValue));
-        setValue(newValue);  
+        setValue(newValue);
         event.preventDefault();  	
     }
     
@@ -742,7 +759,6 @@ public class TrackBase extends Range
             return;
 
         system_mouseWheelHandler(event);
-    	
     }
 
     //---------------------------------
@@ -756,11 +772,6 @@ public class TrackBase extends Range
      */
     protected function thumb_mouseDownHandler(event:MouseEvent):void
     {
-        // TODO (chaase): We might want a different event mechanism eventually
-        // which would push this enabled check into the child/skin components
-        if (!enabled)
-            return;
-
         addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
                 stage_mouseMoveHandler);
         addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
@@ -807,7 +818,7 @@ public class TrackBase extends Range
         {
             setValue(newValue);
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
-            dispatchEvent(new Event("change"));   
+            dispatchEvent(new Event(Event.CHANGE));   
         }
         
         event.updateAfterEvent();
