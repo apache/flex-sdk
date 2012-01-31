@@ -32,7 +32,7 @@ package spark.components.calendarClasses
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public final class DateSelectorDisplayMode
 {
@@ -60,7 +60,7 @@ public final class DateSelectorDisplayMode
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const DATE:String = "date";
     
@@ -69,7 +69,7 @@ public final class DateSelectorDisplayMode
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const TIME:String = "time";
     
@@ -78,7 +78,7 @@ public final class DateSelectorDisplayMode
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const DATE_AND_TIME:String = "dateAndTime";    
 }
