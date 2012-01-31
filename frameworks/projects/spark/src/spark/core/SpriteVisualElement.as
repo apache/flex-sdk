@@ -2000,14 +2000,14 @@ public class SpriteVisualElement extends FlexSprite
 	//  layoutDirection
 	//----------------------------------
 	
-	private var _layoutDirection:String = "inherit";
+	private var _layoutDirection:String = null;
 	
     /**
      *  @inheritDoc
      */
 	public function get layoutDirection():String
 	{
-        if (_layoutDirection != "inherit")
+        if (_layoutDirection != null)
             return _layoutDirection;
         
         const parentElt:IVisualElement = parent as IVisualElement;
@@ -2039,7 +2039,7 @@ public class SpriteVisualElement extends FlexSprite
         // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the _layoutFeatures.mirror flag.
         
-        const mirror:Boolean = (_layoutDirection != "inherit") && (_layoutDirection != parentElt.layoutDirection);        
+        const mirror:Boolean = (_layoutDirection != null) && (_layoutDirection != parentElt.layoutDirection);        
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
             if (_layoutFeatures == null)
