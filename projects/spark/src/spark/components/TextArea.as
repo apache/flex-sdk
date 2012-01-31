@@ -83,6 +83,8 @@ import spark.events.TextOperationEvent;
 
 [DefaultProperty("content")]
 
+[DefaultTriggerEvent("change")]
+
 [IconFile("TextArea.png")]
 
 /**
