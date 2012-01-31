@@ -45,6 +45,7 @@ import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.elements.Configuration;
+import flashx.textLayout.elements.GlobalSettings;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.CompositionCompleteEvent;
@@ -422,6 +423,13 @@ public class RichEditableText extends UIComponent
         if (classInitialized)
             return;
 
+		/**
+		 *  Set the TLF hook used for localizing runtime error messages.
+		 *  TLF itself has English-only messages,
+		 *  but higher layers like Flex can provide localized versions.
+		 */
+		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		
         staticConfiguration = 
             Configuration(TextContainerManager.defaultConfiguration).clone();
         staticConfiguration.manageEnterKey = false; // default is true
