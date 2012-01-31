@@ -22,7 +22,7 @@ import mx.effects.effectClasses.WipeUpInstance;
 [Alternative(replacement="spark.effects.Wipe", since="4.0")]
 
 /**
- *  The WipeUp class defines a bar wipe up effect.
+ *  The WipeUp class defines a wipe up effect.
  *  The before or after state of the component must be invisible. 
  * 
  *  <p>You often use this effect with the <code>showEffect</code> 
@@ -68,28 +68,28 @@ public class WipeUp extends MaskEffect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function WipeUp(target:Object = null)
-	{
-		super(target);
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function WipeUp(target:Object = null)
+    {
+        super(target);
 
-		instanceClass = WipeUpInstance;
-	}
+        instanceClass = WipeUpInstance;
+    }
 }
 
 }
