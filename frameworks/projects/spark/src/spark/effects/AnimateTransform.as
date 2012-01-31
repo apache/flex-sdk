@@ -662,7 +662,7 @@ public class AnimateTransform extends Animate
                     // to transform center changes
                     if (propName in valueMap &&
                         (propName == "translationX" || propName == "translationY" ||
-                         propName == "postLayoutTranslationX" || propName == "postLayoutTranslationY" ||
+                         propName.indexOf("postLayout") == 0 ||
                          valueMap[propName] != otherValueMap[propName]))
                     {
                         transitionValues[propName] = valueMap[propName];
@@ -724,33 +724,21 @@ public class AnimateTransform extends Animate
 
                 if (target.postLayoutTransformOffsets != null)
                 {
-                    var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
-                    if (!isNaN(transitionValues.postLayoutRotationX) ||
-                        !isNaN(transitionValues.postLayoutRotationY) || 
-                        !isNaN(transitionValues.postLayoutRotationZ))
-                    {
-                        offsetRotation.x = !isNaN(transitionValues.postLayoutRotationX) ? 
-                            transitionValues.postLayoutRotationX : postLayoutTransformOffsets.rotationX;
-                        offsetRotation.y = !isNaN(transitionValues.postLayoutRotationY) ? 
-                            transitionValues.postLayoutRotationY : postLayoutTransformOffsets.rotationY;
-                        offsetRotation.z = !isNaN(transitionValues.postLayoutRotationZ) ? 
-                            transitionValues.postLayoutRotationZ : postLayoutTransformOffsets.rotationZ;
-                        tmpOffsetRotation = offsetRotation;
-                    }
-            
-                    if (!isNaN(transitionValues.postLayoutScaleX) ||
-                        !isNaN(transitionValues.postLayoutScaleY) || 
-                        !isNaN(transitionValues.postLayoutScaleZ))
-                    {
-                        offsetScale.x = !isNaN(transitionValues.postLayoutScaleX) ? 
-                            transitionValues.postLayoutScaleX : postLayoutTransformOffsets.scaleX;
-                        offsetScale.y = !isNaN(transitionValues.postLayoutScaleY) ? 
-                            transitionValues.postLayoutScaleY : postLayoutTransformOffsets.scaleY;
-                        offsetScale.z = !isNaN(transitionValues.postLayoutScaleZ) ? 
-                            transitionValues.postLayoutScaleZ : postLayoutTransformOffsets.scaleZ;
-                        tmpOffsetScale = offsetScale;
-                    }
-            
+                    offsetRotation.x = !isNaN(transitionValues.postLayoutRotationX) ? 
+                        transitionValues.postLayoutRotationX : 0;
+                    offsetRotation.y = !isNaN(transitionValues.postLayoutRotationY) ? 
+                        transitionValues.postLayoutRotationY : 0;
+                    offsetRotation.z = !isNaN(transitionValues.postLayoutRotationZ) ? 
+                        transitionValues.postLayoutRotationZ : 0;
+                    tmpOffsetRotation = offsetRotation;
+                    
+                    offsetScale.x = !isNaN(transitionValues.postLayoutScaleX) ? 
+                        transitionValues.postLayoutScaleX : 1;
+                    offsetScale.y = !isNaN(transitionValues.postLayoutScaleY) ? 
+                        transitionValues.postLayoutScaleY : 1;
+                    offsetScale.z = !isNaN(transitionValues.postLayoutScaleZ) ? 
+                        transitionValues.postLayoutScaleZ : 1;
+                    tmpOffsetScale = offsetScale;
                     
                     offsetTranslation.x = transitionValues.postLayoutTranslationX; 
                     offsetTranslation.y = transitionValues.postLayoutTranslationY;
