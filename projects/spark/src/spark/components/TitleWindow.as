@@ -376,6 +376,7 @@ public class TitleWindow extends Panel
                                                 
         if (instance == moveArea)
             moveArea.removeEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
+
         else if (instance == closeButton)
             closeButton.removeEventListener(MouseEvent.CLICK, closeButton_clickHandler);
     }
