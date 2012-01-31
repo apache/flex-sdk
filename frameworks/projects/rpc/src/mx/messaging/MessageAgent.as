@@ -1060,9 +1060,13 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
         if (_sendRemoteCredentials)
         {
-            message.headers[AbstractMessage.REMOTE_CREDENTIALS_HEADER] = _remoteCredentials;
-            message.headers[AbstractMessage.REMOTE_CREDENTIALS_CHARSET_HEADER] = _remoteCredentialsCharset;
-            _sendRemoteCredentials = false;    
+            if (! ((message is CommandMessage) && 
+                    (CommandMessage(message).operation == CommandMessage.TRIGGER_CONNECT_OPERATION)))
+            {
+                message.headers[AbstractMessage.REMOTE_CREDENTIALS_HEADER] = _remoteCredentials;
+                message.headers[AbstractMessage.REMOTE_CREDENTIALS_CHARSET_HEADER] = _remoteCredentialsCharset;
+                _sendRemoteCredentials = false;
+            }
         }
 
         if (channelSet != null)
