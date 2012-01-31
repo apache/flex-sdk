@@ -29,6 +29,7 @@ import flash.text.engine.FontLookup;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
+import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ISWFContext;
@@ -492,6 +493,13 @@ public class RichEditableText extends UIComponent
      */
     private static var staticTextFormat:TextFormat;
         
+    /**
+     *  @private
+     *  Regular expression which matches all newlines in the text.  Used
+     *  to strip newlines when pasting text when multiline is false.
+     */
+    private static const ALL_NEWLINES_REGEXP:RegExp = /\n/g;
+    
     //--------------------------------------------------------------------------
     //
     //  Class properties
@@ -603,6 +611,10 @@ public class RichEditableText extends UIComponent
         _textContainerManager.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_END,
             textContainerManager_flowOperationEndHandler);
+
+        _textContainerManager.addEventListener(
+            FlowOperationEvent.FLOW_OPERATION_COMPLETE,
+            textContainerManager_flowOperationCompleteHandler);
 
         _textContainerManager.addEventListener(
             StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE, 
@@ -997,6 +1009,57 @@ public class RichEditableText extends UIComponent
     public function get contentWidth():Number
     {
         return _contentWidth;
+    }
+
+    //----------------------------------
+    //  contextMenu
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Use to distinguish between null because it hasn't been set yet and
+     *  null because it was set to null to remove the default context menu.
+     */
+    mx_internal var contextMenuSet:Boolean;
+    
+    /**
+     *  The context menu associated with this component.  If the context menu 
+     *  has not been set this is the default context menu which will be used.  
+     *  Set the context menu to <code>null</code> to remove the default menu.
+     *
+     *  @see flash.display.InteractiveObject
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get contextMenu():ContextMenu
+    {
+        if (!contextMenuSet)
+        {
+            super.contextMenu = _textContainerManager.getContextMenu();
+            contextMenuSet = true;
+        }
+        
+        return super.contextMenu;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set contextMenu(value:ContextMenu):void
+    {
+        if (contextMenuSet && super.contextMenu == value)
+            return;
+        
+        // If the context menu is being reset need to update the menu listeners.
+        if (contextMenuSet && super.contextMenu)
+            _textContainerManager.resetContextMenuListener(value);
+        
+        super.contextMenu = value;
+        
+        contextMenuSet = true;
     }
 
     //----------------------------------
@@ -1560,7 +1623,8 @@ public class RichEditableText extends UIComponent
      *  <p>If <code>true</code>, the Enter key starts a new paragraph.
      *  If <code>false</code>, the Enter key doesn't affect the text
      *  but causes the RichEditableText to dispatch an <code>"enter"</code> 
-     *  event.</p>
+     *  event.  If you paste text into the RichEditableText with a multiline 
+     *  value of <code>true</code>, newlines are stripped out of the text. </p>  
      * 
      *  @default true
      *  
@@ -3247,6 +3311,11 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function isMeasureFixed():Boolean
     {
+        // This can be called from RET EditManager when hostFormat is null 
+        // because a style changed and commitProperties hasn't run yet.
+        if (!_textContainerManager.hostFormat)
+            updateStylesIfChanged();            
+        
         if (_textContainerManager.hostFormat.blockProgression != 
             BlockProgression.TB)
         {
@@ -3593,12 +3662,25 @@ public class RichEditableText extends UIComponent
      */
     private function handlePasteOperation(op:PasteOperation):void
     {
-        if (!restrict && !maxChars && !displayAsPassword)
-            return;
-
         // If copied/cut from displayAsPassword field the pastedText
         // is '*' characters but this is correct.
         var pastedText:String = TextUtil.extractText(op.textScrap.textFlow);
+        // See if there is anything we need to do.
+        if (!restrict && !maxChars && !displayAsPassword)
+        {
+            if (multiline || pastedText.indexOf("\n") == -1)
+                return;
+        }
+
+        // Save this in case we modify the pasted text.  We need to know
+        // how much text to delete.
+        var textLength:int = pastedText.length;
+        
+        // If multiline is false, strip newlines out of pasted text
+        // This will not strip newlines out of displayAsPassword fields
+        // since the text is the passwordChar and newline won't be found.
+        if (!multiline)
+            pastedText = pastedText.replace(ALL_NEWLINES_REGEXP, "");
 
         // We know it's an EditManager or we wouldn't have gotten here.
         var editManager:IEditManager = 
@@ -3611,7 +3693,7 @@ public class RichEditableText extends UIComponent
 
         var selectionState:SelectionState = new SelectionState(
             op.textFlow, op.absoluteStart, 
-            op.absoluteStart + pastedText.length);             
+            op.absoluteStart + textLength);             
         editManager.deleteText(selectionState);
 
         // Insert the same text, the same place where the paste was done.
@@ -4095,7 +4177,7 @@ public class RichEditableText extends UIComponent
     private function textContainerManager_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("flowOperationBegin", "generation", textFlow.generation);
+        //trace("flowOperationBegin", "level", event.level);
         
         var op:FlowOperation = event.operation;
    
@@ -4191,7 +4273,9 @@ public class RichEditableText extends UIComponent
  
         // Dispatch a 'changing' event from the RichEditableText
         // as notification that an editing operation is about to occur.
-        if (dispatchChangeAndChangingEvents)
+        // The level will be 0 for single operations, and at the start
+        // of a composite operation.
+        if (dispatchChangeAndChangingEvents && event.level == 0)
         {
             var newEvent:TextOperationEvent =
                 new TextOperationEvent(TextOperationEvent.CHANGING);
@@ -4214,16 +4298,30 @@ public class RichEditableText extends UIComponent
     private function textContainerManager_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("flowOperationEnd", "generation", textFlow.generation);
+        //trace("flowOperationEnd", "level", event.level);
         
         // Paste is a special case.  Any mods have to be made to the text
         // which includes what was pasted.
         if (event.operation is PasteOperation)
             handlePasteOperation(PasteOperation(event.operation));
+    }
 
+    /**
+     *  @private
+     *  Called when the TextContainerManager dispatches an 'operationComplete' 
+     *  event after an editing operation.
+     */
+    private function textContainerManager_flowOperationCompleteHandler(
+        event:FlowOperationEvent):void
+    {
+        //trace("flowOperationComplete", "level", event.level);
+        
         // Dispatch a 'change' event from the RichEditableText
         // as notification that an editing operation has occurred.
-        if (dispatchChangeAndChangingEvents)
+        // The flow is now in a state that it can be manipulated.
+        // The level will be 0 for single operations, and at the end
+        // of a composite operation.
+        if (dispatchChangeAndChangingEvents && event.level == 0)
         {
             var newEvent:TextOperationEvent =
                 new TextOperationEvent(TextOperationEvent.CHANGE);
