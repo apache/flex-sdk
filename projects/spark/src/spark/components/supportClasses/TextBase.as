@@ -43,7 +43,7 @@ public class TextGraphicElement extends GraphicElement
 	
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden properties: GraphicElement
+	//  Overridden properties: IDisplayObjectElement
 	//
 	//--------------------------------------------------------------------------
 	
