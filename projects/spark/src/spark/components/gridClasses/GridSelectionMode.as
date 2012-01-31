@@ -46,7 +46,7 @@ public final class GridSelectionMode
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const SINGLE_ROW:String = "row";
+    public static const SINGLE_ROW:String = "singleRow";
 
     /**
      *  Specifies that one or more rows can be selected.
@@ -66,7 +66,7 @@ public final class GridSelectionMode
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const SINGLE_CELL:String = "cell";
+    public static const SINGLE_CELL:String = "singleCell";
 
     /**
      *  Specifies that one or more cells can be selected.
