@@ -18,6 +18,11 @@ import mx.rpc.wsdl.WSDL;
 /**
  * The WSDLLoadEvent class represents the event object for the event dispatched 
  * when a WSDL XML document has loaded successfully.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WSDLLoadEvent extends XMLLoadEvent
 {
@@ -33,6 +38,11 @@ public class WSDLLoadEvent extends XMLLoadEvent
      * @param wsdl The full WSDL document.
      *
      * @param location The path used to load the document.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WSDLLoadEvent(type:String, bubbles:Boolean = false, 
         cancelable:Boolean = true, wsdl:WSDL = null, location:String = null)
@@ -48,11 +58,21 @@ public class WSDLLoadEvent extends XMLLoadEvent
 
     /**
      * The full WSDL document.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var wsdl:WSDL
 
     /**
      * Returns a copy of this WSDLLoadEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function clone():Event
     {
@@ -61,6 +81,11 @@ public class WSDLLoadEvent extends XMLLoadEvent
 
     /**
      * Returns a String representation of this WSDLLoadEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
@@ -99,6 +124,11 @@ public class WSDLLoadEvent extends XMLLoadEvent
      * </table>
      *     
      * @eventType result      
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LOAD:String = "wsdlLoad";
 }
