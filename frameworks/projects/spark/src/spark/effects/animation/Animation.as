@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects.animation
 {
 import __AS3__.vec.Vector;
 
@@ -18,14 +18,15 @@ import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import mx.effects.interpolation.ArrayInterpolator;
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.Linear;
-import mx.effects.interpolation.NumberArrayInterpolator;
-import mx.effects.interpolation.NumberInterpolator;
-import mx.effects.interpolation.Sine;
-import mx.events.AnimationEvent;
+import spark.effects.interpolation.ArrayInterpolator;
+import spark.effects.easing.IEaser;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.easing.Linear;
+import spark.effects.interpolation.NumberArrayInterpolator;
+import spark.effects.interpolation.NumberInterpolator;
+import spark.effects.AnimationProperty;
+import spark.effects.easing.Sine;
+import spark.events.AnimationEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -118,7 +119,7 @@ import mx.resources.ResourceManager;
  * values can then be used to set property values on target objects.</p>
  *
  *  @see mx.effects.Animate
- *  @see mx.effects.effectClasses.FxAnimateInstance
+ *  @see mx.effects.effectClasses.AnimateInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -137,7 +138,7 @@ public class Animation extends EventDispatcher
      *  @productversion Flex 4
      */
 
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -1163,7 +1164,7 @@ public class Animation extends EventDispatcher
         numRepeats = 1;
         sendAnimationEvent(AnimationEvent.ANIMATION_START);
         
-        // start/end values may be changed by FxAnimate (set dynamically),
+        // start/end values may be changed by Animate (set dynamically),
         // so now we set up our interpolator based on the real values
         setupInterpolation();
         
