@@ -154,12 +154,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */
 [Event(name="change", type="spark.events.TextOperationEvent")]
 
-//--------------------------------------
-//  Other metadata
-//--------------------------------------
-
-[AccessibilityClass(implementation="spark.accessibility.SkinnableTextBaseAccImpl")]
-
 /**
  *  The base class for skinnable components, such as the Spark TextInput
  *  and TextArea, that include an instance of RichEditableText in their skin
@@ -175,18 +169,6 @@ public class SkinnableTextBase extends SkinnableComponent
 {
     include "../../core/Version.as";
     
-    //--------------------------------------------------------------------------
-    //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Placeholder for mixin by ListBaseAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
-
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -801,16 +783,6 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (SkinnableTextBase.createAccessibilityImplementation != null)
-            SkinnableTextBase.createAccessibilityImplementation(this);
-    }
-
     
     /**
      *  @private
