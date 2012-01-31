@@ -991,7 +991,11 @@ public class Application extends LayoutContainer
     override public function setActualSize(w:Number, h:Number):void
     {
         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+        {
             setEstimatedSize(w, h, false);
+            invalidateEstimatedSizesOfChildren();
+            validateEstimatedSizesOfChildren();
+        }
         
         super.setActualSize(w, h);
     }
