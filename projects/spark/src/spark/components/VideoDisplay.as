@@ -293,7 +293,6 @@ public class VideoElement extends GraphicElement
         if (_autoPlay == value)
             return;
         
-        _playing = value;
         _autoPlay = value;
     }
     
@@ -534,11 +533,6 @@ public class VideoElement extends GraphicElement
     public function get playheadTime():Number
     {
         return videoPlayer.playheadTime;
-    }
-    
-    public function set playheadTime(value:Number):void
-    {
-        videoPlayer.playheadTime = value;
     }
     
     //----------------------------------
@@ -799,6 +793,7 @@ public class VideoElement extends GraphicElement
             videoPlayerProperties = {autoRewind: videoPlayer.autoRewind,
                                      scaleMode: videoPlayer.scaleMode};
         
+            videoPlayer.stop();
             videoPlayer.close();
             videoPlayer.clear();
             
@@ -1195,6 +1190,9 @@ public class VideoElement extends GraphicElement
                 dispatchEvent(new Event("playheadTimeChanged"));
                 dispatchEvent(new Event("totalTimeChanged"));
                 setPlaying(false);
+                break;
+            case VideoState.PLAYING:
+                setPlaying(true);
                 break;
         }
         
