@@ -25,13 +25,13 @@ import spark.components.supportClasses.ItemRenderer;
  *  The MXItemRenderer class is the base class for Spark item renderers  
  *  and item editors used in MX list-based controls. 
  *  This class lets you use the Spark item renderer architecture with the 
- *  MX DataGrid and Tree controls. 
+ *  MX DataGrid, MX AdvancedDataGrid, and MX Tree controls. 
  *
  *  <p><b>Note: </b>Many MX controls support item renderers or item editors. 
- *  These controls include the MX List, Menu, MenuBar, and TileLIst controls. 
- *  However, only the MX DataGrid and Tree classes support the MXItemRenderer class. 
+ *  However, only the MX DataGrid, MX AdvancedDataGrid, and MX Tree controls 
+ *  support the MXItemRenderer class. 
  *  Therefore, continue to use MX item renderers and item editors with 
- *  MX controls other than DataGrid and Tree.</p>
+ *  MX controls other than DataGrid, AdvancedDataGrid, and Tree.</p>
  * 
  *  @mxml
  *
