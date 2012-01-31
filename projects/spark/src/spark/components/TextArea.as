@@ -380,7 +380,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	override protected function getUpdatedSkinState():String
+	override protected function getCurrentSkinState():String
 	{
         var hOn:Boolean = horizontalScrollPolicy == ScrollPolicy.ON;
         var vOn:Boolean = verticalScrollPolicy == ScrollPolicy.ON;
