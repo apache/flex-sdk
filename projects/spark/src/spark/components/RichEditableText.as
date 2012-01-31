@@ -22,9 +22,9 @@ import flash.text.engine.Kerning;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
-import flash.utils.describeType;
 
 import flex.events.TextOperationEvent;
+import flex.utils.TextUtil;
 
 import mx.core.UIComponent;
 
@@ -98,116 +98,6 @@ public class TextView extends UIComponent
 {
     include "../core/Version.as";
         
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  An Array of the names of all text attributes, in no particular order.
-     */
-    private static var ALL_ATTRIBUTE_NAMES:Array = [];
-
-    /**
-     *  @private
-     *  Maps the name of a text attribute to what kind of attribute it is.
-     *  For example,
-     *  paddingLeft -> container
-     *  marginLeft -> paragraph
-     *  fontSize -> character
-     */
-    private static var ATTRIBUTE_MAP:Object = {};
-    
-    /**
-     *  @private
-     */
-    private static const CONTAINER:String = "container";
-    
-    /**
-     *  @private
-     */
-    private static const PARAGRAPH:String = "paragraph";
-
-    /**
-     *  @private
-     */
-    private static const CHARACTER:String = "character";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class initialization
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Initializes the ATTRIBUTE_MAP by using describeType()
-     *  to enumerate the properties of the IContainerAttribues,
-     *  IParagraphAttributes, and ICharacterAttributes interfaces.
-     */
-    private static function initClass():void
-    {
-        var type:XML;
-        var name:String;
-
-        type = describeType(IContainerAttributes);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = CONTAINER;
-        }
-        
-        type = describeType(IParagraphAttributes);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = PARAGRAPH;
-        }
-       
-        type = describeType(ICharacterAttributes);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = CHARACTER;
-        }
-    }
-
-    initClass();
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static function extractText(textFlow:TextFlow):String
-    {
-        var text:String = "";
-        
-        var leaf:LeafElement = textFlow.getFirstLeaf();
-        while (leaf)
-        {
-            var p:Paragraph = leaf.getParagraph();
-            for (;;)
-            {
-                text += leaf.text;
-                leaf = leaf.getNextLeaf(p);
-                if (!leaf)
-                    break;
-            }
-            leaf = p.getLastLeaf().getNextLeaf(null);
-            if (leaf)
-                text += "\n";
-        }
-
-        return text;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -1415,7 +1305,7 @@ public class TextView extends UIComponent
     {
         if (textInvalid)
         {
-            _text = extractText(textFlow);
+            _text = TextUtil.extractText(textFlow);
             textInvalid = false;
         }
 
@@ -1856,7 +1746,7 @@ public class TextView extends UIComponent
 
         if (!names)
         {
-            names = ALL_ATTRIBUTE_NAMES;
+            names = TextUtil.ALL_ATTRIBUTE_NAMES;
             
             needContainerAttributes = true;
             needParagraphAttributes = true;
@@ -1864,15 +1754,15 @@ public class TextView extends UIComponent
         }
         else
         {
-           for each (p in names)
+            for each (p in names)
             {
-                kind = ATTRIBUTE_MAP[p];
+                kind = TextUtil.ATTRIBUTE_MAP[p];
 
-                if (kind == CONTAINER)
+                if (kind == TextUtil.CONTAINER)
                     needContainerAttributes = true;
-                else if (kind == PARAGRAPH)
+                else if (kind == TextUtil.PARAGRAPH)
                     needParagraphAttributes = true;
-                else if (kind == CHARACTER)
+                else if (kind == TextUtil.CHARACTER)
                     needCharacterAttributes = true;
             }
         }
@@ -1903,13 +1793,13 @@ public class TextView extends UIComponent
         
         for each (p in names)
         {
-            kind = ATTRIBUTE_MAP[p];
+            kind = TextUtil.ATTRIBUTE_MAP[p];
             
-            if (kind == CONTAINER)
+            if (kind == TextUtil.CONTAINER)
                 attributes[p] = containerAttributes[p];
-            else if (kind == PARAGRAPH)
+            else if (kind == TextUtil.PARAGRAPH)
                 attributes[p] = paragraphAttributes[p];
-            else if (kind == CHARACTER)
+            else if (kind == TextUtil.CHARACTER)
                 attributes[p] = characterAttributes[p];
         }
         
@@ -1935,21 +1825,21 @@ public class TextView extends UIComponent
         
         for (var p:String in attributes)
         {
-            var kind:String = ATTRIBUTE_MAP[p];
+            var kind:String = TextUtil.ATTRIBUTE_MAP[p];
             
-            if (kind == CONTAINER)
+            if (kind == TextUtil.CONTAINER)
             {
                 if (!containerAttributes)
                    containerAttributes =  new ContainerAttributes();
                 containerAttributes[p] = attributes[p];
             }
-            else if (kind == PARAGRAPH)
+            else if (kind == TextUtil.PARAGRAPH)
             {
                 if (!paragraphAttributes)
                    paragraphAttributes =  new ParagraphAttributes();
                 paragraphAttributes[p] = attributes[p];
             }
-            else if (kind == CHARACTER)
+            else if (kind == TextUtil.CHARACTER)
             {
                 if (!characterAttributes)
                    characterAttributes =  new CharacterAttributes();
