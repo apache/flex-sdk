@@ -173,7 +173,6 @@ public class NetConnectionChannel extends PollingChannel
         if (_appendToURL != null)
             url += _appendToURL;
 
-
         // If the NetConnection has a non-null uri the Player will close() it automatically
         // as part of its connect() processing below. Pre-emptively close the connection while suppressing
         // NetStatus event handling to avoid spurious events.
@@ -258,8 +257,6 @@ public class NetConnectionChannel extends PollingChannel
             if (Log.isDebug())
                 _log.debug("'{0}' channel will disconnect and reconnect with with its session identifier '{1}' appended to its endpoint url \n", id, value);
             _appendToURL = value;
-            shutdownNetConnection();
-            internalConnect();
         }
     }
 
@@ -287,7 +284,7 @@ public class NetConnectionChannel extends PollingChannel
                 }
                 catch (e:Error)
                 {
-                    _log.debug("Could not get message performance information for: " + msg.toString());   
+                    _log.debug("Could not get message performance information for: " + msg.toString());
                 }
             }
         }
