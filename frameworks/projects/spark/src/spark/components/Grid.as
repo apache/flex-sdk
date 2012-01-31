@@ -3218,7 +3218,8 @@ public class Grid extends Group implements IDataGridElement
             }
 
            // make sure we have the right number of columns.
-           gridDimensions.columnCount = _columns ? _columns.length : 0;
+            if (columnsChanged)
+                gridDimensions.columnCount = _columns ? _columns.length : 0;
            
            // Keep typical item size cache only when the typical item is still valid
            // and the columns haven't changed.
