@@ -38,6 +38,7 @@ import spark.components.Group;
 import spark.components.IGridItemRenderer;
 import spark.components.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
+import spark.primitives.supportClasses.GraphicElement;
 import spark.skins.spark.DefaultGridItemRenderer;
 
 use namespace mx_internal;
@@ -51,7 +52,7 @@ public class GridLayout extends LayoutBase
     // out how to migrate data from the old GLC to the new one.
     // Note also: if this was going to be shared, it should arrive as a constructor parameter.
     public var gridDimensions:GridDimensions;
-    
+        
     public function GridLayout()
     {
         super();
@@ -338,6 +339,12 @@ public class GridLayout extends LayoutBase
         layoutHoverIndicator(grid.backgroundGroup);
         layoutSelectionIndicators(grid.selectionGroup);
         layoutCaretIndicator(grid.overlayGroup);
+        
+        // To avoid flashing, force all of the layers to render now
+        
+        grid.backgroundGroup.validateNow();
+        grid.selectionGroup.validateNow();
+        grid.overlayGroup.validateNow();
 
         // The old visible row,column indices are no longer needed
         
@@ -447,7 +454,7 @@ public class GridLayout extends LayoutBase
 		grid.itemRendererGroup.addElement(renderer);
 
 		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
-		layoutGridElement(renderer, 0, 0, column.width, NaN);
+		layoutItemRenderer(renderer, 0, 0, column.width, NaN);
 		
 		grid.itemRendererGroup.removeElement(renderer);
 		return renderer;
@@ -743,7 +750,7 @@ public class GridLayout extends LayoutBase
                 newVisibleItemRenderers.push(renderer);
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
-                layoutGridElement(renderer, cellX, cellY, colWidth, rowHeight);
+                layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);
                 
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
@@ -764,10 +771,8 @@ public class GridLayout extends LayoutBase
                     const index:int = (rowOffset * visibleColumnsLength) + colOffset;
 
                     renderer = newVisibleItemRenderers[index];                    
-                    layoutGridElement(renderer, renderer.x, renderer.y, 
-                                      renderer.width, rowHeight);
-                    gridDimensions.setCellHeight(
-                        rowIndex, colIndex, renderer.getPreferredBoundsHeight());
+                    layoutItemRenderer(renderer, renderer.x, renderer.y, renderer.width, rowHeight);
+                    gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 }
             } 
                                                
@@ -1809,21 +1814,26 @@ public class GridLayout extends LayoutBase
         // TBD
     }
     
-    private function layoutGridElement(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
+    /**
+     *  @private
+     *  By default, this method uses the same approach as DataGroup/getVirtualElementAt() for elements
+     *  that implement IInvalidating: elt.validateNow(), elt.setLayoutBoundsSize(), elt.validateNow().
+     *  This is supposed to eliminate problems with (text) components that defer reflow until the next
+     *  updateDisplayList() pass.
+     *  
+     *  Since doing so is rather expensive, we economize when the renderer is a DefaultGridItemRenderer,
+     *  since UITextField reflows synchronously.
+     */ 
+    private function layoutItemRenderer(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
     {
         var startTime:Number;
         if (enablePerformanceStatistics)
             startTime = getTimer();
-
-        // The simple default grid item renderer doesn't have to be validated twice
-        // to accomodate text reflow.  This optimization improves updateDisplayList()
-        // performance by about 8%.
         
         if (elt is DefaultGridItemRenderer)
         {
             if (!isNaN(width) || !isNaN(height))            
                 elt.setLayoutBoundsSize(width, height);
-            //UIComponentGlobals.layoutManager.validateClient(UIComponent(elt), true);
             DefaultGridItemRenderer(elt).validateNow();
         }
         else
@@ -1851,7 +1861,16 @@ public class GridLayout extends LayoutBase
     private function layoutGridElementR(elt:IVisualElement, bounds:Rectangle):void
     {
         if (bounds)
-            layoutGridElement(elt, bounds.x, bounds.y, bounds.width, bounds.height);
+        {
+            elt.setLayoutBoundsSize(bounds.width, bounds.height);
+            elt.setLayoutBoundsPosition(bounds.x, bounds.y);
+        }
+    }
+    
+    private function layoutGridElement(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
+    {
+        elt.setLayoutBoundsSize(width, height);
+        elt.setLayoutBoundsPosition(x, y);
     }
     
     //--------------------------------------------------------------------------
