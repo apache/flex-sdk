@@ -23,6 +23,8 @@ import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 import mx.skins.spark.FxDefaultItemRenderer;
 
+[IconFile("FxList.png")]
+
 /**
  *  The FxList control displays a vertical list of items.
  *  Its functionality is very similar to that of the SELECT
