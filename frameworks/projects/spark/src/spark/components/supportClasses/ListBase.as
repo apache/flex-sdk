@@ -922,39 +922,32 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
-        var transitions:Array;
-         
+        // If there are transitions bound to the renderer, lets turn them 
+        // off while we clear stale properties by setting ItemRenderer's 
+        // mx_internal property, playTransitions, to false.
+        if (renderer is ItemRenderer)
+            ItemRenderer(renderer).playTransitions = false; 
+        
         // First clean up any old, stale properties like selected and caret   
         if (renderer is IItemRenderer)
         {
-            // If there are transitions bound to the renderer, lets turn them 
-            // off while we clear stale properties by setting ItemRenderer's 
-            // mx_internal property, playTransitions, to false
-            if (renderer is ItemRenderer)
-                ItemRenderer(renderer).playTransitions = false; 
-            
             // TODO (dsubrama): - Go through helper methods to do this. 
             // Make itemSelected()/itemShowingCaret() pass around the renderer 
             // instead of index
-            //IItemRenderer(renderer).selected = false;
             IItemRenderer(renderer).showsCaret = false;
-            
-            // Now turn the transitions back on by setting playTransitions
-            // back to true 
-            if (renderer is ItemRenderer)
-                ItemRenderer(renderer).playTransitions = true;  
         }    
         
         // Set any new properties on the renderer now that it's going to 
         // come back into use. 
         itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
-	/*
-        if (isItemIndexSelected(itemIndex))
-            itemSelected(itemIndex, true);
-	*/
 
         if (isItemIndexShowingCaret(itemIndex))
             itemShowingCaret(itemIndex, true);
+        
+        // Now turn the transitions back on by setting playTransitions
+        // back to true 
+        if (renderer is ItemRenderer)
+            ItemRenderer(renderer).playTransitions = true; 
         
         // Now run through and initialize the renderer correctly.  We 
         // call super.updateRenderer() last because super.updateRenderer()
