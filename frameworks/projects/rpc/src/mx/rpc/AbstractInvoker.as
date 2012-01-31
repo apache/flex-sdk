@@ -122,7 +122,7 @@ public class AbstractInvoker extends EventDispatcher
      * This property is set usually by framework code which wants to modify the
      * behavior of a service invocation without modifying the way in which the
      * service is called externally.  This allows you to add a "filter" step on 
-     * the method call to ensure for example to ensure you do not return duplicate
+     * the method call to ensure for example that you do not return duplicate
      * instances for the same id or to insert parameters for performing on-demand
      * paging.
      *
