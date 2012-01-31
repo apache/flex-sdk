@@ -11,9 +11,11 @@
 
 package spark.components.supportClasses
 {
+import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
+import flash.utils.getTimer;
 
 import mx.collections.IList;
 import mx.core.IFactory;
@@ -88,6 +90,75 @@ public class GridLayout extends LayoutBase
     //
     //-------------------------------------------------------------------------- 
     
+    
+    /**
+     *  @private
+     */
+    override public function clearVirtualLayoutCache():void
+    {
+        // TBD(hmuller):DTRT when the target changes
+    }      
+
+    /**
+     *  @private
+     *  This version of the method uses gridDimensions to calcuate the bounds
+     *  of the specified cell.   The index is the cell's position in the row-major
+     *  layout. 
+     */
+    override public function getElementBounds(index:int):Rectangle
+    {
+        const dataProvider:IList = (grid) ? grid.dataProvider : null;
+        if (!dataProvider || (dataProvider.length == 0)) 
+            return null;
+        
+        const rowCount:uint = dataProvider.length;
+        const rowIndex:int = index / rowCount;
+        const columnIndex:int = index - (rowIndex * rowCount);
+        return gridDimensions.getCellBounds(rowIndex, columnIndex); 
+    }
+    
+    /**
+     *  @private
+     */    
+    override protected function getElementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        const y:int = Math.max(0, scrollRect.top - 1);
+        const rowIndex:int = gridDimensions.getRowIndexAt(scrollRect.x, y);
+        return gridDimensions.getRowBounds(rowIndex);
+    }
+    
+    /**
+     *  @private
+     */    
+    override protected function getElementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        const maxY:int = Math.max(0, gridDimensions.getContentHeight() - 1); 
+        const y:int = Math.min(maxY, scrollRect.bottom + 1);
+        const rowIndex:int = gridDimensions.getRowIndexAt(scrollRect.x, y);
+        return gridDimensions.getRowBounds(rowIndex);
+    }
+    
+    /**
+     *  @private
+     */    
+    override protected function getElementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        const x:int = Math.max(0, scrollRect.left - 1);
+        const columnIndex:int = gridDimensions.getColumnIndexAt(x, scrollRect.y);
+        return gridDimensions.getColumnBounds(columnIndex);
+    }
+    
+    /**
+     *  @private
+     */    
+    override protected function getElementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        const maxX:int = Math.max(0, gridDimensions.getContentWidth() - 1); 
+        const x:int = Math.min(maxX, scrollRect.right + 1);
+        const columnIndex:int = gridDimensions.getColumnIndexAt(x, scrollRect.y);
+        return gridDimensions.getColumnBounds(columnIndex);
+    }
+    
     /**
      *  @private
      */
@@ -133,6 +204,10 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
+        var startTime:Number;
+        if (enablePerformanceStatistics)
+            startTime = getTimer();        
+        
         layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);        
         
         var measuredWidth:Number = gridDimensions.getContentWidth(grid.requestedColumnCount);
@@ -147,6 +222,12 @@ public class GridLayout extends LayoutBase
         grid.measuredHeight = Math.ceil(measuredHeight);
         grid.measuredMinWidth = Math.ceil(measuredMinWidth);    
         grid.measuredMinHeight = Math.ceil(measuredMinHeight);
+        
+        if (enablePerformanceStatistics)
+        {
+            var elapsedTime:Number = getTimer() - startTime;
+            performanceStatistics.measureTimes.push(elapsedTime);            
+        }
     }
     
     /**
@@ -156,6 +237,14 @@ public class GridLayout extends LayoutBase
     {
         if (!grid)
             return;
+        
+        var startTime:Number;
+        if (enablePerformanceStatistics)
+        {
+            startTime = getTimer();
+            if (performanceStatistics.updateDisplayListStartTime === undefined)
+                performanceStatistics.updateDisplayListStartTime = startTime;
+        }
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
@@ -213,51 +302,19 @@ public class GridLayout extends LayoutBase
         
         const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
         const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
-        grid.setContentSize(contentWidth, contentHeight);        
-    }
-    
-    /**
-     *  @private
-     */
-    override public function clearVirtualLayoutCache():void
-    {
-        // TBD(hmuller):DTRT when the target changes
-    }    
+        grid.setContentSize(contentWidth, contentHeight);
+        
+        if (enablePerformanceStatistics)
+        {
+            var endTime:Number = getTimer();
+            const cellCount:int = visibleRowIndices.length * visibleColumnIndices.length;
+            performanceStatistics.updateDisplayListEndTime = endTime;            
+            performanceStatistics.updateDisplayListTimes.push(endTime - startTime);
+            performanceStatistics.updateDisplayListRectangles.push(visibleGridBounds.clone());
+            performanceStatistics.updateDisplayListCellCounts.push(cellCount);
+        }
+    }  
 
-    /**
-     *  @private 
-     *  For the offset properties, a value of NaN means don't offset from that edge. A value
-     *  of 0 means to put the element flush against that edge.
-     * 
-     *  @param topOffset Number of pixels to position the element below the top edge.
-     *  @param bottomOffset Number of pixels to position the element above the bottom edge.
-     *  @param leftOffset Number of pixels to position the element to the right of the left edge.
-     *  @param rightOffset Number of pixels to position the element to the left of the right edge.
-     */ 
-    override mx_internal function getScrollPositionDeltaToElementHelper(
-                                                               index:int, topOffset:Number = NaN, 
-                                                               bottomOffset:Number = NaN, 
-                                                               leftOffset:Number = NaN,
-                                                               rightOffset:Number = NaN):Point
-    {
-        var rowIndex:int = index / gridDimensions.rowCount;
-        var colIndex:int;
-        
-        var elementR:Rectangle;
-        if (isRowSelectionMode())
-        {
-            elementR = gridDimensions.getRowBounds(rowIndex);
-        }
-        else if (isCellSelectionMode())
-        {
-            colIndex = index % gridDimensions.rowCount
-            elementR = gridDimensions.getCellBounds(rowIndex, colIndex);
-        }
-        
-        return getScrollPositionDeltaToElementHelperHelper(
-                    elementR, topOffset, bottomOffset, leftOffset, rightOffset);
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  DataGrid Access
@@ -821,7 +878,7 @@ public class GridLayout extends LayoutBase
         
         if (gridRenderer && gridColumn)
         {
-            gridRenderer.itemIndex = rowIndex;
+            gridRenderer.rowIndex = rowIndex;
             gridRenderer.column = gridColumn;
             if (dataItem == null)
                 dataItem = getDataProviderItem(rowIndex);
@@ -1385,6 +1442,8 @@ public class GridLayout extends LayoutBase
             
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
+                return dataProviderCollectionReset(event);
+                
             case CollectionEventKind.UPDATE:
             case CollectionEventKind.REPLACE:
                 break;
@@ -1474,7 +1533,7 @@ public class GridLayout extends LayoutBase
         }
             
         return false;        
-    }
+    }    
 
     /**
      *  @private
@@ -1495,6 +1554,23 @@ public class GridLayout extends LayoutBase
             }
         }
         return elementChanged;
+    }
+    
+    /**
+     *  @private
+     *  Called in response to a refresh/reset CollectionEvent.  Clear everything.
+     */
+    private function dataProviderCollectionReset(event:CollectionEvent):Boolean
+    {
+        visibleRowIndices.length = 0;
+        visibleColumnIndices.length = 0;
+        visibleItemRenderersBounds.setEmpty();
+        visibleGridBounds.setEmpty();    
+        freeGridElements(visibleRowBackgrounds);
+        freeGridElements(visibleRowSeparators);
+        freeItemRenderers(visibleItemRenderers);
+
+        return true;
     }
     
     //--------------------------------------------------------------------------
@@ -1617,8 +1693,10 @@ public class GridLayout extends LayoutBase
     
     private function layoutGridElement(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
     {
-        // TBD(hmuller): support for BasicLayout constraints
-        
+        var startTime:Number;
+        if (enablePerformanceStatistics)
+            startTime = getTimer();
+
         const validatingElt:IInvalidating = elt as IInvalidating;
         
         if (!isNaN(width) || !isNaN(height))
@@ -1630,6 +1708,12 @@ public class GridLayout extends LayoutBase
         if (validatingElt)        
             validatingElt.validateNow();
         elt.setLayoutBoundsPosition(x, y);
+        
+        if (enablePerformanceStatistics)
+        {
+            var elapsedTime:Number = getTimer() - startTime;
+            performanceStatistics.layoutGridElementTimes.push(elapsedTime);            
+        }
     }
 
     private function layoutGridElementR(elt:IVisualElement, bounds:Rectangle):void
@@ -1883,5 +1967,90 @@ public class GridLayout extends LayoutBase
 
     // TBD: isCellVisible(rowIndex, columnIndex)
     // TBD: getCellValue(rowIndex, columnIndex)? getCellLabel()?
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Performance Statistics
+    //
+    //--------------------------------------------------------------------------   
+    
+    //----------------------------------
+    //  performanceStatistics
+    //----------------------------------
+    
+    private var _performanceStatistics:Object = null;
+    
+    /**
+     *  @private
+     *  The value of this object, if enablePerformanceStatistics == true, is an 
+     *  object with the following properties:
+     *
+     *  updateDisplayListStartTime:Number
+     *  updateDisplayListEndTime:Number
+     *    The getTimer() value for start of the first updateDisplayList() call
+     *    and the end of the last one.   These values can be used to compute an
+     *    effective frame rate if Grid is continuously scrolled while
+     *    enablePerformanceStatistics is true.
+     *     
+     *  updateDisplayListTimes:Vector.<Number>
+     *    The elapsed time in ms for each updateDisplayList() call since 
+     *    enablePerformanceStatistics was set to true.
+     *  
+     *  updateDisplayListRectangles:Vector.<Rectangle>
+     *    The value of visibleGridBounds for each udpateDisplayList() call.
+     * 
+     *  updateDisplayListCellCounts:Vector.<int>
+     *    The number of cells rendered in each updateDisplayList() call.
+     * 
+     *  layoutGridElementTimes:Vector.<Number>
+     *    Execution times for the layoutGridElement() method.  This method is
+     *    responsible for applying validateNow() to item renderers.
+     * 
+     *  measureTimes:Vector.<Number>
+     *    The elapsed time in ms for each measure() call since 
+     *    enablePerformanceStatistics was set to true.
+     */
+    public function get performanceStatistics():Object
+    {
+        return _performanceStatistics;
+    }
+    
+    //----------------------------------
+    //  enablePerformanceStatistics
+    //----------------------------------
+    
+    private var _enablePerformanceStatistics:Boolean = false;
+    
+    /**
+     *  @private
+     *  When set to true the GridLayout implementation starts recording statistics
+     *  per the performanceStatistics property.   When set to null (the default),
+     *  recording stops.
+     */
+    public function get enablePerformanceStatistics():Boolean
+    {
+        return _enablePerformanceStatistics;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set enablePerformanceStatistics(value:Boolean):void
+    {
+        if (value == _enablePerformanceStatistics)
+            return;
+    
+        if (value)
+            _performanceStatistics = {
+                updateDisplayListTimes: new Vector.<Number>(),
+                updateDisplayListRectangles: new Vector.<Rectangle>(),
+                updateDisplayListCellCounts: new Vector.<int>(),                
+                measureTimes: new Vector.<Number>(),             
+                layoutGridElementTimes: new Vector.<Number>()                
+            };
+        
+        _enablePerformanceStatistics = value;
+    }
+
 }
 }
