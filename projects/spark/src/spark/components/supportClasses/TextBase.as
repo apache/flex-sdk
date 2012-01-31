@@ -23,7 +23,8 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 /**
- *  The base class for text-related FXG classes such as TextGraphic and TextBox.
+ *  The base class for GraphicElements such as TextBox and TextGraphic
+ *  which display text using CSS styles for the default format.
  */
 public class TextGraphicElement extends GraphicElement
     implements IStyleClient
@@ -52,6 +53,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
+     *  This flag is used to avoid getting or setting the scrollRect
+     *  of our displayObject unnecessarily when we need to clip TextLines
+     *  that extend beyond our bounds.
+     *  It shouldn't even be set to null if you can avoid it,
+     *  because Player 10.0 allocates a surface even in this case.
      */
     mx_internal var hasScrollRect:Boolean = false;
 
@@ -391,7 +397,8 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  This method is required by the IStyleClient interface,
+     *  but doesn't do anything for TextGraphicElements.
      */
     public function registerEffects(effects:Array /* of String */):void
     {
@@ -404,7 +411,15 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  Flex calls the <code>stylesInitialized()</code> method when
+     *  the styles for a component are first initialized.
+     *
+     *  <p>This is an advanced method that you might override
+     *  when creating a subclass of TextGraphicElement.
+     *  Note that. unlike with UIComponents, Flex does not guarantee that
+     *  your TextGraphicElement's styles will be fully initialized before
+     *  the first time its component's <code>measure</code> and
+     *  <code>updateDisplayList</code> methods are called.</p>
      */
     public function stylesInitialized():void
     {
@@ -412,7 +427,6 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  Documentation is not currently available.
      */
     mx_internal function initProtoChain():void
     {
@@ -420,7 +434,8 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @private
+     *  TODO Make this mx_internal.
      */
     protected function invalidateTextLines(cause:String):void
     {
