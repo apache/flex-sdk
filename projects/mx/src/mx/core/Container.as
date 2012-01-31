@@ -2601,7 +2601,7 @@ public class Container extends UIComponent
             if (createdComponents)
             {
                 var n:int = createdComponents.length;
-                for(var i:int = 0; i < n; i++)
+                for (var i:int = 0; i < n; i++)
                 {
                     if (createdComponents[i] === child)
                     {
