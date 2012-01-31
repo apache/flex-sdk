@@ -163,7 +163,7 @@ public class DropDownController extends EventDispatcher
     /**
      *  Specifies the delay, in milliseconds, to wait for opening the drop down 
      *  when the anchor button is rolled over.  
-     *  If set to NaN, then the drop down opens on a click, not a rollover.
+     *  If set to <code>NaN</code>, then the drop down opens on a click, not a rollover.
      * 
      *  @default NaN
      *         
@@ -364,8 +364,9 @@ public class DropDownController extends EventDispatcher
             
     /**
      *  @private
-     *  Called when the openButton's rollOver event is dispatched. This function opens 
-     *  the dropDown, or opens the drop down after the rollOverOpenDelay.
+     *  Called when the openButton's <code>rollOver</code> event is dispatched. This function opens 
+     *  the drop down, or opens the drop down after the length of time specified by the 
+     *  <code>rollOverOpenDelay</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -388,7 +389,7 @@ public class DropDownController extends EventDispatcher
     /**
      *  @private 
      *  Called when the openButton's rollOut event is dispatched while waiting 
-     *  for the rollOverOpenDelay.  This will cancel the timer so we don't open
+     *  for the rollOverOpenDelay. This will cancel the timer so we don't open
      *  any more.
      */ 
     private function openButton_rollOutHandler(event:MouseEvent):void
