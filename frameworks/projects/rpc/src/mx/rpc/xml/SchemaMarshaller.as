@@ -51,6 +51,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * Determines whether this marshaller will throw errors for input that
      * violates the specified format or restrictions for the associated type.
      * Type errors are still thrown for unexpected input types.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get validating():Boolean
     {
@@ -72,6 +77,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * This function converts an ActionScript value to a String for XML
      * simple content based on a built-in XML Schema type. If a type is not
      * provided, the <code>anyType</code> is assumed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshall(value:*, type:QName = null, restriction:XML = null):*
     {
@@ -93,6 +103,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * This function converts XML simple content (formatted based on a built-in
      * XML Schema type) to an ActionScript value. If a type is not provided, 
      * the <code>anyType</code> is assumed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unmarshall(value:*, type:QName = null, restriction:XML = null):*
     {
@@ -142,6 +157,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * <code>anySimpleType</code> we try to guess what the equivalent XML Schema
      * simple datatype should be based on the ActionScript type. As a last 
      * resort, the <code>string</code> datatype is used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallAny(value:*, type:QName = null, restriction:XML = null):*
     {
@@ -191,6 +211,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * '1' for true values and 'false' or '0' for false values. This
      * marshaller, by default, represents values using 'true' or false.
      * If a String value of '1' or '0' is passed, however, it is preserved.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallBoolean(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -306,6 +331,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
     /**
      * FIXME: Handle precision and exponent restrictions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallDecimal(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -347,6 +377,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
     /**
      * FIXME: Handle precision and exponent restrictions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallDouble(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -369,6 +404,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
     /**
      * FIXME: Handle precision and exponent restrictions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallFloat(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -632,6 +672,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * hexadecimal digits (which is treated case insensitively although
      * capital letters A-F are always used on encoding). These tuples are
      * added to a String to serialize the binary data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallHexBinary(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -666,6 +711,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * <code>min</code> and <code>max</code> for the type. Note that decimal
      * values are not rounded. This method handles integers longer than 32-bit
      * so ActionScript int or uint types are not used internally.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshallInteger(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -920,6 +970,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
     /**
      * Handles dateTime and time types.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unmarshallDatetime(value:*, type:QName = null, restriction:XML = null):Object
     {
@@ -1102,6 +1157,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
         {
             result = rawValue.substring(2, 5);
         }
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
         else if (type == datatypes.gMonthQName)
         {
@@ -1199,6 +1259,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * are replaced with #x20 (space), then consecutive spaces are collapsed
      * to a single space, then finally the leading and trailing spaces are
      * trimmed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private static function whitespaceCollapse(value:*):String
     {
@@ -1215,6 +1280,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * For simple types with the whitespace restriction <code>replace</code>
      * all occurrences of #x9 (tab), #xA (line feed) and #xD (carriage return)
      * are replaced with #x20 (space).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private static function whitespaceReplace(value:*):String
     {
@@ -1363,6 +1433,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * base64Binary.
      * 
      * @see flash.utils.ByteArray
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var byteArrayAsBase64Binary:Boolean = true;
 
@@ -1371,6 +1446,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * of certain simple types with #x20 (space) characters. The XML Schema
      * specification defines whitespace as #x9 (tab), #xA (line feed) and
      * #xD (carriage return).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var whitespaceReplacePattern:RegExp = new RegExp("[\t\r\n]", "g");
 
@@ -1379,6 +1459,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * the content of certain simple types to a single #x20 (space) character.
      * The XML Schema specification defines whitespace as #x9 (tab),
      * #xA (line feed) and #xD (carriage return).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var whitespaceCollapsePattern:RegExp = new RegExp("[ \t\r\n]+", "g");
 
@@ -1387,6 +1472,11 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
      * content of certain simple types. For whitespace <code>collapse</code>,
      * this RegEx is executed after the whitespaceCollapsePattern RegEx has
      * been executed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var whitespaceTrimPattern:RegExp = new RegExp("^[ ]+|[ ]+$", "g");
 
