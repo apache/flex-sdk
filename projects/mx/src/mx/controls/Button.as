@@ -43,11 +43,14 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
+import mx.events.MarshalMouseEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.managers.ISystemManager2;
 import mx.states.State;
 import mx.styles.ISimpleStyleClient;
 import mx.core.IStateClient;
 import mx.core.IProgrammaticSkin;
+
 
 use namespace mx_internal;
 
@@ -1490,6 +1493,7 @@ public class Button extends UIComponent
         var textWidth:Number = 0;
         var textHeight:Number = 0;
 
+		// trace("measure: Button " + this + " label = " + label);
         if (label)
         {
             var lineMetrics:TextLineMetrics = measureText(label);
@@ -1556,6 +1560,7 @@ public class Button extends UIComponent
 
         measuredMinWidth = measuredWidth = w;
         measuredMinHeight = measuredHeight = h;
+        // trace("measure: Button width = " + w + " height = " + h);
     }
     
     /**
@@ -2514,8 +2519,8 @@ public class Button extends UIComponent
         // Remove the handlers that were added in mouseDownHandler().
         systemManager.removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        systemManager.stage.removeEventListener(
-            Event.MOUSE_LEAVE, stage_mouseLeaveHandler);
+        systemManager.removeEventListener(
+            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
         
         if (autoRepeatTimer)
         {
@@ -2738,8 +2743,8 @@ public class Button extends UIComponent
         // These handlers are removed in buttonReleased().
         systemManager.addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        systemManager.stage.addEventListener(
-            Event.MOUSE_LEAVE, stage_mouseLeaveHandler);
+        systemManager.addEventListener(
+            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
         buttonPressed();
 
