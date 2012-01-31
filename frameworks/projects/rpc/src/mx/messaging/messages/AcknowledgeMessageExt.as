@@ -44,6 +44,12 @@ public class AcknowledgeMessageExt extends AcknowledgeMessage implements IExtern
 
     /**
      *  The unique id for the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function get messageId():String
     {
