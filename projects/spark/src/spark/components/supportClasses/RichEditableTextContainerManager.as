@@ -393,9 +393,9 @@ public class RichEditableTextContainerManager extends TextContainerManager
 
     /**
      *  @private
-     *  To get the format of a character without using a SelectionManager.
-     *  The method should be kept in sync with the version in the 
-     *  SelectionManager.
+     *  To get the format of a character.  Our API allows this operation even
+     *  when the editingMode does not permit either interactive selection or
+     *  editing.
      */
     mx_internal function getCommonCharacterFormat(
                                         anchorPosition:int, 
@@ -406,13 +406,23 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         var textFlow:TextFlow = getTextFlowWithComposer();
         
-        var absoluteStart:int = getAbsoluteStart(anchorPosition, activePosition);
-        var absoluteEnd:int = getAbsoluteEnd(anchorPosition, activePosition);
-        
-        var selRange:ElementRange = 
-            ElementRange.createElementRange(textFlow, absoluteStart, absoluteEnd); 
-        
-        return selRange.getCommonCharacterFormat();
+        if (textFlow.interactionManager)
+        {
+            // If there is a selection manager use it so that the format
+            // will include any attributes set on a point selection but not 
+            // yet applied.	
+            return textFlow.interactionManager.getCommonCharacterFormat();
+        }
+        else
+        {
+            // ElementRange will order the selection points.  Since there isn't
+            // an interactionManager there is not a point selection to worry
+            // about.
+            var selRange:ElementRange = 
+                ElementRange.createElementRange(textFlow, anchorPosition, activePosition); 
+            
+            return selRange.getCommonCharacterFormat();
+        }
     }
     
     /**
@@ -446,12 +456,10 @@ public class RichEditableTextContainerManager extends TextContainerManager
             return null;
                 
         var textFlow:TextFlow = getTextFlowWithComposer();
-
-        var absoluteStart:int = getAbsoluteStart(anchorPosition, activePosition);
-        var absoluteEnd:int = getAbsoluteEnd(anchorPosition, activePosition);
-
+    
+        // ElementRange will order the selection points.
         var selRange:ElementRange = 
-            ElementRange.createElementRange(textFlow, absoluteStart, absoluteEnd); 
+            ElementRange.createElementRange(textFlow, anchorPosition, activePosition); 
                 
         return selRange.getCommonParagraphFormat();
     }
