@@ -156,6 +156,9 @@ public class TextBase extends UIComponent
         // set mouseChildren to false so that the TextLines that get 
         // added don't trap the mouse events.
         mouseChildren = false;
+		
+		// this component assumes that its coordinate system will not be mirrored
+		layoutDirection = "ltr";
         
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
