@@ -22,6 +22,7 @@ import flash.utils.Timer;
 
 import mx.components.baseClasses.FxComponent;
 import mx.events.FlexEvent;
+import mx.core.IDataRenderer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
@@ -83,7 +84,7 @@ import mx.utils.BitFlagUtil;
  *
  *  @includeExample examples/FxButtonExample.mxml
  */
-public class FxButton extends FxComponent implements IFocusManagerComponent
+public class FxButton extends FxComponent implements IFocusManagerComponent, IDataRenderer
 {
     include "../core/Version.as";
 
@@ -138,6 +139,17 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
+    [Bindable]
+    public function get data():Object
+    {
+        return content;
+    }
+    
+    public function set data(value:Object):void
+    {
+        content = value;
+    }
+
     [Bindable("labelChanged")]
     /**
      *  Text to appear on the FxButton control.
