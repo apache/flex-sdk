@@ -1020,9 +1020,7 @@ package mx.core
         //----------------------------------
         //  htmlText
         //----------------------------------
-        
-        
-        
+                
         /**
          *  @copy flash.text.TextField#htmlText
          * 
@@ -1552,7 +1550,8 @@ package mx.core
             _text = value.replace(ALL_LINEFEEDS, "\r");
             
             // _htmlText is now invalid and will get regenerated on demand
-            _htmlHelper = null;
+            // _htmlHelper will be set to null in validateNow() after we use it
+            // to clear the container of any TLF generated textLines.
             
             clearFlag(FLAG_HTML_TEXT_SET);
             
@@ -2477,8 +2476,24 @@ package mx.core
             
             if (testFlag(FLAG_TEXT_LINES_INVALID))
             {
-                // Remove the previous TextLines
-                // (and recycle them, if supported by the player).
+                // Remove/recycle the previous TextLines if we're going from
+                // locally managed textLines to TLF managed textLines or vice versa.
+                // Otherwise excess lines are recycled after the text is composed.
+                if (testFlag(FLAG_HTML_TEXT_SET))
+                {
+                    if (nextLineIndex > 0)
+                    {
+                        nextLineIndex = 0;
+                        removeExcessTextLines();
+                    }
+                }
+                else if (testFlag(FLAG_TEXT_SET))
+                {
+                    if (_htmlHelper)
+                        _htmlHelper.clearContainerChildren();
+                    _htmlHelper = null;
+               }
+               
                 _textWidth = 0;
                 _textHeight = 0;
                 clipWidth = 0;
@@ -2501,14 +2516,14 @@ package mx.core
                    if (!_htmlHelper.hostFormat)
                         createHostFormat();
                     
-                    _htmlHelper.composeHTMLText(compositionWidth, compositionHeight);                           
+                    _htmlHelper.composeHTMLText(compositionWidth, compositionHeight);
                 }
                 else
                 {
                     if (!elementFormat)
                         createElementFormat();  
                     
-                    composeText(compositionWidth, compositionHeight);                           
+                    composeText(compositionWidth, compositionHeight); 
                 }
                 
                 var origX:Number = x;
@@ -3597,7 +3612,22 @@ internal class HTMLHelper
             return preservingHTMLImporter;
         }
     }   
-    
+ 
+    /**
+     *  @private
+     */
+    public function clearContainerChildren():void
+    {
+        // Make sure there is nothing leftover on the display list from
+        // a previous composition of text.
+        if (textContainerManager)
+        {
+            // recycle lines
+            textContainerManager.clearContainerChildren(true);
+            textContainerManager.clearComposedLines();
+        }
+    }
+
     /**
      *  @private
      */
@@ -3624,15 +3654,6 @@ internal class HTMLHelper
         if (!textContainerManager)
             textContainerManager = new FTETextFieldTextContainerManager(textField);
                 
-        // FIXME: TLF is investigating if we need this because of a bug
-        // in updateContainer().  If so, this can be removed when the bug
-        // is fixed.
-        
-        // Make sure there is nothing leftover on the display list from
-        // a previous composition of text.
-        textContainerManager.clearContainerChildren(true); // recycle lines
-        textContainerManager.clearComposedLines();
-       
         textContainerManager.compositionWidth = compositionWidth;
         textContainerManager.compositionHeight = compositionHeight;
         
