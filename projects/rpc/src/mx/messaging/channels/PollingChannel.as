@@ -729,13 +729,20 @@ class PollCommandMessageResponder extends MessageResponder
                 {
                     if (Log.isDebug())
                     {
-        	            _log.debug("'{0}' channel got message\n{1}\n", channel.id, message.toString());
-    				    if (channel.mpiEnabled)
-        			    {
-        				    var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);
-        				    _log.debug(mpiutil.prettyPrint());
-        			    }
-        	        }
+                        _log.debug("'{0}' channel got message\n{1}\n", channel.id, message.toString());
+                        if (channel.mpiEnabled)
+                        {
+                            try
+                            {
+                                var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);
+                                _log.debug(mpiutil.prettyPrint());
+                            }
+                            catch (e:Error)
+                            {
+                                _log.debug("Could not get message performance information for: " + msg.toString());   
+                            }
+                        }
+                    }
                     channel.dispatchEvent(MessageEvent.createEvent(MessageEvent.MESSAGE, message));
                 }
             }
