@@ -14,11 +14,21 @@ package mx.effects.interpolation
  * Provides easing functionality using a polynomial expression, where the
  * instance is created with a <code>power</code> parameter describing the 
  * behavior of the expression.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Power extends EaseInOut
 {
     /**
      * Storage for the exponent property
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _exponent:int;
     /**
@@ -29,6 +39,11 @@ public class Power extends EaseInOut
      * method.
      * 
      * @default 2
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get exponent():int
     {
@@ -42,6 +57,11 @@ public class Power extends EaseInOut
     /**
      * Constructs a Power instance with optional easeInFraction and exponent
      * values
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Power(easeInFraction:Number = .5, exponent:Number = 2)
     {
@@ -54,6 +74,11 @@ public class Power extends EaseInOut
      * 
      * The easeIn calculation for Power is equal to 
      * <code>fraction^^exponent</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function easeIn(fraction:Number):Number
     {
@@ -65,6 +90,11 @@ public class Power extends EaseInOut
      * 
      * The easeOut calculation for Power is equal to 
      * <code>1 - ((1-fraction)^^exponent)</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function easeOut(fraction:Number):Number
     {
