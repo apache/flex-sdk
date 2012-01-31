@@ -179,9 +179,6 @@ public class Canvas extends Container implements IConstraintLayout
     //----------------------------------
     //  constraintColumns
     //----------------------------------
-
-    [ArrayElementType("mx.containers.utilityClasses.ConstraintColumn")]
-    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
     
     /**
      *  @private
@@ -189,6 +186,9 @@ public class Canvas extends Container implements IConstraintLayout
      */
     private var _constraintColumns:Array = [];
     
+    [ArrayElementType("mx.containers.utilityClasses.ConstraintColumn")]
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
+
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
      *  
@@ -224,16 +224,16 @@ public class Canvas extends Container implements IConstraintLayout
     //----------------------------------
     //  constraintRows
     //----------------------------------
-    
-    [ArrayElementType("mx.containers.utilityClasses.ConstraintRow")]
-    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
-    
+        
     /**
      *  @private
      *  Storage for the constraintRows property.
      */
     private var _constraintRows:Array = [];
-    
+
+    [ArrayElementType("mx.containers.utilityClasses.ConstraintRow")]
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
+        
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
      *  
