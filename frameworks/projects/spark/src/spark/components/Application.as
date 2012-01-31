@@ -55,7 +55,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an error occurs anywhere in the application,
- *  such as when an HTTPService, WebService, or RemoteObject fails.
+ *  or when an HTTPService call fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
  *  
@@ -793,10 +793,10 @@ public class Application extends SkinnableContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-			var awm:IActiveWindowManager = 
-				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
-			if (awm)
-           		awm.activate(this);
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            if (awm)
+                awm.activate(this);
             else
                 focusManager.activate();
         }
