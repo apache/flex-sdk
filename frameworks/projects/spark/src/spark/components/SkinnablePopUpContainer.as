@@ -51,7 +51,7 @@ import spark.events.PopUpCloseEvent;
  *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
  *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
  *  it will dispatch this event.  Then, in the listener, the developer can check
- *  the <code>commit</code> parameter and perform the appropriate action.  
+ *  the <code>commit</code> parameter and perform the appropriate action.  </p>
  *
  *  @eventType mx.events.PopUpCloseEvent.CLOSE
  * 
@@ -233,7 +233,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
      *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
      *  it will dispatch this event.  Then, in the listener, the developer can check
-     *  the <code>commit</code> parameter and perform the appropriate actions.  
+     *  the <code>commit</code> parameter and perform the appropriate actions.  </p>
      *
      *  @param commit The value for the <code>commit</code> property of the <code>PopUpClose</code> event.
      *  @param data The value for the <code>data</code> property for the <code>PopUpClose</code> event.
