@@ -1,28 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2005-2006 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
-/**
- *  Color of the border.
- *  The following controls support this style: Button, CheckBox,
- *  ComboBox, MenuBar,
- *  NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider, and any
- *  components that support the <code>borderStyle</code> style.
- *  The default value depends on the component class;
- *  if not overridden for the class, the default value is <code>0xB7BABC</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
 [Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
