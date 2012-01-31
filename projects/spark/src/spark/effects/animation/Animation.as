@@ -155,7 +155,7 @@ public class Animation extends EventDispatcher
     // and current fraction
     private var startTime:Number;
     // Track number of times repeated for use by repeatCount logic
-    private var numRepeats:Number;
+    private var numRepeats:int;
     // The amount of time that the animation should delay before
     // starting. This is set to a non-negative number only when
     // an Animation is paused during its startDelay phase
@@ -608,7 +608,10 @@ public class Animation extends EventDispatcher
                 // TODO (chaase): this assumes we've only gone through one cycle since
                 // last time...
                 if (repeatCount != 0)
-                    numRepeats++;
+                    if (!_doSeek)
+                        numRepeats++;
+                    else
+                        numRepeats = 1 + currentTime / (duration + repeatDelay);
                 if (repeatDelay == 0) {
                     startTime += duration;
                     currentTime = intervalTime - startTime;
@@ -618,24 +621,38 @@ public class Animation extends EventDispatcher
                 }
                 else
                 {
-                    // repeatDelay: send out a final update for this cycle with the
-                    // end value, then schedule a timer to wake up and
-                    // start the next cycle
-                    _elapsedTime = duration;
-                    var repeatValue:Object = getCurrentValue(_elapsedTime);
-                    sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
-                    removeAnimation(this);
-                    var delayTimer:Timer = new Timer(repeatDelay, 1);
-                    delayTimer.addEventListener(TimerEvent.TIMER, repeat);
-                    delayTimer.start();
-                    return false;
+                    if (_doSeek)
+                    {
+                        var cycleTime:Number = currentTime % (duration + repeatDelay);
+                        if (cycleTime < duration)
+                            _elapsedTime = cycleTime;
+                        else
+                            _elapsedTime = duration; // must be in repeatDelay phase
+                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, 
+                            getCurrentValue(_elapsedTime));
+                        return false;
+                    }
+                    else
+                    {
+                        // repeatDelay: send out a final update for this cycle with the
+                        // end value, then schedule a timer to wake up and
+                        // start the next cycle
+                        _elapsedTime = duration;
+                        var repeatValue:Object = getCurrentValue(_elapsedTime);
+                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
+                        removeAnimation(this);
+                        var delayTimer:Timer = new Timer(repeatDelay, 1);
+                        delayTimer.addEventListener(TimerEvent.TIMER, repeat);
+                        delayTimer.start();
+                        return false;
+                    }
                 }
             }
             _elapsedTime = currentTime;
             
             var currentValue:Object = getCurrentValue(currentTime);
 
-            if (currentTime >= duration && !_doSeek)
+            if (currentTime >= duration)
             {
                 end();
                 animationEnded = true;
@@ -646,8 +663,6 @@ public class Animation extends EventDispatcher
                 if (repeated)
                     sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT, currentValue);
             }
-            
-            _doSeek = false;
         }
         return animationEnded;
     }
@@ -784,10 +799,10 @@ public class Animation extends EventDispatcher
         // Should only do this for playing animation, as the stopped animations
         // do it for themselves
         startTime = _intervalTime - playheadTime;
+        _doSeek = true;
         
         if (!_isPlaying)
         {
-            _doSeek = true;
             _intervalTime = Timeline.currentTime;
             // TODO: comments...
             if (includeStartDelay && startDelay > 0)
@@ -809,7 +824,7 @@ public class Animation extends EventDispatcher
                     var postDelaySeekTime:Number = playheadTime - startDelay;
                     if (postDelaySeekTime < 0)
                     {
-                        animPendingTime -= playheadTime;
+                        animPendingTime = _intervalTime + (startDelay - playheadTime);
                         // add it back into the array in the proper order
                         var insertIndex:int = -1;
                         for (i = 0; i < delayedStartAnims.length; ++i)
@@ -832,10 +847,10 @@ public class Animation extends EventDispatcher
                         // reduce seek time by startTime; we will go ahead and
                         // seek into the now-playing animation by that much
                         playheadTime -= startDelay;
-                        _doSeek = false;
                         start();
                         startTime = _intervalTime - playheadTime;
                         doInterval();
+                        _doSeek = false;
                         return;
                     }
                 }
@@ -846,6 +861,7 @@ public class Animation extends EventDispatcher
             startTime = _intervalTime - playheadTime;
         }
         doInterval();
+        _doSeek = false;
     }
 
     /**
