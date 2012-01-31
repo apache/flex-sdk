@@ -14,19 +14,15 @@ package spark.primitives
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
-import flash.display.Sprite;
-import flash.geom.Rectangle;
 import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
 
 import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
-import flashx.textLayout.elements.FlowElement;
-import flashx.textLayout.elements.ParagraphElement;
-import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.StringTextLineFactory;
@@ -37,8 +33,6 @@ import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
 import flashx.textLayout.formats.TextLayoutFormat;
 
-import mx.core.EmbeddedFont;
-import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -49,7 +43,6 @@ import mx.managers.ISystemManager;
 
 import spark.core.CSSTextLayoutFormat;
 import spark.primitives.supportClasses.TextGraphicElement;
-import spark.utils.TextUtil;
 
 use namespace mx_internal;
 
@@ -57,9 +50,10 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/AdvancedTextLayoutFormatStyles.as"
-include "../styles/metadata/BasicTextLayoutFormatStyles.as"
-include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
+include "../styles/metadata/BasicInheritingTextStyles.as"
+include "../styles/metadata/BasicNonInheritingTextStyles.as"
+include "../styles/metadata/AdvancedInheritingTextStyles.as"
+include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
 
 //--------------------------------------
 //  Other metadata
@@ -108,80 +102,66 @@ public class RichText extends TextGraphicElement
 
     //--------------------------------------------------------------------------
     //
-    //  Class initialization
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private static function initClass():void
-    {
-        staticTextLayoutFormat = new TextLayoutFormat();
-		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
-
-        // Create a single Configuration used by all RichText instances.
-        staticConfiguration = Configuration(
-        	StringTextLineFactory.defaultConfiguration).clone();
-        staticConfiguration.textFlowInitialFormat = staticTextLayoutFormat;            
-
-        // Create the factory used to create TextLines from 'text'.
-        staticStringFactory = new StringTextLineFactory(staticConfiguration);
-        staticStringFactory.verticalScrollPolicy = "off";
-        staticStringFactory.horizontalScrollPolicy = "off";           
-
-        // Create the factory used to create TextLines from 'content'.
-        staticTextFlowFactory = new TextFlowTextLineFactory();
-        staticTextFlowFactory.verticalScrollPolicy = "off";
-        staticTextFlowFactory.horizontalScrollPolicy = "off";
-        
-        staticTextFormat = new TextFormat();
-     }
-    
-    initClass();
-    
-    //--------------------------------------------------------------------------
-    //
     //  Class variables
     //
     //--------------------------------------------------------------------------
 
     /**
      *  @private
-     *  Used for determining whitespace processing during import.
+     */
+    private static var classInitialized:Boolean = false;
+    
+	/**
+	 *  @private
+	 *  This TLF object composes TextLines from a text String.
+	 *  We use it when the 'text' property is set to a String
+	 *  that doesn't contain linebreaks.
+	 */
+	private static var staticStringFactory:StringTextLineFactory;
+	
+	/**
+	 *  @private
+	 *  This TLF object composes TextLines from a TextFlow.
+	 *  We use it when the 'textFlow' or 'content' property is set,
+	 *  and when the 'text' property is set to a String
+	 *  that contains linebreaks (and therefore is interpreted
+	 *  as multiple paragraphs).
+	 */
+	private static var staticTextFlowFactory:TextFlowTextLineFactory;
+	
+	/**
+	 *  @private
+	 *  This TLF object is used to import a 'text' String
+	 *  containing linebreaks to create a multiparagraph TextFlow.
+	 */
+	private static var staticPlainTextImporter:ITextImporter;
+	
+	/**
+	 *  @private
+	 *  This TLF object is used to export a TextFlow as plain 'text',
+	 *  by walking the leaf FlowElements in the TextFlow.
+	 */
+	private static var staticPlainTextExporter:ITextExporter;
+	
+	/**
+     *  @private
+     *  Used for determining whitespace processing when setting 'content'.
      */
     private static var staticTextLayoutFormat:TextLayoutFormat;
     
     /**
      *  @private
-     *  Used for determining whitespace processing during import.
+     *  Used for determining whitespace processing when setting 'content'.
      */
     private static var staticConfiguration:Configuration;
     
     /**
      *  @private
-     *  To compose text lines using a text string.
-     */
-    private static var staticStringFactory:StringTextLineFactory;
-
-    /**
-     *  @private
-     *  To compose text lines using a text flow.
-     */
-    private static var staticTextFlowFactory:TextFlowTextLineFactory;
-    
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
+     *  Used to call isFontFaceEmbedded() in getEmbeddedFontContext().
      */
     private static var staticTextFormat:TextFormat;
-
-    //--------------------------------------------------------------------------
+    
+	//--------------------------------------------------------------------------
     //
     //  Class properties
     //
@@ -217,6 +197,56 @@ public class RichText extends TextGraphicElement
         return _embeddedFontRegistry;
     }
 
+	//--------------------------------------------------------------------------
+	//
+	//  Class methods
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  This method initializes the static vars of this class.
+	 *  Rather than calling it at static initialization time,
+	 *  we call it in the constructor to do the class initialization
+	 *  when the first instance is created.
+	 *  (It does an immediate return if it has already run.)
+	 *  By doing so, we avoid any static initialization issues
+	 *  related to whether this class or the TLF classes
+	 *  that it uses are initialized first.
+	 */
+	private static function initClass():void
+	{
+		if (classInitialized)
+			return;
+			
+		staticTextLayoutFormat = new TextLayoutFormat();
+		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+		staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+		staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+		staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+		staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+		staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+		
+		// Create a single Configuration used by all RichText instances.
+		staticConfiguration = Configuration(
+			StringTextLineFactory.defaultConfiguration).clone();
+		staticConfiguration.textFlowInitialFormat = staticTextLayoutFormat;            
+		
+		staticStringFactory = new StringTextLineFactory(staticConfiguration);
+		
+		staticTextFlowFactory = new TextFlowTextLineFactory();
+		
+		staticTextFormat = new TextFormat();
+		
+		staticPlainTextImporter =
+			TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
+		
+		staticPlainTextExporter =
+			TextFilter.getExporter(TextFilter.PLAIN_TEXT_FORMAT);
+			
+		classInitialized = true;
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -234,6 +264,10 @@ public class RichText extends TextGraphicElement
     public function RichText()
     {
         super();
+        
+        initClass();
+        
+        text = "";
     }
      
     //--------------------------------------------------------------------------
@@ -244,50 +278,30 @@ public class RichText extends TextGraphicElement
     
     /**
      *  @private
-     *  This object is determined by the CSS styles of the RichText
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
+     *  This object determines the default text formatting used
+     *  by this component, based on its CSS styles.
+     *  It is set to null by stylesInitialized() and styleChanged(),
+     *  and recreated whenever necessary in commitProperties().
      */
     private var hostFormat:ITextLayoutFormat;
 
-    /**
-     *  @private
-     *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
-     *  and hostContainerFormat need to be recalculated from the CSS styles
-     *  of the RichText. It is set true by stylesInitialized() and also
-     *  when styleChanged() is called with a null argument, indicating that
-     *  multiple styles have changed.
-     */
-    private var hostFormatChanged:Boolean = true;
-
-    /**
-     *  @private
-     */
-    private var textFlow:TextFlow;
-
-    /**
-     *  @private
-     */
-    private var textChanged:Boolean = false;
-
-    /**
-     *  @private
-     */
-    private var contentChanged:Boolean = false;
-
-    /**
-     *  @private
-     *  This flag is set to true if the 'text' needs to be extracted
-     *  from the 'content'.
-     */
-    private var textInvalid:Boolean = false;
-
-    /**
+	/**
      *  @private
      *  Holds the last recorded value of the module factory
      *  used to create the font.
      */
     mx_internal var embeddedFontContext:IFlexModuleFactory;
+    
+	/**
+	 *  @private
+	 *  Specifies whether the StringTextLineFactory
+	 *  or the TextFlowTextLineFactory is used to create the TextLines.
+	 *  A StringTextLineFactory is more efficient; it is used
+	 *  by default to render the default text ""
+	 *  and when 'text' is set to a string without linebreaks;
+	 *  otherwise, a TextFlowTextLineFactory is used.
+	 */
+	private var factory:TextLineFactoryBase;
 
     //--------------------------------------------------------------------------
     //
@@ -302,7 +316,14 @@ public class RichText extends TextGraphicElement
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
     
-    /**
+    // The _text storage var is mx_internal in TextGraphicElement.
+    
+	/**
+	 *  @private
+	 */
+	private var textChanged:Boolean = false;
+	
+	/**
      *  @private
      */
     override public function get text():String
@@ -310,11 +331,20 @@ public class RichText extends TextGraphicElement
         // Extracting the plaintext from a TextFlow is somewhat expensive,
         // as it involves iterating over the leaf FlowElements in the TextFlow.
         // Therefore we do this extraction only when necessary, namely when
-        // you set the 'content' and then get the 'text'.
-        if (textInvalid)
+        // you first set the 'content' or the 'textFlow'
+        // (or mutate the TextFlow), and then get the 'text'.
+        if (_text == null)
         {
-            _text = TextUtil.extractText(textFlow);
-            textInvalid = false;
+        	// If 'content' was last set,
+        	// we have to first turn that into a TextFlow.
+        	if (_content != null)
+	        	_textFlow = createTextFlowFromContent(_content);
+	        		
+            // Once we have a TextFlow, we can export its plain text.
+            _text = staticPlainTextExporter.export(
+            	_textFlow, ConversionType.STRING_TYPE) as String;
+			// Remove the trailing paragraph terminator.
+            _text = _text.substring(0, _text.length - 1);
         }
 
         return _text;
@@ -329,15 +359,40 @@ public class RichText extends TextGraphicElement
      */
     override public function set text(value:String):void
     {
-        // Setting 'text' temporarily causes 'content' to become null.
-        // Later, after the 'text' has been committed into the TextFlow,
-        // getting 'content' will return the TextFlow.
-        _content = null;
-        contentChanged = false;
-        textInvalid = false;
-        
-        super.text = value;
-    }
+    	// Treat setting the 'text' to null
+    	// as if it were set to the empty String
+    	// (which is the default state).
+    	if (value == null)
+    		value = "";
+    	
+    	// Don't return early if value is the same as _text,
+    	// because _text might have been produced from setting
+    	// 'textFlow' or 'content'.
+    	// For example, if you set a TextFlow corresponding to
+    	// "Hello <span color="OxFF0000">World</span>"
+    	// and then get the 'text', it will be the String "Hello World"
+    	// But if you then set the 'text' to "Hello World"
+    	// this represents a change: the "World" should no longer be red.
+    	
+    	_text = value;
+    	textChanged = true;
+    	
+    	// If more than one of 'text', 'textFlow', and 'content' is set,
+    	// the last one set wins.
+    	textFlowChanged = false;
+    	contentChanged = false;
+    	
+		// The other two are now invalid and must be recalculated when needed.
+		_textFlow = null;
+    	_content = null;
+    	
+    	factory = staticStringFactory;
+    	
+		invalidateTextLines();
+		invalidateProperties();
+		invalidateSize();
+		invalidateDisplayList();
+	}
     
     //--------------------------------------------------------------------------
     //
@@ -382,9 +437,15 @@ public class RichText extends TextGraphicElement
 
     /**
      *  @private
+     *  Storage for the content property.
      */
     protected var _content:Object;
     
+	/**
+	 *  @private
+	 */
+	private var contentChanged:Boolean = false;
+	
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
@@ -403,84 +464,210 @@ public class RichText extends TextGraphicElement
     [RichTextContent]
         
     /**
-     *  The text contained in the RichText element.
-     *  
-     *  <p>The contents of this property can be a sequence of characters, &lt;p&gt;, &lt;br/&gt; or &lt;span&gt; elements. 
-     *  The &lt;p&gt; and &lt;span&gt; elements can be implied, depending on how you use the style properties.</p>
-     *  
-     *  <p>If this property has text content and no explicit paragraph tag, a paragraph tag is automatically generated for the text.</p>
-     *  
-     *  <p>The following table describes the tags that can be used in the <code>content</code> property:
-     *  
-     *  <table>
-     *    <tr>
-     *      <td>&lt;p&gt;</td>
-     *      <td>Starts a new paragraph. A &lt;p&gt; can be a child of a RichText. Children are character sequences, 
-     *          &lt;br/&gt; elements, or &lt;span&gt; elements. Every &lt;p&gt; has at least one &lt;span&gt; that can be implied. 
-     *          Character sequences that are direct children of &lt;p&gt; are in an implied &lt;span&gt;.</td>
-     *    </tr>
-     *    <tr>
-     *      <td>&lt;span&gt;</td>
-     *      <td>All character sequences are contained in one or more &lt;span&gt; elements. 
-     *          Explicit &lt;span&gt; elements can be used for formatting runs of characters within a paragraph. 
-     *          Every &lt;span&gt; element is a child of a &lt;p&gt; element. A &lt;span&gt; can contain character 
-     *          sequences and/or &lt;br/&gt; elements. A &lt;span&gt; element can be empty. Unlike in XHTML, &lt;span&gt; elements
-     *          must not be nested. The reason for this is the increased cost in number of objects required to represent the text.</td>
-     *    </tr>
-     *    <tr>
-     *      <td>&lt;br/&gt;</td>
-     *      <td>Behaves as a Unicode line separator character. It does not end the paragraph, it merely forces a line break at the 
-     *          position where it appears. Always a child of &lt;span&gt; elements, though the 
-     *          &lt;span&gt; element can be implied. The &lt;br/&gt; element must have no children (it must be an empty tag).</td>
-     *    </tr>
-     *  </table>
-     *  </p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get content():Object 
-    {
-        // If there isn't any content and there is text, create a one paragraph 
-        // text flow from the text.
-        if (!_content && _text)
-            _content = convertTextToContent();
-                
-        return _content;
-    }
-    
-    /**
-     *  @private
-     *  Setting content uses the markup-importing process, so depending on
-     *  the style settings, whitespace may get collapsed and newlines may be 
-     *  treated as paragraph separators so that you end up with multiple 
-     *  paragraphs.
+     *  This write-only property is for internal use by the MXML compiler.
+     *  Please use the <code>textFlow</code> property to set
+     *  rich text content.
      */
     public function set content(value:Object):void
     {
-        if (value != _content)
-        {
-            // Setting 'content' temporarily causes 'text' to become null.
-            // Later, after the 'content' has been committed into the TextFlow,
-            // getting 'text' will extract the text from the TextFlow.
-            _text = null;
-            textChanged = false;
-            
-            _content = value;
-            
-            invalidateTextLines("content");
-            invalidateSize();
-            invalidateDisplayList();
-        }
+    	// Treat setting the 'content' to null
+    	// as if 'text' were being set to the empty String
+    	// (which is the default state).
+    	if (value == null)
+    	{
+    		text = "";
+    		return;
+    	}
+    	
+    	if (value == _content)
+    		return;
+    	
+        _content = value;
+        contentChanged = true;
+        
+		// If more than one of 'text', 'textFlow', and 'content' is set,
+		// the last one set wins.
+		textChanged = false;
+        textFlowChanged = false;
+        
+		// The other two are now invalid and must be recalculated when needed.
+		_text = null;
+		_textFlow = null;
+		        
+		factory = staticTextFlowFactory;
+		
+		invalidateTextLines();
+		invalidateProperties();
+		invalidateSize();
+		invalidateDisplayList();
     }
     
+	//----------------------------------
+	//  textFlow
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the textFlow property.
+	 */
+	private var _textFlow:TextFlow;
+	
+	/**
+	 *  @private
+	 */
+	private var textFlowChanged:Boolean = false;
+	
+	/**
+	 *  The TextFlow displayed by this component.
+	 * 
+	 *  <p>A TextFlow is the most important class
+	 *  in the Text Layout Framework.
+	 *  It is the root of a tree of FlowElements
+	 *  representing rich text content.</p>
+	 * 
+	 *  @default
+	 */
+	public function get textFlow():TextFlow
+	{
+		// We might not have a valid _textFlow for two reasons:
+		// either because the 'text' was set (which is the state
+		// after construction) or because the 'content' was set.
+		if (!_textFlow)
+		{
+			if (_content != null)
+				_textFlow = createTextFlowFromContent(_content);
+			else
+				_textFlow = staticPlainTextImporter.importToFlow(_text);
+		}
+		
+		return _textFlow;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set textFlow(value:TextFlow):void
+	{
+		// Treat setting the 'textFlow' to null
+		// as if 'text' were being set to the empty String
+		// (which is the default state).
+		if (value == null)
+		{
+			text = "";
+			return;
+		}
+		
+		if (value == _textFlow)
+			return;
+			
+		_textFlow = value;
+		textFlowChanged = true;
+		
+		// If more than one of 'text', 'textFlow', and 'content' is set,
+		// the last one set wins.
+		textChanged = false;
+		contentChanged = false;
+		
+		// The other two are now invalid and must be recalculated when needed.
+		_text = null
+		_content = null;
+		
+		factory = staticTextFlowFactory;
+
+		invalidateTextLines();
+		invalidateProperties();
+		invalidateSize();
+		invalidateDisplayList();
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
     //
     //--------------------------------------------------------------------------
+    
+	/**
+	 *  @private
+	 */
+	override protected function commitProperties():void
+    {
+    	super.commitProperties();
+    	
+    	// Only one of textChanged, textFlowChanged, and contentChanged
+    	// will be true; the other two will be false because each setter
+    	// guarantees this.
+    	if (textChanged)
+    	{
+			// If the text has linebreaks (CR, LF, or CF+LF)
+			// create a multi-paragraph TextFlow from it
+			// and use the TextFlowTextLineFactory to render it.
+			// Otherwise the StringTextLineFactory will put
+			// all of the lines into a single paragraph
+			// and FTE performance will degrade on a large paragraph.
+			if (_text.indexOf("\n") != -1 || _text.indexOf("\r") != -1)
+			{
+				_textFlow = staticPlainTextImporter.importToFlow(_text);
+				factory = staticTextFlowFactory;
+			}
+			textChanged = false;
+    	}
+    	else if (textFlowChanged)
+    	{
+    		// Nothing to do at commitProperties() time.
+    		textFlowChanged = false;
+    	}
+    	else if (contentChanged)
+    	{
+			_textFlow = createTextFlowFromContent(_content);
+			contentChanged = false;
+    	}
+    	
+    	// At this point we know which TextLineFactory we're going to use
+    	// and we know the _text or _textFlow that it will compose.
+
+		var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
+		
+		// If the CSS styles for this component specify an embedded font,
+		// embeddedFontContext will be set to the module factory that
+		// should create TextLines (since they must be created in the
+		// SWF where the embedded font is.)
+		// Otherwise, this will be null.
+		embeddedFontContext = getEmbeddedFontContext();
+		
+		if (embeddedFontContext != oldEmbeddedFontContext)
+		{
+			staticTextFlowFactory.textLineCreator =
+				ITextLineCreator(embeddedFontContext)
+			staticStringFactory.textLineCreator = 
+				ITextLineCreator(embeddedFontContext)
+		}
+				
+		// If the styles have changed, hostFormat will have
+		// been set to null to indicate that it is invalid.
+		// In that case, create a new one.
+		if (!hostFormat)
+		{
+			hostFormat = new CSSTextLayoutFormat(this);
+			// Note: CSSTextLayoutFormat has special processing
+			// for the fontLookup style. If it is "auto",
+			// the fontLookup format is set to either
+			// "device" or "embedded" depending on whether
+			// embeddedFontContext is null or non-null.
+		}
+		
+		if (_textFlow)
+		{
+			// We might have a new TextFlow, or a new hostFormat,
+			// so attach the latter to the former.
+			_textFlow.hostFormat = hostFormat;
+		
+			if (_textFlow.flowComposer)
+			{
+				_textFlow.flowComposer.textLineCreator = 
+					staticTextFlowFactory.textLineCreator;
+			}
+		}
+	}
     
     /**
      *  @private
@@ -489,7 +676,9 @@ public class RichText extends TextGraphicElement
     {
         super.stylesInitialized();
 
-        hostFormatChanged = true;
+		// The old hostFormat is invalid
+		// and a new one must be created.
+		hostFormat = null;
     }
 
     /**
@@ -499,28 +688,75 @@ public class RichText extends TextGraphicElement
     {
         super.styleChanged(styleProp);
 
-        hostFormatChanged = true;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: TextGraphicElement
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override mx_internal function invalidateTextLines(cause:String):void
-    {
-        super.invalidateTextLines(cause);
+        // The old hostFormat is invalid
+        // and a new one must be created.
+        hostFormat = null;
         
-        if (cause == "text")
-            textChanged = true;
-        else if (cause == "content")
-            contentChanged = true;
-    }
-    
+		invalidateTextLines();
+		invalidateProperties();
+		invalidateSize();
+		invalidateDisplayList();
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden methods: TextGraphicElement
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  Returns true to indicate all lines were composed.
+	 */
+	override mx_internal function composeTextLines(width:Number = NaN,
+												   height:Number = NaN):Boolean
+	{
+		super.composeTextLines(width, height);
+		
+		// Don't want this handler firing when we're re-composing the text lines.
+		if (factory is TextFlowTextLineFactory && _textFlow != null)
+		{
+			_textFlow.removeEventListener(DamageEvent.DAMAGE,
+										  textFlow_damageHandler);
+		}
+		
+		
+		// Set the composition bounds to be used by createTextLines().
+		// If the width or height is NaN, it will be computed by this method
+		// by the time it returns.
+		// The bounds are then used by the addTextLines() method
+		// to determine the isOverset flag.
+		// The composition bounds are also reported by the measure() method.
+		bounds.x = 0;
+		bounds.y = 0;
+		bounds.width = isNaN(width) ? maxWidth : width;
+		bounds.height = height;
+		
+		removeTextLines();
+		releaseTextLines();
+		
+		createTextLines();
+		
+		addTextLines(DisplayObjectContainer(drawnDisplayObject));
+		
+		// Figure out if the text overruns the available space for composition.
+		isOverset = isTextOverset(width, height);
+		
+		// Just recomposed so reset.
+		invalidateCompose = false;
+		
+		// Listen for "damage" events in case the textFlow is 
+		// modified programatically.
+		if (factory is TextFlowTextLineFactory && _textFlow != null)
+		{
+			_textFlow.addEventListener(DamageEvent.DAMAGE, 
+									   textFlow_damageHandler);
+		}  
+		
+		// Created all lines.
+		return true;      
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -530,160 +766,7 @@ public class RichText extends TextGraphicElement
     /**
      *  @private
      */
-    private function getEmbeddedFontContext():IFlexModuleFactory
-    {
-		var moduleFactory:IFlexModuleFactory;
-		
-		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup != FontLookup.DEVICE)
-        {
-			var font:String = getStyle("fontFamily");
-			var bold:Boolean = getStyle("fontWeight") == "bold";
-			var italic:Boolean = getStyle("fontStyle") == "italic";
-			
-            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold,	italic,
-                this, fontContext);
-
-            // If we found the font, then it is embedded. 
-            // But some fonts are not listed in info()
-            // and are therefore not in the above registry.
-            // So we call isFontFaceEmbedded() which gets the list
-            // of embedded fonts from the player.
-            if (!moduleFactory) 
-            {
-                var sm:ISystemManager;
-                if (fontContext != null && fontContext is ISystemManager)
-                	sm = ISystemManager(fontContext);
-                else if (parent is IUIComponent)
-                	sm = IUIComponent(parent).systemManager;
-                              							
-                staticTextFormat.font = font;
-                staticTextFormat.bold = bold;
-                staticTextFormat.italic = italic;
-                
-                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-                    moduleFactory = sm;
-            }
-        }
-
-        if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
-        {
-            // if we couldn't find the font and somebody insists it is
-            // embedded, try the default fontContext
-            moduleFactory = fontContext;
-        }
-        
-        return moduleFactory;
-    }
-        
-    /**
-     *  @private
-     */
-    private function createEmptyTextFlow():TextFlow
-    {
-        var textFlow:TextFlow = new TextFlow();
-        var p:ParagraphElement = new ParagraphElement();
-        var span:SpanElement = new SpanElement();
-        textFlow.replaceChildren(0, 0, p);
-        p.replaceChildren(0, 0, span);
-        return textFlow;
-    }
-
-    /**
-     *  @private
-     *  Make 1 paragraph text flow.  We can not use the PLAIN_TEXT_FORMAT filter
-     *  because each newline starts a new paragraph.
-     */
-    private function convertTextToContent():TextFlow
-    {
-        textFlow = new TextFlow();
-        
-        var p:ParagraphElement = new ParagraphElement();        
-        textFlow.replaceChildren(0, 0, p);
-
-        var span:SpanElement = new SpanElement();
-        span.text = _text;
-        p.replaceChildren(0, 0, span);
-        
-        // Set formats and textLineCreator.
-        textFlow = createTextFlow();
-        
-        return textFlow;
-    }
-
-    /**
-     *  @private
-     */
-    private function createTextFlowFromMarkup(markup:Object):TextFlow
-    {
-        if (markup is XML || markup is String)
-        {
-	        // We need to wrap the markup in a <TextFlow> tag
-	        // unless it already has one.
-	        // Note that we avoid trying to convert it to XML
-	        // (in order to test whether the outer tag is <TextFlow>)
-	        // unless it contains the substring "TextFlow".
-            // And if we have to do the conversion, then
-            // we use the markup in XML form rather than
-            // having TLF reconvert it to XML.
-	        var wrap:Boolean = true;
-            if (markup is XML || markup.indexOf("TextFlow") != -1)
-            {
-                try
-                {
-                    var xmlMarkup:XML = XML(markup);
-                    if (xmlMarkup.localName() == "TextFlow")
-                    {
-                        wrap = false;
-                        markup = xmlMarkup;
-                    }
-                }
-                catch(e:Error)
-                {
-                }
-            }
-
-	        if (wrap)
-	        {
-	            if (markup is String)
-	            {
-                    markup = 
-                        '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                        markup +
-                        '</TextFlow>';
-                }
-                else
-                {
-                    // It is XML.  Create a root element and add the markup
-                    // as it's child.
-                    var ns:Namespace = 
-                        new Namespace("http://ns.adobe.com/textLayout/2008");
-                                                 
-                    xmlMarkup = <TextFlow />;
-                    xmlMarkup.setNamespace(ns);            
-                    xmlMarkup.setChildren(markup);  
-                                        
-                    // The namespace of the root node is not inherited by
-                    // the children so it needs to be explicitly set on
-                    // every element, at every level.  If this is not done
-                    // the import will fail with an "Unexpected namespace"
-                    // error.
-                    for each (var element:XML in xmlMarkup..*::*)
-                       element.setNamespace(ns);
-
-                    markup = xmlMarkup;
-                }
-	        }
-        }
-
-        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
-    }
-    
-    /**
-     *  @private
-     */
-    private function createTextFlowFromChildren(children:Array):TextFlow
+    private function createTextFlowFromContent(content:Object):TextFlow
     {
         var textFlow:TextFlow = new TextFlow();
 
@@ -693,198 +776,63 @@ public class RichText extends TextGraphicElement
             getStyle("whiteSpaceCollapse");
         textFlow.hostFormat = staticTextLayoutFormat;
 
-        textFlow.mxmlChildren = children;
+        textFlow.mxmlChildren = content is Array ?
+        						content as Array :
+        						[ content ];
 
         return textFlow;
     }
 
-    /**
-     *  @private
-     *  Keep this method in sync with the same method in RichEditableText.
-     */
-    private function createTextFlow():TextFlow
-    {
-        if (contentChanged)
-        {
-            if (_content is TextFlow)
-            {
-                textFlow = TextFlow(_content);
-            }
-            else if (_content is Array)
-            {
-                textFlow = createTextFlowFromChildren(_content as Array);
-            }
-            else if (_content is FlowElement)
-            {
-                textFlow = createTextFlowFromChildren([ _content ]);
-            }
-	        else if (_content is String || _content is XML)
-            {
-                textFlow = createTextFlowFromMarkup(_content);
-            }
-            else if (_content == null)
-            {
-                textFlow = createEmptyTextFlow();
-            }
-            else
-            {
-                textFlow = createTextFlowFromMarkup(_content.toString());
-            }
-            textInvalid = true;
-        }
-        else if (textChanged)
-        {
-            if (textHasLineBreaks())
-	            textFlow = createTextFlowFromText(_text);
-            else
-            	textFlow = null;
-        }
-
-        contentChanged = false;
-        textChanged = false;
-
-        var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
-        
-        // If the CSS styles for this component specify an embedded font,
-        // embeddedFontContext will be set to the module factory that
-        // should create TextLines (since they must be created in the
-        // SWF where the embedded font is.)
-        // Otherwise, this will be null.
-        embeddedFontContext = getEmbeddedFontContext();
-        
-        if (embeddedFontContext != oldEmbeddedFontContext)
-        {
-            staticTextFlowFactory.textLineCreator =
-                ITextLineCreator(embeddedFontContext)
-            staticStringFactory.textLineCreator = 
-                ITextLineCreator(embeddedFontContext)
-        }
-        
-        if (hostFormatChanged)
-        {
-        	hostFormat = new CSSTextLayoutFormat(this);
-        		// Note: CSSTextLayoutFormat has special processing
-        		// for the fontLookup style. If it is "auto",
-        		// the fontLookup format is set to either
-        		// "device" or "embedded" depending on whether
-        		// embeddedFontContext is null or non-null.
-        	
-        	hostFormatChanged = false;
-        }
-
-        if (textFlow)
-        {
-            textFlow.hostFormat = hostFormat;
-            
-            // There should always be a composer but be safe.
-            if (textFlow.flowComposer)
-            {
-                textFlow.flowComposer.textLineCreator = 
-                    staticTextFlowFactory.textLineCreator;
-            }
-        }
-
-        return textFlow;
-    }
-    
-    /**
-     *  @private
-     */
-    private function textHasLineBreaks():Boolean
-    {
-    	return text.indexOf("\n") != -1 ||
-    		   text.indexOf("\r") != -1;
-    }
-    
-    /**
-     *  @private
-	 *  Splits 'text' into paragraphs on \n, etc.
-     */
-    private function createTextFlowFromText(text:String):TextFlow
-    {
-    	var importer:ITextImporter =
-    		TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
-    		
-    	return importer.importToFlow(text);
-    }
-
-    /**
-     *  @private
-     *  This will throw on import error.
-     */
-    private function importToFlow(source:Object, format:String):TextFlow
-    {        
-        // The whiteSpaceCollapse format determines how whitespace
-        // is processed when markup is imported.
-        staticTextLayoutFormat.whiteSpaceCollapse =
-            getStyle("whiteSpaceCollapse");
-        
-        var importer:ITextImporter = TextFilter.getImporter(format, 
-                                                            staticConfiguration);
-        
-        // Throw import errors rather than return a null textFlow.
-        // Alternatively, the error strings are in the Vector, importer.errors.
-        importer.throwOnError = true;
-        
-        return importer.importToFlow(source);        
-    }
-    
-    /**
-     *  @private
-     *  Returns true to indicate all lines were composed.
-     */
-    override mx_internal function composeTextLines(width:Number = NaN,
-												   height:Number = NaN):Boolean
-    {
-        super.composeTextLines(width, height);
-
-        // Don't want this handler firing when we're re-composing the text lines.
-        if (textFlow)
-        {
-            textFlow.removeEventListener(DamageEvent.DAMAGE, 
-                                         textFlow_damageHandler);
-        }
-        
-        
-        textFlow = createTextFlow();
-        _content = textFlow;
-
-		// Set the composition bounds to be used by createTextLines().
-		// If the width or height is NaN, it will be computed by this method
-		// by the time it returns.
-		// The bounds are then used by the addTextLines() method
-		// to determine the isOverset flag.
-		// The composition bounds are also reported by the measure() method.
-        bounds.x = 0;
-        bounds.y = 0;
-        bounds.width = isNaN(width) ? maxWidth : width;
-        bounds.height = height;
-
-        removeTextLines();
-        releaseTextLines();
-        
-        createTextLines();
-        
-        addTextLines(DisplayObjectContainer(drawnDisplayObject));
-        
-        // Figure out if the text overruns the available space for composition.
-        isOverset = isTextOverset(width, height);
-        
-		// Just recomposed so reset.
-        invalidateCompose = false;
-        
-        // Listen for "damage" events in case the textFlow is 
-        // modified programatically.
-        if (textFlow)
-        {
-            textFlow.addEventListener(DamageEvent.DAMAGE, 
-                                      textFlow_damageHandler);
-        }  
-        
-        // Created all lines.
-        return true;      
-    }
-        
+	/**
+	 *  @private
+	 */
+	private function getEmbeddedFontContext():IFlexModuleFactory
+	{
+		var moduleFactory:IFlexModuleFactory;
+		
+		var fontLookup:String = getStyle("fontLookup");
+		if (fontLookup != FontLookup.DEVICE)
+		{
+			var font:String = getStyle("fontFamily");
+			var bold:Boolean = getStyle("fontWeight") == "bold";
+			var italic:Boolean = getStyle("fontStyle") == "italic";
+			
+			moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
+				font, bold,	italic,
+				this, fontContext);
+			
+			// If we found the font, then it is embedded. 
+			// But some fonts are not listed in info()
+			// and are therefore not in the above registry.
+			// So we call isFontFaceEmbedded() which gets the list
+			// of embedded fonts from the player.
+			if (!moduleFactory) 
+			{
+				var sm:ISystemManager;
+				if (fontContext != null && fontContext is ISystemManager)
+					sm = ISystemManager(fontContext);
+				else if (parent is IUIComponent)
+					sm = IUIComponent(parent).systemManager;
+				
+				staticTextFormat.font = font;
+				staticTextFormat.bold = bold;
+				staticTextFormat.italic = italic;
+				
+				if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
+					moduleFactory = sm;
+			}
+		}
+		
+		if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
+		{
+			// if we couldn't find the font and somebody insists it is
+			// embedded, try the default fontContext
+			moduleFactory = fontContext;
+		}
+		
+		return moduleFactory;
+	}
+		
 	/**
 	 *  @private
 	 *  Uses TextLineFactory to compose the textFlow
@@ -895,12 +843,6 @@ public class RichText extends TextGraphicElement
 		// Clear any previously generated TextLines from the textLines Array.
 		textLines.length = 0;
 		
-		var factory:TextLineFactoryBase;
-		if (textFlow)
-            factory = staticTextFlowFactory;
-		else
-            factory = staticStringFactory;	
-
 		// Note: Even if we have nothing to compose, we nevertheless
 		// use the StringTextLineFactory to compose an empty string.
 		// Since it appends the paragraph terminator "\u2029",
@@ -912,29 +854,29 @@ public class RichText extends TextGraphicElement
         
         // Set up the truncation options.
         var truncationOptions:TruncationOptions;
-        if (truncation != 0)
+        if (maxDisplayedLines != 0)
         {
             truncationOptions = new TruncationOptions();
-            truncationOptions.lineCountLimit = truncation;
+            truncationOptions.lineCountLimit = maxDisplayedLines;
             truncationOptions.truncationIndicator =
                 TextGraphicElement.truncationIndicatorResource;
         }        
 		factory.truncationOptions = truncationOptions;
 		
-        if (textFlow)
+        if (factory is StringTextLineFactory)
         {
-            staticTextFlowFactory.createTextLines(addTextLine, textFlow);
-        }
-        else
+			// We know text is non-null since it got this far.
+			staticStringFactory.text = _text;
+			staticStringFactory.textFlowFormat = hostFormat;
+			staticStringFactory.createTextLines(addTextLine);
+		}
+        else if (factory is TextFlowTextLineFactory)
         {
-            // We know text is non-null since it got this far.
-            staticStringFactory.text = _text;
-            staticStringFactory.textFlowFormat = hostFormat;
-            staticStringFactory.createTextLines(addTextLine);
+            staticTextFlowFactory.createTextLines(addTextLine, _textFlow);
         }
         
         bounds = factory.contentBounds;
-        isTextTruncated = factory.isTruncated;
+        _isTruncated = factory.isTruncated;
     }
 
     /**
@@ -958,16 +900,23 @@ public class RichText extends TextGraphicElement
      *  to indicate it has been modified.  This could mean the styles changed
      *  or the content changed, or both changed.
      */
-    private function textFlow_damageHandler(
-                            event:DamageEvent):void
+    private function textFlow_damageHandler(event:DamageEvent):void
     {
         //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
                 
-        // Invalidate text.
-        textInvalid = true;
+        // Invalidate _text and _content.
+        _text = null;
+        _content = null;
+        
+        // After the TextFlow has been mutated,
+        // we must render it, not the 'text' String.
+        factory = staticTextFlowFactory;
         
         // Force recompose since text and/or styles may have changed.
-        invalidateCompose = true;
+        invalidateTextLines();
+        
+        // We don't need to call invalidateProperties()
+        // because the hostFormat and the _textFlow are still valid.
 
         // This is smart enough not to remeasure if the explicit width/height
         // were specified.
