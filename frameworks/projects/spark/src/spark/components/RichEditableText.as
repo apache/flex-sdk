@@ -235,13 +235,13 @@ public class RichEditableText extends UIComponent
      */
     private static function initClass():void
     {
-    	// Create a single Configuration used by all InputManager instances.
-    	// It tells InputManager that we don't want it to handle the ENTER key,
-    	// because we need the ENTER key to behave differently based on the
-    	// 'multiline' property.
-    	staticInputManagerConfiguration =
+    	// Create a single Configuration used by all TextContainerManager 
+    	// instances.  It tells the TextContainerManager that we don't want it 
+    	// to handle the ENTER key, because we need the ENTER key to behave 
+    	// differently based on the 'multiline' property.
+    	staticTextContainerManagerConfiguration =
     		Configuration(TextContainerManager.defaultConfiguration).clone();
-    	staticInputManagerConfiguration.manageEnterKey = false;
+    	staticTextContainerManagerConfiguration.manageEnterKey = false;
     	
     	staticTextLayoutFormat = new TextLayoutFormat;
     	
@@ -260,9 +260,9 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-	 *  Used for telling InputManager not to process the Enter key.
+	 *  Used for telling TextContainerManager not to process the Enter key.
      */
-    private static var staticInputManagerConfiguration:Configuration;
+    private static var staticTextContainerManagerConfiguration:Configuration;
     
     /**
      *  @private
@@ -288,7 +288,7 @@ public class RichEditableText extends UIComponent
      *  @private
 	 *  Used for debugging.
 	 *  Set this to true to get trace output
-	 *  showing what InputManager APIs are being called.
+	 *  showing what TextContainerManager APIs are being called.
      */
     mx_internal static var debug:Boolean = false;
     
@@ -363,16 +363,16 @@ public class RichEditableText extends UIComponent
     {
         super();
         
-        // Create the TLF InputManager, using this component
+        // Create the TLF TextContainerManager, using this component
         // as the DisplayObjectContainer for its TextLines.
-        // This InputManager instance persists for the lifetime
+        // This TextContainerManager instance persists for the lifetime
         // of the component.
-        _inputManager = new RichEditableTextContainerManager(
-                                this, staticInputManagerConfiguration);
+        _textContainerManager = new RichEditableTextContainerManager(
+                                this, staticTextContainerManagerConfiguration);
 
         // Add event listeners on this component.
-        
-        //addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
+
+        // The focusInHandler is called by the TCMContainer focusInHandler.
         
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
         
@@ -380,33 +380,33 @@ public class RichEditableText extends UIComponent
         
         addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
         
-        // Add event listeners on its InputManager.
+        // Add event listeners on its TextContainerManager.
         
-        _inputManager.addEventListener(
+        _textContainerManager.addEventListener(
             CompositionCompletionEvent.COMPOSITION_COMPLETE,
-            inputManager_compositionCompleteHandler);
+            textContainerManager_compositionCompleteHandler);
         
-        _inputManager.addEventListener(
-        	DamageEvent.DAMAGE, inputManager_damageHandler);
+        _textContainerManager.addEventListener(
+        	DamageEvent.DAMAGE, textContainerManager_damageHandler);
 
-        _inputManager.addEventListener(
-        	Event.SCROLL, inputManager_scrollHandler);
+        _textContainerManager.addEventListener(
+        	Event.SCROLL, textContainerManager_scrollHandler);
 
-        _inputManager.addEventListener(
+        _textContainerManager.addEventListener(
             SelectionEvent.SELECTION_CHANGE,
-            inputManager_selectionChangeHandler);
+            textContainerManager_selectionChangeHandler);
 
-        _inputManager.addEventListener(
+        _textContainerManager.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_BEGIN,
-            inputManager_flowOperationBeginHandler);
+            textContainerManager_flowOperationBeginHandler);
 
-        _inputManager.addEventListener(
+        _textContainerManager.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_END,
-            inputManager_flowOperationEndHandler);
+            textContainerManager_flowOperationEndHandler);
 
-        _inputManager.addEventListener(
+        _textContainerManager.addEventListener(
             StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE, 
-            inputManager_inlineGraphicStatusChangeHandler);
+            textContainerManager_inlineGraphicStatusChangeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -811,7 +811,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
-     *  interpreation of the value specified for the 'content' property.
+     *  interpretation of the value specified for the 'content' property.
      *  Normally, for properties of type Object, it assumes that things
      *  looking like numbers are numbers and things looking like arrays
      *  are arrays. But <content>1</content> should generate code to set the
@@ -953,13 +953,13 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
-     *  The editingMode of this component's InputManager.
+     *  The editingMode of this component's TextContainerManager.
      *  Note that this is not a public property
      *  and does not use the invalidation mechanism.
      */
     private function get editingMode():String
     {
-    	return _inputManager.editingMode;
+    	return _textContainerManager.editingMode;
     }
     
     /**
@@ -971,10 +971,10 @@ public class RichEditableText extends UIComponent
      		trace("editingMode = ", value);
 
         // ToDo: TextContainerManager should do this check.
-        if (_inputManager.editingMode == value)
+        if (_textContainerManager.editingMode == value)
             return;
 
-     	_inputManager.editingMode = value;
+     	_textContainerManager.editingMode = value;
     }
 
     //----------------------------------
@@ -1067,22 +1067,22 @@ public class RichEditableText extends UIComponent
     }
 
     //----------------------------------
-    //  inputManager
+    //  textContainerManager
     //----------------------------------
 
     /**
      *  @private
      */
-    private var _inputManager:TextContainerManager; /*** public? ***/
+    private var _textContainerManager:TextContainerManager; /*** public? ***/
             
     /**
      *  @private
-     *  The TLF InputManager instance that displays,
+     *  The TLF TextContainerManager instance that displays,
      *  scrolls, and edits the text in this component.
      */
-	mx_internal function get inputManager():TextContainerManager
+	mx_internal function get textContainerManager():TextContainerManager
 	{
-		return _inputManager;
+		return _textContainerManager;
 	}
 	
     //----------------------------------
@@ -1381,8 +1381,8 @@ public class RichEditableText extends UIComponent
     public function set text(value:String):void
     {
         // ToDo: remove this when Vellum fixes this bug.
-        // TextContainerManager setText()/getText() doesn't deal with null correctly
-        // so if text is set to null, convert it to the empty string.
+        // TextContainerManager setText()/getText() doesn't deal with null 
+        // correctly so if text is set to null, convert it to the empty string.
         if (value == null)
             value = "";
             
@@ -1411,9 +1411,8 @@ public class RichEditableText extends UIComponent
         
         _text = value;
 
-        // Need to set it right away so that the getter can return
-        // it.
-        _inputManager.setText(_text);
+        // Need to set it right away so that the getter can return it.
+        _textContainerManager.setText(_text);
         
         textChanged = true;
         
@@ -1433,7 +1432,7 @@ public class RichEditableText extends UIComponent
     {
     	if (debug)
     		trace("getTextFlow()");
-    	return _inputManager.getTextFlow();
+    	return _textContainerManager.getTextFlow();
     }
     
     //----------------------------------
@@ -1507,7 +1506,7 @@ public class RichEditableText extends UIComponent
             
             if (debug)
             	trace("hostFormat=");
-            _inputManager.hostFormat =
+            _textContainerManager.hostFormat =
             	hostFormat = new CSSTextLayoutFormat(this);
        			// Note: CSSTextLayoutFormat has special processing
         		// for the fontLookup style. If it is "auto",
@@ -1522,7 +1521,7 @@ public class RichEditableText extends UIComponent
         {
         	if (debug)
         		trace("invalidateInteractionManager()");
-        	_inputManager.invalidateSelectionFormats();
+        	_textContainerManager.invalidateSelectionFormats();
         	
         	selectionFormatsChanged = false;
         }
@@ -1552,7 +1551,7 @@ public class RichEditableText extends UIComponent
         	
         	if (debug)
         		trace("setTextFlow()");
-        	_inputManager.setTextFlow(textFlow);
+        	_textContainerManager.setTextFlow(textFlow);
 
             // Handle case where content is intially displayed as password.        	
         	if (displayAsPassword)
@@ -1588,11 +1587,11 @@ public class RichEditableText extends UIComponent
                 var textToDisplay:String = StringUtil.repeat(
                     passwordChar, _text.length);
                     
-                _inputManager.setText(textToDisplay);                            
+                _textContainerManager.setText(textToDisplay);                            
             }
             else
             {
-                _inputManager.setText(_text);
+                _textContainerManager.setText(_text);
             }
 
             displayAsPasswordChanged = false;
@@ -1613,13 +1612,13 @@ public class RichEditableText extends UIComponent
             // The TLF code seems to check for !off.
             if (_clipAndEnableScrolling)
             {
-                _inputManager.horizontalScrollPolicy = "on";
-                _inputManager.verticalScrollPolicy = "on";
+                _textContainerManager.horizontalScrollPolicy = "on";
+                _textContainerManager.verticalScrollPolicy = "on";
             }
             else
             {
-                _inputManager.horizontalScrollPolicy = "auto";
-                _inputManager.verticalScrollPolicy = "auto";
+                _textContainerManager.horizontalScrollPolicy = "auto";
+                _textContainerManager.verticalScrollPolicy = "auto";
             }
             clipAndEnableScrollingChanged = false;
         }
@@ -1627,9 +1626,11 @@ public class RichEditableText extends UIComponent
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
-                _inputManager.horizontalScrollPosition;
-            _inputManager.horizontalScrollPosition =
-                _horizontalScrollPosition;            
+                _textContainerManager.horizontalScrollPosition;
+                
+            _textContainerManager.horizontalScrollPosition =
+                _horizontalScrollPosition; 
+                           
             dispatchPropertyChangeEvent("horizontalScrollPosition",
                 oldHorizontalScrollPosition, _horizontalScrollPosition);
             
@@ -1639,9 +1640,11 @@ public class RichEditableText extends UIComponent
         if (verticalScrollPositionChanged)
         {
             var oldVerticalScrollPosition:Number = 
-                _inputManager.verticalScrollPosition;
-            _inputManager.verticalScrollPosition =
+                _textContainerManager.verticalScrollPosition;
+                
+            _textContainerManager.verticalScrollPosition =
                 _verticalScrollPosition;
+                
             dispatchPropertyChangeEvent("verticalScrollPosition",
                 oldVerticalScrollPosition, _verticalScrollPosition);
             
@@ -1734,8 +1737,8 @@ public class RichEditableText extends UIComponent
         // not being autoSized.
         if (actuallyAutoSizing && !oldActuallyAutoSizing)
         {
-            _inputManager.horizontalScrollPosition = 0;
-            _inputManager.verticalScrollPosition = 0;
+            _textContainerManager.horizontalScrollPosition = 0;
+            _textContainerManager.verticalScrollPosition = 0;
         }
         
         return false;        
@@ -1783,17 +1786,17 @@ public class RichEditableText extends UIComponent
         // text was measured.
         if (!actuallyAutoSizing)
         {
-            _inputManager.compositionWidth = unscaledWidth;
-            _inputManager.compositionHeight = unscaledHeight;
+            _textContainerManager.compositionWidth = unscaledWidth;
+            _textContainerManager.compositionHeight = unscaledHeight;
         }
 
 		if (debug)
 			trace("updateContainer()");
 			
-        _inputManager.textLineCreator = 
+        _textContainerManager.textLineCreator = 
             ITextLineCreator(embeddedFontContext);
             
-        _inputManager.updateContainer();
+        _textContainerManager.updateContainer();
     }
 
     /**
@@ -1940,10 +1943,10 @@ public class RichEditableText extends UIComponent
         switch (scrollUnit)
         {
             case ScrollUnit.UP:
-                return _inputManager.getScrollDelta(-1);
+                return _textContainerManager.getScrollDelta(-1);
                 
             case ScrollUnit.DOWN:
-                return _inputManager.getScrollDelta(1);
+                return _textContainerManager.getScrollDelta(1);
                 
             case ScrollUnit.PAGE_UP:
                 return Math.max(minDelta, -scrollR.height);
@@ -2032,7 +2035,7 @@ public class RichEditableText extends UIComponent
         if (editingMode == EditingMode.READ_ONLY)
             editingMode = EditingMode.READ_SELECT;
 
-    	return SelectionManager(_inputManager.beginInteraction());
+    	return SelectionManager(_textContainerManager.beginInteraction());
     }
 
     /**
@@ -2040,7 +2043,7 @@ public class RichEditableText extends UIComponent
      */
     private function releaseSelectionManager():void
     {
-        _inputManager.endInteraction();
+        _textContainerManager.endInteraction();
         
         editingMode = priorEditingMode;
     }
@@ -2060,7 +2063,7 @@ public class RichEditableText extends UIComponent
         if (editingMode != EditingMode.READ_WRITE)
             editingMode = EditingMode.READ_WRITE;
         
-        return EditManager(_inputManager.beginInteraction());
+        return EditManager(_textContainerManager.beginInteraction());
     }
 
     /**
@@ -2068,7 +2071,7 @@ public class RichEditableText extends UIComponent
      */
     private function releaseEditManager():void
     {
-        _inputManager.endInteraction();
+        _textContainerManager.endInteraction();
 
         editingMode = priorEditingMode;
     }
@@ -2145,19 +2148,19 @@ public class RichEditableText extends UIComponent
         // The bottom border can grow to allow all the text to fit.
         // If dimension is NaN, composer will measure text in that 
         // direction. 
-        _inputManager.compositionWidth = composeWidth;
-        _inputManager.compositionHeight = NaN;
+        _textContainerManager.compositionWidth = composeWidth;
+        _textContainerManager.compositionHeight = NaN;
 
         // Compose only.  The display is not updated.
-        _inputManager.compose();
+        _textContainerManager.compose();
 
-        var contentBounds:Rectangle = _inputManager.getContentBounds();
+        var contentBounds:Rectangle = _textContainerManager.getContentBounds();
         
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
         measuredHeight = Math.ceil(contentBounds.height);
 
-        if (_inputManager.getText().length > 0) 
+        if (_textContainerManager.getText().length > 0) 
         {
             // Text flow with a terminator (which has width).
             measuredWidth = Math.ceil(contentBounds.width);
@@ -2509,7 +2512,7 @@ public class RichEditableText extends UIComponent
      */
     private function getText():String
     {
-        var t:String = _inputManager.getText("\n");
+        var t:String = _textContainerManager.getText("\n");
         
         // ToDo: asked TLF if they not put the terminator on the last
         // paragraph
@@ -2557,7 +2560,7 @@ public class RichEditableText extends UIComponent
                                      activePosition:int = int.MAX_VALUE):void
     {
        // Scrolls so that the text position is visible in the container. 
-       inputManager.scrollToPosition(anchorPosition, activePosition);       
+       textContainerManager.scrollToPosition(anchorPosition, activePosition);       
     }
         
     /**
@@ -2858,10 +2861,8 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Need to be careful since this is the container for TextContainerManager
-     *  and TextContainerManager adds it's own focusInHandler to the container.  
      *  RichEditableTextContainerManager overrides focusInHandler and calls
-     *  this.
+     *  this before executing it's own focusInHandler.
      */
     mx_internal function focusInHandler(event:FocusEvent):void
     {
@@ -2965,10 +2966,10 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Called when the InputManager dispatches a 'compositionComplete' event
-     *  when it has recomposed the text into TextLines.
+     *  Called when the TextContainerManager dispatches a 'compositionComplete'
+     *  event when it has recomposed the text into TextLines.
      */
-    private function inputManager_compositionCompleteHandler(
+    private function textContainerManager_compositionCompleteHandler(
                                     event:CompositionCompletionEvent):void
     {
         //trace("compositionComplete");
@@ -2995,16 +2996,18 @@ public class RichEditableText extends UIComponent
         var dimensionChanged:Boolean = false;
         var oldContentWidth:Number = _contentWidth;
 
-        var newContentBounds:Rectangle = _inputManager.getContentBounds();
+        var newContentBounds:Rectangle = 
+            _textContainerManager.getContentBounds();
         var newContentWidth:Number = newContentBounds.width;
         
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentWidth can be slightly larger than the requested
         // compositionWidth.
-        if (newContentWidth > _inputManager.compositionWidth &&
-            Math.round(newContentWidth) == _inputManager.compositionWidth)
+        if (newContentWidth > _textContainerManager.compositionWidth &&
+            Math.round(newContentWidth) == 
+            _textContainerManager.compositionWidth)
         { 
-            newContentWidth = _inputManager.compositionWidth;
+            newContentWidth = _textContainerManager.compositionWidth;
         }
             
         if (newContentWidth != oldContentWidth)
@@ -3025,10 +3028,11 @@ public class RichEditableText extends UIComponent
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentHeight can be slightly larger than the requested
         // compositionHeight.  
-        if (newContentHeight > _inputManager.compositionHeight &&
-            Math.round(newContentHeight) == _inputManager.compositionHeight)
+        if (newContentHeight > _textContainerManager.compositionHeight &&
+            Math.round(newContentHeight) == 
+            _textContainerManager.compositionHeight)
         { 
-            newContentHeight = _inputManager.compositionHeight;
+            newContentHeight = _textContainerManager.compositionHeight;
         }
             
         if (newContentHeight != oldContentHeight)
@@ -3053,10 +3057,10 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
-     *  Called when the InputManager dispatches a 'damage' event.  The TextFlow
-     *  could have been modified interactively or programatically.
+     *  Called when the TextContainerManager dispatches a 'damage' event.
+     *  The TextFlow could have been modified interactively or programatically.
      */
-    private function inputManager_damageHandler(event:DamageEvent):void
+    private function textContainerManager_damageHandler(event:DamageEvent):void
     {
         //trace("damageHandler", event.damageAbsoluteStart, event.damageLength);
         
@@ -3069,14 +3073,15 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Called when the InputManager dispatches a 'scroll' event
+     *  Called when the TextContainerManager dispatches a 'scroll' event
      *  as it autoscrolls.
      */
-    private function inputManager_scrollHandler(event:Event):void
+    private function textContainerManager_scrollHandler(event:Event):void
     {
         var oldHorizontalScrollPosition:Number = _horizontalScrollPosition;
         var newHorizontalScrollPosition:Number =
-            _inputManager.horizontalScrollPosition;
+            _textContainerManager.horizontalScrollPosition;
+            
         if (newHorizontalScrollPosition != oldHorizontalScrollPosition)
         {
             _horizontalScrollPosition = newHorizontalScrollPosition;
@@ -3087,7 +3092,8 @@ public class RichEditableText extends UIComponent
         
         var oldVerticalScrollPosition:Number = _verticalScrollPosition;
         var newVerticalScrollPosition:Number =
-            _inputManager.verticalScrollPosition;
+            _textContainerManager.verticalScrollPosition;
+            
         if (newVerticalScrollPosition != oldVerticalScrollPosition)
         {
             //trace("vsp scroll", oldVerticalScrollPosition, "->", newVerticalScrollPosition);
@@ -3101,9 +3107,9 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Called when the InputManager dispatches a 'selectionChange' event.
+     *  Called when the TextContainerManager dispatches a 'selectionChange' event.
      */
-    private function inputManager_selectionChangeHandler(
+    private function textContainerManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
         var oldAnchor:int = _selectionAnchorPosition;
@@ -3130,10 +3136,10 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Called when the InputManager dispatches an 'operationBegin' event
-     *  before an editing operation.
+     *  Called when the TextContainerManager dispatches an 'operationBegin'
+     *  event before an editing operation.
      */     
-    private function inputManager_flowOperationBeginHandler(
+    private function textContainerManager_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
         //trace("flowOperationBegin", "generation", textFlow.generation);
@@ -3230,10 +3236,10 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
-     *  Called when the InputManager dispatches an 'operationEnd' event
+     *  Called when the TextContainerManager dispatches an 'operationEnd' event
      *  after an editing operation.
      */
-    private function inputManager_flowOperationEndHandler(
+    private function textContainerManager_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
         //trace("flowOperationEnd", "generation", textFlow.generation);
@@ -3259,7 +3265,7 @@ public class RichEditableText extends UIComponent
      *  height as auto or percent and the graphic has finished loading.  The
      *  size of the graphic is now known.
      */
-    private function inputManager_inlineGraphicStatusChangeHandler (
+    private function textContainerManager_inlineGraphicStatusChangeHandler (
                         event:StatusChangeEvent):void
     {
         //trace("inlineGraphicStatusChangedHandler", event.status);
