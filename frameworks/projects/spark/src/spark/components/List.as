@@ -98,7 +98,7 @@ public class FxList extends FxListBase
      *  item and selects the item at the specified index.
      *
      *  <p>The value of <code>selectedIndex</code> is always between -1 and 
-     *  (<code>numItems</code> - 1). 
+     *  (<code>dataProvider.length</code> - 1). 
      *  If items at a lower index than <code>selectedIndex</code> are 
      *  removed from the component, the selected index is adjusted downward
      *  accordingly. </p>
