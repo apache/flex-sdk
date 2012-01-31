@@ -17,15 +17,10 @@ import flash.events.ErrorEvent;
 
 import mx.core.mx_internal;
 import mx.core.IMXMLObject;
-import mx.messaging.Channel;
-import mx.messaging.ChannelSet;
-import mx.messaging.channels.AMFChannel;
-import mx.messaging.channels.SecureAMFChannel;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.rpc.AbstractOperation;
 import mx.rpc.events.FaultEvent;
-import mx.rpc.mxml.Concurrency;
 import mx.rpc.mxml.IMXMLSupport;
 import mx.rpc.remoting.mxml.Operation;
 import mx.rpc.remoting.RemoteObject;
@@ -98,8 +93,6 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     public function RemoteObject(destination:String = null)
     {
         super(destination);
-        concurrency = Concurrency.MULTIPLE;
-        showBusyCursor = false;
     }
 
     //--------------------------------------------------------------------------
@@ -119,50 +112,6 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     // Properties
     // 
     //--------------------------------------------------------------------------
-
-    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
-   /**
-    * Value that indicates how to handle multiple calls to the same service. The default
-    * value is multiple. The following values are permitted:
-    * <ul>
-    * <li>multiple - Existing requests are not cancelled, and the developer is
-    * responsible for ensuring the consistency of returned data by carefully
-    * managing the event stream. This is the default.</li>
-    * <li>single - Making only one request at a time is allowed on the method; additional requests made 
-    * while a request is outstanding are immediately faulted on the client and are not sent to the server.</li>
-    * <li>last - Making a request causes the client to ignore a result or fault for any current outstanding request. 
-    * Only the result or fault for the most recent request will be dispatched on the client. 
-    * This may simplify event handling in the client application, but care should be taken to only use 
-    * this mode when results or faults for requests may be safely ignored.</li>
-    * </ul>
-    */
-    public function get concurrency():String
-    {
-        return _concurrency;
-    }
-
-    /**
-     *  @private
-     */
-    public function set concurrency(c:String):void
-    {
-        _concurrency = c;
-    }
-
-    [Inspectable(defaultValue="false", category="General")]
-    /**
-    * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
-    * value is <code>false</code>.
-    */
-    public function get showBusyCursor():Boolean
-    {
-        return _showBusyCursor;
-    }
-
-    public function set showBusyCursor(sbc:Boolean):void
-    {
-        _showBusyCursor = sbc;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -266,9 +215,6 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     
     mx_internal var id:String;
     
-    private var _concurrency:String;
-    
-    private var _showBusyCursor:Boolean;
 }
 
 }
