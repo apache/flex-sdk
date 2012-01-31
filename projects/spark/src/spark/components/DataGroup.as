@@ -428,7 +428,7 @@ public class DataGroup extends GroupBase
             childDO = createVisualForItem(item);
         }
         
-        addItemToDisplayList(childDO, item);
+        addItemToDisplayList(childDO, item, index);
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
@@ -437,9 +437,8 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
     }
     
-    protected function itemRemoved(index:int):void
+    protected function itemRemoved(item:Object, index:int):void
     {       
-        var item:* = _dataProvider.getItemAt(index);
         var skin:* = getItemSkin(item);
         var childDO:DisplayObject = item as DisplayObject;
         
@@ -450,7 +449,7 @@ public class DataGroup extends GroupBase
             item.elementHost = null;
             item.sharedDisplayObject = null;
             childDO = GraphicElement(item).displayObject;
-        } 
+        }
         else if (skin && skin is DisplayObject)
         {
             childDO = skin as DisplayObject;
@@ -520,40 +519,121 @@ public class DataGroup extends GroupBase
         {
             var ce:CollectionEvent = CollectionEvent(event);
 
-            if (ce.kind == CollectionEventKind.ADD)
+            switch (ce.kind)
             {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REPLACE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REMOVE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.MOVE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REFRESH)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.RESET)
-            {
-            }
-            else if (ce.kind == CollectionEventKind.UPDATE)
-            {
-                return;
-            }
+                case CollectionEventKind.ADD:
+                {
+                    // items are added
+                    // figure out what items were added and where
+                    // for virtualization also figure out if items are now in view
+                    adjustAfterAdd(ce.items, ce.location);
+                    break;
+                }
             
-            // TODO!! Fow now, always reapply the content. This needs to
-            // be optimized in the future            
-           dataProviderChanged = true;
-           invalidateProperties();
+                case CollectionEventKind.REPLACE:
+                {
+                    // items are replaced
+                    adjustAfterReplace(ce.items, ce.location);
+                    break;
+                }
+            
+                case CollectionEventKind.REMOVE:
+                {
+                    // items are added
+                    // figure out what items were removed
+                    // for virtualization also figure out what items are now in view
+                    adjustAfterRemove(ce.items, ce.location);
+                    break;
+                }
+                
+                case ce.kind == CollectionEventKind.MOVE:
+                {
+                    // one item is moved
+                    adjustAfterMove(ce.items[0], ce.location, ce.oldLocation);
+                    break;
+                }
+            
+                case CollectionEventKind.REFRESH:
+                {
+                    // from a filter or sort...let's just reset everything          
+                    dataProviderChanged = true;
+                    invalidateProperties();
+                    break;
+                }
+                
+                case CollectionEventKind.RESET:
+                {
+                    // reset everything          
+                    dataProviderChanged = true;
+                    invalidateProperties();
+                    break;
+                }
+                
+                case CollectionEventKind.UPDATE:
+                {
+                    // update event, do nothing
+                    // TODO: maybe we need to do something here, like recreate renderer?
+                    break;
+                }
+            }
         }
             
+    }
+    
+    /**
+     *  @private
+     */
+    protected function adjustAfterAdd(items:Array, location:int):void
+    {
+        var length:int = items.length;
+        for (var i:int = 0; i < length; i++)
+        {
+            itemAdded(items[i], location + i);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    protected function adjustAfterRemove(items:Array, location:int):void
+    {
+        var length:int = items.length;
+        for (var i:int = length-1; i >= 0; i--)
+        {
+            itemRemoved(items[i], location + i);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    protected function adjustAfterMove(item:Object, location:int, oldLocation:int):void
+    {
+        itemRemoved(item, oldLocation);
+        
+        // if item is removed before the newly added item
+        // then change index to account for this
+        if (location > oldLocation)
+            itemAdded(item, location-1);
+        else
+            itemAdded(item, location);
+    }
+    
+    /**
+     *  @private
+     */
+    protected function adjustAfterReplace(items:Array, location:int):void
+    {
+        var length:int = items.length;
+        for (var i:int = length-1; i >= 0; i--)
+        {
+            itemRemoved(items[i].oldValue, location + i);
+        }
+        
+        for (var k:int = length-1; k >= 0; k--)
+        {
+            itemAdded(items[k].newValue, location);
+        }
     }
     
     //--------------------------------------------------------------------------
