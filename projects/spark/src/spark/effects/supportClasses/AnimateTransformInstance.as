@@ -24,6 +24,8 @@ import spark.components.Group;
 import spark.effects.animation.Animation;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Sine;
 
 use namespace mx_internal;
 
@@ -521,9 +523,27 @@ public class AnimateTransformInstance extends AnimateInstance
         }
         for (s in autoProps)
         {
+            var autoPropsEaser:IEaser;
+            if (!autoPropsEaser)
+            {
+                // Attempt to use the same easer used in the existing keyframes. Assume that
+                // The first set of keyframes ends with the same easing that is applied elsewhere
+                // in this motion path. If that doesn't work, use the default for the SDK (Sine(.5))
+                if (motionPaths &&
+                    motionPaths[0] && motionPaths[0].keyframes &&
+                    motionPaths[0].keyframes[motionPaths[0].keyframes.length-1])
+                {
+                    autoPropsEaser = motionPaths[0].keyframes[motionPaths[0].keyframes.length-1].easer;
+                }
+                else
+                {
+                    autoPropsEaser = new Sine(.5);
+                }
+            }
             var mp:MotionPath = new MotionPath(s);
             mp.keyframes = new <Keyframe>[new Keyframe(0, null), 
                 new Keyframe(duration, null)];
+            mp.keyframes[1].easer = autoPropsEaser;
             mp.scaleKeyframes(duration);
             if (!motionPaths)
                 motionPaths = new Vector.<MotionPath>();
