@@ -685,7 +685,12 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
     	if (!enabled)
     		return;
     		
-        switch (event.keyCode)
+            
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                        
+        switch (keyCode)
         {
             case Keyboard.DOWN:
             {
