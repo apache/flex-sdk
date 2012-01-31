@@ -29,6 +29,8 @@ import mx.resources.ResourceManager;
 import mx.styles.StyleManager;
 import flash.utils.Dictionary;
 
+use namespace mx_internal;
+
 [ExcludeClass]
 
 [ResourceBundle("containers")]
@@ -190,7 +192,7 @@ public class CanvasLayout extends Layout
 		
 		for (i = 0; i < target.numChildren; i++)
 		{
-			var child:IUIComponent = target.getChildAt(i) as IUIComponent;
+			var child:IUIComponent = target.getLayoutChildAt(i);
 			parseConstraints(child);
 		}
 		
@@ -249,7 +251,7 @@ public class CanvasLayout extends Layout
 		{
 			for (i = 0; i < n; i++)
 			{
-				child = target.getChildAt(i) as IUIComponent;
+				child = target.getLayoutChildAt(i);
 				parseConstraints(child);
 			}
 			
@@ -276,7 +278,7 @@ public class CanvasLayout extends Layout
 		// these override x, y, width, and height if specified.
 		for (i = 0; i < n; i++)
 		{
-			child = target.getChildAt(i) as IUIComponent;
+			child = target.getLayoutChildAt(i);
 			applyAnchorStylesDuringUpdateDisplayList(viewableWidth, viewableHeight, child);
 		}
 	}
@@ -819,7 +821,7 @@ public class CanvasLayout extends Layout
 		
 		for (i = 0; i < n; i++)
 		{
-			var child:IUIComponent = target.getChildAt(i) as IUIComponent;
+			var child:IUIComponent = target.getLayoutChildAt(i);
 			var childConstraints:LayoutConstraints = getLayoutConstraints(child);
 		
 			if (!child.includeInLayout)
