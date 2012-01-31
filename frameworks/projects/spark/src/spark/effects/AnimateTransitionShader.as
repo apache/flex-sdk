@@ -12,16 +12,19 @@ package mx.effects
 {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
 import flash.display.Shader;
 import flash.display.ShaderData;
 import flash.display.ShaderInput;
 import flash.display.Sprite;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.effects.effectClasses.FxAnimateShaderTransitionInstance;
+import mx.graphics.graphicsClasses.GraphicElement;
 import mx.utils.ObjectUtil;
 
 /**
@@ -40,6 +43,14 @@ import mx.utils.ObjectUtil;
  * goes away or comes into existence during that state change,
  * then a fully-transparent bitmap will be used to represent
  * that object when it does not exist.</p>
+ * 
+ * <p>This effect can only be run on targets that are either 
+ * DisplayObjects or GraphicElements, since capturing the bitmap
+ * of the object requires information about the object that only
+ * exists in these classes.</p>
+ * 
+ * @see mx.graphics.GraphicElement
+ * @see flash.display.DisplayObject
  */
 public class FxAnimateShaderTransition extends FxAnimate
 {
@@ -154,10 +165,30 @@ public class FxAnimateShaderTransition extends FxAnimate
         if (!target.visible || !target.parent)
             return null;
 
-        var bounds:Rectangle = target.getBounds(target);
-        var bmData:BitmapData = new BitmapData(bounds.width, bounds.height, true, 0);
-        var m:Matrix = new Matrix();
-        m.translate(-bounds.x, -bounds.y);
+        return getSnapshot(target);
+    }
+    
+    public static function getSnapshot(target:Object):BitmapData
+    {
+        if (target is GraphicElement)
+            return GraphicElement(target).getBitmapData(true, 0);
+        else if (!(target is DisplayObject))
+            throw new Error("FxAnimateShaderTransition can only operate on" + 
+                    " DisplayObject and GraphicElement instances");
+        // TODO (chaase): Simplify logic here - do we really need both local and
+        // global bounds?
+        // TODO (chaase): Does this utility function belong in a more central
+        // location, like UIComponent, or as part of ImageSnapshot?
+        var targetBounds:Rectangle = target.getBounds(target);
+        var boundsOffset:Point = new Point(targetBounds.x, targetBounds.y);
+        var pixelBounds:Rectangle = target.transform.pixelBounds;
+        var m:Matrix = target.transform.concatenatedMatrix;
+        m.tx = 0;
+        m.ty = 0;
+        boundsOffset = m.transformPoint(boundsOffset);
+        m.translate(-boundsOffset.x, -boundsOffset.y);
+        var bmData:BitmapData = new BitmapData(pixelBounds.width, 
+            pixelBounds.height, true, 0);
         bmData.draw(IBitmapDrawable(target), m);
 
         return bmData;
