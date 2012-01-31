@@ -586,7 +586,7 @@ public class GridColumn extends EventDispatcher
      *  If this property is null, and the column grid's owner is a DataGrid control, 
      *  then the value of the DataGrid control's <code>itemEditor</code> property is used.   
      *  If no item editor is specified by the DataGrid control, 
-     *  then use the TextGridItemEditor class.
+     *  then use the DefaultGridItemEditor class.
      * 
      *  <p>The default item editor is the DefaultGridItemEditor class, 
      *  which lets you edit a simple text field. 
