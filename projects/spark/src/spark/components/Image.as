@@ -628,13 +628,30 @@ public class Image extends SkinnableComponent
     //  source
     //----------------------------------
     
+    [Bindable("sourceChanged")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  @private
+     */
+    public function get source():Object          
+    {
+        if (imageDisplay)
+            return imageDisplay.source;
+        else
+            return imageDisplayProperties.source;
+    }
+    
     /**
      *  @copy mx.primitives.BitmapImage#source
      */
     public function set source(value:Object):void
     {
         if (source != value)
-            _invalid = false;
+            return;
+        
+        _loading = false;
+        _invalid = false;
         
         if (imageDisplay)
         {
@@ -646,17 +663,39 @@ public class Image extends SkinnableComponent
             imageDisplayProperties.source = value;
         
         invalidateSkinState();
+        dispatchEvent(new Event("sourceChanged"));
     }
+       
+    //----------------------------------
+    //  sourceHeight
+    //----------------------------------
     
     /**
-     *  @private
+     *  @copy mx.primitives.BitmapImage#sourceHeight
+     *  @default NaN
      */
-    public function get source():Object          
+    public function get sourceHeight():Number
     {
         if (imageDisplay)
-            return imageDisplay.source;
+            return imageDisplay.sourceHeight;
         else
-            return imageDisplayProperties.source;
+            return NaN;
+    }
+    
+    //----------------------------------
+    //  sourceWidth
+    //----------------------------------
+    
+    /**
+     *  @copy mx.primitives.BitmapImage#sourceWidth
+     *  @default NaN
+     */
+    public function get sourceWidth():Number
+    {
+        if (imageDisplay)
+            return imageDisplay.sourceWidth;
+        else
+            return NaN;
     }
     
     //----------------------------------
