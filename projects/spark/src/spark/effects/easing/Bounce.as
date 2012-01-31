@@ -18,6 +18,8 @@ import mx.effects.easing.Bounce;
  *  pulling on and bouncing the target object. 
  *  The movement of the effect target accelerates toward the end value, 
  *  and then bounces against the end value several times. 
+ *
+ *  @includeExample examples/BounceElasticEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
