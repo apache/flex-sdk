@@ -113,7 +113,7 @@ public class Animation extends EventDispatcher
     private var id:int;
     // TODO: re-think this variable in seeking
     private var _doSeek:Boolean = false;
-    private var _isPlaying:Boolean = true;
+    private var _isPlaying:Boolean = false;
     // TODO: rethink how we do reversing
     private var _doReverse:Boolean = false;
     private var _invertValues:Boolean = false;
@@ -607,23 +607,30 @@ public class Animation extends EventDispatcher
      */
     public function end():void
     {
-        // TODO (chaase): Check whether we already send out a final
-        // UPDATE event with the end value; if so, this dup should be
-        // removed
-        var value:Object = getCurrentValue(duration);
-        
-        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
-        sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
-        
-        for each (var animationTarget:IAnimationTarget in animationTargets)
+        if (_isPlaying)
         {
-            animationTarget.animationEnd(this, value);
-        }           
-
-        // If animation has been added, id >= 0
-        // but if duration = 0, this might not be the case.
-        if (id >= 0)
-            Animation.removeAnimationAt(id);
+            // TODO (chaase): Check whether we already send out a final
+            // UPDATE event with the end value; if so, this dup should be
+            // removed
+            var value:Object = getCurrentValue(duration);
+            
+            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
+            sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
+            
+            for each (var animationTarget:IAnimationTarget in animationTargets)
+            {
+                animationTarget.animationEnd(this, value);
+            }           
+    
+            // If animation has been added, id >= 0
+            // but if duration = 0, this might not be the case.
+            if (id >= 0)
+                Animation.removeAnimationAt(id);
+            
+            _invertValues = false;
+            _doReverse = false;
+            _isPlaying = false;
+        }
     }
 
     /**
@@ -776,6 +783,10 @@ public class Animation extends EventDispatcher
     {
         if (id >= 0)
             Animation.removeAnimationAt(id);
+            
+        _doReverse = false
+        _invertValues = false;
+        _isPlaying = false;
     }
     
     /**
@@ -833,7 +844,6 @@ public class Animation extends EventDispatcher
     private function start(event:TimerEvent = null):void
     {
         numRepeats = 1;
-        
         setupInterpolation();
         setupEasing();
         
@@ -855,6 +865,7 @@ public class Animation extends EventDispatcher
             sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
             sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
             Animation.addAnimation(this);
+            _isPlaying = true;
         }
     }
 
