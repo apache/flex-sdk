@@ -21,15 +21,16 @@ import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
-import mx.core.InvalidatingSprite;
 import mx.core.mx_internal;
 import mx.events.ElementExistenceEvent;
 import mx.graphics.IGraphicElement;
 import mx.graphics.baseClasses.TextGraphicElement;
+import mx.graphics.ISharedDisplayObject;
 import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
+import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
 
 use namespace mx_internal;
 
@@ -75,16 +76,16 @@ use namespace mx_internal;
  *  @includeExample examples/GroupExample.mxml
  *
  */
-public class Group extends GroupBase implements IVisualElementContainer
+public class Group extends GroupBase implements IVisualElementContainer, ISharedGraphicsDisplayObject
 {
     /**
      *  Constructor.
      */
     public function Group():void
     {
-        super();      
+        super();    
     }
-    
+
     private var needsDisplayObjectAssignment:Boolean = false;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     private var numGraphicElements:uint = 0;
@@ -241,7 +242,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         else
             return null;
     }
-     
+    
     /**
      *  @private
      */
@@ -254,9 +255,9 @@ public class Group extends GroupBase implements IVisualElementContainer
         else
         {
             mxmlContentChanged = true;
-            _mxmlContent = value;
+        _mxmlContent = value;
             // we will validate this in createChildren();
-        }
+    }
     }
     
 
@@ -354,7 +355,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function validateSize(recursive:Boolean = false):void
     {
-        // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
+        // Since IGraphicElement is not ILayoutManagerClient, we need to make sure we
         // validate sizes of the elements, even in cases where recursive==false.
         
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
@@ -379,9 +380,12 @@ public class Group extends GroupBase implements IVisualElementContainer
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {    	
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
+        
+        // Clear the group's graphic because graphic elements might be drawing to it
         // This isn't needed for DataGroup because there's no DisplayObject sharing
+        var sharedDisplayObject:ISharedDisplayObject = this;
+        if (sharedDisplayObject.redrawRequested)
+            graphics.clear();
         
         // Iterate through the graphic elements. If an element has a displayObject that has been 
         // invalidated, then validate all graphic elements that draw to this displayObject. 
@@ -390,50 +394,50 @@ public class Group extends GroupBase implements IVisualElementContainer
         if (numGraphicElements > 0)
         {
 	        var length:int = numElements;
-	        var currentSharedSprite:InvalidatingSprite;
 	        for (var i:int = 0; i < length; i++)
 	        {
 	            var element:IGraphicElement = getElementAt(i) as IGraphicElement;
-	            if (element)
-	            {
-	            	var elementSprite:InvalidatingSprite = element.displayObject as InvalidatingSprite;
-	            	var elementHasOwnDisplayObject:Boolean = element.needsDisplayObject;
-	            	// Each element must either have a displayObject or sharedDisplayObject property
-	            	// if the element has a layer set on it, then it's rendering into its own display object.  
-	            	// in that case, calling the previous invalidating display object is incorrect, because the subsequent 
-	            	// element might still be sharing the DO with the previous element. But then we know that this one has
-	            	// its own display object. If that's the case, we can just update this one, and continue on with our grouping logic
-	            	// as though we never saw this one. 
-	            	// 
-	            	if (!elementHasOwnDisplayObject && elementSprite)
+	            if (!element)
+	               continue;
+
+	            // Do a special check for layer, we may stumble upon an element with layer != 0
+	            // before we're done with the current shared sequence and we don't want to mark
+	            // the sequence as valid, until we reach the next sequence.   
+                if (element.layer == 0)
+                {
+                    // Is this the start of a new shared sequence?         	
+	            	if (element.shareIndex <= 0)
 	            	{
-	            		if (currentSharedSprite)
-	            		{
-		            		// Reached a new display object, so mark the previous DisplayObject valid
-		            		currentSharedSprite.invalid = false;
-	            		}
-	            		
-	            		currentSharedSprite = elementSprite;
+	            	    // We have finished redrawing the previous sequence
+	            	    if (sharedDisplayObject)
+	            	        sharedDisplayObject.redrawRequested = false;
+	            	    
+	            	    // Start the new sequence
+                        sharedDisplayObject = element.displayObject as ISharedDisplayObject;
 	            	}
 	            	
-	            	// currentSharedSprite is null if the Group is the sharedDisplayObject.            	
-	            	if (elementSprite == null || elementSprite.invalid) 
-	            	{
+	            	if (!sharedDisplayObject || sharedDisplayObject.redrawRequested) 
 	            		element.validateDisplayList();
-		            	if(elementHasOwnDisplayObject && elementSprite)
-		            	{
-		            		//we're about to forget about this invalidating displayobject, so mark it valid
-		            		elementSprite.invalid = false;
-		            	}
-	            	} 
-	
+	            }
+	            else
+	            {
+	                // If we have layering, we don't share the display objects.
+	                // Don't update the current sharedDisplayObject 
+	                var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
+	                if (!elementDisplayObject || elementDisplayObject.redrawRequested)
+	                {
+	                   element.validateDisplayList();
+
+	                   if (elementDisplayObject)
+                           elementDisplayObject.redrawRequested = false;
+	                }
 	            }
 	        }
-	        
-	        // Mark the last shared displayObject valid
-	        if (currentSharedSprite)
-	        	currentSharedSprite.invalid = false;
         }
+	        
+        // Mark the last shared displayObject valid
+        if (sharedDisplayObject)
+            sharedDisplayObject.redrawRequested = false;
         
         if (scaleGridChanged)
         {
@@ -809,6 +813,10 @@ public class Group extends GroupBase implements IVisualElementContainer
         if (child is IStyleClient)
             IStyleClient(child).notifyStyleChangeInChildren(null, true);
 
+        // TODO EGeorgie: why do we need this here? We should not be hard-coding
+        // against concrete GraphicElement types, maybe move this to a different
+        // interface (IGraphicElement or IAdvancedStyleClient)?
+        //
         // Inform the component that it's style properties
         // have been fully initialized. Most components won't care,
         // but some need to react to even this early change.
@@ -822,10 +830,48 @@ public class Group extends GroupBase implements IVisualElementContainer
     mx_internal function removingGraphicElementChild(child:IGraphicElement):void
     {
         child.parentChanged(null);
-        child.sharedDisplayObject = null;
+        discardDisplayObject(child);        
+    }
+
+    /**
+     *  Removes the element's <code>DisplayObject</code> from this <code>Group's</code>
+     *  display list and sets the element's <code>displayObject</code> property to null.
+     *
+     *  The <code>Group</code> also ensures any elements that share the
+     *  <code>DisplayObject</code> will be redrawn.
+     * 
+     *  <p>This method doesn't trigger new <code>DisplayObject</code> reassignment.
+     *  To request new display object reassignment, call the
+     *  <code>graphicElementLayerChanged</code> method.</p> 
+     *
+     *  @param element The graphic element whose display object will be discarded.
+     *  @see #graphicElementLayerChanged
+     */
+    public function discardDisplayObject(element:IGraphicElement):void
+    {
+        var oldDisplayObject:DisplayObject = element.displayObject;
+        element.displayObject = null;
         
-        if (child.displayObject)
-            super.removeChild(child.destroyDisplayObject());
+        if (!oldDisplayObject)
+            return;
+
+        // If the element created the display object
+        if (element.shareIndex <= 0)
+        {
+            super.removeChild(oldDisplayObject);
+
+            // Redo the shared sequences. 
+            invalidateDisplayObjectOrdering();
+        }
+        else if (oldDisplayObject is ISharedDisplayObject)
+        {
+            // Redraw the shared sequence
+            ISharedDisplayObject(oldDisplayObject).redrawRequested = true;
+
+            // Make sure we do a pass through the graphic elements and redraw
+            // the invalid ones.  We should only redraw, no need to redo the layout.
+            super.$invalidateDisplayList();
+        }
     }
     
     /**
@@ -886,10 +932,16 @@ public class Group extends GroupBase implements IVisualElementContainer
         var topLayerItems:Vector.<IVisualElement>;
         var bottomLayerItems:Vector.<IVisualElement>;        
         var keepLayeringEnabled:Boolean = false;
+        var insertIndex:int = 0;
         
-        mergeData.currentAssignableDO  = canShareDisplayObject ? this : null;
-        mergeData.insertIndex = 0;
-
+        // Keep track of the previous IVisualElement.  This is used when
+        // assigning DisplayObjects to the IGraphicElements.
+        // If the Group can share its DisplayObject with the IGraphicElements
+        // then initialize the prevItem with this Group object.
+        var prevItem:IVisualElement;
+        if (canShareDisplayObject)
+            prevItem = this;
+            
         // Iterate through all of the items
         var len:int = numElements; 
         for (var i:int = 0; i < len; i++)
@@ -918,7 +970,8 @@ public class Group extends GroupBase implements IVisualElementContainer
             
             // this should only get called if layer == 0, or we don't care
             // about layering (layeringMode == ITEM_ORDERED_LAYERING)
-            assignDisplayObjectTo(item,mergeData);
+            insertIndex = assignDisplayObjectTo(item, prevItem, insertIndex);
+            prevItem = item;
         }
         
         // we've done all layer == 0 items. 
@@ -934,15 +987,15 @@ public class Group extends GroupBase implements IVisualElementContainer
             len = topLayerItems.length;
             for (i=0;i<len;i++)
             {
-                assignDisplayObjectTo(topLayerItems[i],mergeData);
+                // For layer != 0, we never share display objects
+                insertIndex = assignDisplayObjectTo(topLayerItems[i], null /*prevElement*/, insertIndex);
             }
         }
         
         if (bottomLayerItems != null)
         {
             keepLayeringEnabled = true;
-            mergeData.currentAssignableDO  = null;
-            mergeData.insertIndex = 0;
+            insertIndex = 0;
 
             //bottomLayerItems.sortOn("layer",Array.NUMERIC);
             GroupBase.mx_internal::sortOnLayer(bottomLayerItems);
@@ -950,7 +1003,8 @@ public class Group extends GroupBase implements IVisualElementContainer
 
             for (i=0;i<len;i++)
             {
-                assignDisplayObjectTo(bottomLayerItems[i],mergeData);
+                // For layer != 0, we never share dsiplay objects
+                insertIndex = assignDisplayObjectTo(bottomLayerItems[i], null /*prevElement*/, insertIndex);
             }
         }
         
@@ -962,53 +1016,125 @@ public class Group extends GroupBase implements IVisualElementContainer
         // If the layer property changes on a current element, invalidateLayering()
         // will be called and layeringMode will get set to SPARSE_LAYERING.
         if (keepLayeringEnabled == false)
-            layeringMode = ITEM_ORDERED_LAYERING; 
+            layeringMode = ITEM_ORDERED_LAYERING;
+            
+        // Make sure we do a pass through the graphic elements and redraw
+        // the invalid ones.  We should only redraw, no need to redo the layout.
+        super.$invalidateDisplayList();
     }
     
- 
     /**
      *  @private
+     *  Assigns a DisplayObject to the curElement and ensures the DisplayObject
+     *  is at insertIndex in the display object list.
+     * 
+     *  If <code>curElement</code> implements IGraphicElement, then both its
+     *  DisplayObject and shareIndex will be updated.
+     * 
+     *  @curElement The current element to assign DisplayObject to
+     *  @prevEelement The previous element in the list of elements or null.
+     *  @return Returns the display list index after the current element's
+     *  DisplayObject.
      */
-    private function assignDisplayObjectTo(element:IVisualElement,mergeData:GroupDisplayObjectMergeData):void
-    {   
-        if (element is DisplayObject)
+    private function assignDisplayObjectTo(curElement:IVisualElement,
+                                           prevElement:IVisualElement,
+                                           insertIndex:int):int
+    {
+        if (curElement is DisplayObject)
         {
-            super.setChildIndex(element as DisplayObject, mergeData.insertIndex);
-            
-            mergeData.insertIndex++;
-            // Null this out so that we are forced to create one for the next item
-            mergeData.currentAssignableDO = null; 
-        }           
-        else if (element is IGraphicElement)
+            super.setChildIndex(curElement as DisplayObject, insertIndex++);
+        }
+        else if (curElement is IGraphicElement)
         {
-            var graphicElement:IGraphicElement = element as IGraphicElement;
+            var current:IGraphicElement = IGraphicElement(curElement);
+            var previous:IGraphicElement = prevElement as IGraphicElement;
             
-            if (mergeData.currentAssignableDO == null || graphicElement.needsDisplayObject)
+            // Previous IGraphicElement can share with us if it's already sharing
+            // the DisplayObject in a sequence, or if it can share its DisplayObject.
+            var previousCanDrawToShared:Boolean = previous && !previous.closeSequence() &&
+                (previous.shareIndex > 0 ||
+                 (previous.displayObject is ISharedDisplayObject &&
+                 previous.canDrawToShared(previous.displayObject)));
+
+            // Can we share the display object of the previous IGraphicElement?
+            if (previousCanDrawToShared && current.canDrawToShared(previous.displayObject))
             {
-                var newChild:DisplayObject = graphicElement.displayObject;
-                
-                if (newChild == null)
-                    newChild = graphicElement.createDisplayObject();
-                
-                addItemToDisplayList(newChild, element, mergeData.insertIndex); 
-                // If the element is transformed, the next item needs its own DO        
-                mergeData.currentAssignableDO = graphicElement.nextSiblingNeedsDisplayObject ? null : newChild;
-                mergeData.insertIndex++;
+                // If we are the second element in the shared sequence,
+                // make sure that the first element has the correct sharedIndex
+                if (previous.shareIndex == -1)
+                    previous.shareIndex = 0;
+
+                setSharedDisplayObject(current, previous.shareIndex + 1, previous.displayObject);
+            }
+            else if (prevElement == this && current.canDrawToShared(this))
+            {
+                setSharedDisplayObject(current, 1, this);
             }
             else
             {
-                // Item should be assigned the currentAssignableDO
-                // If it already has a DO, we need to remove it
-                if (graphicElement.displayObject)
-                    super.removeChild(graphicElement.destroyDisplayObject());
-                
-                graphicElement.sharedDisplayObject = mergeData.currentAssignableDO;
-                if (graphicElement.nextSiblingNeedsDisplayObject)
-                    mergeData.currentAssignableDO = null;
+                // We don't want to create new DisplayObjects for elements that
+                // already have created their own their display objects.
+                var ownsDisplayObject:Boolean = current.shareIndex <= 0;
+
+                // If the element doesn't have a DisplayObject or it doesn't own
+                // the DisplayObject it currently has, then create a new one
+                var displayObject:DisplayObject = current.displayObject;
+                if (!ownsDisplayObject || !displayObject)
+                    displayObject = current.createDisplayObject();
+
+                // Make sure the DisplayObject is at the correct position.
+                // Check displayObject for null, some graphic elements
+                // may choose not to create a DisplayObject during this pass.
+                if (displayObject)
+                    addItemToDisplayList(displayObject, current, insertIndex++);
+
+                setSharedDisplayObject(current, -1, displayObject);
             }
         }
-    } 
-   
+        return insertIndex;
+    }
+
+    /**
+     *  @private
+     *  Assigns the specified shareIndex and displayObject to the element.
+     *  Performs invalidation of the old and new shared sequenences.
+     *  If necesary, removes the old display object from the list.
+     *  Does not invalidate the Group's display list.
+     */
+    private function setSharedDisplayObject(element:IGraphicElement,
+                                            shareIndex:int, 
+                                            displayObject:DisplayObject):void
+    {
+        // Make sure we remove or mark for redraw the old displayObject
+        var oldDisplayObject:DisplayObject = element.displayObject;
+        var oldShareIndex:int = element.shareIndex;
+
+        if (oldDisplayObject == displayObject && oldShareIndex == shareIndex)
+            return;
+
+        // Set the new index and DisplayObject
+        element.shareIndex = shareIndex;
+        element.displayObject = displayObject;
+
+        // We don't care about changes from -1 to 0
+        var shareIndexChanged:Boolean = (shareIndex != oldShareIndex && (oldShareIndex > 0 || shareIndex > 0 ));
+
+        // Make sure we redraw the display object        
+        if (shareIndexChanged || displayObject != oldDisplayObject)
+        {
+            if (displayObject is ISharedDisplayObject)
+                ISharedDisplayObject(displayObject).redrawRequested = true;
+
+            // Old display object also needs to be redrawn, in case any other GE still uses it.
+            if (oldDisplayObject is ISharedDisplayObject)
+                ISharedDisplayObject(oldDisplayObject).redrawRequested = true;
+        }
+
+        // Make sure we remove the old display object, if needed
+        if (oldDisplayObject && oldDisplayObject != displayObject && oldShareIndex <= 0)
+            super.removeChild(oldDisplayObject);
+    }
+
     /**
      *  Remove an item from another group or display list
      *  before adding it to this display list.
@@ -1047,12 +1173,56 @@ public class Group extends GroupBase implements IVisualElementContainer
     }
     
     /**
-     *  @private
+     *  Notify the host that an element has changed and needs to be redrawn.
+     *  Group will call <code>validateDisplayList()</code> on the IGraphicElement
+     *  to give it a chance to redraw.
+     *
+     *  @param element The element that has changed.
      */
-    override mx_internal function graphicElementLayerChanged(e:IGraphicElement):void
+    public function graphicElementChanged(element:IGraphicElement):void
     {
-        super.graphicElementLayerChanged(e);
-        
+        if (element.displayObject is ISharedDisplayObject)
+            ISharedDisplayObject(element.displayObject).redrawRequested = true;
+
+        // Invalidate display list only, no need to run the layout.
+        super.$invalidateDisplayList();
+    }
+    
+    /**
+     *  Notify the host that an element has changed and needs to validate properties.
+     *  Group will call <code>validateProperties()</code> on the IGraphicElement
+     *  to give it a chnace to commit its properties.
+     *
+     *  @param element The element that has changed.
+     */
+    public function graphicElementPropertiesChanged(element:IGraphicElement):void
+    {
+        invalidateProperties();        
+    }
+
+    /**
+     *  Notify the host that an element size has changed.
+     *  Group will call <code>validateSize()</code> on the IGraphicElement
+     *  to give it a chance to validate its size.
+     * 
+     *  @param element The element that has changed size.
+     */
+    public function graphicElementSizeChanged(element:IGraphicElement):void
+    {
+        // Invalidate the size only, no need to run the layout. 
+        // Later on, if the size changes, then a layout pass will be triggered.
+        super.$invalidateSize();
+    }
+    
+    /**
+     *  Notify the host that an element layer has changed.
+     *  Group will re-evaluate the sequences of elements with shared DisplayObjects
+     *  and may re-assign the DisplayObjects and redraw the sequences as a result. 
+     * 
+     *  @param element The element that has layers size.
+     */
+    public function graphicElementLayerChanged(element:IGraphicElement):void
+    {
         // One of our children have told us they might need a displayObject     
         invalidateDisplayObjectOrdering();
     }
@@ -1188,7 +1358,6 @@ public class Group extends GroupBase implements IVisualElementContainer
             scaleGridChanged = true;
             invalidateDisplayList();
         }
-
     }
     
     /**
@@ -1296,16 +1465,33 @@ public class Group extends GroupBase implements IVisualElementContainer
         throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  ISharedDisplayObject
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _redrawRequested:Boolean = false;
+
+    /**
+     *  True when any of the <code>IGraphicElement</code> objects, that share
+     *  this <code>DisplayObject</code>, needs to redraw.  This is used internally
+     *  by the <code>Group</code> class and developers don't typically use this. 
+     */
+    public function get redrawRequested():Boolean
+    {
+        return _redrawRequested;
+    }
+
+    /**
+     *  @private
+     */
+    public function set redrawRequested(value:Boolean):void
+    {
+        _redrawRequested = value;
+    }
 }
 }
-
-
-import flash.display.DisplayObject; 
-
-class GroupDisplayObjectMergeData
-{
-    public var currentAssignableDO:DisplayObject;
-    public var insertIndex:int;
-}
-
-const mergeData:GroupDisplayObjectMergeData = new GroupDisplayObjectMergeData();
