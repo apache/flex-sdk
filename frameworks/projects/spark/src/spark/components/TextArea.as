@@ -9,15 +9,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 	
 import flash.events.Event;
 
-import mx.components.baseClasses.FxTextBase;
+import spark.components.supportClasses.TextBase;
 import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
-import mx.events.TextOperationEvent;
+import spark.events.TextOperationEvent;
 
 //--------------------------------------
 //  Other metadata
@@ -35,7 +35,7 @@ import mx.events.TextOperationEvent;
 
 [DefaultProperty("content")]
 
-[IconFile("FxTextArea.png")]
+[IconFile("TextArea.png")]
 
 /**
  *  Normal State
@@ -60,14 +60,14 @@ import mx.events.TextOperationEvent;
 /**
  *  Documentation is not currently available.
  *
- *  @includeExample examples/FxTextAreaExample.mxml
+ *  @includeExample examples/TextAreaExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxTextArea extends FxTextBase
+public class TextArea extends TextBase
 {
     include "../core/Version.as";
 
@@ -85,7 +85,7 @@ public class FxTextArea extends FxTextBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-	public function FxTextArea()
+	public function TextArea()
 	{
 		super();
 	}
@@ -293,14 +293,14 @@ public class FxTextArea extends FxTextBase
     [SkinPart(required="false")]
 
     /**
-     *  The optional FxScroller used to scroll the TextView.
+     *  The optional Scroller used to scroll the RichEditableText.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var scroller:FxScroller;
+    public var scroller:Scroller;
 
 	//----------------------------------
 	//  verticalScrollPolicy
@@ -398,7 +398,7 @@ public class FxTextArea extends FxTextBase
         
 	/**
 	 *  @private
-	 *  Pushes various TextInput properties down into the TextView. 
+	 *  Pushes various TextInput properties down into the RichEditableText. 
 	 */
     override protected function commitProperties():void
 	{
@@ -446,12 +446,12 @@ public class FxTextArea extends FxTextBase
 
 		if (instance == textView)
 		{
-			// Set the TextView to allow multiple lines of input.  
-			// In default.css, the FxTextArea selector has a declaration
+			// Set the RichEditableText to allow multiple lines of input.  
+			// In default.css, the TextArea selector has a declaration
 			// for lineBreak which sets it to "toFit".  It needs to be on
-			// FxTextArea rather than TextView so that if changed later it
+			// TextArea rather than RichEditableText so that if changed later it
 			// will be inherited.  It needs to be set with the default
-			// before the possibility that it is changed when FxTextArea is
+			// before the possibility that it is changed when TextArea is
 			// created.  In this case, setting it here, would overwrite
 			// that change.
 			textView.heightInLines = 10;
@@ -525,7 +525,7 @@ public class FxTextArea extends FxTextBase
 
 	//--------------------------------------------------------------------------
     //
-    //  Overridden event handlers: FxTextBase
+    //  Overridden event handlers: TextBase
     //
     //--------------------------------------------------------------------------
 
@@ -538,14 +538,14 @@ public class FxTextArea extends FxTextBase
 		// Note: We don't call the superhandler here
         // because it immediately fetches textView.text
         // to extract the text from the TextFlow.
-        // That's too expensive for an FxTextArea,
+        // That's too expensive for an TextArea,
         // which might have a lot of leaf nodes.
         
         // Update our storage variable for the content.
 		_content = textView.content;
         textInvalid = true;
 
-		// Redispatch the event that came from the TextView.
+		// Redispatch the event that came from the RichEditableText.
 		dispatchEvent(event);
 	}
 
