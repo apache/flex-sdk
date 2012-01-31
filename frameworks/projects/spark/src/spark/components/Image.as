@@ -647,7 +647,7 @@ public class Image extends SkinnableComponent
      */
     public function set source(value:Object):void
     {
-        if (source != value)
+        if (source == value)
             return;
         
         _loading = false;
