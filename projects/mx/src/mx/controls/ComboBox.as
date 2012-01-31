@@ -1730,7 +1730,7 @@ public class ComboBox extends ComboBase
         }
         
         
-        var m:Matrix = MatrixUtil.getConcatenatedMatrix(this, true /*excludingRootSprite*/);
+        var m:Matrix = MatrixUtil.getConcatenatedMatrix(this, systemManager.getSandboxRoot());
         _dropdown.scaleX = m.a; //scale x
         _dropdown.scaleY = m.d; //scale y
         
