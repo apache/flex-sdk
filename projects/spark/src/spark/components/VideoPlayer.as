@@ -1526,8 +1526,8 @@ public class VideoPlayer extends SkinnableComponent
             
             scrubBar.addEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.addEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
-            scrubBar.addEventListener(Event.CHANGE, scrubBar_changeHandler);
-            scrubBar.addEventListener(FlexEvent.CHANGING, scrubBar_changingHandler);
+            scrubBar.addEventListener(FlexEvent.CHANGE_END, scrubBar_changeEndHandler);
+            scrubBar.addEventListener(FlexEvent.CHANGE_START, scrubBar_changeStartHandler);
         }
         else if (instance == fullScreenButton)
         {
@@ -1669,8 +1669,8 @@ public class VideoPlayer extends SkinnableComponent
         {
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
-            scrubBar.removeEventListener(Event.CHANGE, scrubBar_changeHandler);
-            scrubBar.removeEventListener(FlexEvent.CHANGING, scrubBar_changingHandler);
+            scrubBar.removeEventListener(FlexEvent.CHANGE_END, scrubBar_changeEndHandler);
+            scrubBar.removeEventListener(FlexEvent.CHANGE_START, scrubBar_changeStartHandler);
         }
         else if (instance == fullScreenButton)
         {
@@ -2234,7 +2234,7 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function scrubBar_changingHandler(event:Event):void
+    private function scrubBar_changeStartHandler(event:Event):void
     {
         scrubBarChanging = true;
     }
@@ -2268,7 +2268,7 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function scrubBar_changeHandler(event:Event):void
+    private function scrubBar_changeEndHandler(event:Event):void
     {
         seek(scrubBar.value);
         
