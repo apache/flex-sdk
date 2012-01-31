@@ -1624,17 +1624,18 @@ public class RichEditableText extends UIComponent
 
         if (focusManager)
         {
-            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
-                _textContainerManager.activateHandler, false, 0, true)
-            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
-                _textContainerManager.deactivateHandler, false, 0, true)
+            addActivateHandlers();
         }
         else
         {
             // if no focusmanager yet, add capture phase to detect when it
             // gets added
-            systemManager.getSandboxRoot().addEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
+            if (systemManager)
+                systemManager.getSandboxRoot().addEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
                     addFocusManagerHandler, true, 0, true)
+            else
+                // no systemManager yet?  Check again when added to stage
+                addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         }
 
     }
@@ -3139,6 +3140,31 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  find the right time to listen to the focusmanager
+     */
+    private function addedToStageHandler(event:Event):void
+    {
+        if (event.target == this)
+        {
+            removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+            callLater(addActivateHandlers);
+        }    
+    }
+
+    /**
+     *  @private
+     *  add listeners to focusManager
+     */
+    private function addActivateHandlers():void
+    {
+        focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+            _textContainerManager.activateHandler, false, 0, true)
+        focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+            _textContainerManager.deactivateHandler, false, 0, true)
+    }
+
+    /**
+     *  @private
      *  Called when a FocusManager is added to an IFocusManagerContainer.
      *  We need to check that it belongs
      *  to us before listening to it.
@@ -3151,10 +3177,7 @@ public class RichEditableText extends UIComponent
         {
             systemManager.getSandboxRoot().removeEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
                     addFocusManagerHandler, true)
-            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
-                _textContainerManager.activateHandler, false, 0, true)
-            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
-                _textContainerManager.deactivateHandler, false, 0, true)
+            addActivateHandlers();
         }
     }
 
