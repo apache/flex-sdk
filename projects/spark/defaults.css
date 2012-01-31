@@ -112,14 +112,16 @@ FxComponent
    two selectors: TextGraphicElement, and TextView. */
 TextGraphicElement
 {
-    fontFamily: Arial;
-    fontSize: 12;
     color: 0;
+    fontFamily: "Arial";
+    fontSize: 12;
+    textAlign: "start";
 }
 
 TextView
 {
-    fontFamily: Arial;
-    fontSize: 12;
     color: 0;
+    fontFamily: "Arial";
+    fontSize: 12;
+    textAlign: "start";
 }
