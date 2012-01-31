@@ -35,6 +35,7 @@ import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.rpc.AsyncDispatcher;
 import mx.utils.URLUtil;
 
 use namespace mx_internal;
@@ -1310,8 +1311,6 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private function failover():void
     {
-        var timer:Timer = null;
-        
         // Potentially enter reliable reconnect loop.
         if (_previouslyConnected)
         {
@@ -1342,9 +1341,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 setReconnecting(true);
                 reliableReconnectDuration = duration;
                 _reliableReconnectBeginTimestamp = new Date().valueOf();
-                timer = new Timer(1, 1);
-                timer.addEventListener(TimerEvent.TIMER, reconnect);
-                timer.start();
+                new AsyncDispatcher(reconnect, null, 1);
                 return; // Exit early.
             }
         }
@@ -1361,9 +1358,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 delay << ++_reliableReconnectAttempts;
                 if (delay < remaining)
                 {
-                    timer = new Timer(delay, 1);
-                    timer.addEventListener(TimerEvent.TIMER, reconnect);
-                    timer.start();
+                    new AsyncDispatcher(reconnect, null, delay);
                     return; // Exit early. 
                 }
             }
@@ -1395,9 +1390,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
             // enough and the failover scenario rare enough that special casing 
             // this for only NetConnection channels is more trouble than it's 
             // worth. 
-            timer = new Timer(1, 1);
-            timer.addEventListener(TimerEvent.TIMER, reconnect);
-            timer.start();            
+            new AsyncDispatcher(reconnect, null, 1);          
         }
         else
         {
@@ -1436,7 +1429,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  reconnect issue with NetConnection based channels by invoking 
      *  internalConnect() after a slight delay.
      */
-    private function reconnect(event:TimerEvent):void
+    private function reconnect(event:TimerEvent=null):void
     {
         internalConnect();
     }
@@ -1475,6 +1468,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
         if (_connectTimer != null)
         {
             _connectTimer.stop();
+            _connectTimer.removeEventListener(TimerEvent.TIMER, connectTimeoutHandler);
     	    _connectTimer = null;
         }
     }
