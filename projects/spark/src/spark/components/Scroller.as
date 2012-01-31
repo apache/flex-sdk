@@ -767,8 +767,8 @@ public class Scroller extends SkinnableComponent
     
     // To avoid unconditionally linking the RichEditableText class we lazily
     // get a reference if it's been linked already.  See below.
-    private static var textViewClassLoaded:Boolean = false;
-    private static var textViewClass:Class = null;
+    //private static var textDisplayClassLoaded:Boolean = false;
+    //private static var textDisplayClass:Class = null;
 
     private function skin_mouseWheelHandler(event:MouseEvent):void
     {
@@ -784,14 +784,14 @@ public class Scroller extends SkinnableComponent
         if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
             return;    
 
-        if (!textViewClassLoaded)
+        if (!textDisplayClassLoaded)
         {
-            textViewClassLoaded = true;
+            textDisplayClassLoaded = true;
             const s:String = "spark.components.RichEditableText";
             if (ApplicationDomain.currentDomain.hasDefinition(s))
-                textViewClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
+                textDisplayClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
         }
-        if (textViewClass && (focusOwner is textViewClass))
+        if (textDisplayClass && (focusOwner is textDisplayClass))
             return;*/
 
         var nSteps:uint = Math.abs(event.delta);
