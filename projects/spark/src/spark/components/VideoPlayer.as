@@ -1276,6 +1276,8 @@ public class VideoPlayer extends SkinnableComponent
      *  @copy spark.components.VideoDisplay#scaleMode
      * 
      *  @default "letterbox"
+     *
+     *  @see org.osmf.display.ScaleMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
