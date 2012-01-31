@@ -41,6 +41,10 @@ use namespace mx_internal;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  Indicates under what conditions the horizontal scroll bar is displayed.
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
  *  @copy spark.components.Scroller#style:horizontalScrollPolicy
  * 
  *  @langversion 3.0
@@ -51,6 +55,10 @@ use namespace mx_internal;
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 /**
+ *  Indicates under what conditions the vertical scroll bar is displayed.
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
  *  @copy spark.components.Scroller#style:verticalScrollPolicy
  * 
  *  @langversion 3.0
@@ -276,9 +284,9 @@ use namespace mx_internal;
  *    widthInChars="<i>Calculated default</i>"  <b>[Spark theme only]</b>
  *  
  *    <strong>Styles</strong>
- *    horizontalScrollPolicy="auto" 
+ *    horizontalScrollPolicy="auto"  <b>[Spark theme only]</b>
  *    symbolColor=""
- *    verticalScrollPolicy="auto"
+ *    verticalScrollPolicy="auto"  <b>[Spark theme only]</b>
  *  /&gt;
  *  </pre>
  *
