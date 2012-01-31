@@ -66,6 +66,13 @@ use namespace mx_internal;
 [SkinState("disabled")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="verticalAlign", kind="style")]
+[Exclude(name="lineBreak", kind="style")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
