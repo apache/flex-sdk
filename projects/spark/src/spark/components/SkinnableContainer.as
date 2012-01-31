@@ -13,11 +13,14 @@ package flex.component
 {
 
 import flex.core.Group;
+import flex.core.IDeferredContentOwner;
 import flex.core.SkinnableComponent;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 
 import mx.collections.IList;
+import mx.core.ContainerCreationPolicy;
+import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
@@ -34,6 +37,13 @@ import mx.managers.IFocusManagerContainer;
 [Event(name="contentChanged", type="flex.events.FlexEvent")]
 
 /**
+ *  Sent after the content for this component has been created. With deferred 
+ *  instantiation, the content for a component may be created long after the 
+ *  component is created.
+ */
+[Event(name="contentCreationComplete", type="flex.events.FlexEvent")]
+
+/**
  *  Dispatched when an item is added to the component.
  *  event.relatedObject is the visual item that was added.
  */
@@ -45,14 +55,15 @@ import mx.managers.IFocusManagerContainer;
  */
 [Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
 
-[DefaultProperty("content")]
+[DefaultProperty("contentFactory")]
 
 /**
  * The ItemsComponent class is the base class for all skinnable components that have 
  * content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class ItemsComponent extends SkinnableComponent implements IFocusManagerContainer
+public class ItemsComponent extends SkinnableComponent 
+	   implements IFocusManagerContainer, IDeferredContentOwner
 {
     include "../core/Version.as";
 
@@ -65,385 +76,494 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
     /**
      *  Constructor. 
      */
-	public function ItemsComponent()
-	{
-		super();
-		
-		tabChildren = true;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Skin Parts
-	//
-	//--------------------------------------------------------------------------
-	
-	[SkinPart]
-	public var contentGroup:Group;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties 
-	//
-	//--------------------------------------------------------------------------
+    public function ItemsComponent()
+    {
+        super();
+        
+        tabChildren = true;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin Parts
+    //
+    //--------------------------------------------------------------------------
+    
+    [SkinPart]
+    public var contentGroup:Group;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties 
+    //
+    //--------------------------------------------------------------------------
 
-	// Used to hold the content until the contentGroup is created. 
-	private var _placeHolderGroup:Group;
+    // Used to hold the content until the contentGroup is created. 
+    private var _placeHolderGroup:Group;
+    
+    protected function get currentContentGroup():Group
+    {          
+	    createContentIfNeeded();
 	
-	protected function get currentContentGroup():Group
-	{
-		if (!contentGroup)
-		{
-			if (!_placeHolderGroup)
-			{
-				_placeHolderGroup = new Group();
-				
-				if (_content)
-					_placeHolderGroup.content = _content;
-				
-				_placeHolderGroup.addEventListener(
-					ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
-				_placeHolderGroup.addEventListener(
-					ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-				_placeHolderGroup.addEventListener(
-				    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-				_placeHolderGroup.addEventListener(
-				    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
-			}
-			return _placeHolderGroup;
-		}
-		else
-		{
-			return contentGroup;	
-		}
-	}
+        if (!contentGroup)
+        {
+            if (!_placeHolderGroup)
+            {
+                _placeHolderGroup = new Group();
+				 
+                if (_content)
+                    _placeHolderGroup.content = _content;
+                
+                _placeHolderGroup.addEventListener(
+                    ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                _placeHolderGroup.addEventListener(
+                    ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                _placeHolderGroup.addEventListener(
+                    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+                _placeHolderGroup.addEventListener(
+                    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+            }
+            return _placeHolderGroup;
+        }
+        else
+        {
+            return contentGroup;    
+        }
+    }
+   
+    //----------------------------------
+    //  contentFactory
+    //----------------------------------
+    
+    /** 
+     *  @private
+     *  Backing variable for the contentFactory property.
+     */
+    private var _contentFactory:IDeferredInstance;
+
+	/**
+	 *  @private
+	 *  Flag that indicates whether or not the content has been created.
+	 */
+    private var contentCreated:Boolean = false;
+    
+	/**
+	 *  A factory object that creates the initial value for the
+	 *  content property.
+	 */
+    public function get contentFactory():IDeferredInstance
+    {
+        return _contentFactory;
+    }   
+    
+    public function set contentFactory(value:IDeferredInstance):void
+    {
+        if (value == _contentFactory)
+            return;
+        
+        _contentFactory = value;
+        contentCreated = false;
+    }
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties proxied to contentHolder
-	//
-	//--------------------------------------------------------------------------
-		
-	//----------------------------------
-	//  content
-	//----------------------------------	
-	
-	private var _content:*;
+    //----------------------------------
+    //  creationPolicy
+    //----------------------------------
+    
+	private var _creationPolicy:String = "auto";
 	
 	/**
-	 *  @copy flex.core.Group#content
+	 *  @inheritDoc
 	 */
-	[Bindable]
-	public function get content():*
-	{		
-		if (contentGroup)
-			return contentGroup.content;
-		else if (_placeHolderGroup)
-			return _placeHolderGroup.content;
-		else
-			return _content; 
+	public function get creationPolicy():String
+	{
+		return _creationPolicy;
 	}
 	
-	public function set content(value:*):void
+	public function set creationPolicy(value:String):void
 	{
-		if (value == _content)
+		if (value == _creationPolicy)
 			return;
-			
-		_content = value;	
 		
-		if (contentGroup)
-			contentGroup.content = value;
-		else if (_placeHolderGroup)
-			_placeHolderGroup.content = value;
+		_creationPolicy = value;
 	}
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties proxied to contentHolder
+    //
+    //--------------------------------------------------------------------------
+        
+    //----------------------------------
+    //  content
+    //----------------------------------    
+    
+    private var _content:*;
+    
+    /**
+     *  @copy flex.core.Group#content
+     */
+    [Bindable]
+    public function get content():*
+    { 
+	    // Make sure deferred content is created, if needed
+		createContentIfNeeded();
 	
-	//----------------------------------
-	//  layout
-	//----------------------------------
-	
-	/**
-	 *  @copy flex.core.Group#layout
-	 */
-	 
-	private var _layout:Object;
-	
+        if (contentGroup)
+            return contentGroup.content;
+        else if (_placeHolderGroup)
+            return _placeHolderGroup.content;
+        else
+            return _content; 
+    }
+    
+    public function set content(value:*):void
+    {
+        if (value == _content)
+            return;
+            
+        _content = value;   
+
+        if (contentGroup)
+            contentGroup.content = value;
+        else if (_placeHolderGroup)
+            _placeHolderGroup.content = value;
+    }
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------
+    
+    /**
+     *  @copy flex.core.Group#layout
+     */
+     
+    private var _layout:Object;
+    
     public function get layout():Object
     {
-    	return (contentGroup) ? contentGroup.layout : _layout;
+        return (contentGroup) ? contentGroup.layout : _layout;
     }
 
     public function set layout(value:Object):void
     {
-		if (value != _layout) {
-    		_layout = value;
-    		if (contentGroup) {
-    			contentGroup.layout = _layout;
-    		}
-		}
+        if (value != _layout) {
+            _layout = value;
+            if (contentGroup) {
+                contentGroup.layout = _layout;
+            }
+        }
     }
-	
-	//----------------------------------
-	//  itemRenderer
-	//----------------------------------
-	
-	private var _itemRenderer:IFactory;
-	
+    
+    //----------------------------------
+    //  itemRenderer
+    //----------------------------------
+    
+    private var _itemRenderer:IFactory;
+    
+    /**
+     *  @copy flex.core.Group#itemRenderer
+     */
+    public function get itemRenderer():IFactory
+    {
+        if (contentGroup)
+            return contentGroup.itemRenderer;
+        
+        return _itemRenderer;
+    }
+    
+    public function set itemRenderer(value:IFactory):void
+    {
+        if (value == _itemRenderer)
+            return;
+            
+        _itemRenderer = value;
+        
+        if (contentGroup)
+            contentGroup.itemRenderer = _itemRenderer;
+    }
+    
+    //----------------------------------
+    //  itemRendererFunction
+    //----------------------------------
+    
+    private var _itemRendererFunction:Function;
+    
+    /**
+     *  @copy flex.core.Group#itemRendererFunction
+     */
+    public function get itemRendererFunction():Function
+    {
+        if (contentGroup)
+            return contentGroup.itemRendererFunction;
+        
+        return _itemRendererFunction;
+    }
+    
+    public function set itemRendererFunction(value:Function):void
+    {
+        if (value == _itemRendererFunction)
+            return;
+        
+        _itemRendererFunction = value;
+        
+        if (contentGroup)
+            contentGroup.itemRendererFunction = _itemRendererFunction;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods proxied to contentGroup
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @copy flex.core.Group#numItems
+     */
+    public function get numItems():int
+    {
+        return currentContentGroup.numItems;
+    }
+    
+    /**
+     *  @copy flex.core.Group#getItemAt()
+     */
+    public function getItemAt(index:int):*
+    {
+        return currentContentGroup.getItemAt(index);
+    }
+    
+    /**
+     *  @copy flex.core.Group#addItem()
+     */
+    public function addItem(item:*):*
+    {
+        return currentContentGroup.addItem(item);
+    }
+    
+    /**
+     *  @copy flex.core.Group#addItemAt()
+     */
+    public function addItemAt(item:*, index:int):*
+    {
+        return currentContentGroup.addItemAt(item, index);
+    }
+    
+    /**
+     *  @copy flex.core.Group#removeItem()
+     */
+    public function removeItem(item:*):*
+    {
+        return currentContentGroup.removeItem(item);
+    }
+    
+    /**
+     *  @copy flex.core.Group#removeItemAt()
+     */
+    public function removeItemAt(index:int):*
+    {
+        return currentContentGroup.removeItemAt(index);
+    }
+    
+    /**
+     *  @copy flex.core.Group#getItemIndex()
+     */
+    public function getItemIndex(item:*):int
+    {
+        return currentContentGroup.getItemIndex(item);
+    }
+    
+    /**
+     *  @copy flex.core.Group#setItemIndex()
+     */
+    public function setItemIndex(item:*, index:int):void
+    {
+        currentContentGroup.setItemIndex(item, index);
+    }
+    
+    /**
+     *  @copy flex.core.Group#swapItems()
+     */
+    public function swapItems(item1:*, item2:*):void
+    {
+        currentContentGroup.swapItems(item1, item2);
+    }
+    
+    /**
+     *  @copy flex.core.Group#swapItemsAt()
+     */
+    public function swapItemsAt(index1:*, index2:*):void
+    {
+        currentContentGroup.swapItemsAt(index1, index2);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
 	/**
-	 *  @copy flex.core.Group#itemRenderer
+	 *  Create our content, if the creationPolicy is != "none".
 	 */
-	public function get itemRenderer():IFactory
-	{
-		if (contentGroup)
-			return contentGroup.itemRenderer;
-		
-		return _itemRenderer;
-	}
-	
-	public function set itemRenderer(value:IFactory):void
-	{
-		if (value == _itemRenderer)
-			return;
-			
-		_itemRenderer = value;
-		
-		if (contentGroup)
-			contentGroup.itemRenderer = _itemRenderer;
-	}
-	
-	//----------------------------------
-	//  itemRendererFunction
-	//----------------------------------
-	
-	private var _itemRendererFunction:Function;
-	
-	/**
-	 *  @copy flex.core.Group#itemRendererFunction
-	 */
-	public function get itemRendererFunction():Function
-	{
-		if (contentGroup)
-			return contentGroup.itemRendererFunction;
-		
-		return _itemRendererFunction;
-	}
-	
-	public function set itemRendererFunction(value:Function):void
-	{
-		if (value == _itemRendererFunction)
-			return;
-		
-		_itemRendererFunction = value;
-		
-		if (contentGroup)
-			contentGroup.itemRendererFunction = _itemRendererFunction;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Methods proxied to contentGroup
-	//
-	//--------------------------------------------------------------------------
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+		// TODO: When navigator support is added, this is where we would 
+		// determine if content should be created now, or wait until
+		// later. For now, we always create content here unless
+		// creationPolicy="none".
+        createContentIfNeeded();
+    }
+   
+    /**
+     *  Called when a skin part has been added or assigned. 
+     *  This method pushes the content, layout, itemRenderer, and
+     *  itemRendererFunction properties down to the contentGroup
+     *  skin part.
+     */
+    override protected function partAdded(partName:String, instance:*):void
+    {
+        if (instance == contentGroup)
+        {
+            if (_placeHolderGroup != null)
+            {
+                var sourceContent:Array = _placeHolderGroup.content as Array;
+                
+                if (sourceContent)
+                    contentGroup.content = sourceContent.slice();
+                else if (_placeHolderGroup.content is IList)
+                    throw new Error("ItemsComponent can not currently handle content of type " + 
+                            "IList when adding children dynamically.");
+                else
+                    contentGroup.content = _placeHolderGroup.content;
+                
+                // Temporary workaround because copying content from one Group to another throws RTE
+                for (var i:int = _placeHolderGroup.numItems; i > 0; i--)
+                {
+                    _placeHolderGroup.removeItemAt(0);  
+                }
+                
+            }
+            else if (_content != undefined)
+            {
+                contentGroup.content = _content;
+            }
+            if (_layout != null)
+                contentGroup.layout = _layout;
+            if (_itemRenderer != null || _itemRendererFunction != null)
+            {
+                contentGroup.itemRenderer = _itemRenderer;
+                contentGroup.itemRendererFunction = _itemRendererFunction;
+            }
+            
+            contentGroup.addEventListener(
+                ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+            contentGroup.addEventListener(
+                ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+            contentGroup.addEventListener(
+                FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+            contentGroup.addEventListener(
+                FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+            
+            if (_placeHolderGroup)
+            {
+                _placeHolderGroup.removeEventListener(
+                    ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                _placeHolderGroup.removeEventListener(
+                    ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                _placeHolderGroup.removeEventListener(
+                    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+                _placeHolderGroup.removeEventListener(
+                    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+                
+                _placeHolderGroup = null;
+            }
+        }
+    }
+
+    /**
+     *  Called when a skin part is removed.
+     */
+    override protected function partRemoved(partName:String, instance:*):void
+    {
+        if (instance == contentGroup)
+        {
+            contentGroup.removeEventListener(
+                ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+            contentGroup.removeEventListener(
+                ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+            contentGroup.removeEventListener(
+                FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+            contentGroup.removeEventListener(
+                FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IDeferredContentOwner methods
+    //
+    //--------------------------------------------------------------------------
 
 	/**
-	 *  @copy flex.core.Group#numItems
+	 *  Create the content for this component. When creationPolicy is "auto" or
+	 *  "all", this function is called automatically by the Flex framework.
+	 *  When creationPolicy="none", this method must be called to initialize
+	 *  the content property.
 	 */
-	public function get numItems():int
+    public function createDeferredContent():void
 	{
-		return currentContentGroup.numItems;
-	}
-	
-	/**
-	 *  @copy flex.core.Group#getItemAt()
-	 */
-	public function getItemAt(index:int):*
-	{
-		return currentContentGroup.getItemAt(index);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#addItem()
-	 */
-	public function addItem(item:*):*
-	{
-		return currentContentGroup.addItem(item);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#addItemAt()
-	 */
-	public function addItemAt(item:*, index:int):*
-	{
-		return currentContentGroup.addItemAt(item, index);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#removeItem()
-	 */
-	public function removeItem(item:*):*
-	{
-		return currentContentGroup.removeItem(item);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#removeItemAt()
-	 */
-	public function removeItemAt(index:int):*
-	{
-		return currentContentGroup.removeItemAt(index);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#getItemIndex()
-	 */
-	public function getItemIndex(item:*):int
-	{
-		return currentContentGroup.getItemIndex(item);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#setItemIndex()
-	 */
-	public function setItemIndex(item:*, index:int):void
-	{
-		currentContentGroup.setItemIndex(item, index);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#swapItems()
-	 */
-	public function swapItems(item1:*, item2:*):void
-	{
-		currentContentGroup.swapItems(item1, item2);
-	}
-	
-	/**
-	 *  @copy flex.core.Group#swapItemsAt()
-	 */
-	public function swapItemsAt(index1:*, index2:*):void
-	{
-		currentContentGroup.swapItemsAt(index1, index2);
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Called when a skin part has been added or assigned. 
-	 *  This method pushes the content, layout, itemRenderer, and
-	 *  itemRendererFunction properties down to the contentGroup
-	 *  skin part.
-	 */
-	override protected function partAdded(partName:String, instance:*):void
-	{
-		if (instance == contentGroup)
+		if (!contentCreated)
 		{
-			if (_placeHolderGroup != null)
-			{
-				var sourceContent:Array = _placeHolderGroup.content as Array;
-				
-				if (sourceContent)
-					contentGroup.content = sourceContent.slice();
-				else if (_placeHolderGroup.content is IList)
-					throw new Error("ItemsComponent can not currently handle content of type " + 
-							"IList when adding children dynamically. Please discuss with Jason Szeto");
-				else
-					contentGroup.content = _placeHolderGroup.content;
-				
-				// Temporary workaround because copying content from one Group to another throws RTE
-				for (var i:int = _placeHolderGroup.numItems; i > 0; i--)
-				{
-					_placeHolderGroup.removeItemAt(0);	
-				}
-				
-			}
-			else if (_content != undefined)
-			{
-				contentGroup.content = _content;
-			}
-			if (_layout != null)
-				contentGroup.layout = _layout;
-			if (_itemRenderer != null || _itemRendererFunction != null)
-			{
-				contentGroup.itemRenderer = _itemRenderer;
-				contentGroup.itemRendererFunction = _itemRendererFunction;
-			}
+			contentCreated = true;
 			
-			contentGroup.addEventListener(
-				ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
-			contentGroup.addEventListener(
-				ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-			contentGroup.addEventListener(
-			    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-			contentGroup.addEventListener(
-			    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
-			
-			if (_placeHolderGroup)
+			if (contentFactory)
 			{
-				_placeHolderGroup.removeEventListener(
-					ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
-				_placeHolderGroup.removeEventListener(
-					ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-				_placeHolderGroup.removeEventListener(
-				    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-				_placeHolderGroup.removeEventListener(
-				    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
-				
-				_placeHolderGroup = null;
+				content = contentFactory.getInstance();
+				dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
 			}
 		}
 	}
-
+    
 	/**
-	 *  Called when a skin part is removed.
+	 *  @private
 	 */
-	override protected function partRemoved(partName:String, instance:*):void
+	private function createContentIfNeeded():void
 	{
-		if (instance == contentGroup)
-		{
-			contentGroup.removeEventListener(
-				ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
-			contentGroup.removeEventListener(
-				ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-			contentGroup.removeEventListener(
-			    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-			contentGroup.removeEventListener(
-			    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
-		}
-	}
-		
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Event Handlers
-	//
-	//--------------------------------------------------------------------------
-	
-	private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
+		if (!contentCreated && creationPolicy != ContainerCreationPolicy.NONE)
+			createDeferredContent();
 	}
 	
-	private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
-	}
-	
-	private function contentGroup_contentChangingHandler(event:FlexEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
-	}
-	
-	private function contentGroup_contentChangedHandler(event:FlexEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
+    {
+        // Re-dispatch the event
+        dispatchEvent(event);
+    }
+    
+    private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
+    {
+        // Re-dispatch the event
+        dispatchEvent(event);
+    }
+    
+    private function contentGroup_contentChangingHandler(event:FlexEvent):void
+    {
+        // Re-dispatch the event
+        dispatchEvent(event);
+    }
+    
+    private function contentGroup_contentChangedHandler(event:FlexEvent):void
+    {
+        // Re-dispatch the event
+        dispatchEvent(event);
+    }
 }
 
 }
