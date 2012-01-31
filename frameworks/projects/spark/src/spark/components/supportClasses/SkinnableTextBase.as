@@ -643,23 +643,27 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  Text to be displayed if/when the actual text property is a null or empty string.
+     *  Text to be displayed if/when the actual text property is an empty string.
      * 
-     *  <p>Prompt text appears when the text control is first created. Prompt text disappears 
-     *  when the control gets focus or when the control’s <code>text</code> property is non-null. 
+     *  <p>Prompt text appears when the text control is first created. 
+     *  Prompt text disappears when the control gets focus or when the control’s 
+     *  <code>text</code> property is a non-empty string. 
      *  Prompt text reappears when the control loses focus, but only if no text was entered 
-     *  (if the value of the text field is null or the empty string).</p>
+     *  (if the value of the text field is the empty string).</p>
      *  
      *  <p>For text controls, if the user enters text, but later deletes it, the prompt text 
-     *  reappears when the control loses focus. You can also cause the prompt text 
-     *  to reappear programmatically by setting the text control’s text property to null or the empty string.</p>
+     *  reappears when the control loses focus. 
+     *  You can also cause the prompt text to reappear programmatically by setting the 
+     *  text control’s text property to the empty string.</p>
      *  
-     *  <p>You can change the style of the prompt text with CSS. If the control has prompt text 
-     *  and is not disabled, the style is defined by the <code>normalWithPrompt</code> pseudo selector. 
-     *  If the control is disabled, then the styles defined by the <code>disabledWithPrompt</code> pseudo selector are used.</p>
+     *  <p>You can change the style of the prompt text with CSS. 
+     *  If the control has prompt text and is not disabled, the style is defined by the 
+     *  <code>normalWithPrompt</code> pseudo selector. 
+     *  If the control is disabled, then the styles defined by the <code>disabledWithPrompt</code> 
+     *  pseudo selector are used.</p>
      *  
-     *  <p>The following example CSS changes the color of the prompt text in controls that sub-class SkinnableTextBase (this includes
-     *  the Spark TextInput and TextArea controls):
+     *  <p>The following example CSS changes the color of the prompt text in controls that 
+     *  sub-class SkinnableTextBase (this includes the Spark TextInput and TextArea controls):
      *  <pre>
      *  &#64;namespace s "library://ns.adobe.com/flex/spark";
      *  s|SkinnableTextBase:normalWithPrompt {
@@ -1160,6 +1164,8 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function set text(value:String):void
     {
+        // text should never be null.  Convert null to the empty string.
+        
         if (textDisplay)
         {
             textDisplay.text = value;
@@ -1168,7 +1174,7 @@ public class SkinnableTextBase extends SkinnableComponent
         }
         else
         {
-            textDisplayProperties.text = value;
+            textDisplayProperties.text = value ? value : "";
 
             // Of 'text', 'textFlow', and 'content', the last one set wins.  So
             // if we're holding onto the properties until the skin is loaded
