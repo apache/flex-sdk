@@ -69,7 +69,7 @@ public class AbstractInvoker extends EventDispatcher
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //-------------------------------------------------------------------------
     //
@@ -115,12 +115,13 @@ public class AbstractInvoker extends EventDispatcher
     //-------------------------------------------------------------------------
 
     /**
-     *  Cancels the last service invocation or an invokation with the specified id.
+     *  Cancels the last service invocation or an invokation with the specified ID.
      *  Even though the network operation may still continue, no result or fault event
      *  is dispatched.
      * 
      *  @param id The messageId of the invocation to cancel. Optional. If omitted, the
      *         last service invocation is canceled.
+     *  
      */
     public function cancel(id:String = null):AsyncToken
     {
@@ -252,8 +253,8 @@ public class AbstractInvoker extends EventDispatcher
         {
             _log.warn(e.toString());
             var errorText:String = resourceManager.getString(
-				"rpc", "cannotConnectToDestination",
-				[ asyncRequest.destination ]);
+                "rpc", "cannotConnectToDestination",
+                [ asyncRequest.destination ]);
             fault = new Fault("InvokeFailed", e.toString(), errorText);
             new AsyncDispatcher(dispatchRpcEvent, [FaultEvent.createEvent(fault, token, message)], 10);
         }
