@@ -21,6 +21,10 @@ public class SOAPHeader
     /**
      * Constructs a new SOAPHeader. The qualified name and content for the
      * SOAP header are required.
+     *
+     * @param qname The qualified name of the SOAP header.
+     *
+     * @param content The content to send for the header value.
      */
     public function SOAPHeader(qname:QName, content:Object)
     {
