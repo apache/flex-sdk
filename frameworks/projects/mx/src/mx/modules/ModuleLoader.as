@@ -14,9 +14,7 @@ package mx.modules
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.events.Event;
 import flash.system.ApplicationDomain;
-import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
 import mx.containers.VBox;
 import mx.core.FlexVersion;
@@ -150,22 +148,6 @@ import mx.events.ModuleEvent;
  *  only a single copy of the module SWF file is transferred over the network by using the
  *  ModuleManager singleton.</p>
  *  
- *  <pre>
- *  &lt;mx:ModuleLoader
- *    <strong>Properties</strong>
- *    url="<i>No default</i>"
- *    trustContent="false|true"
- *  
- *    <strong>Events</strong>
- *    error="<i>No default</i>"
- *    loading="<i>No default</i>"
- *    progress="<i>No default</i>"
- *    ready="<i>No default</i>"
- *    setup="<i>No default</i>"
- *    unload="<i>No default</i>"
- *  /&gt;
- *  </pre>
- * 
  *  @see mx.modules.ModuleManager
  *  @see mx.controls.SWFLoader
  *  
@@ -254,66 +236,6 @@ public class ModuleLoader extends VBox
      */
     public var child:DisplayObject;
 
-    //----------------------------------
-    //  trustContent
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the trustContent property.
-     */
-    private var _trustContent:Boolean = false;
-    
-    [Bindable("trustContentChanged")]
-    [Inspectable(defaultValue="false")]
-    
-    /**
-     *  If <code>true</code>, the content is loaded
-     *  into your security domain.
-     *  This means that the load fails if the content is in another domain
-     *  and that domain does not have a crossdomain.xml file allowing your
-     *  domain to access it. 
-     *  This property only has an affect on the next load,
-     *  it will not start a new load on already loaded content.
-     *
-     *  <p>The default value is <code>false</code>, which means load
-     *  any content without failing, but you cannot access the content.
-     *  Most importantly, the loaded content cannot 
-     *  access your objects and code, which is the safest scenario.
-     *  Do not set this property to <code>true</code> unless you are absolutely sure of the safety
-     *  of the loaded content</p>
-     *
-     *  @default false
-     *  @see flash.system.SecurityDomain
-     *  @see flash.system.ApplicationDomain
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.6
-     *  @productversion Flex 4.5.1
-     */
-    public function get trustContent():Boolean
-    {
-        return _trustContent;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set trustContent(value:Boolean):void
-    {
-        if (_trustContent != value)
-        {
-            _trustContent = value;
-            
-            invalidateProperties();
-            invalidateSize();
-            invalidateDisplayList();
-            
-            dispatchEvent(new Event("trustContentChanged"));
-        }
-    }
-    
     //----------------------------------
     //  url
     //----------------------------------
@@ -473,10 +395,7 @@ public class ModuleLoader extends VBox
             tempApplicationDomain = new ApplicationDomain(currentDomain); 
         }
             
-        module.load(tempApplicationDomain, 
-                    trustContent ? SecurityDomain.currentDomain : null, 
-                    bytes, 
-                    moduleFactory);
+        module.load(tempApplicationDomain, null, bytes, moduleFactory);
     }
 
     /**
