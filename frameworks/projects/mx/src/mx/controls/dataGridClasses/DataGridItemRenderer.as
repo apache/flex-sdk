@@ -50,6 +50,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -63,6 +68,11 @@ use namespace mx_internal;
  *  @see mx.controls.DataGrid
  *  @see mx.core.IDataRenderer
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridItemRenderer extends UITextField
 								  implements IDataRenderer,
@@ -79,6 +89,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function DataGridItemRenderer()
 	{
@@ -158,6 +173,11 @@ public class DataGridItemRenderer extends UITextField
 	 *
 	 *  The value is ignored.  Only the listData property is used.
 	 *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -192,6 +212,11 @@ public class DataGridItemRenderer extends UITextField
 	 *  property of the listData.
 	 *
 	 *  @see mx.controls.listClasses.IDropInListItemRenderer
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get listData():BaseListData
 	{
@@ -227,6 +252,11 @@ public class DataGridItemRenderer extends UITextField
      *  Storage for the inline inheriting styles on this object.
 	 *  This CSSStyleDeclaration is created the first time that setStyle()
 	 *  is called on this component to set an inheriting style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get styleDeclaration():CSSStyleDeclaration
 	{
@@ -290,6 +320,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
      *  @copy mx.core.UIComponent#getStyle()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     override public function getStyle(styleProp:String):*
     {
@@ -299,6 +334,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
      *  @copy mx.core.UIComponent#setStyle()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     override public function setStyle(styleProp:String, newValue:*):void
     {
@@ -320,6 +360,11 @@ public class DataGridItemRenderer extends UITextField
             // Do not short circuit, because themeColor is a style.
             // It just has side effects, too.
         }
+		*  
+		*  @langversion 3.0
+		*  @playerversion Flash 9
+		*  @playerversion AIR 1.1
+		*  @productversion Flex 3
 		*/
 
         // If this UIComponent didn't previously have any inline styles,
@@ -389,6 +434,11 @@ public class DataGridItemRenderer extends UITextField
 	 *  If Flex calls the <code>LayoutManager.invalidateProperties()</code> 
 	 *  method on this ILayoutManagerClient, then
 	 *  this function is called when it's time to commit property values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function validateProperties():void
 	{
@@ -447,6 +497,11 @@ public class DataGridItemRenderer extends UITextField
 	 *
 	 *  @param recursive If <code>true</code>, call this method
 	 *  on the object's children.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function validateSize(recursive:Boolean = false):void
 	{
@@ -458,6 +513,11 @@ public class DataGridItemRenderer extends UITextField
 	 *  If Flex calls <code>LayoutManager.invalidateDisplayList()</code> 
 	 *  method on this ILayoutManagerClient, then
 	 *  this function is called when it's time to update the display list.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function validateDisplayList():void
 	{
@@ -466,6 +526,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
      *  @copy mx.core.UIComponent#clearStyle()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function clearStyle(styleProp:String):void
 	{
@@ -474,6 +539,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
 	 *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function notifyStyleChangeInChildren(
 						styleProp:String, recursive:Boolean):void
@@ -484,6 +554,11 @@ public class DataGridItemRenderer extends UITextField
 	 *  Sets up the <code>inheritingStyles</code> 
 	 *  and <code>nonInheritingStyles</code> objects
 	 *  and their proto chains so that the <code>getStyle()</code> method can work.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initProtoChain():void
     {
@@ -574,6 +649,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
 	 *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
@@ -582,6 +662,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerEffects(effects:Array /* of String */):void
     {
@@ -589,6 +674,11 @@ public class DataGridItemRenderer extends UITextField
 
     /**
 	 *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getClassStyleDeclarations():Array
     {
@@ -633,6 +723,11 @@ public class DataGridItemRenderer extends UITextField
 	 *  The event handler to position the tooltip.
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function toolTipShowHandler(event:ToolTipEvent):void
 	{
