@@ -117,7 +117,11 @@ public class FxScroller extends FxComponent
      *  which lays out both the viewport and scrollbars.
      * 
      *  When the viewport property is set, the viewport's clipContent property is 
-     *  set to true to enable scrolling.</p>
+     *  set to true to enable scrolling.
+     * 
+     *  Scroller does not support rotating the viewport directly.  The viewport's
+     *  contents can be transformed arbitrarily but the viewport itself can not.
+     * </p>
      */
     public function get viewport():IViewport
     {       
