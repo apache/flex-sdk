@@ -161,7 +161,7 @@ use namespace mx_internal;
  *  In those cases, a horizontal scrollbar automatically appears
  *  if any lines of text are wider than the control.</p>
  *
- *  <p>The <code>widthInChars</code> and <code>heightInChars</code>
+ *  <p>The <code>widthInChars</code> and <code>heightInLines</code>
  *  properties let you specify the width and height of the TextArea 
  *  in a way that scales with the font size.
  *  You can use the <code>typicalText</code> property as well.
