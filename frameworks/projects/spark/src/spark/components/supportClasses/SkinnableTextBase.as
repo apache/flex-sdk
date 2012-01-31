@@ -17,6 +17,7 @@ import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.SoftKeyboardEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
@@ -1331,7 +1332,8 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function addHandlers():void
     {
-        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchInteractionStartingHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, touchInteractionStartHandler);
+		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, touchInteractionEndHandler);
     }
     
     /**
@@ -2009,13 +2011,34 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
+    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
-        // This implementation prevents the scroll from happening, which means
-        // the touch interaction will be interpreted by the text (ie selection).
-        if (selectable || editable)
-            event.preventDefault();
+		// During a touch scroll we don't want the keyboard to activate. Add a
+		// "softKeyboardActivating" handler to cancel the event.
+        textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
+						softKeyboardActivatingHandler);
     }
+	
+	/**
+	 *  @private
+	 */
+	private function touchInteractionEndHandler(event:TouchInteractionEvent):void
+	{
+		// Remove the soft keyboard activate cancelling handler.
+		textDisplay.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
+						softKeyboardActivatingHandler);
+	}
+	
+	/**
+	 *  @private
+	 * 
+	 *  This handler is only added during touch scroll events. It prevents
+	 *  the onscreen keyboard from activating if a scroll occurred.
+	 */
+	private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+	{
+		event.preventDefault();
+	}
 }
 
 }
