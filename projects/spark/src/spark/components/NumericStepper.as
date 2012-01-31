@@ -113,7 +113,7 @@ public class NumericStepper extends Spinner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var textInput:TextInput;
+    public var textDisplay:TextInput;
 
     //--------------------------------------------------------------------------
     //
@@ -175,7 +175,7 @@ public class NumericStepper extends Spinner
     
      /**
      *  Callback function that formats the value displayed
-     *  in the textInput field.
+     *  in the textDisplay field.
      *  The function takes a single Number as an argument
      *  and returns a formatted String.
      *
@@ -216,7 +216,7 @@ public class NumericStepper extends Spinner
      /**
      *  Callback function that extracts the numeric 
      *  value from the displayed value in the 
-     *  textInput field.  
+     *  textDisplay field.  
      * 
      *  The function takes a single String as an argument
      *  and returns a Number.
@@ -313,7 +313,7 @@ public class NumericStepper extends Spinner
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(textInput);
+        return getBaselinePositionForPart(textDisplay);
     }
     
     //--------------------------------------------------------------------------
@@ -389,7 +389,7 @@ public class NumericStepper extends Spinner
         
         if (maxChanged || stepSizeChanged || displayFormatFunctionChanged)
         {
-            textInput.widthInChars = calculateWidestValue();
+            textDisplay.widthInChars = calculateWidestValue();
             maxChanged = false;
             stepSizeChanged = false;
             
@@ -409,13 +409,13 @@ public class NumericStepper extends Spinner
             
         if (maxCharsChanged)
         {
-            textInput.maxChars = _maxChars;
+            textDisplay.maxChars = _maxChars;
             maxCharsChanged = false;
         }
         
         if (imeModeChanged)
         {
-            textInput.imeMode = _imeMode;
+            textDisplay.imeMode = _imeMode;
             imeModeChanged = false;
         }
     } 
@@ -437,20 +437,20 @@ public class NumericStepper extends Spinner
     {
         super.partAdded(partName, instance);
         
-        if (instance == textInput)
+        if (instance == textDisplay)
         {
-            textInput.addEventListener(FlexEvent.ENTER,
-                                       textInput_enterHandler);
-            textInput.addEventListener(FocusEvent.FOCUS_OUT, 
-                                       textInput_focusOutHandler); 
-            textInput.focusEnabled = false;
-            textInput.maxChars = _maxChars;
+            textDisplay.addEventListener(FlexEvent.ENTER,
+                                       textDisplay_enterHandler);
+            textDisplay.addEventListener(FocusEvent.FOCUS_OUT, 
+                                       textDisplay_focusOutHandler); 
+            textDisplay.focusEnabled = false;
+            textDisplay.maxChars = _maxChars;
             // Restrict to digits, minus sign, decimal point, and comma
-            textInput.restrict = "0-9\\-\\.\\,";
-            textInput.text = value.toString();
-            // Set the the textInput to be wide enough to display
+            textDisplay.restrict = "0-9\\-\\.\\,";
+            textDisplay.text = value.toString();
+            // Set the the textDisplay to be wide enough to display
             // widest possible value. 
-            textInput.widthInChars = calculateWidestValue(); 
+            textDisplay.widthInChars = calculateWidestValue(); 
         }
     }
     
@@ -461,10 +461,10 @@ public class NumericStepper extends Spinner
     {
         super.partRemoved(partName, instance);
         
-        if (instance == textInput)
+        if (instance == textDisplay)
         {
-            textInput.removeEventListener(FlexEvent.ENTER, 
-                                          textInput_enterHandler);
+            textDisplay.removeEventListener(FlexEvent.ENTER, 
+                                          textDisplay_enterHandler);
         }
     }
 
@@ -475,14 +475,14 @@ public class NumericStepper extends Spinner
     {
         if (stage)
         {
-            stage.focus = textInput.textView;
+            stage.focus = textDisplay.textView;
             
             // Since the API ignores the visual editable and selectable 
             // properties make sure the selection should be set first.
-            if (textInput.textView && 
-               (textInput.textView.editable || textInput.textView.selectable))
+            if (textDisplay.textView && 
+               (textDisplay.textView.editable || textDisplay.textView.selectable))
             {
-                textInput.textView.setSelection();
+                textDisplay.textView.setSelection();
             }
         }
     }
@@ -492,7 +492,7 @@ public class NumericStepper extends Spinner
      */
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
-        return target == textInput.textView;
+        return target == textDisplay.textView;
     }
 
     /**
@@ -513,7 +513,7 @@ public class NumericStepper extends Spinner
     //--------------------------------------------------------------------------
 
     /**
-     *  Commits the current text of <code>textInput</code> 
+     *  Commits the current text of <code>textDisplay</code> 
      *  to the <code>value</code> property. 
      *  This method uses the <code>nearestValidValue()</code> method 
      *  to round the input value to the closest multiple of 
@@ -532,11 +532,11 @@ public class NumericStepper extends Spinner
         var prevValue:Number = value;
         
         if (extractValueFunction != null)
-            inputValue = extractValueFunction(textInput.text);
+            inputValue = extractValueFunction(textDisplay.text);
         else 
-            inputValue = Number(textInput.text);
+            inputValue = Number(textDisplay.text);
         
-        if (textInput.text == "" || (inputValue != value && 
+        if (textDisplay.text == "" || (inputValue != value && 
             (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
         {
             setValue(nearestValidValue(inputValue, valueInterval));
@@ -563,7 +563,7 @@ public class NumericStepper extends Spinner
      *  @private
      *  Helper method that returns a number corresponding
      *  to the length of the maximum value displayable in 
-     *  the textInput.  
+     *  the textDisplay.  
      */
     private function calculateWidestValue():Number
     {
@@ -586,9 +586,9 @@ public class NumericStepper extends Spinner
     private function applyDisplayFormatFunction():void
     {
         if (displayFormatFunction != null)
-            textInput.text = displayFormatFunction(value);
+            textDisplay.text = displayFormatFunction(value);
         else
-            textInput.text = value.toString();
+            textDisplay.text = value.toString();
     }
     
     //--------------------------------------------------------------------------
@@ -602,7 +602,7 @@ public class NumericStepper extends Spinner
      *  When the enter key is pressed, NumericStepper commits the
      *  text currently displayed.
      */
-    private function textInput_enterHandler(event:Event):void
+    private function textDisplay_enterHandler(event:Event):void
     {
         commitTextInput(true);
     }
@@ -612,7 +612,7 @@ public class NumericStepper extends Spinner
      *  When the enter key is pressed, NumericStepper commits the
      *  text currently displayed.
      */
-    private function textInput_focusOutHandler(event:Event):void
+    private function textDisplay_focusOutHandler(event:Event):void
     {
         commitTextInput(true);
     }
