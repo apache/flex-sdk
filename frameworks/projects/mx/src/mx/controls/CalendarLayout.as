@@ -19,8 +19,9 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
-import flash.utils.getQualifiedClassName;
 import flash.utils.describeType;
+import flash.utils.getQualifiedClassName;
+
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -32,8 +33,6 @@ import mx.events.CalendarLayoutChangeEvent;
 import mx.events.DateChooserEvent;
 import mx.events.DateChooserEventDetail;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
 import mx.skins.halo.DateChooserIndicator;
 import mx.styles.ISimpleStyleClient;
 
@@ -1669,20 +1668,10 @@ public class CalendarLayout extends UIComponent
         var oldYear:int = displayedYear;
         var oldMonth:int = displayedMonth;
 
-        var newYear:int = oldYear + deltaY;
-        var newMonth:int = oldMonth + deltaM;
+        var newDate:Object = getNewIncrementDate(oldYear, oldMonth, deltaY, deltaM);
 
-        while (newMonth < 0)
-        {
-            newYear--;
-            newMonth += 12;
-        }
-
-        while (newMonth > 11)
-        {
-            newYear++;
-            newMonth -= 12;
-        }
+        var newYear:int = newDate.year;
+        var newMonth:int = newDate.month;
 
         _displayedMonth = newMonth;
         _displayedYear = newYear;
@@ -1700,6 +1689,30 @@ public class CalendarLayout extends UIComponent
         else if (newMonth < oldMonth)
             event.detail = DateChooserEventDetail.PREVIOUS_MONTH;
     	dispatchEvent(event);
+    }
+    
+    /**
+     *  @private Takes a year and a month as well as an increment year and month value
+     *           and returns a new valid year/month.
+     */
+    static mx_internal function getNewIncrementDate(oldYear:int, oldMonth:int, deltaY:int, deltaM:int):Object
+    {
+        var newYear:int = oldYear + deltaY;
+        var newMonth:int = oldMonth + deltaM;
+
+        while (newMonth < 0)
+        {
+            newYear--;
+            newMonth += 12;
+        }
+
+        while (newMonth > 11)
+        {
+            newYear++;
+            newMonth -= 12;
+        }
+
+        return {month: newMonth, year: newYear};
     }
 
     /**
