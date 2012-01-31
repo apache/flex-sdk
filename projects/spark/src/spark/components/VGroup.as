@@ -51,6 +51,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *    requestedRowCount"-1"
  *    rowHeight="no default"
  *    variableRowHeight="true"
+ *    verticalAlign="top"
  *  /&gt;
  *  </pre>
  * 
