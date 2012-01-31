@@ -13,7 +13,6 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
-import flash.events.IEventDispatcher;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Rectangle;
 import flash.utils.getQualifiedClassName;
@@ -33,6 +32,8 @@ import mx.utils.MatrixUtil;
 
 import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
+import spark.layouts.HorizontalAlign;
+import spark.layouts.VerticalLayout;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;  // for mx_internal property contentChangeDelta
@@ -1244,10 +1245,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 elt.includeInLayout = false;
                 elt.visible = false;
                 
-                // Reset back to (0,0), otherwise when the element is reused
+                // If the width isn't constrained, 
+                // reset the size back to (0,0), otherwise when the element is reused
                 // it will be validated at its last layout size which causes
                 // problems with text reflow.
-                elt.setLayoutBoundsSize(0, 0, false);
+                var widthConstrained:Boolean = ((layout is VerticalLayout) && 
+                    (VerticalLayout(layout).horizontalAlign == HorizontalAlign.JUSTIFY));
+                if (!widthConstrained)
+                    elt.setLayoutBoundsSize(0, 0, false);
                 
                 freeRenderers.push(elt);
             }
