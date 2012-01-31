@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
@@ -1556,7 +1557,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    public function set selectionMode(value:String):void
+    public function  set selectionMode(value:String):void
     {
         if (selectionMode == value)
             return;
@@ -4014,22 +4015,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
+     *  The UIComponent's focusInHandler and focusOutHandler draw the
+     *  focus.  This handler exists only when there is a caretIndicator part.
      */
     protected function dataGrid_focusHandler(event:FocusEvent):void
     {
         if (!grid || !(grid.layout is GridLayout))
             return;
-              
-        // Show the caret if the focus is either on the DataGrid or the
-        // columnHeaderBar.
-        
-        if (event.target == this || 
-            (columnHeaderGroup && event.target == columnHeaderGroup))
-        { 
+
+        if (isOurFocus(DisplayObject(event.target)))
+        {
             GridLayout(grid.layout).showCaret = 
                 event.type == FocusEvent.FOCUS_IN &&
                 selectionMode != GridSelectionMode.NONE;
-        }    
+        }
     }
     
 }
