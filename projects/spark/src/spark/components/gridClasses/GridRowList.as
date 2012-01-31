@@ -204,11 +204,11 @@ public class GridRowList
         
         var newNode:GridRowNode = new GridRowNode(numColumns, index);
         
-        // index is before current node.
-        if (cur)
-            insertBefore(cur, newNode);
-        else // we've hit the end of the list.
-            insertAfter(_tail, newNode);
+        // index is before head.
+        if (!cur)
+            insertBefore(_head, newNode);
+        else // index is after cur.
+            insertAfter(cur, newNode);
         
         return newNode;
     }
@@ -342,7 +342,8 @@ public class GridRowList
     /**
      *  Searches through all nodes for the value closest and less than
      *  the specified index. If the index exists, it will just return
-     *  the node at that index.
+     *  the node at that index. Returns null if nearest is at the head
+     *  of the list.
      * 
      *  @param index The value to find
      *  
@@ -353,13 +354,63 @@ public class GridRowList
      */
     public function findNearest(index:int):GridRowNode
     {
-        var cur:GridRowNode = _head;
+        // use bookmarks? or maybe a least recently used one.
+        if (!_head || index < 0)
+            return null;
         
-        while (cur && cur.rowIndex < index)
+        var indexToRecent:int;
+        var lastToIndex:int = _tail.rowIndex - index;
+        var result:GridRowNode = null;
+        
+        // Uses last searched node if its closest to the target.
+        if (lastToIndex < 0)
         {
-            cur = cur.next;
+            result = _tail;
+        }
+        else if (lastToIndex < index)
+        {
+            result = findNearestBefore(index, _tail);
+        }
+        else
+        {
+            result = findNearestAfter(index, _head);
         }
         
+        return result;
+    }
+    
+    /**
+     *  @private
+     *  Searches for the node with the closest value less than the specified
+     *  index. Searches forwards from the specified node.
+     */
+    private function findNearestAfter(index:int, node:GridRowNode):GridRowNode
+    {
+        var cur:GridRowNode = node;
+        while (cur && cur.rowIndex < index)
+        {
+            if (cur.next == null)
+                break;
+            else if (cur.next.rowIndex > index)
+                break;
+            
+            cur = cur.next;
+        }
+        return cur;
+    }
+    
+    /**
+     *  @private
+     *  Searches for the node with the closest value less than the specified
+     *  index. Searches backwards from the specified node.
+     */
+    private function findNearestBefore(index:int, node:GridRowNode):GridRowNode
+    {
+        var cur:GridRowNode = node;
+        while (cur && cur.rowIndex > index)
+        {
+            cur = cur.prev;
+        }
         return cur;
     }
     
