@@ -71,9 +71,14 @@ public class PanelAccImpl extends AccImpl
         // If it were placed on the Panel itself,
         // the AccessibilityImplementations of the Panel's children
         // would be ignored.
-        var titleBar:UIComponent = Panel(component).titleDisplay;
-        titleBar.accessibilityImplementation =
-            new PanelAccImpl(component);
+        var titleDisplay:UIComponent = Panel(component).titleDisplay;
+        
+        if (titleDisplay)
+        {
+            titleDisplay.accessibilityImplementation = new PanelAccImpl(component);
+            if (Panel(component).tabIndex > 0 && titleDisplay.tabIndex == -1)
+                titleDisplay.tabIndex = Panel(component).tabIndex;
+        }
     }
 
     //--------------------------------------------------------------------------
