@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Box xmlns="http://ns.adobe.com/mxml/2009" currentState="normal">
+    <states>
+        <State name="normal" />
+        <State name="zoomed" />
+    </states>
+    <transitions>
+    	<Transition fromState="*" toState="*">
+    		<Resize duration="1000" target="{date1}" />
+    	</Transition>
+    </transitions>
+	<DateChooser id="date1" />
+
+</Box>
