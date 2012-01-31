@@ -31,6 +31,11 @@ use namespace mx_internal;
  *  @see mx.controls.TextArea
  *  @see mx.controls.TextInput
  *  @see flash.text.TextFormatAlign
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TextRange
 {
@@ -80,6 +85,11 @@ public class TextRange
 	 *  and you omit this parameter, specify a negative value, or specify
 	 *  a value past the end of the text, the range ends with the last
 	 *  text character.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TextRange(owner:UIComponent,
 							  modifiesSelection:Boolean = false,
@@ -155,6 +165,11 @@ public class TextRange
 
 	/**
 	 *  Storage for the beginIndex property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _beginIndex:int;
 
@@ -163,6 +178,11 @@ public class TextRange
 	 *  character in the range.
 	 *  If the fifth character in the text is the first character in the
 	 *  range, this property has a value of 4.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get beginIndex():int
 	{
@@ -191,6 +211,11 @@ public class TextRange
 	 *  Whether the text in the range is in a bulleted list.
 	 *  If only part of the range is in a bulleted list,
 	 *  this value is <code>false</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get bullet():Boolean
 	{
@@ -216,6 +241,11 @@ public class TextRange
 	 *  You can set this value using any valid color identifier.
 	 *  The property returns the value as a numeric value.
 	 *  If the range has multiple colors, this value is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get color():Object
 	{
@@ -243,6 +273,11 @@ public class TextRange
 
 	/**
 	 *  Storage for the beginIndex property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _endIndex:int;
 
@@ -252,6 +287,11 @@ public class TextRange
 	 *  the One-based index of the last character. 
 	 *  If the fifth character in the text is the last character in the
 	 *  range, this property has a value of 5.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get endIndex():int
 	{
@@ -279,6 +319,11 @@ public class TextRange
 	/**
 	 *  Name of the font for text in the range.
 	 *  If the range has multiple fonts, this value is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontFamily():String
 	{
@@ -302,6 +347,11 @@ public class TextRange
 	/**
 	 *  Point size of the text in the range.
 	 *  If the range has multiple sizes, this value is 0.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontSize():int
 	{
@@ -327,6 +377,11 @@ public class TextRange
 	 *  or "normal". Setting the property to any other string results
 	 *  in normal style.
 	 *  If the range has multiple styles, this value is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontStyle():String
 	{
@@ -352,6 +407,11 @@ public class TextRange
 	 *  or "normal". Setting the property to any other string results
 	 *  in normal weight.
 	 *  If the range has multiple weights, this value is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontWeight():String
 	{
@@ -379,6 +439,11 @@ public class TextRange
 	 *  HTML that you specify in using an <code>htmlText</code> property.
 	 *  This property is, therefore, a full HTML representation of the
 	 *  text as it appears in the control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get htmlText():String
 	{
@@ -443,6 +508,11 @@ public class TextRange
 	 *  such as Courier New, do not support kerning.
 	 *
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get kerning():Boolean
 	{
@@ -469,6 +539,11 @@ public class TextRange
 	 *  beyond the normal spacing, while a negative value decreases it.
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get letterSpacing():Number
 	{
@@ -498,6 +573,11 @@ public class TextRange
 	/**
 	 *  Whether the TextRange modifies the currenly selected text.
 	 *  Set by the constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get modifiesSelection():Boolean
 	{
@@ -522,6 +602,11 @@ public class TextRange
 	 *  The owner of the text in a RichTextEditor control is the
 	 *  RichTextEditor control, not its TextArea subcontrol.
 	 *  Initially set by the constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get owner():UIComponent
 	{
@@ -551,6 +636,11 @@ public class TextRange
 
 	/**
 	 *  Plain-text contents of the range.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get text():String
 	{
@@ -583,6 +673,11 @@ public class TextRange
 	 *  If the range has multiple alignments, this value is <code>null</code>.
 	 * 
 	 *  @see flash.text.TextFormatAlign
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get textAlign():String
 	{
@@ -609,6 +704,11 @@ public class TextRange
 	 *  in normal text.
 	 *  If the range has multiple decoration settings, this value is
 	 *  <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get textDecoration():String
 	{
@@ -635,6 +735,11 @@ public class TextRange
 	 *  is the empty string.
 	 *  If the range includes multiple links, the value
 	 *  is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get url():String
 	{
