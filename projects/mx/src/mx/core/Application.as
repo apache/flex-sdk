@@ -344,6 +344,8 @@ public class Application extends LayoutContainer
         // documentDescriptor property for the application object.
         // We get the id and the creationPolicy, which we want to
         // set very early, from that descriptor.
+        
+        initResizeBehavior();
     }
 
     //--------------------------------------------------------------------------
@@ -403,6 +405,11 @@ public class Application extends LayoutContainer
      *  height of the Application should be modified.
      */
     private var resizeHeight:Boolean = true;
+  
+    /**
+     *  @private
+     */ 
+    private var synchronousResize:Boolean = false;
     
     /**
      * @private
@@ -410,7 +417,7 @@ public class Application extends LayoutContainer
      * so that we can update it for runtime localization.
      */
     private var viewSourceCMI:ContextMenuItem;
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Compile-time pseudo-properties
@@ -1624,6 +1631,19 @@ public class Application extends LayoutContainer
         }
     }
 
+    /**
+     *  @private
+     *  Check to see if we're able to synchronize our size with the stage
+     *  immediately rather than deferring (dependent on WATSON 2200950).
+     */
+    private function initResizeBehavior():void
+    {
+        var version:Array = Capabilities.version.split(' ')[1].split(',');
+        
+        synchronousResize = (parseFloat(version[0]) > 10 || 
+            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1));
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1653,7 +1673,14 @@ public class Application extends LayoutContainer
         // If we're already due to update our bounds on the next
         // commitProperties pass, avoid the redundancy.
         if (!percentBoundsChanged)
+        {
             updateBounds();
+            
+            // Update immediately when stage resizes so that we may appear 
+            // in synch with the stage rather than visually "catching up".
+            if (synchronousResize) 
+                UIComponentGlobals.layoutManager.validateNow();
+        }
     }   
 
     /**
@@ -1750,7 +1777,7 @@ public class Application extends LayoutContainer
         
         setActualSize(w, h);
         
-        invalidateDisplayList();        
+        invalidateDisplayList();      
     }
 }
 
