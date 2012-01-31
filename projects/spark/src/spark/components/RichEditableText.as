@@ -1465,7 +1465,7 @@ public class TextView extends UIComponent implements IViewport
         textFlow.hostCharacterFormat = hostCharacterFormat;
         textFlow.hostParagraphFormat = hostParagraphFormat;
         textFlow.hostContainerFormat = hostContainerFormat;
-
+        
         return textFlow;
     }
 
@@ -1781,7 +1781,7 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Called when the TextFlow dispatches an 'operationEnd' event
+     *  Called when the TextFlow dispatches an 'operationBegin' event
      *  before an editing operation.
      */
     private function textFlow_flowOperationBeginHandler(
