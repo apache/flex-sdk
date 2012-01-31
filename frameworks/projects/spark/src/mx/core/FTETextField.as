@@ -784,7 +784,12 @@ public class FTETextField extends Sprite
 		
 		// The border and background need to be redrawn.
 		setFlag(FLAG_GRAPHICS_INVALID);
-		
+        
+        // The border increases the width and height by 1 pixel, so if there
+        // is a scrollRect, it has to be modified as well.
+        if (testFlag(FLAG_TEXT_SET | FLAG_HTML_TEXT_SET))
+            setFlag(FLAG_TEXT_LINES_INVALID);
+            
 		invalidate();
 	}
 	
@@ -2453,6 +2458,15 @@ public class FTETextField extends Sprite
 				r.top = 0;
 				r.right = _width;
 				r.bottom = _height;
+                
+                // Expand scrollRect by one pixel so the bottom and right
+                // borders are not cliped.  See note below.
+                if (testFlag(FLAG_GRAPHICS_INVALID) && border)
+                {
+                    r.width++;
+                    r.height++;
+                }
+
 				scrollRect = r;
 			}
 			else 
