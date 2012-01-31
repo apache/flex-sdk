@@ -10613,6 +10613,10 @@ public class ListBase extends ScrollControlBase
             if (event.relatedObject != this)
             {
                 var indices:Array = selectedIndices;
+
+                // clear the selection, otherwise we'll be adjusting it on every element being removed
+                clearSelected(false);
+
                 indices.sort(Array.NUMERIC);
                 var n:int = indices.length;
                 for (var i:int = n - 1; i >= 0; i--)
@@ -10620,7 +10624,6 @@ public class ListBase extends ScrollControlBase
                     collectionIterator.seek(CursorBookmark.FIRST, indices[i]);
                     collectionIterator.remove();
                 }
-                clearSelected(false);
             }
         }
         
