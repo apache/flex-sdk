@@ -781,7 +781,7 @@ public class DropDownList extends List
                     e.newIndex = caretIndex;
                     dispatchEvent(e);
 
-                    event.preventDefault()
+                    event.preventDefault();
                 }
             }
             else if (dataProvider)
@@ -791,14 +791,14 @@ public class DropDownList extends List
                     case NavigationUnit.UP:
                     {
                         proposedNewIndex = selectedIndex - 1;  
-                        event.preventDefault()
+                        event.preventDefault();
                         break;
                     }                      
         
                     case NavigationUnit.DOWN:
                     {
                         proposedNewIndex = selectedIndex + 1;  
-                        event.preventDefault()
+                        event.preventDefault();
                         break;
                     }
                         
@@ -806,28 +806,29 @@ public class DropDownList extends List
                     {
                         proposedNewIndex = selectedIndex == -1 ? 
                                             -1 : Math.max(selectedIndex - PAGE_SIZE, 0);
-                        event.preventDefault()                                    
+                        event.preventDefault();
                         break;
                     }
                         
                     case NavigationUnit.PAGE_DOWN:
                     {    
-                        proposedNewIndex = selectedIndex + PAGE_SIZE;
-                        event.preventDefault()
+                        proposedNewIndex = selectedIndex == -1 ?
+                                           PAGE_SIZE : (selectedIndex + PAGE_SIZE);
+                        event.preventDefault();
                         break;
                     }
                        
                     case NavigationUnit.HOME:
                     {
                         proposedNewIndex = 0;
-                        event.preventDefault()
+                        event.preventDefault();
                         break;
                     }
 
                     case NavigationUnit.END:
                     {
                         proposedNewIndex = dataProvider.length - 1;  
-                        event.preventDefault()
+                        event.preventDefault();
                         break;
                     }  
                        
@@ -841,7 +842,7 @@ public class DropDownList extends List
         }
         else
         {
-            event.preventDefault()
+            event.preventDefault();
         }
         
     }
