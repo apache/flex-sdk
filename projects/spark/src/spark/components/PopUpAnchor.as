@@ -207,7 +207,7 @@ public class PopUpAnchor extends UIComponent
             return;
             
         _displayPopUp = value;
-        updatePopUpState();
+        addOrRemovePopUp();
     }
     
     /**
@@ -228,7 +228,7 @@ public class PopUpAnchor extends UIComponent
     
         _popUpFactory = value;
         
-        updatePopUpState();
+        addOrRemovePopUp();
     }
     
     public function get popUpFactory():ITransientDeferredInstance
@@ -466,12 +466,11 @@ public class PopUpAnchor extends UIComponent
     //  Private Methods
     //
     //-------------------------------------------------------------------------- 
-    
-    // FIXME (jszeto): Rename to not use 'state'
+
     /**
      *  @private 
      */
-    private function updatePopUpState():void
+    private function addOrRemovePopUp():void
     {
         if (!addedToStage)
             return;
@@ -635,7 +634,7 @@ public class PopUpAnchor extends UIComponent
     private function addedToStageHandler(event:Event):void
     {
         addedToStage = true;
-        updatePopUpState();    
+        addOrRemovePopUp();    
     }
     
     /**
