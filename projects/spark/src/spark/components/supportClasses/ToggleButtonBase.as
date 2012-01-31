@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import flash.events.Event;
@@ -80,11 +80,11 @@ import mx.events.FlexEvent;
 /**
  *  The ToggleButtonBase component is the base class for the Spark button components
  *  that support the <code>selected</code> property.
- *  FxToggleButton, FxCheckBox and FxRadioButton are subclasses of ToggleButtonBase.
+ *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
  *
- *  @see mx.components.FxToggleButton
- *  @see mx.components.FxCheckBox
- *  @see mx.components.FxRadioButton
+ *  @see mx.components.ToggleButton
+ *  @see mx.components.CheckBox
+ *  @see mx.components.RadioButton
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
