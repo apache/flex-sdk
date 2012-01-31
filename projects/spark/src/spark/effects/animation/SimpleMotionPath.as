@@ -11,7 +11,7 @@
 
 package spark.effects.animation
 {
-import spark.effects.interpolation.ArrayInterpolator;
+import spark.effects.interpolation.MultiValueInterpolator;
     
     
 /**
@@ -41,7 +41,8 @@ public class SimpleMotionPath extends MotionPath
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor. You can specify both the <code>valueFrom</code> and <code>valueTo</code> parameters, 
+     *  Constructor. You can specify both the 
+     *  <code>valueFrom</code> and <code>valueTo</code> parameters, 
      *  or specify the <code>valueBy</code> parameter and either the <code>valueFrom</code> 
      *  or <code>valueTo</code> parameter. 
      *  If you omit these parameters, Flex calculates them from the effect target.
@@ -63,11 +64,13 @@ public class SimpleMotionPath extends MotionPath
         this.property = property;
         keyframes = new <Keyframe>[new Keyframe(0, valueFrom), 
             new Keyframe(NaN, valueTo, valueBy)];
-        if (valueFrom is Array && valueTo is Array)
+        if (valueFrom !== null && valueTo !== null &&
+            ((valueFrom is Array && valueTo is Array) ||
+             (valueFrom is Vector.<Number> && valueTo is Vector.<Number>)))
         {
-            if (!numberArrayInterpolator)
-                numberArrayInterpolator = new ArrayInterpolator();
-            interpolator = numberArrayInterpolator;
+            if (!multiValueInterpolator)
+                multiValueInterpolator = new MultiValueInterpolator();
+            interpolator = multiValueInterpolator;
         }
     }
 
@@ -77,7 +80,7 @@ public class SimpleMotionPath extends MotionPath
     //
     //--------------------------------------------------------------------------
     
-    private static var numberArrayInterpolator:ArrayInterpolator = null;
+    private static var multiValueInterpolator:MultiValueInterpolator = null;
     
     //--------------------------------------------------------------------------
     //
