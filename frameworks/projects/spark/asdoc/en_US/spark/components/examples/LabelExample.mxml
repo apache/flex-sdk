@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TextBoxExample.mxml -->
+<!-- SimpleTextExample.mxml -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <s:Panel title="SimpleText Example"
@@ -12,7 +12,7 @@
 
             <s:Group x="100" y="0">
                 <s:SimpleText height="100" width="75" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
-                    <s:text>This is a SimpleText control with a border drawn by a Rect.</s:text>
+                    <s:text>This is a Spark SimpleText control with a border drawn by a Rect.</s:text>
                 </s:SimpleText>
                 <s:Rect width="100%" height="100%">
                     <s:stroke>
