@@ -1,0 +1,66 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+package flex.effects.interpolation
+{
+/**
+ * The NumberInterpolator class provides interpolation between
+ * <code>Number</code> start and end values. 
+ */
+public class NumberInterpolator implements IInterpolator
+{
+    private static var theInstance:NumberInterpolator;
+    
+    public function NumberInterpolator()
+    {
+        super();
+    }
+    
+    /**
+     * Returns the singleton of this class. Since all NumberInterpolators
+     * have the same behavior, there is no need for more than one instance.
+     */
+    public static function getInstance():NumberInterpolator
+    {
+        if (!theInstance)
+            theInstance = new NumberInterpolator();
+        return theInstance;
+    }
+    
+    /**
+     * Returns the <code>Number</code> type, which is the type of
+     * object interpolated by NumberInterpolator
+     */
+    public function get interpolatedType():Class
+    {
+        return Number;
+    }
+
+    /**
+     * @inheritDoc
+     * 
+     * <p>Interpolation for NumberInterpolator consists of a simple
+     * parametric calculation between <code>startValue</code> and 
+     * <code>endValue</code>, using <code>fraction</code> as the 
+     * fraction elapsed from start to end, like this:</p>
+     * 
+     * <p><code>return startValue + fraction * (endValue - startValue);</code></p>
+     */
+    public function interpolate(fraction:Number, startValue:*, endValue:*):*
+    {
+        if (isNaN(startValue) || isNaN(endValue))
+            throw new Error("Interpolator cannot calculate interpolated " + 
+                            "values when either startValue (" + startValue + ") " + 
+                            "or endValue (" + endValue + ") is not a number");
+        return Number(startValue) + (fraction * (Number(endValue) - Number(startValue)));
+    }
+    
+}
+}
