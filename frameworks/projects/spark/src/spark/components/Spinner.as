@@ -32,6 +32,8 @@ use namespace mx_internal;
 
 /**
  *  The radius of the corners of this component.
+ *
+ *  @default 2
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,6 +44,8 @@ use namespace mx_internal;
 
 /**
  *  The alpha of the focus ring for this component.
+ *
+ *  @default 0.5
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,6 +56,8 @@ use namespace mx_internal;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
+ *
+ *  @default 0x70B2EE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -62,6 +68,8 @@ use namespace mx_internal;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *
+ *  @default 0x000000
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -187,8 +195,10 @@ use namespace mx_internal;
  *    change="<i>No default</i>"
  *
  *    <strong>Styles</strong>
- *    focusColor=""
- *    symbolColor=""
+ *    cornerRadius="2"
+ *    focusAlpha="0.5"
+ *    focusColor="0x70B2EE"
+ *    symbolColor="0x000000"
  *      
  *  /&gt;
  *  </pre>
@@ -244,9 +254,9 @@ public class Spinner extends Range implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-	//----------------------------------
-	//  decrementButton
-	//----------------------------------
+    //----------------------------------
+    //  decrementButton
+    //----------------------------------
 
     [SkinPart(required="false")]
     
@@ -262,9 +272,9 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     public var decrementButton:Button;
     
-	//----------------------------------
-	//  incrementButton
-	//----------------------------------
+    //----------------------------------
+    //  incrementButton
+    //----------------------------------
 
     [SkinPart(required="false")]
     
@@ -376,7 +386,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -526,6 +536,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     }
     
     /**
+     *  @private
      *  Handles the <code>mouseWheel</code> event
      *  when the component is in focus.
      *  The spinner is moved by the amount of the mouse event delta
