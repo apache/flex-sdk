@@ -422,7 +422,6 @@ public class TrackBase extends Range
         {
             thumbSize = calculateThumbSize();
             sizeThumb(thumbSize);
-    
             positionThumb(valueToPosition(value));
         }
     }
@@ -677,15 +676,10 @@ public class TrackBase extends Range
      */
     protected function track_updateCompleteHandler(event:Event):void
     {
-        //TODO: Consider the case where the track moves (like the move
-        //effect). Perhaps this handler should run every time... 
-        if (trackSize != tempTrackSize)
-        {
-            thumbSize = calculateThumbSize();
-            sizeThumb(thumbSize);
-            positionThumb(valueToPosition(value));
-            tempTrackSize = trackSize;
-        }
+        thumbSize = calculateThumbSize();
+        sizeThumb(thumbSize);
+        positionThumb(valueToPosition(value));
+        tempTrackSize = trackSize;
     }
     
     /**
