@@ -21,7 +21,7 @@ import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
-import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.ISWFContext;
 import mx.automation.IAutomationObject;
 import mx.core.FTETextField;
 import mx.managers.ISystemManager;
@@ -2080,7 +2080,7 @@ public class UIFTETextField extends FTETextField
                 // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
                 if (fontModuleFactory != null) 
                 {
-                    textLineCreator = ITextLineCreator(fontModuleFactory);
+                    fontContext = ISWFContext(fontModuleFactory);
                     embedFonts = true;
                 }
                 else
@@ -2088,18 +2088,18 @@ public class UIFTETextField extends FTETextField
                     var sm:ISystemManager = creatingSystemManager();
                     embedFonts = sm != null && sm.isFontFaceEmbedded(textFormat);
                     if (embedFonts)
-                        textLineCreator = ITextLineCreator(sm);
+                        fontContext = ISWFContext(sm);
                     else
-                        textLineCreator = null;
+                        fontContext = null;
                 }
             }
             else
             {
                 embedFonts = getStyle("embedFonts");
                 if (embedFonts)
-                    textLineCreator = ITextLineCreator(moduleFactory);
+                    fontContext = ISWFContext(moduleFactory);
                 else
-                    textLineCreator = null;
+                    fontContext = null;
             }
 
             if (getStyle("fontAntiAliasType") != undefined)
