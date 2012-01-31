@@ -160,7 +160,23 @@ public class FxVScrollBar extends FxScrollBar
             super.step(increase);
         else
             updateViewportVSP((increase) ? Keyboard.DOWN : Keyboard.UP);
-    }    
+    }
+    
+    /**
+     *  @private
+     */    
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        if (instance == thumb)
+        {
+            thumb.setConstraintValue("top", undefined);
+            thumb.setConstraintValue("bottom", undefined);
+            thumb.setConstraintValue("verticalCenter", undefined);
+        }      
+        
+        super.partAdded(partName, instance);
+    }     
+
     
 }
 
