@@ -247,7 +247,7 @@ public class AnimateTransformInstance extends AnimateInstance
     /**
      * @private
      * 
-     * Insert a new keyframe into an existing keyframe array. Keyframes are sorted by
+     * Insert a new keyframe into an existing keyframe Vector. Keyframes are sorted by
      * time, so the new keyframe must be inserted in the proper place according to its
      * time value and the startDelay time passed in
      */
@@ -470,6 +470,15 @@ public class AnimateTransformInstance extends AnimateInstance
                 }
             }
         }
+        // FIXME (chaase): autoProps automatically animates all transform properties
+        // that are not explicitly specified via the effect properties.
+        // This handles, for example, transitions, to pick up all changes and turn
+        // them into motionPaths on the transform properties.
+        // This is great, but may have unintended consequences, such as performing
+        // an animated Rotate when only a Move was requested (but the rotation angle
+        // change was picked up automatically).
+        // Ideally, we would have this behavior for the superclass effect, but not
+        // carry over into the Move/Rotate/etc. effects.
         for (s in autoProps)
         {
             var mp:MotionPath = new MotionPath(s);
