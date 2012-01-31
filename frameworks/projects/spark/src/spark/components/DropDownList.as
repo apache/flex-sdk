@@ -216,10 +216,10 @@ public class DropDownList extends DropDownListBase
      *  of the layout.</p>
      * 
      *  <p>Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
-     *  also be a member of the data Provider.</p>
+     *  also be a member of the data provider.</p>
      * 
-     *  <p>Note: Setting typicalItem in DropDownList will override any explicit width or height
-     *  set on the labelDisplay. 
+     *  <p>Note: Setting <code>typicalItem</code> overrides any explicit width or height
+     *  set on the <code>labelDisplay</code> skin part. </p>
      * 
      *  @default null
      *  
