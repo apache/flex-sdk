@@ -6,9 +6,9 @@
     xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Declarations>
-        <s:Move3D id="moveEffect" target="{targetBox}" xBy="100" repeatCount="2"
-	        repeatBehavior="reverse" effectStart="playButton.enabled=false"
-	        effectEnd="playButton.enabled=true;"/>
+        <s:Move3D id="moveEffect" target="{targetBox}" xBy="100" zBy="100"
+        	repeatCount="2" repeatBehavior="reverse" 
+        	effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
     </fx:Declarations>
 
     <s:Panel title="AnimateTransformMove3D Effect Example"
