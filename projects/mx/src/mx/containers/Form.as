@@ -17,6 +17,7 @@ import flash.display.DisplayObject;
 import mx.containers.utilityClasses.BoxLayout;
 import mx.controls.Label;
 import mx.core.Container;
+import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -185,11 +186,6 @@ public class Form extends Container
     {
         super();
         
-        styleManager.registerInheritingStyle("labelWidth");
-        styleManager.registerSizeInvalidatingStyle("labelWidth");
-        styleManager.registerInheritingStyle("indicatorGap");
-        styleManager.registerSizeInvalidatingStyle("indicatorGap");
-        
         showInAutomationHierarchy = true;
         
         layoutObject.target = this;
@@ -212,6 +208,25 @@ public class Form extends Container
      */
     private var measuredLabelWidth:Number;
 
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = moduleFactory;
+        
+        styleManager.registerInheritingStyle("labelWidth");
+        styleManager.registerSizeInvalidatingStyle("labelWidth");
+        styleManager.registerInheritingStyle("indicatorGap");
+        styleManager.registerSizeInvalidatingStyle("indicatorGap");
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
