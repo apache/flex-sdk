@@ -1471,7 +1471,7 @@ public class DataGridEditor
         if (event.relatedObject)
         {
             var component:IUIComponent = getIUIComponent(event.relatedObject);
-            if (component && (component && editorOwns(component)))
+            if (component && editorOwns(component))
                 return;                
         }
         
