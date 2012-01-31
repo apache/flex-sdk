@@ -793,8 +793,8 @@ public class DataGroup extends GroupBase
     {
         if ((dataProvider == null) || (element == null))
             return -1;
-        var item:Object = (element is IDataRenderer) ? IDataRenderer(element).data : element;
-        return dataProvider.getItemIndex(item);
+            
+        return indexToRenderer.indexOf(element);
     }
     
     
