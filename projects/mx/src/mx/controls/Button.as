@@ -160,7 +160,7 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the component's bottom border
  *  and the bottom of its content area.
  *  
- *  @default 0 
+ *  @default 2 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -173,7 +173,7 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the component's top border
  *  and the top of its content area.
  *  
- *  @default 0
+ *  @default 2
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -588,10 +588,10 @@ include "../styles/metadata/TextStyles.as"
  *    letterSpacing="0"
  *    overIcon="null"
  *    overSkin="mx.skins.halo.ButtonSkin"
- *    paddingBottom="0"
+ *    paddingBottom="2"
  *    paddingLeft="0"
  *    paddingRight="0"
- *    paddingTop="0"
+ *    paddingTop="2"
  *    repeatDelay="500"
  *    repeatInterval="35"
  *    selectedDisabledIcon="null"
