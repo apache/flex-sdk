@@ -367,11 +367,11 @@ public class GridColumn extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Specifies the formatter used by the column's itemToDataTip() method to 
-     *  convert dataProvider items to strings.
+     *  Specifies the formatter used by the column's <code>itemToDataTip()</code> method to 
+     *  convert data provider items to Strings.
      * 
-     *  <p>If the formatter's <code>styleParent</code> wasn't specified, it's set
-     *  to the column's grid, so that the formatter inherits the grid's "locale" style.</p>
+     *  <p>If the formatter's <code>styleParent</code> was not specified, it's set
+     *  to the column's grid, so that the formatter inherits the grid's <code>locale</code> style.</p>
      *
      *  @default null
      * 
@@ -433,23 +433,24 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  Specifies a callback function to run on each item of the data provider 
-     *  to determine its dataTip.
+     *  to determine its data tip.
      *  This property is used by the <code>itemToDataTip</code> method.
      * 
      *  <p>By default, if <code>showDataTips</code> is <code>true</code>,
      *  the column looks for a property named <code>label</code>
-     *  on each data provider item and displays it as its dataTip.
+     *  on each data provider item and displays it as its data tip.
      *  However, some data providers do not have a <code>label</code> property 
      *  nor do they have another property that you can use for displaying data 
-     *  in the rows.
-     *  For example, you might have a data provider that contains a lastName 
-     *  and firstName fields, but you want to display full names as the dataTip.
+     *  in the rows.</p>
+     *
+     *  <p>For example, you have a data provider that contains a lastName 
+     *  and firstName fields, but you want to display full names as the data tip.
      *  You can specify a function to the <code>dataTipFunction</code> property 
      *  that returns a single String containing the value of both fields. You 
      *  can also use the <code>dataTipFunction</code> property for handling 
      *  formatting and localization.</p>
      * 
-     *  <p>The dataTipFunction's signature must match the following:
+     *  <p>The signature of the <code>dataTipFunction</code> function must match the following:
      * 
      *  <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
      *
@@ -460,7 +461,6 @@ public class GridColumn extends EventDispatcher
      *  lastName properties, or do some custom formatting on a Date value
      *  property.</p>
      *
-     * 
      *  @default null
      * 
      *  @see #itemToDataTip
@@ -544,11 +544,11 @@ public class GridColumn extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Specifies the formatter used by the column's itemToLabel() method to 
-     *  convert dataProvider items to strings.
+     *  Specifies the formatter used by the column's <code>itemToLabel()</code> method to 
+     *  convert data provider items to strings.
      * 
-     *  <p>If the formatter's <code>styleParent</code> wasn't specified, it's set
-     *  to the column's grid, so that the formatter inherits the grid's "locale" style.</p>
+     *  <p>If the formatter's <code>styleParent</code> was not specified, it's set
+     *  to the column's grid, so that the formatter inherits the grid's <code>locale</code> style.</p>
      *
      *  @default null
      * 
