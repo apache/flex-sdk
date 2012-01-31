@@ -29,7 +29,7 @@ import spark.effects.supportClasses.FadeInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Fade&gt;</code> tag
+ *  <p>The <code>&lt;s:Fade&gt;</code> tag
  *  inherits the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *  
