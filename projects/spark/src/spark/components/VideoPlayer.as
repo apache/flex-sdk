@@ -327,7 +327,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as";
  *  <p><code>VideoElement</code> is the chromeless version.</p>
  *
  *  @see spark.primitives.VideoElement
- *  @see spark.skins.default.VideoPlayerSkin
+ *  @see spark.skins.spark.VideoPlayerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
