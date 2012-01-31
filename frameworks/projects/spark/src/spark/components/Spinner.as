@@ -471,7 +471,7 @@ public class Spinner extends Range implements IFocusManagerComponent
         switch (event.keyCode)
         {
             case Keyboard.DOWN:
-            //case Keyboard.LEFT:
+            //case Keyboard.LEFT: (handle layoutDirection if uncommented)
             {
                 changeValueByStep(false);
                 event.preventDefault();
@@ -479,7 +479,7 @@ public class Spinner extends Range implements IFocusManagerComponent
             }
 
             case Keyboard.UP:
-            //case Keyboard.RIGHT:
+            //case Keyboard.RIGHT: (handle layoutDirection if uncommented)
             {
                 changeValueByStep(true);
                 event.preventDefault();
