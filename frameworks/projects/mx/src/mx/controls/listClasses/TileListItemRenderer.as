@@ -17,6 +17,7 @@ import flash.display.Sprite;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextFieldType;
+
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -30,6 +31,7 @@ import mx.events.FlexEvent;
 import mx.events.InterManagerRequest;
 import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
+import mx.utils.PopUpUtil;
 
 use namespace mx_internal;
 
@@ -588,23 +590,16 @@ public class TileListItemRenderer extends UIComponent
     protected function toolTipShowHandler(event:ToolTipEvent):void
     {
         var toolTip:IToolTip = event.toolTip;
-
-        // Calculate global position of label.
-        var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
-        var pt:Point = new Point(0, 0);
-        pt = label.localToGlobal(pt);
-        pt = sbRoot.globalToLocal(pt);
-
-        toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
-
-        var screenRight:Number = screen.x + screen.width;
-        pt.x = toolTip.x;
-        pt.y = toolTip.y;
-        pt = sbRoot.localToGlobal(pt);
-        if (pt.x + toolTip.width > screenRight)
-            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
+        
+        // We need to position the tooltip at same x coordinate, 
+        // center vertically and make sure it doesn't overlap the screen.
+        // Call the helper function to handle this for us.
+        var pt:Point = PopUpUtil.positionOverComponent(DisplayObject(label),
+                                                       systemManager,
+                                                       toolTip.width, 
+                                                       toolTip.height,
+                                                       height / 2); 
+        toolTip.move(pt.x, pt.y);
     }
     
     /**
