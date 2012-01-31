@@ -22,7 +22,7 @@ import mx.containers.Panel;
 import mx.core.Application;
 import mx.core.UIComponent;
 import mx.effects.FxAnimateShaderTransition;
-import mx.effects.PropertyValuesHolder;
+import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
     
 public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
@@ -206,8 +206,8 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
             shader.data.from.input = bitmapFrom;
             shader.data.to.input = bitmapTo;
             
-            propertyValuesList = [
-                new PropertyValuesHolder("progress", [0,1])
+            animationProperties = [
+                new AnimationProperty("progress", 0, 1)
             ];
             // auto-set width/height if exposed in shader
             if ("width" in shader.data)
