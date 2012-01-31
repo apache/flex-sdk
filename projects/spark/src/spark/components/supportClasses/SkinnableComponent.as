@@ -36,33 +36,27 @@ include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
 /**
- *  Name of the skin to use for this component. The skin must be a class that extends
+ *  Name of the skin class to use for this component. The skin must be a class that extends
  *  the mx.components.Skin class. 
- * 
- *  NOTE: We need to give the "skin" style a different name in order to resolve the
- *  collision with the Flex 3 "skin" style.
- *  This is an obviously bad name to serve as a reminder that it needs to get fixed.
- * 
- *  TODO: Fix name
  */
-[Style(name="skinZZ", type="Class")]
+[Style(name="skinClass", type="Class")]
 
 /**
  *  The FxComponent class defines the base class for skinnable components. 
  *  The skins used by a FxComponent class are child classes of the Skin class.
  *
- *  <p>Associate a skin class with a component class by setting the <code>skinZZ</code> style property of the 
- *  component class. You can set the <code>skinZZ</code> property in CSS, as the following example shows:</p>
+ *  <p>Associate a skin class with a component class by setting the <code>skinClass</code> style property of the 
+ *  component class. You can set the <code>skinClass</code> property in CSS, as the following example shows:</p>
  *
- *  <pre>  MyComponent
+ *  <pre>MyComponent
  *  {
  *    skinClass: ClassReference("my.skins.MyComponentSkin")
  *  }</pre>
  *
- *  <p>The following example sets the <code>skinZZ</code> property in MXML:</p>
+ *  <p>The following example sets the <code>skinClass</code> property in MXML:</p>
  *
  *  <pre>
- *  &lt;MyComponent skinZZ="my.skins.MyComponentSkin"/&gt;</pre>
+ *  &lt;MyComponent skinClass="my.skins.MyComponentSkin"/&gt;</pre>
  *
  *
  *  @see mx.components.Skin
@@ -92,40 +86,36 @@ public class FxComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    // we need all these getters/setters around skinObject so it
-    // can be a public read-only Bindable variable and a protected
-    // read/write variable.
-    private var __skinObject:Skin;
-    
-    [Bindable("skinObjectChanged")]
-    
     /**
-     *  @private
-     */
-    private function get _skinObject():Skin
-    {
-        return __skinObject;
-    }
+     * @private 
+     * Storage for skin instance
+     */ 
+    private var _skin:Skin;
     
-    private function set _skinObject(value:Skin):void
-    {
-        if (value === __skinObject)
-           return;
-        
-        __skinObject = value;
-        dispatchEvent(new Event("skinObjectChanged"));
-    }
-    
-    [Bindable("skinObjectChanged")]
+    [Bindable("skinChanged")]
     
     /**
      *  The instance of the skin class for this component instance. 
      *  This is a read-only property that you set 
      *  by calling the <code>loadSkin()</code> method.
      */
-    public function get skinObject():Skin
+    public function get skin():Skin
     {
-        return _skinObject;
+        return _skin;
+    }
+    
+    /**
+     *  @private
+     *  Setter for the skin instance.  This is so the bindable event
+     *  is dispatched
+     */ 
+    private function setSkin(value:Skin):void
+    {
+        if (value === _skin)
+           return;
+        
+        _skin = value;
+        dispatchEvent(new Event("skinChanged"));
     }
     
     //--------------------------------------------------------------------------
@@ -154,7 +144,7 @@ public class FxComponent extends UIComponent
         if (skinChanged)
         {
             skinChanged = false;
-            if (skinObject)
+            if (skin)
                 unloadSkin();
             loadSkin();
         }
@@ -171,12 +161,12 @@ public class FxComponent extends UIComponent
      */
     override protected function measure():void
     {
-        if (skinObject)
+        if (skin)
         {
-            measuredWidth = skinObject.getExplicitOrMeasuredWidth();
-            measuredHeight = skinObject.getExplicitOrMeasuredHeight();
-            measuredMinWidth = isNaN( skinObject.explicitWidth ) ? skinObject.minWidth : skinObject.explicitWidth;
-            measuredMinHeight = isNaN( skinObject.explicitHeight ) ? skinObject.minHeight : skinObject.explicitHeight;
+            measuredWidth = skin.getExplicitOrMeasuredWidth();
+            measuredHeight = skin.getExplicitOrMeasuredHeight();
+            measuredMinWidth = isNaN( skin.explicitWidth ) ? skin.minWidth : skin.explicitWidth;
+            measuredMinHeight = isNaN( skin.explicitHeight ) ? skin.minHeight : skin.explicitHeight;
         }
     }
     
@@ -185,8 +175,8 @@ public class FxComponent extends UIComponent
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        if (skinObject)
-            skinObject.setActualSize(unscaledWidth, unscaledHeight);
+        if (skin)
+            skin.setActualSize(unscaledWidth, unscaledHeight);
     }
     
     /**
@@ -196,7 +186,7 @@ public class FxComponent extends UIComponent
     {
         var allStyles:Boolean = styleProp == null || styleProp == "styleName";
         
-        if (allStyles || styleProp == "skinZZ" || styleProp == "skinFactory")
+        if (allStyles || styleProp == "skinClass" || styleProp == "skinFactory")
         {
             skinChanged = true;
             invalidateProperties();
@@ -227,7 +217,7 @@ public class FxComponent extends UIComponent
     
     /**
      *  Marks the component so that its <code>commitSkinState()</code> method
-     *  gets called during a later screen update.
+     *  gets called during a later screen update. 
      *  The <code>commitSkinState()</code> method sets the new state of the skin.
      */
     protected function invalidateSkinState():void
@@ -251,7 +241,7 @@ public class FxComponent extends UIComponent
      */
     protected function commitSkinState(newState:String):void
     {
-        skinObject.currentState = newState;
+        skin.currentState = newState;
     }
 
     //--------------------------------------------------------------------------
@@ -277,21 +267,21 @@ public class FxComponent extends UIComponent
         var skinClassFactory:IFactory = getStyle("skinFactory") as IFactory;        
         
         if (skinClassFactory)
-            _skinObject = skinClassFactory.newInstance() as Skin;
+            setSkin( skinClassFactory.newInstance() as Skin );
         
         // Class
-        if (!skinObject)
+        if (!skin)
         {
-            var skinClass:Class = getStyle("skinZZ") as Class;
+            var skinClass:Class = getStyle("skinClass") as Class;
             
             if (skinClass)
-                _skinObject = new skinClass();
+                setSkin( new skinClass() );
         }
         
-        if (skinObject)
+        if (skin)
         {
-            skinObject.owner = this;
-            skinObject.data = this;
+            skin.owner = this;
+            skin.fxComponent = this;
             
             // As a convenience if someone has declared hostComponent
             // we assign a reference to ourselves.  If the hostComponent
@@ -299,16 +289,16 @@ public class FxComponent extends UIComponent
             // metadata it will be strongly typed. We need to do more work
             // here and only assign if the type exactly matches our component
             // type.
-            if ("hostComponent" in skinObject)
+            if ("hostComponent" in skin)
             {
                 try 
                 {
-                    Object(skinObject).hostComponent = this;
+                    Object(skin).hostComponent = this;
                 }
                 catch (err:Error) {}
             }
             
-            addChild(skinObject);
+            addChild(skin);
         }
         else
         {
@@ -339,13 +329,13 @@ public class FxComponent extends UIComponent
                 
                 if (part.required)
                 {
-                    if (!(part.id in skinObject))
+                    if (!(part.id in skin))
                         throw(new Error("Required skin part \"" + part.id + "\" cannot be found.")); 
                 }
                 
-                if (part.id in skinObject)
+                if (part.id in skin)
                 {
-                    this[part.id] = skinObject[part.id];
+                    this[part.id] = skin[part.id];
                     
                     // If the assigned part has already been instantiated, call partAdded() here,
                     // but only for static parts.
@@ -360,7 +350,11 @@ public class FxComponent extends UIComponent
      *  Attach behaviors to the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
+<<<<<<< .mine
+     *
+=======
      *  
+>>>>>>> .theirs
      *  <p>A subclass of FxComponent must override this method to
      *  attach behaviors to the skin object.</p>
      * 
@@ -369,7 +363,7 @@ public class FxComponent extends UIComponent
      */
     protected function skinLoaded():void
     {
-        skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
+        skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
         // Declarative behaviors to the skin get attached here.  
         // Use partAdded for individual part behaviors
@@ -384,7 +378,7 @@ public class FxComponent extends UIComponent
      */
     protected function unloadingSkin():void
     {
-        skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
+        skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
         // Declarative behaviors to the skin get removed here.
         // Use partRemoved for individual part behaviors
@@ -440,8 +434,8 @@ public class FxComponent extends UIComponent
 
         unloadingSkin();
         clearSkinParts();
-        removeChild(skinObject);
-        _skinObject = null;
+        removeChild(skin);
+        setSkin(null);
     }
 
     //--------------------------------------------------------------------------
