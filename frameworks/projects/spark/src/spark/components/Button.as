@@ -40,15 +40,14 @@ import mx.core.IButton;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Button
- 
+ *  &lt;Button 
  *    <strong>Properties</strong>
  *    emphasized="false"
  *  /&gt;
  *  </pre>
  *
- *  @includeExample examples/ButtonExample.mxml
  *  @see spark.skins.default.ButtonSkin
+ *  @includeExample examples/ButtonExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
