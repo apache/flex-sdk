@@ -520,15 +520,20 @@ public class HTTPChannel extends PollingChannel
             result.url = endpoint + _appendToURL;
         else
             result.url = endpoint;
-		
-		monitorRpcMessage(message, result);	
-		
+        
+        // Propagate our requestTimeout for those platforms
+        // supporting the idleTimeout property on URLRequest.
+        if ("idleTimeout" in result && requestTimeout > 0)
+            result["idleTimeout"] = requestTimeout * 1000;
+                
+        monitorRpcMessage(message, result); 
+        
         result.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
 
         var packet:XML = _encoder.encode(message, null);
         result.data = packet.toString();
         result.method = "POST";
-
+        
         return result;
     }
 	
