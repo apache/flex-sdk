@@ -588,6 +588,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     //  layout
     //----------------------------------
     
+    [Inspectable(category="General")]
+    
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
      *
