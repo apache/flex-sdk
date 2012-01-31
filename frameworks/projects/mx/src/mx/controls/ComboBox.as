@@ -1241,9 +1241,6 @@ public class ComboBox extends ComboBase
 
         if (labelFunctionChanged)
         {
-            if (_dropdown)
-                _dropdown.labelFunction = _labelFunction;
-
             selectionChanged = true;
             if (!explicitText)
                 textInput.text = selectedLabel;
@@ -1478,7 +1475,7 @@ public class ComboBox extends ComboBase
             _oldIndex = selectedIndex;
             _dropdown.verticalScrollPolicy = ScrollPolicy.AUTO;
             _dropdown.labelField = _labelField;
-            _dropdown.labelFunction = _labelFunction;
+            _dropdown.labelFunction = itemToLabel;
             _dropdown.allowDragSelection = true;
 
             _dropdown.addEventListener("change", dropdown_changeHandler);
