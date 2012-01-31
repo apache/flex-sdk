@@ -44,26 +44,29 @@ public class GridDimensions
     
     /**
      *  Inserts specified elements starting from startIndex.
-     * 
-     *  Our implementation of:
+     *  
+     *  <pre>Our implementation of:
      *      var argArray:Array = new Array();
      *      for each (var x:Number in values)
      *      {
      *          argArray.push(x);
      *      }
      *      argArray.splice(0, 0, startIndex, 0);
-     *      vec.splice.apply(vec, argArray);
+     *      vec.splice.apply(vec, argArray);</pre>
+     * 
+     *  @param vec The vector to insert into.
+     *  @param startIndex The index to insert at.
+     *  @param elements The elements to be inserted.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static function insertValuesToVector(vec:Vector.<Number>, startIndex:int, values:Vector.<Number>):void
+    public static function insertElementsToVector(vec:Vector.<Number>, startIndex:int, elements:Vector.<Number>):void
     {
-        // FIXME (klin): change method name.
         const oldLength:int = vec.length;
-        const count:int = values.length;
+        const count:int = elements.length;
         vec.length += count;
         const vecLength:int = vec.length;
         var i:int;
@@ -72,15 +75,20 @@ public class GridDimensions
         for (i = oldLength - 1; i >= startIndex; i--)
             vec[i + count] = vec[i];
         
-        const endIndex:int = startIndex + values.length;
+        const endIndex:int = startIndex + elements.length;
         var j:int = 0;
         for (i = startIndex; i < endIndex; i++)
-            vec[i] = values[j++];
+            vec[i] = elements[j++];
     }
     
     /**
      *  Insert count elements of the specified value starting from
      *  startIndex.
+     *  
+     *  @param vec The vector to insert into.
+     *  @param startIndex The index to insert at.
+     *  @param count The number of elements to insert
+     *  @param value The value of the inserted elements
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -89,7 +97,6 @@ public class GridDimensions
      */
     public static function insertValueToVector(vec:Vector.<Number>, startIndex:int, count:int, value:Number):void
     {
-        // FIXME (klin): change method name.
         const oldLength:int = vec.length;
         vec.length += count;
         const vecLength:int = vec.length;
@@ -242,8 +249,8 @@ public class GridDimensions
         // There might be a new set of columns which is the same length
         // as the old set of columns.
 
-        // clear cached information including rowCount
-        clear();
+        // clear cached information
+        clearHeights();
         
         // fix up the number of columns
         _columnCount = value;
@@ -639,7 +646,7 @@ public class GridDimensions
      */
     public function getCellBounds(row:int, col:int):Rectangle
     {
-        // TBD: provide optional return value (Rectangle) parameter
+        // TODO (klin): provide optional return value (Rectangle) parameter
         if (row < 0 || row >= rowCount || col < 0 || col >= columnCount)
             return null;
         
@@ -821,9 +828,9 @@ public class GridDimensions
      */
     public function getRowBounds(row:int):Rectangle
     {
-        // TBD: provide optional return value (Rectangle) parameter    
+        // TODO (klin): provide optional return value (Rectangle) parameter    
         if ((row < 0) || (row >= _rowCount))
-            return null;  // TBD: return empty Rectangle instead
+            return null;
         
         if (_columnCount == 0 || _rowCount == 0)
             return new Rectangle(0, 0, 0, 0);
@@ -884,9 +891,9 @@ public class GridDimensions
      */
     public function getColumnBounds(col:int):Rectangle
     {
-        // TBD: provide optional return value (Rectangle) parameter
+        // TODO (klin): provide optional return value (Rectangle) parameter
         if ((col < 0) || (col >= _columnCount))
-            return null;  // TBD: return empty Rectangle instead
+            return null;
         
         if (_columnCount == 0 || _rowCount == 0)
             return new Rectangle(0, 0, 0, 0);
@@ -1574,22 +1581,21 @@ public class GridDimensions
         
         rowList.moveColumns(fromCol, toCol, count);
         
-        insertValuesToVector(_columnWidths, toCol, _columnWidths.splice(fromCol, count));
-        insertValuesToVector(typicalCellWidths, toCol, typicalCellWidths.splice(fromCol, count));
-        insertValuesToVector(typicalCellHeights, toCol, typicalCellHeights.splice(fromCol, count));
+        insertElementsToVector(_columnWidths, toCol, _columnWidths.splice(fromCol, count));
+        insertElementsToVector(typicalCellWidths, toCol, typicalCellWidths.splice(fromCol, count));
+        insertElementsToVector(typicalCellHeights, toCol, typicalCellHeights.splice(fromCol, count));
     }
     
     /**
-     *  Removes all cells and sets rowCount to 0.
+     *  Clears all cached heights.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function clear():void
+    public function clearHeights():void
     {
-        _rowCount = 0;
         rowList.removeAll();
         recentNode = null;
         recentNode2 = null;
@@ -1605,7 +1611,7 @@ public class GridDimensions
      */
     private function insertRowsAt(startRow:int, count:int, nodes:Vector.<GridRowNode> = null):void
     {
-        // TODO: Push this to GridRowList.
+        // TODO (klin): Push this to GridRowList.
         
         if (startRow < 0 || count <= 0)
             return;
@@ -1719,13 +1725,13 @@ public class GridDimensions
                 
             case CollectionEventKind.REFRESH:
             {
-                clear();
+                clearHeights();
                 break;
             }
                 
             case CollectionEventKind.RESET:
             {
-                clear();
+                clearHeights();
                 clearTypicalCellWidthsAndHeights();
                 break;
             }
@@ -1843,7 +1849,6 @@ public class GridDimensions
      */
     public function toString():String
     {
-        // TODO (klin): Build really useful string here.
         return rowList.toString();
     }
 }
