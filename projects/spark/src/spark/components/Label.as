@@ -124,6 +124,12 @@ public class TextBox extends TextGraphicElement
     {
         super.measure();
 
+        // The measure() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, compose() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
+
         var width:Number = !isNaN(explicitWidth) ? explicitWidth : Infinity;
         var height:Number = !isNaN(explicitHeight) ? explicitHeight : Infinity;
         compose(width, height);
@@ -140,6 +146,12 @@ public class TextBox extends TextGraphicElement
                                                   unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // The updateDisplayList() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, compose() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
 
         compose(unscaledWidth, unscaledHeight);
     }
