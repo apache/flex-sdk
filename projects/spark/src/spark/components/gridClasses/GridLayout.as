@@ -21,6 +21,7 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
@@ -446,7 +447,20 @@ public class GridLayout extends LayoutBase
 		grid.itemRendererGroup.addElement(renderer);
 
 		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
-        layoutItemRenderer(renderer, 0, 0, column.width, NaN);
+        
+        // If the column's width isn't specified, then use the renderer's explicit
+        // width, if any.   If that isn't specified, then use 4096, to avoid wrapping.
+        
+        var columnWidth:Number = column.width;
+        if (isNaN(columnWidth))
+        {
+            const rendererUIC:IUIComponent = renderer as IUIComponent;
+            columnWidth = (rendererUIC) ? rendererUIC.explicitWidth : NaN;
+        }
+        if (isNaN(columnWidth))
+            columnWidth = 4096;
+        
+        layoutItemRenderer(renderer, 0, 0, columnWidth, NaN);
         		
 		grid.itemRendererGroup.removeElement(renderer);
 		return renderer;
