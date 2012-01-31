@@ -93,7 +93,7 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;s:Group&gt;</code> tag inherits all of the
+ *  <p>The <code>&lt;s:RadioButtonGroup&gt;</code> tag inherits all of the
  *  tag attributes of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
@@ -438,7 +438,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         instance.radioButtonGroup = this;
         instance.invalidateSkinState();
         
-		dispatchEvent(new Event("numRadioButtonsChanged"));
+        dispatchEvent(new Event("numRadioButtonsChanged"));
     }
 
     /**
@@ -470,7 +470,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                     // because the state changed, the group will be needed
                     // if the radio button is readded later because of another
                     // state transition.
-                	//rb.group = null;
+                    //rb.group = null;
 
                     // If the rb is selected, leave the button itself selected
                     // but clear the selection for the group.
@@ -490,7 +490,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
             }
 
             if (foundInstance)
-				dispatchEvent(new Event("numRadioButtonsChanged"));
+                dispatchEvent(new Event("numRadioButtonsChanged"));
         }
     }
 
@@ -645,7 +645,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         if (rb)
         {
             //trace("radioButton_removedHandler", rb.id);
-        	rb.removeEventListener(Event.REMOVED, radioButton_removedHandler);
+            rb.removeEventListener(Event.REMOVED, radioButton_removedHandler);
             removeInstance(rb);
         }
     }
