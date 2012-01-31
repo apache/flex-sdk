@@ -109,7 +109,9 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:Panel
  *   <strong>Properties</strong>
- *   title=""
+ *    controlBarContent="null"
+ *    controlBarLayout="HorizontalLayout"
+ *    title=""
  *   &gt;
  *      ...
  *      <i>child tags</i>
@@ -203,7 +205,9 @@ public class Panel extends SkinnableContainer
 
     /**
      *  The skin part that defines the appearance of the 
-     *  control bar in the container.
+     *  control bar area of the container.
+     *  By default, the PanelSkin class defines the control bar area to appear at the bottom 
+     *  of the content area of the Panel container with a grey background. 
      *
      *  @see spark.skins.spark.PanelSkin
      *  
@@ -221,8 +225,17 @@ public class Panel extends SkinnableContainer
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  The set of items that become the content of
-     *  the controlBarGroup
+     *  The set of components to include in the control bar area of the 
+     *  Panel container. 
+     *  The location and appearance of the control bar area of the Panel container 
+     *  is determined by the spark.skins.spark.PanelSkin class. 
+     *  By default, the PanelSkin class defines the control bar area to appear at the bottom 
+     *  of the content area of the Panel container with a grey background. 
+     *  Create a custom skin to change the default appearance of the control bar.
+     *
+     *  @default null
+     *
+     *  @see spark.skins.spark.PanelSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -246,7 +259,9 @@ public class Panel extends SkinnableContainer
     //---------------------------------- 
     
     /**
-     *  An optional Layout assigned to the control bar.
+     *  Defines the layout of the control bar area of the container.
+     *
+     *  @default HorizontalLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
