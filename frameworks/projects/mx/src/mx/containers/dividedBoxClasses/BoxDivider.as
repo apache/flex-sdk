@@ -32,21 +32,41 @@ include "../../styles/metadata/GapStyles.as"
 
 /**
  *  @copy mx.containers.DividedBox#style:dividerAffordance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerAffordance", type="Number", format="Length", inherit="no")]
 
 /**
  *  @copy mx.containers.DividedBox#style:dividerAlpha 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerAlpha", type="Number", inherit="no")]
 
 /**
  *  @copy mx.containers.DividedBox#style:dividerColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.containers.DividedBox#style:dividerThickness
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerThickness", type="Number", format="Length", inherit="no")]
 
@@ -58,6 +78,11 @@ include "../../styles/metadata/GapStyles.as"
  *  The BoxDivider class represents the divider between children of a DividedBox container.
  *
  *  @see mx.containers.DividedBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BoxDivider extends UIComponent
 {
@@ -71,6 +96,11 @@ public class BoxDivider extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BoxDivider()
     {
