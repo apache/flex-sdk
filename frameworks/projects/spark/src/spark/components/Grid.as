@@ -1888,7 +1888,9 @@ package spark.components
         //  variableRowHeight
         //----------------------------------
         
-        [Bindable("variableRowHeightChanged")]        
+        private var _variableRowHeight:Boolean = true;
+        
+        [Bindable("variableRowHeightChanged")]
         
         /**
          *  If true, each row's height is the maximum of preferred heights of the cells displayed so far.
@@ -1904,7 +1906,7 @@ package spark.components
          */
         public function get variableRowHeight():Boolean
         {
-            return isNaN(gridDimensions.fixedRowHeight);
+            return _variableRowHeight;
         }
         
         /**
@@ -1915,7 +1917,7 @@ package spark.components
             if (value == variableRowHeight)
                 return;
             
-            gridDimensions.fixedRowHeight = (value) ? NaN : rowHeight;
+            _variableRowHeight = value;
             
             invalidateSize();
             invalidateDisplayList();
