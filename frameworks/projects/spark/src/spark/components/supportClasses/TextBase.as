@@ -1246,6 +1246,7 @@ public class TextGraphicElement extends GraphicElement
 
             textLine.x += drawX;
             textLine.y += drawY;
+            textLine.visible = visible;
             
 			addChildAtMethod(textLine, index);
 		}
