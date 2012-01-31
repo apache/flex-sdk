@@ -26,7 +26,8 @@ import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
-import mx.core.IVisualItem;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
@@ -541,14 +542,14 @@ public class DataGroup extends GroupBase
         var host:DisplayObject;
         
         // TODO (rfrishbe): need to check for DisplayObject?
-        if (item is IVisualItem)
-            host = IVisualItem(item).parent; 
+        if (item is IVisualElement)
+            host = IVisualElement(item).parent; 
         else if (item is DisplayObject)
             host = DisplayObject(item).parent;
         
         // Remove the item from the group if that group isn't this group
-        if (host && host is Group && host != this)
-            Group(host).removeItem(item);
+        if (host && host is IVisualElementContainer && host != this)
+            IVisualElementContainer(host).removeElement(item);
         else if (host && host is DataGroup && host != this)
         {
             var dp:IList = DataGroup(host).dataProvider;
