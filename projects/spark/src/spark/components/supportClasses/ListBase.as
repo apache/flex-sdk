@@ -251,7 +251,7 @@ public class ListBase extends SkinnableDataContainer
      *  @private
      *  Internal storage for the selectedIndex property.
      */
-    private var _selectedIndex:int = NO_SELECTION;
+    public var _selectedIndex:int = NO_SELECTION;
     
     [Bindable("selectionChanged")]
     /**
