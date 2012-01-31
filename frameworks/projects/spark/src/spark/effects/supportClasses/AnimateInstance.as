@@ -18,7 +18,6 @@ import flash.utils.Timer;
 
 import mx.components.Group;
 import mx.components.baseClasses.GroupBase;
-import mx.core.Container;
 import mx.core.UIComponent;
 import mx.effects.Animation;
 import mx.effects.EffectInstance;
@@ -824,13 +823,8 @@ public class FxAnimateInstance extends EffectInstance
             parent = target.parent;
         }
         
-        if (parent)
-        {
-            if (parent is Container)
-                Container(parent).autoLayout = enable;
-            else if (parent is GroupBase)
-                GroupBase(parent).autoLayout = enable;
-        }
+        if (parent && ("autoLayout" in parent))
+            parent.autoLayout = enable;
     }
 }
 }
