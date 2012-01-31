@@ -476,6 +476,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  <pre>
      *    function myItemRendererFunction(item:Object):IFactory</pre>
      * 
+     *  <p>Currently, when using itemRendererFunction with a virtual layout 
+     *  (useVirtualLayout=true), item renderer recycling 
+     *  is turned off.  Because of this, using itemRendererFunction 
+     *  can cause a performance degredation and is not recommended for mobile.  
+     *  This may be fixed in future versions of Flex.</p>
+     * 
      *  @default null
      *  
      *  @langversion 3.0
