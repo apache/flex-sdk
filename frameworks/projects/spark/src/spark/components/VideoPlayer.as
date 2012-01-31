@@ -241,7 +241,7 @@ import spark.events.VideoEvent;
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
  *
- *  @see mx.graphics.VideoElement
+ *  @see spark.primitives.VideoElement
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
