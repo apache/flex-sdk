@@ -2024,12 +2024,10 @@ public class UITLFTextField extends TLFTextField
             var textFormat:TextFormat = getTextStyles();
             if (textFormat.font)
             {
-                var embeddedFont:EmbeddedFont = getEmbeddedFont(
-                    textFormat.font, textFormat.bold, textFormat.italic);
-                
                 var fontModuleFactory:IFlexModuleFactory = 
                     embeddedFontRegistry.getAssociatedModuleFactory(
-                        embeddedFont, moduleFactory);
+                    textFormat.font, textFormat.bold, textFormat.italic,
+                        this, moduleFactory);
     
                 // if we found the font, then it is embedded. 
                 // Some fonts are not listed in info(), so are not in the above registry.
@@ -2365,7 +2363,7 @@ public class UITLFTextField extends TLFTextField
         if (cachedEmbeddedFont)
         {
             if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
+                cachedEmbeddedFont.fontStyle == embeddedFontRegistry.getFontStyle(bold, italic))
             {
                 return cachedEmbeddedFont;
             }   
