@@ -986,7 +986,6 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
         "borderAlpha" : "borderAlpha", 
         "borderColor" : "borderColor",
         "borderSides" : "borderSides", 
-        "borderSkin" : "borderSkin",
         "borderStyle" : "borderStyle",
         "borderThickness" : "borderThickness",
         "dropShadowColor" : "dropShadowColor",
