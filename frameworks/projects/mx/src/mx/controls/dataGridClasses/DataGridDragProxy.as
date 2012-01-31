@@ -85,9 +85,13 @@ public class DataGridDragProxy extends UIComponent
             var o:UIComponent;
             
             var data:Object = items[i];
-            
+
             o = new UIComponent();
             addChild(DisplayObject(o));
+
+            // The drag proxy should have the same layoutDirection as the 
+            // DataGrid.
+            o.layoutDirection = DataGridBase(owner).layoutDirection;
             
             var ww:Number = 0;
             var m:int;
