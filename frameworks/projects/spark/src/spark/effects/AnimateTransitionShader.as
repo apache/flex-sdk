@@ -10,22 +10,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.effects
 {
-import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
-import flash.display.Shader;
-import flash.display.ShaderData;
-import flash.display.ShaderInput;
 import flash.display.Sprite;
 import flash.geom.Matrix;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
+import mx.core.IUIComponent;
 import mx.effects.effectClasses.FxAnimateShaderTransitionInstance;
 import mx.graphics.graphicsClasses.GraphicElement;
-import mx.utils.ObjectUtil;
 
 /**
  * This effect animates a transition between two bitmaps,
@@ -45,9 +39,28 @@ import mx.utils.ObjectUtil;
  * that object when it does not exist.</p>
  * 
  * <p>This effect can only be run on targets that are either 
- * DisplayObjects or GraphicElements, since capturing the bitmap
+ * UIComponents or GraphicElements, since capturing the bitmap
  * of the object requires information about the object that only
  * exists in these classes.</p>
+ * 
+ * <p>Because the effect is bitmap-based, and the underlying
+ * Pixel Bender shader expects both bitmaps to be the same size,
+ * the effect will only work correctly when both bitmaps are
+ * of the same size. This means that if the target object changes
+ * size or changes orientation leading to a different size bounding
+ * box, then the effect may not play correctly.</p>
+ * 
+ * <p>This effect and its subclasses differ from other effects in
+ * Flex in that they are intended to work on their own, and may
+ * not have the intended result when run in parallel with other effects.
+ * This constraint comes from the fact that both of the before and after
+ * bitmaps are captured prior to the start of the effect. So if something
+ * happens to the target object after these bitmaps are calculated,
+ * such as another effect changing the target's properties, then those
+ * changes will not be accounted for in the pre-calculated bitmap and
+ * the results may not be as expected. To ensure correct playing of
+ * these bitmap-based effects, they should be played alone on
+ * their target objects.</p>
  * 
  * @see mx.graphics.GraphicElement
  * @see flash.display.DisplayObject
@@ -171,24 +184,24 @@ public class FxAnimateShaderTransition extends FxAnimate
     public static function getSnapshot(target:Object):BitmapData
     {
         if (target is GraphicElement)
-            return GraphicElement(target).getBitmapData(true, 0);
-        else if (!(target is DisplayObject))
+            return GraphicElement(target).getBitmapData(true, 0, false);
+        else if (!(target is IUIComponent))
             throw new Error("FxAnimateShaderTransition can only operate on" + 
-                    " DisplayObject and GraphicElement instances");
-        // TODO (chaase): Simplify logic here - do we really need both local and
-        // global bounds?
+                    " IUIComponent and GraphicElement instances");
         // TODO (chaase): Does this utility function belong in a more central
         // location, like UIComponent, or as part of ImageSnapshot?
-        var targetBounds:Rectangle = target.getBounds(target);
-        var boundsOffset:Point = new Point(targetBounds.x, targetBounds.y);
-        var pixelBounds:Rectangle = target.transform.pixelBounds;
+        
+        var topLevel:Sprite = Sprite(IUIComponent(target).systemManager);   
+        var rectBounds:Rectangle = target.getBounds(topLevel);
         var m:Matrix = target.transform.concatenatedMatrix;
-        m.tx = 0;
-        m.ty = 0;
-        boundsOffset = m.transformPoint(boundsOffset);
-        m.translate(-boundsOffset.x, -boundsOffset.y);
-        var bmData:BitmapData = new BitmapData(pixelBounds.width, 
-            pixelBounds.height, true, 0);
+        // truncate position because the fractional offset will already be figured
+        // into the filter placement onto the target. 
+        // TODO (chaase): There are still some offset
+        // problems with objects inside of rotated parents, depending on the angle.
+        if (m)
+            m.translate(-(Math.floor(rectBounds.x)), -(Math.floor(rectBounds.y)));
+        var bmData:BitmapData = new BitmapData(rectBounds.width, 
+            rectBounds.height, true, 0);
         bmData.draw(IBitmapDrawable(target), m);
 
         return bmData;
@@ -207,14 +220,15 @@ public class FxAnimateShaderTransition extends FxAnimate
         animateShaderTransitionInstance.bitmapFrom = bitmapFrom;
         animateShaderTransitionInstance.bitmapTo = bitmapTo;
 
-        // Iterate through the data properties of the original shader, copying
-        // each parameter to shaderCopy. Skip the 'input' parameters, as these
-        // will be set by the animation and we do not want a reference to the
-        // same common objects.
-        animateShaderTransitionInstance.shaderCode = 
-            (shaderCode is ByteArray) ?
-            ByteArray(shaderCode) :
-            new shaderCode();
+        if (!shaderCode)
+            // User should always supply a shader, but if they don't just 
+            // pass it on
+            animateShaderTransitionInstance.shaderCode = null;
+        else
+            animateShaderTransitionInstance.shaderCode = 
+                (shaderCode is ByteArray) ?
+                ByteArray(shaderCode) :
+                new shaderCode();
         animateShaderTransitionInstance.shaderProperties = shaderProperties;
     }
 }
