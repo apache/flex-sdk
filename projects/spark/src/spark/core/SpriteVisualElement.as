@@ -12,8 +12,10 @@
 package spark.core
 {
 
+import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
@@ -39,10 +41,21 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
+import mx.graphics.shaderClasses.ColorBurnShader;
+import mx.graphics.shaderClasses.ColorDodgeShader;
+import mx.graphics.shaderClasses.ColorShader;
+import mx.graphics.shaderClasses.ExclusionShader;
+import mx.graphics.shaderClasses.HueShader;
+import mx.graphics.shaderClasses.LuminosityMaskShader;
+import mx.graphics.shaderClasses.LuminosityShader;
+import mx.graphics.shaderClasses.SaturationShader;
+import mx.graphics.shaderClasses.SoftLightShader;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
 import spark.components.ResizeMode;
+import spark.utils.MaskUtil;
+import spark.utils.MaskUtil;
 
 use namespace mx_internal;
 
@@ -349,6 +362,7 @@ public class SpriteVisualElement extends FlexSprite
      *  Storage for the alpha property.
      */
     private var _alpha:Number = 1.0;
+    private var _effectiveAlpha:Number = 1.0;
 
     /**
      *  @private
@@ -373,6 +387,23 @@ public class SpriteVisualElement extends FlexSprite
                 value = value * designLayer.effectiveAlpha;
 
             super.alpha = value;
+
+            if (_blendMode == "auto")
+            {
+                // If alpha changes from an opaque/transparent (1/0) and
+                // translucent (0 < value < 1) then change the default
+                // blendMode accordingly
+                if ((value > 0 && value < 1) && (_effectiveAlpha == 0 || _effectiveAlpha == 1))
+                {
+                     super.blendMode = BlendMode.LAYER;
+                }
+                else if ((value == 0 || value == 1) && (_effectiveAlpha > 0 && _effectiveAlpha < 1))
+                {
+                    super.blendMode = BlendMode.NORMAL;
+                }
+            }
+
+            _effectiveAlpha = value;
         }
     }
 
@@ -430,6 +461,92 @@ public class SpriteVisualElement extends FlexSprite
     public function get baselinePosition():Number
     {
         return 0;
+    }
+
+    //----------------------------------
+    //  blendMode
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the blendMode property.
+     */
+    private var _blendMode:String = "auto"; 
+
+    [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
+    /**
+     *  A value from the BlendMode class that specifies which blend mode to use. 
+     * 
+     *  @default auto
+     * 
+     *  @see flash.display.DisplayObject#blendMode
+     *  @see flash.display.BlendMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get blendMode():String
+    {
+        return _blendMode;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set blendMode(value:String):void
+    {
+        if (value == _blendMode)
+            return;
+
+        _blendMode = value;
+
+        // Look for AIM blendModes which are not supported by DisplayObject's
+        // blendMode natively and require setting a custom blendShader. 
+        if (value == "color")
+        {
+            blendShader = new ColorShader();
+        }
+        else if (value == "colordodge")
+        {
+            blendShader = new ColorDodgeShader();
+        }
+        else if (value == "colorburn")
+        {
+            blendShader = new ColorBurnShader();
+        }
+        else if (value == "exclusion")
+        {
+            blendShader = new ExclusionShader();
+        }
+        else if (value == "hue")
+        {
+            blendShader = new HueShader();
+        }
+        else if (value == "luminosity")
+        {
+            blendShader = new LuminosityShader();
+        }
+        else if (value == "saturation")
+        {
+            blendShader = new SaturationShader();
+        }
+        else if (value == "softlight")
+        {
+            blendShader = new SoftLightShader();
+        }
+        else if (value == "auto")
+        {
+            if (alpha == 0 || alpha == 1) 
+                super.blendMode = BlendMode.NORMAL;
+            else
+                super.blendMode = BlendMode.LAYER;
+        }   
+        else
+        {
+            super.blendMode = value;
+        }
     }
 
     //----------------------------------
@@ -744,6 +861,72 @@ public class SpriteVisualElement extends FlexSprite
     }
 
     //----------------------------------
+    //  luminosityInvert
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the luminosityInvert property.
+     */
+    private var _luminosityInvert:Boolean = false; 
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    /**
+     *  @copy spark.primitives.supportClasses.GraphicElement#luminosityInvert
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityInvert():Boolean
+    {
+        return _luminosityInvert;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityInvert(value:Boolean):void
+    {
+        _luminosityInvert = value;
+    }
+
+    //----------------------------------
+    //  luminosityClip
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the luminosityClip property.
+     */
+    private var _luminosityClip:Boolean = false; 
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    /**
+     *  @copy spark.primitives.supportClasses.GraphicElement#luminosityClip
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityClip():Boolean
+    {
+        return _luminosityClip;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityClip(value:Boolean):void
+    {
+        _luminosityClip = value;
+    }
+
+ 
+
+    //----------------------------------
     //  moduleFactory
     //----------------------------------
 
@@ -860,6 +1043,82 @@ public class SpriteVisualElement extends FlexSprite
         super.visible = _designLayer ? _visible && _designLayer.effectiveVisibility : _visible;
     }
 
+    //----------------------------------
+    //  mask
+    //----------------------------------
+    private var _mask:DisplayObject;
+    mx_internal var maskChanged:Boolean;
+    
+    [Inspectable(category="General")]
+    /**
+     *  @copy spark.components.supportClasses.GroupBase#mask
+	 * 
+	 *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    override public function get mask():DisplayObject
+    {
+        return _mask;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function set mask(value:DisplayObject):void
+    {
+        if (_mask !== value)
+        {
+            if (_mask && _mask.parent === this)
+            {
+                removeChild(_mask);
+            }     
+            
+            _mask = value;
+            maskChanged = true;
+            applyMask();           
+        }
+        super.mask = value;         
+    } 
+    
+    //----------------------------------
+    //  maskType
+    //----------------------------------
+    
+    private var _maskType:String = MaskType.CLIP;
+    private var maskTypeChanged:Boolean;
+    private var originalMaskFilters:Array;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
+    
+    /**
+	 * @copy spark.components.supportClasses.GroupBase#maskType
+	 *
+	 *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get maskType():String
+    {
+        return _maskType;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set maskType(value:String):void
+    {
+        if (_maskType != value)
+        {
+            _maskType = value;
+            maskTypeChanged = true;
+            applyMask(); 
+        }
+    } 
+    
     //----------------------------------
     //  percentHeight
     //----------------------------------
@@ -2529,6 +2788,38 @@ public class SpriteVisualElement extends FlexSprite
 
         return height;
     }
+    
+    /**
+     *  @private 
+     */
+    private function applyMask():void
+    {
+        if (maskChanged)
+        {
+            maskChanged = false;
+            if (_mask)
+            {
+                maskTypeChanged = true;
+                
+                if (!_mask.parent)
+                {
+                    // TODO (jszeto): Does this need to be attached to a sibling?
+                    addChild(_mask);
+                    
+                    MaskUtil.applyMask(_mask, null);
+                }
+            }
+        } 
+        
+        if (maskTypeChanged)    
+        {
+            maskTypeChanged = false;
+            
+            if (_mask)
+                MaskUtil.applyMaskType(_mask, _maskType, luminosityInvert, luminosityClip, this);
+        }     
+    }
+    
 }
 }
 
