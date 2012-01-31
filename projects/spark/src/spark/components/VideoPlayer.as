@@ -2055,6 +2055,18 @@ public class VideoPlayer extends SkinnableComponent
         videoElement.videoPlayer.smoothing = beforeFullScreenInfo.smoothing;
         videoElement.videoPlayer.deblocking = beforeFullScreenInfo.deblocking;
         
+        // remove from top level application:
+        if (parent is IVisualElementContainer)
+        {
+            var ivec:IVisualElementContainer = IVisualElementContainer(parent);
+            ivec.removeElement(this);
+        }
+        else
+        {
+            parent.removeChild(this);
+        }
+        
+        // add back to original parent
         if (beforeFullScreenInfo.parent is IVisualElementContainer)
             beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
         else
