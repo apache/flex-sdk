@@ -373,7 +373,7 @@ public class TextBase extends UIComponent implements IDisplayText
      */
 	private var _maxDisplayedLines:int = 0;
     
-    [Inspectable(minValue="-1")]
+    [Inspectable(category="General", minValue="-1", defaultValue="0")]
     
     /**
      *  An integer which determines whether, and where,
@@ -439,6 +439,8 @@ public class TextBase extends UIComponent implements IDisplayText
      */
     private var _showTruncationTip:Boolean = false;
         
+    [Inspectable(category="General", defaultValue="false")]
+
     /**
 	 *  A property that controls whether the component
      *  should show a toolTip when the text has been truncated.
@@ -474,13 +476,13 @@ public class TextBase extends UIComponent implements IDisplayText
     //  text
     //----------------------------------
 
-    [Inspectable(category="General")]
-    
     /**
      *  @private
      */
     mx_internal var _text:String = "";
         
+    [Inspectable(category="General", defaultValue="")]
+    
     /**
      *  The text displayed by this text component.
 	 *
