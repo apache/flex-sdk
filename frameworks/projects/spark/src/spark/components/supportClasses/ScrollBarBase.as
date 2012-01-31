@@ -724,7 +724,7 @@ public class ScrollBar extends TrackBase
             if (getStyle("smoothScrolling"))
             {
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
-                    button_buttonUpHandler, true /*useCapture*/);
+                    button_buttonUpHandler, true);
                 systemManager.getSandboxRoot().addEventListener(
                     SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
                 // FIXME (chaase): what's a reasonable stepSize? Can't use viewport's because
@@ -768,7 +768,7 @@ public class ScrollBar extends TrackBase
             animator.stop();
             
             systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
-                button_buttonUpHandler, true /*useCapture*/);
+                button_buttonUpHandler, true);
             systemManager.getSandboxRoot().removeEventListener(
                 SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
         }
@@ -842,13 +842,13 @@ public class ScrollBar extends TrackBase
         
         trackScrolling = true;
 
-        // Add event handlers for drag and up events
-        addSystemHandlers(MouseEvent.MOUSE_MOVE, track_mouseMoveHandler, 
-            stage_track_mouseMoveHandler);
-        systemManager.addEventListener(
-            MouseEvent.MOUSE_UP, track_mouseLeaveHandler, true);
-        systemManager.stage.addEventListener(Event.MOUSE_LEAVE, 
-                            track_mouseLeaveHandler);
+        // Add event handlers for drag and up events        
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, 
+            track_mouseMoveHandler, true);      
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+            track_mouseUpHandler, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+            track_mouseUpHandler);
 
         // FIXME (chaase): consider using the repeat behavior of Button
         // to handle track-down repetition, instead of doing it with a
@@ -1025,18 +1025,6 @@ public class ScrollBar extends TrackBase
 
     /**
      *  @private
-     *  Handle mouse-move events for track scrolling anywhere on the stage
-     */
-    private function stage_track_mouseMoveHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        track_mouseMoveHandler(event);
-    }
-
-    /**
-     *  @private
      *  Record a new trackPosition, which is the location of the
      *  mouse on the track, relative to the stage. This is used 
      *  in the ongoing Timer events for track scrolling.  Note
@@ -1060,15 +1048,16 @@ public class ScrollBar extends TrackBase
      *  Stop scrolling the track if the mouse leaves the stage
      *  area. Remove the listeners and stop the Timer.
      */
-    private function track_mouseLeaveHandler(event:Event):void
+    private function track_mouseUpHandler(event:Event):void
     {
         trackScrolling = false;
-        removeSystemHandlers(MouseEvent.MOUSE_MOVE, track_mouseMoveHandler,
-                stage_track_mouseMoveHandler);
-        systemManager.removeEventListener(MouseEvent.MOUSE_UP,
-                track_mouseLeaveHandler, true);
-        systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, 
-                            track_mouseLeaveHandler);
+        
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, 
+            track_mouseMoveHandler, true);      
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+            track_mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+            track_mouseUpHandler);
 
         if (trackScrollTimer)
             trackScrollTimer.reset();
