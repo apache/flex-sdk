@@ -27,7 +27,7 @@
     <s:Panel title="Advanced CSS: Descendant Selector Example" height="75%" width="75%"
         horizontalCenter="0" verticalCenter="0">
 
-    <s:ButtonBar id="viewMenu" requiresSelection="true" x="10" y="10">
+    <s:ButtonBar id="viewMenu" requireSelection="true" x="10" y="10">
         <s:dataProvider>
             <mx:ArrayCollection source="['Home', 'Events', 'Rooms', 'Dining']" />
         </s:dataProvider>
