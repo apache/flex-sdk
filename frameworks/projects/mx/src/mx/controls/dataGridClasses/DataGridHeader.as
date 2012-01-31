@@ -200,6 +200,12 @@ public class DataGridHeader extends DataGridHeaderBase
         cachedPaddingBottom = getStyle("paddingBottom");
         cachedPaddingTop = getStyle("paddingTop");
         measuredHeight = cachedHeaderHeight;
+
+        var ww:Number = 0;
+        var n:int = visibleColumns ? visibleColumns.length : 0;
+        for (var i:int = 0; i < n; i++)
+            ww += visibleColumns[i].preferredWidth;
+        measuredWidth = ww;
     }
 
     /**
