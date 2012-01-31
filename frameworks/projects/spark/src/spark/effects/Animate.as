@@ -25,6 +25,15 @@ import spark.effects.supportClasses.AnimateInstance;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+// Exclude suspendBackgroundProcessing for now because the Flex 4
+// effects depend on the layout validation work that the flag suppresses
+[Exclude(name="suspendBackgroundProcessing", kind="property")]
+
+
 [DefaultProperty("motionPaths")]
 
 /**
