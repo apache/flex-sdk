@@ -43,14 +43,12 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @review
- *  
  *  The colors to use for the backgrounds of the items in the list. 
  *  The value is an array of two or more colors. 
  *  The backgrounds of the list items alternate among the colors in the array. 
  * 
  *  @default undefined
- *  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -59,8 +57,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  @review
- * 
  *  The main color for a component. 
  *   
  *  @default 0xCCCCCC
@@ -73,8 +69,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @review
- * 
  *  Color of the fill of an itemRenderer
  *   
  *  @default 0xFFFFFF
@@ -87,8 +81,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @review
- * 
  *  Color of focus ring when the component is in focus
  *   
  *  @default 0x70B2EE
@@ -101,8 +93,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @review
- * 
  *  Color of the highlights when the mouse is over the component
  *   
  *  @default 0xCEDBEF
@@ -115,13 +105,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @review
- * 
  *  Color of any symbol of a component. Examples include the check mark of a FxCheckBox or
  *  the arrow of a FxScrollButton
  *   
  *  @default 0x000000
- *  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
