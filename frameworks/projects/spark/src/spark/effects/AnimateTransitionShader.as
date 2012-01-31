@@ -97,6 +97,8 @@ use namespace mx_internal;
  *  @see flash.display.BitmapData
  *  @see spark.effects.supportClasses.AnimateTransitionShaderInstance
  *  @see spark.primitives.supportClasses.GraphicElement
+ *
+ *  @includeExample examples/AnimateTransitionShaderExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -229,13 +231,13 @@ public class AnimateTransitionShader extends Animate
      * shader with a Pixel Bender pbj file in Wipe.pbj, the calling 
      * code could do the following:
      * 
-     * @example <listing version="3.0">
+     * <pre>
      *   [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
      *   private var WipeCodeClass:Class;
      *   var shaderEffect = new AnimateTransitionShader();
      *   shaderEffect.shaderByteCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};
-     * </listing>
+     * </pre>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
