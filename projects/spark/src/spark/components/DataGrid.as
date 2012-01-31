@@ -24,6 +24,7 @@ import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
+import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.CursorManager;
@@ -143,6 +144,75 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4
  */
 [Style(name="defaultDataGridItemEditor", type="Class", inherit="no")]
+
+/**
+ *  Indicates under what conditions the horizontal scroll bar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  horizontalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
+ *  the viewport's contentWidth is larger than its width.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the scroller skin part.  This style
+ *  is simply a cover for the scroller skin part's horizontalScrollPolicy.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
+/**
+ *  Indicates under what conditions the vertical scroll bar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  verticalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
+ *  the viewport's contentHeight is larger than its height.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the scroller skin part.  This style
+ *  is simply a cover for the scroller skin part's verticalScrollPolicy.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
 
 
 //--------------------------------------
@@ -1650,10 +1720,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         super.styleChanged(styleName);
         
+        const allStyles:Boolean = (styleName == null || styleName == "styleName");
+        
         if (grid)
         {
-            const allStyles:Boolean = (styleName == null || styleName == "styleName");
-            
             if (allStyles || styleManager.isSizeInvalidatingStyle(styleName))
             {
                 if (grid)
@@ -1680,6 +1750,21 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             if (columnHeaderGroup)
                 columnHeaderGroup.invalidateDisplayList();
+        }
+        
+        if (scroller)
+        {
+            const vsp:String = getStyle("verticalScrollPolicy");
+            if (styleName == "verticalScrollPolicy")
+                scroller.setStyle("verticalScrollPolicy", vsp);
+            else if (allStyles && vsp && (vsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("verticalScrollPolicy", vsp);
+                
+            const hsp:String = getStyle("horizontalScrollPolicy");
+            if (styleName == "horizontalScrollPolicy")
+                scroller.setStyle("horizontalScrollPolicy", vsp);
+            else if (allStyles && hsp && (hsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("horizontalScrollPolicy", vsp);
         }
     }
     
@@ -1907,7 +1992,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
 
         }
         
-        
         if (instance == columnHeaderGroup)
         {
             if (grid)
@@ -1919,8 +2003,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
             columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
-        }       
+        }
         
+        if (instance == scroller)
+        {
+            const vsp:String = getStyle("verticalScrollPolicy");
+            if (vsp && (vsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("verticalScrollPolicy", vsp);
+            
+            const hsp:String = getStyle("horizontalScrollPolicy");
+            if (hsp && (hsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("horizontalScrollPolicy", hsp);            
+        }
     }
     
     /**
