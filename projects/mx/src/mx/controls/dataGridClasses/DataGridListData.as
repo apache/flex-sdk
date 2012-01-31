@@ -80,7 +80,9 @@ public class DataGridListData extends BaseListData
 	//
 	//--------------------------------------------------------------------------
 
-	/**
+	[Bindable("dataChange")]
+
+    /**
 	 *  Name of the field or property in the data provider associated with the column. 
 	 *  
 	 *  @langversion 3.0
