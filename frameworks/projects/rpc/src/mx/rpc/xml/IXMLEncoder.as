@@ -15,6 +15,11 @@ package mx.rpc.xml
 /**
  * Encodes an ActionScript object graph to XML based on an XML schema.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IXMLEncoder
 {
@@ -36,12 +41,22 @@ public interface IXMLEncoder
      * can be provided.
      *
      * @return Returns an XML encoding of the given ActionScript value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function encode(value:*, name:QName = null, type:QName = null, definition:XML = null):XMLList;
 
     /**
      * Resets the encoder to its initial state, including resetting any 
      * Schema scope to the top level.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function reset():void;
 
@@ -55,6 +70,11 @@ public interface IXMLEncoder
     /**
      * The function to be used to escape XML special characters before encoding
      * any simple content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get xmlSpecialCharsFilter():Function;
     function set xmlSpecialCharsFilter(func:Function):void;
@@ -65,6 +85,11 @@ public interface IXMLEncoder
      * to be set in the definition). When strictNillability is set to
      * <code>false</code>, null values are always encoded with the
      * <code>xsi:nil="true"</code> attribute. The default is <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      function get strictNillability():Boolean;
 
