@@ -1058,6 +1058,21 @@ public class AnimateTransform extends Animate
             // then go ahead and capture values for it
             if (!(target is IUIComponent) && !(target is IGraphicElement))
                 continue;
+
+            // cache transform center at captureStartValues time; this will
+            // force captureEndValues to use the transform center
+            var computedTransformCenter:Vector3D;
+            if (!setStartValues && transformCenterPerTarget[target] !== undefined)
+            {
+                computedTransformCenter = transformCenterPerTarget[target];
+            }
+            else
+            {
+                computedTransformCenter = computeTransformCenterForTarget(target);
+                if (setStartValues)
+                    transformCenterPerTarget[target] = computedTransformCenter;
+            }
+
             valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
             if (valueMap.translationX === undefined ||
                 valueMap.translationY === undefined ||
@@ -1066,19 +1081,6 @@ public class AnimateTransform extends Animate
                 // TODO (chaase): do we really need this?
                 propChanges[i].stripUnchangedValues = false;
                 
-                var computedTransformCenter:Vector3D;
-                // cache transform center at captureStartValues time; this will
-                // force captureEndValues to use the transform center
-                if (!setStartValues && transformCenterPerTarget[target] !== undefined)
-                {
-                    computedTransformCenter = transformCenterPerTarget[target];
-                }
-                else
-                {
-                    computedTransformCenter = computeTransformCenterForTarget(target);
-                    if (setStartValues)
-                        transformCenterPerTarget[target] = computedTransformCenter;
-                }
                 target.transformPointToParent(computedTransformCenter, xformPosition,
                     null);               
                 valueMap.translationX = xformPosition.x;
