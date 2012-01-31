@@ -18,15 +18,16 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.getDefinitionByName;
+
 import mx.controls.Tree;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModuleFactory
+import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IToolTip;
 import mx.core.IUITextField;
 import mx.core.SpriteAsset;
@@ -34,7 +35,6 @@ import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.InterManagerRequest;
 import mx.events.ToolTipEvent;
 import mx.events.TreeEvent;
 import mx.managers.ISystemManager;
@@ -376,6 +376,10 @@ public class TreeItemRenderer extends UIComponent
                     disclosureIcon = disclosureInstance;
                 }
 
+                // Let the disclosureIcon inherit the layoutDirection
+                if (disclosureIcon is ILayoutDirectionElement)
+                    ILayoutDirectionElement(disclosureIcon).layoutDirection = null;
+                
                 addChild(disclosureIcon as DisplayObject);
                 disclosureIcon.addEventListener(MouseEvent.MOUSE_DOWN,
                         disclosureIcon_mouseDownHandler);
