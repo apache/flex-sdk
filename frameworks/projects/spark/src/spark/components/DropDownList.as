@@ -242,8 +242,20 @@ public class DropDownList extends List
     
     private var labelChanged:Boolean = false;
     // Stores the user selected index until the dropDown closes
-    mx_internal var userProposedSelectedIndex:Number = -1;
+    
     mx_internal static var PAGE_SIZE:int = 5;
+    
+    private var _userProposedSelectedIndex:Number = -1;
+    
+    mx_internal function set userProposedSelectedIndex(value:Number):void
+    {
+        _userProposedSelectedIndex = value;
+    }
+    
+    mx_internal function get userProposedSelectedIndex():Number
+    {
+        return _userProposedSelectedIndex;
+    }
     
     //--------------------------------------------------------------------------
     //
