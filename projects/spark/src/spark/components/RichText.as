@@ -246,6 +246,25 @@ public class TextGraphic extends TextGraphicElement
         
         super.text = value;
     }
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The y-coordinate of the baseline of the first line of text.
+     */
+    override public function get baselinePosition():Number
+    {
+        mx_internal::validateBaselinePosition();
+        
+        // Return the baseline of the first line of composed text.
+        return (textFlowComposer.textLines.length > 0) ? 
+            textFlowComposer.textLines[0].y : 0;
+    }
+    
 
     //--------------------------------------------------------------------------
     //
