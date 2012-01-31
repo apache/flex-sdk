@@ -214,7 +214,7 @@ public class AbstractOperation extends AbstractInvoker
      * are no arguments passed, the arguments object is used as the source of 
      * parameters.
      *
-     * @return AsyncToken Call using the asynchronous completion token pattern.
+     * @return AsyncToken object.
      * The same object is available in the <code>result</code> and
      * <code>fault</code> events from the <code>token</code> property.
      *
