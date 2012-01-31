@@ -81,6 +81,11 @@ use namespace mx_internal;
  *  Dispatched when a branch is closed or collapsed.
  *
  *  @eventType mx.events.TreeEvent.ITEM_CLOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClose", type="mx.events.TreeEvent")]
 
@@ -88,6 +93,11 @@ use namespace mx_internal;
  *  Dispatched when a branch is opened or expanded.
  *
  *  @eventType mx.events.TreeEvent.ITEM_OPEN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemOpen", type="mx.events.TreeEvent")]
 
@@ -95,6 +105,11 @@ use namespace mx_internal;
  *  Dispatched when a branch open or close is initiated.
  *
  *  @eventType mx.events.TreeEvent.ITEM_OPENING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemOpening", type="mx.events.TreeEvent")]
 
@@ -110,6 +125,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Used only if the <code>backgroundColor</code> property is not specified.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -117,6 +137,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Array of colors used in the Tree control, in descending order.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="depthColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -126,6 +151,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  <code>defaultLeafIcon="&#64;Embed(source='c.jpg');"</code>
  *
  *  The default value is the "TreeNodeIcon" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="defaultLeafIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -134,6 +164,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  children are displayed.
  *
  *  The default value is the "TreeDisclosureOpen" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disclosureOpenIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -142,6 +177,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  children are not displayed (the subtree is collapsed).
  *
  *  The default value is the "TreeDisclosureClosed" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disclosureClosedIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -151,6 +191,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  <code>folderOpenIcon="&#64;Embed(source='a.jpg');"</code>
  *
  *  The default value is the "TreeFolderOpen" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="folderOpenIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -160,6 +205,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  <code>folderClosedIcon="&#64;Embed(source='b.jpg');"</code>
  *
  *  The default value is the "TreeFolderClosed" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="folderClosedIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -167,6 +217,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Indentation for each tree level, in pixels.
  *
  *  @default 17
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indentation", type="Number", inherit="no")]
 
@@ -174,6 +229,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Length of an open or close transition, in milliseconds.
  *
  *  @default 250
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
@@ -181,6 +241,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Easing function to control component tweening.
  *
  *  <p>The default value is <code>undefined</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openEasingFunction", type="Function", inherit="no")]
 
@@ -188,6 +253,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Color of the background when the user rolls over the link.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -195,6 +265,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Color of the background when the user selects the link.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -203,6 +278,11 @@ include "../styles/metadata/PaddingStyles.as";
  *
  *  @default 0xDDDDDD
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionDisabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -210,6 +290,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Reference to an <code>easingFunction</code> function used for controlling programmatic tweening.
  *
  *  <p>The default value is <code>undefined</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionEasingFunction", type="Function", inherit="no")]
 
@@ -217,6 +302,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Color of the text when the user rolls over a row.
  *
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -224,6 +314,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  Color of the text when the user selects a row.
  *
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -338,6 +433,11 @@ include "../styles/metadata/PaddingStyles.as";
  *  @see mx.controls.treeClasses.DefaultDataDescriptor
  *
  *  @includeExample examples/TreeExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Tree extends List implements IIMESupport
 {
@@ -383,6 +483,11 @@ public class Tree extends List implements IIMESupport
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Tree()
     {
@@ -505,6 +610,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @see #setItemIcon()
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemIcons:Object;
 
@@ -539,6 +649,11 @@ public class Tree extends List implements IIMESupport
 
     /**
      *  A hook for accessibility
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var wrappedCollection:ICollectionView;
 
@@ -597,6 +712,11 @@ public class Tree extends List implements IIMESupport
      *  </p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set dataProvider(value:Object):void
     {
@@ -681,6 +801,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @default 0
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get maxHorizontalScrollPosition():Number
     {
@@ -717,6 +842,11 @@ public class Tree extends List implements IIMESupport
      *  from the Tree control as part of a drag-and-drop operation.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get dragMoveEnabled():Boolean
     {
@@ -758,6 +888,11 @@ public class Tree extends List implements IIMESupport
      *  return an object of the same type as the data contained in the dataProvider.</p>
      *
      *  <p>The default value is the first item in the Tree control.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get firstVisibleItem():Object
     {
@@ -809,6 +944,11 @@ public class Tree extends List implements IIMESupport
      * <p>The default value is an internal instance of the
      *  DefaultDataDescriptor class.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set dataDescriptor(value:ITreeDataDescriptor):void
     {
@@ -819,6 +959,11 @@ public class Tree extends List implements IIMESupport
      *  Returns the current ITreeDataDescriptor.
      *
      *   @default DefaultDataDescriptor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataDescriptor():ITreeDataDescriptor
     {
@@ -866,6 +1011,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @default true
      *  @see #hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showRoot():Boolean
     {
@@ -891,6 +1041,11 @@ public class Tree extends List implements IIMESupport
      *  are examples of types that have a root. Lists and arrays do not.
      * 
      *  @see #showRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hasRoot():Boolean
     {
@@ -916,6 +1071,11 @@ public class Tree extends List implements IIMESupport
      *  The items that have been opened or set opened.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get openItems():Object
     {
@@ -1154,6 +1314,11 @@ public class Tree extends List implements IIMESupport
      *  @param rowNum The index of the item in the data provider.
      *  
      *  @return A newly constructed ListData object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function makeListData(data:Object, uid:String, 
     	rowNum:int):BaseListData
@@ -1345,6 +1510,11 @@ public class Tree extends List implements IIMESupport
      *  @param iconID Linkage ID for the closed (or leaf) icon.
      *  @param iconID2 Linkage ID for the open icon.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setItemIcon(item:Object, iconID:Class, iconID2:Class):void
     {
@@ -1467,6 +1637,11 @@ public class Tree extends List implements IIMESupport
      *  @param item Item to inspect.
      *  @return True if open, false if not.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemOpen(item:Object):Boolean
     {
@@ -1518,6 +1693,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @param cause The event, if any, that initiated the item open action.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function expandItem(item:Object, open:Boolean,
                               animate:Boolean = false,
@@ -2356,6 +2536,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @param open Toggles an open or close operation. 
      *  Specify <code>true</code> to open the items, and <code>false</code> to close them.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function expandChildrenOf(item:Object, open:Boolean):void
     {
@@ -2403,6 +2588,11 @@ public class Tree extends List implements IIMESupport
      *  @param The item for which to get the parent.
      * 
      *  @return The parent of the item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getParentItem(item:Object):*
     {
@@ -2645,6 +2835,11 @@ public class Tree extends List implements IIMESupport
      * 
      *  @param item The item to be rendered.
      *  @param treeListData The TreeListDataItem to use in rendering the item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initListData(item:Object, treeListData:TreeListData):void
     {
@@ -3107,6 +3302,11 @@ public class Tree extends List implements IIMESupport
      *
      *  @see mx.utils.ObjectUtil
      *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function dragDropHandler(event:DragEvent):void
     {
@@ -3208,6 +3408,11 @@ public class Tree extends List implements IIMESupport
      *  removes the item from the data provider.
      *
      *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function dragCompleteHandler(event:DragEvent):void
     {
@@ -3407,6 +3612,11 @@ public class Tree extends List implements IIMESupport
     
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function expandItemHandler(event:TreeEvent):void
     {
@@ -3421,6 +3631,11 @@ public class Tree extends List implements IIMESupport
 
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override mx_internal function selectionDataPendingResultHandler(
                                     data:Object,
