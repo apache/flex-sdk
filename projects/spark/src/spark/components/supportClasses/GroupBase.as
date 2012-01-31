@@ -675,7 +675,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //  mask
     //----------------------------------
     private var _mask:DisplayObject;
-    private var maskChanged:Boolean;
+    mx_internal var maskChanged:Boolean;
     
     [Inspectable(category="General")]
     /**
@@ -698,9 +698,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         {
             _mask = value;
             maskChanged = true;
-            invalidateProperties();
-            //addDrawnElements();
-            
+            invalidateProperties();            
         }
         super.mask = value;         
     } 
