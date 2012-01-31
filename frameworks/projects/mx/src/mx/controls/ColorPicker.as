@@ -159,7 +159,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Length of a close transition, in milliseconds.
@@ -203,7 +203,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Colors used to tint the background of the control.
@@ -215,7 +215,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Alphas used for the highlight fill of controls.
@@ -226,7 +226,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Horizontal gap between swatches in the swatch grid.
@@ -337,7 +337,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="swatchBorderColor", type="uint", format="Color", inherit="no")]
+[Style(name="swatchBorderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Size of the outlines of the swatches' borders.
