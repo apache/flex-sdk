@@ -2213,11 +2213,14 @@ public class RichEditableText extends UIComponent
         selectionManager.setSelection(position, position); 
         
         // This should not be necessary but it is if the text is changed after
-        // the component already has focus.  The initial selectionFormatState
-        // is SelectionFormatState.UNFOCUSED.
-        if (!selectionManager.focused)       
-            selectionManager.setFocus();
-                
+        // the component already has focus.  Need the selectionFormatState
+        // to be SelectionFormatState.FOCUSED rather than the initial
+        // SelectionFormatState.UNFOCUSED and need _isActive to be true
+        // so that on focusOut the selectionFormatState will correctly 
+        // transition to SelectionFormatState.UNFOCUSED.
+        if (!selectionManager.focused)
+            selectionManager.focusInHandler(null);
+                                    
         // Refresh the selection.  This does not cause a damage event.
         selectionManager.refreshSelection();
         
