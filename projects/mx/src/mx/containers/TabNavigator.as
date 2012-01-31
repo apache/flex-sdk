@@ -207,13 +207,15 @@ include "../styles/metadata/FocusStyles.as"
 [IconFile("TabNavigator.png")]
 
 /**
- *  The Halo TabNavigator container extends the Halo ViewStack container by including
- *  a TabBar container for navigating between its child Halo containers.
+ *  The MX TabNavigator container extends the MX ViewStack container by including
+ *  a TabBar container for navigating between its child containers.
  * 
- *  <p><b>Note:</b> The direct children of a Halo navigator container must be 
- *  Halo containers, either Halo layout or Halo navigator containers. 
- *  You cannot directly nest a control or a Spark container within a navigator; 
- *  they must be children of a child Halo container.</p>
+ *  <p><b>Note:</b> The direct children of an MX navigator container must be 
+ *  MX containers, either MX layout or MX navigator containers, 
+ *  or the Spark NavigatorContent container. 
+ *  You cannot directly nest a control or a Spark container 
+ *  other than the Spark NavigatorContent container within a navigator; 
+ *  they must be children of an child MX container.</p>
  *
  *  <p>Like a ViewStack container, a TabNavigator container has a collection
  *  of child containers, in which only one child at a time is visible.
