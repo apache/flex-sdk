@@ -28,7 +28,7 @@ import mx.core.IVisualElementContainer;
  *  Flex creates an instance of this class when it plays
  *  an AddAction effect; you do not create one yourself.
  *
- *  @see mx.effects.AddAction
+ *  @see spark.effects.AddAction
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
