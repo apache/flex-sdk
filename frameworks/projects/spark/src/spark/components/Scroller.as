@@ -24,6 +24,38 @@ import mx.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/SelectionFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ */
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ */ 
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
     
 [DefaultProperty("viewport")]
 
