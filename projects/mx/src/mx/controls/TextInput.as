@@ -355,9 +355,6 @@ public class TextInput extends UIComponent
     public function TextInput()
     {
         super();
-
-        // InteractiveObject variables.
-        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
@@ -394,12 +391,6 @@ public class TextInput extends UIComponent
      *  like NumericStepper or ComboBox;
      */
     mx_internal var parentDrawsFocus:Boolean = false;
-
-    /**
-     *  @private
-     *  Previous imeMode.
-     */
-    private var prevMode:String = IMEConversionMode.UNKNOWN;
 
     /**
      *  @private
@@ -2293,11 +2284,9 @@ public class TextInput extends UIComponent
         }
 
         super.focusInHandler(event);
-            
+
         if (_imeMode != null && _editable)
         {
-            IME.enabled = true;
-            prevMode = IME.conversionMode;
             // When IME.conversionMode is unknown it cannot be
             // set to anything other than unknown(English)
             try
@@ -2329,17 +2318,6 @@ public class TextInput extends UIComponent
     override protected function focusOutHandler(event:FocusEvent):void
     {
         super.focusOutHandler(event);
-
-        if (_imeMode != null && _editable)
-        {
-            // When IME.conversionMode is unknown it cannot be
-            // set to anything other than unknown(English)
-            // and when known it cannot be set to unknown
-            if (IME.conversionMode != IMEConversionMode.UNKNOWN 
-                && prevMode != IMEConversionMode.UNKNOWN)
-                IME.conversionMode = prevMode;
-            IME.enabled = false;
-        }
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
