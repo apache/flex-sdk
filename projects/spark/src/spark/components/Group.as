@@ -500,7 +500,15 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
-        return addElementAt(element, numElements);
+        var index:int = numElements;
+        
+        // This handles the case where we call addElement on something
+        // that already is in the list.  Let's just handle it silently
+        // and not throw up any errors.
+        if (element.parent == this)
+            index = numElements-1;
+        
+        return addElementAt(element, index);
     }
     
     /**
@@ -513,6 +521,15 @@ public class Group extends GroupBase implements IVisualElementContainer
             
         // check for RangeError:
         checkForRangeError(index, true);
+        
+        // This handles the case where we call addElement on something
+        // that already is in the list.  Let's just handle it silently
+        // and not throw up any errors.
+        if (element.parent == this)
+        {
+            setElementIndex(element, index);
+            return element;
+        }
         
         // If we don't have any content yet, initialize it to an empty array
         if (_mxmlContent == null)
@@ -574,7 +591,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     public function setElementIndex(element:IVisualElement, index:int):void
     {
         // check for RangeError...this is done in addItemAt
-        // but we want to do it before removing the item
+        // but we want to do it before removing the element
         checkForRangeError(index);
         
         removeElement(element);
