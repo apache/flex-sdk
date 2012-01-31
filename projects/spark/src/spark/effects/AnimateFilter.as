@@ -72,6 +72,10 @@ public class AnimateFilter extends Animate
      *  Constructor. 
      *
      *  @param target The Object to animate with this effect.  
+     *
+     *  @param filter The filter to apply to the target. 
+     *  The filters that you can use with this effect are 
+     *  defined in the spark.filters. package.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
