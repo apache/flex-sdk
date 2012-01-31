@@ -81,7 +81,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
@@ -91,7 +91,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Alpha level of the background for this component.
@@ -104,7 +104,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark, mobile")]
 
 /**
  *  Background color of a component.
@@ -116,7 +116,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
 
 /**
  *  The alpha of the content background for this component.
@@ -126,7 +126,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
@@ -136,7 +136,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
@@ -146,7 +146,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  * @copy spark.components.supportClasses.GroupBase#style:rollOverColor
@@ -166,7 +166,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  When in touch interaction mode, the number of milliseconds to wait before showing the 
@@ -187,6 +187,30 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Style(name="touchDelay", type="Number", format="Time", inherit="yes", minValue="0.0")]
+
+/**
+ *  Color of text shadows.
+ * 
+ *  @default #FFFFFF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
+ *  Alpha of text shadows.
+ * 
+ *  @default 0.55
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowAlpha", type="Number",inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
 
 [IconFile("SkinnableContainer.png")]
 
