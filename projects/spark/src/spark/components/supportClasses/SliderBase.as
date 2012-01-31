@@ -15,7 +15,6 @@ import __AS3__.vec.Vector;
 
 import flash.display.DisplayObject;
 import flash.events.Event;
-import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
@@ -25,7 +24,6 @@ import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
@@ -35,8 +33,6 @@ import spark.effects.animation.SimpleMotionPath;
 import spark.effects.animation.Animation;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
-
-use namespace mx_internal;
 
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -125,8 +121,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-    private var currValue:Number;
-    
 	private var dataFormatter:NumberFormatter;
 
     private var animator:Animation = null;
@@ -239,12 +233,80 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     public var showDataTip:Boolean = true;
 
+    //----------------------------------
+    //  pendingValue
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _pendingValue:Number = 0;
+    
+    /**
+     *  The value the slider would have, if the mouse button was released.
+     * 
+     *  <p>If the liveDragging style is false, then the slider's value is only set
+     *  when the mouse button is released, it's not updated while the slider thumb is
+     *  being dragged.</p>
+     * 
+     *  <p>This property is kept up to date when the slider thumb moves, even if 
+     *  liveDragging is false.</p>
+     *  
+     *  @default 0
+     *  @return The value implied by the thumb position. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function get pendingValue():Number
+    {
+        return _pendingValue;
+    }
+    
+    /**
+     *  @private
+     */
+    protected function set pendingValue(value:Number):void
+    {
+        if (value == _pendingValue)
+            return;
+        _pendingValue = value;
+        invalidateDisplayList();
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Keep the pendingValue in sync with the actual value so that updateSkinDisplayList()
+     *  overrides can just use pendingValue.
+     */
+    override protected function setValue(value:Number):void
+    {
+        _pendingValue = value;
+        super.setValue(value);
+    }
 
+    /**
+     *  @private
+     */  
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        
+        // Prevent focus on our children so that focus remains with the Slider
+        if (instance == thumb)
+            thumb.focusEnabled = false;
+        else if (instance == track)
+            track.focusEnabled = false;
+    }
+    
     /**
      *  @private
      */
@@ -254,7 +316,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // otherwise, draw it on the whole component
         if (thumb)
         {
-            thumb.drawFocusAnyway = true;
+            thumb.mx_internal::drawFocusAnyway = true;
             thumb.drawFocus(isFocused);
         }
         else
@@ -287,43 +349,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 		
 		return formattedValue;
     }
-    
-    /**
-     *  @private
-     */  
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-    	super.partAdded(partName, instance);
-    	
-    	// Prevent focus on our children so that focus remains with the Slider
-        if (instance == thumb)
-        	thumb.focusEnabled = false;
-        else if (instance == track)
-        	track.focusEnabled = false;
-    }
-    
-    /**
-     *  Converts a point retrieved from clicking on the track into a position. 
-     *  This method lets subclasses center the thumb button when clicking on the track. 
-     *
-     *  @param localX The X-location in the local coordinate system of the
-     *  track.
-     *
-     *  @param localY The Y-location in the local coordinate system of the
-     *  track.
-     *
-     *  @return The posisiton on the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function pointClickToPosition(localX:Number, 
-                                            localY:Number):Number
-    {
-        return 0;
-    }   
+  
    
     /**
      *  Used to position the data tip when it is visible. Subclasses must implement
@@ -345,20 +371,24 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-    
+
     //---------------------------------
     // Thumb dragging handlers
     //---------------------------------
-    
+    /**
+     *  @private
+     *  Location of the mouse down event on the thumb, relative to the thumb's origin.
+     *  Used to update the value property when the mouse is dragged. 
+     */
+    private var clickOffset:Point;  
+        
     /**
      *  @private
      */
     override protected function thumb_mouseDownHandler(event:MouseEvent):void
     {
         super.thumb_mouseDownHandler(event);
-        
-        // Save the current value also.
-        currValue = value;
+        clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
         
         // Popup a dataTip only if we have a SkinPart and the boolean flag is true
         if (dataTip && showDataTip && enabled)
@@ -366,7 +396,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	        dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
 	        systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
 	        
-	        dataTipInstance.data = formatDataTipText(currValue);
+	        dataTipInstance.data = formatDataTipText(value);
 	        
 	        // Force the dataTip to render so that we have the correct size since
 	        // positionDataTip might need the size
@@ -388,25 +418,26 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  @private
      */
     override protected function system_mouseMoveHandler(event:MouseEvent):void
-    {
-        // TODO (chaase): I think we can do this without a persistent
-        // currValue property, and therefore just call super.mouseMove to
-        // handle the main functionality, with extra code just for the
-        // dataTipInstance case
+    {      
+        var p:Point = track.globalToLocal(new Point(event.stageX, event.stageY));
+        var newValue:Number = pointToValue(p.x - clickOffset.x, p.y - clickOffset.y);
+        newValue = nearestValidValue(newValue, snapInterval);
         
-        currValue = calculateNewValue(currValue, event);
-
-        positionThumb(valueToPosition(currValue));
-        
-        if (getStyle("liveDragging") && currValue != value)
+        if (newValue != value)
         {
-            setValue(currValue)
-            dispatchEvent(new Event(Event.CHANGE));
+            dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
+            if (getStyle("liveDragging") === true)
+            {
+                setValue(newValue); 
+                dispatchEvent(new Event(Event.CHANGE));   
+            }
+            else
+                pendingValue = newValue;
         }
-        
+                  
         if (dataTipInstance && showDataTip)
         { 
-	        dataTipInstance.data = formatDataTipText(currValue);
+	        dataTipInstance.data = formatDataTipText(pendingValue);
 	        
 	        // Force the dataTip to render so that we have the correct size since
 	        // positionDataTip might need the size
@@ -428,14 +459,12 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     override protected function system_mouseUpHandler(event:MouseEvent):void
     {
-        // TODO (chaase): get rid of currValue and just calculate the new
-        // value here dynamically
-        if (!getStyle("liveDragging") && currValue != value)
+        if ((getStyle("liveDragging") === false) && (value != pendingValue))
         {
-            setValue(currValue);
+            setValue(pendingValue);
             dispatchEvent(new Event(Event.CHANGE));
-        }        
-        
+        }
+
         if (dataTipInstance)
         {
             removeDynamicPartInstance("dataTip", dataTipInstance);
@@ -460,6 +489,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
         super.keyDownHandler(event);
+       
+        if (event.isDefaultPrevented())
+            return;
         
         // TODO: Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
@@ -475,8 +507,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.LEFT:
             {
-                newValue = nearestValidValue(value - stepSize, valueInterval);
-                positionThumb(valueToPosition(newValue));
+                newValue = nearestValidValue(value - stepSize, snapInterval);
                 setValue(newValue);
                 stopPropagation = true;
                 break;
@@ -485,8 +516,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.RIGHT:
             {
-                newValue = nearestValidValue(value + stepSize, valueInterval);
-                positionThumb(valueToPosition(newValue));
+                newValue = nearestValidValue(value + stepSize, snapInterval);
                 setValue(newValue);
                 stopPropagation = true;
                 break;
@@ -509,9 +539,17 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
         if (value != prevValue)
             dispatchEvent(new Event(Event.CHANGE));
-            
+          
+        // Gumbo redispatches scrolling keyboard events with cancelable=true
+        // so typically we will preventDefault (read "cancel") here, rather
+        // than stopping dispatching.
         if (stopPropagation)
-        	event.stopPropagation();
+        {
+            if (event.cancelable)
+                event.preventDefault();
+            else
+        	    event.stopPropagation();
+        }
     }
 
     //---------------------------------
@@ -529,18 +567,19 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     {
         if (!enabled)
             return;
-        
-        // Calculate the new value.
-        var pt:Point = new Point(event.stageX, event.stageY);
-        pt = track.globalToLocal(pt);
-        var tempPosition:Number = pointClickToPosition(pt.x, pt.y);
-        var tempValue:Number = positionToValue(tempPosition);
-        var RtempValue:Number = nearestValidValue(tempValue, valueInterval);
-        
-        // Move the thumb to the new value
-        positionThumb(valueToPosition(RtempValue));
-        
-        if (RtempValue != value)
+         
+        // Offset the track-relative coordinates of this event so that
+        // the thumb will end up centered over the mouse down location.
+        var thumbW:Number = (thumb) ? thumb.width : 0;
+        var thumbH:Number = (thumb) ? thumb.height : 0;
+        var offsetX:Number = event.stageX - (thumbW / 2);
+        var offsetY:Number = event.stageY - (thumbH / 2);
+        var p:Point = track.globalToLocal(new Point(offsetX, offsetY));
+
+        var newValue:Number = pointToValue(p.x, p.y);
+        newValue = nearestValidValue(newValue, snapInterval);
+
+        if (newValue != value)
         {
             var slideDuration:Number = getStyle("slideDuration");
             if (slideDuration != 0)
@@ -556,16 +595,16 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                 }
                 animator.stop();
                 animator.duration = slideDuration * 
-                    (Math.abs(value - RtempValue) / (maximum - minimum));
+                    (Math.abs(value - newValue) / (maximum - minimum));
                 animator.motionPaths = new <MotionPath>[
-                    new SimpleMotionPath("value", value, RtempValue)];
+                    new SimpleMotionPath("value", value, newValue)];
                 
                 dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
                 animator.play();
             }
             else
             {
-                setValue(RtempValue);
+                setValue(newValue);
                 dispatchEvent(new Event(Event.CHANGE));
             }
         }
