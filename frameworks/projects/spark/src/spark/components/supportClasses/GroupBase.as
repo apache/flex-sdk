@@ -1268,12 +1268,13 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  Layouts that honor the <code>useVirtualLayout</code> flag will use this 
      *  method at updateDisplayList() time to get layout elements that are "in view", 
-     *  i.e. that are within the Group's scrollRect.
+     *  i.e. that overlap the Group's scrollRect.
      * 
      *  <p>If the element to be returned wasn't already a visible child, i.e. if 
-     *  it was created or recycled, then the element's initial size is set with 
-     *  setLayoutBoundsSize() before it's validated.  This is important for components, 
-     *  like text, that reflow when the layout is justified to the Group's width or height.</p>
+     *  it was created or recycled, and either eltWidth or eltHeight is specified,
+     *  then the element's initial size is set with setLayoutBoundsSize() before 
+     *  it's validated.  This is important for components, like text, that reflow 
+     *  when the layout is justified to the Group's width or height.</p>
      *  
      *  <p>The returned layout element will have been validated.</p>
      * 
