@@ -92,7 +92,9 @@ public class ListData extends BaseListData
 	//  icon
 	//----------------------------------
 
-	/**
+	[Bindable("dataChange")]
+
+    /**
 	 *  A Class representing the icon for the item in the List control computed
 	 *  from the list class's <code>itemToIcon()</code> method
 	 *  
@@ -107,7 +109,9 @@ public class ListData extends BaseListData
 	//  labelField
 	//----------------------------------
 
-	/**
+	[Bindable("dataChange")]
+
+    /**
 	 *  The value of the <code>labelField</code> property in the list class.
 	 *  This is the value normally used to calculate which property should
 	 *  be taken from the item in the data provider for the text displayed
