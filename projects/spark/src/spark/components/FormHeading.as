@@ -150,6 +150,11 @@ public class FormHeading extends SkinnableComponent
     
     /**
      *   A reference to the visual element that displays this FormItem's label.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     [Bindable]
     [SkinPart(required="false")]
@@ -174,6 +179,11 @@ public class FormHeading extends SkinnableComponent
      *  Text to display in the FormHeading component.
      * 
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get label():String
     {
