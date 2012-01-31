@@ -56,6 +56,7 @@ package spark.components
     import flashx.textLayout.formats.Category;
     import flashx.textLayout.formats.ITextLayoutFormat;
     import flashx.textLayout.formats.TextLayoutFormat;
+    import flashx.textLayout.operations.CopyOperation;
     import flashx.textLayout.operations.CutOperation;
     import flashx.textLayout.operations.DeleteTextOperation;
     import flashx.textLayout.operations.FlowOperation;
@@ -1336,7 +1337,7 @@ package spark.components
         
         /**
          *  @copy flash.text.TextField#displayAsPassword
-         *  
+         *
          *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
@@ -4463,11 +4464,9 @@ package spark.components
             // In this case we always maintain _text with the underlying text and
             // display the appropriate number of passwordChars.  If there are any
             // interactive editing operations _text is updated during the operation.
-            if (displayAsPassword)
-                return;
+            if (!displayAsPassword)
+                _text = null;
             
-            // Invalidate _text and _content.
-            _text = null;
             _content = null;        
             _textFlow = _textContainerManager.getTextFlow();
                         
@@ -4632,6 +4631,15 @@ package spark.components
                 
                 insertTextOperation.text = textToInsert;
             }
+            else if (op is CopyOperation)
+            {
+                if (_displayAsPassword)
+                {
+                    // For security, don't allow passwords to be copied.
+                    event.preventDefault();
+                    return;
+                }
+            }
             else if (op is PasteOperation)
             {
                 // Paste is implemented in operationEnd.  The basic idea is to allow 
@@ -4657,8 +4665,17 @@ package spark.components
                 
                 if (_displayAsPassword)
                 {
-                    _text = splice(_text, flowTextOperation.absoluteStart,
-                        flowTextOperation.absoluteEnd, "");
+                    if (op is DeleteTextOperation)
+                    {
+                        _text = splice(_text, flowTextOperation.absoluteStart,
+                            flowTextOperation.absoluteEnd, "");
+                    }
+                    else
+                    {
+                        // For security, don't allow passwords to be cut.
+                        event.preventDefault();
+                        return;
+                    }
                 }
             }
             
