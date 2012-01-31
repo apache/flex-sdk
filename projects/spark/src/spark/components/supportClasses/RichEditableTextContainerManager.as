@@ -356,7 +356,8 @@ public class RichEditableTextContainerManager extends TextContainerManager
             
             controller.requiredFocusInHandler(null);
             
-            im.selectRange(0, 0);
+            if (!textDisplay.preserveSelectionOnSetText)
+                im.selectRange(0, 0);
             
             endInteraction();
         }
