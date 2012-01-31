@@ -1232,7 +1232,7 @@ public class ColorPicker extends ComboBase
             point = localToGlobal(point);
             
             if (dropdownSwatch.parent == null)
-                PopUpManager.addPopUp(dropdownSwatch, parent, false);
+                PopUpManager.addPopUp(dropdownSwatch, this, false);
             else
                 PopUpManager.bringToFront(dropdownSwatch);
 
