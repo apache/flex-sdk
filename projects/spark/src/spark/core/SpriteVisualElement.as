@@ -55,7 +55,7 @@ import mx.utils.MatrixUtil;
 
 import spark.components.ResizeMode;
 import spark.utils.MaskUtil;
-import spark.utils.MaskUtil;
+
 
 use namespace mx_internal;
 
@@ -97,6 +97,14 @@ public class SpriteVisualElement extends FlexSprite
     // the constants with the same name in UIComponent
     private static const DEFAULT_MAX_WIDTH:Number = 10000;
     private static const DEFAULT_MAX_HEIGHT:Number = 10000;
+
+    /**
+     *  @private
+     *  Flag that signifies this SVE is nested and thus should search for an
+     *  SVE ancestor at an arbitrary depth to report changes such as
+     *  invalidating size.
+     */
+    mx_internal var nestedSpriteVisualElement:Boolean;
 
     /**
      *  @private
@@ -311,9 +319,24 @@ public class SpriteVisualElement extends FlexSprite
         if (curWidth != naturalWidth || curHeight != naturalHeight)
         {
             var parent:DisplayObjectContainer = this.parent;
+
+            // Search for an ancestor SpriteVisualElement to inform them that
+            // they need to re-measure as their size has been invalidated.
+            while (nestedSpriteVisualElement)
+            {
+                if (parent is SpriteVisualElement || parent == null || parent.parent == null)
+                {
+                    break;
+                }
+                else
+                {
+                    parent = parent.parent;
+                }
+            }
+
             if (parent is SpriteVisualElement)
                 SpriteVisualElement(parent).invalidateSize();
-            else 
+            else
                 invalidateParentSizeAndDisplayList();
         }
     }
@@ -965,20 +988,46 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function set moduleFactory(factory:IFlexModuleFactory):void
     {
-        var n:int = numChildren;
+        // Update childrens' moduleFactory before updating _moduleFactory,
+        // as we compare childrens' old moduleFactory with _moduleFactory.
+        setModuleFactoryInChildrenOf(this, factory);
+
+        // Finally update the _moduleFactory
+        _moduleFactory = factory;
+    }
+    
+    /**
+     *  @private
+     *  Set the module factory of DisplayObjects in the specified container. 
+     *  The children of container will be iterated over an those that implement
+     *  IFlexModule will be set to the value in the factory parameter. Children
+     *  that are themselves containers will call this function recursively to
+     *  set their children.
+     * 
+     *  @param container The container whose children to process.
+     *  @param factory The module factory to set in a child that implements IFlexModule.
+     */
+    private function setModuleFactoryInChildrenOf(container:DisplayObjectContainer, factory:IFlexModuleFactory):void
+    {
+        var n:int = container.numChildren;
         for (var i:int = 0; i < n; i++)
         {
-            var child:IFlexModule = getChildAt(i) as IFlexModule;
-            if (!child)
-                continue;
-
-            if (child.moduleFactory == null || child.moduleFactory == _moduleFactory)
+            var child:DisplayObject = container.getChildAt(i);
+            
+            if (child is IFlexModule)
             {
-                child.moduleFactory = factory;
+                var fmChild:IFlexModule = IFlexModule(child);
+                if (fmChild.moduleFactory == null || fmChild.moduleFactory == _moduleFactory)
+                {
+                    fmChild.moduleFactory = factory;
+                }
+            }
+            else if (child is DisplayObjectContainer)
+            {
+                // look at this object's children
+                setModuleFactoryInChildrenOf(DisplayObjectContainer(child), factory);                       
             }
         }
-
-        _moduleFactory = factory;
     }
 
     //----------------------------------
@@ -2880,7 +2929,6 @@ public class SpriteVisualElement extends FlexSprite
                 MaskUtil.applyMaskType(_mask, _maskType, luminosityInvert, luminosityClip, this);
         }     
     }
-    
 }
 }
 
