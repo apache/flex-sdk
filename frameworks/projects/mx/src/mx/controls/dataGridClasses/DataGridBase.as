@@ -185,7 +185,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     mx_internal var headerClass:Class = DataGridHeader;
 
     /**
-     *  
+     *  The header mask.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
