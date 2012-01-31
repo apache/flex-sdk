@@ -227,6 +227,22 @@ public class RichEditableTextContainerManager extends TextContainerManager
         super.focusInHandler(event);
     }    
 
+    /**
+     *  @private
+     */
+    override public function setText(text:String):void
+    {
+        super.setText(text);
+        if (textView.systemManager.stage.focus == textView)
+        {
+            var im:ISelectionManager = beginInteraction();
+            im.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+            im.refreshSelection();
+            im.setFocus();
+            endInteraction();
+       }
+    }
+
 }
 
 }
