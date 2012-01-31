@@ -51,6 +51,11 @@ import mx.effects.effectClasses.WipeDownInstance;
  *  @see mx.effects.effectClasses.WipeDownInstance
  *  
  *  @includeExample examples/WipeDownExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WipeDown extends MaskEffect
 {
@@ -66,6 +71,11 @@ public class WipeDown extends MaskEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function WipeDown(target:Object = null)
 	{
