@@ -547,7 +547,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 			return;
 		
 		_keepDown = value;
-		invalidateSkinState();
+		if (_keepDown)
+			invalidateSkinState();
+		else
+			invalidateButtonState();
 	}
 	
 	/**
