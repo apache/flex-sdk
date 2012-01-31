@@ -48,6 +48,7 @@ use namespace mx_internal;
 
 [Exclude(name="cornerRadius", kind="style")]
 [Exclude(name="icon", kind="style")]
+[Exclude(name="textAlign", kind="style")]
 
 //--------------------------------------
 //  Other metadata
