@@ -20,6 +20,11 @@ import mx.core.mx_internal;
  *  These events are used primarily by the VideoDisplay control.
  *
  *  @see mx.controls.VideoDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MetadataEvent extends Event 
 {
@@ -57,6 +62,11 @@ public class MetadataEvent extends Event
      * </table>
      * 
      * @eventType metadataReceived
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const METADATA_RECEIVED:String = "metadataReceived";
 
@@ -82,6 +92,11 @@ public class MetadataEvent extends Event
      *  </table>
      *
      *  @eventType cuePoint
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CUE_POINT:String = "cuePoint";
 
@@ -128,6 +143,11 @@ public class MetadataEvent extends Event
      *
      *
      *  @eventType actionscript
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ACTION_SCRIPT:String = "actionscript";
 
@@ -152,6 +172,11 @@ public class MetadataEvent extends Event
      *  For events off type <code>METADATA_RECEIVED</code>, 
      *  an object describing the FLV  file,  including any cue points, 
      *  which is the same information as the <code>VideoDisplay.metadata</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MetadataEvent(type:String, bubbles:Boolean = false,
                                   cancelable:Boolean = false,
@@ -181,6 +206,11 @@ public class MetadataEvent extends Event
      *  which is the same information as the <code>VideoDisplay.metadata</code> property.</p>
      * 
      *  @see mx.controls.VideoDisplay#metadata
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public var info:Object;
 
