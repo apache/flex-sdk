@@ -39,30 +39,31 @@ import mx.managers.ISystemManager;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  A helper class for item renderers to use to help them determine 
- *  if they should be in the hovered or down states
+ *  A helper class for components to use to help them determine 
+ *  if they should be in the up, over, or down states.
+ * 
+ *  @see spark.components.supportClasses.InteractionState
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class ItemRendererInteractionStateDetector extends EventDispatcher
+public class InteractionStateDetector extends EventDispatcher
 {
     
     /**
      *  Constructor
      *  
-     *  @param components  The UIComponent to detect the hovered/down state on.
-     *                     The event listeners are attached to this object 
-     *                     to figure out if it should be in the hovered or down state.
+     *  @param components  The UIComponent to detect the up/over/down state on.
+     *                     The event listeners are attached to this object.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function ItemRendererInteractionStateDetector(component:UIComponent)
+    public function InteractionStateDetector(component:UIComponent)
     {
         super();
         this.component = component;
@@ -112,70 +113,26 @@ public class ItemRendererInteractionStateDetector extends EventDispatcher
      *  @private
      *  Storage for the hovered property 
      */
-    private var _hovered:Boolean = false;   
+    private var _hovered:Boolean = false; 
     
-    [Bindable("change")]
     /**
-     *  Returns true if the item renderer should be put into 
-     *  a hovered state.
-     * 
-     *  <p>If in mouse interactionMode, the item renderer is in the 
-     *  hovered state if the mouse is over the item renderer.   
-     *  In touch interaction mode, hovered does not apply.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
-    public function get hovered():Boolean
+    private function get hovered():Boolean
     {
-        var interactionMode:String = component.getStyle("interactionMode");
-        
-        if (interactionMode == InteractionMode.MOUSE && _hovered)
-            return true;
-        
-        return false;
+        return _hovered;
     }
     
     /**
      *  @private
      */
-    private function setHovered(value:Boolean):void
+    private function set hovered(value:Boolean):void
     {
         if (value == _hovered)
             return;
         
         _hovered = value;
         invalidateState();
-    }
-    
-    //----------------------------------
-    //  down
-    //----------------------------------
-    
-    [Bindable("change")]
-    /**
-     *  Returns true if the item renderer should be put into 
-     *  a down state.
-     * 
-     *  <p>If in touch interactionMode, the item renderer is in the 
-     *  down state if the user is pressing down on the item renderer.   
-     *  In mouse interaction mode, down does not apply.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get down():Boolean
-    {
-        var interactionMode:String = component.getStyle("interactionMode");
-        
-        if (interactionMode == InteractionMode.TOUCH && isDown())
-            return true;
-        
-        return false;
     }
     
     //----------------------------------
@@ -213,6 +170,45 @@ public class ItemRendererInteractionStateDetector extends EventDispatcher
         // System mouse handlers are not needed when the renderer is not mouse captured
         if (!value)
             removeSystemMouseHandlers();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  state
+    //----------------------------------  
+    
+    [Bindable("change")]
+    /**
+     *  Returns the state of the component
+     * 
+     *  <p>Possible values are:
+     *    <ul>
+     *      <li>InteractionState.UP</li>
+     *      <li>InteractionState.DOWN</li>
+     *      <li>InteractionState.OVER</li>
+     *    </ul>
+     *  </p>
+     * 
+     *  @see spark.components.supportClasses.InteractionState;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get state():String
+    {
+        if (isDown())
+            return InteractionState.DOWN;
+        else if (hovered && component.getStyle("interactionMode") == InteractionMode.MOUSE)
+            return InteractionState.OVER;
+        else
+            return InteractionState.UP;
     }
     
     //--------------------------------------------------------------------------
@@ -388,13 +384,13 @@ public class ItemRendererInteractionStateDetector extends EventDispatcher
                 // if the user rolls over while holding the mouse button
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
-                setHovered(true);
+                hovered = true;
                 break;
             }
                 
             case MouseEvent.ROLL_OUT:
             {
-                setHovered(false);
+                hovered = false;
                 break;
             }
                 
@@ -499,7 +495,7 @@ public class ItemRendererInteractionStateDetector extends EventDispatcher
         stopSelectRendererAfterDelayTimer();
         
         // cancel the rollover/clickdown on and go back to a normal state
-        setHovered(false);
+        hovered = false;
         mouseCaptured = false;
     }
     
