@@ -3288,8 +3288,8 @@ public class RichEditableText extends UIComponent
             var italic:Boolean = getStyle("fontStyle") == "italic";
             
             var localLookup:ISystemManager = 
-                fontContext && fontContext is ISystemManager ? 
-                ISystemManager(fontContext) : systemManager;
+                moduleFactory && moduleFactory is ISystemManager ? 
+                ISystemManager(moduleFactory) : systemManager;
                 
             fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
                 font, bold, italic, this, fontContext, localLookup, true);
