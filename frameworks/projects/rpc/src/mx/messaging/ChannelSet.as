@@ -1182,7 +1182,7 @@ public class ChannelSet extends EventDispatcher
         if ((_authAgent != null) && (_authAgent.state != AuthenticationAgent.LOGGED_OUT_STATE))
             throw new IllegalOperationError("ChannelSet is in the process of logging in or logging out.");
         
-        if (charset != Base64Encoder.CHARSET_UTF_8);
+        if (charset != Base64Encoder.CHARSET_UTF_8)
             charset = null; // Use legacy charset, ISO-Latin-1.
         
         var credentials:String = null;
