@@ -919,6 +919,7 @@ public class RichText extends TextGraphicElement
         }
         
         bounds = factory.contentBounds;
+        isTextTruncated = factory.isTruncated;
     }
 
     /**
