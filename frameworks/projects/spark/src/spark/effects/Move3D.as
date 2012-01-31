@@ -14,6 +14,7 @@ package spark.effects
 import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
+import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
     
 use namespace mx_internal;
@@ -48,7 +49,6 @@ use namespace mx_internal;
  *  &lt;mx:Move3D
  *    <b>Properties</b>
  *    id="ID"
- *    applyChangesPostLayout="true"
  *    zBy="no default"
  *    zFrom="no default"
  *    zTo="no default"
@@ -62,7 +62,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */   
-public class Move3D extends Move
+public class Move3D extends AnimateTransform3D
 {
     include "../core/Version.as";
     
@@ -84,27 +84,122 @@ public class Move3D extends Move
         instanceClass = AnimateTransformInstance;
     }
         
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
     //----------------------------------
-    //  applyChangesPostLayout
+    //  xBy
     //----------------------------------
-    [Inspectable(category="General")]
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
     /** 
-     *  @copy AnimateTransform#applyChangesPostLayout
-     *  The default value for this property is true for 3D effects,
-     *  because the Flex layout system ignores 3D transformation properties.
-     *
-     *  @default true
-     * 
+     *  Number of pixels by which to modify the x position of the target.
+     *  Values may be negative.
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function get applyChangesPostLayout():Boolean
-    {
-        return super.applyChangesPostLayout;
-    }
+    public var xBy:Number;
 
+    //----------------------------------
+    //  xFrom
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /** 
+     *  Initial x position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the starting view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var xFrom:Number;
+    
+    //----------------------------------
+    //  xTo
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /** 
+     *  Final x, in pixels.
+     *  If omitted, Flex uses either the value in the starting state,
+     *  if the effect is playing in a state transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var xTo:Number;
+
+    //----------------------------------
+    //  yBy
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /** 
+     *  Number of pixels by which to modify the y position of the target.
+     *  Values can be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var yBy:Number;
+    
+    //----------------------------------
+    //  yFrom
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /** 
+     *  Initial y position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the start view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var yFrom:Number;
+
+    //----------------------------------
+    //  yTo
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="NaN")]
+
+    /** 
+     *  Final y position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the end view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var yTo:Number;
+            
     //----------------------------------
     //  zBy
     //----------------------------------
@@ -167,14 +262,27 @@ public class Move3D extends Move
     /**
      * @private
      */
+    override public function createInstance(target:Object = null):IEffectInstance
+    {
+        motionPaths = new Vector.<MotionPath>();
+        return super.createInstance(target);
+    }
+                        
+    /**
+     * @private
+     */
    override protected function initInstance(instance:IEffectInstance):void
     {
         if (!applyChangesPostLayout)
         {
+            addMotionPath("translationX", xFrom, xTo, xBy);
+            addMotionPath("translationY", yFrom, yTo, yBy);
             addMotionPath("translationZ", zFrom, zTo, zBy);
         }
         else
         {
+            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addPostLayoutMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
             addPostLayoutMotionPath("postLayoutTranslationZ", zFrom, zTo, zBy);
         }
         super.initInstance(instance);
