@@ -479,9 +479,9 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         {
             var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
             if (i == focusedIndex)
-                renderer.layer = 1;
+                renderer.depth = 1;
             else
-                renderer.layer = 0;
+                renderer.depth = 0;
         }
     }
 
