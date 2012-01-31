@@ -22,8 +22,16 @@ import mx.styles.StyleManager;
 import spark.components.supportClasses.ItemRenderer;
 
 /**
- *  The MXItemRenderer class is the base class for Spark item renderers in 
- *  Halo (mx) classes
+ *  The MXItemRenderer class is the base class for Spark item renderers  
+ *  and item editors used in MX list-based controls. 
+ *  This class lets you use the Spark item renderer architecture with the 
+ *  MX DataGrid and Tree controls. 
+ *
+ *  <p><b>Note: </b>Many MX controls support item renderers or item editors. 
+ *  These controls include the MX List, Menu, MenuBar, and TileLIst controls. 
+ *  However, only the MX DataGrid and Tree classes support the MXItemRenderer class. 
+ *  Therefore, continue to use MX item renderers and item editors with 
+ *  MX controls other than DataGrid and Tree.</p>
  * 
  *  @mxml
  *
@@ -106,7 +114,7 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
     //----------------------------------
 
     /**
-     *  ID of the component that will receive focus as the editor
+     *  The ID of the component that receives focus as the item editor.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -121,12 +129,13 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
 
     /**
      *  The <code>text</code> property of
-     *  the component with the editorID.
+     *  the component specified by <code>editorID</code>.
      *  This is a convenience property to
-     *  allow the Halo List class itemEditors
-     *  to pull the value from most editors
+     *  let the item editor of the MX control, 
+     *  specified by the <code>itemEditor</code> property, 
+     *  pull the value from most item editors
      *  without having to propagate a property
-     *  to the MXItemRenderer
+     *  to the MXItemRenderer.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
