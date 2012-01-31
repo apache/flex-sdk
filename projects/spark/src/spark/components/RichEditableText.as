@@ -227,19 +227,20 @@ public class TextView extends UIComponent implements IViewport
     {
         super();
         
+        // This is for mirroring, not for the textFlow.
         dir = "ltr";
 
-        _content = textFlow = createEmptyTextFlow();
-        
         // Even if no text/content specified, want to have a flow composer
-        // so text can be input if the control is editable.
-        contentChanged = true;
+        // so text can be input if the control is editable.  Use setter.
+        content = textFlow = createEmptyTextFlow();
         
         mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
             
         addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+
+        addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
         
         // We don't want TLF stopping the propagation of the ENTER key.
         // Keep in mind that this affects the global default for editable
@@ -305,8 +306,8 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private var charWidth:Number;
-
+    private var lastUnscaledWidth:Number = NaN;
+    
     /**
      *  @private
      *  True if TextOperationEvent.CHANGING should be dispatched at
@@ -364,6 +365,50 @@ public class TextView extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  autoSize
+    //----------------------------------
+        
+    /**
+     *  @private
+     *  The default is true.
+     */
+    private var _autoSize:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var autoSizeChanged:Boolean = _autoSize;
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoSize():Boolean 
+    {
+        return _autoSize;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set autoSize(value:Boolean):void 
+    {
+        if (value == _autoSize) 
+            return;
+    
+        _autoSize = value;
+        autoSizeChanged = true;
+        
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+    }
+        
+    //----------------------------------
     //  clipAndEnableScrolling
     //----------------------------------
         
@@ -412,14 +457,6 @@ public class TextView extends UIComponent implements IViewport
     private var contentChanged:Boolean = false;
 
     /**
-     *  @private
-     *  If content is explicitly set, it will take precedence over text, if it 
-     *  is set as well.  Once content is set, it can be set to null and then text 
-     *  can be set.
-     */
-    private var contentSet:Boolean = false;
-
-    /**
      *  Documentation is not currently available.
      *  
      *  @langversion 3.0
@@ -449,10 +486,7 @@ public class TextView extends UIComponent implements IViewport
         _content = value;
         contentChanged = true;
 
-        // True, if content is non-null.  Once content is set, if then set 
-        // to null, text can be set.
-        contentSet = _content;
-
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -543,6 +577,8 @@ public class TextView extends UIComponent implements IViewport
         _displayAsPassword = value;
         displayAsPasswordChanged = true;
 
+        invalidateProperties();
+        invalidateSize();
         invalidateDisplayList();
     }
 
@@ -586,6 +622,7 @@ public class TextView extends UIComponent implements IViewport
         _editable = value;
         editableChanged = true;
 
+        invalidateProperties();
         invalidateDisplayList();
     }
 
@@ -609,7 +646,26 @@ public class TextView extends UIComponent implements IViewport
         super.enabled = value;
         enabledChanged = true;
 
+        invalidateProperties();
         invalidateDisplayList();
+    }
+
+    //----------------------------------
+    //  explicitWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set explicitWidth(value:Number):void
+    {
+        if (value == explicitWidth)
+            return;
+            
+        super.explicitWidth = value;
+        
+        // Re-measure.  The width change could impact the height.
+        invalidateSize();
     }
 
     //----------------------------------
@@ -629,8 +685,9 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  The height of the control, in lines.
      *  
-     *  <p>TextView's measure() method does not determine the measured size from the text to be displayed, 
-     *  because a TextView often starts out with no text. Instead it uses this property, and the widthInChars property 
+     *  <p>TextView's measure() method does not determine the measured size from 
+     *  the text to be displayed, because a TextView often starts out with no 
+     *  text. Instead it uses this property, and the widthInChars property 
      *  to determine its measuredWidth and measuredHeight. These are 
      *  similar to the cols and rows of an HTML TextArea.</p>
      *  
@@ -863,6 +920,24 @@ public class TextView extends UIComponent implements IViewport
     }
 
     //----------------------------------
+    //  percentWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set percentWidth(value:Number):void
+    {
+        if (value == percentWidth)
+            return;
+            
+        super.percentWidth = value;
+        
+        // Re-measure.
+        invalidateSize();
+    }
+
+    //----------------------------------
     //  restrict
     //----------------------------------
 
@@ -935,6 +1010,7 @@ public class TextView extends UIComponent implements IViewport
         _selectable = value;
         selectableChanged = true;
 
+        invalidateProperties();
         invalidateDisplayList();
     }
 
@@ -1037,6 +1113,7 @@ public class TextView extends UIComponent implements IViewport
         _selectionVisibility = value;
         selectionFormatsChanged = true;
         
+        invalidateProperties();
         invalidateDisplayList();
     }
 
@@ -1081,17 +1158,15 @@ public class TextView extends UIComponent implements IViewport
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
-        if (!contentSet)
-        {
-            _content = null;
-            contentChanged = false;
-            
-            _text = value;
-            textChanged = true;
-            
-            invalidateSize();
-            invalidateDisplayList();
-        }
+        _content = null;
+        contentChanged = false;
+        
+        _text = value;
+        textChanged = true;
+        
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
     }
     
     //----------------------------------
@@ -1210,8 +1285,9 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
+     *  These are measured in ems.
      */
-    private var _widthInChars:Number = 20;
+    private var _widthInChars:Number = 15;
 
     /**
      *  @private
@@ -1219,11 +1295,9 @@ public class TextView extends UIComponent implements IViewport
     private var widthInCharsChanged:Boolean = true;
         
     /**
-     *  The default width for the TextInput, measured in characters.
-     *  The width of the "0" character is used for the calculation,
-     *  since in most fonts the digits all have the same width.
-     *  So if you set this property to 5, it will be wide enough
-     *  to let the user enter 5 digits.
+     *  The default width for the TextInput, measured in em units.
+     *  Em is defined as simply the current point size.  The width
+     *  of the "M" character is used for the calculation.
      *
      *  @default
      *  
@@ -1265,6 +1339,68 @@ public class TextView extends UIComponent implements IViewport
     {
         super.commitProperties();
 
+        // Since the edit manager is cached, make sure to apply any 
+        // selection format changes.
+        if (selectionFormatsChanged)
+        {
+            setSelectionFormats(_editManager);
+            selectionFormatsChanged = false;            
+        }
+        
+        // Regenerate TextLines if necessary.
+        if (textChanged || contentChanged ||
+            stylesChanged || displayAsPasswordChanged)
+        {
+            if (textChanged || contentChanged)
+             {
+                // Eliminate detritus from the previous TextFlow only if
+                // the text/content has changed. Want to preserve scrolling
+                // position if text changes to displayAsPassword or back to 
+                // plaintext.
+                if (textFlow.flowComposer)
+                    textFlow.flowComposer.removeAllControllers();
+
+                // Clear the selection.
+                if (textFlow.interactionManager)
+                    textFlow.interactionManager.setSelection(-1, -1);
+            }
+                            
+            // Create/modify TextFlow for the current text.
+            _content = textFlow = createTextFlow();
+
+            // Tell it where to create its TextLines.
+            if (textChanged || contentChanged)
+            {
+                textFlow.flowComposer.addControllerAt(
+                    new DisplayObjectContainerController(this), 0);
+                // Set scroll policy appropriately.
+                autoSizeChanged = true;
+            }
+                                                               
+            // read-write, read-select, or read-only.                                                              
+            setInteractionManager(textFlow);
+
+            // Listen to events from the TextFlow and its SelectionManager.
+            addListeners(textFlow);
+
+            textChanged = false;
+            contentChanged = false;
+            stylesChanged = false;
+            displayAsPasswordChanged = false;
+
+            enabledChanged = false;
+            editableChanged = false;
+            selectableChanged = false;          
+        } 
+        else if (enabledChanged || editableChanged || selectableChanged)
+        {
+            setInteractionManager(textFlow);
+            
+            enabledChanged = false;
+            editableChanged = false;
+            selectableChanged = false;
+        }
+        
         var flowComposer:IFlowComposer = textFlow.flowComposer;
         if (!flowComposer || flowComposer.numControllers == 0)
             return;
@@ -1272,6 +1408,15 @@ public class TextView extends UIComponent implements IViewport
         var containerController:IContainerController =
             flowComposer.getControllerAt(0);
 
+        if (autoSizeChanged)
+        {
+            var value:String = _autoSize ? "off" : "auto";
+            containerController.horizontalScrollPolicy = value;
+            containerController.verticalScrollPolicy = value; 
+                        
+            autoSizeChanged = false;
+        }
+        
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
@@ -1302,27 +1447,64 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
+    override protected function skipMeasure():Boolean
+    {
+        // If autoSize, always measure.
+        if (_autoSize)
+            return false;
+                       
+        return super.skipMeasure();
+    }
+
+    /**
+     *  @private
+     */
     override protected function measure():void 
     {
         super.measure();
 
-        // Recalculate the ascent, descent, and charWidth
+        // Recalculate the ascent, and descent
         // if these might have changed.
         if (fontMetricsInvalid)
         {
-            calculateFontMetrics();
-
+            calculateFontMetrics();    
             fontMetricsInvalid = false;
         }
-
-        measuredWidth = Math.round(getStyle("paddingLeft") +
-                        widthInChars * charWidth +
-                        getStyle("paddingRight"));
-                
-        measuredHeight = Math.round(getStyle("paddingTop") +
-                         heightInLines * (ascent + descent) +
-                         getStyle("paddingBottom"));
-
+    
+        if (_autoSize)
+        {
+            // percentWidth is a special case for autoSize since we need
+            // updateDisplay() to first tell us the unscaledWidth that has
+            // been calculated from the percentWidth.
+            if (isSpecialCase())
+            {
+                if (!isNaN(lastUnscaledWidth))
+                {
+                    // second time thru - max width is known
+                    measureUsingWidth(lastUnscaledWidth);
+                }
+                else
+                {
+                    // first time thru - can't determine width
+                    measuredWidth = 0;
+                    measuredHeight = 0;
+                }
+            }
+            else
+            {
+                // Normal autoSize.  If toFit will compose up to maxWidth
+                // width.  If explicit, will compose entire width of text.
+                measureUsingWidth(maxWidth);               
+            }
+        }
+        else
+        {
+            measuredWidth = Math.round(getStyle("paddingLeft") +
+                                       widthInChars * getStyle("fontSize") +
+                                       getStyle("paddingRight"));
+            measuredHeight = Math.ceil(calculateHeightInLines());            
+        }    
+               
         //trace("measure", measuredWidth, measuredHeight);
     }
 
@@ -1345,80 +1527,37 @@ public class TextView extends UIComponent implements IViewport
         g.endFill();
         */
 
-        var flowComposer:IFlowComposer;
-        
-        // Since the edit manager is cached, make sure to apply any 
-        // selection format changes.
-        if (selectionFormatsChanged)
+        if (isSpecialCase())
         {
-            setSelectionFormats(_editManager);
-            selectionFormatsChanged = false;            
-        }
-        
-        // Regenerate TextLines if necessary.
-        if (textChanged || contentChanged ||
-            stylesChanged || displayAsPasswordChanged)
-        {
-            if (textChanged || contentChanged)
+            var firstTime:Boolean = isNaN(lastUnscaledWidth) || lastUnscaledWidth != unscaledWidth;
+            lastUnscaledWidth = unscaledWidth;
+            if (firstTime)
             {
-                // Eliminate detritus from the previous TextFlow only if
-                // the text/content has changed. Want to preserve scrolling
-                // position if text changes to displayAsPassword or back to 
-                // plaintext.
-                if (textFlow.flowComposer)
-                    textFlow.flowComposer.removeAllControllers();
-
-                // Clear the selection.
-                if (textFlow.interactionManager)
-                    textFlow.interactionManager.setSelection(-1, -1);
+                invalidateSize();
+                return;
             }
-                            
-            // Create/modify TextFlow for the current text.
-            _content = textFlow = createTextFlow();
-                        
-            // Tell it where to create its TextLines.
-            if (textChanged || contentChanged)
-            {
-                flowComposer = new StandardFlowComposer();
-                flowComposer.addControllerAt(
-                    new DisplayObjectContainerController(this), 0);
-                textFlow.flowComposer = flowComposer;
-            }
-                                       
-            setInteractionManager(textFlow);
-
-            // Listen to events from the TextFlow and its SelectionManager.
-            addListeners(textFlow);
-
-            textChanged = false;
-            contentChanged = false;
-            stylesChanged = false;
-            displayAsPasswordChanged = false;
-
-            enabledChanged = false;
-            editableChanged = false;
-            selectableChanged = false;          
-        } 
-        else if (enabledChanged || editableChanged || selectableChanged)
-        {
-            setInteractionManager(textFlow);
-            
-            enabledChanged = false;
-            editableChanged = false;
-            selectableChanged = false;
         }
+
+        // Don't trigger a damage event since we know we're recomposing.
+        textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
         
         // Tell the TextFlow to generate TextLines within the
-        // rectangle (0, 0, unscaledWidth, unscaledHeight).  There is not
-        // a flowComposer if there is no text/content specified.
-        flowComposer = textFlow.flowComposer;
-        if (flowComposer && flowComposer.numControllers > 0)
-        {
-            var containerController:IContainerController =
-                flowComposer.getControllerAt(0);
-            containerController.setCompositionSize(unscaledWidth, unscaledHeight);
-            flowComposer.updateAllContainers();
-        }
+        // rectangle (0, 0, unscaledWidth, unscaledHeight).
+        var flowComposer:IFlowComposer = textFlow.flowComposer;
+        var containerController:IContainerController =
+            flowComposer.getControllerAt(0);   
+                        
+        // If autoSize, the text flow is already composed (although there are
+        // certain styles that require a recompose since the composition width
+        // and height matter).  Setting the composition size since it will 
+        // trigger a damage event.
+       if (!_autoSize || recomposeForStyles())                     
+            containerController.setCompositionSize(unscaledWidth, unscaledHeight);        
+
+        flowComposer.updateAllContainers();
+        
+        // Reinstate the damage handler.
+        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
     }
 
     /**
@@ -1470,6 +1609,11 @@ public class TextView extends UIComponent implements IViewport
         else
             setHostTextLayoutFormat(styleProp);
 
+        // Need to regenerate text flow.
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+
         stylesChanged = true;
     }
 
@@ -1495,9 +1639,105 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
+     *  The cases that require a second pass through the LayoutManager.
+     */
+    private function isSpecialCase():Boolean
+    {
+        return _autoSize && !isNaN(percentWidth);
+    }
+
+    /**
+     *  @private
+     *  If the text is composed during measure(), there are certain styles 
+     *  that require it to be recomposed again for display.  For example,
+     *  if textAlign = justify the text must be composed with unscaledWidth
+     *  rather than maxWidth so that the text is distributed correctly across
+     *  the width.
+     */
+    protected function recomposeForStyles():Boolean
+    {
+        var direction:String = getStyle("direction");
+        var textAlign:String = getStyle("textAlign");
+
+        var leftAligned:Boolean =
+            textAlign == "left" ||
+            textAlign == "start" && direction == "ltr" ||
+            textAlign == "end" && direction == "rtl";
+    
+        if (!leftAligned)
+            return true;   
+
+        var verticalAlign:String = getStyle("verticalAlign");
+        var topAligned:Boolean = (verticalAlign == "top");
+
+        return !topAligned;
+
+    }
+
+    /**
+     *  @private
+     */
+    private function measureUsingWidth(maxComposeWidth:Number):void
+    {
+        var flowComposer:IFlowComposer = textFlow.flowComposer;
+        var containerController:IContainerController =
+            flowComposer.getControllerAt(0);
+
+        // Never compose over the max width because the width will always
+        // be adjusted down to this and it's easy to get into an infinite
+        // measure/update display loop.
+        var composeWidth:Number; 
+        if (textFlow.hostTextLayoutFormat.lineBreak == "toFit")
+        {
+            // Need to set a width to cause a wrap if text rather than 
+            // formatted content.
+            composeWidth = maxComposeWidth;
+            explicitMinWidth = NaN;
+        }
+        else
+        {             
+            // Let the text determine the width.  Ignore explicit widths.
+            composeWidth = NaN;
+            explicitMinWidth = explicitMaxWidth = NaN;                
+        }
+        
+        // Ignore all explicit heights.
+        explicitMinHeight = explicitMaxHeight = NaN;
+                                  
+        // The bottom border can grow to allow all the text to fit.
+        // If dimension is NaN, composer will measure text in that 
+        // direction. 
+        containerController.setCompositionSize(composeWidth, NaN);
+
+        // Compose only.  The display is not updated.
+        flowComposer.compose();
+
+        // If it's an empty text flow, there is one line with one
+        // character so the height is good for the line.
+        measuredHeight = Math.ceil(containerController.contentHeight);
+
+        if (containerController.textLength > 1)
+        {
+            // Non-empty text flow.
+            measuredWidth = Math.ceil(containerController.contentWidth);
+        }
+        else
+        {
+            // Empty text flow.  One Em wide with padding.
+            measuredWidth = Math.ceil(getStyle("fontSize") +
+                                      containerController.contentWidth);
+       }
+                
+        // Lock in the compose area so all text is visible.
+        measuredMinWidth = measuredWidth;                     
+        measuredMinHeight = measuredHeight;           
+    }
+
+    /**
+     *  @private
      *  This method is called when anything affecting the
      *  default font, size, weight, etc. changes.
-     *  It calculates the 'ascent', 'descent', and 'charWidth'
+     *  It calculates the 'ascent', 'descent', and
      *  instance variables, which are used in measure().
      */
     private function calculateFontMetrics():void
@@ -1511,7 +1751,7 @@ public class TextView extends UIComponent implements IViewport
         
         var textElement:TextElement = new TextElement();
         textElement.elementFormat = elementFormat;
-        textElement.text = "0";
+        textElement.text = "M";
         
         var textBlock:TextBlock = new TextBlock();
         textBlock.content = textElement;
@@ -1520,9 +1760,51 @@ public class TextView extends UIComponent implements IViewport
         
         ascent = textLine.ascent;
         descent = textLine.descent;
-        charWidth = textLine.textWidth;
     }
     
+    /**
+     *  @private
+     *  Calculates the height needed for heightInLines lines using the default
+     *  font.
+     */
+    private function calculateHeightInLines():Number
+    {
+        var height:Number = getStyle("paddingTop") + getStyle("paddingBottom");
+            
+        if (heightInLines == 0)
+            return height;
+                        
+        // Position of the baseline of first line in the container.
+        value = getStyle("firstBaselineOffset");
+        if (value == lineHeight)
+            height += lineHeight;
+        else if (value is Number)
+            height += Number(value);
+        else
+            height += ascent;
+
+        // Distance from baseline to baseline.  Can be +/- number or 
+        // or +/- percent (in form "120%") or "undefined".  
+        if (heightInLines > 1)
+        {
+            var value:Object = getStyle("lineHeight");     
+            var lineHeight:Number = TextUtil.getNumberOrPercentOf(
+                                                    value, 
+                                                    getStyle("fontSize"));
+                
+            // Default is 120%
+            if (isNaN(lineHeight))
+                lineHeight = getStyle("fontSize") * 1.2;
+            
+            height += (heightInLines - 1) * lineHeight;
+        }            
+        
+        // Add in descent of last line.
+        height += descent;              
+        
+        return height;
+    }
+        
     /**
      *  @private
      */
@@ -2236,15 +2518,7 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      */
     override protected function focusInHandler(event:FocusEvent):void
-    {
-        // When gaining focus, show the selection.  Uses the SelectionFormat 
-        // values defined by the SelectionManager.
-        if (textFlow.interactionManager && 
-            textFlow.interactionManager.hasSelection())
-        {
-            textFlow.flowComposer.showSelection();
-        }
-        
+    {        
         if (focusManager && multiline)
             focusManager.defaultButtonEnabled = false;
     }
@@ -2257,15 +2531,7 @@ public class TextView extends UIComponent implements IViewport
         // By default, we clear the undo history when a TextView loses focus.
         if (mx_internal::clearUndoOnFocusOut)
             mx_internal::undoManager.clear();
-            
-        // When losing focus, hide the selection.  Uses the SelectionFormat 
-        // values defined by the SelectionManager. 
-        if (textFlow.interactionManager && 
-            textFlow.interactionManager.hasSelection())
-        {
-            textFlow.flowComposer.hideSelection();            
-        }
-        
+                    
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
     }
@@ -2305,6 +2571,8 @@ public class TextView extends UIComponent implements IViewport
         {
             _contentWidth = newContentWidth;
             
+            //trace("contentWidth", oldContentWidth, newContentWidth);
+
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
         }
@@ -2325,14 +2593,36 @@ public class TextView extends UIComponent implements IViewport
         {
             _contentHeight = newContentHeight;
             
+            //trace("contentHeight", oldContentHeight, newContentHeight);
+            
             dispatchPropertyChangeEvent(
                 "contentHeight", oldContentHeight, newContentHeight);
-        }
+        } 
+        
+        // If autoSize and there is overset text, remeasure.  contentHeight
+        // will not be the total height of the text unless composition is done 
+        // and scrolling is *on*.
+        if (_autoSize && isOverset(containerController))
+            invalidateSize();
     }
     
     /**
      *  @private
-     *  Called when the TextFlow dispatches a 'damage' event.
+     */
+    private function isOverset(controller:IContainerController):Boolean
+    {
+        // In some circumsances, the last controller gets all of the 
+        // content. In this case, test contentHeight vs. compositionHeight. 
+        // In other cases (the proper case) use textLengths to check.
+        return controller.contentHeight > controller.compositionHeight || 
+               (controller.absoluteStart + controller.textLength < 
+               controller.textFlow.textLength);
+    }
+    
+    /**
+     *  @private
+     *  Called when the TextFlow dispatches a 'damage' event.  The TextFlow
+     *  could have been modified interactively or programatically.
      */
     private function textFlow_damageHandler(
                         event:DamageEvent):void
@@ -2343,9 +2633,11 @@ public class TextView extends UIComponent implements IViewport
         // styles within the flow.
         textInvalid = true;
         dispatchEvent(new Event("textInvalid"));
+                    
+        // If autoSize and text changed, need to remeasure.
+        if (_autoSize)
+            invalidateSize();
         
-        // Re-measure not needed since it's based on TextView's style 
-        // characteristic, not the textFlow's style characteristics.
         invalidateDisplayList();
     }
 
@@ -2550,6 +2842,14 @@ public class TextView extends UIComponent implements IViewport
         editManager.insertText(pastedText, selectionState);        
 
         dispatchChangingEvent = true;
+    }
+
+    /**
+     *  @private
+     */
+    private function updateCompleteHandler(event:FlexEvent):void
+    {
+        lastUnscaledWidth = NaN;
     }
 }
 
