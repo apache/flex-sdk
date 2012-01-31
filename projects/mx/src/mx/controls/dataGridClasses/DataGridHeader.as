@@ -238,24 +238,28 @@ public class DataGridHeader extends DataGridHeaderBase
             var c:DataGridColumn;
 
             var maxHeaderHeight:Number = 0;
+            // copy current list of renderers
+            var oldHeaderItems:Array = headerItems.slice();
 
             while (cols && colNum < cols.length)
             {
                 c = cols[colNum];
-                item = dataGrid.createColumnItemRenderer(c, true, c);
+                item = c.cachedHeaderRenderer;
+                if (!item)
+                {
+                    item = dataGrid.createColumnItemRenderer(c, true, c);
+                    item.styleName = c;
+                    c.cachedHeaderRenderer = item;
+                }
                 rowData = new DataGridListData((c.headerText != null) ? c.headerText : c.dataField, 
                                                                 c.dataField, colNum, uid, dataGrid, 0);
                 if (item is IDropInListItemRenderer)
                     IDropInListItemRenderer(item).listData = rowData;
                 item.data = c;
                 item.visible = true;
-                item.styleName = c;
-                addChild(DisplayObject(item));
-                var oldHeader:DisplayObject = headerItems[colNum];
-                if (oldHeader)
-                {
-                    removeChild(oldHeader);
-                }
+                // if it isn't parented by us, add it (could be in lockedColumns header)
+                if (item.parent != this)
+                    addChild(DisplayObject(item));
                 headerItems[colNum] = item;
                 // set prefW so we can compute prefH
                 item.explicitWidth = ww = c.width;
@@ -277,11 +281,23 @@ public class DataGridHeader extends DataGridHeaderBase
             for (var i:int = 0; i < headerItems.length; i++)
                 headerItems[i].setActualSize(headerItems[i].width, maxHeaderHeight);
 
+            for (i = 0; i < oldHeaderItems.length; i++)
+            {
+                item = oldHeaderItems[i];
+                if (item && headerItems.indexOf(item) == -1)
+                {
+                    // if it is parented by us, remove it (could be in lockedColumns header)
+                    if (item.parent == this)
+                        removeChild(DisplayObject(item));
+                }
+            }
             while (headerItems.length > colNum)
             {
                 // remove extra columns
                 extraItem = headerItems.pop();
-                removeChild(DisplayObject(extraItem));
+                // if it is parented by us, remove it (could be in lockedColumns header)
+                if (extraItem.parent == this)
+                    removeChild(DisplayObject(extraItem));
             }
         }
         var headerBG:UIComponent =
@@ -483,6 +499,7 @@ public class DataGridHeader extends DataGridHeaderBase
                 sep = new UIComponent();
                 sep.addChild(DisplayObject(sepSkin));
                 lines.addChild(sep);
+                UIComponentGlobals.layoutManager.validateClient(sep, true);
                 
                 separators.push(sep);
             }
@@ -543,6 +560,7 @@ public class DataGridHeader extends DataGridHeaderBase
             lines.removeChildAt(lines.numChildren - 1);
             separators.pop();
         }
+        UIComponentGlobals.layoutManager.validateClient(lines, true);
     }
     
      /**
