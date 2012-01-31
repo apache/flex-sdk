@@ -826,6 +826,10 @@ function xmlEncoder (myObj)
         if (asyncRequest.requestTimeout != value)
         {
             asyncRequest.requestTimeout = value;
+            
+            // Propagate to operation instance.
+            if (operation)
+                operation.requestTimeout = value;
         }
     }
 
