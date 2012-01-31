@@ -3246,7 +3246,7 @@ public class Container extends UIComponent
             {
                 var child:DisplayObject = getChildAt(i);
 
-                if (recursive && child is UIComponent)
+                if (child is UIComponent)
                 {
                     // Does this object already have a proto chain?  If not,
                     // there's no need to regenerate a new one.
