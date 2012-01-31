@@ -47,6 +47,9 @@ public class GridDimensions
     private var startY:Number = 0;
     private var recentNode:GridRowNode = null;
     
+    private const typicalCellWidths:Array = new Array();
+    private const typicalCellHeights:Array = new Array();    
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -433,7 +436,10 @@ public class GridDimensions
         return new Rectangle(x, y, width, height);
     }
     
-    private function getCellX(row:int, col:int):Number
+    /**
+     *  Returns the X coordinate of the origin of the specified cell.
+     */
+    public function getCellX(row:int, col:int):Number
     {
         if (!_columnWidths)
             return col * (defaultColumnWidth + columnGap);
@@ -453,7 +459,10 @@ public class GridDimensions
         return x;
     }
     
-    private function getCellY(row:int, col:int):Number
+    /**
+     *  Returns the Y coordinate of the origin of the specified cell.
+     */
+    public function getCellY(row:int, col:int):Number
     {        // no cache so we use default heights for each row.
         if (!isNaN(fixedRowHeight))
             return row * (fixedRowHeight + rowGap);
@@ -809,7 +818,41 @@ public class GridDimensions
         
         return height + ((nRows - numRows) * (defaultRowHeight) + (nRows - 1) * rowGap);
     }
-
+    
+    /**
+     *  Return the preferred bounds width of the grid's typicalItem when rendered with the item renderer 
+     *  for the specified column.  If no value has yet been specified, return NaN.
+     */
+    public function getTypicalCellWidth(columnIndex:int):Number
+    {
+        return typicalCellWidths[columnIndex];
+    }
+    
+    /**
+     *  Sets the preferred bounds width of the grid's typicalItem for the specified column.
+     */
+    public function setTypicalCellWidth(columnIndex:int, value:Number):void
+    {
+        typicalCellWidths[columnIndex] = value;
+    }
+    
+    /**
+     *  Return the preferred bounds height of the grid's typicalItem when rendered with the item renderer 
+     *  for the specified column.  If no value has yet been specified, return NaN.
+     */    
+    public function getTypicalCellHeight(columnIndex:int):Number
+    {
+        return typicalCellHeights[columnIndex];
+    }
+    
+    /**
+     *  Sets the preferred bounds height of the grid's typicalItem for the specified column.
+     */    
+    public function setTypicalCellHeight(columnIndex:int, value:Number):void
+    {
+        typicalCellHeights[columnIndex] = value;
+    }
+        
     /**
      *  Inserts count number of rows starting from startRow. This shifts
      *  any rows after startRow down by count and will increment 
