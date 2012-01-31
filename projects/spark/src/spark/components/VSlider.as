@@ -18,6 +18,8 @@ import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxSlider;
 
+[IconFile("FxVSlider.png")]
+
 /**
  *  The FxVSlider class defines a vertical slider component.
  */
