@@ -20,9 +20,9 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.controls.HScrollBar;
-import mx.core.IToolTip;
 import mx.controls.VScrollBar;
 import mx.controls.scrollClasses.ScrollBar;
+import mx.core.IToolTip;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.events.ScrollEventDirection;
@@ -1085,8 +1085,11 @@ public class ScrollControlBase extends UIComponent
 			{
 	            border = new borderClass();
 	
-	            if (border is IUIComponent)
-	                IUIComponent(border).enabled = enabled;
+				if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+				{
+		            if (border is IUIComponent)
+		                IUIComponent(border).enabled = enabled;
+				}
 	            if (border is ISimpleStyleClient)
 	                ISimpleStyleClient(border).styleName = this;
 	
