@@ -16,6 +16,7 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.events.KeyboardEvent;
+import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
@@ -629,6 +630,11 @@ public class FxScroller extends FxComponent
         }
     }
     
+    // To avoid unconditionally linking the TextView class we lazily
+    // get a reference if it's been linked already.  See below.
+    private static var textViewClassLoaded:Boolean = false;
+    private static var textViewClass:Class = null;
+
     private function mouseWheelHandler(event:MouseEvent):void
     {
         var vp:IViewport = viewport;
@@ -638,15 +644,27 @@ public class FxScroller extends FxComponent
         // If a TextField has the focus, then check to see if it's already
         // handling mouse wheel events.  For now, we'll make the same 
         // assumption about TextView.
+        
         var focusOwner:InteractiveObject = getFocus();
         if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
             return;    
-        if (focusOwner is TextView)
-            return;        
+
+        if (!textViewClassLoaded)
+        {
+            textViewClassLoaded = true;
+            const s:String = "mx.components.TextView";
+            if (ApplicationDomain.currentDomain.hasDefinition(s))
+                textViewClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
+        }
+        if (textViewClass && (focusOwner is textViewClass))
+            return;
 
         var nSteps:uint = Math.abs(event.delta);
         var unit:ScrollUnit;
 
+        // Scroll event.delta "steps".  If the VSB is up, scroll vertically,
+        // if -only- the HSB is up then scroll horizontally.
+         
         if (verticalScrollBar && verticalScrollBar.visible)
         {
             unit = (event.delta < 0) ? ScrollUnit.DOWN : ScrollUnit.UP;
@@ -670,6 +688,7 @@ public class FxScroller extends FxComponent
             event.preventDefault();
         }            
     }
+
 }
 
 }
