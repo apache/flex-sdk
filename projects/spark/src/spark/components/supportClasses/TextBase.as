@@ -522,50 +522,7 @@ public class TextGraphicElement extends GraphicElement
     		invalidateDisplayList();
     	}
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: GraphicElement - to implement shared display objects
-    //
-    //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    override public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
-    {
-        if (!super.canDrawToShared(sharedDisplayObject))
-            return false;
-
-        // Make sure it is a container that will work for sharing text. 
-        return isDisplayObjectShareable(sharedDisplayObject);
-    }
-
-    /**
-     *  @private
-     */
-    override public function closeSequence():Boolean
-    {
-        if (super.closeSequence())
-            return true;
-            
-        return !isDisplayObjectShareable(displayObject);
-            
-    }
-
-    /**
-     *  @private
-     *  Can't share any group that does automatic placement of display objects.
-     *  We're using a backdoor into the code since text isn't an IVisualElement
-     *  and  can't be directly managed.
-     */
-    private function isDisplayObjectShareable(displayObj:DisplayObject):Boolean
-    {
-        return (displayObj is Group &&
-                Group(displayObj).layout != null &&
-                Group(displayObj).layout is BasicLayout);
-    }
-            
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
