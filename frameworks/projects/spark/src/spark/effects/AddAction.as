@@ -66,7 +66,7 @@ public class AddAction extends Effect
 	/**
 	 *  @private
 	 */
-	private static var AFFECTED_PROPERTIES:Array = [ "parent", "elementHost", "index" ];
+	private static var AFFECTED_PROPERTIES:Array = [ "parent", "index" ];
 	
 	/**
 	 * Constant used to specify the position to add the item.
@@ -264,17 +264,10 @@ public class AddAction extends Effect
 	override protected function getValueFromTarget(target:Object,
 												  property:String):*
 	{
-        var hasParent:Boolean;
-        try {
-            target.parent;
-            hasParent = true;
-        } catch (e:Error) {
-            hasParent = false;
-        }
-	    var container:* = (hasParent ? target.parent : target.elementHost);
+	    var container:* = target.parent;
 		if (property == "index")
 			return container ? 
-                (hasParent ? container.getChildIndex(target) : container.getItemIndex(target)) : 0;
+                ((container is Group) ? container.getItemIndex(target) : container.getChildIndex(target)) : 0;
 		
 		return super.getValueFromTarget(target, property);
 	}
@@ -288,25 +281,18 @@ public class AddAction extends Effect
 												   value:*,
 												   props:Object):void
 	{
-        var hasParent:Boolean;
-        try {
-            target.parent;
-            hasParent = true;
-        } catch (e:Error) {
-            hasParent = false;
-        }
 		if (property == "parent" && value == undefined)
-		    if (hasParent && target.parent)
+		{
+		    if (target.parent)
+		    {
                 // TODO : workaround for current situation of mis-match between
                 // Group having 'item's and Flex3 components having 'parent's
                 if (target.parent is Group)
                     target.parent.removeItem(target);
                 else
                     target.parent.removeChild(target);
-    	else if (property == "elementHost" && value == undefined)
-            if (!hasParent && target.elementHost)
-                target.elementHost.removeItem(target);
-		
+            }
+		}
 		// Ignore index - it's applied along with parent
 	}
 }
