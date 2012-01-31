@@ -18,6 +18,11 @@ import flash.events.Event;
  *  Represents events that are dispatched by the ScrollBar class.
  *
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollEvent extends Event
 {
@@ -58,6 +63,11 @@ public class ScrollEvent extends Event
 	 *  </table>
      *     
 	 *  @eventType scroll
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const SCROLL:String = "scroll";
 
@@ -89,6 +99,11 @@ public class ScrollEvent extends Event
          *  <code>ScrollEventDirection.VERTICAL</code>.
 	 *
 	 *  @param delta The change in scroll position, expressed in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ScrollEvent(type:String, bubbles:Boolean = false,
 								cancelable:Boolean = false,
@@ -118,6 +133,11 @@ public class ScrollEvent extends Event
 	 *  the scroll. The value is expressed in pixels. A positive value indicates the 
      *  scroll was down or to the right. A negative value indicates the scroll  
      * 	was up or to the left.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var delta:Number;
 
@@ -131,6 +151,11 @@ public class ScrollEvent extends Event
 	 *  in the ScrollEventDetail class.
 	 *
 	 *  @see mx.events.ScrollEventDetail
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var detail:String;
 
@@ -144,6 +169,11 @@ public class ScrollEvent extends Event
 	 *  or <code>ScrollEventDirection.HORIZONTAL</code>.
 	 *
 	 *  @see mx.events.ScrollEventDirection
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var direction:String;
 
@@ -153,6 +183,11 @@ public class ScrollEvent extends Event
 
     /**
 	 *  The new scroll position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var position:Number;
 
