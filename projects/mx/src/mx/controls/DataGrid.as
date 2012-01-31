@@ -4050,11 +4050,20 @@ public class DataGrid extends DataGridBase implements IIMESupport
     }
 
     /**
-     *  Determines if the item renderer for a data provider item 
-     *  is editable.
+     *  Determines whether to allow editing of a dataprovider item on a per-row basis. 
+     *  The default implementation of this method only checks the <code>editable</code> property 
+     *  of the DataGrid and returns <code>false</code> if <code>editable</code> is <code>false</code>
+     *  or if the dataprovider item is <code>null</code>.
+     * 
+     *  <p>This method can be overridden to allow fine-grained control of which dataprovider items 
+     *  are editable. For example, if you want to disallow editing of grouping rows or summary rows
+     *  you would override this method with custom logic to this behavior.</p>
      *
-     *  @param data The data provider item.
-     *  @return <code>true</code> if the item is editable.
+     *  @param data The data provider item. The default implementation of this method returns 
+     *  <code>false</code> if the data object is <code>null</code>.
+     * 
+     *  @return The default behavior is to return <code>true</code> if the DataGrid's <code>editable</code> property is 
+     *  <code>true</code> and the data object is not <code>null</code>.
      */
     public function isItemEditable(data:Object):Boolean
     {
