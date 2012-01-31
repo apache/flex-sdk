@@ -35,7 +35,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the value of the selected RadioButton control in
+ *  Dispatched when the value of the selected RadioButton component in
  *  this group changes.
  *
  *  @eventType flash.events.Event.CHANGE
@@ -48,8 +48,8 @@ use namespace mx_internal;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  Dispatched when a user selects a RadioButton control in the group.
- *  You can also set a handler for individual RadioButton controls.
+ *  Dispatched when a user selects a RadioButton component in the group.
+ *  You can also set a handler for individual RadioButton components.
  *
  *  This event is dispatched only when the 
  *  user interacts with the radio buttons by using the mouse.
@@ -64,6 +64,30 @@ use namespace mx_internal;
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
 //--------------------------------------
+//  Validation events
+//--------------------------------------
+
+/**
+ *  Dispatched when values are changed programmatically
+ *  or by user interaction.
+ *
+ *  <p>Because a programmatic change triggers this event, make sure
+ *  that any <code>valueCommit</code> event handler does not change
+ *  a value that causes another <code>valueCommit</code> event.
+ *  For example, do not change the<code>selectedValue</code>
+ *  property or <code>selection</code> property in a <code>valueCommit</code> 
+ *  event handler. </p>
+ *
+ *  @eventType mx.events.FlexEvent.VALUE_COMMIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Event(name="valueCommit", type="mx.events.FlexEvent")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -71,25 +95,20 @@ use namespace mx_internal;
 [DefaultTriggerEvent("change")]
 
 /**
- *  The RadioButtonGroup control defines a group of RadioButton controls
- *  that act as a single mutually exclusive control; therefore,
- *  a user can select only one  control at a time.
+ *  The RadioButtonGroup component defines a group of RadioButton components
+ *  that act as a single mutually exclusive component; therefore,
+ *  a user can select only one RadioButton component at a time.
  *  The <code>id</code> property is required when you use the
- *  <code>&lt;s:RadioButtonGroup&gt;</code> tag to define the name
- *  of the group.
+ *  <code>&lt;s:RadioButtonGroup&gt;</code> tag to define the group name.  Any
+ *  <code>&lt;s:RadioButton&gt;</code> component added to this group will 
+ *  have this group name.
  *
- *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher,
+ *  <p>Notice that the RadioButtonGroup component is a subclass of EventDispatcher,
  *  not UIComponent, and implements the IMXMLObject interface.
- *  All other Flex visual components are subclasses of UIComponent, which implements
- *  the IUIComponent interface.
- *  The RadioButtonGroup control has support built into the Flex compiler
- *  that allows you to use the RadioButtonGroup control as a child of a Flex
- *  container, even though it does not implement IUIComponent.
- *  All other container children must implement the IUIComponent interface.</p>
- *
- *  <p>Therefore, if you try to define a visual component as a subclass of
- *  EventDispatcher that implements the IMXMLObject interface,
- *  you will not be able to use it as the child of a container.</p>
+ *  All other Flex visual components implement the IVisualElement interface.
+ *  The RadioButtonGroup component declaration must
+ *  be contained within the <code>&lt;Declarations&gt;</code> tag since it is
+ *  not assignable to IVisualElement.</p> 
  *
  *  @mxml
  *
@@ -191,7 +210,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Determines whether selection is allowed.  Note that the value returned
      *  only reflects the value that was explicitly set on the 
      *  <code>RadioButtonGroup</code> and does not reflect any values explicitly
-     *  set on the individual radio buttons. 
+     *  set on the individual RadioButtons. 
      *
      *  @default true
      *  
@@ -251,15 +270,13 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     [Inspectable(category="General")]
 
     /**
-     *  The value of the <code>value</code> property of the selected
-     *  RadioButton control in the group, if this has been set
-     *  to be something other than <code>null</code> (the default value).
-     *  Otherwise, <code>selectedValue</code> is the value of the
-     *  <code>label</code> property of the selected RadioButton.
+     *  The <code>value</code> property of the selected
+     *  RadioButton component in the group, if it has been set,
+     *  otherwise, the <code>label</code> property of the selected RadioButton.
      *  If no RadioButton is selected, this property is <code>null</code>.
      *
      *  <p>If you set <code>selectedValue</code>, Flex selects the
-     *  RadioButton control whose <code>value</code> or
+     *  first RadioButton component whose <code>value</code> or
      *  <code>label</code> property matches this value.</p>
      *
      *  @default null
@@ -317,11 +334,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  Contains a reference to the currently selected
-     *  RadioButton control in the group.
-     *  You can access the property in ActionScript only;
+     *  RadioButton component in the group.
+     *  You can access this property in ActionScript only;
      *  it is not settable in MXML.
      *  Setting this property to <code>null</code> deselects the currently
-     *  selected RadioButton control.  A change event is not dispatched.
+     *  selected RadioButton component.  A change event is not dispatched.
      *
      *  @default null
      *  
@@ -371,19 +388,22 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     public function initialized(document:Object, id:String):void
     {
+        _name = id;
+        
         this.document = document ?
                         IFlexDisplayObject(document) :
                         IFlexDisplayObject(FlexGlobals.topLevelApplication);
     }
 
     /**
-     *  Returns the  control at the specified index.
+     *  Returns the RadioButton component at the specified index.
      *
-     *  @param index The index of the  control in the
-     *  RadioButtonGroup control, where the index of the first control is 0.
+     *  @param index The 0-based index of the RadioButton in the
+     *  RadioButtonGroup.
      *
-     *  @return The specified RadioButton control if index is between
-     *  0 and the value of <code>numRadioButtons</code>, otherwise, <code>null</code>.
+     *  @return The specified RadioButton component if index is between
+     *  0 and <code>numRadioButtons</code> - 1.  Returns
+     *  <code>null</code> if the index is invalid.
      * 
      *  @see numRadioButtons
      *  
