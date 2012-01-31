@@ -1671,6 +1671,17 @@ public class GridLayout extends LayoutBase
         return true;
     }
     
+    /**
+     * @private
+     * This handler runs AFTER the GridDimension object has been updated.
+     */
+    public function columnsCollectionChanged(event:CollectionEvent):void
+    {
+        clearVirtualLayoutCache();
+        if (grid)
+            grid.setContentSize(0, 0);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Grid Elements
