@@ -44,7 +44,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Rotate
+ *  &lt;s:Rotate
  *    id="ID"
  *    angleBy="val"
  *    angleFrom="val"
