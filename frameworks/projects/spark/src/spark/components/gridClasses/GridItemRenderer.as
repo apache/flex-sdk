@@ -25,6 +25,7 @@ import mx.events.FlexEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
 import mx.managers.ToolTipManager;
+import mx.utils.PopUpUtil;
 
 import spark.components.Grid;
 import spark.components.Group;
@@ -128,33 +129,20 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 		toolTip.text = renderer.column.itemToDataTip(renderer.data);
 		ToolTipManager.sizeTip(toolTip);
 		
-		// Move the origin of the tooltip to the origin of this item renderer
-		
-		var sm:ISystemManager = uiComp.systemManager.topLevelSystemManager;
-		var sbRoot:DisplayObject = sm.getSandboxRoot();
-		var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
-		
-		const x:int = mirror ? renderer.width - toolTip.width : 0;
-		var pt:Point = new Point(x, 0);
-		
-		pt = uiComp.localToGlobal(pt);
-		pt = sbRoot.globalToLocal(pt);          
-		
-		toolTip.move(pt.x, Math.round(pt.y + (renderer.height - toolTip.height) / 2));
-		
-		const screenRight:Number = screen.x + screen.width;
-		pt.x = toolTip.x;
-		pt.y = toolTip.y;
-		pt = sbRoot.localToGlobal(pt);
-		
-		if (pt.x + toolTip.width > screenRight)
-		{
-			pt.x = toolTip.x - (pt.x + toolTip.width - screenRight);
-			toolTip.move(pt.x, toolTip.y);
-		}
-		
-		if (mirror && pt.x < 0)
-			toolTip.move(0, toolTip.y);
+        // We need to position the tooltip at same x coordinate, 
+        // center vertically and make sure it doesn't overlap the screen.
+        // Call the helper function to handle this for us.
+
+        // Assume there's no scaling in the coordinate space between renderer.width and toolTip.width 
+        const x:int = mirror ? renderer.width - toolTip.width : 0;
+        var pt:Point = PopUpUtil.positionOverComponent(DisplayObject(uiComp),
+                                                       uiComp.systemManager,
+                                                       toolTip.width, 
+                                                       toolTip.height,
+                                                       renderer.height / 2, 
+                                                       null, 
+                                                       new Point(x, 0)); 
+        toolTip.move(pt.x, pt.y);
 	}
          
    //--------------------------------------------------------------------------
