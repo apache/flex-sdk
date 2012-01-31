@@ -459,6 +459,40 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             _layout.measure();
     }
     
+    /**
+     *  @private
+     *  Conditionally sets the origin of the scrollRect to 
+     *  verticalScrollPosition,horizontalScrollPosition and its width
+     *  width,height to w,h (unscaledWidth,unscaledHeight).  We avoid setting
+     *  the scrollRect (and therefore clipping) when scrolling isn't indicated:
+     *  if the scrollRect is currently null and the scrollPosition properties
+     *  are 0, and the Group's contentWidth,Height is &lt;= to
+     *  unscaledWidth/Height, then the scrollRect is not set.
+     */ 
+    private function updateScrollRect(w:Number, h:Number):void
+    {
+        var r:Rectangle = scrollRect;
+        if (r) 
+        {
+            r.width = w;
+            r.height = h;
+            scrollRect = r;
+        }
+        else // scrollRect wasn't set
+        {
+            var hsp:Number = horizontalScrollPosition;
+            var vsp:Number = verticalScrollPosition;
+            var cw:Number = contentWidth;
+            var ch:Number = contentHeight;
+            
+            // Don't set the scrollRect needlessly.
+            if ((hsp != 0) || (vsp != 0) || (cw > w) || (ch > h))
+            {
+                scrollRect = new Rectangle(hsp, vsp, w, h);
+            }
+        }
+    }    
+    
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -479,6 +513,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
                     element.validateDisplayList();
             }
         }
+        
+        updateScrollRect(unscaledWidth, unscaledHeight);
     }
     
     override public function addChild(child:DisplayObject):DisplayObject
@@ -580,12 +616,51 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     
     
     //----------------------------------
-    //  contentWidth,Height
-    //----------------------------------    
+    //  contentWidth
+    //---------------------------------- 
     
-    [Bindable] public var contentWidth:Number;
-    [Bindable] public var contentHeight:Number;
-	
+    private var _contentWidth:Number = 0;
+    
+    [Bindable]
+    [Inspectable(category="General")]    
+
+    public function get contentWidth():Number 
+    {
+        return _contentWidth;
+    }
+    
+    private function set contentWidth(value:Number):void 
+    {
+        _contentWidth = value;
+    }
+
+    //----------------------------------
+    //  contentHeight
+    //---------------------------------- 
+    
+    private var _contentHeight:Number = 0;
+    
+    [Bindable]
+    [Inspectable(category="General")]    
+
+    public function get contentHeight():Number 
+    {
+        return _contentHeight;
+    }
+    
+    private function set contentHeight(value:Number):void 
+    {            
+        _contentHeight = value;
+    }    
+
+
+    public function setContentSize(w:Number, h:Number):void
+    {
+    	if ((w == _contentWidth) && (h == _contentHeight))
+    	   return;
+    	contentWidth = w;
+    	contentHeight = h;
+    }
 
     //--------------------------------------------------------------------------
     //
