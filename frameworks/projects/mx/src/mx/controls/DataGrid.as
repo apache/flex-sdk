@@ -1241,7 +1241,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     private var _columns:Array; // the array of our DataGridColumns
 
     [Bindable("columnsChanged")]
-    [Inspectable(arrayType="mx.controls.dataGridClasses.DataGridColumn")]
+    [Inspectable(category="General", arrayType="mx.controls.dataGridClasses.DataGridColumn")]
 
     /**
      *  An array of DataGridColumn objects, one for each column that
