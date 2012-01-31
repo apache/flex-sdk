@@ -122,6 +122,11 @@ FxToggleButton
 	verticalAlign: "middle";
 }
 
+FxVideoDisplay
+{
+    skinClass: ClassReference("mx.skins.spark.FxVideoDisplaySkin");
+}
+
 FxVScrollBar
 {
 	skinClass: ClassReference("mx.skins.spark.FxVScrollBarSkin");
