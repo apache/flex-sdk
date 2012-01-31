@@ -16,7 +16,10 @@ package spark.components.supportClasses
 
 {	
     
+import mx.core.UIComponent;
+
 import spark.components.Group;
+
 /**
  *  The Skin class defines the base class for all skins used by skinnable components. 
  *  The SkinnableComponent class defines the base class for skinnable components.
@@ -80,6 +83,20 @@ public class Skin extends Group
 	 *  @productversion Flex 4
 	 */
 	public function get focusSkinExclusions():Array { return null;}
+    
+    /**
+     *  @private
+     */
+    override protected function skipMeasure():Boolean
+    {
+        var uiOwner:UIComponent = owner as UIComponent;
+        
+        // We can skip measure if our owning component has explicit sizes
+        if (uiOwner && !isNaN(uiOwner.explicitWidth) && !isNaN(uiOwner.explicitHeight))
+            return true;
+        
+        return super.skipMeasure();
+    }
 }
 
 }
