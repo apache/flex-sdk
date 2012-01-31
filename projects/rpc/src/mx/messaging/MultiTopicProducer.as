@@ -167,7 +167,9 @@ public class MultiTopicProducer extends AbstractProducer
     // 
     //--------------------------------------------------------------------------
 
-
+    /**
+     * @private
+     */
     override protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
     {
         // Otherwise, use the default topic
