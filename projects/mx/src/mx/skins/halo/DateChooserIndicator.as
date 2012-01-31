@@ -78,7 +78,7 @@ public class DateChooserIndicator extends ProgrammaticSkin
 		
 		g.clear();
         g.lineStyle(0, getStyle("themeColor"), 0)
-        g.beginFill(getStyle(mx_internal::indicatorColor));
+        g.beginFill(getStyle(indicatorColor));
         g.drawRect(1, 0, w - 2, h);
         g.endFill();
 	}
