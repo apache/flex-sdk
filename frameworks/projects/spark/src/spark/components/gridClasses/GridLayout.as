@@ -356,7 +356,10 @@ public class GridLayout extends LayoutBase
      *  the explicit width.  Otherwise an item renderer is created for the column 
      *  and the item renderer's preferred bounds become the typical cell size.   
      * 
-     *  Return the indices of the columns whose typicalCellWidth,Height was updated. 
+     *  This method also updates the column width in GridDimensions if the column
+     *  has an explicit width.
+     * 
+     *  Return the indices of the columns whose typicalCellWidth was updated. 
 	 */
 	private function updateTypicalCellSizes(width:Number, startX:Number, startIndex:int):Vector.<int>
 	{
@@ -378,23 +381,29 @@ public class GridLayout extends LayoutBase
 			
             var column:GridColumn = getGridColumn(columnIndex);
             if (!isNaN(column.width))
+            {
                 cellWidth = column.width;
+                // explicit width so set it in GD
+                gridDimensions.setColumnWidth(columnIndex, cellWidth);
+            }
             
             if (isNaN(cellWidth) || (!isFixedRowHeight && isNaN(cellHeight)))
             {
                 var renderer:IVisualElement = createTypicalItemRenderer(columnIndex);
                 if (isNaN(cellWidth))
+                {
                     cellWidth = renderer.getPreferredBoundsWidth();
+                    gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
+                    if (indices == null)
+                        indices = new Vector.<int>();
+                    indices.push(columnIndex);
+                }
                 if (isNaN(cellHeight))
+                {
                     cellHeight = renderer.getPreferredBoundsHeight();
-                freeGridElement(renderer);
-                
-                gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
-                gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
-                
-                if (indices == null)
-                    indices = new Vector.<int>();
-                indices.push(columnIndex);                
+                    gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
+                }
+                freeGridElement(renderer);     
             }
             
 			if (columnIndex == startIndex)
@@ -499,8 +508,19 @@ public class GridLayout extends LayoutBase
         const startColIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
         const startCellR:Rectangle = gridDimensions.getCellBounds(startRowIndex, startColIndex);        
+        
+        // when null, no dataProvider exists or grid in a bad state. So, clean up and return.
         if (!startCellR)
+        {
+            // free itemRenderers
+            for each (var r:IVisualElement in visibleItemRenderers)
+                freeItemRenderer(r);
+                
+            visibleItemRenderers = new Vector.<IVisualElement>();
+            visibleRowIndices = new Vector.<int>();
+            visibleColumnIndices = new Vector.<int>();
             return;
+        }
         
         // Compute newVisibleColumns
         
