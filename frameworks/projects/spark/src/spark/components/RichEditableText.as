@@ -2337,6 +2337,14 @@ public class RichEditableText extends UIComponent
     {
         super.measure();
                  
+        // ScrollerLayout.measure() has heuristics for figuring out whether to
+        // use the actual content size or the preferred size when there are
+        // automatic scroll bars.  Force it to use the preferredSizes until
+        // the content sizes have been updated to accurate values.  This
+        // comes into play when remeasuring to reduce either the width/height.
+        _contentWidth = 0;
+        _contentHeight = 0;
+
         // percentWidth and/or percentHeight will come back in as constraints
         // on the remeasure if we're autoSizing.
                           
@@ -3813,21 +3821,6 @@ public class RichEditableText extends UIComponent
         
         // TODO:(cframpto) handle blockProgression == RL
         
-        // If we are scrolling, and reflowing text to fit the width, there
-        // should never be a horizontal scroll bar. For the content width 
-        // property which is in the IViewport interface, return the
-        // compositionWidth which will be more constant than the content
-        // width.  This is an attempt to minimize the scroller's confusion
-        // and many layouts due to the ever-changing content width.
-        
-        if (_clipAndEnableScrolling &&
-            hostFormat.blockProgression == BlockProgression.TB &&
-            hostFormat.lineBreak == "toFit" &&
-            !isNaN(_textContainerManager.compositionWidth))
-        {
-            newContentWidth = _textContainerManager.compositionWidth;
-        }
-
         // TODO:(cframpto) Figure out if we still need these checks.
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentWidth can be slightly larger than the requested
