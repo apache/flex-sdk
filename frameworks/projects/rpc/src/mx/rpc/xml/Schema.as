@@ -49,6 +49,11 @@ public class Schema
     /**
      * Maps a namespace prefix (as a <code>String</code>) to a
      * <code>Namespace</code> (i.e. this helps to resolve a prefix to a URI).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get namespaces():Object
     {
@@ -68,6 +73,11 @@ public class Schema
      * scope for the collection of type definitions and element declarations
      * to distinguish them from in-built XML Schema types and other collections
      * of types.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get targetNamespace():Namespace
     {
@@ -82,6 +92,11 @@ public class Schema
     /**
      * Constants for the particular version of XML Schema that was used
      * to define this Schema.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get schemaConstants():SchemaConstants
     {
@@ -95,6 +110,11 @@ public class Schema
     /**
      * Datatype constants for the particular version of XML Schema that was
      * used to define this Schema.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get schemaDatatypes():SchemaDatatypes
     {
@@ -107,6 +127,11 @@ public class Schema
 
     /**
      * The raw XML definition of this Schema.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get xml():XML
     {
@@ -175,6 +200,11 @@ public class Schema
 
         2. Also, check that the schema being added does not cause a cyclic
         relationship.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function addImport(targetNamespace:Namespace, schema:Schema):void
     {
