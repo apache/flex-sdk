@@ -13,9 +13,9 @@ package mx.containers
 {
 
 import flash.display.DisplayObject;
-import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+
 import mx.controls.Button;
 import mx.controls.TabBar;
 import mx.core.Container;
@@ -27,7 +27,6 @@ import mx.core.IProgrammaticSkin;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.events.ItemClickEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.styles.StyleProxy;
 
@@ -657,7 +656,7 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
         // We'll be called again later (instantiateSelectedChild calls
         // invalidateSize), and we don't want to load values into the
         // cache until we're fully initialized.  (bug 102639)
-        if (selectedChild && Container(selectedChild).numChildrenCreated == -1)
+        if (selectedChild && selectedChild.deferredContentCreated == false)
             return;
 
         // Don't remember sizes if we don't have any children
