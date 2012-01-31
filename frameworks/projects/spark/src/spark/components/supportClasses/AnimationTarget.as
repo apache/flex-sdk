@@ -18,6 +18,7 @@ internal class AnimationTarget implements IAnimationTarget
 {
     public var updateFunction:Function;
     public var startFunction:Function;
+    public var stopFunction:Function;
     public var endFunction:Function;
     public var repeatFunction:Function;
     
@@ -36,6 +37,12 @@ internal class AnimationTarget implements IAnimationTarget
     {
         if (endFunction != null)
             endFunction(animation);
+    }
+    
+    public function animationStop(animation:Animation):void
+    {
+        if (stopFunction != null)
+            stopFunction(animation);
     }
     
     public function animationRepeat(animation:Animation):void
