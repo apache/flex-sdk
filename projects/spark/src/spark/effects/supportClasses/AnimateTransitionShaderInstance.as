@@ -13,6 +13,8 @@ package spark.effects.supportClasses
 import flash.display.BitmapData;
 import flash.display.Shader;
 import flash.filters.ShaderFilter;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
@@ -221,22 +223,30 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         disposeFrom = (bitmapFrom == null);
         disposeTo = (bitmapTo == null);
         
+        // If we got the bitmaps from the state information in a transition, they
+        // are stored along with the visual bounds of the object in an Object
+        var boundsFrom:Rectangle;
+        var boundsTo:Rectangle;
+        var bmHolder:Object;
+        
         // TODO (chaase): Should take the 'from' snapshot on the
         // fly, in case the object has changed since the overall
         // effect (composite, etc) started much earlier and the
         // object has changed since propertyChanges was initialized 
-        if (!bitmapFrom)
-            if (propertyChanges &&
-                propertyChanges.start["bitmap"] !== undefined)
-            {
-                bitmapFrom = propertyChanges.start["bitmap"];
-            }
-        if (!bitmapTo)
-            if (propertyChanges &&
-                propertyChanges.end["bitmap"] !== undefined)
-            {
-                bitmapTo = propertyChanges.end["bitmap"];
-            }
+        if (!bitmapFrom && propertyChanges &&
+            propertyChanges.start["bitmapInfo"] !== undefined)
+        {
+            bmHolder = propertyChanges.start["bitmapInfo"];
+            bitmapFrom = bmHolder["bitmap"];
+            boundsFrom = bmHolder["bounds"];
+        }
+        if (!bitmapTo && propertyChanges &&
+            propertyChanges.end["bitmapInfo"] !== undefined)
+        {
+            bmHolder = propertyChanges.end["bitmapInfo"];
+            bitmapTo = bmHolder["bitmap"];
+            boundsTo = bmHolder["bounds"];
+        }
         if (!bitmapFrom)
             if (propertyChanges &&
                 (propertyChanges.start["visible"] == false ||
@@ -287,6 +297,21 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             shader = new Shader(shaderByteCode);
             if (shader.data)
             {
+                if (boundsFrom && boundsTo && 
+                    (boundsFrom.x != boundsTo.x || boundsFrom.y != boundsTo.y))
+                {
+                    var newX:Number = (boundsTo.x - boundsFrom.x);
+                    var newY:Number = (boundsTo.y - boundsFrom.y);
+                    var newW:Number = boundsFrom.width - newX;
+                    var newH:Number = boundsFrom.height - newY;
+                    var newBitmapFrom:BitmapData = new BitmapData(newW, newH, true, 0);
+                    newBitmapFrom.copyPixels(bitmapFrom, 
+                        new Rectangle(newX, newY, newW, newH),
+                        new Point(0, 0));
+                    if (disposeFrom)
+                        bitmapFrom.dispose();
+                    bitmapFrom = newBitmapFrom;
+                }
                 shader.data.from.input = bitmapFrom;
                 shader.data.to.input = bitmapTo;
                 
@@ -296,9 +321,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
                 
                 // auto-set width/height if exposed in shader
                 if ("width" in shader.data)
-                    shader.data.width.value = [bitmapFrom.width];
+                    shader.data.width.value = [Math.max(bitmapFrom.width, bitmapTo.width)];
                 if ("height" in shader.data)
-                    shader.data.height.value = [bitmapFrom.height];
+                    shader.data.height.value = [Math.max(bitmapFrom.height,bitmapTo.height)];
                 if (shaderProperties)
                 {
                     for (var prop:String in shaderProperties)
