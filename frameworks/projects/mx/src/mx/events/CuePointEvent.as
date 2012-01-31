@@ -19,6 +19,11 @@ import flash.events.Event;
  *  cue point events dispatched by the VideoDisplay control.
  *
  *  @see mx.controls.VideoDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CuePointEvent extends Event
 {
@@ -54,6 +59,11 @@ public class CuePointEvent extends Event
 	 *  </table>
 	 *
 	 *  @eventType cuePoint
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CUE_POINT:String = "cuePoint";	
 
@@ -78,6 +88,11 @@ public class CuePointEvent extends Event
 	 *  @param cuePointTime The time of the cue point, in seconds.
 	 *
 	 *  @param cuePointType The string <code>"actionscript"</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CuePointEvent(type:String, bubbles:Boolean = false,
 								  cancelable:Boolean = false, 
@@ -104,6 +119,11 @@ public class CuePointEvent extends Event
 
 	/**
 	 *  The name of the cue point that caused the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var cuePointName:String;
 
@@ -113,6 +133,11 @@ public class CuePointEvent extends Event
 
 	/**
 	 *  The time of the cue point that caused the event, in seconds.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var cuePointTime:Number;
 
@@ -122,6 +147,11 @@ public class CuePointEvent extends Event
 
 	/**
 	 *  The string <code>"actionscript"</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var cuePointType:String;
 
