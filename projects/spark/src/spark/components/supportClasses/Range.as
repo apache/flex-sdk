@@ -291,7 +291,7 @@ public class Range extends SkinnableComponent
         var closest:Number = Math.round(value / interval)
                              * interval;
         
-        if (closest < interval)
+        if (Math.abs(closest) < interval)
             return interval;
         else
             return closest;
