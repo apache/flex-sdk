@@ -653,21 +653,21 @@ public class DateField extends ComboBase
 
             if (mask == "M")
             {
-            	if ( outputFormat.charAt(i+1) == "/" && value.getMonth() < 9 ) {
-	            	output += month.substring(1) + "/";
-	            } else {
-	            	output += month;
-	            }
-	            i++;	
+                if ( outputFormat.charAt(i+1) == "/" && value.getMonth() < 9 ) {
+                    output += month.substring(1) + "/";
+                } else {
+                    output += month;
+                }
+                i++;    
             }
             else if (mask == "D")
             {
-            	if ( outputFormat.charAt(i+1) == "/" && value.getDate() < 10 ) {
-	            	output += date.substring(1) + "/";
-	            } else {	
-	            	output += date;	                		
-	            }
-	            i++;
+                if ( outputFormat.charAt(i+1) == "/" && value.getDate() < 10 ) {
+                    output += date.substring(1) + "/";
+                } else {    
+                    output += date;                         
+                }
+                i++;
             }
             else if (mask == "Y")
             {
@@ -1847,7 +1847,7 @@ public class DateField extends ComboBase
      *  Accepts a Date object as a parameter. If the incoming Date 
      *  object has any time values, they are zeroed out.
      *
-     *  <p>Selecting the currently selected date in the control deselects it, 
+     *  <p>Holding down the Control key when selecting the currently selected date deselects it, 
      *  sets the <code>selectedDate</code> property to <code>null</code>, 
      *  and then dispatches the <code>change</code> event.</p>
      *
@@ -2063,7 +2063,7 @@ public class DateField extends ComboBase
         textInput.addEventListener(TextEvent.TEXT_INPUT, textInput_textInputHandler);
         // hide the border, we use the text input's border
         if (border)
-        	border.visible = false;
+            border.visible = false;
 
     }
 
