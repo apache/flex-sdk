@@ -726,13 +726,13 @@ public class Label extends UIComponent
      *  <p>where the <code>myLabel_initialize</code> method is in a script CDATA section:</p>
      *  
      *  <pre>
-     *  &lt;mx:Script&gt;
+     *  &lt;fx:Script&gt;
      *  &lt;![CDATA[
      *  private function myLabel_initialize():void {
      *      myLabel.htmlText = "This is an example of &lt;b&gt;bold&lt;/b&gt; markup";
      *  }
      *  ]]&gt;
-     *  &lt;/mx:Script&gt;
+     *  &lt;/fx:Script&gt;
      *  
      *  </pre>
      *  
