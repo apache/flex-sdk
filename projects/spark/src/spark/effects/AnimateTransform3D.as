@@ -118,7 +118,7 @@ public class AnimateTransform3D extends AnimateTransform
     //----------------------------------
     //  applyChangesPostLayout
     //----------------------------------
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
     /** 
      *  Used by the subclasses of AnimateTransform to specify
      *  whether the effect changes transform values used by the layout 
