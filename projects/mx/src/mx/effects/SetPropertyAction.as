@@ -46,6 +46,11 @@ import mx.effects.effectClasses.SetPropertyActionInstance;
  *  @see mx.states.SetProperty
  *
  *  @includeExample ../states/examples/TransitionExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SetPropertyAction extends Effect
 {
@@ -61,6 +66,11 @@ public class SetPropertyAction extends Effect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SetPropertyAction(target:Object = null)
 	{
@@ -86,6 +96,11 @@ public class SetPropertyAction extends Effect
 	 *  By default, Flex determines this value from the
 	 *  <code>SetProperty</code> property definition
 	 *  in the view state definition.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var name:String;
 	
@@ -100,6 +115,11 @@ public class SetPropertyAction extends Effect
 	 *  By default, Flex determines this value from the
 	 *  <code>SetProperty</code> property definition
 	 *  in the view state definition.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var value:*;
 		
