@@ -25,7 +25,13 @@ use namespace mx_internal;
     
 /**
  *  DropDownListAccImpl is the accessibility implementation class
- *  for spark.componenents.DropDownList.
+ *  for spark.components.supportClasses.DropDownListBase.
+ *
+ *  <p>Although ComboBox has its own accessibility implementation subclass,
+ *  DropDownList simply uses the one for DropDownListBase.
+ *  Therefore, the rest of this description refers to
+ *  the commonly-used DropDownList component rather than the DropDownListBase
+ *  base class.</p>
  *
  *  <p>When a Spark DropDownList is created,
  *  its <code>accessibilityImplementation</code> property
