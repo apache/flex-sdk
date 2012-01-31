@@ -1393,8 +1393,11 @@ package spark.components
             
             anchorRowIndex = 0;
             anchorColumnIndex = 0;
-            caretRowIndex = -1;
-            caretColumnIndex = -1;
+            if (!requireSelection)
+            {
+                caretRowIndex = -1;
+                caretColumnIndex = -1;
+            }
             
             invalidateDisplayList();
             
