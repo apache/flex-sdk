@@ -856,7 +856,7 @@ public class Scroller extends SkinnableComponent
         if (instance == verticalScrollBar)
             verticalScrollBar.viewport = viewport;
         
-        if (instance == horizontalScrollBar)
+        else if (instance == horizontalScrollBar)
             horizontalScrollBar.viewport = viewport;
     }
     
@@ -870,7 +870,7 @@ public class Scroller extends SkinnableComponent
         if (instance == verticalScrollBar)
             verticalScrollBar.viewport = null;
         
-        if (instance == horizontalScrollBar)
+        else if (instance == horizontalScrollBar)
             horizontalScrollBar.viewport = null;
     }
     
