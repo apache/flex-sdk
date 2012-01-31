@@ -461,8 +461,6 @@ public class VideoPlayer extends SkinnableComponent
     public function VideoPlayer()
     {
         super();
-        
-        tabChildren = true;
     }
     
     //--------------------------------------------------------------------------
