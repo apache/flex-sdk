@@ -69,7 +69,7 @@ public class UnconstrainItemAction extends Effect
     public function UnconstrainItemAction(target:Object = null)
     {
         super(target);
-
+        duration = 0;
         instanceClass = UnconstrainItemActionInstance;
     }
     
