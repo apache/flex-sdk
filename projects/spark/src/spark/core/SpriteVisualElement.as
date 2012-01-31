@@ -216,6 +216,7 @@ public class SpriteVisualElement extends FlexSprite
 			{
 				_layoutFeatures.stretchX = 1;
 				_layoutFeatures.stretchY = 1;
+                invalidateTransform();
 			}
 		}
 		else
@@ -227,14 +228,16 @@ public class SpriteVisualElement extends FlexSprite
 			var sx:Number = measuredWidth != 0 ? _width / measuredWidth : 1;
 			var sy:Number = measuredHeight != 0 ? _height / measuredHeight : 1;
 
-			if (_layoutFeatures == null)
-				initAdvancedLayoutFeatures();
-
-			_layoutFeatures.stretchX = sx;
-			_layoutFeatures.stretchY = sy;
+            if (sx != 1 || sy != 1 || _layoutFeatures)
+            {
+    			if (_layoutFeatures == null)
+    				initAdvancedLayoutFeatures();
+    
+    			_layoutFeatures.stretchX = sx;
+    			_layoutFeatures.stretchY = sy;
+                invalidateTransform();
+            }
 		}
-
-		invalidateTransform();
 	}
 
 	/**
