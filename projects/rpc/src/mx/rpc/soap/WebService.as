@@ -43,6 +43,11 @@ use namespace mx_internal;
  * document has loaded successfully.
  *
  * @eventType mx.rpc.soap.LoadEvent.LOAD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="load", type="mx.rpc.soap.LoadEvent")]
 
@@ -51,6 +56,11 @@ use namespace mx_internal;
 /**
  * The WebService class provides access to SOAP-based web services on remote
  * servers.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class WebService extends AbstractWebService
 {
@@ -70,6 +80,11 @@ public dynamic class WebService extends AbstractWebService
      * name in the services-config.xml file.
      *
      * @param rootURL The root URL of the WebService.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WebService(destination:String = null, rootURL:String = null)
     {
@@ -107,6 +122,11 @@ public dynamic class WebService extends AbstractWebService
      * The location of the WSDL document for this WebService. If you use a
      * relative URL, make sure that the <code>rootURL</code> has been specified
      * or that you created the WebService in MXML.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wsdl():String
     {
@@ -130,6 +150,11 @@ public dynamic class WebService extends AbstractWebService
      *
      * @return Returns <code>true</code> if the WebService is ready to load a WSDL;
      * otherwise, returns <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function canLoadWSDL():Boolean
     {
@@ -151,6 +176,11 @@ public dynamic class WebService extends AbstractWebService
      * get the Operation instead.
      * @param name Name of the Operation.
      * @return Operation that executes for this name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getOperation(name:String):mx.rpc.AbstractOperation
     {
@@ -174,6 +204,11 @@ public dynamic class WebService extends AbstractWebService
      *
      * @param uri If the wsdl hasn't been specified previously, it may be
      * specified here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadWSDL(uri:String = null):void
     {
@@ -232,6 +267,11 @@ public dynamic class WebService extends AbstractWebService
      * channels assigned.
      *
      * @return Returns a String representation of the WebService.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toString():String
     {
@@ -335,6 +375,11 @@ public dynamic class WebService extends AbstractWebService
     * Initializes a new Operation.
     *
     * @param operation The Operation to initialize.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     protected function initializeOperation(operation:Operation):void
     {
