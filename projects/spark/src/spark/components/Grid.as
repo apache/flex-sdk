@@ -156,7 +156,7 @@ use namespace mx_internal;
  *  displays a value based on the item for the corresponding row.
  *  The grid's data provider is mutable, meaning its items can be added or
  *  removed, or changed.  
- 8  Similarly, the list of columns is mutable.
+ *  Similarly, the list of columns is mutable.
  * 
  *  <p>The Grid component is intended to be used as a DataGrid skin part, or
  *  as an element of other custom composite components.  
@@ -198,6 +198,9 @@ use namespace mx_internal;
  *  The Grid caches the computed heights of rows that have been
  *  scrolled into view and estimates the rest based on a single 
  *  <code>typicalItem</code>.</p>
+ * 
+ *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
+ *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
  *
  *  @mxml <p>The <code>&lt;s:Grid&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
