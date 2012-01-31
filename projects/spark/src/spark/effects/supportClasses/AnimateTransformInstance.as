@@ -73,11 +73,11 @@ public class AnimateTransformInstance extends AnimateInstance
     /**
      *  @private
      */
-    public var applyLocalProjection:Boolean = true;    
+    public var applyLocalProjection:Boolean = false;    
     /**
      *  @private
      */
-    public var autoCenterProjection:Boolean = true;
+    public var autoCenterProjection:Boolean = false;
     /**
      *  @private
      */
