@@ -280,7 +280,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  <p>If this event is cancelled the item editor will not be created.</p>
  *
- *  @eventType spark.events.DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  @see flash.events.Event
@@ -290,12 +290,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="startGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+[Event(name="startGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched immediately after an item editor has been opened. 
  *
- *  @eventType spark.events.DataGridEditEvent.OPEN_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  * 
@@ -304,13 +304,13 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="openGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+[Event(name="openGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched after the data in item editor has been saved into the data provider
  *  and the editor has been closed.  
  *
- *  @eventType spark.events.DataGridEditEvent.SAVE_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  
@@ -319,12 +319,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="saveGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+[Event(name="saveGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched after the item editor has been closed without saving its data.  
  *
- *  @eventType spark.events.DataGridEditEvent.CANCEL_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  
@@ -333,7 +333,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="cancelGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+[Event(name="cancelGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -494,18 +494,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  A reference to the Grid that displays the dataProvider.
      */
     public var grid:spark.components.Grid;    
-    
-    //----------------------------------
-    //  headerColumnSeparator
-    //----------------------------------
-    
-    [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
-    
-    /**
-     *  The IVisualElement class used to render the vertical separator between header columns. 
-     */
-    public var headerColumnSeparator:IFactory;
 
     //----------------------------------
     //  hoverIndicator
@@ -1210,50 +1198,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (setGridProperty("itemRenderer", value))
             dispatchChangeEvent("itemRendererChanged");
-    } 
-    
-    //----------------------------------
-    //  headerRenderer
-    //----------------------------------    
-    
-    [Bindable("headeRendererChanged")]
-    
-    private var _headerRenderer:IFactory;
-    
-    /**
-     *  The default headerRenderer for the columnHeaderBar skin part.
-     *  
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get headerRenderer():IFactory
-    {
-        return _headerRenderer;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set headerRenderer(value:IFactory):void
-    {
-        if (value == _headerRenderer)
-            return;
-        
-        _headerRenderer = value;
-        
-        if (columnHeaderBar)
-        {
-            columnHeaderBar.layout.clearVirtualLayoutCache();
-            columnHeaderBar.invalidateSize();
-            columnHeaderBar.invalidateDisplayList();
-        }
-        
-        dispatchChangeEvent("headerRendererChanged");        
-    }       
+    }    
     
     //----------------------------------
     //  preserveSelection (delegates to grid.preserveSelection)
@@ -1801,7 +1746,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.gridDimensions = layout.gridDimensions = gridDimensions;
             gridSelection.grid = grid;
             grid.gridSelection = gridSelection;
-            grid.gridOwner = this;
+            grid.dataGrid = this;
 
             // Grid cover Properties
             
@@ -1832,7 +1777,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
-            grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
             
             // Deferred operations (grid selection updates)
             
@@ -1841,8 +1785,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             deferredGridOperations.length = 0;
             
             // Data grid editor
+            
             editor = createEditor();
             editor.initialize();
+            
+            // IDataGridElements: grid, columnHeaderBar
+            
+            if (columnHeaderBar)
+                columnHeaderBar.dataGrid = this;
         }
         
         if (instance == alternatingRowColorsBackground)
@@ -1868,21 +1818,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         if (instance == columnHeaderBar)
         {
-            columnHeaderBar.owner = this;
-            columnHeaderBar.columnSeparator = headerColumnSeparator;
+            if (grid)
+                columnHeaderBar.dataGrid = this;
             
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
-        }
-        
-        if (columnHeaderBar)
-        {
-            if (instance == headerColumnSeparator)
-                columnHeaderBar.columnSeparator = headerColumnSeparator;
-        }
+        }       
     }
     
     /**
@@ -1901,7 +1845,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.layout = null;
             gridSelection.grid = null;
             grid.gridSelection = null;
-            grid.gridOwner = null;            
+            grid.dataGrid = null;            
             
             // Event Handlers
             
@@ -1911,7 +1855,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.removeEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);            
             grid.removeEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.removeEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);            
-            grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);            
             
             // Cover Properties
             
@@ -1935,11 +1878,17 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.selectionIndicator = null;
             
             // Data grid editor
+            
             if (editor)
             {
                 editor.uninitialize();
                 editor = null;
             }
+            
+            // IDataGridElements: grid, columnHeaderBar
+            
+            if (columnHeaderBar)
+                columnHeaderBar.dataGrid = null; 
         }
         
         if (grid)
@@ -1962,21 +1911,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
 
         if (instance == columnHeaderBar)
         {
-            columnHeaderBar.horizontalScrollPosition = 0;
-            columnHeaderBar.owner = null;
-            columnHeaderBar.columnSeparator = null;
-            
+            columnHeaderBar.dataGrid = null;
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
-        }
-        
-        if (columnHeaderBar)
-        {
-            if (instance == headerColumnSeparator)
-                columnHeaderBar.columnSeparator = null;
         }
     }
     
@@ -2904,12 +2844,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  Starts an editor session on a selected cell in the data grid.
      * 
-     *  A <code>startItemEditorSession</code> event is dispatch before
-     *  an item editor is created. This allows a listener a change to 
-     *  dynamically set an item editor for a specified cell. 
+     *  A <code>startItemEditorSession</code> event is dispatched before
+     *  an item editor is created. This allows a listener dynamically change 
+     *  the item editor for a specified cell. 
      * 
-     *  The event can be cancelled which will prevent the editor session
-     *  from being created.
+     *  The event can also be cancelled with preventDefault(), to prevent the 
+     *  editor session from being created.
      * 
      *  @param rowIndex The zero-based row index of the cell to edit.
      *  @param columnIndex The zero-based column index of the cell to edit.  
@@ -3563,15 +3503,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(event);
-    }
-    
-    /**
-     *  @private
-     */
-    protected function grid_changeEventHandler(event:PropertyChangeEvent):void
-    {
-        if (columnHeaderBar && event.property == "horizontalScrollPosition")
-            columnHeaderBar.horizontalScrollPosition = Number(event.newValue);
     }
     
     //--------------------------------------------------------------------------
