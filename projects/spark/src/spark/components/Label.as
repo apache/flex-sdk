@@ -31,7 +31,7 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
-import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.compose.TextLineRecycler;
 
 import mx.core.IEmbeddedFontRegistry;
@@ -877,8 +877,7 @@ public class Label extends TextBase
 		var nextY:Number = 0;
 		var textLine:TextLine;
         
-        var textLineCreator:ITextLineCreator =
-        	ITextLineCreator(embeddedFontContext);
+        var swfContext:ISWFContext = ISWFContext(embeddedFontContext);
         			
 		// For truncation, need to know if all lines have been composed.
         var createdAllLines:Boolean = false;
@@ -892,10 +891,11 @@ public class Label extends TextBase
             var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
             if (recycleLine)
             {
-                if (textLineCreator)
+                if (swfContext)
                 {
-                    nextTextLine = textLineCreator.recreateTextLine(
-                    	textBlock, recycleLine, textLine, maxLineWidth);		
+                    nextTextLine = swfContext.callInContext(
+						textBlock["recreateTextLine"], textBlock,
+						[ recycleLine, textLine, maxLineWidth ]);		
                 }        
                 else
                 {
@@ -905,10 +905,11 @@ public class Label extends TextBase
 		    }
 		    else
 		    {
-                if (textLineCreator)
+                if (swfContext)
                 {
-                    nextTextLine = textLineCreator.createTextLine(
-               			textBlock, textLine, maxLineWidth);
+                    nextTextLine = swfContext.callInContext(
+						textBlock.createTextLine, textBlock,
+						[ textLine, maxLineWidth ]);
                 }
                 else
                 {
