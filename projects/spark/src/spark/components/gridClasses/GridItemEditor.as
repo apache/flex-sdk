@@ -315,8 +315,9 @@ public class GridItemEditor extends Group implements IGridItemEditor
     {
         // Clean up 
         clearErrorStringFromContainer(this);
-        removeEventListener(MouseEvent.MOUSE_UP, mouseUpDownHandler);
-        removeEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownHandler);
+        removeEventListener(MouseEvent.MOUSE_UP, mouseUpDownMoveHandler);
+        removeEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownMoveHandler);
+        removeEventListener(MouseEvent.MOUSE_MOVE, mouseUpDownMoveHandler);
     }
     
     /**
@@ -325,8 +326,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     public function prepare():void
     {
         // Stop the item renderer from seeing mouse clicks on the editor.
-        addEventListener(MouseEvent.MOUSE_UP, mouseUpDownHandler);
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownHandler);
+        addEventListener(MouseEvent.MOUSE_UP, mouseUpDownMoveHandler);
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownMoveHandler);
+        
+        // Stop hover highlighting on rows underneath the editor.
+        addEventListener(MouseEvent.MOUSE_MOVE, mouseUpDownMoveHandler);
     }
     
     /**
@@ -515,9 +519,12 @@ public class GridItemEditor extends Group implements IGridItemEditor
      *   @private
      *   Stop the item renderer from getting the click.
      */ 
-    private function mouseUpDownHandler(event:MouseEvent):void
+    private function mouseUpDownMoveHandler(event:MouseEvent):void
     {
-        event.preventDefault();
+        if (event.cancelable)
+            event.preventDefault();
+        else
+            event.stopPropagation();
     }
 }
 }
