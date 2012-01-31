@@ -114,7 +114,10 @@ public class SliderThumbSkin extends Border
 	{
 		return 12;
 	}
-		
+	
+        /**
+	 * For internal use.
+	 */
 	protected function drawThumbState(w:Number, h:Number, borderColors:Array, fillColors:Array, fillAlphas:Array, drawBacking:Boolean, drillHole:Boolean):void
 	{
 		var g:Graphics = graphics;
