@@ -45,6 +45,11 @@ include "../../styles/metadata/TextStyles.as";
  *  The default value is <code>undefined</code>, which means it uses the value of the 
  *  <code>backgroundColor</code> style of the associated DataGrid control.
  *  The default value for the DataGrid control is <code>0xFFFFFF</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
@@ -55,6 +60,11 @@ include "../../styles/metadata/TextStyles.as";
  *  <code>headerStyleName</code> style of the associated DataGrid control.
  *  The default value for the DataGrid control is 
  *  <code>".dataGridStyles"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerStyleName", type="String", inherit="no")]
 
@@ -62,6 +72,11 @@ include "../../styles/metadata/TextStyles.as";
  *  The number of pixels between the container's left border and its content 
  *  area.
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
@@ -69,6 +84,11 @@ include "../../styles/metadata/TextStyles.as";
  *  The number of pixels between the container's right border and its content 
  *  area.
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
@@ -157,6 +177,11 @@ include "../../styles/metadata/TextStyles.as";
  *  @see mx.controls.DataGrid
  *
  *  @see mx.styles.CSSStyleDeclaration
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 {
@@ -211,6 +236,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  associated with the column, and the text for the header cell of this 
      *  column.  This is equivalent to setting the <code>dataField</code>
      *  and <code>headerText</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridColumn(columnName:String = null)
     {
@@ -291,6 +321,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Click on the column header to perform the sort.</p>
      *  
      *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sortDescending:Boolean = false;
 
@@ -315,6 +350,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *
      *  <p>The default item renderer is the DataGridItemRenderer class,
      *  which displays the item data as text. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get itemRenderer():IFactory
     {
@@ -378,6 +418,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  For more information, see the <code>headerText</code> property.</p>
      *
      *  @see #headerText 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var dataField:String;
 
@@ -403,6 +448,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  specify a different property.  
      *  For example, you could set the value to "FullName" when a user views a
      *  set of people's names included from a database.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataTipField():String
     {
@@ -456,6 +506,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      * 
      *  <p>The function must take a single Object parameter, containing the
      *  data provider element, and return a String.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataTipFunction():Function
     {
@@ -490,6 +545,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  the column headers to a new position
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var draggable:Boolean = true;
 
@@ -508,6 +568,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Tab and Arrow keys.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editable:Boolean = true;
 
@@ -522,6 +587,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  column, when it is editable.
      *
      *  @default new ClassFactory(mx.controls.TextInput)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemEditor:IFactory = new ClassFactory(TextInput);
 
@@ -540,6 +610,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  <code>text</code> property of the TextInput control.
      *
      *  @default "text"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorDataField:String = "text";
 
@@ -559,6 +634,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  item renderer that opens an editor.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorHeightOffset:Number = 0;
 
@@ -578,6 +658,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  item renderer that opens an editor.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorWidthOffset:Number = 0;
 
@@ -598,6 +683,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  item renderer that opens an editor.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorXOffset:Number = 0;
 
@@ -618,6 +708,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  item renderer that opens an editor.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorYOffset:Number = 0;
 
@@ -637,6 +732,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  item renderer that opens an editor.
      *
      *  @default false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorUsesEnterKey:Boolean = false;
 
@@ -662,6 +762,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *
      *  <p>The default item renderer is the DataGridItemRenderer class,
      *  which displays the item data as text. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerRenderer():IFactory
     {
@@ -702,6 +807,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Text for the header of this column. By default, the DataGrid
      *  control uses the value of the <code>dataField</code> property 
      *  as the header text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerText():String
     {
@@ -740,6 +850,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  is used.
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerWordWrap():*
     {
@@ -784,6 +899,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  DataGrid control's <code>imeMode</code> property.</p>
      *
      *  @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get imeMode():String
     {
@@ -811,6 +931,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  renderer for that item as the editor.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rendererIsEditor:Boolean = false;
 
@@ -845,6 +970,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  <p>A callback function might concatenate the firstName and
      *  lastName fields in the data, or do some custom formatting on a Date,
      *  or convert a number for the month into the string for the month.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -882,6 +1012,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     /**
      *  The minimum width of the column.
      *  @default 20
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minWidth():Number
     {
@@ -928,6 +1063,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *
      *  <p>The default item renderer is the DataGridItemRenderer class,
      *  which displays the item data as text. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nullItemRenderer():IFactory
     {
@@ -965,6 +1105,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  the column. 
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var resizable:Boolean = true;
 
@@ -986,6 +1131,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  are tooltips designed to show the text that is too long for the row.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showDataTips():*
     {
@@ -1024,6 +1174,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  to reorder the items in the dataProvider.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sortable:Boolean = true;
 
@@ -1075,6 +1230,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  just the data for the item.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sortCompareFunction():Function
     {
@@ -1108,6 +1268,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  If <code>true</code>, the column is visible.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get visible():Boolean
     {
@@ -1164,6 +1329,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  small or too large for the displayable area.
      *
      *  @default 100
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get width():Number
     {
@@ -1231,6 +1401,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  <code>true</code>.</p>
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wordWrap():*
     {
@@ -1403,6 +1578,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  @param data Object to be rendered.
      * 
      *  @return Displayable String based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToLabel(data:Object):String
     {
@@ -1454,6 +1634,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  @param data Object to be rendered.
      *
      *  @return Displayable String based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToDataTip(data:Object):String
     {
@@ -1504,6 +1689,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *
      *  @return if <code>data</code> is null, the default item renderer, 
      *  otherwis it returns the custom item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemRendererFactory(forHeader:Boolean, data:Object):IFactory
     {
@@ -1670,6 +1860,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  This property is a Dictionary indexed by factories
      *  where the values are Dictionaries of itemRenderers
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var freeItemRenderersByFactory:Dictionary;
 
