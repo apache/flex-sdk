@@ -177,6 +177,13 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      * already on the target.
      */
     private var previousPlusShaderFilters:Array;
+    
+    /**
+     *  @private
+     *  Tracks whether we have bitmaps. When we don't, we
+     *  don't create the shader and let the effect run.
+     */
+    private var hasBitmaps:Boolean = true;
         
     //--------------------------------------------------------------------------
     //
@@ -229,16 +236,12 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
                  propertyChanges.start["parent"] == null))
                 if (bitmapTo)                    
                     bitmapFrom = new BitmapData(bitmapTo.width, bitmapTo.height, true, 0);
-                else
-                    bitmapFrom = new BitmapData(1, 1, true, 0);
         if (!bitmapTo)
             if (propertyChanges &&
                 (propertyChanges.end["visible"] == false ||
                  propertyChanges.end["parent"] == null))
                 if (bitmapFrom)                    
                     bitmapTo = new BitmapData(bitmapFrom.width, bitmapFrom.height, true, 0);
-                else
-                    bitmapTo = new BitmapData(1, 1, true, 0);
         
         // Last-ditch effort - if we don't have bitmaps yet, then just grab a 
         // snapshot of the current target
@@ -246,6 +249,22 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             bitmapFrom = getSnapshot(target);
         if (!bitmapTo)
             bitmapTo = getSnapshot(target);
+        
+        // When all efforts to get a bitmap fail, we don't create a shader.
+        if (!bitmapFrom || !bitmapTo)
+        {
+            hasBitmaps = false;
+            
+            // clean up
+            if (bitmapFrom)
+                bitmapFrom.dispose();
+            else if (bitmapTo)
+                bitmapTo.dispose();
+        }
+        else
+        {
+            hasBitmaps = true;
+        }
 
         // Fix up the visibility if it's becoming visible
         if (propertyChanges &&
@@ -254,32 +273,37 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         {
             target.visible = true;
         }
-        shader = new Shader(shaderByteCode);
-        if (shader.data)
+        
+        // Only create shader if bitmaps are present.
+        if (hasBitmaps)
         {
-            shader.data.from.input = bitmapFrom;
-            shader.data.to.input = bitmapTo;
-            
-            motionPaths = new <MotionPath>[new MotionPath("progress")];
-            motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, 0), 
-                new Keyframe(duration, 1)];
-
-            // auto-set width/height if exposed in shader
-            if ("width" in shader.data)
-                shader.data.width.value = [bitmapFrom.width];
-            if ("height" in shader.data)
-                shader.data.height.value = [bitmapFrom.height];
-            if (shaderProperties)
+            shader = new Shader(shaderByteCode);
+            if (shader.data)
             {
-                for (var prop:String in shaderProperties)
+                shader.data.from.input = bitmapFrom;
+                shader.data.to.input = bitmapTo;
+                
+                motionPaths = new <MotionPath>[new MotionPath("progress")];
+                motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, 0), 
+                    new Keyframe(duration, 1)];
+                
+                // auto-set width/height if exposed in shader
+                if ("width" in shader.data)
+                    shader.data.width.value = [bitmapFrom.width];
+                if ("height" in shader.data)
+                    shader.data.height.value = [bitmapFrom.height];
+                if (shaderProperties)
                 {
-                    var value:Object = shaderProperties[prop];
-                    shader.data[prop].value = (value is Array) ?
-                        value :
-                        [value];
+                    for (var prop:String in shaderProperties)
+                    {
+                        var value:Object = shaderProperties[prop];
+                        shader.data[prop].value = (value is Array) ?
+                            value :
+                            [value];
+                    }
                 }
+                shaderFilter = new ShaderFilter(shader);
             }
-            shaderFilter = new ShaderFilter(shader);
         }
         
         super.play();
@@ -296,10 +320,19 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         var bmData:BitmapData;
         var tempFilters:Array = target.filters;
         target.filters = [];
-        if (target is GraphicElement)
-            bmData = GraphicElement(target).captureBitmapData(true, 0, false);
-        else
-            bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        
+        try
+        {
+            if (target is GraphicElement)
+                bmData = GraphicElement(target).captureBitmapData(true, 0, false);
+            else
+                bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        }
+        catch (e:SecurityError)
+        {
+            // Do nothing and let it return null.
+        }
+        
         target.filters = tempFilters;
         
         return bmData;
@@ -313,6 +346,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     override protected function setValue(property:String, value:Object):void
     {
+        if (!hasBitmaps)
+            return;
+        
         shader.data.progress.value = [value];
         target.filters = previousPlusShaderFilters;
     }
@@ -323,6 +359,10 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
     override public function animationStart(animation:Animation):void
     {
         super.animationStart(animation);
+        
+        if (!hasBitmaps)
+            return;
+        
         previousFilters = target.filters;
         previousPlusShaderFilters = [shaderFilter].concat(previousFilters);
         target.filters = previousPlusShaderFilters;
@@ -335,6 +375,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     private function cleanup():void
     {
+        if (!hasBitmaps)
+            return;
+        
         target.filters = previousFilters;
         previousFilters = null;
         previousPlusShaderFilters = null;
@@ -371,11 +414,16 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     override protected function getCurrentValue(property:String):*
     {
+        // null value may cause motion path interpolation to fail,
+        // but this method generally won't be called for shader effects.
+        if (!hasBitmaps)
+            return null;
+        
         return shader[property];
     }
 
     /**
-     * Override FXAnimate's setupStyleMapEntry to avoid the need to 
+     * Override Animate's setupStyleMapEntry to avoid the need to 
      * validate our properties against the 'target' (since we actually
      * set properties on our associated filter instance).
      *  
