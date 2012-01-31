@@ -51,12 +51,22 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
  *  Text color of a component label.
  *  The default value is <code>0x0B333C</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
@@ -64,6 +74,11 @@ use namespace mx_internal;
  *  Color of the component if it is disabled.
  *  The default value is <code>0xAAB3B3</code>.
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -77,6 +92,11 @@ use namespace mx_internal;
  *  @see mx.controls.Tree
  *  @see mx.core.IDataRenderer
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TreeItemRenderer extends UIComponent
 	   implements IDataRenderer, IDropInListItemRenderer, IListItemRenderer,
@@ -92,6 +112,11 @@ public class TreeItemRenderer extends UIComponent
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TreeItemRenderer()
 	{
@@ -158,6 +183,11 @@ public class TreeItemRenderer extends UIComponent
 	 *  defined by the IDataRenderer interface.
 	 *
 	 *  @see mx.core.IDataRenderer
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get data():Object
 	{
@@ -183,6 +213,11 @@ public class TreeItemRenderer extends UIComponent
 	/**
 	 *  The internal IFlexDisplayObject that displays the disclosure icon
 	 *  in this renderer.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var disclosureIcon:IFlexDisplayObject;
 	
@@ -212,6 +247,11 @@ public class TreeItemRenderer extends UIComponent
 
 	/**
 	 *  The internal IFlexDisplayObject that displays the icon in this renderer.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var icon:IFlexDisplayObject;
 	
@@ -221,6 +261,11 @@ public class TreeItemRenderer extends UIComponent
 
 	/**
 	 *  The internal UITextField that displays the text in this renderer.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var label:IUITextField;
 	
@@ -241,6 +286,11 @@ public class TreeItemRenderer extends UIComponent
 	 *  defined by the IDropInListItemRenderer interface.
 	 *
 	 *  @see mx.controls.listClasses.IDropInListItemRenderer
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get listData():BaseListData
 	{
