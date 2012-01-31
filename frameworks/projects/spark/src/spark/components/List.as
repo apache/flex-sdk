@@ -31,13 +31,14 @@ import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUID;
 import mx.core.IVisualElement;
+import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.events.GestureCaptureEvent;
+import mx.events.TouchInteractionEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.ObjectUtil;
@@ -345,7 +346,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     "spark.components.RichEditableText"));
         }
         
-        addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_START, gestureCaptureStartHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, touchInteractionStartHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -581,7 +582,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  When switched at run time, the current selection
      *  is cleared. 
      * 
-     *  This should not be turned on when <code>inputMode</code> 
+     *  This should not be turned on when <code>interactionMode</code> 
      *  is <code>touch</code>.
      *
      *  @default false
@@ -1224,7 +1225,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override mx_internal function shouldItemAppearSelected(index:int):Boolean
     {
-        if (getStyle("inputMode") == "touch")
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
         {
             // if we could be selecting, only show selection for that one item...don't even show
             // it for the actual selectedIndex
@@ -1570,6 +1571,8 @@ public class List extends ListBase implements IFocusManagerComponent
 
         mouseDownCancelledFromScroll = false;
         
+        var oldMouseDownIndex:int;
+        
         if (!allowMultipleSelection)
         {
             // Single selection case, set the selectedIndex 
@@ -1583,19 +1586,28 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Check to see if we're deselecting the currently selected item because if we're 
             // possibly dragging we don't want to de-select this immediately.  Similarly, if we 
-            // are in touch inputMode, we need to delay the item renderer highlight for a bit 
-            if ((event.ctrlKey && selectedIndex == newIndex) || getStyle("inputMode") == "touch")
+            // are in touch interactionMode, we need to delay the item renderer highlight for a bit 
+            if ((event.ctrlKey && selectedIndex == newIndex) || getStyle("interactionMode") == InteractionMode.TOUCH)
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionCtrlKey = event.ctrlKey;
                 pendingSelectionShiftKey = event.shiftKey;
                 
-                if (getStyle("inputMode") == "touch")
+                if (getStyle("interactionMode") == InteractionMode.TOUCH)
                 {
                     if (selectedIndex != newIndex)
                     {
+                        // FIXME (rfrishbe): hack for now.  will fix this later when we revisit the 
+                        // "down state" issue for an item renderer.  We need this to fix the case 
+                        // where touchDelay == 0 and calling startSelectButtonAfterDelay() assumes 
+                        // that mouseDownIndex is already set
+                        oldMouseDownIndex = mouseDownIndex;
+                        mouseDownIndex = newIndex;
+                        
                         // visually select the item here
                         startSelectButtonAfterDelayTimer();
+                        
+                        mouseDownIndex = oldMouseDownIndex;
                     }
                 }
             }
@@ -1606,18 +1618,27 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // Don't commit the selection immediately, but wait to see if the user
             // is actually dragging. If they don't drag, then commit the selection
-            if (isItemIndexSelected(newIndex) || getStyle("inputMode") == "touch")
+            if (isItemIndexSelected(newIndex) || getStyle("interactionMode") == InteractionMode.TOUCH)
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionShiftKey = event.shiftKey;
                 pendingSelectionCtrlKey = event.ctrlKey;
                 
-                if (getStyle("inputMode") == "touch")
+                if (getStyle("interactionMode") == InteractionMode.TOUCH)
                 {
                     if (!isItemIndexSelected(newIndex))
                     {
+                        // FIXME (rfrishbe): hack for now.  will fix this later when we revisit the 
+                        // "down state" issue for an item renderer.  We need this to fix the case 
+                        // where touchDelay == 0 and calling startSelectButtonAfterDelay() assumes 
+                        // that mouseDownIndex is already set
+                        oldMouseDownIndex = mouseDownIndex;
+                        mouseDownIndex = newIndex;
+                        
                         // visually select the item here
                         startSelectButtonAfterDelayTimer();
+                        
+                        mouseDownIndex = oldMouseDownIndex;
                     }
                 }
             }
@@ -1638,7 +1659,7 @@ public class List extends ListBase implements IFocusManagerComponent
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
         mouseDownIndex = newIndex;
 
-        var listenForDrag:Boolean = (dragEnabled && getStyle("inputMode") == "mouse" && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
+        var listenForDrag:Boolean = (dragEnabled && getStyle("interactionMode") == InteractionMode.MOUSE && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
         // Handle any drag gestures that may have been started
         if (listenForDrag)
         {
@@ -1662,6 +1683,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     private function startSelectButtonAfterDelayTimer():void
     {
+        // FIXME (rfrishbe): Should we use mouseDownedItemRenderer.getStyle("touchDelay") instead?
         var touchDelay:int = getStyle("touchDelay");
         
         if (touchDelay > 0)
@@ -1747,7 +1769,7 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
             }
-            else if (getStyle("inputMode") == "touch")
+            else if (getStyle("interactionMode") == InteractionMode.TOUCH)
             {
                 setSelectedIndex(mouseDownIndex, true);
             }
@@ -2026,7 +2048,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private function gestureCaptureStartHandler(event:GestureCaptureEvent):void
+    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
         if (event.relatedObject == this.scroller)
         {
@@ -2554,7 +2576,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         
         // FIXME (rfrishbe): hack for 5-way
-        if (getStyle("inputMode") == "touch" && event.keyCode == Keyboard.ENTER)
+        if (getStyle("interactionMode") == InteractionMode.TOUCH && event.keyCode == Keyboard.ENTER)
         {
             setSelectedIndex(caretIndex, true); 
             event.preventDefault();
@@ -2646,10 +2668,10 @@ public class List extends ListBase implements IFocusManagerComponent
             ensureIndexIsVisible(proposedNewIndex); 
         }
         // Entering the caret state with the Ctrl key down 
-        // FIXME (rfrishbe): shouldn't just check inputMode but should depend on 
+        // FIXME (rfrishbe): shouldn't just check interactionMode but should depend on 
         // either the platform or whether it was a 5-way button or whether 
         // soem other keyboardSelection style.
-        else if (event.ctrlKey || getStyle("inputMode") == "touch")
+        else if (event.ctrlKey || getStyle("interactionMode") == InteractionMode.TOUCH)
         {
             var oldCaretIndex:Number = caretIndex; 
             setCurrentCaretIndex(proposedNewIndex);
