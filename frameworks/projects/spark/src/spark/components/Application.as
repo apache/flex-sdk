@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
+import flash.events.UncaughtErrorEvent;
 import flash.external.ExternalInterface;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
@@ -68,6 +69,18 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [Event(name="error", type="flash.events.ErrorEvent")]
+
+/**
+ *  Dispatched when an uncaught error is caught by the Global Exception Handler
+ * 
+ *  @eventType flash.events.UncaughtErrorEvent.UNCAUGHT_ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="uncaughtError", type="flash.events.UncaughtErrorEvent")]
 
 //--------------------------------------
 //  Styles
@@ -904,6 +917,10 @@ public class Application extends SkinnableContainer
         
         var sm:ISystemManager = systemManager;
         
+		// add listener if one is already attached
+		if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
+			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+		
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
@@ -1304,6 +1321,33 @@ public class Application extends SkinnableContainer
         
         invalidateDisplayList();        
     }
+	
+	/**
+	 * @private
+	 */
+	override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+	{
+		// this can get called before we know our systemManager.  Hook it up later in initialize()
+		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
+			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+		super.addEventListener(type, listener, useCapture, priority, useWeakReference)
+	}    
+	
+	/**
+	 * @private
+	 */
+	override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+	{
+		super.removeEventListener(type, listener, useCapture);
+		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
+			systemManager.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+	}
+	
+	private function uncaughtErrorRedispatcher(event:Event):void
+	{
+		if (!dispatchEvent(event))
+			event.preventDefault();
+	}
 }
 
 }
