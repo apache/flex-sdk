@@ -1188,7 +1188,7 @@ public class Application extends SkinnableContainer
     //----------------------------------
     //  resizeForSoftKeyboard
     //----------------------------------
-    private var _resizeForSoftKeyboard:Boolean = true;
+    private var _resizeForSoftKeyboard:Boolean = false;
     
     /**
      *  Some devices do not support a hardware keyboard. 
@@ -1204,7 +1204,7 @@ public class Application extends SkinnableContainer
      *  <code>&lt;softKeyboardBehavior&gt;</code> attribute in the 
      *  application's xml descriptor file to <code>none</code>.</p>
      * 
-     *  @default true
+     *  @default false
      *
      *  @langversion 3.0
      *  @playerversion AIR 2.5
