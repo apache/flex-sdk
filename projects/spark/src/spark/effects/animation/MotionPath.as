@@ -22,16 +22,34 @@ use namespace mx_internal;
 [DefaultProperty("keyframes")]
 
 /**
- * This class holds information on a property to be animated
- * and the values that the property should animate between.
+ *  The MotionPath class defines the collection of KeyFrames objects for an effect,
+ *  and the name of the property on the target to animate. 
+ *  Each KeyFrame object defines the value of the property at a specific time during an effect. 
+ *  The effect then calculates the value of the target property 
+ *  by interpolating between the values specified by two key frames.
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:MotionPath&gt;</code> tag
+ *  inherits the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:MotionPath 
+ *    id="ID"
+ *    interpolator="NumberInterpolator"
+ *    keyframes="val"
+ *    property="val"
+ *  /&gt;
+ *  </pre>
  * 
- * <p>The 'path' of values that the property will take on during
- * the animation is specified as a set of keyframes, each of which
- * specifies the value at a particular time during the animation.
- * Values in between keyframes are calculated by interpolating
- * between the values of the bounding keyframes.</p>
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  * 
- * @see KeyFrame
+ *  @see KeyFrame
+ *  @see spark.effects.interpolation.NumberInterpolator
  */
 public class MotionPath
 {
@@ -44,7 +62,9 @@ public class MotionPath
     //--------------------------------------------------------------------------
 
     /**
-     * Constructor. 
+     *  Constructor. 
+     *
+     *  @param property The name of the property on the target to animate.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -63,68 +83,96 @@ public class MotionPath
     //--------------------------------------------------------------------------
 
     /**
-     * The name of the property to be animated.
+     *  The name of the property on the effect target to be animated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var property:String;
      
     /**
-     * The interpolator determines how in-between values in an animation
-     * are calculated. By default, MotionPath assumes that the values are
-     * of type Number and can calculate in-between Number values automatically.
-     * If MotionPath is given keyframes with non-Number values, or if the
-     * desired behavior should use a different approach to interpolation
-     * (such as per-channel color interpolation), then an interpolator
-     * should be supplied.
+     *  The interpolator determines how in-between values in an animation
+     *  are calculated. By default, the MotionPath class assumes that the values are
+     *  of type Number and can calculate in-between Number values automatically.
+     *  If the MotionPath class is given keyframes with non-Number values, or if the
+     *  desired behavior should use a different approach to interpolation
+     *  (such as per-channel color interpolation), then an interpolator
+     *  should be supplied.
+     *
+     *  <p>Flex supplies predefined interpolators in the spark.effects.interpolation package.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var interpolator:IInterpolator = NumberInterpolator.getInstance();
     
     [Inspectable(category="General", arrayType="spark.effects.KeyFrame")]
     /**
-     * A sequence of KeyFrame objects that represent the time/value pairs
-     * that the property should take on during the animation. Each successive
-     * pair of keyframes controls the animation during the time interval
-     * between them, with the optional <code>easer</code> and <code>valueBy</code>
-     * properties of the later keyframe used to help determine the behavior
-     * during that interval. The sequence of keyframes must be sorted in 
-     * order of increasing time values.
+     *  A sequence of KeyFrame objects that represent the time/value pairs
+     *  that the property takes during the animation. Each successive
+     *  pair of keyframes controls the animation during the time interval
+     *  between them.
+     *  The optional <code>easer</code> and <code>valueBy</code>
+     *  properties of the later keyframe are used to determine the behavior
+     *  during that interval. The sequence of keyframes must be sorted in 
+     *  order of increasing time values.
      * 
-     * <p>Animations will always start at time 0 and will last for a duration
-     * equal to the time value in the final keyframe. If no keyframe at time 0
-     * is provided, that keyframe will be implicit, using the value of the
-     * target property at the time the animation begins. Because keyframes
-     * explicitly define the times involved in an animation, the duration for
-     * an effect using keyframes will be set according to the maximum time
-     * of the final keyframe of all MotionPaths in the effect.
-     * For example, if an effect has keyframes
-     * at times 0, 500, 1000, and 2000, then the effective duration of that
-     * effect will be 2000, regardless of any duration value set on the
-     * effect itself. Because the final keyframe determines the duration, there
-     * must always be a final keyframe in any MotionPath. That is, 
-     * it is implicit that the time in the final keyframe is the 
-     * duration of the MotionPath.</p>
+     *  <p>Animations always start at time=0 and will last for a duration
+     *  equal to the <code>time</code> value in the final keyframe. 
+     *  If no keyframe is defined at time=0, 
+     *  that keyframe is implicit, using the value of the
+     *  target property at the time the animation begins. </p>
+     *
+     *  <p>Because keyframes explicitly define the times involved in an animation, 
+     *  the duration for an effect using keyframes is set according to the maximum time
+     *  of the final keyframe of all MotionPaths in the effect.
+     *  For example, if an effect has keyframes
+     *  at times 0, 500, 1000, and 2000, then the effective duration of that
+     *  effect will be 2000 ms, regardless of any <code>duration</code> property set on the
+     *  effect itself. 
+     *  Because the final keyframe determines the duration, there
+     *  must always be a final keyframe in any MotionPath. That is, 
+     *  it is implicit that the time in the final keyframe is the 
+     *  duration of the MotionPath.</p>
      * 
-     * <p>Any keyframe may leave its <code>value</code> undefined (either unset, set to 
-     * <code>null</code>, or set to <code>NaN</code>), in which case the
-     * value will be determined dynamically when the animation starts.
-     * Any such undefined value will be determined as follows: (1) if it
-     * is the first keyframe, it will be calculated from the next keyframe
-     * if that keyframe has both a <code>value</code> and <code>valueBy</code>,
-     * as the difference of those values, otherwise it will get the
-     * current value of the property on the target, (2) if it is the final
-     * keyframe and the animation is running in a transition, it will 
-     * use the value in the state being transitioned to, (3) otherwise,
-     * any keyframe will calculate its unset value by using the previous
-     * keyframe's value, adding the current keyframe's <code>valueBy</code>
-     * to it, if <code>valueBy</code> is set.</p>
-     * 
-     * @see KeyFrame
+     *  <p>Any keyframe may leave its <code>value</code> undefined (either unset, set to 
+     *  <code>null</code>, or set to <code>NaN</code>).
+     *  In that case, the value is determined dynamically when the animation starts.
+     *  Any undefined value is determined as follows: </p>
+     *  <ol>
+     *    <li>If it is the first keyframe, it is calculated from the next keyframe
+     *      if that keyframe has both a <code>value</code> and <code>valueBy</code> property set,
+     *      as the difference of those values. Otherwise it gets the
+     *      current value of the property from the target.</li>
+     *    <li>If it is the final keyframe and the animation is running in a transition, it 
+     *      uses the value in the destination view state of the transition.</li>
+     *    <li>Otherwise, any keyframe calculates its <code>value</code> by using the previous
+     *      keyframe's <code>value</code> and adding the current keyframe's <code>valueBy</code>
+     *      to it, if <code>valueBy</code> is set.</li>
+     *  </ol>
+     *  
+     *  @see KeyFrame
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var keyframes:Array;
     
 
     /**
-     * Returns a copy of this MotionPath object, including copies
-     * of each keyframe
+     *  Returns a copy of this MotionPath object, including copies
+     *  of each keyframe
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function clone():MotionPath
     {
@@ -140,15 +188,15 @@ public class MotionPath
     }
 
     /**
-     * @private
+     *  @private
      * 
-     * Calculates the <code>timeFraction</code> values for
-     * each KeyFrame in a MotionPath KeyFrame sequence.
-     * To calculate these values, the time on each KeyFrame
-     * is divided by the supplied <code>duration</code> parameter.
-     * 
-     * @param duration the duration of the animation that the
-     * keyframes should be scaled against.
+     *  Calculates the <code>timeFraction</code> values for
+     *  each KeyFrame in a MotionPath KeyFrame sequence.
+     *  To calculate these values, the time on each KeyFrame
+     *  is divided by the supplied <code>duration</code> parameter.
+     *  
+     *  @param duration the duration of the animation that the
+     *  keyframes should be scaled against.
      */
     mx_internal function scaleKeyframes(duration:Number):void
     {
@@ -167,11 +215,21 @@ public class MotionPath
     }
     
     /**
-     * Calculates and returns an interpolated value, given the elapsed
-     * time fraction. The function determines the keyframe interval
-     * that the fraction falls within and then interpolates within
-     * that interval between the values of the bounding keyframes on that
-     * interval.
+     *  Calculates and returns an interpolated value, given the elapsed
+     *  time fraction. The function determines the keyframe interval
+     *  that the fraction falls within and then interpolates within
+     *  that interval between the values of the bounding keyframes on that
+     *  interval.
+     *
+     *  @param fraction The fraction of the overall duration of the effect,
+     *  (a value from 0.0 to 1.0).
+     *
+     *  @return The interpolated value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getValue(fraction:Number):Object
     {
