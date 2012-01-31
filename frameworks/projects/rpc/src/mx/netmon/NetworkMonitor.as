@@ -187,10 +187,10 @@ public class NetworkMonitor
      *  @productversion Flex 3
      */
     public static function monitorInvocation(id:String,
-											 invocationMessage:Object):void
+											 invocationMessage:Object, messageAgent:Object):void
     {
         if (monitorInvocationImpl != null)
-			monitorInvocationImpl(id, invocationMessage);
+			monitorInvocationImpl(id, invocationMessage, messageAgent);
     }
 
     /**
