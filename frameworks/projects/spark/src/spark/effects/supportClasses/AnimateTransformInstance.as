@@ -575,17 +575,29 @@ public class AnimateTransformInstance extends AnimateInstance
 	            break;
 	        }
 	        case "postLayoutRotationX":
-	        	return (target.offsets == null)? 0:target.offsets.rotationX;
+	        	return (target.postLayoutTransformOffsets == null)? 
+	        	  0 :
+	        	  target.postLayoutTransformOffsets.rotationX;
 	        case "postLayoutRotationY":
-	        	return (target.offsets == null)? 0:target.offsets.rotationY;
+                return (target.postLayoutTransformOffsets == null)? 
+                    0 :
+                    target.postLayoutTransformOffsets.rotationY;
 	        case "postLayoutRotationZ":
-	        	return (target.offsets == null)? 0:target.offsets.rotationZ;
+                return (target.postLayoutTransformOffsets == null)? 
+                    0 :
+                    target.postLayoutTransformOffsets.rotationZ;
 	        case "postLayoutScaleX":
-	        	return (target.offsets == null)? 1:target.offsets.scaleX;
+                return (target.postLayoutTransformOffsets == null)? 
+                    1 :
+                    target.postLayoutTransformOffsets.scaleX;
 	        case "postLayoutScaleY":
-	        	return (target.offsets == null)? 1:target.offsets.scaleY;
+                return (target.postLayoutTransformOffsets == null)? 
+                    1 :
+                    target.postLayoutTransformOffsets.scaleY;
 	        case "postLayoutScaleZ":
-	        	return (target.offsets == null)? 1:target.offsets.scaleZ;
+                return (target.postLayoutTransformOffsets == null)? 
+                    1 :
+                    target.postLayoutTransformOffsets.scaleZ;
 	     	default:
 	            return super.getCurrentValue(property);
         }
@@ -659,7 +671,7 @@ public class AnimateTransformInstance extends AnimateInstance
             getCurrentValue("translationZ");
         tmpPosition = position;
 
-		if(target.offsets != null)
+		if (target.postLayoutTransformOffsets != null)
 		{
 	        if (!isNaN(currentValues.postLayoutRotationX) ||
 	            !isNaN(currentValues.postLayoutRotationY) || 
