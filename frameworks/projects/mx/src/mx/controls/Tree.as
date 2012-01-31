@@ -36,6 +36,7 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.listClasses.ListRowInfo;
+import mx.controls.listClasses.ListBaseSelectionDataPending;
 import mx.controls.treeClasses.DefaultDataDescriptor;
 import mx.controls.treeClasses.HierarchicalCollectionView;
 import mx.controls.treeClasses.HierarchicalViewCursor;
@@ -555,6 +556,12 @@ public class Tree extends List implements IIMESupport
      *  @private
      */
     private var lastTreeSeekPending:TreeSeekPending;
+
+	/**
+	 *  @private
+	 */
+	private var bFinishArrowKeySelection:Boolean = false;
+	private var proposedSelectedItem:Object;
 
     //--------------------------------------------------------------------------
     //
@@ -1882,7 +1889,16 @@ public class Tree extends List implements IIMESupport
                     }
 
                     if (more)
-                        more = iterator.moveNext();
+					{
+						try
+						{
+							more = iterator.moveNext();
+						}
+						catch (e:ItemPendingError)
+						{
+							more = false;
+						}
+					}
                 }
 
                 //make indicator masks
@@ -2213,7 +2229,7 @@ public class Tree extends List implements IIMESupport
     		var push:Boolean = true;
     		while (!cursor.afterLast)
     		{
-				rowsAdded.push(item);
+				rowsAdded.push(cursor.current);
     			cursor.moveNext();
     		}
     	}
@@ -2247,7 +2263,7 @@ public class Tree extends List implements IIMESupport
     	{
     		ce = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
     		ce.kind = CollectionEventKind.REMOVE;
-    		ce.location = itemIndex;
+    		ce.location = itemIndex + 1;
     		ce.items = rowsRemoved;
   			retVal.push(ce);
     	}
@@ -2306,6 +2322,9 @@ public class Tree extends List implements IIMESupport
             i++;
         }
         while (cursor.moveNext());
+		// set back to 0 in case a change event comes along
+		// and causes the cursor to hit an unexpected IPE
+		cursor.seek(CursorBookmark.FIRST, 0);
         return i;
     }
 
@@ -2746,25 +2765,8 @@ public class Tree extends List implements IIMESupport
             	var parentItem:Object = getParentItem(item);
             	if (parentItem)
             	{
-	                selectedItem = parentItem;
-	                evt = new ListEvent(ListEvent.CHANGE);
-	                evt.itemRenderer = indexToItemRenderer(selectedIndex);
-	                pt = itemRendererToIndices(evt.itemRenderer);
-	                if (pt)
-	                {
-	                	evt.rowIndex = pt.y;
-	                	evt.columnIndex = pt.x;
-	                }
-	                dispatchEvent(evt);
-	                var dI:int = getItemIndex(selectedItem);
-	                if (dI != caretIndex)
-	                {
-	                    caretIndex = selectedIndex;
-	                }
-	                if (dI < _verticalScrollPosition)
-	                {
-	                    verticalScrollPosition = dI;
-	                }
+					proposedSelectedItem = parentItem;
+					finishArrowKeySelection();
 	            }
             }
             event.stopImmediatePropagation();
@@ -2784,22 +2786,15 @@ public class Tree extends List implements IIMESupport
                 		{
                 			var cursor:IViewCursor  = children.createCursor();
 							if (cursor.current)
-                				selectedItem = cursor.current;
+                				proposedSelectedItem = cursor.current;
                 		}
+						else
+							proposedSelectedItem = null;
                 	}
                 	else 
-                		selectedItem = null;
-                    if (caretIndex != selectedIndex)
-                        caretIndex = getItemIndex(selectedItem);
-                    evt = new ListEvent(ListEvent.CHANGE);
-                    evt.itemRenderer = indexToItemRenderer(selectedIndex);
-                    pt = itemRendererToIndices(evt.itemRenderer);
-	                if (pt)
-	                {
-	                	evt.rowIndex = pt.y;
-	                	evt.columnIndex = pt.x;
-	                }
-	                dispatchEvent(evt);
+                		selectedItem = proposedSelectedItem = null;
+					
+					finishArrowKeySelection();
                 }
                 else
                 {
@@ -2853,6 +2848,48 @@ public class Tree extends List implements IIMESupport
             super.keyDownHandler(event);
         }
     }
+
+    /**
+     *  @private
+     *  finish up left/right arrow key handling
+     */
+    private function finishArrowKeySelection():void
+	{
+		bFinishArrowKeySelection = false;
+
+		if (proposedSelectedItem)
+			selectedItem = proposedSelectedItem;
+
+		// now test to see if it worked, if it didn't we probably
+		// got an IPE
+		if (selectedItem === proposedSelectedItem || !proposedSelectedItem)
+		{
+			var evt:ListEvent;
+			var pt:Point;
+			evt = new ListEvent(ListEvent.CHANGE);
+			evt.itemRenderer = indexToItemRenderer(selectedIndex);
+			pt = itemRendererToIndices(evt.itemRenderer);
+			if (pt)
+			{
+				evt.rowIndex = pt.y;
+				evt.columnIndex = pt.x;
+			}
+			dispatchEvent(evt);
+			var dI:int = getItemIndex(selectedItem);
+			if (dI != caretIndex)
+			{
+				caretIndex = selectedIndex;
+			}
+			if (dI < _verticalScrollPosition)
+			{
+				verticalScrollPosition = dI;
+			}
+		}
+		else
+		{
+			bFinishArrowKeySelection = true;
+		}
+	}
 
 
     /**
@@ -3382,6 +3419,17 @@ public class Tree extends List implements IIMESupport
         }
     }
 
+    /**
+     *
+     */
+    override mx_internal function selectionDataPendingResultHandler(
+                                    data:Object,
+                                    info:ListBaseSelectionDataPending):void
+    {
+		super.selectionDataPendingResultHandler(data, info);
+		if (bFinishArrowKeySelection && selectedItem === proposedSelectedItem)
+			finishArrowKeySelection();
+	}
 }
 
 }
