@@ -182,18 +182,6 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
-     *  Implicitly update the viewport's verticalScrollPosition per the
-     *  specified scrolling unit, by setting the scrollbar's value.
-     *
-     *  @private
-     */
-    private function updateViewportHSP(scrollUnit:uint):void
-    {
-        var delta:Number = viewport.getHorizontalScrollPositionDelta(scrollUnit);
-        setValue(viewport.horizontalScrollPosition + delta);
-    }
-    
-    /**
      *  If <code>viewport</code> is not null, 
      *  change the horizontal scroll position for page up or page down by 
      *  scrolling the viewport.
@@ -225,10 +213,35 @@ public class HScrollBar extends ScrollBar
      */
     override public function page(increase:Boolean = true):void
     {
-        if (!viewport)
-            super.page(increase);
-        else
-            updateViewportHSP((increase) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT);
+        var oldPageSize:Number;
+        if (viewport)
+        {
+            // Want to use ScrollBar's page() implementation to get the same
+            // animated behavior for scrollbars with and without viewports.
+            // For now, just change pageSize temporarily and call the superclass
+            // implementation.
+            oldPageSize = pageSize;
+            pageSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
+                (increase) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT));
+        }
+        super.page(increase);
+        if (viewport)
+            pageSize = oldPageSize;
+    }
+
+    /**
+     * @private
+     */
+    override protected function animatePaging(newValue:Number, pageSize:Number):void
+    {
+        if (viewport)
+        {
+            var vpPageSize:Number = Math.abs(viewport.getHorizontalScrollPositionDelta(
+                (newValue > value) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT));
+            super.animatePaging(newValue, vpPageSize);
+            return;
+        }        
+        super.animatePaging(newValue, pageSize);
     }
     
     /**
@@ -263,10 +276,20 @@ public class HScrollBar extends ScrollBar
      */
     override public function step(increase:Boolean = true):void
     {
-        if (!viewport)
-            super.step(increase);
-        else
-            updateViewportHSP((increase) ? ScrollUnit.RIGHT : ScrollUnit.LEFT);
+        var oldStepSize:Number;
+        if (viewport)
+        {
+            // Want to use ScrollBar's step() implementation to get the same
+            // animated behavior for scrollbars with and without viewports.
+            // For now, just change pageSize temporarily and call the superclass
+            // implementation.
+            oldStepSize = stepSize;
+            stepSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
+                (increase) ? ScrollUnit.RIGHT : ScrollUnit.LEFT));
+        }
+        super.step(increase);
+        if (viewport)
+            stepSize = oldStepSize;
     }   
     
     /**
