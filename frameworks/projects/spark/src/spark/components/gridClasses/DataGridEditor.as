@@ -665,15 +665,16 @@ public class DataGridEditor
      */ 
     private function setFocusInItemRenderer(item:IGridItemRenderer):void
     {
-        // if the item renderer is editable
-        // add the itemRenderer to focus manager to get the 
-        // focusable objects under its control. Next set focus
+        // if the item renderer is editable then set focus
         // to the first item that should get focus.
         if (grid.focusManager && grid.focusManager is FocusManager)
         {
             var fm:FocusManager = grid.focusManager as FocusManager;
             var o:DisplayObject = item as DisplayObject;
+            var firstComponent:DisplayObject = null;
             var found:Boolean = false;
+            
+            // find the first component to take focus inside the renderer.
             do
             {
                 fm.fauxFocus = o;
@@ -685,11 +686,18 @@ public class DataGridEditor
                     found = true;
                     break;
                 }
+
+                // prevent infinite loop
+                if (!firstComponent)
+                    firstComponent = o;
+                else if (firstComponent == o)
+                    break;
+                
             } while (o && dataGrid.contains(o));
             
-            if (lastEvent && lastEvent.type == KeyboardEvent.KEY_DOWN && 
-                KeyboardEvent(lastEvent).keyCode == Keyboard.TAB &&
-                KeyboardEvent(lastEvent).shiftKey)
+            // if we are moving backward then put focus on the last
+            // item in the renderer instead of the first.
+            if (found && wasLastEventMovingBackward())
             {
                 // put focus on last item in cell editor instead of first.
                 var lastItem:DisplayObject = o;
@@ -714,6 +722,32 @@ public class DataGridEditor
                 fm.showFocus();
             }
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function wasLastEventMovingBackward():Boolean
+    {
+        if (lastEvent)
+        {
+            // Last event was a key focus change moving backward.
+            if (lastEvent.type == FocusEvent.KEY_FOCUS_CHANGE &&
+                FocusEvent(lastEvent).shiftKey)
+            {
+                return true;
+            }
+            
+            // Last event was Shift+TAB
+            if (lastEvent.type == KeyboardEvent.KEY_DOWN && 
+                KeyboardEvent(lastEvent).keyCode == Keyboard.TAB &&
+                KeyboardEvent(lastEvent).shiftKey)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     /**
@@ -909,22 +943,7 @@ public class DataGridEditor
             dataSaved = itemEditorInstance.save();
             
             if (dataSaved)
-            {
                 destroyItemEditor();
-            }
-            else
-            {            
-                if (itemEditorInstance && _editedItemPosition)
-                {
-                    // edit session is continued so restore focus and selection
-                    if (grid.selectedIndex != _editedItemPosition.rowIndex)
-                        grid.selectedIndex = _editedItemPosition.rowIndex;
-                    var fm:IFocusManager = grid.focusManager;
-                    // trace("setting focus to itemEditorInstance", selectedIndex);
-                    if (itemEditorInstance is IFocusManagerComponent)
-                        fm.setFocus(IFocusManagerComponent(itemEditorInstance));
-                }
-            }
         }
         
         return dataSaved;
@@ -1570,6 +1589,7 @@ public class DataGridEditor
         // save the edit. Next start up a new edit session in the
         // next cell.
         //trace("editor_editor_keyFocusChangeHandler");
+        lastEvent = event;
         
         if (itemEditorInstance || editedItemRenderer)
         {
