@@ -19,15 +19,22 @@ package mx.messaging
 public class SubscriptionInfo 
 {
     /** 
-     * The subtopic - if null, represents a subscription for messages directed to the
+     * The subtopic. If null, represents a subscription for messages directed to the
      * destination with no subtopic.
      */
     public var subtopic:String;
 
     /**
-     * The selector.  If null, indicates all messages should be sent.
+     * The selector. If null, indicates all messages should be sent.
      */
     public var selector:String;
+
+    /**
+     * The maximum number of messages per second the subscription wants to receive.
+     * Zero means the subscription has no preference for the number of messages
+     * it receives.  
+     */ 
+    public var maxFrequency:uint;
 
     /** Builds a new SubscriptionInfo with the specified subtopic and selector.
      *
@@ -35,11 +42,15 @@ public class SubscriptionInfo
      *  for messages directed to the destination with no subtopic.
      *
      *  @param sel The selector. If null, inidcates all messages should be sent.
+     * 
+     *  @param mi The maximum number of messages per second the subscription wants
+     *  to receive. Zero means no preference.
      */
-    public function SubscriptionInfo(st:String, sel:String)
+    public function SubscriptionInfo(st:String, sel:String, mf:uint = 0)
     {
         subtopic = st;
         selector = sel;
+        maxFrequency = mf;
     }
 }
 
