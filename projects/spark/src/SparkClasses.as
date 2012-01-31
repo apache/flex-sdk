@@ -23,6 +23,8 @@ internal class Flex4Classes
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
+import flex.effects.easing.Constant;
+import flex.effects.easing.Power;
 import flex.skin.ApplicationSkin; ApplicationSkin;
 import flex.graphics.Parser; Parser;
 import flex.skin.ButtonSkin; ButtonSkin;
