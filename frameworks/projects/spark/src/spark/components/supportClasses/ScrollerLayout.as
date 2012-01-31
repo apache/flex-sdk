@@ -13,6 +13,7 @@ package spark.components.supportClasses
 {
 import flash.geom.Point;
 
+import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.utils.MatrixUtil;
@@ -271,7 +272,7 @@ public class ScrollerLayout extends LayoutBase
             if (hAuto && !showHSB && (viewportPreferredW < viewportContentW) && currentSizeNoHSB)
                 measuredW += viewportW;
             else
-                measuredW += viewportPreferredW;
+                measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
 
             var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
             var viewportContentH:Number = contentSize.y;
@@ -280,7 +281,7 @@ public class ScrollerLayout extends LayoutBase
             if (vAuto && !showVSB && (viewportPreferredH < viewportContentH) && currentSizeNoVSB)
                 measuredH += viewportH;
             else
-                measuredH += viewportPreferredH;
+                measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
         }
 
         var minW:Number = minViewportInset * 2;
@@ -426,14 +427,36 @@ public class ScrollerLayout extends LayoutBase
             viewportW -= minViewportInset;
         
         // If the HSB doesn't fit, hide it and give the space back.   Likewise for VSB.
+        // If both scrollbars are supposed to be visible but they don't both fit, 
+        // then prefer to show just a VSB over just a HSB.
+    
+        if (hsbVisible && vsbVisible)
+        {
+            var hsbPreferredH:Number = hsb.getPreferredBoundsHeight();  
+            var vsbPreferredW:Number = vsb.getPreferredBoundsWidth();
 
-        if (hsbVisible && !hsbFits(w, h))
+            if (!hsbFits(w, h))
+                hsbVisible = false;
+
+            if (!vsbFits(w, h))
+            {
+                vsbVisible = false;
+                hsbVisible = true;
+                if (!hsbFits(w, h))
+                    hsbVisible = false;
+            }
+
+            if (!hsbVisible)
+                viewportH += Math.max(minViewportInset, hsbPreferredH);
+            if (!vsbVisible)
+                viewportW += Math.max(minViewportInset, vsbPreferredW);
+        }
+        else if (hsbVisible && !hsbFits(w, h))
         {
             viewportH += Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
             hsbVisible = false;
         }
-
-        if (vsbVisible && !vsbFits(w, h))
+        else if (vsbVisible && !vsbFits(w, h))
         {
             viewportW += Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
             vsbVisible = false;
@@ -475,7 +498,7 @@ public class ScrollerLayout extends LayoutBase
         // There's a risk of looping here, so we count.  
         if ((invalidationCount < 2) && (((vsbVisible != oldShowVSB) && vAuto) || ((hsbVisible != oldShowHSB) && hAuto)))
         {
-            target.invalidateSize(); 
+            target.invalidateSize();
             invalidationCount += 1; 
         }
         else
