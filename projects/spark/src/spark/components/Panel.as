@@ -79,7 +79,7 @@ public class Panel extends SkinnableContainer
     //  titleField
     //---------------------------------- 
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
 
     /**
      *  The skin part that defines the appearance of the 
