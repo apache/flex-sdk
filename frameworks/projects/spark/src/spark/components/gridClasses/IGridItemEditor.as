@@ -13,7 +13,9 @@ import spark.components.DataGrid;
  *  Grid item editors must implement this interface. 
  * 
  *  <p>All of the item editor's properties are set by the DataGrid during 
- *  the start of the editor session. After they've been set, the editor's 
+ *  the start of the editor session. The <code>data</code> property is the 
+ *  last property set. When the data property is set a grid item editor should
+ *  set the value of the editor's controls. Next the editor's 
  *  <code>prepare()</code> method is called. IGridItemEditor 
  *  implementations should override the preprare() method to make any final
  *  adjustments to its properties or any aspect of its visual elements. 
@@ -75,31 +77,7 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      *  @productversion Flex 4.5 
      */ 
     function get columnIndex():int;
-    function set columnIndex(value:int):void;
 
-    //----------------------------------
-    //  editorUsesEnterKey
-    //----------------------------------
-
-    /**
-     *  A flag that indicates whether the item editor uses the Enter key.
-     *  If <code>true</code> the item editor uses the Enter key and the
-     *  DataGrid will not look for the Enter key and close the editor in
-     *  response.
-     *  Note that changing this value while the editor is displayed
-     *  will have no effect on the current editor, but will affect the next
-     *  item renderer that opens an editor.
-     *
-     *  @default false.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 4.5
-     */
-    function get editorUsesEnterKey():Boolean;
-    function set editorUsesEnterKey(value:Boolean):void
-    
     //----------------------------------
     //  rowIndex
     //----------------------------------
@@ -115,23 +93,6 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     function get rowIndex():int;
     function set rowIndex(value:int):void;
 
-    //----------------------------------
-    //  value
-    //----------------------------------
-    
-    /** 
-     *  The value of the edit control. This is set by the data grid when
-     *  the editor is first created. When the editor is saved, the
-     *  data grid gets the editor value from this property. 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5 
-     */ 
-    function get value():Object;
-    function set value(newValue:Object):void;
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -142,6 +103,8 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      *  Called after the editor has been created and sized but before the 
      *  editor is visible. This is an oppurtunity to adjust the look of
      *  the editor before it becomes visible.
+     *  
+     *  This function should only be called by the data grid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -152,7 +115,10 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     
     /**
      *  Called just before the editor is closed. This is a chance
-     *  of clean up anything that was set in prepare(). 
+     *  of clean up anything that was set in prepare().
+     *  
+     *  This function should only be called by the data grid.
+     * 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -162,25 +128,12 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     function discard():void;
     
     /**
-     *  Tests if the value in the editor is valid and may be saved.
-     * 
-     *  @returns true if the value in the editor is valid. Otherwise
-     *  false is returned.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5 
-     */  
-    function validate():Boolean;
-
-    /**
      *  Saves the value in the editor back into the item renderer's
      *  data. This function calls <code>validate()</code> to verify
      *  the data may be saved. If the data is not valid, then the
      *  data is not saved and the editor is not closed.
      * 
-     *  This function should only be called by the editor. To save
+     *  This function should only be called by the data grid. To save
      *  and close the editor call the <code>endItemEditorSession()</code>
      *  function of the data grid owner.
      *  
@@ -193,21 +146,5 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      */  
     function save():Boolean;
 
-    /**
-     *  Closes the editor without saving the data.
-     * 
-     *  This function should only be called by the editor. To cancel
-     *  and close the editor call the <code>endItemEditorSession()</code>
-     *  function of the data grid owner.
-     *  
-     *  @see spark.components.DataGrid
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5 
-     */  
-    function cancel():void;
-    
 }
 }
