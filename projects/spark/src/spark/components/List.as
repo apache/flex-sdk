@@ -2212,7 +2212,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function findKey(eventCode:int):Boolean
+    mx_internal function findKey(eventCode:int):Boolean
     {
         var tmpCode:int = eventCode;
         
@@ -2236,7 +2236,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function findString(str:String):Boolean
+    mx_internal function findString(str:String):Boolean
     {
         if (!dataProvider || dataProvider.length == 0)
             return false;
