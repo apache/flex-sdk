@@ -36,7 +36,7 @@ import mx.events.FlexEvent;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Range
+ *  &lt;s:Range
  *    <strong>Properties</strong>
  *    maximum="100"
  *    minimum="0"
@@ -456,7 +456,7 @@ public class Range extends SkinnableComponent
      */
     public function changeValueByStep(increase:Boolean = true):void
     {
-    	if (stepSize == 0)
+        if (stepSize == 0)
             return;
 
         var newValue:Number = (increase) ? value + stepSize : value - stepSize;
