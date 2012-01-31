@@ -37,7 +37,7 @@ import mx.events.IndexChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
-import mx.logging.AbstractTarget;
+import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -426,7 +426,7 @@ public class NavBar extends Box
 
         // Styles might not have been set yet, so short circuit and let
         // createChildren() handle the rest.
-        if (inheritingStyles == UIComponent.STYLE_UNINITIALIZED)
+        if (inheritingStyles == StyleManager.STYLE_UNINITIALIZED)
             return;
 
         dispatchEvent(new Event("collectionChange"));
