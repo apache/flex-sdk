@@ -17,6 +17,8 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  The RemoveChildActionInstance class implements the instance class
  *  for the RemoveChildAction effect.
@@ -103,7 +105,7 @@ public class RemoveChildActionInstance extends ActionEffectInstance
 						propertyChanges.end.parent == null)
 		}
 		
-		if (!mx_internal::playReversed)
+		if (!playReversed)
 		{
 			// Set the style property
 			if (doRemove && target && targetDisplayObject.parent != null)
