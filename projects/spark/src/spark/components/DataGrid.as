@@ -62,10 +62,17 @@ use namespace mx_internal;
 
 /**
  *  Used to initialize the DataGrid's <code>rowBackground</code> skin part.   
- *  If defined, the <code>alternatingRowColorsBackground</code>
- *  skin part is used to render row backgrounds whose 
- *  fill color is defined by successive entries
- *  in the array value of this style.
+ *  If the <code>alternatingRowColors</code> style is specified, 
+ *  then use the <code>alternatingRowColorsBackground</code> skin part 
+ *  as the value of the <code>rowBackground</code> skin part.  
+ *  The alternating colors for the grid rows are defined by 
+ *  successive entries in the Array value of this style.
+ *
+ *  <p>If you want to change how this style is rendered, 
+ *  replace the <code>alternatingRowColorsBackground</code> skin part
+ *  in the DataGridSkin class.   
+ *  If you want to specify the background for each row, then 
+ *  initialize the <code>rowBackground</code> skin part directly.</p>
  * 
  *  @default undefined
  *  
@@ -248,6 +255,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Dispatched by the <code>grid</code> skin part when the caret position, size, or
  *  visibility has changed due to user interaction or being programmatically set.
  *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
+ *
  *  @eventType spark.events.GridCaretEvent.CARET_CHANGE
  *  
  *  @langversion 3.0
@@ -260,6 +270,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 /**
  *  Dispatched by the <code>grid</code> skin part when the mouse button 
  *  is pressed over a grid cell.
+ *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_DOWN
  * 
@@ -274,6 +287,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Dispatched by the <code>grid</code> skin part after a <code>gridMouseDown</code> event 
  *  if the mouse moves before the button is released.
  *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
+ *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_DRAG
  * 
  *  @langversion 3.0
@@ -287,6 +303,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Dispatched by the <code>grid</code> skin part after a <code>gridMouseDown</code> event 
  *  when the mouse button is released, even if the mouse is no longer within the grid.
  *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
+ *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_UP
  * 
  *  @langversion 3.0
@@ -298,6 +317,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Dispatched by the <code>grid</code> skin part when the mouse enters a grid cell.
+ *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
  *
  *  @eventType spark.events.GridEvent.GRID_ROLL_OVER
  * 
@@ -311,6 +333,9 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 /**
  *  Dispatched by the <code>grid</code> skin part when the mouse leaves a grid cell.
  *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
+ *
  *  @eventType spark.events.GridEvent.GRID_ROLL_OUT
  * 
  *  @langversion 3.0
@@ -321,7 +346,10 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="gridRollOut", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the <code>grid</code> skin part when the mouse is clicked over a cell
+ *  Dispatched by the <code>grid</code> skin part when the mouse is clicked over a cell.
+ *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
  *
  *  @eventType spark.events.GridEvent.GRID_CLICK
  * 
@@ -333,7 +361,10 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="gridClick", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the <code>grid</code> skin part when the mouse is double-clicked over a cell
+ *  Dispatched by the <code>grid</code> skin part when the mouse is double-clicked over a cell.
+ *
+ *  <p>To handle this event, assign an event handler to the <code>grid</code> skin part 
+ *  of the DataGrid control.</p>
  *
  *  @eventType spark.events.GridEvent.GRID_DOUBLE_CLICK
  * 
@@ -1249,7 +1280,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  A flag that indicates whether the IME should
      *  be enabled when the component receives focus.
      *
-     *  If the editor is up, it sets this property 
+     *  If the item editor is open, it sets this property 
      *  accordingly.
      *
      *  @langversion 3.0
