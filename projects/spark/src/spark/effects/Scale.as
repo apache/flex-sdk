@@ -16,7 +16,7 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
     
 /**
- *  The AnimateTransformScale effect scales a target object
+ *  The Scale effect scales a target object
  *  in the x and y directions around the transform center.
  *  A scale of 2.0 means the object has been magnified by a factor of 2, 
  *  and a scale of 0.5 means the object has been reduced by a factor of 2.
@@ -28,12 +28,12 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:AnimateTransformScale&gt;</code> tag
+ *  <p>The <code>&lt;mx:Scale&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:AnimateTransformScale
+ *  &lt;mx:Scale
  *    id="ID"
  *    scaleXBy="val"
  *    scaleXFrom="val"
@@ -49,7 +49,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */   
-public class AnimateTransformScale extends AnimateTransform
+public class Scale extends AnimateTransform
 {
     include "../core/Version.as";
     
@@ -63,7 +63,7 @@ public class AnimateTransformScale extends AnimateTransform
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function AnimateTransformScale(target:Object=null)
+    public function Scale(target:Object=null)
     {
         super(target);
         instanceClass = AnimateTransformInstance;
