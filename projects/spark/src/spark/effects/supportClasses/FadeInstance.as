@@ -21,8 +21,31 @@ import spark.primitives.supportClasses.GraphicElement;
 import mx.managers.LayoutManager;
 import mx.effects.effectClasses.PropertyChanges;
 
+/**
+ *  The FadeInstance class implements the instance class
+ *  for the Fade effect.
+ *  Flex creates an instance of this class when it plays a Fade
+ *  effect; you do not create one yourself.
+ *
+ *  @see spark.effects.Fade
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */  
 public class FadeInstance extends AnimateInstance
 {
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function FadeInstance(target:Object)
     {
         super(target);
@@ -55,8 +78,7 @@ public class FadeInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Initial transparency level between 0.0 and 1.0, 
-     *  where 0.0 means transparent and 1.0 means fully opaque. 
+     *  @copy spark.effects.Fade#alphaFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -70,8 +92,7 @@ public class FadeInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Final transparency level between 0.0 and 1.0, 
-     *  where 0.0 means transparent and 1.0 means fully opaque.
+     *  @copy spark.effects.Fade#alphaTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
