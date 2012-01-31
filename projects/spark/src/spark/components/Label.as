@@ -1063,7 +1063,7 @@ public class SimpleText extends TextGraphicElement
                                                         
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
-                // TODO: What if textLines[truncLineIndex] is a backgroundColor
+                // FIXME (gosmith): What if textLines[truncLineIndex] is a backgroundColor
 				// Shape instead of a TextLine?
                 var truncateAtCharPosition:int = getTruncationPosition(
                 	TextLine(textLines[truncLineIndex]), allowedWidth);
