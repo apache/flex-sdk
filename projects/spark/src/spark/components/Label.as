@@ -348,16 +348,7 @@ public class SimpleText extends TextGraphicElement
         
         // Done with the lines now.  
         releaseLinesFromTextBlock();
-        
-        // If toFit and explicit width, adjust the bounds to match.
-        // This will save a recompose and/or clip in updateDisplayList()
-        // if  bounds width matches the unscaled width.
-        if (getStyle("lineBreak") == "toFit" && 
-            !isNaN(width) && bounds.width < width)
-        {
-            bounds.width = width;
-        }
-                                               
+                                                       
         // Add the new text lines to the container.
         addTextLines(DisplayObjectContainer(drawnDisplayObject));
 
