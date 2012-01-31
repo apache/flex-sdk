@@ -285,33 +285,6 @@ public class Scroller extends SkinnableComponent
         }
     }
     
-    /**
-     *  Boolean to let us know if we need to add system handlers or not.
-     *  We can't do this early on because systemManager may be null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    private var systemListenersNeeded:Boolean = true;
-    
-    /**
-     *  @private
-     *  
-     *  Need to add system handlers in commitProperties() because at 
-     *  createChildren() time, systemManager may be null (it's null 
-     *  when it's parent (or grandparent) isn't added to the display list yet).
-     */
-    override protected function commitProperties():void
-    {
-        if (systemListenersNeeded)
-        {
-            addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
-            systemListenersNeeded = false;
-        }
-    }
-    
     //----------------------------------
     //  verticalScrollPolicy
     //----------------------------------
@@ -727,6 +700,7 @@ public class Scroller extends SkinnableComponent
         super.attachSkin();
         skin.layout = new ScrollerLayout();
         installViewport();
+        skin.addEventListener(MouseEvent.MOUSE_WHEEL, skin_mouseWheelHandler);
     }
     
     /**
@@ -736,6 +710,7 @@ public class Scroller extends SkinnableComponent
     {    
         uninstallViewport();
         skin.layout = null;
+        skin.removeEventListener(MouseEvent.MOUSE_WHEEL, skin_mouseWheelHandler);
         super.detachSkin();
     }
     
@@ -861,7 +836,7 @@ public class Scroller extends SkinnableComponent
     private static var textViewClassLoaded:Boolean = false;
     private static var textViewClass:Class = null;
 
-    private function mouseWheelHandler(event:MouseEvent):void
+    private function skin_mouseWheelHandler(event:MouseEvent):void
     {
         var vp:IViewport = viewport;
         if (!vp || event.isDefaultPrevented())
@@ -871,7 +846,7 @@ public class Scroller extends SkinnableComponent
         // handling mouse wheel events.  For now, we'll make the same 
         // assumption about RichEditableText.
         
-        var focusOwner:InteractiveObject = getFocus();
+        /*var focusOwner:InteractiveObject = getFocus();
         if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
             return;    
 
@@ -883,7 +858,7 @@ public class Scroller extends SkinnableComponent
                 textViewClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
         }
         if (textViewClass && (focusOwner is textViewClass))
-            return;
+            return;*/
 
         var nSteps:uint = Math.abs(event.delta);
         var scrollUnit:uint;
