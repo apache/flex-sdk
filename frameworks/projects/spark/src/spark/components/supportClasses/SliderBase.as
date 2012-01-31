@@ -34,8 +34,6 @@ import spark.events.TrackBaseEvent;
 
 use namespace mx_internal;
 
-include "../../styles/metadata/BasicInheritingTextStyles.as"
-
 /**
  *  The alpha of the focus ring for this component.
  * 
