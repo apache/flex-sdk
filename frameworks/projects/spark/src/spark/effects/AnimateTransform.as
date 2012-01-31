@@ -651,19 +651,20 @@ public class AnimateTransform extends FxAnimate
         {            
             var instanceAnimProps:Array = [];
             for (i = 0; i < animationProperties.length; ++i)
-                instanceAnimProps[i] = animationProperties[i].clone();
-            if (startDelay != 0)
             {
-                for (i = 0; i < animationProperties.length; ++i)
+                instanceAnimProps[i] = animationProperties[i].clone();
+                var mp:MotionPath = MotionPath(instanceAnimProps[i]);
+                if (mp.keyframes)
                 {
-                    var mp:MotionPath = MotionPath(instanceAnimProps[i]);
-                    if (mp.keyframes)
+                    for (var j:int = 0; j < mp.keyframes.length; ++j)
                     {
-                        for (var j:int = 0; j < mp.keyframes.length; ++j)
-                        {
-                            var kf:KeyFrame = KeyFrame(mp.keyframes[j]);
+                        var kf:KeyFrame = KeyFrame(mp.keyframes[j]);
+                        // NaN for the time is used by AnimationProperty as a
+                        // placeholder for the end time of the effect
+                        if (isNaN(kf.time))
+                            kf.time = duration;
+                        if (startDelay != 0)
                             kf.time += startDelay;
-                        }
                     }
                 }
             }
