@@ -64,8 +64,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="alternatingRowColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="spark")]
 
@@ -76,8 +76,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="borderAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
@@ -88,8 +88,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
 
@@ -100,8 +100,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
 
@@ -110,8 +110,8 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
 
@@ -122,10 +122,22 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  The class to use as the skin for the cursor that indicates that a column
+ *  can be resized.
+ *  The default value is the "cursorStretch" symbol from the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="stretchCursor", type="Class", inherit="no")]
 
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
@@ -140,8 +152,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Style(name="defaultDataGridItemEditor", type="Class", inherit="no")]
 
@@ -213,11 +225,22 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  */ 
 [Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
-
-
 //--------------------------------------
 //  Events
 //--------------------------------------
+
+/**
+ *  Dispatched by the grid skin part when the caret position, size, or
+ *  visibility has changed due to user interaction or being programmatically set.
+ *
+ *  @eventType spark.events.GridCaretEvent.CARET_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
 /**
  *  Dispatched by the grid skin part when the mouse button is pressed over a Grid cell.
@@ -338,18 +361,6 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Event(name="selectionChange", type="spark.events.GridSelectionEvent")]
-
-/**
- *  Dispatched after the caret has changed.  
- *
- *  @eventType spark.events.GridCaretEvent.CARET_CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 2.0
- *  @productversion Flex 4.5
- */
-[Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
 //--------------------------------------
 //  Edit Events
