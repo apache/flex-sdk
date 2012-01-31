@@ -1007,7 +1007,7 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function adjustSelectedIndex(newIndex:int):void
+    protected function adjustSelection(newIndex:int, add:Boolean=false):void
     {
         if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
             _proposedSelectedIndex = newIndex;
@@ -1036,7 +1036,7 @@ public class ListBase extends SkinnableDataContainer
         // If an item is added before the selected item, bump up our
         // selected index backing variable. 
         if (index <= selectedIndex)
-            adjustSelectedIndex(selectedIndex + 1);
+            adjustSelection(selectedIndex + 1);
     }
     
     /**
@@ -1074,13 +1074,13 @@ public class ListBase extends SkinnableDataContainer
                     selectedIndex = 0;
             }
             else
-                adjustSelectedIndex(-1);
+                adjustSelection(-1);
         }
         else if (index < selectedIndex)
         {
             // An item below the selected index has been removed, bump
             // the selected index backing variable.
-            adjustSelectedIndex(selectedIndex - 1);
+            adjustSelection(selectedIndex - 1);
         }
     }
     
