@@ -227,16 +227,16 @@ use namespace mx_internal;
  *  &lt;/mx:PrintDataGrid&gt;
  *  </pre>
  * 
- *  @see FlexPrintJob
- * 
  *  @includeExample examples/FormPrintHeader.mxml -noswf
  *  @includeExample examples/FormPrintFooter.mxml -noswf
  *  @includeExample examples/FormPrintView.mxml -noswf
  *  @includeExample examples/PrintDataGridExample.mxml
+ * 
+ *  @see FlexPrintJob
  */
 public class PrintDataGrid extends DataGrid
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -244,28 +244,28 @@ public class PrintDataGrid extends DataGrid
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  <p>Constructs a DataGrid without scrollbars or user interactivity:
-	 *  column sorting, resizing, drag scrolling, selection, or keyboard
-	 *  interaction.
-	 *  The default height is 100% of the container height, or the height 
-	 *  required to display all the dataProvider rows, whichever is smaller.</p>
-	 */
-	public function PrintDataGrid()
-	{
-		super();
+    /**
+     *  Constructor.
+     *
+     *  <p>Constructs a DataGrid without scrollbars or user interactivity:
+     *  column sorting, resizing, drag scrolling, selection, or keyboard
+     *  interaction.
+     *  The default height is 100% of the container height, or the height 
+     *  required to display all the dataProvider rows, whichever is smaller.</p>
+     */
+    public function PrintDataGrid()
+    {
+        super();
 
-		horizontalScrollPolicy = ScrollPolicy.OFF;
-		verticalScrollPolicy = ScrollPolicy.OFF;
-		sortableColumns = false;
-		selectable = false;
-		// to disable dragScrolling
-		dragEnabled = true;
-		resizableColumns = false;
-		super.percentHeight = 100;
-	}
+        horizontalScrollPolicy = ScrollPolicy.OFF;
+        verticalScrollPolicy = ScrollPolicy.OFF;
+        sortableColumns = false;
+        selectable = false;
+        // to disable dragScrolling
+        dragEnabled = true;
+        resizableColumns = false;
+        super.percentHeight = 100;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -274,54 +274,54 @@ public class PrintDataGrid extends DataGrid
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  height
+    //  height
     //----------------------------------
 
     [Bindable("heightChanged")]
     [Inspectable(category="General")]
-	[PercentProxy("percentHeight")]
+    [PercentProxy("percentHeight")]
 
     /**
-	 *  @private
-	 *  Getter needs to be overridden if setter is overridden.
-	 */
+     *  @private
+     *  Getter needs to be overridden if setter is overridden.
+     */
     override public function get height():Number
-	{
-		return super.height;
-	}
+    {
+        return super.height;
+    }
 
-	/**
-	 *  @private
-	 *  Height setter needs to be overridden to update _originalHeight.
-	 */
-	override public function set height(value:Number):void
-	{
-		_originalHeight = value;
-		if (!isNaN(percentHeight))
-		{
-			super.percentHeight = NaN;
-			measure();
-			value = measuredHeight;
-		}
-		
-		super.height = value;
-		
-		invalidateDisplayList();
+    /**
+     *  @private
+     *  Height setter needs to be overridden to update _originalHeight.
+     */
+    override public function set height(value:Number):void
+    {
+        _originalHeight = value;
+        if (!isNaN(percentHeight))
+        {
+            super.percentHeight = NaN;
+            measure();
+            value = measuredHeight;
+        }
+        
+        super.height = value;
+        
+        invalidateDisplayList();
 
-		if (sizeToPage && !isNaN(explicitHeight))
-			explicitHeight = NaN;
-	}
+        if (sizeToPage && !isNaN(explicitHeight))
+            explicitHeight = NaN;
+    }
 
     //----------------------------------
-	//  percentHeight
+    //  percentHeight
     //----------------------------------
 
     [Bindable("resize")]
     [Inspectable(category="Size", defaultValue="NaN")]
     /**
-	 *  @private
-	 *  Getter needs to be overridden if setter is overridden.
-	 */
+     *  @private
+     *  Getter needs to be overridden if setter is overridden.
+     */
     override public function get percentHeight():Number
     {
         return super.percentHeight;
@@ -333,8 +333,8 @@ public class PrintDataGrid extends DataGrid
      */
     override public function set percentHeight(value:Number):void
     {
-		_originalHeight = NaN;
-		super.percentHeight = value;
+        _originalHeight = NaN;
+        super.percentHeight = value;
     }
 
     //--------------------------------------------------------------------------
@@ -344,74 +344,74 @@ public class PrintDataGrid extends DataGrid
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  currentPageHeight
+    //  currentPageHeight
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the currentPageHeight property.
-	 */
-	private var _currentPageHeight:Number;
+    /**
+     *  @private
+     *  Storage for the currentPageHeight property.
+     */
+    private var _currentPageHeight:Number;
 
-	/**
-	 *  The height of PrintDataGrid that would be, if <code>sizeToPage</code> 
-	 *  property is <code>true</code> and PrintDataGrid displays only completely
-	 *  viewable rows and no partial rows. If <code>sizeToPage</code> property 
-	 *  is <code>true</code>, the value of this property equals 
-	 *  the <code>height</code> property.
-	 */
-	public function get currentPageHeight():Number
-	{
-		return _currentPageHeight;
-	}
-
-    //----------------------------------
-	//  originalHeight
-    //----------------------------------
-
-	/**
-	 *  Storage for the originalHeight property.
-	 *  @private
-	 */
-	private var _originalHeight:Number;
-
-	/**
-	 *  The height of PrintDataGrid as set by the user.
-	 *  If the <code>sizeToPage</code> property is <code>false</code>,
-	 *  the value of this property equals the <code>height</code> property.
-	 */
-	public function get originalHeight():Number
-	{
-		return _originalHeight;
-	}
+    /**
+     *  The height of PrintDataGrid that would be, if <code>sizeToPage</code> 
+     *  property is <code>true</code> and PrintDataGrid displays only completely
+     *  viewable rows and no partial rows. If <code>sizeToPage</code> property 
+     *  is <code>true</code>, the value of this property equals 
+     *  the <code>height</code> property.
+     */
+    public function get currentPageHeight():Number
+    {
+        return _currentPageHeight;
+    }
 
     //----------------------------------
-	//  sizeToPage
+    //  originalHeight
     //----------------------------------
 
-	/**
-	 *  If <code>true</code>, the PrintDataGrid readjusts its height to display
-	 *  only completely viewable rows.
-	 */
-	public var sizeToPage:Boolean = true;
+    /**
+     *  Storage for the originalHeight property.
+     *  @private
+     */
+    private var _originalHeight:Number;
+
+    /**
+     *  The height of PrintDataGrid as set by the user.
+     *  If the <code>sizeToPage</code> property is <code>false</code>,
+     *  the value of this property equals the <code>height</code> property.
+     */
+    public function get originalHeight():Number
+    {
+        return _originalHeight;
+    }
 
     //----------------------------------
-	//  validNextPage
+    //  sizeToPage
     //----------------------------------
 
-	/**
-	 *  Indicates the data provider contains additional data rows that follow 
-	 *  the rows that the PrintDataGrid control currently displays.
-	 *
-	 *  @return A Boolean value of <code>true</code> if a set of rows is 
-	 *  available else <code>false</false>.
-	 */
-	public function get validNextPage():Boolean
-	{
-		var vPos:int = verticalScrollPosition + rowCount;
+    /**
+     *  If <code>true</code>, the PrintDataGrid readjusts its height to display
+     *  only completely viewable rows.
+     */
+    public var sizeToPage:Boolean = true;
 
-		return dataProvider && vPos < dataProvider.length ? true : false;
-	}
+    //----------------------------------
+    //  validNextPage
+    //----------------------------------
+
+    /**
+     *  Indicates the data provider contains additional data rows that follow 
+     *  the rows that the PrintDataGrid control currently displays.
+     *
+     *  @return A Boolean value of <code>true</code> if a set of rows is 
+     *  available else <code>false</false>.
+     */
+    public function get validNextPage():Boolean
+    {
+        var vPos:int = verticalScrollPosition + rowCount;
+
+        return dataProvider && vPos < dataProvider.length ? true : false;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -419,62 +419,62 @@ public class PrintDataGrid extends DataGrid
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Sets the default number of display rows to dataProvider.length.
-	 */
-	override protected function measure():void
-	{
-		var oldRowCount:uint = rowCount;
+    /**
+     *  @private
+     *  Sets the default number of display rows to dataProvider.length.
+     */
+    override protected function measure():void
+    {
+        var oldRowCount:uint = rowCount;
 
-		var count:uint = (dataProvider) ? dataProvider.length : 0;
+        var count:uint = (dataProvider) ? dataProvider.length : 0;
 
-		if (count >= verticalScrollPosition)
-			count -= verticalScrollPosition;
-		else
-			count = 0;
+        if (count >= verticalScrollPosition)
+            count -= verticalScrollPosition;
+        else
+            count = 0;
 
-		if (headerVisible)
-			count++;
+        if (headerVisible)
+            count++;
 
-		setRowCount(count);
+        setRowCount(count);
 
-		// need to calculate rowCount before super()
-		super.measure();
-		measureHeight();
+        // need to calculate rowCount before super()
+        super.measure();
+        measureHeight();
 
-		if (isNaN(_originalHeight))
-			_originalHeight = measuredHeight;
-		_currentPageHeight = measuredHeight;
+        if (isNaN(_originalHeight))
+            _originalHeight = measuredHeight;
+        _currentPageHeight = measuredHeight;
 
-		if (!sizeToPage)
-		{
-			setRowCount(oldRowCount);
-			super.measure();
-		}
-	}
+        if (!sizeToPage)
+        {
+            setRowCount(oldRowCount);
+            super.measure();
+        }
+    }
 
-	/**
-	 *  @private
-	 *  setActualSize() is overridden to update _originalHeight.
-	 */
-	override public function setActualSize(w:Number, h:Number):void
-	{
-		if (!isNaN(percentHeight))
-		{
-			_originalHeight = h;
-			super.percentHeight = NaN;
-			measure();
-			h = measuredHeight;
-		}
+    /**
+     *  @private
+     *  setActualSize() is overridden to update _originalHeight.
+     */
+    override public function setActualSize(w:Number, h:Number):void
+    {
+        if (!isNaN(percentHeight))
+        {
+            _originalHeight = h;
+            super.percentHeight = NaN;
+            measure();
+            h = measuredHeight;
+        }
 
-		super.setActualSize(w, h);
-		
-		invalidateDisplayList();
+        super.setActualSize(w, h);
+        
+        invalidateDisplayList();
 
-		if (sizeToPage && !isNaN(explicitHeight))
-			explicitHeight = NaN;
-	}
+        if (sizeToPage && !isNaN(explicitHeight))
+            explicitHeight = NaN;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -482,13 +482,13 @@ public class PrintDataGrid extends DataGrid
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Overridden configureScrollBars to disable autoScrollUp.
-	 */
-	override protected function configureScrollBars():void
-	{
-	}
+    /**
+     *  @private
+     *  Overridden configureScrollBars to disable autoScrollUp.
+     */
+    override protected function configureScrollBars():void
+    {
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -496,47 +496,47 @@ public class PrintDataGrid extends DataGrid
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Puts the next set of data rows in view;
-	 *  that is, it sets the PrintDataGrid <code>verticalScrollPosition</code>
-	 *  property to equal <code>verticalScrollPosition</code> + (number of scrollable rows).
-	 */
-	public function nextPage():void
-	{
-		verticalScrollPosition += rowCount - lockedRowCount;
+    /**
+     *  Puts the next set of data rows in view;
+     *  that is, it sets the PrintDataGrid <code>verticalScrollPosition</code>
+     *  property to equal <code>verticalScrollPosition</code> + (number of scrollable rows).
+     */
+    public function nextPage():void
+    {
+        verticalScrollPosition += rowCount - lockedRowCount;
 
-		invalidateSize();
-		invalidateDisplayList();
-	}
+        invalidateSize();
+        invalidateDisplayList();
+    }
 
-	/**
-	 *  @private
-	 *  ListBase.measure() does'nt calculate measuredHeight in required way
-	 *  so have to add the code here.
-	 */
-	private function measureHeight():void
-	{
-		if (dataProvider && dataProvider.length > 0 
-			&& (verticalScrollPosition >= dataProvider.length))
-		{
-			setRowCount(0);
-			measuredHeight = 0;
-			measuredMinHeight = 0;
-			return;
-		}
+    /**
+     *  @private
+     *  ListBase.measure() does'nt calculate measuredHeight in required way
+     *  so have to add the code here.
+     */
+    private function measureHeight():void
+    {
+        if (dataProvider && dataProvider.length > 0 
+            && (verticalScrollPosition >= dataProvider.length))
+        {
+            setRowCount(0);
+            measuredHeight = 0;
+            measuredMinHeight = 0;
+            return;
+        }
 
-		var o:EdgeMetrics = viewMetrics;
+        var o:EdgeMetrics = viewMetrics;
         var rc:int = (explicitRowCount < 1) ? rowCount : explicitRowCount;
 
         var maxHeight:Number = isNaN(_originalHeight) ? -1 
-        						: _originalHeight - o.top - o.bottom;
+                                : _originalHeight - o.top - o.bottom;
 
-		measuredHeight = measureHeightOfItemsUptoMaxHeight(
-			-1, rc, maxHeight) + o.top + o.bottom;
+        measuredHeight = measureHeightOfItemsUptoMaxHeight(
+            -1, rc, maxHeight) + o.top + o.bottom;
 
-		measuredMinHeight = measureHeightOfItemsUptoMaxHeight(
-			-1, Math.min(rc, 2), maxHeight) + o.top + o.bottom;
-	}
+        measuredMinHeight = measureHeightOfItemsUptoMaxHeight(
+            -1, Math.min(rc, 2), maxHeight) + o.top + o.bottom;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -544,13 +544,13 @@ public class PrintDataGrid extends DataGrid
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Overridden keyDown to disable keyboard functionality.
-	 */
-	override protected function keyDownHandler(event:KeyboardEvent):void
-	{
-	}
+    /**
+     *  @private
+     *  Overridden keyDown to disable keyboard functionality.
+     */
+    override protected function keyDownHandler(event:KeyboardEvent):void
+    {
+    }
 }
 
 }
