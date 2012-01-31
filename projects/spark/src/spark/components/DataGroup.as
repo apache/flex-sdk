@@ -1810,13 +1810,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private function adjustAfterMove(item:Object, location:int, oldLocation:int):void
     {
         itemRemoved(item, oldLocation);
-        
-        // if item is removed before the newly added item
-        // then change index to account for this
-        if (location > oldLocation)
-            itemAdded(item, location-1);
-        else
-            itemAdded(item, location);
+        itemAdded(item, location);
+        resetRenderersIndices();
     }
     
     /**
