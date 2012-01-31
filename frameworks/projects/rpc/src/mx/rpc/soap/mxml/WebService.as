@@ -92,7 +92,10 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
 
     /**
      * Creates a new WebService component.
-     * @param destination the destination of the WebService, should match a destination name in the services-config.xml file.
+     *
+     * @param destination The destination of the WebService, which should
+     * match a destination name in the services-config.xml file. If
+     * unspecified, the WebService component uses the DefaultHTTP destination.
      */
     public function WebService(destination:String = null)
     {
