@@ -14,11 +14,13 @@ package spark.components
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
+import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 
 import spark.events.PopUpEvent;
+import spark.transitions.SoftKeyboardPopUpTransition;
 
 use namespace mx_internal;
 
@@ -157,6 +159,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     public function SkinnablePopUpContainer()
     {
         super();
+        
+        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+        var softKeyboardEnabled:Boolean = (topLevelApp && Application.softKeyboardBehavior == "none");
+        
+        if (softKeyboardEnabled)
+            _popUpTransition = new SoftKeyboardPopUpTransition();
     }
     
     //--------------------------------------------------------------------------
@@ -185,6 +193,27 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _popUpTransition:SoftKeyboardPopUpTransition;
+    
+    /**
+     *  Read-only access to the SoftKeyboardPopUpTransition.
+     * 
+     *  @default A SoftKeyboardPopUpTransition instance when
+     *           Application.softKeyboardBehavior="none", otherwise null.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    protected function get popUpTransition():SoftKeyboardPopUpTransition
+    {
+        return _popUpTransition;
+    }
     
     //----------------------------------
     //  isOpen
@@ -226,6 +255,87 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // NOTE: DesignView relies on this API, consult tooling before making changes.
         _isOpen = value;
         invalidateSkinState();
+    }
+    
+    //----------------------------------
+    //  resizeForSoftKeyboard
+    //----------------------------------
+    
+    private var _resizeForSoftKeyboard:Boolean = true;
+    
+    /**
+     *  @copy spark.transitions.SoftKeyboardPopUpTransition#resizeForSoftKeyboard
+     */
+    public function get resizeForSoftKeyboard():Boolean
+    {
+        if (!popUpTransition)
+            return false;
+        
+        return popUpTransition.resizeForSoftKeyboard;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set resizeForSoftKeyboard(value:Boolean):void
+    {
+        if (!popUpTransition)
+            return;
+        
+        popUpTransition.resizeForSoftKeyboard = value;
+    }
+    
+    //----------------------------------
+    //  moveForSoftKeyboard
+    //----------------------------------
+    
+    private var _moveForSoftKeyboard:Boolean = true;
+    
+    /**
+     *  @copy spark.transitions.SoftKeyboardPopUpTransition#moveForSoftKeyboard
+     */
+    public function get moveForSoftKeyboard():Boolean
+    {
+        if (!popUpTransition)
+            return false;
+        
+        return popUpTransition.moveForSoftKeyboard;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set moveForSoftKeyboard(value:Boolean):void
+    {
+        if (!popUpTransition)
+            return;
+        
+        popUpTransition.moveForSoftKeyboard = value;
+    }
+    
+    //----------------------------------
+    //  resizeApplication
+    //----------------------------------
+    
+    private var _resizeApplication:Boolean = false;
+    
+    /**
+     *  @copy spark.transitions.SoftKeyboardPopUpTransition#resizeApplication
+     */
+    public function get resizeApplication():Boolean
+    {
+        if (!popUpTransition)
+            return false;
+        
+        return popUpTransition.resizeApplication;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set resizeApplication(value:Boolean):void
+    {
+        popUpTransition.resizeApplication = value;
     }
 
     //--------------------------------------------------------------------------
@@ -270,11 +380,15 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (!addedToPopUpManager)
         {
             addedToPopUpManager = true;
+            
+            // install transition
+            if (popUpTransition)
+                popUpTransition.popUp = this;
 
             // This will create the skin and attach it
             PopUpManager.addPopUp(this, owner, modal);
             
-            positionPopUp();
+            updatePopUpPosition();
         }
 
         // Change state *after* we pop up, as the skin needs to go be in the initial "closed"
@@ -288,14 +402,20 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     }
     
     /**
-     *  Positions the popUp after the popUp is added to PopUpManager but before any
-     *  state transitions occur.
+     *  Positions the pop-up after the pop-up is added to PopUpManager but
+     *  before any state transitions occur. The base implementation of open()
+     *  calls updatePopUpPosition() immediately after the pop-up is added.
+     * 
+     *  This method may also be called at any time to update the pop-up's
+     *  position. Pop-ups that are positioned relative to their owner should
+     *  call this method after position or size changes occur on the owner or
+     *  it's ancestors.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected function positionPopUp():void
+    public function updatePopUpPosition():void
     {
         // subclasses will implement custom positioning
         // e.g. PopUpManager.centerPopUp()
@@ -396,6 +516,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         }
         else
         {
+            // uninstall transition
+            if (popUpTransition)
+                popUpTransition.popUp = null;
+            
             // Dispatch the close event before removing from the PopUpManager.
             dispatchEvent(closeEvent);
             closeEvent = null;
