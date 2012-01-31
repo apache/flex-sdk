@@ -374,7 +374,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  at a time.</p>
      * 
      *  <p>If the content is an Array, do not modify the Array 
-     *  directly. Use the methods defined by Group class instead. </p>
+     *  directly. Use the methods defined by the Group class instead.</p>
      *
      *  @default null
      *  
