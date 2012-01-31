@@ -282,6 +282,8 @@ public class PopUpAnchor extends UIComponent
     
     private var _popUpPosition:String = PopUpPosition.TOP_LEFT;
     
+    [Inspectable(category="General", enumeration="left,right,above,below,center,topLeft", defaultValue="topLeft")]
+    
     /**
      *  Position of the <code>popUp</code> control when it is opened, relative
      *  to the PopUpAnchor component.
