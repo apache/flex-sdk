@@ -9,12 +9,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components.baseClasses
 {
     
 import flash.events.Event;
 
-import flex.core.SkinnableComponent;
+import mx.components.baseClasses.FxComponent;
 
 import mx.events.FlexEvent;
 
@@ -35,12 +35,12 @@ import mx.events.FlexEvent;
  *  <p>Range is a base class for various controls that require Range
  *  functionality, including TrackBase and Spinner.</p>
  * 
- *  @see flex.component.TrackBase
- *  @see flex.component.Spinner
+ *  @see mx.components.TrackBase
+ *  @see mx.components.Spinner
  */  
-public class Range extends SkinnableComponent
+public class FxRange extends FxComponent
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -51,7 +51,7 @@ public class Range extends SkinnableComponent
     /**
      *  Constructor. 
      */
-    public function Range():void
+    public function FxRange():void
     {
         super();
     }
