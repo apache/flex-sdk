@@ -235,21 +235,23 @@ use namespace mx_internal;
 [DefaultTriggerEvent("change")]
 
 /**
- *  A Halo Accordion navigator container has a collection of child Halo containers,
- *  but only one of them at a time is visible.
+ *  An MX Accordion navigator container has a collection of child MX containers
+ *  or Spark NavigatorContent containers, but only one of them at a time is visible.
  *  It creates and manages navigator buttons (accordion headers), which you use
  *  to navigate between the children.
- *  There is one navigator button associated with each child Halo container,
+ *  There is one navigator button associated with each child container,
  *  and each navigator button belongs to the Accordion container, not to the child.
  *  When the user clicks a navigator button, the associated child container
  *  is displayed.
  *  The transition to the new child uses an animation to make it clear to
  *  the user that one child is disappearing and a different one is appearing.
  * 
- *  <p><b>Note:</b> The direct children of a Halo navigator container must be 
- *  Halo containers, either Halo layout or Halo navigator containers. 
- *  You cannot directly nest a control or a Spark container within a navigator; 
- *  they must be children of a child Halo container.</p>
+ *  <p><b>Note:</b> The direct children of an MX navigator container must be 
+ *  MX containers, either MX layout or MX navigator containers, 
+ *  or the Spark NavigatorContent container. 
+ *  You cannot directly nest a control or a Spark container 
+ *  other than the Spark NavigatorContent container within a navigator; 
+ *  they must be children of an child MX container.</p>
  *
  *  <p>The Accordion container does not extend the ViewStack container,
  *  but it implements all the properties, methods, styles, and events
