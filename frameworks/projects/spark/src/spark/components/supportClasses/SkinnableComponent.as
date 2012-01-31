@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import flash.display.DisplayObject;
@@ -18,7 +18,7 @@ import flash.geom.Point;
 import flash.system.ApplicationDomain;
 import flash.utils.*;
 
-import mx.components.Skin;
+import spark.components.supportClasses.Skin;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IFlexModuleFactory;
@@ -81,8 +81,8 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
 [ResourceBundle("components")]
 
 /**
- *  The FxComponent class defines the base class for skinnable components. 
- *  The skins used by a FxComponent class are child classes of the Skin class.
+ *  The SkinnableComponent class defines the base class for skinnable components. 
+ *  The skins used by a SkinnableComponent class are child classes of the Skin class.
  *
  *  <p>Associate a skin class with a component class by setting the <code>skinClass</code> style property of the 
  *  component class. You can set the <code>skinClass</code> property in CSS, as the following example shows:</p>
@@ -105,7 +105,7 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxComponent extends UIComponent
+public class SkinnableComponent extends UIComponent
 {
     include "../../core/Version.as";
 
@@ -123,7 +123,7 @@ public class FxComponent extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxComponent()
+    public function SkinnableComponent()
     {
         // Initially state is dirty
         skinStateIsDirty = true;
@@ -360,7 +360,7 @@ public class FxComponent extends UIComponent
      *  Button component could return the String "up", "down", "over", or "disabled" 
      *  to specify the state.
      * 
-     *  <p>A subclass of FxComponent must override this method to return a value.</p>
+     *  <p>A subclass of SkinnableComponent must override this method to return a value.</p>
      * 
      *  @return A string specifying the name of the state to apply to the skin.
      *  
@@ -403,7 +403,7 @@ public class FxComponent extends UIComponent
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls 
      *  the <code>UIComponent.commitProperties()</code> method.
-     *  Typically, a subclass of FxComponent does not override this method.
+     *  Typically, a subclass of SkinnableComponent does not override this method.
      * 
      *  <p>This method instantiates the skin for the component, 
      *  adds the skin as a child of the component, and 
@@ -469,7 +469,7 @@ public class FxComponent extends UIComponent
      *  Find the skin parts in the skin class and assign them to the properties of the component.
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-     *  Typically, a subclass of FxComponent does not override this method.
+     *  Typically, a subclass of SkinnableComponent does not override this method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -511,7 +511,7 @@ public class FxComponent extends UIComponent
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
      *
-     *  <p>Typically, subclasses of FxComponent do not override this method.</p>
+     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -555,7 +555,7 @@ public class FxComponent extends UIComponent
      *
      *  This method removes the skin and clears all part associations.
      *
-     *  <p>Typically, subclasses of FxComponent do not override this method.</p>
+     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
