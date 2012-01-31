@@ -95,7 +95,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  A value of <code>undefined</code> means background gradient is generated
  *  based on the <code>backgroundColor</code> property.
  *
- *  @default [0xFFFFFF, 0xFFFFFF] 
+ *  @default undefined 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -217,7 +217,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  * 
  *    <strong>Styles</strong> 
  *    backgroundGradientAlphas="[ 1.0, 1.0 ]"
- *    backgroundGradientColors="[0xFFFFFF, 0xFFFFFF]"
+ *    backgroundGradientColors="undefined"
  *    horizontalAlign="center|left|right"
  *    horizontalGap="8"
  *    modalTransparency="0.5"
