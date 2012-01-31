@@ -528,7 +528,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return richEditableText.maxWidth;
             
         // want the default to be default max width for UIComponent
-        var v:* = textDisplayProperties.maxWidth;
+        var v:* = textDisplay ? undefined : textDisplayProperties.maxWidth;
         return (v === undefined) ? super.maxWidth : v;        
     }
 
@@ -740,7 +740,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return richEditableText.imeMode;
             
         // want the default to be null
-        var v:* = textDisplayProperties.imeMode;
+        var v:* = textDisplay ? undefined : textDisplayProperties.imeMode;
         return (v === undefined) ? null : v;
     }
 
@@ -753,7 +753,8 @@ public class SkinnableTextBase extends SkinnableComponent
 
         if (textDisplay)
         {
-            richEditableText.imeMode = value;
+			if (richEditableText)
+            	richEditableText.imeMode = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
@@ -964,7 +965,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return richEditableText.selectionHighlighting;
             
         // want the default to be "when focused"
-        var v:* = textDisplayProperties.selectionHighlighting;
+        var v:* = textDisplay ? undefined : textDisplayProperties.selectionHighlighting;
         return (v === undefined) ? TextSelectionHighlighting.WHEN_FOCUSED : v;
     }
     
@@ -1301,7 +1302,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return richEditableText.heightInLines;
             
         // want the default to be NaN
-        var v:* = textDisplayProperties.heightInLines;        
+        var v:* = textDisplay ? undefined : textDisplayProperties.heightInLines;        
         return (v === undefined) ? NaN : v;
     }
 
@@ -1343,7 +1344,7 @@ public class SkinnableTextBase extends SkinnableComponent
         // text, textFlow or content and then get it in another form.
 
         // want the default to be null
-        var v:* = textDisplayProperties.textFlow;
+        var v:* = textDisplay ? undefined : textDisplayProperties.textFlow;
         return (v === undefined) ? null : v;
     }
     
@@ -1390,7 +1391,7 @@ public class SkinnableTextBase extends SkinnableComponent
 			return richEditableText.typicalText;
 		
 		// want the default to be null
-		var v:* = textDisplayProperties.typicalText;
+		var v:* = textDisplay ? undefined : textDisplayProperties.typicalText;
 		return (v === undefined) ? null : v;
 	}
 	
@@ -1434,7 +1435,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return richEditableText.widthInChars
             
         // want the default to be NaN
-        var v:* = textDisplayProperties.widthInChars;
+        var v:* = textDisplay ? undefined : textDisplayProperties.widthInChars;
         return (v === undefined) ? NaN : v;
     }
 
