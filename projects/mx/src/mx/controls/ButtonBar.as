@@ -103,14 +103,14 @@ use namespace mx_internal;
 [Style(name="firstButtonStyleName", type="String", inherit="no")]
 
 /**
- * Horizontal alignment of all buttons within the ButtonBar. Since individual 
- * buttons stretch to fill the entire ButtonBar, this style is only useful if you
- * use the buttonWidth style and the combined widths of the buttons are less than
- * than the width of the ButtonBar.
- * Possible values are <code>"left"</code>, <code>"center"</code>,
- * and <code>"right"</code>.
+ *  Horizontal alignment of all buttons within the ButtonBar. Since individual 
+ *  buttons stretch to fill the entire ButtonBar, this style is only useful if you
+ *  use the buttonWidth style and the combined widths of the buttons are less than
+ *  than the width of the ButtonBar.
+ *  Possible values are <code>"left"</code>, <code>"center"</code>,
+ *  and <code>"right"</code>.
  *
- * @default "center"
+ *  @default "center"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -122,7 +122,8 @@ use namespace mx_internal;
 /**
  *  Number of pixels between children in the horizontal direction.
  *
- *  @default 0
+ *  The default value for the Halo theme is <code>0</code>.
+ *  The default value for the Spark theme is <code>-1</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -140,32 +141,18 @@ use namespace mx_internal;
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
- *//**
- * Vertical alignment of all buttons within the ButtonBar. Since individual 
- * buttons stretch to fill the entire ButtonBar, this style is only useful if you
- * use the buttonHeight style and the combined heights of the buttons are less than
- * than the width of the ButtonBar.
- * Possible values are <code>"top"</code>, <code>"middle"</code>,
- * and <code>"bottom"</code>.
- *
- * @default "middle"
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 [Style(name="lastButtonStyleName", type="String", inherit="no")]
 
 /**
- * Vertical alignment of all buttons within the ButtonBar. Since individual 
- * buttons stretch to fill the entire ButtonBar, this style is only useful if you
- * use the buttonHeight style and the combined heights of the buttons are less than
- * than the width of the ButtonBar.
- * Possible values are <code>"top"</code>, <code>"middle"</code>,
- * and <code>"bottom"</code>.
+ *  Vertical alignment of all buttons within the ButtonBar. Since individual 
+ *  buttons stretch to fill the entire ButtonBar, this style is only useful if you
+ *  use the buttonHeight style and the combined heights of the buttons are less than
+ *  than the width of the ButtonBar.
+ *  Possible values are <code>"top"</code>, <code>"middle"</code>,
+ *  and <code>"bottom"</code>.
  *
- * @default "middle"
+ *  @default "middle"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
