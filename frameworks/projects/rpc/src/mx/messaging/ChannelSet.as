@@ -33,6 +33,7 @@ import mx.messaging.messages.ErrorMessage;
 import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.rpc.AsyncDispatcher;
 import mx.rpc.AsyncToken;
 import mx.rpc.events.AbstractEvent;
 import mx.rpc.events.FaultEvent;
@@ -1153,7 +1154,7 @@ public class ChannelSet extends EventDispatcher
                 var ack:AcknowledgeMessage = new AcknowledgeMessage();
                 ack.clientId = agent.clientId;
                 ack.correlationId = message.messageId;
-                agent.acknowledge(ack, message);
+                new AsyncDispatcher(agent.acknowledge, [ack, message], 1);
                 return; 
             }
                               
