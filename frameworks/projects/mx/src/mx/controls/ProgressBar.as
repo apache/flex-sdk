@@ -1465,7 +1465,7 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
         //trace("_content x",_content.x,"y",_content.y,"w",_content.width,"h",_content.height);
 
         _labelField.text = getFullLabelText();
-        // TODO redundant? the IF below does this
+        // FIXME (gruehle): redundant? the IF below does this
         _indeterminateBar.visible = _indeterminate;
 
         if (indeterminateChanged || visibleChanged)
