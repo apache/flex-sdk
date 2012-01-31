@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- controls\button\RBEvent.mxml -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo">
+    
+    <fx:Script>
+        <![CDATA[   
+            
+            import flash.events.Event;
+            
+            private function handleNonstop(event:Event):void {
+                // Handle event.
+                myTA.text="You selected nonstop flights";
+            }
+            
+            private function handleOneStop(event:Event):void {
+                // Handle event.
+                myTA.text="You selected one stop";
+            }
+            
+            private function handleTwoStops(event:Event):void {
+                // Handle event.
+                myTA.text="You selected two stops";
+            }
+        ]]>
+    </fx:Script>
+    <s:VGroup paddingLeft="10" paddingTop="10">
+        <s:RadioButton groupName="numStops" 
+                       id="nonStop"
+                       label="Nonstop flights only" 
+                       width="150" 
+                       click="handleNonstop(event);"/>
+        <s:RadioButton groupName="numStops" 
+                       id="oneStop"
+                       label="One stop" 
+                       width="150" 
+                       click="handleOneStop(event);"/>
+        <s:RadioButton groupName="numStops" 
+                       id="twoStops"
+                       label="Two stops" 
+                       width="150" 
+                       click="handleTwoStops(event);"/>
+        <s:TextArea id="myTA"/>
+    </s:VGroup>
+</s:Application>
