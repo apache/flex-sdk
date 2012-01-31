@@ -620,6 +620,12 @@ public class List extends ListBase implements IFocusManagerComponent
         super.useVirtualLayout = value;
     }
     
+    //----------------------------------
+    //  dataProvider
+    //----------------------------------
+
+    [Inspectable(category="Data")]
+    
     /**
      *  @private
      *  
@@ -658,6 +664,8 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      */
     private var _allowMultipleSelection:Boolean = false;
+
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  If <code>true</code> multiple selection is enabled. 
@@ -874,6 +882,7 @@ public class List extends ListBase implements IFocusManagerComponent
     
     [Bindable("change")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
     
     /**
      *  A Vector of ints representing the indices of the currently selected  
@@ -953,6 +962,7 @@ public class List extends ListBase implements IFocusManagerComponent
 
     [Bindable("change")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General")]
     
     /**
      *  A Vector of Objects representing the currently selected data items. 
