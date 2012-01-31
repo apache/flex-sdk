@@ -451,6 +451,7 @@ public class Grid extends Group
             return;
         
         _caretIndicator = value;
+        invalidateDisplayList();
         dispatchChangeEvent("caretIndicatorChanged");
     }    
     
@@ -603,6 +604,7 @@ public class Grid extends Group
             return;
         
         _hoverIndicator = value;
+        invalidateDisplayList();
         dispatchChangeEvent("hoverIndicatorChanged");
     }    
     
@@ -1007,6 +1009,7 @@ public class Grid extends Group
             return;
         
         _columnSeparator = value;
+        invalidateDisplayList();
         dispatchChangeEvent("columnSeparatorChanged");
     }    
     
@@ -1369,6 +1372,7 @@ public class Grid extends Group
             return;
         
         _rowBackground = value;
+        invalidateDisplayList();
         dispatchChangeEvent("rowBackgroundChanged");
     }
     
@@ -1458,6 +1462,7 @@ public class Grid extends Group
             return;
         
         _rowSeparator = value;
+        invalidateDisplayList();
         dispatchChangeEvent("rowSeparatorChanged");
     }    
     
@@ -1881,6 +1886,7 @@ public class Grid extends Group
             return;
         
         _selectionIndicator = value;
+        invalidateDisplayList();
         dispatchChangeEvent("selectionIndicatorChanged");
     }    
     
