@@ -70,8 +70,8 @@ use namespace mx_internal;
 [Bindable(event="operationsChange")]
 
 /**
- * The AbstractService class is the base class for the WebService and
- * RemoteObject classes. This class does the work of creating Operations
+ * The AbstractService class is the base class for the HTTPMultiService, WebService, 
+ * and RemoteObject classes. This class does the work of creating Operations
  * which do the actual execution of remote procedure calls.
  *  
  *  @langversion 3.0
