@@ -828,12 +828,10 @@ public class ScrollBarBase extends TrackBase
                 ((increment && value < maximum) ||
                  (!increment && value > minimum)))
             {
-                // FIXME (chaase): what's a reasonable stepSize? Can't use viewport's because
-                // it can vary widely depending on what items are in the view. Can't use
-                // default stepSize because it can be quite small if not changed by
-                // the scroller. 1/10th of pageSize seems reasonable, but will result
-                // in a different total duration with animated vs. non-animated stepping
-                animateStepping(increment ? maximum : minimum, pageSize/10);
+                // Default stepSize may be too small to be useful here; use fraction of
+                // pageSize if it's larger
+                animateStepping(increment ? maximum : minimum, 
+                    Math.max(pageSize/10, stepSize));
             }
             return;
         }
