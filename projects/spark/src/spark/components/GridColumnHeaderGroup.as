@@ -582,9 +582,7 @@ package spark.components
         //----------------------------------
         //  itemRenderer
         //----------------------------------
-        
-        private var _itemRenderer:IFactory = null;
-        
+                
         [Bindable("itemRendererChanged")]
         
         /**
@@ -605,10 +603,10 @@ package spark.components
          */
         override public function get itemRenderer():IFactory
         {
-            if (!_itemRenderer)
-                _itemRenderer = new ClassFactory(DefaultColumnHeaderRenderer);
+            if (!super.itemRenderer)
+                itemRenderer = new ClassFactory(DefaultColumnHeaderRenderer);
             
-            return _itemRenderer;
+            return super.itemRenderer;
         }
         
         /**
@@ -616,10 +614,10 @@ package spark.components
          */
         override public function set itemRenderer(value:IFactory):void
         {
-            if (_itemRenderer == value)
+            if (super.itemRenderer == value)
                 return;
             
-            _itemRenderer = value;
+            super.itemRenderer = value;
             
             dispatchChangeEvent("itemRendererChanged");
         }
