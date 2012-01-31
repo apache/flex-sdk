@@ -15,12 +15,29 @@ import flash.events.Event;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 import spark.components.Group;
 import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.ItemRenderer;
 
 use namespace mx_internal;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the bindable <code>data</code> property changes.
+ *
+ *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
  *  A convenient base class for custom grid item renderers.   Grid item renderers
@@ -129,7 +146,10 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
             return;
         
         _data = value;
-        dispatchChangeEvent("dataChange");
+        
+        const eventType:String = "dataChange"; 
+        if (hasEventListener(eventType))
+            dispatchEvent(new FlexEvent(eventType));  
     }
     
     //----------------------------------
