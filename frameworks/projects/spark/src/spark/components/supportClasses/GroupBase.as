@@ -701,8 +701,8 @@ public class GroupBase extends UIComponent implements IViewport
      *  @private
      *  Storage for the mouseOpaque property
      */
-    private var _mouseOpaque:Boolean = true;
-    protected var mouseEventReferenceCount:int;
+    private var _mouseEnabledWhereTransparent:Boolean = true;
+    private var mouseEventReferenceCount:int;
 
     [Inspectable(category="General")]
     
@@ -718,20 +718,20 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get mouseOpaque():Boolean
+    public function get mouseEnabledWhereTransparent():Boolean
     {
-        return _mouseOpaque;
+        return _mouseEnabledWhereTransparent;
     }
     
     /**
      *  @private
      */
-    public function set mouseOpaque(value:Boolean):void
+    public function set mouseEnabledWhereTransparent(value:Boolean):void
     {
-        if (value == _mouseOpaque)
+        if (value == _mouseEnabledWhereTransparent)
             return;
             
-        _mouseOpaque = value;
+        _mouseEnabledWhereTransparent = value;
 
         if (_hasMouseListeners)
             invalidateDisplayList();
@@ -745,7 +745,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     protected function renderFillForMouseOpaque():void
     {
-        if (!_mouseOpaque || !_hasMouseListeners)
+        if (!_mouseEnabledWhereTransparent || !_hasMouseListeners)
             return;
         
         var w:Number = (_resizeMode == _SCALE_UINT) ? measuredWidth : unscaledWidth;
@@ -776,7 +776,7 @@ public class GroupBase extends UIComponent implements IViewport
      */  
     mx_internal function set hasMouseListeners(value:Boolean):void
     {
-        if (_mouseOpaque)
+        if (_mouseEnabledWhereTransparent)
             $invalidateDisplayList();
 	_hasMouseListeners = value;
     }
@@ -817,10 +817,11 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
+     *  @private
      *  Called when the child transform changes (currently x and y on UIComponent),
      *  so that the Group has a chance to invalidate the layout. 
      */
-    public function childTransformChanged():void
+    override mx_internal function childXYChanged():void
     {
         if (autoLayout)
         {
@@ -998,9 +999,9 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
+    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
     {
-        return (layout) ? layout.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
+        return (layout) ? layout.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
     }
     
     /**
@@ -1011,9 +1012,9 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
-        return (layout) ? layout.getVerticalScrollPositionDelta(scrollUnit) : 0;     
+        return (layout) ? layout.getVerticalScrollPositionDelta(navigationUnit) : 0;     
     }
     
     //--------------------------------------------------------------------------
