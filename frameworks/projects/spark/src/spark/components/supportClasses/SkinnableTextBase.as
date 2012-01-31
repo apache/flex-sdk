@@ -1010,14 +1010,15 @@ public class TextBase extends SkinnableComponent
         {
             if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
             {
-                setSelection(int.MAX_VALUE, int.MAX_VALUE);
+                setSelection(
+                    mx_internal::_text.length, mx_internal::_text.length);
             }
             
             // Only editable text should have a focus ring.
             if (focusManager)
                 focusManager.showFocusIndicator = true;
         }
-        
+                 
         super.focusInHandler(event);
     }
 
