@@ -17,10 +17,12 @@ import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
+import mx.core.mx_internal;
 import mx.events.EffectEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
+import spark.effects.KeyFrame;
 import spark.effects.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
@@ -28,6 +30,8 @@ import spark.effects.easing.Sine;
 import spark.effects.interpolation.ArrayInterpolator;
 import spark.effects.interpolation.IInterpolator;
 import spark.effects.interpolation.NumberInterpolator;
+
+use namespace mx_internal;
 
 [DefaultProperty("motionPaths")]
 
@@ -123,7 +127,7 @@ public final class Animation
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Animation(duration:Number = 0, property:String = null,
+    public function Animation(duration:Number = 500, property:String = null,
         startValue:Object = null, endValue:Object = null)
     {
         this.duration = duration;
@@ -293,13 +297,15 @@ public final class Animation
      *  The length of time, in milliseconds, of the animation,
      *  not counting any repetitions defined by 
      *  the <code>repeatCount</code> property.
+     * 
+     * @default 500
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var duration:Number;
+    public var duration:Number = 500;
 
     //----------------------------------
     //  repeatBehavior
@@ -924,6 +930,31 @@ public final class Animation
     {
         // stop an already-playing animation first
         stop();
+        
+        // Make sure the time values in our motion paths are reasonable
+        // SimpleMotionPath objects may be set up with no time values, so
+        // we have to fill in those values from the duration when necessary
+        var i:int;
+        var j:int;
+        for (i = 0; i < motionPaths.length; ++i)
+        {
+            var keyframes:Array = motionPaths[i].keyframes;
+            if (isNaN(keyframes[0].time))
+                keyframes[0].time = 0;
+            // Create an initial (time==0) value if necessary 
+            else if (keyframes[0].time > 0)
+            {
+                keyframes.splice(0, 0, new KeyFrame(0, null));
+                keyframes[0].timeFraction = 0;
+            }
+            for (j = 1; j < keyframes.length; ++j)
+            {
+                if (isNaN(keyframes[j].time))
+                    keyframes[j].time = duration;
+            }
+        }
+        for (i = 0; i < motionPaths.length; ++i)
+            motionPaths[i].scaleKeyframes(duration);
         
         if (startDelay > 0)
             addToDelayedAnimations(startDelay);
