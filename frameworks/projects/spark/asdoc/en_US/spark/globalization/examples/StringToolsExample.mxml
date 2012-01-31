@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sample program for spark.globalization.StringTools -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <fx:Declarations>
+        <s:StringTools id="stringTools" />
+    </fx:Declarations>
+
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+
+            private static const localeList:ArrayCollection
+                = new ArrayCollection([
+                    { label:"Turkish (tr)", data:"tr" },
+                    { label:"Greek (el)", data:"el" },
+                    { label:"German (de)", data:"de" },
+                    { label:"English (en)", data:"en" } ]);
+
+            private static const inputString:String =
+                "aáḁæａ Iıİi (Turkish), σςΣΣ (Greek), SSß (German), bβв (Latin/Greek/Cyrillic)";
+        ]]>
+    </fx:Script>
+
+    <mx:Form width="100%">
+        <mx:FormItem label="Select Language">
+            <mx:ComboBox id="localeSelector"
+                change="setStyle('locale', localeSelector.selectedItem.data);"
+                dataProvider="{localeList}"/>
+        </mx:FormItem>
+        <mx:FormItem label="Actual Locale ID Name">
+            <mx:Text text="{stringTools.actualLocaleIDName}"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="Upper Case Result">
+            <mx:Text width="100%"
+                text="{stringTools.toUpperCase(inputString)}"/>
+        </mx:FormItem>
+        <mx:FormItem width="100%" label="Lower Case Result">
+            <mx:Text width="100%"
+                text="{stringTools.toLowerCase(inputString)}"/>
+        </mx:FormItem>
+    </mx:Form>
+</s:Application>
