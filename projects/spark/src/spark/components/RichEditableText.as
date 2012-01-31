@@ -739,7 +739,7 @@ public class TextView extends UIComponent implements IViewport
         // Apply the specified selection indices to the TextFlow.
         if (selectionAnchorPositionChanged || selectionActivePositionChanged)
         {
-            textFlow.interactionManager.setActiveSelection(
+            textFlow.interactionManager.setSelection(
                 _selectionAnchorPosition, _selectionActivePosition);
             
             selectionAnchorPositionChanged = false;
@@ -806,7 +806,7 @@ public class TextView extends UIComponent implements IViewport
         var displayController:IFlowComposer = textFlow.flowComposer;
         var containerController:IContainerController =
             displayController.getControllerAt(0);
-        containerController.updateComposeSize(unscaledWidth, unscaledHeight);
+        containerController.setCompositionSize(unscaledWidth, unscaledHeight);
         displayController.updateAllContainers();
     }
 
@@ -854,8 +854,8 @@ public class TextView extends UIComponent implements IViewport
 		var textFlow:TextFlow = new TextFlow();
 		var p:ParagraphElement = new ParagraphElement();
 		var span:SpanElement = new SpanElement();
-		textFlow.replaceElements(0, 0, p);
-		p.replaceElements(0, 0, span);
+		textFlow.replaceChildren(0, 0, p);
+		p.replaceChildren(0, 0, span);
 		return textFlow;
 	}
 	
@@ -1012,7 +1012,7 @@ public class TextView extends UIComponent implements IViewport
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
     {
-        textFlow.interactionManager.setActiveSelection(anchorPosition, activePosition);
+        textFlow.interactionManager.setSelection(anchorPosition, activePosition);
     }
     
     /**
@@ -1035,7 +1035,7 @@ public class TextView extends UIComponent implements IViewport
      */
     public function appendText(text:String):void
     {
-        textFlow.interactionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
+        textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
         EditManager(textFlow.interactionManager).insertText(text);
     }
 
@@ -1207,10 +1207,8 @@ public class TextView extends UIComponent implements IViewport
         var containerController:IContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
-        var newContentWidth:Number =
-            containerController.maxHorizontalScrollPosition;
-        var newContentHeight:Number =
-            containerController.maxVerticalScrollPosition;
+        var newContentWidth:Number = containerController.contentWidth;
+        var newContentHeight:Number = containerController.contentHeight;
         
         if (newContentWidth != _contentWidth ||
             newContentHeight != _contentHeight)
