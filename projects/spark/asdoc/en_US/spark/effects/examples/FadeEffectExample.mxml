@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the s:Fade class. -->
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/halo"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Declarations>
+        <s:Fade id="fadeEffect" target="{targetBox}" alphaFrom="1" alphaTo="0"
+	        repeatCount="2" repeatBehavior="reverse" effectStart="playButton.enabled=false"
+	        effectEnd="playButton.enabled=true;"/>
+    </fx:Declarations>
+
+    <s:Panel title="Fade Effect Example"
+    	width="75%" height="75%">
+
+        <mx:HBox width="100%" height="100%" paddingLeft="5" paddingTop="5">
+            <!-- Our target to affect-->
+            <mx:VBox id="targetBox" width="50%"  horizontalAlign="center">
+                <mx:Label text="Nokia 9930"/>
+                <mx:Image id="targetImg" source="@Embed(source='assets/Nokia_6630.png')"/>
+            </mx:VBox>
+            <mx:VBox id="detailsBox" width="50%" left="0">
+                <mx:Text width="99%" color="blue"
+		        	text="The Fade effect changes the alpha of a target using the following parameters: alphaFrom, alphaTo. Click 'Fade' to watch the effect."/>
+            </mx:VBox>
+        </mx:HBox>
+
+        <s:Rect left="0" right="0" bottom="0" height="30">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xE2E2E2" />
+                    <s:GradientEntry color="0xD9D9D9" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Button id="playButton"
+        	left="5" bottom="5"
+        	label="Fade" click="fadeEffect.play();"/>
+    </s:Panel>
+</s:Application>
