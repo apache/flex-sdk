@@ -19,6 +19,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of the thumb in a ScrollBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollThumbSkin extends Border
 {
@@ -78,6 +83,11 @@ public class ScrollThumbSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ScrollThumbSkin()
 	{
