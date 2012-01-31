@@ -21,6 +21,7 @@ import flash.ui.Keyboard;
 
 import mx.collections.IList;
 import mx.core.IFactory;
+import mx.core.IToolTip;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -433,8 +434,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         requestedMinRowCount: uint(1 << 5),
         requestedMinColumnCount: uint(1 << 6),
         rowHeight: uint(1 << 7),
-        typicalItem: uint(1 << 8),
-        variableRowHeight: uint(1 << 9)
+        showDataTips: uint(1 << 8),
+        typicalItem: uint(1 << 9),
+        variableRowHeight: uint(1 << 10),
+        dataTipField: uint(1 << 11),
+        dataTipFunction: uint(1 << 12)        
     };
     
     /**
@@ -463,8 +467,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         requestedMinRowCount: int(-1),
         requestedMinColumnCount: int(-1),
         rowHeight: NaN,
+        showDataTips: false,
         typicalItem: null,
-        variableRowHeight: true            
+        variableRowHeight: true,
+        dataTipField: null,
+        dataTipFunction:null
     };
     
     /** 
@@ -648,6 +655,62 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
+    //  dataTipField (delegates to grid.dataTipField)
+    //----------------------------------    
+    
+    [Bindable("dataTipFieldChanged")]
+    
+    /**
+     *  @copy spark.components.Grid#dataTipField
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get dataTipField():IFactory
+    {
+        return getGridProperty("dataTipField");
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataTipField(value:IFactory):void
+    {
+        if (setGridProperty("dataTipField", value))
+            dispatchChangeEvent("dataTipFieldChanged");
+    }        
+        
+    //----------------------------------
+    //  dataTipFunction (delegates to grid.dataTipFunction)
+    //----------------------------------    
+    
+    [Bindable("dataTipFunctionChanged")]
+    
+    /**
+     *  @copy spark.components.Grid#dataTipFunction
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get dataTipFunction():IFactory
+    {
+        return getGridProperty("dataTipFunction");
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataTipFunction(value:IFactory):void
+    {
+        if (setGridProperty("dataTipFunction", value))
+            dispatchChangeEvent("dataTipFunctionChanged");
+    }        
+
+    //----------------------------------
     //  gridDimensions (private, read-only)
     //----------------------------------
     
@@ -682,7 +745,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  itemRenderer delegates to (delegates to grid.itemRenderer)
+    //  itemRenderer (delegates to grid.itemRenderer)
     //----------------------------------    
     
     [Bindable("itemRendererChanged")]
@@ -950,7 +1013,38 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         const mode:String = selectionMode;        
         return mode == GridSelectionMode.SINGLE_CELL || mode == GridSelectionMode.MULTIPLE_CELLS;
-    } 
+    }
+    
+    //----------------------------------
+    //  showDataTips
+    //----------------------------------
+
+    [Bindable("showDataTipsChanged")]
+    [Inspectable(category="Data", defaultValue="false")]
+    
+    /**
+     *  @copy spark.components.Grid#showDataTips
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get showDataTips():Boolean
+    {
+        return getGridProperty("showDataTips");
+    }
+    
+    /**
+     *  @private
+     */
+    public function set showDataTips(value:Boolean):void
+    {
+        if (setGridProperty("showDataTips", value))
+            dispatchChangeEvent("showDataTipsChanged");
+    }    
     
     //----------------------------------
     //  typicalItem delegates to (delegates to grid.typicalItem)
@@ -2789,7 +2883,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             // positions.
             setSelectionAnchorCaret(rowIndex, columnIndex);
         }
-    } 
+    }
     
     //--------------------------------------------------------------------------
     //
