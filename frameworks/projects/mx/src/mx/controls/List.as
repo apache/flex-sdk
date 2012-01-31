@@ -61,7 +61,7 @@ import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.styles.StyleManager;
 import mx.collections.ItemWrapper;
 import mx.collections.ModifiedCollectionView;
@@ -2061,7 +2061,8 @@ public class List extends ListBase implements IIMESupport
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
         // we disappear on any mouse down outside the editor
         // use weak reference
-        systemManager.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.getSandboxRoot().
+            addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
 
     }
 
@@ -2125,8 +2126,8 @@ public class List extends ListBase implements IIMESupport
         if (itemEditorInstance)
         {
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
-            if (stage)
-                stage.removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
+            systemManager.getSandboxRoot().
+                removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
 
             var event:ListEvent =
                 new ListEvent(ListEvent.ITEM_FOCUS_OUT);
