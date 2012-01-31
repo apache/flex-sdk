@@ -3760,8 +3760,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function grid_MouseDownHandler(event:GridEvent):void
     {
+        const isCellSelection:Boolean = isCellSelectionMode();
+
         const rowIndex:int = event.rowIndex;
-        var columnIndex:int = isRowSelectionMode() ? -1 : event.columnIndex;
+        const columnIndex:int = isCellSelection ? event.columnIndex : -1;
+        
+        // Clicked on empty place in grid.  Don't change selection or caret
+        // position.
+        if (rowIndex == -1 || isCellSelection && columnIndex == -1)
+            return;
         
         if (event.ctrlKey)
         {
