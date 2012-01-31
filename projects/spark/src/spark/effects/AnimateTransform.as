@@ -28,6 +28,8 @@ import mx.styles.IStyleClient;
 import spark.core.IGraphicElement;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 use namespace mx_internal;
@@ -161,6 +163,20 @@ public class AnimateTransform extends Animate
     //
     //--------------------------------------------------------------------------
 
+    // By default, the overall AnimateTransform effect (when instantiated by
+    // the leaf-node subclasses Move, Move3D, Rotate, etc.) uses Linear easing,
+    // but each keyframe pair uses the regular Sine(.5) easing. This mimics the
+    // behavior of other effects that just have Sine(.5) easing for their motion.
+    private static var linearEaser:Linear = new Linear();
+    
+    // This variable is used to detect whether the transform effect was created
+    // via one of the known subclasses (Move, Move3D, Rotate, etc.) or whether it
+    // was created directly (AnimateTransform or AnimateTransform3D). If created
+    // directly, assume the developer knows what they're doing and pass the
+    // easer onto the effect instance. Otherwise, use the easing approach 
+    // described in the comment for linearEaser above.
+    mx_internal var transformEffectSubclass:Boolean = false;
+    
     // FIXME (chaase): Is weak Dictionary sufficient to hold these values and then
     // dispense with them appropriately? What if we get interrupted before we
     // clear the map?
@@ -917,7 +933,12 @@ public class AnimateTransform extends Animate
         var mp:MotionPath = new MotionPath(property);
         mp.keyframes = new <Keyframe>[new Keyframe(0, valueFrom),
             new Keyframe(duration, valueTo, valueBy)];
-
+        // For transform effect subclasses (Move, Move3D, Rotate, etc.), we
+        // set the easing on the keyframes and leave the overall effect easing
+        // Linear. Otherwise, we end up with artifacts like including the
+        // startDelay in the easing because startDelay happens via keyframes
+        mp.keyframes[1].easer = easer;
+        
         // Finally, integrate this MotionPath in with the existing
         // MotionPath objects, if there are any
         if (motionPaths)
@@ -1061,6 +1082,11 @@ public class AnimateTransform extends Animate
         super.initInstance(instance);
         startDelay = tmpStartDelay;
         motionPaths = tmpAnimProps;
+        // For transform effect subclasses (Move, Move3D, Rotate, etc.), 
+        // override default easer on the instance. We want the overall easing
+        // to be Linear, with the Keyframes controlling the per-interval easing
+        if (transformEffectSubclass)
+            transformInstance.easer = linearEaser;
     }
 
     /**
