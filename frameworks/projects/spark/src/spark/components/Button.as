@@ -757,8 +757,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
         // Check if the label text is truncated
         // TODO EGeorgie: use TextGraphicElement API to check for truncated text.
         labelField.validateNow();
-        var truncated:Boolean = labelField.getLayoutWidth() < labelField.getPreferredWidth() ||
-                                labelField.getLayoutHeight() < labelField.getPreferredHeight();
+        var truncated:Boolean = labelField.getLayoutBoundsWidth() < labelField.getPreferredBoundsWidth() ||
+                                labelField.getLayoutBoundsHeight() < labelField.getPreferredBoundsHeight();
         
         // If the label is truncated, show the whole label string as a tooltip
         super.toolTip = truncated ? labelField.text : null;
