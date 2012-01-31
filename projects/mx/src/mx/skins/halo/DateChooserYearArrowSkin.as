@@ -13,7 +13,6 @@ package mx.skins.halo
 {
 
 import flash.display.Graphics;
-import mx.core.FlexVersion;
 import mx.skins.Border;
 import mx.utils.ColorUtil;
 
@@ -76,7 +75,7 @@ public class DateChooserYearArrowSkin extends Border
 	 */
 	override public function get measuredHeight():Number
 	{
-		return FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ? 4 : 6;
+		return 6;
 	}
 	
 	//--------------------------------------------------------------------------
