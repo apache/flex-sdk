@@ -971,13 +971,13 @@ public class GridLayout extends LayoutBase
         return index;
     }
     
-    public function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
+    public function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
         const index:int = getVisibleItemRendererIndex(rowIndex, columnIndex);
         if (index == -1 || index >= visibleItemRenderers.length)
             return null;
         
-        const renderer:IVisualElement = visibleItemRenderers[index];
+        const renderer:IGridItemRenderer = visibleItemRenderers[index];
         return renderer;        
     }
     
