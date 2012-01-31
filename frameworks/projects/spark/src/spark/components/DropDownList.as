@@ -735,15 +735,21 @@ public class DropDownList extends DropDownBase
         }    
         else if (event.keyCode == Keyboard.ENTER)
         {
-        	// Close the dropDown and eat the event
-            closeDropDown(true);
-            event.stopPropagation();
+            // Close the dropDown and eat the event if appropriate.
+            if (isOpen)
+            {
+                closeDropDown(true);
+                event.stopPropagation();
+            }
         }
         else if (event.keyCode == Keyboard.ESCAPE)
         {
-        	// Close the dropDown and eat the event
-            closeDropDown(false);
-            event.stopPropagation();
+            // Close the dropDown and eat the event if appropriate.
+            if (isOpen)
+            {
+                closeDropDown(false);
+                event.stopPropagation();
+            }
         }
         else if (event.keyCode == Keyboard.UP ||
                 event.keyCode == Keyboard.DOWN ||
