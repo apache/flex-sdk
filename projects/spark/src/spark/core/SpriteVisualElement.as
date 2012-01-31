@@ -34,6 +34,7 @@ import mx.core.IInvalidating;
 import mx.core.ILayoutDirectionElement;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
+import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.LayoutDirection;
 import mx.core.mx_internal;
@@ -2103,6 +2104,8 @@ public class SpriteVisualElement extends FlexSprite
         // concept of nestLevel for SVE
         if (child is ILayoutManagerClient)
             ILayoutManagerClient(child).nestLevel = 2;
+        else if (child is IUITextField)
+            IUITextField(child).nestLevel = 2;
     }
 
     /**
