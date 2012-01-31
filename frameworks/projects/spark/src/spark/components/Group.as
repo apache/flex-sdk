@@ -33,7 +33,7 @@ import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -1347,8 +1347,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // Inform the component that it's style properties
         // have been fully initialized. Most components won't care,
         // but some need to react to even this early change.
-        if (child is TextGraphicElement)
-            TextGraphicElement(child).stylesInitialized();
+        if (child is TextBase)
+            TextBase(child).stylesInitialized();
+        
+        // FIXME (rfrishbe): Remove above
     }
     
     /**
