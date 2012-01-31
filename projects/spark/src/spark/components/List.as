@@ -33,6 +33,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
+ * 
+ *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -43,6 +45,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
+ *   
+ *  @default 0xFFFFFF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -53,6 +57,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *   
+ *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -63,6 +69,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:selectionColor
+ *
+ *  @default 0xA8C6EE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -73,6 +81,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *   
+ *  @default 0x000000
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -99,6 +109,28 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  when the full width of the list items is unlikely to fit.
  *  The user can select one or more items from the list, depending
  *  on the value of the <code>allowMultipleSelection</code> property.
+ *
+ *  @mxml <p>The <code>&lt;List&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;List
+ *    <strong>Properties</strong>
+ *    allowMultipleSelection="false"
+ *    selectedIndices="null"
+ *    selectedItems="null"
+ *    useVirtualLayout="true"
+ * 
+ *    <strong>Styles</strong>
+ *    alternatingItemColors="undefined"
+ *    contentBackgroundColor="0xFFFFFF"
+ *    rollOverColor="0xCEDBEF"
+ *    selectionColor="0xA8C6EE"
+ *    symbolColor="0x000000"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.default.ListSkin
  *
  *  @includeExample examples/ListExample.mxml
  *  
@@ -166,8 +198,8 @@ public class List extends ListBase implements IFocusManagerComponent
     private var _allowMultipleSelection:Boolean = false;
     
     /**
-     *  Boolean flag controlling whether multiple selection
-     *  is enabled or not. When switched dynamically, selection
+     *  If <code>true</code> multiple selections is enabled. 
+     *  When switched at run time, the current selection
      *  is cleared. 
      *
      *  @default false
@@ -203,10 +235,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     [Bindable("selectionChanged")]
     /**
-     *  Selected indices for this component. If multiple selection 
-     *  is off and this property is set, the first value in 
-     *  the Array will be selected in order to honor single 
-     *  selection.  
+     *  An Array of inidices of the currently selected item or items. 
+     *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
+     *  to <code>false</code>, and this property is set, the data item 
+     *  corresponding to the first index in the Array is selected.  
      *  
      *  @default null
      *  
@@ -235,10 +267,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     [Bindable("selectionChanged")]
     /**
-     *  Selected items for this component. If multiple selection 
-     *  is off and this property is set, the first value in 
-     *  the Array will be selected in order to honor single 
-     *  selection.  
+     *  An Array of the currently selected data items. 
+     *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
+     *  to <code>false</code>, and this property is set, the data item 
+     *  corresponding to the first item in the Array is selected.  
      * 
      *  @default null
      *  
@@ -300,10 +332,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
 
     /**
-     *  A convenience that delegates to <code>layout.useVirtualLayout</code>.  
-     *  If this list's layout is subsequently replaced and the value of this 
-     *  property is true, then then the new layout's <code>useVirtualLayout</code> property 
-     *  will also be true.
+     *  @inheritDoc
      *
      *  @default true
      *  
@@ -778,13 +807,10 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  If the layout element at the specified index isn't completely 
-     *  visible, scroll this IViewport.
+     *  If the data item at the specified index is not completely 
+     *  visible, scroll until it is completely visible.
      * 
-     *  In the future, this method may animate the scroll.
-     * 
-     *  @param index The index of the item that is brought into
-     *  visibility  
+     *  @param index The index of the data item.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -922,6 +948,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
+     *  @private
      *  Used by <code>keyDownHandler</code> to map the keyboard events
      *  to NavigationUnit. The NavigationUnit values are passed to the
      *  layout to figure out what the new item in focus is based on
