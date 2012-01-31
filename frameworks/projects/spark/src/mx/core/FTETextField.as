@@ -3032,8 +3032,13 @@ public class FTETextField extends Sprite
             else if (centerAligned)
                 textLine.x += centerOffset - width / 2;
                 
-            clipWidth = Math.max(clipWidth, textLine.x + textLine.textWidth);
-            
+            // If x < 0 then need to force clipping in validateNow() so text 
+            // won't leak in this direction.
+            if (textLine.x < 0)
+                clipWidth = int.MAX_VALUE;
+            else
+                clipWidth = Math.max(clipWidth, textLine.x + textLine.textWidth);
+                    
             textLine.y += PADDING_TOP;
         }
 	}
