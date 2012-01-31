@@ -298,7 +298,7 @@ include "../styles/metadata/IconColorStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+[Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  The color of the row background when the user rolls over the row.
