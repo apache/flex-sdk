@@ -676,7 +676,7 @@ public class GridLayout extends LayoutBase
         var colIndex:int;
         
         const gridDimensions:GridDimensions = gridDimensions;
-        const rowCount:int = gridDimensions.rowCount;
+        const rowCount:int = gridDimensions.rowCount; 
         const colCount:int = gridDimensions.columnCount;
         const rowGap:int = gridDimensions.rowGap;
         const colGap:int = gridDimensions.columnGap;
@@ -685,32 +685,22 @@ public class GridLayout extends LayoutBase
                 
         const startColIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
-        const startCellR:Rectangle = gridDimensions.getCellBounds(startRowIndex, startColIndex);        
-        
-        // No dataProvider exists or the grid is in a bad state. Clean up and return.
-        if (!startCellR)
-        {
-            for each (var r:IVisualElement in visibleItemRenderers)
-                freeItemRenderer(r);
-                
-            visibleItemRenderers = new Vector.<IVisualElement>();
-            visibleRowIndices = new Vector.<int>();
-            visibleColumnIndices = new Vector.<int>();
-            return;
-        }
+        const startCellX:Number = gridDimensions.getCellX(startRowIndex, startColIndex); 
+        const startCellY:Number = gridDimensions.getCellY(startRowIndex, startColIndex);        
         
         // Compute newVisibleColumns
         
         const newVisibleColumnIndices:Vector.<int> = new Vector.<int>();
         var availableWidth:Number = width;
         
-        for (colIndex = startColIndex; (availableWidth > 0) && (colIndex < colCount); colIndex++)
+        for (colIndex = startColIndex; (availableWidth > 0) && (colIndex >= 0) && (colIndex < colCount); colIndex++)
         {
             newVisibleColumnIndices.push(colIndex);
+            var columnWidth:Number = gridDimensions.getColumnWidth(colIndex);
             if (colIndex == startColIndex)
-                availableWidth -= startCellR.x + startCellR.width - scrollX;
+                availableWidth -= startCellX + columnWidth - scrollX;
             else
-                availableWidth -= gridDimensions.getColumnWidth(colIndex) + colGap;
+                availableWidth -= columnWidth + colGap;
         }
         
         // compute newVisibleRowIndices, newVisibleItemRenderers, layout item renderers
@@ -718,11 +708,11 @@ public class GridLayout extends LayoutBase
         const newVisibleRowIndices:Vector.<int> = new Vector.<int>();
         const newVisibleItemRenderers:Vector.<IVisualElement> = new Vector.<IVisualElement>();
         
-        var cellX:Number = startCellR.x;
-        var cellY:Number = startCellR.y;
+        var cellX:Number = startCellX;
+        var cellY:Number = startCellY;
         var availableHeight:Number = height;
         
-        for (rowIndex = startRowIndex; (availableHeight > 0) && (rowIndex < rowCount); rowIndex++)
+        for (rowIndex = startRowIndex; (availableHeight > 0) && (rowIndex >= 0) && (rowIndex < rowCount); rowIndex++)
         {
             newVisibleRowIndices.push(rowIndex);
             
@@ -770,11 +760,11 @@ public class GridLayout extends LayoutBase
                 }
             } 
                                                
-            cellX = startCellR.x;
+            cellX = startCellX;
             cellY += rowHeight + rowGap;
             
             if (rowIndex == startRowIndex)
-                availableHeight -= startCellR.y + startCellR.height - scrollY;
+                availableHeight -= startCellY + rowHeight - scrollY;
             else
                 availableHeight -= rowHeight + rowGap;            
         }
@@ -786,16 +776,16 @@ public class GridLayout extends LayoutBase
         
         // Update visibleItemRenderersBounds
         
-        if (newVisibleRowIndices.length > 0 && newVisibleColumnIndices.length > 0)
+        if ((newVisibleRowIndices.length > 0) && (newVisibleColumnIndices.length > 0))
         {
             const lastRowIndex:int = newVisibleRowIndices[newVisibleRowIndices.length - 1];
             const lastColIndex:int = newVisibleColumnIndices[newVisibleColumnIndices.length - 1];
             const lastCellR:Rectangle = gridDimensions.getCellBounds(lastRowIndex, lastColIndex);
             
-            visibleItemRenderersBounds.x = startCellR.x;
-            visibleItemRenderersBounds.y = startCellR.y;
-            visibleItemRenderersBounds.width = lastCellR.x + lastCellR.width - startCellR.x;
-            visibleItemRenderersBounds.height = lastCellR.y + lastCellR.height - startCellR.y;
+            visibleItemRenderersBounds.x = startCellX;
+            visibleItemRenderersBounds.y = startCellY; 
+            visibleItemRenderersBounds.width = lastCellR.x + lastCellR.width - startCellX;
+            visibleItemRenderersBounds.height = lastCellR.y + lastCellR.height - startCellY;
         }
         else
         {
