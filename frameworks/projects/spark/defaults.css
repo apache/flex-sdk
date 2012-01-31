@@ -97,13 +97,15 @@ HSlider
 Image
 {
     skinClass: ClassReference("spark.skins.spark.ImageSkin");
+    enableLoadingState: false;
+    smoothingQuality: "default";
 }
 
 List
 {
-	skinClass: ClassReference("spark.skins.spark.ListSkin");
+    skinClass: ClassReference("spark.skins.spark.ListSkin");
     dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
-	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
+    dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
 }
 
 MuteButton
