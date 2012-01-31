@@ -15,7 +15,7 @@ package mx.components
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
-	
+    
 import mx.components.Group;
 import mx.core.IViewport;
 import mx.layout.LayoutBase;
@@ -25,32 +25,23 @@ import mx.components.baseClasses.FxComponent;
 import mx.core.ScrollPolicy;
 import mx.managers.IFocusManagerComponent;
 
-	
+    
 [DefaultProperty("viewport")]
 
 /**
- *  Support for a displaying a single scrollable component, called a
- *  "viewport", and a pair of scrollbars.
- *
- *  The viewport must implement IViewport.  Group and [TBD] implement
- *  IViewport.
+ *  The FxScroller component displays a single scrollable component, 
+ *  called a viewport, and a horizontal and vertical scrollbars. 
+ *  The viewport must implement the IViewport interface.
  * 
- *  The scrollbars control the viewport's horizontalScrollPosition and
- *  verticalScrollPosition properties to make it possible to view the area
- *  defined by the viewport's contentWidth and contentHeight.
+ *  <p>The scrollbars control the viewport's <code>horizontalScrollPosition</code> and
+ *  <code>verticalScrollPosition</code> properties.
+ *  Scrollbars make it possible to view the area defined by the viewport's 
+ *  <code>contentWidth</code> and <code>contentHeight</code> properties.</p>
  * 
- *  Scroller links the scrollbars' pageSize to the viewport's
- *  width and height, and their maximum property to the viewport's
- *  contentWidth and Height less the pageSize.
- *       
- *  <p>
- *  The scrollbars are displayed per the vertical and horizontal scrollbar
- *  policy properties, which can be "auto", "on", or "off".
- *  
- *  The auto policy means that the scrollbar will be visible and included
- *  in the Scroller's layout when the scrollable container's content is
- *  larger than the scrollable contiainer itself.
- *  </p>
+ *  <p>The scrollbars are displayed according to the vertical and horizontal scrollbar
+ *  policy, which can be <code>auto</code>, <code>on</code>, or <code>off</code>.
+ *  The <code>auto</code> policy means that the scrollbar will be visible and included
+ *  in the layout when the viewport's content is larger than the viewport itself.</p>
  */
 
 public class FxScroller extends FxComponent implements IFocusManagerComponent
@@ -64,13 +55,13 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     //--------------------------------------------------------------------------
     
     /**
-     * @private
+     * Constructor
      */
-	public function FxScroller()
-	{
-		super();
-	}
-	
+    public function FxScroller()
+    {
+        super();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -91,6 +82,9 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     //---------------------------------- 
     
     [SkinPart]
+    /**
+     * A skin part that defines the horizontal scrollbar.
+     */
     public var horizontalScrollBar:FxHScrollBar;
     
     //----------------------------------
@@ -98,6 +92,9 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     //---------------------------------- 
     
     [SkinPart]
+    /**
+     * A skin part that defines the vertical scrollbar.
+     */
     public var verticalScrollBar:FxVScrollBar;
     
     //----------------------------------
@@ -108,12 +105,12 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     
     [Bindable]
     
-	/**
-	 *  The viewport component to be scrolled.
-	 * 
-	 *  The viewport is added to the Scroller's skin which lays out
-	 *  both the viewport and scrollbars.
-	 */
+    /**
+     *  The viewport component to be scrolled.
+     * 
+     *  <p>The viewport is added to the FXScroller component's skin 
+     *  which lays out both the viewport and scrollbars.</p>
+     */
     public function get viewport():IViewport
     {       
         return _viewport;
@@ -138,7 +135,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             skin.addItemAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
- 	    if (verticalScrollBar)
+        if (verticalScrollBar)
             verticalScrollBar.viewport = viewport;
         if (horizontalScrollBar)
             horizontalScrollBar.viewport = viewport;
@@ -150,11 +147,11 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             horizontalScrollBar.viewport = null;
         if (verticalScrollBar)
             verticalScrollBar.viewport = null;        
-    	if (skin && viewport)
-    	{
-    		skin.removeItem(viewport);
-    		viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
-    	}
+        if (skin && viewport)
+        {
+            skin.removeItem(viewport);
+            viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+        }
     }
     
     //----------------------------------
@@ -165,31 +162,33 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
 
     [Bindable]
     [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
-	        
-	/**
-	 *  Indicates under what conditions the vertical scrollbar is displayed.
-	 * 
-	 *  <ul>
-	 *  <li>
-	 *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
-	 *  </li> 
-	 *  <li>
-	 *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
-	 *  The viewport can still be scrolled programatically, by setting its
-	 *  verticalScrollPosition property.
-	 *  </li>
-	 *  <li>
-	 *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
-	 *  the viewport's contentHeight is larger than its height.
-	 *  </li>
-	 *  </ul>
-	 * 
-	 *  <p>
-	 *  The scroll policy affects the measured size of the Scroller.
-	 *  </p>
-	 * 
-	 *  @default ScrollPolicy.AUTO
-	 */ 
+            
+    /**
+     *  Indicates under what conditions the vertical scrollbar is displayed.
+     * 
+     *  <ul>
+     *  <li>
+     *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+     *  </li> 
+     *  <li>
+     *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+     *  The viewport can still be scrolled programmatically, by setting its
+     *  verticalScrollPosition property.
+     *  </li>
+     *  <li>
+     *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+     *  the viewport's contentHeight is larger than its height.
+     *  </li>
+     *  </ul>
+     * 
+     *  <p>
+     *  The scroll policy affects the measured size of the FxScroller component.
+     *  </p>
+     * 
+     *  @default ScrollPolicy.AUTO
+     *
+     *  @see mx.core.ScrollPolicy
+     */ 
     public function get verticalScrollPolicy():String
     {
         return _verticalScrollPolicy;
@@ -217,30 +216,32 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     [Bindable]
     [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
 
-	/**
-	 *  Indicates under what conditions the horizontal scrollbar is displayed.
-	 * 
-	 *  <ul>
-	 *  <li>
-	 *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
-	 *  </li> 
-	 *  <li>
-	 *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
-	 *  The viewport can still be scrolled programatically, by setting its
-	 *  horizontalScrollPosition property.
-	 *  </li>
-	 *  <li>
-	 *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
-	 *  the viewport's contentWidth is larger than its width.
-	 *  </li>
-	 *  </ul>
-	 * 
-	 *  <p>
-	 *  The scroll policy affects the measured size of the Scroller.
-	 *  </p>
-	 * 
-	 *  @default ScrollPolicy.AUTO
-	 */ 
+    /**
+     *  Indicates under what conditions the horizontal scrollbar is displayed.
+     * 
+     *  <ul>
+     *  <li>
+     *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+     *  </li> 
+     *  <li>
+     *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+     *  The viewport can still be scrolled programmatically, by setting its
+     *  horizontalScrollPosition property.
+     *  </li>
+     *  <li>
+     *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+     *  the viewport's contentWidth is larger than its width.
+     *  </li>
+     *  </ul>
+     * 
+     *  <p>
+     *  The scroll policy affects the measured size of the FxScroller component.
+     *  </p>
+     * 
+     *  @default ScrollPolicy.AUTO
+     *
+     *  @see mx.core.ScrollPolicy
+     */ 
     public function get horizontalScrollPolicy():String
     {
         return _horizontalScrollPolicy;
@@ -265,65 +266,70 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
    
-	/**
-	 *  Called when the vertical scrollbar value changes; updates 
-	 *  the viewport's verticalScrollPosition.
-	 */
+    /**
+     *  @private
+     *  Called when the vertical scrollbar value changes; updates 
+     *  the viewport's verticalScrollPosition.
+     */
     protected function vsb_valueCommitHandler(event:Event):void
     {
         if (viewport)
-            viewport.verticalScrollPosition = verticalScrollBar.value;    	
+            viewport.verticalScrollPosition = verticalScrollBar.value;      
     }
-	
-	/**
-	 *  Called when the horizontal scrollbar value changes; updates 
-	 *  the viewport's horizontalScrollPosition.
-	 */
+    
+    /**
+     *  @private
+     *  Called when the horizontal scrollbar value changes; updates 
+     *  the viewport's horizontalScrollPosition.
+     */
     protected function hsb_valueCommitHandler(event:Event):void
     {
-    	if (viewport)
-    	   viewport.horizontalScrollPosition = horizontalScrollBar.value;
+        if (viewport)
+           viewport.horizontalScrollPosition = horizontalScrollBar.value;
     }
     
     private function viewport_propertyChangeHandler(event:PropertyChangeEvent):void
     {
-    	switch(event.property) {
-    		case "contentWidth": 
-    		    viewportContentWidthChanged(event);
-    		    break;
-    		    
-    		case "contentHeight": 
-    		    viewportContentHeightChanged(event);
-    		    break;
-    		    
+        switch(event.property) {
+            case "contentWidth": 
+                viewportContentWidthChanged(event);
+                break;
+                
+            case "contentHeight": 
+                viewportContentHeightChanged(event);
+                break;
+                
             case "horizontalScrollPosition":
                 viewportHorizontalScrollPositionChanged(event);
                 break;
 
-    		case "verticalScrollPosition":
-    		    viewportVerticalScrollPositionChanged(event);
-    		    break;
-    	}
+            case "verticalScrollPosition":
+                viewportVerticalScrollPositionChanged(event);
+                break;
+        }
     }
     
    /**
+    *  @private
     *  Called when the viewport's contentWidth changes; invalidates
     *  the skin's size and display list.
     */
     protected function viewportContentWidthChanged(event:PropertyChangeEvent):void
     {
-    	invalidateSkin();
+        invalidateSkin();
     }
-	/**
-	 *  Called when the viewport's contentHeight changes; invalidates
-	 *  the skin's size and display list.
-	 */
+    /**
+     *  @private
+     *  Called when the viewport's contentHeight changes; invalidates
+     *  the skin's size and display list.
+     */
     protected function viewportContentHeightChanged(event:PropertyChangeEvent):void
     {
         invalidateSkin();
     }
     
     /**
+     *  @private
      *  Called when the viewport's horizontalScrollPosition changes; sets the 
      *  horizontal scrollbar's value.
      */
@@ -334,6 +340,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     }  
     
     /**
+     *  @private
      *  Called when the viewport's verticalScrollPosition changes; sets the 
      *  vertical scrollbar's value.
      */
@@ -377,7 +384,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
         if (instance == verticalScrollBar)
         {
             verticalScrollBar.viewport = viewport;            
-        	verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
+            verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
         }
         
         if (instance == horizontalScrollBar)
@@ -413,14 +420,14 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
         var vp:IViewport = viewport;
-    	if (!vp)
-    	    return;
-    	    
+        if (!vp)
+            return;
+            
         // TBD: is special handling for textfields needed here, as in mx.core.Container?
     
         if (verticalScrollBar && verticalScrollBar.visible)
         {
-        	var vspDelta:Number = NaN;
+            var vspDelta:Number = NaN;
             switch (event.keyCode)
             {
                 case Keyboard.DOWN:
@@ -434,14 +441,14 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             }
             if (!isNaN(vspDelta))
             {
-            	vp.verticalScrollPosition += vspDelta;
-            	event.stopPropagation();
+                vp.verticalScrollPosition += vspDelta;
+                event.stopPropagation();
             }
         }
 
         if (horizontalScrollBar && horizontalScrollBar.visible)
         {
-        	var hspDelta:Number = NaN;
+            var hspDelta:Number = NaN;
             switch (event.keyCode)
             {
                 case Keyboard.LEFT:
@@ -458,7 +465,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             }
         }
     }
-    	
+        
 }
 
 }
