@@ -755,11 +755,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             {
                 super.blendMode = _blendMode;
             }
-                // The blendMode is neither a native value, 
-                // or the 'auto' value so lets set blendMode 
-                // to normal.  
-            else 
-                super.blendMode = "normal"; 
             
             if (blendShaderChanged) 
             {
