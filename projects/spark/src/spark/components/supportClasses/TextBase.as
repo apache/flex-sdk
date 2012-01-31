@@ -784,14 +784,8 @@ public class TextGraphicElement extends GraphicElement
         else if (unscaledHeight != bounds.height)
         {
             // Height changed.
-            if ((unscaledHeight > bounds.height && 
-                isOverset) ||
-                composeOnHeightChange(unscaledHeight) ||
-                getStyle("blockProgression") != "tb")
+            if (composeOnHeightChange(unscaledHeight))
             {
-                // More height is needed and it's possible there is more text
-                // since it didn't all fit before.  Or the styles require a
-                // recompose if the height changes.
                 compose = true;
             }
             else if (unscaledHeight < bounds.height)
@@ -805,14 +799,12 @@ public class TextGraphicElement extends GraphicElement
         // Width changed.        
         if (!compose && unscaledWidth != bounds.width)
         {
-            if (getStyle("lineBreak") == "toFit" || 
-                getStyle("blockProgression") != "tb")
+            if (composeOnWidthChange(unscaledWidth))
             {
-                // Width changed and toFit line breaks or the styles
-                // require a recompose if the width changes.
                 compose = true;
             }
-            else if (unscaledWidth < bounds.width)
+            else if (getStyle("lineBreak") == "explicit" &&
+                     unscaledWidth < bounds.width)
             {
                 // Explicit line breaks.  Don't need to recompose but need to 
                 // clip since the not all the width is needed.
@@ -1166,6 +1158,10 @@ public class TextGraphicElement extends GraphicElement
      */
     private function composeOnHeightChange(unscaledHeight:Number):Boolean
     {
+        // Height increased and there is more content that can be composed.
+        if (unscaledHeight > bounds.height && isOverset)
+            return true;
+            
         if (truncation != 0 && getStyle("lineBreak") == "toFit")
         {
             // -1 is fill the bounds and the bounds changed so recompose.
@@ -1183,7 +1179,31 @@ public class TextGraphicElement extends GraphicElement
                 return true;
             }
         }
+
+        // ToDo: optimize this case.        
+        if (getStyle("blockProgression") != "tb")
+            return true;    
+            
+        return false;                
+    }
+
+    /**
+     *  @private
+     */
+    private function composeOnWidthChange(unscaledWidth:Number):Boolean
+    {
+        // If toFit, then the composeWidth must equal the unscaledWidth
+        // so that the text flows properly. 
+        if (getStyle("lineBreak") == "toFit")
+        {
+            if (isNaN(_composeWidth) || _composeWidth != unscaledWidth)
+                return true;
+        }
         
+        // ToDo: optimize this case.        
+        if (getStyle("blockProgression") != "tb")
+            return true;
+                    
         return false;
     }
 
