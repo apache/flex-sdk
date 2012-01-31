@@ -905,16 +905,20 @@ public class DataGrid extends SkinnableContainerBase
      *  skin part has been added AND the grid skin part has been added, then set
      *  grid.rowBackground = alternatingRowColorsBackground here.
      * 
-     *  TBD: if previous test fails but the grid and rowBackground skin parts have been
-     *  added, then set grid.rowBackground = rowBackground.
+     *  Return true if grid.rowBackground was set.
      */
-    private function initializeGridRowBackground():void
+    private function initializeGridRowBackground():Boolean
     {
         if (!grid)
-            return;
+            return false;
         
         if ((getStyle("alternatingRowColors") as Array) && alternatingRowColorsBackground)
+        {
             grid.rowBackground = alternatingRowColorsBackground;
+            return true;
+        }
+        
+        return false;
     }
     
     //--------------------------------------------------------------------------
@@ -2520,7 +2524,9 @@ public class DataGrid extends SkinnableContainerBase
             
             // IFactory valued skin parts => Grid visual element properties
             
-            initializeGridRowBackground();
+            if (!initializeGridRowBackground()) // sets grid.rowBackground if alternatingRowColors set
+                grid.rowBackground = rowBackground;
+                
             grid.columnSeparator = columnSeparator;
             grid.rowSeparator = rowSeparator;
             grid.hoverIndicator = hoverIndicator;
@@ -2578,7 +2584,10 @@ public class DataGrid extends SkinnableContainerBase
                 addEventListener(FocusEvent.FOCUS_OUT, dataGrid_focusHandler);
                 if (grid && grid.layout is GridLayout)
                     GridLayout(grid.layout).showCaret = false;
-            }    
+            }
+            
+            if (instance == rowBackground)
+                grid.rowBackground = rowBackground;
             
             if (instance == selectionIndicator) 
                 grid.selectionIndicator = selectionIndicator;
@@ -2661,6 +2670,7 @@ public class DataGrid extends SkinnableContainerBase
             grid.hoverIndicator = null;
             grid.caretIndicator = null;
             grid.selectionIndicator = null;
+            grid.rowBackground = null;
             
             // IDataGridElements: grid, columnHeaderGroup
             
@@ -2696,6 +2706,9 @@ public class DataGrid extends SkinnableContainerBase
             
             if (instance == selectionIndicator) 
                 grid.selectionIndicator = null;
+            
+            if (instance == rowBackground)
+                grid.rowBackground = null;
         }
 
         if (instance == columnHeaderGroup)
