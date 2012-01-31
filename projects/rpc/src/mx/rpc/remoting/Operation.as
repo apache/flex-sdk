@@ -36,6 +36,11 @@ use namespace mx_internal;
  * An Operation can be called either by invoking the
  * function of the same name on the service or by accessing the Operation as a property on the service and
  * calling the <code>send()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Operation extends AbstractOperation
 {
@@ -51,6 +56,11 @@ public class Operation extends AbstractOperation
      *  @param service The ReoteObject object defining the service.
      *
      *  @param name The name of the service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Operation(remoteObject:AbstractService = null, name:String = null)
     {
@@ -70,6 +80,11 @@ public class Operation extends AbstractOperation
     /**
      * The concurrency for this Operation.  If it has not been explicitly set the setting from the RemoteObject
      * will be used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get concurrency():String
     {
@@ -95,6 +110,11 @@ public class Operation extends AbstractOperation
 
     /**
      * When this value is true, anonymous objects returned are forced to bindable objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get makeObjectsBindable():Boolean
     {
@@ -116,6 +136,11 @@ public class Operation extends AbstractOperation
      * Whether this operation should show the busy cursor while it is executing.
      * If it has not been explicitly set the setting from the RemoteObject
      * will be used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showBusyCursor():Boolean
     {
@@ -138,6 +163,11 @@ public class Operation extends AbstractOperation
      * An ordered list of the names of the arguments to pass to a method invocation.  Since the arguments object is
      * a hashmap with no guaranteed ordering, this array helps put everything together correctly.
      * It will be set automatically by the MXML compiler, if necessary, when the Operation is used in tag form.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var argumentNames:Array;
 
@@ -164,6 +194,11 @@ public class Operation extends AbstractOperation
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function send(... args:Array):AsyncToken
     {
@@ -221,6 +256,11 @@ public class Operation extends AbstractOperation
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function cancel(id:String = null):AsyncToken
     {
