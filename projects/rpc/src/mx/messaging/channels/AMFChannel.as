@@ -357,6 +357,15 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  @private
+     */
+    override protected function internalSend(msgResp:MessageResponder):void
+    {
+        handleReconnectWithSessionId(); // Adjust the session id, in case it's needed.
+        super.internalSend(msgResp);
+    }
+
+    /**
+     *  @private
      *  Shuts down the underlying NetConnection for the AMFChannel.
      *  The reason this override is necessary is because the NetConnection may dispatch
      *  a NetStatusEvent after it has been closed and if we're not registered to listen for
