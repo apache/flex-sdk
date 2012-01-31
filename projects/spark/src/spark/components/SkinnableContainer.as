@@ -132,6 +132,11 @@ public class FxContainer extends FxContainerBase
      *  @private
      */
     private static const VERTICAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 3;
+    
+    /**
+     *  @private
+     */
+    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 4;
 
     //--------------------------------------------------------------------------
     //
@@ -247,6 +252,42 @@ public class FxContainer extends FxContainerBase
     //  Properties proxied to contentGroup
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  autoLayout
+    //----------------------------------
+
+    [Inspectable(defaultValue="true")]
+
+    /**
+     *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     */
+    public function get autoLayout():Boolean
+    {
+        if (contentGroup)
+            return contentGroup.autoLayout;
+        else
+        {
+            // want the default to be true
+            return (contentGroupProperties.autoLayout === undefined) ?
+                    true : false
+        }
+    }
+
+    /**
+     *  @private
+     */
+    public function set autoLayout(value:Boolean):void
+    {
+        if (contentGroup)
+        {
+            contentGroup.autoLayout = value;
+            contentGroupProperties = BitFlagUtil.update(contentGroupProperties as uint, 
+                                                        AUTO_LAYOUT_PROPERTY_FLAG, true);
+        }
+        else
+            contentGroupProperties.autoLayout = value;
+    }
     
     //----------------------------------
     //  clipAndEnableScrolling
@@ -613,6 +654,13 @@ public class FxContainer extends FxContainerBase
             
             var newContentGroupProperties:uint = 0;
             
+            if (contentGroupProperties.autoLayout !== undefined)
+            {
+                contentGroup.autoLayout = contentGroupProperties.autoLayout;
+                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
+                                                               AUTO_LAYOUT_PROPERTY_FLAG, true);
+            }
+            
             if (contentGroupProperties.clipAndEnableScrolling !== undefined)
             {
                 contentGroup.clipAndEnableScrolling = contentGroupProperties.clipAndEnableScrolling;
@@ -647,8 +695,14 @@ public class FxContainer extends FxContainerBase
                 ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
             contentGroup.addEventListener(
                 ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
-            contentGroup.addEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
+            
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                // the only reason we have this listener is to re-dispatch events.  So only add it here
+                // if someone's listening on us.
+                contentGroup.addEventListener(
+                    PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
+            }
             
             if (_placeHolderGroup)
             {
@@ -680,6 +734,9 @@ public class FxContainer extends FxContainerBase
             
             var newContentGroupProperties:Object = {};
             
+            if (BitFlagUtil.isSet(contentGroupProperties as uint, AUTO_LAYOUT_PROPERTY_FLAG))
+                newContentGroupProperties.autoLayout = contentGroup.autoLayout;
+            
             if (BitFlagUtil.isSet(contentGroupProperties as uint, CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG))
                 newContentGroupProperties.clipAndEnableScrolling = contentGroup.clipAndEnableScrolling;
             
@@ -708,10 +765,53 @@ public class FxContainer extends FxContainerBase
                     ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
             }
             
-            // TODO: Need to force the contentGroup to removeChild on its content children
-            // before the any other Group adds the content children
             contentGroup.mxmlContent = null;
-            contentGroup.validateProperties();
+        }
+    }
+    
+    /**
+     *  @private
+     * 
+     *  This method is overridden so we can figure out when someone starts listening
+     *  for property change events.  If no one's listening for them, then we don't 
+     *  listen for them on our contentGroup.
+     */
+    override public function addEventListener(
+        type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false) : void
+    {
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        
+        // if it's a different type of event or the contentGroup doesn't
+        // exist, don't worry about it.  When the contentGroup, 
+        // gets created up, we'll check to see whether we need to add this 
+        // event listener to the contentGroup.
+        if (type == PropertyChangeEvent.PROPERTY_CHANGE && contentGroup)
+        {
+            contentGroup.addEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     * 
+     *  This method is overridden so we can figure out when someone stops listening
+     *  for property change events.  If no one's listening for them, then we don't 
+     *  listen for them on our contentGroup.
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false) : void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        
+        // if no one's listening to us for this event any more, let's 
+        // remove our underlying event listener from the contentGroup.
+        if (type == PropertyChangeEvent.PROPERTY_CHANGE && contentGroup)
+        {
+            if (!hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                contentGroup.removeEventListener(
+                    PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
+            }
         }
     }
     
