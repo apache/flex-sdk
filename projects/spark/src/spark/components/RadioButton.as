@@ -536,6 +536,26 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden functions: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // If this button is in a rb group and it's selected, but it's not the 
+        // current selection, deselect the old rb and select this rb.
+        if (_group && selected && _group.selection != this)
+            group.mx_internal::setSelection(this, false);        
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden event handlers: UIComponent
     //
     //--------------------------------------------------------------------------
