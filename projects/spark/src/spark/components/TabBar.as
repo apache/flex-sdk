@@ -93,6 +93,8 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  *  @see spark.skins.spark.TabBarButtonSkin
  *  @see spark.components.ButtonBarButton
  * 
+ *  @includeExample examples/TabBarExample.mxml
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
