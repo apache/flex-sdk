@@ -253,6 +253,8 @@ public class ComboBox extends DropDownListBase
     
     private var userTypedIntoText:Boolean;
     
+    private var previousTextInputText:String = "";
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -690,6 +692,7 @@ public class ComboBox extends DropDownListBase
         {
             updateLabelDisplay();
             textInput.addEventListener(TextOperationEvent.CHANGE, textInput_changeHandler);
+            textInput.addEventListener(TextOperationEvent.CHANGING, textInput_changingHandler);
             textInput.addEventListener(FocusEvent.FOCUS_IN, textInput_focusInHandler, true);
             textInput.addEventListener(FocusEvent.FOCUS_OUT, textInput_focusOutHandler, true);
             textInput.maxChars = maxChars;
@@ -710,6 +713,7 @@ public class ComboBox extends DropDownListBase
         if (instance == textInput)
         {
             textInput.removeEventListener(TextOperationEvent.CHANGE, textInput_changeHandler);
+            textInput.removeEventListener(TextOperationEvent.CHANGING, textInput_changingHandler);
             textInput.removeEventListener(FocusEvent.FOCUS_IN, textInput_focusInHandler, true);
             textInput.removeEventListener(FocusEvent.FOCUS_OUT, textInput_focusOutHandler, true);
         }
@@ -891,6 +895,14 @@ public class ComboBox extends DropDownListBase
     /**
      *  @private 
      */ 
+    private function textInput_changingHandler(event:TextOperationEvent):void
+    {
+        previousTextInputText = textInput.text;
+    }
+    
+    /**
+     *  @private 
+     */ 
     protected function textInput_changeHandler(event:TextOperationEvent):void
     {  
         userTypedIntoText = true;
@@ -902,7 +914,7 @@ public class ComboBox extends DropDownListBase
         {
             super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
         }
-        else
+        else if (previousTextInputText != textInput.text)
         {
             if (openOnInput)
             {
