@@ -33,43 +33,43 @@ public class CommandMessage extends AsyncMessage
     /**
      *  This operation is used to subscribe to a remote destination.
      */
-	public static const SUBSCRIBE_OPERATION:uint = 0;
+    public static const SUBSCRIBE_OPERATION:uint = 0;
 
     /**
      *  This operation is used to unsubscribe from a remote destination.
      */
-	public static const UNSUBSCRIBE_OPERATION:uint = 1;
+    public static const UNSUBSCRIBE_OPERATION:uint = 1;
 
     /**
      *  This operation is used to poll a remote destination for pending,
      *  undelivered messages.
      */
-	public static const POLL_OPERATION:uint = 2;
+    public static const POLL_OPERATION:uint = 2;
 
     /**
      *  This operation is used by a remote destination to sync missed or cached messages 
      *  back to a client as a result of a client issued poll command.
      */
-	public static const CLIENT_SYNC_OPERATION:uint = 4;
+    public static const CLIENT_SYNC_OPERATION:uint = 4;
 
     /**
      *  This operation is used to test connectivity over the current channel to
      *  the remote endpoint.
      */
-	public static const CLIENT_PING_OPERATION:uint = 5;
-	
+    public static const CLIENT_PING_OPERATION:uint = 5;
+    
     /**
      *  This operation is used to request a list of failover endpoint URIs
      *  for the remote destination based on cluster membership.
      */
-	public static const CLUSTER_REQUEST_OPERATION:uint = 7;
-	
-	/**
-	 * This operation is used to send credentials to the endpoint so that
-	 * the user can be logged in over the current channel.  
-	 * The credentials need to be Base64 encoded and stored in the <code>body</code>
-	 * of the message.
-	 */
+    public static const CLUSTER_REQUEST_OPERATION:uint = 7;
+    
+    /**
+     * This operation is used to send credentials to the endpoint so that
+     * the user can be logged in over the current channel.  
+     * The credentials need to be Base64 encoded and stored in the <code>body</code>
+     * of the message.
+     */
     public static const LOGIN_OPERATION:uint = 8;
     
     /**
@@ -101,28 +101,33 @@ public class CommandMessage extends AsyncMessage
      *  This operation is used to indicate that a channel has disconnected.
      */
     public static const DISCONNECT_OPERATION:uint = 12;
-	
+        
+    /**
+     *  This operation is used to trigger a ChannelSet to connect.
+     */
+    public static const TRIGGER_CONNECT_OPERATION:uint = 13;    
+    
     /**
      *  This is the default operation for new CommandMessage instances.
      */
-	public static const UNKNOWN_OPERATION:uint = 10000;
-	
-	/**
-	 *  The server message type for authentication commands.
-	 */
-	public static const AUTHENTICATION_MESSAGE_REF_TYPE:String = "flex.messaging.messages.AuthenticationMessage";
+    public static const UNKNOWN_OPERATION:uint = 10000;
+    
+    /**
+     *  The server message type for authentication commands.
+     */
+    public static const AUTHENTICATION_MESSAGE_REF_TYPE:String = "flex.messaging.messages.AuthenticationMessage";
 
-	/**
-	 *  Subscribe commands issued by a Consumer pass the Consumer's <code>selector</code>
-	 *  expression in this header.
-	 */
-	public static const SELECTOR_HEADER:String = "DSSelector";
-	
-	/**
-	 *  Durable JMS subscriptions are preserved when an unsubscribe message
-	 *  has this parameter set to true in its header.
-	 */
-	public static const PRESERVE_DURABLE_HEADER:String = "DSPreserveDurable";	
+    /**
+     *  Subscribe commands issued by a Consumer pass the Consumer's <code>selector</code>
+     *  expression in this header.
+     */
+    public static const SELECTOR_HEADER:String = "DSSelector";
+    
+    /**
+     *  Durable JMS subscriptions are preserved when an unsubscribe message
+     *  has this parameter set to true in its header.
+     */
+    public static const PRESERVE_DURABLE_HEADER:String = "DSPreserveDurable";    
 
     /**
      * Header to indicate that the Channel needs the configuration from the
@@ -194,15 +199,15 @@ public class CommandMessage extends AsyncMessage
     // 
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Constructs an instance of a CommandMessage with an empty body and header
-	 *  and a default <code>operation</code> of <code>UNKNOWN_OPERATION</code>.
-	 */
-	public function CommandMessage()
-	{
-		super();
-		operation = UNKNOWN_OPERATION;
-	}
+    /**
+     *  Constructs an instance of a CommandMessage with an empty body and header
+     *  and a default <code>operation</code> of <code>UNKNOWN_OPERATION</code>.
+     */
+    public function CommandMessage()
+    {
+        super();
+        operation = UNKNOWN_OPERATION;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -210,12 +215,12 @@ public class CommandMessage extends AsyncMessage
     // 
     //--------------------------------------------------------------------------   
 
-	/**
+    /**
      *  Provides access to the operation/command for the CommandMessage.
      *  Operations indicate how this message should be processed by the remote
      *  destination.
      */
-	public var operation:uint;
+    public var operation:uint;
 
     //--------------------------------------------------------------------------
     //
@@ -296,8 +301,9 @@ public class CommandMessage extends AsyncMessage
             operationTexts[SUBSCRIPTION_INVALIDATE_OPERATION] = "subscription invalidate";
             operationTexts[MULTI_SUBSCRIBE_OPERATION] = "multi-subscribe";
             operationTexts[DISCONNECT_OPERATION] = "disconnect";
+            operationTexts[TRIGGER_CONNECT_OPERATION] = "trigger connect";
             operationTexts[UNKNOWN_OPERATION] = "unknown";
-	    }
+        }
         var result:* = operationTexts[op];
         return result == undefined ? op.toString() : String(result);
     }
