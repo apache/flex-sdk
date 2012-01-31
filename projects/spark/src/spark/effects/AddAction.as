@@ -44,7 +44,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AddAction
+ *  &lt;s:AddAction
  *    <b>Properties</b>
  *    id="ID"
  *    index="-1"
