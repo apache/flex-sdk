@@ -57,6 +57,25 @@ import flashx.textLayout.formats.LineBreak;
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
+include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../../styles/metadata/SelectionFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ */
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+
 /**
  *  Documentation is not currently available.
  */
