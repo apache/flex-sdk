@@ -15,23 +15,22 @@ import mx.styles.StyleManager;
 import mx.utils.HSBColor;
 
 /**
- * The HSBInterpolator class provides HSB-space interpolation between
- * RGB <code>uint</code> start and end values. Interpolation is done by treating
- * the start and end values as integers with color channel information in
- * the least-significant 3 bytes, converting these to HSB values, and
- * interpolating linearly for each of the h (hue), s (saturation),
- * and b (brightness) parameters.
+ *  The HSBInterpolator class provides Hue, Saturation, and Brightness (HSB) 
+ *  color interpolation between RGB <code>uint</code> start and end values. 
+ *  Interpolation is done by treating
+ *  the start and end values as integers with RGB color channel information in
+ *  the least-significant 3 bytes, converting these to HSB values, and
+ *  interpolating linearly for each of the h (hue), s (saturation),
+ *  and b (brightness) parameters.
  * 
- * <p>Because this interpolator may perform more calculations than a
- * typical interpolator that is simply interpolating a given type,
- * specifically to convert the RGB start and end values, this
- * interpolator provides the option of supplying start/end values
- * to the constructor. If start/end RGB values are provided, then
- * the conversions of these values is calculated once, up front,
- * and need not be done at every future call to the interpolate()
- * method during the animation.</p>
- * 
- * @see spark.utils.HSBColor
+ *  <p>Because this interpolator may perform more calculations than a
+ *  typical interpolator that is simply interpolating a given type,
+ *  specifically to convert the RGB start and end values, this
+ *  interpolator provides the option of supplying start and end values
+ *  to the constructor. If you specify the start and end RGB values, then
+ *  the conversions of these values is calculated once, 
+ *  and does not need to be done at every future call to 
+ *  the <code>interpolate()</code> method during the animation.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -45,13 +44,16 @@ public class HSBInterpolator implements IInterpolator
     private var endHSB:HSBColor;
     
     /**
-     * Constructs an HSBInterpolator instance. Optional parameters for
-     * start and end RGB values help optimize runtime performance by
-     * performing RGB-HSB conversions at construction time, instead of
-     * dynamically with every call to interpolate()
+     *  Constructor.
+     *
+     *  The optional parameters for <code>startRGB</code> and 
+     *  <code>endRGB</code> help to optimize runtime performance by
+     *  performing RGB to HSB conversions at construction time, instead of
+     *  dynamically with every call to the <code>interpolate()</code> method.
      * 
-     * @param startRGB the starting color, as an unsigned integer RGB value
-     * @param endRGB the ending color, as an unsigned integer RGB value
+     *  @param startRGB The starting color, as an unsigned integer RGB value.
+     *
+     *  @param endRGB The ending color, as an unsigned integer RGB value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -69,10 +71,14 @@ public class HSBInterpolator implements IInterpolator
     }
    
     /**
-     * Returns the singleton of this class. Note that the singleton
-     * of HSBInterpolator may be less useful than separate instances
-     * of the class, since separate instances can take advantage of
-     * pre-calculating the RGB-HSB conversions for the start/end colors.
+     *  Returns the singleton of this class. 
+     *
+     *  <p>Note that the singleton
+     *  of the HSBInterpolator class might be less useful than separate instances
+     *  of the class because separate instances can take advantage of
+     *  precalculating the RGB to HSB conversions for the start and end colors.</p>
+     *
+     *  @return The singleton of the HSBInterpolator class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -87,8 +93,8 @@ public class HSBInterpolator implements IInterpolator
     }
     
     /**
-     * Returns the <code>uint</code> type, which is the type of
-     * object interpolated by ColorInterpolator
+     *  The <code>uint</code> type, which is the type of
+     *  object interpolated by the HSBInterpolator class,
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -101,12 +107,18 @@ public class HSBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * The interpolation for HSBInterpolator takes the form of parametric
-     * calculations on each of the three values h (hue), s (saturation),
-     * and b (brightness) of HSB colors derived from the start and end colors
-     * specified in RGB space.
+     *  The interpolation for the HSBInterpolator class takes the form of parametric
+     *  calculations on each of the three values h (hue), s (saturation),
+     *  and b (brightness) of HSB colors derived from the start and end RGB colors.
+     *
+     *  @param fraction The fraction elapsed of the 
+     *  animation, between 0.0 and 1.0.
+     *
+     *  @param startValue The start value of the interpolation.
+     *
+     *  @param endValue The end value of the interpolation.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -185,14 +197,19 @@ public class HSBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p>This function returns the result of the two RGB values added
-     * together in HSB space. Each value will be converted to HSB space
-     * first and then each component (hue, saturation, and brightness)
-     * will be treated individually. The saturation and brightness
-     * components will be clamped to lie within [0-1] and the hue degrees
-     * will be modulated by 360 to li within [0,360).</p>
+     *  Returns the result of the two RGB values added
+     *  together as HSB colors. Each value is converted to an HSB color
+     *  first, and then each component (hue, saturation, and brightness)
+     *  will be treated individually. 
+     *  The saturation and brightness
+     *  components are clamped to lie between 0 and 1, and the hue degrees
+     *  are modulated by 360 to lie between 0 and 360.
+     *
+     *  @param baseValue The start value of the interpolation.
+     *
+     *  @param incrementValue The change to apply to the <code>baseValue</code>.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -205,14 +222,19 @@ public class HSBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p>This function returns the result of the two RGB values added
-     * together in HSB space. Each value will be converted to HSB space
-     * first and then each component (hue, saturation, and brightness)
-     * will be treated individually. The saturation and brightness
-     * components will be clamped to lie within [0-1] and the hue degrees
-     * will be modulated by 360 to lie within [0,360).</p>
+     *  Returns the result of the two RGB values added
+     *  together as HSB colors. Each value is converted to an HSB color
+     *  first, and then each component (hue, saturation, and brightness)
+     *  is treated individually. 
+     *  The saturation and brightness
+     *  components are clamped to lie between 0 and 1, and the hue degrees
+     *  are modulated by 360 to lie between 0 and 360.
+     *
+     *  @param baseValue The start value of the interpolation.
+     *
+     *  @param decrementValue The change to apply to the <code>baseValue</code>.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
