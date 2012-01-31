@@ -1054,7 +1054,7 @@ public class RichText extends TextBase
         
         if (maskChanged)
         {
-            if (!mask.parent)
+            if (mask && !mask.parent)
             {
                 addChild(mask);
                 MaskUtil.applyMask(mask, null);
