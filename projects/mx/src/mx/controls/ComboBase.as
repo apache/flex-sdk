@@ -56,7 +56,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of focus ring when the component is in focus
@@ -68,7 +68,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
@@ -81,7 +81,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Name of the class to use as the default skin for the background and border. 
