@@ -743,6 +743,27 @@ public class List extends ListBase implements IIMESupport
     }
 
     //----------------------------------
+    //  enableIME
+    //----------------------------------
+
+    /**
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  If there is an editor, it will set enableIME
+     *  accordingly.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get enableIME():Boolean
+    {
+        return false;
+    }
+
+    //----------------------------------
     //  lockedRowCount
     //----------------------------------
 
