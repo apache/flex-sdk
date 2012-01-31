@@ -51,7 +51,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when a message fault occurs.
- * 
+ *
  *  @eventType mx.messaging.events.MessageFaultEvent.FAULT
  */
 [Event(name="fault", type="mx.messaging.events.MessageFaultEvent")]
@@ -72,7 +72,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the underlying Channel the MessageAgent is using faults.
- * 
+ *
  *  @eventType mx.messaging.events.ChannelFaultEvent.FAULT
  */
 [Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
@@ -103,13 +103,13 @@ use namespace mx_internal;
  *  <pre>
  *   &lt;mx:<i>tagname</i><br>
  *    <b>Properties</b>
- *    channelSet="<i>No default.</i>"  
+ *    channelSet="<i>No default.</i>"
  *    clientId="<i>No default.</i>"
  *    connected="<i>false</i>"
  *    destination="<i>No default.</i>"
  *    requestTimeout="<i>-1</i>"
  *    subtopic="<i>No default.</i>"
- * 
+ *
  *
  *   <b>Events</b>
  *    acknowledge="<i>No default.</i>"
@@ -117,35 +117,35 @@ use namespace mx_internal;
  *    channelDisconnect="<i>No default.</i>"
  *    channelFault="<i>No default.</i>"
  *    fault="<i>No default.</i>"
- *    propertyChange="<i>No default.</i>"  
+ *    propertyChange="<i>No default.</i>"
  *  /&gt;
- *  </pre> 
+ *  </pre>
  */
 public class MessageAgent extends EventDispatcher implements IMXMLObject
 {
     //--------------------------------------------------------------------------
     //
     // Internal Static Constants
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private
      *  Indicates that the MessageAgent is used an automatically configured ChannelSet
      *  obtained from ServerConfig.
      */
     mx_internal static const AUTO_CONFIGURED_CHANNELSET:int = 0;
-    
+
     /**
      *  @private
      *  Indicates that the MessageAgent is using a manually assigned ChannelSet.
      */
     mx_internal static const MANUALLY_ASSIGNED_CHANNELSET:int = 1;
-    
+
     //--------------------------------------------------------------------------
     //
     // Constructor
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -159,7 +159,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     //--------------------------------------------------------------------------
     //
     // Variables
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -181,7 +181,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  The character set encoding used to create the credentials String.
      */
     protected var _credentialsCharset:String;
-    
+
     /**
      *  @private
      *  Indicates whether the agent is explicitly disconnected.
@@ -189,17 +189,17 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  after the client has issued an explicit disconnect().
      */
     protected var _disconnectBarrier:Boolean;
-    
+
     /**
      *  @private
      *  This helps in the runtime configuration setup by delaying the connect
      *  event until the configuration has been setup. See acknowledge().
      */
     private var _pendingConnectEvent:ChannelEvent;
-    
+
     /**
      *  @private
-     *  The Base64 encoded credentials that are passed through to a 
+     *  The Base64 encoded credentials that are passed through to a
      *  3rd party.
      */
     private var _remoteCredentials:String = "";
@@ -216,7 +216,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  be sent to the server.
      */
     private var _sendRemoteCredentials:Boolean;
-    
+
     /**
      *  @private
      *  The logger MUST be assigned by subclasses, for example
@@ -233,14 +233,14 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  will treat each message as if it was sent by a different, "new" MessageAgent instance.
      */
     private var _clientIdWaitQueue:Array;
-    
+
     /**
      *  @private
      * Flag being set to true denotes that we should skip remaining fault
-     * processing logic because the fault has already been handled.  
+     * processing logic because the fault has already been handled.
      * Currently used during an automatic resend of a faulted message if the fault
      * was due to a server session timeout and is authentication/authorization related.
-     */ 
+     */
     protected var _ignoreFault:Boolean = false;
 
     /**
@@ -251,9 +251,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     //--------------------------------------------------------------------------
     //
     // Properties
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     //  authenticated
     //----------------------------------
@@ -262,17 +262,17 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  @private
      */
     private var _authenticated:Boolean;
-    
+
     [Bindable(event="propertyChange")]
     /**
-     *  Indicates if this MessageAgent is using an authenticated connection to 
+     *  Indicates if this MessageAgent is using an authenticated connection to
      *  its destination.
      */
     public function get authenticated():Boolean
     {
         return _authenticated;
     }
-    
+
     /**
      *  @private
      */
@@ -280,15 +280,15 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         if (_authenticated != value)
         {
-            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "authenticated", _authenticated, value); 
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "authenticated", _authenticated, value);
             _authenticated = value;
             dispatchEvent(event);
-            
+
             if (value)
                 assertCredentials(creds);
         }
     }
-        
+
     //----------------------------------
     //  channelSet
     //----------------------------------
@@ -297,11 +297,11 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  @private
      */
     private var _channelSet:ChannelSet;
-    
-    [Bindable(event="propertyChange")]    
+
+    [Bindable(event="propertyChange")]
     /**
      *  Provides access to the ChannelSet used by the MessageAgent. The
-     *  ChannelSet can be manually constructed and assigned, or it will be 
+     *  ChannelSet can be manually constructed and assigned, or it will be
      *  dynamically initialized to use the configured Channels for the
      *  destination for this MessageAgent.
      */
@@ -309,7 +309,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         return _channelSet;
     }
-    
+
     /**
      *  @private
      */
@@ -318,13 +318,13 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         internalSetChannelSet(value);
         _channelSetMode = MANUALLY_ASSIGNED_CHANNELSET;
     }
-    
+
     /**
      *  @private
      *  This method is called by ChannelSet.connect(agent) to set up the bidirectional
      *  relationship between the MessageAgent and the ChannelSet.
      *  It also handles the case of customer code calling channelSet.connect(agent)
-     *  directly rather than assigning the ChannelSet to the MessageAgent's channelSet 
+     *  directly rather than assigning the ChannelSet to the MessageAgent's channelSet
      *  property.
      */
     mx_internal function internalSetChannelSet(value:ChannelSet):void
@@ -332,19 +332,19 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         if (_channelSet != value)
         {
             if (_channelSet != null)
-                _channelSet.disconnect(this); 
-              
-            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "channelSet", _channelSet, value); 
+                _channelSet.disconnect(this);
+
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "channelSet", _channelSet, value);
             _channelSet = value;
-            
+
             if (_channelSet != null)
             {
                 if (_credentials)
                     _channelSet.setCredentials(_credentials, this, _credentialsCharset);
 
-                _channelSet.connect(this);                        
+                _channelSet.connect(this);
             }
-            
+
             dispatchEvent(event);
         }
     }
@@ -352,7 +352,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     //----------------------------------
     //  clientId
     //----------------------------------
-    
+
     /**
      *  @private
      */
@@ -369,8 +369,8 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         return _clientId;
     }
-    
-    /** 
+
+    /**
      *  @private
      *  This method is used to assign a server-generated client id to the MessageAgent
      *  in the common scenario.
@@ -388,19 +388,19 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             _clientId = value;
             flushClientIdWaitQueue();
             dispatchEvent(event);
-        }       
-    } 
-            
+        }
+    }
+
     //----------------------------------
     //  connected
-    //----------------------------------    
-    
+    //----------------------------------
+
     /**
      *  @private
      */
     private var _connected:Boolean = false;
-    
-    [Bindable(event="propertyChange")]    
+
+    [Bindable(event="propertyChange")]
     /**
      *  Indicates whether this MessageAgent is currently connected to its
      *  destination via its ChannelSet. The <code>propertyChange</code> event is dispatched when
@@ -410,7 +410,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         return _connected;
     }
-    
+
     /**
      *  @private
      */
@@ -427,22 +427,22 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
     //----------------------------------
     //  destination
-    //----------------------------------    
+    //----------------------------------
 
     /**
      *  @private
      */
     private var _destination:String = "";
 
-    [Bindable(event="propertyChange")]    
+    [Bindable(event="propertyChange")]
     /**
-     *  Provides access to the destination for the MessageAgent. 
+     *  Provides access to the destination for the MessageAgent.
      *  Changing the destination will disconnect the MessageAgent if it is
      *  currently connected.
      *
-     *  @throws mx.messaging.errors.InvalidDestinationError If the destination is null or 
+     *  @throws mx.messaging.errors.InvalidDestinationError If the destination is null or
      *                                  zero-length.
-     */ 
+     */
     public function get destination():String
     {
         return _destination;
@@ -453,12 +453,8 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      */
     public function set destination(value:String):void
     {
-        if ((value == null) || (value.length == 0))
-        {
-            var message:String = resourceManager.getString(
-                "messaging", "emptyDestinationName", [ value ]);
-            throw new InvalidDestinationError(message);
-        }
+        if ((value == null) || value.length == 0)
+            return; // empty/null destination is checked in internalSend.
 
         if (_destination != value)
         {
@@ -470,19 +466,19 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 channelSet.disconnect(this);
                 channelSet = null;
             }
-                
-            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "destination", _destination, value);                
-            _destination = value;           
-            dispatchEvent(event);                   
-            
-            if (Log.isInfo())           
+
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "destination", _destination, value);
+            _destination = value;
+            dispatchEvent(event);
+
+            if (Log.isInfo())
                 _log.info("'{0}' {2} set destination to '{1}'.", id, _destination,  _agentType);
         }
     }
 
     //----------------------------------
     //  id
-    //----------------------------------    
+    //----------------------------------
 
     /**
      *  @private
@@ -498,7 +494,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         return _id;
     }
-    
+
     /**
      *  @private
      */
@@ -506,33 +502,33 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         if (_id != value)
         {
-            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "id", _id, value);  
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "id", _id, value);
             _id = value;
             dispatchEvent(event);
-        }       
+        }
     }
-    
+
     //----------------------------------
     //  requestTimeout
     //----------------------------------
-    
+
     /**
      *  @private
      */
-    private var _requestTimeout:int = -1;   
-    
-    [Bindable(event="propertyChange")]    
+    private var _requestTimeout:int = -1;
+
+    [Bindable(event="propertyChange")]
     /**
      *  Provides access to the request timeout in seconds for sent messages.
-     *  If an acknowledgement, response or fault is not received from the 
+     *  If an acknowledgement, response or fault is not received from the
      *  remote destination before the timeout is reached the message is faulted on the client.
      *  A value less than or equal to zero prevents request timeout.
-     */ 
+     */
     public function get requestTimeout():int
     {
         return _requestTimeout;
-    }    
-    
+    }
+
     /**
      *  @private
      */
@@ -540,106 +536,106 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         if (_requestTimeout != value)
         {
-            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "requestTimeout", _requestTimeout, value);              
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "requestTimeout", _requestTimeout, value);
             _requestTimeout = value;
             dispatchEvent(event);
-        }       
+        }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     // Internal Properties
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     //  channelSetMode
     //----------------------------------
-    
+
     /**
      *  @private
      */
     private var _channelSetMode:int = AUTO_CONFIGURED_CHANNELSET;
-       
+
     mx_internal function get channelSetMode():int
     {
         return _channelSetMode;
     }
-        
+
     //----------------------------------
     //  configRequested
-    //----------------------------------    
-    
+    //----------------------------------
+
     /**
      *  @private
      *  Indicates whether the agent has requested configuration from the server.
      */
-    mx_internal var configRequested:Boolean = false;    
-    
+    mx_internal var configRequested:Boolean = false;
+
     //----------------------------------
     //  needsConfig
     //----------------------------------
 
     /**
      * @private
-     */  
+     */
     private var _needsConfig:Boolean;
-    
+
     /**
-     *  Indicates if this MessageAgent needs to request configuration from the 
-     *  server. 
+     *  Indicates if this MessageAgent needs to request configuration from the
+     *  server.
      */
     mx_internal function get needsConfig():Boolean
     {
         return _needsConfig;
     }
-    
+
     /**
      *  @private
-     */    
+     */
     mx_internal function set needsConfig(value:Boolean):void
     {
-        if (_needsConfig != value)
+        if (_needsConfig == value)
+            return;
+
+        _needsConfig = value;
+        if (_needsConfig)
         {
-            _needsConfig = value;
-            if (_needsConfig)
+            var cs:ChannelSet = channelSet;
+            try
             {
-                var cs:ChannelSet = channelSet;
-                try
-                {
-                    disconnect();
-                }
-                finally
-                {
-                    internalSetChannelSet(cs);
-                }
+                disconnect();
+            }
+            finally
+            {
+                internalSetChannelSet(cs);
             }
         }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     // Methods
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  Invoked by a MessageResponder upon receiving a result for a sent
      *  message. Subclasses may override this method if they need to perform
      *  custom acknowledgement processing, but must invoke
-     *  <code>super.acknowledge()</code> as well. This method dispatches a 
+     *  <code>super.acknowledge()</code> as well. This method dispatches a
      *  MessageAckEvent.
-     * 
+     *
      *  @param ackMsg The AcknowledgMessage returned.
-     * 
+     *
      *  @param msg The original sent message.
      */
     public function acknowledge(ackMsg:AcknowledgeMessage, msg:IMessage):void
     {
         if (Log.isInfo())
             _log.info("'{0}' {2} acknowledge of '{1}'.", id, msg.messageId, _agentType);
-            
-        if (Log.isDebug() && channelSet != null && channelSet.currentChannel != null && 
+
+        if (Log.isDebug() && channelSet != null && channelSet.currentChannel != null &&
                 channelSet.currentChannel.mpiEnabled)
         {
             try
@@ -649,21 +645,21 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
             catch (e:Error)
             {
-                _log.debug("Could not get message performance information for: " + msg.toString());   
+                _log.debug("Could not get message performance information for: " + msg.toString());
             }
-        }                       
-        
+        }
+
         if (configRequested)
         {
-            configRequested = false; 
+            configRequested = false;
             ServerConfig.updateServerConfigData(ackMsg.body as ConfigMap);
             needsConfig = false;
             if (_pendingConnectEvent)
                 channelConnectHandler(_pendingConnectEvent);
-                
+
             _pendingConnectEvent = null;
         }
-         
+
         if (clientId == null)
         {
             if (ackMsg.clientId != null)
@@ -671,11 +667,11 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             else
                 flushClientIdWaitQueue();
         }
-                    
-        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));    
-        monitorRpcMessage(ackMsg,msg);              
+
+        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));
+        monitorRpcMessage(ackMsg,msg);
     }
-        
+
     /**
      *  Disconnects the MessageAgent's network connection.
      *  This method does not wait for outstanding network operations to complete.
@@ -686,21 +682,21 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         {
             // Ensure wait queue for client id value is destroyed.
             _clientIdWaitQueue = null;
-            
-            // Only set the barrier used to discard post-disconnect results/faults 
+
+            // Only set the barrier used to discard post-disconnect results/faults
             // if the agent is currently connected (otherwise, if this is invoked before
             // connecting and the client fails to connect to the server, no faults will be
             // dispatched).
             if (connected)
                 _disconnectBarrier = true;
-            
+
             if (_channelSetMode == AUTO_CONFIGURED_CHANNELSET)
                 internalSetChannelSet(null);
             else if (_channelSet != null)
                 _channelSet.disconnect(this);
         }
-    }   
-    
+    }
+
     /**
      *  Invoked by a MessageResponder upon receiving a fault for a sent message.
      *  Subclasses may override this method if they need to perform custom fault
@@ -708,17 +704,17 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  method dispatchs a MessageFaultEvent.
      *
      *  @param errMsg The ErrorMessage.
-     * 
+     *
      *  @param msg The original sent message that caused this fault.
      */
     public function fault(errMsg:ErrorMessage, msg:IMessage):void
-    {   
+    {
         if (Log.isError())
             _log.error("'{0}' {2} fault for '{1}'.", id, msg.messageId, _agentType);
-            
+
         _ignoreFault = false;
         configRequested = false;
-                
+
         // Remove retryable hint.
         if (errMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER])
             delete errMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER];
@@ -730,81 +726,81 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             else
                 flushClientIdWaitQueue();
         }
-                
-        dispatchEvent(MessageFaultEvent.createEvent(errMsg));    
+
+        dispatchEvent(MessageFaultEvent.createEvent(errMsg));
         monitorRpcMessage(errMsg,msg);
-              
+
         // If we get an authentication fault on the server and our authenticated
         // flag is true then the authentication fault must have been caused by a
         // session expiration on the server.  Set our authentication state to false.
-        // If loginAfterDisconnect flag is on, resend credentials by doing a 
-        // disconnect/connect and try sending the message again 
-        if (errMsg.faultCode == "Client.Authentication" && authenticated && 
+        // If loginAfterDisconnect flag is on, resend credentials by doing a
+        // disconnect/connect and try sending the message again
+        if (errMsg.faultCode == "Client.Authentication" && authenticated &&
             channelSet != null && channelSet.currentChannel != null)
         {
             channelSet.currentChannel.setAuthenticated(false);
-            
+
             if (channelSet.currentChannel.loginAfterDisconnect)
             {
                 reAuthorize(msg);
                 _ignoreFault = true;
             }
-        }                                   
+        }
     }
-    
+
     /**
-     * This function should be overriden by sublasses to implement re-authorization due to 
+     * This function should be overriden by sublasses to implement re-authorization due to
      * server session time-out behavior specific to them.  In general it should
      * follow disconnect, connect, re-send message pattern
-     * 
+     *
      *  @param msg The message that caused the fault and should be resent once we have
      *  disconnected/connected causing re-authentication.
-     */    
+     */
     protected function reAuthorize(msg:IMessage):void
     {
         disconnect();
-        internalSend(msg);      
+        internalSend(msg);
     }
-    
+
     /**
      *  Handles a CONNECT ChannelEvent. Subclasses that need to perform custom
-     *  processing should override this method, and invoke 
+     *  processing should override this method, and invoke
      *  <code>super.channelConnectHandler()</code>.
-     * 
+     *
      *  @param event The ChannelEvent.
      */
-    public function channelConnectHandler(event:ChannelEvent):void 
+    public function channelConnectHandler(event:ChannelEvent):void
     {
-        _disconnectBarrier = false;         
+        _disconnectBarrier = false;
         // If we are waiting on config to come in we can't be connected until
         // we get it. See acknowledge().
         if (needsConfig)
         {
             if (Log.isInfo())
                 _log.info("'{0}' {1} waiting for configuration information.", id, _agentType);
-                
+
             _pendingConnectEvent = event;
         }
         else
         {
             if (Log.isInfo())
-                _log.info("'{0}' {1} connected.", id, _agentType);  
+                _log.info("'{0}' {1} connected.", id, _agentType);
             setConnected(true);
             dispatchEvent(event);
         }
     }
-    
+
     /**
      *  Handles a DISCONNECT ChannelEvent. Subclasses that need to perform
      *  custom processing should override this method, and invoke
      *  <code>super.channelDisconnectHandler()</code>.
-     * 
+     *
      *  @param event The ChannelEvent.
      */
     public function channelDisconnectHandler(event:ChannelEvent):void
     {
         if (Log.isWarn())
-            _log.warn("'{0}' {1} channel disconnected.", id, _agentType);           
+            _log.warn("'{0}' {1} channel disconnected.", id, _agentType);
         setConnected(false);
         // If we have remoteCredentials we need to send them on reconnect.
         if (_remoteCredentials != null)
@@ -813,19 +809,19 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         }
         dispatchEvent(event);
     }
-    
+
     /**
      *  Handles a ChannelFaultEvent. Subclasses that need to perform custom
      *  processing should override this method, and invoke
      *  <code>super.channelFaultHandler()</code>.
-     * 
+     *
      *  @param The ChannelFaultEvent
      */
     public function channelFaultHandler(event:ChannelFaultEvent):void
     {
         if (Log.isWarn())
             _log.warn("'{0}' {1} channel faulted with {2} {3}", id, _agentType, event.faultCode, event.faultDetail);
-        
+
         if (!event.channel.connected)
         {
             setConnected(false);
@@ -835,9 +831,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 _sendRemoteCredentials = true;
             }
         }
-        dispatchEvent(event);    
+        dispatchEvent(event);
     }
-    
+
     /**
      *  Called after the implementing object has been created
      *  and all properties specified on the tag have been assigned.
@@ -851,12 +847,12 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         this.id = id;
     }
-    
+
     /**
-     *  Logs the MessageAgent out from its remote destination. 
+     *  Logs the MessageAgent out from its remote destination.
      *  Logging out of a destination applies to everything connected using the same ChannelSet
      *  as specified in the server configuration. For example, if several DataService components
-     *  are connected over an RTMP channel and <code>logout()</code> is invoked on one of them, 
+     *  are connected over an RTMP channel and <code>logout()</code> is invoked on one of them,
      *  all other client components that are connected using the same ChannelSet are also logged out.
      */
     public function logout():void
@@ -864,13 +860,13 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         _credentials = null;
         if (channelSet)
             channelSet.logout(this);
-    }   
-    
+    }
+
     /**
-     *  Sets the credentials that the MessageAgent uses to authenticate to 
+     *  Sets the credentials that the MessageAgent uses to authenticate to
      *  destinations.
-     *  The credentials are applied to all services connected over the same ChannelSet. 
-     * 
+     *  The credentials are applied to all services connected over the same ChannelSet.
+     *
      *  @param username The username.
      *  @param password The password.
      *  @param charset The character set encoding to use while encoding the
@@ -908,7 +904,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     /**
      *  Sets the remote credentials that will be passed through to the remote destination
      *  for authenticating to secondary systems.
-     * 
+     *
      *  @param username The username.
      *  @param password The password.
      *  @param charset The character set encoding to use while encoding the
@@ -934,27 +930,27 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             _remoteCredentials = encoder.drain();
             _remoteCredentialsCharset = charset;
         }
-        _sendRemoteCredentials = true;      
+        _sendRemoteCredentials = true;
     }
-    
+
     /**
     * Returns true if there are any pending requests for the passed in message.
     * This method should be overriden by subclasses
-    * 
+    *
     * @param msg The message for which the existence of pending requests is checked.
     *
-    * @return Returns <code>true</code> if there are any pending requests for the 
+    * @return Returns <code>true</code> if there are any pending requests for the
     * passed in message.
     */
     public function hasPendingRequestForMessage(msg:IMessage):Boolean
     {
         return false;
-    }    
+    }
 
     //--------------------------------------------------------------------------
     //
     // Internal Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -971,7 +967,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -986,9 +982,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             errMsg.faultString = "Credentials specified do not match those used on underlying connection.";
             errMsg.faultDetail = "Channel was authenticated with a different set of credentials than those used for this agent.";
             dispatchEvent(MessageFaultEvent.createEvent(errMsg));
-        }   
+        }
     }
-    
+
     /**
      *  @private
      *  Utility method to flush any pending queued messages to send once we have
@@ -1004,7 +1000,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 while (_clientIdWaitQueue.length > 0)
                 {
                     internalSend(_clientIdWaitQueue.shift() as IMessage);
-                }                               
+                }
             }
 
             if (clientId == null)
@@ -1036,14 +1032,14 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  Sends a Message from the MessageAgent to its destination using the
      *  agent's ChannelSet. MessageAgent subclasses must use this method to
      *  send their messages.
-     * 
+     *
      *  @param message The message to send.
-     * 
+     *
      *  @param waitForClientId If true the message may be queued until a clientId has been
      *                         assigned to the agent. In general this is the desired behavior.
      *                         For special behavior (automatic reconnect and resubscribe) the
      *                         agent may pass false to override the default queuing behavior.
-     * 
+     *
      *  @throws mx.messaging.errors.InvalidDestinationError If no destination is set.
      */
     protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
@@ -1077,7 +1073,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
         if (_sendRemoteCredentials)
         {
-            if (! ((message is CommandMessage) && 
+            if (! ((message is CommandMessage) &&
                     (CommandMessage(message).operation == CommandMessage.TRIGGER_CONNECT_OPERATION)))
             {
                 message.headers[AbstractMessage.REMOTE_CREDENTIALS_HEADER] = _remoteCredentials;
@@ -1090,25 +1086,25 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         {
             if (!connected && (_channelSetMode == MANUALLY_ASSIGNED_CHANNELSET))
                 _channelSet.connect(this);
-            
+
             if (channelSet.connected && needsConfig && !configRequested)
             {
                 message.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
                 configRequested = true;
             }
-            
+
             channelSet.send(this, message);
-            monitorRpcMessage(message,message);           
+            monitorRpcMessage(message,message);
         }
-        else if (destination.length > 0)
+        else if (destination != null && destination.length > 0)
         {
             initChannelSet(message);
             if (channelSet != null)
             {
                 channelSet.send(this, message);
-                monitorRpcMessage(message,message);      
+                monitorRpcMessage(message,message);
             }
-        }        
+        }
         else
         {
             var msg:String = resourceManager.getString(
@@ -1116,11 +1112,11 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             throw new InvalidDestinationError(msg);
         }
     }
-    
+
     /**
      * Monitor a rpc message that is being send
     */
-    
+
     private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
     {
         if (NetworkMonitor.isMonitoring())
@@ -1131,7 +1127,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
             else if (message is AcknowledgeMessage)
             {
-                NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
+                NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));
             }
             else
             {
@@ -1139,7 +1135,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
         }
     }
-    
+
     /**
      * Return the id for the NetworkMonitor.
      * @private
@@ -1148,33 +1144,33 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         return null;
     }
-    
+
     /**
      *  Used to automatically initialize the <code>channelSet</code> property for the
-     *  MessageAgent before it connects for the first time. 
+     *  MessageAgent before it connects for the first time.
      *  Subtypes may override to perform custom initialization.
-     * 
+     *
      *  @param message The message that needs to be sent.
      */
     protected function initChannelSet(message:IMessage):void
     {
         if (_channelSet == null)
         {
-            _channelSetMode = AUTO_CONFIGURED_CHANNELSET; 
+            _channelSetMode = AUTO_CONFIGURED_CHANNELSET;
             internalSetChannelSet(ServerConfig.getChannelSet(destination));
         }
-        
-        if (_channelSet.connected && needsConfig && !configRequested)            
+
+        if (_channelSet.connected && needsConfig && !configRequested)
         {
             message.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
             configRequested = true;
         }
-            
+
         _channelSet.connect(this);
-        
+
         if (_credentials != null)
             channelSet.setCredentials(_credentials, this, _credentialsCharset);
-    }        
+    }
 }
 
 }
