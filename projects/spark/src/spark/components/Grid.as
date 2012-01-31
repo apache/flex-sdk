@@ -1367,6 +1367,7 @@ package spark.components
         //----------------------------------
         
         [Bindable("selectionModeChanged")]
+        [Inspectable(category="General", enumeration="none,row,multipleRows,cell,multipleCells", defaultValue="row")]
         
         /**
          *  @copy spark.components.supportClasses.GridSelection#selectionMode
