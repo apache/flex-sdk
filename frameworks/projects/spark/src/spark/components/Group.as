@@ -17,11 +17,13 @@ import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
 import mx.core.IFontContextComponent;
+import mx.core.IUIComponent;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
@@ -1282,6 +1284,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             dispatchEvent(new ElementExistenceEvent(
                           ElementExistenceEvent.ELEMENT_ADD, false, false, element, index));
+            
+            if (element is IUIComponent)
+                element.dispatchEvent(new FlexEvent(FlexEvent.ADD));
         }
         
         invalidateSize();
@@ -1307,6 +1312,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {        
             dispatchEvent(new ElementExistenceEvent(
                           ElementExistenceEvent.ELEMENT_REMOVE, false, false, element, index));
+            
+            if (element is IUIComponent)
+                element.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
         }
         
         if (element && (element is IGraphicElement))
