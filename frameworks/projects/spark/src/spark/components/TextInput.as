@@ -29,7 +29,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  Dispatched when the user pressed the Enter key.
  */
-[Event(name="enter", type="mx.events.AnimationEvent")]
+[Event(name="enter", type="mx.events.FlexEvent")]
 
 //--------------------------------------
 //  Other metadata
