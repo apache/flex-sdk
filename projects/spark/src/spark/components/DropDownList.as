@@ -132,7 +132,7 @@ use namespace mx_internal;
  *      the item and closes the drop-down list.</li>
  *  </ul>
  *
- *  @mxml <p>The <code>&lt;DropDownList&gt;</code> tag inherits all of the tag 
+ *  @mxml <p>The <code>&lt;s:DropDownList&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
