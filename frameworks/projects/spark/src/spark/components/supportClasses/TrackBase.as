@@ -211,25 +211,6 @@ public class TrackBase extends Range
     }
 
     /**
-     *  Adds an eventListener for the updateComplete event so
-     *  that TrackBase will correctly position the thumb.
-     */
-    override protected function attachBehaviors():void
-    {
-        super.attachBehaviors();
-        track.addEventListener("updateComplete", track_updateCompleteHandler);
-    }
-    
-    /**
-     *  Removes the updateComplete event handler.
-     */
-    override protected function removeBehaviors():void
-    {
-        super.removeBehaviors();
-        track.removeEventListener("updateComplete", track_updateCompleteHandler);
-    }
-
-    /**
      *  Adds event handlers to the track and thumb for mouse events.
      */
     override protected function partAdded(partName:String, instance:*):void
@@ -244,6 +225,9 @@ public class TrackBase extends Range
         {
             track.addEventListener(MouseEvent.MOUSE_DOWN,
                                    track_mouseDownHandler);
+            track.addEventListener("updateComplete", 
+                                   track_updateCompleteHandler);
+            
         }
         
         enableSkinParts(enabled);
@@ -263,6 +247,8 @@ public class TrackBase extends Range
         {
             track.removeEventListener(MouseEvent.MOUSE_DOWN, 
                                       track_mouseDownHandler);
+            track.removeEventListener("updateComplete", 
+                                      track_updateCompleteHandler);
         }
     }
 
