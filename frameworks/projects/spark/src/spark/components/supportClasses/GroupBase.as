@@ -8,7 +8,6 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
-import mx.graphics.IGraphicElementHost;
 import mx.events.FlexEvent;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.Graphic;
@@ -58,7 +57,7 @@ include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *  @see mx.layout.LayoutBase
  *  @see mx.components.ResizeMode
  */
-public class GroupBase extends UIComponent implements IGraphicElementHost, IViewport
+public class GroupBase extends UIComponent implements IViewport
 {
     //--------------------------------------------------------------------------
     //
@@ -696,12 +695,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         return null;
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  IGraphicElement Implementation
-    //
-    //--------------------------------------------------------------------------
-    
     //----------------------------------
     //  mask
     //----------------------------------
@@ -770,12 +763,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         }
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  IGraphicElementHost Implementation
-    //
-    //--------------------------------------------------------------------------
-    
     /**
      *  Notify the host that an element has changed and needs to be redrawn.
      *
