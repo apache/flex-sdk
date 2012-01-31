@@ -100,7 +100,10 @@ public class ProgressIndeterminateSkin extends Border
 		var barColor0:Number = ColorUtil.adjustBrightness2(barColor, 60);
 		var hatchInterval:Number = getStyle("indeterminateMoveInterval");
 		
-		if (isNaN(hatchInterval))
+		// Prevents a crash when hatchInterval == 0. Really the indeterminateMoveInterval style should
+		// not be hijacked to control the width of the segments on the bar but I'm not sure this is
+		// unavoidable while retaining backwards compatibility (see Bug 12942) 
+		if (isNaN(hatchInterval) || hatchInterval == 0)
 			hatchInterval = 28;
 
 		var g:Graphics = graphics;
