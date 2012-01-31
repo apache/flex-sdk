@@ -518,8 +518,6 @@ public class RichText extends TextBase
      */
     private var contentChanged:Boolean = false;
     
-    [Inspectable(environment="none")]
-
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
