@@ -3235,6 +3235,9 @@ public class Container extends UIComponent
         {
             vm = viewMetrics;
 
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+				vm = EdgeMetrics.EMPTY;
+				
             var bgColor:Object = enabled ?
                                  null :
                                  getStyle("backgroundDisabledColor");
