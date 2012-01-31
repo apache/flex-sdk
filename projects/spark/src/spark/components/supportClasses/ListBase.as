@@ -842,7 +842,7 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  @private
      */
-    override public function updateRenderer(renderer:IVisualElement):void
+    override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
         var transitions:Array;
          
@@ -867,20 +867,15 @@ public class ListBase extends SkinnableDataContainer
                 ItemRenderer(renderer).playTransitions = true;  
         }    
         
-        // Now run through and initialize the renderer correctly
-        super.updateRenderer(renderer); 
-        
         // Set any new properties on the renderer now that it's going to 
         // come back into use. 
+        if (isItemIndexSelected(itemIndex))
+            itemSelected(itemIndex, true);
         
-        var index:int
-        if (renderer is IItemRenderer)
-            index = IItemRenderer(renderer).itemIndex;
-        else
-            index = dataGroup.getElementIndex(renderer);
-        
-        if (isItemIndexSelected(index))
-            itemSelected(index, true);
+        // Now run through and initialize the renderer correctly.  We 
+        // call super.updateRenderer() last because super.updateRenderer()
+        // sets the data on the item renderer, and that should be done last.
+        super.updateRenderer(renderer, itemIndex, data); 
     }
     
     /**
