@@ -169,7 +169,6 @@ public class GridColumn extends EventDispatcher
     //----------------------------------
     
     private var _dataTipField:String = null;
-    private var dataTipFieldPath:Array = [];
     
     [Bindable("dataTipFieldChanged")]    
     
@@ -201,10 +200,8 @@ public class GridColumn extends EventDispatcher
         
         _dataTipField = value;
         
-        if (value.indexOf(".") != -1) 
-            dataTipFieldPath = value.split(".");
-        else
-            dataTipFieldPath = [value];
+        if (grid)
+            grid.invalidateDisplayList();
         
         dispatchChangeEvent("dataTipFieldChanged");
     }
@@ -255,6 +252,10 @@ public class GridColumn extends EventDispatcher
             return;
         
         _dataTipFunction = value;
+        
+        if (grid)
+            grid.invalidateDisplayList();
+        
         dispatchChangeEvent("dataTipFunctionChanged");
     }
     
@@ -586,16 +587,22 @@ public class GridColumn extends EventDispatcher
     //  showDataTips
     //----------------------------------
     
-    private var _showDataTips:Boolean = false;
+    private var _showDataTips:* = undefined;
     
     [Bindable("showDataTipsChanged")]  
     
     /**
-     *  Show dataTips for the cells in this column.
+     *  Show dataTips for the cells in this column.   
      * 
-     *  @default false
+     *  <p>If this property's value is undefined(the default), then the grid's showDataTips
+     *  property determines if dataTips will be shown.   If this property is set, then 
+     *  the grid's showDataTips property is ignored. 
+     * 
+     *  @default undefined
+     * 
+     *  @see #getShowDataTips
      */
-    public function get showDataTips():Boolean
+    public function get showDataTips():*
     {
         return _showDataTips;
     }
@@ -603,13 +610,23 @@ public class GridColumn extends EventDispatcher
     /**
      *  @private
      */
-    public function set showDataTips(value:Boolean):void
+    public function set showDataTips(value:*):void
     {
-        if (_showDataTips == value)
+        if (_showDataTips === value)
             return;
 
         _showDataTips = value;
+        
+        if (grid)
+            grid.invalidateDisplayList();
+        
         dispatchChangeEvent("showDataTipsChanged");        
+    }
+    
+
+    mx_internal function getShowDataTips():Boolean
+    {
+        return (showDataTips === undefined) ? grid && grid.showDataTips : showDataTips;    
     }
     
     //----------------------------------
@@ -715,7 +732,7 @@ public class GridColumn extends EventDispatcher
      *  <code>item[dataField].toString()</code>.   If dataField is a "." separated
      *  path, then this method looks up each successive path element.  For example if
      *  <code>="foo.bar.baz"</code> then this method would return
-     *  the value of <code>item.foo.bar.baz</code>.   If resolving the item's 
+     *  the value of <code>item.foo.bar.baz</code>.   If resolving the item's dataField
      *  causes an error to be thrown, ERROR_TEXT is returned.</p>
      * 
      *  <p>If item and labelFunction are not null then this method returns 
@@ -734,8 +751,13 @@ public class GridColumn extends EventDispatcher
     /**
      *  Convert the specified dataProvider item to a column-specific dataTip String. 
      * 
-     *  <p>This method is similar to itemToLabel(): dataTipField can be "." separated 
-     *  path, and if ERROR_TEXT is returned if resolving the field/path fails..</p>
+     *  <p>This method uses the values dataTipField and dataTipFunction and if
+     *  they're null, it uses the corresponding Grid properties.  If both dataTipField
+     *  properties are null then the dataField property is used.</p>
+     * 
+     *  <p>If dataTipFunction is null, then this method is equivalent to:
+     *  <code>item[dataTipField].toString()</code>.   If resolving the item's dataField
+     *  causes an error to be thrown, ERROR_TEXT is returned.</p>
      * 
      *  <p>If item and dataTipFunction are not null then this method returns 
      *  <code>dataTipFunction(item, this)</code>, where the second argument is
@@ -747,7 +769,11 @@ public class GridColumn extends EventDispatcher
      */
     public function itemToDataTip(item:Object):String
     {
-        return itemToString(item, dataTipFieldPath, dataTipFunction);      
+        const tipFunction:Function = (dataTipFunction != null) ? dataTipFunction : grid.dataTipFunction;
+        const tipField:String = (dataTipField) ? dataTipField : grid.dataTipField;
+        const tipPath:Array = (tipField) ? [tipField] : dataFieldPath;
+        
+        return itemToString(item, tipPath, tipFunction);      
     }
     
     /**
