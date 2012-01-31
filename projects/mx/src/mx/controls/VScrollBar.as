@@ -29,6 +29,11 @@ use namespace mx_internal;
  *  user initiated action or programmatically. 
  *
  *  @eventType mx.events.ScrollEvent.SCROLL
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="scroll", type="mx.events.ScrollEvent")]
 
@@ -41,6 +46,11 @@ use namespace mx_internal;
  *  event before repeating <code>buttonDown</code> events at the
  *  <code>repeatInterval</code>.
  *  The default value is 500.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
 
@@ -48,6 +58,11 @@ use namespace mx_internal;
  *  Number of milliseconds between <code>buttonDown</code> events
  *  if the user presses and holds the mouse on a button.
  *  The default value is 35.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
 
@@ -116,6 +131,11 @@ use namespace mx_internal;
  *  @includeExample examples/VScrollBarExample.mxml
  *
  *  @see mx.controls.scrollClasses.ScrollBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VScrollBar extends ScrollBar
 {
@@ -129,6 +149,11 @@ public class VScrollBar extends ScrollBar
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function VScrollBar()
     {
