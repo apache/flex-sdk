@@ -21,6 +21,11 @@ import mx.controls.listClasses.IListItemRenderer;
  *   editable grid item gets the focus.
  *
  *  @see mx.controls.DataGrid
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridEvent extends Event
 {
@@ -96,6 +101,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType itemEditBegin
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_BEGIN:String = "itemEditBegin";
 
@@ -164,6 +174,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType itemEditEnd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_END:String = "itemEditEnd"
 
@@ -199,6 +214,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType itemFocusIn
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static const ITEM_FOCUS_IN:String = "itemFocusIn";
 
@@ -234,6 +254,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType itemFocusOut
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_FOCUS_OUT:String = "itemFocusOut";
 
@@ -280,6 +305,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType itemEditBeginning
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_BEGINNING:String = "itemEditBeginning";
 
@@ -315,6 +345,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType columnStretch
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static const COLUMN_STRETCH:String = "columnStretch";
 
@@ -350,6 +385,11 @@ public class DataGridEvent extends Event
      *  </table>
      *
      *  @eventType headerRelease
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const HEADER_RELEASE:String = "headerRelease";
 
@@ -381,6 +421,11 @@ public class DataGridEvent extends Event
      *  was clicked..
      *
      *  @param localX Column x-position for replaying <code>columnStretch</code> events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridEvent(type:String, bubbles:Boolean = false,
                                   cancelable:Boolean = false,
@@ -413,6 +458,11 @@ public class DataGridEvent extends Event
     /**
      *  The zero-based index in the DataGrid object's <code>columns</code> array
      *  of the column associated with the event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var columnIndex:int;
 
@@ -422,6 +472,11 @@ public class DataGridEvent extends Event
 
     /**
      *  The name of the field or property in the data associated with the column.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var dataField:String;
 
@@ -433,6 +488,11 @@ public class DataGridEvent extends Event
      *  The item renderer for the item that is being edited or the header
      *  render that is being clicked or stretched.
      *  You can access the data provider item using this property. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemRenderer:IListItemRenderer;
 
@@ -442,6 +502,11 @@ public class DataGridEvent extends Event
 
     /**
      *  The column's x-position; used for replaying column stretch events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var localX:Number;
 
@@ -455,6 +520,11 @@ public class DataGridEvent extends Event
      *  The possible values are defined in the DataGridEventReason class.
      * 
      *  @see DataGridEventReason
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var reason:String;
 
@@ -464,6 +534,11 @@ public class DataGridEvent extends Event
 
     /**
      *  The zero-based index of the item in the data provider.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rowIndex:int;
 
