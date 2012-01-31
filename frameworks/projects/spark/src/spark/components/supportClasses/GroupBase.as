@@ -308,9 +308,9 @@ public class GroupBase extends UIComponent implements IViewport
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get baselinePosition():Number
     {
