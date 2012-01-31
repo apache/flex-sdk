@@ -132,17 +132,14 @@ public class AnimateTransform extends Animate
          "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ",
          "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ",
          "left", "right", "top", "bottom",
-         "horizontalCenter", "verticalCenter",
+         "horizontalCenter", "verticalCenter", "baseline",
          "width", "height"];
     
-    // FIXME (chaase): We probably need to advertise percentWidth/Height
-    // in the affected properties/styles arrays; we don't pick these up
-    // in the transition propertyChanges automatically otherwise 
     /**
      *  @private
      */
     private static var RELEVANT_STYLES:Array = 
-        ["left", "right", "top", "bottom", "horizontalCenter", "verticalCenter"];
+        ["left", "right", "top", "bottom", "horizontalCenter", "verticalCenter", "baseline"];
 
     //--------------------------------------------------------------------------
     //
@@ -186,7 +183,7 @@ public class AnimateTransform extends Animate
     // described in the comment for linearEaser above.
     mx_internal var transformEffectSubclass:Boolean = false;
     
-    // FIXME (chaase): consider putting the three per-target maps into one 
+    // TODO (chaase): consider putting the three per-target maps into one 
     // single structure
     /**
      * @private
@@ -508,7 +505,7 @@ public class AnimateTransform extends Animate
                     valueMap.translationY === undefined ||
                     valueMap.translationZ === undefined)
                 {
-                    // FIXME (chaase): do we really need this?
+                    // TODO (chaase): do we really need this?
                     propChanges[i].stripUnchangedValues = false;
                     
                     target.transformPointToParent(computedTransformCenter, xformPosition,
@@ -546,7 +543,7 @@ public class AnimateTransform extends Animate
                         valueMap.postLayoutTranslationY === undefined ||
                         valueMap.postLayoutTranslationZ === undefined)
                     {
-                        // FIXME (chaase): do we really need this?
+                        // TODO (chaase): do we really need this?
                         propChanges[i].stripUnchangedValues = false;
     
                         target.transformPointToParent(computedTransformCenter, null,
@@ -952,7 +949,7 @@ public class AnimateTransform extends Animate
         motionPaths.push(mp);
     }
 
-    // FIXME (chaase): This function appears in multiple places. Maybe
+    // TODO (chaase): This function appears in multiple places. Maybe
     // put it in some util class instead?
     /**
      * @private
