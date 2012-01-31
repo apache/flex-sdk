@@ -426,12 +426,14 @@ public class GridDimensions
     public function getCellBounds(row:int, col:int):Rectangle
     {
         // TBD: provide optional return value (Rectangle) parameter
-        // TBD: return null if row or col are out of bounds
+        if (row < 0 || row >= rowCount || col < 0 || col >= columnCount)
+            return null;
+        
         var x:Number = getCellX(row, col);
         var y:Number = getCellY(row, col);
         
-        var width:Number = this.getColumnWidth(col);
-        var height:Number = this.getRowHeight(row);
+        var width:Number = getColumnWidth(col);
+        var height:Number = getRowHeight(row);
         
         return new Rectangle(x, y, width, height);
     }
@@ -512,11 +514,11 @@ public class GridDimensions
         if ((row < 0) || (row >= rowCount))
             return null;  // TBD: return empty Rectangle instead
         
-        const firstCellR:Rectangle = getCellBounds(row, 0);
-        const lastCellR:Rectangle = getCellBounds(row, columnCount - 1);
-        const rowWidth:Number = lastCellR.x + lastCellR.width - firstCellR.x;
-        const rowHeight:Number = firstCellR.height;
-        return new Rectangle(firstCellR.x, firstCellR.y, rowWidth, rowHeight); 
+        const x:Number = getCellX(row, 0);
+        const y:Number = getCellY(row, 0);
+        const rowWidth:Number = getCellX(row, columnCount - 1) + getColumnWidth(columnCount - 1) - x;
+        const rowHeight:Number = getRowHeight(row);
+        return new Rectangle(x, y, rowWidth, rowHeight);
     }
     
     /**
@@ -528,11 +530,11 @@ public class GridDimensions
         if ((col < 0) || (col >= columnCount))
             return null;  // TBD: return empty Rectangle instead
 
-        const firstCellR:Rectangle = getCellBounds(0, col);
-        const lastCellR:Rectangle = getCellBounds(rowCount - 1, col);
-        const colWidth:Number = firstCellR.width;
-        const colHeight:Number = lastCellR.y + lastCellR.height - firstCellR.y;
-        return new Rectangle(firstCellR.x, firstCellR.y, colWidth, colHeight); 
+        const x:Number = getCellX(0, col);
+        const y:Number = getCellY(0, col);
+        const colWidth:Number = getColumnWidth(col);
+        const colHeight:Number = getCellY(rowCount - 1, col) + getCellHeight(rowCount - 1, col) - y;
+        return new Rectangle(x, y, colWidth, colHeight);
     }
     
     /**
