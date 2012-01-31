@@ -21,7 +21,7 @@ import flash.geom.Point;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
-import mx.events.TouchScrollEvent;
+import mx.events.GestureCaptureEvent;
 
 import spark.components.Button;
 import spark.events.TrackBaseEvent;
@@ -418,7 +418,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-            thumb.addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, thumb_touchScrollDragStart);
+            thumb.addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_STARTING, thumb_gestureCaptureStartingHandler);
             thumb.addEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);
             thumb.addEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
             thumb.stickyHighlighting = true;
@@ -443,7 +443,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-            thumb.removeEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, thumb_touchScrollDragStart);
+            thumb.removeEventListener(GestureCaptureEvent.GESTURE_CAPTURE_STARTING, thumb_gestureCaptureStartingHandler);
             thumb.removeEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);            
             thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);            
         }
@@ -618,7 +618,7 @@ public class TrackBase extends Range
     /**
      *  @private
      */
-    protected function thumb_touchScrollDragStart(event:TouchScrollEvent):void
+    protected function thumb_gestureCaptureStartingHandler(event:GestureCaptureEvent):void
     {
         // cancel this event b/c I want to control it
         event.preventDefault();
