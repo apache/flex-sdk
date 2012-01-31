@@ -73,6 +73,7 @@ import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
@@ -1707,8 +1708,10 @@ public class RichEditableText extends UIComponent
         if (isFocused)
         {
             // For some composite components, the focused object may not
-            // be "this". If so, we don't want to draw the focus.
-            if (focusManager.getFocus() != this)
+            // be "this". If so, we don't want to draw the focus.  This
+            // replaces the parentDrawsFocus variable used in halo.
+            var fm:IFocusManager = focusManager;
+            if (fm && fm.getFocus() != this)
                 return;
         }
         
@@ -3204,17 +3207,25 @@ public class RichEditableText extends UIComponent
      *  @private
      *  RichEditableTextContainerManager overrides focusInHandler and calls
      *  this before executing its own focusInHandler.
-     * 
-     *  NOTE: In some cases TCM calls the focusInHandler twice during one
-     *  focusIn event.  Ensure that this code works correctly if it is
-     *  called twice.
      */
     mx_internal function focusInHandler(event:FocusEvent):void
     {
+        // When TCM is simulating a focusIn event, event will be null.
+        // Ignore these and wait for the actual focus in event.
+        if (event == null)
+            return;
+             
         //trace("focusIn handler");
-            
+
+        var fm:IFocusManager = focusManager;
+        if (fm && editingMode == EditingMode.READ_WRITE)
+            fm.showFocusIndicator = true;
+        
+        // showFocusIndicator must be set before this is called.
+        super.focusInHandler(event);
+        
         if (editingMode == EditingMode.READ_WRITE)
-        {  
+        {
             // If the focusIn was because of a mouseDown event, let TLF
             // handle the selection.  Otherwise it was because we tabbed in
             // or we programatically set the focus.
@@ -3276,6 +3287,8 @@ public class RichEditableText extends UIComponent
     mx_internal function focusOutHandler(event:FocusEvent):void
     {
         //trace("focusOut handler");
+
+        super.focusOutHandler(event);
 
         // By default, we clear the undo history when a RichEditableText loses 
         // focus.
