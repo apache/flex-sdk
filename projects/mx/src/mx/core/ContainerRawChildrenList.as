@@ -79,6 +79,16 @@ public class ContainerRawChildrenList implements IChildList
 		But once Container overrides getChildAt(), there is no way
 		to call the supermethod through an instance.
 
+	*  
+
+	*  @langversion 3.0
+
+	*  @playerversion Flash 9
+
+	*  @playerversion AIR 1.1
+
+	*  @productversion Flex 3
+
 	*/
 	
 	//--------------------------------------------------------------------------
