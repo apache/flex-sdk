@@ -76,7 +76,7 @@ public class Form extends SkinnableContainer
      *  A sorted array of descendant elements that are in an INVALID state.
      *  The items in the array are Objects with the following properties:
      *  element:UIComponent - the invalid descendant element
-     *  position:Vector.<int> - a Vector of integers representing the position
+     *  position:Vector.%lt;int%gt; - a Vector of integers representing the position
      *  of the element in the display list tree. This is used for sorting the array.  
      * 
      *  If a descendant is removed from the Form, the dictionary will not get 
@@ -168,8 +168,8 @@ public class Form extends SkinnableContainer
                 _invalidElements.push(item);
                 _invalidElements.sort(compareNestedPosition);
 
-				// Listen for errorString == ""
-            	targ.addEventListener("errorStringChanged", errorStringChangedHandler);
+                // Listen for errorString == ""
+                targ.addEventListener("errorStringChanged", errorStringChangedHandler);
             }
         }
         
