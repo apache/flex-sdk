@@ -9,9 +9,9 @@
             <![CDATA[
 
                 // need to import the item renderers
-                import mx.skins.spark.FxDefaultItemRenderer;
-                import mx.skins.spark.FxDefaultComplexItemRenderer;
-                import mx.components.FxButton;
+                import spark.skins.default.DefaultItemRenderer;
+                import spark.skins.default.DefaultComplexItemRenderer;
+                import spark.components.Button;
 
                 public function customItemRendererFunction(item:*):IFactory{
                     if (item is FxButton)
