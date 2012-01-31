@@ -55,45 +55,6 @@ public class GridLayout extends LayoutBase
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  typicalLayoutElement
-    //----------------------------------
-
-    private var explicitTypicalLayoutElement:ILayoutElement;
-    
-    /**
-     *  @private
-     *  If a typicalLayoutElement has not been explicitly set, then generate
-     *  one.  
-     */
-    override public function get typicalLayoutElement():ILayoutElement
-    {
-        if (explicitTypicalLayoutElement == null)
-        {
-            if ((typicalLayoutElement = getTypicalItemRenderer()) == null)
-                return null;
-        }
-        
-        // Don't call this unless we know we've set it so that it doesn't
-        // generate one using the target.
-        return super.typicalLayoutElement;
-    }
-
-    /**
-     *  @private
-     */
-    override public function set typicalLayoutElement(value:ILayoutElement):void
-    {
-        if (explicitTypicalLayoutElement == value)
-            return;
-        
-        if (explicitTypicalLayoutElement != null)
-            freeItemRenderer(IVisualElement(explicitTypicalLayoutElement));
-            
-        explicitTypicalLayoutElement = value;       
-        super.typicalLayoutElement = value;
-   }
-    
-    //----------------------------------
     //  useVirtualLayout
     //----------------------------------
 
@@ -241,16 +202,6 @@ public class GridLayout extends LayoutBase
         
         //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
         
-        // HACK
-        /*gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
-        var numCols:int = gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;*/
-        
-        // HACK #2 - copy column explicit widths to gridDimensions
-        /*
-        for (var i:int = 0; i < numCols; i++)
-            gridDimensions.setColumnWidth(i, GridColumn(grid.columns.getItemAt(i)).width);
-        */
-        
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
         oldVisibleRowIndices = visibleRowIndices;
@@ -258,6 +209,7 @@ public class GridLayout extends LayoutBase
         
         const scrollX:Number = horizontalScrollPosition;
         const scrollY:Number = verticalScrollPosition;
+		updateVisibleColumnWidths(scrollX, scrollY, unscaledWidth, unscaledHeight);
         layoutItemRenderers(grid.itemRendererGroup, scrollX, scrollY, unscaledWidth, unscaledHeight);
         
         // Layout the row backgrounds
@@ -374,12 +326,132 @@ public class GridLayout extends LayoutBase
     // TBD(hmuller): need a change notification scheme for the factory properties
     // when one changes (which is unlikely to happen very often), need to make sure
     // that the old ones aren't reused.
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Computing the Visible Column Widths
+	//
+	//-------------------------------------------------------------------------- 
+	
+	private const columnIndices:Vector.<int> = new Vector.<int>(0);
+	private const columnWidths:Vector.<Number> = new Vector.<Number>(0);
+	
+	/**
+	 *  @private
+	 *  Use the specified GridColumn's itemRenderer (IFactory) to create a temporary
+	 *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
+	 *  after it's used.
+	 */
+	private function createTypicalItemRenderer(columnIndex:int):IVisualElement
+	{
+		var typicalItem:Object = grid.typicalItem;
+		if (typicalItem == null)
+			typicalItem = getDataProviderItem(0);
+		
+		const column:GridColumn = getGridColumn(columnIndex);
+		const factory:IFactory = column.itemToRenderer(typicalItem);
+		const renderer:IVisualElement = allocateGridElement(factory) as IVisualElement;
+		
+		grid.itemRendererGroup.addElement(renderer);
+
+		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
+		layoutGridElement(renderer, 0, 0, column.width, NaN);
+		
+		grid.itemRendererGroup.removeElement(renderer);
+		return renderer;
+	}
+	
+	/**
+	 *  @private
+	 *  Compute the widths and indices of the columns that fit within the specified width, where the 
+	 *  first column's index is startIndex, and the left edge of the first column is startX.  The 
+	 *  widths and indices are returned in the vector parameters.   The vector parameters are 
+	 *  expected to be empty when this method is called.
+	 * 
+	 *  The returned width for GridColumns with an explicit width, is just the explicit width.
+	 *  Otherwise an item renderer is created for the column and the grid's typical item and
+	 *  the item renderer's preferred width is the column's width.    
+	 */
+	private function computeVisibleColumnWidths(width:Number, startX:Number, startIndex:int, indices:Vector.<int>, widths:Vector.<Number>):void
+	{
+		const gridDimensions:GridDimensions = gridDimensions;
+		const columnCount:int = gridDimensions.columnCount;
+		const columnGap:int = gridDimensions.columnGap;
+		const startCellR:Rectangle = gridDimensions.getCellBounds(0 /* rowIndex */, startIndex);        
+		
+		for (var index:int = startIndex; (width > 0) && (index < columnCount); index++)
+		{
+			var gridColumn:GridColumn = getGridColumn(index);
+			var columnWidth:Number;
+			
+			if (isNaN(gridColumn.width)) // if this column's width wasn't explicitly specified	
+			{
+				var renderer:IVisualElement = createTypicalItemRenderer(index);
+				columnWidth = renderer.getPreferredBoundsWidth();
+				freeGridElement(renderer);
+			}
+			else
+				columnWidth = gridColumn.width;
+			
+			if (index == startIndex)
+				width -= startCellR.x + columnWidth - startX;
+			else
+				width -= columnWidth + columnGap;
+
+			indices.push(index);
+			widths.push(columnWidth);
+		}		
+	}	
+	
+	/**
+	 *  @private
+	 *  Update the column widths for the columns visible beginning at scrollX, that will fit
+	 *  within the specified width.  The width of GridColumns that lack an explicit width is 
+	 *  the maximuum of the preferred width of an item renderer for the grid's typicalItem, 
+	 *  and the preferredWidth of the corresponding ColumnHeaderBar item's renderer.
+	 * 
+	 *  This method should be called *before* layoutItemRenderers(). 
+	 */
+ 	private function updateVisibleColumnWidths(scrollX:Number, scrollY:Number, width:Number, height:Number):void
+	{
+		const firstVisibleColumnIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
+	    computeVisibleColumnWidths(width, scrollX, firstVisibleColumnIndex, columnIndices, columnWidths);
+		// TBD: loop to incorporate "slave" elements, notably CHB 
+		
+		const visibleColumnCount:uint = columnIndices.length;
+		for (var index:int = 0; index < visibleColumnCount; index++)
+		{
+			var columnIndex:int = columnIndices[index];
+			var columnWidth:Number = columnWidths[index];
+			var gridColumn:GridColumn = getGridColumn(columnIndex);
+			
+			if (isNaN(gridColumn.width)) // if this column's width wasn't explicitly specified
+			{
+				// Clamp columnWidth to the gridColumn's min,maxWidth
+				
+				var minColumnWidth:Number = gridColumn.minWidth;
+				var maxColumnWidth:Number = gridColumn.maxWidth;
+				if (!isNaN(minColumnWidth))
+					columnWidth = Math.max(columnWidth, minColumnWidth);
+				if (!isNaN(maxColumnWidth))
+					columnWidth = Math.min(columnWidth, maxColumnWidth);
+			}
+			else
+				columnWidth = gridColumn.width;
+			
+			gridDimensions.setColumnWidth(columnIndex, columnWidth);  // store the column width
+		}
+		
+		columnIndices.length = 0;
+		columnWidths.length = 0;
+	}
+	
 
     //--------------------------------------------------------------------------
     //
     //  Item Renderer Management and Layout
     //
-    //--------------------------------------------------------------------------     
+    //--------------------------------------------------------------------------   
     
     /**
      *  @private
@@ -574,50 +646,8 @@ public class GridLayout extends LayoutBase
         
         return visibleHeaderSeparators;
     }
-    
-    /**
-     *  @private
-     *  Creates a new IR for cell 0,0 using the grid's typicalItem.  If the
-     *  grid does not have a typicalItem it uses row 0.  The IR is put on
-     *  the display list, measured, and then removed from the display
-     *  list.  It is not cached with the other IRs.  It is not visible.
-     */
-    private function getTypicalItemRenderer():IVisualElement
-    {
-        if (!grid)
-            return null;
-        
-        var typicalItem:Object = grid.typicalItem;
-        if (typicalItem == null)
-            typicalItem = getDataProviderItem(0);
-        
-        var column:GridColumn = getGridColumn(0);
-        if (column == null)
-            return null;
-        
-        var factory:IFactory = column.itemToRenderer(typicalItem);
-        if (factory == null)
-            return null;
-        
-        const renderer:IVisualElement = 
-            allocateGridElement(factory) as IVisualElement;
-        
-        if (renderer == null)
-            return null;
-        
-        grid.itemRendererGroup.addElement(renderer);
-        
-        // Initialize cell 0,0.  If the column 0 has an explicit width
-        // use that.
-        initializeItemRenderer(renderer, 0, 0, typicalItem, false);
-        layoutGridElement(renderer, 0, 0, column.width, NaN);
 
-        grid.itemRendererGroup.removeElement(renderer);
-        
-        return renderer;
-     } 
-    
-    /**
+	/**
      *  @private
      */
     private function getVisibleItemRendererIndex(rowIndex:int, columnIndex:int):int
