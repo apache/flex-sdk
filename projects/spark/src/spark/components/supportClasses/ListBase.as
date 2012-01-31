@@ -36,38 +36,38 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  Calling the <code>preventDefault()</code> method
  *  on the event prevents the selection from changing.
  *
- *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGING
+ *  @eventType mx.events.IndexChangedEvent.CHANGING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="selectionChanging", type="mx.events.IndexChangedEvent")]
+[Event(name="changing", type="mx.events.IndexChangedEvent")]
 
 /**
  *  Dispatched after the selection has changed. 
  *
- *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGED
+ *  @eventType mx.events.IndexChangedEvent.CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
+[Event(name="change", type="mx.events.IndexChangedEvent")]
 
 /**
  *  Dispatched after the focus has changed.  
  *
- *  @eventType mx.events.IndexChangedEvent.ITEM_FOCUS_CHANGED
+ *  @eventType mx.events.IndexChangedEvent.CARET_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="itemFocusChanged", type="mx.events.IndexChangedEvent")]
+[Event(name="caretChange", type="mx.events.IndexChangedEvent")]
 
 /**
  *  The ListBase class is the base class for all components that support
@@ -83,15 +83,15 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *    dataProvider="null"
  *    labelField="null"
  *    labelFunction="null"
- *    requiresSelection="false"
+ *    requireSelection="false"
  *    selectedIndex="-1"
  *    selectedItem="undefined"
  *    useVirtualLayout="false"
  * 
  *    <strong>Events</strong>
- *    itemFocusChanged="<i>No default</i>"
- *    selectionChanged="<i>No default</i>"
- *    selectionChanging="<i>No default</i>"
+ *    caretChange="<i>No default</i>"
+ *    change="<i>No default</i>"
+ *    changing="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *  
@@ -158,12 +158,12 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  currentCaretIndex
+    //  caretIndex
     //----------------------------------
     
-    mx_internal var _currentCaretIndex:Number = NO_CARET; 
+    mx_internal var _caretIndex:Number = NO_CARET; 
     
-    [Bindable("itemFocusChanged")]
+    [Bindable("caretChange")]
     /**
      *  Item that is currently in focus. 
      *
@@ -174,9 +174,9 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get currentCaretIndex():Number
+    public function get caretIndex():Number
     {
-        return _currentCaretIndex;
+        return _caretIndex;
     }
     
     /**
@@ -319,11 +319,11 @@ public class ListBase extends SkinnableDataContainer
     
     /** 
      *  @private
-     *  Flag that is set when the currentCaretIndex has been adjusted due to
+     *  Flag that is set when the caretIndex has been adjusted due to
      *  items being added or removed. This flag is cleared in 
      *  commitProperties().
      */
-    mx_internal var currentCaretIndexAdjusted:Boolean = false;
+    mx_internal var caretIndexAdjusted:Boolean = false;
     
     /**
      *  @private
@@ -331,7 +331,7 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal var _selectedIndex:int = NO_SELECTION;
     
-    [Bindable("selectionChanged")]
+    [Bindable("change")]
     /**
      *  The 0-based index of the selected item, or -1 if no item is selected.
      *  Setting the <code>selectedIndex</code> property deselects the currently selected
@@ -345,9 +345,9 @@ public class ListBase extends SkinnableDataContainer
      *  <p>If the selected item is removed, the selected index is set to:</p>
      *
      *  <ul>
-     *    <li>-1 if <code>requiresSelection</code> = <code>false</code> 
+     *    <li>-1 if <code>requireSelection</code> = <code>false</code> 
      *     or there are no remaining items.</li>
-     *    <li>0 if <code>requiresSelection</code> = <code>true</code> 
+     *    <li>0 if <code>requireSelection</code> = <code>true</code> 
      *     and there is at least one item.</li>
      *  </ul>
      *
@@ -384,7 +384,7 @@ public class ListBase extends SkinnableDataContainer
     
     private var _pendingSelectedItem:*;
     
-    [Bindable("selectionChanged")]
+    [Bindable("change")]
     /**
      *  The item that is currently selected. 
      *  Setting this property deselects the currently selected 
@@ -397,9 +397,9 @@ public class ListBase extends SkinnableDataContainer
      *  <p>If the selected item is removed, the selected item is set to:</p>
      *
      *  <ul>
-     *    <li><code>undefined</code> if <code>requiresSelection</code> = <code>false</code> 
+     *    <li><code>undefined</code> if <code>requireSelection</code> = <code>false</code> 
      *      or there are no remaining items.</li>
-     *    <li>The first item if <code>requiresSelection</code> = <code>true</code> 
+     *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
      *      and there is at least one item.</li>
      *  </ul>
      *
@@ -434,20 +434,20 @@ public class ListBase extends SkinnableDataContainer
     }
 
     //----------------------------------
-    //  requiresSelection
+    //  requireSelection
     //----------------------------------
     
     /**
      *  @private
-     *  Storage for the requiresSelection property.
+     *  Storage for the requireSelection property.
      */
-    private var _requiresSelection:Boolean = false;
+    private var _requireSelection:Boolean = false;
     
     /**
      *  @private
-     *  Flag that is set when requiresSelection has changed.
+     *  Flag that is set when requireSelection has changed.
      */
-    private var requiresSelectionChanged:Boolean = false;
+    private var requireSelectionChanged:Boolean = false;
 
     /**
      *  If <code>true</code>, a data item must always be selected in the control.
@@ -461,26 +461,26 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get requiresSelection():Boolean
+    public function get requireSelection():Boolean
     {
-        return _requiresSelection;
+        return _requireSelection;
     }
 
     /**
      *  @private
      */
-    public function set requiresSelection(value:Boolean):void
+    public function set requireSelection(value:Boolean):void
     {
-        if (value == _requiresSelection)
+        if (value == _requireSelection)
             return;
             
-        _requiresSelection = value;
+        _requireSelection = value;
         
         // We only need to update if the value is changing 
         // from false to true
         if (value == true)
         {
-            requiresSelectionChanged = true;
+            requireSelectionChanged = true;
             invalidateProperties();
         }
     }
@@ -627,17 +627,17 @@ public class ListBase extends SkinnableDataContainer
             // or should we preserve selectedIndex
             if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
                itemSelected(selectedIndex, true);
-            else if (requiresSelection)
+            else if (requireSelection)
                _proposedSelectedIndex = 0;
             else
                selectedIndex = -1;
         }
             
-        if (requiresSelectionChanged)
+        if (requireSelectionChanged)
         {
-            requiresSelectionChanged = false;
+            requireSelectionChanged = false;
             
-            if (requiresSelection &&
+            if (requireSelection &&
                     selectedIndex == NO_SELECTION &&
                     dataProvider &&
                     dataProvider.length > 0)
@@ -659,35 +659,35 @@ public class ListBase extends SkinnableDataContainer
             changedSelection = commitSelection();
         
         // If the selectedIndex has been adjusted to account for items that
-        // have been added or removed, send out a "selectionChanged" event 
+        // have been added or removed, send out a "change" event 
         // so any bindings to selectedIndex are updated correctly.
         if (selectedIndexAdjusted)
         {
             selectedIndexAdjusted = false;
             if (!changedSelection)
             {
-                e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+                e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
                 e.oldIndex = selectedIndex;
                 e.newIndex = selectedIndex;
                 dispatchEvent(e);
             }
         }
         
-        if (currentCaretIndexAdjusted)
+        if (caretIndexAdjusted)
         {
-        	currentCaretIndexAdjusted = false;
+        	caretIndexAdjusted = false;
         	if (!changedSelection)
         	{
-        		// Put the new currentCaretIndex renderer into the
-        		// caret state and dispatch an "itemFocusChanged" 
+        		// Put the new caretIndex renderer into the
+        		// caret state and dispatch an "caretChange" 
         		// event to update any bindings. Additionally, update 
         		// the backing variable. 
-        		itemInCaret(selectedIndex, true); 
-        		_currentCaretIndex = selectedIndex; 
+        		itemShowingCaret(selectedIndex, true); 
+        		_caretIndex = selectedIndex; 
         		
-        		e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
-        		e.oldIndex = currentCaretIndex; 
-        		e.newIndex = currentCaretIndex;
+        		e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+        		e.oldIndex = caretIndex; 
+        		e.newIndex = caretIndex;
         		dispatchEvent(e);  
         	}
         }
@@ -702,11 +702,11 @@ public class ListBase extends SkinnableDataContainer
                     //TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
                     //and which is more performant. 
                     var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
-                    //Push the correct text into the renderer by settings its labelText
+                    //Push the correct text into the renderer by settings its label
                     //property 
                     if (renderer)
                     {
-                        renderer.labelText = itemToLabel(renderer.data); 
+                        renderer.label = itemToLabel(renderer.data); 
                     }
                 }
             }
@@ -732,10 +732,10 @@ public class ListBase extends SkinnableDataContainer
                 ItemRenderer(renderer).playTransitions = false; 
             
             // TODO (dsubrama) - Go through helper methods to do this. 
-            // Make itemSelected()/itemInCaret() pass around the renderer 
+            // Make itemSelected()/itemShowingCaret() pass around the renderer 
             // instead of index
             IItemRenderer(renderer).selected = false;
-            IItemRenderer(renderer).caret = false;
+            IItemRenderer(renderer).showsCaret = false;
             
             // Now turn the transitions back on by setting playTransitions
             // back to true 
@@ -753,7 +753,7 @@ public class ListBase extends SkinnableDataContainer
         if (isItemIndexSelected(index))
             itemSelected(index, true);
         if (renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
+            IItemRenderer(renderer).label = itemToLabel(IItemRenderer(renderer).data);
     }
     
     /**
@@ -821,7 +821,7 @@ public class ListBase extends SkinnableDataContainer
      *
      *  @param index The item index that was put into caret state. 
      *
-     *  @param inFocus <code>true</code> if the item is in the caret state,  
+     *  @param showsCaret <code>true</code> if the item is in the caret state,  
      *  and <code>false</code> if it is not.
      *  
      *  @langversion 3.0
@@ -829,35 +829,9 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function itemInCaret(index:int, caret:Boolean):void
+    protected function itemShowingCaret(index:int, showsCaret:Boolean):void
     {
         // Subclasses must override this method to display the caret.
-    }
-    
-    /**
-     *  Returns <code>true</code> if the item is selected by calling 
-     *  <code>isItemIndexSelected()</code>.
-     * 
-     *  <p>If multiple instances of the item are in the list, 
-     *  this method only checks to see whether the item at  
-     *  <code>dataProvider.getItemIndex()</code> (usually the first 
-     *  instance of that item) is selected.</p>
-     * 
-     *  @param item The item whose selection status is being checked
-     *
-     *  @return <code>true</code> if the item is selected, 
-     *  and <code>false</code> otherwise.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function isItemSelected(item:Object):Boolean
-    {
-        var index:int = dataProvider.getItemIndex(item);
-        
-        return isItemIndexSelected(index);
     }
         
     /**
@@ -873,7 +847,7 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function isItemIndexSelected(index:int):Boolean
+    mx_internal function isItemIndexSelected(index:int):Boolean
     {        
         return index == selectedIndex;
     }
@@ -891,9 +865,9 @@ public class ListBase extends SkinnableDataContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function isItemInCaret(index:int):Boolean
+    mx_internal function isItemIndexShowingCaret(index:int):Boolean
     {        
-        return index == currentCaretIndex;
+        return index == caretIndex;
     }
     
     //--------------------------------------------------------------------------
@@ -912,19 +886,19 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function setCurrentCaretIndex(value:Number):void
     {
-        itemInCaret(currentCaretIndex, false); 
+        itemShowingCaret(caretIndex, false); 
         
-        _currentCaretIndex = value;
+        _caretIndex = value;
         
-        itemInCaret(currentCaretIndex, true);
+        itemShowingCaret(caretIndex, true);
     }
     
     /**
      *  @private
      *  The selection validation and commitment workhorse method. 
      *  Called to commit the pending selected index. This method dispatches
-     *  the "selectionChanging" event, and if the event is not cancelled,
-     *  commits the selection change and then dispatches the "selectionChanged"
+     *  the "changing" event, and if the event is not cancelled,
+     *  commits the selection change and then dispatches the "change"
      *  event.
      * 
      *  Returns true if the selection was committed, or false if the selection
@@ -935,22 +909,22 @@ public class ListBase extends SkinnableDataContainer
         // Step 1: make sure the proposed selected index is in range.
         var maxIndex:int = dataProvider ? dataProvider.length - 1 : -1;
         var oldSelectedIndex:int = _selectedIndex;
-        var oldCaretIndex:int = _currentCaretIndex;
+        var oldCaretIndex:int = _caretIndex;
         
         if (_proposedSelectedIndex < NO_SELECTION)
             _proposedSelectedIndex = NO_SELECTION;
         if (_proposedSelectedIndex > maxIndex)
             _proposedSelectedIndex = maxIndex;
-        if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && 
+        if (requireSelection && _proposedSelectedIndex == NO_SELECTION && 
             dataProvider && dataProvider.length > 0)
         {
             _proposedSelectedIndex = NO_PROPOSED_SELECTION;
             return false;
         }
         
-        // Step 2: dispatch the "selectionChanging" event. If preventDefault() is called
+        // Step 2: dispatch the "changing" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.
-        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGING, false, true);
+        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CHANGING, false, true);
         e.oldIndex = _selectedIndex;
         e.newIndex = _proposedSelectedIndex;
         if (!dispatchEvent(e))
@@ -969,23 +943,23 @@ public class ListBase extends SkinnableDataContainer
         setCurrentCaretIndex(_proposedSelectedIndex); 
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
-        // Step 4: dispatch the "selectionChanged" event and "itemFocusChanged" 
+        // Step 4: dispatch the "change" event and "caretChange" 
         // events based on the dispatchChangeEvents parameter. Overrides may  
-        // chose to dispatch the selectionChanged/itemFocusChanged events 
+        // chose to dispatch the change/caretChange events 
         // themselves, in which case we wouldn't want to dispatch the event 
         // here. 
         if (dispatchChangedEvents)
         {
-            // Dispatch the selectionChanged event
-            e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+            // Dispatch the change event
+            e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
             e.oldIndex = oldSelectedIndex;
             e.newIndex = _selectedIndex;
             dispatchEvent(e);
             
-            //Dispatch the itemFocusChanged event 
-            e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+            //Dispatch the caretChange event 
+            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
-            e.newIndex = currentCaretIndex; 
+            e.newIndex = caretIndex; 
             dispatchEvent(e);  
         }
         
@@ -995,17 +969,17 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  Adjusts the selected index to account for items being added to or 
      *  removed from this component. This method adjusts the selected index
-     *  value and dispatches a <code>selectionChanged</code> event. 
-     *  It does not dispatch a <code>selectionChanging</code> event 
+     *  value and dispatches a <code>change</code> event. 
+     *  It does not dispatch a <code>changing</code> event 
      *  or allow the cancellation of the selection. 
      *  It also does not call the <code>itemSelected()</code> method, 
      *  since the same item is selected; 
      *  the only thing that has changed is the index of the item.
      * 
-     *  <p>A <code>selectionChanged</code> event is dispatched in the next call to 
+     *  <p>A <code>change</code> event is dispatched in the next call to 
      *  the <code>commitProperties()</code> method.</p>
      *
-     *  <p>The <code>selectionChanging</code> event is not sent when
+     *  <p>The <code>changing</code> event is not sent when
      *  the <code>selectedIndex</code> is adjusted.</p>
      *
      *  @param newIndex The new index.
@@ -1026,10 +1000,17 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  @private
-     *  Called when an item has been added to this component.
+     *  Called when an item has been added to this component. Selection
+     *  and caret related properties are adjusted accordingly. 
+     * 
+     *  @param index The index of the item being added. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    protected function itemAddedHandler(item:*, index:int):void
+    protected function itemAdded(index:int):void
     {
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
@@ -1041,19 +1022,27 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  @private
-     *  Called when an item has been removed from this component.
+     *  Called when an item has been removed from this component. 
+     *  Selection and caret related properties are adjusted 
+     *  accordingly. 
+     * 
+     *  @param index The index of the item being removed. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    protected function itemRemovedHandler(item:*, index:int):void
+    protected function itemRemoved(index:int):void
     {
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
         
         // If the selected item is being removed, clear the selection (or
-        // reset to the first item if requiresSelection is true)
+        // reset to the first item if requireSelection is true)
         if (index == selectedIndex)
         {
-            if (requiresSelection && dataProvider && dataProvider.length > 0)
+            if (requireSelection && dataProvider && dataProvider.length > 0)
             {       
                 if (index == 0)
                 {
@@ -1102,11 +1091,11 @@ public class ListBase extends SkinnableDataContainer
 
             if (ce.kind == CollectionEventKind.ADD)
             {
-                itemAddedHandler(ce.items[0], ce.location);
+                itemAdded(ce.location);
             }
             else if (ce.kind == CollectionEventKind.REMOVE)
             {
-                itemRemovedHandler(ce.items[0], ce.location);
+                itemRemoved(ce.location);
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
