@@ -37,6 +37,7 @@ package mx.core
     import flash.text.engine.TextBlock;
     import flash.text.engine.TextElement;
     import flash.text.engine.TextLine;
+    import flash.text.engine.TextLineValidity;
     import flash.utils.Dictionary;
     
     import flashx.textLayout.compose.ISWFContext;
@@ -49,6 +50,8 @@ package mx.core
     
     import mx.managers.SystemManager;
     import mx.managers.SystemManagerGlobals;
+    
+    import spark.utils.TextUtil;
     
     use namespace mx_internal;
     
@@ -2661,9 +2664,7 @@ package mx.core
                 // to be the fastest way to remove all children.
                 var textLine:TextLine = TextLine(removeChildAt(nextLineIndex));
                 
-                // TLF provides a TextLine cache,
-                // for use with recreateTextLine().
-                TextLineRecycler.addLineForReuse(textLine);
+                TextUtil.recycleTextLine(textLine);
             }
         }
         
