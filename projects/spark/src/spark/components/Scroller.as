@@ -219,7 +219,7 @@ public class Scroller extends SkinnableComponent
      *  The viewport component to be scrolled.
      * 
      *  <p>
-     *  The viewport is added to the FXScroller component's skin 
+     *  The viewport is added to the Scroller component's skin 
      *  which lays out both the viewport and scrollbars.
      * 
      *  When the viewport property is set, the viewport's clipAndEnableScrolling property is 
