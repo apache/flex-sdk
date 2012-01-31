@@ -20,6 +20,8 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
+import flashx.textLayout.formats.LineBreak;
+
 import mx.core.mx_internal;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -125,6 +127,17 @@ public class TextGraphicElement extends GraphicElement
      *  because Player 10.0 allocates a surface even in this case.
      */
     mx_internal var hasScrollRect:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    mx_internal var stylesChanged:Boolean = false;    
+
+    /**
+     *  @private
+     *  Cache this since it accessed for every display list update.
+     */
+    mx_internal var lineBreakToFit:Boolean = true;
 
     //--------------------------------------------------------------------------
     //
@@ -479,8 +492,88 @@ public class TextGraphicElement extends GraphicElement
 
         composeTextLines(explicitWidth, explicitHeight);
 
-        measuredWidth = Math.ceil(mx_internal::bounds.width);
-        measuredHeight = Math.ceil(mx_internal::bounds.height);
+        // If width/height not explicitly set, put on next pixel boundary for 
+        // crisp edges.  This should not impact isOverset which was calculated
+        // with the pre-adjusted bounds values.  If explcitly set, use it so
+        // that a recomposition can possibily be avoided in updateDisplayList().
+        if (mx_internal::bounds.width != explicitWidth)
+            mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);
+
+        measuredWidth = mx_internal::bounds.width;         
+        
+        if (mx_internal::bounds.height != explicitHeight)
+            mx_internal::bounds.height = Math.ceil(mx_internal::bounds.height);
+
+        measuredHeight = mx_internal::bounds.height;  
+        
+        //trace("measure", measuredWidth, measuredHeight);
+    }
+            
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
+    {
+        //trace(updateDisplayList", unscaledWidth, unscaledHeight);
+        
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // The updateDisplayList() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, composeTextLines() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
+
+        // Figure out if a compose is needed or maybe just clip what is already
+        // composed.
+
+        var compose:Boolean = false;
+        var forceClip:Boolean = false;
+        
+        if (mx_internal::stylesChanged || 
+           isNaN(mx_internal::bounds.height) ||
+           (unscaledHeight > mx_internal::bounds.height && 
+           mx_internal::isOverset)) 
+        {
+            // Style changed, composition hasn't been done or it has been done
+            // but more height is needed and it's possible there is more text 
+            // to compose since it didn't all fit before.
+            compose = true;
+        }
+        else if (mx_internal::lineBreakToFit)
+        {
+            // toFit line breaks so compose if width isn't the same.
+            if (unscaledWidth != mx_internal::bounds.width)
+                compose = true;            
+        }
+        else
+        {
+            // explicit line breaks so compose only if more width is needed and
+            // there is more text to compose.
+            if (unscaledWidth > mx_internal::bounds.width && 
+                mx_internal::isOverset)
+            {
+                compose = true;
+            }    
+        }
+                
+        if (compose)
+        {
+            // Compose and clip based on value of isOverset.
+            composeTextLines(unscaledWidth, unscaledHeight);
+        }        
+        else if (unscaledHeight != mx_internal::bounds.height ||
+                 unscaledWidth != mx_internal::bounds.width)
+        {
+            // Don't need to recompose but need to clip since the text is
+            // a different shape than what was composed.
+            forceClip = true;
+        }   
+
+        //trace("udl", "compose", compose, "clip", mx_internal::isOverset || forceClip);        
+                       
+        mx_internal::clip(unscaledWidth, unscaledHeight, forceClip);
     }
             
     //--------------------------------------------------------------------------
@@ -500,6 +593,14 @@ public class TextGraphicElement extends GraphicElement
     public function styleChanged(styleProp:String):void
     {
         StyleProtoChain.styleChanged(this, styleProp);
+        
+        if (styleProp == "lineBreak")
+        {
+            mx_internal::lineBreakToFit = 
+                (getStyle("lineBreak") == LineBreak.TO_FIT);
+        }
+           
+        mx_internal::stylesChanged = true;
     }
 
     //--------------------------------------------------------------------------
@@ -674,6 +775,9 @@ public class TextGraphicElement extends GraphicElement
      */
     public function stylesInitialized():void
     {
+        mx_internal::lineBreakToFit = 
+            (getStyle("lineBreak") == LineBreak.TO_FIT);
+        mx_internal::stylesChanged = true;
     }
 
     /**
@@ -719,6 +823,8 @@ public class TextGraphicElement extends GraphicElement
 		
 		var r:Rectangle = container.getBounds(container);
 		mx_internal::isOverset = !mx_internal::bounds.containsRect(r);
+				      
+	    //trace("bounds", mx_internal::bounds, "r", r, mx_internal::isOverset);
 	}
 
 	/**
@@ -759,9 +865,9 @@ public class TextGraphicElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    mx_internal function clip(w:Number, h:Number):void
+    mx_internal function clip(w:Number, h:Number, forceClip:Boolean=false):void
 	{
-        if (mx_internal::isOverset)
+        if (mx_internal::isOverset || forceClip)
         {
             var r:Rectangle = displayObject.scrollRect;
             if (r)
