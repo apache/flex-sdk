@@ -147,12 +147,19 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     
     /**
      *  Called from the Grid's <code>updateDisplayList()</code> method after all of the 
-     *  column's properties have been set.  The <code>willBeRecycled</code> parameter is false
+     *  renderer's properties have been set.  The <code>willBeRecycled</code> parameter is false
      *  if this renderer hasn't been used before, i.e. if it wasn't "recycled".  This method is 
-     *  called when a renderer is about to become visible, typically because it was
-     *  scrolled into view.
+     *  called when a renderer is about to become visible (typically because it was
+     *  scrolled into view) and each time it's redisplayed because of a change in a renderer
+     *  property, or because a redisplay was explicited requested. 
      * 
-     *  <p>This method is not intended to be called directly, it's called by the Grid implementation.</p>
+     *  <p>This method can be used to configure all of a renderer's visual elements and properties,
+     *  and doing so is likely to be more efficient than accomplishing the same thing with data
+     *  binding.  Note also: since the prepare() method is called frequently, taking special care to
+     *  avoid doing unncessary work is worthwhile.</p>
+     * 
+     *  <p>This method is not intended to be called directly, it's called by the Grid implementation.
+     *  The prepare() method may be called many times before the discard() method is called.</p>
      * 
      *  @param hasBeenRecycled  True if this renderer is being reused.
      * 
