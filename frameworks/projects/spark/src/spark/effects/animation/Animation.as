@@ -78,7 +78,7 @@ public final class Animation
     //
     //--------------------------------------------------------------------------
 
-    private static const TIMER_RESOLUTION:Number = 10;
+    private static const TIMER_RESOLUTION:Number = 1000 / 60;	// 60 fps
     
     //--------------------------------------------------------------------------
     //
