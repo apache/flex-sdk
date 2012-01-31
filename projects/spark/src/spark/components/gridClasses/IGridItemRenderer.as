@@ -37,7 +37,7 @@ import spark.components.supportClasses.GridColumn;
  *  </table></p>
  * 
  *  <p>All of the renderer's properties are set by Grid during <code>updateDisplayList()</code>.
- *  After they've been set, the renderer's <code>preprare()</code> method is called.  IGridItemRenderer
+ *  After they've been set, the renderer's <code>prepare()</code> method is called.  IGridItemRenderer
  *  implementations should override the preprare() method to make any final adjustments to 
  *  its properties or any aspect of its visual elements.   When an item renderer is no longer
  *  needed, either because it's going to be added to the Grid's internal reusable renderer "free" 
@@ -55,7 +55,7 @@ public interface IGridItemRenderer extends IItemRenderer
     
     /**
      *  Called from the Grid's <code>updateDisplayList()</code> method after all of the 
-     *  column's properties have been set.  The <code>recycle<code> parameter is false
+     *  column's properties have been set.  The <code>recycle</code> parameter is false
      *  if this renderer hasn't been used be for, i.e. if it wasn't "recycled".  This method is 
      *  called when a renderer is about to become visible, typically because it was
      *  scrolled into view.
