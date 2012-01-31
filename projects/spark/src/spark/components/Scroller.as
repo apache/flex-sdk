@@ -27,6 +27,7 @@ import spark.core.IViewport;
 import spark.core.NavigationUnit;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
@@ -929,12 +930,12 @@ public class Scroller extends SkinnableComponent
             switch (event.keyCode)
             {
                 case Keyboard.LEFT:
-                    hspDelta = (layoutDirection == "ltr") ?
+                    hspDelta = (layoutDirection == LayoutDirection.LTR) ?
                         vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT) :
                         vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
                     break;
                 case Keyboard.RIGHT:
-                    hspDelta = (layoutDirection == "ltr") ?
+                    hspDelta = (layoutDirection == LayoutDirection.LTR) ?
                         vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT) :
                         vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
                     break;
@@ -949,7 +950,7 @@ public class Scroller extends SkinnableComponent
                 case Keyboard.PAGE_UP:
                      if (!verticalScrollBar || !(verticalScrollBar.visible)) 
                      {
-                         hspDelta = (layoutDirection == "ltr") ?
+                         hspDelta = (LayoutDirection.LTR) ?
                              vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT) :
                              vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
                      }
@@ -957,7 +958,7 @@ public class Scroller extends SkinnableComponent
                 case Keyboard.PAGE_DOWN:
                      if (!verticalScrollBar || !(verticalScrollBar.visible)) 
                      {
-                         hspDelta = (layoutDirection == "ltr") ?
+                         hspDelta = (LayoutDirection.LTR) ?
                              vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT) :
                              vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
                      }
