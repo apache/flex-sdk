@@ -662,7 +662,7 @@ public class ServerConfig
         }
         else
         {
-            var channelSet:ChannelSet = new ChannelSet(channelIds, clustered);
+            var channelSet:ChannelSet = new channelSetFactory(channelIds, clustered);
             if (clustered)
             {
                 channelSet.initialDestinationId = destinationId;
