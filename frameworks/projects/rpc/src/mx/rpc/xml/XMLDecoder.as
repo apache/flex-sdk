@@ -818,12 +818,16 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
 
         // FIXME: Should we care if base type is marked final?
 
+        // Fix for SDK-16891. It seems the sequence order for base types are not
+        // honored by some web services so we allow lax processing to find them.
+        var originalLaxSequence:Boolean = context.laxSequence;
+        context.laxSequence = true;
+
         // First encode all of the properties of the base type
         decodeComplexType(baseDefinition, parent, name, value, null, context);
 
         // Then release the scope of the base type definition
         schemaManager.releaseScope();
-
 
         var childElements:XMLList = definition.elements();
         var valueElements:XMLList = new XMLList();
@@ -870,6 +874,9 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                 decodeAnyAttribute(childDefinition, parent, value);
             }
         }
+
+        // Finally, reset to the original laxSequence setting
+        context.laxSequence = originalLaxSequence;
     }
     
     /**    
@@ -2266,6 +2273,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         if (context.anyIndex > -1 && name != null)
         {
             startIndex = context.anyIndex;
+            skipAhead = true;
+        }
+        else if (context.laxSequence)
+        {
+            startIndex = 0;
             skipAhead = true;
         }
 
