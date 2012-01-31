@@ -66,6 +66,8 @@ import mx.managers.IFocusManagerComponent;
 
 [DefaultProperty("content")]
 
+[IconFile("FxButton.png")]
+
 /**
  *  The FxButton component is a commonly used rectangular button.
  *  The FxButton component looks like it can be pressed.
