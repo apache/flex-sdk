@@ -142,10 +142,8 @@ use namespace mx_internal;
  *  objects. You can programmatically access and manipulate these objects.
  *  The central object in TLF for representing rich text is a
  *  TextFlow. Specify rich text for a TextArea control
- *  by setting its <a href="#textFlow"><code>textFlow</code></a> property to a TextFlow instance.
- *  See the description of the <code>textFlow</code>
- *  property for information about how to create one,
- *  such as by importing TLF markup.</p>
+ *  by setting its <a href="TextArea.html#textFlow">textFlow</a>
+ *  property to a TextFlow instance.</p>
  * 
  *  <p>If you don't need to display text that has multiple formats,
  *  set the TextArea <code>text</code> property to a plain text string.
@@ -159,12 +157,14 @@ use namespace mx_internal;
  *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:TextArea&gt;
  *  </pre>
  *  In this example, the MXML compiler sets the TextArea <code>content</code>
- *  property, causing a TextFlow to be automatically created
- *  from the FlowElements that you specify.</p>
+ *  property, causing a <a href="../../flashx/TextLayout/elements/TextFlow.html">TextFlow</a> object
+ *  to be created from the <a href="../../flashx/TextLayout/elements/FlowElements.html">FlowElements</a>
+ *  that you specify.</p>
  *
  *  <p>The default text formatting is determined by CSS styles
- *  such as <code>fontFamily</code> and <code>fontSize</code>.
- *  Any formatting information in the TextFlow overrides
+ *  such as <a href="supportClasses/SkinnableTextBase.html#style:fontFamily">fontFamily</a>
+ *  and <a href="supportClasses/SkinnableTextBase.html#style:fontSize">fontSize</a>.
+ *  Any formatting information in the TextFlow object overrides
  *  the default formatting provided by the CSS styles.</p>
  *
  *  <p>You can control many characteristics of TextArea content with styles. Here
@@ -183,9 +183,9 @@ use namespace mx_internal;
  *  A vertical scrollbar automatically appears when there is more
  *  text than fits in the TextArea.
  *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
- *  new lines start only at explicit line breaks, such as
+ *  new lines start only at explicit line breaks. This has the same effect as
  *  if you use CR (<code>"\r"</code>), LF (<code>"\n"</code>),
- *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>
+ *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>,
  *  or if you use <code>&lt;p&gt;</code> and <code>&lt;br/&gt;</code>
  *  in TLF markup.
  *  In those cases, a horizontal scrollbar automatically appears
@@ -203,23 +203,15 @@ use namespace mx_internal;
  *  of character that the user can enter and the <code>restrict</code>
  *  to limit which characters the user can enter.</p>
  *
- *  <p>When the user presses the Enter key, a new paragraph is started;
- *  it does not cause a line break within the current paragraph.</p>
- *
- *  <p>If you don't want text to be editable,
- *  set the <code>editable</code> property to <code>false</code>.
- *  If you don't want it to be selectable,
- *  set the <code>selectable</code> property to <code>false</code>.</p>
- *
  *  <p>This control is a skinnable control whose skin uses a
- *  RichEditableText to display and edit the text,
- *  and a Scroller to provide scrollbars.
+ *  RichEditableText control to display and edit the text
+ *  and a Scroller control to provide scrollbars.
  *  The RichEditableText can be accessed as <code>textDisplay</code>
  *  and the Scroller as <code>scroller</code>.</p>
  *
- *  <p>Because its RichEditableText uses TLF, the Spark TextArea
- *  supports displaying left-to-right (LTR) text such as French,
- *  right-to-left (RTL) text such as Arabic, and bidirectional text
+ *  <p>The Spark TextArea
+ *  can display left-to-right (LTR), text such as French,
+ *  right-to-left (RTL) text, such as Arabic, and bidirectional text,
  *  such as a French phrase inside of an Arabic one.
  *  If the predominant text direction is right-to-left,
  *  set the <code>direction</code> style to <code>"rtl"</code>.
@@ -230,7 +222,7 @@ use namespace mx_internal;
  *  To get the opposite alignment,
  *  set <code>textAlign</code> to <code>"end"</code>.</p>
  *
- *  <p>Also as a result of using TLF, the Spark TextArea supports
+ *  <p>The Spark TextArea also supports
  *  unlimited undo/redo within one editing session.
  *  An editing session starts when the control gets keyboard focus
  *  and ends when the control loses focus.</p>
@@ -284,6 +276,7 @@ use namespace mx_internal;
  *  @see spark.skins.spark.TextAreaSkin
  *  @see spark.components.RichText
  *  @see spark.components.RichEditableText
+ *  @see spark.components.Scroller
  *  @see spark.components.Label
  *
  *  @includeExample examples/TextAreaExample.mxml
@@ -391,7 +384,11 @@ public class TextArea extends SkinnableTextBase
 	/**
 	 *  This property is intended for use in MXML at compile time;
 	 *  to get or set rich text content at runtime,
-	 *  please use the <code>textFlow</code> property instead.
+	 *  use the <code>textFlow</code> property instead. Adobe recommends using 
+	 *  <code>textFlow</code> property to get and set rich text content at runtime,
+	 *  because it is strongly typed as a TextFlow rather than as an Object.
+	 *  A TextFlow is the canonical representation 
+	 *  for rich text content in the Text Layout Framework.
 	 *
 	 *  <p>The <code>content</code> property is the default property
 	 *  for TextArea, so that you can write MXML such as
@@ -403,21 +400,16 @@ public class TextArea extends SkinnableTextBase
 	 *
 	 *  <p>This property is typed as Object because you can set it to
 	 *  to a String, a FlowElement, or an Array of Strings and FlowElements.
-	 *  In the example above, you are specifying the content
-	 *  to be a 2-element Array whose first element is the String
-	 *  "Hello" and whose second element is a SpanElement with the text
+	 *  In the example above, the content is
+	 *  a 2-element array. The first array element is the String
+	 *  "Hello". The second array element is a SpanElement object with the text
 	 *  "World" in boldface.</p>
 	 * 
-	 *  <p>No matter how you specify the content, it gets converted
-	 *  into a TextFlow, and when you get this property, you will get
-	 *  the resulting TextFlow.</p>
+	 *  <p>No matter how you specify the content, the content is converted
+	 *  to a TextFlow object. When you get the value of this property, you get
+	 *  the resulting TextFlow object.</p>
 	 * 
-	 *  <p>Adobe recommends using <code>textFlow</code> property
-	 *  to get and set rich text content at runtime,
-	 *  because it is strongly typed as a TextFlow
-	 *  rather than as an Object.
-	 *  A TextFlow is the canonical representation
-	 *  for rich text content in the Text Layout Framework.</p>
+	 *  <p></p>
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
