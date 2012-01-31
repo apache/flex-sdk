@@ -645,6 +645,17 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      */
+    override public function mouseWheelHandler(event:MouseEvent):void
+    {
+        // Bug: ContainerController.mouseWheelHandler() should be checking
+        // if the default behavior is prevented before it acts on the event.
+        if (!event.isDefaultPrevented())
+            super.mouseWheelHandler(event);
+    }
+    
+    /**
+     *  @private
+     */
     override public function mouseDownHandler(event:MouseEvent):void
     {
         textDisplay.mouseDownHandler(event);
