@@ -65,7 +65,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  The main color for a component. 
@@ -77,7 +77,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of the fill of an item renderer
@@ -89,7 +89,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of focus ring when the component is in focus
@@ -101,7 +101,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of the highlights when the mouse is over the component
@@ -113,7 +113,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
@@ -126,7 +126,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 [Exclude(name="enabled", kind="property")] 
 
