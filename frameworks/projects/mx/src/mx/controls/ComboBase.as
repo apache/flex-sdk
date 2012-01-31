@@ -30,6 +30,7 @@ import mx.core.FlexVersion;
 import mx.core.IBorder;
 import mx.core.IFlexDisplayObject;
 import mx.core.IIMESupport;
+import mx.core.IRectangularBorder;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -379,8 +380,8 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      */
     protected function get borderMetrics():EdgeMetrics
     {
-        if (border && border is IBorder)
-            return IBorder(border).borderMetrics;
+        if (border && border is IRectangularBorder)
+            return IRectangularBorder(border).borderMetrics;
 
         return EdgeMetrics.EMPTY;
     }
