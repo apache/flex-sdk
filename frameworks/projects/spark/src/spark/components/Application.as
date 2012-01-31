@@ -312,11 +312,6 @@ public class Application extends SkinnableContainer
      *  height of the Application should be modified.
      */
     private var resizeHeight:Boolean = true;
-
-    /**
-     *  @private
-     */
-    private var softKeyboardHandlersAdded:Boolean = false;
     
     /**
      *  @private
@@ -1107,7 +1102,6 @@ public class Application extends SkinnableContainer
     //  resizeForSoftKeyboard
     //----------------------------------
     private var _resizeForSoftKeyboard:Boolean = true;
-    private var resizeForSoftKeyboardChanged:Boolean = true;
     
     /**
      *  Some devices do not support a hardware keyboard. 
@@ -1139,8 +1133,6 @@ public class Application extends SkinnableContainer
         if (_resizeForSoftKeyboard != value)
         {
             _resizeForSoftKeyboard = value;
-            resizeForSoftKeyboardChanged = true;
-            invalidateProperties();
         }
     }
     
@@ -1268,6 +1260,26 @@ public class Application extends SkinnableContainer
         if (sm.isTopLevel() && Capabilities.isDebugger == true)
             setInterval(debugTickler, 1500);
     }
+    
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        // Only listen for softKeyboard events 
+        // if the runtime supports a soft keyboard
+        if (softKeyboardBehavior != "")
+        {
+            addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                softKeyboardActivateHandler, true, 
+                EventPriority.DEFAULT, true);
+            addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                softKeyboardDeactivateHandler, true, 
+                EventPriority.DEFAULT, true);
+        }
+    }
 
     /**
      *  @private
@@ -1297,33 +1309,6 @@ public class Application extends SkinnableContainer
                 systemManager.removeEventListener(Event.RESIZE, resizeHandler);
                 resizeHandlerAdded = false;
             }
-        }
-        
-        if (resizeForSoftKeyboardChanged)
-        {
-            // Check for softKeyboardBehavior == none
-            if (softKeyboardBehavior == "none")
-            {
-                if (resizeForSoftKeyboard && !softKeyboardHandlersAdded)
-                {
-                    // Use a high priority so that the application resize will occur first
-                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
-                                                         softKeyboardActivateHandler, true, 
-                                                         EventPriority.DEFAULT, true);
-                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
-                                                         softKeyboardDeactivateHandler, true, 
-                                                         EventPriority.DEFAULT, true);
-                    softKeyboardHandlersAdded = true;
-                }
-                else if (!resizeForSoftKeyboard && softKeyboardHandlersAdded)
-                {
-                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler, true);
-                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler, true);
-                    softKeyboardHandlersAdded = false;
-                }
-            }
-            
-            resizeForSoftKeyboardChanged = false;
         }
 
         if (percentBoundsChanged)
@@ -1597,19 +1582,22 @@ public class Application extends SkinnableContainer
             if (keyboardRect.height > 0)
                 isSoftKeyboardActive = true;
             
-            var sm:SystemManager = systemManager as SystemManager;
-            var scaleFactor:Number = 1;
-            
-            // Account for any density scaling
-            if (sm)
-                scaleFactor = sm.densityScale;
-            
-            var appHeight:Number = (stage.stageHeight - keyboardRect.height) / scaleFactor;
-            
-            if (appHeight != height)
+            if (softKeyboardBehavior == "none" && resizeForSoftKeyboard)
             {
-                setActualSize(width, appHeight);
-                validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+                var sm:SystemManager = systemManager as SystemManager;
+                var scaleFactor:Number = 1;
+                
+                // Account for any density scaling
+                if (sm)
+                    scaleFactor = sm.densityScale;
+                
+                var appHeight:Number = (stage.stageHeight - keyboardRect.height) / scaleFactor;
+                
+                if (appHeight != height)
+                {
+                    setActualSize(width, appHeight);
+                    validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+                }
             }
         }
     }
@@ -1624,17 +1612,21 @@ public class Application extends SkinnableContainer
         if (this === FlexGlobals.topLevelApplication)
         {            
             isSoftKeyboardActive = false;
-            var sm:SystemManager = systemManager as SystemManager;
-            var scaleFactor:Number = 1;
             
-            // Account for any density scaling
-            if (sm)
-                scaleFactor = sm.densityScale;
-            
-            // Restore the original values
-            setActualSize(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
-            
-            validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+            if (softKeyboardBehavior == "none" && resizeForSoftKeyboard)
+            {
+                var sm:SystemManager = systemManager as SystemManager;
+                var scaleFactor:Number = 1;
+                
+                // Account for any density scaling
+                if (sm)
+                    scaleFactor = sm.densityScale;
+                
+                // Restore the original values
+                setActualSize(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
+                
+                validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+            }
         }
     }
     
