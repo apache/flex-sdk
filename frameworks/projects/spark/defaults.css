@@ -1,0 +1,92 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+/* Default Skins */
+
+Button
+{
+	skinZZ: ClassReference("flex.skin.ButtonSkin");
+}
+
+CheckBox
+{
+	skinZZ: ClassReference("flex.skin.CheckBoxSkin");
+}
+
+HScrollBar
+{
+    skinZZ: ClassReference("flex.skin.HScrollBarSkin");
+}
+
+ItemsComponent
+{
+	skinZZ: ClassReference("flex.skin.ItemsComponentSkin");
+}
+
+List
+{
+	skinZZ: ClassReference("flex.skin.ListSkin");
+}
+
+Panel
+{
+	skinZZ: ClassReference("flex.skin.PanelSkin");
+}
+
+RadioButton
+{
+	skinZZ: ClassReference("flex.skin.RadioButtonSkin");
+}
+
+Selector
+{
+	skinZZ: ClassReference("flex.skin.SelectorSkin");
+}
+
+Spinner
+{
+    skinZZ: ClassReference("flex.skin.SpinnerSkin");    
+}
+
+TextArea
+{
+	skinZZ: ClassReference("flex.skin.TextAreaSkin");
+}
+
+TextInput
+{
+	skinZZ: ClassReference("flex.skin.TextInputSkin");
+}
+
+ToggleButton
+{
+	skinZZ: ClassReference("flex.skin.ToggleButtonSkin");
+}
+
+VScrollBar
+{
+	skinZZ: ClassReference("flex.skin.VScrollBarSkin");
+}
+
+.boldText 
+{
+	fontWeight: bold;
+}
+
+/* Override Flex 3 defaults */
+
+Application
+{
+	skinZZ: ClassReference("flex.skin.ApplicationSkin");
+	backgroundGradientColors: #FFFFFF, #FFFFFF; /* TODO: remove this stuff */
+}
