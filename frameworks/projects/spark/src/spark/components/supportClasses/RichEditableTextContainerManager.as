@@ -298,9 +298,16 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // wants to act on each keystroke then set this to false.
         editManager.allowDelayedOperations = textDisplay.batchTextInput;
         
-        // RET doesn't need the EditManager to do any updates since its
-        // damageHandler forces an update every time the textFlow is modified.
-        editManager.delayUpdates = true;
+        // Do not delayUpdates until further work is done to ensure our public API methods to
+        // format and insert text work correctly.  TLF does not dispatch the selectionChange
+        // event until the display is updated which means our selection properties may not
+        // be in sync with the TLF values. This could matter for our API methods that
+        // take the selection as parameters or default to the current selection.  In the
+        // former case, the user could query for the selection or rely on the selectionChange
+        // event and get incorrect values if there is a pending update and in the later case 
+        // we fill in the default selection which might not be current if there is a pending 
+        // update.
+        editManager.delayUpdates = false;
         
         return editManager;
     }
