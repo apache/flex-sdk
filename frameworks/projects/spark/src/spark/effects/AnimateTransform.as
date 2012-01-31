@@ -33,6 +33,7 @@ import spark.effects.animation.MotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 import spark.effects.supportClasses.AnimateTransformInstance;
+import mx.core.ILayoutElement;
 
 use namespace mx_internal;
 
@@ -499,7 +500,7 @@ public class AnimateTransform extends Animate
                 // targets to iterate through
                 // For now, just make sure that we can transform the current target
                 // then go ahead and capture values for it
-                if (!(target is IUIComponent) && !(target is IGraphicElement))
+                if (!(target is ILayoutElement))
                     continue;
     
                 valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
@@ -668,13 +669,13 @@ public class AnimateTransform extends Animate
                 }
                 // Now transform it
                 var xformCenter:Vector3D = computeTransformCenterForTarget(target, valueMap);
-                var tmpScale:Vector3D;
-                var tmpPosition:Vector3D;
-                var tmpRotation:Vector3D;
+                var tmpScale:Vector3D = null;
+                var tmpPosition:Vector3D = null;
+                var tmpRotation:Vector3D = null;
                 
-                var tmpOffsetTranslation:Vector3D;
-                var tmpOffsetRotation:Vector3D;
-                var tmpOffsetScale:Vector3D;
+                var tmpOffsetTranslation:Vector3D = null;
+                var tmpOffsetRotation:Vector3D = null;
+                var tmpOffsetScale:Vector3D = null;
                 
                 var currentXFormPositionComputed:Boolean = false;
 
@@ -720,7 +721,7 @@ public class AnimateTransform extends Animate
                         position.z = xformPosition.z;
                 }
 
-                if(target.postLayoutTransformOffsets != null)
+                if (target.postLayoutTransformOffsets != null)
                 {
                     var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
                     if (!isNaN(transitionValues.postLayoutRotationX) ||
@@ -775,7 +776,7 @@ public class AnimateTransform extends Animate
                     }
 
                     tmpOffsetTranslation  = offsetTranslation;
-             }
+                }
 
                 target.transformAround(xformCenter, tmpScale, tmpRotation, 
                     position,tmpOffsetScale,tmpOffsetRotation,tmpOffsetTranslation);
