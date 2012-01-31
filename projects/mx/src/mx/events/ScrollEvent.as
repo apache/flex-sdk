@@ -74,6 +74,9 @@ public class ScrollEvent extends Event
 	 *
 	 *  @param bubbles Specifies whether the event can bubble
 	 *  up the display list hierarchy.
+         *
+         *  @param cancelable Specifies whether the behavior associated with the event
+         *  can be prevented.
 	 *
 	 *  @param detail Provides the specifics of the type of scroll activity.
 	 *  Constants for the possible values are provided
@@ -83,7 +86,7 @@ public class ScrollEvent extends Event
 	 *
 	 *  @param direction The scroll direction, 
 	 *  either <code>ScrollEventDirection.HORIZONTAL</code> or
-     *  <code>ScrollEventDirection.VERTICAL</code>.
+         *  <code>ScrollEventDirection.VERTICAL</code>.
 	 *
 	 *  @param delta The change in scroll position, expressed in pixels.
 	 */
