@@ -18,12 +18,27 @@ import spark.layouts.supportClasses.LayoutBase;
 [IconFile("VGroup.png")]
 
 /**
- *  A Group with a VerticalLayout.  
+ *  The VGroup container is an instance of the Group container 
+ *  that uses the VerticalLayout class.  
+ *  Do not modify the <code>layout</code> property. 
+ *  instead, use the properties of the VGroup class to modify the 
+ *  characteristics of the VerticalLayout class.
  * 
- *  All of the VerticalLayout properties exposed by this class are simply
- *  delegated to the layout property.
- * 
- *  The layout property should not be set or configured directly.
+ *  @mxml
+ *
+ *  <p>The <code>&lt;VGroup&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;VGroup
+ *    <strong>Properties</strong>
+ *    gap="6"
+ *    horizontalAlign="left"
+ *    requestedRowCount"-1"
+ *    rowHeight="no default"
+ *    variableRowHeight="true"
+ *  /&gt;
+ *  </pre>
  * 
  *  @see spark.layouts.VerticalLayout
  *  
@@ -35,12 +50,11 @@ import spark.layouts.supportClasses.LayoutBase;
 public class VGroup extends Group
 {
     include "../core/Version.as";
-	
+    
     /**
-     *  Initializes the layout property to an instance of VerticalLayout.
-     *  
-     *  Resetting the layout property or setting its properties directly
-     *  is not supported.
+     *  Constructor. 
+     *  Initializes the <code>layout</code> property to an instance of 
+     *  the VerticalLayout class.
      * 
      *  @see spark.layouts.VerticalLayout
      *  @see spark.components.HGroup
@@ -72,7 +86,9 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.VerticalLayout#gap
+     *  @copy spark.layouts.VerticalLayout#gap
+     * 
+     *  @default 6
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -97,7 +113,9 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.VerticalLayout#horizontalAlign
+     *  @copy spark.layouts.VerticalLayout#horizontalAlign
+     *  
+     *  @default "left"
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -124,7 +142,9 @@ public class VGroup extends Group
     [Bindable("propertyChange")]
 
     /**
-     * @copy spark.layouts.VerticalLayout#rowCount
+     *  @copy spark.layouts.VerticalLayout#rowCount
+     * 
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -141,7 +161,9 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.VerticalLayout#requestedRowCount
+     *  @copy spark.layouts.VerticalLayout#requestedRowCount
+     * 
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -168,7 +190,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy spark.layouts.VerticalLayout#rowHeight
+     *  @copy spark.layouts.VerticalLayout#rowHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -195,7 +217,9 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy spark.layouts.VerticalLayout#variableRowHeight
+     *  @copy spark.layouts.VerticalLayout#variableRowHeight
+     * 
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
