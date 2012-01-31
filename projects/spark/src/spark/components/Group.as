@@ -702,6 +702,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {    	
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // If the DisplayObject assignment is still not completed, then postpone validation
+        // of the GraphicElements
+        if (needsDisplayObjectAssignment && invalidatePropertiesFlag)
+            return;
         
         // Clear the group's graphic because graphic elements might be drawing to it
         // This isn't needed for DataGroup because there's no DisplayObject sharing
