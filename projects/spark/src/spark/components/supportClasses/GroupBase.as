@@ -26,10 +26,7 @@ import mx.events.FlexEvent;
 import mx.events.RendererExistenceEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.graphics.Graphic;
-import mx.graphics.IGraphicElement;
 import mx.graphics.MaskType;
-import mx.graphics.baseClasses.GraphicElement;
 import mx.layout.BasicLayout;
 import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
@@ -123,7 +120,7 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      * Constructor.
      */
-     public function GroupBase()
+    public function GroupBase()
     {
         super();
         tabChildren = true;
@@ -612,6 +609,28 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @private
+     *  Invalidates the size, but doesn't run layout measure pass. This is useful
+     *  for subclasses like Group that perform additional work there - like running
+     *  the graphic element measure pass.
+     */
+    mx_internal function $invalidateSize():void
+    {
+        super.invalidateSize();
+    }
+    
+    /**
+     *  @private
+     *  Invalidates the display list, but doesn't run layout updateDisplayList pass.
+     *  This is useful for subclasses like Group that perform additional work on
+     *  updateDisplayList - like redrawing the graphic elements.
+     */
+    mx_internal function $invalidateDisplayList():void
+    {
+        super.invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
      */
     override protected function measure():void
     {
@@ -961,40 +980,7 @@ public class GroupBase extends UIComponent implements IViewport
             invalidateDisplayList(); 
         }
     }
-
-    /**
-     *  Notify the host that an element has changed and needs to be redrawn.
-     *
-     *  @param e The element that has changed.
-     */
-    mx_internal function graphicElementChanged(e:IGraphicElement):void
-    {
-        // Call super, so that we don't invalidate the layout
-        super.invalidateDisplayList();
-    }
     
-    /**
-     *  Notify the host that an element size has changed.
-     * 
-     *  @param e The element that has changed size.
-     */
-    mx_internal function graphicElementSizeChanged(e:IGraphicElement):void
-    {
-        // Call super so that we don't invalidate the layout
-        super.invalidateSize();
-    }
-    
-    /**
-     *  Notify the host that an element layer has changed.
-     * 
-     *  @param e The element that has layers size.
-     */
-    mx_internal function graphicElementLayerChanged(e:IGraphicElement):void
-    {
-        // Call super, so that we don't invalidate the layout
-        super.invalidateDisplayList();
-    }
-
    /**
      *  @private
      * 
