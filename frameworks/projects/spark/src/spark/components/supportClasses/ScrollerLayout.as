@@ -1,5 +1,4 @@
 ////////////////////////////////////////////////////////////////////////////////
-//
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2008 Adobe Systems Incorporated
 //  All Rights Reserved.
@@ -13,7 +12,6 @@
 package spark.components.supportClasses
 {
 
-import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 
@@ -64,14 +62,6 @@ public class ScrollerLayout extends LayoutBase
         var minW:Number = minViewportInset;
         var minH:Number = minViewportInset;            
         
-        var viewport:IViewport = scroller.viewport;
-        if (viewport)
-        {
-            var viewportElt:ILayoutElement = ILayoutElement(viewport);
-            measuredW += viewportElt.getPreferredBoundsWidth();
-            measuredH += viewportElt.getPreferredBoundsHeight();
-        }
-        
         // If the viewport's explicit size is set, then 
         // include that in the scroller's minimum size
         var viewportUIC:IUIComponent = viewport as IUIComponent;
@@ -82,6 +72,7 @@ public class ScrollerLayout extends LayoutBase
         
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
+        var hAuto:Boolean = false;
         switch(scroller.getStyle("horizontalScrollPolicy")) 
         {
             case ScrollPolicy.ON: 
@@ -89,11 +80,13 @@ public class ScrollerLayout extends LayoutBase
                 break;
             case ScrollPolicy.AUTO: 
                 if (hsb) showHSB = hsb.visible;
+                hAuto = true;
                 break;
         } 
 
         var vsb:ScrollBar = scroller.verticalScrollBar;
         var showVSB:Boolean = false;
+        var vAuto:Boolean = false;
         switch(scroller.getStyle("verticalScrollPolicy")) 
         {
            case ScrollPolicy.ON: 
@@ -101,6 +94,7 @@ public class ScrollerLayout extends LayoutBase
                 break;
             case ScrollPolicy.AUTO: 
                 if (vsb) showVSB = vsb.visible;
+                vAuto = true;
                 break;
         }
         
@@ -126,6 +120,31 @@ public class ScrollerLayout extends LayoutBase
         {
             measuredW += minViewportInset;
             minW += minViewportInset;
+        }
+
+        // The measured size of the viewport is just its preferredBounds, except:
+        // don't give up space if doing so would make an auto scrollbar visible.
+        // In other words, if an auto scrollbar isn't already showing, and using
+        // the preferred size would force it to show, and the current size would not,
+        // then use its current size as the measured size.
+        var viewport:IViewport = scroller.viewport;
+        if (viewport)
+        {
+            var viewportPreferredW:Number = viewport.getPreferredBoundsWidth();
+            var viewportContentW:Number = viewport.contentWidth;
+            var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
+            if (hAuto && !showHSB && (viewportPreferredW < viewportContentW) && (viewportW >= viewportContentW))
+                measuredW += viewportW;
+            else
+                measuredW += viewportPreferredW;
+
+            var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
+            var viewportContentH:Number = viewport.contentHeight;
+            var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
+            if (vAuto && !showVSB && (viewportPreferredH < viewportContentH) && (viewportH >= viewportContentH))
+                measuredH += viewportH;
+            else
+                measuredH += viewportPreferredH;
         }
 
         var g:GroupBase = target;
@@ -157,7 +176,6 @@ public class ScrollerLayout extends LayoutBase
         var scroller:Scroller = getScroller();
         if (!scroller) 
             return;
-
         var viewport:IViewport = scroller.viewport;
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var vsb:ScrollBar = scroller.verticalScrollBar;
@@ -249,7 +267,7 @@ public class ScrollerLayout extends LayoutBase
             viewport.setLayoutBoundsSize(viewportW, viewportH);
             viewport.setLayoutBoundsPosition(minViewportInset, minViewportInset);
         }
-        
+
         // layout the scrollbars
 
         if (hsb) hsb.includeInLayout = hsb.visible = showHSB;
@@ -267,7 +285,7 @@ public class ScrollerLayout extends LayoutBase
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
             vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
-        
+
         // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
         // There's a risk of looping here, so we count.  
         if ((invalidationCount < 2) && (((showVSB != oldShowVSB) && vAuto) || ((showHSB != oldShowHSB) && hAuto)))
