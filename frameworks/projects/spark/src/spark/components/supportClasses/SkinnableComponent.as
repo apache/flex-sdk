@@ -134,7 +134,21 @@ public class FxComponent extends UIComponent
         _skin = value;
         dispatchEvent(new Event("skinChanged"));
     }
-    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private 
+     */
+    override public function get pseudoSelectorState():String
+    {
+        return getCurrentSkinState();
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -188,11 +202,15 @@ public class FxComponent extends UIComponent
         
         if (skinStateIsDirty)
         {
-            skin.currentState = getCurrentSkinState();
+            // This component must first be updated to the pending state as the
+            // skin inherits styles from this component.
+            var pendingState:String = getCurrentSkinState();
+            applyStateStyles(skin.currentState, pendingState, false);
+            skin.currentState = pendingState;
             skinStateIsDirty = false;
         }
     }
-    
+
     /**
      *  @private
      */
@@ -218,7 +236,7 @@ public class FxComponent extends UIComponent
         if (focusObj && focusObj is IInvalidating)
             IInvalidating(focusObj).invalidateDisplayList();
     }
-    
+
     /**
      *  @private
      */
