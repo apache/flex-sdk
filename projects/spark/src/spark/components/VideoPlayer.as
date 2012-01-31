@@ -52,6 +52,10 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the data is received as a download operation progresses.
+ *  This event is only dispatched when playing a video by downloading it 
+ *  directly from a server, typically by issuing an HTTP request.
+ *  It is not displatched when playing a video from a special media server, 
+ *  such as Flash Media Server.
  *
  *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
  *  
@@ -95,7 +99,7 @@ use namespace mx_internal;
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
  *  @productversion OSMF 1.0
- */	
+ */ 
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
 
 //--------------------------------------
@@ -144,7 +148,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 //--------------------------------------
 
 /**
- *  Uninitialized State of the VideoPlayer.  
+ *  Uninitialized state of the VideoPlayer.  
  *  The Video Player has been constructed at this point, 
  *  but the source has not been set and no connection 
  *  attempt is in progress.
@@ -157,7 +161,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("uninitialized")]
 
 /**
- *  Loading State of the VideoPlayer.
+ *  Loading state of the VideoPlayer.
  *  The VideoPlayer is loading or connecting to the source. 
  *  
  *  @langversion 3.0
@@ -168,7 +172,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("loading")]
 
 /**
- *  Ready State of the VideoPlayer.
+ *  Ready state of the VideoPlayer.
  *  The video is ready to be played.
  *  
  *  @langversion 3.0
@@ -179,7 +183,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("ready")]
 
 /**
- *  Playing State of the VideoPlayer
+ *  Playing state of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -189,7 +193,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("playing")]
 
 /**
- *  Paused State of the VideoPlayer
+ *  Paused state of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -199,7 +203,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("paused")]
 
 /**
- *  Buffering State of the VideoPlayer
+ *  Buffering state of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -209,7 +213,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("buffering")]
 
 /**
- *  Playback Error State of the VideoPlayer. 
+ *  Playback Error state of the VideoPlayer. 
  *  An error was encountered while trying to play the video.
  *  
  *  @langversion 3.0
@@ -220,7 +224,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("playbackError")]
 
 /**
- *  Disabled State of the VideoPlayer
+ *  Disabled state of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -230,7 +234,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("disabled")]
 
 /**
- *  Uninitialized State of the VideoPlayer when 
+ *  Uninitialized state of the VideoPlayer when 
  *  in full screen mode.
  *  The Video Player has been constructed at this point, 
  *  but the source has not been set and no connection 
@@ -244,7 +248,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("uninitializedAndFullScreen")]
 
 /**
- *  Loading State of the VideoPlayer when 
+ *  Loading state of the VideoPlayer when 
  *  in full screen mode.
  *  The VideoPlayer is loading or connecting to the source. 
  *  
@@ -256,7 +260,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("loadingAndFullScreen")]
 
 /**
- *  Ready State of the VideoPlayer when 
+ *  Ready state of the VideoPlayer when 
  *  in full screen mode.  The video is ready to be played.
  *  
  *  @langversion 3.0
@@ -267,7 +271,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("readyAndFullScreen")]
 
 /**
- *  Playing State of the VideoPlayer when 
+ *  Playing state of the VideoPlayer when 
  *  in full screen mode.
  *  
  *  @langversion 3.0
@@ -278,7 +282,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("playingAndFullScreen")]
 
 /**
- *  Paused State of the VideoPlayer when 
+ *  Paused state of the VideoPlayer when 
  *  in full screen mode.
  *  
  *  @langversion 3.0
@@ -289,7 +293,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("pausedAndFullScreen")]
 
 /**
- *  Buffering State of the VideoPlayer when 
+ *  Buffering state of the VideoPlayer when 
  *  in full screen mode.
  *  
  *  @langversion 3.0
@@ -300,7 +304,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("bufferingAndFullScreen")]
 
 /**
- *  Playback Error State of the VideoPlayer when 
+ *  Playback Error state of the VideoPlayer when 
  *  in full screen mode.  
  *  An error was encountered while trying to play the video.
  *  
@@ -312,7 +316,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("playbackErrorAndFullScreen")]
 
 /**
- *  Disabled State of the VideoPlayer when 
+ *  Disabled state of the VideoPlayer when 
  *  in full screen mode.
  *  
  *  @langversion 3.0
@@ -345,7 +349,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  It supports playback of FLV and F4v files. The VideoPlayer control
  *  contains a full-featured UI for controlling video playback.
  * 
- *  <p><code>VideoDisplay</code> is the chromeless version.</p>
+ *  <p><code>VideoDisplay</code> is the chromeless version that does not support skinning.
+ *  It is useful when you do not want the user to interact with the control.</p>
  *
  *  <p>The VideoPlayer control has the following default characteristics:</p>
  *     <table class="innertable">
@@ -401,21 +406,54 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  &lt;s:VideoPlayer
  
  *    <strong>Properties</strong>
+ *    autoDisplayFirstFrame="true"
  *    autoPlay="true"
  *    autoRewind="true"
  *    loop="false"
- *    scaleMode="letterbox"
  *    muted="false"
+ *    pauseWhenHidden="true"
+ *    scaleMode="letterbox"
  *    source=""
  *    volume="1"
  *  
  *    <strong>Events</strong>
- *    close="<i>No default</i>"
- *    complete="<i>No default</i>"
- *    metadataReceived="<i>No default</i>"
- *    playheadUpdate="<i>No default</i>"
- *    progress="<i>No default</i>"
- *    ready="<i>No default</i>"
+ *    bytesLoadedChange="<i>No default</i>"
+ *    currentTimeChange="<i>No default</i>"
+ *    durationChange="<i>No default</i>"
+ *    mediaPlayerStateChange="<i>No default</i>"
+ *  
+ * 
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="baseline"
+ *    baselineShift="0"
+ *    cffHinting="0.0"
+ *    color="0x000000"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="ltr"
+ *    dominantBaseline="auto"
+ *    dropShadowVisible="true"
+ *    fontFamily="Arial"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="false"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false%"
+ *    locale="en"
+ *    renderingMode="cff"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="start"
+ *    textJustify="interWord"
+ *    trackingLeft="0"
+ *    trackingRight="00"
+ *    typographicCase="default"
  *  /&gt;
  *  </pre>
  *  
@@ -536,7 +574,7 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part to display the current currentTime.
+     *  An optional skin part to display the current value of <code>codecurrentTime</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -574,7 +612,7 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for the pause button
+     *  An optional skin part for the pause button.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -586,7 +624,7 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for the play button
+     *  An optional skin part for the play button.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -613,9 +651,9 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  An optional skin part for a play/pause button.  When the 
-     *  video is playing, the selected property will be set to 
+     *  video is playing, the <code>selected</code> property is set to 
      *  <code>true</code>.  When the video is paused or stopped, 
-     *  the selected property will be set to <code>false</code>.
+     *  the <code>selected</code> property is set to <code>false</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -640,7 +678,7 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for the stop button
+     *  An optional skin part for the stop button.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1645,7 +1683,7 @@ public class VideoPlayer extends SkinnableComponent
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-		super.partRemoved(partName, instance);
+        super.partRemoved(partName, instance);
 
         if (instance == videoDisplay)
         {
@@ -1867,8 +1905,8 @@ public class VideoPlayer extends SkinnableComponent
     }
     
     /**
-     *  Formats a time value, given in seconds, into a string that 
-     *  gets used for the currentTimeDisplay and the durationDisplay.
+     *  Formats a time value, specified in seconds, into a String that 
+     *  gets used for <code>currentTime</code> and the <code>duration</code>.
      * 
      *  @param value Value in seconds of the time to format
      * 
