@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import flash.events.Event;
@@ -17,8 +17,8 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
-import mx.components.FxButton;
-import mx.core.IViewport;
+import spark.components.Button;
+import spark.core.IViewport;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
@@ -33,18 +33,18 @@ import mx.events.ResizeEvent;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The FxScrollBar class helps to position
+ *  The ScrollBar class helps to position
  *  the portion of data that is displayed when there is too much data
  *  to fit in a display area. 
- *  The FxScrollBar class displays a pair of scrollbars and a viewport. 
+ *  The ScrollBar class displays a pair of scrollbars and a viewport. 
  *  A viewport is a UIComponent that implements IViewport, such as Group.
  *  
- *  <p>This control extends the FxTrackBase class and
- *  is the base class for the FxHScrollBar and FxVScrollBar
+ *  <p>This control extends the TrackBase class and
+ *  is the base class for the HScrollBar and VScrollBar
  *  controls.</p> 
  * 
  *  <p>A scroll bar consists of a track, a variable-size scroll thumb, and 
- *  two optional arrow buttons. The FxScrollBar class uses four parameters 
+ *  two optional arrow buttons. The ScrollBar class uses four parameters 
  *  to calculate its display state:</p>
  *
  *  <ul>
@@ -66,7 +66,7 @@ import mx.events.ResizeEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxScrollBar extends FxTrackBase
+public class ScrollBar extends TrackBase
 {
     include "../../core/Version.as";
 
@@ -95,7 +95,7 @@ public class FxScrollBar extends FxTrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxScrollBar():void
+    public function ScrollBar():void
     {
         super();
     }
@@ -118,7 +118,7 @@ public class FxScrollBar extends FxTrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var decrementButton:FxButton;
+    public var decrementButton:Button;
     
     [SkinPart(required="false")]
     
@@ -133,7 +133,7 @@ public class FxScrollBar extends FxTrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var incrementButton:FxButton;
+    public var incrementButton:Button;
     
     //--------------------------------------------------------------------------
     //
@@ -243,15 +243,15 @@ public class FxScrollBar extends FxTrackBase
      *  <li><code>viewportHorizontalScrollPositionChangeHandler()</code></li>
      *  </ul>
      * 
-     *  <p>The FxVScrollBar and FxHScrollBar classes override these methods to 
+     *  <p>The VScrollBar and HScrollBar classes override these methods to 
      *  keep their pageSize, maximum, and value properties in sync with the
      *  viewport.   Similarly, they override their page and step methods to
      *  use the viewport's scrollPositionDelta methods to compute page and
      *  and step offsets.</p>
      *    
      *  @default null
-     *  @see mx.components.FxVScrollBar
-     *  @see mx.components.FxHScrollBar
+     *  @see mx.components.VScrollBar
+     *  @see mx.components.HScrollBar
      *
      *  
      *  @langversion 3.0
