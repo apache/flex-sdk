@@ -959,7 +959,7 @@ public class TextGraphicElement extends GraphicElement
 			var n:int = textLines.length;
 			for (var i:int = 0; i < n; i++)
 			{
-				textLines[i].visible = _computedVisibility;
+				textLines[i].visible = _effectiveVisibility;
 			}
 		}
     }
