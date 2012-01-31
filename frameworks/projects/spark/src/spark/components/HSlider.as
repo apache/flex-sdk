@@ -185,6 +185,11 @@ public class HSlider extends SliderBase
                                                            NaN,
                                                            null,
                                                            new Point(relX, initialPosition.y));
+            
+            // The point is in sandboxRoot coordinates, however tipAsDisplayObject is paranted to systemManager,
+            // convert to tipAsDisplayObject's parent coordinates
+            pt = tipAsDisplayObject.parent.globalToLocal(systemManager.getSandboxRoot().localToGlobal(pt));
+            
             tipAsDisplayObject.x = Math.floor(pt.x);
             tipAsDisplayObject.y = Math.floor(pt.y);
         }
