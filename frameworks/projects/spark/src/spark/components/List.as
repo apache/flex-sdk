@@ -2428,11 +2428,13 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function adjustSelectionAndCaretUponNavigation(event:KeyboardEvent):void
     {
+        // If rtl layout, need to swap Keyboard.LEFT and Keyboard.RIGHT.
+        var navigationUnit:uint = mapKeycodeForLayoutDirection(event);
+        
         // Some unrecognized key stroke was entered, return. 
-        var navigationUnit:uint = event.keyCode;    
         if (!NavigationUnit.isNavigationUnit(event.keyCode))
             return; 
-            
+           
         // Delegate to the layout to tell us what the next item is we should select or focus into.
         // TODO (dsubrama): At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
