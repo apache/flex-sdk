@@ -15,7 +15,6 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import flex.effects.easing.Classic;
 import flex.effects.easing.IEaser;
 import flex.effects.easing.Linear;
 import flex.effects.easing.Sine;
