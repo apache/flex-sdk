@@ -1,4 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *  Horizontal alignment of children in the container.
+ *  Possible values are <code>"left"</code>, <code>"center"</code>,
+ *  and <code>"right"</code>.
+ *  The default value is <code>"left"</code>, but some containers,
+ *  such as ButtonBar and ToggleButtonBar,
+ *  have different default values.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
 /**
