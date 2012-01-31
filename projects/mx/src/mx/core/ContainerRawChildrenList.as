@@ -27,201 +27,191 @@ import flash.geom.Point;
  */
 public class ContainerRawChildrenList implements IChildList
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Notes
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Notes
+    //
+    //--------------------------------------------------------------------------
 
-	/*
+    /*
 
-		Although at the level of a Flash DisplayObjectContainer, all
-		children are equal, in a Flex Container some children are "more
-		equal than others". (George Orwell, "Animal Farm")
-		
-		In particular, Flex distinguishes between content children and
-		non-content (or "chrome") children. Content children are the kind
-		that can be specified in MXML. If you put several controls
-		into a VBox, those are its content children. Non-content children
-		are the other ones that you get automatically, such as a
-		background/border, scrollbars, the titlebar of a Panel,
-		AccordionHeaders, etc.
+        Although at the level of a Flash DisplayObjectContainer, all
+        children are equal, in a Flex Container some children are "more
+        equal than others". (George Orwell, "Animal Farm")
+        
+        In particular, Flex distinguishes between content children and
+        non-content (or "chrome") children. Content children are the kind
+        that can be specified in MXML. If you put several controls
+        into a VBox, those are its content children. Non-content children
+        are the other ones that you get automatically, such as a
+        background/border, scrollbars, the titlebar of a Panel,
+        AccordionHeaders, etc.
 
-		Most application developers are uninterested in non-content children,
-		so Container overrides APIs such as numChildren and getChildAt()
-		to deal only with content children. For example, Container, keeps
-		its own _numChildren counter.
+        Most application developers are uninterested in non-content children,
+        so Container overrides APIs such as numChildren and getChildAt()
+        to deal only with content children. For example, Container, keeps
+        its own _numChildren counter.
 
-		However, developers of custom containers need to be able to deal
-		with both content and non-content children, so they require similar
-		APIs that operate on all children.
+        However, developers of custom containers need to be able to deal
+        with both content and non-content children, so they require similar
+        APIs that operate on all children.
 
-		For the public API, it would be ugly to have double APIs on Container
-		such as getChildAt() and all_getChildAt(). Instead, Container has
-		a public rawChildren property which lets you access APIs which
-		operate on all the children, in the same way that the
-		DisplayObjectContainer APIs do. For example, getChildAt(0) returns
-		the first content child, while rawChildren.getChildAt(0) returns
-		the first child (either content or non-content).
+        For the public API, it would be ugly to have double APIs on Container
+        such as getChildAt() and all_getChildAt(). Instead, Container has
+        a public rawChildren property which lets you access APIs which
+        operate on all the children, in the same way that the
+        DisplayObjectContainer APIs do. For example, getChildAt(0) returns
+        the first content child, while rawChildren.getChildAt(0) returns
+        the first child (either content or non-content).
 
-		This ContainerRawChildrenList class implements the rawChildren
-		property. Note that it simply calls a second set of parallel
-		mx_internal APIs in Container. (They're named, for example,
-		_getChildAt() instead of all_getChildAt()).
+        This ContainerRawChildrenList class implements the rawChildren
+        property. Note that it simply calls a second set of parallel
+        mx_internal APIs in Container. (They're named, for example,
+        _getChildAt() instead of all_getChildAt()).
 
-		Many of the all-children APIs in Container such as _getChildAt()
-		simply call super.getChildAt() in order to get the implementation
-		in DisplayObjectContainer. It would be nice if we could eliminate
-		_getChildAt() in Container and simply implement the all-children
-		version in this class by calling the DisplayObjectContainer method.
-		But once Container overrides getChildAt(), there is no way
-		to call the supermethod through an instance.
+        Many of the all-children APIs in Container such as _getChildAt()
+        simply call super.getChildAt() in order to get the implementation
+        in DisplayObjectContainer. It would be nice if we could eliminate
+        _getChildAt() in Container and simply implement the all-children
+        version in this class by calling the DisplayObjectContainer method.
+        But once Container overrides getChildAt(), there is no way
+        to call the supermethod through an instance.
 
-	*  
+    */
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	*  @langversion 3.0
+    /**
+     *  @private
+     *  Constructor.
+     */
+    public function ContainerRawChildrenList(owner:Container)
+    {
+        super();
 
-	*  @playerversion Flash 9
+        this.owner = owner;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	*  @playerversion AIR 1.1
+    /**
+     *  @private
+     */
+    private var owner:Container;
 
-	*  @productversion Flex 3
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	*/
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //----------------------------------
+    //  numChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Constructor.
-	 */
-	public function ContainerRawChildrenList(owner:Container)
-	{
-		super();
+    /**
+     *  @private
+     */
+    public function get numChildren():int
+    {
+        return owner.mx_internal::$numChildren;
+    }
 
-		this.owner = owner;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var owner:Container;
+    /**
+     *  @private
+     */
+    public function addChild(child:DisplayObject):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_addChild(child);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    public function addChildAt(child:DisplayObject, index:int):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_addChildAt(child, index);
+    }
 
-	//----------------------------------
-	//  numChildren
-	//----------------------------------
+    /**
+     *  @private
+     */
+    public function removeChild(child:DisplayObject):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_removeChild(child);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function get numChildren():int
-	{
-		return owner.mx_internal::$numChildren;
-	}
+    /**
+     *  @private
+     */
+    public function removeChildAt(index:int):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_removeChildAt(index);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    public function getChildAt(index:int):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_getChildAt(index);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function addChild(child:DisplayObject):DisplayObject
-	{
-		return owner.mx_internal::rawChildren_addChild(child);
-	}
+    /**
+     *  @private
+     */
+    public function getChildByName(name:String):DisplayObject
+    {
+        return owner.mx_internal::rawChildren_getChildByName(name);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function addChildAt(child:DisplayObject, index:int):DisplayObject
-	{
-		return owner.mx_internal::rawChildren_addChildAt(child, index);
-	}
+    /**
+     *  @private
+     */
+    public function getChildIndex(child:DisplayObject):int
+    {
+        return owner.mx_internal::rawChildren_getChildIndex(child);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function removeChild(child:DisplayObject):DisplayObject
-	{
-		return owner.mx_internal::rawChildren_removeChild(child);
-	}
+    /**
+     *  @private
+     */
+    public function setChildIndex(child:DisplayObject, newIndex:int):void
+    {       
+        owner.mx_internal::rawChildren_setChildIndex(child, newIndex);
+    }
+    
+    /**
+     *  @private
+     */
+    public function getObjectsUnderPoint(point:Point):Array
+    {
+        return owner.mx_internal::rawChildren_getObjectsUnderPoint(point);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function removeChildAt(index:int):DisplayObject
-	{
-		return owner.mx_internal::rawChildren_removeChildAt(index);
-	}
-
-	/**
-	 *  @private
-	 */
-  	public function getChildAt(index:int):DisplayObject
-  	{
-		return owner.mx_internal::rawChildren_getChildAt(index);
-  	}
-
-	/**
-	 *  @private
-	 */
-  	public function getChildByName(name:String):DisplayObject
-  	{
-		return owner.mx_internal::rawChildren_getChildByName(name);
-  	}
-
-	/**
-	 *  @private
-	 */
-  	public function getChildIndex(child:DisplayObject):int
-  	{
-		return owner.mx_internal::rawChildren_getChildIndex(child);
-	}
-
-	/**
-	 *  @private
-	 */
-	public function setChildIndex(child:DisplayObject, newIndex:int):void
-	{		
-		owner.mx_internal::rawChildren_setChildIndex(child, newIndex);
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function getObjectsUnderPoint(point:Point):Array
-	{
-		return owner.mx_internal::rawChildren_getObjectsUnderPoint(point);
-	}
-
-	/**
-	 *  @private
-	 */
-	public function contains(child:DisplayObject):Boolean
-	{
-		return owner.mx_internal::rawChildren_contains(child);
-	}	
+    /**
+     *  @private
+     */
+    public function contains(child:DisplayObject):Boolean
+    {
+        return owner.mx_internal::rawChildren_contains(child);
+    }   
 }
 
 }
