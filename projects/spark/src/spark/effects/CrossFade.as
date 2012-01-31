@@ -13,23 +13,27 @@ package spark.effects
 import flash.utils.ByteArray;
    
 /**
- * This class performs a bitmap transition effect by running a
- * 'crossfade' between the first and second bitmaps.
- * The crossfade blends the two over the course of the 
- * animation such that, at any point in the animation, where the 
- * elapsed and eased fraction of the animation is f and the pixel
- * values in the first and second bitmaps are v1 and v2, the resulting
- * pixel value v for any pixel in the image will be
- * <code>v = v1 * (1 - f) + v2 * f</code>.
+ * The CrossFade effect performs a bitmap transition effect by running a
+ * <i>crossfade</i> between the first and second bitmaps.
+ * The crossfade blends the two bitmaps over the duration of the 
+ * animation.
+ *
+ * <p>At any point in the animation, where the 
+ * elapsed and eased fraction of the animation is <code>f</code> and the pixel
+ * values in the first and second bitmaps are <code>v1</code> and <code>v2</code>, 
+ * the resulting pixel value <code>v</code> for any pixel in the image is:</p>
+ *
+ * <pre>v = v1 * (1 - f) + v2 * f</pre>
  * 
- * <p>The underlying bitmap effect is run by a Pixel Bender shader 
- * that is loaded by the effect. There is no need to supply a shader
- * to this effect since it uses its own by default. However, if
- * a different Crossfade behavior is desired, a different shader may be
- * supplied, as long as it adheres to the constraints specified 
- * for the <code>shaderCode</code> property of AnimateBitmap.</p>
+ * <p>The bitmap effect is run by a pixel-shader program
+ * that is loaded by the effect. 
+ * You can specify a different crossfade behavior by specifying 
+ * a pixel-shader program to the <code>shaderCode</code> property.
+ * That pixel-shader program must meet the requirements defined in the 
+ * AnimateShaderTransition effect. </p>
  * 
- * @see mx.effects.AnimateShaderTransition#shaderCode
+ * @see spark.effects.AnimateShaderTransition
+ * @see spark.effects.AnimateShaderTransition#shaderCode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
