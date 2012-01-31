@@ -1715,11 +1715,10 @@ public class VideoPlayer extends SkinnableComponent
             else
                 FlexGlobals.topLevelApplication.addChild(this);
             
-            // Push the component out to -2*width, -2*height so that it's completely 
-            // off-screen.  This way no component will get in the way when we set 
-            // the fullScreenRect to this spot.
-            this.x = -2*width;
-            this.y = -2*height;
+            // Push the component at (0,0).  It should be on top of everything 
+            // at this point because it was added directly to the application.
+            this.x = 0;
+            this.y = 0;
             
             // this is for video performance reasons
             videoElement.mx_internal::videoPlayer.smoothing = false;
@@ -1729,7 +1728,7 @@ public class VideoPlayer extends SkinnableComponent
             
             systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
             
-            systemManager.stage.fullScreenSourceRect = new Rectangle(-2*width, -2*height, width, height);
+            systemManager.stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
             
             // TODO (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
