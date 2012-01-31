@@ -2194,7 +2194,7 @@ public class RichEditableText extends UIComponent
         // Othewise, it is at the end.
         var position:int = _clipAndEnableScrolling ? 0 : int.MAX_VALUE;                
 
-        selectionManager.setSelection(position, position); 
+        selectionManager.selectRange(position, position); 
         
         // This should not be necessary but it is if the text is changed after
         // the component already has focus.  Need the selectionFormatState
@@ -2509,7 +2509,7 @@ public class RichEditableText extends UIComponent
 
 		var selectionManager:ISelectionManager = getSelectionManager();
         
-        selectionManager.setSelection(anchorPosition, activePosition);        
+        selectionManager.selectRange(anchorPosition, activePosition);        
                 
         // Refresh the selection.  This does not cause a damage event.
         selectionManager.refreshSelection();
@@ -2558,7 +2558,7 @@ public class RichEditableText extends UIComponent
         
         // If no selection, then it's an append.
          if (!editManager.hasSelection())
-            editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+            editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
             
         // Our damage handler should be active.  Inserting the text invokes
         // our damage handler to invalidate the text, maybe the size, and
@@ -2591,7 +2591,7 @@ public class RichEditableText extends UIComponent
         var editManager:IEditManager = getEditManager();
         
         // An append is an insert with the selection set to the end.
-        editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+        editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
 
         // Our damage handler should be active.  Inserting the text invokes
         // our damage handler to invalidate the text, maybe the size, and
@@ -2693,7 +2693,7 @@ public class RichEditableText extends UIComponent
             oldAnchorPosition = _selectionAnchorPosition;
             oldActivePosition = _selectionActivePosition;
             
-            selectionManager.setSelection(anchorPosition, activePosition);        
+            selectionManager.selectRange(anchorPosition, activePosition);        
         }                       
                                
         if (needContainerFormat)
@@ -2707,7 +2707,7 @@ public class RichEditableText extends UIComponent
 
         if (anchorPosition != -1 && activePosition != -1)
         {
-            selectionManager.setSelection(oldAnchorPosition, oldActivePosition);
+            selectionManager.selectRange(oldAnchorPosition, oldActivePosition);
         }        
         
         // Extract the requested formats to return.
