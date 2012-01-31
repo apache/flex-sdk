@@ -55,20 +55,6 @@ public class List extends Selector
     //--------------------------------------------------------------------------
     
     /**
-     *  Flag that determines if the items in a list are rendered directly or 
-     *  wrapped by an item renderer.
-     * 
-     *  <p>For example, a list may contain Image components. In this case, you want
-     *  the images to be wrapped by the item renderer so highlighting and 
-     *  selection works correctly. Another list may have ToggleButtons as items.
-     *  In this case, the buttons themselves are the renderers, and do not
-     *  need to be wrapped.</p>
-     * 
-     *  @default false
-     */
-    public var itemsAreRenderers:Boolean = false;
-    
-    /**
      *  Flag that determines if the list supports multiple selection.
      * 
      *  TODO: description of how single selection properties
@@ -179,7 +165,7 @@ public class List extends Selector
             var count:int = selectedIndices.length;
             
             for (var i:int = 0; i < count; i++)
-                result[i] = getItemAt(selectedIndices[i]);  
+                result[i] = dataProvider.getItemAt(selectedIndices[i]);  
         }
         
         return result;
@@ -196,7 +182,7 @@ public class List extends Selector
             var count:int = value.length;
             
             for (var i:int = 0; i < count; i++)
-                indices[i] = getItemIndex(value[i]);
+                indices[i] = dataProvider.getItemIndex(value[i]);
         }
         
         selectedIndices = value;
@@ -227,25 +213,11 @@ public class List extends Selector
      */
     override protected function itemSelected(item:Object, selected:Boolean):void
     {
-        var item:* = currentContentGroup.getItemSkin(item);
+        var item:* = dataGroup.getItemSkin(item);
         
         if (item)
             item.selected = selected;
     }
-    
-    /**
-     *  Called when a skin part has been added or assigned. 
-     *  This method sets the "alwaysUseItemRenderer" flag on the
-     *  contentGroup part.
-     */
-    override protected function partAdded(partName:String, instance:*):void
-    {
-        super.partAdded(partName, instance);
-        
-        if (instance == contentGroup && !itemsAreRenderers)
-            contentGroup.alwaysUseItemRenderer = true;
-    }
-
     
     //--------------------------------------------------------------------------
     //
@@ -316,7 +288,7 @@ public class List extends Selector
             count = removedItems.length;
             for (i = 0; i < count; i++)
             {
-                itemSelected(getItemAt(removedItems[i]), false);
+                itemSelected(dataProvider.getItemAt(removedItems[i]), false);
             }
         }
         
@@ -326,7 +298,7 @@ public class List extends Selector
             count = addedItems.length;
             for (i = 0; i < count; i++)
             {
-                itemSelected(getItemAt(addedItems[i]), true);
+                itemSelected(dataProvider.getItemAt(addedItems[i]), true);
             }
         }
     }
@@ -341,11 +313,11 @@ public class List extends Selector
      *  @private
      *  Called when an item has been added to this component.
      */
-    override protected function itemAddedHandler(event:ItemExistenceChangedEvent):void
+    override protected function itemAddedHandler(item:*, index:int):void
     {
-        super.itemAddedHandler(event);
+        super.itemAddedHandler(item, index);
         
-        var skin:* = currentContentGroup.getItemSkin(event.relatedObject);
+        var skin:* = dataGroup.getItemSkin(item);
         
         if (skin)
             skin.addEventListener("click", item_clickHandler);
@@ -355,11 +327,11 @@ public class List extends Selector
      *  @private
      *  Called when an item has been removed from this component.
      */
-    override protected function itemRemovedHandler(event:ItemExistenceChangedEvent):void
+    override protected function itemRemovedHandler(item:*, index:int):void
     {
-        super.itemRemovedHandler(event);
+        super.itemRemovedHandler(item, index);
         
-        var skin:* = currentContentGroup.getItemSkin(event.relatedObject);
+        var skin:* = dataGroup.getItemSkin(item);
         
         if (skin)
             skin.removeEventListener("click", item_clickHandler);
@@ -373,7 +345,7 @@ public class List extends Selector
     {
         // Multiple selection needs to be added here....
         
-        selectedItem = currentContentGroup.getSkinItem(DisplayObject(event.currentTarget));
+        selectedItem = dataGroup.getSkinItem(DisplayObject(event.currentTarget));
     }
 }
 
