@@ -236,8 +236,6 @@ public class FxContainer extends FxContainerBase
      */
     public function set clipContent(value:Boolean):void 
     {       
-        if (skin)  // TEMPORARY fix for SDK-17751
-            skin.clipContent = value;
         if (contentGroup)
         {
             contentGroup.clipContent = value;
@@ -612,7 +610,6 @@ public class FxContainer extends FxContainerBase
             if (contentGroupProperties.clipContent !== undefined)
             {
                 contentGroup.clipContent = contentGroupProperties.clipContent;
-                skin.clipContent = contentGroupProperties.clipContent;  // TEMPORARY fix for SDK-17751
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
                                                                  CLIP_CONTENT_PROPERTY_FLAG, true);
             }
