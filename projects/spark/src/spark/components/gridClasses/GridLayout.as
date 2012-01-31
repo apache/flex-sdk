@@ -18,8 +18,8 @@ import flash.utils.getTimer;
 
 import mx.collections.IList;
 import mx.core.ClassFactory;
-import mx.core.IFactory;
 import mx.core.IContainerInvalidating;
+import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
@@ -77,7 +77,7 @@ public class GridLayout extends LayoutBase
     /**
      *  @private
      *  The previous values of the corresponding variables.   Set by layoutItemRenderers()
-     *  and only valid during updateDisplayList().
+     *  and only valid during updateDisplayList(), for a complete relayout.
      */
     private var oldVisibleRowIndices:Vector.<int> = new Vector.<int>(0);
     private var oldVisibleColumnIndices:Vector.<int> = new Vector.<int>(0);
@@ -128,7 +128,14 @@ public class GridLayout extends LayoutBase
      * 
      *  Updated by createGridElement().
      */
-    private const elementToFactoryMap:Dictionary = new Dictionary();    
+    private const elementToFactoryMap:Dictionary = new Dictionary();
+    
+    /**
+     *  @private
+     *  Used by scrollPositionChanged() to determine which scroll position properties changed.
+     */    
+    private var oldVerticalScrollPosition:Number = 0;
+    private var oldHorizontalScrollPosition:Number = 0;
     
     //--------------------------------------------------------------------------
     //
@@ -384,11 +391,27 @@ public class GridLayout extends LayoutBase
             
         super.scrollPositionChanged();  // sets grid.scrollRect
         
+        const hspChanged:Boolean = oldHorizontalScrollPosition != horizontalScrollPosition;
+        const vspChanged:Boolean = oldVerticalScrollPosition != verticalScrollPosition;
+        
+        oldHorizontalScrollPosition = horizontalScrollPosition;
+        oldVerticalScrollPosition = verticalScrollPosition;
+        
         // Only invalidate if we're clipping and scrollR extends outside visisibleRenderersBounds
         
         const scrollR:Rectangle = grid.scrollRect;
         if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
-            grid.invalidateDisplayList();
+        {
+            var reason:String = "none";
+            if (vspChanged && hspChanged)
+                reason = "bothScrollPositions";
+            else if (vspChanged)
+                reason = "verticalScrollPosition"
+            else if (hspChanged)
+                reason = "horizontalScrollPosition";
+            
+            grid.invalidateDisplayListFor(reason);
+        }
     }
     
     /**
@@ -497,84 +520,100 @@ public class GridLayout extends LayoutBase
         if (!columns || lastVisibleColumnIndex < 0)
             return;
         
-        // Layout the item renderers and compute new values for visibleRowIndices et al
-        
-        oldVisibleRowIndices = visibleRowIndices;
-        oldVisibleColumnIndices = visibleColumnIndices;
-        
-        const scrollX:Number = horizontalScrollPosition;
-        const scrollY:Number = verticalScrollPosition;
-        
-        visibleGridBounds.x = scrollX;
-        visibleGridBounds.y = scrollY;
-        visibleGridBounds.width = unscaledWidth;
-        visibleGridBounds.height = unscaledHeight;
-        
         // Layers
         
         const backgroundLayer:GridLayer = getLayer("backgroundLayer");
         const selectionLayer:GridLayer = getLayer("selectionLayer");    
         const editorIndicatorLayer:GridLayer = getLayer("editorIndicatorLayer");
         const rendererLayer:GridLayer = getLayer("rendererLayer");
-        const overlayLayer:GridLayer = getLayer("overlayLayer");        
+        const overlayLayer:GridLayer = getLayer("overlayLayer"); 
         
-        // Layout the columns and item renderers
+        // Relayout everything if the scroll position changed or if no 
+        // "invalidateDisplayList reason" was specified.  See
+        // Grid/invalidateDisplayListFor(reason)
         
-		layoutColumns(scrollX, scrollY, unscaledWidth);
-        layoutItemRenderers(rendererLayer, scrollX, scrollY, unscaledWidth, unscaledHeight);
+        const completeLayoutNeeded:Boolean = 
+            grid.isInvalidateDisplayListReason("verticalScrollPosition") ||
+            grid.isInvalidateDisplayListReason("horizontalScrollPosition");
+            
         
-        // Update the content size.  Make sure that if the content spans partially 
-        // over a pixel to the right/bottom, the content size includes the whole pixel.
+        // Layout the columns and item renderers; compute new values for visibleRowIndices et al.
         
-        const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
-        const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
-        grid.setContentSize(contentWidth, contentHeight); 
-        
-        // If the grid's contentHeight is smaller than than the available height 
-        // (unscaledHeight) then pad the visible rows
-        
-        var paddedRowCount:int = gridDimensions.rowCount;
-        if ((scrollY == 0) && (contentHeight < unscaledHeight))
+        if (completeLayoutNeeded)
         {
-            const unusedHeight:Number = unscaledHeight - gridDimensions.getContentHeight();
-            paddedRowCount += Math.ceil(unusedHeight / gridDimensions.defaultRowHeight);
+            oldVisibleRowIndices = visibleRowIndices;
+            oldVisibleColumnIndices = visibleColumnIndices;
+            
+            const scrollX:Number = horizontalScrollPosition;
+            const scrollY:Number = verticalScrollPosition;
+            
+            visibleGridBounds.x = scrollX;
+            visibleGridBounds.y = scrollY;
+            visibleGridBounds.width = unscaledWidth;
+            visibleGridBounds.height = unscaledHeight;
+            
+            layoutColumns(scrollX, scrollY, unscaledWidth);
+            layoutItemRenderers(rendererLayer, scrollX, scrollY, unscaledWidth, unscaledHeight);
+            
+            // Update the content size.  Make sure that if the content spans partially 
+            // over a pixel to the right/bottom, the content size includes the whole pixel.
+            
+            const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
+            const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
+            grid.setContentSize(contentWidth, contentHeight); 
+            
+            // If the grid's contentHeight is smaller than than the available height 
+            // (unscaledHeight) then pad the visible rows
+            
+            var paddedRowCount:int = gridDimensions.rowCount;
+            if ((scrollY == 0) && (contentHeight < unscaledHeight))
+            {
+                const unusedHeight:Number = unscaledHeight - gridDimensions.getContentHeight();
+                paddedRowCount += Math.ceil(unusedHeight / gridDimensions.defaultRowHeight);
+            }
+            
+            for (var rowIndex:int = gridDimensions.rowCount; rowIndex < paddedRowCount; rowIndex++)
+                visibleRowIndices.push(rowIndex);
+            
+            // Layout the row backgrounds
+            
+            visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, backgroundLayer,
+                visibleRowBackgrounds, oldVisibleRowIndices, visibleRowIndices, layoutRowBackground);
+    
+            // Layout the row and column separators. 
+            
+            const lastRowIndex:int = paddedRowCount - 1;
+    
+            visibleRowSeparators = layoutLinearElements(grid.rowSeparator, overlayLayer, 
+                visibleRowSeparators, oldVisibleRowIndices, visibleRowIndices, layoutRowSeparator, lastRowIndex);
+            
+            visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayLayer, 
+                visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
+            
+            
+            // The old visible row,column indices are no longer needed
+            
+            oldVisibleRowIndices.length = 0;
+            oldVisibleColumnIndices.length = 0;            
         }
-        
-        for (var rowIndex:int = gridDimensions.rowCount; rowIndex < paddedRowCount; rowIndex++)
-            visibleRowIndices.push(rowIndex);
-        
-        // Layout the row backgrounds
-        
-        visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, backgroundLayer,
-            visibleRowBackgrounds, oldVisibleRowIndices, visibleRowIndices, layoutRowBackground);
-
-        // Layout the row and column separators. 
-        
-        const lastRowIndex:int = paddedRowCount - 1;
-
-        visibleRowSeparators = layoutLinearElements(grid.rowSeparator, overlayLayer, 
-            visibleRowSeparators, oldVisibleRowIndices, visibleRowIndices, layoutRowSeparator, lastRowIndex);
-        
-        visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayLayer, 
-            visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
         
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
-        layoutHoverIndicator(backgroundLayer);
-        layoutSelectionIndicators(selectionLayer);
-        layoutCaretIndicator(overlayLayer);
-        layoutEditorIndicator(editorIndicatorLayer);
+        if (completeLayoutNeeded || grid.isInvalidateDisplayListReason("hoverIndicator"))
+            layoutHoverIndicator(backgroundLayer);
+        
+        if (completeLayoutNeeded || grid.isInvalidateDisplayListReason("selectionIndicator"))
+            layoutSelectionIndicators(selectionLayer);
+        
+        if (completeLayoutNeeded || grid.isInvalidateDisplayListReason("caretIndicator"))
+            layoutCaretIndicator(overlayLayer);
+        
+        if (completeLayoutNeeded || grid.isInvalidateDisplayListReason("editorIndicator"))
+            layoutEditorIndicator(editorIndicatorLayer);
         
         // To avoid flashing, force all of the layers to render now
         
-        if (backgroundLayer) backgroundLayer.validateNow();
-        if (selectionLayer) selectionLayer.validateNow();
-        if (overlayLayer) overlayLayer.validateNow();
-        
-        // The old visible row,column indices are no longer needed
-        
-        oldVisibleRowIndices.length = 0;
-        oldVisibleColumnIndices.length = 0;
+        grid.validateNow();
                 
         if (enablePerformanceStatistics)
         {
