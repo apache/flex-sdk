@@ -57,6 +57,11 @@ public class FxFadeInstance extends FxAnimateInstance
     /** 
      *  Initial transparency level between 0.0 and 1.0, 
      *  where 0.0 means transparent and 1.0 means fully opaque. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var alphaFrom:Number;
     
@@ -67,6 +72,11 @@ public class FxFadeInstance extends FxAnimateInstance
     /** 
      *  Final transparency level between 0.0 and 1.0, 
      *  where 0.0 means transparent and 1.0 means fully opaque.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var alphaTo:Number;
 
