@@ -114,6 +114,10 @@ public class HSBInterpolator implements IInterpolator
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
     {
+        if (fraction == 0)
+            return startValue;
+        else if (fraction == 1)
+            return endValue;
         var start:HSBColor = startHSB;
         var end:HSBColor = endHSB;
         // If we have not converted start/end values at construction time, 
