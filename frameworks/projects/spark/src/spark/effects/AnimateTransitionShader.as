@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects
 {
-import flash.display.BitmapData;    
+import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
 import flash.geom.Matrix;
@@ -19,10 +19,12 @@ import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
 import mx.effects.IEffectInstance;
-import spark.effects.supportClasses.AnimateShaderTransitionInstance;
-import spark.primitives.supportClasses.GraphicElement;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+
+import spark.effects.supportClasses.AnimateTransitionShaderInstance;
+import spark.primitives.supportClasses.GraphicElement;
+import spark.utils.BitmapUtil;
 
 //--------------------------------------
 //  Other metadata
@@ -31,7 +33,7 @@ import mx.resources.ResourceManager;
 [ResourceBundle("sparkEffects")]
 
 /**
- * The AnimateShaderTransition effect animates a transition between two bitmaps,
+ * The AnimateTransitionShader effect animates a transition between two bitmaps,
  * one representing the start state (<code>bitmapFrom</code>), and
  * the other representing the end state (<code>bitmapTo</code>).
  * 
@@ -78,23 +80,23 @@ import mx.resources.ResourceManager;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:AnimateShaderTransition&gt;</code> tag
+ *  <p>The <code>&lt;mx:AnimateTransitionShader&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateShaderTransition
+ *  &lt;mx:AnimateTransitionShader
  *    <b>Properties</b>
  *    id="ID"
  *    bitmapFrom="no default"
  *    bitmapTo="no default"
- *    shaderCode="no default"
+ *    shaderByteCode="no default"
  *    sahderProperties="no default"
  *  /&gt;
  *  </pre>
  * 
  *  @see flash.display.BitmapData
- *  @see spark.effects.supportClasses.AnimateShaderTransitionInstance
+ *  @see spark.effects.supportClasses.AnimateTransitionShaderInstance
  *  @see spark.primitives.supportClasses.GraphicElement
  *  
  *  @langversion 3.0
@@ -102,7 +104,7 @@ import mx.resources.ResourceManager;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class AnimateShaderTransition extends Animate
+public class AnimateTransitionShader extends Animate
 {
     
     /**
@@ -115,11 +117,11 @@ public class AnimateShaderTransition extends Animate
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     public function AnimateShaderTransition(target:Object=null)
+     public function AnimateTransitionShader(target:Object=null)
     {
         super(target);
 
-        instanceClass = AnimateShaderTransitionInstance;
+        instanceClass = AnimateTransitionShaderInstance;
     }
    
     
@@ -219,7 +221,7 @@ public class AnimateShaderTransition extends Animate
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var shaderCode:Object;
+    public var shaderByteCode:Object;
     
     /**
      * A map of parameter name/value pairs passed to the pixel-shader program 
@@ -231,8 +233,8 @@ public class AnimateShaderTransition extends Animate
      * @example <listing version="3.0">
      *   [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
      *   private var WipeCodeClass:Class;
-     *   var shaderEffect = new AnimateShaderTransition();
-     *   shaderEffect.shaderCode = WipeCodeClass;
+     *   var shaderEffect = new AnimateTransitionShader();
+     *   shaderEffect.shaderByteCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};
      * </listing>
      *  
@@ -266,46 +268,13 @@ public class AnimateShaderTransition extends Animate
         if (!target.visible || !target.parent)
             return null;
 
-        return getSnapshot(target);
-    }
-    
-    /**
-     *  Creates the bitmap image for either the before or after stateof the target, if necessary.
-     *
-     *  @param target The Object to animate with this effect.  
-     *
-     *  @return A BitmapData object containing the image.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static function getSnapshot(target:Object):BitmapData
-    {
         if (target is GraphicElement)
             return GraphicElement(target).getBitmapData(true, 0, false);
         else if (!(target is IUIComponent))
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
-        // TODO (chaase): Does this utility function belong in a more central
-        // location, like UIComponent, or as part of ImageSnapshot?
-        
-        var topLevel:Sprite = Sprite(IUIComponent(target).systemManager);   
-        var rectBounds:Rectangle = target.getBounds(topLevel);
-        var m:Matrix = target.transform.concatenatedMatrix;
-        // truncate position because the fractional offset will already be figured
-        // into the filter placement onto the target. 
-        // TODO (chaase): There are still some offset
-        // problems with objects inside of rotated parents, depending on the angle.
-        if (m)
-            m.translate(-(Math.floor(rectBounds.x)), -(Math.floor(rectBounds.y)));
-        var bmData:BitmapData = new BitmapData(rectBounds.width, 
-            rectBounds.height, true, 0);
-        bmData.draw(IBitmapDrawable(target), m);
-
-        return bmData;
+        return BitmapUtil.getSnapshot(IUIComponent(target));
     }
-
+    
     /**
      *  @private
      */
@@ -313,22 +282,22 @@ public class AnimateShaderTransition extends Animate
     {
         super.initInstance(instance);
         
-        var animateShaderTransitionInstance:AnimateShaderTransitionInstance = 
-            AnimateShaderTransitionInstance(instance);
+        var animateTransitionShaderInstance:AnimateTransitionShaderInstance = 
+            AnimateTransitionShaderInstance(instance);
 
-        animateShaderTransitionInstance.bitmapFrom = bitmapFrom;
-        animateShaderTransitionInstance.bitmapTo = bitmapTo;
+        animateTransitionShaderInstance.bitmapFrom = bitmapFrom;
+        animateTransitionShaderInstance.bitmapTo = bitmapTo;
 
-        if (!shaderCode)
+        if (!shaderByteCode)
             // User should always supply a shader, but if they don't just 
             // pass it on
-            animateShaderTransitionInstance.shaderCode = null;
+            animateTransitionShaderInstance.shaderByteCode = null;
         else
-            animateShaderTransitionInstance.shaderCode = 
-                (shaderCode is ByteArray) ?
-                ByteArray(shaderCode) :
-                new shaderCode();
-        animateShaderTransitionInstance.shaderProperties = shaderProperties;
+            animateTransitionShaderInstance.shaderByteCode = 
+                (shaderByteCode is ByteArray) ?
+                ByteArray(shaderByteCode) :
+                new shaderByteCode();
+        animateTransitionShaderInstance.shaderProperties = shaderProperties;
     }
 }
 }
