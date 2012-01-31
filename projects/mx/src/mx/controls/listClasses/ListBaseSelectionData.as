@@ -21,6 +21,11 @@ use namespace mx_internal;
  *  Each selected item is represented by an instance of this class. 
  *
  *  @see mx.controls.listClasses.ListBase#selectedData
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListBaseSelectionData
 {
@@ -40,6 +45,11 @@ public class ListBaseSelectionData
 	 *  @param index The index in the data provider of the selected item. (may be approximate) 
 	 *
 	 *  @param approximate If true, then the index property is an approximate value and not the exact value.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseSelectionData(data:Object, index:int,
 										  approximate:Boolean)
@@ -89,6 +99,11 @@ public class ListBaseSelectionData
 
 	/**
 	 *  If true, then the index property is an approximate value and not the exact value.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var approximate:Boolean;
 
@@ -98,6 +113,11 @@ public class ListBaseSelectionData
 
 	/**
 	 *  The data Object that is selected (selectedItem)
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var data:Object;
 
@@ -107,6 +127,11 @@ public class ListBaseSelectionData
 
 	/**
 	 *  The index in the data provider of the selected item. (may be approximate)
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var index:int;
 }
