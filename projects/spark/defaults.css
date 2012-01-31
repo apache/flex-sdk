@@ -19,12 +19,16 @@ FxApplication
     backgroundColor: #FFFFFF;
 }
 
-FxButton
+ButtonBase
 {
     lineBreak: "explicit";
-    skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
     textAlign: "center";
     verticalAlign: "middle";
+}
+
+FxButton
+{
+    skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
 }
 
 FxButton.emphasized
@@ -118,8 +122,6 @@ FxTextInput
 FxToggleButton
 {
 	skinClass: ClassReference("mx.skins.spark.FxToggleButtonSkin");
-	textAlign: "center";
-	verticalAlign: "middle";
 }
 
 FxVideoDisplay
