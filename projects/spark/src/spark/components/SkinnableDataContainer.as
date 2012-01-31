@@ -24,7 +24,7 @@ import spark.components.supportClasses.ItemRenderer;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.IViewport;
 import spark.events.RendererExistenceEvent;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutBase;
 
 /**
  *  Dispatched when a renderer is added to the content holder.
