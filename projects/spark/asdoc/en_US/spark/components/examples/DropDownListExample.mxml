@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark DropDownList control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/halo">
+	
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    	    import mx.events.IndexChangedEvent;
+    		    		    		
+    	 [Bindable]
+			public var myDP:ArrayCollection = new ArrayCollection(
+				[ {product:"Flex", price:100}, 
+				  {product:"Air", price:200}, 
+				  {product:"Catalyst", price:300},
+				  {product:"FlashBuilder", price:400} ]);
+                                    
+    		private function updateSelection(e:IndexChangedEvent):void
+    		{
+    			currSel.text = "Current Product = " + myDDL.selectedItem.product;
+    			currPrc.text = "Price = $" + myDDL.selectedItem.price;
+    		}
+    	]]>   
+    </fx:Script>	
+	
+	<s:Panel width="75%" height="75%" title="My DropDownList Example">		
+
+		<s:VGroup left="10" right="10" top="10" bottom="10">
+		
+			<!-- Text components used to display current selection and price -->
+			<s:SimpleText id="currSel" text="Current Product = -"/>
+			<s:SimpleText id="currPrc" text="Price = $ -"/>
+
+			<!-- DropDownList will call the updateSelection function when the
+			selectionChanged event is dispatched -->
+			<s:DropDownList id="myDDL" prompt="Select One" 
+				width="200" dataProvider="{myDP}"
+				labelField="product" 
+				selectionChanged="updateSelection(event);"/>
+				
+		</s:VGroup>
+			
+	</s:Panel>
+        	
+</s:Application>
