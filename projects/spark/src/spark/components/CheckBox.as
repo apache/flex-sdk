@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.events.Event;
@@ -18,7 +18,7 @@ import flash.events.MouseEvent;
 /**
  *  Documentation is not currently available.
  */
-public class CheckBox extends ToggleButton
+public class FxCheckBox extends FxToggleButton
 {
     include "../core/Version.as";
 
@@ -31,7 +31,7 @@ public class CheckBox extends ToggleButton
     /**
      *  Constructor. 
      */
-	public function CheckBox()
+	public function FxCheckBox()
 	{
 		super();
 	}
