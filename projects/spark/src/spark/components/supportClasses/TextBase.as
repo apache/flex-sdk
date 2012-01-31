@@ -71,11 +71,11 @@ use namespace mx_internal;
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
- *  The base class for Spark Text controls such as Label and RichText
+ *  The base class for Spark text controls such as Label and RichText
  *  which display text using CSS styles for the default format.
  *
  *  <p>In addition to adding a <code>text</code> property,
- *  it also adds <code>maxDisplayedLines</code>
+ *  this class also adds the <code>maxDisplayedLines</code>
  *  and <code>isTruncated</code> properties to support truncation.</p>
  *
  *  @langversion 3.0
