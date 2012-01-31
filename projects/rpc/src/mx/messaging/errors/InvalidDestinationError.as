@@ -25,6 +25,12 @@ package mx.messaging.errors
  *    <li><code>Producer.send()</code> if no destination is specified for the Producer or message to send.</li>
  *    <li><code>Consumer.subscribe()</code> if no destination is specified for the Consumer.</li>
  *  </ul>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class InvalidDestinationError extends ChannelError
 {
@@ -38,6 +44,12 @@ public class InvalidDestinationError extends ChannelError
      *  Constructs a new instance of an InvalidDestinationError with the specified message.
      *
      *  @param msg String that contains the message that describes this InvalidDestinationError.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function InvalidDestinationError(msg:String)
     {
