@@ -734,6 +734,11 @@ package spark.components
         /**
          *  @private
          */
+        private var remeasuringText:Boolean = false;
+
+        /**
+         *  @private
+         */
         mx_internal var passwordChar:String = "*";
         
         /**
@@ -808,6 +813,16 @@ package spark.components
          *  contents.
          */
         mx_internal var autoSize:Boolean = false;
+        
+        /**
+         *  @private
+         */
+        private var lastMeasuredWidth:Number = NaN;
+        
+        /**
+         *  @private
+         */
+        private var lastMeasuredHeight:Number = NaN;
         
         /**
          *  @private
@@ -2644,6 +2659,9 @@ package spark.components
             // This flag tells the handler to invalidate just the display list.
             inMeasureMethod = true;
             
+            lastMeasuredWidth = measuredWidth;
+            lastMeasuredHeight = measuredHeight;
+            
             super.measure();
             
             // Styles can be changed in event handlers while in the middle
@@ -2826,8 +2844,19 @@ package spark.components
                     _textContainerManager.horizontalScrollPosition = 0;
                     _textContainerManager.verticalScrollPosition = 0;                
                 }               
+                
+                // If we remeasured, we composed and cleared the display.  We need to update the 
+                // display if the size didn't change, since validateSize will not do it for us.  
+                // This code path can be used by itemRenderer's since setLayoutBounds(), which is
+                // where the constraints are set, is not always called.
+                if (remeasuringText && 
+                    lastMeasuredWidth == measuredWidth && lastMeasuredHeight == measuredHeight)
+                {
+                    _textContainerManager.updateContainer();
+                }
             }
             
+            remeasuringText = false;
             inMeasureMethod = false;
             
             //trace("measure", measuredWidth, measuredHeight, "autoSize", autoSize);
@@ -3810,6 +3839,10 @@ package spark.components
             // auto-sizing, need to remeasure, so the layout manager leaves the
             // correct amount of space for the component.
             invalidateSize();
+            
+            // Need to make sure the container is updated after the text is re-composed 
+            // to measure it.
+            remeasuringText = true;
             
             return true;            
         }
