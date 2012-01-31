@@ -1334,6 +1334,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         updateSortIndexAndDirection();
 
+        fontContextChanged = true;
+        invalidateProperties();
         itemsSizeChanged = true;
         invalidateDisplayList();
         dispatchEvent(new Event("columnsChanged"));
@@ -1848,7 +1850,22 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function commitProperties():void
     {
+        var c:DataGridColumn;
+        var n:int;
+        var j:int;
+
         super.commitProperties();
+
+        if (fontContextChanged)
+        {
+            fontContextChanged = false;
+            n = columns.length;
+            for (j = 0; j < n; j++)
+            {
+                c = columns[j];
+                c.determineFontContext();
+            }
+        }
 
         if (itemsNeedMeasurement)
         {
@@ -1867,10 +1884,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
                     var data:Object = iterator.current;
                     var item:IListItemRenderer;
-                    var c:DataGridColumn;
                     var ch:Number = 0;
-                    var n:int = columns.length;
-                    for (var j:int = 0; j < n; j++)
+                    n = columns.length;
+                    for (j = 0; j < n; j++)
                     {
                         c = columns[j];
 
@@ -1888,18 +1904,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     setRowHeight(Math.max(ch, 20));
                 }
                 else
-                    {
+                {
                     setRowHeight(20);
-            }
+                }
                     
-                    // If we don't have data yet or any column info we 
-                    // want to make sure to make another measurement pass when
-                    // we eventually do have valid data.
-                    if (!collection || collection.length == 0 || columns.length == 0)
-                        itemsNeedMeasurement = true;
+            // If we don't have data yet or any column info we 
+            // want to make sure to make another measurement pass when
+            // we eventually do have valid data.
+            if (!collection || collection.length == 0 || columns.length == 0)
+                itemsNeedMeasurement = true;
+            }
         }
     }
-        }
 
     /**
      *  @private
@@ -5651,6 +5667,15 @@ public class DataGrid extends DataGridBase implements IIMESupport
         }
     }
 
+    /**
+     *  @private
+     */
+    override public function regenerateStyleCache(recursive:Boolean):void
+    {
+        super.regenerateStyleCache(recursive);
+        fontContextChanged = true;
+        invalidateProperties();
+    }
 }
 
 }
