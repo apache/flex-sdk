@@ -160,11 +160,12 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  selection/highlight background.
      * 
      *  <p>If set to <code>true</code>, the background for 
-     *  the item renderer will automatically be drawn, and it 
-     *  will depend on the styles that are set (contentBackgroundColor, 
-     *  alternatingItemColor, rollOverColor, selectionColor) as 
-     *  well as what state the item renderer is in (normal, 
-     *  selected, or hovered).<p>
+     *  the item renderer is automatically drawn, and it 
+     *  depends on the styles that are set (<code>contentBackgroundColor</code>, 
+     *  <code>alternatingItemColor</code>, <code>rollOverColor</code>, 
+     *  <code>selectionColor</code>) 
+     *  and the state that the item renderer is in (normal, 
+     *  selected, or hovered).</p>
      * 
      *  @default false
      */
@@ -312,41 +313,41 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         }
     }
        
-	//----------------------------------
-	//  dragging
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the dragging property. 
-	 */
-	private var _dragging:Boolean = false;
+    //----------------------------------
+    //  dragging
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the dragging property. 
+     */
+    private var _dragging:Boolean = false;
 
-	/**
-	 *  @inheritDoc  
-	 */
-	public function get dragging():Boolean
-	{
-		return _dragging;
-	}
+    /**
+     *  @inheritDoc  
+     */
+    public function get dragging():Boolean
+    {
+        return _dragging;
+    }
 
-	/**
-	 *  @private  
-	 */
-	public function set dragging(value:Boolean):void
-	{
-		if (value != _dragging)
-		{
-			_dragging = value;
-			setCurrentState(getCurrentRendererState(), playTransitions);
-		}
-	}
+    /**
+     *  @private  
+     */
+    public function set dragging(value:Boolean):void
+    {
+        if (value != _dragging)
+        {
+            _dragging = value;
+            setCurrentState(getCurrentRendererState(), playTransitions);
+        }
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  label
     //----------------------------------
 
-	[Bindable("textChanged")]
+    [Bindable("textChanged")]
     
     /**
      *  @private 
@@ -426,11 +427,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
-		if (dragging && hasState("dragging"))
-			return "dragging";
+        if (dragging && hasState("dragging"))
+            return "dragging";
 
         if (selected && showsCaret && hasState("selectedAndShowsCaret"))
-			return "selectedAndShowsCaret";
+            return "selectedAndShowsCaret";
             
         if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
             return "hoveredAndShowsCaret";
