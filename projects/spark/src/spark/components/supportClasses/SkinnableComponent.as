@@ -32,8 +32,6 @@ import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.modules.ModuleManager;
 
-use namespace mx_internal;
-
 //--------------------------------------
 //  Styles
 //--------------------------------------
@@ -233,8 +231,8 @@ public class FxComponent extends UIComponent
         if (skin)
             skin.setActualSize(unscaledWidth, unscaledHeight);
 
-        if (focusObj && focusObj is IInvalidating)
-            IInvalidating(focusObj).invalidateDisplayList();
+        if (mx_internal::focusObj && mx_internal::focusObj is IInvalidating)
+            IInvalidating(mx_internal::focusObj).invalidateDisplayList();
     }
 
     /**
@@ -257,6 +255,7 @@ public class FxComponent extends UIComponent
      *  @private
      */
     mx_internal var focusObj:DisplayObject;
+    mx_internal var drawFocusAnyway:Boolean;
     
     override public function drawFocus(isFocused:Boolean):void
     {
@@ -264,24 +263,26 @@ public class FxComponent extends UIComponent
         {
             // For some composite components, the focused object may not
             // be "this". If so, we don't want to draw the focus.
-            if (focusManager.getFocus() != this)
+            if (focusManager.getFocus() != this && !mx_internal::drawFocusAnyway)
                 return;
                 
-            if (!focusObj)
+            if (!mx_internal::focusObj)
             {
                 var focusSkinClass:Class = getStyle("focusSkin");
                 
                 if (focusSkinClass)
-                    focusObj = new focusSkinClass();
+                    mx_internal::focusObj = new focusSkinClass();
                     
-                super.addChildAt(focusObj, 0);
+                super.addChildAt(mx_internal::focusObj, 0);
             }
+			if (mx_internal::focusObj && "focusObject" in mx_internal::focusObj)
+				mx_internal::focusObj["focusObject"] = this;
         }
         else
         {
-            if (focusObj)
-                super.removeChild(focusObj);
-            focusObj = null;
+            if (mx_internal::focusObj)
+                super.removeChild(mx_internal::focusObj);
+            mx_internal::focusObj = null;
         }
     }
     
