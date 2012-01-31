@@ -26,7 +26,6 @@ import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -503,7 +502,7 @@ public class FormItem extends Container
             if (labelStyleName)
             {
                 var styleDecl:CSSStyleDeclaration =
-                	StyleManager.getStyleDeclaration("." + labelStyleName);
+                	styleManager.getStyleDeclaration("." + labelStyleName);
             
                 if (styleDecl)
                     labelObj.styleDeclaration = styleDecl;
@@ -1280,7 +1279,7 @@ public class FormItem extends Container
 	            if (labelStyleName)
 	            {
 	                var styleDecl:CSSStyleDeclaration =
-	                	StyleManager.getStyleDeclaration("." + labelStyleName);
+	                	styleManager.getStyleDeclaration("." + labelStyleName);
 	            
 	                if (styleDecl)
 	                {
