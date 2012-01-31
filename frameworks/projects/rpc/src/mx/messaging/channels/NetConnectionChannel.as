@@ -43,6 +43,12 @@ use namespace mx_internal;
 /**
  *  This NetConnectionChannel provides the basic NetConnection support for messaging.
  *  The AMFChannel and RTMPChannel both extend this class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class NetConnectionChannel extends PollingChannel
 {
@@ -65,6 +71,12 @@ public class NetConnectionChannel extends PollingChannel
      *  @param id The id of this Channel.
      *
      *  @param uri The uri for this Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function NetConnectionChannel(id:String = null, uri:String = null)
     {
@@ -103,6 +115,12 @@ public class NetConnectionChannel extends PollingChannel
 
     /**
      *  Provides access to the associated NetConnection for this Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get netConnection():NetConnection
     {
@@ -464,6 +482,12 @@ class NetConnectionMessageResponder extends MessageResponder
      *  @param msg The outbound message.
      *
      *  @param channel The channel this responder is using.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function NetConnectionMessageResponder(agent:MessageAgent,
                                     msg:IMessage, channel:NetConnectionChannel)
