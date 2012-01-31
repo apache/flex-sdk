@@ -2446,25 +2446,10 @@ package spark.components
                 // Go large.  For performance reasons, want to avoid a scrollRect 
                 // whenever possible in drawBackgroundAndSetScrollRect().  This is
                 // particularly true for 1 line TextInput components.
-                if (!isNaN(widthConstraint))
-                {
-                    measuredWidth = widthConstraint;
-                }
-                else
-                {                
-                    measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
-                        Math.ceil(calculateWidthInChars());
-                }
-                
-                if (!isNaN(heightConstraint))
-                {            
-                    measuredHeight = heightConstraint;
-                }
-                else
-                {
-                    measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
-                        Math.ceil(calculateHeightInLines());
-                }
+                measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
+                    Math.ceil(calculateWidthInChars());
+                measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
+                    Math.ceil(calculateHeightInLines());
             }
             else
             {
@@ -2610,33 +2595,32 @@ package spark.components
             }
             
             _textContainerManager.updateContainer();
-
-            widthConstraint = NaN;
-            heightConstraint = NaN;
         }
         
         /**
          *  @private
+         *  This is called by the layout manager the first time this
+         *  component is measured, or later if its size changes. This
+         *  is not always called before updateDisplayList().  For example,
+         *  for recycled item renderers this is not called if the measured
+         *  size doesn't change.
+         * 
+         *  width and height are NaN unless there are constraints on them.
          */
         override public function setLayoutBoundsSize(
                                     width:Number, height:Number,
                                     postLayoutTransform:Boolean = true):void
         {
-            // width and height are NaN unless there are constraints on them.
+            //trace("setLayoutBoundsSize", width, height);
+            
             // Save these so when we are auto-sizing we know which dimensions
             // are constrained.  Without this it is not possible to differentiate 
             // between a measured width/height that is the same as the
             // constrained width/height to know whether that dimension can
-            // be sized or must be fixed at the constrained value.
-            if (autoSize)
-            {
-                if (!isNaN(width))
-                    widthConstraint = width;
-                
-                if (!isNaN(height))
-                    heightConstraint = height;
-            }
-            
+            // be sized or must be fixed at the constrained value.                
+            widthConstraint = width;
+            heightConstraint = height;
+
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
         }
         
@@ -3290,7 +3274,7 @@ package spark.components
             {
                 return true;
             }
-            
+
             // Is there some sort of width and some sort of height?
             return  (!isNaN(explicitWidth) || !isNaN(_widthInChars) ||
                 !isNaN(widthConstraint)) &&
@@ -3380,6 +3364,11 @@ package spark.components
             // remeasure which will reset autoSize.
             autoSize = false;
             
+            // If no width or height, there is nothing to remeasure since 
+            // there is no room for text.
+            if (width == 0 || height == 0) 
+                return false;
+            
             if (!isNaN(widthConstraint))
             {
                 // Do we have a constrained width and an explicit height?
@@ -3389,10 +3378,6 @@ package spark.components
                 {
                     return false;
                 }
-                
-                // Is there no width?
-                if (width == 0) 
-                    return false;
                 
                 // No reflow for explicit lineBreak
                 if (_textContainerManager.hostFormat.lineBreak == "explicit")
@@ -3405,10 +3390,6 @@ package spark.components
                 // If so, the sizes are set so no need to remeasure now.
                 if (!isNaN(explicitWidth) || !isNaN(_widthInChars))
                     return false;
-                
-                // Is there no height?
-                if (height == 0)
-                    return false;                
             }                       
             
             // Width or height is different than what was measured.  Since we're
