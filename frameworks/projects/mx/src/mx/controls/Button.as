@@ -871,7 +871,8 @@ public class Button extends UIComponent
 
         _data = value;
 
-        if (_listData && _listData is DataGridListData)
+        if (_listData && _listData is DataGridListData && 
+        	DataGridListData(_listData).dataField !=null)
         {
             newSelected = _data[DataGridListData(_listData).dataField];
 
