@@ -11,9 +11,11 @@
 
 package spark.components.supportClasses
 {
+import flash.geom.Point;
 
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
+import mx.utils.MatrixUtil;
 
 import spark.components.Scroller;
 import spark.core.IViewport;
@@ -35,6 +37,22 @@ public class ScrollerLayout extends LayoutBase
     {
         var g:Skin = target as Skin;
         return (g && ("hostComponent" in g)) ? Object(g).hostComponent as Scroller : null;
+    }
+
+    /**
+     *  Returns the viewport's content size transformed into the Scroller's coordiante
+     *  system.   This makes it possible to compare the viewport size (also reported
+     *  relative to the Scroller) and the content size when a transform has been applied
+     *  to the viewport.  See http://bugs.adobe.com/jira/browse/SDK-19702
+     */
+    private function getLayoutContentSize(viewport:IViewport):Point
+    {
+        // TODO(hmuller):prefer to do nothing if transform doesn't change size, see UIComponent/nonDeltaLayoutMatrix()
+        var cw:Number = viewport.contentWidth;
+        var ch:Number = viewport.contentHeight;
+        if ((cw == 0) && (ch == 0))
+            return new Point(0,0);
+        return MatrixUtil.transformSize(new Point(cw, ch), viewport.getLayoutMatrix());
     }
     
     /**
@@ -130,8 +148,10 @@ public class ScrollerLayout extends LayoutBase
         var viewport:IViewport = scroller.viewport;
         if (viewport)
         {
+            var contentSize:Point = getLayoutContentSize(viewport);
+
             var viewportPreferredW:Number = viewport.getPreferredBoundsWidth();
-            var viewportContentW:Number = viewport.contentWidth;
+            var viewportContentW:Number = contentSize.x;
             var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
             if (hAuto && !showHSB && (viewportPreferredW < viewportContentW) && (viewportW >= viewportContentW))
                 measuredW += viewportW;
@@ -139,7 +159,7 @@ public class ScrollerLayout extends LayoutBase
                 measuredW += viewportPreferredW;
 
             var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
-            var viewportContentH:Number = viewport.contentHeight;
+            var viewportContentH:Number = contentSize.y;
             var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
             if (vAuto && !showVSB && (viewportPreferredH < viewportContentH) && (viewportH >= viewportContentH))
                 measuredH += viewportH;
@@ -148,10 +168,10 @@ public class ScrollerLayout extends LayoutBase
         }
 
         var g:GroupBase = target;
-        g.measuredWidth = measuredW;
-        g.measuredHeight = measuredH;
-        g.measuredMinWidth = minW; 
-        g.measuredMinHeight = minH;
+        g.measuredWidth = Math.ceil(measuredW);
+        g.measuredHeight = Math.ceil(measuredH);
+        g.measuredMinWidth = Math.ceil(minW); 
+        g.measuredMinHeight = Math.ceil(minH);
     }
     
     // Used by updateDisplayList() to prevent looping, see below.
@@ -183,9 +203,16 @@ public class ScrollerLayout extends LayoutBase
         
         var vsbW:Number = (vsb) ? vsb.getPreferredBoundsWidth() : 0;
         var hsbH:Number = (hsb) ? hsb.getPreferredBoundsHeight() : 0;
-        var contentW:Number = (viewport) ? viewport.contentWidth : 0;
-        var contentH:Number = (viewport) ? viewport.contentHeight : 0;
         
+        var contentW:Number = 0;
+        var contentH:Number = 0;
+        if (viewport)
+        {
+            var contentSize:Point = getLayoutContentSize(viewport);
+            contentW = contentSize.x;
+            contentH = contentSize.y;
+        }
+    
         var oldShowHSB:Boolean = hsb && hsb.visible;
         var oldShowVSB:Boolean = vsb && vsb.visible;
         
