@@ -225,14 +225,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 
     /**
      *  @private
-     *  If content is explicitly set, it will take precedence over text, if it 
-     *  is set as well.  Once content is set, it can be set to null and then text 
-     *  can be set.
-     */
-    private var contentSet:Boolean = false;
-
-    /**
-     *  @private
      *  This flag is set to true if the 'text' needs to be extracted
      *  from the 'content'.
      */
@@ -305,13 +297,10 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
-        if (!contentSet)
-        {
-            _content = null;
-            contentChanged = false;
-            
-            super.text = value;
-        }
+        _content = null;
+        contentChanged = false;
+        
+        super.text = value;
     }
     
     //--------------------------------------------------------------------------
@@ -388,10 +377,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
             
             _content = value;
             
-            // True, if content is non-null.  Once content is set, if then set 
-            // to null, text can be set.
-            contentSet = _content;
-            
             invalidateTextLines("content");
             invalidateSize();
             invalidateDisplayList();
@@ -445,13 +430,12 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      */
     override protected function invalidateTextLines(cause:String):void
     {
+        super.invalidateTextLines(cause);
+        
         if (cause == "text")
             textChanged = true;
         else if (cause == "content")
             contentChanged = true;
-            
-        mx_internal::bounds.width = NaN;
-        mx_internal::bounds.height = NaN;
     }
     
     //--------------------------------------------------------------------------
@@ -710,7 +694,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     private function importToFlow(source:Object, format:String, 
                                   config:Configuration = null):TextFlow
     {
-        var importer:ITextImporter = TextFilter.getImporter(format);
+        var importer:ITextImporter = TextFilter.getImporter(format, config);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
@@ -721,9 +705,10 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     
     /**
      *  @private
+     *  Returns true to indicate all lines were composed.
      */
     override protected function composeTextLines(width:Number = NaN,
-												 height:Number = NaN):void
+												 height:Number = NaN):Boolean
     {
         super.composeTextLines(width, height);
 
@@ -770,6 +755,9 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
         textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
+        
+        // Created all lines.
+        return true;      
     }
     
 	/**
