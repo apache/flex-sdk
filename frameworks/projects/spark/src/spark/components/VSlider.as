@@ -16,6 +16,8 @@ import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.IDataRenderer;
+
 import spark.components.supportClasses.Slider;
 
 //--------------------------------------
@@ -73,12 +75,12 @@ public class VSlider extends Slider
     {
         if (!thumb || !track)
             return 0;
-        
+            
         var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
         var range:Number = maximum - minimum;
         return minimum + ((thumbRange != 0) ? ((thumbRange - y) / thumbRange) * range : 0); 
-    }
-    
+            }
+            
     /**
      *  @private
      */
@@ -86,7 +88,7 @@ public class VSlider extends Slider
     {
         if (!thumb || !track)
             return;
-        
+    
         var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
         var range:Number = maximum - minimum;
         var thumbPos:Number = (range > 0) ? thumbRange - (((pendingValue - minimum) / range) * thumbRange) : 0;
@@ -95,15 +97,17 @@ public class VSlider extends Slider
     
     /**
      *  @private
+     *  TODO (jszeto) Update this to also use the ILayoutElement API 
      */
-    override protected function positionDataTip():void
+    override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
     	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
     	
     	if (tipAsDisplayObject && thumb)
     	{
-			var relY:Number = thumb.y + (thumb.height - tipAsDisplayObject.height) / 2;
-	        var o:Point = new Point(dataTipOriginalPosition.x, relY);
+			var relY:Number = thumb.getLayoutBoundsY() + 
+							(thumb.getLayoutBoundsHeight() - tipAsDisplayObject.height) / 2;
+	        var o:Point = new Point(initialPosition.x, relY);
 	        var r:Point = localToGlobal(o);        
 			
 			// Get the screen bounds
