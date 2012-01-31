@@ -45,6 +45,11 @@ use namespace mx_internal;
  * Dispatched when an Operation invocation returns with SOAP headers in the
  * response. A HeaderEvent is dispatched for each SOAP header.
  * @eventType mx.rpc.events.HeaderEvent.HEADER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="header", type="mx.rpc.events.HeaderEvent")]
 
@@ -55,6 +60,11 @@ use namespace mx_internal;
  * method on a service. An Operation can be called either by invoking the
  * function of the same name on the service or by accessing the Operation as a
  * property on the service and calling the <code>send()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Operation extends AbstractOperation
 {
@@ -73,6 +83,11 @@ public class Operation extends AbstractOperation
      * @param webService The web service upon which this Operation is invoked.
      *
      * @param name The name of this Operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Operation(webService:AbstractService = null, name:String = null)
     {
@@ -193,6 +208,11 @@ public class Operation extends AbstractOperation
      * The location of the WebService for this Operation. Normally, the WSDL
      * specifies the location of the services, but you can set this property to
      * override that location for the individual Operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get endpointURI():String
     {
@@ -222,6 +242,11 @@ public class Operation extends AbstractOperation
      * this manner, regardless of the number of values returned. Leaving
      * forcePartArrays as false will only create arrays if two or more elements
      * are returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get forcePartArrays():Boolean
     {
@@ -246,6 +271,11 @@ public class Operation extends AbstractOperation
      * <code>xml</code> specifies that the XML will be left as XMLNodes. A
      * value of <code>e4x</code> specifies that the XML will be accessible
      * using ECMAScript for XML (E4X) expressions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerFormat():String
     {
@@ -270,6 +300,11 @@ public class Operation extends AbstractOperation
     /**
      * Accessor to an Array of SOAPHeaders that are to be sent on
      * each invocation of the operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headers():Array
     {
@@ -288,6 +323,11 @@ public class Operation extends AbstractOperation
      * Custom HTTP headers to be sent to the SOAP endpoint. If multiple
      * headers need to be sent with the same name the value should be specified
      * as an Array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get httpHeaders():Object
     {
@@ -317,6 +357,11 @@ public class Operation extends AbstractOperation
      * Conversely, if a type <code>whiteSpace</code> restriction is set to
      * <code>replace</code> or <code>collapse</code> then that setting will
      * be honored even if ignoreWhitespace is set to false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ignoreWhitespace():Boolean
     {
@@ -343,6 +388,11 @@ public class Operation extends AbstractOperation
     /**
      * When this value is true, anonymous objects returned are forced to
      * bindable objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get makeObjectsBindable():Boolean
     {
@@ -378,6 +428,11 @@ public class Operation extends AbstractOperation
      * literal operations is "object". The default for rpc operations is "array".
      * The multiplePartsFormat property is applicable only when
      * resultFormat is "object" and ignored otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get multiplePartsFormat():String
     {
@@ -410,6 +465,11 @@ public class Operation extends AbstractOperation
      * The request of the Operation is an object structure or an XML structure.
      * If you specify XML, the XML is sent as is. If you pass an object, it is
      * encoded into a SOAP XML structure.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get request():Object
     {
@@ -434,6 +494,11 @@ public class Operation extends AbstractOperation
      * <code>xml</code> specifies that the XML will be left as XMLNodes. A
      * value of <code>e4x</code> specifies that the XML will be accessible
      * using ECMAScript for XML (E4X) expressions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get resultFormat():String
     {
@@ -462,6 +527,11 @@ public class Operation extends AbstractOperation
      * operation. They match up with the <code>lastResult</code> property and
      * are the same as the collection of headers that are dispatched
      * individually as HeaderEvents.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get resultHeaders():Array
     {
@@ -528,6 +598,11 @@ public class Operation extends AbstractOperation
      * provided in a pre-encoded form as an XML instance, or as a SOAPHeader
      * instance which leaves the encoding up to the internal SOAP encoder.
      * @param header The SOAP header to add to this Operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addHeader(header:Object):void
     {
@@ -540,6 +615,11 @@ public class Operation extends AbstractOperation
      * @param qnameNamespace the namespace for header QName
      * @param headerName Name of the header.
      * @param headerValue Value of the header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addSimpleHeader(qnameLocal:String, qnameNamespace:String,
             headerName:String, headerValue:String):void
@@ -551,6 +631,11 @@ public class Operation extends AbstractOperation
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function cancel(id:String = null):AsyncToken
     {
@@ -579,6 +664,11 @@ public class Operation extends AbstractOperation
 
     /**
      * Clears the headers for this individual Operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearHeaders():void
     {
@@ -590,6 +680,11 @@ public class Operation extends AbstractOperation
      * @param qname QName of the SOAPHeader.
      * @param headerName Name of a header in the SOAPHeader content (Optional)
      * @return Returns the SOAPHeader.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getHeader(qname:QName, headerName:String = null):SOAPHeader
     {
@@ -620,6 +715,11 @@ public class Operation extends AbstractOperation
      * Removes the header with the given QName from all operations.
      * @param qname QName of the SOAPHeader.
      * @param headerName Name of a header in the SOAPHeader content (Optional)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeHeader(qname:QName, headerName:String = null):void
     {
@@ -715,6 +815,11 @@ public class Operation extends AbstractOperation
             var errMsg:String = "Cannot invoke method " + name + " as WSDL did not load successfully";
             dispatchRpcEvent(createFaultEvent("Client.InvalidWSDL", errMsg));
         }
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
 
         return pc.token;
