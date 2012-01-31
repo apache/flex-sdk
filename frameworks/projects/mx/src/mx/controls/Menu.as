@@ -55,6 +55,7 @@ import mx.events.InterManagerRequest;
 import mx.events.ListEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.MenuEvent;
+import mx.managers.IActiveWindowManager;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
@@ -1619,7 +1620,9 @@ public class Menu extends List implements IFocusManagerContainer
         getRootMenu().dispatchEvent(menuEvent);
 
         // Activate the focus manager for that menu
-        systemManager.activate(this);
+		var awm:IActiveWindowManager = 
+			IActiveWindowManager(systemManager.getImplementation("mx.managers::IActiveWindowManager"));
+        awm.activate(this);
 
         // Position it
         if (xShow !== null && !isNaN(Number(xShow)))
@@ -1637,16 +1640,7 @@ public class Menu extends List implements IFocusManagerContainer
             var pt:Point = new Point(x, y);
             pt = sbRoot.localToGlobal(pt);
     
-            if (sm != sbRoot)
-            {
-                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                                        false, false,
-                                        "getVisibleApplicationRect"); 
-                sbRoot.dispatchEvent(request);
-                screen = Rectangle(request.value);
-            }
-            else
-                screen = sm.getVisibleApplicationRect();
+            screen = sm.getVisibleApplicationRect();
                 
             var shift:Number = pt.x + width - screen.right;
             if (shift > 0)
