@@ -76,6 +76,26 @@ public class VGroup extends Group
     {
         verticalLayout.gap = value;
     }
+    
+    //----------------------------------
+    //  horizontalAlign
+    //----------------------------------
+
+    /**
+     * @copy mx.layout.VerticalLayout#horizontalAlign
+     */
+    public function get horizontalAlign():String
+    {
+        return verticalLayout.horizontalAlign;
+    }
+
+    /**
+     *  @private
+     */
+    public function set horizontalAlign(value:String):void
+    {
+        verticalLayout.horizontalAlign = value;
+    }
 
     //----------------------------------
     //  rowCount
