@@ -862,7 +862,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *
      *  <p><strong>Note:</strong> Using the <code>selectedItem</code> property 
      *  is often preferable to using this property. The <code>value</code>
-     *  property exists for backward compatibility with older applications</p>.
+     *  property exists for backward compatibility with older applications.</p>
      *
      */
     public function get value():Object
