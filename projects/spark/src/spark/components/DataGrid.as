@@ -466,7 +466,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Calling the <code>preventDefault()</code> method
  *  on the event prevents the sort from being applied.
  *  Alternatively you can modify the <code>columnIndices</code> and 
- *  <code>newSortFields</code> paramters of the event if you want to change the default 
+ *  <code>newSortFields</code> parameters of the event if you want to change the default 
  *  behavior of the sort.
  *  
  *  <p>This event is dispatched when the user interacts with the control.
