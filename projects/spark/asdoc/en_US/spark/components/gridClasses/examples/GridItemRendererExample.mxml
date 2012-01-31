@@ -35,27 +35,27 @@ reasonable column width.
         <s:controlBarContent>
             <s:VGroup>
                 <s:CheckBox id="vrh" selected="@{dataGrid.variableRowHeight}" 
-                    label="dataGrid.variableRowHeight={vrh.selected}"/>            
+                            label="dataGrid.variableRowHeight={vrh.selected}"/>            
                 <s:CheckBox id="lb" selected="true" 
-                    valueCommit="maxDisplayedLines=(lb.selected) ? 0 : 1" 
-                    label="labelRenderer.maxDisplayedLines={maxDisplayedLines}"/> 
+                            valueCommit="maxDisplayedLines=(lb.selected) ? 0 : 1" 
+                            label="labelRenderer.maxDisplayedLines={maxDisplayedLines}"/> 
             </s:VGroup>
         </s:controlBarContent>
-    
+        
         <s:DataGrid id="dataGrid" variableRowHeight="false" verticalCenter="0" horizontalCenter="0">
             <s:columns>
                 <s:ArrayList>                    
-                     <!--
-                        Simple custom item renderer based on GridItemRenderer and Label.
-                        Prevent line breaking by setting maxDisplayedLines="1".
+                    <!--
+                    Simple custom item renderer based on GridItemRenderer and Label.
+                    Prevent line breaking by setting maxDisplayedLines="1".
                     -->
                     <s:GridColumn dataField="value" headerText="Label Renderer">
                         <s:itemRenderer>
                             <fx:Component>
                                 <s:GridItemRenderer>
                                     <s:Label id="labelDisplay"
-                                        left="5" top="9" right="5" bottom="5"
-                                        maxDisplayedLines="{outerDocument.maxDisplayedLines}"/>
+                                             left="5" top="9" right="5" bottom="5"
+                                             maxDisplayedLines="{outerDocument.maxDisplayedLines}"/>
                                 </s:GridItemRenderer>
                             </fx:Component>
                         </s:itemRenderer>
@@ -64,12 +64,16 @@ reasonable column width.
             </s:columns>
             
             <!--
-                The typicalItem defines column widths and the default row height.  The text
-                occpies three lines because we've used the odd XML '&#10;' escape to introduce 
-                two newlines (the value of the newline character is decimal 10).
+            The typicalItem defines column widths and the default row height.  The text
+            occpies two lines because we've used '\n' to introduce two newlines.
+            
+            Alternatively we could have used the odd XML '&#10;' escape to introduce 
+            two newlines (the value of the newline character is decimal 10).
+            
+            <s:DataItem value="Lorem Ipsum sample text.&amp;#10;Lorem Ipsum sample text.&amp;#10;"/>
             -->
             <s:typicalItem>
-                <s:DataItem value="Lorem Ipsum sample text.&#10;newline&#10;"/>
+                <s:DataItem value="{'Lorem Ipsum sample text.\nLorem Ipsum sample text\n'}"/>
             </s:typicalItem>
             
             <s:ArrayCollection>
