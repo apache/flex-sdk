@@ -100,19 +100,11 @@ public class FxFadeInstance extends FxAnimateInstance
                 alphaTo = propChanges.end["parent"] ? origAlpha : 0;
                 restoreAlpha = true;
                 if (alphaFrom == 0)
-                    target.alpha = 0;
-            }
-            else if (propChanges && propChanges.end["elementHost"] !== undefined)
-            {
-                alphaFrom = propChanges.start["elementHost"] ? origAlpha : 0;
-                alphaTo = propChanges.end["elementHost"] ? origAlpha : 0;
-                if (alphaFrom == 0)
                 {
                     target.alpha = 0;
-                    if (GraphicElement(target).elementHost)
-                        Group(GraphicElement(target).elementHost).validateNow();
+                    if (target.parent is Group)
+                        target.parent.validateNow();
                 }
-                restoreAlpha = true;
             }
             else
             {
