@@ -136,8 +136,8 @@ public class TextInput extends TextBase
 		{
 			// Set the TextView to allow only one line of input.
             textView.heightInLines = 1;
-            textView.lineBreak = LineBreak.EXPLICIT;
 			textView.multiline = false;
+            textView.setStyle("lineBreak", "explicit");
 		}
 	}
 
