@@ -1388,6 +1388,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+        super.partAdded(partName, instance);
+
         if (instance == videoDisplay)
         {
             videoDisplay.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoDisplay_currentTimeChangeHandler);
@@ -1613,6 +1615,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+		super.partRemoved(partName, instance);
+
         if (instance == videoDisplay)
         {
             // validate before doing anything with the videoDisplay.
