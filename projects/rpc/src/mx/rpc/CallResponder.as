@@ -20,7 +20,26 @@ import mx.rpc.events.FaultEvent;
 
 import mx.utils.ArrayUtil;
 
+/**
+ * Dispatched when an Operation invocation successfully returns.
+ * @eventType mx.rpc.events.ResultEvent.RESULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Event(name="result", type="mx.rpc.events.ResultEvent")]
+
+/**
+ * Dispatched when an Operation call fails.
+ * @eventType mx.rpc.events.FaultEvent.FAULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Event(name="fault", type="mx.rpc.events.FaultEvent")]
 
 /**
@@ -88,7 +107,7 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  <code>ResultEvent</code> to the CallResponder.  You do not call
      *  this method directly.
      *
-     *  @param  data the ResultEvent delivered by the AsyncToken
+     *  @param data The ResultEvent delivered by the AsyncToken
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -108,7 +127,7 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  <code>FaultEvent</code> to the CallResponder.  You do not call
      *  this method directly.
      *
-     *  @param  data the FaultEvent delivered by the AsyncToken
+     *  @param data The FaultEvent delivered by the AsyncToken
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
