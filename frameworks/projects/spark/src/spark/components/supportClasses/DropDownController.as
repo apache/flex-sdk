@@ -30,11 +30,13 @@ import mx.events.SandboxMouseEvent;
 import spark.events.DropDownEvent; 
  
 /**
- *  DropDownController handles the mouse, keyboard, and focus
- *  interactions for an anchor button and its dropDown. This helper class
- *  should be used by other dropDown components to handle the opening
- *  and closing of the dropDown due to user interactions.
- *  
+ *  The DropDownController class handles the mouse, keyboard, and focus
+ *  interactions for an anchor button and its associated drop down. 
+ *  This class is used by the drop-down components, such as DropDownList, 
+ *  to handle the opening and closing of the drop down due to user interactions.
+ * 
+ *  @see spark.components.DropDownList
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -42,67 +44,68 @@ import spark.events.DropDownEvent;
  */
 public class DropDownController extends EventDispatcher
 {
-	/**
-	 *  Constructor
-	 * 
-	 *  @langversion 3.0
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function DropDownController()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
+     */
+    public function DropDownController()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
-	//----------------------------------
+    
+    //----------------------------------
     //  openButton
     //----------------------------------
-	
-	private var _openButton:ButtonBase;
-	
-	/**
-     *  Reference to the openButton skin part of the dropDown component. 
+    
+    private var _openButton:ButtonBase;
+    
+    /**
+     *  A reference to the <code>openButton</code> skin part 
+     *  of the drop-down component. 
      *         
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function set openButton(value:ButtonBase):void
-	{
-		if (_openButton === value)
-			return;
-		
-		removeOpenTriggers();
-			
-		_openButton = value;
-		
+    public function set openButton(value:ButtonBase):void
+    {
+        if (_openButton === value)
+            return;
+        
+        removeOpenTriggers();
+            
+        _openButton = value;
+        
         addOpenTriggers();
-		
-	}
-	
-	/**
+        
+    }
+    
+    /**
      *  @private 
      */
-	public function get openButton():ButtonBase
-	{
-		return _openButton;
-	}
-	
-	//----------------------------------
+    public function get openButton():ButtonBase
+    {
+        return _openButton;
+    }
+    
+    //----------------------------------
     //  dropDown
     //----------------------------------
-	
-	private var _dropDown:DisplayObject;
-	
-	/**
+    
+    private var _dropDown:DisplayObject;
+    
+    /**
      *  @private 
      * 
      *  @langversion 3.0
@@ -110,23 +113,23 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function set dropDown(value:DisplayObject):void
-	{
-		if (_dropDown === value)
-			return;
-			
-		_dropDown = value;
-	}	
-	
-	/**
+    public function set dropDown(value:DisplayObject):void
+    {
+        if (_dropDown === value)
+            return;
+            
+        _dropDown = value;
+    }   
+    
+    /**
      *  @private 
      */
-	public function get dropDown():DisplayObject
-	{
-		return _dropDown;
-	}
-		
-	//----------------------------------
+    public function get dropDown():DisplayObject
+    {
+        return _dropDown;
+    }
+        
+    //----------------------------------
     //  isOpen
     //----------------------------------
     
@@ -136,7 +139,7 @@ public class DropDownController extends EventDispatcher
     private var _isOpen:Boolean = false;
     
     /**
-     *  Whether the dropDown is open or not.   
+     *  Contains <code>true</code> if the drop down is open.   
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -145,9 +148,9 @@ public class DropDownController extends EventDispatcher
      */  
     public function get isOpen():Boolean
     {
-    	return _isOpen;
+        return _isOpen;
     }
-		
+        
     //----------------------------------
     //  rolloverOpenDelay
     //----------------------------------
@@ -156,11 +159,11 @@ public class DropDownController extends EventDispatcher
     private var rollOverOpenDelayTimer:Timer;
     
     /**
-     *  If set, this is the delay to wait for opening the drop down 
-     *  when the openButton is rolled over.  If set to NaN, then the drop 
-     *  down will open on click, not rollover.
+     *  Specifies the delay, in milliseconds, to wait for opening the drop down 
+     *  when the anchor button is rolled over.  
+     *  If set to NaN, then the drop down opens on a click, not a rollover.
      * 
-     *  @default Number.NaN
+     *  @default NaN
      *         
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -186,14 +189,14 @@ public class DropDownController extends EventDispatcher
 
         addOpenTriggers();
     }
-		
-	//--------------------------------------------------------------------------
+        
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------   
 
-	/**
+    /**
      *  @private 
      *  Adds event triggers to the openButton to open the popup.
      * 
@@ -245,8 +248,8 @@ public class DropDownController extends EventDispatcher
             if (isNaN(rollOverOpenDelay))
             {
                 openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-    			openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-    			openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+                openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             else
             {
@@ -271,8 +274,8 @@ public class DropDownController extends EventDispatcher
             if (isNaN(rollOverOpenDelay))
             {
                 openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-    			openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-    			openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
+                openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
             }
             else
             {
@@ -283,8 +286,8 @@ public class DropDownController extends EventDispatcher
         }
     } 
 
-	/**
-     *  Opens the dropDown and dispatches a <code>DropdownEvent.OPEN</code> event. 
+    /**
+     *  Open the drop down and dispatch a <code>DropdownEvent.OPEN</code> event. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -293,22 +296,22 @@ public class DropDownController extends EventDispatcher
      */ 
     public function openDropDown():void
     {
-    	if (!isOpen)
-    	{
-    	    addCloseTriggers();
-    		
-    		_isOpen = true;
-    		openButton.mx_internal::keepDown = true; // Force the button to stay in the down state
-    		
-    		dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
-    	}
-    }	
+        if (!isOpen)
+        {
+            addCloseTriggers();
+            
+            _isOpen = true;
+            openButton.mx_internal::keepDown = true; // Force the button to stay in the down state
+            
+            dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
+        }
+    }   
     
     /**
-     *  Closes the dropDown and dispatches a <code>DropDownEvent.CLOSE</code> event.  
+     *  Close the drop down and dispatch a <code>DropDownEvent.CLOSE</code> event.  
      *   
-     *  @param commit Flag indicating if the component should commit the selected
-     *  data from the dropDown. 
+     *  @param commit If <code>true</code>, commit the selected
+     *  data item. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -317,37 +320,38 @@ public class DropDownController extends EventDispatcher
      */
     public function closeDropDown(commit:Boolean):void
     {
-    	if (isOpen)
-    	{	
-			_isOpen = false;
-			openButton.mx_internal::keepDown = false;
-        	
-        	var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
-        	
-        	if (!commit)
-        		dde.preventDefault();
-        	
-        	dispatchEvent(dde);
-        	
-        	removeCloseTriggers();
-    	}
-    }	
-		
+        if (isOpen)
+        {   
+            _isOpen = false;
+            openButton.mx_internal::keepDown = false;
+            
+            var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
+            
+            if (!commit)
+                dde.preventDefault();
+            
+            dispatchEvent(dde);
+            
+            removeCloseTriggers();
+        }
+    }   
+        
     //--------------------------------------------------------------------------
     //
     //  Event handling
     //
     //--------------------------------------------------------------------------
     
-	 /**
- 	 *  Called when the buttonDown event is dispatched. This function opens or closes
- 	 *  the dropDown depending upon the dropDown state. 
- 	 *  
- 	 *  @langversion 3.0
- 	 *  @playerversion Flash 10
- 	 *  @playerversion AIR 1.5
- 	 *  @productversion Flex 4
- 	 */ 
+     /**
+     *  @private
+     *  Called when the buttonDown event is dispatched. This function opens or closes
+     *  the dropDown depending upon the dropDown state. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
     protected function openButton_buttonDownHandler(event:Event):void
     {
         if (isOpen)
@@ -355,8 +359,9 @@ public class DropDownController extends EventDispatcher
         else
             openDropDown();
     }
-			
-	/**
+            
+    /**
+     *  @private
      *  Called when the openButton's rollOver event is dispatched. This function opens 
      *  the dropDown, or opens the drop down after the rollOverOpenDelay.
      *  
@@ -406,8 +411,9 @@ public class DropDownController extends EventDispatcher
          
          openDropDown();
      }
-			
-	/**
+            
+    /**
+     *  @private
      *  Called when the systemManager receives a mouseDown event. This closes
      *  the dropDown if the target is outside of the dropDown. 
      *  
@@ -418,17 +424,18 @@ public class DropDownController extends EventDispatcher
      */     
     protected function systemManager_mouseDownHandler(event:Event):void
     {
-    	if (!dropDown || 
-    		(dropDown && 
-    		 (event.target == dropDown 
-    		 || (dropDown is DisplayObjectContainer && 
-    		 	 !DisplayObjectContainer(dropDown).contains(DisplayObject(event.target))))))
-    	{
-    		closeDropDown(true);
-    	} 
+        if (!dropDown || 
+            (dropDown && 
+             (event.target == dropDown 
+             || (dropDown is DisplayObjectContainer && 
+                 !DisplayObjectContainer(dropDown).contains(DisplayObject(event.target))))))
+        {
+            closeDropDown(true);
+        } 
     }
     
     /**
+     *  @private
      *  Called when the dropdown is popped up from a rollover and the mouse moves 
      *  anywhere on the screen.  If the mouse moves over the openButton or the dropdown, 
      *  the popup will stay open.  Otherwise, the popup will close.
@@ -472,6 +479,7 @@ public class DropDownController extends EventDispatcher
     }
     
     /**
+     *  @private
      *  Close the dropDown if the stage has been resized.
      * 
      *  @langversion 3.0
@@ -481,11 +489,13 @@ public class DropDownController extends EventDispatcher
      */
     protected function systemManager_resizeHandler(event:Event):void
     {
-    	closeDropDown(true);
-    }		
+        closeDropDown(true);
+    }       
     
     /**
-     *  Closes the dropDown if focus it is no longer in focus.
+     *  Close the drop down if it is no longer in focus.
+     *
+     *  @param event The event object for the <code>FOCUS_OUT</code> event.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -504,8 +514,8 @@ public class DropDownController extends EventDispatcher
             // If focus is moving outside the dropdown...
             if (!event.relatedObject ||
                 (!dropDown || 
-                	(dropDown is DisplayObjectContainer &&
-                	 !DisplayObjectContainer(dropDown).contains(event.relatedObject))))
+                    (dropDown is DisplayObjectContainer &&
+                     !DisplayObjectContainer(dropDown).contains(event.relatedObject))))
             {
                 // Close the dropdown.
                 closeDropDown(true);
@@ -514,18 +524,20 @@ public class DropDownController extends EventDispatcher
     }
     
     /**
-	 *  Handles the keyboard user interactions.
-	 * 
-	 *  @return Returns true if the <code>keyCode</code> was 
-	 *  recognized and handled.
-	 * 
+     *  Handles the keyboard user interactions.
+     *
+     *  @param event The event object from the keyboard event.
+     * 
+     *  @return Returns <code>true</code> if the <code>keyCode</code> was 
+     *  recognized and handled.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4 
-	 */
-	public function processKeyDown(event:KeyboardEvent):Boolean
-	{
+     */
+    public function processKeyDown(event:KeyboardEvent):Boolean
+    {
         
         if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
         {
@@ -557,11 +569,11 @@ public class DropDownController extends EventDispatcher
         }
         else
         {
-        	return false;
-        }	
-        	
-        return true;	    
-	}
-				
+            return false;
+        }   
+            
+        return true;        
+    }
+                
 }
 }
