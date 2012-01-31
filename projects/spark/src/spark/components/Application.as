@@ -27,6 +27,7 @@ import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
 
 import mx.core.FlexGlobals;
+import mx.core.FlexVersion;
 import mx.core.IInvalidating;
 import mx.core.InteractionMode;
 import mx.core.Singleton;
@@ -1005,9 +1006,21 @@ public class Application extends SkinnableContainer
     //--------------------------------------------------------------------------
 
     /**
+     *  @private 
+     *  Applications set estimated sizes for their children
+     */  
+    override public function setActualSize(w:Number, h:Number):void
+    {
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            setEstimatedSize(w, h, false);
+        
+        super.setActualSize(w, h);
+    }
+    
+    /**
      *  @private
      */
-    override protected function invalidateParentSizeAndDisplayList():void
+    override protected function invalidateParentSizeAndDisplayList(estimatedSizesChanged:Boolean = false):void
     {
         if (!includeInLayout)
             return;
@@ -1021,7 +1034,7 @@ public class Application extends SkinnableContainer
             return;
         }
 
-        super.invalidateParentSizeAndDisplayList();
+        super.invalidateParentSizeAndDisplayList(estimatedSizesChanged);
     }
 
     /**
@@ -1449,6 +1462,7 @@ public class Application extends SkinnableContainer
         {
             invalidateProperties();
             invalidateSize();
+            invalidateEstimatedSizesOfChildren();
         }
 
         setActualSize(w, h);
