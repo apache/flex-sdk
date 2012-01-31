@@ -11,18 +11,19 @@
 
 package spark.components.supportClasses
 {
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.styles.StyleManager;
+
 import spark.components.DataGroup;
 import spark.components.Group;
 import spark.components.IItemRenderer;
-import spark.components.MXMLComponent;
+import spark.components.MXMLComponent; 
 import spark.primitives.supportClasses.TextGraphicElement;
-import mx.styles.StyleManager;
 
 /**
  *  The ItemRenderer class is the base class for Spark item renderers.
@@ -230,13 +231,42 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      *  @productversion Flex 4
      */
     public var labelElement:TextGraphicElement;
- 
+    
+    //----------------------------------
+    //  labelText
+    //----------------------------------
+    [Bindable("textChanged")]
+    
+    /**
+     *  @private 
+     *  Storage var for labelText
+     */ 
+    private var _labelText:String = "";
+    
+    /**
+     * @inheritDoc 
+     */
+    public function get labelText():String
+    {
+        return _labelText;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set labelText(value:String):void
+    {
+        if (value != _labelText)
+            _labelText = value;
+        dispatchEvent(new FlexEvent("textChanged"));
+    }
+    
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent
+    //  Overridden Properties - UIComponent 
     //
     //--------------------------------------------------------------------------
-
+    
     //----------------------------------
     //  baselinePosition
     //----------------------------------
