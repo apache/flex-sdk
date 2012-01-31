@@ -598,6 +598,10 @@ public class RichText extends TextGraphicElement
     override protected function composeTextLines(width:Number = NaN,
 												 height:Number = NaN):void
     {
+        var composeWidth:Number = isNaN(width) ? maxWidth : width;
+        
+        super.composeTextLines(composeWidth, height);
+
         // Don't want this handler firing when we're re-composing the text lines.
         textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
         
@@ -613,7 +617,7 @@ public class RichText extends TextGraphicElement
 		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
-        bounds.width = isNaN(width) ? maxWidth : width;
+        bounds.width = composeWidth;
         bounds.height = height;
 
         mx_internal::removeTextLines();
@@ -674,42 +678,6 @@ public class RichText extends TextGraphicElement
     {
         mx_internal::textLines.push(textLine);
     }
-		
-    /**
-     *  @private
-     *  Certain styles require the text to be recomposed when the height
-     *  changes.
-     */
-    override protected function composeOnHeightChange():Boolean
-    {
-        if (super.composeOnHeightChange())
-            return true;
-
-        var topAligned:Boolean =
-            textFlow.hostTextLayoutFormat.verticalAlign == "top";
-
-        return !topAligned;
-    }
-
-    /**
-     *  @private
-     *  Certain styles require the text to be recomposed when the width
-     *  changes.
-     */
-    override protected function composeOnWidthChange():Boolean
-    {
-        if (super.composeOnWidthChange())
-            return true;
-
-        var direction:String = textFlow.hostTextLayoutFormat.direction;
-        var textAlign:String = textFlow.hostTextLayoutFormat.textAlign;
-        var leftAligned:Boolean =
-            textAlign == "left" ||
-            textAlign == "start" && direction == "ltr" ||
-            textAlign == "end" && direction == "rtl";
-
-        return !leftAligned;
-    }    
   
     //--------------------------------------------------------------------------
     //
