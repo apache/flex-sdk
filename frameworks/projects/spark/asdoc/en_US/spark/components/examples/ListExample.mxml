@@ -16,7 +16,7 @@
         ]]>
     </fx:Script>
 
-    <s:Panel title="FxList Component Example"
+    <s:Panel title="Spark List Component Example"
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="20" right="20" top="20" bottom="20">
