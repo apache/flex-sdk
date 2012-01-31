@@ -29,10 +29,10 @@ use namespace mx_internal;
 
 //--------------------------------------
 //  Events
-//-------------------------------------- 
+//--------------------------------------
 
 /**
- *  Dispatched when the value of the selected RadioButton control in 
+ *  Dispatched when the value of the selected RadioButton control in
  *  this group changes.
  *
  *  @eventType flash.events.Event.CHANGE
@@ -49,7 +49,7 @@ use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
-//-------------------------------------- 
+//--------------------------------------
 
 [DefaultBindingProperty(source="selection", destination="selection")]
 
@@ -59,45 +59,45 @@ use namespace mx_internal;
 
 /**
  *  The RadioButtonGroup control defines a group of RadioButton controls
- *  that act as a single mutually exclusive control; therefore, 
+ *  that act as a single mutually exclusive control; therefore,
  *  a user can select only one RadioButton control at a time.
  *  The <code>id</code> property is required when you use the
  *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag to define the name
  *  of the group.
- * 
- *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher, not UIComponent, 
- *  and implements the IMXMLObject interface. 
- *  All other Flex visual components are subclasses of UIComponent, which implements 
- *  the IUIComponent interface. 
- *  The RadioButtonGroup control has support built into the Flex compiler 
- *  that allows you to use the RadioButtonGroup control as a child of a Flex container, 
- *  event though it does not implement IUIComponent. 
+ *
+ *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher, not UIComponent,
+ *  and implements the IMXMLObject interface.
+ *  All other Flex visual components are subclasses of UIComponent, which implements
+ *  the IUIComponent interface.
+ *  The RadioButtonGroup control has support built into the Flex compiler
+ *  that allows you to use the RadioButtonGroup control as a child of a Flex container,
+ *  even though it does not implement IUIComponent.
  *  All other container children must implement the IUIComponent interface.</p>
  *
- *  <p>Therefore, if you try to define a visual component as a subclass of 
- *  EventDispatcher that implements the IMXMLObject interface, 
+ *  <p>Therefore, if you try to define a visual component as a subclass of
+ *  EventDispatcher that implements the IMXMLObject interface,
  *  you will not be able to use it as the child of a container.</p>
- *  
+ *
  *  @mxml
- *  
+ *
  *  <p>The <code>&lt;mx:RadioButtonGroup&gt;</code> tag inherits all of the
  *  tag attributes of its superclass, and adds the following tag attributes:</p>
- *  
+ *
  *  <pre>
  *  &lt;mx:RadioButtonGroup
  *    <strong>Properties</strong>
- *    enabled="true|false"      
+ *    enabled="true|false"
  *    id="<i>No default</i>"
  *    labelPlacement="right|left|top|bottom"
- *  
+ *
  *    <strong>Events</strong>
  *    change="<i>No default</i>"
  *    itemClick="<i>No default</i>"
  *  /&gt;
  *  </pre>
- *  
+ *
  *  @includeExample examples/RadioButtonGroupExample.mxml
- *  
+ *
  *  @see mx.controls.RadioButton
  */
 public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
@@ -113,7 +113,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  Constructor.
      *
-     *  @param document In simple cases where a class extends EventDispatcher, 
+     *  @param document In simple cases where a class extends EventDispatcher,
      *  the <code>document</code> parameter should not be used.
      *
      *  @see flash.events.EventDispatcher
@@ -156,19 +156,19 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  Determines whether selection is allowed.
-     *  
+     *
      *  @default true
      */
     public function get enabled():Boolean
     {
         var s:Number = 0;
-        
+
         var n:int = numRadioButtons;
         for (var i:int = 0; i < n; i++)
         {
             s = s + getRadioButtonAt(i).enabled;
         }
-        
+
         if (s == 0)
             return false;
 
@@ -210,14 +210,14 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  for each control in the group.
      *  You can override this setting for the individual controls.
      *
-     *  <p>Valid values in MXML are <code>"right"</code>, <code>"left"</code>, 
+     *  <p>Valid values in MXML are <code>"right"</code>, <code>"left"</code>,
      *  <code>"bottom"</code>, and <code>"top"</code>. </p>
      *
      *  <p>In ActionScript, you use the following constants to set this property:
      *  <code>ButtonLabelPlacement.RIGHT</code>, <code>ButtonLabelPlacement.LEFT</code>,
      *  <code>ButtonLabelPlacement.BOTTOM</code>, and <code>ButtonLabelPlacement.TOP</code>.</p>
      *
-     *  @default "right" 
+     *  @default "right"
      */
     public function get labelPlacement():String
     {
@@ -241,12 +241,12 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     //----------------------------------
     //  numRadioButtons
     //----------------------------------
-    
+
     [Bindable("numRadioButtonsChanged")]
 
     /**
      *  The number of RadioButtons that belong to this RadioButtonGroup.
-     * 
+     *
      *  @default "undefined"
      */
     public function get numRadioButtons():int
@@ -263,7 +263,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Storage for the selectedValue property.
      */
     private var _selectedValue:Object;
-    
+
     [Bindable("change")]
     [Bindable("valueCommit")]
     [Inspectable(category="General")]
@@ -332,12 +332,12 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  Contains a reference to the currently selected
-     *  RadioButton control in the group. 
+     *  RadioButton control in the group.
      *  You can access the property in ActionScript only;
-     *  it is not settable in MXML. 
-     *  Setting this property to <code>null</code> deselects the currently selected RadioButton control. 
+     *  it is not settable in MXML.
+     *  Setting this property to <code>null</code> deselects the currently selected RadioButton control.
      *
-     *  @default null 
+     *  @default null
      */
     public function get selection():RadioButton
     {
@@ -350,7 +350,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     public function set selection(value:RadioButton):void
     {
         // Going through the selection setter should never fire a change event.
-        setSelection(value, false); 
+        setSelection(value, false);
     }
 
     //--------------------------------------------------------------------------
@@ -360,14 +360,14 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     //--------------------------------------------------------------------------
 
     /**
-     *  Implementation of the <code>IMXMLObject.initialized()</code> method 
+     *  Implementation of the <code>IMXMLObject.initialized()</code> method
      *  to support deferred instantiation.
      *
      *  @param document The MXML document that created this object.
      *
-     *  @param id The identifier used by document to refer to this object. 
+     *  @param id The identifier used by document to refer to this object.
      *  If the object is a deep property on document, <code>id</code> is null.
-     * 
+     *
      *  @see mx.core.IMXMLObject
      */
     public function initialized(document:Object, id:String):void
@@ -376,11 +376,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                         IFlexDisplayObject(document) :
                         IFlexDisplayObject(Application.application);
     }
-    
+
     /**
      *  Returns the RadioButton control at the specified index.
      *
-     *  @param index The index of the RadioButton control in the 
+     *  @param index The index of the RadioButton control in the
      *  RadioButtonGroup control, where the index of the first control is 0.
      *
      *  @return The specified RadioButton control.
@@ -396,17 +396,17 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     mx_internal function addInstance(instance:RadioButton):void
     {
-        instance.addEventListener(Event.REMOVED, radioButton_removedHandler);    
-        radioButtons.push(instance);    
-        
+        instance.addEventListener(Event.REMOVED, radioButton_removedHandler);
+        radioButtons.push(instance);
+
         // Apply group indices in "breadth-first" order.
         radioButtons.sort(breadthOrderCompare);
         for (var i:int = 0; i < radioButtons.length; i++)
             radioButtons[i].indexNumber = i;
-            
+
         if (_selectedValue != null)
             selectedValue = _selectedValue;
-           
+
 		dispatchEvent(new Event("numRadioButtonsChanged"));
     }
 
@@ -418,12 +418,12 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     {
         if (instance)
         {
-        
+
             var foundInstance:Boolean = false;
             for (var i:int = 0; i < numRadioButtons; i++)
             {
                 var rb:RadioButton = getRadioButtonAt(i);
-                
+
                 if (foundInstance)
                 {
                     // Decrement the indexNumber for each button after the removed button.
@@ -432,24 +432,24 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                 else if (rb == instance)
                 {
                 	rb.group = null;
-                	
+
                     if (instance == _selection)
                     {
                         _selection = null;
                     }
                     // Remove the radio button from the internal array
-                    radioButtons.splice(i,1); 
+                    radioButtons.splice(i,1);
                     foundInstance = true;
                     // redo the same index because we removed the previous item at this index
-                    i--; 
+                    i--;
                 }
-            }  
-            
+            }
+
             if (foundInstance)
 				dispatchEvent(new Event("numRadioButtonsChanged"));
         }
     }
-    
+
     /**
      *  @private
      *  Return the value or the label value
@@ -459,8 +459,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     {
         if (selection)
         {
-            return selection.value && 
-                   selection.value is String && 
+            return selection.value &&
+                   selection.value is String &&
                    String(selection.value).length != 0 ?
                    String(selection.value) :
                    selection.label;
@@ -484,7 +484,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                 dispatchEvent(new Event(Event.CHANGE));
         }
         else
-        {       
+        {
             var n:int = numRadioButtons;
             for (var i:int = 0; i < n; i++)
             {
@@ -498,7 +498,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
-        
+
     /**
      *  @private
      */
@@ -520,39 +520,39 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                 dispatchEvent(new Event(Event.CHANGE));
         }
     }
-    
+
     /**
      *  @private
      */
-    private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number 
-    {       
+    private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number
+    {
         var aParent:DisplayObject = a.parent;
         var bParent:DisplayObject = b.parent;
-            
-        if (!aParent || !bParent) 
+
+        if (!aParent || !bParent)
             return 0;
-        
+
         var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
         var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
-        
+
         var aIndex:int = aParent is IRawChildrenContainer ?
             IRawChildrenContainer(aParent).rawChildren.getChildIndex(a) :
             DisplayObjectContainer(aParent).getChildIndex(a);
-            
+
         var bIndex:int = bParent is IRawChildrenContainer ?
             IRawChildrenContainer(bParent).rawChildren.getChildIndex(b) :
             DisplayObjectContainer(bParent).getChildIndex(b);
-				
-        if (aNestLevel > bNestLevel || (a.parent == b.parent && aIndex > bIndex)) 
+
+        if (aNestLevel > bNestLevel || (a.parent == b.parent && aIndex > bIndex))
             return 1;
-        else if (aNestLevel < bNestLevel ||  (a.parent == b.parent && bIndex > aIndex)) 
+        else if (aNestLevel < bNestLevel ||  (a.parent == b.parent && bIndex > aIndex))
             return -1;
-        else if (a == b) 
+        else if (a == b)
             return 0;
         else // Nest levels are identical, compare ancestors.
-            return breadthOrderCompare(aParent, bParent);        
+            return breadthOrderCompare(aParent, bParent);
     }
-        
+
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
