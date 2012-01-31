@@ -3907,8 +3907,9 @@ public class Grid extends Group implements IDataGridElement
 
         const event:GridEvent = new GridEvent(
             type, bubbles, cancelable, 
-            gridXY.x, gridXY.y, rowIndex, columnIndex, column, item, itemRenderer, 
-            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
+            gridXY.x, gridXY.y, 
+            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta,
+            rowIndex, columnIndex, column, item, itemRenderer);
         dispatchEvent(event);
     }
         
