@@ -136,12 +136,13 @@ public class FxRange extends FxComponent
     private var stepSizeChanged:Boolean = false;
 
     /**
-     *  <code>stepSize</code> is the amount that the value 
-     *  changes when <code>step()</code> is called. It must
+     *  The amount that the <code>value</code> property 
+     *  changes when <code>step()</code> method is called. It must
      *  be a multiple of <code>valueInterval</code> unless 
-     *  <code>valueInterval</code> is 0. If <code>stepSize</code>
-     *  is not a multiple, it is rounded to the nearest multiple 
-     *  &gt;= <code>valueInterval</code>.
+     *  <code>valueInterval</code> is 0. 
+     *  If <code>stepSize</code>
+     *  is not a multiple, it is rounded to the nearest 
+     *  multiple &gt;= <code>valueInterval</code>.
      *
      *  @default 1
      */
@@ -187,13 +188,16 @@ public class FxRange extends FxComponent
     }
 
 
-    /**
+    /*
      *  Implementation note: we temporarily store the new value in
      *  _changedValue and then update _value, by calling setValue()
      *  in commitProperties().  Only one "valueCommit" event is
      *  dispatched, even if this property has effectively changed
      *  twice per nearestValidValue().
      *   
+    */
+
+    /**
      *  @private
      */    
     public function set value(newValue:Number):void
@@ -293,7 +297,7 @@ public class FxRange extends FxComponent
      *
      *  @param interval The interval.
      *
-     *  @return The multiple of <code>interval</code> closesst to <code>value</code>. 
+     *  @return The multiple of <code>interval</code> closest to <code>value</code>. 
      *  The minimum returned Number is <code>interval</code>.
      */
     protected function nearestValidInterval(value:Number, interval:Number):Number
@@ -355,17 +359,17 @@ public class FxRange extends FxComponent
     }
     
     /**
-     *  Directly sets the <code>value</code> property and dispatches a "valueCommit"
-     *  event if the property changes.  
+     *  Directly sets the <code>value</code> property and 
+     *  dispatches a <code>valueCommit</code> event if the property changes.  
      * 
-     *  All updates to the value property cause a call to this method.
+     *  <p>All updates to the value property cause a call to this method.</p>
      * 
-     *  Subclasses that ensure compliance with minimum, maximum, and
-     *  valueInterval themselves can call this method to update
-     *  the value property.
+     *  <p>Subclasses that ensure compliance with <code>minimum</code>, 
+     *  <code>maximum</code>, and <code>valueInterval</code> 
+     *  can call this method to update the <code>value</code> property.</p>
      * 
      *  @param value The new value of the <code>value</code> property.
-     *  @see #nearestValidValue
+     *
      *  @param value The new value of <code>value</code>.
      */
     protected function setValue(value:Number):void
