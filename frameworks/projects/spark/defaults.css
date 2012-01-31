@@ -121,9 +121,24 @@ VideoPlayer
     skinClass: ClassReference("spark.skins.default.VideoPlayerSkin");
 }
 
+VideoPlayerScrubBar
+{
+    skinClass: ClassReference("spark.skins.default.VideoPlayerScrubBarSkin");
+}
+
+VideoPlayerVolumeBar
+{
+    skinClass: ClassReference("spark.skins.default.VideoPlayerVolumeBarSkin");
+}
+
+VideoPlayerVolumeBarMuteButton
+{
+    skinClass: ClassReference("spark.skins.default.VideoPlayerVolumeBarMuteButtonSkin");
+}
+
 VScrollBar
 {
-	skinClass: ClassReference("spark.skins.default.VScrollBarSkin");
+    skinClass: ClassReference("spark.skins.default.VScrollBarSkin");
 }
 
 VSlider
