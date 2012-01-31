@@ -220,7 +220,7 @@ public class HScrollBar extends ScrollBarBase
             }
             
             // calculate new thumb position.
-            thumbPosTrackX = (value - minimum) * ((trackSize - thumbSize) / range);
+            thumbPosTrackX = (pendingValue - minimum) * ((trackSize - thumbSize) / range);
         }
         
         if (getStyle("fixedThumbSize") === false)
@@ -354,7 +354,7 @@ public class HScrollBar extends ScrollBarBase
         {
             // Want to use ScrollBarBase's changeValueByStep() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
-            // For now, just change pageSize temporarily and call the superclass
+            // For now, just change stepSize temporarily and call the superclass
             // implementation.
             oldStepSize = stepSize;
             stepSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
