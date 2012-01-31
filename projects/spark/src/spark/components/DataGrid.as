@@ -1769,6 +1769,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         if (scroller)
         {
+            // The scrollPolicy styles are initialized in framework/defaults.css
+            // so there's no way to determine if been explicitly set here.  To avoid 
+            // preempting explicitly set scroller scrollPolicy styles with the default
+            // "auto" value, we only forward the style if it's not "auto".
+            
             const vsp:String = getStyle("verticalScrollPolicy");
             if (styleName == "verticalScrollPolicy")
                 scroller.setStyle("verticalScrollPolicy", vsp);
@@ -1777,9 +1782,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 
             const hsp:String = getStyle("horizontalScrollPolicy");
             if (styleName == "horizontalScrollPolicy")
-                scroller.setStyle("horizontalScrollPolicy", vsp);
+                scroller.setStyle("horizontalScrollPolicy", hsp);
             else if (allStyles && hsp && (hsp !== ScrollPolicy.AUTO))
-                scroller.setStyle("horizontalScrollPolicy", vsp);
+                scroller.setStyle("horizontalScrollPolicy", hsp);
         }
     }
     
@@ -2046,6 +2051,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         if (instance == scroller)
         {
+            // The scrollPolicy styles are initialized in framework/defaults.css
+            // so there's no way to determine if been explicitly set here.  To avoid 
+            // preempting explicitly set scroller scrollPolicy styles with the default
+            // "auto" value, we only forward the style if it's not "auto".
+            
             const vsp:String = getStyle("verticalScrollPolicy");
             if (vsp && (vsp !== ScrollPolicy.AUTO))
                 scroller.setStyle("verticalScrollPolicy", vsp);
