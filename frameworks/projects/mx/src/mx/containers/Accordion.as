@@ -405,6 +405,7 @@ use namespace mx_internal;
  *    headerRenderer="<i>IFactory</i>"
  *    historyManagementEnabled="true|false"
  *    resizeToContent="false|true"
+ *    selectedChild"<i>A reference to the first child</i>"
  *    selectedIndex="undefined"
  *  
  *    <strong>Styles</strong>
