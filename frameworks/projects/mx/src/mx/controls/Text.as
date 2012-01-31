@@ -94,7 +94,7 @@ include "../styles/metadata/LeadingStyle.as"
  *           <td>0 pixels.</td>
  *        </tr>
  *        <tr>
- *           <td>ChMaximum sizear03</td>
+ *           <td>Maximum size</td>
  *           <td>10000 by 10000 pixels</td>
  *        </tr>
  *     </table>
