@@ -936,7 +936,7 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @private
      *  Renders a background for the container, if necessary.  It is used to fill in
-     *  a transparent background fill as necessary to support the mouseOpaque flag.  It 
+     *  a transparent background fill as necessary to support the _mouseEnabledWhereTransparent flag.  It 
      *  is also used in ItemRenderers when handleBackgroundColor is set to true.
      *  We assume for now that we are the first layer to be rendered into the graphics
      *  context.
