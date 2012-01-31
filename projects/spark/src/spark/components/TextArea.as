@@ -104,6 +104,26 @@ use namespace mx_internal;
  *  for changing the formatting of text; text can be changed programmatically
  *  only.</p>
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;TextArea&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;TextArea
+ *    <strong>Properties</strong>
+ *    heightInLines=""
+ *    textFlow="24"
+ *    widthInChars=""
+ *  
+ *    <strong>Styles</strong>
+ *    horizontalScrollPolicy="<i>No default</i>"
+ *    symbolColor=""
+ *    verticalScrollPolicy="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.spark.TextAreaSkin
  *  @see spark.primitives.RichText
  *  @see spark.primitives.RichEditableText
  *  @see spark.primitives.SimpleText
