@@ -850,7 +850,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
                     var animTarget:AnimationTarget = new AnimationTarget(animationUpdateHandler);
                     animTarget.endFunction = animationEndHandler;
                     animator.animationTarget = animTarget;                    
-                    // FIXME (chaase): hard-coding easer for now - how to style it?
+                    // TODO (chaase): hard-coding easer for now - how to style it?
                     animator.easer = new Sine(0);
                 }
                 
