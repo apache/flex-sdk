@@ -150,6 +150,8 @@ public dynamic class RemoteObject extends AbstractService
      * Represents an instance of RemoteObject as a String, describing
      * important properties such as the destination id and the set of
      * channels assigned.
+     *
+     * @return A String representing an instance of a RemoteObject.
      */
     public function toString():String
     {
