@@ -69,10 +69,10 @@ import mx.managers.ILayoutManagerClient;
  *  The Group class.
  */
 public class Group extends UIComponent implements IGraphicElementHost
-{	
+{   
     public function Group():void
     {
-    	tabChildren = true;
+        tabChildren = true;
     }
     
     private var skinRegistry:Dictionary;
@@ -130,7 +130,7 @@ public class Group extends UIComponent implements IGraphicElementHost
     
     public function get layout():Object
     {
-    	return _layout;
+        return _layout;
     }
 
     // TBD: HACK for the sake of getDefinitionByName
@@ -140,24 +140,24 @@ public class Group extends UIComponent implements IGraphicElementHost
     
     public function set layout(value:Object):void
     {
-    	if (value is ILayout) {
-    		_layout = ILayout(value);
-    	    _layoutClass = null;
+        if (value is ILayout) {
+            _layout = ILayout(value);
+            _layoutClass = null;
     }
-    	else if (value is String) {
-    		_layout = null;
-		    _layoutClass = flash.utils.getDefinitionByName(String(value)) as Class;
+        else if (value is String) {
+            _layout = null;
+            _layoutClass = flash.utils.getDefinitionByName(String(value)) as Class;
     }
-    	else if (value is Class) {
-    		_layout = null;
-    		_layoutClass = Class(value);
-    	}
-    	else {
-    		_layout = null;
-    		_layoutClass = null;
-    	}
+        else if (value is Class) {
+            _layout = null;
+            _layoutClass = Class(value);
+        }
+        else {
+            _layout = null;
+            _layoutClass = null;
+        }
         layoutChanged = true;
-        invalidateProperties();    	
+        invalidateProperties();     
     }
 
     private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
@@ -219,8 +219,8 @@ public class Group extends UIComponent implements IGraphicElementHost
 
     protected function initializeChildrenArray():void
     {   
-    	dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGING));  
-    	  
+        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGING));  
+          
         // Get rid of existing display object children.
         // !!!!! This should probably be done through change notification
         // TODO!! This should be removing the last child b/c we want to 
@@ -228,7 +228,7 @@ public class Group extends UIComponent implements IGraphicElementHost
         // remove event for the 0th content child x times. 
         for (var idx:int = numChildren; idx > 0; idx--)
             //itemRemoved(0);
-        	super.removeChildAt(0);
+            super.removeChildAt(0);
         
         if (_content !== undefined)
         {
@@ -421,12 +421,12 @@ public class Group extends UIComponent implements IGraphicElementHost
         }
 
         if (scrollPositionChanged) {
-        	scrollPositionChanged = false;
-	        var r:Rectangle = scrollRect;
-			if (r == null) r = new Rectangle(0, 0, width, height);
-			r.x = _horizontalScrollPosition;
-			r.y = _verticalScrollPosition;
-			scrollRect = r; 
+            scrollPositionChanged = false;
+            var r:Rectangle = scrollRect;
+            if (r == null) r = new Rectangle(0, 0, width, height);
+            r.x = _horizontalScrollPosition;
+            r.y = _verticalScrollPosition;
+            scrollRect = r; 
         }
     }
     
@@ -504,7 +504,7 @@ public class Group extends UIComponent implements IGraphicElementHost
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         if (!alwaysUseItemRenderer)
         {
-        	graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
+            graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
             // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
             // Iterate through the graphic elements, clear their graphics and draw them
             var length:int = numItems;
@@ -569,25 +569,25 @@ public class Group extends UIComponent implements IGraphicElementHost
     //----------------------------------
     //  horizontalScrollPosition
     //----------------------------------
-		
+        
     private var scrollPositionChanged:Boolean = false;
     private var _horizontalScrollPosition:Number = 0;
     
     [Bindable]
     [Inspectable(category="General")]
     
-	/**
-	 *  The X coordinate of the origin of the region this Group is
-	 *  scrolled to.  
-	 * 
-	 *  Setting this property causes the <code>scrollRect</code> to
-	 *  be set, if necessary, to:
-	 *  <pre>
-	 *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-	 *  </pre>
-	 * 
-	 *  @default 0
-	 */
+    /**
+     *  The X coordinate of the origin of the region this Group is
+     *  scrolled to.  
+     * 
+     *  Setting this property causes the <code>scrollRect</code> to
+     *  be set, if necessary, to:
+     *  <pre>
+     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+     *  </pre>
+     * 
+     *  @default 0
+     */
     public function get horizontalScrollPosition():Number 
     {
         return _horizontalScrollPosition;
@@ -616,18 +616,18 @@ public class Group extends UIComponent implements IGraphicElementHost
     [Bindable]
     [Inspectable(category="General")]    
     
-	/**
-	 *  The Y coordinate of the origin of the region this Group is
-	 *  scrolled to.  
-	 * 
-	 *  Setting this property causes the <code>scrollRect</code> to
-	 *  be set, if necessary, to:
-	 *  <pre>
-	 *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-	 *  </pre>                 
-	 * 
-	 *  @default 0
-	 */
+    /**
+     *  The Y coordinate of the origin of the region this Group is
+     *  scrolled to.  
+     * 
+     *  Setting this property causes the <code>scrollRect</code> to
+     *  be set, if necessary, to:
+     *  <pre>
+     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+     *  </pre>                 
+     * 
+     *  @default 0
+     */
     public function get verticalScrollPosition():Number 
     {
         return _verticalScrollPosition;
@@ -639,8 +639,8 @@ public class Group extends UIComponent implements IGraphicElementHost
     public function set verticalScrollPosition(value:Number):void 
     {
         if (value == _verticalScrollPosition)
-        	return;
-        	
+            return;
+            
         _verticalScrollPosition = value;
         scrollPositionChanged = true;
         invalidateProperties();
@@ -656,10 +656,10 @@ public class Group extends UIComponent implements IGraphicElementHost
     [Bindable]
     [Inspectable(category="General")]    
 
-	/**
-	 * The positive extent of this Group's content, relative to the 0,0
-	 * origin, along the X axis.
-	 */
+    /**
+     * The positive extent of this Group's content, relative to the 0,0
+     * origin, along the X axis.
+     */
     public function get contentWidth():Number 
     {
         return _contentWidth;
@@ -679,10 +679,10 @@ public class Group extends UIComponent implements IGraphicElementHost
     [Bindable]
     [Inspectable(category="General")]    
 
-	/**
-	 * The positive extent of this Group's content, relative to the 0,0 
-	 * origin, along the Y axis.
-	 */
+    /**
+     * The positive extent of this Group's content, relative to the 0,0 
+     * origin, along the Y axis.
+     */
     public function get contentHeight():Number 
     {
         return _contentHeight;
@@ -693,22 +693,22 @@ public class Group extends UIComponent implements IGraphicElementHost
         _contentHeight = value;
     }    
 
-	/**
-	 *  Sets this Group's <code>contentWidth</code> and <code>contentHeight</code>
-	 *  properties.
-	 * 
-	 *  This method is is intended for layout class developers who should
-	 *  call it from <code>measure()</code> and <code>updateDisplayList()<code>.
-	 *
-	 *  @param w The new value of contentWidth.
-	 *  @param h The new value of contentHeight.
-	 */
+    /**
+     *  Sets this Group's <code>contentWidth</code> and <code>contentHeight</code>
+     *  properties.
+     * 
+     *  This method is is intended for layout class developers who should
+     *  call it from <code>measure()</code> and <code>updateDisplayList()</code>.
+     *
+     *  @param w The new value of contentWidth.
+     *  @param h The new value of contentHeight.
+     */
     public function setContentSize(w:Number, h:Number):void
     {
-    	if ((w == _contentWidth) && (h == _contentHeight))
-    	   return;
-    	contentWidth = w;
-    	contentHeight = h;
+        if ((w == _contentWidth) && (h == _contentHeight))
+           return;
+        contentWidth = w;
+        contentHeight = h;
     }
 
     //--------------------------------------------------------------------------
@@ -873,9 +873,9 @@ public class Group extends UIComponent implements IGraphicElementHost
                 
             case CONTENT_TYPE_UNKNOWN:
             {
-            	item = _content;
-            	_content = undefined;
-            	break;
+                item = _content;
+                _content = undefined;
+                break;
             }    
         }
             
@@ -916,17 +916,17 @@ public class Group extends UIComponent implements IGraphicElementHost
     
     public function swapItemsAt(index1:int, index2:int):void
     {
-    	// Make sure that index1 is the smaller index so that addItemAt 
-    	// doesn't RTE
-    	if (index1 > index2)
-    	{
-    		var temp:int = index2;
-    		index2 = index1;
-    		index1 = temp; 
-    	}
-    	else if (index1 == index2)
-    		return;
-    	
+        // Make sure that index1 is the smaller index so that addItemAt 
+        // doesn't RTE
+        if (index1 > index2)
+        {
+            var temp:int = index2;
+            index2 = index1;
+            index1 = temp; 
+        }
+        else if (index1 == index2)
+            return;
+        
         var item1:* = getItemAt(index1);
         var item2:* = getItemAt(index2);
         
@@ -986,39 +986,39 @@ public class Group extends UIComponent implements IGraphicElementHost
                 
         if (item is GraphicElement && !alwaysUseItemRenderer) 
         {
-	        item.elementHost = this;
+            item.elementHost = this;
         }   
         else
-        {        	
-        	var childIndex:int = -1;
-        	
-        	if (index == 0)
-        	{
-        		childIndex = 0; 
-        	}
-        	else if (index != numItems - 1)
-        	{
-	        	for (var i:int = index - 1; i >= 0; i--)
-	        	{
-	        		var prevItem:* = getItemAt(i);
-	        		if (prevItem is DisplayObject)
-	        			childIndex = super.getChildIndex(DisplayObject(prevItem)) ;
-	        		else if (prevItem is GraphicElement)
-	        		{
-	        			var prevElement:GraphicElement = prevItem as GraphicElement;
-	        			if (prevElement.displayObject)
-	        				childIndex = super.getChildIndex(prevElement.displayObject);
-	        		}
-	        		
-	        		if (childIndex != -1)
-	        		{
-	        			childIndex++;
-	        			break;
-	        		}
-	        		
-	        	}
-	        }
-        	
+        {           
+            var childIndex:int = -1;
+            
+            if (index == 0)
+            {
+                childIndex = 0; 
+            }
+            else if (index != numItems - 1)
+            {
+                for (var i:int = index - 1; i >= 0; i--)
+                {
+                    var prevItem:* = getItemAt(i);
+                    if (prevItem is DisplayObject)
+                        childIndex = super.getChildIndex(DisplayObject(prevItem)) ;
+                    else if (prevItem is GraphicElement)
+                    {
+                        var prevElement:GraphicElement = prevItem as GraphicElement;
+                        if (prevElement.displayObject)
+                            childIndex = super.getChildIndex(prevElement.displayObject);
+                    }
+                    
+                    if (childIndex != -1)
+                    {
+                        childIndex++;
+                        break;
+                    }
+                    
+                }
+            }
+            
             child = addItemToDisplayList(createVisualForItem(item), item, childIndex);
         }
         
@@ -1045,7 +1045,7 @@ public class Group extends UIComponent implements IGraphicElementHost
         }
         else if (skin && skin is DisplayObject)
         {
-        	childDO = skin as DisplayObject;
+            childDO = skin as DisplayObject;
         }
         // If the item and skin are different objects, set the skin data to 
         // null here to clear it out. Otherwise, the skin keeps a reference to the item,
@@ -1054,7 +1054,7 @@ public class Group extends UIComponent implements IGraphicElementHost
             skin.data = null;
                 
         if (childDO)
-        	super.removeChild(childDO);
+            super.removeChild(childDO);
         
         invalidateSize();
         invalidateDisplayList();
@@ -1106,69 +1106,69 @@ public class Group extends UIComponent implements IGraphicElementHost
     // or created directly for an item in the content array. 
     private function assignDisplayObjects(startIndex:int = 0):void
     {
-    	var currentAssignableDO:DisplayObject = this;
-    	var lastDisplayObject:DisplayObject = this;
-    	
-    	if (alwaysUseItemRenderer)
-    		return;
-    	
-    	// Iterate through all of the items
-    	var len:int = numItems; 
-    	for (var i:int = startIndex; i < len; i++)
-    	{  
-    		var item:* = getItemAt(i);
-    		
-    		if (!(item is GraphicElement)) 
-    			item = getItemSkin(item);
-    		
-    		if (item is DisplayObject)
-    		{
-    			lastDisplayObject = item as DisplayObject;
-    			// Null this out so that we are forced to create one for the next item
-    			currentAssignableDO = null; 
-    		}  			
-    		else if (item is GraphicElement)
-    		{
-    			var element:GraphicElement = item as GraphicElement;
-    			
-    			if (currentAssignableDO == null || element.needsDisplayObject)
-    			{
-    				var insertIndex:int;
-    				var newChild:DisplayObject = element.displayObject;
-    				
-    				if (lastDisplayObject == this)
-    					insertIndex = 0;
-    				else
-    					insertIndex = super.getChildIndex(lastDisplayObject) + 1;				
-    				
-    				if (newChild == null)
-    				{
-	    				newChild = element.createDisplayObject();
-	    				element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?    				
-    				}
-    				
-    				addItemToDisplayList(newChild, item, insertIndex); 
-    				// If the element is transformed, the next item needs its own DO		
-    				currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
-    				lastDisplayObject = newChild;
-    			}
-    			else
-    			{
-    				// Item should be assigned the currentAssignableDO
-    				// If it already has a DO, we need to remove it
-    				if (element.displayObject)
-    				{
-						if (element.displayObject.parent == this)
-    						super.removeChild(element.displayObject);
-    					element.destroyDisplayObject();
-    				}
-    				
-    				element.sharedDisplayObject = currentAssignableDO;
-    				if (element.nextSiblingNeedsDisplayObject)
-    					currentAssignableDO = null;
-    			}
-    		}
-    	}
+        var currentAssignableDO:DisplayObject = this;
+        var lastDisplayObject:DisplayObject = this;
+        
+        if (alwaysUseItemRenderer)
+            return;
+        
+        // Iterate through all of the items
+        var len:int = numItems; 
+        for (var i:int = startIndex; i < len; i++)
+        {  
+            var item:* = getItemAt(i);
+            
+            if (!(item is GraphicElement)) 
+                item = getItemSkin(item);
+            
+            if (item is DisplayObject)
+            {
+                lastDisplayObject = item as DisplayObject;
+                // Null this out so that we are forced to create one for the next item
+                currentAssignableDO = null; 
+            }           
+            else if (item is GraphicElement)
+            {
+                var element:GraphicElement = item as GraphicElement;
+                
+                if (currentAssignableDO == null || element.needsDisplayObject)
+                {
+                    var insertIndex:int;
+                    var newChild:DisplayObject = element.displayObject;
+                    
+                    if (lastDisplayObject == this)
+                        insertIndex = 0;
+                    else
+                        insertIndex = super.getChildIndex(lastDisplayObject) + 1;               
+                    
+                    if (newChild == null)
+                    {
+                        newChild = element.createDisplayObject();
+                        element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?                 
+                    }
+                    
+                    addItemToDisplayList(newChild, item, insertIndex); 
+                    // If the element is transformed, the next item needs its own DO        
+                    currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
+                    lastDisplayObject = newChild;
+                }
+                else
+                {
+                    // Item should be assigned the currentAssignableDO
+                    // If it already has a DO, we need to remove it
+                    if (element.displayObject)
+                    {
+                        if (element.displayObject.parent == this)
+                            super.removeChild(element.displayObject);
+                        element.destroyDisplayObject();
+                    }
+                    
+                    element.sharedDisplayObject = currentAssignableDO;
+                    if (element.nextSiblingNeedsDisplayObject)
+                        currentAssignableDO = null;
+                }
+            }
+        }
     } 
     
     
@@ -1176,40 +1176,40 @@ public class Group extends UIComponent implements IGraphicElementHost
     // adding to the display list. 
     protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
     { 
-    	var host:DisplayObject;
-    	
-    	if (item is GraphicElement)
-    		host = DisplayObject(GraphicElement(item).elementHost); 
-    	else if (item is DisplayObject)
-    		host = DisplayObject(item).parent;
-    	
-    	// Remove the item from the group if that group isn't this group
-    	if (host && host is Group && host != this)
-    		Group(host).removeItem(item);
-    	
-    	// Calling removeItem should have already removed the child. This
-    	// should handle the case when we don't call removeItem
-    	if (child.parent)
-    	{
-    		if (child.parent == this)
-    		{
-    			var insertIndex:int;
-    			if (index == -1)
-    				insertIndex = super.numChildren;
-    			else if (index == 0)
-    				insertIndex = 0;
-    			else
-    				insertIndex = index -1;
-    				
-    			super.setChildIndex(child, insertIndex);
-    			return child;
-    		}
-    		else		
-    			child.parent.removeChild(child);
-    	
-    	}
-    		
- 		return super.addChildAt(child, index != -1 ? index : super.numChildren);
+        var host:DisplayObject;
+        
+        if (item is GraphicElement)
+            host = DisplayObject(GraphicElement(item).elementHost); 
+        else if (item is DisplayObject)
+            host = DisplayObject(item).parent;
+        
+        // Remove the item from the group if that group isn't this group
+        if (host && host is Group && host != this)
+            Group(host).removeItem(item);
+        
+        // Calling removeItem should have already removed the child. This
+        // should handle the case when we don't call removeItem
+        if (child.parent)
+        {
+            if (child.parent == this)
+            {
+                var insertIndex:int;
+                if (index == -1)
+                    insertIndex = super.numChildren;
+                else if (index == 0)
+                    insertIndex = 0;
+                else
+                    insertIndex = index -1;
+                    
+                super.setChildIndex(child, insertIndex);
+                return child;
+            }
+            else        
+                child.parent.removeChild(child);
+        
+        }
+            
+        return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
     
     
@@ -1255,9 +1255,9 @@ public class Group extends UIComponent implements IGraphicElementHost
     
     protected function initializeLayoutObject():void
     {
-		if (_layout == null) {
-			_layout = (_layoutClass) ? new _layoutClass() : new BasicLayout();
-		}
+        if (_layout == null) {
+            _layout = (_layoutClass) ? new _layoutClass() : new BasicLayout();
+        }
         ILayout(_layout).target = this;
         
         invalidateSize();
@@ -1498,7 +1498,7 @@ public class Group extends UIComponent implements IGraphicElementHost
         // TODO!!! Need to recalculate the elements
         invalidateSize();
         invalidateDisplayList();    
-		// One of our children have told us they might need a displayObject     
+        // One of our children have told us they might need a displayObject     
         assignDisplayObjects();
     }
     
@@ -1532,7 +1532,7 @@ public class Group extends UIComponent implements IGraphicElementHost
             delete maskElements[mask];
             contentChanged = true;
              // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-        	// callLater is necessary because removeMaskElement gets called inside of commitProperties
+            // callLater is necessary because removeMaskElement gets called inside of commitProperties
             callLater(invalidateProperties);
         }
     }
