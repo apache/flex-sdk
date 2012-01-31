@@ -487,8 +487,8 @@ public class Container extends UIComponent
         showInAutomationHierarchy = false;
 
         // If available, get soft-link to the TextView class to use in keyDownHandler().
-        if (ApplicationDomain.currentDomain.hasDefinition("mx.components.TextView"))
-            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.components.TextView"));
+        if (ApplicationDomain.currentDomain.hasDefinition("spark.components.RichEditableText"))
+            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.RichEditableText"));
     }
 
     //--------------------------------------------------------------------------
