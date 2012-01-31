@@ -3901,15 +3901,20 @@ public class Container extends UIComponent
      */
     override mx_internal function childAdded(child:DisplayObject):void
     {
-        dispatchEvent(new Event("childrenChanged"));
+        if (hasEventListener("childrenChanged"))
+            dispatchEvent(new Event("childrenChanged"));
 
-        var event:ChildExistenceChangedEvent =
-            new ChildExistenceChangedEvent(
-            ChildExistenceChangedEvent.CHILD_ADD);
-        event.relatedObject = child;
-        dispatchEvent(event);
+        if (hasEventListener(ChildExistenceChangedEvent.CHILD_ADD))
+        {
+            var event:ChildExistenceChangedEvent =
+                new ChildExistenceChangedEvent(
+                ChildExistenceChangedEvent.CHILD_ADD);
+            event.relatedObject = child;
+            dispatchEvent(event);
+        }
 
-        child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
+        if (hasEventListener(FlexEvent.ADD))
+            child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
                 
         super.childAdded(child); // calls createChildren()
     }
@@ -3921,13 +3926,17 @@ public class Container extends UIComponent
     {
         super.removingChild(child);
 
-        child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
+        if (hasEventListener(FlexEvent.REMOVE))
+            child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
 
-        var event:ChildExistenceChangedEvent =
-            new ChildExistenceChangedEvent(
-            ChildExistenceChangedEvent.CHILD_REMOVE);
-        event.relatedObject = child;
-        dispatchEvent(event);
+        if (hasEventListener(ChildExistenceChangedEvent.CHILD_REMOVE))
+        {
+            var event:ChildExistenceChangedEvent =
+                new ChildExistenceChangedEvent(
+                ChildExistenceChangedEvent.CHILD_REMOVE);
+            event.relatedObject = child;
+            dispatchEvent(event);
+        }
     }
 
     /**
@@ -3956,7 +3965,8 @@ public class Container extends UIComponent
                 FlexEvent.UPDATE_COMPLETE, layoutCompleteHandler, false, 0, true);
         }
 
-        dispatchEvent(new Event("childrenChanged"));
+        if (hasEventListener("childrenChanged"))
+            dispatchEvent(new Event("childrenChanged"));
     }
 
     [Bindable("childrenChanged")]
