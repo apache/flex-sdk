@@ -798,7 +798,7 @@ public class ComboBox extends ComboBase
         if (value >= 0)
             selectionChanged = true;
             
-		implicitSelectedIndex = false;
+        implicitSelectedIndex = false;
         invalidateDisplayList();
 
         // value committed event needs the text to be set
@@ -905,7 +905,7 @@ public class ComboBox extends ComboBase
         dispatchEvent(new Event("dropdownFactoryChanged"));
     }
 
-	//----------------------------------
+    //----------------------------------
     //  dropDownStyleFilters
     //----------------------------------
 
@@ -915,9 +915,9 @@ public class ComboBox extends ComboBase
      *  @see mx.styles.StyleProxy
      *  @review
      */
-	protected function get dropDownStyleFilters():Object
-	{
-    	return null;
+    protected function get dropDownStyleFilters():Object
+    {
+        return null;
     }
 
     //----------------------------------
@@ -1288,7 +1288,7 @@ public class ComboBox extends ComboBase
         if (collectionChanged)
         {
             if (selectedIndex == -1 && implicitSelectedIndex && _prompt == null)
-            	selectedIndex = 0;
+                selectedIndex = 0;
             selectedIndexChanged = true;
             collectionChanged = false;
         }
@@ -1319,6 +1319,8 @@ public class ComboBox extends ComboBase
      *  <code>labelField</code> property, returns the contents of the property.</li>
      *    <li>If the item has a label property, returns its value.</li>
      *  </ol>
+     * 
+     *  @param item The object that contains the value to convert to a label. If the item is null, this method returns the empty string.
      */
     public function itemToLabel(item:Object):String
     {
@@ -1414,7 +1416,7 @@ public class ComboBox extends ComboBase
         {
             var dropDownStyleName:String = getStyle("dropDownStyleName");
             if (dropDownStyleName == null ) 
-				dropDownStyleName = getStyle("dropdownStyleName");
+                dropDownStyleName = getStyle("dropdownStyleName");
             
 
             _dropdown = dropdownFactory.newInstance();
@@ -1425,25 +1427,25 @@ public class ComboBox extends ComboBase
             if (itemRenderer)
                 _dropdown.itemRenderer = itemRenderer;
 
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			{
-            	_dropdown.styleName = this;
-   			}
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+            {
+                _dropdown.styleName = this;
+            }
 
             if (dropDownStyleName)
             {
-            	if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            	{
-	                var styleDecl:CSSStyleDeclaration =
-	                    StyleManager.getStyleDeclaration("." + dropDownStyleName);
-	
-	                if (styleDecl)
-	                    _dropdown.styleDeclaration = styleDecl;
-             	}
-             	else
-             	{
-             		_dropdown.styleName = dropDownStyleName;
-             	}
+                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+                {
+                    var styleDecl:CSSStyleDeclaration =
+                        StyleManager.getStyleDeclaration("." + dropDownStyleName);
+    
+                    if (styleDecl)
+                        _dropdown.styleDeclaration = styleDecl;
+                }
+                else
+                {
+                    _dropdown.styleName = dropDownStyleName;
+                }
             }
             else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
             {
@@ -1664,7 +1666,7 @@ public class ComboBox extends ComboBase
     //  Overridden event handlers
     //
     //--------------------------------------------------------------------------
-	private var implicitSelectedIndex:Boolean = false;
+    private var implicitSelectedIndex:Boolean = false;
     /**
      *  @private
      */
@@ -1684,11 +1686,11 @@ public class ComboBox extends ComboBase
             {
                 // Special case: Empty dataProvider.
                 if (!selectedIndexChanged && !selectedItemChanged)
-				{
-					super.selectedIndex = -1;
-					implicitSelectedIndex = true;
-					invalidateDisplayList();
-				}
+                {
+                    super.selectedIndex = -1;
+                    implicitSelectedIndex = true;
+                    invalidateDisplayList();
+                }
                 // if the combobox is non-editable remove the text
                 // we don't want to remove the text if it is editable as user might
                 // have typed something.
