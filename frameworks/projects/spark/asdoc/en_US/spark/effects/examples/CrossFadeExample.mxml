@@ -18,28 +18,28 @@
     </s:transitions>
 
     <s:Panel title="CrossFade Example"
-    	width="75%" height="75%">
+    	width="75%" height="75%" horizontalCenter="0" verticalCenter="0">
 
-        <mx:HBox width="100%" height="100%" paddingLeft="5" paddingTop="5">
+        <s:HGroup width="100%" height="100%" top="5" left="5" right="5">
             <s:Group id="holder">
                 <s:BitmapImage
-		        	source="@Embed('assets/back.png')"
+		        	source="@Embed('assets/back2.png')"
 		        	visible="true" visible.flipped="false"/>
                 <s:BitmapImage
-		        	source="@Embed('assets/c1.png')"
+		        	source="@Embed('assets/c2.png')"
 		        	visible="false" visible.flipped="true"/>
             </s:Group>
 
             <!-- Directions -->
-            <mx:VBox id="detailsBox"
+            <s:VGroup id="detailsBox"
 	        	width="50%"
 	        	left="0">
-                <mx:Text
+                <s:SimpleText
 		        	width="99%"
 		        	color="blue"
 		        	text="CrossFade fades from bitmapFrom to the bitmapTo image. This example cross-fades between two bitmapGraphics in a group via a state transition. Click the 'Play CrossFade' button to see the effect."/>
-            </mx:VBox>
-        </mx:HBox>
+            </s:VGroup>
+        </s:HGroup>
 
         <s:Rect left="0" right="0" bottom="0" height="30">
             <s:fill>
