@@ -30,6 +30,7 @@ import flash.utils.Dictionary;
 import flash.utils.clearInterval;
 import flash.utils.getTimer;
 import flash.utils.setInterval;
+
 import mx.collections.ArrayCollection;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
@@ -71,8 +72,9 @@ import mx.events.DragEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
-import mx.events.SandboxMouseEvent;
+import mx.events.MoveEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.events.ScrollEventDirection;
@@ -82,10 +84,9 @@ import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.StyleManager;
+import mx.styles.StyleProxy;
 import mx.utils.ObjectUtil;
 import mx.utils.UIDUtil;
-import mx.events.MoveEvent;
-import mx.styles.StyleProxy;
 
 use namespace mx_internal;
 
