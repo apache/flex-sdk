@@ -1635,6 +1635,7 @@ public class ColorPicker extends ComboBase
                 dispatchEvent(cpEvent);
             }
             close();
+            event.stopPropagation();
         }
         
         else if (showingDropdown &&
