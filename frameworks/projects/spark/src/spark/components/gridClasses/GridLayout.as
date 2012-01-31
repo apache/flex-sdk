@@ -68,8 +68,13 @@ public class GridLayout extends LayoutBase
     override public function get typicalLayoutElement():ILayoutElement
     {
         if (explicitTypicalLayoutElement == null)
-            typicalLayoutElement = getTypicalItemRenderer();
-
+        {
+            if ((typicalLayoutElement = getTypicalItemRenderer()) == null)
+                return null;
+        }
+        
+        // Don't call this unless we know we've set it so that it doesn't
+        // generate one using the target.
         return super.typicalLayoutElement;
     }
 
@@ -146,8 +151,8 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        var measuredWidth:Number;
-        var measuredHeight:Number;
+        var measuredWidth:Number = 0;
+        var measuredHeight:Number = 0;
 
         if (!isNaN(grid.explicitWidth))
         {
@@ -157,19 +162,31 @@ public class GridLayout extends LayoutBase
         {
             const columns:IList = grid.columns;
             const numColumns:int = columns ? columns.length : 0;
-            var columnCount:int;
-            for (var i:int = 0; i < numColumns; i++)
+            
+            if (numColumns)
             {
-                var c:GridColumn = columns.getItemAt(i) as GridColumn;
-                if (c && c.visible)
-                    columnCount ++;
+                const defaultColumnWidth:Number =
+                    !isNaN(typicalLayoutElement.getLayoutBoundsWidth()) ? 
+                    typicalLayoutElement.getLayoutBoundsWidth() :
+                    typicalLayoutElement.getPreferredBoundsWidth();
+                
+                const columnGap:Number = gridDimensions.columnGap;
+                
+                for (var i:int = 0; i < numColumns; i++)
+                {
+                    var c:GridColumn = columns.getItemAt(i) as GridColumn;
+                    if (c && c.visible)
+                    {
+                        if (!isNaN(c.width))
+                            measuredWidth += c.width + columnGap;
+                        else
+                            measuredWidth += defaultColumnWidth + columnGap;
+                    }
+                }
+                
+                if (measuredWidth > 0)
+                    measuredWidth -= columnGap;
             }
-            
-            const defaultColumnWidth:Number = 
-                typicalLayoutElement.getPreferredBoundsWidth();
-            const columnGap:Number = gridDimensions.columnGap;
-            
-            measuredWidth = (columnCount * (defaultColumnWidth + columnGap)) - columnGap;         
         }
         
         if (!isNaN(grid.explicitHeight))
@@ -179,23 +196,27 @@ public class GridLayout extends LayoutBase
         else
         {
             const rowCount:int = grid.dataProvider ? grid.dataProvider.length : 0;
-            const rowGap:Number = gridDimensions.rowGap;
-            const defaultRowHeight:Number = 
-                typicalLayoutElement.getPreferredBoundsHeight();
-
-            measuredHeight = rowCount * (defaultRowHeight + rowGap);
             
-            // One less row gap if there isn't a column header bar.
-            const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-            if (!columnHeaderBar || !columnHeaderBar.visible)
-                measuredHeight -= rowGap;
+            if (rowCount)
+            {
+                const rowGap:Number = gridDimensions.rowGap;
+                const defaultRowHeight:Number = 
+                    typicalLayoutElement.getPreferredBoundsHeight();
+    
+                measuredHeight = rowCount * (defaultRowHeight + rowGap);
+                
+                // One less row gap if there isn't a column header bar.
+                const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+                if (!columnHeaderBar || !columnHeaderBar.visible)
+                    measuredHeight -= rowGap;
+            }
         }
                     
-        // ToDo:(cframpto)  If there is a scroller without an explicit size, 
-        // what should the measured size of the grid?
-        
-        measuredWidth = Math.min(measuredWidth, 600);
-        measuredHeight = Math.min(measuredHeight, 480);
+        // ToDo:(cframpto) how is this suppose to work if the DataGrid
+        // doesn't have an explicit size and the measuredHeight is large?
+                
+        measuredWidth = 600;
+        measuredHeight = 480;
         
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
@@ -580,9 +601,10 @@ public class GridLayout extends LayoutBase
         
         grid.itemRendererGroup.addElement(renderer);
         
-        // Initialize cell 0,0.
+        // Initialize cell 0,0.  If the column 0 has an explicit width
+        // use that.
         initializeItemRenderer(renderer, 0, 0, typicalItem, false);
-        layoutGridElement(renderer, 0, 0, NaN, NaN);
+        layoutGridElement(renderer, 0, 0, column.width, NaN);
 
         grid.itemRendererGroup.removeElement(renderer);
         
