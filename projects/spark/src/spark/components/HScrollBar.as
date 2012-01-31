@@ -67,22 +67,6 @@ public class HScrollBar extends ScrollBar
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  The size of the track, which equals the width of the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function get trackSize():Number
-    {
-        if (track)
-            return track.width;
-        else
-           return 0;
-    }
     
     override public function set viewport(newViewport:IViewport):void
     {
@@ -105,6 +89,43 @@ public class HScrollBar extends ScrollBar
     // Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function pointToValue(x:Number, y:Number):Number
+    {
+        var r:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
+        return minimum + ((r != 0) ? (x / r) * (maximum - minimum) : 0); 
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateSkinDisplayList():void
+    {
+        if (!thumb || !track)
+            return;
+        
+        var trackPos:Number = track.getLayoutBoundsX();
+        var trackSize:Number = track.getLayoutBoundsWidth();
+        var range:Number = maximum - minimum;
+        
+        var thumbPos:Number = 0;
+        var thumbSize:Number = trackSize;
+        if (range > 0)
+        {
+            thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
+            thumbSize = Math.max(thumb.minWidth, thumbSize);
+            thumbPos = (value - minimum) * ((trackSize - thumbSize) / range);
+        }
+        
+        if (getStyle("fixedThumbSize") === false)
+            thumb.setLayoutBoundsSize(thumbSize, NaN);
+        if (getStyle("autoThumbVisibility") === true)
+            thumb.visible = thumbSize < trackSize;
+        thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos), thumb.getLayoutBoundsY());
+    }
     
     /**
      *  Update the value property and, if viewport is non null, then set 
@@ -127,82 +148,6 @@ public class HScrollBar extends ScrollBar
     
 
     /**
-     *  Position the thumb button based on the specified thumb position,
-     *  relative to the current X location of the track in the control.
-     * 
-     *  @param thumbPos A number representing the new position of the thumb
-     *  button in the control.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function positionThumb(thumbPos:Number):void
-    {
-        if (!thumb)
-            return;
-      
-        var trackPos:Number = track ? track.x : 0;   
-        thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos), thumb.getLayoutBoundsY());
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function calculateThumbSize():Number
-    {
-        if (!thumb)
-            return super.calculateThumbSize();
-            
-        var size:Number = (getStyle("fixedThumbSize")) ? 
-            thumb.getPreferredBoundsWidth() : 
-            super.calculateThumbSize();
-        return Math.max(thumb.minWidth, size);
-    }
-
-    /**
-     *  @private
-     *  Note: we're comparing the "calculated", not fixed, size of the thumb with the trackSize
-     *  to decide if the thumb should be visible.  We want to know if the thumb needs to be visible,
-     *  and the comparison would fail if we always compared the track size and the fixed thumb size.
-     *  See calculateThumbSize().
-     */
-    override protected function sizeThumb(thumbSize:Number):void
-    {
-        if (!thumb)
-            return;
-        
-        thumb.setLayoutBoundsSize(thumbSize, NaN);
-        var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
-            super.calculateThumbSize() : 
-            thumbSize;
-        if (getStyle("autoThumbVisibility"))
-            thumb.visible = calculatedThumbSize < trackSize;
-    }
-    
-    /**
-     *  Returns the position of the thumb button on an HScrollBar control, 
-     *  which is equal to the <code>localX</code> parameter.
-     * 
-     *  @param localX The X position relative to the scrollbar control.
-     *
-     *  @param localY The Y position relative to the scrollbar control.
-     *
-     *  @return The position of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function pointToPosition(localX:Number, 
-                                                localY:Number):Number
-    {
-        return localX;
-    }
-    
-    /**
      *  If <code>viewport</code> is not null, 
      *  change the horizontal scroll position for page up or page down by 
      *  scrolling the viewport.
@@ -216,12 +161,12 @@ public class HScrollBar extends ScrollBar
      *
      *  <p>If <code>viewport</code> is null, 
      *  change the scroll position for page up or page down by calling 
-     *  the <code>page()</code> method.</p>
+     *  the <code>changeValueByPage()</code> method.</p>
      *
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#page()
+     *  @see mx.components.baseClasses.TrackBase#changeValueByPage()
      *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#horizontalScrollPosition
@@ -232,12 +177,12 @@ public class HScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function page(increase:Boolean = true):void
+    override public function changeValueByPage(increase:Boolean = true):void
     {
         var oldPageSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's page() implementation to get the same
+            // Want to use ScrollBar's changeValueByPage() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
@@ -245,7 +190,7 @@ public class HScrollBar extends ScrollBar
             pageSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
                 (increase) ? NavigationUnit.PAGE_RIGHT : NavigationUnit.PAGE_LEFT));
         }
-        super.page(increase);
+        super.changeValueByPage(increase);
         if (viewport)
             pageSize = oldPageSize;
     }
@@ -279,12 +224,12 @@ public class HScrollBar extends ScrollBar
      *
      *  <p>If <code>viewport</code> is null, 
      *  change the scroll position for line up or line down by calling 
-     *  the <code>step()</code> method.</p>
+     *  the <code>changeValueByStep()</code> method.</p>
      *
      *  @param increase Whether the line scoll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.TrackBase#step()
+     *  @see mx.components.baseClasses.TrackBase#changeValueByStep()
      *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#horizontalScrollPosition
@@ -295,12 +240,12 @@ public class HScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function step(increase:Boolean = true):void
+    override public function changeValueByStep(increase:Boolean = true):void
     {
         var oldStepSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's step() implementation to get the same
+            // Want to use ScrollBar's changeValueByStep() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
@@ -308,7 +253,7 @@ public class HScrollBar extends ScrollBar
             stepSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
                 (increase) ? NavigationUnit.RIGHT : NavigationUnit.LEFT));
         }
-        super.step(increase);
+        super.changeValueByStep(increase);
         if (viewport)
             stepSize = oldStepSize;
     }   
