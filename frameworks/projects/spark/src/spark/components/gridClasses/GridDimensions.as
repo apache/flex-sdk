@@ -1257,6 +1257,34 @@ public class GridDimensions
     }
     
     /**
+     *  Removes any nodes that occupy the indices between startRow
+     *  and startRow + count.
+     */
+    public function clearRows(startRow:int, count:int):void
+    {
+        if (startRow < 0 || count <= 0)
+            return;
+        
+        var node:GridRowNode = rowList.findNearestLTE(startRow);
+        var endRow:int = startRow + count;
+        var oldNode:GridRowNode;
+        
+        if (node && node.rowIndex < startRow)
+            node = node.next;
+        
+        while (node && node.rowIndex < endRow)
+        {
+            oldNode = node;
+            node = node.next;
+            rowList.removeNode(oldNode);
+        }
+        
+        // cache is invalid now.
+        recentNode = null;
+        recentNode2 = null;
+    }
+    
+    /**
      *  Clears any columns that occupy the indices between startColumn
      *  and startColumn + count.
      */
@@ -1359,20 +1387,26 @@ public class GridDimensions
         var startNode:GridRowNode = rowList.findNearestLTE(startRow);
         var node:GridRowNode;
         
-        // start on the index we're inserting at.
         if (startNode && startNode.rowIndex < startRow)
             startNode = startNode.next;
         
-        // first we insert the nodes before this node.
+        // first we insert the nodes before this node if it exists,
+        // if not, we just push it at the end.
         if (nodes)
         {
-            for each (node in nodes)
+            if (startNode)
             {
-                rowList.insertBefore(startNode, node);
+                for each (node in nodes)
+                    rowList.insertBefore(startNode, node);
+            }
+            else
+            {
+                for each (node in nodes)
+                    rowList.push(node);
             }
         }
         
-        // increment the index of nodes after this node.
+        // increment the index of nodes after the last node.
         node = startNode;
         while (node)
         {
@@ -1427,109 +1461,56 @@ public class GridDimensions
     }
     
     /**
-     *  Removes any nodes that occupy the indices between startRow
-     *  and startRow + count.
-     */
-    private function clearRows(startRow:int, count:int):void
-    {
-        if (startRow < 0 || count <= 0)
-            return;
-        
-        var node:GridRowNode = rowList.findNearestLTE(startRow);
-        var endRow:int = startRow + count;
-        var oldNode:GridRowNode;
-        
-        if (node && node.rowIndex < startRow)
-            node = node.next;
-        
-        while (node && node.rowIndex < endRow)
-        {
-            oldNode = node;
-            node = node.next;
-            rowList.removeNode(oldNode);
-        }
-        
-        // cache is invalid now.
-        recentNode = null;
-        recentNode2 = null;
-    }
-    
-    /**
      *  Handles changes in the dataProvider.
      */
-    public function dataProviderCollectionChanged(event:CollectionEvent):Boolean 
+    public function dataProviderCollectionChanged(event:CollectionEvent):void 
     {
-        // TBD (klin): don't think we need to return booleans...
         switch (event.kind)
         {
-            case CollectionEventKind.ADD: return dataProviderCollectionAdd(event);
-            case CollectionEventKind.REMOVE: return dataProviderCollectionRemove(event);
-            case CollectionEventKind.REPLACE: return dataProviderCollectionReplace(event);
-            case CollectionEventKind.MOVE: return dataProviderCollectionMove(event);
-            case CollectionEventKind.REFRESH: return dataProviderCollectionRefresh(event);
-            case CollectionEventKind.RESET: return dataProviderCollectionReset(event);
-            case CollectionEventKind.UPDATE: return true; // handled by GridLayout
+            case CollectionEventKind.ADD: 
+            {
+                insertRows(event.location, event.items.length);
+                break;
+            }
+                
+            case CollectionEventKind.REMOVE:
+            {
+                removeRows(event.location, event.items.length);
+                break;
+            }
+                
+            case CollectionEventKind.MOVE:
+            {
+                moveRows(event.oldLocation, event.location, event.items.length);
+                break;
+            }
+                
+            case CollectionEventKind.REFRESH:
+            {
+                clear();
+                break;
+            }
+                
+            case CollectionEventKind.RESET:
+            {
+                clear();
+                clearTypicalCellWidthsAndHeights();
+                break;
+            }
+                
+            case CollectionEventKind.UPDATE:
+            {
+                // handled by GridLayout
+                break;
+            }
+                
+            case CollectionEventKind.REPLACE:
+            {
+                clearRows(event.location, event.items.length);
+                break;
+            }   
         }
-        
-        return false;
     }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionAdd(event:CollectionEvent):Boolean
-    {
-        insertRows(event.location, event.items.length);
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionRemove(event:CollectionEvent):Boolean
-    {
-        removeRows(event.location, event.items.length);
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionReplace(event:CollectionEvent):Boolean
-    {
-        clearRows(event.location, event.items.length);
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionMove(event:CollectionEvent):Boolean
-    {
-        moveRows(event.oldLocation, event.location, event.items.length);
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionReset(event:CollectionEvent):Boolean
-    {
-        clear();
-        clearTypicalCellWidthsAndHeights();
-        this.rowCount = IList(event.target).length;
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderCollectionRefresh(event:CollectionEvent):Boolean
-    {
-        clear();
-        this.rowCount = IList(event.target).length;
-        return true;
-    }    
     
     /**
      *  Handles changes in columns.
@@ -1540,37 +1521,26 @@ public class GridDimensions
         {
             case CollectionEventKind.ADD: 
             {
-                columnsCollectionAdd(event);
+                insertColumns(event.location, event.items.length);
                 break;
             }
-                
-            case CollectionEventKind.MOVE:
-            {
-                columnsCollectionMove(event);
-                break;
-            }
-                
-            case CollectionEventKind.REFRESH:
-            {
-                columnsCollectionRefresh(event);
-                break;
-            }
-                
+            
             case CollectionEventKind.REMOVE:
             {
-                columnsCollectionRemove(event);
+                removeColumns(event.location, event.items.length);
                 break;
             }
-                
-            case CollectionEventKind.REPLACE:
+            
+            case CollectionEventKind.MOVE:
             {
-                columnsCollectionReplace(event);
+                moveColumns(event.oldLocation, event.location, event.items.length);
                 break;
             }
-                
+                    
+            case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
             {
-                columnsCollectionReset(event);
+                resetColumns(IList(event.target).length);
                 break;
             }
                 
@@ -1578,57 +1548,23 @@ public class GridDimensions
             {
                 // handled by GridLayout
                 break;
-            }                
+            }
+            
+            case CollectionEventKind.REPLACE:
+            {
+                clearColumns(event.location, event.items.length);
+                break;
+            }
         }
     }
     
     /**
-     *  @private
+     *  For debugging purposes.
      */
-    private function columnsCollectionAdd(event:CollectionEvent):void
+    public function toString():String
     {
-        insertColumns(event.location, event.items.length);
+        // TODO: Build really useful string here.
+        return rowList.toString();
     }
-    
-    /**
-     *  @private
-     */
-    private function columnsCollectionRemove(event:CollectionEvent):void
-    {
-        removeColumns(event.location, event.items.length);
-    }
-    
-    /**
-     *  @private
-     */
-    private function columnsCollectionReplace(event:CollectionEvent):void
-    {
-        clearColumns(event.location, event.items.length);
-    }
-    
-    /**
-     *  @private
-     */
-    private function columnsCollectionMove(event:CollectionEvent):void
-    {
-        moveColumns(event.oldLocation, event.location, event.items.length);
-    }
-    
-    /**
-     *  @private
-     */
-    private function columnsCollectionReset(event:CollectionEvent):void
-    {
-        resetColumns(IList(event.target).length);
-    }
-    
-    /**
-     *  @private
-     */
-    private function columnsCollectionRefresh(event:CollectionEvent):void
-    {
-        resetColumns(IList(event.target).length);
-    }
-
 }
 }
