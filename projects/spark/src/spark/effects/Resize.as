@@ -8,15 +8,15 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
-import mx.effects.effectClasses.FxResizeInstance;
+import spark.effects.supportClasses.ResizeInstance;
 
 import mx.effects.IEffectInstance;
 
 /**
 *
-*  @includeExample examples/FxResizeEffectExample.mxml    
+*  @includeExample examples/ResizeEffectExample.mxml    
 *
 *  
 *  @langversion 3.0
@@ -25,7 +25,7 @@ import mx.effects.IEffectInstance;
 *  @productversion Flex 4
 */
 
-public class FxResize extends FxAnimate
+public class Resize extends Animate
 {
     include "../core/Version.as";
 
@@ -64,11 +64,11 @@ public class FxResize extends FxAnimate
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxResize(target:Object=null)
+    public function Resize(target:Object=null)
     {
         super(target);
 
-        instanceClass = FxResizeInstance;
+        instanceClass = ResizeInstance;
     }
 
     //--------------------------------------------------------------------------
@@ -232,7 +232,7 @@ public class FxResize extends FxAnimate
     {
         super.initInstance(instance);
         
-        var resizeInstance:FxResizeInstance = FxResizeInstance(instance);
+        var resizeInstance:ResizeInstance = ResizeInstance(instance);
 
         if (!isNaN(widthFrom))
             resizeInstance.widthFrom = widthFrom;
