@@ -408,7 +408,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#bitmapData
+     *  @copy spark.primitives.BitmapImage#bitmapData
      *  @default null
      */
     public function get bitmapData():BitmapData 
@@ -421,7 +421,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#bytesLoaded
+     *  @copy spark.primitives.BitmapImage#bytesLoaded
      *  @default NaN
      */
     public function get bytesLoaded():Number 
@@ -434,7 +434,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#bytesTotal
+     *  @copy spark.primitives.BitmapImage#bytesTotal
      *  @default NaN
      */
     public function get bytesTotal():Number 
@@ -447,7 +447,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#clearOnLoad
+     *  @copy spark.primitives.BitmapImage#clearOnLoad
      *  @default true
      */
     public function get clearOnLoad():Boolean 
@@ -478,7 +478,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#contentLoader
+     *  @copy spark.primitives.BitmapImage#contentLoader
      *  @default null
      */
     public function get contentLoader():IContentLoader 
@@ -509,7 +509,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#contentLoaderGrouping
+     *  @copy spark.primitives.BitmapImage#contentLoaderGrouping
      *  @default null
      */
     public function get contentLoaderGrouping():String 
@@ -542,7 +542,7 @@ public class Image extends SkinnableComponent
     [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  @copy mx.primitives.BitmapImage#fillMode
+     *  @copy spark.primitives.BitmapImage#fillMode
      *  @default <code>BitmapFillMode.SCALE</code>
      */
     public function get fillMode():String
@@ -575,7 +575,7 @@ public class Image extends SkinnableComponent
     [Inspectable(category="General", enumeration="left,right,center", defaultValue="center")]
     
     /**
-     *  @copy mx.primitives.BitmapImage#horizontalAlign
+     *  @copy spark.primitives.BitmapImage#horizontalAlign
      *  @default <code>HorizontalAlign.CENTER</code>
      */
     public function get horizontalAlign():String
@@ -606,7 +606,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#preliminaryHeight
+     *  @copy spark.primitives.BitmapImage#preliminaryHeight
      *  @default NaN
      */
     public function get preliminaryHeight():Number
@@ -637,7 +637,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#preliminaryWidth
+     *  @copy spark.primitives.BitmapImage#preliminaryWidth
      *  @default NaN
      */
     public function get preliminaryWidth():Number
@@ -670,7 +670,7 @@ public class Image extends SkinnableComponent
     [Inspectable(category="General", enumeration="stretch,letterbox", defaultValue="letterbox")]
     
     /**
-     *  @copy mx.primitives.BitmapImage#scaleMode
+     *  @copy spark.primitives.BitmapImage#scaleMode
      *  @default <code>BitmapScaleMode.LETTERBOX</code>
      */
     public function get scaleMode():String
@@ -701,7 +701,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#smooth
+     *  @copy spark.primitives.BitmapImage#smooth
      */
     public function set smooth(value:Boolean):void
     {
@@ -745,7 +745,7 @@ public class Image extends SkinnableComponent
     }
     
     /**
-     *  @copy mx.primitives.BitmapImage#source
+     *  @copy spark.primitives.BitmapImage#source
      */
     public function set source(value:Object):void
     {
@@ -774,7 +774,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#sourceHeight
+     *  @copy spark.primitives.BitmapImage#sourceHeight
      *  @default NaN
      */
     public function get sourceHeight():Number
@@ -790,7 +790,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy mx.primitives.BitmapImage#sourceWidth
+     *  @copy spark.primitives.BitmapImage#sourceWidth
      *  @default NaN
      */
     public function get sourceWidth():Number
@@ -806,7 +806,7 @@ public class Image extends SkinnableComponent
     //----------------------------------
         
     /**
-     *  @copy mx.primitives.BitmapImage#trustedSource
+     *  @copy spark.primitives.BitmapImage#trustedSource
      *  @default true
      */
     public function get trustedSource():Boolean          
@@ -824,7 +824,7 @@ public class Image extends SkinnableComponent
     [Inspectable(category="General", enumeration="top,bottom,middle", defaultValue="middle")]
     
     /**
-     *  @copy mx.primitives.BitmapImage#verticalAlign
+     *  @copy spark.primitives.BitmapImage#verticalAlign
      *  @default <code>HorizontalAlign.MIDDLE</code>
      */
     public function get verticalAlign():String
