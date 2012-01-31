@@ -57,7 +57,7 @@ use namespace mx_internal;
  * Flex also dispatches an <code>animationUpdate</code> event 
  * for the effect at the same time.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_END
+ * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
  */
 [Event(name="animationRepeat", type="mx.events.AnimationEvent")]
 
@@ -137,7 +137,10 @@ public class FxAnimate extends Effect
     /**
      * An array of PropertyValuesHolder objects, each of which holds the
      * name of the property being animated and the values that the property
-     * will take on during the animation.
+     * will take on during the animation. This array takes precedence over
+     * any helper properties that may be declared in subclasses of FxAnimate.
+     * For example, if this array is set directly on an FxMove object, 
+     * then any helper values such as <code>xFrom</code> will be ignored. 
      */
     public var propertyValuesList:Array;
     
