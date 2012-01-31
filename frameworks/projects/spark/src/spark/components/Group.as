@@ -830,7 +830,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             var child:IVisualElement = getElementAt(i);
 
-            if ( recursive && child is IStyleClient)
+            if (child is IStyleClient)
             {
                 // Does this object already have a proto chain?
                 // If not, there's no need to regenerate a new one.
