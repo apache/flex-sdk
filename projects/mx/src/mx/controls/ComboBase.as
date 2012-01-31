@@ -27,7 +27,6 @@ import mx.collections.ListCollectionView;
 import mx.collections.XMLListCollection;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
-import mx.core.IBorder;
 import mx.core.IFlexDisplayObject;
 import mx.core.IIMESupport;
 import mx.core.IRectangularBorder;
