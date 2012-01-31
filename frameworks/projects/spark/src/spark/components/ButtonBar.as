@@ -20,8 +20,10 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
-import mx.collections.IList;
 import spark.components.supportClasses.ListBase;
+import spark.events.RendererExistenceEvent;
+
+import mx.collections.IList;
 import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
@@ -29,7 +31,6 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemClickEvent;
-import spark.events.RendererExistenceEvent;
 import mx.managers.IFocusManagerComponent;
 
 [IconFile("ButtonBar.png")]
@@ -379,7 +380,11 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             if (renderer is IVisualElement)
                 IVisualElement(renderer).owner = this; 
             if (renderer is IItemRenderer)
+            {
+            	var data:Object = IItemRenderer(renderer).data;
                 IItemRenderer(renderer).allowDeselection = !requiresSelection;
+                IItemRenderer(renderer).labelText = itemToLabel(data);
+            }
         }
             
         if (isItemIndexSelected(index))
