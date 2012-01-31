@@ -695,6 +695,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (layout && layout.useVirtualLayout)
             return (virtualRendererIndices) ? virtualRendererIndices.concat() : new Vector.<int>(0);
         
+        if (!dataProvider)
+            return new Vector.<int>(0);
+        
         const scrollR:Rectangle = scrollRect;
         const dataProviderLength:int = dataProvider.length;
         
@@ -831,7 +834,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (layout && layout.useVirtualLayout)
         {
             // The item renderers will be created lazily, at updateDisplayList() time
-            //removeAllItemRenderers();
             invalidateSize();
             invalidateDisplayList();
             return;
