@@ -325,8 +325,6 @@ public class Application extends LayoutContainer
      */
     public function Application()
     {
-        name = "application";
-
         UIComponentGlobals.layoutManager = ILayoutManager(
             Singleton.getInstance("mx.managers::ILayoutManager"));
         UIComponentGlobals.layoutManager.usePhasedInstantiation = true;
