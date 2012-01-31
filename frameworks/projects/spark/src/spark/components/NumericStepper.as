@@ -13,6 +13,7 @@ package spark.components
 {
 
 import flash.display.DisplayObject;
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -695,7 +696,7 @@ public class NumericStepper extends Spinner
     {
         if (stage)
         {
-            stage.focus = textDisplay.textDisplay;
+            stage.focus = textDisplay.textDisplay as InteractiveObject;
             
             // Since the API ignores the visual editable and selectable 
             // properties make sure the selection should be set first.
