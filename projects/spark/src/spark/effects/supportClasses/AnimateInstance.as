@@ -24,11 +24,11 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
 
-import spark.effects.KeyFrame;
-import spark.effects.MotionPath;
-import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
 import spark.effects.animation.IAnimationTarget;
+import spark.effects.animation.Keyframe;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.interpolation.IInterpolator;
 import spark.primitives.supportClasses.GraphicElement;
@@ -133,7 +133,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     //
     //--------------------------------------------------------------------------
 
-    private var _motionPaths:Array;
+    private var _motionPaths:Vector.<MotionPath>;
     /**
      *  @copy spark.effects.Animate#motionPaths
      *  
@@ -142,11 +142,11 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get motionPaths():Array
+    public function get motionPaths():Vector.<MotionPath>
     {
         return _motionPaths;
     }
-    public function set motionPaths(value:Array):void
+    public function set motionPaths(value:Vector.<MotionPath>):void
     {
         // Only set the list to the given value if we have a 
         // null list to begin with. Otherwise, we've already
@@ -178,16 +178,6 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     protected var autoRemoveTarget:Boolean = false;
         
-    /**
-     * @copy spark.effects.Animate#disableConstraints
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var disableConstraints:Boolean;    
-
     /**
      * @copy spark.effects.Animate#disableLayout
      *  
@@ -456,7 +446,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // TODO (chaase): should we push this keyframe-init logic
             // into the MotionPath class instead?
             
-            var keyframes:Array = motionPaths[i].keyframes;
+            var keyframes:Vector.<Keyframe> = motionPaths[i].keyframes;
             if (!keyframes)
                 continue;
             if (interpolator)
@@ -554,7 +544,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                 MotionPath(motionPaths[i]);
             // set the first value (if invalid) to the current value
             // in the target
-            var keyframes:Array = motionPath.keyframes;
+            var keyframes:Vector.<Keyframe> = motionPath.keyframes;
             if (!keyframes || keyframes.length == 0)
                 continue;
             if (!isValidValue(keyframes[0].value))
@@ -576,7 +566,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             prevValue = keyframes[0].value;
             for (j = 1; j < keyframes.length; ++j)
             {
-                var kf:KeyFrame = KeyFrame(keyframes[j]);
+                var kf:Keyframe = Keyframe(keyframes[j]);
                 if (!isValidValue(kf.value))
                 {
                     if (isValidValue(kf.valueBy))
@@ -650,10 +640,11 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         // any startDelay) to cache constraints and disable layout. This
         // avoids problems with doing this too early and affecting other
         // effects that are running before this one.
-        if (disableConstraints)
-            cacheConstraints();
         if (disableLayout)
+        {
             setupParentLayout(false);
+            cacheConstraints();
+        }
             
         finalizeValues();
 
@@ -706,10 +697,11 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     private function animationCleanup():void
     {
-        if (disableConstraints)
-            reenableConstraints();
         if (disableLayout)
+        {
+            reenableConstraints();
             setupParentLayout(true);
+        }
     }
     
     /**
