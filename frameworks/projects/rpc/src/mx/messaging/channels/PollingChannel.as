@@ -49,6 +49,22 @@ public class PollingChannel extends Channel
 {
     //--------------------------------------------------------------------------
     //
+    // Protected Static Constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Channel config parsing constants. 
+     */
+    protected static const POLLING_ENABLED:String = "polling-enabled";
+    protected static const POLLING_INTERVAL_MILLIS:String = "polling-interval-millis";
+    protected static const POLLING_INTERVAL_LEGACY:String = "polling-interval-seconds";
+    protected static const PIGGYBACKING_ENABLED:String = "piggybacking-enabled";
+    protected static const LOGIN_AFTER_DISCONNECT:String = "login-after-disconnect";
+
+    //--------------------------------------------------------------------------
+    //
     // Constructor
     // 
     //--------------------------------------------------------------------------
@@ -134,8 +150,7 @@ public class PollingChannel extends Channel
     /**
      *  @private
      */
-    private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -174,11 +189,25 @@ public class PollingChannel extends Channel
             super.setConnected(value);
         }
     }        
-       
+
     //----------------------------------
-	//  piggybackingEnabled
-	//----------------------------------   
-      
+    //  loginAfterDisconnect
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    protected var _loginAfterDisconnect:Boolean;
+
+    mx_internal function get loginAfterDisconnect():Boolean
+    {
+        return _loginAfterDisconnect;
+    }
+
+    //----------------------------------
+    //  piggybackingEnabled
+    //----------------------------------
+
     /**
      *  @private
      */
@@ -565,22 +594,20 @@ public class PollingChannel extends Channel
      */
     protected function applyPollingSettings(settings:XML):void
     {
-        if (settings.properties.length())
-        {
-            var props:XML = settings.properties[0];
-            if (props["polling-enabled"].length())
-                internalPollingEnabled = props["polling-enabled"].toString()=="true";
-            if (props["polling-interval-millis"].length())
-                internalPollingInterval = parseInt(props["polling-interval-millis"].toString());
-            else if (props["polling-interval-seconds"].length()) // deprecated
-                internalPollingInterval = parseInt(props["polling-interval-seconds"].toString()) * 1000;
-           	
-           	if (props["piggybacking-enabled"].length())
-           	    internalPiggybackingEnabled = props["piggybacking-enabled"].toString()=="true";
-           	
-           	if (props["login-after-disconnect"].length())
-           		_loginAfterDisconnect = props["login-after-disconnect"].toString()=="true";          	
-        }
+        if (settings.properties.length() == 0)
+            return;
+
+        var props:XML = settings.properties[0];
+        if (props[POLLING_ENABLED].length() != 0)
+            internalPollingEnabled = props[POLLING_ENABLED].toString() == TRUE;
+        if (props[POLLING_INTERVAL_MILLIS].length() !=0)
+            internalPollingInterval = parseInt(props[POLLING_INTERVAL_MILLIS].toString());
+        else if (props[POLLING_INTERVAL_LEGACY].length() != 0)
+            internalPollingInterval = parseInt(props[POLLING_INTERVAL_LEGACY].toString()) * 1000;
+        if (props[PIGGYBACKING_ENABLED].length() != 0)
+            internalPiggybackingEnabled = props[PIGGYBACKING_ENABLED].toString() == TRUE;
+        if (props[LOGIN_AFTER_DISCONNECT].length() != 0)
+            _loginAfterDisconnect = props[LOGIN_AFTER_DISCONNECT].toString() == TRUE;
     }
 
     /**
