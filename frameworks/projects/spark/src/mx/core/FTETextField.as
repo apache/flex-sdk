@@ -2298,7 +2298,7 @@ public class FTETextField extends Sprite
 	private function notImplemented(name:String):String
 	{
 		// FIXME (gosmith) Make this an other RTE messages localizable.
-		return "'" + name + "' is not implemented FTETextField.";
+		return "'" + name + "' is not implemented in FTETextField.";
 	}
 	
 	/**
