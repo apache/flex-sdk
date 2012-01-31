@@ -9,6 +9,44 @@ NOTICE: Adobe permits you to use, modify, and distribute this file
 in accordance with the terms of the license agreement accompanying it.
 
 -->
+<!--- The ComboBoxGridItemEditor class defines an item renderer for use 
+      with the Spark grid controls, such as DataGrid and Grid.
+      The ComboBoxGridItemEditor  displays a drop-down list of cell values.
+      Select a value to set the new value of the cell.
+      
+      <p>The following example shows a GridColumn using the ComboBoxGridItemEditor
+      as its item editor:</p>
+      
+      <pre>
+        &lt;s:GridColumn dataField="quant" 
+            headerText="Qty"&gt;
+                &lt;s:itemEditor&gt;
+                    &lt;fx:Component&gt;
+                        &lt;s:ComboBoxGridItemEditor&gt;
+                            &lt;s:dataProvider&gt;
+                                &lt;s:ArrayList&gt;
+                                    &lt;fx:int&gt;0&lt;/fx:int&gt;
+                                    &lt;fx:int&gt;1&lt;/fx:int&gt;
+                                    &lt;fx:int&gt;2&lt;/fx:int&gt;
+                                    &lt;fx:int&gt;3&lt;/fx:int&gt;
+                                &lt;/s:ArrayList&gt;
+                            &lt;/s:dataProvider&gt;
+                        &lt;/s:ComboBoxGridItemEditor&gt;
+                    &lt;/fx:Component&gt;
+                &lt;/s:itemEditor&gt;
+        &lt;/s:GridColumn&gt;
+      </pre>
+      
+      @see spark.components.DataGrid
+      @see spark.components.Grid
+      @see spark.components.gridClasses.GridColumn
+   
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 2.5
+      @productversion Flex 4.5
+      
+-->
 <s:GridItemEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
                                   xmlns:s="library://ns.adobe.com/flex/spark" 
                                   xmlns:mx="library://ns.adobe.com/flex/mx" 
@@ -62,7 +100,12 @@ in accordance with the terms of the license agreement accompanying it.
             [Bindable("comboBoxGridItemEditorDataProviderChanged")]
             
             /**
-             *  The dataProvider for the combox box in this item editor.
+             *  The data provider for the combox box in the item editor.
+             *
+             *  @langversion 3.0
+             *  @playerversion Flash 10
+             *  @playerversion AIR 2.5
+             *  @productversion Flex 4.5
              */ 
             public function get dataProvider():IList
             {
@@ -121,15 +164,34 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Script>
 
-    <!--- Background to cover the cell that the combo box does not. -->
+    <!--- Background to cover the cell that the ComboBox control does not. 
+        
+          @langversion 3.0
+          @playerversion Flash 10
+          @playerversion AIR 2.5
+          @productversion Flex 4.5
+    -->
     <s:Rect id="bgRect" top="1" left="1" bottom="1" right="1">
         <s:fill>
-            <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
+            <!--- Defines the color of the background. 
+                @default 0xFFFFFF
+        
+                @langversion 3.0
+                @playerversion Flash 10
+                @playerversion AIR 2.5
+                @productversion Flex 4.5
+            -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
 
-    <!--- The editor's ComboBox component. -->
+    <!--- The item editor's ComboBox control. 
+        
+          @langversion 3.0
+          @playerversion Flash 10
+          @playerversion AIR 2.5
+          @productversion Flex 4.5
+    -->
     <s:ComboBox id="comboBox" width="100%" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
     
 </s:GridItemEditor>
