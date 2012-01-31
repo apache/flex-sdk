@@ -44,7 +44,8 @@ public class ScrollerLayout extends LayoutBase
     private function getScroller():Scroller
     {
         var g:Skin = target as Skin;
-        return (g) ? g.fxComponent as Scroller : null;
+        
+        return (g && ("hostComponent" in g)) ? Object(g).hostComponent as Scroller : null;
     }
     
     /**
