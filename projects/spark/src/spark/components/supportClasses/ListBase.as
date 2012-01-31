@@ -107,11 +107,14 @@ public class FxListBase extends FxDataContainer
         dataProviderChanged = true;
         doingWholesaleChanges = true;
         
+		// ensure that our listener is added before the dataGroup which adds a listener during
+		// the base class setter if the dataGroup already exists.  If the dataGroup isn't
+		// created yet, then we still be first.
+        if (value)
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+
         super.dataProvider = value;
         invalidateProperties();
-        
-        if (dataProvider)
-            dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
     }
     
     //----------------------------------
