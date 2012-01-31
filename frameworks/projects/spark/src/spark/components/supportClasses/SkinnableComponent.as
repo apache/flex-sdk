@@ -66,6 +66,13 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
 [Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
 [Exclude(name="themeColor", kind="style")]
+[Exclude(name="addChild", kind="method")]
+[Exclude(name="addChildAt", kind="method")]
+[Exclude(name="removeChild", kind="method")]
+[Exclude(name="removeChildAt", kind="method")]
+[Exclude(name="setChildIndex", kind="method")]
+[Exclude(name="swapChildren", kind="method")]
+[Exclude(name="swapChildrenAt", kind="method")]
 
 //--------------------------------------
 //  Other metadata
@@ -215,10 +222,12 @@ public class FxComponent extends UIComponent
         if (_skin)
         {
             var factory:Object = getStyle("skinFactory");
+            var newSkinClass:Class;
             
-            var newSkinClass:Class = (factory && factory is ClassFactory) ? 
-                ClassFactory(factory).generator :
-                getStyle("skinClass");
+            if (factory)
+                newSkinClass = (factory is ClassFactory) ? ClassFactory(factory).generator : null;
+            else
+                newSkinClass = getStyle("skinClass");
                 
             skipReload = newSkinClass && 
                 getQualifiedClassName(newSkinClass) == getQualifiedClassName(_skin);
