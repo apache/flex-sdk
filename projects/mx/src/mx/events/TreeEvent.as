@@ -21,6 +21,11 @@ import mx.controls.listClasses.IListItemRenderer;
  *  in tree, such as when a tree branch opens or closes.
  *
  *  @see mx.controls.Tree
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TreeEvent extends Event
 {
@@ -63,6 +68,11 @@ public class TreeEvent extends Event
      *  </table>
      *
      *  @eventType itemClose
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_CLOSE:String = "itemClose";
 
@@ -97,6 +107,11 @@ public class TreeEvent extends Event
      *  </table>
      *
      *  @eventType itemOpen
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_OPEN:String = "itemOpen";
     
@@ -138,6 +153,11 @@ public class TreeEvent extends Event
      *  </table>
      *
      *  @eventType itemOpening
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_OPENING:String = "itemOpening";
     
@@ -165,6 +185,11 @@ public class TreeEvent extends Event
      *
      *  @param triggerEvent If the node opened or closed in response to a
      *  user action, indicates the type of input action.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TreeEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = false,
@@ -192,6 +217,11 @@ public class TreeEvent extends Event
     /**
      *  Whether to animate an opening or closing operation; used for 
      *  ITEM_OPENING type events only.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var animate:Boolean;
 
@@ -203,6 +233,11 @@ public class TreeEvent extends Event
      *  Whether to dispatch an event (<code>ITEM_OPEN</code> or 
      *  <code>ITEM_CLOSE</code>) after the open or close animation 
      *  is complete. Used for ITEM_OPENING type events only.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var dispatchEvent:Boolean;
 
@@ -215,6 +250,11 @@ public class TreeEvent extends Event
      *  If you populate the Tree from XML data, access
      *  the properties for the node as
      *  <code>event.item.&#64;<i>attribute_name</i></code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var item:Object;
 
@@ -224,6 +264,11 @@ public class TreeEvent extends Event
 
     /**
      *  The ListItemRenderer for the node that closed or opened.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemRenderer:IListItemRenderer;
 
@@ -235,6 +280,11 @@ public class TreeEvent extends Event
      *  Used for an <code>ITEM_OPENING</code> type events only.
      *  Indicates whether the item 
      *  is opening <code>true</code>, or closing <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var opening:Boolean;
 
@@ -245,6 +295,11 @@ public class TreeEvent extends Event
     /**
      *  The low level MouseEvent or KeyboardEvent that triggered this
      *  event or <code>null</code> if this event was triggered programatically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var triggerEvent:Event;
 
