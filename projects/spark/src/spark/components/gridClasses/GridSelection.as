@@ -258,7 +258,7 @@ public class GridSelection
      *  the number of selected cells.</p>
      * 
      *  <p>If the <code>selectionMode</code> is <code>GridSelectionMode.NONE</code>, 
-     *  contains 0.<p>
+     *  contains 0.</p>
      *  
      *  @default 0
      * 
