@@ -146,6 +146,30 @@ public class HGroup extends Group
         horizontalLayout.variableColumnWidth = value;
     }
     
+    //----------------------------------
+    //  firstIndexInView
+    //----------------------------------
+ 
+    /**
+     * @copy flex.layout.HorizontalLayout#firstIndexInView
+     */
+    public function get firstIndexInView():int
+    {
+        return horizontalLayout.firstIndexInView;
+    }
+    
+    //----------------------------------
+    //  lastIndexInView
+    //----------------------------------
+
+    /**
+     * @copy flex.layout.HorizontalLayout#lastIndexInView
+     */
+    public function get lastIndexInView():int
+    {
+        return horizontalLayout.lastIndexInView;
+    }    
+    
 }
 
 }
