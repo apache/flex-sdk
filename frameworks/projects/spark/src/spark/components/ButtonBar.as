@@ -373,7 +373,6 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 IFocusManagerComponent(renderer).focusEnabled = false;
             if (renderer is ButtonBarButton)
                 ButtonBarButton(renderer).allowDeselection = !requireSelection;
-            updateRenderer(renderer);
         }
     }
     
