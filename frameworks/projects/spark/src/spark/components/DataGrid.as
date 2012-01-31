@@ -41,7 +41,14 @@ import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
 
 use namespace mx_internal;
-    
+ 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../styles/metadata/BasicNonInheritingTextStyles.as"
+include "../styles/metadata/BasicInheritingTextStyles.as"
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -843,6 +850,29 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        
+        if (grid)
+        {
+            const allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+            if (allStyles || styleManager.isSizeInvalidatingStyle(styleProp))
+            {  
+               grid.invalidateSize();
+               if (grid.layout)
+                    grid.layout.clearVirtualLayoutCache();               
+                if (grid.gridDimensions)
+                    grid.gridDimensions.clearTypicalCellWidthsAndHeights();                
+             }
+
+            grid.invalidateDisplayList();
+        }
+    }
+    
+    /**
+     *  @private
      *  Build in basic keyboard navigation support in Grid. The focus is on
      *  the DataGrid which means the Scroller doesn't see the Keyboard events
      *  unless the event is dispatched to it.
@@ -1339,10 +1369,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.selectAll();
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1368,10 +1395,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.removeAll();
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1434,10 +1458,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.setRow(rowIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1463,10 +1484,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.addRow(rowIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1492,10 +1510,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.removeRow(rowIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1521,10 +1536,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.setRows(rowIndex, rowCount);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1593,10 +1605,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.setCell(rowIndex, columnIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1622,10 +1631,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.addCell(rowIndex, columnIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1651,10 +1657,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             selectionChanged = gridSelection.removeCell(rowIndex, columnIndex);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
@@ -1683,10 +1686,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setCellRegion(
                 rowIndex, columnIndex, rowCount, columnCount);
             if (selectionChanged)
-            {
-                invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
         }
         
         return selectionChanged;
