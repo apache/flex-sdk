@@ -133,18 +133,38 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         return _content;
     }
     
-    public function get layout():Class
+    public function get layout():Object
     {
-        return _layoutClass;
+    	return _layout;
     }
-    
-    public function set layout(value:Class):void
+
+    // TBD: HACK for the sake of getDefinitionByName
+    private static const forceLoad0:Class = flex.layout.BasicLayout;
+    private static const forceLoad1:Class = flex.layout.HorizontalLayout;
+    private static const forceLoad2:Class = flex.layout.VerticalLayout;
+     
+    public function set layout(value:Object):void
     {
-        _layoutClass = value;
-        
+    	if (value is ILayout) {
+    		_layout = ILayout(value);
+    	    _layoutClass = null;
+    	}
+    	else if (value is String) {
+    		_layout = null;
+		    _layoutClass = flash.utils.getDefinitionByName(String(value)) as Class;
+    	}
+    	else if (value is Class) {
+    		_layout = null;
+    		_layoutClass = Class(value);
+    	}
+    	else {
+    		_layout = null;
+    		_layoutClass = null;
+    	}
         layoutChanged = true;
-        invalidateProperties();
+        invalidateProperties();    	
     }
+
 
     protected function initializeChildrenArray():void
     {   
@@ -445,8 +465,54 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             UIComponent(parent).invalidateDisplayList();
         }
     }
+	    
+    //----------------------------------
+    //  horizontal,verticalScrollPosition
+    //----------------------------------
+		
+
+    private var _horizontalScrollPosition:Number = 0;
+    private var _verticalScrollPosition:Number = 0;
+
+    private function getScrollRect():Rectangle {
+        var r:Rectangle = scrollRect;
+        return (r == null) ? new Rectangle(0,0,width,height) : r;
+    }
+
+    public function get horizontalScrollPosition():Number {
+            return _horizontalScrollPosition;
+    }
     
-        //--------------------------------------------------------------------------
+    [Bindable]
+    public function set horizontalScrollPosition(value:Number):void {
+        _horizontalScrollPosition = value;
+        var r:Rectangle = getScrollRect(); 
+        r.x = _horizontalScrollPosition; 
+        scrollRect = r;
+    }
+    
+    public function get verticalScrollPosition():Number {
+            return _verticalScrollPosition;
+    }
+    
+    [Bindable]
+    public function set verticalScrollPosition(value:Number):void {
+        _verticalScrollPosition = value;
+        var r:Rectangle = getScrollRect();
+        r.y = _verticalScrollPosition; 
+        scrollRect = r;
+    }
+    
+    
+    //----------------------------------
+    //  contentWidth,Height
+    //----------------------------------    
+    
+    [Bindable] public var contentWidth:Number;
+    [Bindable] public var contentHeight:Number;
+	
+
+    //--------------------------------------------------------------------------
     //
     //  Properties: Overriden Focus management
     //
@@ -857,19 +923,18 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     //  Layout
     //
     //--------------------------------------------------------------------------
-    
+  
     protected function initializeLayoutObject():void
     {
-        if (_layoutClass == null)
-            _layout = new BasicLayout();
-        else
-            _layout = new _layoutClass();
-        
-        _layout.target = this;
+		if (_layout == null) {
+			_layout = (_layoutClass) ? new _layoutClass() : new BasicLayout();
+		}
+        ILayout(_layout).target = this;
             
         invalidateSize();
         invalidateDisplayList();
     }
+
     
     //--------------------------------------------------------------------------
     //
