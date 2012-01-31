@@ -1679,8 +1679,7 @@ package spark.components
         
         /**
          *  Adds this row to the selection, if <code>selectionMode</code>
-         *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
-         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+         *  is <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
