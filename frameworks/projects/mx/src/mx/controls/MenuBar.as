@@ -2101,9 +2101,9 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             var found:Boolean = false;
             var count:int = 0;
             
-            // If rtl layout, need to swap LEFT for RIGHT so correct action
+            // If rtl layout, need to swap LEFT and RIGHT so correct action
             // is done.
-            var keyCode:int = mapKeycodeForLayoutDirection(event);
+            var keyCode:uint = mapKeycodeForLayoutDirection(event);
                         
             while (!found && count < barLen)
             {
