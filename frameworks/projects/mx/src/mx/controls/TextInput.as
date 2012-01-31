@@ -30,7 +30,6 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -458,17 +457,6 @@ public class TextInput extends UIComponent implements ITextInput
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            var t:String = text;
-            if (t == "")
-                t = " ";
-    
-            return (border && border is IRectangularBorder ?
-                    IRectangularBorder(border).borderMetrics.top :
-                    0)  + measureText(t).ascent;
-        }
-        
         if (!validateBaselinePosition())
             return NaN;
         
@@ -1961,8 +1949,7 @@ public class TextInput extends UIComponent implements ITextInput
             w = DEFAULT_MEASURED_MIN_WIDTH;
             h = measureText(" ").height +
                 bm.top + bm.bottom + UITextField.TEXT_HEIGHT_PADDING;
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)  
-                h += getStyle("paddingTop") + getStyle("paddingBottom");
+            h += getStyle("paddingTop") + getStyle("paddingBottom");
         }
         else
         {
@@ -1971,12 +1958,9 @@ public class TextInput extends UIComponent implements ITextInput
 
             w = lineMetrics.width + bm.left + bm.right + 8; 
             h = lineMetrics.height + bm.top + bm.bottom + UITextField.TEXT_HEIGHT_PADDING; 
-                            
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            {
-                w += getStyle("paddingLeft") + getStyle("paddingRight");
-                h += getStyle("paddingTop") + getStyle("paddingBottom");
-            }
+            
+            w += getStyle("paddingLeft") + getStyle("paddingRight");
+            h += getStyle("paddingTop") + getStyle("paddingBottom");
         }
 
         measuredWidth = Math.max(w, measuredWidth);
@@ -2018,13 +2002,10 @@ public class TextInput extends UIComponent implements ITextInput
         textField.x = bm.left;
         textField.y = bm.top;
 
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        {
-            textField.x += paddingLeft;
-            textField.y += paddingTop;
-            widthPad += paddingLeft + paddingRight; 
-            heightPad += paddingTop + paddingBottom;
-        }
+        textField.x += paddingLeft;
+        textField.y += paddingTop;
+        widthPad += paddingLeft + paddingRight; 
+        heightPad += paddingTop + paddingBottom;
         
         textField.width = Math.max(0, unscaledWidth - widthPad);
         textField.height = Math.max(0, unscaledHeight - heightPad);
@@ -2108,8 +2089,6 @@ public class TextInput extends UIComponent implements ITextInput
             textField.multiline = false;
             textField.tabEnabled = true;
             textField.wordWrap = false;
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                textField.styleName = this;
 
             textField.addEventListener(Event.CHANGE, textField_changeHandler);
             textField.addEventListener(TextEvent.TEXT_INPUT,
