@@ -150,6 +150,9 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+[AccessibilityClass(implementation="spark.accessibility.SkinnableTextBaseAccImpl")]
+
+
 /**
  *  The base class for skinnable components, such as the Spark TextInput
  *  and TextArea, that include an instance of RichEditableText in their skin
@@ -164,6 +167,18 @@ public class SkinnableTextBase extends SkinnableComponent
     implements IFocusManagerComponent, IIMESupport
 {
     include "../../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by ListBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -777,7 +792,17 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (SkinnableTextBase.createAccessibilityImplementation != null)
+            SkinnableTextBase.createAccessibilityImplementation(this);
+    }
 
+    
     /**
      *  @private
      */
