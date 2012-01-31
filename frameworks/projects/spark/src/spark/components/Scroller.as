@@ -10,18 +10,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package flex.component
+package mx.components
 {
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
 	
-import flex.core.SkinnableComponent;
-import flex.core.Group;
-import flex.intf.IViewport;
-import flex.layout.LayoutBase;
+import mx.components.Group;
+import mx.core.IViewport;
+import mx.layout.LayoutBase;
 
 import mx.events.PropertyChangeEvent;
+import mx.components.baseClasses.FxComponent;
 import mx.core.ScrollPolicy;
 import mx.managers.IFocusManagerComponent;
 
@@ -53,7 +53,7 @@ import mx.managers.IFocusManagerComponent;
  *  </p>
  */
 
-public class Scroller extends SkinnableComponent implements IFocusManagerComponent
+public class FxScroller extends FxComponent implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
@@ -66,7 +66,7 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
     /**
      * @private
      */
-	public function Scroller()
+	public function FxScroller()
 	{
 		super();
 	}
@@ -91,14 +91,14 @@ public class Scroller extends SkinnableComponent implements IFocusManagerCompone
     //---------------------------------- 
     
     [SkinPart]
-    public var horizontalScrollBar:HScrollBar;
+    public var horizontalScrollBar:FxHScrollBar;
     
     //----------------------------------
     //  verticalScrollBar
     //---------------------------------- 
     
     [SkinPart]
-    public var verticalScrollBar:VScrollBar;
+    public var verticalScrollBar:FxVScrollBar;
     
     //----------------------------------
     //  viewport - default property
