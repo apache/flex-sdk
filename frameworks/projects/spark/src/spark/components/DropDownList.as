@@ -23,6 +23,22 @@ Keyboard Interaction
 - FxList current dispatches selectionChanged on arrowUp/Down. Should we subclass FxList
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
+TODO List
+
+- finish collection_changeHandler
+- event dispatching
+- prompt
+- implicitSelectedIndex
+- expose List.layout?
+- pass styles to dropDown
+- propagate List events
+- Handle stage resize, focus in/out
+- add baseline support
+- add enabled/disabled
+- Add type assist
+- Add typicalItem support for measuredSize (lower priority) 
+- Change button to be a ToggleButton so we stay down when dropdown is open
+
 *  
 
 *  @langversion 3.0
@@ -46,8 +62,17 @@ import mx.collections.IList;
 import mx.components.baseClasses.DropDownBase;
 import mx.components.baseClasses.FxListBase;
 import mx.core.IFactory;
+import mx.core.mx_internal;
 import mx.events.IndexChangedEvent;
 import mx.graphics.baseClasses.TextGraphicElement;
+import mx.events.CollectionEvent;
+import mx.collections.ListCollectionView;
+import mx.collections.CursorBookmark;
+import mx.events.FlexEvent;
+import mx.collections.ICollectionView;
+import mx.events.CollectionEventKind;
+import mx.collections.IViewCursor;
+import mx.utils.LabelUtil;
 
 /**
  *  Dispatched when the FxComboBox contents changes as a result of user
@@ -120,11 +145,44 @@ public class DropDownList extends DropDownBase
 	
 	//--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+	 /**
+     *  @private
+     *  A flag indicating that selection has changed
+     */
+    private var selectionChanged:Boolean = false;
+    private var labelChanged:Boolean = false;
+	private const PAGE_SIZE:int = 5;
+	
+	//--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
 	
+	//----------------------------------
+    //  collection
+    //----------------------------------
+	
+	/**
+     *  The ICollectionView of items this component displays.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected var collection:ICollectionView;
+
+	//----------------------------------
+    //  dataProvider
+    //----------------------------------
+	
 	// TODO (jszeto) Add logic to handle the IList changed events
+	
+	private var dataProviderChanged:Boolean = false;
 	private var _dataProvider:IList;
 	
 	/**
@@ -157,6 +215,22 @@ public class DropDownList extends DropDownBase
 		if (_dataProvider != value)
 		{
 			_dataProvider = value;
+			
+			if (_dataProvider)
+			{
+				// TODO (jszeto) Change to match FxList implementation
+				collection = new ListCollectionView(IList(value));
+				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collection_changeHandler, false, 0, true);
+				iterator = collection.createCursor();
+				dataProviderChanged = true;		
+				
+				var event:CollectionEvent =
+			            new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+		        event.kind = CollectionEventKind.RESET;
+		        collection_changeHandler(event);
+		  	}
+		  	
+		  	invalidateProperties();
 		}
 	}
 	
@@ -191,15 +265,61 @@ public class DropDownList extends DropDownBase
     }
     
     //----------------------------------
+    //  itemRendererFunction
+    //----------------------------------
+    
+    private var _itemRendererFunction:Function;
+    
+    /**
+     *  @copy mx.components.DataGroup#itemRendererFunction
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get itemRendererFunction():Function
+    {
+        return _itemRendererFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set itemRendererFunction(value:Function):void
+    {
+        if (value != _itemRendererFunction)
+        {
+        	_itemRendererFunction = value;
+        }
+    }
+    
+    //----------------------------------
+    //  iterator
+    //----------------------------------
+    
+    /**
+     *  The main IViewCursor used to fetch items from the
+     *  dataProvider and pass the items to the renderers.
+     *  At the end of any sequence of code, it must always be positioned
+     *  at the topmost visible item on screen.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected var iterator:IViewCursor;
+    
+    //----------------------------------
     //  labelField
     //----------------------------------
-   	private var labelFunctionChanged:Boolean;
-	private var _labelField:String = ""; 
+	private var _labelField:String = "label"; 
    
     /**
      *  The name of the field in the data provider items to display as the label.
      
-     * @default null
+     * @default "label"
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -216,7 +336,7 @@ public class DropDownList extends DropDownBase
     	if (value != _labelField)
     	{
     		_labelField = value;
-    		labelFunctionChanged = true;
+    		labelChanged = true;
     		invalidateProperties();
     	}
     }
@@ -252,7 +372,7 @@ public class DropDownList extends DropDownBase
     	if (value != _labelFunction)
     	{
     		_labelFunction = value;
-    		labelFunctionChanged = true;
+    		labelChanged = true;
     		invalidateProperties();
     	}
     }
@@ -297,10 +417,11 @@ public class DropDownList extends DropDownBase
     //----------------------------------
     
     private var _selectedIndex:int = -1;
-    private var selectedIndexChanged:Boolean = true;
+    private var selectedIndexChanged:Boolean = false;
     
     [Bindable("change")]
-    
+    [Bindable("collectionChange")]
+    [Bindable("valueCommit")]
      /**
      *  The index in the data provider of the selected item.
      *  If there is a <code>prompt</code> property, the <code>selectedIndex</code>
@@ -325,24 +446,58 @@ public class DropDownList extends DropDownBase
         return _selectedIndex;
     }
     
+    /**
+     *  @private
+     */  
     public function set selectedIndex(value:int):void
     {
-        if (value == _selectedIndex)
-            return;
+    	// TODO (jszeto) Change selectedIndex/Item to match FxListBase implementation
+    	// We want the selectedIndex to be committed as soon as possible. 
+    	// If we have a collection, then update the selectedIndex
+    	 
+    	_selectedIndex = value;
+    	if (value == -1)
+        {
+            _selectedItem = null;
+        }
+    	
+    	//2 code paths: one for before collection, one after
+        if (!collection || collection.length == 0)
+        {
+            selectedIndexChanged = true;
+            invalidateProperties();
+        }
+        else
+        {
+            if (value != -1)
+            {
+                value = Math.min(value, collection.length - 1);
+                var bookmark:CursorBookmark = iterator.bookmark;
+                var len:int = value;
+                iterator.seek(CursorBookmark.FIRST, len);
+                var data:Object = iterator.current;
+                iterator.seek(bookmark, 0);
+                _selectedIndex = value;
+                _selectedItem = data;
+                labelChanged = true;
+                invalidateProperties();
+            }
+        }
         
-        _selectedIndex = value;
-        selectedIndexChanged = true;
-        invalidateProperties();
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
     //----------------------------------
     //  selectedItem
     //----------------------------------
 
+	private var selectedItemChanged:Boolean = false;
+
     private var _selectedItem:Object;
 
 	[Bindable("change")]
-
+    [Bindable("collectionChange")]
+    [Bindable("valueCommit")]
     /**
      *  The item in the data provider at the selectedIndex.
      *
@@ -371,17 +526,49 @@ public class DropDownList extends DropDownBase
     public function get selectedItem():Object
     {
     	// TODO (jszeto) Return _selectedItem first if it hasn't been committed yet
-        return dataProvider.getItemAt(selectedIndex);
+        return _selectedItem;
     }
 
     /**
      *  @private
      */
     public function set selectedItem(data:Object):void
-    {
-    	// TODO (jszeto) Tie this in with selectedIndex
-        _selectedItem = data;
-        invalidateProperties();
+    {	
+        //2 code paths: one for before collection, one after
+        if (!collection || collection.length == 0)
+        {
+          	_selectedItem = data;
+            selectedItemChanged = true;
+            invalidateProperties();
+        }
+		else
+		{
+	        var found:Boolean = false;
+	        var listCursor:IViewCursor = collection.createCursor();
+	        var i:int = 0;
+	        do
+	        {
+	            if (data == listCursor.current)
+	            {
+	                _selectedIndex = i;
+	                _selectedItem = data;
+	                selectionChanged = true;
+	                found = true;
+	                break;
+	            }
+	            i++;
+	        }
+	        while (listCursor.moveNext());
+	
+	        if (!found)
+	        {
+	            selectedIndex = -1;
+	            _selectedItem = null;
+	        }
+	        
+	        labelChanged = true;
+	        invalidateProperties();
+		}        
     }
     
  	//--------------------------------------------------------------------------
@@ -389,15 +576,7 @@ public class DropDownList extends DropDownBase
     //  Methods
     //
     //--------------------------------------------------------------------------   
-    /**
-	 *  @private
-	 */
-    private function applyDataToLabelElement(data:Object):void
-    {
-    	// TODO!!! Call FxList.itemToData with labelField, labelFunction and data. 
-    	if (labelElement)
-    		labelElement.text = data.toString();
-    }
+
     
     //--------------------------------------------------------------------------
     //
@@ -414,29 +593,37 @@ public class DropDownList extends DropDownBase
     {
         super.commitProperties();
         
-        if (selectedIndexChanged)
+		if (selectedItemChanged)
         {
-            // TODO: Currently hard-coded to require a selection. This should be fixed.
-            if (selectedIndex == -1)
-            {
-                selectedIndex = 0;
-            }
-            
-            if (dataProvider)
-                applyDataToLabelElement(dataProvider.getItemAt(selectedIndex));
+        	// Retry applying the value in case the dataProvider is set
+            selectedItem = selectedItem;
+            selectedItemChanged = false;
             selectedIndexChanged = false;
-            
-            dispatchEvent(new Event("change"));
-        }
-        
-        if (labelFunctionChanged)
-        {
-        	// TODO!! Update the label element 
-        	labelFunctionChanged = false;
-        	applyDataToLabelElement(dataProvider.getItemAt(selectedIndex));
         }
 
+        if (selectedIndexChanged)
+        {
+        	// Retry applying the value in case the dataProvider is set
+            selectedIndex = selectedIndex;
+            selectedIndexChanged = false;
+        }   
+        
+        if (labelChanged)
+		{
+			labelChanged = false;
+			if (labelElement)
+	    	{
+	    		if (selectedItem)
+	    			labelElement.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+	    		else
+	    			labelElement.text = "";
+	    	}
+		}
+        
+        // TODO (jszeto) Add call to valueCommit after selection changed
+
     }
+                                                
     
     /**
 	 *  @private
@@ -445,19 +632,37 @@ public class DropDownList extends DropDownBase
     {
     	super.initializeDropDown();
     	
+    	// TODO (jszeto) Look at FxDataContainer to see pattern for passing
+    	// these values
 		dropDown.dataProvider = dataProvider;
 		dropDown.selectedIndex = selectedIndex;
+		dropDown.labelField = labelField;
+		dropDown.labelFunction = labelFunction;
+		
 		if (itemRenderer)
 			dropDown.itemRenderer = itemRenderer;
+	
+		if (itemRendererFunction)
+			dropDown.itemRendererFunction = itemRendererFunction;
 	
 		// TODO!! We force validation because when we set the selectedIndex, 
 		// the list doesn't commit the value until it calls commitProperties. 
 		// By this time, we are already listening for selection changed events.
-		dropDown.validateNow();
+		//dropDown.validateNow();
+		/*dropDown.validateProperties();
+		dropDown.validateSize();*/
 	
 		// Wait for creationComplete before listening to selectionChanged events from the dropDown. 
 		//dropDown.addEventListener("creationComplete", dropDown_creationCompleteHandler);
-		dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
+		//dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
+    }
+    
+    /**
+     *  @private 
+     */ 
+    override protected function addListenersToDropDown():void
+    {
+    	dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
     }
        
     /**
@@ -467,8 +672,21 @@ public class DropDownList extends DropDownBase
     {
     	super.partAdded(partName, instance);
  
- 		if (partName == "dropDown")
+ 		if (instance == dropDown)
  			dropDownInstance = dropDown;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        if (instance == dropDown)
+    	{
+    		dropDownInstance = null;
+    	}
+        
+        super.partRemoved(partName, instance);
     }
     
     /**
@@ -486,38 +704,110 @@ public class DropDownList extends DropDownBase
 	 */
     override protected function commitDropDownData():void
     {
-    	selectedIndex = dropDown.selectedIndex;
-        applyDataToLabelElement(dataProvider.getItemAt(selectedIndex));
+    	if (dropDown.selectedIndex != selectedIndex)
+    	{
+    		selectedIndex = dropDown.selectedIndex;
+    		dispatchEvent(new Event(Event.CHANGE));
+    	}
     }
-    
+        
+    /**
+	 *  @private
+	 */
 	override protected function keyDownHandler(event:KeyboardEvent) : void
 	{
+
+		//trace("DropDownList.keyDownHandler key",event.keyCode);
 		if(!enabled)
             return;
-            
-        if (event.keyCode == Keyboard.ENTER)
+
+		super.keyDownHandler(event);
+        
+        if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
         {
-            if (isOpen)
-            {
-            	// Close the dropDown and eat the event
-                closeDropDown(true);
-                event.stopPropagation();
-            }
+            openDropDown();
+            event.stopPropagation();
+        }
+        else if (event.ctrlKey && event.keyCode == Keyboard.UP)
+        {
+            closeDropDown(true);
+            event.stopPropagation();
+        }    
+        else if (event.keyCode == Keyboard.ENTER)
+        {
+        	// Close the dropDown and eat the event
+            closeDropDown(true);
+            event.stopPropagation();
         }
         else if (event.keyCode == Keyboard.ESCAPE)
         {
-            if (isOpen)
-            {
-            	// Close the dropDown and eat the event
-                closeDropDown(false);
-                event.stopPropagation();
-            }
+        	// Close the dropDown and eat the event
+            closeDropDown(false);
+            event.stopPropagation();
         }
         else if (event.keyCode == Keyboard.UP ||
                 event.keyCode == Keyboard.DOWN ||
+                event.keyCode == Keyboard.LEFT ||
+                event.keyCode == Keyboard.RIGHT ||
                 event.keyCode == Keyboard.PAGE_UP ||
                 event.keyCode == Keyboard.PAGE_DOWN)
         {
+        	//trace("DropDownList.keyDownHandler arrow key isOpen",isOpen);
+        	
+        	if (isOpen)
+        	{
+        		// TODO (jszeto) Clean this up once we have FxList support for 
+        		// not sending selection_change on keydown.
+        		inKeyNavigation = true;
+        		// TODO (jszeto) Clean this up when SDK-19738 is fixed
+        		if (dropDown.numChildren > 0)
+        			dropDown.getChildAt(0).dispatchEvent(event.clone());
+        			
+        		inKeyNavigation = false;	
+        	}
+        	else
+        	{
+        		var nextSelectedIndex:int = selectedIndex;
+        		if (event.keyCode == Keyboard.UP)
+        		{
+        			nextSelectedIndex = Math.max(0, nextSelectedIndex - 1);
+        		}
+        		else if (event.keyCode == Keyboard.DOWN)
+        		{
+        			nextSelectedIndex = Math.min(collection.length - 1, nextSelectedIndex + 1); 
+        		}
+        		else if (event.keyCode == Keyboard.PAGE_UP)
+        		{
+        			nextSelectedIndex = Math.max(0, nextSelectedIndex - PAGE_SIZE);
+        		}
+        		else if (event.keyCode == Keyboard.PAGE_DOWN)
+        		{
+        			nextSelectedIndex = Math.min(collection.length - 1, nextSelectedIndex + PAGE_SIZE); 
+        		}
+        		
+        		if (nextSelectedIndex != selectedIndex)
+        		{
+	        		selectedIndex = nextSelectedIndex;
+        		
+        			dispatchEvent(new Event(Event.CHANGE));
+        		}
+        	}
+        	
+        	
+        	
+        	
+        	/*var e:KeyboardEvent = event.clone();
+        	e.eventPhase = EventPhase.CAPTURING_PHASE;*/
+        	
+        	/*dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
+        	
+        	if (dropDown.numChildren > 0)
+        		dropDown.getChildAt(0).dispatchEvent(event.clone());
+        	
+        	dropDown.removeEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);*/
+        	
+        	
+        	
             /*var oldIndex:int = selectedIndex;
 
 			
@@ -535,9 +825,6 @@ public class DropDownList extends DropDownBase
             bInKeyDown = false;*/
 
         }  
-		
-		// Call super at the end because we might override its functionality 
-		super.keyDownHandler(event);
 	}
     
     //--------------------------------------------------------------------------
@@ -559,6 +846,84 @@ public class DropDownList extends DropDownBase
     	//trace("DropDownList.dropDown_selectionChangedHandler [CLOSE]");
         
         closeDropDown(true);
+    }
+    
+    /**
+	 *  Called when the dataProvider changes 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */ 
+    protected function collection_changeHandler(event:CollectionEvent):void
+    {
+    	// TODO (jszeto) Change this to use FxListBase implementation
+    	
+        var requiresValueCommit:Boolean = false;
+
+        if (event.kind == CollectionEventKind.ADD)
+        {
+        	// Don't send a value commit. selectedItem remains the same
+            if (selectedIndex >= event.location)
+                _selectedIndex++;
+        }
+        else if (event.kind == CollectionEventKind.REMOVE)
+        {
+            for (var i:int = 0; i < event.items.length; i++)
+            {
+            	// TODO (jszeto) Do we need to use UID instead?
+                //var uid:String = itemToUID(ce.items[i]);
+                if (selectedItem == event.items[i])
+                {
+                    selectionChanged = true;
+                }
+            }
+            if (selectionChanged)
+            {
+                if (_selectedIndex >= collection.length)
+                    _selectedIndex = collection.length - 1;
+
+                selectedIndexChanged = true;
+                requiresValueCommit = true;
+                invalidateProperties();
+            }
+            else if (selectedIndex >= event.location)
+            {
+                _selectedIndex--;
+                selectedIndexChanged = true;
+                requiresValueCommit = true;
+                invalidateProperties();
+            }
+        
+        }
+        else if (event.kind == CollectionEventKind.REFRESH)
+        {
+            selectedItemChanged = true;
+            // Sorting always changes the selection array
+            requiresValueCommit = true;
+            invalidateProperties();
+        }
+        else if (event.kind == CollectionEventKind.UPDATE)
+        {
+            if (event.location == selectedIndex ||
+                event.items[0].source == selectedItem)
+            {
+            	selectedItem = event.items[0].source;
+            }
+        }
+        else if (event.kind == CollectionEventKind.RESET)
+        {
+           /* collectionChanged = true;
+            if (!selectedIndexChanged && !selectedItemChanged)
+                selectedIndex = prompt ? -1 : 0;
+            invalidateProperties();*/
+            if (!selectedIndexChanged && !selectedItemChanged)
+            	selectedIndex = 0;
+        }
+        
+        if (requiresValueCommit)
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
     /**
