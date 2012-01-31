@@ -149,7 +149,7 @@ import spark.events.TrackBaseEvent;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;TrackBase
+ *  &lt;s:TrackBase
  *    <strong>Styles</strong>
  *    slideDuration="300"
  *
