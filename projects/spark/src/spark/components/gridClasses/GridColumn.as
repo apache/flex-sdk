@@ -708,14 +708,20 @@ public class GridColumn extends EventDispatcher
      *  @private
      *  Common logic for itemToLabel(), dataTipToLabel().   Logically this code is
      *  similar to (not the same as) LabelUtil.itemToLabel().
+     *  This function will pass the item and the column, if provided, to the labelFunction.
      */
-    mx_internal function itemToString(item:Object, labelPath:Array, labelFunction:Function):String
+    mx_internal static function itemToString(item:Object, labelPath:Array, labelFunction:Function, column:GridColumn = null):String
     {
         if (!item)
             return ERROR_TEXT;
         
         if (labelFunction != null)
-            return labelFunction(item, this);
+        {
+            if (column != null)
+                return labelFunction(item, column);
+            else
+                return labelFunction(item);
+        }
         
         try 
         {
@@ -753,7 +759,7 @@ public class GridColumn extends EventDispatcher
      */
     public function itemToLabel(item:Object):String
     {
-        return itemToString(item, dataFieldPath, labelFunction);
+        return GridColumn.itemToString(item, dataFieldPath, labelFunction, this);
     }
 
     /**
