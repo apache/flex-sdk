@@ -43,7 +43,7 @@ import flash.utils.Timer;
  *    the minimum range value and the maximum range value.</li>
  *  </ul>
  */
-public class ScrollBar extends Range
+public class ScrollBar extends TrackBase
 {
     include "../core/Version.as";
 
@@ -81,48 +81,26 @@ public class ScrollBar extends Range
     [SkinPart(required="false")]
     
     /**
-     * <code>upButton</code> is an optional SkinPart that defines a button that, when 
-     * pressed, will step the scrollbar "up", which is equivalent to a decreasing step
-     * in the <code>value</code> property.
+     *  <code>decrementButton</code> is an optional SkinPart that defines a button 
+     *  that, when pressed, will step the scrollbar "up", which is equivalent 
+     *  to a decreasing step in the <code>value</code> property.
      */
-    public var upButton:Button;
+    public var decrementButton:Button;
     
     [SkinPart(required="false")]
     
     /**
-     * <code>downButton</code> is an optional SkinPart that defines a button that, when 
-     * pressed, will step the scrollbar "down", which is equivalent to a increasing step
-     * in the <code>value</code> property.
+     *  <code>incrementButton</code> is an optional SkinPart that defines a button 
+     *  that, when pressed, will step the scrollbar "down", which is equivalent
+     *  to a increasing step in the <code>value</code> property.
      */
-    public var downButton:Button;
-    
-    [SkinPart]
-    
-    /**
-     * <code>thumb</code> is a SkinPart that defines a button that can be dragged on the track
-     * to increase or decrease the scrollbar's <code>value</code> property. Updates
-     * to the <code>value</code> through other means will automatically
-     * update the position of the thumb with respect to the track.
-     */
-    public var thumb:Button; 
-    
-    [SkinPart]
-    
-    /**
-     * <code>track</code> is a SkinPart that defines a button that, when 
-     * pressed, will page the scrollbar.
-     */
-    public var track:Button; 
+    public var incrementButton:Button;
     
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    // TODO: transient?
-    // Holds previous thumb location during thumb drags
-    private var prevValue:Number;
 
     // TODO: transient?    
     // Direction indicator for current track-scrolling operations
@@ -141,43 +119,17 @@ public class ScrollBar extends Range
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties
+    //  Overridden properties: Range
     //
     //--------------------------------------------------------------------------
     
-    /**
-     * Enable/disable this component. This also enables/disables any of the skin parts
-     * for this component.
-     */
-    override public function set enabled(value:Boolean):void
+    override public function set valueInterval(value:Number):void
     {
-        super.enabled = value;
-        enableSkinParts(value);
+        super.valueInterval = value;
+        
+        // setting valueInterval may change the pageSize
+        pageSizeChanged = true;
     }
-    
-    override public function set maximum(value:Number):void
-    {
-        super.maximum = value;
-        invalidateDisplayList();
-    }
-
-    override public function set minimum(value:Number):void
-    {
-        super.minimum = value;
-        invalidateDisplayList();
-    }
-    
-    /**
-     * Handle changes to the value property, which affects the position of
-     * the thumb on the track.
-     */ 
-    override public function set value(newValue:Number):void
-    {
-        super.value = newValue;
-        invalidateDisplayList();
-    }
-
-
 
     //--------------------------------------------------------------------------
     //
@@ -185,24 +137,35 @@ public class ScrollBar extends Range
     //
     //--------------------------------------------------------------------------
     
-    // Implement thumbSize property as an overridable setter/getter so that
-    // subclasses can modify the size as necessary.
-    private var _thumbSize:Number;
-    
+    //---------------------------------
+    // pageSize
+    //--------------------------------- 
+
+    private var _pageSize:Number = 20;
+
+    private var pageSizeChanged:Boolean = false;
+
     /**
-     * Subclasses may choose to override this method to constrain the size
-     * within certain limits. For example, a vertically oriented scrollbar
-     * may choose to constrain the size to be at least as high as the 
-     * <code>minHeight</code> of the skin button.
+     *  Amount of change in <code>value</code> when
+     *  the range is paged. Affects the thumb size.
+     *
+     *  @default 20
      */
-    protected function get thumbSize():Number
+    public function get pageSize():Number
     {
-        return _thumbSize;
+        return _pageSize;
     }
-    
-    protected function set thumbSize(size:Number):void
+
+    public function set pageSize(value:Number):void
     {
-        _thumbSize = size;
+        if (value == _pageSize)
+            return;
+            
+        _pageSize = value;
+        pageSizeChanged = true;
+        
+        invalidateProperties();
+        invalidateDisplayList();
     }
     
     //--------------------------------------------------------------------------
@@ -210,287 +173,176 @@ public class ScrollBar extends Range
     // Methods
     //
     //--------------------------------------------------------------------------
-        
-    /**
-     * Add behaviors associated with our skin. For example, we add listeners
-     * for various events to the skin parts here.
-     */
-    override protected function attachBehaviors():void
-    {
-        super.attachBehaviors();
-        
-        if (upButton)
-        {
-            upButton.addEventListener("buttonDown", upButton_buttonDownHandler);
-            upButton.autoRepeat = true;
-        }
-        if (downButton)
-        {
-            downButton.addEventListener("buttonDown", downButton_buttonDownHandler);
-            downButton.autoRepeat = true;
-        }
-        
-        thumb.stickyHighlighting = true;
-        thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-        track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
-        track.addEventListener(MouseEvent.ROLL_OVER, track_rollOverHandler);
-        track.addEventListener(MouseEvent.ROLL_OUT, track_rollOutHandler);
-        
-        skinObject.addEventListener("updateComplete", skin_updateCompleteHandler);
-        
-        enableSkinParts(enabled);
-        calculateThumbSize();
-        calculateThumbPosition(); 
-    }
-    
-    /**
-     * Make the skins reflect the enabled state of the scrollbar
-     */
-    protected function enableSkinParts(value:Boolean):void
-    {
-        if (thumb)
-            thumb.enabled = value;
-        if (upButton)
-            upButton.enabled = value;
-        if (downButton)
-            downButton.enabled = value;
-        if (track)
-            track.enabled = value;
-    }
-    
-    /**
-     * Remove the behaviors associated with our skin. For example, listeners
-     * for events on skin parts should be removed here.
-     */
-    override protected function removeBehaviors():void
-    {
-        if (upButton)
-            upButton.removeEventListener("buttonDown", 
-                                         upButton_buttonDownHandler);
-        if (downButton)
-            downButton.removeEventListener("buttonDown", 
-                                           downButton_buttonDownHandler);
 
-        thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-        track.removeEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
-        track.removeEventListener(MouseEvent.ROLL_OVER, track_rollOverHandler);
-        track.removeEventListener(MouseEvent.ROLL_OUT, track_rollOutHandler);
-        
-        skinObject.removeEventListener("updateComplete", skin_updateCompleteHandler);
-    }
-    
     /**
-     * Utility function to handle positioning the thumb on the scrollbar,
-     * given the current range value.
+     *  @private
      */
-    protected function calculateThumbPosition():void
+    override protected function commitProperties():void
     {
-        // To calculate the thumb position, we first calculate the 
-        // thumb size, based on the range, page size, and track size.
-        // The thumb position on the track is based on the current
-        // scrolling fraction and the thumb and track size.
-        var range:Number = Math.max(1, maximum - minimum);        
-        var thumbPos:Number = 
-            (trackSize - thumbSize) * (value - minimum) / range;
+        super.commitProperties();
+        
+        if (pageSizeChanged)
+        {
+            if (valueInterval != 0)
+                _pageSize = nearestValidInterval(_pageSize, valueInterval);
             
-        // Defer to subclasses to actually position the thumb; this is
-        // completely dependent upon scrollbar orientation and shape
-        positionThumb(thumbPos);
+            pageSizeChanged = false;
+        }
     }
     
     /**
-     * This method positions and sizes the thumb button correctly, given
-     * the position and sizing arguments. Subclasses should override this
-     * method to position the thumb appropriately for their situation.
-     */
-    protected function positionThumb(thumbPos:Number):void {}
+     *  @private
+     */    
+    override protected function partAdded(partName:String, instance:*):void
+    {
+        super.partAdded(partName, instance);
+        
+        if (instance == decrementButton)
+        {
+            decrementButton.addEventListener("buttonDown",
+                                            decrementButton_buttonDownHandler);
+            decrementButton.autoRepeat = true;
+        }
+        else if (instance == incrementButton)
+        {
+            incrementButton.addEventListener("buttonDown",
+                                            incrementButton_buttonDownHandler);
+            incrementButton.autoRepeat = true;
+        }
+        else if (instance == track)
+        {
+            track.addEventListener(MouseEvent.ROLL_OVER,
+                                   track_rollOverHandler);
+            track.addEventListener(MouseEvent.ROLL_OUT,
+                                   track_rollOutHandler);
+        }
+    }
 
     /**
-     * Utility method which returns the range value for a given
-     * position on the track.
+     *  @private
+     */    
+    override protected function partRemoved(partName:String, instance:*):void
+    {
+        super.partRemoved(partName, instance);
+        
+        if (instance == decrementButton)
+        {
+            decrementButton.removeEventListener("buttonDown",
+                                            decrementButton_buttonDownHandler);
+        }
+        else if (instance == incrementButton)
+        {
+            incrementButton.removeEventListener("buttonDown",
+                                            incrementButton_buttonDownHandler);
+        }
+        else if (instance == track)
+        {
+            track.removeEventListener(MouseEvent.ROLL_OVER,
+                                      track_rollOverHandler);
+            track.removeEventListener(MouseEvent.ROLL_OUT, 
+                                      track_rollOutHandler);
+        }
+    }
+
+    /**
+     *  Make the skins reflect the enabled state of the ScrollBar.
      */
-    protected function valueFromPosition(position:Number):Number
+    override protected function enableSkinParts(value:Boolean):void
+    {
+        super.enableSkinParts(value);
+        
+        if (decrementButton)
+            decrementButton.enabled = value;
+        if (incrementButton)
+            incrementButton.enabled = value;
+    }
+
+    /**
+     *  Pages the <code>value</code> up or down.
+     *
+     *  @param increase Whether the paging action increases or
+     *  decreases <code>value</code>.
+     */
+    public function page(increase:Boolean = true):void
+    {
+        if (increase)
+            setValue(nearestValidValue(value + pageSize, pageSize));
+        else
+            setValue(nearestValidValue(value - pageSize, pageSize));
+    }
+
+    /**
+     *  This utility method calculates an appropriate size for
+     *  the thumb, given the current range, pageSize, and
+     *  trackSize settings.
+     */
+    override protected function calculateThumbSize():Number
     {
         var range:Number = maximum - minimum;
-        var visibleTrack:Number = Math.max(1, trackSize - thumbSize);
-        var val:Number = minimum + range * (position / visibleTrack);
-        return val;
-    }
-    
-    /**
-     * This method returns the size of the scrollbar's track. Subclasses need
-     * to override this method to return an appropriate value. Note that this
-     * number can represent any units, but those units must be consistent with
-     * the units for the thumbSize property and the values returned by
-     * getScrollPosition.
-     */
-    protected function get trackSize():Number
-    {
-        return 0;
-    }
-    
-    /**
-     * This utility method calculates an appropriate size for the thumb
-     * button, given the current range, pageSize, and trackSize settings.
-     */
-    protected function calculateThumbSize():void
-    {
-        var range:Number = Math.max(1, (maximum - minimum));
-        thumbSize = Math.round(Math.min(1, pageSize / range) * trackSize);
+        
+        // Thumb takes up entire track.
+        if (range == 0)
+            return trackSize;
+
+        return Math.min((pageSize / range) * trackSize, trackSize);
     }
 
-    /**
-     * Calculate thumb position and size on track according to data which
-     * has changed since the last updateDisplayList() call
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        calculateThumbSize();
-        calculateThumbPosition();
-    }
-    
     //--------------------------------------------------------------------------
     // 
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-    
+
     //---------------------------------
     // Mouse up/down handlers
     //---------------------------------
      
     /**
-     * Handle a click on the up button of the scroll bar. This should
-     * up one step.
+     *  Handle a click on the up button of the scroll bar. This
+     *  should up one step.
      */
-    protected function upButton_buttonDownHandler(event:Event):void
+    protected function decrementButton_buttonDownHandler(event:Event):void
     {
-        step(false); // up
-    }
-    
-    /**
-     * Handle a click on the down button of the scroll bar. This should
-     * down one step.
-     */
-    protected function downButton_buttonDownHandler(event:Event):void
-    {
-        step(true); // down
-    }
-
-    //---------------------------------
-    // Thumb dragging handlers
-    //---------------------------------
-    
-    /**
-    * Handle mouse-down events on the scroll thumb.
-    */
-    protected function thumb_mouseDownHandler(event:MouseEvent):void
-    {
-        // TODO (chaase): We might want a different event mechanism eventually
-        // which would push this enabled check into the child/skin components
-        if (!enabled)
-            return;
-            
-        addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
-                stage_mouseMoveHandler);
-        addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
-                stage_mouseUpHandler);
-                            
-        // Record the location where this mouse-down event occurred; we will
-        // use this in later drag operations to determine how much to move the
-        // thumb button
-        var pt:Point = new Point(event.stageX, event.stageY);
-        pt = globalToLocal(pt);
-        var position:Number = getScrollPosition(pt.x, pt.y);
-        prevValue = valueFromPosition(position);
-    }
-
-    /**
-    * @private
-    * Capture mouse-move events on the thumb anywhere on the stage
-    */
-    private function stage_mouseMoveHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        system_mouseMoveHandler(event);
-    }
-    
-    /**
-    * @private
-    * Capture mouse-move events anywhere on or off the stage.
-    * We calculate the delta between the current location and the past
-    * location during this drag and move the thumb by that amount.
-    */
-    private function system_mouseMoveHandler(event:MouseEvent):void
-    {
-        var pt:Point = new Point(event.stageX, event.stageY);
-        pt = globalToLocal(pt);
-        var tempPosition:Number = getScrollPosition(pt.x, pt.y);
-        var newValue:Number = valueFromPosition(tempPosition);
-        var delta:Number = newValue - prevValue;
-        var tempValue:Number = value + delta;
-        // Clamp the move to lie within the range
-        // and set the scroll fraction accordingly
-        if (tempValue < minimum)
-        {
-            newValue += (minimum - tempValue);
-            tempValue = minimum;
-        } 
-        else if (tempValue > maximum)
-        {
-            newValue -= (tempValue - maximum);
-            tempValue = maximum;
-        }
-        value = tempValue;
-        prevValue = newValue;
+        var oldValue:Number = value;
         
-        // Force the visual update now to make scrolling smooth
-        event.updateAfterEvent();
+        step(false); // up
+        
+        if (value != oldValue)
+        {
+            positionThumb(valueToPosition(value));
+            dispatchEvent(new Event("change"));
+        }
     }
     
     /**
-    * @private
-    * Handle mouse-up events anywhere on the stage
-    */
-    private function stage_mouseUpHandler(event:MouseEvent):void
+     *  Handle a click on the down button of the scroll bar. This
+     *  should down one step.
+     */
+    protected function incrementButton_buttonDownHandler(event:Event):void
     {
-        if (event.target != stage)
-            return;
-
-        system_mouseUpHandler(event);
-    }
-
-    /**
-    * @private
-    * Handle mouse-up events anywhere on or off the stage. When we receive
-    * a mouse-up event for the thumb button, we remove our event handlers
-    * for everything except mouse-down.
-    */
-    private function system_mouseUpHandler(event:MouseEvent):void
-    {   
-        removeSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
-                stage_mouseMoveHandler);
-        removeSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
-                stage_mouseUpHandler);
-    }
-    
+        var oldValue:Number = value;
+        
+        step(true); // down
+        
+        if (value != oldValue)
+        {
+            positionThumb(valueToPosition(value));
+            dispatchEvent(new Event("change"));
+        }
+    }    
     
     //---------------------------------
     // Track dragging handlers
     //---------------------------------
     
     /**
-     * Handle mouse-down events for the scroll track.  In our handler,
-     * we figure out where the event occurred on the track and begin
-     * paging the scroll position toward that location. We start a 
-     * timer to handle repeating events if the user keeps the button
-     * pressed on the track.
+     *  Handle mouse-down events for the scroll track. In our handler,
+     *  we figure out where the event occurred on the track and begin
+     *  paging the scroll position toward that location. We start a 
+     *  timer to handle repeating events if the user keeps the button
+     *  pressed on the track.
      */
-    protected function track_mouseDownHandler(event:MouseEvent):void
+    override protected function track_mouseDownHandler(event:MouseEvent):void
     {
         // TODO (chaase): We might want a different event mechanism eventually
         // which would push this enabled check into the child/skin components
@@ -500,11 +352,20 @@ public class ScrollBar extends Range
         var pt:Point = new Point(event.stageX, event.stageY);
         // Cache original event location for use on later repeating events
         trackPosition = track.globalToLocal(pt);
-        var newScrollPosition:Number = getScrollPosition(trackPosition.x, trackPosition.y);
-        var newScrollValue:Number = valueFromPosition(newScrollPosition);
+        var newScrollPosition:Number = pointToPosition(trackPosition.x, trackPosition.y);
+        var newScrollValue:Number = positionToValue(newScrollPosition);
         
         trackScrollDown = (newScrollValue > value);
+        
+        var oldValue:Number = value;
+        
         page(trackScrollDown);
+        
+        if (value != oldValue)
+        {
+            positionThumb(valueToPosition(value));
+            dispatchEvent(new Event("change"));
+        }
 
         trackScrolling = true;
 
@@ -551,22 +412,34 @@ public class ScrollBar extends Range
         // Only repeat the scrolling if the current scroll position
         // (represented by fraction) is not past the current
         // mouse position on the track 
-        var newScrollPosition:Number = getScrollPosition(
+        var newScrollPosition:Number = pointToPosition(
             trackPosition.x, trackPosition.y);
-        var newScrollValue:Number = valueFromPosition(newScrollPosition);
-        
+        var newScrollValue:Number = positionToValue(newScrollPosition);
+                
         if (trackScrollDown)
         {
-            var range:Number = Math.max(1, maximum - minimum);
-            if (newScrollValue <= (value + (thumbSize / trackSize) * range))
+            var range:Number = maximum - minimum;
+            if (range == 0)
+                return;
+            
+            //if (newScrollValue <= (value + (thumbSize / trackSize) * range))
+            if ((value + pageSize) > newScrollValue)
                 return;
         }
         else if (newScrollValue > value)
         {
             return;
         }
+
+        var oldValue:Number = value;
         
         page(trackScrollDown);
+        
+        if (value != oldValue)
+        {
+            positionThumb(valueToPosition(value));
+            dispatchEvent(new Event("change"));
+        }
 
         if (trackScrollTimer && trackScrollTimer.repeatCount == 1)
         {
@@ -578,7 +451,7 @@ public class ScrollBar extends Range
     }
 
     /**
-     * Handle mouse-move events for track scrolling anywhere on the stage
+     *  Handle mouse-move events for track scrolling anywhere on the stage
      */
     private function stage_track_mouseMoveHandler(event:MouseEvent):void
     {
@@ -609,17 +482,17 @@ public class ScrollBar extends Range
     }
 
     /**
-     * @private
-     * Stop scrolling the track if the mouse leaves the stage
-     * area. Remove the listeners and stop the Timer.
+     *  @private
+     *  Stop scrolling the track if the mouse leaves the stage
+     *  area. Remove the listeners and stop the Timer.
      */
     private function track_mouseLeaveHandler(event:Event):void
     {
         trackScrolling = false;
         removeSystemHandlers(MouseEvent.MOUSE_MOVE, track_mouseMoveHandler,
                 stage_track_mouseMoveHandler);
-        systemManager.removeEventListener(
-            MouseEvent.MOUSE_UP, track_mouseLeaveHandler, true);
+        systemManager.removeEventListener(MouseEvent.MOUSE_UP,
+                track_mouseLeaveHandler, true);
         systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, 
                             track_mouseLeaveHandler);
 
@@ -628,9 +501,9 @@ public class ScrollBar extends Range
     }
 
     /**
-     * @private
-     * If we are still in the middle of track-scrolling, restart the
-     * timer when the mouse re-enters the track area.
+     *  @private
+     *  If we are still in the middle of track-scrolling, restart the
+     *  timer when the mouse re-enters the track area.
      */
     private function track_rollOverHandler(event:MouseEvent):void
     {
@@ -639,38 +512,14 @@ public class ScrollBar extends Range
     }
     
     /**
-     * @private
-     * Stop the track-scrolling repeat events if the mouse leaves
-     * the track area.
+     *  @private
+     *  Stop the track-scrolling repeat events if the mouse leaves
+     *  the track area.
      */
     private function track_rollOutHandler(event:MouseEvent):void
     {
         if (trackScrolling)
             trackScrollTimer.stop();
-    }
-
-    /**
-     * @private
-     * Force the scrollbar to set itself up correctly now that the
-     * skins have completed loading.
-     */
-    private function skin_updateCompleteHandler(event:Event):void
-    {   
-        invalidateDisplayList();
-    }
-    
-    /**
-     * This function returns a position on the scrollbar relative to its
-     * orientation and shape. The <code>localX</code> and <code>localY</code>
-     * values represent the location in the local coordinate system of the
-     * scrollbar. Subclasses must override this method and return the
-     * appropriate value for their situation. Values should not be clamped to
-     * the ends of the scrollbar, as that clamping will happen later, prior
-     * to setting the thumb position.
-     */
-    protected function getScrollPosition(localX:Number, localY:Number):Number
-    {
-        return 0;
     }
 }
 
