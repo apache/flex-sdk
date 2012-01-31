@@ -99,7 +99,7 @@ use namespace mx_internal;
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
  *  @productversion OSMF 1.0
- */	
+ */ 
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
 
 //--------------------------------------
@@ -818,7 +818,7 @@ public class VideoDisplay extends UIComponent
      * 
      *  <p>If the source is <code>null</code>, then there may be no 
      *  underlying <code>flash.media.Video object</code> yet.  In that 
-     *  case, <code>videoObject</code> returns <code>null</code>.
+     *  case, <code>videoObject</code> returns <code>null</code>.</p>
      * 
      *  @default null
      *  
