@@ -137,7 +137,7 @@ public class VSlider extends Slider
     
     /**
      *  @private
-     *  FIXME (jszeto): Update this to also use the ILayoutElement API 
+     *  FIXME (jszeto): Update this to also use the ILayoutElement API SDK-22045
      */
     override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
