@@ -20,9 +20,9 @@ import flash.geom.Point;
  *  Dispatched when the value of the control changes
  *  as a result of user interaction.
  *
- *  @eventType mx.events.Event
+ *  @eventType flash.events.Event
  */
-[Event(name="change", type="mx.events.Event")]
+[Event(name="change", type="flash.events.Event")]
 
 /**
  *  TrackBase is a base class for components with a track
