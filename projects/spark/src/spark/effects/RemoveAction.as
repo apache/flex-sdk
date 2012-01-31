@@ -82,7 +82,7 @@ public class RemoveAction extends Effect
 	public function RemoveAction(target:Object = null)
 	{
 		super(target);
-
+        duration = 0;
 		instanceClass = RemoveActionInstance;
 	}
 
