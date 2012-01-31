@@ -367,7 +367,7 @@ public class ItemsComponent extends SkinnableComponent
      *  itemRendererFunction properties down to the contentGroup
      *  skin part.
      */
-    override protected function partAdded(partName:String, instance:*):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
         if (instance == contentGroup)
         {
@@ -425,7 +425,7 @@ public class ItemsComponent extends SkinnableComponent
     /**
      *  Called when a skin part is removed.
      */
-    override protected function partRemoved(partName:String, instance:*):void
+    override protected function partRemoved(partName:String, instance:Object):void
     {
         if (instance == contentGroup)
         {
