@@ -19,6 +19,7 @@ import mx.messaging.channels.AMFChannel;
 import mx.messaging.channels.SecureAMFChannel;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AbstractService;
+import mx.rpc.mxml.Concurrency;
 
 use namespace mx_internal;
 
@@ -41,7 +42,9 @@ public dynamic class RemoteObject extends AbstractService
     {
         super(destination);
 
+        concurrency = Concurrency.MULTIPLE;
         makeObjectsBindable = true;
+        showBusyCursor = false;
     }
     
     //--------------------------------------------------------------------------
@@ -50,23 +53,51 @@ public dynamic class RemoteObject extends AbstractService
     // 
     //--------------------------------------------------------------------------
     
+    private var _concurrency:String;
+    
     private var _endpoint:String;
 
-    /**
-     *  @private
-     */
     private var _source:String;
     
-    /**
-     *  @private
-     */
     private var _makeObjectsBindable:Boolean;
+
+    private var _showBusyCursor:Boolean;
 
     //--------------------------------------------------------------------------
     //
     // Properties
     // 
     //--------------------------------------------------------------------------
+
+    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
+   /**
+    * Value that indicates how to handle multiple calls to the same service. The default
+    * value is multiple. The following values are permitted:
+    * <ul>
+    * <li>multiple - Existing requests are not cancelled, and the developer is
+    * responsible for ensuring the consistency of returned data by carefully
+    * managing the event stream. This is the default.</li>
+    * <li>single - Making only one request at a time is allowed on the method; additional requests made 
+    * while a request is outstanding are immediately faulted on the client and are not sent to the server.</li>
+    * <li>last - Making a request causes the client to ignore a result or fault for any current outstanding request. 
+    * Only the result or fault for the most recent request will be dispatched on the client. 
+    * This may simplify event handling in the client application, but care should be taken to only use 
+    * this mode when results or faults for requests may be safely ignored.</li>
+    * </ul>
+    */
+    public function get concurrency():String
+    {
+        return _concurrency;
+    }
+
+    /**
+     *  @private
+     */
+    public function set concurrency(c:String):void
+    {
+        _concurrency = c;
+    }
+
     
 	//----------------------------------
 	//  endpoint
@@ -117,6 +148,25 @@ public dynamic class RemoteObject extends AbstractService
     public function set makeObjectsBindable(b:Boolean):void
     {
         _makeObjectsBindable = b;
+    }
+
+	//----------------------------------
+	//  showBusyCursor
+	//----------------------------------
+
+    [Inspectable(defaultValue="false", category="General")]
+    /**
+    * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
+    * value is <code>false</code>.
+    */
+    public function get showBusyCursor():Boolean
+    {
+        return _showBusyCursor;
+    }
+
+    public function set showBusyCursor(sbc:Boolean):void
+    {
+        _showBusyCursor = sbc;
     }
 
 	//----------------------------------
