@@ -115,7 +115,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     {
         // Create a single Configuration used by all RichText instances.
         staticConfiguration =
-            Configuration(TextLineFactoryBase.defaultFactoryConfiguration).clone();
+            Configuration(StringTextLineFactory.defaultFactoryConfiguration).clone();
         
         staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
         staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
@@ -363,6 +363,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         // getting 'content' will return the TextFlow.
         _content = null;
         contentChanged = false;
+        textInvalid = false;
         
         super.text = value;
     }
@@ -426,7 +427,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         // If there isn't any content and there is text, create a one paragraph 
         // text flow from the text.
         if (!_content && mx_internal::_text)
-            content = createTextFlowFromText();
+            _content = convertTextToContent();
                 
         return _content;
     }
@@ -615,16 +616,23 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 
     /**
      *  @private
-     *  One paragraph text flow.
+     *  Make 1 paragraph text flow.  We can not use the PLAIN_TEXT_FORMAT filter
+     *  because each newline starts a new paragraph.
      */
-    private function createTextFlowFromText():TextFlow
+    private function convertTextToContent():TextFlow
     {
-        var textFlow:TextFlow = new TextFlow();
-        var p:ParagraphElement = new ParagraphElement();
+        textFlow = new TextFlow();
+        
+        var p:ParagraphElement = new ParagraphElement();        
+        textFlow.replaceChildren(0, 0, p);
+
         var span:SpanElement = new SpanElement();
         span.text = mx_internal::_text;
-        textFlow.replaceChildren(0, 0, p);
         p.replaceChildren(0, 0, span);
+        
+        // Set formats and textLineCreator.
+        textFlow = createTextFlow();
+        
         return textFlow;
     }
 
@@ -633,11 +641,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      */
     private function createTextFlowFromMarkup(markup:Object):TextFlow
     {
-        // The whiteSpaceCollapse format determines how whitespace
-        // is processed when markup is imported.
-		staticTextLayoutFormat.whiteSpaceCollapse =
-            getStyle("whiteSpaceCollapse");
-
         if (markup is XML || markup is String)
         {
 	        // We need to wrap the markup in a <TextFlow> tag
@@ -698,8 +701,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 	        }
         }
 
-        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                            staticConfiguration);
+        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
     }
     
     /**
@@ -757,7 +759,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         else if (textChanged)
         {
             textFlow = null;
-            textInvalid = false;
         }
 
         contentChanged = false;
@@ -791,10 +792,15 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      * 
      *  This will throw on import error.
      */
-    private function importToFlow(source:Object, format:String, 
-                                  config:Configuration):TextFlow
-    {
-        var importer:ITextImporter = TextFilter.getImporter(format, config);
+    private function importToFlow(source:Object, format:String):TextFlow
+    {        
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when markup is imported.
+        staticTextLayoutFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+        
+        var importer:ITextImporter = TextFilter.getImporter(format, 
+                                                            staticConfiguration);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
