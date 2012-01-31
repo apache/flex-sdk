@@ -405,7 +405,7 @@ public class FxComponent extends UIComponent
                 
                 if (part.required)
                 {
-                    if (!(part.id in skin))
+                    if (!(part.id in skin) || skin[part.id] == null)
                         throw(new Error("Required skin part \"" + part.id + "\" cannot be found.")); 
                 }
                 
