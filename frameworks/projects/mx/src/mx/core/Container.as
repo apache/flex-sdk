@@ -4255,7 +4255,7 @@ public class Container extends UIComponent
             if (childDescriptor.stylesFactory != null)
             {
                 if (!scChild.styleDeclaration)
-                    scChild.styleDeclaration = new CSSStyleDeclaration();
+                    scChild.styleDeclaration = new CSSStyleDeclaration(null, styleManager);
                 scChild.styleDeclaration.factory =
                     childDescriptor.stylesFactory;
             }
