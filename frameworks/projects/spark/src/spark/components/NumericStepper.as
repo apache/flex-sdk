@@ -347,9 +347,9 @@ public class NumericStepper extends Spinner
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get imeMode():String
     {
@@ -671,8 +671,8 @@ public class NumericStepper extends Spinner
      */  
     override protected function focusInHandler(event:FocusEvent):void
     {
-    	super.focusInHandler(event);
-    	addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
+        super.focusInHandler(event);
+        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
     }
     
     /**
@@ -680,8 +680,8 @@ public class NumericStepper extends Spinner
      */  
     override protected function focusOutHandler(event:FocusEvent):void
     {
-    	super.focusOutHandler(event);
-    	removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
+        super.focusOutHandler(event);
+        removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
     }
    
         
