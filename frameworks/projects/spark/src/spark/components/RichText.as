@@ -35,11 +35,14 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 
 import spark.components.supportClasses.TextBase;
 import spark.core.CSSTextLayoutFormat;
+import spark.core.MaskType;
+import spark.utils.MaskUtil;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
@@ -649,6 +652,236 @@ public class RichText extends TextBase implements IFontContextComponent
 		invalidateDisplayList();
     }
     
+    //----------------------------------
+    //  mask
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var maskChanged:Boolean;
+       
+    /**
+     *  @private
+     */
+    override public function set mask(value:DisplayObject):void
+    {
+        if (super.mask == value)
+            return;
+        
+        var oldMask:UIComponent = super.mask as UIComponent;
+        
+        super.mask = value;      
+                
+        // If the old mask was attached by us, then we need to 
+        // undo the attachment logic        
+        if (oldMask && oldMask.$parent === this)
+        {       
+            if (oldMask.parent is UIComponent)
+                UIComponent(oldMask.parent).childRemoved(oldMask);
+            oldMask.$parent.removeChild(oldMask);
+        }     
+                
+        maskChanged = true;
+        maskTypeChanged = true;
+                
+        invalidateProperties();
+        invalidateDisplayList();
+    }
+    
+    //----------------------------------
+    //  maskType
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the maskType property.
+     */
+    private var _maskType:String = MaskType.CLIP;
+    
+    /**
+     *  @private
+     */
+    private var maskTypeChanged:Boolean;
+    
+    /**
+     *  <p>The maskType defines how the mask is applied to the component.</p> 
+     * 
+     *  <p>The possible values are MaskType.CLIP, MaskType.ALPHA and 
+     *  MaskType.LUMINOSITY.</p>  
+     * 
+     *  <p>Clip Masking</p>
+     * 
+     *  <p>When masking in clip mode, a clipping masks is reduced to 1-bit.  This means that a mask will 
+     *  not affect the opacity of a pixel in the source content; it either leaves the value unmodified, 
+     *  if the corresponding pixel in the mask is has a non-zero alpha value, or makes it fully 
+     *  transparent, if the mask pixel value has an alpha value of zero.</p>
+     * 
+     *  <p>When clip masking is used, only the actual path and shape vectors and fills defined by the
+     *  mask are used to determine the effect on the source content.  strokes and bitmap filters 
+     *  defined on the mask are ignored.  Any filled region in the mask is considered filled, and renders 
+     *  the source content.  The type and parameters of the fill is irrelevant;  a solid color fill, 
+     *  gradient fill, or bitmap fill in a mask will all render the underlying source content, regardless 
+     *  of the alpha values of the mask fill.</p>
+     *  
+     *  <p>BitmapGraphics are treated as bitmap filled rectangles when used in a clipping mask.  As a 
+     *  result, the alpha channel of the source bitmap is irrelevant when part of a mask -- the bitmap 
+     *  affects the mask in the same manner as solid filled rectangle of equivalent dimensions.</p>
+     * 
+     *  <p>Alpha Masking</p>
+     * 
+     *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
+     *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
+     *  1 that is masked by a region of opacity of .5 will have a resulting opacity of .5.  A source pixel 
+     *  with an opacity of .8 masked by a region with opacity of .5 will have a resulting opacity of .4.</p>
+     * 
+     *  <p>Conceptually, alpha masking is equivalent to rendering the transformed mask and source content 
+     *  into separate RGBA surfaces, and multiplying the alpha channel of the mask content into the alpha 
+     *  channel of the source content.  All of the mask content is rendered into its surface before 
+     *  compositing into the source content's surface. As a result, all FXG features, such as strokes, 
+     *  bitmap filters, and fill opacity will affect the final composited content.</p>
+     * 
+     *  <p>When in alpha mode, the alpha channel of any bitmap data is composited normally into the mask 
+     *  alpha channel, and will affect the final rendered content. This holds true for both BitmapGraphics 
+     *  and bitmap filled shapes and paths.</p>
+     * 
+     *  <p>Luminosity Masking</p>
+     * 
+     *  <p>A luminosity mask, sometimes called a 'soft mask', works very similarly to an alpha mask
+     *  except that both the opacity and RGB color value of a pixel in the source content is multiplied
+     *  by the opacity and RGB color value of the corresponding region in the mask.</p>
+     * 
+     *  <p>Conceptually, luminosity masking is equivalent to rendering the transformed mask and source content 
+     *  into separate RGBA surfaces, and multiplying the alpha channel and the RGB color value of the mask 
+     *  content into the alpha channel and RGB color value of the source content.  All of the mask content is 
+     *  rendered into its surface before compositing into the source content's surface. As a result, all FXG 
+     *  features, such as strokes, bitmap filters, and fill opacity will affect the final composited 
+     *  content.</p>
+     * 
+     *  <p>Luminosity masking is not native to Flash but is common in Adobe Creative Suite tools like Adobe 
+     *  Illustrator and Adobe Photoshop. In order to accomplish the visual effect of a luminosity mask in 
+     *  Flash-rendered content, a graphic element specifying a luminosity mask actually instantiates a shader
+     *  filter that mimics the visual look of a luminosity mask as rendered in Adobe Creative Suite tools.</p>
+     * 
+     *  <p>Objects being masked by luminosity masks can set properties to control the RGB color value and 
+     *  clipping of the mask. See the luminosityInvert and luminosityClip attributes.</p>
+     * 
+     *  @default MaskType.CLIP
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get maskType():String
+    {
+        return _maskType;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set maskType(value:String):void
+    {
+        if (_maskType == value)
+            return;
+        
+        _maskType = value;
+        maskTypeChanged = true;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  luminosityInvert
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityInvert property.
+     */
+    private var _luminosityInvert:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var luminositySettingsChanged:Boolean;
+
+    /**
+     *  A property that controls the calculation of the RGB 
+     *  color value of a graphic element being masked by 
+     *  a luminosity mask. If true, the RGB color value of a  
+     *  pixel in the source content is inverted and multipled  
+     *  by the corresponding region in the mask. If false, 
+     *  the source content's pixel's RGB color value is used 
+     *  directly. 
+     * 
+     *  @default false 
+     *  @see #maskType 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityInvert():Boolean
+    {
+        return _luminosityInvert;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set luminosityInvert(value:Boolean):void
+    {
+        if (_luminosityInvert == value)
+            return;
+        
+        _luminosityInvert = value;
+        luminositySettingsChanged = true; 
+    }
+    
+    //----------------------------------
+    //  luminosityClip
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityClip property.
+     */
+    private var _luminosityClip:Boolean = false; 
+        
+    /**
+     *  A property that controls whether the luminosity 
+     *  mask clips the masked content. This property can 
+     *  only have an effect if the graphic element has a 
+     *  mask applied to it that is of type 
+     *  MaskType.LUMINOSITY.  
+     * 
+     *  @default false 
+     *  @see #maskType 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityClip():Boolean
+    {
+        return _luminosityClip;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set luminosityClip(value:Boolean):void
+    {
+        if (_luminosityClip == value)
+            return;
+        
+        _luminosityClip = value;
+        luminositySettingsChanged = true; 
+    }
+    
 	//----------------------------------
 	//  textFlow
 	//----------------------------------
@@ -857,6 +1090,29 @@ public class RichText extends TextBase implements IFontContextComponent
             _textFlow.addEventListener(DamageEvent.DAMAGE, 
                                        textFlow_damageHandler);
 		}
+        
+        if (maskChanged)
+        {
+            MaskUtil.applyMask(mask, parent);
+
+            maskChanged = false;            
+        }        
+        
+        if (luminositySettingsChanged)
+        {
+            MaskUtil.applyLuminositySettings(
+                mask, _maskType, _luminosityInvert, _luminosityClip);
+
+            luminositySettingsChanged = false;             
+        }
+
+        if (maskTypeChanged)
+        {
+            MaskUtil.applyMaskType(
+                mask, _maskType, _luminosityInvert, _luminosityClip, this);
+
+            maskTypeChanged = false;
+        }
 	}
     
     /**
