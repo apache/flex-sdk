@@ -1546,7 +1546,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *      "contact" - puts the keyboard into a mode appropriate for
      *          entering contact information
      *      "email" - puts the keyboard into e-mail addres entry mode, which
-     *          may make it easier to enter '@' or '.com'
+     *          may make it easier to enter the at sign or '.com'
      *
      *  <p><b>For the Desktop theme, this is not supported.</b></p>
      * 
