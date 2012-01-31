@@ -131,7 +131,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SkinnableDataContainer extends SkinnableContainerBase implements IViewport, IItemRendererOwner
+public class SkinnableDataContainer extends SkinnableContainerBase implements IItemRendererOwner
 {
     include "../core/Version.as";
     
@@ -140,51 +140,36 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //  Class constants
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 0;
     
     /**
      *  @private
      */
-    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 0;
+    private static const DATA_PROVIDER_PROPERTY_FLAG:uint = 1 << 1;
     
     /**
      *  @private
      */
-    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
+    private static const ITEM_RENDERER_PROPERTY_FLAG:uint = 1 << 2;
     
     /**
      *  @private
      */
-    private static const HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 2;
+    private static const ITEM_RENDERER_FUNCTION_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const VERTICAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 3;
+    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 4;
-    
-    /**
-     *  @private
-     */
-    private static const DATA_PROVIDER_PROPERTY_FLAG:uint = 1 << 5;
-    
-    /**
-     *  @private
-     */
-    private static const ITEM_RENDERER_PROPERTY_FLAG:uint = 1 << 6;
-    
-    /**
-     *  @private
-     */
-    private static const ITEM_RENDERER_FUNCTION_PROPERTY_FLAG:uint = 1 << 7;
-    
-    /**
-     *  @private
-     */
-    private static const TYPICAL_ITEM_PROPERTY_FLAG:uint = 1 << 8;
+    private static const TYPICAL_ITEM_PROPERTY_FLAG:uint = 1 << 5;
     
     //--------------------------------------------------------------------------
     //
@@ -299,83 +284,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     }
     
     //----------------------------------
-    //  clipAndEnableScrolling
-    //----------------------------------
-    
-    /**
-     *  @inheritDoc
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get clipAndEnableScrolling():Boolean 
-    {
-        return (dataGroup) 
-            ? dataGroup.clipAndEnableScrolling 
-            : dataGroupProperties.clipAndEnableScrolling;
-    }
-
-    /**
-     *  @private
-     */
-    public function set clipAndEnableScrolling(value:Boolean):void 
-    {       
-        if (dataGroup)
-        {
-            dataGroup.clipAndEnableScrolling = value;
-            dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
-                                                     CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
-        }
-        else
-            dataGroupProperties.clipAndEnableScrolling = value;
-    }
-    
-    //----------------------------------
-    //  contentWidth
-    //---------------------------------- 
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentWidth():Number 
-    {
-        return (dataGroup) ? dataGroup.contentWidth : 0;  
-    }
-
-    //----------------------------------
-    //  contentHeight
-    //---------------------------------- 
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentHeight():Number 
-    {
-        return (dataGroup) ? dataGroup.contentHeight : 0;
-    }
-    
-    //----------------------------------
-    //  content
+    //  dataProvider
     //----------------------------------    
     
     /**
@@ -404,44 +313,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         }
         else
             dataGroupProperties.dataProvider = value;
-    }
-    
-    //----------------------------------
-    //  horizontalScrollPosition
-    //----------------------------------
-        
-    [Bindable("propertyChange")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get horizontalScrollPosition():Number 
-    {
-        if (dataGroup)
-            return dataGroup.horizontalScrollPosition;
-
-        var hsp:Number = dataGroupProperties.horizontalScrollPosition;
-        return isNaN(hsp) ? 0 : hsp;
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPosition(value:Number):void 
-    {
-        if (dataGroup)
-        {
-            dataGroup.horizontalScrollPosition = value;
-            dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
-                                                     HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-        }
-        else
-            dataGroupProperties.horizontalScrollPosition = value;
     }
     
     //----------------------------------
@@ -582,82 +453,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             dataGroupProperties.typicalItem = value;
     }
     
-    //----------------------------------
-    //  verticalScrollPosition
-    //----------------------------------
-    
-    [Bindable("propertyChange")]
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get verticalScrollPosition():Number 
-    {
-        if (dataGroup)
-            return dataGroup.verticalScrollPosition;
-        
-        var vsp:Number = dataGroupProperties.verticalScrollPosition;
-        return isNaN(vsp) ? 0 : vsp;        
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPosition(value:Number):void 
-    {
-        if (dataGroup)
-        {
-            dataGroup.verticalScrollPosition = value;
-            dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
-                                                     VERTICAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-        }
-        else
-            dataGroupProperties.verticalScrollPosition = value;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods proxied to dataGroup
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  getHorizontal,VerticalScrollPositionDelta
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
-    {
-        return (dataGroup) ? 
-            dataGroup.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
-    {
-        return (dataGroup) ? 
-            dataGroup.getVerticalScrollPositionDelta(navigationUnit) : 0;     
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -728,32 +523,11 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             var newDataGroupProperties:uint = 0;
             
-            if (dataGroupProperties.clipAndEnableScrolling !== undefined)
-            {
-                dataGroup.clipAndEnableScrolling = dataGroupProperties.clipAndEnableScrolling;
-                newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
-                                                            CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
-            }
-            
             if (dataGroupProperties.layout !== undefined)
             {
                 dataGroup.layout = dataGroupProperties.layout;
                 newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
                                                             LAYOUT_PROPERTY_FLAG, true);;
-            }
-            
-            if (dataGroupProperties.horizontalScrollPosition !== undefined)
-            {
-                dataGroup.horizontalScrollPosition = dataGroupProperties.horizontalScrollPosition;
-                newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
-                                                            HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-            }
-            
-            if (dataGroupProperties.verticalScrollPosition !== undefined)
-            {
-                dataGroup.verticalScrollPosition = dataGroupProperties.verticalScrollPosition;
-                newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
-                                                            VERTICAL_SCROLL_POSITION_PROPERTY_FLAG, true);
             }
             
             if (dataGroupProperties.autoLayout !== undefined)
@@ -798,12 +572,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             // The only reason we have these listeners is to re-dispatch events.  
             // We only add as necessary.
-  
-            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-            {
-                dataGroup.addEventListener(
-                    PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-            }
             
             if (hasEventListener(RendererExistenceEvent.RENDERER_ADD))
             {
@@ -827,8 +595,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         if (instance == dataGroup)
         {
             dataGroup.removeEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-            dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
             dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
@@ -837,17 +603,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             var newDataGroupProperties:Object = {};
             
-            if (BitFlagUtil.isSet(dataGroupProperties as uint, CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG))
-                newDataGroupProperties.clipAndEnableScrolling = dataGroup.clipAndEnableScrolling;
-            
             if (BitFlagUtil.isSet(dataGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newDataGroupProperties.layout = dataGroup.layout;
-            
-            if (BitFlagUtil.isSet(dataGroupProperties as uint, HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG))
-                newDataGroupProperties.horizontalScrollPosition = dataGroup.horizontalScrollPosition;
-            
-            if (BitFlagUtil.isSet(dataGroupProperties as uint, VERTICAL_SCROLL_POSITION_PROPERTY_FLAG))
-                newDataGroupProperties.verticalScrollPosition = dataGroup.verticalScrollPosition;
             
             if (BitFlagUtil.isSet(dataGroupProperties as uint, AUTO_LAYOUT_PROPERTY_FLAG))
                 newDataGroupProperties.autoLayout = dataGroup.autoLayout;
@@ -891,11 +648,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         // exist, don't worry about it.  When the dataGroup, 
         // gets created up, we'll check to see whether we need to add this 
         // event listener to the dataGroup.
-        if (type == PropertyChangeEvent.PROPERTY_CHANGE && dataGroup)
-        {
-            dataGroup.addEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-        }
         
         if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
         {
@@ -923,15 +675,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         
         // if no one's listening to us for this event any more, let's 
         // remove our underlying event listener from the dataGroup.
-        if (type == PropertyChangeEvent.PROPERTY_CHANGE && dataGroup)
-        {
-            if (!hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-            {
-                dataGroup.removeEventListener(
-                    PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-            }
-        }
-        
         if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
         {
             if (!hasEventListener(RendererExistenceEvent.RENDERER_ADD))
@@ -947,30 +690,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             {
                 dataGroup.removeEventListener(
                     RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
-            }
-        }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Event Handlers
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     * @private
-     */
-    private function dataGroup_propertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        // Re-dispatch the event if it's one other people are binding too
-        switch (event.property)
-        {
-            case 'contentWidth':
-            case 'contentHeight':
-            case 'horizontalScrollPosition':
-            case 'verticalScrollPosition':
-            {
-                dispatchEvent(event);
             }
         }
     }
