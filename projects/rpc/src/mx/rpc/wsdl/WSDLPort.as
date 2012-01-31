@@ -38,6 +38,11 @@ public class WSDLPort
     /**
      * Represents the binding which defines the message format and protocol
      * used to interoperate with operations for this port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get binding():WSDLBinding
     {
@@ -51,6 +56,11 @@ public class WSDLPort
 
     /**
      * The endpointURI is the SOAP bound address defined for this port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get endpointURI():String
     {
@@ -64,6 +74,11 @@ public class WSDLPort
 
     /**
      * The unique name of this port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
@@ -72,6 +87,11 @@ public class WSDLPort
     
     /**
      * The WSDL service to which this port belongs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get service():WSDLService
     {
