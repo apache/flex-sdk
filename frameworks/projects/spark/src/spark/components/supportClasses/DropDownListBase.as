@@ -212,8 +212,6 @@ public class DropDownListBase extends List
     {
         super();
 
-        super.allowMultipleSelection = false;
-        
         dropDownController = new DropDownController();
     }
     
