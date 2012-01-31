@@ -18,6 +18,7 @@ import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -25,6 +26,8 @@ import mx.resources.ResourceManager;
 import spark.effects.supportClasses.AnimateTransitionShaderInstance;
 import spark.primitives.supportClasses.GraphicElement;
 import spark.utils.BitmapUtil;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
@@ -269,7 +272,7 @@ public class AnimateTransitionShader extends Animate
             return null;
 
         if (target is GraphicElement)
-            return GraphicElement(target).getBitmapData(true, 0, false);
+            return GraphicElement(target).captureBitmapData(true, 0, false);
         else if (!(target is IUIComponent))
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
         return BitmapUtil.getSnapshot(IUIComponent(target));
