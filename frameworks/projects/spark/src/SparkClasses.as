@@ -23,6 +23,8 @@ internal class SparkClasses
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
+import mx.controls.advancedDataGridClasses.FTEAdvancedDataGridItemRenderer; FTEAdvancedDataGridItemRenderer;
+import mx.controls.advancedDataGridClasses.MXAdvancedDataGridItemRenderer; MXAdvancedDataGridItemRenderer;
 import mx.controls.dataGridClasses.FTEDataGridItemRenderer; FTEDataGridItemRenderer;
 import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
