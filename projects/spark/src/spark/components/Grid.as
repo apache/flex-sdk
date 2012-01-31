@@ -436,10 +436,11 @@ package spark.components
          */
         public function set caretColumnIndex(value:int):void
         {
+            _oldCaretColumnIndex = _caretColumnIndex;
+
             if (caretColumnIndex == value)
                 return;
             
-            _oldCaretColumnIndex = _caretColumnIndex;
             _caretColumnIndex = value;
             
             caretChanged = true;
@@ -490,10 +491,11 @@ package spark.components
          */
         public function set caretRowIndex(value:int):void
         {
+            _oldCaretRowIndex = _caretRowIndex;
+
             if (_caretRowIndex == value)
                 return;
             
-            _oldCaretRowIndex = _caretRowIndex;
             _caretRowIndex = value;
             
             caretChanged = true;
@@ -1790,19 +1792,19 @@ package spark.components
          *  @productversion Flex 4.5
          */
         public function selectAll():Boolean
-        {
+        {           
             const selectionChanged:Boolean = gridSelection.selectAll();
             if (selectionChanged)
-            {
+            {               
+                // Remove the caret.
+                caretRowIndex = -1;
+                caretColumnIndex = -1;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
-            
-            // Remove the caret.
-            caretRowIndex = -1;
-            caretColumnIndex = -1;
-            
-           return selectionChanged;
+ 
+            return selectionChanged;
         }
         
         /**
@@ -2551,7 +2553,7 @@ package spark.components
             return dataProvider.getItemIndex(item);
         }
         
-        /**
+       /**
          *  @private
          */
         private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
