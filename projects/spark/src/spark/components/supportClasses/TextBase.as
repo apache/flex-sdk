@@ -299,7 +299,7 @@ public class TextGraphicElement extends GraphicElement
             invalidateDisplayList();
         }
     }
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
@@ -439,6 +439,26 @@ public class TextGraphicElement extends GraphicElement
      */
     protected function invalidateTextLines(cause:String):void
     {
+    }
+    
+    /**
+     * @private
+     * Used to ensure baselinePosition will reflect something
+     * reasonable.
+     */ 
+    mx_internal function validateBaselinePosition():void
+    {
+        // Ensure we're validated and that we have something to 
+        // compute our baseline from.
+        var isEmpty:Boolean = (text == "");
+        text = isEmpty ? "Wj" : text;
+        
+        if (mx_internal::invalidatePropertiesFlag || mx_internal::invalidateSizeFlag || 
+            mx_internal::invalidateDisplayListFlag || isEmpty)
+        {
+            validateNow();  
+            text = isEmpty ? "" : text;
+        }
     }
 }
 
