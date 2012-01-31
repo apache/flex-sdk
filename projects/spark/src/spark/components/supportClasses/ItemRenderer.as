@@ -549,7 +549,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function invalidateRendererState():void
+    protected function invalidateRendererState():void
     {
         playTransitionsOnNextRendererState = (playTransitionsOnNextRendererState || playTransitions);
         
