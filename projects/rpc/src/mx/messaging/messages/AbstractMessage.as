@@ -483,10 +483,10 @@ public class AbstractMessage implements IMessage
             if (i == 0)
             {
                 if ((flags & BODY_FLAG) != 0)
-                    body = input.readObject();
+                    readExternalBody(input);
                 else
                     body = null; // default body is {} so need to set it here
-        
+
                 if ((flags & CLIENT_ID_FLAG) != 0)
                     clientId = input.readObject();
         
@@ -617,7 +617,7 @@ public class AbstractMessage implements IMessage
             output.writeByte(flags);
 
         if (body != null)
-            output.writeObject(body);
+            writeExternalBody(output);
 
         if (clientId != null && clientIdBytes == null)
             output.writeObject(clientId);
@@ -693,6 +693,14 @@ public class AbstractMessage implements IMessage
 
     /**
      * @private
+     */
+    protected function readExternalBody(input:IDataInput):void
+    {
+        body = input.readObject();
+    }
+
+    /**
+     * @private
      * To support efficient serialization for ISmallMessage implementations,
      * this utility method reads in the property flags from an IDataInput
      * stream. Flags are read in one byte at a time. Flags make use of
@@ -719,6 +727,14 @@ public class AbstractMessage implements IMessage
         }
 
         return flagsArray;
+    }
+
+    /**
+     * @private
+     */
+    protected function writeExternalBody(output:IDataOutput):void
+    {
+        output.writeObject(body);
     }
 }
 
