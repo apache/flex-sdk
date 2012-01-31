@@ -237,7 +237,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
             shader.data.to.input = bitmapTo;
             
             animationProperties = [
-                new AnimationProperty("progress", 0, 1)
+                new AnimationProperty("progress", 0, 1, duration)
             ];
             // auto-set width/height if exposed in shader
             if ("width" in shader.data)
