@@ -26,6 +26,7 @@ import mx.core.IUITextField;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.events.CloseEvent;
+import mx.managers.IActiveWindowManager;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
@@ -258,7 +259,10 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 			if (parent is IFocusManagerContainer)
 			{
 				var sm:ISystemManager = Alert(parent).systemManager;
-				sm.activate(IFocusManagerContainer(parent));
+				var awm:IActiveWindowManager = 
+					IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+				if (awm)
+           			awm.activate(IFocusManagerContainer(parent));
 			}
 			defaultButton.setFocus();
 		}
