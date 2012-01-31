@@ -96,7 +96,7 @@ public class FTETextField extends Sprite
 		plainTextExporter =
 			TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
 		
-		// Create an importer for HTML_FORMAT that collapses whitespace.
+		// Create an importer for TEXT_FIELD_HTML_FORMAT that collapses whitespace.
 		// Note: We have to make a copy of the textFlowInitialFormat,
 		// which has various formats set to "inherit",
 		// and then modify it and set it back.
@@ -105,10 +105,10 @@ public class FTETextField extends Sprite
 		format.whiteSpaceCollapse = "collapse";
 		config.textFlowInitialFormat = format;
 		collapsingHTMLImporter =
-			TextConverter.getImporter(TextConverter.HTML_FORMAT, config);
+			TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
 		collapsingHTMLImporter.throwOnError = false;
 		
-		// Create an importer for HTML_FORMAT that preserves whitespace.
+		// Create an importer for TEXT_FIELD_HTML_FORMAT that preserves whitespace.
 		// Note: We have to make a copy of the textFlowInitialFormat,
 		// which has various formats set to "inherit",
 		// and then modify it and set it back.
@@ -117,12 +117,12 @@ public class FTETextField extends Sprite
 		format.whiteSpaceCollapse = "preserve";
 		config.textFlowInitialFormat = format;
 		preservingHTMLImporter =
-			TextConverter.getImporter(TextConverter.HTML_FORMAT, config);
+			TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
 		preservingHTMLImporter.throwOnError = true;
 		
-		// Create an exporter for HTML_FORMAT.
+		// Create an exporter for TEXT_FIELD_HTML_FORMAT.
 		htmlExporter =
-			TextConverter.getExporter(TextConverter.HTML_FORMAT);
+			TextConverter.getExporter(TextConverter.TEXT_FIELD_HTML_FORMAT);
 		
 		if ("recreateTextLine" in staticTextBlock)
 			recreateTextLine = staticTextBlock["recreateTextLine"];
@@ -230,8 +230,7 @@ public class FTETextField extends Sprite
 	/**
 	 *  @private
 	 */
-	private static var htmlExporter:ITextExporter =
-		TextConverter.getExporter(TextConverter.HTML_FORMAT);
+	private static var htmlExporter:ITextExporter;
 	
 	/**
 	 *  @private
