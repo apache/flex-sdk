@@ -13,7 +13,7 @@ package mx.messaging.config
 {
 
 import flash.utils.getDefinitionByName;
-
+import flash.utils.getQualifiedClassName;
 
 import mx.collections.ArrayCollection;
 import mx.core.mx_internal;
@@ -367,21 +367,26 @@ public class ServerConfig
      *  dynamic configuration from the server for its MessageAgents. 
      */	 
     mx_internal static function needsConfig(channel:Channel):Boolean
-    {
+    {        
         // Configuration for the endpoint has not been fetched by some other channel.
         if (_configFetchedChannels == null || _configFetchedChannels[channel.endpoint] == null)
-        {	            
+        {
             var channelSets:Array = channel.channelSets;
             var m:int = channelSets.length;
             for (var i:int = 0; i < m; i++)
             {
+                // If the channel belongs to an advanced ChannelSet, always fetch runtime config.
+                if (getQualifiedClassName(channelSets[i]).indexOf("Advanced") != -1)
+                    return true;           
+                        
+                // Otherwise, only fetch if a connected MessageAgent requires it.
                 var messageAgents:Array = ChannelSet(channelSets[i]).messageAgents;
                 var n:int = messageAgents.length;
                 for (var j:int = 0; j < n; j++)
                 {
                     if (MessageAgent(messageAgents[j]).needsConfig)
                         return true;                        
-                }            
+                }               
             }
         }
         return false;        	        	    
