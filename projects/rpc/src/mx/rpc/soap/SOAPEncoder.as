@@ -86,6 +86,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * first be set to false. Conversely, if a type <code>whiteSpace</code>
      * restriction is set to <code>replace</code> or <code>collapse</code> then
      * that setting will be honored even if ignoreWhitespace is set to false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ignoreWhitespace():Boolean
     {
@@ -136,6 +141,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
     /**
      * Creates a SOAP encodes request to an operation from the given input
      * parameters and headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeRequest(args:* = null, headers:Array = null):XML
     {
@@ -169,6 +179,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
     /**
      * A SOAP Envelope element is the root element of a SOAP message. It
      * must specify the SOAP namespace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeEnvelope(args:*, headers:Array):XML
     {
@@ -191,6 +206,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
 
     /**
      * Appends SOAP Header to the SOAP Envelope
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeHeaders(headers:Array, envelopeXML:XML):void
     {
@@ -213,6 +233,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
 
     /**
      * Appends a header element to top SOAP Header tag
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     protected function encodeHeaderElement(header:Object, headersXML:XML):void
     {
@@ -292,6 +317,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
 
     /**
      * Encodes the SOAP Body. Currently assumes only one operation sub-element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeBody(inputParams:*, envelopeXML:XML):void
     {
@@ -368,6 +398,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * becomes the schema type of the enclosing element (Body for document
      * style...).&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeOperationAsDocumentLiteral(inputParams:Object, bodyXML:XML):void
     {
@@ -419,6 +454,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * part becomes the schema type of the enclosing element ( ... part accessor
      * element for rpc style).&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeOperationAsRPCLiteral(inputParams:Object, bodyXML:XML):void
     {
@@ -458,6 +498,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * style allows variations in it's format (such as the SOAP encoding does),
      * then all variations MUST be supported ("reader makes right").&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeOperationAsRPCEncoded(inputParams:*, bodyXML:XML):void
     {
@@ -477,6 +522,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
     /**
      * Encodes an input message for a WSDL operation. The provided input
      * parameters are validated against the required message parts.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodeMessage(inputParams:*, operationXML:XML):void
     {
@@ -583,6 +633,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * &lt;complexType&gt; or &lt;simpleType&gt;) directly by QName or to an element
      * definition by QName depending on the SOAP use and encodingStyle
      * attributes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function encodePartValue(part:WSDLMessagePart, value:*):XMLList
     {
@@ -603,6 +658,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
     /**
      * Looks to see whether a pre-encoded SOAP request has been passed to the
      * encoder.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function preEncodedCheck(value:*):Object
     {
@@ -646,6 +706,11 @@ public class SOAPEncoder extends XMLEncoder implements ISOAPEncoder
      * XML Schema does not normally allow minOccurs or maxOccurs on top-level
      * element definitions and the SchemaProcessor is not looking out for them
      * so we have to special case this situation here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function encode(value:*, name:QName = null, type:QName = null, definition:XML = null):XMLList
     {
