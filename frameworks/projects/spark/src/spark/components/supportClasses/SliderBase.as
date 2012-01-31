@@ -12,12 +12,17 @@
 package mx.components.baseClasses
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
+import mx.core.IDataRenderer;
+import mx.core.IFactory;
+import mx.core.UIComponent;
+import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
 /**
@@ -45,6 +50,21 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         super();
     }
 
+	//--------------------------------------------------------------------------
+    //
+    //  Skin Parts
+    //
+    //--------------------------------------------------------------------------
+
+    [SkinPart(required="false", type="mx.core.IDataRenderer")]
+    
+    /**
+     *  A skin part that defines a dataTip that displays a formatted version of 
+     *  the current value. The dataTip appears while the thumb is being dragged.
+     *  This is a dynamic skin part and must be of type IFactory.
+     */
+    public var dataTip:IFactory; 
+
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -52,12 +72,78 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     //--------------------------------------------------------------------------
 
     private var currValue:Number;
+    
+	private var dataFormatter:NumberFormatter;
 
     //--------------------------------------------------------------------------
     //
     // Properties
     //
-    //--------------------------------------------------------------------------
+    //-------------------------------------------------------------------------- 	
+
+	/**
+	 *  The dataTip instance used by subclasses to control its behavior. The instance
+	 *  is non-null only when the dataTip has been popped up.
+	 */
+	protected var dataTipInstance:IDataRenderer;
+
+	//--------------------------------- 
+    // dataTipformatFunction
+    //---------------------------------
+
+	private var _dataTipFormatFunction:Function;
+	
+	 /**
+     *  Callback function that formats the data tip text.
+     *  The function takes a single Number as an argument
+     *  and returns a formatted String.
+     *
+     *  <p>The function has the following signature:</p>
+     *  <pre>
+     *  funcName(value:Number):Object
+     *  </pre>
+     *
+     *  <p>The following example prefixes the data tip text with a dollar sign and 
+     *  formats the text using the <code>dataTipPrecision</code> 
+     *  of a FxSlider Control named 'slide': </p>
+     *
+     *  <pre>
+     *  import mx.formatters.NumberBase;
+     *  function myDataTipFormatter(value:Number):Object { 
+     *      var dataFormatter:NumberBase = new NumberBase(".", ",", ".", ""); 
+     *      return   "$ " + dataFormatter.formatPrecision(String(value), slide.dataTipPrecision); 
+     *  }
+     *  </pre>
+     *
+     *  @default undefined   
+     */
+	public function set dataTipFormatFunction(value:Function):void
+	{
+		_dataTipFormatFunction = value;
+	}
+	
+	public function get dataTipFormatFunction():Function
+	{
+		return _dataTipFormatFunction;
+	}
+	
+	/**
+	 *  Starting position of the dataTip. Used by subclasses to 
+	 *  position the dataTip. 
+	 */
+	protected var dataTipOriginalPosition:Point;
+	
+	//--------------------------------- 
+    // dataTipPrecision
+    //---------------------------------
+    /**
+	 *  Number of decimal places to use for the data tip text.
+	 *  A value of 0 means to round all values to an integer.
+	 *  This value is ignored if dataTipFormatFunction is defined.
+	 * 
+	 *  @default 2
+	 */
+    public var dataTipPrecision:int = 2;
     
     //--------------------------------- 
     // liveDragging
@@ -80,10 +166,23 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     /**
      *  @private
      */
-     public function set liveDragging(value:Boolean):void
+    public function set liveDragging(value:Boolean):void
     {
         _liveDragging = value;
     }
+    
+    //--------------------------------- 
+    // showDataTip
+    //---------------------------------
+    
+    /**
+     *  If set to <code>true</code>, show a data tip during user interaction
+     *  containing the current value of the slider. In addition, the skinPart
+     *  <code>dataTipFactory</code> must be defined in the skin in order to 
+     *  display a data tip. 
+     *  @default true
+     */
+    public var showDataTip:Boolean = true;
 
     //--------------------------------------------------------------------------
     //
@@ -98,6 +197,31 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     {
         if (stage)
             stage.focus = thumb;
+    }
+    
+    /**
+     *  @private
+     *  Returns a formatted version of the value
+     */
+    private function formatDataTipText(value:Number):Object
+    {
+    	var formattedValue:Object;
+    		
+		if (dataTipFormatFunction != null)
+		{
+			formattedValue = dataTipFormatFunction(value); 
+		}
+		else
+		{
+			if (dataFormatter == null)
+				dataFormatter = new NumberFormatter();
+				
+			dataFormatter.precision = dataTipPrecision;
+			
+			formattedValue = dataFormatter.format(value);	
+		}
+		
+		return formattedValue;
     }
     
     /**
@@ -144,6 +268,16 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
                                             localY:Number):Number
     {
         return 0;
+    }   
+   
+    /**
+     *  Used to position the data tip when it is visible. Subclasses must implement
+     *  this function and can use the dataTipOriginalPosition and dataTipInstance
+     *  properties. 
+     */
+    protected function positionDataTip():void
+    {
+		// Override in the subclasses
     }
 
     //--------------------------------------------------------------------------
@@ -165,6 +299,29 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         
         // Save the current value also.
         currValue = value;
+        
+        // Popup a dataTip only if we have a SkinPart and the boolean flag is true
+        if (dataTip && showDataTip && enabled)
+        {
+	        dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
+	        systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
+	        
+	        dataTipInstance.data = formatDataTipText(currValue);
+	        
+	        // Force the dataTip to render so that we have the correct size since
+	        // positionDataTip might need the size
+	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
+	        if (tipAsUIComponent)
+	        {
+	        	tipAsUIComponent.validateNow();
+	        	tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),
+	        								   tipAsUIComponent.getExplicitOrMeasuredHeight());
+	        }
+	        
+	        dataTipOriginalPosition = new Point(DisplayObject(dataTipInstance).x, 
+	        									DisplayObject(dataTipInstance).y);   
+	        positionDataTip();
+        }
     }
 
     /**
@@ -182,6 +339,22 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
             dispatchEvent(new Event("change"));
         }
         
+        if (dataTipInstance && showDataTip)
+        { 
+	        dataTipInstance.data = formatDataTipText(currValue);
+	        
+	        // Force the dataTip to render so that we have the correct size since
+	        // positionDataTip might need the size
+	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
+	        if (tipAsUIComponent)
+	        {
+	        	tipAsUIComponent.validateNow();
+	        	tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),tipAsUIComponent.getExplicitOrMeasuredHeight());
+	        }
+	        
+			positionDataTip();
+        }
+        
         event.updateAfterEvent();
     }
     
@@ -195,6 +368,12 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
             setValue(currValue);
             dispatchEvent(new Event("change"));
         }        
+        
+        if (dataTipInstance)
+        {
+            systemManager.toolTipChildren.removeChild(DisplayObject(dataTipInstance));
+            dataTipInstance = null;
+        }
         
         super.system_mouseUpHandler(event);
     }
