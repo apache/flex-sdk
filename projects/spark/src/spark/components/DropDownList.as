@@ -162,10 +162,7 @@ public class DropDownList extends DropDownListBase
      */
     override public function get baselinePosition():Number
     {
-        if (labelDisplay)
-            return getBaselinePositionForPart(labelDisplay);
-        
-        return super.baselinePosition;
+        return getBaselinePositionForPart(labelDisplay);
     }
 
     //--------------------------------------------------------------------------
