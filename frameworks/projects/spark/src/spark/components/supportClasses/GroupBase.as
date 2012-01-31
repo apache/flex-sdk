@@ -89,7 +89,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  Color of the fill of an item renderer.
@@ -111,7 +111,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="disabledAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="disabledAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  Color of focus ring when the component is in focus.
@@ -417,6 +417,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
         
     [Bindable]
+    [Inspectable(minValue="0.0")]     
 
     /**
      *  @copy spark.core.IViewport#horizontalScrollPosition
@@ -467,6 +468,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     
     [Bindable]
+    [Inspectable(minValue="0.0")] 
     
     /**
      *  @copy spark.core.IViewport#verticalScrollPosition
