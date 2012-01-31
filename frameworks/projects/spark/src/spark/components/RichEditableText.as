@@ -18,7 +18,6 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.system.IME;
 import flash.system.IMEConversionMode;
@@ -41,7 +40,6 @@ import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
-import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.GlobalSettings;
@@ -55,7 +53,6 @@ import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.events.StatusChangeEvent;
 import flashx.textLayout.formats.BlockProgression;
 import flashx.textLayout.formats.Category;
-import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
 import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.operations.CutOperation;
@@ -65,14 +62,10 @@ import flashx.textLayout.operations.FlowTextOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.tlf_internal;
-import flashx.undo.IOperation;
 import flashx.undo.IUndoManager;
 
-import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IIMESupport;
-import mx.core.IUIComponent;
-import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -80,11 +73,9 @@ import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 
 import spark.components.supportClasses.RichEditableTextContainerManager;
-import spark.components.supportClasses.RichEditableTextEditManager;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
@@ -464,6 +455,12 @@ public class RichEditableText extends UIComponent
 		 */
 		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
 		
+        /**
+         *  Set the TLF hook used to specify the callback used for changing 
+         *  the FontLookup based on SWFContext.  
+         */
+        GlobalSettings.resolveFontLookupFunction = TextUtil.resolveFontLookup;
+        
         staticConfiguration = 
             Configuration(TextContainerManager.defaultConfiguration).clone();
         staticConfiguration.manageEnterKey = false; // default is true
@@ -480,9 +477,6 @@ public class RichEditableText extends UIComponent
         staticPlainTextExporter =
             TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
             
-        // Used for embedded fonts.         
-        staticTextFormat = new TextFormat();
-        
         classInitialized = true;
     } 
     
@@ -519,13 +513,7 @@ public class RichEditableText extends UIComponent
      *  by walking the leaf FlowElements in the TextFlow.
      */
     private static var staticPlainTextExporter:ITextExporter;
-        
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
-     */
-    private static var staticTextFormat:TextFormat;
-        
+
     /**
      *  @private
      *  Regular expression which matches all newlines in the text.  Used
@@ -533,42 +521,6 @@ public class RichEditableText extends UIComponent
      */
     private static const ALL_NEWLINES_REGEXP:RegExp = /\n/g;
     
-    //--------------------------------------------------------------------------
-    //
-    //  Class properties
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  embeddedFontRegistry
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the _embeddedFontRegistry property.
-     *  Note: This gets initialized on first access,
-     *  not when this class is initialized, in order to ensure
-     *  that the Singleton registry has already been initialized.
-     */
-    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
-
-    /**
-     *  @private
-     *  A reference to the embedded font registry.
-     *  Single registry in the system.
-     *  Used to look up the moduleFactory of a font.
-     */
-    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
-    {
-        if (!_embeddedFontRegistry)
-        {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-        }
-
-        return _embeddedFontRegistry;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -3276,19 +3228,7 @@ public class RichEditableText extends UIComponent
             var bold:Boolean = getStyle("fontWeight") == "bold";
             var italic:Boolean = getStyle("fontStyle") == "italic";
             
-            var localLookup:ISystemManager = 
-                moduleFactory && moduleFactory is ISystemManager ? 
-                ISystemManager(moduleFactory) : systemManager;
-                
-            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
-                font, bold, italic, this, fontContext, localLookup, true);
-        }
-
-        if (!fontContext && fontLookup == FontLookup.EMBEDDED_CFF)
-        {
-            // if we couldn't find the font and somebody insists it is
-            // embedded, try the default moduleFactory
-            fontContext = moduleFactory;
+            fontContext = getFontContext(font, bold, italic, true);
         }
         
         return fontContext;
