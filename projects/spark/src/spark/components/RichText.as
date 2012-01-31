@@ -64,29 +64,141 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
 [IconFile("RichText.png")]
 
 /**
- *  Defines text in FXG.
- *  
- *  <p>This class can display richly-formatted text, with multiple character and paragraph formats. 
- *  However, it is non-interactive: it doesn't support scrolling, selection, or editing.</p>
- *  
- *  <p>A RichText element defines a text box, specified in the parent Group element's coordinate space, 
- *  to contain the provided text. The text box is specified using the x/y and width/height attributes on the RichText element.</p>
- *  
- *  <p>Text is rendered as a graphic element similar to paths and shapes, but with a restricted subset of rendering options. 
- *  RichText elements are always rendered using a solid fill color, modified by any opacity, blend mode, and color transformation 
- *  defined by parent elements, and clipped to any clipping content defined on its parent elements. RichText content is only filled, 
- *  not stroked.</p>
- *  
- *  <p>RichText does not support drawing a background or border; it only renders text and inline graphics. If you want a simpler text class, 
- *  use the SimpleText class. If you want a text control with more capabilities, use the RichEditableText class.</p>
- *  
- *  <p>The RichText element automatically clips the text rendering to the bounds of the text box.</p>
- *  
- *  <p>If you do not specify the value of the <code>width</code> or <code>height</code> properties, or if the specified value
- *  of these properties is 0, the width and height are calculated based on the text content.</p>
- *  
- *  @see mx.components.RichEditableText
- *  @see mx.graphics.SimpleText
+ *  RichText is a GraphicElement that can display one or more lines
+ *  of richly-formatted text and embedded images.
+ *
+ *  <p>For performance reasons, it does not support scrolling,
+ *  selection, editing, clickable hyperlinks, or images loaded from URLs.
+ *  If you need those capabilities, please see the RichEditableText
+ *  class.</p>
+ *
+ *  <p>RichText, which is new with Flex 4, makes use of the new
+ *  Text Layout Framework (TLF) library, which in turn builds on
+ *  the new Flash Text Engine (FTE) in Flash Player 10.
+ *  In combination, they provide rich text layout using
+ *  high-quality international typography.</p>
+ *
+ *  <p>The Spark architecture provides three text "primitives" -- 
+ *  SimpleText, RichText, and RichEditableText --
+ *  as part of its pay-only-for-what-you-need philosophy.
+ *  SimpleText is the fastest and most lightweight
+ *  because it uses only FTE, not TLF,
+ *  but it is limited in its capabilities: no rich text,
+ *  no scrolling, no selection, and no editing.
+ *  RichText adds the ability to display rich text
+ *  with complex layout, but is still completely non-interactive.
+ *  RichEditableText is the slowest and heaviest,
+ *  but offers most of what TLF can do.
+ *  You should use the fastest text primitive that meets your needs.</p>
+ *
+ *  <p>RichText is similar to the MX control mx.controls.Text.
+ *  The MX control used the older TextField class, instead of TLF,
+ *  to display text.</p>
+ *
+ *  <p>The most important differences to understand are
+ *  <ul>
+ *    <li>RichText offers better typography, better support
+ *        for international languages, and better text layout than Text.</li>
+ *    <li>RichText has an object-oriented model of what it displays,
+ *        while Text does not.</li>
+ *    <li>Text is selectable, while RichText does not support selection.</li>
+ *    <li>Text is a UIComponent that can be used in either MX
+ *        containers such as HBox or in Spark containers such as Group.
+ *        RichText is a GraphicElement that can only be used
+ *        inside Spark containers.</li>
+ *  </ul></p>
+ *
+ *
+ *  <p>RichText uses TLF's object-oriented model of rich text,
+ *  in which text layout elements such as divisions, paragraphs, spans,
+ *  and images are represented at runtime by ActionScript objects
+ *  which can be programmatically accessed and manipulated.
+ *  The central object in TLF for representing rich text is a
+ *  TextFlow, and you specify what RichText should display
+ *  by setting its <code>textFlow</code> property to a TextFlow instance.
+ *  (Please see the description of the <code>textFlow</code>
+ *  property for information about how to create one.)
+ *  You can also set the <code>text</code> property that
+ *  is inherited from TextGraphicElement, but if you don't need
+ *  the richness of a TextFlow, you should consider using
+ *  SimpleText instead.</p>
+ *
+ *  <p>At compile time, you can simply put TLF markup tags inside
+ *  the RichText tag, as in
+ *  <pre>
+ *  &lt;s:RichText&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:RichText&gt;
+ *  </pre>
+ *  In this case, the MXML compiler sets the <code>content</code>
+ *  property, causing a TextFlow to be automatically created
+ *  from the FlowElements that you specify.</p>
+ *
+ *  <p>The default text formatting is determined by CSS styles
+ *  such as <code>fontFamily</code>, <code>fontSize</code>.
+ *  Any formatting information in the TextFlow overrides
+ *  the default formatting provided by the CSS styles.</p>
+ *
+ *  <p>You can control the spacing between lines with the
+ *  <code>lineHeight</code> style and the spacing between
+ *  paragraphs with the <code>paragraphSpaceBefore</code>
+ *  and <code>paragraphSpaceAfter</code> styles.
+ *  You can align or justify the text using the <code>textAlign</code>
+ *  and <code>textAlignLast</code> styles.
+ *  You can inset the text from the component's edges using the
+ *  <code>paddingLeft</code>, <code>paddingTop</code>, 
+ *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</p>
+ *
+ *  <p>If you don't specify any kind of width for a RichText,
+ *  then the longest line, as determined by these explicit line breaks,
+ *  will determine the width of the SimpleText.</p>
+ *
+ *  <p>When you specify some kind of width, the text wraps at the right
+ *  edge of the component and the text is clipped when there is more
+ *  text than fits.
+ *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
+ *  new lines will start only at explicit lines breaks, such as
+ *  if you use CR (<code>"\r"</code>), LF (<code>"\n"</code>),
+ *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>
+ *  or if you use <code>&lt;p&gt;</code> and <code>&lt;br/&gt;</code>
+ *  in TLF markup.
+ *  In that case, lines that are wider than the control
+ *  will be clipped.</p>
+ *
+ *  <p>If you have more text than you have room to display it,
+ *  RichText can truncate the text for you.
+ *  Truncating text means replacing excess text
+ *  with a truncation indicator such as "...".
+ *  See the inherited properties <code>maxDisplayedLines</code>
+ *  and <code>isTruncated</code>.</p>
+ *
+ *  <p>By default,RichText has no background,
+ *  but you can draw one using the <code>backgroundColor</code>
+ *  and <code>backgroundAlpha</code> styles.
+ *  Borders are not supported.
+ *  If you need a border, or a more complicated background, use a separate
+ *  graphic element, such as a Rect, behind the RichText.</p>
+ *
+ *  <p>Because RichText uses TLF,
+ *  it supports displaying left-to-right (LTR) text such as French,
+ *  right-to-left (RTL) text such as Arabic, and bidirectional text
+ *  such as a French phrase inside of an Arabic one.
+ *  If the predominant text direction is right-to-left,
+ *  set the <code>direction</code> style to <code>"rtl"</code>.
+ *  The <code>textAlign</code> style defaults to <code>"start"</code>,
+ *  which makes the text left-aligned when <code>direction</code>
+ *  is <code>"ltr"</code> and right-aligned when <code>direction</code>
+ *  is <code>"rtl"</code>.
+ *  To get the opposite alignment,
+ *  set <code>textAlign</code> to <code>"end"</code>.</p>
+ *
+ *  <p>RichText uses TLF's StringTextFlowFactory and TextFlowTextLineFactory
+ *  classes to create one or more TextLine objects to statically display
+ *  its text.
+ *  For performance, its TextLines do not contain information
+ *  about individual glyphs; for more info, see
+ *  flash.text.engine.TextLineValidity.STATIC.</p>
+ *
+ *  @see spark.primitives.RichEditableText
+ *  @see spark.primitives.SimpleText
  *  
  *  @includeExample examples/RichTextExample.mxml
  *  
@@ -383,7 +495,7 @@ public class RichText extends TextGraphicElement
     private var _fontContext:IFlexModuleFactory;
 
     /**
-     *  @private
+     *  @inheritDoc
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -491,14 +603,43 @@ public class RichText extends TextGraphicElement
 	private var textFlowChanged:Boolean = false;
 	
 	/**
-	 *  The TextFlow displayed by this component.
-	 * 
-	 *  <p>A TextFlow is the most important class
-	 *  in the Text Layout Framework.
-	 *  It is the root of a tree of FlowElements
-	 *  representing rich text content.</p>
-	 * 
-	 *  @default
+     *  The TextFlow representing the rich text displayed by this component.
+     * 
+     *  <p>A TextFlow is the most important class
+     *  in the Text Layout Framework (TLF).
+     *  It is the root of a tree of FlowElements
+     *  representing rich text content.</p>
+	 *
+	 *  <p>You normally create a TextFlow from TLF markup
+	 *  using the <code>TextFlowUtil.importFromString()</code>
+	 *  or <code>TextFlowUtil.importFromXML()</code> methods.
+	 *  Alternately, you can use TLF's TextConverter class
+	 *  (which can import a subset of HTML) or build a TextFlow
+	 *  using methods like <code>addChild()</code> on TextFlow.</p>
+     * 
+	 *  <p>Setting this property affects the <code>text</code> property
+     *  and vice versa.</p>
+     *
+     *  <p>If you set the <code>textFlow</code> and get the <code>text</code>,
+	 *  the text in each paragraph will be separated by a single
+     *  LF ("\n").</p>
+     *
+     *  <p>If you set the <code>text</code> to a String such as
+	 *  <code>"Hello World"</code> and get the <code>textFlow</code>,
+	 *  it will be a TextFlow containing a single ParagraphElement
+	 *  with a single SpanElement.</p>
+     *
+     *  <p>If the text contains explicit line breaks --
+     *  CR ("\r"), LF ("\n"), or CR+LF ("\r\n") --
+     *  then the content will be set to a TextFlow
+     *  which contains multiple paragraphs, each with one span.</p>
+     *
+	 *  <p>To turn a TextFlow object into TLF markup,
+	 *  use the <code>TextFlowUtil.export()</code> markup.</p>
+	 *
+	 *  @see spark.utils.TextFlowUtil#importFromString()
+	 *  @see spark.utils.TextFlowUtil#importFromXML()
+     *  @see spark.primitives.RichEditableText#text
 	 */
 	public function get textFlow():TextFlow
 	{
