@@ -51,7 +51,7 @@ import mx.core.LayoutContainer;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class Module extends LayoutContainer
+public class Module extends LayoutContainer implements IModule
 {
     include "../core/Version.as";
 
