@@ -326,17 +326,25 @@ public class ButtonBarButtonSkin extends Border
 			case "disabledSkin":
 			case "selectedDisabledSkin":
 			{
+                var disFillColors:Array = [ fillColors[0], fillColors[1] ];
+                
+                var disFillAlphas:Array =
+                    [ Math.max( 0, fillAlphas[0] - 0.15),
+                      Math.max( 0, fillAlphas[1] - 0.15) ];
+				
 				// outer edge
 				drawRoundRect(
-					0, 0, w, h, cornerRadius,
-					[ borderColor, borderColorDrk1 ], 0.6,
-					verticalGradientMatrix(0, 0, w, h )); 	
+					0, 0, w, h, cr,
+					[ borderColor, borderColorDrk1 ], 0.5,
+					verticalGradientMatrix(0, 0, w, h ),
+					GradientType.LINEAR, null, 
+					{ x: 1, y: 1, w: w - 2, h: h - 2, r: cr1 } ); 	
 								
 				// button fill
-				drawRoundRect(
-					1, 1, w - 2, h - 2, cr1,
-					[ fillColors[0], fillColors[1] ], 0.8,
-					verticalGradientMatrix(0, 0, w - 2, h - 2)); 
+                drawRoundRect(
+                    1, 1, w - 2, h - 2, cr1,
+                    disFillColors, disFillAlphas,
+                    verticalGradientMatrix(0, 0, w - 2, h - 2));
 				
 				break;
 			}
