@@ -156,15 +156,21 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         var maxRendererHeight:Number = 0;
         for each (var rendererHeight:Number in rendererHeights)
-            maxRendererHeight = Math.max(maxRendererHeight, rendererHeight);
+        {
+            if (!isNaN(rendererHeight))
+                maxRendererHeight = Math.max(maxRendererHeight, rendererHeight);
+        }
         
         const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
         const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
         const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
-            
-        columnHeaderBar.measuredWidth = Math.ceil(grid.getPreferredBoundsWidth() + paddingLeft + paddingRight);
-        columnHeaderBar.measuredHeight = Math.ceil(maxRendererHeight + paddingTop + paddingBottom);
+        
+        var measuredWidth:Number = Math.ceil(grid.getPreferredBoundsWidth() + paddingLeft + paddingRight);
+        var measuredHeight:Number = Math.ceil(maxRendererHeight + paddingTop + paddingBottom);
+        
+        columnHeaderBar.measuredWidth = Math.max(measuredWidth, columnHeaderBar.minWidth);
+        columnHeaderBar.measuredHeight = Math.max(measuredHeight, columnHeaderBar.minHeight);
     }
 
     /**
