@@ -2423,9 +2423,9 @@ public class CalendarLayout extends UIComponent
    	/**
 	 *  We don't use 'is' to prevent dependency issues
 	 */
-	static private var dcis:Object = {};
+	private static var dcis:Object = {};
 
-	static private function isDateChooserIndicator(parent:Object):Boolean
+	private static function isDateChooserIndicator(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (dcis[s] == 1)
