@@ -1504,7 +1504,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             keepLayeringEnabled = true;
             //topLayerItems.sortOn("layer",Array.NUMERIC);
-            GroupBase.mx_internal::sortOnLayer(topLayerItems);
+            GroupBase.sortOnLayer(topLayerItems);
             len = topLayerItems.length;
             for (i=0;i<len;i++)
             {
@@ -1519,7 +1519,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             insertIndex = 0;
 
             //bottomLayerItems.sortOn("layer",Array.NUMERIC);
-            GroupBase.mx_internal::sortOnLayer(bottomLayerItems);
+            GroupBase.sortOnLayer(bottomLayerItems);
             len = bottomLayerItems.length;
 
             for (i=0;i<len;i++)
