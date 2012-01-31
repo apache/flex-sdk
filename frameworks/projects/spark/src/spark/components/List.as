@@ -62,8 +62,6 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  * 
- *  @default undefined
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -120,8 +118,6 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *   
- *  @default 0xFFFFFF
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -132,8 +128,6 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *   
- *  @default undefined
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
@@ -232,9 +226,11 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy mx.controls.listClasses.ListBase#style:selectionColor
+ *  The color of the background of a renderer when the user selects it.
  *
- *  @default 0xA8C6EE
+ *  <p>The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
+ *  The default value for the Mobile theme is <code>0xE0E0E0</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -727,6 +723,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  If the <code>dropEnabled</code> property is also <code>true</code>,
      *  you can drag items and drop them within this control
      *  to reorder the items.
+     * 
+     *  <p>Drag and drop is not supported on mobile devices where 
+     *  <code>interactionMode</code> is set to <code>touch</code>.</p>
      *
      *  @default false
      *  
@@ -782,6 +781,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Often the data provider cannot or should not have items removed
      *  from it, so a MOVE operation should not be allowed during
      *  drag-and-drop.
+     * 
+     *  <p>Drag and drop is not supported on mobile devices where 
+     *  <code>interactionMode</code> is set to <code>touch</code>.</p>
      *
      *  @default false
      *  
@@ -832,6 +834,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Flex automatically calls the <code>showDropFeedback()</code> 
      *  and <code>hideDropFeedback()</code> methods to display the drop
      *  indicator.</p>
+     * 
+     *  <p>Drag and drop is not supported on mobile devices where 
+     *  <code>interactionMode</code> is set to <code>touch</code>.</p>
      *
      *  @default false
      *  
