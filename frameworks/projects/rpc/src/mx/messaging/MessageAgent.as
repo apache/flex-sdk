@@ -86,7 +86,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="connect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="channelConnect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched when the underlying Channel the MessageAgent is using disconnects.
@@ -99,7 +99,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="disconnect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched when the underlying Channel the MessageAgent is using faults.
@@ -112,7 +112,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="fault", type="mx.messaging.events.ChannelFaultEvent")]
+[Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
 
 /**
  *  Dispatched when the <code>connected</code> property of the MessageAgent changes.
