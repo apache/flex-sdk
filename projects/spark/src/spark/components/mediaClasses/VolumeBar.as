@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components
+package spark.components.mediaClasses
 {
 
 import flash.display.DisplayObject;
@@ -28,13 +28,15 @@ import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
 import mx.managers.LayoutManager;
 
+import spark.components.VSlider;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
 import spark.events.DropDownEvent;
-import spark.events.VideoPlayerVolumeBarEvent;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -74,14 +76,14 @@ import spark.utils.LabelUtil;
 /**
  *  Dispatched when the video mutes or unmutes the volume.
  *
- *  @eventType spark.events.VideoPlayerVolumeBarEvent.MUTED_CHANGE
+ *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="mutedChange", type="spark.events.VideoPlayerVolumeBarEvent")]
+[Event(name="mutedChange", type="mx.events.FlexEvent")]
 
 //--------------------------------------
 //  Styles
@@ -115,7 +117,7 @@ import spark.utils.LabelUtil;
 [SkinState("open")]
 
 /**
- *  The VideoPlayerVolumeBar is a drop-down slider to control 
+ *  The VolumeBar is a drop-down slider to control 
  *  the volume of the video player.  By default it pops up when the
  *  muteButton is rolled over (with a delay of 200 milliseconds).  The  
  *  muteButton functions as a mute/unmute button when clicked.
@@ -125,7 +127,7 @@ import spark.utils.LabelUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoPlayerVolumeBar extends VSlider
+public class VolumeBar extends VSlider
 {
  
     //--------------------------------------------------------------------------
@@ -143,7 +145,7 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @productversion Flex 4
      */
     [SkinPart(required="false")]
-    public var muteButton:VideoPlayerVolumeBarMuteButton;
+    public var muteButton:MuteButton;
     
     
     /**
@@ -167,7 +169,7 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function VideoPlayerVolumeBar()
+    public function VolumeBar()
     {
         super();
         
@@ -240,6 +242,26 @@ public class VideoPlayerVolumeBar extends VSlider
     }
     
     //----------------------------------
+    //  isDropDownOpen
+    //----------------------------------
+    
+    /**
+     *  @copy spark.components.supportClasses.DropDownController#isOpen
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get isDropDownOpen():Boolean
+    {
+        if (dropDownController)
+            return dropDownController.isOpen;
+        else
+            return false;
+    }
+    
+    //----------------------------------
     //  muted
     //----------------------------------
     
@@ -273,7 +295,11 @@ public class VideoPlayerVolumeBar extends VSlider
             return;
         
         _muted = value;
-        dispatchEvent(new VideoPlayerVolumeBarEvent(VideoPlayerVolumeBarEvent.MUTED_CHANGE, false, false, value));
+        
+        if (muteButton)
+            muteButton.muted = value;
+        
+        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
     }
         
     //----------------------------------
@@ -291,7 +317,7 @@ public class VideoPlayerVolumeBar extends VSlider
         super.value = value;
         
         if (muteButton)
-            muteButton.value = value;
+            muteButton.volume = value;
     }
     
     //--------------------------------------------------------------------------
@@ -329,7 +355,7 @@ public class VideoPlayerVolumeBar extends VSlider
         super.setValue(value);
         
         if (muteButton)
-            muteButton.value = value;
+            muteButton.volume = value;
     }
 
     /**
@@ -387,17 +413,17 @@ public class VideoPlayerVolumeBar extends VSlider
             if (dropDownController)
                 dropDownController.openButton = muteButton;
             
-            muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
-            muteButton.value = value;
+            muteButton.addEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
+            muteButton.volume = value;
         }
         
         if (instance == dropDown && dropDownController)
             dropDownController.dropDown = dropDown;
     }
     
-    private function muteButton_clickHandler(event:MouseEvent):void
+    private function muteButton_mutedChangeHandler(event:FlexEvent):void
     {
-        muted = !muted;
+        muted = muteButton.muted;
     }
     
     /**
@@ -407,7 +433,7 @@ public class VideoPlayerVolumeBar extends VSlider
     {
         if (instance == muteButton)
         {
-            muteButton.removeEventListener(MouseEvent.CLICK, muteButton_clickHandler);
+            muteButton.removeEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
         }
         
         if (instance == dropDownController)
@@ -460,7 +486,7 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_openHandler(event:DropDownEvent):void
+    mx_internal function dropDownController_openHandler(event:DropDownEvent):void
     {
         invalidateSkinState();
         
@@ -476,7 +502,7 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_closeHandler(event:DropDownEvent):void
+    mx_internal function dropDownController_closeHandler(event:DropDownEvent):void
     {
         invalidateSkinState();
         
