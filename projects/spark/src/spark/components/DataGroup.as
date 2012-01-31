@@ -171,6 +171,7 @@ public class DataGroup extends GroupBase
     //----------------------------------
 
     private var _typicalItem:Object = null;
+    private var explicitTypicalItem:Object = null;
     private var typicalItemChanged:Boolean = false;
     private var typicalLayoutElement:ILayoutElement = null;
 
@@ -211,7 +212,7 @@ public class DataGroup extends GroupBase
     {
         if (_typicalItem == value)
             return;
-        _typicalItem = value;
+        _typicalItem = explicitTypicalItem = value;
         typicalItemChanged = true;
         invalidateProperties();
     }
@@ -652,6 +653,16 @@ public class DataGroup extends GroupBase
             dataProviderChanged = false;
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
+
+            if (layout)
+                layout.clearCachedVirtualLayoutState();
+                
+            // If an explicit value for typicalItem was never set, then clear
+            // the layout's typicalLayoutElement, which will force it to be
+            // recomputed by the next measured/updateDisplayList() call.
+            if (!explicitTypicalItem)
+                setTypicalLayoutElement(null);
+                
             initializeDataProvider();
             
             mx_internal::maskChanged = true;
