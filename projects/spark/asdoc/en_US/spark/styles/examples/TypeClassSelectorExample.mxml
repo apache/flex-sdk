@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Type and Class selectors -->
+<FxApplication xmlns="http://ns.adobe.com/mxml/2009" xmlns:custom="*">
+     <Style>
+        FxList.greenTheme {
+            selectionColor: #99FF99;
+        }
+
+        FxPanel.greenTheme {
+            contentBackgroundColor: #FFFFFF;
+        }
+
+        .greenTheme {
+            focusColor: #99CC66;
+            symbolColor: #339966;
+            contentBackgroundColor: #C0C0C0;
+        }
+    </Style>
+
+    <FxPanel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
+    	styleName="greenTheme">
+        <Text width="300" text="This FxPanel has a styleName, but, the FxList and FxPanel have some different styles defined in a Type+Class selector."
+        	x="10" y="10" />
+        <FxNumericStepper x="10" y="75" styleName="greenTheme"/>
+        <FxTextInput text="value" x="65" y="75" styleName="greenTheme"/>
+        <FxList id="carList" x="10" y="110" selectedIndex="2" styleName="greenTheme">
+        	<dataProvider>
+        		  <ArrayCollection source="[Fit, Mini, M3, Prius, Blazer, Flex]" />
+        	</dataProvider>
+        </FxList>
+    </FxPanel>
+</FxApplication>
