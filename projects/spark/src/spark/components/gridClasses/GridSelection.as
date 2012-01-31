@@ -25,32 +25,19 @@ import spark.components.gridClasses.CellPosition;
 use namespace mx_internal;
   
 /**
- *  <p>Track a Grid's selectionMode and its set of selected rows, columns, or cells.   
- *  The selected elements are defined by integer indices, where row indices are 
- *  relative to the Grid's dataProvider and column indices are relative to 
- *  the Grid's list of columns.</p>
- * 
- *  <p>Three sets of methods are provided for querying or changing the selection. 
- *  The methods for rows are typical:
- *  <pre>
- *  containsRow(rowIndex):Boolean
- *  setRow(rowIndex:int):void
- *  addRow(rowIndex:int):void
- *  removeRow(rowIndex:int):void
- *  setRows(rowIndex:int, rowCount:int):void
- *  </pre>
- *  The <code>containsRow()</code> method returns true if specified row is selected.
- *  The <code>setRow()</code> method replaces the current selection with the
- *  specified row.  It's used to implement unshifted-click selection in the Grid.
- *  The <code>add/removeRow()</code> methods add or remove the specified row from 
- *  the selection and are used to implement control-click selection.
- *  The <code>setRows()</code> method replaces the current selection with the
- *  specified rows.  It's used for shift-click selection.</p> 
+ *  Use the GridSelection class to track a Grid control's 
+ *  <code>selectionMode</code> property and its set of selected rows, columns, or cells.   
+ *  The selected elements are defined by integer indices.
  * 
  *  @see spark.components.Grid
  *  @see spark.components.Grid#columns
  *  @see spark.components.Grid#dataProvider
  *  @see spark.components.gridClasses.GridSelectionMode
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class GridSelection
 {
@@ -116,7 +103,7 @@ public class GridSelection
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridSelection()
@@ -137,14 +124,17 @@ public class GridSelection
     private var _grid:Grid;
     
     /**
-     *  This value is created by DataGrid/partAdded() and then set here.   
+     *  The grid control associated with this object. 
      *  This property should only be set once.
+     *
+     *  <p>For the Spark DataGrid, this value is initialized by 
+     *  the <code>DataGrid.partAdded()</code> method.</p>   
      * 
      *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get grid():Grid
@@ -167,18 +157,18 @@ public class GridSelection
     private var _preserveSelection:Boolean = true;
     
     /**
-     *  If true, and <code>selectionMode</code> is 
+     *  If <code>true</code>, and <code>selectionMode</code> is 
      *  <code>GridSelectionMode.SINGLE_ROW</code> or 
-     *  <code>GridSelectionMode.SINGLE_CELL</code>, the selection will be 
+     *  <code>GridSelectionMode.SINGLE_CELL</code>, then selection is
      *  preserved when the <code>dataProvider</code> refreshes its collection,
-     *  if the corresponding item is contained in the collection after
-     *  the refresh event.
+     *  and the selected item is contained in the collection after
+     *  the refresh.
      *
      *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get preserveSelection():Boolean
@@ -227,7 +217,7 @@ public class GridSelection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requireSelection():Boolean
@@ -260,21 +250,22 @@ public class GridSelection
     private var _selectionLength:int = 0;    
     
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> or
-     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the number of
-     *  selected rows and if the selectionMode is either 
+     *  If the <code>selectionMode</code> is either 
+     *  <code>GridSelectionMode.SINGLE_ROW</code> or
+     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, contains the number of
+     *  selected rows.
+     *  If the <code>selectionMode</code> is either 
      *  <code>GridSelectionMode.SINGLE_CELL</code> or
-     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns the number of
-     *  selected cells.  If selectionMode is <code>GridSelectionMode.NONE</code>
-     *  returns 0.
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, contains the number of
+     *  selected cells.  
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.NONE</code>, 
+     *  contains 0.
      * 
-     *  @return Number of selected rows or cells depending on selectionMode.
-     *
      *  @default 0
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionLength():int
@@ -319,8 +310,8 @@ public class GridSelection
      *  <code>GridSelectionMode.SINGLE_CELL</code>, and 
      *  <code>GridSelectionMode.SINGLE_ROW</code>.
      * 
-     *  <p>Changing the selectionMode causes the current selection to be 
-     *  cleared.</p>
+     *  <p>Changing the <code>selectionMode</code> causes the 
+     *  current selection to be cleared.</p>
      *
      *  @default GridSelectionMode.SINGLE_ROW
      * 
@@ -328,7 +319,7 @@ public class GridSelection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionMode():String
@@ -358,21 +349,16 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_CELL</code> or
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_CELL</code> or
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns a list of all the
      *  selected cells.
      * 
-     *  @return Vector of selected cell locations as row and column indices, or
-     *  if none, a Vector of length 0.  Each cell location is 
-     *  {rowIndex: rn, columnIndex: cn}.  The row indices 
-     *  are relative to the Grid's dataProvider and column indices are relative 
-     *  to the Grid's list of columns.
+     *  @return Vector of selected cell locations as row and column indices or,
+     *  if none are selected, a Vector of length 0.  
      *
-     *  @default An empty Vector.<CellPosition>
-     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function allCells():Vector.<CellPosition>
@@ -401,16 +387,16 @@ public class GridSelection
     }
         
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> or
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_ROW</code> or
      *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns a list of all the
      *  selected rows.
      * 
-     *  @return Vector of selected rows as row indices, or if none, a Vector 
-     *  of length 0.  The row indices are relative to the Grid's dataProvider.
+     *  @return Vector of selected rows as row indices or, if none, a Vector 
+     *  of length 0.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function allRows():Vector.<int>
@@ -434,15 +420,15 @@ public class GridSelection
     }
 
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code> or
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code> or
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, selects all the rows or
      *  cells in the grid.
      * 
-     *  @return true if the selection is changed.
+     *  @return <code>true</code> if the list of selected items has changed from the last call.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectAll():Boolean
@@ -462,16 +448,18 @@ public class GridSelection
      }
     
     /**
-     *  Remove removes the current selection.  If <code>requireSelection</code> 
-     *  is true, and the <code>selectionMode</code> is row-based, then row 0
-     *  will be selected and if the <code>selectionMode</code> is cell-based,
-     *  then cell 0,0 will be selected.
+     *  Remove the current selection.  
+     *  If <code>requireSelection</code> is <code>true</code>,
+     *  and the <code>selectionMode</code> is row-based, then row 0
+     *  is selected.
+     *  If the <code>selectionMode</code> is cell-based,
+     *  then cell 0,0 is selected.
      * 
-     *  @return true if the selection is changed.
+     *  @return <code>true</code> if the list of selected items has changed from the last call.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function removeAll():Boolean
@@ -489,18 +477,17 @@ public class GridSelection
     //----------------------------------
 
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> or
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_ROW</code> or
      *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, determines if the row is in 
      *  the current selection. 
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @return true if the row is in the selection
+     *  @return <code>true</code> if the row is in the selection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function containsRow(rowIndex:int):Boolean
@@ -512,17 +499,16 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
      *  determines if the rows are in the current selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @return true if the rows are in the selection
+     *  @return <code>true</code> if the rows are in the selection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function containsRows(rowsIndices:Vector.<int>):Boolean
@@ -540,20 +526,19 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> 
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_ROW</code> 
      *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, replaces the current 
-     *  selection with the given row.
+     *  selection with the specified row.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @return True if no errors, or false if the 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or the selectionMode is not valid.
+     *  @return <code>true</code> if no errors, or <code>false</code> if the 
+     *  <code>rowIndex</code> is not a valid index in the control's <code>dataProvider</code>, 
+     *  or if the <code>selectionMode</code> is not valid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function setRow(rowIndex:int):Boolean
@@ -567,19 +552,18 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
      *  adds the row to the selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @return True if no errors, or false if the 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or the selectionMode is not valid.
+     *  @return <code>true</code> if no errors, or <code>false</code> if the 
+     *  <code>rowIndex</code> is not a valid index in the 
+     *  control's <code>dataProvider</code>, or the <code>selectionMode</code> is not valid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function addRow(rowIndex:int):Boolean
@@ -596,20 +580,21 @@ public class GridSelection
    }
     
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> 
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_ROW</code> 
      *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, removes the row from 
      *  the selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @return True if no errors, or false if the 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or the selectionMode is not valid.
+     *  @return <code>true</code> if no errors.
+     *  Returns <code>false</code> if the 
+     *  <code>rowIndex</code> is not a valid index in the 
+     *  control's <code>dataProvider</code>, 
+     *  or if the <code>selectionMode</code> is not valid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function removeRow(rowIndex:int):Boolean
@@ -626,20 +611,21 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
      *  replaces the current selection with the rows starting at 
      *  <code>startRowIndex</code> and ending with <code>endRowIndex</code>.
      * 
      *  @param rowIndex 0-based row index of the first row in the selection.
      *  @param rowCount Number of rows in the selection.
      * 
-     *  @return True if no errors, or false if any of the indices are invalid
-     *  or <code>startRowIndex</code> is not less than or equal to <code>endRowIndex</code>
-     *  or the selectionMode is not valid.
+     *  @return <code>true</code> if no errors. 
+     *  Returns <code>false</code> if any of the indices are invalid,
+     *  if <code>startRowIndex</code> is not less than or equal to <code>endRowIndex</code>,
+     *  or if the <code>selectionMode</code> is not valid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function setRows(rowIndex:int, rowCount:int):Boolean
@@ -657,22 +643,20 @@ public class GridSelection
     //----------------------------------
 
     /**
-     *  If the selectionMode is either 
+     *  If the <code>selectionMode</code> is either 
      *  <code>GridSelectionMode.SINGLE_CELLS</code> 
      *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, determines if the cell 
      *  is in the current selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
+     *  @param columnsIndex The 0-based column index.
      * 
-     *  @return true if the cell is in the selection.
+     *  @return <code>true</code> if the cell is in the selection.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function containsCell(rowIndex:int, columnIndex:int):Boolean
@@ -684,25 +668,23 @@ public class GridSelection
     }
         
     /**
-     *  If the selectionMode is
+     *  If the <code>selectionMode</code> is
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, determines if all the 
      *  cells in the cell region are in the current selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
+     *  @param columnsIndex The 0-based column index.
      * 
-     *  @param rowCount In number of cells, the height of the cell region.
+     *  @param rowCount The row height of the region.
      * 
-     *  @param columnsCount In number of cells, the width of the cell region.
+     *  @param columnsCount The width of the cell region, in columns.
      * 
-     *  @return true if the cells are in the selection.
+     *  @return <code>true</code> if the cells are in the selection.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function containsCellRegion(rowIndex:int, columnIndex:int,
@@ -745,24 +727,23 @@ public class GridSelection
     }
         
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_CELLS</code> 
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_CELLS</code> 
      *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, replaces the current 
      *  selection with the cell at the given location.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
+     *  @param columnsIndex The 0-based column index.
      * 
-     *  @return true no errors or false, if 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or <code>columnIndex</code> is not a valid index in <code>columns</code>
-     *  or the selectionMode is invalid.
+     *  @return <code>true</code> no errors.
+     *  Returns <code>false</code> if 
+     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code>, 
+     *  if <code>columnIndex</code> is not a valid index in <code>columns</code>,
+     *  or if the <code>selectionMode</code> is invalid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function setCell(rowIndex:int, columnIndex:int):Boolean
@@ -776,23 +757,22 @@ public class GridSelection
     }
         
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
      *  adds the cell at the given location to the cell selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
+     *  @param columnsIndex The 0-based column index.
      * 
-     *  @return true no errors or false, if 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or <code>columnIndex</code> is not a valid index in <code>columns</code>
-     *  or the selectionMode is invalid.
+     *  @return <code>true</code> no errors.
+     *  Returns <code>false</code> if 
+     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code>, 
+     *  if <code>columnIndex</code> is not a valid index in <code>columns</code>,
+     *  or if the <code>selectionMode</code> is invalid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function addCell(rowIndex:int, columnIndex:int):Boolean
@@ -806,24 +786,23 @@ public class GridSelection
     }
 
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_CELL</code>
+     *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_CELL</code>
      *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, removes the cell at the
      *  given position from the cell selection.
      * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
+     *  @param rowIndex The 0-based row index.
      * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
+     *  @param columnsIndex The 0-based column index.
      * 
-     *  @return true if no errors, or false, if <code>rowIndex</code>
-     *  is not a valid index in <code>dataProvider</code> or 
-     *  <code>columnIndex</code> is not a valid index in <code>columns</code>
-     *  or the selectionMode is invalid.
+     *  @return <code>true</code> if no errors.
+     *  Returns <code>false</code> if <code>rowIndex</code>
+     *  is not a valid index in <code>dataProvider</code>, or if  
+     *  <code>columnIndex</code> is not a valid index in <code>columns</code>,
+     *  or if the <code>selectionMode</code> is invalid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function removeCell(rowIndex:int, columnIndex:int):Boolean
@@ -840,30 +819,29 @@ public class GridSelection
     }
 
     /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
      *  replaces the current selection with the cells in the given cell region.
      *  The origin of the cell region is the cell location specified by
      *  <code>rowIndex</code> and <code>columnIndex</code>, the width is
      *  <code>columnCount</code> and the height is <code>rowCound</code>.
      * 
-     *  @param rowIndex The 0-based row index of the origin, relative to the 
-     *  Grid's dataProvider.
+     *  @param rowIndex The 0-based row index of the origin.
      * 
-     *  @param columnsIndex The 0-based column index of the origin, relative to 
-     *  the Grid's columns.
+     *  @param columnsIndex The 0-based column index of the origin.
      * 
-     *  @param rowCount In number of cells, the height of the cell region.
+     *  @param rowCount The row height of the cell region.
      * 
-     *  @param columnsCount In number of cells, the width of the cell region.
+     *  @param columnsCount The column width of the cell region.
      * 
-     *  @return true if no errors, or false, if 
-     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code> 
-     *  or <code>columnIndex</code> is not a valid index in <code>columns</code>
-     *  or the selectionMode is invalid.
+     *  @return <code>true</code> if no errors.
+     *  Returns <code>false</code> if 
+     *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code>, 
+     *  if <code>columnIndex</code> is not a valid index in <code>columns</code>,
+     *  or if the <code>selectionMode</code> is invalid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function setCellRegion(rowIndex:int, columnIndex:int, 
@@ -1209,13 +1187,14 @@ public class GridSelection
     //-------------------------------------------------------------------------- 
 
     /**
+     *  @private
      *  Called when the grid's dataProvider dispatches a 
      *  <code>CollectionEvent.COLLECTION_CHANGE</code> event.  It handles
      *  each of the events defined in <code>CollectionEventKind</code>.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function dataProviderCollectionChanged(event:CollectionEvent):void
@@ -1466,13 +1445,14 @@ public class GridSelection
     //-------------------------------------------------------------------------- 
     
     /**
+     *  @private
      *  Called when the grid's columns dispatches a 
      *  <code>CollectionEvent.COLLECTION_CHANGE</code> event.  It handles
      *  each of the events defined in <code>CollectionEventKind</code>.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function columnsCollectionChanged(event:CollectionEvent):void
