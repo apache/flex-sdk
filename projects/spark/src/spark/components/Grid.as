@@ -1952,6 +1952,8 @@ public class Grid extends Group
         
         _variableRowHeight = value;
         
+        clearGridLayoutCache(false);
+
         invalidateSize();
         invalidateDisplayList();
         dispatchChangeEvent("variableRowHeightChanged");            
