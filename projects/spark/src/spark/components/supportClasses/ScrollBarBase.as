@@ -11,14 +11,13 @@
 
 package spark.components.supportClasses
 {
-import __AS3__.vec.Vector;
-
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
@@ -32,6 +31,8 @@ import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 import spark.effects.easing.Sine;
+
+use namespace mx_internal;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#symbolColor
@@ -627,6 +628,7 @@ public class ScrollBar extends TrackBase
     
     
    /**
+    *  @private
     *  Called when the viewport's width or height value changes. Does nothing by default.
     *  
     *  @langversion 3.0
@@ -634,11 +636,12 @@ public class ScrollBar extends TrackBase
     *  @playerversion AIR 1.5
     *  @productversion Flex 4
     */
-    protected function viewportResizeHandler(event:ResizeEvent):void
+    mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
     }
     
    /**
+    *  @private
     *  Called when the viewport's <code>contentWidth</code> value changes. Does nothing by default.
     *  
     *  @langversion 3.0
@@ -646,11 +649,12 @@ public class ScrollBar extends TrackBase
     *  @playerversion AIR 1.5
     *  @productversion Flex 4
     */
-    protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
+    mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
     }
     
     /**
+     *  @private 
      *  Called when the viewport's <code>contentHeight</code> value changes. Does nothing by default.
      *  
      *  @langversion 3.0
@@ -658,11 +662,12 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
+    mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
     }
     
     /**
+     *  @private
      *  Called when the viewport's <code>horizontalScrollPosition</code> value changes. Does nothing by default.
      *  
      *  @langversion 3.0
@@ -670,11 +675,12 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    mx_internal function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
     }  
     
     /**
+     *  @private
      *  Called when the viewport's <code>verticalScrollPosition</code> value changes. Does nothing by default. 
      *  
      *  @langversion 3.0
@@ -682,7 +688,7 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    mx_internal function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
     }   
     
