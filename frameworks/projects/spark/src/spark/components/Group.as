@@ -867,8 +867,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         }
         
         if (keepLayeringEnabled == false)
-            layeringMode = ITEM_ORDERED_LAYERING;        
-        invalidateDisplayList();        
+            layeringMode = ITEM_ORDERED_LAYERING; 
     }
     
     /**
@@ -951,6 +950,8 @@ public class Group extends GroupBase implements IVisualElementContainer
                 }
                 
                 element.sharedDisplayObject = mergeData.currentAssignableDO;
+                // Invalidate the element so that it redraws
+                element.invalidateDisplayList();
                 if (element.nextSiblingNeedsDisplayObject)
                     mergeData.currentAssignableDO = null;
             }
