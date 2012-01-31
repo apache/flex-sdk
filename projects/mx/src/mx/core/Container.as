@@ -3101,7 +3101,7 @@ public class Container extends UIComponent
         {
             var mainApp:* = parentApplication ?
                             parentApplication :
-                            ApplicationGlobals.application;
+                            FlexGlobals.topLevelApplication;
                             
             if ("addToCreationQueue" in mainApp)
                 mainApp.addToCreationQueue(this, creationIndex, null, this);
