@@ -819,6 +819,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 IDataRenderer(elt).data = null;  // reduce probability of leaks
                 elt.visible = false;
                 elt.includeInLayout = false;
+                
+                // Reset back to (0,0), otherwise when the element is reused
+                // it will be validated at its last layout size which causes
+                // problems with text reflow.
+                elt.setLayoutBoundsSize(0, 0, false);
+                
                 freeRenderers.push(elt);
             }
             else if (elt)
