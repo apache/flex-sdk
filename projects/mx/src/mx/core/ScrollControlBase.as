@@ -56,7 +56,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of the content area of the component.
@@ -68,7 +68,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of focus ring when the component is in focus
@@ -80,7 +80,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Style name for horizontal scrollbar.  This allows more control over
@@ -106,7 +106,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Style name for vertical scrollbar.  This allows more control over
