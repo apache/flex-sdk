@@ -37,6 +37,16 @@ use namespace mx_internal;
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
+ *  The alpha of the focus ring for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
