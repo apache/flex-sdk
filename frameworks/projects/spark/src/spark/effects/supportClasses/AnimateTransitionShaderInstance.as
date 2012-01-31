@@ -21,9 +21,10 @@ import flash.utils.ByteArray;
 import mx.containers.Panel;
 import mx.core.Application;
 import mx.core.UIComponent;
-import spark.effects.AnimationProperty;
+
 import spark.effects.AnimateShaderTransition;
-import spark.events.AnimationEvent;
+import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Animation;
     
 public class AnimateShaderTransitionInstance extends AnimateInstance
 {
@@ -236,8 +237,8 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
             shader.data.from.input = bitmapFrom;
             shader.data.to.input = bitmapTo;
             
-            animationProperties = [
-                new AnimationProperty("progress", 0, 1, duration)
+            motionPaths = [
+                new SimpleMotionPath("progress", 0, 1, duration)
             ];
             // auto-set width/height if exposed in shader
             if ("width" in shader.data)
@@ -269,16 +270,13 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
      */
     override protected function setValue(property:String, value:Object):void
     {
-        if (roundValues && (value is Number))
-            value = Math.round(Number(value));
-            
         shader.data.progress.value = [value];
         target.filters = [shaderFilter];
     }
 
-    override protected function startHandler(event:AnimationEvent):void
+    override public function animationStart(animation:Animation):void
     {
-        super.startHandler(event);
+        super.animationStart(animation);
         // Note that we don't want the old filters active on the target
         // during the animation; these filters will already be accounted
         // for when we take a bitmap snapshot of the object. Applying
@@ -288,11 +286,11 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         // shader filter during the animation.
         oldFilters  = target.filters;
     }    
-    override protected function endHandler(event:AnimationEvent):void
+    override public function animationEnd(animation:Animation):void
     {
         target.filters = oldFilters;
         oldFilters = null;
-        super.endHandler(event);
+        super.animationEnd(animation);
     }
 
     /**
