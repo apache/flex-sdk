@@ -21,7 +21,7 @@ package spark.components
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public final class ScrollSnappingMode
     {
@@ -30,7 +30,7 @@ package spark.components
          *
          *  @langversion 3.0
          *  @playerversion AIR 3
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         public static const NONE:String = "none";
         
@@ -40,7 +40,7 @@ package spark.components
          *
          *  @langversion 3.0
          *  @playerversion AIR 3
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         public static const LEADING_EDGE:String = "leadingEdge";
         
@@ -49,7 +49,7 @@ package spark.components
          *
          *  @langversion 3.0
          *  @playerversion AIR 3
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         public static const CENTER:String = "center";
         
@@ -59,7 +59,7 @@ package spark.components
          *
          *  @langversion 3.0
          *  @playerversion AIR 3
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         public static const TRAILING_EDGE:String = "trailingEdge";
         
