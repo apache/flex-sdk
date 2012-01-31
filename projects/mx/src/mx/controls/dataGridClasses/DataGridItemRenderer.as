@@ -89,7 +89,7 @@ public class DataGridItemRenderer extends UITextField
 		addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
 		
 		inheritingStyles = nonInheritingStyles =
-			UIComponent.STYLE_UNINITIALIZED;
+			StyleManager.STYLE_UNINITIALIZED;
 	}
 
 	//--------------------------------------------------------------------------
@@ -325,7 +325,7 @@ public class DataGridItemRenderer extends UITextField
         var isInheritingStyle:Boolean =
 			StyleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
-			inheritingStyles != UIComponent.STYLE_UNINITIALIZED;
+			inheritingStyles != StyleManager.STYLE_UNINITIALIZED;
         if (isInheritingStyle)
         {
             if (getStyle(styleProp) == newValue && isProtoChainInitialized)
@@ -527,7 +527,7 @@ public class DataGridItemRenderer extends UITextField
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
-            if (inheritChain == UIComponent.STYLE_UNINITIALIZED)
+            if (inheritChain == StyleManager.STYLE_UNINITIALIZED)
                 inheritChain = nonInheritChain;
         }
         else
