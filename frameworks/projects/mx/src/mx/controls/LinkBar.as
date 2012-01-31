@@ -209,8 +209,6 @@ use namespace mx_internal;
 
 [MaxChildren(0)]
 
-[Alternative(replacement="spark.components.ButtonBar", since="4.0")]
-
 /**
  *  A LinkBar control defines a horizontal or vertical row of LinkButton controls
  *  that designate a series of link destinations.
