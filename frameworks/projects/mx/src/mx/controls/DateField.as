@@ -12,6 +12,7 @@
 package mx.controls
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -37,8 +38,10 @@ import mx.events.DateChooserEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.InterManagerRequest;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -2128,7 +2131,6 @@ public class DateField extends ComboBase
                 _dropdown.displayedMonth = _dropdown.selectedDate.getMonth();
                 _dropdown.displayedYear = _dropdown.selectedDate.getFullYear();
             }
-            point = dd.parent.globalToLocal(point);
             dd.visible = show;
             dd.scaleX = scaleX;
             dd.scaleY = scaleY;
@@ -2140,24 +2142,37 @@ public class DateField extends ComboBase
             // A. Bottom Left Placment
             // B. Bottom Right Placement
             // C. Top Right Placement
-            var screen:Rectangle = systemManager.screen;
+            var sm:ISystemManager = systemManager.topLevelSystemManager;
+            var sbRoot:DisplayObject = sm.getSandboxRoot();
+            var screen:Rectangle;
 
-            if (screen.width > dd.getExplicitOrMeasuredWidth() + point.x &&
-                screen.height < dd.getExplicitOrMeasuredHeight() + point.y)
+            if (sm != sbRoot)
+            {
+                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                        false, false,
+                                        "getVisibleApplicationRect"); 
+                sbRoot.dispatchEvent(request);
+                screen = Rectangle(request.value);
+            }
+            else
+                screen = sm.getVisibleApplicationRect();
+
+            if (screen.right > dd.getExplicitOrMeasuredWidth() + point.x &&
+                screen.bottom < dd.getExplicitOrMeasuredHeight() + point.y)
             {
                 xVal = point.x
                 yVal = point.y - dd.getExplicitOrMeasuredHeight();
                 openPos = 1;
             }
-            else if (screen.width < dd.getExplicitOrMeasuredWidth() + point.x &&
-                     screen.height < dd.getExplicitOrMeasuredHeight() + point.y)
+            else if (screen.right < dd.getExplicitOrMeasuredWidth() + point.x &&
+                     screen.bottom < dd.getExplicitOrMeasuredHeight() + point.y)
             {
                 xVal = point.x - dd.getExplicitOrMeasuredWidth() + downArrowButton.width;
                 yVal = point.y - dd.getExplicitOrMeasuredHeight();
                 openPos = 2;
             }
-            else if (screen.width < dd.getExplicitOrMeasuredWidth() + point.x &&
-                     screen.height > dd.getExplicitOrMeasuredHeight() + point.y)
+            else if (screen.right < dd.getExplicitOrMeasuredWidth() + point.x &&
+                     screen.bottom > dd.getExplicitOrMeasuredHeight() + point.y)
             {
                 xVal = point.x - dd.getExplicitOrMeasuredWidth() + downArrowButton.width;
                 yVal = point.y + unscaledHeight;
@@ -2168,8 +2183,11 @@ public class DateField extends ComboBase
                 //downArrowButton.enabled = false;
                 openPos = 0;
 
+            point.x = xVal;
+            point.y = yVal;
+            point = dd.parent.globalToLocal(point);
             UIComponentGlobals.layoutManager.validateClient(dd, true);
-            dd.move(xVal, yVal);
+            dd.move(point.x, point.y);
             Object(dd).setActualSize(dd.getExplicitOrMeasuredWidth(),dd.getExplicitOrMeasuredHeight());
 
         }
