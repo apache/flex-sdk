@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the DataGroup component -->
-<FxApplication xmlns="http://ns.adobe.com/mxml/2009">
-    <Panel title="DataGroup Component Example" height="75%" width="75%" 
+<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:Panel title="DataGroup Component Example" height="75%" width="75%" 
         layout="vertical" horizontalCenter="0" verticalCenter="0" 
         paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
 
-        <Script>
+        <fx:Script>
             <![CDATA[
 
                 // need to import the item renderers
@@ -21,13 +21,13 @@
                 }
 
             ]]>
-        </Script>
+        </fx:Script>
 
         <!-- a DataGroup can hold primitive data items if an 
              item renderer is defined -->
 
-        <DataGroup itemRenderer="{new ClassFactory(FxDefaultItemRenderer)}">
-            <layout><VerticalLayout gap="1" /></layout>
+        <s:DataGroup itemRenderer="{new ClassFactory(FxDefaultItemRenderer)}">
+            <s:layout><s:VerticalLayout gap="1" /></s:layout>
             <dataProvider>
                 <ArrayCollection>
                     <String>primitive data 1</String>
@@ -35,15 +35,15 @@
                     <String>primitive data 3</String>
                 </ArrayCollection>
             </dataProvider>
-        </DataGroup>
+        </s:DataGroup>
 
         <Spacer height="20" />
 
         <!-- an item renderer function can be defined in order to display 
              a mix of data and graphical items -->
 
-        <DataGroup itemRendererFunction="customItemRendererFunction">
-            <layout><HorizontalLayout gap="1" /></layout>
+        <s:DataGroup itemRendererFunction="customItemRendererFunction">
+            <s:layout><s:HorizontalLayout gap="1" /></s:layout>
             <dataProvider>
                 <ArrayCollection>
                     <FxButton label="Button 1" />
@@ -51,7 +51,7 @@
                     <FxButton label="Button 2" />
                 </ArrayCollection>
             </dataProvider>
-        </DataGroup>
+        </s:DataGroup>
 
-    </Panel>
+    </s:Panel>
 </FxApplication>
