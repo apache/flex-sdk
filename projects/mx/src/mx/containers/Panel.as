@@ -64,6 +64,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
 /**
  *  Alpha of the title bar, control bar and sides of the Panel.
  *  The default value is 0.4.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderAlpha", type="Number", inherit="no")]
 
@@ -75,6 +80,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  of the left border.
  *
  *  @default NaN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThicknessBottom", type="Number", format="Length", inherit="no")]
 
@@ -82,6 +92,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Thickness of the left border of the Panel.
  *
  *  @default 10
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThicknessLeft", type="Number", format="Length", inherit="no")]
 
@@ -89,6 +104,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Thickness of the right border of the Panel.
  *
  *  @default 10
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThicknessRight", type="Number", format="Length", inherit="no")]
 
@@ -96,6 +116,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Thickness of the top border of the Panel.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThicknessTop", type="Number", format="Length", inherit="no")]
 
@@ -104,6 +129,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  any control bar child subcontrol.
  * 
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="controlBarStyleName", type="String", inherit="no")]
 
@@ -111,6 +141,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Radius of corners of the window frame.
  *
  *  @default 4
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
 
@@ -119,6 +154,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  of the Panel container's drop shadow.
  *
  *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropShadowEnabled", type="Boolean", inherit="no")]
 
@@ -132,6 +172,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  the panel background.
  *
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="footerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -144,12 +189,22 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  panel background.
  *
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  Height of the header.
  *  The default value is based on the style of the title text.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerHeight", type="Number", format="Length", inherit="no")]
 
@@ -157,6 +212,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Alphas used for the highlight fill of the header.
  *
  *  @default [0.3,0]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -165,6 +225,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  and its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -173,6 +238,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  and its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -183,6 +253,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  set <code>cornerRadius</code> to 0.
  *
  *  @default false
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="roundedBottomCorners", type="Boolean", inherit="no")]
 
@@ -192,6 +267,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  and <code>"right"</code>.
  *
  *  @default "center"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -200,6 +280,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Negative values move the shadow above the panel.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowDistance", type="Number", format="Length", inherit="no")]
 
@@ -207,6 +292,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Style declaration name for the status in the title bar.
  *
  *  @default "windowStatus"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
  
 [Style(name="statusStyleName", type="String", inherit="no")]
@@ -215,6 +305,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  The title background skin.
  *
  *  @default mx.skins.halo.TitleBackground
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleBackgroundSkin", type="Class", inherit="no")]
 
@@ -224,6 +319,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  which causes the title to have boldface text.
  *
  *  @default "windowStyles"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleStyleName", type="String", inherit="no")]
 
@@ -238,6 +338,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  <code>resizeEndEffect</code> property to <code>"none"</code>.  
  *
  *  @default "Dissolve"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="resizeEndEffect", event="resizeEnd")]
 
@@ -248,6 +353,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  <code>resizeStartEffect</code> property to <code>"none"</code>.  
  *
  *  @default "Dissolve"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="resizeStartEffect", event="resizeStart")]
 
@@ -358,6 +468,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @see mx.components.Panel
  *  @see mx.containers.ControlBar
  *  @see mx.containers.VBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Panel extends Container
     implements IConstraintLayout, IFontContextComponent
@@ -395,6 +510,11 @@ public class Panel extends Container
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Panel()
     {
@@ -591,6 +711,11 @@ public class Panel extends Container
      *  The set of styles to pass from the Panel to the close button.
      *  @see mx.styles.StyleProxy
      *  @review
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get closeButtonStyleFilters():Object
     {
@@ -612,6 +737,11 @@ public class Panel extends Container
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintColumns():Array
     {
@@ -652,6 +782,11 @@ public class Panel extends Container
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintRows():Array
     {
@@ -683,11 +818,21 @@ public class Panel extends Container
 
     /**
      *  A reference to this Panel container's control bar, if any.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var controlBar:IUIComponent;
     
     /**
      *  Proxy to the controlBar property which is protected and can't be accessed externally
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get _controlBar():IUIComponent
     {
@@ -700,6 +845,11 @@ public class Panel extends Container
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -739,6 +889,11 @@ public class Panel extends Container
      *  explicitly define the location of each child component. 
      *
      *  @default "vertical"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get layout():String
     {
@@ -804,6 +959,11 @@ public class Panel extends Container
      *  Text in the status area of the title bar.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get status():String
     {
@@ -832,6 +992,11 @@ public class Panel extends Container
      *  The status field is a child of the <code>titleBar</code> sub-control.
      * 
      *  @see #titleBar
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var statusTextField:IUITextField;
 
@@ -860,6 +1025,11 @@ public class Panel extends Container
      *
      *  @tiptext Gets or sets the title/caption displayed in the title bar
      *  @helpid 3991
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get title():String
     {
@@ -887,6 +1057,11 @@ public class Panel extends Container
 
     /**
      *  The TitleBar sub-control that displays the Panel container's title bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var titleBar:UIComponent;
 
@@ -912,6 +1087,11 @@ public class Panel extends Container
      *  The icon displayed in the title bar.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get titleIcon():Class
     {
@@ -941,6 +1121,11 @@ public class Panel extends Container
      *  The title field is a child of the <code>titleBar</code> sub-control.
      * 
      *  @see #titleBar
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var titleTextField:IUITextField;
 
@@ -1219,6 +1404,11 @@ public class Panel extends Container
      *  to display the title and the ControlBar.</p>
      * 
      *  @see mx.core.UIComponent#measure()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     override protected function measure():void
     {
@@ -1711,6 +1901,11 @@ public class Panel extends Container
      *  Returns the height of the header.
      * 
      *  @return The height of the header, in pixels.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getHeaderHeight():Number
     {
@@ -1788,6 +1983,11 @@ public class Panel extends Container
     /**
      *  Called when the user starts dragging a Panel
      *  that has been popped up by the PopUpManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function startDragging(event:MouseEvent):void
     {
@@ -1811,6 +2011,11 @@ public class Panel extends Container
     /**
      *  Called when the user stops dragging a Panel
      *  that has been popped up by the PopUpManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function stopDragging():void
     {
