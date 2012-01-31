@@ -1647,7 +1647,7 @@ public class VideoPlayer extends SkinnableComponent
         // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
         stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
-        fullScreenHideControlTimer.reset();
+        fullScreenHideControlTimer.stop();
         fullScreenHideControlTimer = null;
         
         // remove the event listeners to hide the controls
@@ -1660,6 +1660,7 @@ public class VideoPlayer extends SkinnableComponent
         playerControls.visible = true;
         
         // reset it so we're re-included in the layout
+        // TODO (rfrishbe): run this by Evtim
         this.x = beforeFullScreenX;
         this.y = beforeFullScreenY;
         includeInLayout = true;
