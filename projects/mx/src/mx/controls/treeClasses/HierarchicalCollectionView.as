@@ -22,11 +22,14 @@ import mx.collections.XMLListAdapter;
 import mx.collections.XMLListCollection;
 import mx.collections.errors.ItemPendingError;
 import mx.core.EventPriority;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 import mx.utils.IXMLNotifiable;
 import mx.utils.XMLNotifier;
+
+use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -673,7 +676,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 		if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
-            if (ce.kind == CollectionEventKind.mx_internal::EXPAND)
+            if (ce.kind == CollectionEventKind.EXPAND)
             {
             	event.stopImmediatePropagation();
             }
@@ -848,7 +851,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 							children = treeData as XMLListCollection;
 							if (parentNode)
 							{
-								children.mx_internal::dispatchResetEvent = false;
+								children.dispatchResetEvent = false;
 								children.source = parentNode.*;
 							}
 						}
@@ -906,7 +909,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 									children = treeData as XMLListCollection;
 									if (parentNode)
 									{
-										children.mx_internal::dispatchResetEvent = false;
+										children.dispatchResetEvent = false;
 										children.source = parentNode.*;
 									}
 								}
@@ -998,7 +1001,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 		if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
-            if (ce.kind == CollectionEventKind.mx_internal::EXPAND)
+            if (ce.kind == CollectionEventKind.EXPAND)
             {
             	event.stopImmediatePropagation();
             	updateLength();  
