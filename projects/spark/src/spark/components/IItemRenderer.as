@@ -19,7 +19,7 @@ import mx.core.IVisualElement;
 /**
  *  The IItemRenderer interface defines the basic set of APIs
  *  that you must implement to create a renderer that can 
- *  communication with an IItemRendererOwner, like a List or
+ *  communicate with an IItemRendererOwner, like a List or
  *  ButtonBar. 
  *  
  */
@@ -47,6 +47,18 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      */
     function get showFocusIndicator():Boolean;
     function set showFocusIndicator(value:Boolean):void;
+    
+    /**
+     *  The text to display for this renderer. For 
+     *  controls like List and ButtonBar, this is the result 
+     *  of either a labelField or labelFunction applied to the 
+     *  renderer's data, otherwise the toString() representation
+     *  of the renderer's data. 
+     *  
+     */
+    function get labelText():String;
+    function set labelText(value:String):void;
+    
 
 }
 
