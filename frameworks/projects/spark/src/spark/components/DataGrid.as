@@ -42,6 +42,7 @@ import spark.components.gridClasses.GridDimensions;
 import spark.components.gridClasses.GridLayout;
 import spark.components.gridClasses.GridSelection;
 import spark.components.gridClasses.GridSelectionMode;
+import spark.components.gridClasses.GridSortField;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemEditor;
 import spark.components.gridClasses.IGridItemRenderer;
@@ -3225,11 +3226,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  Sort the DataGrid by one or more columns and refresh the display.
      * 
-     *  If the dataProvider is an ICollectionView, then it's sort property will be
+     *  <p>If the dataProvider is an ICollectionView, then it's sort property will be
      *  set to a value based on each column's dataField, sortCompareFunction,
      *  and sortDescending flag, and then the dataProvider's refresh() method will be called.
-     * 
-     *  If the dataProvider is not an ICollectionView, then this method has no effect.
+     *  </p>
+     *  
+     *  <p>If the dataProvider is not an ICollectionView, then this method has no effect.</p>
      * 
      *  @param columnIndices The indices of the columns by which to sort the dataProvider.
      * 
@@ -3279,52 +3281,74 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         for each (var columnIndex:int in columnIndices)
         {
             var col:GridColumn = this.getColumnAt(columnIndex);
-            
-            // columns all must either have a dataField or a labelFunction
-            if (!col || (col.dataField == null && col.labelFunction == null))
+            if (!col)
                 return null;
             
+            var dataField:String = col.dataField;
+            
+            // columns all must have a dataField or a labelFunction or a sortCompareFunction
+            if (dataField == null && col.labelFunction == null && col.sortCompareFunction == null)
+                return null;
+            
+            const isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
             var sortField:SortField = null;
             var sortDescending:Boolean = col.sortDescending;
-            var i:int;
             
             // Check if we just sorted this column.
-            for (i = 0; i < fields.length; i++)
-            {
-                if (fields[i].name == col.dataField)
-                {
-                    // just sorted this column, so flip sortDescending.
-                    sortDescending = !fields[i].descending;
-                }
-            }
+            sortField = findSortField(dataField, fields, isComplexDataField);
             
             // If we haven't sorted by this column yet, check if
             // we've sorted by this column in the previous sort.
             if (!sortField && previousFields)
-            {
-                for (i = 0; i < previousFields.length; i++)
-                {
-                    if (previousFields[i].name == col.dataField)
-                    {
-                        // sortField exists in previous sort, so flip sortDescending.
-                        sortField = previousFields[i];
-                        sortDescending = !sortField.descending;
-                        break;
-                    }
-                }
-            }
+                sortField = findSortField(dataField, previousFields, isComplexDataField);
             
-            // Create a SortField from the column.
-            if (!sortField)
+            // Previously sorted column, so flip sortDescending.
+            if (sortField)
+            {
+                sortDescending = !sortField.descending;
+            }
+            else
+            {
+                // Create a SortField from the column.
                 sortField = col.sortField;
+            }
             
             col.sortDescending = sortDescending;
             sortField.descending = sortDescending;
-            
             fields.push(sortField);
         }
         
         return fields;
+    }
+    
+    /**
+     *  @private
+     *  Finds a SortField using the provided dataField and returns it.
+     *  If the dataField is complex, it tries to find a GridSortField
+     *  with a matching dataFieldPath.
+     * 
+     *  @param dataField The dataField of the column.
+     *  @param fields The array of SortFields to search through.
+     *  @param isComplexDataField true if the dataField is a path.
+     */
+    private static function findSortField(dataField:String, fields:Array, isComplexDataField:Boolean):SortField
+    {
+        if (dataField == null)
+            return null;
+            
+        for each (var field:SortField in fields)
+        {
+            var name:String = field.name;
+            if (isComplexDataField && (field is GridSortField))
+            {
+                name = GridSortField(field).dataFieldPath;
+            }
+            
+            if (name == dataField)
+                return field;
+        }
+        
+        return null;
     }
     
     //--------------------------------------------------------------------------
