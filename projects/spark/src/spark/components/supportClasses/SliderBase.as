@@ -146,6 +146,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     public function Slider():void
     {
         super();
+        maximum = 10;
     }
 
     //--------------------------------------------------------------------------
@@ -248,6 +249,29 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  @productversion Flex 4
      */
     public var dataTipPrecision:int = 2;
+    
+    //---------------------------------
+    // maximum
+    //---------------------------------   
+        
+    /**
+     *  Number which represents the maximum value possible for 
+     *  <code>value</code>. If the values for either 
+     *  <code>minimum</code> or <code>value</code> are greater
+     *  than <code>maximum</code>, they will be changed to 
+     *  reflect the new <code>maximum</code>
+     *
+     *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get maximum():Number
+    {
+        return super.maximum;
+    }
     
     //--------------------------------- 
     // showDataTip
