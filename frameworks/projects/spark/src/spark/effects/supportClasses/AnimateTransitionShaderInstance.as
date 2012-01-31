@@ -91,6 +91,17 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
 
         return _resourceManager;
     }
+
+    /**
+     * @private
+     * We need to dispose any BitmapData objects that we create in the
+     * process of playing this effect. If the caller passes in the objects,
+     * we'll let them handle disposal. These variables track whether we create
+     * the bitmapFrom/bitmapTo objects, and therefore whether we need to
+     * dispose of them when we're finished.
+     */
+    private var disposeFrom:Boolean;
+    private var disposeTo:Boolean;
     
     //--------------------------------------------------------------------------
     //
@@ -185,6 +196,10 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     override public function play():void
     {
+        // Only dispose bitmaps that are not provided by the caller
+        disposeFrom = (bitmapFrom == null);
+        disposeTo = (bitmapTo == null);
+        
         // FIXME (chaase): Should take the 'from' snapshot on the
         // fly, in case the object has changed since the overall
         // effect (composite, etc) started much earlier and the
@@ -259,10 +274,14 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             }
             shaderFilter = new ShaderFilter(shader);
         }
-            
+        
         super.play();
     }    
     
+    /**
+     * @private
+     * Return a BitmapData for the target object
+     */
     private function getSnapshot(target:Object):BitmapData
     {
         if (target is GraphicElement)
@@ -298,15 +317,39 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         // we can replace them when we're done, and then use only our
         // shader filter during the animation.
         oldFilters  = target.filters;
-    }    
+    }
+
+    /**
+     * @private
+     * Called when animation ends. Restores original filters and disposes of
+     * any BitmapData objects we created.
+     */
+    private function cleanup():void
+    {
+        target.filters = oldFilters;
+        oldFilters = null;
+        if (disposeFrom)
+            bitmapFrom.dispose();
+        if (disposeTo)
+            bitmapTo.dispose();
+    }
+    
     /**
      * @private
      */
     override public function animationEnd(animation:Animation):void
     {
-        target.filters = oldFilters;
-        oldFilters = null;
+        cleanup();
         super.animationEnd(animation);
+    }
+
+    /**
+     * @private
+     */
+    override public function animationStop(animation:Animation):void
+    {
+        cleanup();
+        super.animationStop(animation);
     }
 
     /**
