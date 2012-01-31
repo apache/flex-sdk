@@ -56,6 +56,11 @@ public class SOAPArrayType implements ICustomSOAPType
      * Encode an ActionScript Array as a SOAP encoded Array in XML.
      * 
      * TODO: Support soap array offset and item position attributes?
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encode(encoder:SOAPEncoder, parent:XML, name:QName, value:*, restriction:XML = null):void
     {
@@ -108,6 +113,11 @@ public class SOAPArrayType implements ICustomSOAPType
      *   &lt;/xsd:complexContent&gt;
      * &lt;/xsd:complexType&gt;
      * </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function decode(decoder:SOAPDecoder, parent:*, name:*, value:*, restriction:XML = null):void
     {
@@ -159,6 +169,11 @@ public class SOAPArrayType implements ICustomSOAPType
     /**
      * Recursively called to encode a set of dimensions at a particular level
      * (potentially many of a jagged/nested array) of an Array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function encodeArray(parent:XML, dimensions:Array, value:*):void
     {
@@ -428,6 +443,11 @@ public class SOAPArrayType implements ICustomSOAPType
      * @param wsdlArrayType The value of the wsdl:arrayType attribute that
      * specifies the signature of the SOAP encoded array including the type and
      * the dimensions and size information.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function parseWSDLArrayType(wsdlArrayType:String):void
     {
@@ -527,6 +547,11 @@ public class SOAPArrayType implements ICustomSOAPType
      * 
      * would return an Object for inputArray as {item:[A,B]} instead of
      * simply the Array [A,B].
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function unwrapMXMLArray(value:*):*
     {
