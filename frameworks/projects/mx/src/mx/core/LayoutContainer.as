@@ -35,7 +35,6 @@ import mx.managers.LayoutManager;
 import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
