@@ -20,7 +20,7 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
-import mx.utils.ObjectUtil;
+import mx.utils.NameUtil;
 
 /**
  *  Documentation is not currently available.
@@ -141,7 +141,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function get className():String
     {
-        return ObjectUtil.getUnqualifiedClassName(this);
+        return NameUtil.getUnqualifiedClassName(this);
     }
     
     //----------------------------------
