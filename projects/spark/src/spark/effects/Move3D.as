@@ -46,7 +46,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Move3D
+ *  &lt;s:Move3D
  *    <b>Properties</b>
  *    id="ID"
  *    xBy="no default"
