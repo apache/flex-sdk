@@ -25,6 +25,11 @@ use namespace mx_internal;
 
 /**
  * The RemoteObject class gives you access to classes on a remote application server.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class RemoteObject extends AbstractService
 {
@@ -37,6 +42,11 @@ public dynamic class RemoteObject extends AbstractService
     /**
      * Creates a new RemoteObject.
      * @param destination [optional] Destination of the RemoteObject; should match a destination name in the services-config.xml file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RemoteObject(destination:String = null)
     {
@@ -84,6 +94,11 @@ public dynamic class RemoteObject extends AbstractService
     * This may simplify event handling in the client application, but care should be taken to only use 
     * this mode when results or faults for requests may be safely ignored.</li>
     * </ul>
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function get concurrency():String
     {
@@ -114,6 +129,11 @@ public dynamic class RemoteObject extends AbstractService
      * that the channel should use the server name and port that was used to load the SWF. </p>
      *
      * <p><b>Note:</b> This property is required when creating AIR applications.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get endpoint():String
     {
@@ -139,6 +159,11 @@ public dynamic class RemoteObject extends AbstractService
     
     /**
      * When this value is true, anonymous objects returned are forced to bindable objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get makeObjectsBindable():Boolean
     {
@@ -158,6 +183,11 @@ public dynamic class RemoteObject extends AbstractService
     /**
     * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
     * value is <code>false</code>.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function get showBusyCursor():Boolean
     {
@@ -178,6 +208,11 @@ public dynamic class RemoteObject extends AbstractService
      * Lets you specify a source value on the client; not supported for destinations that use the JavaAdapter. This allows you to provide more than one source
      * that can be accessed from a single destination on the server. 
      *     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():String
     {
@@ -198,6 +233,11 @@ public dynamic class RemoteObject extends AbstractService
      * <code>
      *   function myParametersFunction(parameters:Array):Array
      * </code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var convertParametersHandler:Function;
 
@@ -212,6 +252,11 @@ public dynamic class RemoteObject extends AbstractService
      * 
      * It is passed the result just after the makeObjectsBindable conversion has been done
      * but before the result event is created.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var convertResultHandler:Function;
 
@@ -260,6 +305,11 @@ public dynamic class RemoteObject extends AbstractService
      * Operation instead.
      * @param name Name of the Operation.
      * @return Operation that executes for this name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getOperation(name:String):AbstractOperation
     {
@@ -282,6 +332,11 @@ public dynamic class RemoteObject extends AbstractService
      * @param charset The character set encoding to use while encoding the
      * remote credentials. The default is null, which implies the legacy charset
      * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function setRemoteCredentials(remoteUsername:String, remotePassword:String, charset:String=null):void
     {
@@ -294,6 +349,11 @@ public dynamic class RemoteObject extends AbstractService
      * channels assigned.
      *
      * @return Returns a String representing an instance of a RemoteObject.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toString():String
     {
