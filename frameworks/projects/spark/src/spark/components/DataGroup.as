@@ -177,11 +177,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
-
+    
     //----------------------------------
     //  baselinePosition
     //----------------------------------
-
+    
     /**
      *  @inheritDoc
      *  
@@ -194,13 +194,13 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if (!validateBaselinePosition())
             return NaN;
-
+        
         if (numElements == 0)
             return super.baselinePosition;
-
+        
         return getElementAt(0).baselinePosition + getElementAt(0).y;
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -210,12 +210,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     //----------------------------------
     //  typicalItem
     //----------------------------------
-
+    
     private var _typicalItem:Object = null;
     private var explicitTypicalItem:Object = null;
     private var typicalItemChanged:Boolean = false;
     private var typicalLayoutElement:ILayoutElement = null;
-
+    
     /**
      *  Layouts use the preferred size of the <code>typicalItem</code>
      *  when fixed row or column sizes are required, but a specific 
@@ -245,7 +245,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         return _typicalItem;
     }
-
+    
     /**
      *  @private
      */
@@ -264,7 +264,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (layout)
             layout.typicalLayoutElement = element;
     }
-
+    
     private function initializeTypicalItem():void
     {
         if (_typicalItem === null)
@@ -272,7 +272,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             setTypicalLayoutElement(null);
             return;
         }
-                
+        
         var renderer:IVisualElement = createRendererForItem(_typicalItem, false);
         var obj:DisplayObject = DisplayObject(renderer);
         if (!obj)
@@ -280,7 +280,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             setTypicalLayoutElement(null);
             return;
         }
-
+        
         super.addChild(obj);
         setUpItemRenderer(renderer, 0, _typicalItem);
         if (obj is IInvalidating)
@@ -325,7 +325,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if (layout.typicalLayoutElement)
             return;
-
+        
         const list:IList = dataProvider;
         if (list && (list.length > 0))
         {
@@ -333,11 +333,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             initializeTypicalItem();
         }
     }
-
+    
     //----------------------------------
     //  layout
     //----------------------------------
-
+    
     private var useVirtualLayoutChanged:Boolean = false;
     
     /**
@@ -349,7 +349,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         var oldLayout:LayoutBase = layout;
         if (value == oldLayout)
             return; 
-
+        
         if (oldLayout)
         {
             oldLayout.typicalLayoutElement = null;
@@ -388,11 +388,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         changeUseVirtualLayout();
     }
-
+    
     //----------------------------------
     //  itemRenderer
     //----------------------------------
-
+    
     /**
      *  @private
      *  Storage for the itemRenderer property.
@@ -400,9 +400,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private var _itemRenderer:IFactory;
     
     private var itemRendererChanged:Boolean;
-
+    
     [Inspectable(category="Data")]
-
+    
     /**
      *  The item renderer to use for data items. 
      *  The class must implement the IDataRenderer interface.
@@ -420,14 +420,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         return _itemRenderer;
     }
-
+    
     /**
      *  @private
      */
     public function set itemRenderer(value:IFactory):void
     {
         _itemRenderer = value;
-
+        
         cleanUpDataProvider();
         invalidateProperties();
         
@@ -438,15 +438,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     //----------------------------------
     //  itemRendererFunction
     //----------------------------------
-
+    
     /**
      *  @private
      *  Storage for the itemRendererFunction property.
      */
     private var _itemRendererFunction:Function;
-
+    
     [Inspectable(category="Data")]
-
+    
     /**
      *  Function that returns an item renderer IFactory for a 
      *  specific item.  You should define an item renderer function 
@@ -466,21 +466,21 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         return _itemRendererFunction;
     }
-
+    
     /**
      *  @private
      */
     public function set itemRendererFunction(value:Function):void
     {
         _itemRendererFunction = value;
-
+        
         cleanUpDataProvider();
         invalidateProperties();
         
         itemRendererChanged = true;
         typicalItemChanged = true;
     }
- 
+    
     //----------------------------------
     //  rendererUpdateDelegate
     //----------------------------------
@@ -571,6 +571,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         dispatchEvent(new Event("dataProviderChanged"));        
     }
     
+    private static function sortDecreasing(x:int, y:int):Number
+    {
+        return y - x;
+    }
+    
     /**
      *  @private
      *  Cleans up all the old item renderers.
@@ -623,9 +628,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             }
             else
             {
-                var endIndex:int = virtualLayoutEndIndex;     // itemRemoved decrements virtualLayoutEndIndex
-                var startIndex:int = virtualLayoutStartIndex; // itemRemoved decrements virtualLayoutStartIndex
-                for (index = endIndex; (index >= 0) && (index >= startIndex); index--)
+                for each (index in virtualRendererIndices.concat().sort(sortDecreasing))
                 {
                     // TODO (rfrishbe): same as above
                     
@@ -634,12 +637,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                         item = IDataRenderer(renderer).data;
                     else
                         item = renderer;
-                    itemRemoved(item, index);
+                    itemRemoved(item, index);  // removes index from virtualRendererIndices
                 }
-                indexToRenderer = [];
                 
-                virtualLayoutStartIndex = virtualLayoutEndIndex = -1;
-                oldVirtualLayoutStartIndex = oldVirtualLayoutEndIndex = -1;
+                indexToRenderer = [];
+                virtualRendererIndices.length = 0;
+                oldVirtualRendererIndices.length = 0;
                 
                 for (var i:int = freeRenderers.length - 1; i >= 0; i--)
                 {
@@ -661,17 +664,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */ 
     private function initializeDataProvider():void
     {
-        var index:int;
-        var vLayout:Boolean = layout && layout.useVirtualLayout;
-        
         if (_dataProvider)
         {
             _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
             
             // Create all item renderers eagerly
-            if (!vLayout)
+            if (!(layout && layout.useVirtualLayout))
             {
-                for (index = 0; index < _dataProvider.length; index++)
+                const dataProviderLength:int = _dataProvider.length;
+                for (var index:int = 0; index < _dataProvider.length; index++)
                     itemAdded(_dataProvider.getItemAt(index), index);
             }
             else
@@ -751,7 +752,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // 3. if item is an IVisualElement and a DisplayObject, use it directly
         if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
             myItemRenderer = IVisualElement(item);
-
+        
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer && failRTE)
         {
@@ -762,10 +763,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 err = resourceManager.getString("components", "unableToCreateRenderer", [item]);
             throw new Error(err);
         }
-
+        
         return myItemRenderer;
     }
-   
+    
     /**
      *  @private
      */
@@ -775,16 +776,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         {
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
-
+            
             if (layout)
                 layout.clearVirtualLayoutCache();
-                
+            
             // If an explicit value for typicalItem was never set, then clear
             // the layout's typicalLayoutElement, which will force it to be
             // recomputed by the next measured/updateDisplayList() call.
             if (!explicitTypicalItem)
                 setTypicalLayoutElement(null);
-                
+            
             initializeDataProvider();
             
             // Don't reset the scroll positions until the new ItemRenderers are created
@@ -794,7 +795,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 dataProviderChanged = false;
                 verticalScrollPosition = horizontalScrollPosition = 0;
             }
-
+            
             maskChanged = true;
         }
         
@@ -802,7 +803,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // initializeDataProvider removes all of the display list children.
         // GroupBase's commitProperties reattaches the mask
         super.commitProperties();
-
+        
         if (_layeringFlags & LAYERING_DIRTY)
         {
             if (layout && layout.useVirtualLayout)
@@ -817,7 +818,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             initializeTypicalItem();
         }
     }
-
+    
     /**
      *  @private
      *  True if we are updating a renderer currently. 
@@ -848,8 +849,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private function setUpItemRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
         if (!renderer)
-           return;
-
+            return;
+        
         // keep track of whether we are actively updating an renderers 
         // so we can ignore any collectionChange.UPDATE events
         renderersBeingUpdated = true;
@@ -875,7 +876,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // Set the index
         if (renderer is IItemRenderer)
             IItemRenderer(renderer).itemIndex = itemIndex;
-
+        
         // set the label to the toString() of the data 
         if (renderer is IItemRenderer)
             IItemRenderer(renderer).label = itemToLabel(data);
@@ -887,51 +888,69 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
+     *  If the renderer at the specified index has a non-zero depth then: append it to
+     *  layers.topLayerItems if depth > 0, or to layers.bottomLayerItems if depth < 0.
+     *  Otherwise, if depth is zero (the default) then change the renderer's childIndex 
+     *  to insertIndex and increment insertIndex.  The possibly incremented insertIndex is returned.
+     *   
+     *  See manageDisplayObjectLayers().
      */
-    private function manageDisplayObjectLayers():void
+    private function sortItemAt(index:int, layers:Object, insertIndex:int):int
     {
-        // itemRenderers should be both DisplayObjects and IVisualElements
-        var topLayerItems:Vector.<IVisualElement>;
-        var bottomLayerItems:Vector.<IVisualElement>;        
-        var keepLayeringEnabled:Boolean = false;
+        const renderer:IVisualElement = getElementAt(index);
+        const layer:Number = renderer.depth;
         
-        var insertIndex:uint = 0;
-
-        _layeringFlags &= ~LAYERING_DIRTY;
-        
-        var len:int = numElements;
-        var startIndex:int = 0;
-        var endIndex:int = numElements - 1;
-        
-        if (layout && layout.useVirtualLayout && (virtualLayoutStartIndex != -1))
-        {
-            startIndex = virtualLayoutStartIndex;
-            endIndex = virtualLayoutEndIndex;
-        }
-        
-        for (var i:int = startIndex; i <= endIndex; i++)
-        {  
-            var myItemRenderer:IVisualElement = getElementAt(i);
-            var layer:Number = myItemRenderer.depth;
-            
-            if (layer != 0)
-            {               
-                if (layer > 0)
-                {
-                    if (topLayerItems == null) topLayerItems = new Vector.<IVisualElement>();
-                    topLayerItems.push(myItemRenderer);
-                    continue;                   
-                }
-                else
-                {
-                    if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualElement>();
-                    bottomLayerItems.push(myItemRenderer);
-                    continue;                   
-                }
+        if (layer != 0)
+        {               
+            if (layer > 0)
+            {
+                if (layers.topLayerItems == null) 
+                    layers.topLayerItems = new Vector.<IVisualElement>();
+                layers.topLayerItems.push(renderer);
+            }
+            else
+            {
+                if (layers.bottomLayerItems == null) 
+                    layers.bottomLayerItems = new Vector.<IVisualElement>();
+                layers.bottomLayerItems.push(renderer);
             }
             
-            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
+            return insertIndex;                   
         }
+        
+        super.setChildIndex(renderer as DisplayObject, insertIndex++);        
+        return insertIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    private function manageDisplayObjectLayers():void
+    {      
+        _layeringFlags &= ~LAYERING_DIRTY;
+        
+        var insertIndex:uint = 0;
+        const layers:Object = {topLayerItems:null,  bottomLayerItems:null};
+        
+        if (layout && layout.useVirtualLayout)
+        {
+            for each (var index:int in virtualRendererIndices)
+            insertIndex = sortItemAt(index, layers, insertIndex);
+        }
+        else
+        {
+            for (index = 0; index < numElements; index++) 
+                insertIndex = sortItemAt(index, layers, insertIndex);            
+        }
+        
+        // itemRenderers should be both DisplayObjects and IVisualElements
+        const topLayerItems:Vector.<IVisualElement> = layers.topLayerItems;
+        const bottomLayerItems:Vector.<IVisualElement> = layers.bottomLayerItems; 
+        
+        var myItemRenderer:IVisualElement;
+        var keepLayeringEnabled:Boolean = false;
+        var len:int = numElements;
+        var i:int;
         
         if (topLayerItems != null)
         {
@@ -949,10 +968,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         {
             keepLayeringEnabled = true;
             insertIndex=0;
-
+            
             GroupBase.sortOnLayer(bottomLayerItems);
             len = bottomLayerItems.length;
-
+            
             for (i=0;i<len;i++)
             {
                 myItemRenderer = bottomLayerItems[i];
@@ -982,20 +1001,24 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         return dataProvider ? dataProvider.length : 0;
     }
-
+    
+    /** 
+     *  @private
+     *  Maps from renderer index (same as dataProvider index) to the item renderer itself.
+     */
     private var indexToRenderer:Array = []; 
-
+    
     /**
-     *  @private 
-     *  The first and last layout element indices requested via 
-     *  getLayoutElementAt().   Used by finishVirtualLayout()
-     *  to distinguish IRs that can be recycled or discarded.
-     */     
-    private var virtualLayoutStartIndex:int = -1;
-    private var virtualLayoutEndIndex:int = -1;
-    private var oldVirtualLayoutStartIndex:int = -1;
-    private var oldVirtualLayoutEndIndex:int = -1;
-
+     *  @private
+     *  The set of layout element indices requested with getVirtualElementAt() 
+     *  during updateDisplayList(), and the set of "old" indices that were requested
+     *  in the previous pass.  These vectors are used by finishVirtualLayout()
+     *  to distinguish IRs that can be recycled or discarded.   The virtualRendererIndices
+     *  vector is used in various places to iterate over all of the virtual renderers.
+     */
+    private var virtualRendererIndices:Vector.<int> = null;
+    private var oldVirtualRendererIndices:Vector.<int> = null;
+    
     /**
      *  @private 
      *  During a virtual layout, virtualLayoutUnderway is true.  This flag is used 
@@ -1003,7 +1026,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  See invalidateSize() and updateDisplayList().
      */
     private var virtualLayoutUnderway:Boolean = false;
-
+    
     /**
      *  @private
      *  freeRenderers - IRs that were created by getLayoutElementAt() but
@@ -1011,40 +1034,71 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  The list is updated by finishVirtualLayout().  
      */
     private var freeRenderers:Array = new Array();
-         
+    
     /**
      *  @private
+     *  Called before super.updateDisplayList() if layout.useVirtualLayout=true.
+     *  Copies virtualRendererIndices to oldRendererIndices, clears virtualRendererIndices
+     *  (which will be repopulated by subsequence getVirtualElementAt() calls), and
+     *  calls ensureTypicalElement().
+     */
+    private function startVirtualLayout():void
+    {
+        virtualLayoutUnderway = true;
+        
+        // lazily create the virtualRendererIndices vectors
+        
+        if (!virtualRendererIndices)
+            virtualRendererIndices = new Vector.<int>();
+        if (!oldVirtualRendererIndices)
+            oldVirtualRendererIndices = new Vector.<int>();
+        
+        // Copy the contents virtualRendererIndices to oldVirtualRendererIndices
+        // and then clear virtualRendererIndices
+        
+        oldVirtualRendererIndices.length = 0;
+        for each (var index:int in virtualRendererIndices)
+            oldVirtualRendererIndices.push(index);
+        virtualRendererIndices.length = 0;
+        
+        // Ensure that layout.typicalLayoutElement is set
+        ensureTypicalLayoutElement();
+    }
+    
+    /**
+     *  @private
+     *  Called after super.updateDisplayList() finishes.
+     * 
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
-     *  outside the range virtualLayoutStartIndex to virtualLayoutEndIndex.
+     *  not explicitly requested with getVirtualElementAt() during the most
+     *  recent super.updateDisplayList().
+     * 
      *  Discarded IRs may be added to the freeRenderers list per the rules
      *  defined in getVirtualElementAt().  If any visible renderer has a non-zero
-     *  depth we resort DisplayObject - manageDisplayObjectLayers() - as well. 
+     *  depth we resort all of them with manageDisplayObjectLayers(). 
      */
     private function finishVirtualLayout():void
     {
-        if (oldVirtualLayoutStartIndex < 0 || oldVirtualLayoutEndIndex < 0)
+        virtualLayoutUnderway = false;
+
+        if (oldVirtualRendererIndices.length == 0)
             return;
         
-        // Remove the old ItemRenderers that aren't new ItemRenderers.  In other
-        // words remove the ItemRenderers from oldVirtualLayoutStartIndex to 
-        // oldVirtualLayoutEndIndex, but skip the ones in the range
-        // virtualLayoutStartIndex to virtualLayoutEndIndex.
-
-        for (var index:int = oldVirtualLayoutStartIndex; index <= oldVirtualLayoutEndIndex; index++)
+        // Remove the old ItemRenderers that aren't new ItemRenderers and 
+        // add them to the freeRenderers list.
+        
+        for each (var vrIndex:int in oldVirtualRendererIndices)
         {
-            // Skip the inView renderers.  If vitrualLayoutStartIndex is -1, there aren't any. 
-            if (virtualLayoutStartIndex != -1 && index >= virtualLayoutStartIndex && index <= virtualLayoutEndIndex)
-            {
-                index = virtualLayoutEndIndex;
+            // Skip renderers that are still in view.
+            if (virtualRendererIndices.indexOf(vrIndex) != -1)
                 continue;
-            }
             
             // Remove previously "in view" IR from the item=>IR table
-            var elt:IVisualElement = indexToRenderer[index] as IVisualElement;
-            delete indexToRenderer[index];
-
+            var elt:IVisualElement = indexToRenderer[vrIndex] as IVisualElement;
+            delete indexToRenderer[vrIndex];
+            
             // Free or remove the IR.
-            var item:Object = dataProvider.getItemAt(index);
+            var item:Object = dataProvider.getItemAt(vrIndex);
             if ((item != elt) && (elt is IDataRenderer))
             {
                 // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
@@ -1060,23 +1114,20 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             }
             else if (elt)
             {
-                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, false, false, elt, index, item));
+                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, false, false, elt, vrIndex, item));
                 super.removeChild(DisplayObject(elt));
             }
         }
-
+        
         // If there are any visible renderers whose depth property is non-zero
         // then use manageDisplayObjectLayers to resort the children list.  Note:
         // we're assuming that the layout has set the bounds of any elements that
         // were allocated but aren't actually visible to 0x0.
         
-        if (virtualLayoutStartIndex < 0 || virtualLayoutEndIndex < 0)
-            return;
-        
         var depthSortRequired:Boolean = false;
-        for (index = virtualLayoutStartIndex; index < virtualLayoutEndIndex; index++)
+        for each (vrIndex in virtualRendererIndices)
         {
-            elt = indexToRenderer[index] as IVisualElement;
+            elt = indexToRenderer[vrIndex] as IVisualElement;
             if (!elt || !elt.visible || !elt.includeInLayout)
                 continue;
             if ((elt.width == 0) || (elt.height == 0))
@@ -1087,6 +1138,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 break;
             }
         }
+        
         if (depthSortRequired)
             manageDisplayObjectLayers();
     }
@@ -1098,12 +1150,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     mx_internal function clearFreeRenderers():void
     {
-        var n:int = freeRenderers.length;
-        for (var i:int = 0; i < n; i++)
+        const freeRenderersLength:int = freeRenderers.length;
+        for (var i:int = 0; i < freeRenderersLength; i++)
             freeRenderers[i] = null;
         freeRenderers.length = 0;
     }
-         
+    
     /**
      *  @private
      *  During virtual layout getLayoutElementAt() eagerly validates lazily
@@ -1115,7 +1167,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (!virtualLayoutUnderway)
             super.invalidateSize();
     }
-
+    
     /**
      *  @private 
      *  Make sure there's a valid typicalLayoutElement for virtual layout.
@@ -1124,10 +1176,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if (layout && layout.useVirtualLayout)
             ensureTypicalLayoutElement();
-
+        
         super.measure();
     }
-
+    
     /**
      *  @private
      *  Manages the state required by virtual layout. 
@@ -1135,23 +1187,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         drawBackground();
-
+        
         if (layout && layout.useVirtualLayout)
-        {
-            virtualLayoutUnderway = true;
-            oldVirtualLayoutStartIndex = virtualLayoutStartIndex;
-            oldVirtualLayoutEndIndex = virtualLayoutEndIndex;
-            virtualLayoutStartIndex = -1;
-            ensureTypicalLayoutElement();
-        }
+            startVirtualLayout();   // sets virtualLayoutUnderway=true
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         if (virtualLayoutUnderway)
-        {
-            finishVirtualLayout();
-            virtualLayoutUnderway = false;
-        }
+            finishVirtualLayout();  // sets virtualLayoutUnderway=false
     }
     
     /**
@@ -1209,22 +1252,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
-            
+        
         var elt:IVisualElement = indexToRenderer[index];
         
         if (virtualLayoutUnderway)
         {
-            if (virtualLayoutStartIndex == -1)  // initialized in updateDisplayList()
-            {
-                virtualLayoutStartIndex = index;
-                virtualLayoutEndIndex = index;
-            }
-            else
-            {
-                virtualLayoutStartIndex = Math.min(index, virtualLayoutStartIndex); 
-                virtualLayoutEndIndex = Math.max(index, virtualLayoutEndIndex);
-            }
-                      
+            if (virtualRendererIndices.indexOf(index) == -1)
+                virtualRendererIndices.push(index);
+            
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
             
@@ -1248,8 +1283,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 
                 indexToRenderer[index] = elt;
             }
-
-            addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutStartIndex);
+            
+            addItemRendererToDisplayList(DisplayObject(elt));            
             
             if (createdIR || recycledIR) 
             {
@@ -1269,10 +1304,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             if (createdIR)
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
         }
-
+        
         return elt;
-     }
-
+    }
+    
     /**
      *  @private
      *  
@@ -1297,7 +1332,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if ((dataProvider == null) || (element == null))
             return -1;
-            
+        
         return indexToRenderer.indexOf(element);
     }
     
@@ -1313,6 +1348,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
+     *  Set the itemIndex of the IItemRenderer at index to index. See resetRenderersIndices.
+     */
+    private function resetRendererItemIndex(index:int):void
+    {
+        var renderer:IItemRenderer = indexToRenderer[index] as IItemRenderer;
+        if (renderer)
+            renderer.itemIndex = index;    
+    }
+    
+    
+    /**
+     *  @private
      *  Recomputes every renderer's index.
      *  This is useful when an item gets added that may change the renderer's 
      *  index.  In turn, this index may cuase the renderer to change appearance, 
@@ -1320,26 +1367,24 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     private function resetRenderersIndices():void
     {
-        if (indexToRenderer.length > 0)
+        if (indexToRenderer.length == 0)
+            return;
+        
+        if (layout && layout.useVirtualLayout)
         {
-            var vLayout:Boolean = layout && layout.useVirtualLayout;
-            var renderer:IItemRenderer;
-            
-            var endIndex:int = vLayout ? virtualLayoutEndIndex : indexToRenderer.length - 1;
-            var startIndex:int = vLayout ? virtualLayoutStartIndex : 0;
-            // FIXME (rfrishbe): figure out how to iterate over item renderers
-            for (var i:int = startIndex; i <= endIndex; i++)
-            {
-                renderer = indexToRenderer[i] as IItemRenderer;
-                
-                if (renderer)
-                    renderer.itemIndex = i;
-                // TODO (rfrishbe): could make this more optimal by only re-computing a subset of the visible
-                // item renderers, but it's probably not worth it
-            }
+            for each (var index:int in virtualRendererIndices)
+                resetRendererItemIndex(index);
+        }
+        else
+        {
+            const indexToRendererLength:int = indexToRenderer.length;
+            for (index = 0; index < indexToRendererLength; index++)
+                resetRendererItemIndex(index);
+            // TODO (rfrishbe): could make this more optimal by only re-computing a subset of the visible
+            // item renderers, but it's probably not worth it
         }
     }
-        
+    
     /**
      *  Adds the itemRenderer for the specified dataProvider item to this DataGroup.
      * 
@@ -1361,17 +1406,21 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         
         if (layout && layout.useVirtualLayout)
         {
-            // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
-            // will become oldVirtualLayoutStart,End index.  The changes 
-            // to virtualLayoutStart,EndIndex only affect finishVirtualLayout().
-            if (index <= virtualLayoutEndIndex)
+            // Increment all of the indices in virtualRendererIndices that are >= index.
+            
+            if (layout && layout.useVirtualLayout && virtualRendererIndices)
             {
-                if (index <= virtualLayoutStartIndex)
-                    virtualLayoutStartIndex += 1;
-                virtualLayoutEndIndex += 1;
-                indexToRenderer.splice(index, 0, null);                
+                const virtualRendererIndicesLength:int = virtualRendererIndices.length;
+                for (var i:int = 0; i < virtualRendererIndicesLength; i++)
+                {
+                    const vrIndex:int = virtualRendererIndices[i];
+                    if (vrIndex >= index)
+                        virtualRendererIndices[i] = vrIndex + 1;
+                }
+                
+                indexToRenderer.splice(index, 0, null); // shift items >= index to the right                   
             }
-
+            
             invalidateSize();
             invalidateDisplayList();
             return;
@@ -1382,8 +1431,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
         setUpItemRenderer(myItemRenderer, index, item);
         dispatchEvent(new RendererExistenceEvent(
-                      RendererExistenceEvent.RENDERER_ADD, false, false, 
-                      myItemRenderer, index, item));
+            RendererExistenceEvent.RENDERER_ADD, false, false, 
+            myItemRenderer, index, item));
         
         invalidateSize();
         invalidateDisplayList();
@@ -1409,31 +1458,40 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (layout)
             layout.elementRemoved(index);
         
-        var myItemRenderer:IVisualElement = indexToRenderer[index];
-        if (layout && layout.useVirtualLayout)
+        // Decrement all of the indices in virtualRendererIndices that are > index
+        // Remove the one (at vrItemIndex) that equals index.
+        
+        if (layout && layout.useVirtualLayout && virtualRendererIndices)
         {
-            // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
-            // will become oldVirtualLayoutStart,End index.  The changes 
-            // to virtualLayoutStart,EndIndex only affect finishVirtualLayout().
-            if (index <= virtualLayoutEndIndex)
+            var vrItemIndex:int = -1;  // location of index in virtualRendererIndices 
+            const virtualRendererIndicesLength:int = virtualRendererIndices.length;
+            for (var i:int = 0; i < virtualRendererIndicesLength; i++)
             {
-                if (index <= virtualLayoutStartIndex)
-                    virtualLayoutStartIndex -= 1;
-                virtualLayoutEndIndex -= 1;
-                indexToRenderer.splice(index, 1);
-            }            
+                const vrIndex:int = virtualRendererIndices[i];
+                if (vrIndex == index)
+                    vrItemIndex = i;
+                else if (vrIndex > index)
+                    virtualRendererIndices[i] = vrIndex - 1;
+            }
+            if (vrItemIndex != -1)
+                virtualRendererIndices.splice(vrItemIndex, 1);
         }
-        else 
+        
+        // Remove the old renderer at index from indexToRenderer[], from the 
+        // DataGroup, and clear its data property (if any).
+        
+        const oldRenderer:IVisualElement = indexToRenderer[index];
+        
+        if (indexToRenderer.length > index)
             indexToRenderer.splice(index, 1);
-            
+        
         dispatchEvent(new RendererExistenceEvent(
-                      RendererExistenceEvent.RENDERER_REMOVE, false, false, 
-                      myItemRenderer, index, item));
+            RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
         
-        if (myItemRenderer is IDataRenderer && myItemRenderer !== item)
-            IDataRenderer(myItemRenderer).data = null;
+        if (oldRenderer is IDataRenderer && oldRenderer !== item)
+            IDataRenderer(oldRenderer).data = null;
         
-        var child:DisplayObject = myItemRenderer as DisplayObject;
+        var child:DisplayObject = oldRenderer as DisplayObject;
         if (child)
             super.removeChild(child);
         
@@ -1443,43 +1501,26 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     *  Removes an item from another DataGroup or display list
-     *  before adding it to this display list.
-     * 
-     *  @param child DisplayObject to add to the display list.
-     * 
-     *  @param item Item associated with the display object to be added.  If 
-     *  the item itself is a display object, it will be the same as the child parameter.
-     * 
-     *  @param index Index position where the display object will be added.
-     * 
-     *  @return DisplayObject that was added.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-    private function addItemRendererToDisplayList(child:DisplayObject, index:int):void
+    private function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):void
     { 
-        // If this child is already an element of the display list, ensure
-        // that it's at the specified index
-        var childParent:Object = child.parent;
+        const childParent:Object = child.parent;
+        const overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
+        
         if (childParent == this)
         {
-            super.setChildIndex(child, index);
+            super.setChildIndex(child, index != -1 ? index : super.numChildren - 1 - overlayCount);
             return;
         }
-        else if (childParent is DataGroup)
-        {
+        
+        if (childParent is DataGroup)
             DataGroup(childParent)._removeChild(child);
-        }
-
+        
         if ((_layeringFlags & LAYERING_ENABLED) || 
             (child is IVisualElement && (child as IVisualElement).depth != 0))
             invalidateLayering();
-            
-        super.addChildAt(child, index);
+
+        super.addChildAt(child, index != -1 ? index : super.numChildren - overlayCount);
     }
     
     /**
@@ -1506,14 +1547,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 adjustAfterAdd(event.items, event.location);
                 break;
             }
-        
+                
             case CollectionEventKind.REPLACE:
             {
                 // items are replaced
                 adjustAfterReplace(event.items, event.location);
                 break;
             }
-        
+                
             case CollectionEventKind.REMOVE:
             {
                 // items are added
@@ -1522,14 +1563,14 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 adjustAfterRemove(event.items, event.location);
                 break;
             }
-            
+                
             case CollectionEventKind.MOVE:
             {
                 // one item is moved
                 adjustAfterMove(event.items[0], event.location, event.oldLocation);
                 break;
             }
-        
+                
             case CollectionEventKind.REFRESH:
             {
                 // from a filter or sort...let's just reset everything
@@ -1538,7 +1579,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 invalidateProperties();
                 break;
             }
-            
+                
             case CollectionEventKind.RESET:
             {
                 // reset everything
@@ -1547,7 +1588,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 invalidateProperties();
                 break;
             }
-            
+                
             case CollectionEventKind.UPDATE:
             {
                 // if a renderer is currently being updated, let's 
