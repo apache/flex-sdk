@@ -1786,6 +1786,38 @@ public class GroupBase extends UIComponent implements IViewport
         return -1;
     }
     
+    /**
+     *  Determines whether the specified IVisualElement is a 
+     *  child of the container instance or the instance
+     *  itself. The search is deep, i.e. if the element is
+     *  a child, grandchild, great-grandchild, etc., of this
+     *  container, this returns true.
+     *  
+     *  @param element the child object to test
+     *  @return true if the element is a descendant of the container
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     * 
+     */    
+    public function containsElement(element:IVisualElement):Boolean
+    {
+        while (element)
+        {
+            if (element == this)
+                return true
+            
+            if (element.parent is IVisualElement)
+                element = IVisualElement(element.parent);
+            else
+                return false;
+        }
+        
+        return false;
+    }
+    
     //----------------------------------
     //  mask
     //----------------------------------
