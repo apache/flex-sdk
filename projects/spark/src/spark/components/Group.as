@@ -682,7 +682,8 @@ public class Group extends GroupBase
         super.elementLayerChanged(e);
         
         // One of our children have told us they might need a displayObject     
-        assignDisplayObjects();
+        needsDisplayObjectAssignment = true;
+        invalidateProperties();
     }
     
     protected var maskElements:Dictionary;
