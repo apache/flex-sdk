@@ -34,11 +34,12 @@ use namespace mx_internal;
 [DefaultProperty("popUp")]
 
 /**
- *  This component is used to position a dropDown in layout. Since a dropDown is 
- *  added to the display list via the PopUpManager, it doesn't normally participate 
- *  in layout. The PopUp component is a UIComponent that does get added to a 
- *  container and thus is laid out. It is responsible for then sizing and 
- *  positioning the dropDown relative to itself.
+ *  This component is used to position a drop-down element,
+ *  such as a DropDownList component, in layout. Because a drop-down 
+ *  element is added to the display list by the PopUpManager, it doesn't normally 
+ *  participate in layout. The PopUp component is a UIComponent that is added to a 
+ *  container and is laid out. It is then responsible for sizing and 
+ *  positioning the dropDown element relative to itself.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -156,7 +157,7 @@ public class PopUpAnchor extends UIComponent
 	private var _displayPopUp:Boolean = false;
 	
 	/**
-	 *  If true, add the popUp to the PopUpManager. If false, remove it.  
+	 *  If true, adds the popUp to the PopUpManager. If false, removes it.  
 	 *  
 	 *  @default false
 	 * 
@@ -209,8 +210,8 @@ public class PopUpAnchor extends UIComponent
 	/**
 	 *  UIComponent to add to the PopUpManager when the PopUpAnchor is opened. 
 	 *  If the popUp implements IFocusManagerContainer, the popUp will have its
-     *  own FocusManager so that, if the user uses the TAB key to navigate between
-     *  controls, only the controls in the popUp will be accessed. 
+     *  own FocusManager so that, if the user uses the Tab key to navigate between
+     *  controls, only the controls in the popUp are accessed. 
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -295,8 +296,8 @@ public class PopUpAnchor extends UIComponent
     //--------------------------------------------------------------------------   
 	
 	/**
-	 *  Call this function to update the popUp's transform matrix. Typically 
-	 *  this would be called while performing an effect upon the PopUpAnchor. 
+	 *  Call this function to update the popUp's transform matrix. Typically, 
+	 *  this function is called while performing an effect on the PopUpAnchor. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -309,7 +310,7 @@ public class PopUpAnchor extends UIComponent
 	}
 	
 	/**
-	 *  This function is called when the popUp is positioned when it is displayed
+	 *  Called when the popUp is positioned, when it is displayed,
 	 *  or when updatePopUpTransform() is called. Override this function to 
 	 *  alter the position of the popUp.  
 	 * 
