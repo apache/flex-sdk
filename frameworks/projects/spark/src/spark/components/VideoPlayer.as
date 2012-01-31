@@ -64,8 +64,6 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
- *  This value is updated at the interval set by 
- *  the MediaPlayer's <code>currentTimeUpdateInterval</code> property.
  *
  *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
  *
@@ -2220,7 +2218,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function volumeBar_valueCommitHandler(event:Event):void
     {
-        volume = volumeBar.value;
+        if (volume != volumeBar.value)
+            volume = volumeBar.value;
     }
     
     /**
@@ -2228,7 +2227,8 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function volumeBar_mutedChangeHandler(event:FlexEvent):void
     {
-        muted = volumeBar.muted;
+        if (muted != volumeBar.muted)
+            muted = volumeBar.muted;
     }
     
     /**
