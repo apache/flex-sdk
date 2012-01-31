@@ -27,8 +27,98 @@ import spark.events.SkinPartEvent;
 use namespace mx_internal;
 
 /**
- *  NumericStepperAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the NumericStepper class.
+ *  NumericStepperAccImpl is the accessibility implementation class
+ *  for spark.components.NumericStepper.
+ *
+ *  <p>When a Spark NumericStepper is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the NumericStepper.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A NumericStepper has two MSAA children,
+ *  which are its increment and decrement buttons.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a NumericStepper is ROLE_SYSTEM_TEXT.</p>
+ *
+ *  <p>The Role of each child button is ROLE_SYSTEM_PUSHBUTTON.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a NumericStepper is, by default, an empty string.
+ *  When wrapped in a FormItem element, the Name is the FormItem's label.
+ *  To override this behavior,
+ *  set the NumericStepper's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>The Name of each child button comes from a locale-dependent resource.
+ *  For the en_US locale, the names are "More" and "Less".</p>
+ *
+ *  <p>When the Name of the NumericStepper or one of its child button changes
+ *  a NumericStepper dispatches the MSAA event EVENT_OBJECT_NAMECHANGE
+ *  with the proper childID for the button or 0 for itself.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a NumericStepper is, by default, an empty string,
+ *  but you can set the NumericStepper's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each child button is the empty string.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a NumericStepper is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED
+ *    (when enabled is true and the Spinner has focus)</li>
+ *  </ul></p>
+ *
+ *  <p>When the State of the NumericStepper or one of its child buttons changes,
+ *  a NumericStepper dispatches the MSAA event EVENT_OBJECT_STATECHANGE
+ *  with the proper childID for the button or 0 for itself.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a NumericStepper is the value
+ *  currently held by the NumericStepper.</p>
+ *
+ *  <p>The child buttons do not have MSAA values.</p>
+ *
+ *  <p>When the Value of the NumericStepper changes,
+ *  the NumericStepper dispatches the MSAA event EVENT_OBJECT_VALUECHANGE.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a NumericStepper, or one of its child buttons,
+ *  is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A NumericStepper does not have an MSAA DefaultAction.</p>
+ *
+ *  <p>The DefaultAction of each child button is "Press".</p>
+ *
+ *  <p>Performing the default action of one of the child buttons
+ *  will increment or decrement the value.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A NumericStepper accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A NumericStepper does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
