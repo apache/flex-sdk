@@ -41,9 +41,9 @@ import mx.events.FlexEvent;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
+import spark.components.supportClasses.TextBase;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
-import spark.components.supportClasses.TextBase;
 import spark.utils.LabelUtil;
 
 use namespace mx_internal;
@@ -617,6 +617,7 @@ public class DropDownList extends List
                     userProposedSelectedIndex = proposedNewIndex;
                     itemSelected(userProposedSelectedIndex, true);
                     ensureIndexIsVisible(userProposedSelectedIndex);
+                    event.preventDefault()
                 }
             }
             else if (dataProvider)
@@ -624,30 +625,47 @@ public class DropDownList extends List
                 switch (navigationUnit)
                 {
                     case NavigationUnit.UP:
-                       proposedNewIndex = selectedIndex - 1;  
-                       break;
+                    {
+                        proposedNewIndex = selectedIndex - 1;  
+                        event.preventDefault()
+                        break;
+                    }                      
         
-                    case NavigationUnit.DOWN: 
-                       proposedNewIndex = selectedIndex + 1;  
-                       break;
-                     
+                    case NavigationUnit.DOWN:
+                    {
+                        proposedNewIndex = selectedIndex + 1;  
+                        event.preventDefault()
+                        break;
+                    }
+                        
                     case NavigationUnit.PAGE_UP:
-                       proposedNewIndex = selectedIndex == -1 ? 
-                                            -1 : Math.max(selectedIndex - PAGE_SIZE, 0);  
-                       break;
-                    
+                    {
+                        proposedNewIndex = selectedIndex == -1 ? 
+                                            -1 : Math.max(selectedIndex - PAGE_SIZE, 0);
+                        event.preventDefault()                                    
+                        break;
+                    }
+                        
                     case NavigationUnit.PAGE_DOWN:
-                       proposedNewIndex = selectedIndex + PAGE_SIZE;  
-                       break;
+                    {    
+                        proposedNewIndex = selectedIndex + PAGE_SIZE;
+                        event.preventDefault()
+                        break;
+                    }
                        
                     case NavigationUnit.HOME:
-                       proposedNewIndex = 0;  
-                       break;
+                    {
+                        proposedNewIndex = 0;
+                        event.preventDefault()
+                        break;
+                    }
 
                     case NavigationUnit.END:
-                       proposedNewIndex = dataProvider.length - 1;  
-                       break;
-                       
+                    {
+                        proposedNewIndex = dataProvider.length - 1;  
+                        event.preventDefault()
+                        break;
+                    }  
                        
                 }
                 
@@ -657,7 +675,11 @@ public class DropDownList extends List
                     selectedIndex = proposedNewIndex;
             }
         }
-
+        else
+        {
+            event.preventDefault()
+        }
+        
     }
     
     /**
@@ -745,6 +767,7 @@ public class DropDownList extends List
         
         dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
     }
+
     
 }
 }
