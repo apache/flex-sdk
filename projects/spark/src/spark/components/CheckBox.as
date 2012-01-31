@@ -54,8 +54,6 @@ use namespace mx_internal;
 /**
  *  The CheckBox component consists of an optional label and a small box
  *  that can contain a check mark or not. 
- *  You can place the optional text label to the left, right, top, or bottom
- *  of the CheckBox.
  *
  *  <p>When a user clicks a CheckBox component or its associated text,
  *  the CheckBox component sets its <code>selected</code> property
