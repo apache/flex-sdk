@@ -13,6 +13,7 @@ package flex.effects
 
 import flex.effects.easing.IEaser;
 import flex.effects.effectClasses.AnimateInstance;
+import flex.events.AnimationEvent;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
@@ -23,6 +24,55 @@ import mx.styles.IStyleClient;
 use namespace mx_internal;
 
 [DefaultProperty("propertyValuesList")]
+
+/**
+ * Dispatched when the effect starts, which corresponds to a 
+ * call to the <code>AnimateInstance.startHandler()</code> method.
+ * Flex also dispatches the first <code>animationUpdate</code> event 
+ * for the effect at the same time.
+ *
+ * <p>The <code>Effect.effectStart</code> event is dispatched 
+ * before the <code>animationStart</code> event.</p>
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_START
+ */
+[Event(name="animationStart", type="flex.events.AnimationEvent")]
+
+/**
+ * Dispatched every time the effect updates the target.
+ * This event corresponds to a call to 
+ * the <code>AnimateInstance.updateHandler()</code> method.
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_UPDATE
+ */
+[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
+
+/**
+ * Dispatched when the effect begins a new repetition, for
+ * any effect that is repeated more than once.
+ * This event corresponds to a call to 
+ * the <code>AnimateInstance.repeatHandler()</code> method.
+ * Flex also dispatches the first <code>animationUpdate</code> event 
+ * for the effect at the same time.
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_END
+ */
+[Event(name="animationRepeat", type="flex.events.AnimationEvent")]
+
+/**
+ * Dispatched when the effect ends.
+ * This event corresponds to a call to 
+ * the <code>AnimateInstance.endHandler()</code> method.
+ * Flex also dispatches the first <code>animationUpdate</code> event 
+ * for the effect at the same time.
+ *
+ * <p>This event occurs just before an <code>effectEnd</code> event.
+ * A repeating effect dispatches this event only after the 
+ * final repetition.</p>
+ *
+ * @eventType flex.events.AnimationEvent.ANIMATION_END
+ */
+[Event(name="animationEnd", type="flex.events.AnimationEvent")]
 
 /**
  * This effect animates an arbitrary set of properties between values, as specified
@@ -50,7 +100,7 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor. 
+     * Constructor. 
      */
     public function Animate(target:Object = null)
     {
@@ -124,13 +174,18 @@ public class Animate extends Effect
     }
 
     /**
-     *  @private
+     * @private
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
         super.initInstance(instance);
         
         var animateInstance:AnimateInstance = AnimateInstance(instance);
+
+        animateInstance.addEventListener(AnimationEvent.ANIMATION_START, animationEventHandler);
+        animateInstance.addEventListener(AnimationEvent.ANIMATION_UPDATE, animationEventHandler);
+        animateInstance.addEventListener(AnimationEvent.ANIMATION_REPEAT, animationEventHandler);
+        animateInstance.addEventListener(AnimationEvent.ANIMATION_END, animationEventHandler);
 
         if (easer)
             animateInstance.easer = easer;
@@ -185,6 +240,17 @@ public class Animate extends Effect
                 // Ignore errors
             }
         }
+    }
+
+    /**
+     * Called when the Animate dispatches an AnimationEvent.
+     * If you override this method, ensure that you call the super method.
+     *
+     * @param event An event object of type AnimationEvent.
+     */
+    protected function animationEventHandler(event:AnimationEvent):void
+    {
+        dispatchEvent(event);
     }
 }
 }
