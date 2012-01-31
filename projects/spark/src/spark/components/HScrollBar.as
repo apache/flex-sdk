@@ -29,6 +29,11 @@ import mx.events.ResizeEvent;
  *  <p>Although you can use the FxHScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxHScrollBar extends FxScrollBar
 {
@@ -42,6 +47,11 @@ public class FxHScrollBar extends FxScrollBar
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxHScrollBar()
     {
@@ -56,6 +66,11 @@ public class FxHScrollBar extends FxScrollBar
 
     /**
      *  The size of the track, which equals the width of the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function get trackSize():Number
     {
@@ -93,6 +108,11 @@ public class FxHScrollBar extends FxScrollBar
      * 
      *  @param value The new value of the <code>value</code> property. 
      *  @see viewport
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function setValue(value:Number):void
     {
@@ -108,6 +128,11 @@ public class FxHScrollBar extends FxScrollBar
      * 
      *  @param thumbPos A number representing the new position of the thumb
      *  button in the control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function positionThumb(thumbPos:Number):void
     {
@@ -146,6 +171,11 @@ public class FxHScrollBar extends FxScrollBar
      *  @param localY The Y position relative to the scrollbar control.
      *
      *  @return The position of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -189,6 +219,11 @@ public class FxHScrollBar extends FxScrollBar
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
      *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function page(increase:Boolean = true):void
     {
@@ -222,6 +257,11 @@ public class FxHScrollBar extends FxScrollBar
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
      *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function step(increase:Boolean = true):void
     {
@@ -250,6 +290,11 @@ public class FxHScrollBar extends FxScrollBar
      *  Set this scrollbar's value to the viewport's current horizontalScrollPosition.
      * 
      *  @see IViewport#horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -260,6 +305,11 @@ public class FxHScrollBar extends FxScrollBar
     /**
      *  Set this scrollbar's maximum to the viewport's contentWidth 
      *  less the viewport width and its pageSize to the viewport's width. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -281,6 +331,11 @@ public class FxHScrollBar extends FxScrollBar
      *
      *  @see IViewport#contentWidth
      *  @see IViewport#width 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
