@@ -721,7 +721,10 @@ public class ScrollBar extends TrackBase
             // about whether we should animate the first step too
             changeValueByStep(increment);
 
-            if (getStyle("smoothScrolling"))
+            // Only animate if smoothScrolling enabled and we're not at the end already
+            if (getStyle("smoothScrolling") &&
+                ((increment && value < maximum) ||
+                 (!increment && value > minimum)))
             {
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
                     button_buttonUpHandler, true);
