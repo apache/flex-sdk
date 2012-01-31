@@ -959,6 +959,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
     final protected function assertCredentials(value:String):void
     {
         if (_credentials != null && (_credentials != value))
