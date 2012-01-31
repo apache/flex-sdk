@@ -320,6 +320,8 @@ public class ScrollerLayout extends LayoutBase
         return (w >= vsb.getPreferredBoundsWidth()) && (h >= vsb.getMinBoundsHeight());
     }
     
+	
+	
     //--------------------------------------------------------------------------
     //
     //  Overidden Methods
@@ -721,31 +723,20 @@ public class ScrollerLayout extends LayoutBase
         
         if (hsbVisible)
         {
-            var hsbW:Number = (vsbVisible && vsbTakeUpSpace) ? w - vsb.getPreferredBoundsWidth() : w;
-            var hsbH:Number = hsb.getPreferredBoundsHeight();
+			var hsbH:Number = hsb.getPreferredBoundsHeight();
+            var hsbW:Number = vsbVisible ? w - vsb.getPreferredBoundsWidth() : w;
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
             
-            // if in mouse mode, lay out scrollbars normally
-            // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
-            if (scroller.getStyle("interactionMode") == InteractionMode.MOUSE)
-                hsb.setLayoutBoundsPosition(0, h - hsbH);
-            else
-                hsb.setLayoutBoundsPosition(0, h - hsbH - 3);
+			hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
 
         if (vsbVisible)
         {
             var vsbW:Number = vsb.getPreferredBoundsWidth(); 
-            var vsbH:Number = (hsbVisible && hsbTakeUpSpace) ? h - hsb.getPreferredBoundsHeight() : h;
-            vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
-            
-            // if in mouse mode, lay out scrollbars normally
-            // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
-            // FIXME (rfrishbe): shouldn't hardcode the 3 here
-            if (scroller.getStyle("interactionMode") == InteractionMode.MOUSE)
-                vsb.setLayoutBoundsPosition(w - vsbW, 0);
-            else
-                vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
+            var vsbH:Number = hsbVisible ? h - hsb.getPreferredBoundsHeight() : h;
+			vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
+			
+			vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
         
 		var viewportGroup:GroupBase;
