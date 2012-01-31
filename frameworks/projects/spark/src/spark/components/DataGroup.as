@@ -1,22 +1,21 @@
 package mx.components
 {
 import flash.display.DisplayObject;
+import flash.utils.Dictionary;
 
 import mx.collections.IList;
 import mx.components.baseClasses.GroupBase;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
+import mx.core.IInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
-import mx.core.IInvalidating;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemExistenceChangedEvent;
-import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
-import mx.styles.IStyleClient;
-import flash.utils.Dictionary;
 
 
 /**
@@ -34,6 +33,12 @@ import flash.utils.Dictionary;
  *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("components")]
 
 [DefaultProperty("dataProvider")] 
 
@@ -365,11 +370,12 @@ public class DataGroup extends GroupBase
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer && failRTE)
         {
+        	var err:String;
             if (item is IVisualElement || item is DisplayObject)
-                throw new Error("DataGroup cannot display visual elements directly unless the elements " + 
-                        "are display objects and implement IVisualElement");
+                err = resourceManager.getString("components", "cannotDisplayVisualElement");
             else
-                throw new Error("Could not create an item renderer for " + item);
+                err = resourceManager.getString("components", "unableToCreateRenderer", [item]);
+            throw new Error(err);
         }
 
         return myItemRenderer;
@@ -939,7 +945,7 @@ public class DataGroup extends GroupBase
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -952,7 +958,7 @@ public class DataGroup extends GroupBase
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -965,7 +971,7 @@ public class DataGroup extends GroupBase
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -978,7 +984,7 @@ public class DataGroup extends GroupBase
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -991,7 +997,7 @@ public class DataGroup extends GroupBase
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1004,7 +1010,7 @@ public class DataGroup extends GroupBase
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1017,7 +1023,7 @@ public class DataGroup extends GroupBase
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
 }
 }
