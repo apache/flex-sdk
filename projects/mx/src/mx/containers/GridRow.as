@@ -432,9 +432,8 @@ public class GridRow extends HBox
             preferredWidth += child.preferred;
         }
 
-        var wPadding:Number =
-            mx_internal::layoutObject.widthPadding(numChildren);
-        var hPadding:Number = mx_internal::layoutObject.heightPadding(0);
+        var wPadding:Number = layoutObject.widthPadding(numChildren);
+        var hPadding:Number = layoutObject.heightPadding(0);
         var rowInfo:GridRowInfo = rowHeights[rowIndex];
 
         measuredMinWidth = minWidth + wPadding;
@@ -523,7 +522,7 @@ public class GridRow extends HBox
             var diff:Number = w - child.maxWidth;
             if (diff > 0)
             {
-                x += diff * mx_internal::layoutObject.getHorizontalAlignValue();
+                x += diff * layoutObject.getHorizontalAlignValue();
                 w -= diff;
             }
             diff = h - child.maxHeight;
@@ -531,7 +530,7 @@ public class GridRow extends HBox
                 diff = Math.max(diff, h * (100 - percentHeight));
             if (diff > 0)
             {
-                y = diff * mx_internal::layoutObject.getVerticalAlignValue();
+                y = diff * layoutObject.getVerticalAlignValue();
                 h -= diff;
             }
             
@@ -607,7 +606,7 @@ public class GridRow extends HBox
         }
 
         // Set each child's x-coordinate.
-        left = vm.left + spaceToDistribute * mx_internal::layoutObject.getHorizontalAlignValue();
+        left = vm.left + spaceToDistribute * layoutObject.getHorizontalAlignValue();
         for (i = 0; i < numChildren; i++)
         {
             columnInfo = columnWidths[i];
