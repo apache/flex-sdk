@@ -340,7 +340,7 @@ public class GridSelection
      *  are relative to the Grid's dataProvider and column indices are relative 
      *  to the Grid's list of columns.
      *
-     *  @default []
+     *  @default An empty Vector.<CellPosition>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
