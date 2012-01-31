@@ -460,7 +460,7 @@ public class ComboBox extends DropDownListBase
      */
     override public function set typicalItem(value:Object):void
     {   
-        if (value != typicalItem)
+        if (value == typicalItem)
             return;
      
         super.typicalItem = value;
