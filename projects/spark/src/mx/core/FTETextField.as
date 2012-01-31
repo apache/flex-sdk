@@ -60,6 +60,9 @@ import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
 import flashx.textLayout.formats.TextLayoutFormat;
 
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
+
 use namespace mx_internal;
 
 /**
@@ -72,7 +75,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @langversion 3.0
  */
-public class FTETextField extends Sprite
+public class FTETextField extends Sprite implements IFontContextComponent
 {
 	// Current slot count: 21
 	// (1 for every type except 2 for Number)
@@ -1927,11 +1930,12 @@ public class FTETextField extends Sprite
 	 *  @private
 	 *  Storage for the fontContext property.
 	 */
-	private var _fontContext:ISWFContext;
+	private var _fontContext:IFlexModuleFactory;
 	
 	/**
-	 *  The ISWFContext instance that FTETextField
-	 *  uses for creating TextLine objects.
+	 *  The IFlexModuleFactory instance that FTETextField
+	 *  uses for creating TextLine objects.  This is usually, but not always, 
+     *  an ISWFContext.
 	 * 
 	 *  <p>Set this if you need lines to be created in a different
 	 *  SWF context than the one containing the TLF code.</p>
@@ -1945,7 +1949,7 @@ public class FTETextField extends Sprite
 	 *  @playerversion AIR 1.5
 	 *  @langversion 3.0
 	 */
-	public function get fontContext():ISWFContext
+	public function get fontContext():IFlexModuleFactory
 	{
 		return _fontContext;
 	}
@@ -1953,7 +1957,7 @@ public class FTETextField extends Sprite
 	/**
 	 *  @private
 	 */
-	public function set fontContext(value:ISWFContext):void
+	public function set fontContext(value:IFlexModuleFactory):void
 	{
 		// FTETextField allows a null value to be set;
 		// in fact, this is the default.
@@ -2930,7 +2934,7 @@ public class FTETextField extends Sprite
             var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
 			if (recycleLine)
 			{
-				if (fontContext)
+				if (fontContext as ISWFContext)
 				{
 					nextTextLine = fontContext.callInContext(
 						textBlock["recreateTextLine"], textBlock,
@@ -2944,7 +2948,7 @@ public class FTETextField extends Sprite
 			}
 			else
 			{
-				if (fontContext)
+				if (fontContext as ISWFContext)
 				{
 					nextTextLine = fontContext.callInContext(
 						textBlock.createTextLine, textBlock,
@@ -3095,7 +3099,7 @@ public class FTETextField extends Sprite
 		
 		textContainerManager.hostFormat = hostFormat;
 		
-		textContainerManager.swfContext = fontContext;
+		textContainerManager.swfContext = fontContext as ISWFContext;
 		
 		textContainerManager.setTextFlow(textFlow)
 		
