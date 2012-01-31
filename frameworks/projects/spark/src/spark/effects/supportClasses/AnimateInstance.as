@@ -11,6 +11,9 @@
 
 package flex.effects.effectClasses
 {
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
 import flex.effects.easing.IEaser;
@@ -20,6 +23,7 @@ import flex.events.AnimationEvent;
 import mx.core.UIComponent;
 import mx.effects.EffectInstance;
 import mx.effects.EffectManager;
+import mx.styles.IStyleClient;
 
 /**
  * The AnimateInstance class implements the instance class for the
@@ -79,6 +83,16 @@ public class AnimateInstance extends EffectInstance
      */
     protected var roundValues:Boolean;
 
+    /**
+     * This flag indicates whether the effect changes properties which are
+     * potentially related to the various layout constraints that may act
+     * on the object. Setting this to true will cause the effect to disable
+     * all standard constraints (left, right, top, bottom, horizontalCenter,
+     * verticalCenter) for the duration of the animation, and re-enable them
+     * when the animation is complete.
+     */ 
+    protected var affectsConstraints:Boolean;
+    
     private var _easer:IEaser;    
     public function set easer(value:IEaser):void
     {
@@ -239,10 +253,20 @@ public class AnimateInstance extends EffectInstance
         super.play();
         
         if (!propertyValuesList || propertyValuesList.length == 0)
+        {
+            // nothing to do; at least schedule the effect to end after
+            // the specified duration
+            var timer:Timer = new Timer(duration, 1);
+            timer.addEventListener(TimerEvent.TIMER, noopAnimationHandler);
+            timer.start();
             return;
+        }
             
         isStyleMap = new Array(propertyValuesList.length);
         
+        if (affectsConstraints)
+            disableConstraints();
+            
         // These two temporary arrays will hold the values passed into the
         // Animation to be interpolated between during the animation. The order
         // of the values in these arrays must match the order of the property
@@ -255,8 +279,8 @@ public class AnimateInstance extends EffectInstance
             var holder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
             var property:String = holder.property;
             var propValues:Array = holder.values;
-            var fromValue:Number;
-            var toValue:Number;
+            var fromValue:Object;
+            var toValue:Object;
             
             if (!property || (property == ""))
                 throw new Error("Illegal property value: " + property);
@@ -301,7 +325,11 @@ public class AnimateInstance extends EffectInstance
                 toVals.push(toValue);
             }
         }
-        
+    
+        // TODO (chaase): avoid setting up animations on properties whose
+        // from/to values are the same. Not worth the cycles, but also want
+        // to avoid triggering any side effects when we're not actually changing
+        // values    
         if (propertyValuesList.length > 1)
         {
             // Create the single Animation that will interpolate all properties
@@ -391,6 +419,11 @@ public class AnimateInstance extends EffectInstance
         dispatchEvent(event);
     }
     
+    private function noopAnimationHandler(event:TimerEvent):void
+    {
+        finishEffect();
+    }
+
     /**
      * Handles the end event from the animation. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
@@ -400,8 +433,63 @@ public class AnimateInstance extends EffectInstance
     {
         dispatchEvent(event);
         finishEffect();
+        if (affectsConstraints)
+            reenableConstraints();
     }
     
+    private var constraintsHolder:Object;
+    
+    private function reenableConstraint(name:String):void
+    {
+        var value:* = constraintsHolder[name];
+        if (value !== undefined)
+        {
+            target.setStyle(name, value);
+            delete constraintsHolder[name];
+        }
+    }
+    
+    private function reenableConstraints():void
+    {
+        // Only bother if constraintsHolder is non-null; otherwise
+        // there must have been no constraints to worry about
+        if (constraintsHolder)
+        {
+            reenableConstraint("left");
+            reenableConstraint("right");
+            reenableConstraint("top");
+            reenableConstraint("bottom");
+            reenableConstraint("horizontalCenter");
+            reenableConstraint("verticalCenter");
+            reenableConstraint("baseline");
+            constraintsHolder = null;
+        }
+    }
+    
+    private function disableConstraint(name:String):void
+    {
+        var value:* = target.getStyle(name);
+        if (value !== undefined)
+        {
+            if (!constraintsHolder)
+                constraintsHolder = new Object();
+            constraintsHolder[name] = value;
+            target.setStyle(name, undefined);
+        }        
+    }
+    private function disableConstraints():void
+    {
+        if (target is IStyleClient)
+        {
+            disableConstraint("left");
+            disableConstraint("right");
+            disableConstraint("top");
+            disableConstraint("bottom");
+            disableConstraint("verticalCenter");
+            disableConstraint("horizontalCenter");
+            disableConstraint("baseline");
+        }
+    }
     /**
      * Utility function to handle situation where values may be queried or
      * set on the target prior to completely setting up the effect's
@@ -458,7 +546,7 @@ public class AnimateInstance extends EffectInstance
      *  property or a style.
      *  @private
      */
-    protected function getCurrentValue(property:String):Number
+    protected function getCurrentValue(property:String):*
     {
         // TODO (chaase): Find a better way to set this up just once
         setupStyleMapEntry(property);
