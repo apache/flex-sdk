@@ -643,7 +643,14 @@ public class ListBase extends SkinnableDataContainer
     mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false):void
     {
         if (value == selectedIndex)
+		{
+			// this should short-circuit, but we should check to make sure 
+			// that caret doesn't need to be changed either, as that's a side
+			// effect of setting selectedIndex
+			setCurrentCaretIndex(selectedIndex);
+			
             return;
+		}
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = dispatchChangeEvent;
