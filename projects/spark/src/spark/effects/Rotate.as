@@ -16,7 +16,7 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
     
 /**
- *  The AnimateTransformRotate effect rotates a target object
+ *  The Rotate effect rotates a target object
  *  in the x, y plane around the transform center. 
  *
  *  <p>If you specify any two of the angle values (angleFrom, angleTo,
@@ -29,12 +29,12 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:AnimateTransformRotate&gt;</code> tag
+ *  <p>The <code>&lt;mx:Rotate&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:AnimateTransformRotate
+ *  &lt;mx:Rotate
  *    id="ID"
  *    angleBy="val"
  *    angleFrom="val"
@@ -47,7 +47,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */   
-public class AnimateTransformRotate extends AnimateTransform
+public class Rotate extends AnimateTransform
 {
     include "../core/Version.as";
 
@@ -67,7 +67,7 @@ public class AnimateTransformRotate extends AnimateTransform
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function AnimateTransformRotate(target:Object=null)
+    public function Rotate(target:Object=null)
     {
         super(target);
         instanceClass = AnimateTransformInstance;
