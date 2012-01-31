@@ -51,7 +51,6 @@ import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 
 use namespace mx_internal;
@@ -3571,7 +3570,7 @@ public class Container extends UIComponent
 
         // Check to see if this is one of the style properties that is known
         // to affect page layout.
-        if (allStyles || StyleManager.isSizeInvalidatingStyle(styleProp))
+        if (allStyles || styleManager.isSizeInvalidatingStyle(styleProp))
         {
             // Some styles, such as horizontalAlign and verticalAlign,
             // affect the layout of this object's children without changing the
@@ -3608,7 +3607,7 @@ public class Container extends UIComponent
         // Check to see if this is one of the style properties that is known.
         // to affect page layout.
         if (allStyles ||
-            StyleManager.isSizeInvalidatingStyle(styleProp))
+            styleManager.isSizeInvalidatingStyle(styleProp))
         {
             invalidateViewMetricsAndPadding();
         }
