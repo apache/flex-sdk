@@ -37,6 +37,7 @@ import spark.components.Group;
 import spark.components.IGridItemRenderer;
 import spark.components.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
+import spark.skins.spark.DefaultGridItemRenderer;
 
 use namespace mx_internal;
 
@@ -1779,22 +1780,30 @@ public class GridLayout extends LayoutBase
         if (enablePerformanceStatistics)
             startTime = getTimer();
 
-        const validatingElt:IInvalidating = elt as IInvalidating;
+        // The simple default grid item renderer doesn't have to be validated twice
+        // to accomodate text reflow.  This optimization improves updateDisplayList()
+        // performance by about 8%.
         
-        if (!isNaN(width) || !isNaN(height))
+        if (elt is DefaultGridItemRenderer)
         {
-            if (validatingElt)
-                validatingElt.validateNow();
-            elt.setLayoutBoundsSize(width, height);
+            if (!isNaN(width) || !isNaN(height))            
+                elt.setLayoutBoundsSize(width, height);
+            //UIComponentGlobals.layoutManager.validateClient(UIComponent(elt), true);
+            DefaultGridItemRenderer(elt).validateNow();
         }
-        if (validatingElt)        
-            validatingElt.validateNow();
-
-        /*
-        if (elt is UIComponent)
-            UIComponentGlobals.layoutManager.validateClient(UIComponent(elt), true);
-        */
-
+        else
+        {
+            const validatingElt:IInvalidating = elt as IInvalidating;
+            if (!isNaN(width) || !isNaN(height))
+            {
+                if (validatingElt)
+                    validatingElt.validateNow();
+                elt.setLayoutBoundsSize(width, height);
+            }
+            if (validatingElt)        
+                validatingElt.validateNow();
+        }
+        
         elt.setLayoutBoundsPosition(x, y);
         
         if (enablePerformanceStatistics)
