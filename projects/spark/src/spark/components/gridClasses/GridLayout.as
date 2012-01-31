@@ -31,6 +31,7 @@ import spark.components.ColumnHeaderBar;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
+import spark.components.IGridItemRenderer;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -873,7 +874,7 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
-        const gridRenderer:GridItemRenderer = renderer as GridItemRenderer;
+        const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
         
         if (gridRenderer && gridColumn)
