@@ -59,6 +59,9 @@ public class HeaderEvent extends AbstractEvent
     /**
      * Creates a new HeaderEvent.
      *
+     * @param type The event type; indicates the action that caused the event.
+     * @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     * @param cancelable Specifies whether the behavior associated with the event can be prevented. The dfault is <code>true</code>, but the <code>preventDefault()</code> method has no effect.
      * @param header Object that holds the header of the call.
      * @param token AsyncToken that represents the call to the method. Used in the asynchronous completion token pattern.
      * @param message Source Message of the header.
@@ -79,6 +82,15 @@ public class HeaderEvent extends AbstractEvent
         return _header;
     }
 
+    /**
+     * Utility method to create a new HeaderEvent that doesn't bubble and is cancelable.
+     *
+     * @param header Object that holds the header of the call.
+     * @param token AsyncToken that represents the call to the method. Used in the asynchronous completion token pattern.
+     * @param message Source Message header.
+     *
+     * @return Returns a new HeaderEvent that doesn't bubble and is cancelable.
+     */
     public static function createEvent(header:Object, token:AsyncToken, message:IMessage):HeaderEvent
     {
         return new HeaderEvent(HeaderEvent.HEADER, false, true, header, token, message);
