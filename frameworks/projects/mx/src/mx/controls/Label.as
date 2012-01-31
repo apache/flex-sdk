@@ -169,6 +169,8 @@ include "../styles/metadata/TextStyles.as"
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="mx.accessibility.LabelAccImpl")]
+
 [DefaultBindingProperty(destination="text")]
 
 [IconFile("Label.png")]
@@ -349,6 +351,18 @@ public class Label extends UIComponent
         trace(myLabel.text);
             This is bold.
     */
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by LabelAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -1284,6 +1298,16 @@ public class Label extends UIComponent
     //
     //--------------------------------------------------------------------------
 
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (Label.createAccessibilityImplementation != null)
+            Label.createAccessibilityImplementation(this);
+    }
+    
     /**
      *  @private
      */
