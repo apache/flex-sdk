@@ -223,7 +223,7 @@ public class Operation extends AbstractOperation
         // channelSet.
         if (asyncRequest.channelSet == null && remoteObject.endpoint != null)
         {
-            remoteObject.mx_internal::initEndpoint();
+            remoteObject.initEndpoint();
         }
 
         if (!args || (args.length == 0 && this.arguments))
