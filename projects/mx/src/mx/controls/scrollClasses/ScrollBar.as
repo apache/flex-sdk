@@ -43,7 +43,9 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the default skin for the down arrow button of 
  *  the scroll bar.
  * 
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarDownButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -56,11 +58,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the down arrow button of the 
  *  scroll bar when it is disabled. 
  * 
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  * 
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarDownButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -73,11 +77,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the down arrow button of the 
  *  scroll bar when you click the arrow button
  * . 
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarDownButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -90,11 +96,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the down arrow button of the 
  *  scroll bar when the mouse pointer is over the arrow button. 
  * 
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarDownButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -107,11 +115,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the down arrow button of 
  *  the scroll bar. 
  *  
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarDownButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -137,7 +147,9 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the default skin for the down arrow button of 
  *  the scroll bar. 
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollThumbSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarThumbSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -150,7 +162,9 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the thumb of the scroll bar 
  *  when you click the thumb. 
  * 
- *  @default mx.skins.halo.ScrollThumbSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollThumbSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarThumbSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -187,7 +201,9 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the thumb of the scroll bar 
  *  when the mouse pointer is over the thumb. 
  * 
- *  @default mx.skins.halo.ScrollThumbSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollThumbSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarThumbSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -199,7 +215,9 @@ include "../../styles/metadata/SkinStyles.as"
 /**
  *  Name of the class to use as the skin for the thumb of the scroll bar.
  *  
- *  @default mx.skins.halo.ScrollThumbSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollThumbSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarThumbSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -225,7 +243,9 @@ include "../../styles/metadata/SkinStyles.as"
 /**
  *  Name of the class to use as the default skin for the track of the scroll bar. 
  * 
- *  @default mx.skins.halo.ScrollTrackSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollTrackSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ScrollBarTrackSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -288,7 +308,9 @@ include "../../styles/metadata/SkinStyles.as"
 /**
  *  Name of the class to use as the default skin for the up arrow button of the scroll bar. 
  * 
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -301,11 +323,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the up arrow button of the scroll bar 
  *  when it is disabled. 
  * 
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -318,11 +342,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the up arrow button of the scroll bar 
  *  when you click the arrow button. 
  * 
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -335,11 +361,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the up arrow button of the scroll bar 
  *  when the mouse pointer is over the arrow button.
  *  
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *  
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -352,11 +380,13 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the up arrow button of the 
  *  scroll bar. 
  *  
- *  If you change the skin, either graphically or programmatically, 
+ *  <p>If you change the skin, either graphically or programmatically, 
  *  you should ensure that the new skin is the same height 
- *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
+ *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.</p>
  *    
- *  @default mx.skins.halo.ScrollArrowSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ScrollArrowSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.mx.skins.spark.ScrollBarUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -1230,7 +1260,7 @@ public class ScrollBar extends UIComponent
         {
             cacheHeuristic = false;
             if (scrollThumb)
-            	scrollThumb.cacheHeuristic = false;
+                scrollThumb.cacheHeuristic = false;
         }
        
         upArrow.setActualSize(upArrow.getExplicitOrMeasuredWidth(),
@@ -1543,7 +1573,7 @@ public class ScrollBar extends UIComponent
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
         sbRoot.addEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
         systemManager.deployMouseShields(true);
         
         var pt:Point = new Point(event.localX, event.localY);
@@ -1607,7 +1637,7 @@ public class ScrollBar extends UIComponent
         scrollTrack_mouseLeaveHandler(event);
     }
     private function scrollTrack_mouseLeaveHandler(event:Event):void
-    {    	
+    {       
         trackScrolling = false;
 
         var sbRoot:DisplayObject = systemManager.getSandboxRoot();
@@ -1617,7 +1647,7 @@ public class ScrollBar extends UIComponent
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
         sbRoot.removeEventListener(
-			SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
         systemManager.deployMouseShields(false);
         
         if (trackScrollTimer)
