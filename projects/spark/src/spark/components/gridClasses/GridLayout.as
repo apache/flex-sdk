@@ -27,6 +27,8 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
+import mx.managers.LayoutManager;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
@@ -2064,13 +2066,6 @@ public class GridLayout extends LayoutBase
         
         element.visible = false;
         
-        // Reset GridItemRenderers back to (0,0), otherwise when the element is reused
-        // it will be validated at its last layout size which causes problems with 
-        // text reflow.
-        
-        if (element is GridItemRenderer)
-            element.setLayoutBoundsSize(0, 0, false);        
-        
         const factory:IFactory = elementToFactoryMap[element]; 
         if (!factory)
             return false;
@@ -2138,35 +2133,32 @@ public class GridLayout extends LayoutBase
         if (enablePerformanceStatistics)
             startTime = getTimer();
         
-        const validatingElt:IInvalidating = renderer as IInvalidating;
-        if (renderer is IUITextField)  // TODO (hmuller) distinguish this special case differently
+        const validateNowRenderer:IInvalidating = renderer as IInvalidating;
+        const graphicElementRenderer:IGraphicElement = renderer as IGraphicElement;
+        
+        if (!isNaN(width) || !isNaN(height))
         {
-            if (!isNaN(width) || !isNaN(height)) 
-                renderer.setLayoutBoundsSize(width, height);
-            if (validatingElt)
-                validatingElt.validateNow();
-        }
-        else
-        {
-            if (!isNaN(width) || !isNaN(height))
+            const validateClientRenderer:ILayoutManagerClient = renderer as ILayoutManagerClient
+            if (validateClientRenderer)
             {
-                if (validatingElt)
-                {
-                    if (validatingElt is IGraphicElement)
-                        validateGraphicElement(IGraphicElement(validatingElt));
-                    else
-                        validatingElt.validateNow();
-                }
-                renderer.setLayoutBoundsSize(width, height);
+                LayoutManager.getInstance().validateClient(validateClientRenderer, true); // true => skip validateDisplayList()
             }
-            if (validatingElt)
+            else if (graphicElementRenderer)
             {
-                if (validatingElt is IGraphicElement)
-                    validateGraphicElement(IGraphicElement(validatingElt));
-                else
-                    validatingElt.validateNow();
+                graphicElementRenderer.validateProperties();
+                graphicElementRenderer.validateSize();
             }
+            
+            renderer.setLayoutBoundsSize(width, height);            
         }
+        
+        // For graphic elements we don't want to call validateNow() since it calls
+        // validateClient on the parent of the graphic element which is the GridLayer.  
+        
+        if (graphicElementRenderer)
+            graphicElementRenderer.validateDisplayList();              
+        else if (validateNowRenderer)
+            validateNowRenderer.validateNow();
         
         renderer.setLayoutBoundsPosition(x, y);
         
@@ -2177,20 +2169,6 @@ public class GridLayout extends LayoutBase
         }
     }
 
-    /*
-     * For graphic elements we don't want to call validateNow() since it calls
-     * validateClient on the parent of the graphic element which is the GridLayer.  
-     * Every time a graphic element is added to the GridLayer a redraw is requested of the 
-     * GridLayer which includes validating all the existing graphic elements.  The redraw of the 
-     * GridLayer will be done later.
-     */
-    private function validateGraphicElement(graphicElt:IGraphicElement):void
-    {
-        graphicElt.validateProperties();
-        graphicElt.validateSize();
-        graphicElt.validateDisplayList();        
-    }
-    
     private function layoutGridElementR(elt:IVisualElement, bounds:Rectangle):void
     {
         if (bounds)
