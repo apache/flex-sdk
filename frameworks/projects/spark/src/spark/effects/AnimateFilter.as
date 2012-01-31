@@ -26,7 +26,7 @@ use namespace mx_internal;
 /**
  * This effect applies an IBitmapFilter instance and allows you to animate
  * an arbitrary set of properties of the filter between values, as specified
- * by the propertyValuesList. 
+ * by the animationProperties. 
  * 
  * Example usage is as follows:
  * @example FxAnimateFilter example:
@@ -47,10 +47,10 @@ use namespace mx_internal;
  *     var df:DropShadowFilter = new DropShadowFilter();
  *     var anim:FxAnimateFilter = new FxAnimateFilter(btn1, df);
  *     
- *     anim.propertyValuesList = [
- *         new PropertyValuesHolder("color", [0,0x0000FF]),
- *         new PropertyValuesHolder("distance", [0,10]),		
- *         new PropertyValuesHolder("angle", [270,360])
+ *     anim.animationProperties = [
+ *         new AnimationProperty("color", 0, 0x0000FF),
+ *         new AnimationProperty("distance", 0, 10),		
+ *         new AnimationProperty("angle", 270, 360)
  *     ];
  * 
  *     anim.repeatCount = 0;
