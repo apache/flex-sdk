@@ -71,11 +71,12 @@
 	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
-		<bundler locale="de_DE" dita-dir="${basedir}/bundles/en_US/docs"/><!-- German resources -->
-		<bundler locale="fr_FR" dita-dir="${basedir}/bundles/en_US/docs"/><!-- French resources -->
-		<bundler locale="ja_JP" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Japanese resources -->
-		<bundler locale="ru_RU" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Swedish resources -->
-		<bundler locale="zh_CN" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Simplified Chinese resources -->
+		<bundler locale="en_US" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Simplified Chinese resources -->
+		<bundler locale="de_DE" dita-dir="${basedir}/bundles/de_DE/docs"/><!-- German resources -->
+		<bundler locale="fr_FR" dita-dir="${basedir}/bundles/fr_FR/docs"/><!-- French resources -->
+		<bundler locale="ja_JP" dita-dir="${basedir}/bundles/ja_JP/docs"/><!-- Japanese resources -->
+		<bundler locale="ru_RU" dita-dir="${basedir}/bundles/ru_RU/docs"/><!-- Swedish resources -->
+		<bundler locale="zh_CN" dita-dir="${basedir}/bundles/zh_CN/docs"/><!-- Simplified Chinese resources -->
 	</target>
 	
     <target name="bundles-clean">
