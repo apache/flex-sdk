@@ -12,10 +12,6 @@
 package mx.components.baseClasses
 {
     
-import flash.events.Event;
-
-import mx.components.baseClasses.FxComponent;
-
 import mx.events.FlexEvent;
 
 /**
@@ -331,7 +327,16 @@ public class FxRange extends FxComponent
 
         // Round value to closest multiple of valueInterval
         if (interval != 0)
+        {	
             closest = Math.round(closest / interval) * interval;    
+            
+            if (interval != Math.round(interval))
+            {
+	            var parts:Array = (new String(1 + interval)).split(".");
+				var scale:Number = Math.pow(10, parts[1].length);
+            	closest = Math.round(closest * scale) / scale;
+            }
+        }
         
         if (closest >= maximum)
             return maximum;
