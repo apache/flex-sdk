@@ -195,6 +195,9 @@ public class ListItemDragProxy extends Group
         // Set the data    
         newRenderer.data = data;
         
+        // set itemIndex
+        newRenderer.itemIndex = renderer.itemIndex;
+        
         // The lis tis the IItemRendererOwner for this renderer.
         // It will update the renderer owner.
         list.updateRenderer(newRenderer);
