@@ -128,6 +128,8 @@ public class AnimateTransform extends FxAnimate
      */
     static protected var transformInstancePerTarget:Dictionary = new Dictionary(true);
 
+    // TODO (chaase): consider putting the three per-target maps into one 
+    // single structure
     /**
      * @private
      * These maps hold information about whether values have already been applied
