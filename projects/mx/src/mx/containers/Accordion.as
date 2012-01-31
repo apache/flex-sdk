@@ -2200,7 +2200,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
             drawHeaderFocus(_focusedIndex, showFocusIndicator);
         }
         
-        if (child as IAutomationObject);
+        if (child as IAutomationObject)
             IAutomationObject(child).showInAutomationHierarchy = true;
     }
 
