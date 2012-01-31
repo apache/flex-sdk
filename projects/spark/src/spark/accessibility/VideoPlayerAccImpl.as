@@ -31,8 +31,11 @@ import spark.components.Button;
 import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.components.VideoPlayer;
+import spark.components.mediaClasses.ScrubBar;
+import spark.components.supportClasses.ButtonBase;
 import spark.events.SkinPartEvent;
 import spark.events.VideoEvent;
+
 
 use namespace mx_internal;
 
@@ -164,14 +167,33 @@ public class VideoPlayerAccImpl extends AccImpl
 		var playPauseButton:ToggleButtonBase =
 			VideoPlayer(master).playPauseButton;
 		if (playPauseButton)
+        {
 			playPauseButton.addEventListener(Event.CHANGE, eventHandler);
+            if (VideoPlayer(master).tabIndex > 0 &&
+               playPauseButton.tabIndex == -1)
+               playPauseButton.tabIndex = VideoPlayer(master).tabIndex;
+            
+        }
 
 		var volumeBar:VolumeBar = VideoPlayer(master).volumeBar;
         if (volumeBar)
 		{
 			volumeBar.addEventListener(Event.CHANGE, eventHandler);
 			volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, eventHandler);
+            if (VideoPlayer(master).tabIndex > 0 &&
+                volumeBar.tabIndex == -1)
+                volumeBar.tabIndex = VideoPlayer(master).tabIndex;
 		}
+        
+        if (VideoPlayer(master).scrubBar)    
+            if (VideoPlayer(master).tabIndex > 0 &&
+                VideoPlayer(master).scrubBar.tabIndex == -1)
+                VideoPlayer(master).scrubBar.tabIndex = VideoPlayer(master).tabIndex;
+
+        if (VideoPlayer(master).fullScreenButton)
+            if (VideoPlayer(master).tabIndex > 0 &&
+                VideoPlayer(master).fullScreenButton.tabIndex == -1)
+                VideoPlayer(master).fullScreenButton.tabIndex = VideoPlayer(master).tabIndex;
 	}
 
 	//--------------------------------------------------------------------------
@@ -279,7 +301,7 @@ public class VideoPlayerAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-	    var accRole:uint;
+	    var accRole:uint = AccConst.ROLE_SYSTEM_GRAPHIC;
 
 		switch (childID) 
         {
@@ -291,36 +313,48 @@ public class VideoPlayerAccImpl extends AccImpl
 				
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
+                if (!VideoPlayer(master).playPauseButton)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // playPauseButton
 			    break;
     		}
 				
     		case VIDEOPLAYER_SCRUBBAR:
             {
+                if (!VideoPlayer(master).scrubBar)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // scrubBar
 			    break;
 		    }
 				
 		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
+                if (!VideoPlayer(master).currentTimeDisplay)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_STATICTEXT; // currentTime
 			    break;
        		}
 				
     		case VIDEOPLAYER_MUTEBUTTON:
             {
+                if (!VideoPlayer(master).volumeBar)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // volumeBar
 			    break;
 		    }
 				
 		    case VIDEOPLAYER_VOLUMEBAR:
             {
+                if (!VideoPlayer(master).volumeBar)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // volumeBar
 			    break;
 		    }
 				
 		    case VIDEOPLAYER_FULLSCREENBUTTON:
             {
+                if (!VideoPlayer(master).fullScreenButton)
+                    break;
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON; // fullScreenButton
 			    break;
 		    }
@@ -363,19 +397,20 @@ public class VideoPlayerAccImpl extends AccImpl
             return accState;
         }
 
-        if (((!videoPlayer.playPauseButton) || 
+        if (((childID == VIDEOPLAYER_PLAYPAUSEBUTTON 
+           && !videoPlayer.playPauseButton) || 
            (childID == VIDEOPLAYER_PLAYPAUSEBUTTON && 
            !videoPlayer.playPauseButton.enabled)) ||
-           ((!videoPlayer.scrubBar) || (childID == VIDEOPLAYER_SCRUBBAR && 
+           ((childID == VIDEOPLAYER_SCRUBBAR && !videoPlayer.scrubBar) || (childID == VIDEOPLAYER_SCRUBBAR && 
            !videoPlayer.scrubBar.enabled)) ||
-           ((!videoPlayer.currentTimeDisplay) || 
+           ((childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && !videoPlayer.currentTimeDisplay) || 
            (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
            !videoPlayer.currentTimeDisplay.enabled)) ||
-           ((!videoPlayer.volumeBar) || (childID == VIDEOPLAYER_MUTEBUTTON && 
+           ((childID == VIDEOPLAYER_MUTEBUTTON && !videoPlayer.volumeBar) || (childID == VIDEOPLAYER_MUTEBUTTON && 
            !videoPlayer.volumeBar.enabled)) ||
-           ((!videoPlayer.volumeBar) || (childID == VIDEOPLAYER_VOLUMEBAR && 
+           ((childID == VIDEOPLAYER_VOLUMEBAR && !videoPlayer.volumeBar) || (childID == VIDEOPLAYER_VOLUMEBAR && 
            !videoPlayer.volumeBar.enabled)) ||
-           ((!videoPlayer.fullScreenButton) ||
+           ((childID == VIDEOPLAYER_FULLSCREENBUTTON && !videoPlayer.fullScreenButton) ||
            (childID == VIDEOPLAYER_FULLSCREENBUTTON &&
            !videoPlayer.fullScreenButton.enabled)))
         {
@@ -411,13 +446,23 @@ public class VideoPlayerAccImpl extends AccImpl
         {
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON: 
             {
+                if (!VideoPlayer(master).playPauseButton)
+                    break;
                 action = "Toggle";
                 break;
             }
             
 			case VIDEOPLAYER_MUTEBUTTON:
+            {
+               if (!VideoPlayer(master).volumeBar)
+                    break;
+                action = "Press";
+                break;
+            }            
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
+               if (!VideoPlayer(master).fullScreenButton)
+                    break;
 		        action = "Press";
 		        break;
 		    }
@@ -645,7 +690,8 @@ public class VideoPlayerAccImpl extends AccImpl
 				
 		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-                if (!videoPlayer.currentTimeDisplay)
+                if (!videoPlayer.currentTimeDisplay ||
+                    !videoPlayer.durationDisplay)
                     break;
                     
 		        label = videoPlayer.currentTimeDisplay.text + "/" +
@@ -655,9 +701,7 @@ public class VideoPlayerAccImpl extends AccImpl
 				
             case VIDEOPLAYER_MUTEBUTTON:
             {
-                if (!videoPlayer.volumeBar)
-                    break;
-                if (!videoPlayer.volumeBar.muteButton)
+                if (!videoPlayer.volumeBar || !videoPlayer.volumeBar.muteButton)
                     break;
                     
                 label =
@@ -769,6 +813,8 @@ public class VideoPlayerAccImpl extends AccImpl
 		
 		var playPauseButton:ToggleButtonBase;
 		var volumeBar:VolumeBar;
+        var scrubBar:ScrubBar;
+        var fullScreenButton:ButtonBase;
 		
 		switch (event.type)
 		{
@@ -833,14 +879,39 @@ public class VideoPlayerAccImpl extends AccImpl
 			{
 				playPauseButton = VideoPlayer(master).playPauseButton;
 				if (SkinPartEvent(event).instance == playPauseButton)
+                {
 					playPauseButton.addEventListener(Event.CHANGE, eventHandler);
+                    if (VideoPlayer(master).tabIndex > 0 &&
+                        playPauseButton.tabIndex == -1)
+                        playPauseButton.tabIndex = VideoPlayer(master).tabIndex;
+
+                }
 				
 				volumeBar = VideoPlayer(master).volumeBar;
 				if (SkinPartEvent(event).instance == volumeBar)
 				{
 					volumeBar.addEventListener(Event.CHANGE, eventHandler);
 					volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, eventHandler);
+                    if (VideoPlayer(master).tabIndex > 0 &&
+                        volumeBar.tabIndex == -1)
+                        volumeBar.tabIndex = VideoPlayer(master).tabIndex;
 				}
+
+                scrubBar = VideoPlayer(master).scrubBar;
+                if (SkinPartEvent(event).instance == scrubBar)
+                {
+                    if (VideoPlayer(master).tabIndex > 0 &&
+                        scrubBar.tabIndex == -1)
+                        scrubBar.tabIndex = VideoPlayer(master).tabIndex;
+                }
+
+                fullScreenButton = VideoPlayer(master).fullScreenButton;
+                if (SkinPartEvent(event).instance == fullScreenButton)
+                {
+                    if (VideoPlayer(master).tabIndex > 0 &&
+                        fullScreenButton.tabIndex == -1)
+                        fullScreenButton.tabIndex = VideoPlayer(master).tabIndex;
+                }
 
 				break;
 			}
