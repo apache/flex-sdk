@@ -32,6 +32,7 @@ import mx.utils.StringUtil;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.TextBase;
 import spark.core.IDisplayText;
+import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
@@ -76,20 +77,6 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
-
-// TODO (jszeto) set to mobile theme only
-/**
- *  The class to use for the button's icon. The iconPlacement style
- *  controls the position of the label relative to the icon.
- *
- *  @default null
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="icon", type="Class", inherit="no", theme="spark")]
 
 // TODO (jszeto) set to mobile theme only
 /**
@@ -426,6 +413,18 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //--------------------------------------------------------------------------
 
     [SkinPart(required="false")]
+    
+    /**
+     *  A skin part that defines an optional icon for the button. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public var iconDisplay:BitmapImage;
+    
+    [SkinPart(required="false")]
 
     /**
      *  A skin part that defines the label of the button. 
@@ -611,6 +610,41 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         invalidateButtonState();
     }
 
+    //----------------------------------
+    //  icon
+    //----------------------------------
+
+    private var _icon:Class;
+    
+    /**
+     *  The class to use for the button's icon. The iconPlacement style
+     *  controls the position of the label relative to the icon.
+     *
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function set icon(value:Class):void
+    {
+        if (value == _icon)
+            return;
+        
+        _icon = value;
+        if (iconDisplay)
+            iconDisplay.source = _icon;
+        
+        // TODO (jszeto) Should we dispatch an contentChange event instead?
+        dispatchEvent(new Event("iconChange"));
+    }
+    
+    public function get icon():Class
+    {
+        return _icon;
+    }
+    
     //----------------------------------
     //  keepDown
     //----------------------------------
@@ -864,6 +898,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             // Push down to the part only if the label was explicitly set
             if (_content !== undefined)
                 labelDisplay.text = label;
+        }
+        else if (instance == iconDisplay)
+        {
+            iconDisplay.source = icon;
         }
     }
     
