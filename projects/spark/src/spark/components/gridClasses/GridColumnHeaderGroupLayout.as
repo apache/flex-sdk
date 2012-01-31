@@ -202,9 +202,14 @@ public class ColumnHeaderBarLayout extends LayoutBase
             
             column = renderer.column;
             if (column && (visibleColumnIndices.indexOf(column.columnIndex) != -1))
+            {
                 oldRenderers[column] = renderer;
+            }
             else
+            {
                 freeVisualElement(renderer);
+                renderer.discard(true);
+            }
         }
         
         // Add all of the separators to the free-list, since laying them out is cheap
@@ -225,6 +230,9 @@ public class ColumnHeaderBarLayout extends LayoutBase
         const rendererY:Number = paddingTop;
         const rendererHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         const maxRendererX:Number = columnHeaderBar.horizontalScrollPosition + unscaledWidth;
+        
+        const allocatedItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
+        var createdItemRenderers:Vector.<IGridItemRenderer> = null;
         
         var columnIndex:int = -1;
         var visibleLeft:Number = 0;
@@ -251,12 +259,27 @@ public class ColumnHeaderBarLayout extends LayoutBase
             // reuse or create a new renderer
             
             renderer = oldRenderers[column];
+            oldRenderers[column] = null;
             if (!renderer)
             {
                 var factory:IFactory = column.headerRenderer;
                 if (!factory)
                     factory = columnHeaderBar.headerRenderer;
                 renderer = allocateVisualElement(factory) as IGridItemRenderer;
+                
+                // Track which item renderers were created (uncommon) or recycled
+                // for the sake of the IGridItemRenderer prepare() method.
+                
+                if (createdVisualElement)
+                {
+                    if (!createdItemRenderers)
+                        createdItemRenderers = new Vector.<IGridItemRenderer>();
+                    createdItemRenderers.push(renderer);
+                }
+                else
+                {
+                    allocatedItemRenderers.push(renderer);
+                }
             }
                 
             // initialize the renderer
@@ -309,6 +332,16 @@ public class ColumnHeaderBarLayout extends LayoutBase
         visibleRenderersBounds.top = rendererY;
         visibleRenderersBounds.height = rendererHeight;
         
+        // Call prepare on renderers.
+        if (createdItemRenderers)
+        {
+            for each (var createdRenderer:IGridItemRenderer in createdItemRenderers)
+                createdRenderer.prepare(false);
+        }
+        
+        for each (var allocatedRenderer:IGridItemRenderer in allocatedItemRenderers)
+            allocatedRenderer.prepare(true);
+            
         // We may have created new renderers or changed their visibility.  Force
         // validation to avoid a display list flash.
         
@@ -560,11 +593,31 @@ public class ColumnHeaderBarLayout extends LayoutBase
     
     /**
      *  @private
+     *  Let the allocateGridElement() caller know if the returned element was 
+     *  created or recycled.
+     */
+    private var createdVisualElement:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private function createVisualElement(factory:IFactory):IVisualElement
+    {
+        createdVisualElement = true;
+        const newElement:IVisualElement = factory.newInstance() as IVisualElement;
+        elementToFactoryMap[newElement] = factory;
+        return newElement;
+    }
+    
+    /**
+     *  @private
      *  If the freeElementMap "free list" contains an instance of this factory, then 
-     *  remove if from the free list and return it, otherwise return a new factory instance.
+     *  remove if from the free list and return it, otherwise create a new instance
+     *  using createVisualElement().
      */
     private function allocateVisualElement(factory:IFactory):IVisualElement
     {
+        createdVisualElement = false;
         const freeElements:Vector.<IVisualElement> = freeElementMap[factory] as Vector.<IVisualElement>;
         if (freeElements)
         {
@@ -575,9 +628,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
                 return freeElement;
         }
         
-        const newElement:IVisualElement = factory.newInstance() as IVisualElement;
-        elementToFactoryMap[newElement] = factory;
-        return newElement;
+        return createVisualElement(factory);
     }
     
     /**
