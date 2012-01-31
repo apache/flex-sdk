@@ -53,6 +53,15 @@ include "../../styles/metadata/SparkColorStyles.as"
  */
 [Style(name="skinClass", type="Class")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="errorColor", kind="style")]
+[Exclude(name="focusBlendMode", kind="style")]
+[Exclude(name="focusThickness", kind="style")]
+[Exclude(name="themeColor", kind="style")]
+
 /**
  *  The FxComponent class defines the base class for skinnable components. 
  *  The skins used by a FxComponent class are child classes of the Skin class.
