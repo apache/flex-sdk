@@ -27,7 +27,9 @@ import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.TextLineFactory;
 import flashx.textLayout.factory.TruncationOptions;
 import flashx.textLayout.formats.FormatValue;
+import flashx.textLayout.formats.TextAlign;
 import flashx.textLayout.formats.TextLayoutFormat;
+import flashx.textLayout.formats.VerticalAlign;
 import flashx.textLayout.tlf_internal;
 
 import mx.core.mx_internal;
@@ -658,6 +660,36 @@ public class TextGraphic extends TextGraphicElement
         mx_internal::textLines.push(textLine);
     }
 		
+    /**
+     *  @private
+     *  Certain styles require the text to be recomposed when the height
+     *  changes.
+     */
+    override protected function composeOnHeightChange():Boolean
+    {
+        var topAligned:Boolean =
+            textFlow.hostTextLayoutFormat.verticalAlign == "top";
+
+        return !topAligned;
+    }
+
+    /**
+     *  @private
+     *  Certain styles require the text to be recomposed when the width
+     *  changes.
+     */
+    override protected function composeOnWidthChange():Boolean
+    {
+        var direction:String = textFlow.hostTextLayoutFormat.direction;
+        var textAlign:String = textFlow.hostTextLayoutFormat.textAlign;
+        var leftAligned:Boolean =
+            textAlign == "left" ||
+            textAlign == "start" && direction == "ltr" ||
+            textAlign == "end" && direction == "rtl";
+
+        return !leftAligned;
+    }    
+  
     //--------------------------------------------------------------------------
     //
     //  Event handlers
