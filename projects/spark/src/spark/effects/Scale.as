@@ -77,6 +77,7 @@ public class Scale extends AnimateTransform
     {
         super(target);
         instanceClass = AnimateTransformInstance;
+        transformEffectSubclass = true;
     }
 
     //--------------------------------------------------------------------------
