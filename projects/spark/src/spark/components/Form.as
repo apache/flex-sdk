@@ -41,6 +41,9 @@ use namespace mx_internal;
 /**
  *  SkinnableContainer with FormItem children. 
  * 
+ *  @includeExample examples/FormExample.mxml
+ *  @includeExample examples/StackedFormSkinExample.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
