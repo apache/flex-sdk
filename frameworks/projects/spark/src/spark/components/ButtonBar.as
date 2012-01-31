@@ -65,7 +65,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  Do not use BasicLayout with the Spark list-based controls.</p>
  *
  *  <pre>
- *  &lt;s:ButtonBar dataProvider="{myViewStack}"/&gt; 
+ *  &lt;s:ButtonBar dataProvider="{myViewStack}" requireSelection="true" /&gt; 
  *  
  *  &lt;mx:ViewStack id="myViewStack" 
  *      borderStyle="solid"&gt; 
