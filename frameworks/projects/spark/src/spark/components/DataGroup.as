@@ -1517,11 +1517,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             if (virtualRendererIndices.indexOf(index) == -1)
                 virtualRendererIndices.push(index);
             
-            const item:Object = dataProvider.getItemAt(index);
+            var item:Object;
             
             addedVirtualRenderer = false;  // set by createVirtualRendererForItem()
             if (!elt)
             {
+                item = dataProvider.getItemAt(index);
                 elt = createVirtualRendererForItem(item);
                 elt.visible = true;
                 elt.includeInLayout = true;
