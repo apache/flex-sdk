@@ -209,6 +209,25 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  The class implementing ITextInput that is used by this component
+ *  to input text.
+ *
+ *  <p>It can be set to either the mx.core.TextInput class
+ *  (to use the classic Halo TextInput control)
+ *  or the mx.controls.TLFTextInput class
+ *  (to use the Spark TextInput component based on the Text Layout Framework 
+ *  to get improved text rendering, including bidirectional layout).</p>
+ *
+ *  @default mx.controls.TextInput
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="textInputClass", type="Class", inherit="no")]
+
+/**
  *  Name of the class to use as the default skin for the up arrow.
  *  
  *  @default mx.skins.halo.NumericStepperUpSkin
