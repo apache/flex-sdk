@@ -13,7 +13,6 @@ package mx.containers
 {
 
 import flash.events.Event;
-import mx.core.Application;
 import mx.core.mx_internal;
 import mx.styles.IStyleClient;
 
@@ -191,7 +190,9 @@ public class ApplicationControlBar extends ControlBar
 	/**
 	 *  If <code>true</code>, specifies that the ApplicationControlBar should be docked to the
 	 *  top of the application. If <code>false</code>, specifies that the ApplicationControlBar 
-	 *  gets sized and positioned just like any other component.
+	 *  gets sized and positioned just like any other component. This property is supported when 
+	 *  the application is of type <code>Application</code>, otherwise the value of 
+	 *  <code>dock</code> has no effect.
 	 *
 	 *  @default false
 	 */
@@ -263,8 +264,9 @@ public class ApplicationControlBar extends ControlBar
 		{
 			dockChanged = false;
 
-			if (parent is Application)
-				Application(parent).dockControlBar(this, _dock);
+            var applicationClass:Class = Class(systemManager.getDefinitionByName("mx.core::Application"));
+			if (applicationClass && parent is applicationClass)
+				applicationClass(parent).dockControlBar(this, _dock);
 		}
 	}
 	
