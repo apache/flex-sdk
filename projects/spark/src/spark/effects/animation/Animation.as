@@ -958,11 +958,15 @@ public final class Animation
             var keyframes:Vector.<Keyframe> = motionPaths[i].keyframes;
             if (isNaN(keyframes[0].time))
                 keyframes[0].time = 0;
-            // Create an initial (time==0) value if necessary 
+            // Create an initial interval if necessary; this holds the property
+            // at it's current value until the first real keyframe is reached.
+            // This situation can occur when an effect has a startDelay that causes
+            // the first keyframe to have a nonzero time value.
             else if (keyframes[0].time > 0)
             {
+                var startTime:Number = keyframes[0].time;
                 keyframes.splice(0, 0, new Keyframe(0, null));
-                keyframes[0].timeFraction = 0;
+                keyframes.splice(1, 0, new Keyframe(startTime-1, null));
             }
             for (j = 1; j < keyframes.length; ++j)
             {
