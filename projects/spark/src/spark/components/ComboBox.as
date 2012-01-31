@@ -845,7 +845,12 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         {
             // Restore the previous selectedItem
             if (textInput)
-                textInput.text = itemToLabel(selectedItem);
+            {
+                if (selectedItem != null)
+                    textInput.text = itemToLabel(selectedItem);
+                else
+                textInput.text = "";
+            }
             changeHighlightedSelection(selectedIndex);
         }
     }
@@ -900,7 +905,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
         if (!isDropDownOpen)
         {
             if (textInput && 
-                textInput.text != itemToLabel(selectedItem))
+                ((selectedItem == null && textInput.text != "") ||
+                 textInput.text != itemToLabel(selectedItem)))
                 applySelection();
         }
             
