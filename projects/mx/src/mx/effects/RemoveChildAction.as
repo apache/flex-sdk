@@ -24,6 +24,8 @@ use namespace mx_internal;
 
 [Exclude(name="duration", kind="property")]
 
+[Alternative(replacement="spark.effects.RemoveAction", since="4.0")]
+
 /**
  *  The RemoveChildAction class defines an action effect that corresponds
  *  to the RemoveChild property of a view state definition.
