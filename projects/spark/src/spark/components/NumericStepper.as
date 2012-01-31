@@ -475,14 +475,14 @@ public class NumericStepper extends Spinner
     {
         if (stage)
         {
-            stage.focus = textDisplay.textView;
+            stage.focus = textDisplay.textDisplay;
             
             // Since the API ignores the visual editable and selectable 
             // properties make sure the selection should be set first.
-            if (textDisplay.textView && 
-               (textDisplay.textView.editable || textDisplay.textView.selectable))
+            if (textDisplay.textDisplay && 
+               (textDisplay.textDisplay.editable || textDisplay.textDisplay.selectable))
             {
-                textDisplay.textView.setSelection();
+                textDisplay.textDisplay.selectAll();
             }
         }
     }
@@ -492,7 +492,7 @@ public class NumericStepper extends Spinner
      */
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
-        return target == textDisplay.textView;
+        return target == textDisplay.textDisplay;
     }
 
     /**
