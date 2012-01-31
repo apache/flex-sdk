@@ -9,22 +9,25 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.effects  
+package spark.effects.animation  
 {
+import __AS3__.vec.Vector;
+
 import mx.core.mx_internal;
+
 import spark.effects.easing.IEaser;
+import spark.effects.easing.Sine;
 import spark.effects.interpolation.IInterpolator;
 import spark.effects.interpolation.NumberInterpolator;
-import spark.effects.easing.Sine;
 
 use namespace mx_internal;
 
 [DefaultProperty("keyframes")]
 
 /**
- *  The MotionPath class defines the collection of KeyFrames objects for an effect,
+ *  The MotionPath class defines the collection of Keyframes objects for an effect,
  *  and the name of the property on the target to animate. 
- *  Each KeyFrame object defines the value of the property at a specific time during an effect. 
+ *  Each Keyframe object defines the value of the property at a specific time during an effect. 
  *  The effect then calculates the value of the target property 
  *  by interpolating between the values specified by two key frames.
  *  
@@ -48,12 +51,12 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  * 
- *  @see KeyFrame
+ *  @see Keyframe
  *  @see spark.effects.interpolation.NumberInterpolator
  */
 public class MotionPath
 {
-    include "../../spark/core/Version.as";
+    include "../../core/Version.as";
     
     //--------------------------------------------------------------------------
     //
@@ -110,9 +113,9 @@ public class MotionPath
      */
     public var interpolator:IInterpolator = NumberInterpolator.getInstance();
     
-    [Inspectable(category="General", arrayType="spark.effects.KeyFrame")]
+    [Inspectable(category="General", arrayType="spark.effects.Keyframe")]
     /**
-     *  A sequence of KeyFrame objects that represent the time/value pairs
+     *  A sequence of Keyframe objects that represent the time/value pairs
      *  that the property takes during the animation. Each successive
      *  pair of keyframes controls the animation during the time interval
      *  between them.
@@ -155,14 +158,14 @@ public class MotionPath
      *      to it, if <code>valueBy</code> is set.</li>
      *  </ol>
      *  
-     *  @see KeyFrame
+     *  @see Keyframe
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var keyframes:Array;
+    public var keyframes:Vector.<Keyframe>;
     
 
     /**
@@ -180,7 +183,7 @@ public class MotionPath
         mp.interpolator = interpolator;
         if (keyframes !== null)
         {
-            mp.keyframes = [];
+            mp.keyframes = new Vector.<Keyframe>();
             for (var i:int = 0; i < keyframes.length; ++i)
                 mp.keyframes[i] = keyframes[i].clone();
         }
@@ -191,8 +194,8 @@ public class MotionPath
      *  @private
      * 
      *  Calculates the <code>timeFraction</code> values for
-     *  each KeyFrame in a MotionPath KeyFrame sequence.
-     *  To calculate these values, the time on each KeyFrame
+     *  each Keyframe in a MotionPath Keyframe sequence.
+     *  To calculate these values, the time on each Keyframe
      *  is divided by the supplied <code>duration</code> parameter.
      *  
      *  @param duration the duration of the animation that the
@@ -203,13 +206,13 @@ public class MotionPath
         var n:int = keyframes.length;
         for (var i:int; i < n; ++i)
         {
-            var kf:KeyFrame = keyframes[i];
+            var kf:Keyframe = keyframes[i];
             // TODO (chaase): Must be some way to allow callers
             // to supply timeFraction, but currently we clobber it
             // with this operation. But if we choose to clobber it
             // only if it's not set already, then it only works the
             // first time through, since an Effect will retain its
-            // MotionPaty, which retains its KeyFrames, etc.
+            // MotionPaty, which retains its Keyframes, etc.
             kf.timeFraction = kf.time / duration;
         }
     }
@@ -255,7 +258,7 @@ public class MotionPath
         var prevValue:Object = keyframes[0].value;
         for (var i:int = 1; i < n; ++i)
         {
-            var kf:KeyFrame = keyframes[i];
+            var kf:Keyframe = keyframes[i];
             if (fraction >= prevT && fraction < kf.timeFraction)
             {
                 var t:Number = (fraction - prevT) / (kf.timeFraction - prevT);
