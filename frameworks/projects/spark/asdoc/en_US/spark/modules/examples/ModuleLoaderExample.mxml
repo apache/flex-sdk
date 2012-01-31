@@ -7,7 +7,7 @@
 	</fx:Declarations>
 	
 	<mx:TabNavigator width="500" height="300">
-		<s:ModuleLoader label="Tab One" url="ModuleVerticalLayout.swf"/>
-		<s:ModuleLoader label="Tab Two" url="ModuleHorizontalLayout.swf"/>
+		<s:ModuleLoader label="Tab One" url="examples/ModuleVerticalLayout.swf"/>
+		<s:ModuleLoader label="Tab Two" url="examples/ModuleHorizontalLayout.swf"/>
 	</mx:TabNavigator>
 </s:Application>
