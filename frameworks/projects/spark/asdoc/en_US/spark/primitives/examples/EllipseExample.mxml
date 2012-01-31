@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- EllipseExample.mxml -->
-<mx:Application
-     xmlns:mx="library:adobe/flex/halo"
-     xmlns="http://ns.adobe.com/mxml/2009">
-
-     <mx:Canvas top="0" bottom="0" left="0" right="0">
+<Application xmlns="http://ns.adobe.com/mxml/2009">
+     <Canvas top="0" bottom="0" left="0" right="0">
           <Graphic x="0" y="0">
                    <Ellipse height="100" width="250">
                          <stroke>
@@ -21,5 +18,5 @@
                        </fill>
                    </Ellipse>
            </Graphic>
-     </mx:Canvas>
-</mx:Application>
+     </Canvas>
+</Application>
