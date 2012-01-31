@@ -273,11 +273,12 @@ public class FxRange extends FxComponent
 
         if (valueChanged || maxChanged || minChanged || valueIntervalChanged)
         {
-            setValue(nearestValidValue(_changedValue, valueInterval));
+            var currentValue:Number = (valueChanged) ? _changedValue : _value;
             valueChanged = false;
             maxChanged = false;
             minChanged = false;
             valueIntervalChanged = false;
+            setValue(nearestValidValue(currentValue, valueInterval));
         }
         
         if (stepSizeChanged)
