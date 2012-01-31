@@ -376,19 +376,18 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         
         if (instance == textInput)
         {
+        	textInput.addEventListener(FlexEvent.ENTER,
+                                       textInput_enterHandler);
+            textInput.addEventListener(FocusEvent.FOCUS_OUT, 
+                                       textInput_focusOutHandler); 
             textInput.focusEnabled = false;
             textInput.maxChars = _maxChars;
             // Restrict to digits, minus sign, decimal point, and comma
             textInput.restrict = "0-9\\-\\.\\,";
-            textInput.addEventListener(FlexEvent.ENTER,
-                                       textInput_enterHandler);
-            textInput.addEventListener(FocusEvent.FOCUS_OUT, 
-                                       textInput_focusOutHandler); 
             textInput.text = value.toString();
             // Set the the textInput to be wide enough to display
             // widest possible value. 
             textInput.widthInChars = calculateWidestValue(); 
-            
         }
     }
     
