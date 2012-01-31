@@ -16,7 +16,6 @@ import fl.video.VideoState;
 import fl.video.flvplayback_internal;
 
 import flash.display.DisplayObject;
-import flash.display.Stage;
 import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.events.FullScreenEvent;
@@ -24,19 +23,13 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.events.TimerEvent;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
 
-import mx.core.ContainerGlobals;
 import mx.core.FlexGlobals;
-import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.SandboxMouseEvent;
-import mx.managers.IFocusManagerContainer;
-import mx.managers.LayoutManager;
 import mx.utils.BitFlagUtil;
 
 import spark.components.mediaClasses.MuteButton;
@@ -44,13 +37,12 @@ import spark.components.mediaClasses.ScrubBar;
 import spark.components.mediaClasses.StreamingVideoSource;
 import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ButtonBase;
-import spark.components.supportClasses.Range;
 import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.TextBase;
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
 import spark.primitives.VideoElement;
-import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -455,6 +447,11 @@ public class VideoPlayer extends SkinnableComponent
      *  @private
      */
     private static const VOLUME_PROPERTY_FLAG:uint = 1 << 6;
+
+    /**
+     *  @private
+     */
+    private static const PLAY_WHEN_HIDDEN_PROPERTY_FLAG:uint = 1 << 7;
     
     //--------------------------------------------------------------------------
     //
@@ -993,6 +990,54 @@ public class VideoPlayer extends SkinnableComponent
     }
     
     //----------------------------------
+    //  playWhenHidden
+    //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="false")]
+    
+    /**
+     *  @copy spark.primitives.VideoElement#playWhenHidden
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get playWhenHidden():Boolean
+    {
+        if (videoElement)
+        {
+            return videoElement.playWhenHidden;
+        }
+        else
+        {
+            var v:* = videoElementProperties.playWhenHidden;
+            return (v === undefined) ? false : v;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    public function set playWhenHidden(value:Boolean):void
+    {
+        if (videoElement)
+        {
+            videoElement.playWhenHidden = value;
+            videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
+                PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
+        }
+        else if (videoElementProperties)
+        {
+            videoElementProperties.playWhenHidden = value;
+        }
+        else
+        {
+            videoElementProperties = {playWhenHidden: value};
+        }
+    }
+    
+    //----------------------------------
     //  source
     //----------------------------------
     
@@ -1120,6 +1165,20 @@ public class VideoPlayer extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  We override setVisible so that when we aren't visible, we stop playback of the 
+     *  video in certain cases.  We just push this down via parentVisibility to 
+     *  VideoElement
+     */ 
+    override public function setVisible(value:Boolean, noEvent:Boolean=false) : void
+    {
+        super.setVisible(value, noEvent);
+        
+        if (videoElement)
+            videoElement.parentVisibility = value;
+    }
     
     /**
      *  @private
@@ -1257,6 +1316,13 @@ public class VideoPlayer extends SkinnableComponent
                     videoElement.muted = videoElementProperties.muted;
                     newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
                                                             MUTED_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.playWhenHidden !== undefined)
+                {
+                    videoElement.playWhenHidden = videoElementProperties.playWhenHidden;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                        PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
                 }
                 
                 // these are state properties just carried over from an old video element
@@ -1453,6 +1519,12 @@ public class VideoPlayer extends SkinnableComponent
             if (BitFlagUtil.isSet(videoElementProperties as uint, MUTED_PROPERTY_FLAG))
             {
                 newVideoProperties.muted = videoElement.muted;
+                propertySet = true;
+            }
+            
+            if (BitFlagUtil.isSet(videoElementProperties as uint, PLAY_WHEN_HIDDEN_PROPERTY_FLAG))
+            {
+                newVideoProperties.playWhenHidden = videoElement.playWhenHidden;
                 propertySet = true;
             }
             
@@ -1824,6 +1896,11 @@ public class VideoPlayer extends SkinnableComponent
             // need it to go into full screen state for the skin
             invalidateSkinState();
             
+            // keep track of playWhenHidden b/c we will set it to true temporarily 
+            // so that the video does not pause when we reparent it to the top
+            // level application
+            var oldPlayWhenHidden:Boolean = playWhenHidden;
+            
             // let's get it off of our layout system so it doesn't interfere with 
             // the sizing and positioning. Then let's resize it to be 
             // the full size of our screen.  Then let's position it off-screen so
@@ -1837,6 +1914,7 @@ public class VideoPlayer extends SkinnableComponent
                                     deblocking: videoElement.videoPlayer.deblocking, 
                                     includeInLayout: this.includeInLayout};
             includeInLayout = false;
+            playWhenHidden = true;
             
             // remove from old parent
             if (parent is IVisualElementContainer)
@@ -1882,6 +1960,8 @@ public class VideoPlayer extends SkinnableComponent
             fullScreenHideControlTimer = new Timer(getStyle("fullScreenHideControlsDelay"), 1);
             fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
                 fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
+            
+            playWhenHidden = oldPlayWhenHidden;
             
             // use stage or systemManager?
             systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
@@ -1945,6 +2025,12 @@ public class VideoPlayer extends SkinnableComponent
         if (event.fullScreen)
             return;
         
+        // keep track of playWhenHidden b/c we will set it to true temporarily 
+        // so that the video does not pause when we reparent it to its original
+        // parent
+        var oldPlayWhenHidden:Boolean = playWhenHidden;
+        playWhenHidden = true;
+        
         // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
         systemManager.stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
@@ -1975,6 +2061,7 @@ public class VideoPlayer extends SkinnableComponent
             beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
         
         includeInLayout = beforeFullScreenInfo.includeInLayout;
+        playWhenHidden = oldPlayWhenHidden;
         
         beforeFullScreenInfo = null;
         
