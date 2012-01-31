@@ -11,8 +11,8 @@ use namespace mx_internal;
  * methods on the service object and control how parameters are mapped to a specific
  * serialiation format such as XML, JSON, etc.  The SerializationFilter mechanism
  * allows you to add a new resultFormat as well.
- * <p>
- * An instance of this class can manage formatting HTTP requests, responses, and
+ * 
+ * <p> An instance of this class can manage formatting HTTP requests, responses, and
  * converting their parameters.  When you use HTTPService or HTTPMultiService, you 
  * are usually talking to a server which expects the data to be provided in a specific
  * format - for example, URL encoded values for a type HTML form, XML values or another
@@ -22,23 +22,21 @@ use namespace mx_internal;
  * the return value of the operation.  Framework developers can introduce a new serialization
  * format to the system by providing a new implementation of the SerializationFilter and
  * use these components and all of the frameworks and tools built on these components
- * without having to know the details of the format itself.
- * </p>
- * <p>
- * The first thing you do is to extend the SerializationFilter and override one or more
+ * without having to know the details of the format itself. </p>
+ * 
+ * <p>The first thing you do is to extend the SerializationFilter and override one or more
  * of the conversion methods.   The filter allows you to turn the ordered list of parameters
  * into a request body, modify the request body, modify the content type used in the
  * request, modify the actual URL used in the request, and convert the response data into
- * the result object returned in the result event of the service.
- * </p>
- * <p>
- * There are two ways to specify the SerializationFilter for a particular HTTPService,
+ * the result object returned in the result event of the service.</p>
+ * 
+ * <p>There are two ways to specify the SerializationFilter for a particular HTTPService,
  * or HTTPMultiService.  You can either set the serializationFilter property on the service
  * or you can statically register a SerializationFilter for a new result format.  If you
  * use this approach, simply by specifying the resultFormat you can use a pre-registered
  * SerializationFilter.  So for example, you might register a SerializationFilter for the
  * "json" type and can then use that filter by setting resultFormat="json".</p>
- * </p>
+ *
  * <p>
  * Note that HTTPService only provides methods which directly take the request body
  * and so does not use the "serializeParameters" method.
