@@ -1,5 +1,8 @@
 package mx.components.baseClasses
 {
+
+import __AS3__.vec.Vector;
+
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -8,31 +11,30 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
-import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
-import mx.graphics.Graphic;
-
-import mx.graphics.MaskType;
-import mx.utils.MatrixUtil;
-import mx.graphics.graphicsClasses.GraphicElement;
-import mx.graphics.IGraphicElement;
-import mx.layout.ILayoutElement;
-import mx.core.IViewport;
-import mx.core.ScrollUnit;
-import mx.layout.LayoutBase;
-import mx.layout.BasicLayout;
-
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
 import mx.components.ResizeMode;
 import mx.controls.Label;
 import mx.core.IFactory;
-import mx.core.mx_internal;
+import mx.core.IViewport;
+import mx.core.IVisualElement;
+import mx.core.ScrollUnit;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.graphics.Graphic;
+import mx.graphics.IGraphicElement;
+import mx.graphics.MaskType;
+import mx.graphics.graphicsClasses.GraphicElement;
+import mx.layout.BasicLayout;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutBase;
+import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
 
@@ -915,6 +917,37 @@ public class GroupBase extends UIComponent implements IViewport
         // TODO!!! Need to recalculate the elements
         // Call super, so that we don't invalidate the layout
         super.invalidateDisplayList();
+    }
+
+   /**
+     *  @private
+     * 
+     *  A simple insertion sort.  This works well for small lists (under 12 or so), uses
+     *  no aditional memory, and most importantly, is stable, meaning items with comparable
+     *  values will stay in the same order relative to each other. For layering, we guarantee
+     *  first the layer property, and then the item order, so a stable sort is important (and the 
+     *  built in flash sort is not stable).
+     */
+    mx_internal static function sortOnLayer(a:Vector.<IVisualElement>):void
+    {
+        var len:Number = a.length;
+        var tmp:IVisualElement;
+        if (len<= 1)
+            return;
+        for (var i:int = 1;i<len;i++)
+        {
+            for (var j:int = i;j > 0;j--)
+            {
+                if ( a[j].layer < a[j-1].layer )
+                {
+                    tmp = a[j];
+                    a[j] = a[j-1];
+                    a[j-1] = tmp;
+                }
+                else
+                    break;
+            }
+        }
     }
 }
 
