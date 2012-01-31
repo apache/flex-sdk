@@ -183,7 +183,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
         const oldRenderers:Dictionary = new Dictionary();
 
-        const overlayGroup:Group = columnHeaderGroup.overlayGroup;
+        const overlayGroup:Group = this.overlayGroup;
         const columnSeparatorFactory:IFactory = columnHeaderGroup.columnSeparator;
         var renderer:IGridItemRenderer;
         var column:GridColumn;
@@ -428,7 +428,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         const columnLeft:Number = grid.getCellX(0, columnIndex);
         const columnRight:Number = columnLeft + grid.getColumnWidth(columnIndex);
-        const smw:Number = columnHeaderGroup.separatorMouseWidth;
+        const smw:Number = columnHeaderGroup.getStyle("separatorAffordance");
         
         if (!isFirstColumn && (x > (columnLeft - smw)) && (x < (columnLeft + smw)))
             return grid.getPreviousVisibleColumnIndex(columnIndex);
@@ -583,7 +583,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     
     //---------------------------------------------------------------
     //
-    //  Internal methods
+    //  Internal methods, properties
     //
     //---------------------------------------------------------------    
     
@@ -660,6 +660,29 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             return chb.dataGrid.grid;
         
         return null;
-    }       
+    }
+    
+    //----------------------------------
+    //  overlayGroup
+    //----------------------------------
+ 
+    private var _overlayGroup:Group = null;
+    
+    /**
+     *  @private
+     *  The container for columnSeparator visual elements.  By default it's an 
+     *  element of the GridColumnHeaderGroup's overlay.
+     */
+    private function get overlayGroup():Group
+    {
+        if (!_overlayGroup)
+        {
+            _overlayGroup = new Group();
+            _overlayGroup.layout = new LayoutBase(); // no layout
+            target.overlay.addDisplayObject(overlayGroup);            
+        }
+            
+        return _overlayGroup;
+    }
 }
 }
