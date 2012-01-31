@@ -62,7 +62,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
 [IconFile("Label.png")]
 
 /**
- *  Label is a GraphicElement that can render
+ *  Label is a low-level UIComponent that can render
  *  one or more lines of uniformly-formatted text.
  *  The text to be displayed is determined by the
  *  <code>text</code> property inherited from TextBase.
@@ -91,7 +91,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  selection, editing, hyperlinks, images loaded from URLs, etc.
  *  You should use the fastest one that meets your needs.</p>
  *
- *  <p>spark.controlsLabel is similar to the older MX control mx.controls.Label.
+ *  <p>spark.components.Label is similar to the older MX control mx.controls.Label.
  *  The most important differences to understand are
  *  <ul>
  *    <li>Spark Label uses FTE, the player's new text engine,
@@ -104,7 +104,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *    <li>MX Label can be made selectable, while Label cannot.</li>
  *  </ul></p>
  *
- *  <p>In Label, three character sequences are recognized
+ *  <p>In Spark Label, three character sequences are recognized
  *  as explicit line breaks: CR (<code>"\r"</code>), LF (<code>"\n"</code>),
  *  and CR+LF (<code>"\r\n"</code>).</p>
  *
@@ -167,7 +167,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  @see spark.components.RichEditableText
  *  @see spark.components.RichText
  *  
- *  @includeExample examples/SimpleTextExample.mxml
+ *  @includeExample examples/LabelExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -437,16 +437,6 @@ public class Label extends TextBase
         
         // Detach the TextLines from the TextBlock that created them.
         releaseLinesFromTextBlock();
-        
-        // Remember the original position of each TextLine.
-		// When TextLines are children of a shared DisplayObject,
-		// these original positions must be offset by drawX and drawY.
-		var n:int = textLines.length;
-        for (var i:int = 0; i < n; i++)
-        {
-        	textLinesX[i] = textLines[i].x;
-        	textLinesY[i] = textLines[i].y;
-        }
                                                        
         // Add the new text lines to the container.
         addTextLines(this);
