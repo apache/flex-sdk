@@ -17,6 +17,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IDataRenderer;
+import mx.core.LayoutDirection;
 
 import spark.components.supportClasses.SliderBase;
 
@@ -161,7 +162,9 @@ public class VSlider extends SliderBase
             var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
             var relY:Number = thumb.getLayoutBoundsY() + 
                             (thumb.getLayoutBoundsHeight() - tipAsDisplayObject.height) / 2;
-            var relX:Number = layoutDirection == "rtl" ? initialPosition.x + tipBounds.width : initialPosition.x;
+            var relX:Number = layoutDirection == LayoutDirection.RTL ? 
+                              initialPosition.x + tipBounds.width : 
+                              initialPosition.x;
             var o:Point = new Point(relX, relY);
             var r:Point = thumb.parent.localToGlobal(o);        
             
