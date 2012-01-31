@@ -180,6 +180,10 @@ public class GroupBase extends UIComponent implements IViewport
      *  The layout object for this container.  
      *  This object is responsible for the measurement and layout of 
      *  the visual elements in the container.
+     * 
+     *  @default mx.layout.BasicLayout
+     *
+     *  @see LayoutBase
      */
     public function get layout():LayoutBase
     {
