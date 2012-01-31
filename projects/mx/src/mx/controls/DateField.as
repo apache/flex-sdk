@@ -2394,19 +2394,7 @@ public class DateField extends ComboBase
             // B. Bottom Right Placement
             // C. Top Right Placement
             var sm:ISystemManager = systemManager.topLevelSystemManager;
-            var sbRoot:DisplayObject = sm.getSandboxRoot();
-            var screen:Rectangle;
-
-            if (sm != sbRoot)
-            {
-                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                                        false, false,
-                                        "getVisibleApplicationRect"); 
-                sbRoot.dispatchEvent(request);
-                screen = Rectangle(request.value);
-            }
-            else
-                screen = sm.getVisibleApplicationRect();
+            var screen:Rectangle = sm.getVisibleApplicationRect();
 
             if (screen.right > dd.getExplicitOrMeasuredWidth() + point.x &&
                 screen.bottom < dd.getExplicitOrMeasuredHeight() + point.y)
