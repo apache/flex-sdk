@@ -148,7 +148,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  The bounding box thickness of the DateChooser control.
@@ -159,7 +159,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThickness", type="Number", format="Length", inherit="no")]
+[Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Radius of component corners.
@@ -302,7 +302,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="todayColor", type="uint", format="Color", inherit="yes")]
+[Style(name="todayColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Name of the style sheet definition to configure the appearance of the current day's
