@@ -267,6 +267,7 @@ public class TextGraphic extends TextGraphicElement
      *          &lt;span&gt; element can be implied. The &lt;br/&gt; element must have no children (it must be an empty tag).</td>
      *    </tr>
      *  </table>
+     *  </p>
      */
     public function get content():Object 
     {
