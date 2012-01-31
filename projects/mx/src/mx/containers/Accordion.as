@@ -73,104 +73,6 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Specifies the alpha transparency values used for the background fill of components.
- *  You should set this to an Array of either two or four numbers.
- *  Elements 0 and 1 specify the start and end values for
- *  an alpha gradient.
- *  If elements 2 and 3 exist, they are used instead of elements 0 and 1
- *  when the component is in a mouse-over state.
- *  The global default value is <code>[ 0.60, 0.40, 0.75, 0.65 ]</code>.
- *  Some components, such as the ApplicationControlBar container,
- *  have a different default value. For the ApplicationControlBar container, 
- *  the default value is <code>[ 0.0, 0.0 ]</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
- *  Specifies the colors used to tint the background fill of the component.
- *  You should set this to an Array of either two or four uint values
- *  that specify RGB colors.
- *  Elements 0 and 1 specify the start and end values for
- *  a color gradient.
- *  If elements 2 and 3 exist, they are used instead of elements 0 and 1
- *  when the component is in a mouse-over state.
- *  For a flat-looking control, set the same color for elements 0 and 1
- *  and for elements 2 and 3,
- *  The default value is
- *  <code>[ 0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE ]</code>.
- *  <p>Some components, such as the ApplicationControlBar container,
- *  have a different default value. For the ApplicationControlBar container, 
- *  the default value is <code>[ 0xFFFFFF, 0xFFFFFF ]</code>.</p>
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
- *  Specifies the alpha transparency value of the focus skin.
- *  
- *  @default 0.4
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="focusAlpha", type="Number", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
- *  Specifies which corners of the focus rectangle should be rounded.
- *  This value is a space-separated String that can contain any
- *  combination of <code>"tl"</code>, <code>"tr"</code>, <code>"bl"</code>
- *  and <code>"br"</code>.
- *  For example, to specify that the right side corners should be rounded,
- *  but the left side corners should be square, use <code>"tr br"</code>.
- *  The <code>cornerRadius</code> style property specifies
- *  the radius of the rounded corners.
- *  The default value depends on the component class; if not overridden for
- *  the class, default value is <code>"tl tr bl br"</code>.
- * 
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="focusRoundedCorners", type="String", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
- *  Skin used to draw the focus rectangle.
- *
- *  @default mx.skins.halo.HaloFocusRect
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="focusSkin", type="Class", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
- *  Thickness, in pixels, of the focus rectangle outline.
- *
- *  @default 2
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="focusThickness", type="Number", format="Length", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
  *  Name of the CSS style declaration that specifies styles for the accordion
  *  headers (tabs).
  * 
@@ -255,20 +157,6 @@ use namespace mx_internal;
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 /**
- *  The two colors used to tint the background of the component
- *  when in its selected state.
- *  Pass the same color for both values for "flat" looking control.
- *  The default value is <code>undefined</code>, which means the colors
- *  are derived from <code>themeColor</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="selectedFillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
-
-/**
  *  Color of header text when rolled over.
  *  The default value is 0x2B333C.
  *  
@@ -326,11 +214,11 @@ use namespace mx_internal;
 
 /*
 [Exclude(name="focusBlendMode", kind="style")]
-[Exclude(name="focusSkin", kind="style")]
-[Exclude(name="focusThickness", kind="style")]
 */
 [Exclude(name="horizontalScrollBarStyleName", kind="style")]
 [Exclude(name="verticalScrollBarStyleName", kind="style")]
+[Exclude(name="focusSkin", kind="style")]
+[Exclude(name="focusThickness", kind="style")]
 
 //--------------------------------------
 //  Other metadata
