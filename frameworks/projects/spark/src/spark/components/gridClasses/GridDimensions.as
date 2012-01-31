@@ -394,7 +394,7 @@ public class GridDimensions
         var node:GridRowNode = rowList.find(row);
         
         if (node)
-            return node.cellHeights[col];
+            return node.getCellHeight(row);
         
         return NaN;
     }
@@ -411,8 +411,7 @@ public class GridDimensions
         
         if (node)
         {
-            node.cellHeights[col] = height;
-            if (node.updateMaxHeight())
+           if (node.setCellHeight(col, height))
                 recentNode = null;
         }
     }
@@ -502,7 +501,7 @@ public class GridDimensions
     {
         // TBD: provide optional return value (Rectangle) parameter    
         if ((row < 0) || (row >= rowCount))
-            return new Rectangle();  // TBD: return empty Rectangle instead
+            return null;  // TBD: return empty Rectangle instead
         
         const firstCellR:Rectangle = getCellBounds(row, 0);
         const lastCellR:Rectangle = getCellBounds(row, columnCount - 1);
@@ -518,7 +517,7 @@ public class GridDimensions
     {
         // TBD: provide optional return value (Rectangle) parameter
         if ((col < 0) || (col >= columnCount))
-            return new Rectangle();  // TBD: return empty Rectangle instead
+            return null;  // TBD: return empty Rectangle instead
 
         const firstCellR:Rectangle = getCellBounds(0, col);
         const lastCellR:Rectangle = getCellBounds(rowCount - 1, col);
@@ -617,6 +616,7 @@ public class GridDimensions
             
             // calculate previous y.
             prevNode = node.prev;
+            
             if (!prevNode)
             {
                 prevY = 0;
@@ -666,6 +666,7 @@ public class GridDimensions
         var node:GridRowNode = startNode;
         var nextNode:GridRowNode = null;
         var index:int = node.rowIndex;
+        var nodeY:Number = startY;
         var currentY:Number = startY;
         var nextY:Number;
         var targetY:Number = y;
@@ -673,12 +674,16 @@ public class GridDimensions
         while (node)
         {
             // check the current node.
-            if (isYInRow(targetY, currentY, node))
+            if (isYInRow(targetY, nodeY, node))
                 break;
             
-            // calculate next y.
-            nextNode = node.next;
+            // currentY increments to end of the current node.
+            currentY += node.maxCellHeight;
+            if (node.rowIndex != rowCount - 1)
+                currentY += rowGap;
             
+            // calculate end of next section.
+            nextNode = node.next;
             nextY = currentY;
             
             var indDiff:int;
@@ -709,17 +714,15 @@ public class GridDimensions
                 break;
             }
             
-            // add next node's height and its gap if necessary.
-            currentY = nextY + nextNode.maxCellHeight;
-            if (nextNode.rowIndex != rowCount - 1)
-                currentY += rowGap;
+            // move y values ahead to next node.
+            nodeY = currentY = nextY;
             
             node = node.next;
             index = node.rowIndex;
         }
         
         this.recentNode = node;
-        this.startY = currentY;
+        this.startY = nodeY;
         
         return index;
     }
