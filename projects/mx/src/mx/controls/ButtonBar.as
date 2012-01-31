@@ -25,12 +25,15 @@ import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.events.ChildExistenceChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.styles.CSSSelector;
 import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleManager2;
 
 use namespace mx_internal;
 
@@ -350,23 +353,6 @@ use namespace mx_internal;
         
         addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, 
                          childRemoveHandler);
-        
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-        {
-            var typeSelector:CSSStyleDeclaration = 
-                styleManager.getStyleDeclaration("mx.controls.ButtonBar");
-            
-            if (typeSelector)
-            {
-                if (typeSelector.getStyle("borderSkin") === undefined)
-                {
-                    var globalSelector:CSSStyleDeclaration = 
-                        styleManager.getStyleDeclaration("global");
-                    typeSelector.setStyle("borderSkin", 
-                        globalSelector.getStyle("borderSkin"));
-                }
-            }
-        }
     }
 
     //--------------------------------------------------------------------------
@@ -459,6 +445,13 @@ use namespace mx_internal;
      */
     private var directionChanged:Boolean = false;
 
+    /**
+     *  @private
+     *  Flag indicating whether styles in the the module factory override
+     *  have been set.
+     */
+    private var moduleFactoryOverrideStylesSet:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -498,6 +491,46 @@ use namespace mx_internal;
         super.direction = value;
     }
 
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = moduleFactory;
+        
+        if (moduleFactoryOverrideStylesSet)
+            return;
+        
+        moduleFactoryOverrideStylesSet = true;
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = styleManager.getMergedStyleDeclaration("mx.controls.ButtonBar");
+
+            if (typeSelector)
+            {
+                var borderSkin:* = 
+                    styleManager.getMergedStyleDeclaration("global").getStyle("borderSkin");
+                
+                if (typeSelector.getStyle("borderSkin") !== borderSkin)
+                {
+                    // Setting a merged style is not supported so get a local style.
+                    typeSelector = styleManager.getStyleDeclaration("mx.controls.ButtonBar");
+
+                    // Our style manager may not have a local definition of the
+                    // button bar style so add a local one so we can modify it.
+                    if (!typeSelector)
+                    {
+                        var selector:CSSSelector = new CSSSelector("mx.controls.ButtonBar", null, null);
+                        typeSelector = new CSSStyleDeclaration(selector, styleManager);
+                    }
+                    
+                    typeSelector.setStyle("borderSkin", borderSkin); 
+                }
+            }
+        }
+    }
+    
     //----------------------------------
     //  viewMetrics
     //----------------------------------
