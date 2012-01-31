@@ -143,18 +143,6 @@ public class RichText extends TextGraphicElement
 	 */
 	private static var staticPlainTextExporter:ITextExporter;
 	
-	/**
-     *  @private
-     *  Used for determining whitespace processing when setting 'content'.
-     */
-    private static var staticTextLayoutFormat:TextLayoutFormat;
-    
-    /**
-     *  @private
-     *  Used for determining whitespace processing when setting 'content'.
-     */
-    private static var staticConfiguration:Configuration;
-    
     /**
      *  @private
      *  Used to call isFontFaceEmbedded() in getEmbeddedFontContext().
@@ -219,20 +207,7 @@ public class RichText extends TextGraphicElement
 		if (classInitialized)
 			return;
 			
-		staticTextLayoutFormat = new TextLayoutFormat();
-		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-		staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-		staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-		staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-		staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-		staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
-		
-		// Create a single Configuration used by all RichText instances.
-		staticConfiguration = Configuration(
-			StringTextLineFactory.defaultConfiguration).clone();
-		staticConfiguration.textFlowInitialFormat = staticTextLayoutFormat;            
-		
-		staticStringFactory = new StringTextLineFactory(staticConfiguration);
+		staticStringFactory = new StringTextLineFactory();
 		
 		staticTextFlowFactory = new TextFlowTextLineFactory();
 		
@@ -764,36 +739,32 @@ public class RichText extends TextGraphicElement
     /**
      *  @private
      */
-    private function createTextFlowFromContent(content:Object):TextFlow
-    {
+	private function createTextFlowFromContent(content:Object):TextFlow
+	{
 		var textFlow:TextFlow ;
-		
-		// The whiteSpaceCollapse format determines how whitespace
-		// is processed when the children are set.
-		staticTextLayoutFormat.whiteSpaceCollapse =
-			getStyle("whiteSpaceCollapse");
 		
 		if (content is TextFlow)
 		{
 			textFlow = content as TextFlow;
-			textFlow.hostFormat = staticTextLayoutFormat;
 		}
 		else if (content is Array)
 		{
 			textFlow = new TextFlow();
-			textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
 			textFlow.mxmlChildren = content as Array;
+			textFlow.whiteSpaceCollapse = undefined;
 		}
 		else
 		{
 			textFlow = new TextFlow();
-			textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
 			textFlow.mxmlChildren = [ content ];
+			textFlow.whiteSpaceCollapse = undefined;
 		}
 		
 		return textFlow;
 	}
-
+	
 	/**
 	 *  @private
 	 */
