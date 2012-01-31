@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark RichEditableText primitive. -->
+<s:Application name="RichEditableTextExample"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <fx:Script>
+        <![CDATA[
+            import flashx.textLayout.conversion.TextConverter;
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <fx:XML id="extTxtFlow" source="externalTextFlow.xml" />
+    </fx:Declarations>
+
+    <s:Panel title="RichText textFlow test"
+            width="90%" height="90%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:Scroller width="100%" height="100%">
+            <s:VGroup paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20">
+                <s:RichEditableText id="richTxt1" textAlign="justify" percentWidth="100">
+                    <s:textFlow>
+                        <s:TextFlow>
+                            <s:p fontSize="24">Inline TextFlow</s:p>
+                            <s:p>1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquet tristique libero, vel mattis massa pellentesque nec. Maecenas non nulla nibh, et egestas ligula. Etiam massa mauris, elementum gravida rhoncus sit amet, blandit eu lacus. Proin nisi felis, accumsan at interdum eu, mattis at velit. Nulla at ipsum risus. Nullam non justo vel lacus vulputate mollis id quis libero.</s:p>
+                            <s:p>2) Cras posuere posuere sem, eu congue orci mattis quis. Morbi vitae est ut purus vestibulum iaculis malesuada quis metus. Donec feugiat sapien quis turpis porttitor vel mattis libero viverra. Sed nisl justo, fringilla eget ultrices ut, venenatis quis magna. Nulla feugiat egestas mattis. Phasellus sed dignissim justo. Etiam malesuada bibendum urna, id dapibus nulla posuere eu.</s:p>
+                            <s:p>3) Curabitur pulvinar tellus venenatis ipsum tempus lobortis. Vestibulum eros velit, bibendum at aliquet ut, placerat sed mauris.</s:p>
+                        </s:TextFlow>
+                    </s:textFlow>
+                </s:RichEditableText>
+
+                <s:RichEditableText id="richTxt2" textAlign="justify" width="100%"
+                        textFlow="{TextConverter.importToFlow(extTxtFlow, TextConverter.TEXT_LAYOUT_FORMAT)}" />
+            </s:VGroup>
+        </s:Scroller>
+    </s:Panel>
+
+</s:Application>
