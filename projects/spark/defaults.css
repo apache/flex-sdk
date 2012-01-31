@@ -22,25 +22,30 @@ FxApplication
 FxButton
 {
     lineBreak: "explicit";
-	skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
-	textAlign: "center";
-	verticalAlign: "middle";
+    skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
+    textAlign: "center";
+    verticalAlign: "middle";
+}
+
+FxButton.emphasized
+{
+    skinClass: ClassReference("mx.skins.spark.FxDefaultButtonSkin");
 }
 
 FxButtonBar
 {
-	skinClass: ClassReference("mx.skins.spark.FxButtonBarSkin");
+    skinClass: ClassReference("mx.skins.spark.FxButtonBarSkin");
 }
 
 FxCheckBox
 {
-	skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
+    skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
     textAlign: "start";
 }
 
 DropDownList
 {
-	skinClass: ClassReference("mx.skins.spark.DropDownListSkin");
+    skinClass: ClassReference("mx.skins.spark.DropDownListSkin");
 }
 
 FxComponent
