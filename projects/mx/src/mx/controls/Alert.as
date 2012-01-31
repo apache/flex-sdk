@@ -565,7 +565,7 @@ public class Alert extends Panel
         {
             var sm:ISystemManager = ISystemManager(FlexGlobals.topLevelApplication.systemManager);
             // no types so no dependencies
-            var mp:Object = sm.getImplementation("mx.managers.IMarshallPlanSystemManager");
+            var mp:Object = sm.getImplementation("mx.managers::IMarshalSystemManager");
             if (mp && mp.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
