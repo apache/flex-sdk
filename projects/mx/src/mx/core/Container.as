@@ -291,7 +291,7 @@ include "../styles/metadata/TextStyles.as"
 public class Container extends UIComponent
                        implements IContainer, IDataRenderer, 
                        IFocusManagerContainer, IListItemRenderer,
-                       IRawChildrenContainer, IChildList
+                       IRawChildrenContainer, IChildList, IVisualElementContainer
 {
     include "../core/Version.as"
 
@@ -2488,6 +2488,112 @@ public class Container extends UIComponent
             return contentPane.contains(child);
         else
             return super.contains(child);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IVisualElementContainer
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */ 
+    public function get numElements():int
+    {
+        return numChildren;
+    }
+    
+    /**
+     *  @inheritDoc
+     */ 
+    public function getElementAt(index:int):Object
+    {
+        return getChildAt(index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getElementIndex(element:Object):int
+    {
+        if (! (element is DisplayObject) )
+            throw ArgumentError(element + " is not found in this Container");
+        
+        return getChildIndex(element as DisplayObject);
+    }
+    
+    /**
+     *  @inheritDoc
+     */ 
+    public function addElement(element:Object):Object
+    {
+        if (! (element is DisplayObject) )
+            throw ArgumentError(element + " is not supported in this Container");
+        
+        return addChild(element as DisplayObject);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function addElementAt(element:Object, index:int):Object
+    {
+        if (! (element is DisplayObject) )
+            throw ArgumentError(element + " is not supported in this Container");
+        
+        return addChildAt(element as DisplayObject, index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function removeElement(element:Object):Object
+    {
+        if (! (element is DisplayObject) )
+            throw ArgumentError(element + " is not found in this Container");
+        
+        return removeChild(element as DisplayObject);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function removeElementAt(index:int):Object
+    {
+        return removeChildAt(index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function setElementIndex(element:Object, index:int):void
+    {
+        if (! (element is DisplayObject) )
+            throw ArgumentError(element + " is not found in this Container");
+        
+        return setChildIndex(element as DisplayObject, index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function swapElements(element1:Object, element2:Object):void
+    {
+        if (! (element1 is DisplayObject) )
+            throw ArgumentError(element1 + " is not found in this Container");
+        if (! (element2 is DisplayObject) )
+            throw ArgumentError(element2 + " is not found in this Container");
+        
+        swapChildren(element1 as DisplayObject, element2 as DisplayObject);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function swapElementsAt(index1:int, index2:int):void
+    {
+        swapChildrenAt(index1, index2);
     }
 
     //--------------------------------------------------------------------------
