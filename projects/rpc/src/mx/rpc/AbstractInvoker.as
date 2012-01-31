@@ -101,6 +101,39 @@ public class AbstractInvoker extends EventDispatcher
     {
         _makeObjectsBindable = b;
     }
+
+    /**
+     * This property is set usually by framework code which wants to modify the
+     * behavior of a service invocation without modifying the way in which the
+     * service is called externally.  This allows you to add a "filter" step on 
+     * the method call to ensure for example to ensure you do not return duplicate
+     * instances for the same id or to insert parameters for performing on-demand
+     * paging.
+     *
+     * When this is set to a non-null value on the send call, the operationManager function 
+     * is called instead.  It returns the token that the caller uses to be notified
+     * of the result.  Typically the called function will at some point clear this
+     * property temporarily, then invoke the operation again actually sending it to 
+     * the server this time.
+     */
+    public var operationManager:Function;
+
+    /** 
+     * Specifies an optional return type for the operation.  Used in situations where 
+     * you want to coerce the over-the-wire information into a specific ActionScript class
+     * or to provide metadata for other services as to the return type of this operation.
+     */
+    public var resultType:Class;
+
+    /**
+     * Like resultType, used to define the ActionScript class used by a given operation though
+     * this property only applies to operations which return a multi-valued result (e.g. an Array
+     * or ArrayCollection (IList)).  This property specifies an ActionScript class for the members of the
+     * array or array collection.   When you set resultElementType, you do not have to set 
+     * resultType.  In that case, the operation returns an Array if makeObjectsbindable is
+     * false and an ArrayCollection otherwise.
+     */
+    public var resultElementType:Class;
     
     /**
     *  Event dispatched for binding when the <code>result</code> property
