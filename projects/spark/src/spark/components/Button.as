@@ -21,12 +21,14 @@ import flash.ui.Keyboard;
 import flash.utils.Timer;
 
 import mx.components.baseClasses.FxComponent;
+import mx.core.IButton;
+import mx.core.IDataRenderer;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.core.IDataRenderer;
 import mx.graphics.baseClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
+import mx.utils.StringUtil;
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -152,7 +154,8 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxButton extends FxComponent implements IFocusManagerComponent, IDataRenderer
+public class FxButton extends FxComponent implements IFocusManagerComponent, 
+    IDataRenderer, IButton
 {
     include "../core/Version.as";
 
@@ -458,6 +461,49 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
         invalidateButtonState();
     }
 
+    //----------------------------------
+    //  emphasized
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the emphasized property.
+     */
+    private var _emphasized:Boolean = false;
+
+    [Inspectable(category="General", defaultValue="false")]
+
+    /**
+     *  Reflect the default/emphasized as potentially requested by the
+     *  focus manager.
+     *
+     *  @default false
+     */
+    public function get emphasized():Boolean 
+    { 
+        return _emphasized;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set emphasized(value:Boolean):void 
+    {
+        if (value == _emphasized)
+            return;
+            
+        _emphasized = value;
+        var style:String = styleName is String ? styleName as String : "";
+        
+        if (!styleName || styleName is String)
+        {
+            if (_emphasized)
+                styleName = style + " emphasized";
+            else 
+                styleName = style.split(" emphasized").join("");
+        }   
+    }
+    
     /**
      *  @private
      */
