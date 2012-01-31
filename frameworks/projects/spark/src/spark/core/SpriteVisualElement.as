@@ -530,9 +530,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc 
      */
-    public function getLayoutBoundsX(postTransform:Boolean = true):Number
+    public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return x;
             
@@ -544,9 +544,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc 
      */
-    public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return y;
             
@@ -558,65 +558,65 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheirtDoc 
      */
-    public function getLayoutBoundsWidth(postTransform:Boolean = true):Number
+    public function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postTransform);
+        return transformWidthForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc 
      */
-    public function getLayoutBoundsHeight(postTransform:Boolean = true):Number
+    public function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postTransform);
+        return transformHeightForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getMaxBoundsWidth(postTransform:Boolean = true):Number
+    public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postTransform);
+        return transformWidthForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getMaxBoundsHeight(postTransform:Boolean = true):Number
+    public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postTransform);
+        return transformHeightForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getMinBoundsWidth(postTransform:Boolean = true):Number
+    public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postTransform);
+        return transformWidthForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getMinBoundsHeight(postTransform:Boolean = true):Number
+    public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postTransform);
+        return transformHeightForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getPreferredBoundsWidth(postTransform:Boolean = true):Number
+    public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postTransform);
+        return transformWidthForLayout(width, height, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
      */
-    public function getPreferredBoundsHeight(postTransform:Boolean = true):Number
+    public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postTransform);
+        return transformHeightForLayout(width, height, postLayoutTransform);
     }
     
     /**
@@ -627,10 +627,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var m:Matrix;
-        if (!postTransform)
+        if (!postLayoutTransform)
             m = computeMatrix();
         if (!m)
             return x;
@@ -656,10 +656,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var m:Matrix;
-        if (!postTransform)
+        if (!postLayoutTransform)
             m = computeMatrix();
         if (!m)
             return y;
@@ -697,10 +697,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc
      */
-    public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postTransform:Boolean = true):void
+    public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postLayoutTransform:Boolean = true):void
     {
-        var currentBoundsX:Number = getLayoutBoundsX(postTransform);
-        var currentBoundsY:Number = getLayoutBoundsY(postTransform);
+        var currentBoundsX:Number = getLayoutBoundsX(postLayoutTransform);
+        var currentBoundsY:Number = getLayoutBoundsY(postLayoutTransform);
 
         var newX:Number = x + newBoundsX - currentBoundsX;
         var newY:Number = y + newBoundsY - currentBoundsY;
@@ -715,13 +715,13 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc
      */
-    public function setLayoutBoundsSize(width:Number = NaN,
-                                  height:Number = NaN,
-                                  postTransform:Boolean = true):void
+    public function setLayoutBoundsSize(width:Number,
+                                        height:Number,
+                                        postLayoutTransform:Boolean = true):void
     {
         // Calculate the width and height pre-transform:
         var m:Matrix;
-        if (postTransform)
+        if (postLayoutTransform)
             m = computeMatrix();
         if (!m)
         {
@@ -769,12 +769,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc
      */
-    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
+    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
         // flash will make a copy of this on assignment.
         transform.matrix = value;
         
-        if (triggerLayout)
+        if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
     }
 
@@ -790,12 +790,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     /**
      *  @inheritDoc
      */
-    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
+    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
         // flash will make a copy of this on assignment.
         transform.matrix3D = value;
         
-        if (triggerLayout)
+        if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
     }
     
@@ -811,9 +811,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     protected function transformWidthForLayout(width:Number,
                                                height:Number,
-                                               postTransform:Boolean = true):Number
+                                               postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -838,9 +838,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     protected function transformHeightForLayout(width:Number,
                                                 height:Number,
-                                                postTransform:Boolean = true):Number
+                                                postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
