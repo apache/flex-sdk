@@ -32,11 +32,11 @@ public class SecureStreamingHTTPChannel extends StreamingHTTPChannel
     //--------------------------------------------------------------------------
     
     /**
-     *  Creates an new SecureStreamingHTTPChannel instance.
+     *  Constructor.
      *
-	 *  @param id The id of this Channel.
-	 *  
-	 *  @param uri The uri for this Channel.
+     *  @param id The id of this Channel.
+     *  
+     *  @param uri The uri for this Channel.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
