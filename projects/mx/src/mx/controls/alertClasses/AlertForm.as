@@ -69,8 +69,6 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 	public function AlertForm()
 	{
 		super();
-
-		tabChildren = true;
 	}
 
 	//--------------------------------------------------------------------------
