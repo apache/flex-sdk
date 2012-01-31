@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Box xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" currentState="normal">
-    <s:states>
-        <s:State name="normal" />
-        <s:State name="zoomed" />
-    </s:states>
-    <s:transitions>
-    	<s:Transition fromState="*" toState="*">
-    		<s:Resize duration="1000" target="{date1}" />
-    	</s:Transition>
-    </s:transitions>
-	<DateChooser id="date1" />
+<mx:Box xmlns:s="library://ns.adobe.com/flex/spark" xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/halo" currentState="normal">
+    <mx:states>
+        <mx:State name="normal" />
+        <mx:State name="zoomed" />
+    </mx:states>
+    <mx:transitions>
+    	<mx:Transition fromState="*" toState="*">
+    		<mx:Resize duration="1000" target="{date1}" />
+    	</mx:Transition>
+    </mx:transitions>
+	<mx:DateChooser id="date1" />
 
-</Box>
+</mx:Box>
