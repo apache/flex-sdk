@@ -20,6 +20,11 @@
  * 
  *  The default value depends on the component class;
  *  if it is not overridden by the class, the default value is <code>0x111111</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="iconColor", type="uint", format="Color", inherit="yes")]
 
@@ -33,5 +38,10 @@
  * 
  *  The default value depends on the component class;
  *  if it is not overridden by the class, the default value is <code>0x999999</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledIconColor", type="uint", format="Color", inherit="yes")]
