@@ -114,7 +114,8 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the bottom of the Label and 
  *  the bottom of the text. 
  *  
- *  @default 0 
+ *  The default value for the Halo theme is <code>2</code>.
+ *  The default value for the Spark theme is <code>-1</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -127,7 +128,8 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the top of the Label and 
  *  the top of the text. 
  *  
- *  @default 0
+ *  The default value for the Halo theme is <code>2</code>.
+ *  The default value for the Spark theme is <code>-1</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
