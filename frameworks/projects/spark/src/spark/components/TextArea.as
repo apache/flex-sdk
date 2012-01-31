@@ -271,9 +271,9 @@ use namespace mx_internal;
  *
  *  @see spark.components.TextInput
  *  @see spark.skins.spark.TextAreaSkin
- *  @see spark.primitives.RichText
- *  @see spark.primitives.RichEditableText
- *  @see spark.primitives.SimpleText
+ *  @see spark.components.RichText
+ *  @see spark.components.RichEditableText
+ *  @see spark.components.Label
  *
  *  @includeExample examples/TextAreaExample.mxml
  *  
@@ -404,7 +404,7 @@ public class TextArea extends SkinnableTextBase
     // TLF work.
 
     /**
-     *  @copy spark.primitives.RichEditableText#textFlow
+     *  @copy spark.components.RichEditableText#textFlow
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -431,7 +431,7 @@ public class TextArea extends SkinnableTextBase
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#heightInLines
+     *  @copy spark.components.RichEditableText#heightInLines
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -473,7 +473,7 @@ public class TextArea extends SkinnableTextBase
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#widthInChars
+     *  @copy spark.components.RichEditableText#widthInChars
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -582,7 +582,7 @@ public class TextArea extends SkinnableTextBase
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#getFormatOfRange()
+     *  @copy spark.components.RichEditableText#getFormatOfRange()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -601,7 +601,7 @@ public class TextArea extends SkinnableTextBase
     }
 
     /**
-     *  @copy spark.primitives.RichEditableText#setFormatOfRange()
+     *  @copy spark.components.RichEditableText#setFormatOfRange()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -619,7 +619,7 @@ public class TextArea extends SkinnableTextBase
     }
 
     /**
-     *  @copy spark.primitives.RichEditableText#scrollToRange()
+     *  @copy spark.components.RichEditableText#scrollToRange()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
