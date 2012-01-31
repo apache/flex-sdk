@@ -1397,6 +1397,12 @@ public class RichEditableText extends UIComponent
      */
     public function set text(value:String):void
     {
+        // ToDo: remove this when Vellum fixes this bug.
+        // TextContainerManager setText()/getText() doesn't deal with null correctly
+        // so if text is set to null, convert it to the empty string.
+        if (value == null)
+            value = "";
+            
         // Use the setter so _text is refreshed if needed.  This check is
         // needed to block property binding recursion (set causes change event
         // which causes binding to fire which repeats the process).
