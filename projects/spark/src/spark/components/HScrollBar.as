@@ -63,7 +63,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;HScrollBar
+ *  &lt;s:HScrollBar
  *
  *    <strong>Properties</strong>
  *    viewport=""
