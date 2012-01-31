@@ -3117,7 +3117,7 @@ public class Container extends UIComponent
                 {
                     // Does this object already have a proto chain?  If not,
                     // there's no need to regenerate a new one.
-                    if (UIComponent(child).inheritingStyles != UIComponent.STYLE_UNINITIALIZED)
+                    if (UIComponent(child).inheritingStyles != StyleManager.STYLE_UNINITIALIZED)
                         UIComponent(child).regenerateStyleCache(recursive);
                 }
                 else if (child is IUITextField && IUITextField(child).inheritingStyles)
