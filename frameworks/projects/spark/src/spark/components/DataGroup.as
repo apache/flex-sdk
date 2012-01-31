@@ -289,6 +289,13 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             layout.typicalLayoutElement = element;
     }
     
+    // TODO (jszeto) Get PARB'ed and make public?
+    mx_internal function resetTypicalLayoutElement():void
+    {
+        typicalItemChanged = true;
+        invalidateProperties();
+    }
+    
     private function initializeTypicalItem():void
     {
         if (_typicalItem === null)
