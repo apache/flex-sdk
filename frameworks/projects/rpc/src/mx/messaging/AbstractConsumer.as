@@ -694,7 +694,7 @@ public class AbstractConsumer extends MessageAgent
                     // message this agent sent. If a polling channel is being used, let it know.
                     if (channelSet.currentChannel is PollingChannel)
                         PollingChannel(channelSet.currentChannel).disablePolling();
-                    disconnect();                
+                    setSubscribed(false);              
                 break;
                 default:
                     if (Log.isWarn())
