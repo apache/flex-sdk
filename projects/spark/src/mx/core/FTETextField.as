@@ -2718,7 +2718,15 @@ public class FTETextField extends Sprite
 		var nextTextLine:TextLine;
 		var nextY:int = paragraphY;
 		var textLine:TextLine;
-		
+        
+        // TextField seems to do this.  You can see it with wordWrap and 
+        // indent > width or when rightMargin > width.  In the former case,
+        // the first line is visually empty but contains a character which is 
+        // clipped and the second line starts with the second letter.  
+        // The clipped first line serves as a placeholder so that the rest
+        // of the lines which may be visible are composed.
+		var fitSomething:Boolean = true;
+        
 		// Generate TextLines, stopping when we run out of text
 		// or reach the bottom of the requested bounds.
 		// In this loop the lines are positioned within the rectangle
@@ -2740,16 +2748,10 @@ public class FTETextField extends Sprite
                 
                 maxLineWidth = 
                     maxLineWidthBeforeIndent - totalIndent - rightMargin;
-                            
-                // If right margin larger than width, make 1
-                // character wide to match TextField behavior.  This isn't
-                // an exact match since sometimes 2 characters can fit within
-                // the width.
-                if (rightMargin && maxLineWidth < elementFormat.fontSize)
-                    maxLineWidth = elementFormat.fontSize;
-                else if (maxLineWidth < 0)
-                    maxLineWidth = 0;
-                else if (maxLineWidth > TextLine.MAX_LINE_WIDTH)
+
+                // Stay within the bounds to avoid exception.  Since 
+                // fitSomething is true it is okay if maxLineWidth is < 0.
+                if (maxLineWidth > TextLine.MAX_LINE_WIDTH)
                     maxLineWidth = TextLine.MAX_LINE_WIDTH;
             }        
 
@@ -2760,12 +2762,12 @@ public class FTETextField extends Sprite
 				{
 					nextTextLine = fontContext.callInContext(
 						textBlock["recreateTextLine"], textBlock,
-						[ recycleLine, textLine, maxLineWidth ]);		
+						[ recycleLine, textLine, maxLineWidth, 0.0, fitSomething ]);		
 				}        
 				else
 				{
 					nextTextLine = recreateTextLine(
-						recycleLine, textLine, maxLineWidth);
+						recycleLine, textLine, maxLineWidth, 0.0, fitSomething);
 				}  
 			}
 			else
@@ -2774,12 +2776,12 @@ public class FTETextField extends Sprite
 				{
 					nextTextLine = fontContext.callInContext(
 						textBlock.createTextLine, textBlock,
-						[ textLine, maxLineWidth ]);
+						[ textLine, maxLineWidth, 0.0, fitSomething ]);
 				}
 				else
 				{
 					nextTextLine = textBlock.createTextLine(
-						textLine, maxLineWidth);
+						textLine, maxLineWidth, 0.0, fitSomething);
 				}
 			}
 			
@@ -2838,7 +2840,10 @@ public class FTETextField extends Sprite
 	 */
 	private function alignTextLines(innerWidth:Number):void
 	{
-        var alignWidth:Number = isNaN(innerWidth) ? _textWidth : innerWidth;
+        // This is only the case when we are auto sizing.  In this case
+        // we don't want to do any alignment.
+        if (isNaN(innerWidth))
+            innerWidth = 0;
     
         var rightMargin:Number = Number(_defaultTextFormat.rightMargin);        
 
@@ -2867,20 +2872,24 @@ public class FTETextField extends Sprite
         {
             var textLine:TextLine = TextLine(getChildAt(i));
             
-            // Adjust text width to include indents and margins so that
-            // autoSize will be correct.
-            var width:Number = textLine.x + textLine.textWidth;
-            if (autoSize == TextFieldAutoSize.NONE || !wordWrap) 
-                 width += rightMargin;
+            var width:Number = textLine.x + textLine.textWidth + rightMargin;
             
             // Only align if there is width to do so.
-            if (leftAligned || width > alignWidth)
+            if (leftAligned || width > innerWidth)
                 textLine.x += leftOffset;
             else if (centerAligned)
                 textLine.x += centerOffset - width / 2;
             else if (rightAligned)
                 textLine.x += rightOffset - width;
-            
+                                    
+            // Text width should include indents and margins so that
+            // autoSize will be correct.  A negative rightMargin increases
+            // the width for the purposes of alignment only.  
+            // The text still needs to be clipped based on its actual width.
+            width = rightMargin > 0 ?
+                    textLine.x + textLine.textWidth + rightMargin :
+                    textLine.x + textLine.textWidth;
+                        
             _textWidth = Math.max(_textWidth, width);
             
             textLine.y += PADDING_TOP;
