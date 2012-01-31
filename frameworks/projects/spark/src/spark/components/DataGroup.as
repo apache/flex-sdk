@@ -415,7 +415,9 @@ public class DataGroup extends GroupBase
             }
             else
             {
-                for (index = virtualLayoutEndIndex; index >= virtualLayoutStartIndex; index--)
+                var endIndex:int = virtualLayoutEndIndex;     // itemRemoved decrements virtualLayoutEndIndex
+                var startIndex:int = virtualLayoutStartIndex; // itemRemoved decrements virtualLayoutStartIndex
+                for (index = endIndex; (index >= 0) && (index >= startIndex); index--)
                 {
                     // TODO (rfrishbe): same as above
                     
@@ -696,7 +698,7 @@ public class DataGroup extends GroupBase
      */
     private function finishVirtualLayout():void
     {
-        if (oldVirtualLayoutStartIndex == -1 || oldVirtualLayoutEndIndex == -1)
+        if (oldVirtualLayoutStartIndex < 0 || oldVirtualLayoutEndIndex < 0)
             return;
         
         // Remove the old ItemRenderers that aren't new ItemRenderers.  In other
