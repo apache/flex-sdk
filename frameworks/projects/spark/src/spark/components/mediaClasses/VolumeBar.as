@@ -23,12 +23,12 @@ import flash.ui.Mouse;
 import mx.collections.IList;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
-import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
+import spark.events.DropDownEvent;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
@@ -40,28 +40,28 @@ import spark.utils.LabelUtil;
  *      <li>mouses outside outside of the dropDown</li>
  *  </ul>
  *
- *  @eventType mx.events.DropdownEvent.CLOSE
+ *  @eventType spark.events.DropDownEvent.CLOSE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="close", type="mx.events.DropdownEvent")]
+[Event(name="close", type="spark.events.DropDownEvent")]
 
 /**
  *  Dispatched when the mouses over the dropDown button
  *  to display the dropDown.  It is also dispatched if the user
  *  uses the keyboard and types Ctrl-Down to open the dropDown.
  *
- *  @eventType mx.events.DropdownEvent.OPEN
+ *  @eventType spark.events.DropDownEvent.OPEN
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="open", type="mx.events.DropdownEvent")]
+[Event(name="open", type="spark.events.DropDownEvent")]
 
 /**
  *  Dispatched when the user presses the mute button control.
@@ -158,11 +158,7 @@ public class VideoPlayerVolumeBar extends VSlider
 	{
 		super();
 		
-		if (_dropDownControllerClass)
-		{
-			_dropDownController = new _dropDownControllerClass();
-			initializeDropDownController();
-		}
+		dropDownController = new DropDownController();
 	}
 	
 	//--------------------------------------------------------------------------
@@ -179,11 +175,7 @@ public class VideoPlayerVolumeBar extends VSlider
 	
 	/**
      *  Instance of the helper class that handles all of the mouse, keyboard 
-     *  and focus user interactions. The type of this class is determined by the
-     *  <code>dropDownControllerClass</code> property. 
-     * 
-     *  The <code>initializeDropDownController()</code> function is called after 
-     *  the dropDownController is created in the constructor.
+     *  and focus user interactions.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -194,40 +186,23 @@ public class VideoPlayerVolumeBar extends VSlider
 	{
 		return _dropDownController;
 	}
-
-	//----------------------------------
-    //  dropDownControllerClass
-    //----------------------------------
 	
-	private var _dropDownControllerClass:Class = DropDownController;
-
-	/**
-     *  The class used to create an instance for the <code>dropDownController</code> 
-     *  property. Set this property if you want to use a 
-     *  <code>DropDownController</code> subclass to modify the default mouse, 
-     *  keyboard and focus user interactions.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-	public function set dropDownControllerClass(value:Class):void
+	protected function set dropDownController(value:DropDownController):void
 	{
-		if (_dropDownControllerClass == value)
+		if (_dropDownController == value)
 			return;
 			
-		_dropDownControllerClass = value;
-		_dropDownController = new _dropDownControllerClass();
-		initializeDropDownController();
-	}
-	
-	/**
-     *  @private
-     */
-	public function get dropDownControllerClass():Class
-	{
-		return _dropDownControllerClass;
+		_dropDownController = value;
+			
+		_dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
+		_dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
+			
+		_dropDownController.rollOverOpenDelay = ROLL_OVER_OPEN_DELAY;
+			
+		if (muteButton)
+			_dropDownController.openButton = muteButton;
+		if (dropDown)
+			_dropDownController.dropDown = dropDown;	
 	}
 
     //--------------------------------------------------------------------------
@@ -319,7 +294,7 @@ public class VideoPlayerVolumeBar extends VSlider
 	 /**
      *  Closes the dropDown. 
      *   
-     *  @param commitData Flag indicating if the component should commit the selected
+     *  @param commit Flag indicating if the component should commit the selected
      *  data from the dropDown. 
      *  
      *  @langversion 3.0
@@ -327,37 +302,11 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeDropDown(commitData:Boolean):void
+    public function closeDropDown(commit:Boolean):void
     {
-    	dropDownController.closeDropDown(commitData);
+    	dropDownController.closeDropDown(commit);
     }
-	
-	/**
-     *  Initializes the <code>dropDownController</code> after it has been created. 
-     *  Override this function if you create a <code>DropDownController</code> subclass 
-     *  and need to perform additional initialization.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4 
-     */
-	protected function initializeDropDownController():void
-	{		
-		if (dropDownController)
-		{
-			dropDownController.addEventListener(DropdownEvent.OPEN, dropDownController_openHandler);
-			dropDownController.addEventListener(DropdownEvent.CLOSE, dropDownController_closeHandler);
-			
-			dropDownController.rollOverOpenDelay = ROLL_OVER_OPEN_DELAY;
-			
-			if (muteButton)
-				dropDownController.button = muteButton;
-			if (dropDown)
-				dropDownController.dropDown = dropDown;
-		}
-	}
-    
+	   
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -382,7 +331,7 @@ public class VideoPlayerVolumeBar extends VSlider
  		if (instance == muteButton)
     	{
     		if (dropDownController)
-    			dropDownController.button = muteButton;
+    			dropDownController.openButton = muteButton;
             
     	    muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
     		muteButton.enabled = enabled;
@@ -413,7 +362,7 @@ public class VideoPlayerVolumeBar extends VSlider
     	if (instance == dropDownController)
     	{
     		if (instance == muteButton)
-	    		dropDownController.button = null;
+	    		dropDownController.openButton = null;
     	
     		if (instance == dropDown)
     			dropDownController.dropDown = null;
@@ -427,7 +376,7 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-		dropDownController.focusOutHandler(event);
+		dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
     }
@@ -440,7 +389,7 @@ public class VideoPlayerVolumeBar extends VSlider
     
     /**
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropdownEvent.OPEN</code> event. Updates the skin's state and 
+     *  <code>DropDownEvent.OPEN</code> event. Updates the skin's state and 
      *  ensures that the selectedItem is visible. 
      * 
      *  @langversion 3.0
@@ -448,7 +397,7 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_openHandler(event:DropdownEvent):void
+    protected function dropDownController_openHandler(event:DropDownEvent):void
     {
     	invalidateSkinState();
     	
@@ -457,14 +406,14 @@ public class VideoPlayerVolumeBar extends VSlider
     
     /**
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropdownEvent.CLOSE</code> event. Updates the skin's state.
+     *  <code>DropDownEvent.CLOSE</code> event. Updates the skin's state.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_closeHandler(event:DropdownEvent):void
+    protected function dropDownController_closeHandler(event:DropDownEvent):void
     {
     	invalidateSkinState();
     	
