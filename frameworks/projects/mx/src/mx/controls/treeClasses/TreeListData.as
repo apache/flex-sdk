@@ -79,7 +79,7 @@ public class TreeListData extends BaseListData
 	//  depth
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  The level of the item in the tree. The top level is 1.
@@ -95,7 +95,7 @@ public class TreeListData extends BaseListData
 	//  disclosureIcon
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  A Class representing the disclosure icon for the item in the Tree control.
@@ -111,7 +111,7 @@ public class TreeListData extends BaseListData
 	//  hasChildren
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  Contains <code>true</code> if the node has children.
@@ -127,7 +127,7 @@ public class TreeListData extends BaseListData
 	//  icon
     //----------------------------------
 	
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  A Class representing the icon for the item in the Tree control.
@@ -143,7 +143,7 @@ public class TreeListData extends BaseListData
 	//  indent
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  The default indentation for this row of the Tree control.
@@ -159,7 +159,7 @@ public class TreeListData extends BaseListData
 	//  node
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  The data for this item in the Tree control.
@@ -175,7 +175,7 @@ public class TreeListData extends BaseListData
 	//  open
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  Contains <code>true</code> if the node is open.
