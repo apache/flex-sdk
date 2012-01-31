@@ -23,6 +23,11 @@ package mx.rpc.xml
  * QName.</p>
  * 
  * @see mx.utils.ObjectProxy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IXMLSchemaInstance
 {
@@ -38,6 +43,11 @@ public interface IXMLSchemaInstance
      * implementations of this property to exclude it during object
      * serialization.
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function get xsiType():QName;
 
