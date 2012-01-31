@@ -1919,7 +1919,7 @@ public class VideoPlayer2 extends SkinnableComponent
         playerControls.visible = false;
         
         if (volumeBar)
-            volumeBar.closeDropDown();
+            volumeBar.closeDropDown(true);
     }
     
     /**
