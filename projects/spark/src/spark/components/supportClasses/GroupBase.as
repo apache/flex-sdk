@@ -1,4 +1,4 @@
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import __AS3__.vec.Vector;
@@ -14,11 +14,11 @@ import flash.utils.Dictionary;
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
-import mx.components.ResizeMode;
+import spark.components.ResizeMode;
 import mx.controls.Label;
 import mx.core.IFactory;
 import mx.core.ILayoutElement;
-import mx.core.IViewport;
+import spark.core.IViewport;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -26,10 +26,10 @@ import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.events.RendererExistenceEvent;
-import mx.graphics.MaskType;
-import mx.layout.BasicLayout;
-import mx.layout.LayoutBase;
+import spark.events.RendererExistenceEvent;
+import spark.core.MaskType;
+import spark.layout.BasicLayout;
+import spark.layout.supportClasses.LayoutBase;
 import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
@@ -105,7 +105,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Color of any symbol of a component. Examples include the check mark of a FxCheckBox or
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
  *  the arrow of a FxScrollButton
  *   
  *  @default 0x000000
