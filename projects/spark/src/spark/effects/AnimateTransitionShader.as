@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.effects
 {
-import flash.display.BitmapData;
+import flash.display.BitmapData;	
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
 import flash.geom.Matrix;
@@ -20,6 +20,14 @@ import flash.utils.ByteArray;
 import mx.core.IUIComponent;
 import mx.effects.effectClasses.FxAnimateShaderTransitionInstance;
 import mx.graphics.graphicsClasses.GraphicElement;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("sparkEffects")]
 
 /**
  * This effect animates a transition between two bitmaps,
@@ -73,6 +81,37 @@ public class FxAnimateShaderTransition extends FxAnimate
         super(target);
 
         instanceClass = FxAnimateShaderTransitionInstance;
+    }
+   
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the resourceManager getter.
+     *  This gets initialized on first access,
+     *  not at static initialization time, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _resourceManager:IResourceManager;
+    
+    /**
+     *  @private
+     *  A reference to the object which manages
+     *  all of the application's localized resources.
+     *  This is a singleton instance which implements
+     *  the IResourceManager interface.
+     */
+    private static function get resourceManager():IResourceManager
+    {
+        if (!_resourceManager)
+            _resourceManager = ResourceManager.getInstance();
+
+        return _resourceManager;
     }
     
     /**
@@ -186,8 +225,7 @@ public class FxAnimateShaderTransition extends FxAnimate
         if (target is GraphicElement)
             return GraphicElement(target).getBitmapData(true, 0, false);
         else if (!(target is IUIComponent))
-            throw new Error("FxAnimateShaderTransition can only operate on" + 
-                    " IUIComponent and GraphicElement instances");
+            throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
         // TODO (chaase): Does this utility function belong in a more central
         // location, like UIComponent, or as part of ImageSnapshot?
         
