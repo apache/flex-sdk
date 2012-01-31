@@ -72,6 +72,7 @@ import mx.events.DragEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
+import mx.events.MarshalMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
@@ -80,6 +81,7 @@ import mx.events.TweenEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.StyleManager;
 import mx.utils.ObjectUtil;
@@ -8892,7 +8894,7 @@ public class ListBase extends ScrollControlBase
         mouseDownPoint = globalToLocal(pt);
 
         systemManager.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
-        systemManager.stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+        systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler, false, 0, true);
 
         if (!dragEnabled)
         {
@@ -8915,7 +8917,7 @@ public class ListBase extends ScrollControlBase
     private function mouseIsUp():void
     {
         systemManager.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
-        systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+        systemManager.removeEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler);
 
         if (!dragEnabled && dragScrollingInterval != 0)
         {
