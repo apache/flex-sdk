@@ -641,7 +641,7 @@ public class ListBase extends SkinnableDataContainer
             dataProviderChanged = false;
             doingWholesaleChanges = false;
         
-            // TODO: should resetting the dataProvider clear out all of its state?
+            // FIXME (dsubrama): should resetting the dataProvider clear out all of its state?
             // or should we preserve selectedIndex
             if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
                itemSelected(selectedIndex, true);
@@ -717,7 +717,7 @@ public class ListBase extends SkinnableDataContainer
             {
                 for (var i:int = 0; i < dataGroup.numChildren; i++)
                 {
-                    //TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
+                    // FIXME (rfrishbe):(dsubrama) Ryan, figure out numChildren/numElement vs. getElement/getChild
                     //and which is more performant. 
                     var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
                     //Push the correct text into the renderer by settings its label
@@ -749,7 +749,7 @@ public class ListBase extends SkinnableDataContainer
             if (renderer is ItemRenderer)
                 ItemRenderer(renderer).playTransitions = false; 
             
-            // TODO (dsubrama) - Go through helper methods to do this. 
+            // FIXME (dsubrama): - Go through helper methods to do this. 
             // Make itemSelected()/itemShowingCaret() pass around the renderer 
             // instead of index
             IItemRenderer(renderer).selected = false;
