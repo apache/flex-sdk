@@ -1374,6 +1374,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  autoCapitalize
     //----------------------------------
     
+    [Inspectable(category="General",enumeration="none,word,sentence,all",defaultValue="none")]
+
     /**
      *  Hint indicating what captialization behavior soft keyboards should
      *  use. 
@@ -1429,12 +1431,14 @@ public class SkinnableTextBase extends SkinnableComponent
     //  autoCorrect
     //----------------------------------
     
+    [Inspectable(category="General",defaultValue="true")]
+
     /**
      *  Hint indicating whether a soft keyboard should use its auto-correct
      *  behavior, if supported.
      *  <p><b>For the Desktop theme, this is not supported.</b></p>
      * 
-     *  @default false
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1476,6 +1480,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  returnKeyLabel
     //----------------------------------
     
+    [Inspectable(category="General",enumeration="default,done,go,next,search",defaultValue="default")]
+
     /**
      *  Hint indicating what label should be displayed for the return key on
      *  soft keyboards.
@@ -1532,6 +1538,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  softKeyboardType
     //----------------------------------
     
+    [Inspectable(category="General",enumeration="default,punctuation,url,number,contact,email",defaultValue="default")]
+
     /**
      *  Hint indicating what kind of soft keyboard should be displayed for
      *  this component.
