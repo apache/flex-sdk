@@ -119,9 +119,9 @@ public class VideoPlayerVolumeBar extends VSlider
     //
     //  Skin Parts
     //
-    //--------------------------------------------------------------------------	
-	
-	/**
+    //--------------------------------------------------------------------------    
+    
+    /**
      *  A skin part that defines the mute/unmute button.  
      *  
      *  @langversion 3.0
@@ -131,9 +131,9 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     [SkinPart(required="false")]
     public var muteButton:VideoPlayerVolumeBarMuteButton;
-	
-	
-	/**
+    
+    
+    /**
      *  A skin part that defines the dropDown area. When the volume slider 
      *  dropdown is open, clicking anywhere outside of the dropDown skin 
      *  part will close the  video slider dropdown. 
@@ -145,8 +145,8 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     [SkinPart(required="false")]
     public var dropDown:DisplayObject;
-    	
-	/**
+        
+    /**
      *  Constructor. 
      *  
      *  @langversion 3.0
@@ -154,26 +154,26 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function VideoPlayerVolumeBar()
-	{
-		super();
-		
-		dropDownController = new DropDownController();
-	}
-	
-	//--------------------------------------------------------------------------
+    public function VideoPlayerVolumeBar()
+    {
+        super();
+        
+        dropDownController = new DropDownController();
+    }
+    
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
-	//----------------------------------
+    
+    //----------------------------------
     //  dropDownController
     //----------------------------------
-	
-	private var _dropDownController:DropDownController;	
-	
-	/**
+    
+    private var _dropDownController:DropDownController;    
+    
+    /**
      *  Instance of the helper class that handles all of the mouse, keyboard 
      *  and focus user interactions.  
      * 
@@ -182,28 +182,28 @@ public class VideoPlayerVolumeBar extends VSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	protected function get dropDownController():DropDownController
-	{
-		return _dropDownController;
-	}
-	
-	protected function set dropDownController(value:DropDownController):void
-	{
-		if (_dropDownController == value)
-			return;
-			
-		_dropDownController = value;
-			
-		_dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
-		_dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
-			
-		_dropDownController.rollOverOpenDelay = ROLL_OVER_OPEN_DELAY;
-			
-		if (muteButton)
-			_dropDownController.openButton = muteButton;
-		if (dropDown)
-			_dropDownController.dropDown = dropDown;	
-	}
+    protected function get dropDownController():DropDownController
+    {
+        return _dropDownController;
+    }
+    
+    protected function set dropDownController(value:DropDownController):void
+    {
+        if (_dropDownController == value)
+            return;
+            
+        _dropDownController = value;
+            
+        _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
+        _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
+            
+        _dropDownController.rollOverOpenDelay = ROLL_OVER_OPEN_DELAY;
+            
+        if (muteButton)
+            _dropDownController.openButton = muteButton;
+        if (dropDown)
+            _dropDownController.dropDown = dropDown;    
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -220,10 +220,10 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     override public function get baselinePosition():Number
     {
-    	if (muteButton)
-    		return muteButton.baselinePosition;
-    	else
-    		return NaN;
+        if (muteButton)
+            return muteButton.baselinePosition;
+        else
+            return NaN;
     }
         
     //----------------------------------
@@ -244,7 +244,7 @@ public class VideoPlayerVolumeBar extends VSlider
             muteButton.value = value;
     }
     
- 	//--------------------------------------------------------------------------
+     //--------------------------------------------------------------------------
     //
     //  Methods
     //
@@ -261,7 +261,7 @@ public class VideoPlayerVolumeBar extends VSlider
             muteButton.value = value;
     }
 
-	/**
+    /**
      *  Opens the dropDown. 
      *  
      *  @langversion 3.0
@@ -271,10 +271,10 @@ public class VideoPlayerVolumeBar extends VSlider
      */ 
     public function openDropDown():void
     {
-    	dropDownController.openDropDown();
+        dropDownController.openDropDown();
     }
-	
-	 /**
+    
+     /**
      *  Closes the dropDown. 
      *   
      *  @param commit Flag indicating if the component should commit the selected
@@ -287,9 +287,9 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     public function closeDropDown(commit:Boolean):void
     {
-    	dropDownController.closeDropDown(commit);
+        dropDownController.closeDropDown(commit);
     }
-	   
+       
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -297,32 +297,31 @@ public class VideoPlayerVolumeBar extends VSlider
     //--------------------------------------------------------------------------
 
     /**
- 	 *  @private
- 	 */ 
+      *  @private
+      */ 
     override protected function getCurrentSkinState():String
     {
-		return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
+        return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
     }   
        
     /**
-	 *  @private
-	 */ 
+     *  @private
+     */ 
     override protected function partAdded(partName:String, instance:Object):void
     {
-    	super.partAdded(partName, instance);
+        super.partAdded(partName, instance);
  
- 		if (instance == muteButton)
-    	{
-    		if (dropDownController)
-    			dropDownController.openButton = muteButton;
+         if (instance == muteButton)
+        {
+            if (dropDownController)
+                dropDownController.openButton = muteButton;
             
-    	    muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
-    		muteButton.enabled = enabled;
-    		muteButton.value = value;
-    	}
-    	
-    	if (instance == dropDown && dropDownController)
-    		dropDownController.dropDown = dropDown;
+            muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
+            muteButton.value = value;
+        }
+        
+        if (instance == dropDown && dropDownController)
+            dropDownController.dropDown = dropDown;
     }
     
     private function muteButton_clickHandler(event:MouseEvent):void
@@ -342,24 +341,24 @@ public class VideoPlayerVolumeBar extends VSlider
             muteButton.removeEventListener(MouseEvent.CLICK, muteButton_clickHandler);
         }
         
-    	if (instance == dropDownController)
-    	{
-    		if (instance == muteButton)
-	    		dropDownController.openButton = null;
-    	
-    		if (instance == dropDown)
-    			dropDownController.dropDown = null;
-     	}
-     	
+        if (instance == dropDownController)
+        {
+            if (instance == muteButton)
+                dropDownController.openButton = null;
+        
+            if (instance == dropDown)
+                dropDownController.dropDown = null;
+         }
+         
         super.partRemoved(partName, instance);
     }
-	
-	/**
+    
+    /**
      *  @private
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-		dropDownController.processFocusOut(event);
+        dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
     }
@@ -382,9 +381,9 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     protected function dropDownController_openHandler(event:DropDownEvent):void
     {
-    	invalidateSkinState();
-    	
-    	dispatchEvent(event);
+        invalidateSkinState();
+        
+        dispatchEvent(event);
     }
     
     /**
@@ -398,12 +397,12 @@ public class VideoPlayerVolumeBar extends VSlider
      */
     protected function dropDownController_closeHandler(event:DropDownEvent):void
     {
-    	invalidateSkinState();
-    	
-    	// TODO!! Add logic to handle commitData
-    	//if (event.isDefaultPrevented())
-    	
-    	dispatchEvent(event);
+        invalidateSkinState();
+        
+        // TODO!! Add logic to handle commitData
+        //if (event.isDefaultPrevented())
+        
+        dispatchEvent(event);
     }
 
 }
