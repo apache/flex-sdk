@@ -20,8 +20,6 @@ import mx.controls.TextInput;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.ClassFactory;
 import mx.core.ContextualClassFactory;
-import mx.core.EmbeddedFont;
-import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFactory;
 import mx.core.IFlexModuleFactory;
@@ -197,6 +195,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     //  embeddedFontRegistry
     //----------------------------------
 
+	private static var noEmbeddedFonts:Boolean;
+
     /**
      *  @private
      *  Storage for the embeddedFontRegistry property.
@@ -214,10 +214,17 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     private static function get embeddedFontRegistry():IEmbeddedFontRegistry
     {
-        if (!_embeddedFontRegistry)
+        if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			try
+			{
+				_embeddedFontRegistry = IEmbeddedFontRegistry(
+					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			}
+			catch (e:Error)
+			{
+				noEmbeddedFonts = true;
+			}
         }
 
         return _embeddedFontRegistry;
@@ -289,13 +296,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     private var hasFontContextBeenSaved:Boolean = false;
      
-    /**
-     * @private
-     * 
-     * Cache last value of embedded font.
-     */
-    private var cachedEmbeddedFont:EmbeddedFont = null;
-         
+        
     /**
      *  @private
      * 
@@ -1423,13 +1424,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Internal function to allow the DataGrid to set the width of the
      *  column without locking it as an explicitWidth
      */
-     mx_internal function setWidth(value:Number):void
-     {
+    mx_internal function setWidth(value:Number):void
+    {
          var oldValue:Number = _width;
-         _width = value;
+        _width = value;
          if (oldValue != value)
              dispatchEvent(new Event("widthChanged"));
-     }
+    }
 
     //----------------------------------
     //  wordWrap
@@ -1652,7 +1653,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             try
             {
                 if ( !hasComplexFieldName ) 
-                    data = data[dataField];
+                data = data[dataField];
                 else 
                     data = deriveComplexColumnData( data );
             }
@@ -1849,28 +1850,6 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     /**
      * @private
      * 
-     * Get the embedded font for a set of font attributes.
-     */ 
-    mx_internal function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
-    {
-        // Check if we can reuse a cached value.
-        if (cachedEmbeddedFont)
-        {
-            if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
-            {
-                return cachedEmbeddedFont;
-            }   
-        }
-        
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
-        
-        return cachedEmbeddedFont;
-    }
-    
-    /**
-     * @private
-     * 
      * Save the current font context to member fields.
      */
     private function saveFontContext(flexModuleFactory:IFlexModuleFactory):void
@@ -1882,11 +1861,10 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         var fontStyle:String = getStyle("fontStyle");
         var bold:Boolean = fontWeight == "bold";
         var italic:Boolean = fontStyle == "italic";
-        var embeddedFont:EmbeddedFont =
-            getEmbeddedFont(fontName, bold, italic);
-        oldEmbeddedFontContext =
+        oldEmbeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                embeddedFont, flexModuleFactory);             
+                fontName, bold, italic, this, flexModuleFactory);             
     }
     
     /**
@@ -1911,11 +1889,10 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         // Check if the module factory has changed.
         var bold:Boolean = fontWeight == "bold";
         var italic:Boolean = fontStyle == "italic";
-        var embeddedFont:EmbeddedFont =
-            getEmbeddedFont(fontName, bold, italic);
-        var fontContext:IFlexModuleFactory =
+        var fontContext:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                embeddedFont, flexModuleFactory)
+                fontName, bold, italic, this, flexModuleFactory)
         return fontContext != oldEmbeddedFontContext;
     }
 
