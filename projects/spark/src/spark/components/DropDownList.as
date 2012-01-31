@@ -324,23 +324,6 @@ public class DropDownList extends List
     }
     
     //----------------------------------
-    //  enabled
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-    	if (value == enabled)
-    		return;
-    	
-    	super.enabled = value;
-    	if (openButton)
-    		openButton.enabled = value;
-    }
-    
-    //----------------------------------
     //  labelField
     //----------------------------------
     
