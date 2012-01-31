@@ -473,6 +473,8 @@ public class FxContainer extends FxContainerBase
                 ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
                 
             contentGroup.content = null; 
+			// Need to force the contentGroup to removeChild on its content children
+			// before the any other Group adds the content children
             contentGroup.validateProperties();   
         }
     }
