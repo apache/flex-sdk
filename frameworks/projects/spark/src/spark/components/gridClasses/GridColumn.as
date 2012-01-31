@@ -1110,12 +1110,17 @@ public class GridColumn extends EventDispatcher
      *  are given keyboard focus when the user starts editing the item
      *  renderer.
      *
-     *  <p>When you set this property to <code>true</code>, 
-     *  the cell becomes editable when the user selects it. 
-     *  Because the cell is editable, the DataGrid displays 
-     *  the <code>editorIndicator</code> skin part, 
-     *  which hides the <code>selectionIndicator</code> skin part. 
-     *  Therefore, the user does not see an indicator for cell selection.</p>
+     *  <p>When you set this property to <code>true</code>, the cell becomes 
+     *  editable when the user clicks inside of it. 
+     *  Because the cell is editable, the DataGrid displays the <code>editorIndicator</code> 
+     *  skin part, which appears on top of the <code>selectionIndicator</code> skin part. 
+     *  Therefore, the user does not see an indicator for cell selection until the 
+     *  edit session is complete. 
+     *  You can create a custom skin to remove or modify the <code>editorIndicator</code> 
+     *  skin part so that the <code>selectionIndicator</code> skin part appears. 
+     *  For example, you can set <code>alpha</code> property of the <code>editorIndicator</code> 
+     *  to allow the <code>selectionIndicator</code> to show through, or change 
+     *  the size of the editorIndicator so that it is smaller than the cell.</p>
      * 
      *  <p>By setting this property to <code>true</code>, you take responsibility for 
      *  validating and saving input collected by the item renderer.  
