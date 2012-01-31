@@ -31,7 +31,6 @@ import spark.core.ISharedDisplayObject;
 import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.layout.supportClasses.LayoutBase;
-import spark.layout.supportClasses.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
