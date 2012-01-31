@@ -12,7 +12,7 @@
 
     <s:Panel title="Advanced CSS: ID Selector Example" height="75%" width="75%"
         horizontalCenter="0" verticalCenter="0">
-        <s:SimpleText text="Only the Spark Button below with the id 'submitButton' will have custom baseColor."
+        <s:Label text="Only the Spark Button below with the id 'submitButton' will have custom baseColor."
         	x="10" y="10" />
         <s:TextInput id="fileName" width="100" x="10" y="35"/>
         <s:Button id="fileName_browse" label="browse" y="35" x="120"/>
