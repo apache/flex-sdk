@@ -40,6 +40,8 @@ include "../styles/metadata/LeadingStyle.as"
 
 [IconFile("Text.png")]
 
+[Alternative(replacement="spark.primitives.SimpleText", since="4.0")]
+
 /**
  *  The Text control displays multiline, noneditable text.
  *  Use the Label control if you need only a single line of text.
