@@ -120,6 +120,25 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
         drawFocus(value);
     }
 
+	//----------------------------------
+	//  dragging
+	//----------------------------------
+
+	/**
+	 *  @private  
+	 */
+	public function get dragging():Boolean
+	{
+		return false;
+	}
+
+	/**
+	 *  @private  
+	 */
+	public function set dragging(value:Boolean):void
+	{
+	}
+
     //----------------------------------
     //  data
     //----------------------------------
