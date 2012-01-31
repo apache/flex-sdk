@@ -435,20 +435,6 @@ public class GridItemEditor extends Group implements IGridItemEditor
             }
         }
         
-        if (typeInfo == "" && newData != null)
-        {
-            if (data[property] is String)
-                typeInfo = "String";
-            else if (data[property] is uint)
-                typeInfo = "uint";
-            else if (data[property] is int)
-                typeInfo = "int";
-            else if (data[property] is Number)
-                typeInfo = "Number";
-            else if (data[property] is Boolean)
-                typeInfo = "Boolean";
-        }
-        
         if (typeInfo == "String")
         {
             if (!(newData is String))
@@ -481,7 +467,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
             }
         }
      
-        if (property && data[property] != newData)
+        if (property && data[property] !== newData)
         {
             data[property] = newData;
             dataGrid.dataProvider.itemUpdated(data, property, data[property], newData);
