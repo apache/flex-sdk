@@ -1034,33 +1034,33 @@ public class RichEditableText extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function get contextMenu():ContextMenu
-    {
-        if (!contextMenuSet)
-        {
-            super.contextMenu = _textContainerManager.getContextMenu();
-            contextMenuSet = true;
-        }
-        
-        return super.contextMenu;
-    }
+//    override public function get contextMenu():ContextMenu
+//    {
+//        if (!contextMenuSet)
+//        {
+//            super.contextMenu = _textContainerManager.getContextMenu();
+//            contextMenuSet = true;
+//        }
+//        
+//        return super.contextMenu;
+//    }
     
     /**
      *  @private
      */
-    override public function set contextMenu(value:ContextMenu):void
-    {
-        if (contextMenuSet && super.contextMenu == value)
-            return;
-        
-        // If the context menu is being reset need to update the menu listeners.
-        if (contextMenuSet && super.contextMenu)
-            _textContainerManager.resetContextMenuListener(value);
-        
-        super.contextMenu = value;
-        
-        contextMenuSet = true;
-    }
+//    override public function set contextMenu(value:ContextMenu):void
+//    {
+//        if (contextMenuSet && super.contextMenu == value)
+//            return;
+//        
+//        // If the context menu is being reset need to update the menu listeners.
+//        if (contextMenuSet && super.contextMenu)
+//            _textContainerManager.resetContextMenuListener(value);
+//        
+//        super.contextMenu = value;
+//        
+//        contextMenuSet = true;
+//    }
 
     //----------------------------------
     //  horizontalScrollPosition
