@@ -338,6 +338,15 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  scroll bars make it possible to view the area defined by the viewport's 
  *  <code>contentWidth</code> and <code>contentHeight</code> properties.</p>
  *
+ *  <p>You can directly set properties on the component wrapped by the Scroller by 
+ *  using the <code>Scroller.viewport</code> property. 
+ *  For example, you can modify the viewport's <code>horizontalScrollPosition</code> and
+ *  <code>verticalScrollPosition</code> properties.</p>
+ *
+ *  <p>To directly access the scroll bar instances, either HScrollBar or VScrollBar, 
+ *  created by the Scroller, use the <code>Scroller.horizontalScrollBar</code> and
+ *  <code>Scroller.verticalScrollBar</code> properties.</p>
+ *
  *  <p>You can combine scroll bars with explicit settings for the container's viewport. 
  *  The viewport settings determine the initial position of the viewport, 
  *  and then you can use the scroll bars to move it, as the following example shows: </p>
@@ -610,9 +619,9 @@ public class Scroller extends SkinnableComponent
      */
     mx_internal function set pullEnabled(value:Boolean):void
     {
-		if (_pullEnabled == value)
-			return;
-		
+        if (_pullEnabled == value)
+            return;
+        
         _pullEnabled = value;
         scrollRangesChanged = true;
         invalidateProperties();
@@ -636,9 +645,9 @@ public class Scroller extends SkinnableComponent
      */
     mx_internal function set bounceEnabled(value:Boolean):void
     {
-		if (_bounceEnabled == value)
-			return;
-		
+        if (_bounceEnabled == value)
+            return;
+        
         _bounceEnabled = value;
         scrollRangesChanged = true;
         invalidateProperties();
@@ -870,7 +879,8 @@ public class Scroller extends SkinnableComponent
      *  <code>horizontalScrollBar</code> skin part to that instance.
      * 
      *  This property should be considered read-only. It is only
-     *  set by the Scroller's skin.
+     *  set by the Scroller's skin. 
+     *  To access the HScrollBar instance, use <code>horizontalScrollBar</code>.
      */
     public var horizontalScrollBarFactory:IFactory;
     
@@ -953,6 +963,10 @@ public class Scroller extends SkinnableComponent
      * 
      *  When Scroller creates an instance of this part, it will set the
      *  <code>verticalScrollBar</code> skin part to that instance.
+     *
+     *  This property should be considered read-only. It is only
+     *  set by the Scroller's skin. 
+     *  To access the VScrollBar instance, use <code>verticalScrollBar</code>.
      */
     public var verticalScrollBarFactory:IFactory;
     
@@ -1187,7 +1201,24 @@ public class Scroller extends SkinnableComponent
     [Inspectable(category="General", defaultValue="false")]
     
     /**
-     *  Whether page scrolling is currently enabled for this Scroller
+     *  By default, for mobile applications, scrolling is pixel based. 
+     *  The final scroll location is any pixel location based on 
+     *  the drag and throw gesture.
+     *  Set <code>pageScrollingEnabled</code> to <code>true</code> to 
+     *  enable page scrolling.
+     *
+     *  <p><b>Note: </b>This property is only valid when the <code>interactionMode</code> style 
+     *  is set to <code>touch</code>, indicating a mobile application.</p>
+     *
+     *  <p>The size of the page is determined by the size of the viewport 
+     *  of the scrollable component. 
+     *  You can only scroll a single page at a time, regardless of the scroll gesture.</p>
+     *
+     *  <p>You must scroll at least 50% of the visible area of the component 
+     *  to cause the page to change. 
+     *  If you scroll less than 50%, the component remains on the current page. 
+     *  Alternatively, if the velocity of the scroll is high enough, the next page display. 
+     *  If the velocity is not high enough, the component remains on the current page.</p>
      *
      *  @default false
      *
@@ -1229,16 +1260,34 @@ public class Scroller extends SkinnableComponent
     [Inspectable(category="General", enumeration="none,leadingEdge,center,trailingEdge", defaultValue="none")]
 
     /**
-     *  The scroll snapping mode currently in effect for this Scroller
+     *  By default, for mobile applications, scrolling is pixel based. 
+     *  The final scroll location is any pixel location based on 
+     *  the drag and throw gesture.
+     *  Set <code>pageScrollingEnabled</code> to <code>true</code> to 
+     *  enable scroll snapping.
+     *  With scroll snapping enabled, scrolling is pixel based, 
+     *  but the content snaps to a final position based on the value of <code>scrollSnappingMode</code>.
      *
-     *  <p>Changing this property to anything other than "off" may
+     *  <p><b>Note: </b>This property is only valid when the <code>interactionMode</code> style 
+     *  is set to <code>touch</code>, indicating a mobile application.</p>
+     *
+     *  <p>For example, you scroll a List vertically with <code>scrollSnappingMode</code> 
+     *  set to a value of <code>leadingEdge</code>. 
+     *  The List control snaps to a final scroll position where the top list element 
+     *  is aligned to the top of the list.</p>
+     *
+     *  <p>Changing this property to anything other than <code>none</code> can
      *  result in an immediate change in scroll position to ensure
-     *  an element is correctly "snapped" into position.  This change
-     *  in scroll position is not animated</p>
+     *  an element is correctly snapped into position.  
+     *  This change in scroll position is not animated</p>
+     *
+     *  <p>in MXML, the possible values are <code>"leadingEdge"</code>, <code>"center"</code>, 
+     *  <code>"trailingEdge"</code>, and <code>"none"</code>.
+     *  ActionScript values are defined by spark.components.ScrollSnappingMode. </p>
      *
      *  @see spark.components.ScrollSnappingMode
      *
-     *  @default "off"
+     *  @default "none"
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -1424,10 +1473,10 @@ public class Scroller extends SkinnableComponent
         else if (canScrollVertically)
             scrollProperty = VERTICAL_SCROLL_POSITION;
         
-        // If there's an animation playing, we need 	 
-        // to stop it before we snap the element into 	 
-        // position. 	 
-        stopAnimations(); 	 
+        // If there's an animation playing, we need      
+        // to stop it before we snap the element into    
+        // position.     
+        stopAnimations();    
         
         if (animate)
         {
@@ -1440,27 +1489,27 @@ public class Scroller extends SkinnableComponent
             var snapMotionPath:Vector.<MotionPath> = Vector.<MotionPath>([new SimpleMotionPath(scrollProperty, null, snapScrollPosition)]);
             snapElementAnimation.motionPaths = snapMotionPath;
             snapElementAnimation.play();
-			
-			return snapElementAnimation;
+            
+            return snapElementAnimation;
         }
         else
         {
             viewport[scrollProperty] = snapScrollPosition;
-			
-			return null;
+            
+            return null;
         }
     }
     
-    /** 	 
-     *  @private 	 
-     */ 	 
-    private function stopAnimations():void 	 
-    { 	 
-        if (throwEffect && throwEffect.isPlaying) 	 
-            throwEffect.stop(); 	 
-        if (snapElementAnimation && snapElementAnimation.isPlaying) 	 
-            snapElementAnimation.stop(); 	 
-    } 	 
+    /**      
+     *  @private     
+     */      
+    private function stopAnimations():void   
+    {    
+        if (throwEffect && throwEffect.isPlaying)    
+            throwEffect.stop();      
+        if (snapElementAnimation && snapElementAnimation.isPlaying)      
+            snapElementAnimation.stop();     
+    }    
     
     //--------------------------------------------------------------------------
     // 
@@ -2245,7 +2294,7 @@ public class Scroller extends SkinnableComponent
     //  Touch scrolling methods
     //
     //--------------------------------------------------------------------------
-	
+    
     /**
      *  @private
      *  Add touch listeners
@@ -2580,11 +2629,11 @@ public class Scroller extends SkinnableComponent
             {
                 installTouchListeners();
                 
-                // Need to make sure the scroll ranges are updated now, since they may 	 
-                // not have been if the scroller was in non-touch mode when the content 	 
-                // was created/changed. 	 
-                scrollRangesChanged = true; 	 
-                invalidateProperties(); 	 
+                // Need to make sure the scroll ranges are updated now, since they may   
+                // not have been if the scroller was in non-touch mode when the content      
+                // was created/changed.      
+                scrollRangesChanged = true;      
+                invalidateProperties();      
                 
                 if (!touchScrollHelper)
                 {
@@ -3074,11 +3123,11 @@ public class Scroller extends SkinnableComponent
     {
         stopThrowEffectOnMouseDown();
         
-        // If the snap animation is playing, we need to stop it 	 
-        // before watching for a scroll and potentially beginning 	 
+        // If the snap animation is playing, we need to stop it      
+        // before watching for a scroll and potentially beginning    
         // a new touch interaction.
-        if (snapElementAnimation && snapElementAnimation.isPlaying) 	 
-            snapElementAnimation.stop(); 	 
+        if (snapElementAnimation && snapElementAnimation.isPlaying)      
+            snapElementAnimation.stop();     
                 
         captureNextClick = false;
         
@@ -3091,7 +3140,7 @@ public class Scroller extends SkinnableComponent
             Math.round(minSlopInches * Capabilities.screenDPI), 
             dragEventThinning ? MAX_DRAG_RATE : NaN);
     }
-    	
+        
     /**
      *  @private
      */
@@ -3114,7 +3163,7 @@ public class Scroller extends SkinnableComponent
 
         var xMove:int = 0;
         var yMove:int = 0;
-		
+        
         if (canScrollHorizontally)
             xMove = dragX;
         
@@ -3147,7 +3196,7 @@ public class Scroller extends SkinnableComponent
             newHSP = Math.min(Math.max(newHSP, -viewportWidth), maxHorizontalScrollPosition+viewportWidth);
             newVSP = Math.min(Math.max(newVSP, -viewportHeight), maxVerticalScrollPosition+viewportHeight);
         }
-		
+        
         viewport.horizontalScrollPosition = newHSP;
         viewport.verticalScrollPosition = newVSP;
     }
@@ -3252,141 +3301,141 @@ public class Scroller extends SkinnableComponent
         // scrollbars in overlay mode
         skin.invalidateDisplayList();
     }
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Text selection auto scroll
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  When true, use the text selection scroll behavior instead of the 
-	 *  typical "throw" behavior. This is only used when interactionMode="touch"
-	 */
-	mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
-	private var textSelectionAutoScrollTimer:Timer;
-	private var minTextSelectionVScrollPos:int = 0;
-	private var maxTextSelectionVScrollPos:int = -1;
-	private var minTextSelectionHScrollPos:int = 0;
-	private var maxTextSelectionHScrollPos:int = -1;
-	private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
-	
-	/**
-	 *  @private
-	 *  Change scroll behavior when selecting text. 
-	 */
-	mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
-					   minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
-					   minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
-	{
-		if (getStyle("interactionMode") == InteractionMode.TOUCH)
-		{
-			this.textSelectionAutoScrollEnabled = enable;
-			this.minTextSelectionHScrollPos = minHScrollPosition;
-			this.maxTextSelectionHScrollPos = maxHScrollPosition;
-			this.minTextSelectionVScrollPos = minVScrollPosition;
-			this.maxTextSelectionVScrollPos = maxVScrollPosition;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function setUpTextSelectionAutoScroll():void
-	{
-		if (!textSelectionAutoScrollTimer)
-		{
-			textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
-			textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
-				textSelectionAutoScrollTimerHandler);
-			
-			textSelectionAutoScrollTimer.start();
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function stopTextSelectionAutoScroll():void
-	{
-		if (textSelectionAutoScrollTimer)
-		{
-			textSelectionAutoScrollTimer.stop();
-			textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
-				textSelectionAutoScrollTimerHandler);
-			textSelectionAutoScrollTimer = null;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
-	{
-		const SLOW_SCROLL_THRESHOLD:int = 12;		// Distance from edge to trigger a slow scroll
-		const SLOW_SCROLL_SPEED:int = 20;			// Pixels per timer callback to scroll
-		const FAST_SCROLL_THRESHOLD:int = 3;		// Distance from edge to trigger a fast scroll
-		const FAST_SCROLL_DELTA:int = 30; 			// Added to SLOW_SCROLL_SPEED to determine fast speed
-		
-		var newVSP:Number = viewport.verticalScrollPosition;
-		var newHSP:Number = viewport.horizontalScrollPosition;
-		
-		if (canScrollHorizontally)
-		{
-			if (mouseX > width - SLOW_SCROLL_THRESHOLD)
-			{
-				newHSP += SLOW_SCROLL_SPEED;
-				
-				if (mouseX > width - FAST_SCROLL_THRESHOLD)
-					newHSP += FAST_SCROLL_DELTA;
-				
-				if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
-					newHSP = maxTextSelectionHScrollPos;
-			}
-			
-			if (mouseX < SLOW_SCROLL_THRESHOLD)
-			{
-				newHSP -= SLOW_SCROLL_SPEED;
-				
-				if (mouseX < FAST_SCROLL_THRESHOLD)
-					newHSP -= FAST_SCROLL_DELTA;
-				
-				if (newHSP < minTextSelectionHScrollPos)
-					newHSP = minTextSelectionHScrollPos;
-    		}
-		}
-		
-		if (canScrollVertically)
-		{
-			if (mouseY > height - SLOW_SCROLL_THRESHOLD)
-			{
-				newVSP += SLOW_SCROLL_SPEED;
-				
-				if (mouseY > height - FAST_SCROLL_THRESHOLD)
-					newVSP += FAST_SCROLL_DELTA;
-				
-				if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
-					newVSP = maxTextSelectionVScrollPos;
-			}
-			
-			if (mouseY < SLOW_SCROLL_THRESHOLD)
-			{
-				newVSP -= SLOW_SCROLL_SPEED;
-				
-				if (mouseY < FAST_SCROLL_THRESHOLD)
-					newVSP -= FAST_SCROLL_DELTA;
-				
-				if (newVSP < minTextSelectionVScrollPos)
-					newVSP = minTextSelectionVScrollPos;
-			}
-		}
-		
-		if (newHSP != viewport.horizontalScrollPosition)
-			viewport.horizontalScrollPosition = newHSP;
-		if (newVSP != viewport.verticalScrollPosition)
-			viewport.verticalScrollPosition = newVSP;
-	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Text selection auto scroll
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  When true, use the text selection scroll behavior instead of the 
+     *  typical "throw" behavior. This is only used when interactionMode="touch"
+     */
+    mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
+    private var textSelectionAutoScrollTimer:Timer;
+    private var minTextSelectionVScrollPos:int = 0;
+    private var maxTextSelectionVScrollPos:int = -1;
+    private var minTextSelectionHScrollPos:int = 0;
+    private var maxTextSelectionHScrollPos:int = -1;
+    private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
+    
+    /**
+     *  @private
+     *  Change scroll behavior when selecting text. 
+     */
+    mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
+                       minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
+                       minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
+    {
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            this.textSelectionAutoScrollEnabled = enable;
+            this.minTextSelectionHScrollPos = minHScrollPosition;
+            this.maxTextSelectionHScrollPos = maxHScrollPosition;
+            this.minTextSelectionVScrollPos = minVScrollPosition;
+            this.maxTextSelectionVScrollPos = maxVScrollPosition;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setUpTextSelectionAutoScroll():void
+    {
+        if (!textSelectionAutoScrollTimer)
+        {
+            textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
+            textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
+                textSelectionAutoScrollTimerHandler);
+            
+            textSelectionAutoScrollTimer.start();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function stopTextSelectionAutoScroll():void
+    {
+        if (textSelectionAutoScrollTimer)
+        {
+            textSelectionAutoScrollTimer.stop();
+            textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
+                textSelectionAutoScrollTimerHandler);
+            textSelectionAutoScrollTimer = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
+    {
+        const SLOW_SCROLL_THRESHOLD:int = 12;       // Distance from edge to trigger a slow scroll
+        const SLOW_SCROLL_SPEED:int = 20;           // Pixels per timer callback to scroll
+        const FAST_SCROLL_THRESHOLD:int = 3;        // Distance from edge to trigger a fast scroll
+        const FAST_SCROLL_DELTA:int = 30;           // Added to SLOW_SCROLL_SPEED to determine fast speed
+        
+        var newVSP:Number = viewport.verticalScrollPosition;
+        var newHSP:Number = viewport.horizontalScrollPosition;
+        
+        if (canScrollHorizontally)
+        {
+            if (mouseX > width - SLOW_SCROLL_THRESHOLD)
+            {
+                newHSP += SLOW_SCROLL_SPEED;
+                
+                if (mouseX > width - FAST_SCROLL_THRESHOLD)
+                    newHSP += FAST_SCROLL_DELTA;
+                
+                if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
+                    newHSP = maxTextSelectionHScrollPos;
+            }
+            
+            if (mouseX < SLOW_SCROLL_THRESHOLD)
+            {
+                newHSP -= SLOW_SCROLL_SPEED;
+                
+                if (mouseX < FAST_SCROLL_THRESHOLD)
+                    newHSP -= FAST_SCROLL_DELTA;
+                
+                if (newHSP < minTextSelectionHScrollPos)
+                    newHSP = minTextSelectionHScrollPos;
+            }
+        }
+        
+        if (canScrollVertically)
+        {
+            if (mouseY > height - SLOW_SCROLL_THRESHOLD)
+            {
+                newVSP += SLOW_SCROLL_SPEED;
+                
+                if (mouseY > height - FAST_SCROLL_THRESHOLD)
+                    newVSP += FAST_SCROLL_DELTA;
+                
+                if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
+                    newVSP = maxTextSelectionVScrollPos;
+            }
+            
+            if (mouseY < SLOW_SCROLL_THRESHOLD)
+            {
+                newVSP -= SLOW_SCROLL_SPEED;
+                
+                if (mouseY < FAST_SCROLL_THRESHOLD)
+                    newVSP -= FAST_SCROLL_DELTA;
+                
+                if (newVSP < minTextSelectionVScrollPos)
+                    newVSP = minTextSelectionVScrollPos;
+            }
+        }
+        
+        if (newHSP != viewport.horizontalScrollPosition)
+            viewport.horizontalScrollPosition = newHSP;
+        if (newVSP != viewport.verticalScrollPosition)
+            viewport.verticalScrollPosition = newVSP;
+    }
 
     //--------------------------------------------------------------------------
     //
