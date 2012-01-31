@@ -2324,10 +2324,10 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    override protected function skipMeasure():Boolean
+    override protected function canSkipMeasurement():Boolean
     {
         autoSize = false;
-        return super.skipMeasure();
+        return super.canSkipMeasurement();
     }
 
     /**
