@@ -198,11 +198,15 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  </li>
  *  </ul>
  * 
- *  <p>
- *  The scroll policy affects the measured size of the scroller skin part.  This style
+ *  <p>The scroll policy affects the measured size of the scroller skin part.  This style
  *  is simply a cover for the scroller skin part's horizontalScrollPolicy.  It is not an 
- *  inheriting style so, for example, it will not affect item renderers.
- *  </p>
+ *  inheriting style so, for example, it will not affect item renderers.</p>
+ *
+ *  <p>When using a horizontal List control in a mobile application, 
+ *  set <code>horizontalScrollPolicy</code> to <code>on</code> 
+ *  and <code>verticalScrollPolicy</code> to <code>auto</code> 
+ *  to enable the horizontal bounce and pull effects. 
+ *  Otherwise, the control uses the vertical bounce and pull effects.</p>
  * 
  *  @default ScrollPolicy.AUTO
  *
@@ -284,6 +288,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  is simply a cover for the scroller skin part's verticalScrollPolicy.  It is not an 
  *  inheriting style so, for example, it will not affect item renderers.
  *  </p>
+ *
+ *  <p>When using a horizontal List control in a mobile application, 
+ *  set <code>horizontalScrollPolicy</code> to <code>on</code> 
+ *  and <code>verticalScrollPolicy</code> to <code>auto</code> 
+ *  to enable the horizontal bounce and pull effects. 
+ *  Otherwise, the control uses the vertical bounce and pull effects.</p>
  * 
  *  @default ScrollPolicy.AUTO
  *
