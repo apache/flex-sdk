@@ -18,6 +18,7 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.geom.Point;
 
 import mx.collections.IList;
 import mx.core.mx_internal;
@@ -604,14 +605,15 @@ public class DropDownListBase extends List
      *  Called whenever we need to change the highlighted selection while the dropDown is open
      *  ComboBox overrides this behavior
      */
-    mx_internal function changeHighlightedSelection(newIndex:int):void
+    mx_internal function changeHighlightedSelection(newIndex:int, scrollToTop:Boolean = false):void
     {
         // Store the selection in userProposedSelectedIndex because we 
         // don't want to update selectedIndex until the dropdown closes
         itemSelected(userProposedSelectedIndex, false);
         userProposedSelectedIndex = newIndex;
         itemSelected(userProposedSelectedIndex, true);
-        ensureIndexIsVisible(userProposedSelectedIndex);
+        
+        positionIndexInView(userProposedSelectedIndex, scrollToTop ? 0 : NaN);
         
         var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
         e.oldIndex = caretIndex;
@@ -619,7 +621,30 @@ public class DropDownListBase extends List
         e.newIndex = caretIndex;
         dispatchEvent(e);
     }
+    
+    /**
+     *  @private 
+     */ 
+    mx_internal function positionIndexInView(index:int, topOffset:Number = NaN, 
+                                             bottomOffset:Number = NaN, 
+                                             leftOffset:Number = NaN,
+                                             rightOffset:Number = NaN):void
+    {
+        if (!layout)
+            return;
+        
+        var spDelta:Point = 
+            dataGroup.layout.getScrollPositionDeltaToElementHelper(index, topOffset, bottomOffset,
+                                                                   leftOffset, rightOffset);
+        
+        if (spDelta)
+        {
+            dataGroup.horizontalScrollPosition += spDelta.x;
+            dataGroup.verticalScrollPosition += spDelta.y;
+        }
+    }
       
+ 
     
     //--------------------------------------------------------------------------
     //
@@ -658,7 +683,7 @@ public class DropDownListBase extends List
     {
         if (!enabled)
             return; 
-        
+                
         if (!dropDownController.processKeyDown(event))
         {
             var navigationUnit:uint = event.keyCode;
@@ -783,7 +808,7 @@ public class DropDownListBase extends List
     mx_internal function open_updateCompleteHandler(event:FlexEvent):void
     {   
         removeEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
-        ensureIndexIsVisible(selectedIndex);
+        positionIndexInView(selectedIndex, 0);
         
         dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
     }
