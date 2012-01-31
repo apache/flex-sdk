@@ -18,8 +18,8 @@ import spark.events.RendererExistenceEvent;
 
 import mx.collections.IList;
 import spark.components.SkinnableDataContainer;
-import spark.components.supportClasses.ItemRenderer; 
-import spark.components.IItemRendererOwner; 
+import spark.components.IItemRendererOwner;
+import spark.components.IItemRenderer; 
 import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
@@ -61,7 +61,7 @@ import spark.utils.LabelUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ListBase extends SkinnableDataContainer implements IItemRendererOwner 
+public class ListBase extends SkinnableDataContainer 
 {
     include "../../core/Version.as";
 
@@ -148,9 +148,8 @@ public class ListBase extends SkinnableDataContainer implements IItemRendererOwn
     //----------------------------------
     //  labelField
     //----------------------------------
-    
-    private var _labelField:String;
     private var labelFieldOrFunctionChanged:Boolean; 
+    private var _labelField:String;
     
     /**
      *  labelField
@@ -518,13 +517,14 @@ public class ListBase extends SkinnableDataContainer implements IItemRendererOwn
         	//Cycle through all instantiated renderers
         	for (var i:int = 0; i < dataGroup.numChildren; i++)
         	{
-        		var renderer:ItemRenderer = dataGroup.getElementAt(i) as ItemRenderer; 
-        		//Push the correct text into the renderer if it has
-        		//a labelElement part. 
-        		if (renderer && renderer.labelElement)
+        		//TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
+        		//and which is more performant. 
+        		var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
+        		//Push the correct text into the renderer by settings its labelText
+        		//property 
+        		if (renderer)
         		{
-        			renderer.labelElement.text = 
-        				LabelUtil.itemToLabel(renderer.data, labelField, labelFunction);
+        			renderer.labelText = itemToLabel(renderer.data); 
         		}
         	}
         	labelFieldOrFunctionChanged = false; 
@@ -552,7 +552,7 @@ public class ListBase extends SkinnableDataContainer implements IItemRendererOwn
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function itemToLabel(item:Object):String
+    override public function itemToLabel(item:Object):String
     {
     	return LabelUtil.itemToLabel(item, labelField, labelFunction);
     }
