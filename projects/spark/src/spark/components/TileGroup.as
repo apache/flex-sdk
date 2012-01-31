@@ -157,7 +157,7 @@ public class TileGroup extends Group
     //----------------------------------
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  @copy spark.layouts.TileLayout#columnWidth
@@ -186,7 +186,7 @@ public class TileGroup extends Group
     //  horizontalAlign
     //----------------------------------
     
-    [Inspectable(category="General", enumeration="left,center,right,justify,contentJustify", defaultValue="left")]
+    [Inspectable(category="General", enumeration="left,right,center,justify", defaultValue="justify")]
 
     /**
      *  @copy spark.layouts.TileLayout#horizontalAlign
@@ -274,7 +274,7 @@ public class TileGroup extends Group
     //  requestedColumnCount
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
 
     /**
      *  @copy spark.layouts.TileLayout#requestedColumnCount
@@ -303,7 +303,7 @@ public class TileGroup extends Group
     //  requestedRowCount
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
 
     /**
      *  @copy spark.layouts.TileLayout#requestedRowCount
@@ -384,7 +384,7 @@ public class TileGroup extends Group
     //----------------------------------
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  @copy spark.layouts.TileLayout#rowHeight
