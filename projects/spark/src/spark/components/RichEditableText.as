@@ -2415,6 +2415,10 @@ public class RichEditableText extends UIComponent
      */
     override protected function measure():void 
     {
+        // Don't want to trigger a another remeasure when we modify the
+        // textContainerManager or compose the text.
+        ignoreDamageEvent = true;
+        
         super.measure();
 
         // Styles can be changed in event handlers while in the middle
@@ -2558,7 +2562,9 @@ public class RichEditableText extends UIComponent
              
              invalidateDisplayList();     
         }
-                                                            
+                                   
+        ignoreDamageEvent = false;
+        
         //trace("measure", measuredWidth, measuredHeight, "autoSize", autoSize);
     }
 
@@ -3356,9 +3362,6 @@ public class RichEditableText extends UIComponent
      */
     private function measureTextSize(composeWidth:Number):Rectangle
     {             
-        // Don't want to trigger a another remeasure when we compose the text.
-        ignoreDamageEvent = true;
-
         // Adjust for explicit min/maxWidth so the measurement is accurate.
         if (isNaN(explicitWidth))
         {
@@ -3394,9 +3397,7 @@ public class RichEditableText extends UIComponent
             // is a place to put the insertion cursor.
             bounds.width = bounds.width + getStyle("fontSize");
        }
-       
-       ignoreDamageEvent = false;
-       
+
        //trace("measureTextSize", composeWidth, "->", bounds.width, bounds.height);
         
        return bounds;
@@ -4063,7 +4064,7 @@ public class RichEditableText extends UIComponent
                 
         // If the textFlow content is modified directly or if there is a style 
         // change by changing the textFlow directly the size could change.
-        //invalidateSize();
+        invalidateSize();
             
         invalidateDisplayList();
     }
