@@ -276,10 +276,6 @@ public class FxAnimateInstance extends EffectInstance
      */
     override public function play():void
     {
-        // Do what effects normally do when they start, namely
-        // dispatch an 'effectStart' event from the target.
-        super.play();
-        
         if (!propertyValuesList || propertyValuesList.length == 0)
         {
             // nothing to do; at least schedule the effect to end after
@@ -428,6 +424,18 @@ public class FxAnimateInstance extends EffectInstance
      */
     protected function startHandler(event:AnimationEvent):void
     {
+        // TODO (chaase): Consider putting AnimateInstance (and subclass's) 
+        // play() functionality (the setup and playing of the Animation object)
+        // into startEffect(), calling play() from here, and not overriding
+        // play() at all.
+
+        // Call EffectInstace.play() here instead of from our play() function
+        // because we actually start playing immediately, and leave it to the
+        // Animation to pause on startDelay. By waiting until the animation
+        // starts to call play(), we delay the EffectInstance sending out the
+        // EFFECT_START events until any start delays are over
+        super.play();
+        
         if (autoRemoveTarget)
             addDisappearingTarget();
         dispatchEvent(event);
