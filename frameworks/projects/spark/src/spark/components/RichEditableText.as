@@ -1601,6 +1601,22 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        // not sure why this happens but it does if you just change
+        // the embeddedFont context
+        if (!child.parent)
+            return child;
+
+        if (child.parent == this)
+            return super.removeChild(child);
+
+        return child.parent.removeChild(child);
+    }
+
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -1626,6 +1642,13 @@ public class RichEditableText extends UIComponent
                 // the fontLookup format is set to either
                 // "device" or "embedded" depending on whether
                 // embeddedFontContext is null or non-null.
+
+            // reset the text to propagate a new textLineCreator.  We only
+            // do this if the text didn't change since it will get done
+            // further down if it did
+            if (_textFlow && !(textChanged || textFlowChanged || contentChanged))
+                _textContainerManager.setTextFlow(_textFlow);
+
         }
         
         if (selectionFormatsChanged)
@@ -3534,6 +3557,7 @@ public class RichEditableText extends UIComponent
             invalidateDisplayList();
         } 
     }    
+
 
 }
 
