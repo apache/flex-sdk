@@ -21,6 +21,7 @@ import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
+import mx.collections.IList;
 import mx.core.DragSource;
 import mx.core.EventPriority;
 import mx.core.IFactory;
@@ -496,6 +497,27 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         super.useVirtualLayout = value;
     }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set dataProvider(value:IList):void
+    {
+        // Uconditionally clear the selection, see SDK-21645
+        if (!isEmpty(_proposedSelectedIndices) || !isEmpty(selectedIndices))
+        {
+            _proposedSelectedIndices.length = 0;
+            multipleSelectionChanged = true;
+            invalidateProperties();
+        }
+        super.dataProvider = value;
+    }
+        
         
     //--------------------------------------------------------------------------
     //
@@ -926,6 +948,15 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Used to filter _proposedSelectedIndices.
+     */
+    private function isValidIndex(item:int, index:int, v:Vector.<int>):Boolean
+    {
+        return (dataProvider != null) && (item >= 0) && (item < dataProvider.length); 
+    }
+    
+    /**
+     *  @private
      *  Let ListBase handle single selection and afterwards come in and 
      *  handle multiple selection via the commitMultipleSelection() 
      *  helper method. 
@@ -937,6 +968,8 @@ public class List extends ListBase implements IFocusManagerComponent
 
         var oldSelectedIndex:Number = _selectedIndex;
         var oldCaretIndex:Number = _caretIndex;  
+        
+        _proposedSelectedIndices = _proposedSelectedIndices.filter(isValidIndex);
                
         // Ensure that multiple selection is allowed and that proposed 
         // selected indices honors it. For example, in the single 
