@@ -58,7 +58,7 @@ public class ItemRenderer extends MXMLComponent
             if (parent is DataGroup)
                 idx = DataGroup(parent).dataProvider.getItemIndex(data);
             else if (parent is Group)
-                idx = Group(parent).getItemIndex(this);
+                idx = Group(parent).getElementIndex(this);
             else
                 idx = parent.getChildIndex(this);
              
