@@ -26,7 +26,7 @@ import flashx.textLayout.formats.LineBreak;
 //--------------------------------------
 
 /**
- *  Dispatched when the user pressed the Enter key.
+ *  Dispatched when the user presses the Enter key.
  *
  *  @eventType mx.events.FlexEvent.ENTER
  *  
@@ -66,9 +66,15 @@ import flashx.textLayout.formats.LineBreak;
 [SkinState("disabled")]
 
 /**
- *  Documentation is not currently available.
+ *  A text field that lets users enter and edit a single line
+ *  of single-styled text. Can contain alphanumeric data, but
+ *  input is interpreted as a String.
  *
  *  @includeExample examples/TextInputExample.mxml
+ *
+ *  @see spark.primitives.SimpleText
+ *  @see spark.primitives.RichEditableText
+ *  @see TextArea
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
