@@ -42,9 +42,11 @@ import mx.events.FlexEvent;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.TextBase;
+import spark.events.IndexChangeEvent;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
 import spark.utils.LabelUtil;
+import flash.accessibility.Accessibility;
 
 use namespace mx_internal;
 
@@ -125,6 +127,7 @@ use namespace mx_internal;
 [Exclude(name="dropEnabled", kind="property")]
 [Exclude(name="selectedIndices", kind="property")]
 [Exclude(name="selectedItems", kind="property")]
+[AccessibilityClass(implementation="spark.accessibility.DropDownListAccImpl")]
 
 
 /**
@@ -217,7 +220,20 @@ public class DropDownList extends List
      */
     [SkinPart(required="true")]
     public var openButton:ButtonBase;
-        
+       
+       
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ListAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+ 
     /**
      *  Constructor. 
      *  
@@ -544,6 +560,17 @@ public class DropDownList extends List
     //
     //--------------------------------------------------------------------------
     
+     /**
+     *  @private
+     *  Called by the initialize() method of UIComponent
+     *  to hook in the accessibility code.
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (DropDownList.createAccessibilityImplementation != null)
+            DropDownList.createAccessibilityImplementation(this);
+    }
+    
     /**
      *  @private
      */ 
@@ -668,6 +695,13 @@ public class DropDownList extends List
                     userProposedSelectedIndex = proposedNewIndex;
                     itemSelected(userProposedSelectedIndex, true);
                     ensureIndexIsVisible(userProposedSelectedIndex);
+
+                    var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
+                    e.oldIndex = caretIndex;
+                    setCurrentCaretIndex(userProposedSelectedIndex);
+                    e.newIndex = caretIndex;
+                    dispatchEvent(e);
+
                     event.preventDefault()
                 }
             }
