@@ -170,8 +170,8 @@ public class FxContainer extends FxContainerBase
             {
                 _placeHolderGroup = new Group();
                  
-                if (_mxml_content)
-                    _placeHolderGroup.mxmlContent = _mxml_content;
+                if (_mxmlContent)
+                    _placeHolderGroup.mxmlContent = _mxmlContent;
                 
                 _placeHolderGroup.addEventListener(
                     ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
@@ -184,43 +184,6 @@ public class FxContainer extends FxContainerBase
         {
             return contentGroup;    
         }
-    }
-   
-    //----------------------------------
-    //  mxmlContentFactory
-    //----------------------------------
-    
-    /** 
-     *  @private
-     *  Backing variable for the contentFactory property.
-     */
-    private var _mxmlContentFactory:IDeferredInstance;
-
-    /**
-     *  @private
-     *  Flag that indicates whether or not the content has been created.
-     */
-    private var mxmlContentCreated:Boolean = false;
-    
-    /**
-     *  A factory object that creates the initial value for the
-     *  content property.
-     */
-    public function get mxmlContentFactory():IDeferredInstance
-    {
-        return _mxmlContentFactory;
-    }   
-    
-    /**
-     *  @private
-     */
-    public function set mxmlContentFactory(value:IDeferredInstance):void
-    {
-        if (value == _mxmlContentFactory)
-            return;
-        
-        _mxmlContentFactory = value;
-        mxmlContentCreated = false;
     }
     
     //----------------------------------
@@ -283,45 +246,6 @@ public class FxContainer extends FxContainerBase
         }
         else
             contentGroupProperties.clipContent = value;
-    }
-    
-    //----------------------------------
-    //  content
-    //----------------------------------    
-    
-    private var _mxml_content:Object;
-    
-    /**
-     *  @copy mx.components.Group#content
-     */
-    [Bindable]
-    public function get mxmlContent():Object
-    { 
-        // Make sure deferred content is created, if needed
-        createContentIfNeeded();
-    
-        if (contentGroup)
-            return contentGroup.mxmlContent;
-        else if (_placeHolderGroup)
-            return _placeHolderGroup.mxmlContent;
-        else
-            return _mxml_content; 
-    }
-    
-    /**
-     *  @private
-     */
-    public function set mxmlContent(value:Object):void
-    {
-        if (value == _mxml_content)
-            return;
-            
-        _mxml_content = value;   
-
-        if (contentGroup)
-            contentGroup.mxmlContent = value;
-        else if (_placeHolderGroup)
-            _placeHolderGroup.mxmlContent = value;
     }
     
     //----------------------------------
@@ -416,6 +340,84 @@ public class FxContainer extends FxContainerBase
     }
     
     //----------------------------------
+    //  mxmlContent
+    //----------------------------------    
+    
+    private var _mxmlContent:Array;
+    
+    /**
+     *  @copy mx.components.Group#content
+     */
+    [ArrayElementType("mx.core.IVisualElement")]
+    [Bindable]
+    public function get mxmlContent():Array
+    { 
+        // Make sure deferred content is created, if needed
+        createContentIfNeeded();
+    
+        if (contentGroup)
+            return contentGroup.mxmlContent;
+        else if (_placeHolderGroup)
+            return _placeHolderGroup.mxmlContent;
+        else
+            return _mxmlContent; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set mxmlContent(value:Array):void
+    {
+        if (value == _mxmlContent)
+            return;
+            
+        _mxmlContent = value;   
+
+        if (contentGroup)
+            contentGroup.mxmlContent = value;
+        else if (_placeHolderGroup)
+            _placeHolderGroup.mxmlContent = value;
+    }
+    
+    
+    //----------------------------------
+    //  mxmlContentFactory
+    //----------------------------------
+    
+    /** 
+     *  @private
+     *  Backing variable for the contentFactory property.
+     */
+    private var _mxmlContentFactory:IDeferredInstance;
+
+    /**
+     *  @private
+     *  Flag that indicates whether or not the content has been created.
+     */
+    private var mxmlContentCreated:Boolean = false;
+    
+    /**
+     *  A factory object that creates the initial value for the
+     *  content property.
+     */
+    public function get mxmlContentFactory():IDeferredInstance
+    {
+        return _mxmlContentFactory;
+    }   
+    
+    /**
+     *  @private
+     */
+    public function set mxmlContentFactory(value:IDeferredInstance):void
+    {
+        if (value == _mxmlContentFactory)
+            return;
+        
+        _mxmlContentFactory = value;
+        mxmlContentCreated = false;
+    }
+    
+    //----------------------------------
     //  verticalScrollPosition
     //----------------------------------
     
@@ -463,7 +465,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function getElementAt(index:int):Object
+    public function getElementAt(index:int):IVisualElement
     {
         return mx_internal::currentContentGroup.getElementAt(index);
     }
@@ -472,7 +474,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function getElementIndex(element:Object):int
+    public function getElementIndex(element:IVisualElement):int
     {
         return mx_internal::currentContentGroup.getElementIndex(element);
     }
@@ -480,7 +482,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function addElement(element:Object):Object
+    public function addElement(element:IVisualElement):IVisualElement
     {
         return mx_internal::currentContentGroup.addElement(element);
     }
@@ -488,7 +490,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function addElementAt(element:Object, index:int):Object
+    public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
         return mx_internal::currentContentGroup.addElementAt(element, index);
     }
@@ -496,7 +498,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function removeElement(element:Object):Object
+    public function removeElement(element:IVisualElement):IVisualElement
     {
         return mx_internal::currentContentGroup.removeElement(element);
     }
@@ -504,7 +506,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function removeElementAt(index:int):Object
+    public function removeElementAt(index:int):IVisualElement
     {
         return mx_internal::currentContentGroup.removeElementAt(index);
     }
@@ -512,7 +514,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function setElementIndex(element:Object, index:int):void
+    public function setElementIndex(element:IVisualElement, index:int):void
     {
         mx_internal::currentContentGroup.setElementIndex(element, index);
     }
@@ -520,7 +522,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function swapElements(element1:Object, element2:Object):void
+    public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
         mx_internal::currentContentGroup.swapElements(element1, element2);
     }
@@ -531,93 +533,6 @@ public class FxContainer extends FxContainerBase
     public function swapElementsAt(index1:int, index2:int):void
     {
         mx_internal::currentContentGroup.swapElementsAt(index1, index2);
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  DEPRECATED Methods proxied to contentGroup
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function get numItems():int
-    {
-        return numElements;
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function getItemAt(index:int):Object
-    {
-        return getElementAt(index);
-    }
-    
-        
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function getItemIndex(item:Object):int
-    {
-        return getElementIndex(item);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function addItem(item:Object):Object
-    {
-        return addElement(item);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function addItemAt(item:Object, index:int):Object
-    {
-        return addElementAt(item, index);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function removeItem(item:Object):Object
-    {
-        return removeElement(item);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function removeItemAt(index:int):Object
-    {
-        return removeElementAt(index);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function setItemIndex(item:Object, index:int):void
-    {
-        setElementIndex(item, index);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function swapItems(item1:Object, item2:Object):void
-    {
-        swapElements(item1, item2);
-    }
-    
-    /**
-     *  This method is deprecated and will be removed from FxContainer.
-     */
-    public function swapItemsAt(index1:int, index2:int):void
-    {
-        swapElementsAt(index1, index2);
     }
     
     //----------------------------------
@@ -674,12 +589,9 @@ public class FxContainer extends FxContainerBase
         {
             if (_placeHolderGroup != null)
             {
-                var sourceContent:Array = _placeHolderGroup.mxmlContent as Array;
+                var sourceContent:Array = _placeHolderGroup.mxmlContent;
                 
-                if (sourceContent)
-                    contentGroup.mxmlContent = sourceContent.slice();
-                else
-                    contentGroup.mxmlContent = _placeHolderGroup.mxmlContent;
+                contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
                 
                 // Temporary workaround because copying content from one Group to another throws RTE
                 for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
@@ -688,9 +600,9 @@ public class FxContainer extends FxContainerBase
                 }
                 
             }
-            else if (_mxml_content != null)
+            else if (_mxmlContent != null)
             {
-                contentGroup.mxmlContent = _mxml_content;
+                contentGroup.mxmlContent = _mxmlContent;
             }
             
             // copy proxied values from contentGroupProperties (if set) to contentGroup
@@ -818,7 +730,14 @@ public class FxContainer extends FxContainerBase
             
             if (mxmlContentFactory)
             {
-                mxmlContent = mxmlContentFactory.getInstance();
+                // TODO (rfrishbe): If we have compiler support for deferred content
+                // to do autotype conversion (do I create a single object, 
+                // an array, or an IList in the function)
+                var deferredContent:Object = mxmlContentFactory.getInstance();
+                if (deferredContent is Array)
+                    mxmlContent = deferredContent as Array;
+                else
+                    mxmlContent = [deferredContent];
                 dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
             }
         }
