@@ -3422,7 +3422,7 @@ package spark.components
         }
         
         /**
-         *  Applies the specified formats to each elements in the specified
+         *  Applies the specified formats to each element in the specified
          *  range that correspond to the given format.  
          *  It applies the character formats to the text in the specified range
          *  (no change is made if the specified range is a single point). 
@@ -3431,7 +3431,7 @@ package spark.components
          *  single point).
          *  It applies the container formats to the container.
          * 
-         *  <p>The supported formats are those in TextFormatLayout.
+         *  <p>The supported formats are those in TextLayoutFormat.
          *  A value of <code>undefined</code> does not get applied.
          *  If you don't specify a range, the selected range is used.</p>
          *
@@ -3444,6 +3444,23 @@ package spark.components
          *  </pre>
          *  </p>
          *  
+         *  <p>If you use the results of <code>getFormatOfRange()</code> to
+         *  specify the <code>format</code>, note that every format in the
+         *  <code>TextLayoutFormat</code> has a
+         *  computed value, which will be applied to each element that 
+         *  corresponds to the given format.</p>
+         * 
+         *  <p>If you would like to specify a format to be applied to all the text
+         *  it would be better to use <code>setStyle(format, value)</code>
+         *  on the component itself.</p>
+         * 
+         *  <p>The following example sets the <code>fontSize</code> and <code>color</code> of all the text:
+         *  <pre>
+         *  myRET.setStyle("fontSize", 12);
+         *  myRET.setStyle("color", 0xFF0000);
+         *  </pre>
+         *  </p>
+         * 
          *  @param format The TextLayoutFormat to apply to the selection.
          * 
          *  @param anchorPosition A character position, relative to the beginning of the 
