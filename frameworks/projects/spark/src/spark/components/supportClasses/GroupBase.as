@@ -117,7 +117,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
- *  the arrow of a FxScrollButton
+ *  the arrow of a scroll button
  *   
  *  @default 0x000000
  * 
