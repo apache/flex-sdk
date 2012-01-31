@@ -115,9 +115,9 @@ use namespace mx_internal;
  *    blendMode="normal"
  *    mxmlContent="null"
  *    scaleGridBottom="null"
- *    scaleGridLeft"null"
+ *    scaleGridLeft="null"
  *    scaleGridRight="null"
- *    scaleGridTop"null"
+ *    scaleGridTop="null"
  *  
  *    <strong>Events</strong>
  *    elementAdd="<i>No default</i>"
