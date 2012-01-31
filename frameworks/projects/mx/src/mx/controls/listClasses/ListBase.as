@@ -168,7 +168,6 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../../styles/metadata/FocusStyles.as"
 include "../../styles/metadata/PaddingStyles.as"
 
 /**
