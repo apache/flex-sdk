@@ -19,8 +19,8 @@
  */
 package spark.components.gridClasses
 {
-import flash.display.DisplayObjectContainer;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
@@ -30,18 +30,15 @@ import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
-import flash.utils.describeType;
 import flash.utils.Timer;
 
 import mx.core.ClassFactory;
 import mx.core.EventPriority;
 import mx.core.IFactory;
-import mx.core.IFlexModuleFactory;
-import mx.core.IInvalidating;
 import mx.core.IIMESupport;
+import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
-import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
@@ -49,19 +46,11 @@ import mx.managers.FocusManager;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.styles.ISimpleStyleClient;
-import mx.styles.IStyleClient;
-import mx.utils.StringUtil;
 
-import spark.components.supportClasses.CellPosition;
-import spark.components.supportClasses.GridColumn;
-import spark.components.IGridItemEditor;
 import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.Group;
-import spark.components.IGridItemRenderer;
 import spark.events.GridEvent;
 import spark.events.GridItemEditorEvent;
-import flash.debugger.enterDebugger;
 
 use namespace mx_internal;
 
