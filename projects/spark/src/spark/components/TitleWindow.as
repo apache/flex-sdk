@@ -133,7 +133,7 @@ use namespace mx_internal;
  * Because this component does not define a skin for the mobile theme, Adobe
  * recommends that you not use it in a mobile application. Alternatively, you
  * can define your own mobile skin for the component. For more information,
- * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html"/>Spark Skinning</a>.
+ * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark Skinning</a>.
  */
 [DiscouragedForProfile("mobileDevice")]
 
@@ -317,8 +317,8 @@ public class TitleWindow extends Panel
      */
     override protected function initializeAccessibility():void
     {
-		if (TitleWindow.createAccessibilityImplementation != null)
-			TitleWindow.createAccessibilityImplementation(this);
+        if (TitleWindow.createAccessibilityImplementation != null)
+            TitleWindow.createAccessibilityImplementation(this);
     }
 
     /**
@@ -362,8 +362,8 @@ public class TitleWindow extends Panel
      */
     override protected function partAdded(partName:String, instance:Object) : void
     {
-		super.partAdded(partName, instance);
-		
+        super.partAdded(partName, instance);
+        
         if (instance == moveArea)
         {
             moveArea.addEventListener(MouseEvent.MOUSE_DOWN, moveArea_mouseDownHandler);
