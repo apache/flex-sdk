@@ -499,7 +499,10 @@ public class HTTPChannel extends PollingChannel
     // Protected Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+     * @private
+     */ 
     protected function internalPingComplete(msg:AsyncMessage):void
     {
         if (msg != null)
