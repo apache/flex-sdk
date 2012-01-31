@@ -22,8 +22,6 @@ import mx.core.mx_internal;
 import mx.effects.Animation;
 import mx.effects.AnimationProperty;
 import mx.effects.EffectInstance;
-import spark.effects.KeyFrame;
-import spark.effects.MotionPath;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.NumberInterpolator;
@@ -32,6 +30,9 @@ import mx.layout.LayoutElementFactory;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
+
+import spark.effects.KeyFrame;
+import spark.effects.MotionPath;
 
 use namespace mx_internal;
 
@@ -414,8 +415,10 @@ public class FxAnimateInstance extends EffectInstance
             // TODO (chaase): should we push this keyframe-init logic
             // into the MotionPath class instead?
             
-            // Create an initial (time==0) value if necessary 
             var keyframes:Array = animationProperties[i].keyframes;
+            if (!keyframes)
+                continue;
+            // Create an initial (time==0) value if necessary 
             if (keyframes[0].time > 0)
             {
                 keyframes.splice(0, 0, new KeyFrame(0, null));
