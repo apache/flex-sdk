@@ -44,6 +44,11 @@ use namespace mx_internal;
  *  processed by the LayoutManager, and attached to the display list.
  * 
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="applicationComplete", type="mx.events.FlexEvent")]
 
@@ -52,6 +57,11 @@ use namespace mx_internal;
  *  such as when an HTTPService, WebService, or RemoteObject fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="error", type="flash.events.ErrorEvent")]
 
@@ -78,6 +88,11 @@ use namespace mx_internal;
  *  This factoryClass will be automatically subclassed by any
  *  MXML applications that don't explicitly specify a different
  *  factoryClass.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Frame(factoryClass="mx.managers.SystemManager")]
 
@@ -113,6 +128,11 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxApplication extends FxContainer 
 {
@@ -132,6 +152,11 @@ public class FxApplication extends FxContainer
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxApplication()
     {
@@ -205,6 +230,11 @@ public class FxApplication extends FxContainer
      *  Background color of a component. 
      *  This property specifies the background color, both while the application
      *  loads, and while it is running.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get backgroundColor():Object /* Color (int or String) */
     {
@@ -240,6 +270,11 @@ public class FxApplication extends FxContainer
     *  instance or via an event (there is no framework event for this purpose).  
     *
     *  @default ColorCorrection.DEFAULT
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     public function get colorCorrection():String
     {
@@ -294,6 +329,11 @@ public class FxApplication extends FxContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 24
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var frameRate:Number;
 
@@ -309,6 +349,11 @@ public class FxApplication extends FxContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var pageTitle:String;
 
@@ -326,6 +371,11 @@ public class FxApplication extends FxContainer
      *    web application.
      * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var preloader:Object;
 
@@ -343,6 +393,11 @@ public class FxApplication extends FxContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 1000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scriptRecursionLimit:int;
 
@@ -359,6 +414,11 @@ public class FxApplication extends FxContainer
      *    The maximum allowable value that you can set is 60 seconds.
      *
      *  @default 60
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scriptTimeLimit:Number;
 
@@ -374,6 +434,11 @@ public class FxApplication extends FxContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var usePreloader:Boolean;
 
@@ -485,6 +550,11 @@ public class FxApplication extends FxContainer
      *  <p>There are two sources of parameters: the query string of the
      *  FxApplication's URL, and the value of the FlashVars HTML parameter
      *  (this affects only the main FxApplication).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get parameters():Object
     {
@@ -504,6 +574,11 @@ public class FxApplication extends FxContainer
 
     /**
      *  The URL from which this FxApplication's SWF file was loaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get url():String
     {
@@ -534,6 +609,11 @@ public class FxApplication extends FxContainer
      *      ...
      *    &lt;/FxApplication&gt;</pre>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get viewSourceURL():String
     {
