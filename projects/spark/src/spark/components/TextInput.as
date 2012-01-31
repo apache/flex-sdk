@@ -87,7 +87,7 @@ public class FxTextInput extends FxTextBase
     /**
      *  @private
      */
-    private var _widthInChars:int = 20;
+    private var _widthInChars:Number = 20;
 
     /**
      *  @private
@@ -103,7 +103,7 @@ public class FxTextInput extends FxTextBase
      *
      *  @default
      */
-    public function get widthInChars():int
+    public function get widthInChars():Number
     {
         return _widthInChars;
     }
@@ -111,7 +111,7 @@ public class FxTextInput extends FxTextBase
     /**
      *  @private
      */
-    public function set widthInChars(value:int):void
+    public function set widthInChars(value:Number):void
     {
         if (value == _widthInChars)
             return;
