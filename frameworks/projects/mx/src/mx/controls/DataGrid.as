@@ -4451,6 +4451,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 if (itemEditorInstance && itemEditorInstance is UIComponent)
                     UIComponent(itemEditorInstance).drawFocus(false);
 
+                // setfocus back to us so something on stage has focus
+                losingFocus = true;
+                setFocus();
                 // must call removeChild() so FocusManager.lastFocus becomes null
                 actualContentHolder.removeChild(DisplayObject(itemEditorInstance));
                 editedItemRenderer.visible = true;
