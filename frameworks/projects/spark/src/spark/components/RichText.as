@@ -428,6 +428,7 @@ public class RichText extends TextBase implements IFontContextComponent
     //----------------------------------
     //  text
     //----------------------------------
+    [Inspectable(category="General")]
 
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
