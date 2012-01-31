@@ -104,7 +104,7 @@ public class MuteButton extends Button
             return;
         
         _muted = value;
-        dispatchEvent(new Event("mutedChanged"));
+        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
     }
     
     //----------------------------------
