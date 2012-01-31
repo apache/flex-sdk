@@ -67,6 +67,8 @@ public class EaseInOutBase implements IEaser
      */
     private var _easeInFraction:Number = .5;
     
+    [Inspectable(minValue="0.0", maxValue="1.0")]
+    
     /**
      *  The percentage of an animation that should be spent accelerating. 
      *  This factor sets an implicit
