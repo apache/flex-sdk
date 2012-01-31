@@ -2472,7 +2472,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var child:DisplayObject = DisplayObject(event.target);
         var childIndex:int = getChildIndex(child);
         var header:Button = getHeaderAt(childIndex);
-        header.label = Container(event.target).label;
+        header.label = INavigatorContent(event.target).label;
     }
 
     /**
@@ -2484,7 +2484,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var child:DisplayObject = DisplayObject(event.target);
         var childIndex:int = getChildIndex(child);
         var header:Button = getHeaderAt(childIndex);
-        header.setStyle("icon", Container(event.target).icon);
+        header.setStyle("icon", INavigatorContent(event.target).icon);
         //header.icon = Container(event.target).icon;
     }
 }
