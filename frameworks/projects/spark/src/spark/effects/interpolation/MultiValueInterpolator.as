@@ -64,7 +64,8 @@ public class ArrayInterpolator implements IInterpolator
      * interpolation on each element of the startValue and endValue
      * arrays, returning a new Array that holds those interpolated values.
      */
-    public function interpolate(fraction:Number, startValue:*, endValue:*):*
+    public function interpolate(fraction:Number, startValue:Object, 
+        endValue:Object):Object
     {
         if (startValue.length != endValue.length)
             throw new Error("Start/end arrays must be of equal length");
@@ -76,5 +77,41 @@ public class ArrayInterpolator implements IInterpolator
         return returnArray;
     }
     
+    /**
+     * @inheritDoc
+     * 
+     * Incrementing for ArrayInterpolator consists of running a separate
+     * increment operation on each element of the <code>baseValue</code> array,
+     * adding the same <code>incrementValue</code> to each one and
+     * returning a new Array that holds those incremented values.
+     */
+    public function increment(baseValue:Object, incrementValue:Object):Object
+    {
+        var returnArray:Array = [];
+        for (var i:int = 0; i < baseValue.length; i++)
+            returnArray[i] = _elementInterpolator.increment(
+                baseValue[i], incrementValue);
+
+        return returnArray;
+    }
+    
+    /**
+     * @inheritDoc
+     * 
+     * Decrementing for ArrayInterpolator consists of running a separate
+     * decrement operation on each element of the <code>baseValue</code> array,
+     * subtracting the same <code>incrementValue</code> from each one and
+     * returning a new Array that holds those decremented values.
+     */
+    public function decrement(baseValue:Object, decrementValue:Object):Object
+    {
+        var returnArray:Array = [];
+        for (var i:int = 0; i < baseValue.length; i++)
+            returnArray[i] = _elementInterpolator.decrement(
+                baseValue[i], decrementValue);
+
+        return returnArray;
+    }
+        
 }
 }
