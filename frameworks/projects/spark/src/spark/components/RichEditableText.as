@@ -87,7 +87,6 @@ import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
 import spark.events.TextOperationEvent;
-import spark.primitives.Rect;
 import spark.primitives.supportClasses.RichEditableTextContainerManager;
 import spark.utils.TextUtil;
 
@@ -425,11 +424,6 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var textInvalid:Boolean = false;
-        
-    /**
-     *  @private
-     */
     private var ascent:Number;
     
     /**
@@ -492,6 +486,19 @@ public class RichEditableText extends UIComponent
      *  @private
      */    
     private var errorCaught:Boolean = false;
+    
+    /**
+     *  @private
+     *  If true, the content of the textFlow has changed in some way.  In most
+     *  cases this is the same as damaged.  The one exception is if setText 
+     *  is used to initialize the TextContainerManager.  It does not dispatch
+     *  a damage event (although it probably should).
+     * 
+     *  At the end of composition, the change event should be dispatched if it
+     *  wasn't already dispatched one or more times for editing operations.
+     *
+     */    
+    private var textFlowChanged:Boolean = true;
             
     //--------------------------------------------------------------------------
     //
@@ -792,9 +799,8 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  The default is true.
-     *  TODO! The default should be true but the code needs to be fixed first.
      */
-    private var _autoSize:Boolean = false;
+    private var _autoSize:Boolean = true;
 
     /**
      *  @private
@@ -1383,12 +1389,21 @@ public class RichEditableText extends UIComponent
      */
     public function get text():String 
     {
-        if (textInvalid && !displayAsPassword)
+        // If displayAsPassword is changing, use the old value until the
+        // change is committed.
+        if (!displayAsPassword && !displayAsPasswordChanged ||
+            displayAsPassword && displayAsPasswordChanged)
         {
-            _text = TextUtil.extractText(textFlow);
-            textInvalid = false;
+            _text = _inputManager.getText("\n");
+            
+            // ToDo: asked TLF if they not put the terminator on the last
+            // paragraph
+            
+            // Remove terminator on the last paragraph, ie remove the last char.
+            if (_text.length > 0 && _text.charAt(_text.length-1) == "\n")
+                _text = _text.slice(0, -1);
         }
-
+        
         return _text;
     }
     
@@ -1397,6 +1412,12 @@ public class RichEditableText extends UIComponent
      */
     public function set text(value:String):void
     {
+        // Use the setter so _text is refreshed if needed.  This check is
+        // needed to block property binding recursion (set causes change event
+        // which causes binding to fire which repeats the process).
+        if (value == text)
+            return;
+            
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
@@ -1404,6 +1425,11 @@ public class RichEditableText extends UIComponent
         contentChanged = false;
         
         _text = value;
+
+        // Need to set it right away so that the getter can return
+        // it.
+        _inputManager.setText(_text);
+        
         textChanged = true;
         
         invalidateProperties();
@@ -1520,16 +1546,16 @@ public class RichEditableText extends UIComponent
         {
         	if (mx_internal::debug)
         		trace("setText()");
-        	_inputManager.setText(_text);
         	
+            textFlowChanged = true;
+
         	textChanged = false;
         }
         else if (contentChanged)
         {
         	var textFlow:TextFlow = createTextFlowFromContent();
         	
-        	textInvalid = true;
-        	dispatchEvent(new Event("textInvalid"));
+        	textFlowChanged = true;
         	
         	if (mx_internal::debug)
         		trace("setTextFlow()");
@@ -1537,7 +1563,31 @@ public class RichEditableText extends UIComponent
         	
         	contentChanged = false;
         }
+        
 
+        if (displayAsPasswordChanged)
+        {
+            // If there is any text, convert it to the passwordChar.
+            if (displayAsPassword)
+            {
+                // Make sure _text is set with the actual text before we
+                // change the displayed text.
+                var textToDisplay:String = text;
+                
+                textToDisplay = StringUtil.repeat(
+                    mx_internal::passwordChar, textToDisplay.length);
+                _inputManager.setText(textToDisplay);
+                
+                textFlowChanged = true;                    
+            }
+            else if (!_content)
+            {
+                _inputManager.setText(_text ? _text : "");
+                textFlowChanged = true;                    
+            }
+            displayAsPasswordChanged = false;
+        }
+        
         if (enabledChanged || selectableChanged || editableChanged)
         {
         	updateEditingMode();
@@ -1660,31 +1710,19 @@ public class RichEditableText extends UIComponent
             }
         }
 
-        // Don't trigger a damage event since we know we're recomposing.
-        _inputManager.removeEventListener(
-           	DamageEvent.DAMAGE, inputManager_damageHandler);
-        
-        // If autoSize, the text flow is already composed (although there are
-        // certain styles that require a recompose since the composition width
-        // and height matter).  Setting the composition size will 
-        // trigger a damage event.
-        if (!_autoSize || recomposeForStyles())
-        {                     
+        if (!_autoSize)
+        {
             _inputManager.compositionWidth = unscaledWidth;
             _inputManager.compositionHeight = unscaledHeight;
         }
 
 		if (mx_internal::debug)
 			trace("updateContainer()");
-        if (mx_internal::embeddedFontContext)
-            _inputManager.textLineCreator = ITextLineCreator(mx_internal::embeddedFontContext);
-        else
-            _inputManager.textLineCreator = null;
+			
+        _inputManager.textLineCreator = 
+            ITextLineCreator(mx_internal::embeddedFontContext);
+            
         _inputManager.updateContainer();
-
-        // Reinstate the damage handler.
-        _inputManager.addEventListener(
-        	DamageEvent.DAMAGE, inputManager_damageHandler);        
     }
 
     /**
@@ -1927,20 +1965,7 @@ public class RichEditableText extends UIComponent
      */
     private function getSelectionManager():ISelectionManager
     {
-        // This triggers a damage event if the interactionManager is
-        // changed.  Since changing the interactionManager doesn't change
-        // the text, there is no need to trigger the damage event.
-        
-        _inputManager.removeEventListener(
-            DamageEvent.DAMAGE, inputManager_damageHandler);
-                       
-    	var selectionManager:SelectionManager =
-    	   SelectionManager(_inputManager.beginInteraction());
-
-        _inputManager.addEventListener(
-            DamageEvent.DAMAGE, inputManager_damageHandler);
-            
-        return selectionManager;            
+    	return SelectionManager(_inputManager.beginInteraction());
     }
 
     /**
@@ -1982,33 +2007,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  If the text is composed during measure(), there are certain styles 
-     *  that require it to be recomposed again for display.  For example,
-     *  if textAlign = justify the text must be composed with unscaledWidth
-     *  rather than maxWidth so that the text is distributed correctly across
-     *  the width.
-     */
-    protected function recomposeForStyles():Boolean
-    {
-        var direction:String = getStyle("direction");
-        var textAlign:String = getStyle("textAlign");
-
-        var leftAligned:Boolean =
-            textAlign == "left" ||
-            textAlign == "start" && direction == "ltr" ||
-            textAlign == "end" && direction == "rtl";
-    
-        if (!leftAligned)
-            return true;   
-
-        var verticalAlign:String = getStyle("verticalAlign");
-        var topAligned:Boolean = (verticalAlign == "top");
-
-        return !topAligned;
-    }
-
-    /**
-     *  @private
      */
     private function measureUsingWidth(maxComposeWidth:Number):void
     {
@@ -2040,10 +2038,7 @@ public class RichEditableText extends UIComponent
         _inputManager.compositionHeight = NaN;
 
         // Compose only.  The display is not updated.
-        /**************
-        flowComposer.compose();
-        */
-        _inputManager.updateContainer();
+        _inputManager.compose();
 
         var contentBounds:Rectangle = _inputManager.getContentBounds();
         
@@ -2735,22 +2730,7 @@ public class RichEditableText extends UIComponent
         
         dispatchChangingEvent = true;
     }
-
-    /**
-     *  @private
-     */
-    /*
-    private function isOverset(controller:IContainerController):Boolean
-    {
-        // In some circumsances, the last controller gets all of the 
-        // content. In this case, test contentHeight vs. compositionHeight. 
-        // In other cases (the proper case) use textLengths to check.
-        return controller.contentHeight > controller.compositionHeight || 
-               (controller.absoluteStart + controller.textLength < 
-               controller.textFlow.textLength);
-    }
-    */
-    
+            
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -2875,6 +2855,19 @@ public class RichEditableText extends UIComponent
                                     event:CompositionCompletionEvent):void
     {
         //trace("compositionComplete");
+                
+        // The text flow changed and there wasn't an editing operation
+        // to dispatch the change event so do it here.  This happens if the
+        // text is initially set and no further editing operations occur.
+        if (textFlowChanged)
+        {
+            var newEvent:TextOperationEvent =
+                new TextOperationEvent(TextOperationEvent.CHANGE);
+            dispatchEvent(newEvent);
+            
+            textFlowChanged = false;
+        }
+
         var oldContentWidth:Number = _contentWidth;
 
         var newContentBounds:Rectangle = _inputManager.getContentBounds();
@@ -2897,6 +2890,13 @@ public class RichEditableText extends UIComponent
 
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
+
+            // If autoSize and text size changed, need to remeasure.
+            if (_autoSize)
+            {
+                invalidateSize();
+                invalidateDisplayList();
+            }
         }
         
         var oldContentHeight:Number = _contentHeight;
@@ -2919,15 +2919,14 @@ public class RichEditableText extends UIComponent
             
             dispatchPropertyChangeEvent(
                 "contentHeight", oldContentHeight, newContentHeight);
+                    
+            // If autoSize and text size changed, need to remeasure.
+            if (_autoSize)
+            {
+                invalidateSize();
+                invalidateDisplayList();
+            }
         } 
-        
-        // If autoSize and there is overset text, remeasure.  contentHeight
-        // will not be the total height of the text unless composition is done 
-        // and scrolling is *on*.
-        /********************************************************
-        if (_autoSize && isOverset(containerController))
-            invalidateSize();
-        */
     }
     
     /**
@@ -2941,13 +2940,8 @@ public class RichEditableText extends UIComponent
         
         // The text flow changed.  It could have been either/or content or
         // styles within the flow.
-        textInvalid = true;
-        dispatchEvent(new Event("textInvalid"));
-                    
-        // If autoSize and text changed, need to remeasure.
-        if (_autoSize)
-            invalidateSize();
-        
+        textFlowChanged = true;
+                
         invalidateDisplayList();
     }
 
@@ -3008,7 +3002,7 @@ public class RichEditableText extends UIComponent
     private function inputManager_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("operationBegin");
+        //trace("flowOperationBegin");
         
         var op:FlowOperation = event.operation;
 
@@ -3103,18 +3097,12 @@ public class RichEditableText extends UIComponent
     private function inputManager_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
-        //trace("operationEnd");
+        //trace("flowOperationEnd");
         
         // Paste is a special case.  Any mods have to be made to the text
         // which includes what was pasted.
         if (event.operation is PasteOperation)
             handlePasteOperation(PasteOperation(event.operation));
-
-        // Since the text may have changed, set a flag which will
-        // cause the 'text' getter to call extractText() to extract
-        // the text by walking the TextFlow.
-        textInvalid = true;
-        dispatchEvent(new Event("textInvalid"));
 
         // Dispatch a 'change' event from the TextView
         // as notification that an editing operation has occurred.
@@ -3122,7 +3110,10 @@ public class RichEditableText extends UIComponent
             new TextOperationEvent(TextOperationEvent.CHANGE);
         newEvent.operation = event.operation;
         dispatchEvent(newEvent);
+            
+        textFlowChanged = false;            
     }
+    
 }
 
 }
