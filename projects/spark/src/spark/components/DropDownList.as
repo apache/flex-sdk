@@ -647,7 +647,8 @@ public class DropDownList extends List
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        dropDownController.processFocusOut(event);
+        if (event.target == this)
+            dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
     }
