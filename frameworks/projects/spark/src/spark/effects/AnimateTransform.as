@@ -14,6 +14,7 @@ package spark.effects
 import flash.geom.Vector3D;
 import flash.utils.Dictionary;
 
+import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
@@ -21,6 +22,7 @@ import mx.events.EffectEvent;
 import mx.geom.TransformOffsets;
 import mx.styles.IStyleClient;
 
+import spark.core.IGraphicElement;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 use namespace mx_internal;
@@ -1039,6 +1041,16 @@ public class AnimateTransform extends Animate
         for (i = 0; i < n; i++)
         {
             target = propChanges[i].target;
+            // TODO (chaase): should only capture values for targets of this effect.
+            // currently no easy way to determine this, since if we are
+            // running in a composite effect, that effect will create
+            // propertyChange targets for all effect children.
+            // Might want to change API of captureValues to specify the
+            // targets to iterate through
+            // For now, just make sure that we can transform the current target
+            // then go ahead and capture values for it
+            if (!(target is IUIComponent) && !(target is IGraphicElement))
+                continue;
             valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
             if (valueMap.translationX === undefined ||
                 valueMap.translationY === undefined ||
@@ -1414,8 +1426,7 @@ public class AnimateTransform extends Animate
     	if(isNaN(valueFrom) && isNaN(valueTo) && isNaN(valueBy))
     	   return;
     	   
-        if(target.offsets == null)
-            target.offsets = new TransformOffsets();
+        postLayoutTransformPropertiesSet = true;
     	addMotionPath(property,valueFrom,valueTo,valueBy);
     }
     
