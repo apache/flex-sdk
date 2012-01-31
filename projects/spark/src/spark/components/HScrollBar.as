@@ -9,24 +9,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
-import mx.components.baseClasses.FxScrollBar;
-import mx.core.ScrollUnit;
-import mx.core.IViewport;
+import spark.components.supportClasses.ScrollBar;
+import spark.core.ScrollUnit;
+import spark.core.IViewport;
 import mx.core.ILayoutElement;
-import mx.layout.LayoutElementFactory;
+import spark.layout.supportClasses.LayoutElementFactory;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
-[IconFile("FxHScrollBar.png")]
+[IconFile("HScrollBar.png")]
 
 /**
- *  The FxHScrollBar (horizontal ScrollBar) control lets you control
+ *  The HScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
  *  to fit horizontally in a display area.
  * 
- *  <p>Although you can use the FxHScrollBar control as a stand-alone control,
+ *  <p>Although you can use the HScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
  *  
@@ -35,7 +35,7 @@ import mx.events.ResizeEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxHScrollBar extends FxScrollBar
+public class HScrollBar extends ScrollBar
 {
     include "../core/Version.as";
 
@@ -53,7 +53,7 @@ public class FxHScrollBar extends FxScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxHScrollBar()
+    public function HScrollBar()
     {
         super();
     }
@@ -88,7 +88,7 @@ public class FxHScrollBar extends FxScrollBar
             var hsp:Number = newViewport.horizontalScrollPosition;
             // Special case: if contentWidth is 0, assume that it hasn't been 
             // updated yet.  Making the maximum==hsp here avoids trouble later
-            // when FxRange constrains value
+            // when Range constrains value
             var cWidth:Number = newViewport.contentWidth;
             maximum = (cWidth == 0) ? hsp : cWidth - newViewport.width;
             pageSize = newViewport.width;
@@ -163,7 +163,7 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
-     *  Returns the position of the thumb button on an FxHScrollBar control, 
+     *  Returns the position of the thumb button on an HScrollBar control, 
      *  which is equal to the <code>localX</code> parameter.
      * 
      *  @param localX The X position relative to the scrollbar control.
@@ -214,8 +214,8 @@ public class FxHScrollBar extends FxScrollBar
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.FxTrackBase#page()
-     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.components.baseClasses.TrackBase#page()
+     *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
      *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
@@ -252,8 +252,8 @@ public class FxHScrollBar extends FxScrollBar
      *  @param increase Whether the line scoll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.FxTrackBase#step()
-     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.components.baseClasses.TrackBase#step()
+     *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
      *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
@@ -318,7 +318,7 @@ public class FxHScrollBar extends FxScrollBar
             var hsp:Number = viewport.horizontalScrollPosition;
             // Special case: if contentWidth is 0, assume that it hasn't been 
             // updated yet.  Making the maximum==hsp here avoids trouble later
-            // when FxRange constrains value
+            // when Range constrains value
             var cWidth:Number = viewport.contentWidth;
             maximum = (cWidth == 0) ? hsp : cWidth - viewport.width;
             pageSize = viewport.width;
