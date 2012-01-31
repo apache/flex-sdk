@@ -225,7 +225,7 @@ public class AnimateInstance extends EffectInstance
         }        
         play();
     }
-            
+    
     /**
      * Starts this effect. Performs any final setup for each property
      * from/to values and starts an Animation that will update that property.
@@ -314,7 +314,9 @@ public class AnimateInstance extends EffectInstance
             // Only one property; don't bother with the arrays
             animation = new Animation(fromValue, toValue, duration);
         }
+        animation.addEventListener(AnimationEvent.ANIMATION_START, startHandler);
         animation.addEventListener(AnimationEvent.ANIMATION_UPDATE, updateHandler);
+        animation.addEventListener(AnimationEvent.ANIMATION_REPEAT, repeatHandler);
         animation.addEventListener(AnimationEvent.ANIMATION_END, endHandler);
             
         if (_seekTime > 0)
@@ -362,22 +364,75 @@ public class AnimateInstance extends EffectInstance
     }
     
     /**
+     * Handles start events from the animation.
+     * If you override this method, ensure that you call the super method.
+     */
+    protected function startHandler(event:AnimationEvent):void
+    {
+        dispatchEvent(event);
+    }
+    
+    /**
      * Handles update events from the animation.
+     * If you override this method, ensure that you call the super method.
      */
     protected function updateHandler(event:AnimationEvent):void
     {
         setVals(event.value);
+        dispatchEvent(event);
+    }
+    
+    /**
+     * Handles repeat events from the animation.
+     * If you override this method, ensure that you call the super method.
+     */
+    protected function repeatHandler(event:AnimationEvent):void
+    {
+        dispatchEvent(event);
     }
     
     /**
      * Handles the end event from the animation. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
+     * If you override this method, ensure that you call the super method.
      */
     protected function endHandler(event:AnimationEvent):void
     {
+        dispatchEvent(event);
         finishEffect();
     }
-
+    
+    /**
+     * Utility function to handle situation where values may be queried or
+     * set on the target prior to completely setting up the effect's
+     * propertyValuesList data values (from which the styleMap is created)
+     */
+    private function setupStyleMapEntry(property:String):void
+    {
+        // TODO (chaase): Find a better way to set this up just once
+        if (isStyleMap[property] == undefined)
+        {
+            if (property in target)
+            {
+                isStyleMap[property] = false;
+            }
+            else
+            {
+                try {
+                    target.getStyle(property);
+                    isStyleMap[property] = true;
+                }
+                catch (err:Error)
+                {
+                    throw new Error("Property " + property + " is neither " +
+                        "a property or a style on object " + target + ": " + err);
+                }
+                // TODO: check to make sure that the throw above won't
+                // let the code flow get to here
+            }            
+        }
+    }
+    
     /**
      *  Utility function that sets the named property on the target to
      *  the given value. Handles setting the property as either a true
@@ -388,7 +443,9 @@ public class AnimateInstance extends EffectInstance
     {
         if (roundValues && (value is Number))
             value = Math.round(Number(value));
-            
+        
+        // TODO (chaase): Find a better way to set this up just once
+        setupStyleMapEntry(property);
         if (!isStyleMap[property])
             target[property] = value;
         else
@@ -403,6 +460,8 @@ public class AnimateInstance extends EffectInstance
      */
     protected function getCurrentValue(property:String):Number
     {
+        // TODO (chaase): Find a better way to set this up just once
+        setupStyleMapEntry(property);
         if (!isStyleMap[property])
             return target[property];
         else
