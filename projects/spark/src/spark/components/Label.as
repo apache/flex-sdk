@@ -1247,8 +1247,10 @@ public class Label extends TextBase
                 return false;
         }
 
-        // No lines or no height restriction.
-        if (!textLines.length || isNaN(height))
+        // No lines or one line or no height restriction.  We don't truncate away
+        // the one and only line just because height is too small.  Clipping
+        // will take care of it later
+        if (textLines.length <= 1 || isNaN(height))
             return true;
                                              
         // Does the bottom of the last line fall within the bounds?                                                    
