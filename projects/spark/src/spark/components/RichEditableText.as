@@ -106,20 +106,6 @@ public class TextView extends UIComponent implements IViewport
 {
     include "../core/Version.as";
         
-	//--------------------------------------------------------------------------
-	//
-	//  Class variables
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-     *  Since this static var gets initialized by calling a method
-     *  in another class, we initialize it in the constructor to avoid
-     *  any class-initialization-order problems.
-	 */
-    private static var textImporter:ITextImporter;
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -132,9 +118,6 @@ public class TextView extends UIComponent implements IViewport
     public function TextView()
     {
         super();
-
-        if (!textImporter)
-            textImporter = TextFilter.getImporter(TextFilter.TCAL_FORMAT);
 
         _content = textFlow = createEmptyTextFlow();
     }
@@ -940,7 +923,7 @@ public class TextView extends UIComponent implements IViewport
                  markup +
                  '</TextFlow>';
 		
-		return textImporter.importToFlow(markup);
+        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
 	}
 
 	/**
