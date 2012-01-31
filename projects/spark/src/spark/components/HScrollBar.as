@@ -184,6 +184,9 @@ public class HScrollBar extends ScrollBarBase
      */
     override protected function pointToValue(x:Number, y:Number):Number
     {
+        if (!thumb || !track)
+            return 0;
+        
         var r:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
         return minimum + ((r != 0) ? (x / r) * (maximum - minimum) : 0); 
     }
