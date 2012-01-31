@@ -229,7 +229,7 @@ public class AnimateTransformInstance extends AnimateInstance
         }
     }
 
-    // TODO (chaase): This function appears in multiple places. Maybe
+    // FIXME (chaase): This function appears in multiple places. Maybe
     // put it in some util class instead?
     /**
      * @private
@@ -335,7 +335,7 @@ public class AnimateTransformInstance extends AnimateInstance
         else
         {
             motionPaths = new Vector.<MotionPath>();
-            // TODO (chaase): too early to reset instanceStartTime - might use
+            // FIXME (chaase): too early to reset instanceStartTime - might use
             // it below
             instanceStartTime = newEffectStartTime;
         }
@@ -361,7 +361,7 @@ public class AnimateTransformInstance extends AnimateInstance
     {
         if(applyLocalProjection)
         {
-            // TODO (rfrishbe): need to check for IUIComponent?
+            // FIXME (rfrishbe): need to check for IUIComponent?
             var parent:UIComponent = target.parent;
             
             if(parent != null)
@@ -402,7 +402,7 @@ public class AnimateTransformInstance extends AnimateInstance
     {
         if(applyLocalProjection && removeLocalProjectionWhenComplete)
         {
-            // TODO (rfrishbe): need to check for IUIComponent? 
+            // FIXME (rfrishbe): need to check for IUIComponent? 
             // as well if checking for IVisualElement?
             var parent:DisplayObject= target.parent as DisplayObject;
             
@@ -418,7 +418,7 @@ public class AnimateTransformInstance extends AnimateInstance
     }
 
 
-    // TODO (chaase): This probably belongs at the AnimateTransform level,
+    // FIXME (chaase): This probably belongs at the AnimateTransform level,
     // and make sure that it only kicks in when AnimateTransform is used
     // explicitly; Someone performing a Move may not also want to
     // automatically animate the rotation properties.
@@ -480,7 +480,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 motionPaths = new Vector.<MotionPath>();
             motionPaths.push(mp);
         }
-        // TODO (chaase): We probably need to advertise percentWidth/Height
+        // FIXME (chaase): We probably need to advertise percentWidth/Height
         // in the affected properties/styles arrays; we don't pick these up
         // in the transition propertyChanges automatically otherwise 
         if (propertyChanges && !disableLayout)
@@ -493,7 +493,7 @@ public class AnimateTransformInstance extends AnimateInstance
             setupConstraintAnimation("percentHeight");
             setupConstraintAnimation("horizontalCenter");
             setupConstraintAnimation("verticalCenter");
-            // TODO (chaase): also deal with baseline when it works in BasicLayout
+            // FIXME (chaase): also deal with baseline when it works in BasicLayout
         }
         super.play();
     }
@@ -532,7 +532,7 @@ public class AnimateTransformInstance extends AnimateInstance
      */     
     override protected function getCurrentValue(property:String):*
     {
-        // TODO (chaase): we're recalculating the transform for every 
+        // FIXME (chaase): we're recalculating the transform for every 
         // component of the translation. We should store/retrieve the
         // translation property as a structure instead of separate values
 		switch(property)
