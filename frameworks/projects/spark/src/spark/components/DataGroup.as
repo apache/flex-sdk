@@ -147,6 +147,25 @@ public class DataGroup extends GroupBase
         setTypicalLayoutElement(obj);
         super.removeChild(obj);
     }    
+    
+    /**
+     *  @private
+     *  Called before measure/updateDisplayList() if layout is virtual to guarantee that
+     *  the typicalLayoutElement has been defined.  If it hasn't, typicalItem is 
+     *  initialized to dataProvider[0] and layout.typicalLayoutElement is set.
+     */
+    private function ensureTypicalLayoutElement():void
+    {
+        if (layout.typicalLayoutElement == null)
+        {
+            var list:IList = dataProvider;
+            if (list && (list.length > 0))
+            {
+                _typicalItem = list.getItemAt(0);
+                initializeTypicalItem();
+            }
+        }
+    }
 
     //----------------------------------
     //  layout
@@ -166,7 +185,14 @@ public class DataGroup extends GroupBase
         if (oldLayout)
             oldLayout.typicalLayoutElement = null;
         if (value)
-            value.typicalLayoutElement = typicalLayoutElement;
+        {
+            // If typicalLayoutElement was specified for this DataGroup, then use
+            // it, otherwise use the layout's typicalLayoutElement, if any.
+            if (typicalLayoutElement)
+                value.typicalLayoutElement = typicalLayoutElement;
+            else
+                typicalLayoutElement = value.typicalLayoutElement;
+        }
     } 
     
     //----------------------------------
@@ -499,20 +525,32 @@ public class DataGroup extends GroupBase
     }
 
     private var itemToRenderer:Dictionary = new Dictionary(true); 
-    private var virtualLayoutOffset:int = 0;
+
+    /**
+     *  @private 
+     *  The first and last layout element indices requested via 
+     *  getLayoutElementAt().   Used by finishVirtualLayout()
+     *  to distinguish IRs that can be recycled or discarded.
+     */     
+    private var virtualLayoutStartIndex:int = -1;
+    private var virtualLayoutEndIndex:int = -1;
+
+    /**
+     *  @private 
+     *  During a virtual layout, virtualLayoutUnderway is true.  This flag is used 
+     *  to defeat calls to invalidateSize(), which occur when IRs are lazily validated.   
+     *  See invalidateSize() and updateDisplayList().
+     */
     private var virtualLayoutUnderway:Boolean = false;
-    private var freeRenderers:Array = new Array();
-         
+
     /**
      *  @private
-     *  Update virtualLayoutOffset and clear the virtualLayoutUnderway flag.
+     *  freeRenderers - IRs that were created by getLayoutElementAt() but
+     *  are no longer in view.   They'll be reused by getLayoutElementAt().
+     *  The list is updated by finishVirtualLayout().  
      */
-    override public function beginVirtualLayout(startIndex:int):void
-    {
-        virtualLayoutOffset = startIndex;
-        virtualLayoutUnderway = true;
-    }
-    
+    private var freeRenderers:Array = new Array();
+         
     /**
      *  @private
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
@@ -522,15 +560,15 @@ public class DataGroup extends GroupBase
      *  not equal to the item they represent, i.e. if 
      *  renderersInView[item] != item.   More about item recycling
      *  in the getLayoutElementAt() doc.
-     * 
-     *  Clear the virtualLayoutUnderway flag.
      */
-    override public function endVirtualLayout(startIndex:int, endIndex:int):void
+    private function finishVirtualLayout():void
     {
+        var lastValidChildIndex:int = virtualLayoutEndIndex - virtualLayoutStartIndex;
+        
         // At this point, insertion of new IRs has pushed all of the unneeded IRs
         // past endIndex-startIndex.  Remove or recycle them without invalidating 
         // this DataGroup's size or display list.
-        for(var i:int = super.numChildren - 1; i > (endIndex - startIndex); i--)
+        for(var i:int = super.numChildren - 1; i > lastValidChildIndex; i--)
         {
             var elt:IVisualElement = IVisualElement(super.getChildAt(i));
             
@@ -559,17 +597,53 @@ public class DataGroup extends GroupBase
                 super.removeChild(DisplayObject(elt));
             }
         }
-        virtualLayoutUnderway = false;        
     }
     
     /**
      *  @private
+     *  During virtual layout getLayoutElementAt() eagerly validates lazily
+     *  created (or recycled) IRs.   We don't want changes to those IRs to
+     *  invalidate the size of this UIComponent.
      */
     override public function invalidateSize():void
     {
         if (!virtualLayoutUnderway)
             super.invalidateSize();
     }
+    
+    
+    /**
+     *  @private 
+     *  Make sure there's a typicalLayoutElement for virtual layout.
+     */
+    override protected function measure():void
+    {
+        if (layout && layout.virtualLayout)
+            ensureTypicalLayoutElement();
+        super.measure();
+    }
+
+    /**
+     *  @private
+     *  Manages the state required by virtual layout. 
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        if (layout && layout.virtualLayout)
+        {
+            virtualLayoutUnderway = true;
+            virtualLayoutStartIndex = -1;
+            ensureTypicalLayoutElement();
+        }
+        
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        if (virtualLayoutUnderway)
+        {
+            finishVirtualLayout();
+            virtualLayoutUnderway = false;
+        }
+    }    
     
     /**
      *  @private
@@ -601,9 +675,13 @@ public class DataGroup extends GroupBase
         
         if (virtualLayoutUnderway)
         {
+            if (virtualLayoutStartIndex == -1)
+                virtualLayoutStartIndex = index;
+            virtualLayoutEndIndex = index;
+                        
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
-                        
+            
             if (!elt)
             {
                 var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null); 
@@ -624,7 +702,7 @@ public class DataGroup extends GroupBase
                 itemToRenderer[item] = elt;  // weak reference
             }
 
-            addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutOffset);
+            addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutStartIndex);
             
             if ((createdIR || recycledIR) && (elt is IInvalidating))
                 IInvalidating(elt).validateNow();
@@ -777,7 +855,11 @@ public class DataGroup extends GroupBase
             else
                 insertIndex = index;
                 
-            super.setChildIndex(child, insertIndex);
+            // Quietly ignore invalid indices since they're typically caused
+            // by duplicate data items and Halo quietly ignore those
+            if ((insertIndex > 0) && (insertIndex < super.numChildren)) 
+                super.setChildIndex(child, insertIndex);
+
             return child;
         }
         else if (child.parent && child.parent is DataGroup)
