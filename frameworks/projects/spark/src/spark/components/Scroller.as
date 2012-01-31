@@ -2070,7 +2070,7 @@ class TouchScrollHelper
                 var scrollStartingEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, true, true);
                 scrollStartingEvent.relatedObject = scroller;
                 scrollStartingEvent.reason = TouchInteractionReason.SCROLL;
-                var eventAccepted:Boolean = mouseDownedDisplayObject.dispatchEvent(scrollStartingEvent);
+                var eventAccepted:Boolean = dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartingEvent);
                 
                 // if the event was preventDefaulted(), then stop scrolling scrolling
                 if (!eventAccepted)
@@ -2088,7 +2088,7 @@ class TouchScrollHelper
                 var scrollStartEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_START, true, true);
                 scrollStartEvent.relatedObject = scroller;
                 scrollStartEvent.reason = TouchInteractionReason.SCROLL;
-                mouseDownedDisplayObject.dispatchEvent(scrollStartEvent);
+				dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
                 
                 isScrolling = true;
                 
@@ -2241,7 +2241,7 @@ class TouchScrollHelper
             scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
             scrollEndEvent.relatedObject = scroller;
             scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-            mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
+			dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
             return;
         }
         
@@ -2262,7 +2262,7 @@ class TouchScrollHelper
             scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
             scrollEndEvent.relatedObject = scroller;
             scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-            mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
+			dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
         }
     }
     
@@ -2318,7 +2318,40 @@ class TouchScrollHelper
         
         return new Point(velX,velY);
     }
-    
+	
+	/**
+	 *  @private
+	 *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
+	 *  object can be off the display list, this may be tricky.  Technically, we should 
+	 *  grab all the live objects at the time of mouseDown and dispatch events to them 
+	 *  manually, but instead, we just use this heuristic, which is dispatch it to 
+	 *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
+	 *  then dispatch to scroller as well.
+	 * 
+	 *  <p>If you absolutely need to know the touch event ended, add event listeners 
+	 *  to the mouseDownedDisplayObject directly and don't rely on event 
+	 *  bubbling.</p>
+	 */
+	private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
+	{
+		var eventAccepted:Boolean = true;
+		if (mouseDownedDisplayObject)
+		{
+			eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
+			if (!mouseDownedDisplayObject.stage)
+			{
+				if (scroller && !scroller.contains(mouseDownedDisplayObject))
+					eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+			}
+		}
+		else
+		{
+			eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+		}
+		
+		return eventAccepted;
+	}
+	
     /**
      *  @private
      *  When the touchScrollThrow is over, we should dispatch a touchInteractionEnd.
@@ -2330,7 +2363,7 @@ class TouchScrollHelper
         var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
         scrollEndEvent.relatedObject = scroller;
         scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-        mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
+		dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
     }
     
     
