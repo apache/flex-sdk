@@ -980,11 +980,10 @@ package spark.components
         {
             gridSelection.requireSelection = value;
             
-            // TBD: implement requireSelection for both interactive and
-            // programmatic selection
+            if (value)
+                invalidateDisplayList();
         }
-        
-        
+                
         //----------------------------------
         //  rowBackground
         //----------------------------------
