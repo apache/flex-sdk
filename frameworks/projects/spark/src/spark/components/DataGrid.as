@@ -25,6 +25,7 @@ import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
+import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -2033,10 +2034,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Event Handlers
             
-            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_MouseDownHandler);
-            grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_MouseUpHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_RollOverHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);
+            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_mouseDownHandler);
+            grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_mouseUpHandler);
+            grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_rollOverHandler);
+            grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_rollOutHandler);
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener("invalidateSize", grid_invalidateSizeHandler);            
@@ -2138,10 +2139,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             grid.removeEventListener("invalidateSize", grid_invalidateSizeHandler);            
             grid.removeEventListener("invalidateDisplayList", grid_invalidateDisplayListHandler);
-            grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_MouseDownHandler);
-            grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_MouseUpHandler);
-            grid.removeEventListener(GridEvent.GRID_ROLL_OVER, grid_RollOverHandler);
-            grid.removeEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);            
+            grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_mouseDownHandler);
+            grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_mouseUpHandler);
+            grid.removeEventListener(GridEvent.GRID_ROLL_OVER, grid_rollOverHandler);
+            grid.removeEventListener(GridEvent.GRID_ROLL_OUT, grid_rollOutHandler);            
             grid.removeEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.removeEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             
@@ -2485,6 +2486,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //  Public Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @copy spark.components.Grid#invalidateCell()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateCell(rowIndex:int, columnIndex:int):void
+    {
+        if (grid)
+            grid.invalidateCell(rowIndex, columnIndex);
+    }
     
     /**
      *  @copy spark.components.Grid#selectAll()
@@ -3820,7 +3835,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  scrolling.  While the scroll thumb is depressed don't want the 
      *  hover updated if the mouse drifts into the grid.
      */
-    protected function grid_RollOverHandler(event:GridEvent):void
+    protected function grid_rollOverHandler(event:GridEvent):void
     {
         // The related object is the object that was previously under
         // the pointer.
@@ -3836,7 +3851,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  If the mouse button is depressed while outside of the grid, the hover 
      *  indicator is not enabled again until GRID_MOUSE_UP or GRID_ROLL_OUT. 
      */
-    protected function grid_RollOutHandler(event:GridEvent):void
+    protected function grid_rollOutHandler(event:GridEvent):void
     {
         grid.hoverRowIndex = -1;
         grid.hoverColumnIndex = -1;
@@ -3849,7 +3864,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  If the mouse button is depressed while outside of the grid, the hover 
      *  indicator is not enabled again until GRID_MOUSE_UP or GRID_ROLL_OUT. 
      */
-    protected function grid_MouseUpHandler(event:GridEvent):void
+    protected function grid_mouseUpHandler(event:GridEvent):void
     {
         if (!updateHoverOnRollOver)
         {
@@ -3862,7 +3877,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    protected function grid_MouseDownHandler(event:GridEvent):void
+    protected function grid_mouseDownHandler(event:GridEvent):void
     {
         const isCellSelection:Boolean = isCellSelectionMode();
 
@@ -3951,6 +3966,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     private var resizeColumn:GridColumn = null;
     private var resizeAnchorX:Number = NaN;
     private var resizeColumnWidth:Number = NaN;
+    private var nextColumn:GridColumn = null;  // RTL layout only
+    private var nextColumnWidth:Number = NaN;  // RTL layout only
     
     /**
      *  @private
@@ -3980,8 +3997,25 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         resizeAnchorX = event.localX;
         resizeColumnWidth = grid.getColumnWidth(resizeColumn.columnIndex);
         
+        // If we're laying out RTL then dragging to the left - which increases
+        // a column's width - and the Grid's width is unconstrained, then only
+        // allow the column's width to grow to the extent that the adjacent 
+        // (next) column can shrink. 
+        
+        if (isNaN(estimatedWidth) && (layoutDirection == LayoutDirection.RTL))
+        {
+            const nextColumnIndex:int = grid.getNextVisibleColumnIndex(resizeColumn.columnIndex);
+            nextColumn = getColumnAt(nextColumnIndex);
+            nextColumnWidth = Math.ceil(grid.getColumnWidth(nextColumnIndex));           
+        }
+        else
+        {
+            nextColumn = null;
+            nextColumnWidth = NaN;
+        }
+        
         // Give all of the columns to the left of this one an explicit so that resizing
-        // this column doesn't change their width and, consequently, this columns location.
+        // this column doesn't change their width and, consequently, this column's location.
         
         const resizeColumnIndex:int = resizeColumn.columnIndex;
         for (var columnIndex:int = 0; columnIndex < resizeColumnIndex; columnIndex++)
@@ -4000,15 +4034,28 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!resizeColumn)
             return;
         
-        const minWidth:Number = resizeColumn.minWidth;
+        const widthDelta:Number = event.localX - resizeAnchorX;
+        const minWidth:Number = isNaN(resizeColumn.minWidth) ? 0 : resizeColumn.minWidth;
         const maxWidth:Number = resizeColumn.maxWidth;
-        var newWidth:Number = resizeColumnWidth + (event.localX - resizeAnchorX);
+        var newWidth:Number = Math.ceil(resizeColumnWidth + widthDelta);
         
-        if (!isNaN(minWidth))
-            newWidth = Math.max(newWidth, minWidth);
-        else 
-            newWidth = Math.max(0, newWidth);
+        // Layout is LTR (see sparator_mouseDownHandler). Make sure that the
+        // next column's width can shrink as much as the resizeColumn is growing,
+        // or vice versa.
         
+        if (nextColumn)
+        {
+            const nextMinWidth:Number = isNaN(nextColumn.minWidth) ? 0 : nextColumn.minWidth;
+            
+            if (Math.ceil(nextColumnWidth - widthDelta) <= nextMinWidth)
+                return;
+            if (Math.ceil(resizeColumnWidth + widthDelta) <= minWidth)
+                return;
+            
+            nextColumn.width = nextColumnWidth - widthDelta;
+        }
+        
+        newWidth = Math.max(newWidth, minWidth);
         if (!isNaN(maxWidth))
             newWidth = Math.min(newWidth, maxWidth);
         
