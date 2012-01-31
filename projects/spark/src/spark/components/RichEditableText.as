@@ -850,7 +850,9 @@ public class RichEditableText extends UIComponent
     private var clipAndEnableScrollingChanged:Boolean = false;
 
     /**
-     *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
+     *  @copy spark.core.IViewport#clipAndEnableScrolling
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -891,16 +893,16 @@ public class RichEditableText extends UIComponent
     
     /**
      *  The height of the text.
-	 *
-	 *  <p>Due to the fact that the Text Layout Framework
-	 *  virtualizes TextLines for performance,
-	 *  this height will initially be an estimate
-	 *  if the component cannot display all of the text.
-	 *  If you scroll to the end of the text,
-	 *  all the TextLines will get composed
-	 *  and the <code>contentHeight</code> will be exact.</p>
-	 *
-	 *  <p>To scroll over the text vertically, vary the 
+     *
+     *  <p>Due to the fact that the Text Layout Framework
+     *  virtualizes TextLines for performance,
+     *  this height will initially be an estimate
+     *  if the component cannot display all of the text.
+     *  If you scroll to the end of the text,
+     *  all the TextLines will get composed
+     *  and the <code>contentHeight</code> will be exact.</p>
+     *
+     *  <p>To scroll over the text vertically, vary the 
      *  <code>verticalScrollPosition</code> between 0 and
      *  <code>contentHeight - height</code>.</p>
      *  
@@ -927,15 +929,15 @@ public class RichEditableText extends UIComponent
     
     /**
      *  The width of the text.
-	 *
-	 *  <p>Due to the fact that the Text Layout Framework
-	 *  virtualizes TextLines for performance,
-	 *  this width will initially be an estimate
-	 *  if the component cannot display all of the text.
-	 *  If you scroll to the end of the text,
-	 *  all the TextLines will get composed
-	 *  and the <code>contentWidth</code> will be exact.</p>
-	 *
+     *
+     *  <p>Due to the fact that the Text Layout Framework
+     *  virtualizes TextLines for performance,
+     *  this width will initially be an estimate
+     *  if the component cannot display all of the text.
+     *  If you scroll to the end of the text,
+     *  all the TextLines will get composed
+     *  and the <code>contentWidth</code> will be exact.</p>
+     *
      *  <p>To scroll over the text horizontally, vary the 
      *  <code>horizontalScrollPosition</code> between 0 and
      *  <code>contentWidth - width</code>.</p>  
@@ -968,12 +970,12 @@ public class RichEditableText extends UIComponent
     
     /**
      *  The number of pixels by which the text is scrolled horizontally.
-	 *
+     *
      *  <p>To scroll over the text horizontally, vary the 
      *  <code>horizontalScrollPosition</code> between 0 and
      *  <code>contentWidth - width</code>.</p>
-	 *
-	 *  @default 0
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1025,12 +1027,12 @@ public class RichEditableText extends UIComponent
     
     /**
      *  The number of pixels by which the text is scrolled vertically.
-	 *
-	 *  <p>To scroll over the text vertically, vary the 
+     *
+     *  <p>To scroll over the text vertically, vary the 
      *  <code>verticalScrollPosition</code> between 0 and
      *  <code>contentHeight - height</code>.</p>
-	 *
-	 *  @default 0
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1102,50 +1104,50 @@ public class RichEditableText extends UIComponent
      */
     [RichTextContent]
         
-	/**
-	 *  This property is intended for use in MXML at compile time;
-	 *  to get or set rich text content at runtime,
-	 *  please use the <code>textFlow</code> property instead.
-	 *
-	 *  <p>The <code>content</code> property is the default property
-	 *  for RichEditableText, so that you can write MXML such as
-	 *  <pre>
-	 *  &lt;s:RichEditableText&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:RichEditableText&gt;
-	 *  </pre>
-	 *  and have the String and SpanElement that you specify
-	 *  as the content be used to create a TextFlow.</p>
-	 *
-	 *  <p>This property is typed as Object because you can set it to
-	 *  to a String, a FlowElement, or an Array of Strings and FlowElements.
-	 *  In the example above, you are specifying the content
-	 *  to be a 2-element Array whose first element is the String
-	 *  "Hello" and whose second element is a SpanElement with the text
-	 *  "World" in boldface.</p>
-	 * 
-	 *  <p>No matter how you specify the content, it gets converted
-	 *  into a TextFlow, and when you get this property, you will get
-	 *  the resulting TextFlow.</p>
-	 * 
-	 *  <p>Adobe recommends using <code>textFlow</code> property
-	 *  to get and set rich text content at runtime,
-	 *  because it is strongly typed as a TextFlow
-	 *  rather than as an Object.
-	 *  A TextFlow is the canonical representation
-	 *  for rich text content in the Text Layout Framework.</p>
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get content():Object
-	{
-		return textFlow;
-	}
-	
-	/**
-	 *  @private
-	 */   
+    /**
+     *  This property is intended for use in MXML at compile time;
+     *  to get or set rich text content at runtime,
+     *  please use the <code>textFlow</code> property instead.
+     *
+     *  <p>The <code>content</code> property is the default property
+     *  for RichEditableText, so that you can write MXML such as
+     *  <pre>
+     *  &lt;s:RichEditableText&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:RichEditableText&gt;
+     *  </pre>
+     *  and have the String and SpanElement that you specify
+     *  as the content be used to create a TextFlow.</p>
+     *
+     *  <p>This property is typed as Object because you can set it to
+     *  to a String, a FlowElement, or an Array of Strings and FlowElements.
+     *  In the example above, you are specifying the content
+     *  to be a 2-element Array whose first element is the String
+     *  "Hello" and whose second element is a SpanElement with the text
+     *  "World" in boldface.</p>
+     * 
+     *  <p>No matter how you specify the content, it gets converted
+     *  into a TextFlow, and when you get this property, you will get
+     *  the resulting TextFlow.</p>
+     * 
+     *  <p>Adobe recommends using <code>textFlow</code> property
+     *  to get and set rich text content at runtime,
+     *  because it is strongly typed as a TextFlow
+     *  rather than as an Object.
+     *  A TextFlow is the canonical representation
+     *  for rich text content in the Text Layout Framework.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get content():Object
+    {
+        return textFlow;
+    }
+    
+    /**
+     *  @private
+     */   
     public function set content(value:Object):void
     {
         // Treat setting the 'content' to null
@@ -1238,14 +1240,14 @@ public class RichEditableText extends UIComponent
 
     /**
      *  A flag indicating whether the user is allowed
-	 *  to edit the text in this control.
-	 *
-	 *  <p>If <code>true</code>, the mouse cursor will change to an i-beam
+     *  to edit the text in this control.
+     *
+     *  <p>If <code>true</code>, the mouse cursor will change to an i-beam
      *  when over the bounds of this control.
      *  If <code>false</code>, the mouse cursor will remain an arrow.</p>
      *
      *  <p>If this property is <code>true</code>,
-	 *  the <code>selectable</code> property is ignored.</p>
+     *  the <code>selectable</code> property is ignored.</p>
      *
      *  @default true
      *
@@ -1344,38 +1346,38 @@ public class RichEditableText extends UIComponent
     
     /**
      *  The default height of the control, measured in lines.
-	 *
+     *
      *  <p>The control's formatting styles, such as <code>fontSize</code>
-	 *  and <code>lineHeight</code>, are used to calculate the line height
-	 *  in pixels.</p>
-	 *
-	 *  <p>You would, for example, set this property to 5 if you want
-	 *  the height of the RichEditableText to be sufficient
-	 *  to display five lines of text.</p>
-	 *
-	 *  <p>If this property is <code>NaN</code> (the default),
-	 *  then the component's default height will be determined
-	 *  from the text to be displayed.</p>
+     *  and <code>lineHeight</code>, are used to calculate the line height
+     *  in pixels.</p>
+     *
+     *  <p>You would, for example, set this property to 5 if you want
+     *  the height of the RichEditableText to be sufficient
+     *  to display five lines of text.</p>
+     *
+     *  <p>If this property is <code>NaN</code> (the default),
+     *  then the component's default height will be determined
+     *  from the text to be displayed.</p>
      *  
-	 *  <p>This property will be ignored if you specify an explicit height,
-	 *  a percent height, or both <code>top</code> and <code>bottom</code>
-	 *  constraints.</p>
+     *  <p>This property will be ignored if you specify an explicit height,
+     *  a percent height, or both <code>top</code> and <code>bottom</code>
+     *  constraints.</p>
      *
      *  <p>RichEditableText's <code>measure()</code> method uses
-	 *  <code>widthInChars</code> and <code>heightInLines</code>
+     *  <code>widthInChars</code> and <code>heightInLines</code>
      *  to determine the <code>measuredWidth</code>
-	 *  and <code>measuredHeight</code>. 
+     *  and <code>measuredHeight</code>. 
      *  These are similar to the <code>cols</code> and <code>rows</code>
-	 *  of an HTML TextArea.</p>
-	 *
-	 *  <p>Since both <code>widthInChars</code> and <code>heightInLines</code>
-	 *  default to <code>NaN</code>, RichTextEditable "autosizes" by default:
-	 *  it starts out very small if it has no text, grows in width as you
-	 *  type, and grows in height when you press Enter to start a new line.</p>
-	 *
-	 *  @default NaN
-	 *
-	 *  @see spark.components.RichEditableText#widthInChars
+     *  of an HTML TextArea.</p>
+     *
+     *  <p>Since both <code>widthInChars</code> and <code>heightInLines</code>
+     *  default to <code>NaN</code>, RichTextEditable "autosizes" by default:
+     *  it starts out very small if it has no text, grows in width as you
+     *  type, and grows in height when you press Enter to start a new line.</p>
+     *
+     *  @default NaN
+     *
+     *  @see spark.components.RichEditableText#widthInChars
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1489,7 +1491,7 @@ public class RichEditableText extends UIComponent
 
     /**
      *  Determines whether the user can enter multiline text.
-	 *
+     *
      *  <p>If <code>true</code>, the Enter key starts a new paragraph.
      *  If <code>false</code>, the Enter key doesn't affect the text
      *  but causes the RichEditableText to dispatch an <code>"enter"</code> 
@@ -1565,11 +1567,11 @@ public class RichEditableText extends UIComponent
      *  A flag indicating whether the content is selectable
      *  with the mouse, or with the keyboard when the control
      *  has the keyboard focus.
-	 *
+     *
      *  <p>Making the text selectable lets you copy text from the control.</p>
-	 *
-	 *  <p>This property is ignored if the <code>editable</code>
-	 *  property is <code>true</code>.</p>
+     *
+     *  <p>This property is ignored if the <code>editable</code>
+     *  property is <code>true</code>.</p>
      *
      *  @default true
      *  
@@ -1611,23 +1613,23 @@ public class RichEditableText extends UIComponent
 
     /**
      *  A character position, relative to the beginning of the
-	 *  <code>text</code> String, specifying the end of the selection
+     *  <code>text</code> String, specifying the end of the selection
      *  that moves when the selection is extended with the arrow keys.
      *
      *  <p>The active position may be either the start
      *  or the end of the selection.</p>
-	 *
-	 *  <p>For example, if you drag-select from position 12 to position 8,
-	 *  then <code>selectionAnchorPosition</code> will be 12
-	 *  and <code>selectionActivePosition</code> will be 8,
-	 *  and when you press Left-Arrow <code>selectionActivePosition</code>
-	 *  will become 7.</p>
-	 *
-	 *  <p>A value of -1 indicates "not set".</p>
+     *
+     *  <p>For example, if you drag-select from position 12 to position 8,
+     *  then <code>selectionAnchorPosition</code> will be 12
+     *  and <code>selectionActivePosition</code> will be 8,
+     *  and when you press Left-Arrow <code>selectionActivePosition</code>
+     *  will become 7.</p>
+     *
+     *  <p>A value of -1 indicates "not set".</p>
      *
      *  @default -1
-	 *
-	 *  @see spark.components.RichEditableText#selectionAnchorPosition
+     *
+     *  @see spark.components.RichEditableText#selectionAnchorPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1652,23 +1654,23 @@ public class RichEditableText extends UIComponent
 
     /**
      *  A character position, relative to the beginning of the
-	 *  <code>text</code> String, specifying the end of the selection
+     *  <code>text</code> String, specifying the end of the selection
      *  that stays fixed when the selection is extended with the arrow keys.
-	 *
+     *
      *  <p>The anchor position may be either the start
      *  or the end of the selection.</p>
-	 *
-	 *  <p>For example, if you drag-select from position 12 to position 8,
-	 *  then <code>selectionAnchorPosition</code> will be 12
-	 *  and <code>selectionActivePosition</code> will be 8,
-	 *  and when you press Left-Arrow <code>selectionActivePosition</code>
-	 *  will become 7.</p>
-	 *
-	 *  <p>A value of -1 indicates "not set".</p>
+     *
+     *  <p>For example, if you drag-select from position 12 to position 8,
+     *  then <code>selectionAnchorPosition</code> will be 12
+     *  and <code>selectionActivePosition</code> will be 8,
+     *  and when you press Left-Arrow <code>selectionActivePosition</code>
+     *  will become 7.</p>
+     *
+     *  <p>A value of -1 indicates "not set".</p>
      *
      *  @default -1
-	 *
-	 *  @see spark.components.RichEditableText#selectionActivePosition
+     *
+     *  @see spark.components.RichEditableText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1707,15 +1709,15 @@ public class RichEditableText extends UIComponent
      *  and <code>TextSelectionHighlighting.ALWAYS</code>.</p>
      *
      *  <p><code>WHEN_FOCUSED</code> means show the text selection
-	 *  only when the component has keyboard focus.</p>
+     *  only when the component has keyboard focus.</p>
      *  
      *  <p><code>WHEN_ACTIVE</code> means show the text selection whenever
      *  the component's window is active, even if the component
      *  doesn't have the keyboard focus.</p>
      *
      *  <p><code>ALWAYS</code> means show the text selection,
-	 *  even if the component doesn't have the keyboard focus
-	 *  or if the component's window isn't the active window.</p>
+     *  even if the component doesn't have the keyboard focus
+     *  or if the component's window isn't the active window.</p>
      *  
      *  @default TextSelectionHighlighting.WHEN_FOCUSED
      *  
@@ -1764,14 +1766,14 @@ public class RichEditableText extends UIComponent
 
     /**
      *  The text String displayed by this component.
-	 *
-	 *  <p>Setting this property affects the <code>textFlow</code> property
+     *
+     *  <p>Setting this property affects the <code>textFlow</code> property
      *  and vice versa.</p>
      *
      *  <p>If you set the <code>text</code> to a String such as
-	 *  <code>"Hello World"</code> and get the <code>textFlow</code>,
-	 *  it will be a TextFlow containing a single ParagraphElement
-	 *  with a single SpanElement.</p>
+     *  <code>"Hello World"</code> and get the <code>textFlow</code>,
+     *  it will be a TextFlow containing a single ParagraphElement
+     *  with a single SpanElement.</p>
      *
      *  <p>If the text contains explicit line breaks --
      *  CR ("\r"), LF ("\n"), or CR+LF ("\r\n") --
@@ -1779,15 +1781,15 @@ public class RichEditableText extends UIComponent
      *  which contains multiple paragraphs, each with one span.</p>
      *
      *  <p>If you set the <code>textFlow</code> and get the <code>text</code>,
-	 *  the text in each paragraph will be separated by a single
+     *  the text in each paragraph will be separated by a single
      *  LF ("\n").</p>
      *
      *  <p>Setting this property also affects the properties
      *  specifying the control's scroll position and the text selection.
      *  It resets the <code>horizontalScrollPosition</code>
-	 *  and <code>verticalScrollPosition</code> to 0,
+     *  and <code>verticalScrollPosition</code> to 0,
      *  and it sets the <code>selectionAnchorPosition</code>
-	 *  and <code>selectionActivePosition</code>
+     *  and <code>selectionActivePosition</code>
      *  to -1 to clear the selection.</p>
      *
      *  @default ""
@@ -1911,25 +1913,25 @@ public class RichEditableText extends UIComponent
      *  in the Text Layout Framework (TLF).
      *  It is the root of a tree of FlowElements
      *  representing rich text content.</p>
-	 *
-	 *  <p>You normally create a TextFlow from TLF markup
-	 *  using the <code>TextFlowUtil.importFromString()</code>
-	 *  or <code>TextFlowUtil.importFromXML()</code> methods.
-	 *  Alternately, you can use TLF's TextConverter class
-	 *  (which can import a subset of HTML) or build a TextFlow
-	 *  using methods like <code>addChild()</code> on TextFlow.</p>
      *
-	 *  <p>Setting this property affects the <code>text</code> property
+     *  <p>You normally create a TextFlow from TLF markup
+     *  using the <code>TextFlowUtil.importFromString()</code>
+     *  or <code>TextFlowUtil.importFromXML()</code> methods.
+     *  Alternately, you can use TLF's TextConverter class
+     *  (which can import a subset of HTML) or build a TextFlow
+     *  using methods like <code>addChild()</code> on TextFlow.</p>
+     *
+     *  <p>Setting this property affects the <code>text</code> property
      *  and vice versa.</p>
      *
      *  <p>If you set the <code>textFlow</code> and get the <code>text</code>,
-	 *  the text in each paragraph will be separated by a single
+     *  the text in each paragraph will be separated by a single
      *  LF ("\n").</p>
      *
      *  <p>If you set the <code>text</code> to a String such as
-	 *  <code>"Hello World"</code> and get the <code>textFlow</code>,
-	 *  it will be a TextFlow containing a single ParagraphElement
-	 *  with a single SpanElement.</p>
+     *  <code>"Hello World"</code> and get the <code>textFlow</code>,
+     *  it will be a TextFlow containing a single ParagraphElement
+     *  with a single SpanElement.</p>
      *
      *  <p>If the text contains explicit line breaks --
      *  CR ("\r"), LF ("\n"), or CR+LF ("\r\n") --
@@ -1939,23 +1941,23 @@ public class RichEditableText extends UIComponent
      *  <p>Setting this property also affects the properties
      *  specifying the control's scroll position and the text selection.
      *  It resets the <code>horizontalScrollPosition</code>
-	 *  and <code>verticalScrollPosition</code> to 0,
+     *  and <code>verticalScrollPosition</code> to 0,
      *  and it sets the <code>selectionAnchorPosition</code>
-	 *  and <code>selectionActivePosition</code>
+     *  and <code>selectionActivePosition</code>
      *  to -1 to clear the selection.</p>
-	 *
-	 *  <p>To turn a TextFlow object into TLF markup,
-	 *  use the <code>TextFlowUtil.export()</code> markup.</p>
-	 *
-	 *  <p>A single TextFlow cannot be shared by multiple instances
-	 *  of RichEditableText.
-	 *  To display the same text in a second instance, you must create
-	 *  a second TextFlow, either by using <code>TextFlowUtil.export()</code>
-	 *  and <code>TextFlowUtil.importFromXML()</code> or by using
-	 *  the <code>deepCopy()</code> method on TextFlow.</p>
-	 *
-	 *  @see spark.utils.TextFlowUtil#importFromString()
-	 *  @see spark.utils.TextFlowUtil#importFromXML()
+     *
+     *  <p>To turn a TextFlow object into TLF markup,
+     *  use the <code>TextFlowUtil.export()</code> markup.</p>
+     *
+     *  <p>A single TextFlow cannot be shared by multiple instances
+     *  of RichEditableText.
+     *  To display the same text in a second instance, you must create
+     *  a second TextFlow, either by using <code>TextFlowUtil.export()</code>
+     *  and <code>TextFlowUtil.importFromXML()</code> or by using
+     *  the <code>deepCopy()</code> method on TextFlow.</p>
+     *
+     *  @see spark.utils.TextFlowUtil#importFromString()
+     *  @see spark.utils.TextFlowUtil#importFromXML()
      *  @see spark.components.RichEditableText#text
      *  @see spark.components.RichEditableText#horizontalScrollPosition
      *  @see spark.components.RichEditableText#verticalScrollPosition
@@ -2001,9 +2003,9 @@ public class RichEditableText extends UIComponent
     }
     
     /**
-	 *  @private
-	 */
-	public function set textFlow(value:TextFlow):void
+     *  @private
+     */
+    public function set textFlow(value:TextFlow):void
     {
         // Treat setting the 'textFlow' to null
         // as if 'text' were being set to the empty String
@@ -2053,41 +2055,41 @@ public class RichEditableText extends UIComponent
         
     /**
      *  The default width of the control, measured in em units.
-	 *
-	 *  <p>An em is a unit of typographic measurement
-	 *  equal to the point size.
-	 *  It is not necessarily exactly the width of the "M" character,
-	 *  but in many fonts the "M" is about one em wide.
+     *
+     *  <p>An em is a unit of typographic measurement
+     *  equal to the point size.
+     *  It is not necessarily exactly the width of the "M" character,
+     *  but in many fonts the "M" is about one em wide.
      *  The control's <code>fontSize</code> style is used,
-	 *  to calculate the em unit in pixels.</p>
-	 *
-	 *  <p>You would, for example, set this property to 20 if you want
-	 *  the width of the RichEditableText to be sufficient
-	 *  to display about 20 characters of text.</p>
-	 *
-	 *  <p>If this property is <code>NaN</code> (the default),
-	 *  then the component's default width will be determined
-	 *  from the text to be displayed.</p>
-	 *
-	 *  <p>This property will be ignored if you specify an explicit width,
-	 *  a percent width, or both <code>left</code> and <code>right</code>
-	 *  constraints.</p>
-	 *
+     *  to calculate the em unit in pixels.</p>
+     *
+     *  <p>You would, for example, set this property to 20 if you want
+     *  the width of the RichEditableText to be sufficient
+     *  to display about 20 characters of text.</p>
+     *
+     *  <p>If this property is <code>NaN</code> (the default),
+     *  then the component's default width will be determined
+     *  from the text to be displayed.</p>
+     *
+     *  <p>This property will be ignored if you specify an explicit width,
+     *  a percent width, or both <code>left</code> and <code>right</code>
+     *  constraints.</p>
+     *
      *  <p>RichEditableText's <code>measure()</code> method uses
-	 *  <code>widthInChars</code> and <code>heightInLines</code>
+     *  <code>widthInChars</code> and <code>heightInLines</code>
      *  to determine the <code>measuredWidth</code>
-	 *  and <code>measuredHeight</code>. 
+     *  and <code>measuredHeight</code>. 
      *  These are similar to the <code>cols</code> and <code>rows</code>
-	 *  of an HTML TextArea.</p>
-	 *
-	 *  <p>Since both <code>widthInChars</code> and <code>heightInLines</code>
-	 *  default to <code>NaN</code>, RichTextEditable "autosizes" by default:
-	 *  it starts out very samll if it has no text, grows in width as you
-	 *  type, and grows in height when you press Enter to start a new line.</p>
-	 *
-	 *  @default NaN
-	 *
-	 *  @see spark.primitives.heightInLines
+     *  of an HTML TextArea.</p>
+     *
+     *  <p>Since both <code>widthInChars</code> and <code>heightInLines</code>
+     *  default to <code>NaN</code>, RichTextEditable "autosizes" by default:
+     *  it starts out very samll if it has no text, grows in width as you
+     *  type, and grows in height when you press Enter to start a new line.</p>
+     *
+     *  @default NaN
+     *
+     *  @see spark.primitives.heightInLines
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2795,16 +2797,16 @@ public class RichEditableText extends UIComponent
     
     /**
      *  Inserts the specified text into the RichEditableText
-	 *  as if you had typed it.
-	 *
+     *  as if you had typed it.
+     *
      *  <p>If a range was selected, the new text replaces the selected text.
      *  If there was an insertion point, the new text is inserted there.</p>
-	 *
+     *
      *  <p>An insertion point is then set after the new text.
-	 *  If necessary, the text will scroll to ensure
+     *  If necessary, the text will scroll to ensure
      *  that the insertion point is visible.</p>
-	 *
-	 *  @param text The text to be inserted.
+     *
+     *  @param text The text to be inserted.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2819,12 +2821,12 @@ public class RichEditableText extends UIComponent
     /**
      *  Appends the specified text to the end of the RichEditableText,
      *  as if you had clicked at the end and typed.
-	 *
+     *
      *  <p>An insertion point is then set after the new text.
-	 *  If necessary, the text will scroll to ensure
+     *  If necessary, the text will scroll to ensure
      *  that the insertion point is visible.</p>
-	 *
-	 *  @param text The text to be appended.
+     *
+     *  @param text The text to be appended.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2855,14 +2857,14 @@ public class RichEditableText extends UIComponent
         
     /**
      *  Selects a specified range of characters.
-	 *
-	 *  <p>If either position is negative, it will deselect the text range.</p>
-	 *
-	 *  @param anchorPosition The character position specifying the end
-	 *  of the selection that stays fixed when the selection is extended.
-	 *
-	 *  @param activePosition The character position specifying the end
-	 *  of the selection that moves when the selection is extended.
+     *
+     *  <p>If either position is negative, it will deselect the text range.</p>
+     *
+     *  @param anchorPosition The character position specifying the end
+     *  of the selection that stays fixed when the selection is extended.
+     *
+     *  @param activePosition The character position specifying the end
+     *  of the selection that moves when the selection is extended.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2904,25 +2906,25 @@ public class RichEditableText extends UIComponent
 
     /**
      *  Returns a TextLayoutFormat object specifying the formats
-	 *  for the specified range of characters.
-	 *
+     *  for the specified range of characters.
+     *
      *  <p>If a format is not consistently set across the entire range,
      *  its value will be <code>undefined</code>.</p>
-	 *
+     *
      *  <p>You can specify a Vector of Strings containing the names of the
-	 *  formats that you care about; if you don't, all formats
-	 *  will be computed.</p>
-	 *  
+     *  formats that you care about; if you don't, all formats
+     *  will be computed.</p>
+     *  
      *  <p>If you don't specify a range, the selected range is used.</p>
-	 *
-	 *  @param requestedFormats A Vector of Strings specifying the the names
-	 *  of the requested formats, or <code>null</code> to request all formats.
-	 *
-	 *  @param anchorPosition A character position specifying
-	 *  the fixed end of the selection.
-	 *
-	 *  @param activePosition A character position specifying
-	 *   the movable end of the selection.
+     *
+     *  @param requestedFormats A Vector of Strings specifying the the names
+     *  of the requested formats, or <code>null</code> to request all formats.
+     *
+     *  @param anchorPosition A character position specifying
+     *  the fixed end of the selection.
+     *
+     *  @param activePosition A character position specifying
+     *   the movable end of the selection.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3044,18 +3046,18 @@ public class RichEditableText extends UIComponent
 
     /**
      *  Applies the specified format to the specified range.
-	 *
-	 *  <p>The supported formats are those in TextFormatLayout.
+     *
+     *  <p>The supported formats are those in TextFormatLayout.
      *  A value of <code>undefined</code> does not get applied.
-	 *  If you don't specify a range, the selected range is used.</p>
-	 *
+     *  If you don't specify a range, the selected range is used.</p>
+     *
      *  <p>For example, calling
-	 *  <pre>
+     *  <pre>
      *  var textLayoutFormat:TextLayoutFormat = new TextLayoutFormat();
      *  textLayoutFormat.fontSize = 12;
      *  textLayoutFormat.color = 0xFF0000;
      *  setFormatOfRange(textLayoutFormat);
-	 *  </pre>
+     *  </pre>
      *  will set the fontSize and color of the selection.</p>
      *  
      *  @langversion 3.0
@@ -3532,16 +3534,16 @@ public class RichEditableText extends UIComponent
         else if (content is Array)
         {
             textFlow = new TextFlow();
-			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
+            textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
             textFlow.mxmlChildren = content as Array;
-			textFlow.whiteSpaceCollapse = undefined;
+            textFlow.whiteSpaceCollapse = undefined;
         }
         else
         {
             textFlow = new TextFlow();
-			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
+            textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
             textFlow.mxmlChildren = [ content ];
-			textFlow.whiteSpaceCollapse = undefined;
+            textFlow.whiteSpaceCollapse = undefined;
         }
         
         return textFlow;
