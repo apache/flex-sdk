@@ -163,7 +163,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
             
-        columnHeaderBar.measuredWidth = Math.ceil(grid.contentWidth + paddingLeft + paddingRight);
+        columnHeaderBar.measuredWidth = Math.ceil(grid.getPreferredBoundsWidth() + paddingLeft + paddingRight);
         columnHeaderBar.measuredHeight = Math.ceil(maxRendererHeight + paddingTop + paddingBottom);
     }
 
@@ -232,7 +232,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             if (index < visibleColumnIndices.length)
                 columnIndex = visibleColumnIndices[index];
             else
-                columnIndex += 1;  // TBD: find the next visible column
+                columnIndex += 1;  // TBD(hmuller): find the next visible column
            
             if (columnIndex >= columnsLength)
                 break;
@@ -260,7 +260,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             
             // layout the renderer
             
-            var isLastColumn:Boolean = columnIndex == (columnsLength - 1);
+            var isLastColumn:Boolean = columnIndex == (columnsLength - 1);  // TBD(hmuller): last VISIBLE column
             var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
             var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
 
@@ -311,7 +311,142 @@ public class ColumnHeaderBarLayout extends LayoutBase
     //
     //  Public methods
     //
-    //---------------------------------------------------------------    
+    //--------------------------------------------------------------- 
+    
+    /**
+     *  Returns the column index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. The coordinates are 
+     *  resolved with respect to the ColumnHeaderBar layout target.
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The pixel's x coordinate relative to the columnHeaderBar
+     *  @param y The pixel's y coordinate relative to the columnHeaderBar
+     *  @return the index of the column or -1 if the coordinates are out of bounds. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getHeaderIndexAt(x:Number, y:Number):int
+    {
+        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const grid:Grid = grid;
+        
+        if (!columnHeaderBar || !grid)
+            return -1; 
+        
+        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
+        return grid.getColumnIndexAt(x + paddingLeft, 0);
+    }
+    
+    /**
+     *  Returns the column separator index corresponding to the specified 
+     *  coordinates, or -1 if the coordinates don't overlap a separator. The 
+     *  coordinates are resolved with respect to the ColumnHeaderBar layout target.
+     * 
+     *  <p>A separator is considered to "overlap" the specified location if the
+     *  x coordinate is within <code>separatorMouseWidth</code> of separator's
+     *  horizontal midpoint.</p>
+     *  
+     *  <p>The separator index is the same as the index of the column on the left
+     *  (assuming that this component's layoutDirection is "rtl").  That means 
+     *  that all column headers are flanked by two separators, except for the first
+     *  visible column, which just has a separator on the right, and the last visible
+     *  column, which just has a separator on the left.</p>
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The pixel's x coordinate relative to the columnHeaderBar
+     *  @param y The pixel's y coordinate relative to the columnHeaderBar
+     *  @return the index of the column or -1 if the coordinates don't overlap a separator.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getSeparatorIndexAt(x:Number, y:Number):int
+    {
+        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const grid:Grid = grid;
+        
+        if (!columnHeaderBar || !grid || !grid.columns)
+            return -1; 
+        
+        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
+        const columnIndex:int = grid.getColumnIndexAt(x + paddingLeft, 0);
+        
+        if (columnIndex == -1)
+            return -1;
+        
+        const isFirstColumn:Boolean = columnIndex == 0;  // TBD first VISIBLE column
+        const isLastColumn:Boolean = columnIndex == (grid.columns.length - 1); // TBD likewise
+        
+        const columnLeft:Number = grid.getCellX(0, columnIndex);
+        const columnRight:Number = columnLeft + grid.getColumnWidth(columnIndex);
+        const smw:Number = columnHeaderBar.separatorMouseWidth;
+        
+        if (!isFirstColumn && (x > (columnLeft - smw)) && (x < (columnLeft + smw)))
+            return columnIndex - 1;  // TBD previous VISIBLE column
+        
+        if (!isLastColumn && (x > (columnRight - smw)) && (x < columnRight + smw))
+            return columnIndex;
+        
+        return -1;
+    }
+    
+    /**
+     *  Returns the current pixel bounds of the specified header (renderer), or null if 
+     *  no such column exists.  Header bounds are reported in ColumnHeaderBar coordinates.
+     * 
+     *  <p>If all of the visible columns preceeding the specified column have not 
+     *  yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the Grid's <code>typicalItem</code>s.</p>
+     * 
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return A <code>Rectangle</code> that represents the column header's pixel bounds, or null.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */     
+    public function getHeaderBounds(columnIndex:int):Rectangle
+    {
+        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const grid:Grid = grid;
+        
+        if (!columnHeaderBar || !grid)
+            return null;
+        
+        const columns:IList = grid.columns;
+        const columnsLength:int = (columns) ? columns.length : 0;
+        
+        if (columnIndex >= columnsLength)
+            return null;
+        
+        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
+        const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
+        const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
+        const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
+        
+        var isLastColumn:Boolean = columnIndex == (columnsLength - 1);  // TBD(hmuller): last VISIBLE column
+        var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
+        const rendererY:Number = paddingTop;
+        var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
+        const rendererHeight:Number = columnHeaderBar.height - paddingTop - paddingBottom;        
+        
+        if (isLastColumn)
+            rendererWidth = horizontalScrollPosition + columnHeaderBar.width - rendererX - paddingRight;
+        
+        return new Rectangle(rendererX, rendererY, rendererWidth, rendererHeight);
+    }
 
     /**
      *  If the requested header renderer is visible, returns a reference to 
@@ -324,7 +459,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
      *  new item renderer is not visible</p>
      * 
      *  <p>The width of the returned renderer is the same as for item renderers
-     *  returned by DataGrid/getItemRenderer().</p>
+     *  returned by DataGrid/getItemRendererAt().</p>
      *  
      *  @param columnIndex The 0-based column index of the header renderer's column
      *  @return The item renderer or null if the column index is invalid.
@@ -339,13 +474,24 @@ public class ColumnHeaderBarLayout extends LayoutBase
         const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid)
+        if (!columnHeaderBar || !grid || (columnIndex < 0))
             return null;
+        
+        // If columnIndex refers to a visible header renderer, return it
         
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
         const eltIndex:int = visibleColumnIndices.indexOf(columnIndex);
-        if ((eltIndex != -1) && (eltIndex < columnHeaderBar.numElements))
-            return columnHeaderBar.getElementAt(eltIndex) as IGridItemRenderer;
+        if (eltIndex != -1)
+        {
+            const columnHeaderBarNumElements:int = columnHeaderBar.numElements;
+            for (var index:int = 0; index < columnHeaderBarNumElements; index++)
+            {
+                var elt:IGridItemRenderer = columnHeaderBar.getElementAt(index) as IGridItemRenderer;
+                if (elt && elt.visible && elt.column && (elt.column.columnIndex == columnIndex))
+                    return elt;
+            }
+            return null;
+        }
             
         // create a new renderer
 
