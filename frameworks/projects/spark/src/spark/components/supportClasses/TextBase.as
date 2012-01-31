@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics.baseClasses
+package spark.primitives.supportClasses
 {
 
 import flash.display.DisplayObjectContainer;
