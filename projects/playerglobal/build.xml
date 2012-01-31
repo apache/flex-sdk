@@ -13,7 +13,7 @@
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
     <property file="${FLEX_HOME}/build.properties"/>
-    <property name="local.playerglobal.version" value="10.1"/>
+    <property name="local.playerglobal.version" value="10.2"/>
 	<property name="locale" value="en_US"/>
 
 	<macrodef name="bundle">
@@ -24,7 +24,7 @@
 				<compc fork="true" output="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc"
 					locale="@{locale}">
 					<jvmarg line="${compc.jvm.args}"/>
-					<target-player>10.1</target-player>
+					<target-player>10.2</target-player>
 					<include-resource-bundles bundle="empty"/>
 					<include-namespaces/>
 					<include-classes>Empty</include-classes>
@@ -92,7 +92,7 @@
         <compc fork="true" output="${FLEX_HOME}/frameworks/locale/${locale}/playerglobal_rb.swc"
             locale="${locale}">
             <jvmarg line="${compc.jvm.args}"/>
-            <target-player>10.1</target-player>
+            <target-player>10.2</target-player>
             <include-resource-bundles bundle="empty"/>
             <include-namespaces/>
             <include-classes>Empty</include-classes>
