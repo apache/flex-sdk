@@ -11,11 +11,10 @@
 
 package spark.primitives
 {
-import fl.video.DynamicStream;
+
 import fl.video.DynamicStreamItem;
 import fl.video.MetadataEvent;
 import fl.video.NCManagerDynamicStream;
-import fl.video.VideoAlign;
 import fl.video.VideoError;
 import fl.video.VideoEvent;
 import fl.video.VideoPlayer;
@@ -28,14 +27,12 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.ProgressEvent;
-import flash.geom.Matrix;
 import flash.media.Video;
 
-import mx.core.AdvancedLayoutFeatures;
 import mx.core.mx_internal;
 
-import spark.components.mediaClasses.StreamingVideoSource;
 import spark.components.mediaClasses.StreamItem;
+import spark.components.mediaClasses.StreamingVideoSource;
 import spark.core.IGraphicElement;
 import spark.events.VideoEvent;
 import spark.primitives.supportClasses.GraphicElement;
@@ -884,8 +881,11 @@ public class VideoElement extends GraphicElement
         
         var flvPlayer:VideoPlayer = videoPlayer;
         
-        flvPlayer.width = Math.floor(unscaledWidth);
-        flvPlayer.height = Math.floor(unscaledHeight);
+        if (flvPlayer.width != Math.floor(unscaledWidth) || flvPlayer.height != Math.floor(unscaledHeight))
+        {
+            flvPlayer.width = Math.floor(unscaledWidth);
+            flvPlayer.height = Math.floor(unscaledHeight);
+        }
     }
     
     //--------------------------------------------------------------------------
