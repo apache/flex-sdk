@@ -85,7 +85,8 @@ public class MotionPath
      * pair of keyframes controls the animation during the time interval
      * between them, with the optional <code>easer</code> and <code>valueBy</code>
      * properties of the later keyframe used to help determine the behavior
-     * during that interval.
+     * during that interval. The sequence of keyframes must be sorted in 
+     * order of increasing time values.
      * 
      * <p>Animations will always start at time 0 and will last for a duration
      * equal to the time value in the final keyframe. If no keyframe at time 0
