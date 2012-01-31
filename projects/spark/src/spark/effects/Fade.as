@@ -159,6 +159,9 @@ public class Fade extends Animate
             "percentWidth", "percentHeight"];
     }
 
+    /**
+     *  @private
+     */
     override protected function getValueFromTarget(target:Object, property:String):*
     {
         // We track 'index' for use in the addDisappearingTarget() function in
