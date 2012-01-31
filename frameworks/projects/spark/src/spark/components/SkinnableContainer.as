@@ -382,7 +382,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-	[Bindable]
+    [Bindable]
     [SkinPart(required="false")]
     
     /**
@@ -821,6 +821,11 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
