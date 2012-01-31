@@ -3531,24 +3531,33 @@ public class ListBase extends ScrollControlBase
     [Inspectable(category="Data")]
 
     /**
-     *  A function used to compare selectedItems against items in the
-     *  dataProvider.  If there is a match, the item in the dataProvider
+     *  A function used to compare items in the <code>selectedItems</code> property 
+     *  against items in the data provider.  
+     *  If there is a match, the item in the data provider
      *  becomes part of the selection.
-     *  By default, or if selectedItemsCompareFunction is set to null
-     *  the default comparision function is used which uses
-     *  strict equality (===).  Note that earlier releases of
+     *  By default, or if <code>selectedItemsCompareFunction</code> is set to <code>null</code>,
+     *  the default comparision function is used, which uses
+     *  strict equality (===).  
+     *  Note that earlier releases of
      *  Flex used simple equality (==) so there could be behavioral
      *  differences in certain cases.
      *  A common compare function might simply compare UIDs of objects
      *  or test that a particular property matches.
      *
-     *  <p>The compare function takes a two arguments, the first being the
-     *  object in the dataProvider, the other an object in the list of
-     *  selectedItems, and returns TRUE if the item should be selected.</p>
+     *  <p>The compare function takes two arguments. 
+     *  The first argument is the object in the data provider. 
+     *  The second argument is an object in <code>selectedItems</code> property. 
+     *  The function  returns <code>true</code> if the data provider item should be selected.</p>
+     *
      *  <pre>
      *  myCompareFunction(itemInDataProvider:Object, itemInSelectedItems):Boolean</pre>
      *
-     *  @default null (which will use strict equality)
+     *  <p>The default value is <code>null</code>, which uses strict equality.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedItemsCompareFunction():Function
     {
