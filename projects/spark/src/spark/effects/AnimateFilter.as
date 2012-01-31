@@ -26,7 +26,7 @@ use namespace mx_internal;
 /**
  * This effect applies an IBitmapFilter instance and allows you to animate
  * an arbitrary set of properties of the filter between values, as specified
- * by the animationProperties. 
+ * by the motionPaths. 
  * 
  * Example usage is as follows:
  * @example AnimateFilter example:
@@ -47,10 +47,10 @@ use namespace mx_internal;
  *     var df:DropShadowFilter = new DropShadowFilter();
  *     var anim:AnimateFilter = new AnimateFilter(btn1, df);
  *     
- *     anim.animationProperties = [
- *         new AnimationProperty("color", 0, 0x0000FF),
- *         new AnimationProperty("distance", 0, 10),		
- *         new AnimationProperty("angle", 270, 360)
+ *     anim.motionPaths = [
+ *         new SimpleMotionPath("color", 0, 0x0000FF),
+ *         new SimpleMotionPath("distance", 0, 10),		
+ *         new SimpleMotionPath("angle", 270, 360)
  *     ];
  * 
  *     anim.repeatCount = 0;
