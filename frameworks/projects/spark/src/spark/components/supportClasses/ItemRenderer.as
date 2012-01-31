@@ -190,7 +190,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     /**
      *  @inheritDoc 
      *
-     *  @default false
+     *  @default 0
      */    
     public function get itemIndex():int
     {
@@ -337,14 +337,14 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     //----------------------------------
     //  label
     //----------------------------------
-
-    [Bindable("textChanged")]
     
     /**
      *  @private 
      *  Storage var for label
      */ 
     private var _label:String = "";
+    
+    [Bindable("textChanged")]
     
     /**
      *  @inheritDoc 
@@ -361,11 +361,13 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */ 
     public function set label(value:String):void
     {
-        if (value != _label)
-            _label = value;
+        if (value == _label)
+            return;
+        
+        _label = value;
             
-        //Push the label down into the labelDisplay,
-        //if it exists
+        // Push the label down into the labelDisplay,
+        // if it exists
         if (labelDisplay)
             labelDisplay.text = _label; 
             
@@ -566,6 +568,9 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
     }
     
+    /**
+     *  @private
+     */
     private function anyButtonDown(event:MouseEvent):Boolean
     {
         var type:String = event.type;
