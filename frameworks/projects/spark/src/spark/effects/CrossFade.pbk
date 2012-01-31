@@ -20,7 +20,7 @@ kernel FxCrossfade
    parameter float width;
    parameter float height;
 
-   // First parameter is unused in FxAnimateShaderTransition effect
+   // First parameter is unused in AnimateTransitionShader effect
    input image4 src0;
    input image4 from;
    input image4 to;
