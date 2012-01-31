@@ -1581,7 +1581,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // Single selection case, set the selectedIndex 
             var currentRenderer:IItemRenderer;
-            if (caretIndex >= 0)
+            if (caretIndex >= 0 && caretIndex != newIndex)
             {
                 currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                 if (currentRenderer)
@@ -2054,27 +2054,24 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
-        if (event.relatedObject == this.scroller)
+        // cancel actual selection
+        mouseDownCancelledFromScroll = true;
+        
+        // remove visual selection indicator
+        stopSelectButtonAfterDelayTimer();
+        
+        // unselect what we thought was selected
+        itemSelected(mouseDownIndex, false);
+        
+        // reselect what actually is selected
+        if (selectedIndex != NO_SELECTION)
         {
-            // cancel actual selection
-            mouseDownCancelledFromScroll = true;
-            
-            // remove visual selection indicator
-            stopSelectButtonAfterDelayTimer();
-            
-            // unselect what we thought was selected
-            itemSelected(mouseDownIndex, false);
-            
-            // reselect what actually is selected
-            if (selectedIndex != NO_SELECTION)
-            {
-                itemSelected(selectedIndex, true);
-            }
-            
-            mouseDownIndex = -1;
-            mouseDownPoint = null;
-            pendingSelectionOnMouseUp = false;
+            itemSelected(selectedIndex, true);
         }
+        
+        mouseDownIndex = -1;
+        mouseDownPoint = null;
+        pendingSelectionOnMouseUp = false;
     }
     
     /**
