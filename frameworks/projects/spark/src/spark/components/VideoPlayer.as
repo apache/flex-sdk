@@ -31,6 +31,7 @@ import mx.utils.BitFlagUtil;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.Range;
 import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
 import spark.primitives.VideoElement;
@@ -140,16 +141,6 @@ import spark.primitives.supportClasses.TextGraphicElement;
 //--------------------------------------
 
 /**
- *  Buffering State of the VideoPlayer
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("buffering")]
-
-/**
  *  Connection Error State of the VideoPlayer
  *  
  *  @langversion 3.0
@@ -180,14 +171,70 @@ import spark.primitives.supportClasses.TextGraphicElement;
 [SkinState("disconnected")]
 
 /**
- *  FullScreen State of the VideoPlayer
+ *  Connection Error State of the VideoPlayer when 
+ *  in full screen mode.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("fullScreen")]
+[SkinState("fullScreenConnectionError")]
+
+/**
+ *  Disabled State of the VideoPlayer when 
+ *  in full screen mode.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("fullScreenDisabled")]
+
+/**
+ *  Disconnected State of the VideoPlayer when 
+ *  in full screen mode.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("fullScreenDisconnected")]
+
+/**
+ *  Loading State of the VideoPlayer when 
+ *  in full screen mode.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("fullScreenLoading")]
+
+/**
+ *  Playing State of the VideoPlayer when 
+ *  in full screen mode.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("fullScreenPlaying")]
+
+/**
+ *  Stopped State of the VideoPlayer when 
+ *  in full screen mode.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("fullScreenStopped")]
 
 /**
  *  Loading State of the VideoPlayer
@@ -200,16 +247,6 @@ import spark.primitives.supportClasses.TextGraphicElement;
 [SkinState("loading")]
 
 /**
- *  Pause State of the VideoPlayer
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("paused")]
-
-/**
  *  Playing State of the VideoPlayer
  *  
  *  @langversion 3.0
@@ -218,16 +255,6 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *  @productversion Flex 4
  */
 [SkinState("playing")]
-
-/**
- *  Seeking State of the VideoPlayer
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("seeking")]
 
 /**
  *  Stopped State of the VideoPlayer
@@ -308,9 +335,9 @@ public class VideoPlayer extends SkinnableComponent
      *  Constructor.
      *   
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function VideoPlayer()
     {
@@ -372,7 +399,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var muteButton:ToggleButton;
+    public var muteButton:ToggleButtonBase;
     
     [SkinPart(required="false")]
     
@@ -411,7 +438,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playPauseButton:ToggleButton;
+    public var playPauseButton:ToggleButtonBase;
     
     [SkinPart(required="false")]
     
@@ -424,7 +451,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var scrubBar:Range;
+    public var scrubBar:VideoPlayerScrubBar;
     
     [SkinPart(required="false")]
     
