@@ -2594,14 +2594,14 @@ public class Container extends UIComponent
     {
         var formerParent:DisplayObjectContainer = child.parent;
         if (formerParent && !(formerParent is Loader))
-    {
+        {
             // Adjust index if necessary when former parent happens
             // to be the same container.
             if (formerParent == this)
                 index = (index == numChildren) ? index - 1 : index;
 
             formerParent.removeChild(child);
-    }
+        }
             
         addingChild(child);
 
@@ -3206,6 +3206,27 @@ public class Container extends UIComponent
         // Don't call super.initializationComplete().
     }
 
+    /**
+     *  @private
+     */
+    override public function invalidateLayoutDirection():void
+    {
+        super.invalidateLayoutDirection();
+        
+        // We have to deal with non-styled raw children here.
+        if (_rawChildren)
+        {
+            const rawNumChildren:int = _rawChildren.numChildren;
+            
+            for (var i:int = 0; i < rawNumChildren; i++)
+            {
+                var child:DisplayObject = _rawChildren.getChildAt(i);
+                if (!(child is IStyleClient) && child is ILayoutDirectionElement)
+                    ILayoutDirectionElement(child).invalidateLayoutDirection();
+            }
+        }
+    }
+    
     /**
      *  @private
      */
