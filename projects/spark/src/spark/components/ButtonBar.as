@@ -151,7 +151,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     {
 		super.commitProperties();
 
-        if (requiresSelectionChanging)
+        if (requiresSelectionChanging && dataProvider)
 		{
 			requiresSelectionChanging = false;
 			var n:int = dataProvider.length;
@@ -194,6 +194,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
+		adjustLayering(focusedIndex);
         drawButtonFocus(focusedIndex, isFocused);
     }
 
@@ -209,6 +210,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         
         if (renderer)
         {
+			focusedIndex = index;
             renderer.selected = selected;
         }
     }
