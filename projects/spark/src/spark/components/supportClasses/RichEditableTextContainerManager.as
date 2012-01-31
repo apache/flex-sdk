@@ -31,7 +31,7 @@ import mx.styles.IStyleClient;
 import mx.core.mx_internal;
 
 import spark.primitives.RichEditableText;
-import spark.components.TextSelectionVisibility;
+import spark.components.TextSelectionHighlighting;
 
 use namespace mx_internal;
 
@@ -62,7 +62,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     {
         super(container, configuration);
 
-        textView = container;
+        textDisplay = container;
     }
 
     //--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      */
-    private var textView:RichEditableText;
+    private var textDisplay:RichEditableText;
 
     //--------------------------------------------------------------------------
     //
@@ -96,7 +96,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var width:Number = compositionWidth;
         var height:Number = compositionHeight;
         
-        if (!textView.actuallyAutoSizing && (isNaN(width) || isNaN(height)))
+        if (!textDisplay.actuallyAutoSizing && (isNaN(width) || isNaN(height)))
             return false;  // just measuring!
         
         var contentBounds:Rectangle = getContentBounds();
@@ -104,7 +104,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // If autoSize, use the content values rather than the composition
         // values. The composition values allow room for growth 
         // (width=maxWidth, height=NaN).
-        if (textView.actuallyAutoSizing)
+        if (textDisplay.actuallyAutoSizing)
         {
             width = contentBounds.width;
             height = contentBounds.height;
@@ -162,13 +162,13 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override protected function getUndoManager():IUndoManager
     {
-        if (!textView.undoManager)
+        if (!textDisplay.undoManager)
         {
-            textView.undoManager = new UndoManager();
-            textView.undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
+            textDisplay.undoManager = new UndoManager();
+            textDisplay.undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
         }
             
-        return textView.undoManager;
+        return textDisplay.undoManager;
     }
     
     /**
@@ -176,7 +176,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override protected function getFocusedSelectionFormat():SelectionFormat
     {
-        var selectionColor:* = textView.getStyle("selectionColor");
+        var selectionColor:* = textDisplay.getStyle("focusedTextSelectionColor");
 
         var focusedPointAlpha:Number =
             editingMode == EditingMode.READ_WRITE ?
@@ -196,11 +196,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override protected function getUnfocusedSelectionFormat():SelectionFormat
     {
-        var unfocusedSelectionColor:* = textView.getStyle(
-                                            "unfocusedSelectionColor");
+        var unfocusedSelectionColor:* = textDisplay.getStyle(
+                                            "unfocusedTextSelectionColor");
 
         var unfocusedAlpha:Number =
-            textView.selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ?
+            textDisplay.selectionHighlighting != 
+            TextSelectionHighlighting.WHEN_FOCUSED ?
             1.0 :
             0.0;
 
@@ -215,11 +216,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override protected function getInactiveSelectionFormat():SelectionFormat
     {
-        var inactiveSelectionColor:* = textView.getStyle(
-                                            "inactiveSelectionColor"); 
+        var inactiveSelectionColor:* = textDisplay.getStyle(
+                                            "inactiveTextSelectionColor"); 
 
         var inactiveAlpha:Number =
-            textView.selectionVisibility == TextSelectionVisibility.ALWAYS ?
+            textDisplay.selectionHighlighting == 
+            TextSelectionHighlighting.ALWAYS ?
             1.0 :
             0.0;
 
@@ -229,12 +231,21 @@ public class RichEditableTextContainerManager extends TextContainerManager
             inactiveSelectionColor, 0.0);
     }   
     
+    override public function setText(text:String):void
+    {
+        textDisplay.ignoreDamageEvent = true;
+        
+        super.setText(text);
+        
+        textDisplay.ignoreDamageEvent = false;
+    }
+    
     /**
      *  @private
      */
     override public function focusInHandler(event:FocusEvent):void
     {
-        textView.focusInHandler(event);
+        textDisplay.focusInHandler(event);
 
         super.focusInHandler(event);
     }    
@@ -244,7 +255,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override public function focusOutHandler(event:FocusEvent):void
     {
-        textView.focusOutHandler(event);
+        textDisplay.focusOutHandler(event);
 
         super.focusOutHandler(event);
     }    
@@ -254,7 +265,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override public function keyDownHandler(event:KeyboardEvent):void
     {
-        textView.keyDownHandler(event);
+        textDisplay.keyDownHandler(event);
 
         if (!event.isDefaultPrevented())
             super.keyDownHandler(event);
