@@ -1613,7 +1613,7 @@ public class ColorPicker extends ComboBase
         UIComponent.resumeBackgroundProcessing();
         
         if (showingDropdown && showTextField)
-            dropdownSwatch.setFocus();
+            dropdownSwatch.callLater(dropdownSwatch.setFocus);
         else
             setFocus();
         
