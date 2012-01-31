@@ -210,6 +210,13 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     override public function play():void
     {
+        // Buggy seeking behavior of Sequence sometimes causes an instance
+        // to play twice, causing problems with our temporary filters variables.
+        // If this variable is not null, then we must be playing already; don't
+        // play again.
+        if (previousPlusShaderFilters != null)
+            return;
+        
         // Only dispose bitmaps that are not provided by the caller
         disposeFrom = (bitmapFrom == null);
         disposeTo = (bitmapTo == null);
@@ -350,7 +357,8 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             return;
         
         shader.data.progress.value = [value];
-        target.filters = previousPlusShaderFilters;
+        if (previousPlusShaderFilters != null)
+            target.filters = previousPlusShaderFilters;
     }
 
     /**
@@ -378,7 +386,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         if (!hasBitmaps)
             return;
         
-        target.filters = previousFilters;
+        target.filters = (previousFilters != null) ? previousFilters : [];
         previousFilters = null;
         previousPlusShaderFilters = null;
         if (disposeFrom)
