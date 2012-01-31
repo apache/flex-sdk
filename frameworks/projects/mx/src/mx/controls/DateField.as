@@ -569,7 +569,7 @@ public class DateField extends ComboBase
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor
+     *  Constructor.
      */
     public function DateField()
     {
