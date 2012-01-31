@@ -85,7 +85,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundGradientAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="backgroundGradientAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Specifies the colors used to tint the background gradient fill of the application.
@@ -102,7 +102,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundGradientColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="backgroundGradientColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Number of pixels between the application's bottom border
