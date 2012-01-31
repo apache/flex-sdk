@@ -47,7 +47,14 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
     // 
     //--------------------------------------------------------------------------
 
-    public function Operation(webService:mx.rpc.soap.WebService = null, name:String = null)
+     /**
+      * Creates a new Operation. 
+      *
+      * @param webService The web service upon which this Operation is invoked.
+      *
+      * @param name The name of this Operation.
+      */
+   public function Operation(webService:mx.rpc.soap.WebService = null, name:String = null)
     {
         super(webService, name);
 
@@ -145,11 +152,7 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
     }
 
     /**
-     * Execute the method.  Any arguments passed in will be passed along as part of the method call.  If there are
-     * no arguments passed the arguments array will be used as the source of parameters.
-     *
-     * @return the call object that can be used as part of the asynchronous completion token pattern, the same
-     *         object will be available in the result/fault events.
+     * @private
      */
     override public function send(... args:Array):AsyncToken
     {
