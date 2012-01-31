@@ -763,6 +763,25 @@ public class Application extends SkinnableContainer
      */
     public var splashScreenMinimumDisplayTime:Number;
     
+    //----------------------------------
+    //  authorDensity
+    //----------------------------------
+    
+    [Inspectable(category="General", enumeration="160ppi,240ppi,320ppi")]
+    
+    /**
+     *  The density that the application is authored for.
+     *  
+     *  When set, Flex will automatically scale between the author density and
+     *  the density of the current device the application is running on.  
+     *  
+     *  This property cannot be set by ActionScript code; it must be set in MXML code.
+     * 
+     *  @see mx.core.DeviceDensity
+     *  @see mx.core.DensityUtil
+     *  @see mx.core.ISystemManager#densityScale
+     */
+    public var authorDensity:String;
 
     //----------------------------------
     //  usePreloader
