@@ -152,7 +152,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ScrollBar
+ *  &lt;s:ScrollBar
  *    <strong>Properties</strong>
  *    pageSize="20"
  *    snapInterval=""
