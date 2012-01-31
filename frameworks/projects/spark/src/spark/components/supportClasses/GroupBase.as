@@ -381,9 +381,27 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_layout == value)
             return;
-
-        if (value)
+        
+        if (_layout)
         {
+            _layout.target = null;
+            _layout.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
+
+            if (clipAndEnableScrollingExplicitlySet)
+            {
+                // when the layout changes, we don't want to transfer over 
+                // horizontalScrollPosition and verticalScrollPosition
+                _layoutProperties = {clipAndEnableScrolling: _layout.clipAndEnableScrolling};
+            }
+        }
+
+        _layout = value; 
+
+        if (_layout)
+        {
+            _layout.target = this;
+            _layout.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
+
             if (_layoutProperties)
             {
                 if (_layoutProperties.clipAndEnableScrolling !== undefined)
@@ -397,30 +415,6 @@ public class GroupBase extends UIComponent implements IViewport
                 
                 _layoutProperties = null;
             }
-            
-            if (_layout)
-                value.clipAndEnableScrolling = _layout.clipAndEnableScrolling;
-        }
-        else
-        {
-            if (_layout)
-            {
-                // when the layout changes, we don't want to transfer over 
-                // horizontalScrollPosition and verticalScrollPosition
-                _layoutProperties = {clipAndEnableScrolling: _layout.clipAndEnableScrolling};
-            }
-        }
-
-        if (_layout)
-        {
-            _layout.target = null;
-            _layout.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
-        }
-        _layout = value; 
-        if (_layout)
-        {
-            _layout.target = this;
-            _layout.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, redispatchLayoutEvent);
         }
 
         invalidateSize();
@@ -549,6 +543,8 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     //  clipAndEnableScrolling
     //----------------------------------
+
+    private var clipAndEnableScrollingExplicitlySet:Boolean = false;
     
     /**
      *  @copy spark.core.IViewport#clipAndEnableScrolling
@@ -582,6 +578,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function set clipAndEnableScrolling(value:Boolean):void 
     {
+        clipAndEnableScrollingExplicitlySet = true;
         if (_layout)
         {
             _layout.clipAndEnableScrolling = value;
