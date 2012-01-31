@@ -117,10 +117,10 @@ public class TextGraphic extends TextGraphicElement
 		var w:Number;
 		var h:Number;
 
-		if (drawWidth != 0 && drawHeight != 0)
+		if (!isNaN(explicitWidth) && !isNaN(explicitHeight))
 		{
-			w = drawWidth;
-			h = drawHeight;
+			w = explicitWidth;
+			h = explicitHeight;
 		}
 		else
 		{
@@ -170,7 +170,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("blockProgression", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -203,7 +204,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("direction", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -236,7 +238,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("lineBreak", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -269,7 +272,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("lineThrough", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -302,7 +306,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("marginBottom", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -335,7 +340,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("marginLeft", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -368,7 +374,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("marginRight", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+            invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -401,7 +408,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("marginTop", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -434,7 +442,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("textAlignLast", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -467,7 +476,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("textDecoration", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -500,7 +510,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("textIndent", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -533,7 +544,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("whiteSpaceCollapse", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -572,7 +584,8 @@ public class TextGraphic extends TextGraphicElement
 			dispatchPropertyChangeEvent("content", oldValue, value);
 
 			invalidateTextLines("content");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -583,13 +596,14 @@ public class TextGraphic extends TextGraphicElement
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  @private
+	 *  @inheritDoc
 	 */
-	override public function draw(g:Graphics):void 
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
 	{
-		super.draw(g);
+		super.updateDisplayList(unscaledWidth, unscaledHeight);
 		
-		compose(drawWidth, drawHeight);
+		compose(unscaledWidth, unscaledHeight);
 		
 		applyDisplayObjectProperties();
 	}
