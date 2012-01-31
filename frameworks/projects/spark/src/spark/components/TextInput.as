@@ -280,6 +280,8 @@ public class TextInput extends SkinnableTextBase
 	 *  <p>This property will also be ignored if the <code>typicalText</code> 
 	 *  property is specified.</p>
 	 * 
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     *      
      *  @default 10
      *
      *  @see spark.primitives.heightInLines
