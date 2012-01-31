@@ -17,6 +17,16 @@ package mx.events
  *  ListEvent object where the value of the <code>type</code> property is 
  *  <code>ListEvent.ITEM_EDIT_END</code>.
 
+ *  
+
+ *  @langversion 3.0
+
+ *  @playerversion Flash 9
+
+ *  @playerversion AIR 1.1
+
+ *  @productversion Flex 3
+
  */
 public final class ListEventReason
 {
@@ -33,6 +43,11 @@ public final class ListEventReason
      *  want to save the edited data. Even if you call the <code>preventDefault()</code> method 
      *  from within your event listener for the <code>itemEditEnd</code> event, 
      *  Flex still calls the <code>destroyItemEditor()</code> method to close the editor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CANCELLED:String = "cancelled";
 
@@ -42,6 +57,11 @@ public final class ListEventReason
      *  Even if you call the <code>preventDefault()</code> method from within your event 
      *  listener for the <code>itemEditEnd</code> event, 
      *  Flex still calls the <code>destroyItemEditor()</code> method to close the editor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const OTHER:String = "other";
 
@@ -55,6 +75,11 @@ public final class ListEventReason
      *  the current item. If you call the <code>preventDefault()</code> method and 
      *  also call the <code>destroyItemEditor()</code> method, you block the move to the new item, 
      *  but the item editor closes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NEW_ROW:String = "newRow";
 }
