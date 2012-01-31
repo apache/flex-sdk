@@ -287,9 +287,9 @@ public class ActivatorSkin extends Border
 	/**
 	 *  We don't use 'is' to prevent dependency issues
 	 */
-	static private var acbs:Object = {};
+	private static var acbs:Object = {};
 
-	static private function isApplicationControlBar(parent:Object):Boolean
+	private static function isApplicationControlBar(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (acbs[s] == 1)
