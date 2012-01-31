@@ -186,12 +186,14 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
         // TODO: autoRepeat as a property on Spinner?        
         if (instance == incrementButton)
         {
+            incrementButton.focusEnabled = false;
             incrementButton.addEventListener(FlexEvent.BUTTON_DOWN,
                                         incrementButton_buttonDownHandler);
             incrementButton.autoRepeat = true;
         }
         else if (instance == decrementButton)
         {
+            decrementButton.focusEnabled = false;
             decrementButton.addEventListener(FlexEvent.BUTTON_DOWN,
                                         decrementButton_buttonDownHandler);
             decrementButton.autoRepeat = true;
