@@ -235,8 +235,11 @@ public class TextArea extends SkinnableTextBase
     //  textFlow
     //----------------------------------
 
-    [Bindable("change")]
-    
+    // Note:
+    // The 'textFlow' property is not bindable because you can't share a 
+    // TextFlow between two editable components, due to the way that FTE and 
+    // TLF work.
+
     /**
      *  The TextFlow displayed by this component.
      * 
