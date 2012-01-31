@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate Spark IViewport interface -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    
+    <s:Panel title="IViewport Component Example"
+        width="75%" height="75%" 
+        horizontalCenter="0" verticalCenter="0"> 
+
+        <s:Label text="The Group container implements IViewport. Therefore, you can clip its contents and use it with scrollbars."
+            color="blue"
+            top="10"/>
+        <s:Group id="myGroup" width="100" height="100"
+            clipAndEnableScrolling="true"
+            horizontalScrollPosition="50" verticalScrollPosition="50" 
+            left="100" top="40"> 
+            <mx:Image width="300" height="400" 
+                source="@Embed(source='/assets/logo.jpg')"/>
+        </s:Group>
+        <s:VScrollBar viewport="{myGroup}" height="100" left="210" top="40"/>
+        <s:HScrollBar viewport="{myGroup}" width="100" left="100" top="150"/>
+
+    </s:Panel>
+</s:Application>
