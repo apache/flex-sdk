@@ -382,7 +382,34 @@ public class List extends ListBase implements IFocusManagerComponent
     //----------------------------------
 
     /**
-     *  @private
+     *  A flag that indicates whether this List's focusable item renderers 
+     *  can take keyboard focus. 
+     *
+     *  <p>This is usually <code>false</code> because most components
+     *  either receive focus themselves or delegate focus to a single
+     *  internal sub-component and appear as if the component has
+     *  received focus. You may choose to set this to true on a  List 
+     *  such that the contents within your List become focusable.</p>
+     * 
+     *  <p>If set, and the List skin contains a Scroller skin part, 
+     *  the value is proxied down onto the Scroller.</p> 
+     * 
+     *  <p>If the value is <code>true</code>, this proxying means that
+     *  the contents of the Scroller, like item renderers, are now 
+     *  focusable. For example, this means the first tab keystroke will 
+     *  put focus on the List control, and the second tab keystroke will 
+     *  put focus on the first focusable child of the Scroller.</p> 
+     *  
+     *  <p>If <code>false</code>, the first tab keystroke will put focus 
+     *  on the List control and the second tab keystroke will move focus 
+     *  to the next focusable control after the List.</p> 
+     *  
+     *  @default false
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function set hasFocusableChildren(value:Boolean):void
     {
