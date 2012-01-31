@@ -49,19 +49,30 @@ use namespace mx_internal;
 [ResourceBundle("core")]
     
 /**
- *  The UITextField class defines the component used by many Flex
- *  components to display text.
- *  For example, the mx.controls.Button control uses a 
- *  UITextField component to define the label area of the Button control. 
- * 
- *  <p>The UITextField class extends the flash.text.TextField class to
- *  support additional functionality required by Flex, such as CSS styles,
- *  invalidation/measurement/layout, enabling/disabling, tooltips, and IME
- *  (Input Method Editor) support for entering Chinese, Japanese, and
- *  Korean text.</p>
+ *  The UIFTETextField class is an alternative to the UITextField class
+ *  for displaying text in MX components.
  *
- *  @see flash.text.TextField
- *  @see mx.core.UITextFormat
+ *  <p>UIFTETextField extends FTETextField in the same way
+ *  that UITextField extends TextField.
+ *  By extending FTETextField, it makes it possible
+ *  for MX components to use the Flash Text Engine.
+ *  Benefits of using FTE over TextField include
+ *  higher-quality typography, bidirectional text, and rotatable text.</p>
+ *
+ *  <p>When MX components use FTE, they can use the same
+ *  embedded fonts as Spark components, which always use FTE.
+ *  Otherwise, a font must be embedded with <code>embedAsCFF="false"</code>
+ *  for use by TextField-based components, and with
+ *  <code>embedAsCFF="true"</code> for use by FTE-based components.</p>
+ *
+ *  <p>MX components that display text use the <code>textFieldClass</code>
+ *  style to determine whether to create instances
+ *  of UITextField or UIFTETextField.
+ *  They are able to use either class because both classes implement
+ *  the IUITextField interface.</p>
+ *
+ *  @see mx.core.UITextField
+ *  @see mx.core.FTETextField
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
