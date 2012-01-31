@@ -132,6 +132,19 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
 /**
+ *  Number of pixels of vertical offset to apply to the label position.
+ *  Positive numbers move the label down.
+ *  
+ *  @default 1 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="labelVerticalOffset", type="Number", format="Length", inherit="no")]
+
+/**
  *  Number of pixels between the component's bottom border
  *  and the bottom of its content area.
  *  
@@ -2639,6 +2652,9 @@ public class Button extends UIComponent
             buffX += bm.left;
             buffY += bm.top;
         }
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        	labelY += getStyle("labelVerticalOffset");
 
         textField.x = Math.round(labelX + buffX);
         textField.y = Math.round(labelY + buffY);
