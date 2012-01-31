@@ -100,6 +100,9 @@ public class GridLayout extends LayoutBase
         
         // Only invalidate if we're clipping and scrollR extends outside validBounds
         
+        // FIXME: the hover indicator may need to be updated if the grid
+        // underneath the pointer scrolls.
+        
         const scrollR:Rectangle = grid.scrollRect;
         if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
             grid.invalidateDisplayList();
