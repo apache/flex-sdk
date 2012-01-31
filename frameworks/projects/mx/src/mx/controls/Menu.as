@@ -2126,9 +2126,9 @@ public class Menu extends List implements IFocusManagerContainer
         var menu:Menu = row ? IMenuItemRenderer(row).menu : null;
         var menuEvent:MenuEvent;
 
-        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event);
         
         // Handle Key.UP Navigation
         if (keyCode == Keyboard.UP)
