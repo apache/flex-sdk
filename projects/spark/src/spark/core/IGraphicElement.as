@@ -186,13 +186,5 @@ public interface IGraphicElement
      */
     function get y():Number;
     function set y(value:Number):void;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    function applyMask():void;
 }
 }
