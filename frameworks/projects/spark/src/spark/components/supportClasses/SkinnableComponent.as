@@ -422,6 +422,9 @@ public class SkinnableComponent extends UIComponent
     mx_internal var focusObj:DisplayObject;
     mx_internal var drawFocusAnyway:Boolean;
     
+    /**
+     *  @private
+     */
     override public function drawFocus(isFocused:Boolean):void
     {
         if (isFocused)
@@ -440,8 +443,8 @@ public class SkinnableComponent extends UIComponent
                     
                 super.addChildAt(focusObj, 0);
             }
-			if (focusObj && "focusObject" in focusObj)
-				focusObj["focusObject"] = this;
+            if (focusObj && "focusObject" in focusObj)
+                focusObj["focusObject"] = this;
         }
         else
         {
@@ -906,10 +909,10 @@ public class SkinnableComponent extends UIComponent
         // FIXME (jszeto): Make marshall plan compliant  SDK-22044  
         if (systemManager)
         {    
-        	// For on-stage events
-        	systemManager.addEventListener(eventType, onstageHandler, true /*capture*/);
-        	// For off-stage events
-        	systemManager.stage.addEventListener(eventType, offstageHandler);
+            // For on-stage events
+            systemManager.addEventListener(eventType, onstageHandler, true /*capture*/);
+            // For off-stage events
+            systemManager.stage.addEventListener(eventType, offstageHandler);
         }
     }
     
@@ -939,10 +942,10 @@ public class SkinnableComponent extends UIComponent
         // FIXME (jszeto): Make marshall plan compliant SDK-22044
         if (systemManager)
         {
-        	// For on-stage events
-        	systemManager.removeEventListener(eventType, onstageHandler, true /*capture*/);
-        	// For off-stage events
-        	systemManager.stage.removeEventListener(eventType, offstageHandler);
+            // For on-stage events
+            systemManager.removeEventListener(eventType, onstageHandler, true /*capture*/);
+            // For off-stage events
+            systemManager.stage.removeEventListener(eventType, offstageHandler);
         }
     }
 
@@ -997,18 +1000,18 @@ public class SkinnableComponent extends UIComponent
             var skinPartID:String = event.property as String;
             if(skinParts[skinPartID] != null)
             {
-            	if (event.newValue == null)
-            	{
-            		if (!(this[skinPartID] is IFactory))
-						partRemoved(skinPartID, this[skinPartID]);
-            		this[skinPartID] = event.newValue;
-            	}
-            	else
-            	{
-                	this[skinPartID] = event.newValue;                
-                	if (!(this[skinPartID] is IFactory))
-	                    partAdded(skinPartID, this[skinPartID]);
-	            }
+                if (event.newValue == null)
+                {
+                    if (!(this[skinPartID] is IFactory))
+                        partRemoved(skinPartID, this[skinPartID]);
+                    this[skinPartID] = event.newValue;
+                }
+                else
+                {
+                    this[skinPartID] = event.newValue;                
+                    if (!(this[skinPartID] is IFactory))
+                        partAdded(skinPartID, this[skinPartID]);
+                }
             }
         }
     }
