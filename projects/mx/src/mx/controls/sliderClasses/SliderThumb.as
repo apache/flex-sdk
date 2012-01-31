@@ -287,9 +287,9 @@ public class SliderThumb extends Button
 		
 		var newVal:Number;
         
-        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event);
         
 		if ((keyCode == Keyboard.DOWN && !isHorizontal) ||
 			(keyCode == Keyboard.LEFT && isHorizontal))
