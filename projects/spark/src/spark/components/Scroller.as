@@ -415,7 +415,9 @@ public class Scroller extends SkinnableComponent
      *  <code>minViewportInset</code> on all four sides.
      * 
      *  If a scrollbar is visible then the viewport is inset by <code>minViewportInset</code>
-     *  or by the scrollbar's size, whichever is larger.   
+     *  or by the scrollbar's size, whichever is larger.
+     * 
+     *  ScrollBars are laid out flush with the edges of the Scroller.   
      * 
      *  @default 0 
      */
