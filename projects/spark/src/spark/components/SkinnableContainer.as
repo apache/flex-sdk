@@ -21,8 +21,8 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredContentOwner;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
-import mx.core.IVisualContainer;
-import mx.core.IVisualItem;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.IUIComponent;
 import mx.core.IViewport;
 import mx.core.ScrollUnit;
@@ -74,7 +74,7 @@ import mx.utils.BitFlagUtil;
  *  @see FxDataContainer
  */
 public class FxContainer extends FxContainerBase 
-       implements IDeferredContentOwner, IVisualContainer, IViewport
+       implements IDeferredContentOwner, IViewport, IVisualElementContainer
 {
     include "../core/Version.as";
     
@@ -455,84 +455,171 @@ public class FxContainer extends FxContainerBase
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.components.Group#numItems
+     *  @inheritDoc
      */
-    public function get numItems():int
+    public function get numElements():int
     {
-        return mx_internal::currentContentGroup.numItems;
+        return mx_internal::currentContentGroup.numElements;
     }
     
     /**
-     *  @copy mx.components.Group#getItemAt()
+     *  @inheritDoc
      */
-    public function getItemAt(index:int):Object
+    public function getElementAt(index:int):Object
     {
-        return mx_internal::currentContentGroup.getItemAt(index);
+        return mx_internal::currentContentGroup.getElementAt(index);
     }
     
         
     /**
-     *  @copy mx.components.Group#getItemIndex()
+     *  @inheritDoc
+     */
+    public function getElementIndex(element:Object):int
+    {
+        return mx_internal::currentContentGroup.getElementIndex(element);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function addElement(element:Object):Object
+    {
+        return mx_internal::currentContentGroup.addElement(element);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function addElementAt(element:Object, index:int):Object
+    {
+        return mx_internal::currentContentGroup.addElementAt(element, index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function removeElement(element:Object):Object
+    {
+        return mx_internal::currentContentGroup.removeElement(element);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function removeElementAt(index:int):Object
+    {
+        return mx_internal::currentContentGroup.removeElementAt(index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function setElementIndex(element:Object, index:int):void
+    {
+        mx_internal::currentContentGroup.setElementIndex(element, index);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function swapElements(element1:Object, element2:Object):void
+    {
+        mx_internal::currentContentGroup.swapElements(element1, element2);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function swapElementsAt(index1:int, index2:int):void
+    {
+        mx_internal::currentContentGroup.swapElementsAt(index1, index2);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  DEPRECATED Methods proxied to contentGroup
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  This method is deprecated and will be removed from FxContainer.
+     */
+    public function get numItems():int
+    {
+        return numElements;
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from FxContainer.
+     */
+    public function getItemAt(index:int):Object
+    {
+        return getElementAt(index);
+    }
+    
+        
+    /**
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function getItemIndex(item:Object):int
     {
-        return mx_internal::currentContentGroup.getItemIndex(item);
+        return getElementIndex(item);
     }
     
     /**
-     *  @copy mx.components.Group#addItem()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function addItem(item:Object):Object
     {
-        return mx_internal::currentContentGroup.addItem(item);
+        return addElement(item);
     }
     
     /**
-     *  @copy mx.components.Group#addItemAt()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function addItemAt(item:Object, index:int):Object
     {
-        return mx_internal::currentContentGroup.addItemAt(item, index);
+        return addElementAt(item, index);
     }
     
     /**
-     *  @copy mx.components.Group#removeItem()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function removeItem(item:Object):Object
     {
-        return mx_internal::currentContentGroup.removeItem(item);
+        return removeElement(item);
     }
     
     /**
-     *  @copy mx.components.Group#removeItemAt()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function removeItemAt(index:int):Object
     {
-        return mx_internal::currentContentGroup.removeItemAt(index);
+        return removeElementAt(index);
     }
     
     /**
-     *  @copy mx.components.Group#setItemIndex()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function setItemIndex(item:Object, index:int):void
     {
-        mx_internal::currentContentGroup.setItemIndex(item, index);
+        setElementIndex(item, index);
     }
     
     /**
-     *  @copy mx.components.Group#swapItems()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function swapItems(item1:Object, item2:Object):void
     {
-        mx_internal::currentContentGroup.swapItems(item1, item2);
+        swapElements(item1, item2);
     }
     
     /**
-     *  @copy mx.components.Group#swapItemsAt()
+     *  This method is deprecated and will be removed from FxContainer.
      */
     public function swapItemsAt(index1:int, index2:int):void
     {
-        mx_internal::currentContentGroup.swapItemsAt(index1, index2);
+        swapElementsAt(index1, index2);
     }
     
     //----------------------------------
@@ -600,9 +687,9 @@ public class FxContainer extends FxContainerBase
                     contentGroup.content = _placeHolderGroup.content;
                 
                 // Temporary workaround because copying content from one Group to another throws RTE
-                for (var i:int = _placeHolderGroup.numItems; i > 0; i--)
+                for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
                 {
-                    _placeHolderGroup.removeItemAt(0);  
+                    _placeHolderGroup.removeElementAt(0);  
                 }
                 
             }
@@ -760,8 +847,8 @@ public class FxContainer extends FxContainerBase
     private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
     {
         // TODO (rfrishbe): need to check for IUIComponent 
-        // as well if checking for IVisualItem?
-        if (event.relatedObject is IVisualItem ||
+        // as well if checking for IVisualElement?
+        if (event.relatedObject is IVisualElement ||
             event.relatedObject is IUIComponent)
         {
             event.relatedObject.owner = this;
@@ -774,8 +861,8 @@ public class FxContainer extends FxContainerBase
     private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
     {
         // TODO (rfrishbe): need to check for IUIComponent 
-        // as well if checking for IVisualItem?
-        if (event.relatedObject is IVisualItem ||
+        // as well if checking for IVisualElement?
+        if (event.relatedObject is IVisualElement ||
             event.relatedObject is IUIComponent)
         {
             event.relatedObject.owner = null;
