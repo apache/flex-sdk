@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the MXDataGridItemRenderer control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"    
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+     		
+    <fx:Declarations> 
+    	<!-- Data provider for the DataGrid -->
+        <s:ArrayCollection id="dp1">
+            <fx:Object firstName="Alex" enumValue="tall"/>
+            <fx:Object firstName="Britanny" enumValue="short"/>
+            <fx:Object firstName="Charlie" enumValue="medium"/>
+            <fx:Object firstName="Douglas" enumValue="tall"/>
+            <fx:Object firstName="Eric" enumValue="medium"/>
+            <fx:Object firstName="Frank" enumValue="medium"/>
+        </s:ArrayCollection>		
+	</fx:Declarations>
+	
+	<s:Panel width="75%" height="75%" title="MXDataGridItemRenderer Example"
+	    horizontalCenter="0" verticalCenter="0">
+		<!-- Halo DataGrid -->
+		<mx:DataGrid id="dg1" height="200" width="300" 
+			editable="true" dataProvider="{dp1}">
+			<mx:columns>			
+				<!-- Column 1 -->
+				<mx:DataGridColumn dataField="firstName" headerText="Name">
+					<mx:itemRenderer>
+						<fx:Component>                            
+							<s:MXDataGridItemRenderer height="22">
+								<s:states>
+									<s:State name="normal" />            
+									<s:State name="hovered" />
+									<s:State name="selected" />
+								</s:states>                                					
+								<!-- Label to display the data -->
+								<s:Label text="{data.firstName}" 
+									color.hovered="0xFF0000" 
+									color.selected="0xFFFFFF" />
+							</s:MXDataGridItemRenderer>
+						</fx:Component>
+					</mx:itemRenderer>
+					<!-- itemEditor that will be used when user clicks in cell -->
+					<mx:itemEditor>
+						<fx:Component>                            
+							<s:MXDataGridItemRenderer focusEnabled="true" height="22">
+								<!-- TextInput to edit data displayed by Label -->
+								<s:TextInput id="editor" text="{data.firstName}" 
+									top="0" left="0" right="0" bottom="0" />
+							</s:MXDataGridItemRenderer>
+						</fx:Component>
+					</mx:itemEditor>
+				</mx:DataGridColumn>
+				<!-- Column 2 -->
+				<!-- itemRenderer used as the itemEditor via rendererIsEditor flag -->
+				<mx:DataGridColumn dataField="enumValue" headerText="Size" 
+					editorDataField="editValue" rendererIsEditor="true">
+					<mx:itemRenderer>
+						<fx:Component>                            
+							<s:MXDataGridItemRenderer height="22" >
+								<s:states>
+									<s:State name="normal" />            
+									<s:State name="hovered" />
+									<s:State name="selected" />
+								</s:states>      
+									<!-- function to set the value selected by the user -->
+									<fx:Script>
+										<![CDATA[								
+											public function get editValue():* {
+												return ddl.selectedItem;
+											}
+										]]>
+									</fx:Script>
+									<!-- DropDownList used as renderer and itemEditor -->
+									<s:DropDownList id="ddl" width="100%" height="100%" 
+										prompt="choose" selectedItem="{data.enumValue}">
+										<s:dataProvider>
+											<s:ArrayList>
+												<fx:String>tall</fx:String>
+												<fx:String>medium</fx:String>
+												<fx:String>short</fx:String>
+											</s:ArrayList>
+										</s:dataProvider>
+								</s:DropDownList>
+							</s:MXDataGridItemRenderer>
+						</fx:Component>
+					</mx:itemRenderer>
+				</mx:DataGridColumn>                 
+			</mx:columns>
+		</mx:DataGrid>	
+	</s:Panel>	      
+</s:Application>
+
+
+
+	
