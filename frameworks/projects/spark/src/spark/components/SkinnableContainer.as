@@ -11,27 +11,19 @@
 
 package spark.components
 {
-import mx.collections.IList;
-import spark.components.Group;
-import mx.core.mx_internal;
-import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.SkinnableContainerBase;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredContentOwner;
 import mx.core.IDeferredInstance;
-import mx.core.IFactory;
-import mx.core.INavigatorContent;
+import mx.core.IFlexModuleFactory;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
-import mx.core.IUIComponent;
-import spark.core.IViewport;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import spark.events.ElementExistenceEvent;
-import mx.events.PropertyChangeEvent;
-import spark.layouts.BasicLayout;
-import spark.layouts.supportClasses.LayoutBase;
-import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
+
+import spark.components.supportClasses.SkinnableContainerBase;
+import spark.events.ElementExistenceEvent;
+import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
@@ -372,6 +364,27 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden Properties 
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = moduleFactory;
+        
+        // Register the _creationPolicy style as inheriting. See the creationPolicy
+        // getter for details on usage of this style.
+        styleManager.registerInheritingStyle("_creationPolicy");
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Properties 
     //
     //--------------------------------------------------------------------------
@@ -412,9 +425,12 @@ public class SkinnableContainer extends SkinnableContainerBase
     //  creationPolicy
     //----------------------------------
     
-    private var _creationPolicy:String = "auto";
-    
     [Inspectable(enumeration="auto,all,none", defaultValue="auto")]
+    
+    // Internal flag used when creationPolicy="none".
+    // When set, the value of the backing store _creationPolicy
+    // style is "auto" so descendants inherit the correct value.
+    private var creationPolicyNone:Boolean = false;
     
     /**
      *  @inheritDoc
@@ -428,7 +444,21 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function get creationPolicy():String
     {
-        return _creationPolicy;
+        // Use an inheriting style as the backing storage for this property.
+        // This allows the property to be inherited by either mx or spark
+        // containers, and also to correctly cascade through containers that
+        // don't have this property (ie Group).
+        // This style is an implementation detail and should be considered
+        // private. Do not set it from CSS.
+        var result:String = getStyle("_creationPolicy");
+        
+        if (result == null)
+            result = ContainerCreationPolicy.AUTO;
+        
+        if (creationPolicyNone)
+            result = ContainerCreationPolicy.NONE;
+        
+        return result;
     }
     
     /**
@@ -436,10 +466,20 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function set creationPolicy(value:String):void
     {
-        if (value == _creationPolicy)
-            return;
+        if (value == ContainerCreationPolicy.NONE)
+        {
+            // creationPolicy of none is not inherited by descendants.
+            // In this case, set the style to "auto" and set a local
+            // flag for subsequent access to the creationPolicy property.
+            creationPolicyNone = true;
+            value = ContainerCreationPolicy.AUTO;
+        }
+        else
+        {
+            creationPolicyNone = false;
+        }
         
-        _creationPolicy = value;
+        setStyle("_creationPolicy", value);
     }
 
     //--------------------------------------------------------------------------
