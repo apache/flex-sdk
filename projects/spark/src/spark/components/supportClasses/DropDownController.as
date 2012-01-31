@@ -310,7 +310,8 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             
-            openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
+			if (openButton && openButton.systemManager)
+            	openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     }
     
@@ -340,7 +341,8 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
             
-            openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
+			if (openButton && openButton.systemManager)
+            	openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     } 
     
@@ -355,7 +357,7 @@ public class DropDownController extends EventDispatcher
         if (target)
         {
             // check if the target is the openButton or contained within the openButton
-            if (openButton.contains(target))
+            if (openButton && openButton.contains(target))
                 return true;
             if (hitAreaAdditions != null)
             {
