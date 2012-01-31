@@ -39,7 +39,7 @@ public class ScrollerLayout extends LayoutBase
      *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
      *  contentWidth >= viewport width + SDT, show the vertical scrollbar.
      */
-    private static const SDT = 1.0;
+    private static const SDT:Number = 1.0;
 
     /**
      *  @private
