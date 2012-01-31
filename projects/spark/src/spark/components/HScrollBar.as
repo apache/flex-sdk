@@ -256,8 +256,11 @@ public class HScrollBar extends ScrollBarBase
             // the extra margin we added to minimum and maximum for bounce/pull. 
             var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
 
-            min = 0;
-            max = Math.max(0, maximum - viewportWidth);
+            // This code uses explicit values passed in from Scroller, since "item snapping" means
+            // there may be visible padding at either end of the content, and bounce/pull occurs beyond
+            // the padding
+            min = !isNaN(contentMinimum) ? contentMinimum : 0;
+            max = !isNaN(contentMaximum) ? contentMaximum : Math.max(0, maximum - viewportWidth);
         }
         else
         {
@@ -296,9 +299,9 @@ public class HScrollBar extends ScrollBarBase
             if (!fixedThumbSize)
             {
                 // The minimum size we'll shrink the thumb to is either thumb.minWidth or thumbSize: whichever is smaller.
-                thumbSize = Math.max(Math.min(thumb.minWidth, thumbSize), thumbSize + pendingValue);
+                thumbSize = Math.max(Math.min(thumb.minWidth, thumbSize), thumbSize + (pendingValue - min));
             }
-            thumbPosTrackX = min;
+            thumbPosTrackX = 0; // thumb is always at position zero when content is being "pulled"
         }
         if (pendingValue > max)
         {
