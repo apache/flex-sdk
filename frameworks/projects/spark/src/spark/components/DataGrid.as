@@ -41,11 +41,26 @@ import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
 
 use namespace mx_internal;
- 
+
 //--------------------------------------
 //  Styles
 //--------------------------------------
 
+/**
+ *  Used to initialize the DataGrid's rowBackground.   If defined, the alternatingRowColorsBackground
+ *  skin part is used to render row backgrounds whose fill color is defined by successive entries
+ *  in the array value of this style.
+ * 
+ *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="alternatingRowColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="spark")]
+
+    
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
@@ -207,6 +222,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private 
+     *  IFactory valued skin parts that require special handling, see findSkinParts().
+     */
+    private static const factorySkinPartNames:Array = ["alternatingRowColorsBackground"];    
+    
     //----------------------------------
     //  columnHeaderBar
     //----------------------------------
@@ -222,8 +243,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //  grid
     //----------------------------------
     
-    [SkinPart(required="false", type="spark.components.Grid")]
     [Bindable]
+    [SkinPart(required="false", type="spark.components.Grid")]
     
     /**
      *  A reference to the Grid that displays the dataProvider.
@@ -239,7 +260,36 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  A reference to the Scroller that scrolls the grid.
      */
-    public var scroller:Scroller;  
+    public var scroller:Scroller;
+    
+    //----------------------------------
+    //  alternatingRowColorsBackground
+    //----------------------------------
+    
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  A reference to IVisualElement used to render the alternatingRowColors style
+     */
+    public var alternatingRowColorsBackground:IFactory;
+    
+    /**
+     *  @private
+     *  If the alternatingRowColors style is set AND the alternatingRowColorsBackground
+     *  skin part has been added AND the grid skin part has been added, then set
+     *  grid.rowBackground = alternatingRowColorsBackground here.
+     * 
+     *  TBD: if previous test fails but the grid and rowBackground skin parts have been
+     *  added, then set grid.rowBackground = rowBackground.
+     */
+    private function initializeGridRowBackground():void
+    {
+        if (!grid)
+            return;
+        
+        if ((getStyle("alternatingRowColors") as Array) && alternatingRowColorsBackground)
+            grid.rowBackground = alternatingRowColorsBackground;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -850,15 +900,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
-     */
-    override public function styleChanged(styleProp:String):void
+     */ 
+    override public function styleChanged(styleName:String):void
     {
-        super.styleChanged(styleProp);
+        super.styleChanged(styleName);
         
         if (grid)
         {
-            const allStyles:Boolean = (styleProp == null || styleProp == "styleName");
-            if (allStyles || styleManager.isSizeInvalidatingStyle(styleProp))
+            const allStyles:Boolean = (styleName == null || styleName == "styleName");
+
+            if (allStyles || styleManager.isSizeInvalidatingStyle(styleName))
             {  
                grid.invalidateSize();
                if (grid.layout)
@@ -866,6 +917,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 if (grid.gridDimensions)
                     grid.gridDimensions.clearTypicalCellWidthsAndHeights();                
              }
+
+             if (allStyles || (styleName == "alternatingRowColors"))
+                 initializeGridRowBackground();
 
             grid.invalidateDisplayList();
         }
@@ -978,6 +1032,24 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
+     *  Call partAdded() for IFactory type skin parts.   By default, partAdded() is not 
+     *  called for IFactory type skin part variables, because they're assumed to be 
+     *  "dynamic" skin parts, to be created with createDynamicPartInstance().  That's 
+     *  not the case with the IFactory valued parts listed in factorySkinPartNames.
+     */ 
+    override protected function findSkinParts():void
+    {
+        super.findSkinParts();
+        
+        for each (var partName:String in factorySkinPartNames)
+        {
+            if ((partName in skin) && skin[partName])
+                partAdded(partName, skin[partName]);
+        }
+    }
+    
+    /**
+     *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -1006,6 +1078,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 setGridProperty(propertyName, modifiedGridProperties[propertyName]);
             }
             
+            // IFactory valued skin parts => Grid visual element properties like selectionIndicator
+			// TBD(hmuller): add skin parts for selectionIndicator et al.
+            
+            initializeGridRowBackground();
+            
             // Event Handlers
             
             grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, gridMouseDownHandler);
@@ -1022,6 +1099,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 deferredGridOperation(grid);
             deferredGridOperations.length = 0;
         }
+        
+        if (instance == alternatingRowColorsBackground)
+            initializeGridRowBackground();
         
         if (instance == columnHeaderBar)
         {
@@ -1370,7 +1450,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.selectAll();
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1396,7 +1476,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.removeAll();
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1459,7 +1539,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1485,7 +1565,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.addRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1511,7 +1591,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.removeRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1537,7 +1617,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setRows(rowIndex, rowCount);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1606,7 +1686,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setCell(rowIndex, columnIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1632,7 +1712,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.addCell(rowIndex, columnIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1658,7 +1738,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.removeCell(rowIndex, columnIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }
@@ -1687,7 +1767,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 rowIndex, columnIndex, rowCount, columnCount);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-        }
+            }
         
         return selectionChanged;
     }    
