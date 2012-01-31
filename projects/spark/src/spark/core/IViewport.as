@@ -83,13 +83,13 @@ public interface IViewport extends IEventDispatcher
     
     /**
      *  Returns the amount one would have to add to the viewport's current 
-     *  verticalScrollPosition to scroll by the requested "scrolling" unit.
+     *  horizontalScrollPosition to scroll by the requested "scrolling" unit.
      * 
      *  The value of unit must be one of the following mx.core.ScrollUnit
-     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
+     *  constants: LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME, END.
      * 
-     *  To scroll by a single row use UP or DOWN and to scroll to the
-     *  first or last row, use HOME or END.
+     *  To scroll by a single column use LEFT or RIGHT and to scroll to the
+     *  first or last column, use HOME or END.
      * 
      *  @see ScrollUnit
      */
@@ -100,10 +100,10 @@ public interface IViewport extends IEventDispatcher
      *  verticalScrollPosition to scroll by the requested "scrolling" unit.
      * 
      *  The value of unit must be one of the following mx.core.ScrollUnit
-     *  constants: LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME, END.
+     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
      * 
-     *  To scroll by a single column use LEFT or RIGHT and to scroll to the
-     *  first or last column, use HOME or END.
+     *  To scroll by a single row use UP or DOWN and to scroll to the
+     *  first or last row, use HOME or END.
      * 
      *  @see ScrollUnit
      */
