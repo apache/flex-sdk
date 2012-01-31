@@ -56,6 +56,7 @@ use namespace mx_internal;
  *    headerText="<i>value of dataField</i>"
  *    imeMode="null"
  *    itemEditor="null"
+ *    itemRenderer="null"
  *    itemRendererFunction="null"
  *    labelFunction="null"
  *    maxWidth="NaN"
