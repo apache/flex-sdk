@@ -327,14 +327,6 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  Object for holding videoPlayer properties that we mutate when 
-     *  we go in to full screen mode so that we can set them back 
-     *  when we go back in to the normal mode.
-     */
-    private var videoPlayerProperties:Object;
-    
-    /**
-     *  @private
      *  We do different things in the source setter based on if we 
      *  are initialized or not.
      */
@@ -351,8 +343,40 @@ public class VideoDisplay extends UIComponent
      *  @private
      *  Keeps track whether we are loading up the
      *  video because of autoDisplayFirstFrame.
+     * 
+     *  <p>In this case we are in "state1" of loading, 
+     *  which means we are waiting for the READY 
+     *  MediaPlayerStateChangeEvent and haven't done anything yet.</p>
      */
-    private var inLoadingState:Boolean;
+    private var inLoadingState1:Boolean;
+    
+    /**
+     *  @private
+     *  Keeps track whether we are loading up the
+     *  video because of autoDisplayFirstFrame.
+     * 
+     *  <p>In this case we are in "state2" of loading, 
+     *  which means have set videoPlayer.view.visible=false  
+     *  and videoPlayer.muted=true.  We've also called play() and are 
+     *  waiting for the DimensionChangeEvent.</p>
+     * 
+     *  <p>Note: At this point, inLoadingState1 = true as well.</p>
+     */
+    private var inLoadingState2:Boolean;
+    
+    /**
+     *  @private
+     *  Keeps track whether we are loading up the
+     *  video because of autoDisplayFirstFrame.
+     * 
+     *  <p>In this case we are in "state3" of loading, 
+     *  which means have received the DimensionChangeEvent and have called 
+     *  pause() and seek(0).  We are currently waiting for the 
+     *  SEEK_END event, at which point we will be completely loaded up.</p>
+     * 
+     *  <p>Note: At this point, inLoadingState1 = inLoadingState2 = true.</p>
+     */
+    private var inLoadingState3:Boolean;
     
     //--------------------------------------------------------------------------
     //
@@ -664,9 +688,9 @@ public class VideoDisplay extends UIComponent
      */
     public function get muted():Boolean
     {
-        // if inLoadingState, we've got to 
+        // if inLoadingState2, we've got to 
         // fake the muted value
-        if (inLoadingState)
+        if (inLoadingState2)
             return beforeLoadMuted;
         
         return videoPlayer.muted;
@@ -680,8 +704,8 @@ public class VideoDisplay extends UIComponent
         if (muted == value)
             return;
         
-        // if inLoadingState, don't change muted...just fake it
-        if (inLoadingState)
+        // if inLoadingState2, don't change muted...just fake it
+        if (inLoadingState2)
         {
             beforeLoadMuted = value;
             return;
@@ -1238,7 +1262,16 @@ public class VideoDisplay extends UIComponent
         
         playTheVideoOnVisible = false;
         
-        videoPlayer.pause();
+        // if we're loading up, then we will pause automatically, so let's 
+        // not interrupt this process
+        // if inLoadingState1 && pausable, then let loading state handle it
+        // if inLoadingState1 && !pausable, then let the loading state handle it
+        // if !inLoadingState1 && pausable, then just pause
+        // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
+        if (!inLoadingState1 && videoPlayer.pausable)
+            videoPlayer.pause();
+        else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+            load();
     }
     
     /**
@@ -1258,7 +1291,12 @@ public class VideoDisplay extends UIComponent
         
         playTheVideoOnVisible = false;
         
-        videoPlayer.play();
+        // if we're loading up, use a special method to cancel the load
+        // and to start playing again.  Otherwise, go ahead and play
+        if (inLoadingState1)
+            cancelLoadAndPlay();
+        else if (videoPlayer.playable)
+            videoPlayer.play();
     }
     
     /**
@@ -1297,7 +1335,10 @@ public class VideoDisplay extends UIComponent
         if (!videoPlayerResponsive())
             return;
         
-        videoPlayer.seek(time);
+        // TODO (rfrishbe): could handle what to do if this gets called when loading() better.
+        // Need to store where we want to seek to.
+        if (videoPlayer.seekable)
+            videoPlayer.seek(time);
     }
     
     /**
@@ -1322,7 +1363,16 @@ public class VideoDisplay extends UIComponent
         
         playTheVideoOnVisible = false;
         
-        videoPlayer.stop();
+        // if we're loading up, then we will stop automatically, so let's 
+        // not interrupt this process
+        // if inLoadingState1 && pausable, then let loading state handle it
+        // if inLoadingState1 && !pausable, then let the loading state handle it
+        // if !inLoadingState1 && pausable, then just pause
+        // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
+        if (!inLoadingState1 && videoPlayer.pausable)
+            videoPlayer.stop();
+        else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+            load();
     }
     
     //--------------------------------------------------------------------------
@@ -1476,10 +1526,11 @@ public class VideoDisplay extends UIComponent
         // set and whether we are visible and the other typical conditions.
         changePlayback(false, false);
         
-        // if we're not going to autoPlay but we need to seek 
+        // if we're not going to autoPlay (or couldn't autoPlay because 
+        // we're hidden or for some other reason), but we need to seek 
         // to the first frame, then we have to do this on our own 
         // by using our load() method.
-        if (!autoPlay && autoDisplayFirstFrame)
+        if ((!autoPlay || !shouldBePlaying) && autoDisplayFirstFrame)
             load();
         
         // set videoPlayer's element to the newly constructed VideoElement
@@ -1516,6 +1567,8 @@ public class VideoDisplay extends UIComponent
      */
     private function load():void
     {
+        inLoadingState1 = true;
+        
         // wait until we can mute, play(), pause(), and seek() before doing anything.
         // We should be able to do all of these operations on the READY state change event.
         videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandlerForLoading);
@@ -1587,11 +1640,6 @@ public class VideoDisplay extends UIComponent
      */
     private function changePlayback(causePause:Boolean, causePlay:Boolean):void
     {
-        // if we're in the loading state, then do not touch this at all.
-        // We will alawys load up the video and then not play.
-        if (inLoadingState)
-            return;
-        
         // if we shouldn't be playing, we pause the video.
         // if we come back up and should be playing, we will
         // start playing the video again if the video wasn't paused 
@@ -1611,7 +1659,9 @@ public class VideoDisplay extends UIComponent
                 
                 // set autoplay and call play() if the 
                 // source has loaded up and it's playable
-                if (videoPlayer.playable)
+                if (inLoadingState1)
+                    cancelLoadAndPlay();
+                else if (videoPlayer.playable)
                     videoPlayer.play();
             }
         }
@@ -1630,8 +1680,63 @@ public class VideoDisplay extends UIComponent
             // always set autoPlay to false here and 
             // if pausable, pause the video
             videoPlayer.autoPlay = false;
-            if (causePause && videoPlayer.pausable)
-                videoPlayer.pause();
+            if (causePause)
+            {
+                // if we're loading up, then we will pause automatically, so let's 
+                // not interrupt this process
+                // if inLoadingState1 && pausable, then let loading state handle it
+                // if inLoadingState1 && !pausable, then let the loading state handle it
+                // if !inLoadingState1 && pausable, then just pause
+                // if !inLoadingState1 && !pausable, then load (if needed to show first frame)
+                if (!inLoadingState1 && videoPlayer.pausable)
+                    videoPlayer.pause();
+                else if (!videoPlayer.pausable && autoDisplayFirstFrame)
+                    load();
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Cancels the load, no matter what state it's in, and starts to play().
+     */
+    private function cancelLoadAndPlay():void
+    {
+        if (inLoadingState1)
+        {
+            if (!inLoadingState2)
+            {
+                // first step
+                
+                // Don't need to do anything but set inLoadingState1 = false (done down below).
+                // This is handled in videoPlayer_mediaPlayerStateChangeHandlerForLoading which will still 
+                // be fired and will handle calling videoPlayer.play() without the rest of the loading 
+                // junk because inLoadingState1 = false now
+            }
+            else if (!inLoadingState3)
+            {
+                // second step
+                videoPlayer.muted = beforeLoadMuted;
+                videoPlayer.view.visible = true;
+                
+                // don't need to do anything to play except change state info and reset 
+                // properties above
+            }
+            else
+            {
+                // third step
+                videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+                videoPlayer.muted = beforeLoadMuted;
+                videoPlayer.view.visible = true;
+                
+                // wasn't playing
+                if (videoPlayer.playable)
+                    videoPlayer.play();
+            }
+            
+            inLoadingState1 = false;
+            inLoadingState2 = false;
+            inLoadingState3 = false;
         }
     }
     
@@ -1879,11 +1984,16 @@ public class VideoDisplay extends UIComponent
             if (videoPlayer.playing)
                 return;
             
-            beforeLoadMuted = videoPlayer.muted;
-            videoPlayer.muted = true;
-            videoPlayer.view.visible = false;
-            
-            inLoadingState = true;
+            // if this load wasn't cancelled, then we'll do the load stuff.
+            // otherwise, we'll just cause play().
+            if (inLoadingState1)
+            {
+                beforeLoadMuted = videoPlayer.muted;
+                videoPlayer.muted = true;
+                videoPlayer.view.visible = false;
+                
+                inLoadingState2 = true;
+            }
             
             // call play(), here, then wait to call pause() and seek(0) in the 
             // dimensionChangeHandler
@@ -1899,8 +2009,9 @@ public class VideoDisplay extends UIComponent
         invalidateSize();
         
         // if we're loading up the video, then let's finish the load in here
-        if (inLoadingState)
+        if (inLoadingState2)
         {
+            inLoadingState3 = true;
             // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
             videoPlayer.addEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
             
@@ -1919,8 +2030,11 @@ public class VideoDisplay extends UIComponent
      */
     private function videoPlayer_seekEndHandler(event:SeekEvent):void
     {
+        inLoadingState1 = false;
+        inLoadingState2 = false;
+        inLoadingState3 = false;
+        
         videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
-        inLoadingState = false;
         videoPlayer.muted = beforeLoadMuted;
         videoPlayer.view.visible = true;
     }
