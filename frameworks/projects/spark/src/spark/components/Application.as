@@ -1272,7 +1272,10 @@ public class Application extends SkinnableContainer
             viewSourceCMI = new ContextMenuItem(caption, true);
             viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuItemSelectHandler);
 
-            defaultMenu.customItems.push(viewSourceCMI);
+            // Append custom option, validating customItems first as in the 
+            // mobile context this is null.
+            if (defaultMenu.customItems)
+                defaultMenu.customItems.push(viewSourceCMI);
         }
 
         contextMenu = defaultMenu;
