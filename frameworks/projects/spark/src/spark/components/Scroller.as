@@ -19,6 +19,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
+import flash.system.Capabilities;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
@@ -431,9 +432,15 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Length the touch scroll throw effect should run
+     *  Minimum duration of throw effects
      */
-    private static const THROW_EFFECT_TIME:int = 2000;
+    private static const THROW_EFFECT_DURATION_MINIMUM:int = 500;
+
+    /**
+     *  @private
+     *  Range (maximum - minimum) of the throw effect duration
+     */
+    private static const THROW_EFFECT_DURATION_RANGE:int = 2500;
     
     //--------------------------------------------------------------------------
     //
@@ -1063,12 +1070,42 @@ public class Scroller extends SkinnableComponent
         removeEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
     }
     
+    
+    /**
+     *  @private
+     *  Use the specified scroll distance ratio to determine the duration of the throw effect
+     */
+    private function calculateThrowEffectTime(distanceRatio:Point):int
+    {
+        if (scrollerLayout)
+        {
+            // the throw will last 0.5sec - 3sec, depending on the distance
+            // of the scroll.
+            var throwTimeX:int = THROW_EFFECT_DURATION_MINIMUM + (THROW_EFFECT_DURATION_RANGE * distanceRatio.x); 
+            var throwTimeY:int = THROW_EFFECT_DURATION_MINIMUM + (THROW_EFFECT_DURATION_RANGE * distanceRatio.y); 
+
+            if (scrollerLayout.canScrollHorizontally && scrollerLayout.canScrollVertically)
+            {
+                return Math.max(throwTimeX,throwTimeY);
+            }
+            else if (scrollerLayout.canScrollHorizontally) 
+            {
+                return throwTimeX;
+            }
+            else if (scrollerLayout.canScrollVertically) 
+            {
+                return throwTimeY;
+            }
+        }
+        return 0;        
+    }
+    
     /**
      *  @private
      *  Set up the effect to be used for the throw animation
      *  FIXME (rfrishbe): this could use some work
      */
-    private function setUpThrowEffect(velocityX:Number, velocityY:Number):void
+    private function setUpThrowEffect(velocityX:Number, velocityY:Number, distanceRatio:Point):void
     {
         // create throwEffect if we haven't already
         if (!throwEffect)
@@ -1076,7 +1113,6 @@ public class Scroller extends SkinnableComponent
             throwEffect = new Animate();
             throwEffect.addEventListener(EffectEvent.EFFECT_END, throwEffect_effectEndHandler);
             throwEffect.target = viewport;
-            throwEffect.duration = THROW_EFFECT_TIME;
             
             // effect and easer stuff should be combined some or maybe we just need one 
             // touch specific class rather than two
@@ -1084,14 +1120,13 @@ public class Scroller extends SkinnableComponent
             throwEffect.easer = throwEaser;
         }
         
+        // Calculate the effect duration
+        var throwEffectTime:int = calculateThrowEffectTime(distanceRatio);
+        throwEffect.duration = throwEffectTime;
+
         // calculate the finalVSP/finalHSP
         var finalHSP:Number = viewport.horizontalScrollPosition;
         var finalVSP:Number = viewport.verticalScrollPosition;
-        
-        // want velocity to be 0 and to decrease by currentFriction every 
-        // SCROLLING_TIMER_DELAY over EFFECT_TIME total
-        var decelerationRateX:Number = velocityX/THROW_EFFECT_TIME;
-        var decelerationRateY:Number = velocityY/THROW_EFFECT_TIME;
         
         // figure out where we're scrolling to
         if (scrollerLayout && scrollerLayout.canScrollHorizontally)
@@ -1101,9 +1136,12 @@ public class Scroller extends SkinnableComponent
             var cWidth:Number = viewport.contentWidth;
             var maxWidth:Number = Math.max(0, (cWidth == 0) ? viewport.horizontalScrollPosition : cWidth - viewportWidth);
             
-            // FORMULA: initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
-            finalHSP = viewport.horizontalScrollPosition - (velocityX * THROW_EFFECT_TIME) + (.5 * decelerationRateX * THROW_EFFECT_TIME * THROW_EFFECT_TIME);
+            // we want the throw to go half the distance it would if its velocity remained constant
+            finalHSP = viewport.horizontalScrollPosition - (velocityX * throwEffectTime * 0.5);
             
+            // Make sure the animation ends on a nice round number so extra scroll position
+            // property changes don't occur after the touchInteractionEnd event is dispatched.
+            finalHSP = Math.round(finalHSP);
         }
         
         if (scrollerLayout && scrollerLayout.canScrollVertically)
@@ -1113,8 +1151,12 @@ public class Scroller extends SkinnableComponent
             var cHeight:Number = viewport.contentHeight;
             var maxHeight:Number = Math.max(0, (cHeight == 0) ? viewport.verticalScrollPosition : cHeight - viewportHeight);
             
-            // FORMULA: initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
-            finalVSP = viewport.verticalScrollPosition - (velocityY * THROW_EFFECT_TIME) + (.5 * decelerationRateY * THROW_EFFECT_TIME * THROW_EFFECT_TIME);
+            // we want the throw to go half the distance it would if its velocity remained constant
+            finalVSP = viewport.verticalScrollPosition - (velocityY * throwEffectTime * 0.5); 
+            
+            // Make sure the animation ends on a nice round number so extra scroll position
+            // property changes don't occur after the touchInteractionEnd event is dispatched.
+            finalVSP = Math.round(finalVSP);
         }
         
         // maybe use motion paths with more keyframes for the bounce effect??
@@ -1133,9 +1175,9 @@ public class Scroller extends SkinnableComponent
             
             // see formula in VSP section.
             if (finalHSP == hspToUse)
-                timeToReachHSP = THROW_EFFECT_TIME;
+                timeToReachHSP = throwEffectTime;
             else
-                timeToReachHSP = THROW_EFFECT_TIME*(1-(Math.pow(1-((hspToUse-hsp)/(finalHSP-hsp)),.25)));
+                timeToReachHSP = throwEffectTime*(1-(Math.pow(1-((hspToUse-hsp)/(finalHSP-hsp)),.25)));
             
             horizontalMP.keyframes = Vector.<Keyframe>([new Keyframe(0, null), new Keyframe(timeToReachHSP, hspToUse)]);
             throwEffectMotionPaths.push(horizontalMP);
@@ -1152,13 +1194,13 @@ public class Scroller extends SkinnableComponent
             var vspToUse:Number = Math.min(Math.max(finalVSP,0), maxHeight);
             
             // since easing function is f(t) = start + (final - start) * e(t)
-            // e(t) = Math.pow(1 - t/THROW_EFFECT_TIME, 4)
+            // e(t) = Math.pow(1 - t/throwEffectTime, 4)
             // We want to solve for t when e(t) = vspToUse
-            // t = THROW_EFFECT_TIME*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
+            // t = throwEffectTime*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
             if (finalVSP == vspToUse)
-                timeToReachVSP = THROW_EFFECT_TIME;
+                timeToReachVSP = throwEffectTime;
             else
-                timeToReachVSP = THROW_EFFECT_TIME*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
+                timeToReachVSP = throwEffectTime*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
             
             verticalMP.keyframes = Vector.<Keyframe>([new Keyframe(0, null), new Keyframe(timeToReachVSP, vspToUse)]);
             throwEffectMotionPaths.push(verticalMP);
@@ -1632,11 +1674,10 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */ 
-    mx_internal function performThrow(velocityX:Number, velocityY:Number):void
+    mx_internal function performThrow(velocityX:Number, velocityY:Number, distanceRatio:Point):void
     {   
         stoppedPreemptively = false;
-        setUpThrowEffect(velocityX, velocityY);
-        
+        setUpThrowEffect(velocityX, velocityY, distanceRatio);
         throwEffect.play();
     }
     
@@ -1724,10 +1765,17 @@ class TouchScrollHelper
     
     /**
      *  @private
-     *  Minimum velocity needed to start a throw gesture
+     *  Minimum velocity needed to start a throw gesture, in inches per second.
      */
-    private static const MIN_START_VELOCITY:Number = 0.05;
+    private static const MIN_START_VELOCITY_IPS:Number = 0.8;
     
+    /**
+     *  @private
+     *  Maximum velocity of throw effect, in inches per second.
+     */
+    private static const MAX_THROW_VELOCITY_IPS:Number = 10.0;
+    
+
     /**
      *  @private
      *  Weights to use when calculating velocity, giving the last velocity more of a weight 
@@ -2164,9 +2212,8 @@ class TouchScrollHelper
         
         // for the max size, we couldn't decide between using screen width/height or 
         // scroller width/height, so we're using a weighted average for it
-        // FIXME (rfrishbe): use stage.stageWidth
-        var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.width)/3;
-        var heightToUseForRatio:Number = (2*scroller.height + scroller.stage.height)/3;
+        var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.stageWidth)/3;
+        var heightToUseForRatio:Number = (2*scroller.height + scroller.stage.stageHeight)/3;
         var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
         var movedRatio:Point = new Point(Math.abs(RATIO_TO_USE*lastMouseEventPoint.x/widthToUseForRatio), Math.abs(RATIO_TO_USE*lastMouseEventPoint.y/heightToUseForRatio));
 
@@ -2176,8 +2223,9 @@ class TouchScrollHelper
         var lastVelocity:Point = lastMouseEventPoint.subtract(mouseEventCoordinatesHistory[indexBeforeLast]);
         lastVelocity.x /= lastDt;
         lastVelocity.y /= lastDt;
-        lastVelocity.x *= movedRatio.x;
-        lastVelocity.y *= movedRatio.y;
+        
+
+        var minVelocityPixels:Number = MIN_START_VELOCITY_IPS * flash.system.Capabilities.screenDPI / 1000;
         
         var scrollEndEvent:TouchInteractionEvent;
         
@@ -2185,7 +2233,7 @@ class TouchScrollHelper
         // FIXME (rfrishbe): this should be parameterized better and the heuristic should 
         // be documented better
         if ( (lastDt >= 3*averageDt) &&
-            (lastVelocity.length <= MIN_START_VELOCITY))
+            (lastVelocity.length <= minVelocityPixels))
         {
             isScrolling = false;
             
@@ -2200,14 +2248,10 @@ class TouchScrollHelper
         // calculate the velocity using a weighted average
         var throwVelocity:Point = calculateThrowVelocity();
         
-        // use ratio of how far they scrolled to scale the velocity
-        throwVelocity.x *= movedRatio.x;
-        throwVelocity.y *= movedRatio.y;
-        
         // if the velocity is greater than the minimum velocity, start throwing
-        if (throwVelocity.length > MIN_START_VELOCITY)
+        if (throwVelocity.length > minVelocityPixels)
         {
-            scroller.performThrow(throwVelocity.x, throwVelocity.y);
+            scroller.performThrow(throwVelocity.x, throwVelocity.y, movedRatio);
         }
         else
         {
@@ -2267,7 +2311,12 @@ class TouchScrollHelper
             i++;
         }
         
-        return new Point(weightedSumX/totalWeight, weightedSumY/totalWeight);
+        // Limit the velocity to an absolute maximum
+        var maxPixelsPerMS:Number = MAX_THROW_VELOCITY_IPS * flash.system.Capabilities.screenDPI / 1000;
+        var velX:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,weightedSumX/totalWeight));
+        var velY:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,weightedSumY/totalWeight));
+        
+        return new Point(velX,velY);
     }
     
     /**
