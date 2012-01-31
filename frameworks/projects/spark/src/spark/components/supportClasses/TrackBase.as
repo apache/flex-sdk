@@ -425,8 +425,11 @@ public class TrackBase extends Range
         }
         else if (instance == track)
         {
-            track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
             track.addEventListener(ResizeEvent.RESIZE, track_resizeHandler);
+            
+            // track is only clickable if in mouse inputMode
+            if (getStyle("inputMode") == "mouse")
+                track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
         }
     }
 
@@ -450,6 +453,29 @@ public class TrackBase extends Range
             track.removeEventListener(ResizeEvent.RESIZE, track_resizeHandler);
         }
     }
+    
+    /**
+     *  @private
+     */ 
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = styleName == null || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        if (allStyles || styleName == "inputMode")
+        {
+            if (track)
+            {
+                // track is only clickable if in mouse inputMode
+                if (getStyle("inputMode") == "mouse")
+                    track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
+                else
+                    track.removeEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
+            }
+        }
+    }
+    
     /**
      *  @private
      *  If the component is in focus, then it should respond to mouseWheel events. We listen to these
