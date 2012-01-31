@@ -527,8 +527,11 @@ public class AnimateTransform extends Animate
                 // they might not have explcitly defined any offsets.  If that's the case, 
                 // we still need to capture default start values, so let's initialize the offsets
                 // to a default set anyway.
-                if (postLayoutTransformPropertiesSet && target.postLayoutTransformOffsets == null)
+                if ((applyChangesPostLayout || postLayoutTransformPropertiesSet) && 
+                    target.postLayoutTransformOffsets == null)
+                {
                     target.postLayoutTransformOffsets = new TransformOffsets();
+                }
                 
                 // if the target doesn't have any offsets, there's no need to capture
                 // offset values.
@@ -591,17 +594,18 @@ public class AnimateTransform extends Animate
         }
         else
         {
-            if(!isNaN(transformX) || !isNaN(transformY) || !isNaN(transformZ))
-            {
-                computedTransformCenter = new Vector3D(target.transformX,
-                    target.transformY, target.transformZ);
-                if(!isNaN(transformX))
-                    computedTransformCenter.x = transformX; 
-                if(!isNaN(transformY))
-                    computedTransformCenter.y = transformY; 
-                if(!isNaN(transformZ))
-                    computedTransformCenter.z = transformZ; 
-            }
+            // Always create a transform center, even if we do not override
+            // the object's transform XYZ properties. Theoretically, a null transform
+            // center should be the same as one that uses the tXYZ properties on
+            // the target, but that's not the case currently.
+            computedTransformCenter = new Vector3D(target.transformX,
+                target.transformY, target.transformZ);
+            if(!isNaN(transformX))
+                computedTransformCenter.x = transformX; 
+            if(!isNaN(transformY))
+                computedTransformCenter.y = transformY; 
+            if(!isNaN(transformZ))
+                computedTransformCenter.z = transformZ;
         }
         return computedTransformCenter;
     }
@@ -690,7 +694,7 @@ public class AnimateTransform extends Animate
                         transitionValues.scaleX : target["scaleX"];
                     scale.y = !isNaN(transitionValues.scaleY) ?
                         transitionValues.scaleY : target["scaleY"];
-                    scale.z = !isNaN(transitionValues.scaleY) ?
+                    scale.z = !isNaN(transitionValues.scaleZ) ?
                         transitionValues.scaleZ : target["scaleZ"];
                     tmpScale = scale;
                 }
