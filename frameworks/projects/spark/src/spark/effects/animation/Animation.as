@@ -53,7 +53,7 @@ import flex.events.AnimationEvent;
 /**
  * Dispatched when the effect ends. An <code>animationUpdate</code> event 
  * is also dispatched at the same time. A repeating animation dispatches 
- * this event only after the final repetition.</p>
+ * this event only after the final repetition.
  *
  * @eventType flex.events.AnimationEvent.ANIMATION_END
  */
