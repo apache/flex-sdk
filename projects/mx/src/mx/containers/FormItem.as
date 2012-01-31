@@ -1088,7 +1088,7 @@ public class FormItem extends Container
         var numColumns:int = calcNumColumns(controlWidth);
         var col:int = 0;
         
-        if (numColumns != guessedNumColumns)
+        if (numColumns != guessedNumColumns && isNaN(explicitWidth))
         {
             if (numberOfGuesses < 2)
             {
