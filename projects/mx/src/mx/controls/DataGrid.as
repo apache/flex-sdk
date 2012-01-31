@@ -545,6 +545,8 @@ include "../styles/metadata/IconColorStyles.as"
 
 [RequiresDataBinding(true)]
 
+[Alternative(replacement="spark.components.DataGrid", since="4.5")]
+
 /**
  *  The <code>DataGrid</code> control is like a List except that it can 
  *  show more than one column of data making it suited for showing 
