@@ -34,6 +34,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The alpha of the border for this component.
+ *
+ *  @default 0.5
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -44,6 +46,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The color of the border for this component.
+ *
+ *  @default 0x000000
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -54,6 +58,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  Controls the visibility of the border for this component.
+ *
+ *  @default true
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -64,6 +70,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The alpha of the content background for this component.
+ *
+ *  @default 1
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -74,6 +82,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
+ *
+ *  @default 0xFFFFFF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -155,10 +165,14 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 *    alignmentBaseline="USE_DOMINANT_BASELINE"
 *    baselineShift="0.0"
 *    blockProgression="TB"
+*    borderAlpha="0.5"
+*    borderColor="0x000000"
+*    borderVisible="true"
 *    breakOpportunity="AUTO"
 *    cffHinting="HORIZONTAL_STEM"
 *    color="0"
-*    contentBackgroundColor=""
+*    contentBackgroundAlpha="1.0"
+*    contentBackgroundColor="0xFFFFFF"
 *    digitCase="DEFAULT"
 *    digitWidth="DEFAULT"
 *    direction="LTR"
@@ -426,7 +440,7 @@ public class NumericStepper extends Spinner
     /**
      *  @private
      */
-	private var valueFormatFunctionChanged:Boolean;
+    private var valueFormatFunctionChanged:Boolean;
     
     /**
      *  Callback function that formats the value displayed
@@ -473,7 +487,7 @@ public class NumericStepper extends Spinner
     /**
      *  @private
      */
-	private var valueParseFunctionChanged:Boolean;
+    private var valueParseFunctionChanged:Boolean;
     
     /**
      *  Callback function that extracts the numeric 
