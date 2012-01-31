@@ -129,7 +129,7 @@ use namespace mx_internal;
  *        differently than the MX version.
  *        To learn how to use the
  *        <code>embedAsCFF</code> attribute when you embed a font,
- *    see the topic "Using embedded fonts" in <i>Using Flex SDK</i>.</li>
+ *    see the topic "Using embedded fonts" in <i>Using Flex</i>.</li>
  *  </ul></p>
  *
  *  <p>The Spark TextArea control uses the TLF object-oriented model of rich text,
