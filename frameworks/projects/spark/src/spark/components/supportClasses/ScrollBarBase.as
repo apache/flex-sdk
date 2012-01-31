@@ -555,24 +555,6 @@ public class ScrollBar extends TrackBase
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function enableSkinParts(value:Boolean):void
-    {
-        super.enableSkinParts(value);
-        
-        if (decrementButton)
-            decrementButton.enabled = value;
-        if (incrementButton)
-            incrementButton.enabled = value;
-    }
-
-    /**
      *  Adds or subtracts <code>pageSize</code> from <code>value</code>.
      *  For an addition, the new <code>value</code> is the closest multiple of <code>pageSize</code> 
      *  that is larger than the current <code>value</code>.
