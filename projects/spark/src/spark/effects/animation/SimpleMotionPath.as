@@ -11,11 +11,7 @@
 
 package spark.effects
 {
-import spark.effects.interpolation.IInterpolator;
 import spark.effects.interpolation.NumberArrayInterpolator;
-
-import spark.effects.KeyFrame;
-import spark.effects.MotionPath;
     
     
 /**
@@ -48,15 +44,17 @@ public class AnimationProperty extends MotionPath
      * @param property The name of the property being animated
      * @param valueFrom The value that the animation starts from
      * @param valueTo The value that the animation ends on
+     * @param duration The time, in milliseconds, that the animation should take
      * @param valueBy An optional parameter that specifies the delta with
      * which to calculate either the from or to values.
      */    
-    public function AnimationProperty(property:String = null, valueFrom:Object = null,
-        valueTo:Object = null, valueBy:Object = null)
+    public function AnimationProperty(property:String = null, 
+        valueFrom:Object = null, valueTo:Object = null, 
+        duration:Number = NaN, valueBy:Object = null)
     {
         super();
         this.property = property;
-        keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(NaN, valueTo, valueBy)];
+        keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(duration, valueTo, valueBy)];
         if (valueFrom is Array && valueTo is Array)
             interpolator = NumberArrayInterpolator.getInstance();
     }
