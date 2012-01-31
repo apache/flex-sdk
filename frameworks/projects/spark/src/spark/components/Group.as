@@ -262,7 +262,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         if (_resizeMode == ResizeMode._SCALE_UINT)
             return 1;
 
-        return super.scaleX;
+        return super.scaleY;
     }
 
     /**
@@ -273,7 +273,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         if (_resizeMode == ResizeMode._SCALE_UINT)
             return;
 
-        super.scaleX = value;
+        super.scaleY = value;
     }
 
     /**
