@@ -14,7 +14,7 @@ package mx.components.baseClasses
 import flash.events.Event;
 
 import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.RendererExistenceEvent;
 
 import mx.collections.IList;
 import mx.components.FxDataContainer;
@@ -315,12 +315,12 @@ public class FxListBase extends FxDataContainer
             validateNow();
         }
         
-        if (!dataGroup || dataGroup.numLayoutElements == 0)
+        if (!dataGroup || dataGroup.numElements == 0)
             return super.baselinePosition;
         
         // Obtain reference to newly generated item element which will be used
         // to compute the baseline.
-        var listItem:Object = dataGroup.getRendererForItemAt(0);
+        var listItem:Object = dataGroup.getElementAt(0);
         if (!listItem)
             return super.baselinePosition;
         
