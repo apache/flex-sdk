@@ -189,6 +189,18 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="backgroundAttachment", type="String", inherit="no")]
 
 /**
+ *  Color of the content area of the component.
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  The alpha value for the overlay that is placed on top of the
  *  container when it is disabled.
  *  
@@ -198,6 +210,18 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="disabledOverlayAlpha", type="Number", inherit="no")]
+
+/**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  The name of the horizontal scrollbar style.
@@ -248,6 +272,19 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a ScrollBar button.
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 [ResourceBundle("core")]
 
