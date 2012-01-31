@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 import flash.events.Event;
-import flex.core.Group;
-import flex.layout.HorizontalLayout;
+import mx.components.Group;
+import mx.layout.HorizontalLayout;
 
 /**
  * A Group with a HorizontalLayout.  
@@ -23,7 +23,7 @@ import flex.layout.HorizontalLayout;
  * 
  * The layout property should not be set or configured directly.
  * 
- * @see flex.layout.HorizontalLayout
+ * @see mx.layout.HorizontalLayout
  */
 public class HGroup extends Group
 {
@@ -35,8 +35,8 @@ public class HGroup extends Group
      *  Resetting the layout property or setting its properties directly
      *  is not supported.
      * 
-     *  @see flex.layout.HorizontalLayout
-     *  @see flex.component.VGroup
+     *  @see mx.layout.HorizontalLayout
+     *  @see mx.components.VGroup
      */  
     public function HGroup():void
     {
@@ -63,7 +63,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy flex.layout.HorizontalLayout#gap
+     * @copy mx.layout.HorizontalLayout#gap
      */
     public function get gap():int
     {
@@ -85,7 +85,7 @@ public class HGroup extends Group
     [Bindable("propertyChange")]    
         
     /**
-     * @copy flex.layout.HorizontalLayout#columnCount
+     * @copy mx.layout.HorizontalLayout#columnCount
      */
     public function get columnCount():int
     {
@@ -97,7 +97,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy flex.layout.HorizontalLayout#requestedColumnCount
+     * @copy mx.layout.HorizontalLayout#requestedColumnCount
      */
     public function get requestedColumnCount():int
     {
@@ -119,7 +119,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy flex.layout.HorizontalLayout#columnWidth
+     * @copy mx.layout.HorizontalLayout#columnWidth
      */
     public function get columnWidth():Number
     {
@@ -141,7 +141,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy flex.layout.HorizontalLayout#variableColumnWidth
+     * @copy mx.layout.HorizontalLayout#variableColumnWidth
      */
     public function get variableColumnWidth():Boolean
     {
@@ -163,7 +163,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy flex.layout.HorizontalLayout#firstIndexInView
+     * @copy mx.layout.HorizontalLayout#firstIndexInView
      */
     public function get firstIndexInView():int
     {
@@ -177,7 +177,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy flex.layout.HorizontalLayout#lastIndexInView
+     * @copy mx.layout.HorizontalLayout#lastIndexInView
      */
     public function get lastIndexInView():int
     {
