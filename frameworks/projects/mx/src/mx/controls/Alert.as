@@ -13,17 +13,23 @@ package mx.controls
 {
 
 import flash.display.DisplayObject;
+import flash.geom.Rectangle;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.EventPhase;
 import mx.containers.Panel;
 import mx.controls.alertClasses.AlertForm;
 import mx.core.Application;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
+import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CloseEvent;
+import mx.events.FlexEvent;
 import mx.events.MarshalEvent;
+import mx.events.SandboxBridgeRequest;
+import mx.graphics.RadialGradient;
 import mx.managers.ISystemManager;
 import mx.managers.ISystemManager2;
 import mx.managers.PopUpManager;
@@ -31,9 +37,6 @@ import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.utils.SandboxUtil;
-import flash.geom.Rectangle;
-import mx.graphics.RadialGradient;
-import mx.events.SandboxBridgeRequest;
 
 use namespace mx_internal;
 
@@ -521,7 +524,7 @@ public class Alert extends Panel
 
         alert.setActualSize(alert.getExplicitOrMeasuredWidth(),
                             alert.getExplicitOrMeasuredHeight());
-        PopUpManager.centerPopUp(alert);
+        alert.addEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
         
         return alert;
     }
@@ -571,6 +574,19 @@ public class Alert extends Panel
 		static_resourcesChanged();
 	}
 
+ 
+    /**
+     *  @private
+     */
+    private static function static_creationCompleteHandler(event:FlexEvent):void
+    {
+        if (event.target is IFlexDisplayObject && event.eventPhase == EventPhase.AT_TARGET)
+        {
+            event.target.removeEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
+            PopUpManager.centerPopUp(IFlexDisplayObject(event.target));
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
