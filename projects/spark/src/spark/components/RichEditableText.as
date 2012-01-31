@@ -16,9 +16,6 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
-import flash.text.engine.FontPosture;
-import flash.text.engine.FontWeight;
-import flash.text.engine.Kerning;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
@@ -33,7 +30,6 @@ import mx.events.FlexEvent;
 import text.container.IContainerController;
 import text.edit.EditManager;
 import text.edit.ISelectionManager;
-import text.edit.SelectionState;
 import text.elements.FlowElement;
 import text.elements.ParagraphElement;
 import text.elements.SpanElement;
@@ -41,19 +37,12 @@ import text.elements.TextFlow;
 import text.events.CompositionCompletionEvent;
 import text.events.FlowOperationEvent;
 import text.events.SelectionEvent;
-import text.formats.BlockProgression;
 import text.formats.CharacterFormat;
 import text.formats.ContainerFormat;
-import text.formats.Direction;
 import text.formats.ICharacterFormat;
 import text.formats.IContainerFormat;
 import text.formats.IParagraphFormat;
-import text.formats.LineBreak;
 import text.formats.ParagraphFormat;
-import text.formats.TextAlign;
-import text.formats.TextDecoration;
-import text.formats.VerticalAlign;
-import text.formats.WhitespaceCollapse;
 import text.importExport.TextFilter;
 import text.operations.ApplyCharacterFormatOperation;
 import text.operations.ApplyContainerFormatOperation;
@@ -88,6 +77,21 @@ import text.operations.SplitParagraphOperation;
  *  Dispatched when the user pressed the Enter key.
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [DefaultProperty("content")]
 
@@ -127,6 +131,26 @@ public class TextView extends UIComponent implements IViewport
             
     /**
      *  @private
+     *  This set keeps track of which text formats were specified
+     *  on the graphic element's TextFlow as opposed to on the
+     *  graphic element itself.
+     *
+     *  For example, if you have
+     *
+     *      <TextGraphic fontSize="10">
+     *          <content>
+     *              <TextFlow fontSize="20">
+     *                  ...
+     *              </TextFlow>
+     *          </content>
+     *      </TextGraphic>
+     *
+     *  then this set would be { fontSize: 20 }.
+     */
+    private var textFlowTextFormat:Object = {};
+
+    /**
+     *  @private
      */
     private var textAttributeChanged:Boolean = true;
 
@@ -154,939 +178,6 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      */
     private var charWidth:Number;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: Text formatting
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  blockProgression
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _blockProgression:String = BlockProgression.TB;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get blockProgression():String
-    {
-        return _blockProgression;
-    }
-
-    /**
-     *  @private
-     */
-    public function set blockProgression(value:String):void
-    {
-        if (value == _blockProgression)
-            return;
-
-        _blockProgression = value;
-        textAttributeChanged = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  color
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _color:uint = 0x000000;
-
-    /**
-     *  The color of the text.
-     *
-     *  @default 0x000000
-     */
-    public function get color():uint
-    {
-        return _color;
-    }
-
-    /**
-     *  @private
-     */
-    public function set color(value:uint):void
-    {
-        if (value == _color)
-            return;
-        
-        _color = value;
-        textAttributeChanged = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  direction
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _direction:String = Direction.LTR;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get direction():String
-    {
-        return _direction;
-    }
-
-    /**
-     *  @private
-     */
-    public function set direction(value:String):void
-    {
-        if (value == _direction)
-            return;
-
-        _direction = value;
-        textAttributeChanged = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  fontFamily
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _fontFamily:String = "Times New Roman";
-
-    /**
-     *  The name of the font used to render the text.
-     *
-     *  @default "Times New Roman"
-     */
-    public function get fontFamily():String
-    {
-        return _fontFamily;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontFamily(value:String):void
-    {
-        if (value == _fontFamily)
-            return;
-
-        _fontFamily = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  fontSize
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _fontSize:Number = 12;
-
-    /**
-     *  The size, in pixels, of the font used to render the text.
-     *
-     *  @default 12
-     */
-    public function get fontSize():Number
-    {
-        return _fontSize;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontSize(value:Number):void
-    {
-        if (value == _fontSize)
-            return;
-
-        _fontSize = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  fontStyle
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _fontStyle:String = FontPosture.NORMAL;
-
-    /**
-     *  Determines whether the text is italic.
-     *  Recognized values are <code>"normal"</code> and <code>"italic"</code>.
-     * 
-     *  @default "normal"
-     */
-    public function get fontStyle():String
-    {
-        return _fontStyle;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontStyle(value:String):void
-    {
-        if (value == _fontStyle)
-            return;
-
-        _fontStyle = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  fontWeight
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _fontWeight:String = FontWeight.NORMAL;
-
-    /**
-     *  Determines whether the text is boldface.
-     *  Recognized values are <code>"normal"</code> and <code>"bold"</code>.
-     * 
-     *  @default "normal"
-     */
-    public function get fontWeight():String
-    {
-        return _fontWeight;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontWeight(value:String):void
-    {
-        if (value == _fontWeight)
-            return;
-
-        _fontWeight = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  kerning
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _kerning:String = Kerning.AUTO;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get kerning():String
-    {
-        return _kerning;
-    }
-
-    /**
-     *  @private
-     */
-    public function set kerning(value:String):void
-    {
-        if (value == _kerning)
-            return;
-
-        _kerning = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  lineBreak
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _lineBreak:String = LineBreak.TO_FIT;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get lineBreak():String
-    {
-        return _lineBreak;
-    }
-
-    /**
-     *  @private
-     */
-    public function set lineBreak(value:String):void
-    {
-        if (value == _lineBreak)
-            return;
-
-        _lineBreak = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  lineHeight
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _lineHeight:Object = "120%";
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get lineHeight():Object
-    {
-        return _lineHeight;
-    }
-
-    /**
-     *  @private
-     */
-    public function set lineHeight(value:Object):void
-    {
-        if (value == _lineHeight)
-            return;
-
-        _lineHeight = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  lineThrough
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _lineThrough:Boolean = false;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get lineThrough():Boolean
-    {
-        return _lineThrough;
-    }
-
-    /**
-     *  @private
-     */
-    public function set lineThrough(value:Boolean):void
-    {
-        if (value == _lineThrough)
-            return;
-
-        _lineThrough = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  marginBottom
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _marginBottom:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get marginBottom():Number
-    {
-        return _marginBottom;
-    }
-
-    /**
-     *  @private
-     */
-    public function set marginBottom(value:Number):void
-    {
-        if (value == _marginBottom)
-            return;
-
-        _marginBottom = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  marginLeft
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _marginLeft:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get marginLeft():Number
-    {
-        return _marginLeft;
-    }
-
-    /**
-     *  @private
-     */
-    public function set marginLeft(value:Number):void
-    {
-        if (value == _marginLeft)
-            return;
-
-        _marginLeft = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  marginRight
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _marginRight:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get marginRight():Number
-    {
-        return _marginRight;
-    }
-
-    /**
-     *  @private
-     */
-    public function set marginRight(value:Number):void
-    {
-        if (value == _marginRight)
-            return;
-
-        _marginRight = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  marginTop
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _marginTop:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get marginTop():Number
-    {
-        return _marginTop;
-    }
-
-    /**
-     *  @private
-     */
-    public function set marginTop(value:Number):void
-    {
-        if (value == _marginTop)
-            return;
-
-        _marginTop = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  paddingBottom
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _paddingBottom:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get paddingBottom():Number
-    {
-        return _paddingBottom;
-    }
-
-    /**
-     *  @private
-     */
-    public function set paddingBottom(value:Number):void
-    {
-        if (value == _paddingBottom)
-            return;
-
-        _paddingBottom = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  paddingLeft
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _paddingLeft:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get paddingLeft():Number
-    {
-        return _paddingLeft;
-    }
-
-    /**
-     *  @private
-     */
-    public function set paddingLeft(value:Number):void
-    {
-        if (value == _paddingLeft)
-            return;
-
-        _paddingLeft = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  paddingRight
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _paddingRight:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get paddingRight():Number
-    {
-        return _paddingRight;
-    }
-
-    /**
-     *  @private
-     */
-    public function set paddingRight(value:Number):void
-    {
-        if (value == _paddingRight)
-            return;
-
-        _paddingRight = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  paddingTop
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _paddingTop:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get paddingTop():Number
-    {
-        return _paddingTop;
-    }
-
-    /**
-     *  @private
-     */
-    public function set paddingTop(value:Number):void
-    {
-        if (value == _paddingTop)
-            return;
-
-        _paddingTop = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  textAlign
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _textAlign:String = TextAlign.START;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get textAlign():String
-    {
-        return _textAlign;
-    }
-
-    /**
-     *  @private
-     */
-    public function set textAlign(value:String):void
-    {
-        if (value == _textAlign)
-            return;
-
-        _textAlign = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  textAlignLast
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _textAlignLast:String = TextAlign.START;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get textAlignLast():String
-    {
-        return _textAlignLast;
-    }
-
-    /**
-     *  @private
-     */
-    public function set textAlignLast(value:String):void
-    {
-        if (value == _textAlignLast)
-            return;
-
-        _textAlignLast = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  textAlpha
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _textAlpha:Number = 1.0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get textAlpha():Number
-    {
-        return _textAlpha;
-    }
-
-    /**
-     *  @private
-     */
-    public function set textAlpha(value:Number):void
-    {
-        if (value == _textAlpha)
-            return;
-
-        _textAlpha = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  textDecoration
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _textDecoration:String = TextDecoration.NONE;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get textDecoration():String
-    {
-        return _textDecoration;
-    }
-
-    /**
-     *  @private
-     */
-    public function set textDecoration(value:String):void
-    {
-        if (value == _textDecoration)
-            return;
-
-        _textDecoration = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  textIndent
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _textIndent:Number = 0;
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function get textIndent():Number
-    {
-        return _textIndent;
-    }
-
-    /**
-     *  @private
-     */
-    public function set textIndent(value:Number):void
-    {
-        if (value == _textIndent)
-            return;
-
-        _textIndent = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-        
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  tracking
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _tracking:Object = 0;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get tracking():Object
-    {
-        return _tracking;
-    }
-
-    /**
-     *  @private
-     */
-    public function set tracking(value:Object):void
-    {
-        if (value == _tracking)
-            return;
-
-        _tracking = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  verticalAlign
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _verticalAlign:String = VerticalAlign.TOP;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get verticalAlign():String
-    {
-        return _verticalAlign;
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalAlign(value:String):void
-    {
-        if (value == _verticalAlign)
-            return;
-
-        _verticalAlign = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  whiteSpaceCollapse
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _whiteSpaceCollapse:String = WhitespaceCollapse.PRESERVE;
-
-    /**
-     *  Documentation is not currrently available.
-     */
-    public function get whiteSpaceCollapse():String
-    {
-        return _whiteSpaceCollapse;
-    }
-
-    /**
-     *  @private
-     */
-    public function set whiteSpaceCollapse(value:String):void
-    {
-        if (value == _whiteSpaceCollapse)
-            return;
-
-        _whiteSpaceCollapse = value;
-        textAttributeChanged = true;
-        fontMetricsInvalid = true;
-
-        invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -1572,11 +663,13 @@ public class TextView extends UIComponent implements IViewport
     {
         super.measure();
 
-        measuredWidth = paddingLeft + widthInChars * charWidth + paddingRight;
-        
-        measuredHeight = paddingTop +
+        measuredWidth = getStyle("paddingLeft") +
+                        widthInChars * charWidth +
+                        getStyle("paddingRight");
+         
+        measuredHeight = getStyle("paddingTop") +
                          heightInLines * (ascent + descent) +
-                         paddingBottom;
+                         getStyle("paddingBottom");
 
         //trace("measure", measuredWidth, measuredHeight);
     }
@@ -1622,11 +715,11 @@ public class TextView extends UIComponent implements IViewport
     private function calculateFontMetrics():void
     {
         var fontDescription:FontDescription = new FontDescription();
-        fontDescription.fontName = fontFamily;
+        fontDescription.fontName = getStyle("fontFamily");
         
         var elementFormat:ElementFormat = new ElementFormat();
         elementFormat.fontDescription = fontDescription;
-        elementFormat.fontSize = fontSize;
+        elementFormat.fontSize = getStyle("fontSize");
         
         var textElement:TextElement = new TextElement();
         textElement.elementFormat = elementFormat;
@@ -1670,115 +763,111 @@ public class TextView extends UIComponent implements IViewport
 
 	/**
 	 *  @private
+     *  Keep this method in sync with the same method in TextGraphic.
 	 */
 	private function createTextFlow():TextFlow
 	{
-		if (contentChanged)
-		{
-            if (content is TextFlow)
+        var p:String;
+
+		if (contentChanged || textChanged)
+        {
+		    if (contentChanged)
+		    {
+                if (content is TextFlow)
+                {
+                    textFlow = TextFlow(content);
+                }
+                else if (content is Array)
+                {
+                    textFlow = createEmptyTextFlow();
+                    textFlow.mxmlChildren = content as Array;
+                }
+                else if (content is FlowElement)
+                {
+                    textFlow = createEmptyTextFlow();
+                    textFlow.mxmlChildren = [ content ];
+                }
+			    else if (content is String)
+			    {
+				    textFlow = importMarkup(String(content));
+			    }
+			    else if (content == null)
+			    {
+				    textFlow = createEmptyTextFlow();
+			    }
+                else
+                {
+                    throw new Error("invalid content");
+                }
+		    }
+		    else if (textChanged)
+		    {
+			    if (text != null && text != "")
+			    {
+				    textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
+			    }
+			    else
+			    {
+				    textFlow = createEmptyTextFlow();
+			    }
+		    }
+
+            // Build a textFlowTextFormat object which keeps track
+            // of which text formats were specified on the TextFlow
+            // as opposed to on the TextGraphic.
+            // For example, if the 'content' were
+            // <TextFlow fontSize="12">...</TextFlow>
+            // then the textFlowTextFormat would be { fontSize: 12 }.
+            
+            var containerFormat:IContainerFormat =
+                textFlow.containerFormat;
+            var paragraphFormat:IParagraphFormat =
+                textFlow.paragraphFormat;
+            var characterFormat:ICharacterFormat =
+                textFlow.characterFormat;
+            
+            for each (p in TextUtil.ALL_FORMAT_NAMES)
             {
-                textFlow = TextFlow(content);
+                var kind:String = TextUtil.FORMAT_MAP[p];
+
+                if (kind == TextUtil.CONTAINER &&
+                    containerFormat != null &&
+                    containerFormat[p] != null)
+                {
+                    textFlowTextFormat[p] = containerFormat[p];
+                }
+                else if (kind == TextUtil.PARAGRAPH &&
+                         paragraphFormat != null &&
+                         paragraphFormat[p] != null)
+                {
+                    textFlowTextFormat[p] = paragraphFormat[p];
+                }
+                else if (kind == TextUtil.CHARACTER &&
+                         characterFormat != null &&
+                         characterFormat[p] != null)
+                {
+                    textFlowTextFormat[p] = characterFormat[p];
+                }
             }
-            else if (content is Array)
-            {
-                textFlow = createEmptyTextFlow();
-                textFlow.mxmlChildren = content as Array;
-            }
-            else if (content is FlowElement)
-            {
-                textFlow = createEmptyTextFlow();
-                textFlow.mxmlChildren = [ content ];
-            }
-			else if (content is String)
-			{
-				textFlow = importMarkup(String(content));
-			}
-			else if (content == null)
-			{
-				textFlow = createEmptyTextFlow();
-			}
-            else
-            {
-                throw new Error("invalid content");
-            }
-		}
-		else if (textChanged)
-		{
-			if (text != null && text != "")
-			{
-				textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
-			}
-			else
-			{
-				textFlow = createEmptyTextFlow();
-			}
-		}
+        }
 
 		contentChanged = false;
 		textChanged = false;
 
-        var containerFormat:IContainerFormat =
-            textFlow.containerFormat;
-        var paragraphFormat:IParagraphFormat =
-            textFlow.paragraphFormat;
-        var characterFormat:ICharacterFormat =
-            textFlow.characterFormat;
+        // For each attribute whose value wasn't specified by the TextFlow,
+        // apply the value from the TextGraphic.
         
-        if (!containerFormat || containerFormat.blockProgression == null)
-            textFlow.blockProgression = blockProgression;
-        if (!characterFormat || characterFormat.color == null)
-            textFlow.color = color;
-        if (!paragraphFormat || paragraphFormat.direction == null)
-            textFlow.direction = direction;
-		if (!characterFormat || characterFormat.fontFamily == null)
-            textFlow.fontFamily = fontFamily;
-		if (!characterFormat || characterFormat.fontSize == null)
-            textFlow.fontSize = fontSize;
-		if (!characterFormat || characterFormat.fontStyle == null)
-		    textFlow.fontStyle = fontStyle;
-		if (!characterFormat || characterFormat.fontWeight == null)
-		    textFlow.fontWeight = fontWeight;
-		if (!characterFormat || characterFormat.kerning == null)
-		    textFlow.kerning = kerning;
-		if (!characterFormat || characterFormat.lineHeight == null)
-		    textFlow.lineHeight = lineHeight;
-		if (!containerFormat || containerFormat.lineBreak == null)
-		    textFlow.lineBreak = lineBreak;
-		if (!characterFormat || characterFormat.lineThrough == null)
-		    textFlow.lineThrough = lineThrough;
-        if (!paragraphFormat || paragraphFormat.marginBottom == null)
-		    textFlow.marginBottom = marginBottom;
-        if (!paragraphFormat || paragraphFormat.marginLeft == null)
-		    textFlow.marginLeft = marginLeft;
-        if (!paragraphFormat || paragraphFormat.marginRight == null)
-		    textFlow.marginRight = marginRight;
-        if (!paragraphFormat || paragraphFormat.marginTop == null)
-		    textFlow.marginTop = marginTop;
-        if (!containerFormat || containerFormat.paddingBottom == null)
-		    textFlow.paddingBottom = paddingBottom;
-        if (!containerFormat || containerFormat.paddingLeft == null)
-		    textFlow.paddingLeft = paddingLeft;
-        if (!containerFormat || containerFormat.paddingRight == null)
-		    textFlow.paddingRight = paddingRight;
-        if (!containerFormat || containerFormat.paddingTop == null)
-		    textFlow.paddingTop = paddingTop;
-        if (!paragraphFormat || paragraphFormat.textAlign == null)
-		    textFlow.textAlign = textAlign;
-        if (!paragraphFormat || paragraphFormat.textAlignLast == null)
-		    textFlow.textAlignLast = textAlignLast;
-		if (!characterFormat || characterFormat.textAlpha == null)
-		    textFlow.textAlpha = textAlpha;
-		if (!characterFormat || characterFormat.textDecoration == null)
-		    textFlow.textDecoration = textDecoration;
-        if (!paragraphFormat || paragraphFormat.textIndent == null)
-		    textFlow.textIndent = textIndent;
-		if (!characterFormat || characterFormat.trackingRight == null)
-		    textFlow.trackingRight = tracking; // what about trackingLeft?
-        if (!containerFormat || containerFormat.verticalAlign == null)
-		    textFlow.verticalAlign = verticalAlign;
-		if (!characterFormat || characterFormat.whitespaceCollapse == null)
-		    textFlow.whitespaceCollapse = whiteSpaceCollapse; // different case
-
+        for each (p in TextUtil.ALL_FORMAT_NAMES)
+        {
+            if (!(p in textFlowTextFormat))
+            {
+            	var value:* = getStyle(p);
+            	if (p == "tabStops" && value === undefined)
+            		value = null; // TODO Setting this to [] causes RTE during paste
+            	textFlow[p] = value;
+            }
+         }
+        
 		return textFlow;
 	}
 
