@@ -178,54 +178,48 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     // -----------------------------------------------------------------------
     
     /**
-     *  @private <code>true</code> when we need to check whether to dispatch
+     *  @private
+     *  <code>true</code> when we need to check whether to dispatch
      *  a button down event
      */
      private var checkForButtonDownConditions:Boolean = false; 
     
     /**
-     *  <code>true</code> when the mouse pointer is over the button. 
+     *  Indicates whether the mouse pointer is over the button.
+     *  Used to determine the skin state.
      */ 
-    public function get isHoveredOver():Boolean
+    protected function get hoveredOver():Boolean
     {
-        return flags.isSet(isHoveredOverFlag);
+        return flags.isSet(hoveredOverFlag);
     }
     
     /**
-     *  Sets the <code>isHoveredOver</code> property, 
-     *  which indicates whether the mouse cursor is over the button.
-     *
-     *  @param value The new value of the <code>isHoveredOver</code> property.
-     *  This parameter can be <code>true</code> or <code>false</code>.
+     *  @private
      */ 
-    protected function setHoveredOver(value:Boolean):void
+    protected function set hoveredOver(value:Boolean):void
     {
-        if (!flags.update(isHoveredOverFlag, value))
+        if (!flags.update(hoveredOverFlag, value))
             return;
 
         invalidateButtonState();
     }
 
     /**
-     *  <code>true</code> if the mouse button is pressed down  
-     *  while the cursor is over the button.
+     *  Indicates whether the mouse is down and the mouse pointer was
+     *  over the button when MouseEvent.MOUSE_DOWN was first dispatched.
+     *  Used to determine the skin state.
      */    
-    public function get isMouseCaptured():Boolean
+    protected function get mouseCaptured():Boolean
     {
-        return flags.isSet(isMouseCapturedFlag);
+        return flags.isSet(mouseCapturedFlag);
     }
     
     /**
-     *  Sets the <code>isMouseCaptured</code> property, 
-     *  which indicates whether the mouse button is pressed down
-     *  while the cursor is over the button.
-     *
-     *  @param value The new value of the <code>isMouseCaptured</code> property.
-     *  This parameter can be <code>true</code> or <code>false</code>.
-     */ 
-    protected function setMouseCaptured(value:Boolean):void
+     *  @private
+     */
+    protected function set mouseCaptured(value:Boolean):void
     {
-        if (!flags.update(isMouseCapturedFlag, value))
+        if (!flags.update(mouseCapturedFlag, value))
             return;
 
         invalidateButtonState();
@@ -236,16 +230,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     }
     
     /**
-     *  <code>true</code> if the button is enabled.
-     */ 
-    public function get isEnabled():Boolean { return enabled; }
-
-    /**
      *  @private
      */
     override public function set enabled(value:Boolean):void
     {
-        if (isEnabled == value)
+        if (enabled == value)
             return;
         super.enabled = value;
         
@@ -253,25 +242,20 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     }
     
     /**
-     *  <code>true</code> if a keyboard key is pressed 
-     *  while the button has focus.
+     *  Indicates whether a keyboard key is pressed while the button is in focus.
+     *  Used to determine the skin state.
      */ 
-    public function get isKeyboardPressed():Boolean
+    protected function get keyboardPressed():Boolean
     {
-        return flags.isSet(isKeyboardPressedFlag);
+        return flags.isSet(keyboardPressedFlag);
     }
     
     /**
-     *  Sets the <code>isKeyboardPressed</code> property, 
-     *  which indicates if a keyboard key is pressed
-     *  while the cursor is over the button.
-     *
-     *  @param value The new value of the <code>isMouseCaptured</code> property.
-     *  This parameter can be <code>true</code> or <code>false</code>.
-     */ 
-    protected function setKeyboardPressed(value:Boolean):void
+     *  @private
+     */
+    protected function set keyboardPressed(value:Boolean):void
     {
-        if (!flags.update(isKeyboardPressedFlag, value))
+        if (!flags.update(keyboardPressedFlag, value))
             return;
         
         invalidateButtonState();
@@ -306,15 +290,15 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     /**
      *  @private
      */
-    protected static const isHoveredOverFlag:uint       = 1 << 0;
+    protected static const hoveredOverFlag:uint         = 1 << 0;
     /**
      *  @private
      */
-    protected static const isMouseCapturedFlag:uint     = 1 << 1;
+    protected static const mouseCapturedFlag:uint       = 1 << 1;
     /**
      *  @private
      */
-    protected static const isKeyboardPressedFlag:uint   = 1 << 2;
+    protected static const keyboardPressedFlag:uint     = 1 << 2;
     /**
      *  @private
      */
@@ -340,7 +324,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      *  An instance of the Flags32 class used to manipulate Boolean properties.
      */
     protected var flags:Flags32 = new Flags32();
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -380,10 +364,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             // Only if down state has changed, do we need to do something
             if (flags.update(downEventFiredFlag, isCurrentlyDown))
             {
-                if( isCurrentlyDown )
+                if (isCurrentlyDown)
                     dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
             
-                checkAutoRepeatTimerConditions( isCurrentlyDown );
+                checkAutoRepeatTimerConditions(isCurrentlyDown);
             }
             
             checkForButtonDownConditions = false;
@@ -398,13 +382,13 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
 
     private function isDown():Boolean
     {
-        if (!isEnabled)
+        if (!enabled)
             return false;
 
-        if (isKeyboardPressed)
+        if (keyboardPressed)
             return true;
         
-        if (isMouseCaptured && (isHoveredOver || stickyHighlighting))
+        if (mouseCaptured && (hoveredOver || stickyHighlighting))
             return true;
         return false;
     }
@@ -421,20 +405,18 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         invalidateSkinState();
     }
 
-    // GetState returns a string representation of the component's state as
-    // a combination of some of its public properties   
     /**
      *  @private
      */
     override protected function getCurrentSkinState():String
     {
-        if (!isEnabled)
+        if (!enabled)
             return "disabled";
 
         if (isDown())
             return "down";
             
-        if (isHoveredOver || isMouseCaptured )
+        if (hoveredOver || mouseCaptured)
             return "over";
             
         return "up";
@@ -458,21 +440,40 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
     }
     
+    /**
+     *  @private
+     *  This method adds the mouseEventHandler as an event listener to
+     *  the stage and the systemManager so that it gets called even if mouse events
+     *  are dispatched outside of the button. This is needed for example when the
+     *  user presses the button, drags out and releases the button.
+     */
     private function addSystemMouseHandlers():void
     {
         systemManager.addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
         systemManager.stage.addEventListener(Event.MOUSE_LEAVE, mouseEventHandler);             
     }
 
+    /**
+     *  @private
+     *  This method removes the mouseEventHandler as an event listener from
+     *  the stage and the systemManager.
+     */
     private function removeSystemMouseHandlers():void
     {
         systemManager.removeEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
         systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, mouseEventHandler);
     }
     
-    
     /**
-     *  @private
+     *  This method handles the mouse events, calls the <code>onClick</code> method 
+     *  where appropriate and updates the <code>hoveredOver</code> and
+     *  <code>mouseCaptured</code> properties.
+     *  <p>This method gets called to handle MouseEvent.ROLL_OVER, MouseEvent.ROLL_OUT,
+     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, MouseEvent.CLICK and Event.MOUSE_LEAVE.</p>
+     *  <p>For MouseEvent.MOUSE_UP and Event.MOUSE_LEAVE, the event target can be other than the
+     *  FxButton - for example when the user presses the FxButton, we listen for MOUSE_UP
+     *  on the stage to handle cases where the user drags outside the FxButton and releases
+     *  the mouse.</p>
      */
     protected function mouseEventHandler(event:Event):void
     {
@@ -482,36 +483,36 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             case MouseEvent.ROLL_OVER:
             {
                 // if the user rolls over while holding the mouse button
-                if (mouseEvent.buttonDown && !isMouseCaptured)
+                if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
-                    setHoveredOver(true);
+                    hoveredOver = true;
                 break;
             }
 
             case MouseEvent.ROLL_OUT:
             {
-                setHoveredOver(false);
+                hoveredOver = false;
                 break;
             }
             
             case MouseEvent.MOUSE_DOWN:
             {
                 // When the button is down we need to listen for mouse events outsied the button so that
-                // we update the state appropriately on mouse up.  Whenever isMouseCaptured changes to false,
+                // we update the state appropriately on mouse up.  Whenever mouseCaptured changes to false,
                 // it will take care to remove those handlers.
                 addSystemMouseHandlers();
-                setMouseCaptured(true);
+                mouseCaptured = true;
                 break;
             }
 
             case MouseEvent.MOUSE_UP:
             {
                 if (event.currentTarget == this)
-                    setHoveredOver(true);
+                    hoveredOver = true;
             } //fallthrough:
             case Event.MOUSE_LEAVE:
             {
-                setMouseCaptured(false);
+                mouseCaptured = false;
                 break;
             }
 
@@ -521,13 +522,24 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             // if the Button is disabled.
             case MouseEvent.CLICK:
             {
-                if(!isEnabled )
+                if (!enabled)
                     event.stopImmediatePropagation();
+                else
+                    onClick(MouseEvent(event));
                 return;
             }
         }
         if (mouseEvent)
             mouseEvent.updateAfterEvent();
+    }
+    
+    /**
+     *  Override in subclasses to handle the click event rather than
+     *  adding a separate handler. onClick will not get called if the
+     *  button is disabled. 
+     */
+    protected function onClick(event:MouseEvent):void
+    {
     }
 
     //--------------------------------------------------------------------------
@@ -546,8 +558,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         // that you don't get one so we force one on FOCUS_OUT.
         super.focusOutHandler(event);
 
-        setMouseCaptured(false);
-        setKeyboardPressed(false);
+        mouseCaptured = false;
+        keyboardPressed = false;
     }
 
     /**
@@ -555,9 +567,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        if( event.keyCode != Keyboard.SPACE )
+        if (event.keyCode != Keyboard.SPACE)
             return;
-        setKeyboardPressed(true);
+        keyboardPressed = true;
         event.updateAfterEvent();
     }
 
@@ -566,11 +578,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     override protected function keyUpHandler(event:KeyboardEvent):void
     {
-        if( event.keyCode != Keyboard.SPACE )
+        if (event.keyCode != Keyboard.SPACE)
             return;
-        setKeyboardPressed(false);
+        keyboardPressed = false;
         
-        if( isEnabled )
+        if (enabled)
             dispatchEvent(new MouseEvent(MouseEvent.CLICK));
         event.updateAfterEvent();
     }
@@ -609,9 +621,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         checkAutoRepeatTimerConditions( isDown() );
     }
 
-    private function checkAutoRepeatTimerConditions(isButtonDown:Boolean):void
+    /**
+     *  @private
+     */
+    private function checkAutoRepeatTimerConditions(buttonDown:Boolean):void
     {
-        var needsTimer:Boolean = autoRepeat && isButtonDown;
+        var needsTimer:Boolean = autoRepeat && buttonDown;
         var hasTimer:Boolean = autoRepeatTimer != null;
         
         if (needsTimer == hasTimer)
@@ -623,6 +638,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             stopTimer();
     }
 
+    /**
+     *  @private
+     */
     private function startTimer():void
     {
         autoRepeatTimer = new Timer(1);
@@ -631,12 +649,18 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         autoRepeatTimer.start();
     }
 
+    /**
+     *  @private
+     */
     private function stopTimer():void
     {
         autoRepeatTimer.stop();
         autoRepeatTimer = null;
     }
 
+    /**
+     *  @private
+     */
     private function autoRepeat_timerDelayHandler(event:TimerEvent):void
     {
         autoRepeatTimer.reset();
@@ -647,6 +671,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         autoRepeatTimer.start();
     }
 
+    /**
+     *  @private
+     */
     private function autoRepeat_timerHandler(event:TimerEvent):void
     {
         dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
