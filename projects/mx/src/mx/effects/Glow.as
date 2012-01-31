@@ -12,6 +12,7 @@
 package mx.effects
 {
 
+import mx.core.Application;
 import mx.effects.effectClasses.GlowInstance;
 import mx.styles.StyleManager;
 
@@ -94,73 +95,85 @@ public class Glow extends TweenEffect
 	//  alphaFrom
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="1")]
 	
 	/** 
 	 *  Starting transparency level between 0.0 and 1.0,
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
+	 * 
+	 *  @default 1
 	 */
-	public var alphaFrom:Number;
+	public var alphaFrom:Number = 1;
 	
 	//----------------------------------
 	//  alphaTo
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="0")]
 	
 	/** 
 	 *  Ending transparency level between 0.0 and 1.0,
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
+	 * 
+	 *  @default 0
 	 */
-	public var alphaTo:Number;
+	public var alphaTo:Number = 0;
 	
 	//----------------------------------
 	//  blurXFrom
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="5")]
 	
 	/** 
 	 *  The starting amount of horizontal blur.
-	 *  Valid values are from 0.0 to 255.0. 
+	 *  Valid values are from 0.0 to 255.0.
+	 * 
+	 *  @default 5 
 	 */
-	public var blurXFrom:Number;
+	public var blurXFrom:Number = 5;
 	
 	//----------------------------------
 	//  blurXTo
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="0")]
 	
 	/** 
 	 *  The ending amount of horizontal blur.
-	 *  Valid values are from 0.0 to 255.0. 
+	 *  Valid values are from 0.0 to 255.0.
+	 * 
+	 *  @default 0 
 	 */
-	public var blurXTo:Number;
+	public var blurXTo:Number = 0;
 	
 	//----------------------------------
 	//  blurYFrom
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="5")]
 	
 	/** 
 	 *  The starting amount of vertical blur.
 	 *  Valid values are from 0.0 to 255.0. 
+	 * 
+	 *  @default 5
 	 */
-	public var blurYFrom:Number;
+	public var blurYFrom:Number = 5;
 	
 	//----------------------------------
 	//  blurYTo
 	//----------------------------------
 
-	[Inspectable(category="General", defaultValue="NaN")]
+	[Inspectable(category="General", defaultValue="0")]
 	
 	/** 
 	 *  The ending amount of vertical blur.
 	 *  Valid values are from 0.0 to 255.0. 
+	 * 
+	 *  @default 0
 	 */
-	public var blurYTo:Number;
+	public var blurYTo:Number = 0;
 	
 	//----------------------------------
 	//  color
@@ -171,7 +184,14 @@ public class Glow extends TweenEffect
 	/** 
 	 *  The color of the glow. 
 	 *  The default value is the value of the <code>themeColor</code> style 
-	 *  property of the application.
+	 *  property of the application. The default value of this property
+	 *  is <code>StyleManager.NOT_A_COLOR</code>. When <code>play()</code>
+	 *  is called on the effect, if the color property is set to that default
+	 *  value, the color value in the effect instance will be set to
+	 *  the value of the current <code>themeColor</code> style for the
+	 *  application.
+	 * 
+	 *  @default StyleManager.NOT_A_COLOR
 	 */
 	public var color:uint = StyleManager.NOT_A_COLOR;
 	
@@ -222,7 +242,7 @@ public class Glow extends TweenEffect
 	 *
 	 *  @default 2 
 	 */
-	public var strength:Number;
+	public var strength:Number = 2;
 	
 	//--------------------------------------------------------------------------
 	//
@@ -253,7 +273,10 @@ public class Glow extends TweenEffect
 		glowInstance.blurXTo = blurXTo;
 		glowInstance.blurYFrom = blurYFrom;
 		glowInstance.blurYTo = blurYTo;
-		glowInstance.color = color;
+		glowInstance.color = 
+		    color != StyleManager.NOT_A_COLOR ?
+		    color : 
+		    Application.application.getStyle("themeColor");
 		glowInstance.inner = inner;
 		glowInstance.knockout = knockout;
 		glowInstance.strength = strength;
