@@ -13,8 +13,10 @@ package mx.components.baseClasses
 {
 
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+
 import mx.components.FxButton;
 
 /**
@@ -447,6 +449,22 @@ public class FxTrackBase extends FxRange
         var roundedValue:Number = nearestValidValue(newValue, stepSize);
         return roundedValue;
     }
+    
+    /**
+     *  @private
+     */ 
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+    	 addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+    	removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+    }
 
     //--------------------------------------------------------------------------
     // 
@@ -470,6 +488,31 @@ public class FxTrackBase extends FxRange
             positionThumb(valueToPosition(value));
             tempTrackSize = trackSize;
         }
+    }
+    
+    /**
+     *  Handles the mouseWheel event when the component is in focus. The thumb is 
+     *  moved by the amount of the mouse event delta multiplied by the stepSize.  
+     */ 
+    protected function system_mouseWheelHandler(event:MouseEvent):void
+    {
+    	var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
+        positionThumb(valueToPosition(newValue));
+        setValue(newValue);    	
+    }
+    
+    /**
+     *  @private
+     *  Handles the mouseWheel event when the component is in focus. The thumb is 
+     *  moved by the amount of the mouse event delta multiplied by the stepSize.  
+     */ 
+    protected function stage_mouseWheelHandler(event:MouseEvent):void
+    {
+    	if (event.target != stage)
+            return;
+
+        system_mouseWheelHandler(event);
+    	
     }
 
     //---------------------------------
