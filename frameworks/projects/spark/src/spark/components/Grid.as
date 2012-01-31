@@ -722,6 +722,12 @@ package spark.components
             invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
+
+            gridDimensions.clear();
+            if (_columns)
+                gridDimensions.columnCount = _columns.length;
+            if (_dataProvider) // clearing the gridDimensions resets rowCount
+                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("columnsChanged");        
         }
@@ -807,6 +813,10 @@ package spark.components
             invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
+            
+            gridDimensions.clear();
+            if (_dataProvider)
+                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("dataProviderChanged");        
         }
@@ -1437,7 +1447,8 @@ package spark.components
                 return;
             
             _typicalItem = value;
-            dispatchChangeEvent("typicalItemChanged");
+            gridDimensions.clearTypicalCellWidthsAndHeights();
+			dispatchChangeEvent("typicalItemChanged");
             
             invalidateSize();
             invalidateDisplayList();
