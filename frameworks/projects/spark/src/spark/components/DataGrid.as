@@ -1453,6 +1453,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         else
             gridSelection.selectionMode = value;
         
+        // Show the caret if we have focus and not in grid selection mode of "none".
+        if (grid && grid.layout is GridLayout &&
+            caretIndicator)
+        {
+            GridLayout(grid.layout).showCaret = (value != GridSelectionMode.NONE && 
+                                                 this == getFocus());
+        }
+            
         dispatchChangeEvent("selectionModeChanged");
     }
     
@@ -1784,11 +1792,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 deferredGridOperation(grid);
             deferredGridOperations.length = 0;
             
-            // Data grid editor
-            
-            editor = createEditor();
-            editor.initialize();
-            
             // IDataGridElements: grid, columnHeaderBar
             
             if (columnHeaderBar)
@@ -1809,9 +1812,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (instance == hoverIndicator) 
                 grid.hoverIndicator = hoverIndicator;
 
-            if (instance == caretIndicator) 
+            if (instance == caretIndicator)
+            {                
                 grid.caretIndicator = caretIndicator;
-
+                
+                // Add a focus listener so we can turn the caret on and off
+                // when we get and lose focus.
+                addEventListener(FocusEvent.FOCUS_IN, dataGrid_focusHandler);
+                addEventListener(FocusEvent.FOCUS_OUT, dataGrid_focusHandler);
+                if (grid && grid.layout is GridLayout)
+                    GridLayout(grid.layout).showCaret = false;
+            }    
+            
             if (instance == selectionIndicator) 
                 grid.selectionIndicator = selectionIndicator;
         }
@@ -1827,6 +1839,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
         }       
+        
+        if (instance == itemEditorLayer)
+        {
+            // Data grid editor
+            editor = createEditor();
+            editor.initialize();
+        }
     }
     
     /**
@@ -1877,14 +1896,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.caretIndicator = null;
             grid.selectionIndicator = null;
             
-            // Data grid editor
-            
-            if (editor)
-            {
-                editor.uninitialize();
-                editor = null;
-            }
-            
             // IDataGridElements: grid, columnHeaderBar
             
             if (columnHeaderBar)
@@ -1902,8 +1913,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (instance == hoverIndicator) 
                 grid.hoverIndicator = null;
             
-            if (instance == caretIndicator) 
+            if (instance == caretIndicator)
+            {
                 grid.caretIndicator = null;
+                
+                removeEventListener(FocusEvent.FOCUS_IN, dataGrid_focusHandler);
+                removeEventListener(FocusEvent.FOCUS_OUT, dataGrid_focusHandler);
+            }
             
             if (instance == selectionIndicator) 
                 grid.selectionIndicator = null;
@@ -1918,6 +1934,17 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
         }
+        
+        if (instance == itemEditorLayer)
+        {
+            // Data grid editor
+            if (editor)
+            {
+                editor.uninitialize();
+                editor = null;
+            }
+        }
+        
     }
     
     //----------------------------------
@@ -3593,5 +3620,24 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         cursorManager.removeCursor(stretchCursorID);
     }     
+    
+    //--------------------------------------------------------------------------
+    //
+    //  DataGrid event handlers
+    //
+    //--------------------------------------------------------------------------  
+    
+    /**
+     *  @private
+     */
+    protected function dataGrid_focusHandler(event:FocusEvent):void
+    {
+        if (event.target == this && grid && (grid.layout is GridLayout))
+        { 
+            GridLayout(grid.layout).showCaret = (event.type == FocusEvent.FOCUS_IN &&
+                                                (selectionMode != GridSelectionMode.NONE));
+        }    
+    }
+    
 }
 }
