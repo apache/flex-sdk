@@ -1681,7 +1681,7 @@ package spark.components
          *  If <code>false</code>, the Enter key doesn't affect the text
          *  but causes the RichEditableText to dispatch an <code>"enter"</code> 
          *  event.  If you paste text into the RichEditableText with a multiline 
-         *  value of <code>true</code>, newlines are stripped out of the text. </p>  
+         *  value of <code>false</code>, newlines are stripped out of the text. </p>  
          * 
          *  @default true
          *  
