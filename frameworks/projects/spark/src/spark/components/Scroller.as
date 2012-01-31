@@ -250,7 +250,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  /&gt;
  *  </pre>
  *  
- *  @see spark.skins.spark.Scroller
+ *  @see spark.skins.spark.ScrollerSkin
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
