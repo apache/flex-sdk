@@ -38,32 +38,33 @@ import spark.effects.interpolation.NumberInterpolator;
 [ResourceBundle("sparkEffects")]
 
 /**
- * The Animation class defines an animation that happens between 
- * start and end values over a specified period of time.
- * The animation can be a change in position, such as performed by
- * the Move effect; a change in size, as performed by the Resize effect;
- * a change in visibility, as performed by the Fade effect; or other 
- * types of animations used by effects or run directly with Animation.
- * This class defines the timing and value parts of the animation; other
- * code, either in effects or in application code, associate the animation
- * with objects and properties, such that the animated values produced by
- * Animation can then be applied to target objects and properties to actually
- * cause these objects to animate.
+ *  The Animation class defines an animation that happens between 
+ *  the start and end values of a property over a specified period of time.
+ *  The animation can be a change in position, such as performed by
+ *  the Move effect; a change in size, as performed by the Resize effect;
+ *  a change in visibility, as performed by the Fade effect; or other 
+ *  types of animations used by effects or run directly with the Animation class.
  *
- * <p>When defining animation effects, developers typically create an
- * instance of the Animate class, or some subclass thereof, which creates
- * an Animation in the <code>play()</code> method. The Animation instance
- * accepts start and end values, a duration, and optional parameters such as
- * easer and interpolator objects.</p>
+ *  <p>This class defines the timing and value parts of the animation. 
+ *  Other code, either in effects or in application code, associates the animation
+ *  with target objects and properties, such that the animated values produced by
+ *  Animation class can then be applied to target objects and properties to actually
+ *  cause these objects to animate.</p>
+ *
+ *  <p>When defining animation effects, you typically create an
+ *  instance of the Animate class, or of a subclass of Animate. This creates
+ *  an Animation instance in the <code>play()</code> method. The Animation instance
+ *  accepts start and end values, a duration, and optional parameters such as
+ *  easer and interpolator objects.</p>
  * 
- * <p>The Animation object calls listeners and the start and end of the animation,
- * as well as when the animation repeats and at regular update intervals during
- * the animation. These calls pass values which Animation calculated from
- * the start and end values and the easer and interpolator objects. These
- * values can then be used to set property values on target objects.</p>
+ *  <p>The Animation object calls event listeners at the start and end of the animation,
+ *  when the animation repeats, and at regular update intervals during
+ *  the animation. These calls pass values which the Animation instance calculated from
+ *  the start and end values and the easer and interpolator objects. These
+ *  values can then be used to set property values on target objects.</p>
  *
- *  @see mx.effects.Animate
- *  @see mx.effects.effectClasses.AnimateInstance
+ *  @see spark.effects.Animate
+ *  @see spark.effects.supportClasses.AnimateInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -99,21 +100,23 @@ public final class Animation
     //--------------------------------------------------------------------------
 
     /**
-     * Constructs an Animation object. The optional <code>property</code>,
-     * <code>startValue</code>, and 
-     * <code>endValue</code> parameters are short-cuts for setting up a simple
-     * animation with a single MotionPath object with two KeyFrames. If either
-     * value is non-null,
-     * <code>startValue</code> will become the <code>value</code> of the
-     * first keyframe of <code>motionPaths</code>, at time 0, and 
-     * <code>endValue</code> will become the <code>value</code> of 
-     * the second keyframe, at time 1.
+     *  Constructor. 
+     *  The optional <code>property</code>, <code>startValue</code>, and 
+     *  <code>endValue</code> parameters define a simple
+     *  animation with a single MotionPath object with two KeyFrames. 
+     *  If either value is non-null,
+     *  <code>startValue</code> becomes the <code>value</code> of the
+     *  first keyframe, at time=0, and 
+     *  <code>endValue</code> becomes the <code>value</code> of 
+     *  the second keyframe, at the end of the animation.
      * 
-     * @param duration The length of time, in milliseconds, that the animation
-     * will run
-     * @param property The property being animated
-     * @param startValue The initial value that the animation starts at
-     * @param endValue The final value that the animation ends on
+     *  @param duration The length of the animation, in milliseconds.
+     *
+     *  @param property The property to animate.
+     * 
+     *  @param startValue The initial value of the property.
+     *
+     *  @param endValue The final value of the property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -189,14 +192,26 @@ public final class Animation
     //--------------------------------------------------------------------------
 
     /**
-     * This array holds the values as of the current frame of the Animation.
-     * The values are stored as map values, using property names as the key.
+     *  An Array of the values as of the current frame of the Animation.
+     *  The values are stored as map values, using property names as the key.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var currentValue:Object;
 
     /**
-     * The set of MotionPath objects that define the properties and values
-     * that the Animation will animate over time
+     *  The set of MotionPath objects that define the properties and values
+     *  that the Animation will animate over time.
+     *
+     *  @see spark.effects.MotionPath
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var motionPaths:Array;
     
@@ -209,12 +224,12 @@ public final class Animation
      */
     private var _animationTarget:IAnimationTarget = null;
     /**
-     * The IAnimationTarget object that will be notified with all
-     * start, end, repeat, and update events for this animation.
-     * A value of null indicates that there is no target that will
-     * be notified with these events.
+     *  The IAnimationTarget object notified with all
+     *  start, end, repeat, and update events for this animation.
+     *  A value of <code>null</code> indicates that there is no target 
+     *  to notify.
      * 
-     * @default null
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -239,9 +254,9 @@ public final class Animation
      */
     private var _playheadTime:Number;
     /**
-     * The total elapsed time of the Animation, including any startDelay
-     * and repetitions. For an Animation playing through its first cycle,
-     * this value will equal that of <code>cycleTime</code>/
+     *  The total elapsed time of the animation, including any start delay
+     *  and repetitions. For an animation playing through its first cycle,
+     *  this value will equal that of <code>cycleTime</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -257,10 +272,12 @@ public final class Animation
         seek(value, true);
     }
     /**
-     * This variable indicates whether the animation is currently
-     * running or not. The value is <code>false</code> unless the animation
-     * has been played and not yet stopped (either programmatically or
-     * automatically) or paused.
+     *  If <code>true</code>, the animation is currently playing.
+     *  The value is <code>false</code> unless the animation
+     *  has been played and not yet stopped (either programmatically or
+     *  automatically) or paused.
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -273,8 +290,9 @@ public final class Animation
     }
     
     /**
-     * The length of time, in milliseconds, that this animation will run,
-     * not counting any repetitions by use of <code>repeatCount</code>.
+     *  The length of time, in milliseconds, of the animation,
+     *  not counting any repetitions defined by 
+     *  the <code>repeatCount</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -292,17 +310,17 @@ public final class Animation
      */
     private var _repeatBehavior:String = RepeatBehavior.LOOP;
     /**
-     * Sets the behavior of a repeating animation (an animation
-     * with <code>repeatCount</code> equal to either 0 or >1). This
-     * value should be either <code>RepeatBehavior.LOOP</code>, where the animation
-     * will repeat in the same order each time, or 
-     * <code>RepeatBehavior.REVERSE</code>,
-     * where the animation will reverse direction each iteration.
+     *  Sets the behavior of a repeating animation.
+     *  A repeating animation has the 
+     *  <code>repeatCount</code> property set to 0 or to a value greater than 1. 
+     *  This value should be either <code>RepeatBehavior.LOOP</code>, 
+     *  meaning the animation repeats in the same order each time, or 
+     *  <code>RepeatBehavior.REVERSE</code>,
+     *  meaning the animation reverses direction for each iteration.
      * 
-     * @param value A String describing the behavior, either
-     * RepeatBehavior.LOOP or RepeatBehavior.REVERSE
-     * 
-     * @default RepeatBehavior.LOOP
+     *  @default RepeatBehavior.LOOP
+     *
+     *  @see spark.effects.animation.RepeatBehavior
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -328,13 +346,10 @@ public final class Animation
      */
     private var _repeatCount:int = 1;
     /**
-     * Number of times that this animation will repeat. A value of
-     * 0 means that it will repeat indefinitely.
+     *  The number of times that this animation repeats. 
+     *  A value of 0 means that it repeats indefinitely.
      * 
-     * @param value Number of repetitions for this animation, with 0 being
-     * an infinitely repeating animation. This value must be >= 0.
-     * 
-     * @default 1
+     *  @default 1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -360,20 +375,22 @@ public final class Animation
      */
     private var _repeatDelay:Number = 0;
     /**
-     * The amount of time spent waiting before each repetition cycle
-     * begins. Setting this value to a non-zero number will have the
-     * side effect that the previous animation cycle will end exactly at 
-     * its end value, whereas non-delayed repetitions may skip over that 
-     * value completely as the animation transitions smoothly from being
-     * near the end of one cycle to being past the beginning of the next.
+     *  The amount of time, in milliseconds, to delay before each repetition cycle
+     *  begins. Setting this value to a non-zero number 
+     *  ends previous animation cycle exactly at  its end value
+     *  However, non-delayed repetitions may skip over that 
+     *  value completely as the animation transitions smoothly from being
+     *  near the end of one cycle to being past the beginning of the next.
+     *  This property must be a value &gt;= 0.
      *
-     * @param value Amount of time, in milliseconds, to wait before beginning
-     * each new cycle. This parameter is used starting with the first repetition,
-     * not the first cycle. For a delay before the initial start, use
-     * the <code>startDelay</code> property. Must be a value >= 0.
-     * @see #startDelay
+     *  <p>This property is used for the first repetition
+     *  after the first animation cycle. 
+     *  To delay the first cycle of the animation, use
+     *  the <code>startDelay</code> property. </p>
+     *
+     *  @see #startDelay
      * 
-     * @default 0
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -395,13 +412,11 @@ public final class Animation
      */
     private var _startDelay:Number = 0;
     /**
-     * The amount of time spent waiting before the animation
-     * begins.
-     *
-     * @param value Amount of time, in milliseconds, to wait before beginning
-     * the animation. Must be a value >= 0.
+     *  The amount of time spent waiting before the animation
+     *  begins.
+     *  This property must be a value &gt;= 0.
      * 
-     * @default 0
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -422,14 +437,18 @@ public final class Animation
     //----------------------------------
 
     /**
-     * The interpolator used by Animation to calculate values between
-     * the start and end values. By default, interpolation is handled
-     * by <code>NumberInterpolator</code> or, in the case of the start
-     * and end values being arrays, by <code>NumberArrayInterpolator</code>.
-     * Interpolation of other types, or of Numbers that should be interpolated
-     * differently, such as <code>uint</code> values that hold color
-     * channel information, can be handled by supplying a different
-     * <code>interpolator</code>.
+     *  The interpolator used by the Animation instance to calculate values between
+     *  the start and end values of the property. 
+     *  By default, the class uses the NumberInterpolator class or, 
+     *  in the case of the start and end values being arrays, 
+     *  by the ArrayInterpolator class.
+     *  Interpolation of other data types, or of Numbers that should be interpolated
+     *  differently, such as <code>uint</code> values that hold color
+     *  channel information, can be handled by supplying a different
+     *  interpolator.
+     *
+     *  @see spark.effects.interpolation.NumberInterpolator
+     *  @see spark.effects.interpolation.ArrayInterpolator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -486,18 +505,16 @@ public final class Animation
      */
     private var _easer:IEaser = defaultEaser;
     /**
-     * Sets the easing behavior for this Animation. This IEaser
-     * object will be used to convert the elapsed fraction of 
-     * the animation into an eased fraction, which will then be used to
-     * calculate the value at that fraction.
+     *  The easing behavior for this effect. 
+     *  This IEaser object is used to convert the elapsed fraction of the animation 
+     *  into an eased fraction, which is then used to calculate 
+     *  the value at that eased elapsed fraction. 
      * 
-     * @param value The IEaser object which will be used to calculate the
-     * eased elapsed fraction every time an animation event occurs. A value
-     * of <code>null</code> will be interpreted as meaning no easing is
-     * desired, which is equivalent to using a Linear ease, or
-     * <code>animation.easer = Linear.getInstance();</code>.
+     *  <p>A value of <code>null</code> means no easing is
+     *  used, which is equivalent to using a Linear ease, or
+     *  <code>animation.easer = Linear.getInstance();</code>.</p>
      * 
-     * @default Sine(.5)
+     *  @default Sine(.5)
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -508,6 +525,9 @@ public final class Animation
     {
         return _easer;
     }
+    /**
+     *  @private
+     */
     public function set easer(value:IEaser):void
     {
         if (!value)
@@ -518,10 +538,23 @@ public final class Animation
     }
     
     // TODO: rethink reversal
+    /**
+     *  If <code>true</code>, play the animation in reverse.
+     *
+     *  @default false
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get playReversed():Boolean
     {
         return _invertValues;
     }
+    /**
+     *  @private
+     */
     public function set playReversed(value:Boolean):void
     {
         _invertValues = value;
@@ -534,10 +567,13 @@ public final class Animation
     //--------------------------------------------------------------------------
 
     /**
-     * Adds a new animation to the system. All animations run off the same
-     * single Timer, so starting any one animation simply adds it onto the
-     * static list of active animations.
-     *  
+     *  Adds a new animation instance to the system. 
+     *  All animations run off the same Timer instance, 
+     *  so starting any one animation simply adds it onto the
+     *  static list of active animations.
+     *
+     *  @param animation The Animation object.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -818,8 +854,8 @@ public final class Animation
     }
 
     /**
-     *  Interrupt the animation, jump immediately to the end of the animation, 
-     *  and send out ending notifications
+     *  Interrupt the animation, jumps immediately to the end of the animation, 
+     *  and invokes the event handler for the <code>effectEnd</code> event on the target.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -875,8 +911,9 @@ public final class Animation
     }
 
     /**
-     * Start the animation. If the animation is already playing, it
-     * will be stopped first, then played.
+     *  Start the animation. 
+     *  If the animation is already playing, it
+     *  is stopped first, then played.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -895,10 +932,14 @@ public final class Animation
     }
     
     /**
-     *  Advances the animation effect to the specified position. 
+     *  Advances the animation to the specified position. 
      *
      *  @param playheadTime The position, in milliseconds, between 0
      *  and the value of the <code>duration</code> property.
+     *
+     *  @param includeStartDelay Set to <code>true</code> if there is 
+     *  a start delay on the effect, as defined by the 
+     *  <code>startDelay</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -981,7 +1022,7 @@ public final class Animation
     }
 
     /**
-     * Sets up interpolation for the animation. 
+     *  Sets up interpolation for the animation. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -996,7 +1037,7 @@ public final class Animation
     }
  
     /**
-     *  Plays the effect in reverse,
+     *  Plays the effect in reverse,if the effect is currently playing,
      *  starting from the current position of the effect.
      *  
      *  @langversion 3.0
@@ -1019,12 +1060,10 @@ public final class Animation
     }
     
     /**
-     * Pauses the effect until the <code>resume()</code> method is called.
-     * If <code>stop()</code> is called before <code>resume()</code>, then
-     * the animation cannot be resumed.
+     *  Pauses the effect until the <code>resume()</code> method is called.
+     *  If <code>stop()</code> is called before <code>resume()</code>, then
+     *  the animation cannot be resumed.
      * 
-     * @see resume()
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1043,7 +1082,7 @@ public final class Animation
 
     /**
      *  Stops the animation, ending it without dispatching an event or calling
-     *  the Animation's <code>end()</code> function. 
+     *  the <code>end()</code> method. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
