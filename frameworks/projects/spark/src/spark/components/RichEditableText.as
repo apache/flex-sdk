@@ -31,13 +31,14 @@ import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ITextLineCreator;
-import flashx.textLayout.container.IInputManagerClient;
-import flashx.textLayout.container.InputManager;
+import flashx.textLayout.container.ContainerController;
+import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
+import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.edit.SelectionManager;
@@ -80,11 +81,13 @@ import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
 import mx.utils.StringUtil;
 
+import spark.components.supportClasses.RichEditableTextContainerManager;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
 import spark.core.TextBaseClassWithStylesAndFocus;
 import spark.events.TextOperationEvent;
+import spark.primitives.Rect;
 import spark.utils.TextUtil;
 
 //--------------------------------------
@@ -185,7 +188,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends TextBaseClassWithStylesAndFocus
-	implements IInputManagerClient, IViewport, IFontContextComponent, IIMESupport
+	implements IViewport, IFontContextComponent, IIMESupport
 {
     include "../core/Version.as";
         
@@ -205,7 +208,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     	// because we need the ENTER key to behave differently based on the
     	// 'multiline' property.
     	staticInputManagerConfiguration =
-    		Configuration(InputManager.defaultConfiguration).clone();
+    		Configuration(TextContainerManager.defaultConfiguration).clone();
     	staticInputManagerConfiguration.manageEnterKey = false;
     	
     	staticTextLayoutFormat = new TextLayoutFormat;
@@ -265,16 +268,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      */
     mx_internal static var debug:Boolean = false;
     
-    /**
-     *  @private
-     *  Used for debugging.
-     *  Set this to an RGB uint to draw an opaque background
-     *  so that you can see the bounds of the component.
-     *  If it is null, the background is black pixels at 0 alpha,
-     *  to be transparent but catch mouse events.
-     */
-    mx_internal static var backgroundColor:Object = null; // 0xDDDDDD;
-
     //--------------------------------------------------------------------------
     //
     //  Class properties
@@ -347,16 +340,15 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         super();
         
         // Create the TLF InputManager, using this component
-        // as both the DisplayObjectContainer for its TextLines
-        // and the implementor of its IInputManagerClient callbacks.
+        // as the DisplayObjectContainer for its TextLines.
         // This InputManager instance persists for the lifetime
         // of the component.
-        _inputManager = new InputManager(this, this, 100, 100, 
-                                         staticInputManagerConfiguration);
-                
+        _inputManager = new RichEditableTextContainerManager(
+                                this, staticInputManagerConfiguration);
+
         // Add event listeners on this component.
         
-        addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
+        //addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
         
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
         
@@ -460,12 +452,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      *  @private
      */
     mx_internal var clearUndoOnFocusOut:Boolean = true;
-
-    /**
-     *  @private
-     *  TODO! This can't be public.
-     */
-	public var hasScrollRect:Boolean = false;
 
     /**
      *  @private
@@ -1090,14 +1076,14 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     /**
      *  @private
      */
-    private var _inputManager:InputManager; /*** public? ***/
+    private var _inputManager:TextContainerManager; /*** public? ***/
             
     /**
      *  @private
      *  The TLF InputManager instance that displays,
      *  scrolls, and edits the text in this component.
      */
-	mx_internal function get inputManager():InputManager
+	mx_internal function get inputManager():TextContainerManager
 	{
 		return _inputManager;
 	}
@@ -1514,7 +1500,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         {
         	if (mx_internal::debug)
         		trace("invalidateInteractionManager()");
-        	_inputManager.invalidateInteractionManager();
+        	_inputManager.invalidateSelectionFormats();
         	
         	selectionFormatsChanged = false;
         }
@@ -1754,134 +1740,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
 
     //--------------------------------------------------------------------------
     //
-    //  Methods: IInputManagerClient
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  Documentation is not currently available.
-     */
-    public function createContextMenu(inputManager:InputManager):ContextMenu
-    {
-        return inputManager.createContextMenu(inputManager);
-    }
-    
-    /**
-     *  Documentation is not currently available.
-     */
-    public function drawBackgroundAndSetScrollRect(
-    					inputManager:InputManager,
-    					scrollX:Number, scrollY:Number):Boolean
-	{
-		var width:Number = inputManager.compositionWidth;
-		var height:Number = inputManager.compositionHeight;
-		
-		if (isNaN(width) || isNaN(height))
-			return false; // just measuring!
-		
-		if (scrollX == 0 &&
-			scrollY == 0 &&
-			inputManager.contentWidth <= width &&
-			inputManager.contentHeight <= height)
-		{
-			// skip the scrollRect
-			if (hasScrollRect)
-			{
-				scrollRect = null;
-				hasScrollRect = false;					
-			}
-		}
-		else
-		{
-			scrollRect = new Rectangle(scrollX, scrollY, width, height);
-			hasScrollRect = true;
-		}
-		
-        // Client must draw a background, even it if is 100% transparent.
-		var g:Graphics = graphics;
-		g.clear();
-        g.lineStyle();
-        var bc:Object = mx_internal::backgroundColor;
-        if (bc != null)
-			g.beginFill(uint(bc)); 
-        else
-        	g.beginFill(0x000000, 0);
-       	g.drawRect(scrollX, scrollY, width, height);
-        g.endFill();
-        
-        return hasScrollRect;
-	}
-		
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function getUndoManager(
-						inputManager:InputManager):IUndoManager
-	{
-		if (!mx_internal::undoManager)
-		{
-			mx_internal::undoManager = new UndoManager();
-			mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
-		}
-			
-		return mx_internal::undoManager;
-	}
-	
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function getFocusSelectionFormat(
-						inputManager:InputManager):SelectionFormat
-	{
-        var selectionColor:* = getStyle("selectionColor");
-
-        // The insertion point is black, inverted, which makes it
-        // the inverse color of the background, for maximum readability.         
-        return new SelectionFormat(
-        	selectionColor, 1.0, BlendMode.NORMAL, 
-			0x000000, 1.0, BlendMode.INVERT);
-	}
-    
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function getUnfocusedSelectionFormat(
-						inputManager:InputManager):SelectionFormat
-	{
-        var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
-
-        var unfocusedAlpha:Number =
-            selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ?
-            1.0 :
-            0.0;
-
-        // No insertion point when no focus.
-        return new SelectionFormat(
-            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
-            unfocusedSelectionColor, 0.0);
-	}
-    
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function getInactiveSelectionFormat(
-						inputManager:InputManager):SelectionFormat
-	{
-        var inactiveSelectionColor:* = getStyle("inactiveSelectionColor"); 
-
-        var inactiveAlpha:Number =
-            selectionVisibility == TextSelectionVisibility.ALWAYS ?
-            1.0 :
-            0.0;
-
-        // No insertion point when not active.
-        return new SelectionFormat(
-            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
-            inactiveSelectionColor, 0.0);
-	}
-    
-    //--------------------------------------------------------------------------
-    //
     //  Methods: IViewport
     //
     //--------------------------------------------------------------------------
@@ -2054,18 +1912,36 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
 
     /**
      *  @private
+     *  When done call releaseSelectionManager();
      */
-    private function getSelectionManager():SelectionManager
+    private function getSelectionManager():ISelectionManager
     {
-    	return SelectionManager(_inputManager.getInteractionManager());
+    	return SelectionManager(_inputManager.beginInteraction());
     }
 
     /**
      *  @private
      */
-    private function getEditManager():EditManager
+    private function releaseSelectionManager():void
     {
-    	return EditManager(_inputManager.getInteractionManager());
+        _inputManager.endInteraction();
+    }
+
+    /**
+     *  @private
+     *  When done call releaseEditManager();
+     */
+    private function getEditManager():IEditManager
+    {
+    	return EditManager(_inputManager.beginInteraction());
+    }
+
+    /**
+     *  @private
+     */
+    private function releaseEditManager():void
+    {
+        _inputManager.endInteraction();
     }
 
     /**
@@ -2142,20 +2018,22 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         */
         _inputManager.updateContainer();
 
+        var contentBounds:Rectangle = _inputManager.getContentBounds();
+        
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
-        measuredHeight = Math.ceil(_inputManager.contentHeight);
+        measuredHeight = Math.ceil(contentBounds.height);
 
         if (_inputManager.getText().length > 1) 
         {
             // Non-empty text flow.
-            measuredWidth = Math.ceil(_inputManager.contentWidth);
+            measuredWidth = Math.ceil(contentBounds.width);
         }
         else
         {
             // Empty text flow.  One Em wide with padding.
             measuredWidth = Math.ceil(getStyle("fontSize") +
-                                      _inputManager.contentWidth);
+                                      contentBounds.width);
        }
                 
         // Lock in the compose area so all text is visible.
@@ -2509,12 +2387,14 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
             _selectable = true;
         }
 
-		var selectionManager:SelectionManager = getSelectionManager();
+		var selectionManager:ISelectionManager = getSelectionManager();
         
         selectionManager.setSelection(anchorPosition, activePosition);        
                 
         // Update the display with the new selection.
         selectionManager.refreshSelection();
+        
+        releaseSelectionManager();
       }
     
     /**
@@ -2538,7 +2418,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // selectable, editable and enabled.
         var priorEditingMode:String = editingMode;
         editingMode = EditingMode.READ_WRITE;
-        var editManager:EditManager = getEditManager();
+        var editManager:IEditManager = getEditManager();
         
         // If no selection, then it's an append.
          if (!editManager.hasSelection())
@@ -2548,6 +2428,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // Update TLF display.  This initiates the InsertTextOperation.
         _inputManager.updateContainer();        
 
+        // All done with edit manager.
+        releaseEditManager();
+        
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
     }
@@ -2573,7 +2456,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // selectable, editable and enabled.
         var priorEditingMode:String = editingMode;
         editingMode = EditingMode.READ_WRITE;
-        var editManager:EditManager = getEditManager();
+        var editManager:IEditManager = getEditManager();
         
         // An append is an insert with the selection set to the end.
         editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
@@ -2582,6 +2465,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // Update TLF display.  This initiates the InsertTextOperation.
         _inputManager.updateContainer();        
 
+        // All done with edit manager.
+        releaseEditManager();
+        
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
     }
@@ -2630,7 +2516,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // Switch to the EditManager.
         var priorEditingMode:String = editingMode;
         editingMode = EditingMode.READ_WRITE;
-        var selectionManager:SelectionManager = getSelectionManager();
+        var selectionManager:ISelectionManager = getSelectionManager();
                 
         // This internal TLF object maps the names of format properties
         // to Property instances.
@@ -2701,6 +2587,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
                 format[p] = characterFormat[p];
         }
         
+        // All done with the selection manager.
+        releaseSelectionManager();
+        
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
                 
@@ -2728,7 +2617,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         // Switch to the EditManager.
         var priorEditingMode:String = editingMode;
         editingMode = EditingMode.READ_WRITE;
-        var editManager:EditManager = getEditManager();
+        var editManager:IEditManager = getEditManager();
         
         // Assign each specified attribute to one of three format objects,
         // depending on whether it is container-, paragraph-,
@@ -2771,6 +2660,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         editManager.applyFormat(
         	characterFormat, paragraphFormat, containerFormat);
         
+        // All done with the edit manager.
+        releaseEditManager();
+        
         // Restore the prior editing mode.
         editingMode = priorEditingMode;
     }
@@ -2788,7 +2680,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
             tlf_internal::textScrap.textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
-        var editManager:EditManager = getEditManager();
+        var editManager:IEditManager = getEditManager();
 
         // Generate a CHANGING event for the PasteOperation but not for the
         // DeleteTextOperation or the InsertTextOperation which are also part
@@ -2806,6 +2698,9 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         	textFlow, op.absoluteStart, op.absoluteStart);
         editManager.insertText(pastedText, selectionState);        
 
+        // All done with the edit manager.
+        releaseEditManager();
+        
         dispatchChangingEvent = true;
     }
 
@@ -2826,44 +2721,85 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden event handlers: UIComponent
+    //  Event handlers
     //
     //--------------------------------------------------------------------------
 
     /**
      *  @private
+     *  Need to be careful since this is the container for TextContainerManager
+     *  and TextContainerManager adds it's own focusInHandler to the container.  
+     *  RichEditableTextContainerManager overrides focusInHandler and calls
+     *  this.
      */
-    protected function focusInHandler(event:FocusEvent):void
-    {        
+    mx_internal function focusInHandler(event:FocusEvent):void
+    {
+        trace("focusIn handler");
+        if (_editable)
+        {
+            // If no selection, give it one so that there is an insertion
+            // cursor and text can be input.
+            if (enabled)
+            {
+                if (!getSelectionManager().hasSelection())
+                {
+                    setSelection(int.MAX_VALUE, int.MAX_VALUE);
+                    
+                    // This is ugly but it's the only way to get tabbing into
+                    // the control to allow input without a mouse click.
+                    var controller:ContainerController = 
+                                        textFlow.flowComposer.getControllerAt(0);
+                    controller.tlf_internal::requiredFocusInHandler(event);
+                }
+                releaseSelectionManager();
+            }
+            
+            if (enabled &&
+                selectionAnchorPosition == -1 && selectionActivePosition == -1)
+            {
+                //setSelection(int.MAX_VALUE, int.MAX_VALUE);
+                
+                // This is ugly but it's the only way to get tabbing into
+                // the control to allow input without a mouse click.
+                //var controller:ContainerController = 
+                //                    textFlow.flowComposer.getControllerAt(0);
+                //controller.tlf_internal::requiredFocusInHandler(event);
+            }
+            
+            if (enabled)
+                getSelectionManager();
+                
+            if (_imeMode != null)
+            {
+                IME.enabled = true;
+                prevMode = IME.conversionMode;
+                // When IME.conversionMode is unknown it cannot be
+                // set to anything other than unknown(English)      
+                try
+                {
+                    if (!errorCaught &&
+                        IME.conversionMode != IMEConversionMode.UNKNOWN)
+                    {
+                        IME.conversionMode = _imeMode;
+                    }
+                    errorCaught = false;
+                }
+                catch(e:Error)
+                {
+                    // Once an error is thrown, focusIn is called 
+                    // again after the Alert is closed, throw error 
+                    // only the first time.
+                    errorCaught = true;
+                    var message:String = ResourceManager.getInstance().getString(
+                        "controls", "unsupportedMode", [ _imeMode ]);          
+                    throw new Error(message);
+                }
+            }            
+        }
+        
         if (focusManager && multiline)
             focusManager.defaultButtonEnabled = false;
 
-        if (_imeMode != null && _editable)
-        {
-            IME.enabled = true;
-            prevMode = IME.conversionMode;
-            // When IME.conversionMode is unknown it cannot be
-            // set to anything other than unknown(English)      
-            try
-            {
-                if (!errorCaught &&
-                    IME.conversionMode != IMEConversionMode.UNKNOWN)
-                {
-                    IME.conversionMode = _imeMode;
-                }
-                errorCaught = false;
-            }
-            catch(e:Error)
-            {
-                // Once an error is thrown, focusIn is called 
-                // again after the Alert is closed, throw error 
-                // only the first time.
-                errorCaught = true;
-                var message:String = ResourceManager.getInstance().getString(
-                    "controls", "unsupportedMode", [ _imeMode ]);          
-                throw new Error(message);
-            }
-        }            
     }
 
     /**
@@ -2872,8 +2808,8 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     protected function focusOutHandler(event:FocusEvent):void
     {
         // By default, we clear the undo history when a TextView loses focus.
-        if (mx_internal::clearUndoOnFocusOut)
-                mx_internal::undoManager.clearAll();
+        if (mx_internal::clearUndoOnFocusOut && mx_internal::undoManager)
+            mx_internal::undoManager.clearAll();
                     
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
@@ -2901,18 +2837,17 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         if (event.keyCode == Keyboard.ENTER)
         {
             if (multiline)
+            {
         		getEditManager().splitParagraph();
+        		releaseEditManager();
+            }
             else
+            {
                 dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+            }
          }
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
-
     /**
      *  @private
      */
@@ -2930,9 +2865,10 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
                                     event:CompositionCompletionEvent):void
     {
         //trace("compositionComplete");
-        
         var oldContentWidth:Number = _contentWidth;
-        var newContentWidth:Number = _inputManager.contentWidth;
+
+        var newContentBounds:Rectangle = _inputManager.getContentBounds();
+        var newContentWidth:Number = newContentBounds.width;
         
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentWidth can be slightly larger than the requested
@@ -2954,7 +2890,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         }
         
         var oldContentHeight:Number = _contentHeight;
-        var newContentHeight:Number = _inputManager.contentHeight;
+        var newContentHeight:Number = newContentBounds.height;
 
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentHeight can be slightly larger than the requested
@@ -3042,11 +2978,22 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     private function inputManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
-        var selectionManager:SelectionManager = getSelectionManager();
+        var selectionManager:ISelectionManager = getSelectionManager();
 
+        // ToDo: this may not be needed if Vellum goes back to dispatching
+        // this event on editManager.insertText()/appendText().
+        if (!event &&
+            _selectionAnchorPosition == selectionManager.anchorPosition &&
+            _selectionActivePosition != selectionManager.activePosition)
+        {
+            return;
+        }
+        
         _selectionAnchorPosition = selectionManager.anchorPosition;
         _selectionActivePosition = selectionManager.activePosition;
         
+        releaseSelectionManager();
+
         //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition);
             
         dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
@@ -3162,6 +3109,10 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         if (event.operation is PasteOperation)
             handlePasteOperation(PasteOperation(event.operation));
 
+        // ToDo: this may not be needed if Vellum goes back to dispatching
+        // this event on editManager.insertText()/appendText().
+        inputManager_selectionChangeHandler(null);
+        
         // Since the text may have changed, set a flag which will
         // cause the 'text' getter to call extractText() to extract
         // the text by walking the TextFlow.
