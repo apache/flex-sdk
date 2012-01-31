@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 <languageVersion : 1.0;>
 
-kernel FxCrossfade
+kernel Crossfade
 <   namespace : "flex";
     vendor : "Adobe Systems";
     version : 1;
