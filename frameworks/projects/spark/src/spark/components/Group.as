@@ -22,7 +22,6 @@ import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.IGraphicElement;
-import mx.graphics.graphicsClasses.GraphicElement;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.layout.ILayoutElement;
 import mx.layout.LayoutElementFactory;
@@ -88,6 +87,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     private var _mxmlContent:Object;
     private var _mxmlContentType:int;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
+    private var numGraphicElements:uint = 0;
     
     private static const ITEM_ORDERED_LAYERING:uint = 0;
     private static const SPARSE_LAYERING:uint = 1;
@@ -106,6 +106,9 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function set alpha(value:Number):void
     {
+        if (super.alpha == value)
+            return;
+        
         //The default blendMode in FXG is 'layer'. There are only
         //certain cases where this results in a rendering difference,
         //one being when the alpha of the Group is > 0 and < 1. In that
@@ -114,20 +117,26 @@ public class Group extends GroupBase implements IVisualElementContainer
         
         if (value > 0 && value < 1 && !blendModeExplicitlySet)
         {
-            _blendMode = BlendMode.LAYER;
-            blendModeChanged = true;
+            if (_blendMode != BlendMode.LAYER)
+            {
+                _blendMode = BlendMode.LAYER;
+                blendModeChanged = true;
+                needsDisplayObjectAssignment = true;
+                invalidateProperties();
+            }
         }
         else if ((value == 1 || value == 0) && !blendModeExplicitlySet)
         {
-            _blendMode = BlendMode.NORMAL;
-            blendModeChanged = true;
+            if (_blendMode != BlendMode.NORMAL)
+            {
+                _blendMode = BlendMode.NORMAL;
+                blendModeChanged = true;
+                needsDisplayObjectAssignment = true;
+                invalidateProperties();
+            }
         }
             
         super.alpha = value;
-        
-        if (blendModeChanged) 
-            needsDisplayObjectAssignment = true;
-        invalidateProperties();
     }
     
     //----------------------------------
@@ -142,7 +151,6 @@ public class Group extends GroupBase implements IVisualElementContainer
     private var blendModeChanged:Boolean;
     private var blendModeExplicitlySet:Boolean;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
 
     /**
@@ -175,12 +183,21 @@ public class Group extends GroupBase implements IVisualElementContainer
             
         var oldValue:String = _blendMode;
         _blendMode = value;
-        dispatchPropertyChangeEvent("blendMode", oldValue, value);
             
         blendModeExplicitlySet = true;
         
         blendModeChanged = true;
-        needsDisplayObjectAssignment = true;
+        
+        // Only need to re-do display object assignment if blendmode was normal
+        // and is changing to someting else, or the blend mode was something else 
+        // and is going back to normal.  This is because display object sharing
+        // only happens when blendMode is normal.
+        if ((oldValue == BlendMode.NORMAL || value == BlendMode.NORMAL) && 
+            !(oldValue == BlendMode.NORMAL && value == BlendMode.NORMAL))
+        {
+            needsDisplayObjectAssignment = true;
+        }
+        
         invalidateProperties();
     }
     
@@ -224,7 +241,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     }
 
     /**
-     *  Adds the elements in <code>content</code> to the Group.
+     *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
      */ 
     protected function initializeChildrenArray():void
@@ -237,6 +254,8 @@ public class Group extends GroupBase implements IVisualElementContainer
         for (var idx:int = numChildren; idx > 0; idx--)
             //itemRemoved(0);
             super.removeChildAt(0);
+            
+        numGraphicElements = 0;
         
         if (_mxmlContent !== null)
         {
@@ -272,7 +291,6 @@ public class Group extends GroupBase implements IVisualElementContainer
         {
             blendModeChanged = false;
             super.blendMode = _blendMode;
-            needsDisplayObjectAssignment = true;
         }
         
         if (needsDisplayObjectAssignment)
@@ -281,15 +299,17 @@ public class Group extends GroupBase implements IVisualElementContainer
             assignDisplayObjects();
         }
         
-        // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
-        var length:int = numElements;
-        for (var i:int = 0; i < length; i++)
+        if (numGraphicElements > 0)
         {
-            var element:GraphicElement = getElementAt(i) as GraphicElement;
-            if (element)
-                element.validateProperties();
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (element)
+                    element.validateProperties();
+            }
         }
     }
     
@@ -301,15 +321,17 @@ public class Group extends GroupBase implements IVisualElementContainer
         // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
         // validate sizes of the elements, even in cases where recursive==false.
         
-        // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element size
-        var length:int = numElements;
-        for (var i:int = 0; i < length; i++)
+        if (numGraphicElements > 0)
         {
-            var element:GraphicElement = getElementAt(i) as GraphicElement;
-            if (element)
-                element.validateSize();
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (element)
+                    element.validateSize();
+            }
         }
 
         super.validateSize(recursive);
@@ -326,16 +348,19 @@ public class Group extends GroupBase implements IVisualElementContainer
         // Iterate through the graphic elements, clear their graphics and draw them
 
         graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
-        // This isn't needed for DataGroup because there's not much DisplayObject sharing
+        // This isn't needed for DataGroup because there's no DisplayObject sharing
         
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Iterate through the graphic elements, clear their graphics and draw them
-        var length:int = numElements;
-        for (var i:int = 0; i < length; i++)
+        if (numGraphicElements > 0)
         {
-            var element:GraphicElement = getElementAt(i) as GraphicElement;
-            if (element)
-                element.validateDisplayList();
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (element)
+                    element.validateDisplayList();
+            }
         }
     }
 
@@ -784,16 +809,10 @@ public class Group extends GroupBase implements IVisualElementContainer
         if (element is IVisualElement && IVisualElement(element).layer != 0)
             invalidateLayering();
 
-        if (element is GraphicElement) 
+        if (element is IGraphicElement) 
         {
-            GraphicElement(element).parent = this;
-        
-            // If a styleable GraphicElement is being added,
-            // build its protochain for use by getStyle().
-            if (element is IStyleClient)
-                IStyleClient(element).regenerateStyleCache(true);
-            if (element is TextGraphicElement)
-                TextGraphicElement(element).stylesInitialized();
+            numGraphicElements++;
+            addingGraphicElementChild(element as IGraphicElement);
         }   
         else
         {
@@ -824,11 +843,12 @@ public class Group extends GroupBase implements IVisualElementContainer
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, element, index));        
-        if (element && (element is GraphicElement))
+        if (element && (element is IGraphicElement))
         {
-            element.parent = null;
-            element.sharedDisplayObject = null;
-            childDO = GraphicElement(element).displayObject;
+            numGraphicElements--;
+            IGraphicElement(element).parentChanged(null);
+            IGraphicElement(element).sharedDisplayObject = null;
+            childDO = IGraphicElement(element).displayObject;
         }
                 
         if (childDO && childDO.parent == this)
@@ -840,12 +860,44 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     /**
      *  @private
+     */
+    mx_internal function addingGraphicElementChild(child:IGraphicElement):void
+    {
+        child.parentChanged(this);
+
+        // Sets up the inheritingStyles and nonInheritingStyles objects
+        // and their proto chains so that getStyle() works.
+        // If this object already has some children,
+        // then reinitialize the children's proto chains.
+        if (child is IStyleClient)
+            IStyleClient(child).regenerateStyleCache(true);
+        
+        if (child is ISimpleStyleClient)
+            ISimpleStyleClient(child).styleChanged(null);
+
+        if (child is IStyleClient)
+            IStyleClient(child).notifyStyleChangeInChildren(null, true);
+
+        // Inform the component that it's style properties
+        // have been fully initialized. Most components won't care,
+        // but some need to react to even this early change.
+        if (child is TextGraphicElement)
+            TextGraphicElement(child).stylesInitialized();
+    }
+    
+    /**
+     *  @private
      *  
      *  Returns true if the Group's display object can be shared with graphic elements
      *  inside the group
      */
     private function get canShareDisplayObject():Boolean
     {
+        // we can't share ourselves if we're in blendMode != normal, or we have 
+        // to deal with any layering.  The reason is because we handle layer = 0 first
+        // in our implementation, and we don't want those to use our display object to 
+        // draw into because there could be something further down the line that has 
+        // layer < 0
         return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
@@ -862,7 +914,6 @@ public class Group extends GroupBase implements IVisualElementContainer
         var keepLayeringEnabled:Boolean = false;
         
         mergeData.currentAssignableDO  = canShareDisplayObject ? this : null;
-        mergeData.lastDisplayObject = this;
         mergeData.insertIndex = 0;
 
         // Iterate through all of the items
@@ -892,8 +943,17 @@ public class Group extends GroupBase implements IVisualElementContainer
                     }
                 }
             }
+            
+            // this should only get called if layer == 0, or we don't care
+            // about layering (layeringMode == ITEM_ORDERED_LAYERING)
             assignDisplayObjectTo(item,mergeData);
         }
+        
+        // we've done all layer == 0 items. 
+        // now let's put the higher z-index ones on next
+        // then we'll handle the ones on bottom, but we'll
+        // insert them in the very beginning (index = 0)
+        
         if (topLayerItems != null)
         {
             keepLayeringEnabled = true;
@@ -910,7 +970,6 @@ public class Group extends GroupBase implements IVisualElementContainer
         {
             keepLayeringEnabled = true;
             mergeData.currentAssignableDO  = null;
-            mergeData.lastDisplayObject = this;
             mergeData.insertIndex = 0;
 
             //bottomLayerItems.sortOn("layer",Array.NUMERIC);
@@ -923,6 +982,13 @@ public class Group extends GroupBase implements IVisualElementContainer
             }
         }
         
+        // If we tried to layer these visual elements and found that we 
+        // don't actually need to because layer=0 for all of them, 
+        // then lets optimize this next time and just skip the layering step.
+        // If an element gets added that has layer set to something non-zero, then 
+        // layeringMode will get set to SPARSE_LAYERING.
+        // If the layer property changes on a current element, invalidateLayering()
+        // will be called and layeringMode will get set to SPARSE_LAYERING.
         if (keepLayeringEnabled == false)
             layeringMode = ITEM_ORDERED_LAYERING; 
     }
@@ -932,38 +998,30 @@ public class Group extends GroupBase implements IVisualElementContainer
      *  @private
      */
     private function assignDisplayObjectTo(item:Object,mergeData:GroupDisplayObjectMergeData):void
-    {
-        if (mergeData.lastDisplayObject == this)
-            mergeData.insertIndex = 0;
-        else
-            mergeData.insertIndex = super.getChildIndex(mergeData.lastDisplayObject) + 1;
-            
+    {   
         if (item is DisplayObject)
         {
             super.setChildIndex(item as DisplayObject, mergeData.insertIndex);
             
-            mergeData.lastDisplayObject = item as DisplayObject;
+            mergeData.insertIndex++;
             // Null this out so that we are forced to create one for the next item
             mergeData.currentAssignableDO = null; 
         }           
-        else if (item is GraphicElement)
+        else if (item is IGraphicElement)
         {
-            var element:GraphicElement = item as GraphicElement;
+            var element:IGraphicElement = item as IGraphicElement;
             
             if (mergeData.currentAssignableDO == null || element.needsDisplayObject)
             {
                 var newChild:DisplayObject = element.displayObject;
                 
                 if (newChild == null)
-                {
                     newChild = element.createDisplayObject();
-                    element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?                 
-                }
                 
                 addItemToDisplayList(newChild, item, mergeData.insertIndex); 
                 // If the element is transformed, the next item needs its own DO        
                 mergeData.currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
-                mergeData.lastDisplayObject = newChild;
+                mergeData.insertIndex++;
             }
             else
             {
@@ -1036,6 +1094,7 @@ public class Group extends GroupBase implements IVisualElementContainer
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
+    
     /**
      *  @private
      */
@@ -1062,7 +1121,6 @@ public class Group extends GroupBase implements IVisualElementContainer
 
     private var _scaleGridBottom:Number;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1074,15 +1132,12 @@ public class Group extends GroupBase implements IVisualElementContainer
     }
     
     public function set scaleGridBottom(value:Number):void
-    {
-        var oldValue:Number = _scaleGridBottom;
-        
-        if (value != oldValue)
+    {     
+        if (value != _scaleGridBottom)
         {
             _scaleGridBottom = value;
             scaleGridChanged = true;
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("scaleGridBottom", oldValue, value);
         }
     }
     
@@ -1092,7 +1147,6 @@ public class Group extends GroupBase implements IVisualElementContainer
 
     private var _scaleGridLeft:Number;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1105,14 +1159,11 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     public function set scaleGridLeft(value:Number):void
     {
-        var oldValue:Number = _scaleGridLeft;
-        
-        if (value != oldValue)
+        if (value != _scaleGridLeft)
         {
             _scaleGridLeft = value;
             scaleGridChanged = true;
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("scaleGridLeft", oldValue, value);
         }
     }
 
@@ -1122,7 +1173,6 @@ public class Group extends GroupBase implements IVisualElementContainer
 
     private var _scaleGridRight:Number;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1135,14 +1185,11 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     public function set scaleGridRight(value:Number):void
     {
-        var oldValue:Number = _scaleGridRight;
-        
-        if (value != oldValue)
+        if (value != _scaleGridRight)
         {
             _scaleGridRight = value;
             scaleGridChanged = true;
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("scaleGridRight", oldValue, value);
         }
     }
 
@@ -1152,7 +1199,6 @@ public class Group extends GroupBase implements IVisualElementContainer
 
     private var _scaleGridTop:Number;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1165,14 +1211,11 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     public function set scaleGridTop(value:Number):void
     {
-        var oldValue:Number = _scaleGridTop;
-        
-        if (value != oldValue)
+        if (value != _scaleGridTop)
         {
             _scaleGridTop = value;
             scaleGridChanged = true;
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("scaleGridTop", oldValue, value);
         }
     }
     
@@ -1241,7 +1284,6 @@ import flash.display.DisplayObject;
 class GroupDisplayObjectMergeData
 {
     public var currentAssignableDO:DisplayObject;
-    public var lastDisplayObject:DisplayObject;
     public var insertIndex:int;
 }
 
