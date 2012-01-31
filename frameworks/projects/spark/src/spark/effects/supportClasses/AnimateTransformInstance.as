@@ -26,7 +26,16 @@ import spark.effects.MotionPath;
 use namespace mx_internal;
 
 /**
- * The instance of the AnimateTransform effect
+ *  The AnimateTransformInstance class implements the instance class for the
+ *  AnimateTransform effect. Flex creates an instance of this class when
+ *  it plays a AnimateTransform effect; you do not create one yourself.
+ *
+ *  @see spark.effects.AnimateTransform
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class AnimateTransformInstance extends AnimateInstance
 {
@@ -37,7 +46,14 @@ public class AnimateTransformInstance extends AnimateInstance
     //--------------------------------------------------------------------------
 
     /**
-     * Constructor
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function AnimateTransformInstance(target:Object)
     {
@@ -59,35 +75,35 @@ public class AnimateTransformInstance extends AnimateInstance
          "scaleX", "scaleY", "scaleZ"];
 
     /**
-     * Flag to indicate that this single instance of the transform-related
-     * effects has already started and should not be started again. If there
-     * are several transform effects running in the same effect tree, as children
-     * of a CompositeEffect, then they all run as part of a single instance which
-     * is started when the first transform effect is played. The remainder
-     * of the transform-related effects should not be separately started, since
-     * their animation data is already handled through the single instance.
+     *  Flag to indicate that this single instance of the transform-related
+     *  effects has already started and should not be started again. If there
+     *  are several transform effects running in the same effect tree, as children
+     *  of a CompositeEffect, then they all run as part of a single instance which
+     *  is started when the first transform effect is played. The remainder
+     *  of the transform-related effects should not be separately started, since
+     *  their animation data is already handled through the single instance.
      */
     private var started:Boolean = false;
 
     /**
-     * @private
-     * 
-     * The time that the single transform effect instance will start, relative
-     * to the top-most Effect in the effect containment hierarchy. This time
-     * is used to compare against the start time of new effects adding their
-     * MotionPath data to this single instance to make sure that all keyframes
-     * are positioned correctly relative to each other.
+     *  @private
+     *  
+     *  The time that the single transform effect instance will start, relative
+     *  to the top-most Effect in the effect containment hierarchy. This time
+     *  is used to compare against the start time of new effects adding their
+     *  MotionPath data to this single instance to make sure that all keyframes
+     *  are positioned correctly relative to each other.
      */
     private var instanceStartTime:Number = 0;
 
     /**
-     * Default transform center used in the transform calculations when
-     * transformCenter is null.
+     *  Default transform center used in the transform calculations when
+     *  transformCenter is null.
      */
     private static var defaultTransformCenter:Vector3D = new Vector3D();
 
     /**
-     * Utility map used in applyValues()
+     *  Utility map used in applyValues()
      */
     private var currentValues:Object = {rotationX:NaN, rotationY:NaN, rotationZ:NaN,
                                         scaleX:NaN, scaleY:NaN, scaleZ:NaN,
@@ -97,7 +113,7 @@ public class AnimateTransformInstance extends AnimateInstance
                                         _translationX:NaN, _translationY:NaN, _translationZ:NaN};
     
     /**
-     * Utility structures used in applyValues()
+     *  Utility structures used in applyValues()
      */
     private static var scale:Vector3D = new Vector3D();
     private static var rotation:Vector3D = new Vector3D();
@@ -110,19 +126,31 @@ public class AnimateTransformInstance extends AnimateInstance
     //--------------------------------------------------------------------------
 
     /**
-     * Flag to indicate that this single instance of the transform-related effects
-     * has already been initialized. This flag is used by AnimateTransform to 
-     * prevent duplicate initialization of the instance when there are multiple
-     * transform effects feeding into this single instance.
+     *  If <code>true</code>, this single instance of the transform-related effects
+     *  has already been initialized. This property is used by AnimateTransform to 
+     *  prevent duplicate initialization of the instance when there are multiple
+     *  transform effects feeding into this single instance.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var initialized:Boolean = false;
     
     /**
-     * The center around which the transformations in this effect
-     * occur. In particular, rotations will rotate around this point,
-     * translations will move this point, and scales will scale centered
-     * around this point. If the point is not supplied, then the center
-     * of the target object is assumed.
+     *  The center around which the transformations in this effect
+     *  occur. In particular, rotations rotate around this point,
+     *  translations move this point, and scales scale centered
+     *  around this point. If the point is not supplied, then the center
+     *  of the target object is used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var transformCenter:Vector3D;
 
@@ -201,11 +229,20 @@ public class AnimateTransformInstance extends AnimateInstance
     }
     
     /**
-     * Adds the given MotionPath to the set of MotionPaths in this instance, with
-     * the start time relative to the outermost parent effect.
-     * If there is already a MotionPath object for this effect instance that
-     * is acting on the same property as the new MotionPath, then the keyframes
-     * of the new MotionPath are simply added to the existing MotionPath.
+     *  Adds a MotionPath object to the set of MotionPath objects in this instance, 
+     *  with the start time relative to the outermost parent effect. 
+     *  If there is already a MotionPath object for this effect instance that 
+     *  is acting on the same property as the new MotionPath object, 
+     *  then the keyframes of the new MotionPath are simply added to the existing MotionPath. 
+     *
+     *  @param newMotionPath New MotionPath object.
+     *
+     *  @param newEffectStartTime Start time, in milliseconds, of the new MotionPath object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addMotionPath(newMotionPath:MotionPath, newEffectStartTime:Number = 0):void
     {
