@@ -2762,7 +2762,11 @@ public class FTETextField extends Sprite implements IFontContextComponent
 		// produces a "TextField ascent" of 12 + 3 or 15 for Arial 12
 		// (Flex's default font) on Windows, exactly matching a real
 		// TextField's ascent in this most-common case.
-		var emBox:Rectangle = elementFormat.getFontMetrics().emBox;
+		var emBox:Rectangle;
+        if (fontContext)
+            emBox = fontContext.callInContext(elementFormat.getFontMetrics, elementFormat, []).emBox;
+        else
+            emBox = elementFormat.getFontMetrics().emBox;
 		var ascent:int = Math.round(-emBox.top) + Math.round(emBox.bottom);
 		var descent:int = Math.round(emBox.bottom);
 		var leading:Number = Math.round(Number(_defaultTextFormat.leading));
@@ -2993,7 +2997,11 @@ public class FTETextField extends Sprite implements IFontContextComponent
 				// You can't draw in a TextLine but it can have children,
 				// so we create a child Shape to draw them in.
 				
-				var fontMetrics:FontMetrics = elementFormat.getFontMetrics();
+                var fontMetrics:FontMetrics;
+                if (fontContext)
+                    fontMetrics = fontContext.callInContext(elementFormat.getFontMetrics, elementFormat, []);
+                else
+                    fontMetrics = elementFormat.getFontMetrics();
 				
 				var shape:Shape = new Shape();
 				var g:Graphics = shape.graphics;
