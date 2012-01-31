@@ -616,7 +616,7 @@ public class Animate extends Effect
                 if (propChanges[i].start["percentHeight"] !== undefined && 
                     "percentHeight" in target)
                 {
-                    target.percentWidth = propChanges[i].start["percentWidth"];
+                    target.percentHeight = propChanges[i].start["percentHeight"];
                 }
             }
         }
