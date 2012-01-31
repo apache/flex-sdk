@@ -18,13 +18,13 @@ import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.Linear;
-import mx.effects.interpolation.Sine;
 import mx.effects.interpolation.ArrayInterpolator;
+import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
+import mx.effects.interpolation.Linear;
 import mx.effects.interpolation.NumberArrayInterpolator;
 import mx.effects.interpolation.NumberInterpolator;
+import mx.effects.interpolation.Sine;
 import mx.events.AnimationEvent;
 
 /**
@@ -521,7 +521,7 @@ public class Animation extends EventDispatcher
             }
         }
         // If no more animations running or pending, stop the timer
-        if (activeAnimations.length == 0 && delayedStartAnims.length == 0)
+        if (timer && activeAnimations.length == 0 && delayedStartAnims.length == 0)
         {
             _intervalTime = NaN;
             timer.reset();
@@ -543,12 +543,20 @@ public class Animation extends EventDispatcher
         _intervalTime = Timeline.pulse();
         
         var n:int = activeAnimations.length;
-                
-        for (var i:int = 0; i < n; ++i)
+        var i:int = 0;
+        
+        while (i < activeAnimations.length)
         {
+            // only increment index into array if no animation was stopped
+            // as a result to call to doInterval(). Stopped animations
+            // will be removed from the array and everything after them
+            // shifts down
+            var incrementIndex:Boolean = true;
             var animation:Animation = Animation(activeAnimations[i]);
             if (animation)
-                animation.doInterval();
+                incrementIndex = !animation.doInterval();
+            if (incrementIndex)
+                ++i;
         }
         
         // Check to see whether it's time to start any delayed animations
@@ -693,8 +701,6 @@ public class Animation extends EventDispatcher
      */
     public function end():void
     {
-        removeFromDelayedAnimations();
-        
         // TODO (chaase): Check whether we already send out a final
         // UPDATE event with the end value; if so, this dup should be
         // removed
@@ -705,14 +711,8 @@ public class Animation extends EventDispatcher
         sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
         sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
 
-        // If animation has been added, id >= 0
-        // but if duration = 0, this might not be the case.
-        if (id >= 0)
-            Animation.removeAnimationAt(id);
-        
-        _invertValues = false;
-        _doReverse = false;
-        _isPlaying = false;
+        // The rest of what we need to do is handled by the stop() function
+        stop();
     }
 
     /**
@@ -872,10 +872,13 @@ public class Animation extends EventDispatcher
     public function stop():void
     {
         removeFromDelayedAnimations();
-
+        // If animation has been added, id >= 0
+        // but if duration = 0, this might not be the case.
         if (id >= 0)
+        {
             Animation.removeAnimationAt(id);
-            
+            id = -1;
+        }        
         _doReverse = false
         _invertValues = false;
         _isPlaying = false;
