@@ -361,10 +361,11 @@ package spark.components
      *  <p>RichEditableText uses TLF's TextContainerManager class
      *  to handle its text display, scrolling, selection, and editing.</p>
      *
-     *  @see spark.components.Label
-     *  @see spark.components.RichText
-     *  @see spark.utils.TextFlowUtil
-     *  @see flashx.textLayout.container.TextContainerManager
+     *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+     *  create an item renderer.
+     *  For information about creating an item renderer, see 
+     *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+     *  Custom Spark item renderers</a>. </p>
      *
      *  @mxml
      *
@@ -409,6 +410,11 @@ package spark.components
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
+     *
+     *  @see spark.components.Label
+     *  @see spark.components.RichText
+     *  @see spark.utils.TextFlowUtil
+     *  @see flashx.textLayout.container.TextContainerManager
      */
     public class RichEditableText extends UIComponent
         implements IFocusManagerComponent, IIMESupport, ISystemCursorClient, IViewport
