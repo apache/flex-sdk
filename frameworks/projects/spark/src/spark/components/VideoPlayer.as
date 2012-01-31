@@ -1840,9 +1840,8 @@ public class VideoPlayer2 extends SkinnableComponent
                 y: this.y,
                 width: this.getPreferredBoundsWidth(false),
                 height: this.getPreferredBoundsHeight(false),
-                smoothing: videoDisplay.videoObject.smoothing,
-                deblocking: videoDisplay.videoObject.deblocking, 
                 includeInLayout: this.includeInLayout};
+            
             includeInLayout = false;
             pauseWhenHidden = false;
             
@@ -1873,9 +1872,15 @@ public class VideoPlayer2 extends SkinnableComponent
             invalidateSize();
             invalidateDisplayList();
             
-            // this is for video performance reasons
-            videoDisplay.videoObject.smoothing = false;
-            videoDisplay.videoObject.deblocking = 0;
+            // this is for video performance reasons, but sometimes the videoObject isn't there
+            // if the source is null
+            if (videoDisplay.videoObject)
+            {
+                beforeFullScreenInfo.smoothing = videoDisplay.videoObject.smoothing;
+                beforeFullScreenInfo.deblocking = videoDisplay.videoObject.deblocking;
+                videoDisplay.videoObject.smoothing = false;
+                videoDisplay.videoObject.deblocking = 0;
+            }
             
             this.validateNow();
             
@@ -1982,8 +1987,14 @@ public class VideoPlayer2 extends SkinnableComponent
         this.y = beforeFullScreenInfo.y;
         this.setLayoutBoundsSize(beforeFullScreenInfo.width, beforeFullScreenInfo.height);
         
-        videoDisplay.videoObject.smoothing = beforeFullScreenInfo.smoothing;
-        videoDisplay.videoObject.deblocking = beforeFullScreenInfo.deblocking;
+        // sometimes there's no video object currently or there might not've been a 
+        // video object when we went in to fullScreen mode.  There may be no videoObject
+        // if the source hasn't been set.
+        if (videoDisplay.videoObject && beforeFullScreenInfo.smoothing !== undefined)
+        {
+            videoDisplay.videoObject.smoothing = beforeFullScreenInfo.smoothing;
+            videoDisplay.videoObject.deblocking = beforeFullScreenInfo.deblocking;
+        }
         
         // remove from top level application:
         if (parent is IVisualElementContainer)
