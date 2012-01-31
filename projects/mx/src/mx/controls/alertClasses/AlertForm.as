@@ -346,7 +346,7 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 		newWidth = buttons.length * (buttons[0].width + 8) - 8;
 
 		// Center the buttons.
-		newX = (unscaledWidth - newWidth) / 2;
+		newX = Math.round((unscaledWidth - newWidth) / 2);
 		for (var i:int = 0; i < buttons.length; i++)
 		{
 			buttons[i].move(newX, newY);
@@ -360,7 +360,7 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 			newWidth += icon.width + 8;
 
 		// Center the text and icon horizontally and vertically.
-		newX = (unscaledWidth - newWidth) / 2;
+		newX = Math.round((unscaledWidth - newWidth) / 2);
 		if (icon)
 		{
 			icon.x = newX;
@@ -369,7 +369,7 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 		}
 
 		var newHeight:Number = textField.getExplicitOrMeasuredHeight();
-		textField.move(newX, (newY - newHeight) / 2);
+		textField.move(newX, Math.round((newY - newHeight) / 2));
 		textField.setActualSize(textWidth+5, newHeight);
 	}
 
