@@ -86,7 +86,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;NumericStepper
+ *  &lt;s:NumericStepper
  *
  *    <strong>Properties</strong>
  *    imeMode="null"
