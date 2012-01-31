@@ -573,6 +573,24 @@ public class Application extends LayoutContainer
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
+
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        super.enabled = value;
+
+        // controlBar must be enabled/disabled when this container is.
+        if (controlBar)
+            controlBar.enabled = value;
+    }
+
+    //----------------------------------
     //  icon
     //----------------------------------
 
