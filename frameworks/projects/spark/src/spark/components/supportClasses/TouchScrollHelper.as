@@ -642,15 +642,10 @@ public class TouchScrollHelper
             dragTimer = null;
         }
         
-        // Note that on iOS we essentially ignore the delta position and time of the mouseUp event.
-        // This is because this last event seems to not reliably track with the actual velocity of the 
-        // gesture, and causes problem for our velocity calculation.
-        // TODO (eday): determine the right cross-platform approach here.
-        // We check for "MouseEvent" because this could be a SanboxMouseEvent
-        if (!isIOS && event is MouseEvent)
-            addMouseEventHistory(MouseEvent(event).stageX, MouseEvent(event).stageY, GetTimerUtil.getTimer());
-        
-        // decide about throw
+
+        // Note that we do not add the time and position of the mouseUp event to 
+        // our event history.  This is because the timing of this event is unreliable
+        // and causes problems for our velocity calculation.
         
         // pad click and timeHistory if needed
         var currentTime:Number = GetTimerUtil.getTimer();
