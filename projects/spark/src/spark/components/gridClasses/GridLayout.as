@@ -1033,7 +1033,7 @@ public class GridLayout extends LayoutBase
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
-                layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);
+                layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);                
                 
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
@@ -1145,7 +1145,14 @@ public class GridLayout extends LayoutBase
         
         layoutItemRenderer(renderer, rendererX, rendererY, rendererWidth, rendererHeight);
         
-        if (gridDimensions.variableRowHeight && (rendererHeight != renderer.getPreferredBoundsHeight()))
+        // If the renderer's preferredHeight has changed and variableRowHeight=true, then
+        // the row's height may have changed, which implies we need to layout -everything-.
+        // Warning: the unconditional getPreferredBoundsHeight() call also serves to 
+        // force DefaultGridItemRenderer and UITextFieldGridItemRenderer to validate;
+        // similar to what happens in layoutItemRenderers() and updateTypicalCellSizes()
+        
+        const preferredRendererHeight:Number = renderer.getPreferredBoundsHeight();
+        if (gridDimensions.variableRowHeight && (rendererHeight != preferredRendererHeight))
             grid.invalidateDisplayList();
     }
     
@@ -2164,13 +2171,6 @@ public class GridLayout extends LayoutBase
     
     /**
      *  @private
-     *  By default, this method uses the same approach as DataGroup/getVirtualElementAt() for elements
-     *  that implement IInvalidating: elt.validateNow(), elt.setLayoutBoundsSize(), elt.validateNow().
-     *  This is supposed to eliminate problems with (text) components that defer reflow until the next
-     *  updateDisplayList() pass.
-     *  
-     *  Since doing so is rather expensive, we economize when the renderer is an IUITextField
-     *  since UITextField and UIFTETextField reflow synchronously.
      */ 
     private function layoutItemRenderer(renderer:IGridItemRenderer, x:Number, y:Number, width:Number, height:Number):void
     {
@@ -2193,6 +2193,12 @@ public class GridLayout extends LayoutBase
             }
             
             renderer.setLayoutBoundsSize(width, height);            
+        }
+        
+        if ((renderer is IInvalidating) && !(renderer is IGraphicElement))
+        {
+            const validateNowRenderer:IInvalidating = renderer as IInvalidating;
+            validateNowRenderer.validateNow();
         }
         
         renderer.setLayoutBoundsPosition(x, y);
