@@ -56,10 +56,8 @@ public class GridSelection
      *  (For row selection, a row region will be in column 0 and column count 
      *  will be 1.)
      *
-     *  If selectAllFlag==false, this is the list of cell regions that have
-     *  been added (isAdd==true) and removed (isAdd==false).  If
-     *  selectAllFlag==true, this is the list of cell regions that have been 
-     *  removed (isAdd==true) or re-added (isAdd==false) to the selection.
+     *  This is the list of cell regions that have
+     *  been added (isAdd==true) and removed (isAdd==false). 
      *   
      *  Internally, regionsContainCell should be used to determine if a cell/row
      *  is in the selection.
@@ -73,14 +71,6 @@ public class GridSelection
      *  index of the selection after a collection refresh event.
      */    
     private var selectedItem:Object;
-    
-    /**
-     *  @private
-     *  True if all cells are selected.  In this case, the data structures are
-     *  all reset and the flag should be used to determine the selection.
-     */    
-    // Fixme: need interface to determine if everything is selected
-    mx_internal var selectAllFlag:Boolean;
     
     /**
      *  @private
@@ -250,18 +240,29 @@ public class GridSelection
     private var _selectionLength:int = 0;    
     
     /**
-     *  If the <code>selectionMode</code> is either 
+     *  The length of the selection.
+     * 
+     *  <p>If the <code>selectionMode</code> is either 
      *  <code>GridSelectionMode.SINGLE_ROW</code> or
      *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, contains the number of
-     *  selected rows.
-     *  If the <code>selectionMode</code> is either 
+     *  selected rows.  If a selected row has no <code>columns</code> whose 
+     *  <code>visible</code> property is set to <code>true</code> it is still
+     *  included in the number of selected rows.</p>
+     * 
+     *  <p>If the <code>selectionMode</code> is either 
      *  <code>GridSelectionMode.SINGLE_CELL</code> or
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, contains the number of
      *  selected cells.  
-     *  If the <code>selectionMode</code> is <code>GridSelectionMode.NONE</code>, 
-     *  contains 0.
+     *  If a selected cell is in a column which has its <code>visible</code>
+     *  property set to false after it is selected, the cell is included in 
+     *  the number of selected cells.</p>
      * 
+     *  <p>If the <code>selectionMode</code> is <code>GridSelectionMode.NONE</code>, 
+     *  contains 0.<p>
+     *  
      *  @default 0
+     * 
+     *  @return Number of selected rows or cells.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -273,23 +274,22 @@ public class GridSelection
         // Note: this assumes there are no duplicate cells in cellRegions - ie
         // 2 adds of the same cell without an intermediate delete.
         
+        const isRows:Boolean = isRowSelectionMode();
+        
         if (_selectionLength < 0)
         {
-            _selectionLength = selectAllFlag ? 
-                getGridDataProviderLength() * getGridColumnsLength() : 0;
-                        
+            _selectionLength = 0;
+            
             const cellRegionsLength:int = cellRegions.length;            
             for (var i:int = 0; i < cellRegionsLength; i++)
             {
                 var cr:CellRect = cellRegions[i];
-                const numCells:int = cr.width * cr.height; 
+                const numSelected:int = isRows ? cr.height : cr.height * cr.width;
                
-                // Shorthand for
-                // if (cr.isAdd && !selectAllFlag || !cr.isAdd && selectAllFlag)
-                if (cr.isAdd != selectAllFlag)
-                    _selectionLength += numCells;
+                if (cr.isAdd)
+                    _selectionLength += numSelected;
                 else
-                    _selectionLength -= numCells;
+                    _selectionLength -= numSelected;
             }
         }
         
@@ -420,11 +420,12 @@ public class GridSelection
     }
 
     /**
-     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code> or
-     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, selects all the rows or
-     *  cells in the grid.
+     *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code> 
+     *  selects all the rows in the grid and if <code>selectionMode</code> is 
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, selects all the cells in
+     *  columns with <code>visible</code> set to <code>true</code>.
      * 
-     *  @return <code>true</code> if the list of selected items has changed from the last call.
+     *  @return True if the selection changed.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -433,17 +434,18 @@ public class GridSelection
      */
     public function selectAll():Boolean
     {
-        if (selectionMode == GridSelectionMode.MULTIPLE_ROWS || 
-            selectionMode == GridSelectionMode.MULTIPLE_CELLS)
-        {   
-            // Do this even if selectAllFlag is already true since there might
-            // be some removals that need to be cleared.
-            removeSelection();
-            selectAllFlag = true;
-            _selectionLength = -1;
-            return true;
+        const maxRows:int = getGridDataProviderLength();
+
+        if (selectionMode == GridSelectionMode.MULTIPLE_ROWS)
+        {
+            return setRows(0, maxRows);
         }
-        
+        else if (selectionMode == GridSelectionMode.MULTIPLE_CELLS)
+        {
+            const maxColumns:int = getGridColumnsLength();
+            return setCellRegion(0, 0, maxRows, maxColumns);
+        }
+            
         return false;
      }
     
@@ -699,9 +701,11 @@ public class GridSelection
         const cellRegionsLength:int = cellRegions.length;
         
         if (cellRegionsLength == 0)
-            return selectAllFlag;
+            return false;
         
-        if (!selectAllFlag && cellRegionsLength == 1)
+        // Simple selection.
+        
+        if (cellRegionsLength == 1)
         {
             const cr:CellRect = cellRegions[0];
             return (rowIndex >= cr.top && columnIndex >= cr.left &&
@@ -860,7 +864,7 @@ public class GridSelection
     {
         if (!validateCellRegion(rowIndex, columnIndex, rowCount, columnCount))
             return false;
-        
+
         removeSelection();
         
         var startColumnIndex:int = columnIndex;
@@ -970,7 +974,7 @@ public class GridSelection
         
         // Is there an isAdd=true CellRegion that contains the cell?
         if (index == -1) 
-            return selectAllFlag;
+            return false;
         
         // Starting with index, if any subsequent isAdd=false cell region
         // contains row,columnIndex return false.
@@ -978,10 +982,10 @@ public class GridSelection
         {
             cr = cellRegions[i];
             if (!cr.isAdd && cr.containsCell(rowIndex, columnIndex))
-                return selectAllFlag;
+                return false;
         }
         
-        return !selectAllFlag;
+        return true;
     }
 
     /**
@@ -1025,7 +1029,6 @@ public class GridSelection
     private function removeSelection():void
     {
         cellRegions.length = 0;       
-        selectAllFlag = false;
         _selectionLength = 0;
         selectedItem = null;
     }
@@ -1188,7 +1191,7 @@ public class GridSelection
         if (!regionsContainCell(rowIndex, columnIndex))
         {
             const cr:CellRect = 
-                new CellRect(rowIndex, columnIndex, 1, 1, !selectAllFlag);
+                new CellRect(rowIndex, columnIndex, 1, 1, true);
             cellRegions.push(cr);
             
             // If the length is current before this add, just increment the 
@@ -1207,7 +1210,7 @@ public class GridSelection
         if (regionsContainCell(rowIndex, columnIndex))
         {
             const cr:CellRect = 
-                new CellRect(rowIndex, columnIndex, 1, 1, selectAllFlag);
+                new CellRect(rowIndex, columnIndex, 1, 1, false);
             cellRegions.push(cr);
             
             // If the length is current before this remove, just decrement the 
@@ -1227,13 +1230,6 @@ public class GridSelection
      */
     private function getCellRegionsBounds():Rectangle
     {
-        if (selectAllFlag)
-        {
-            const width:int = isRowSelectionMode() ? 1 : getGridColumnsLength();    
-            return new Rectangle(0, 0, 
-                                 width, getGridDataProviderLength());
-        }
-        
         var bounds:Rectangle = new Rectangle();                         
         const cellRegionsLength:int = cellRegions.length;
         for (var i:int = 0; i < cellRegionsLength; i++)
@@ -1395,7 +1391,7 @@ public class GridSelection
      *  @private
      *  If preserving the selection and the selected item is in the new view, 
      *  keep the item selected.  Otherwise, clear the selection (or maintain one
-     *  if requireSelection is true), including the selectAllFlag if it is set.
+     *  if requireSelection is true).
      */
     private function handleRefreshAndReset(event:CollectionEvent):void
     {
