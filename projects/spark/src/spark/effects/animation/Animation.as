@@ -958,9 +958,14 @@ public final class Animation
             sendAnimationEvent(EffectEvent.EFFECT_START);
         if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
             _invertValues = true;
-        calculateValue(duration);
-        
-        sendUpdateEvent();
+
+        // We don't want to update to final values when playing in 
+        // reverse with a start delay.
+        if (!(_doReverse && startDelay > 0))
+        {
+            calculateValue(duration);
+            sendUpdateEvent();
+        }
 
         sendAnimationEvent(EffectEvent.EFFECT_END);
 
