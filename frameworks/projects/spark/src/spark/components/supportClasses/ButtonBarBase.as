@@ -37,28 +37,39 @@ use namespace mx_internal;  // use of ListBase/setCurrentCaretIndex(index);
 
 
 /**
- *  Defines the common behavior for the ButtonBar, TabBar and similar subclasses.   This class does 
- *  not add any new API however it refines selection, keyboard focus and keyboard navigation
- *  behavior for the dataGroup's ItemRenderer elements.   This base class is not intended to be 
- *  instantiated directly.
+ *  The ButtonBarBase class defines the common behavior for the ButtonBar, TabBar and similar subclasses.   
+ *  This class does not add any new API however it refines selection, keyboard focus and keyboard navigation
+ *  behavior for the control's ItemRenderer elements.   
+ *  This base class is not intended to be instantiated directly.
  * 
  *  <p>Clicking on an ItemRenderer selects it by setting the <code>selectedIndex</code> and the 
- *  <code>caretIndex</code> properties.  If <code>requireSelection</code> is false, then clicking 
- *  again deselects it.  If dataProvider is an <code>ISelectableList</code>, then its 
- *  selectedIndex is set as well.</p> 
+ *  <code>caretIndex</code> properties.  If <code>requireSelection</code> is <code>false</code>, then clicking 
+ *  again deselects it.  If the data provider is an <code>ISelectableList</code> object, then its 
+ *  <code>selectedIndex</code> is set as well.</p> 
  * 
- *  <p>Arrow key events are handled by adjusting the <code>caretIndex</code>.   If 
- *  <code>arrowKeysWrapFocus</code> is true, then the caretIndex wraps.  Pressing the 
- *  space bar selects the ItemRenderer at the caretIndex.</p>
+ *  <p>Arrow key events are handled by adjusting the <code>caretIndex</code>.    
+ *  If <code>arrowKeysWrapFocus</code> is <code>true</code>, then the <code>caretIndex</code> wraps.  
+ *  Pressing the Space key selects the ItemRenderer at the <code>caretIndex</code>.</p>
  * 
- *  <p>The showsCaret property of the ItemRenderer at <code>caretIndex</code> is set to true
- *  when the ButtonBarBase has the focus and the caretIndex was reached as a consequence
- *  of a keyboard gesture.   If the caretIndex was set as a side effect of responding to a 
- *  mouse click, then showsCaret is not set.</p>
+ *  <p>The <code>showsCaret</code> property of the ItemRenderer at <code>caretIndex</code> 
+ *  is set to <code>true</code> when the ButtonBarBase object has focus and 
+ *  the <code>caretIndex</code> was reached as a consequence
+ *  of a keyboard gesture.   
+ *  If the <code>caretIndex</code> was set as a side effect of responding to a 
+ *  mouse click, then <code>showsCaret</code> is not set.</p>
  * 
  *  <p>The <code>allowDeselection</code> property of <code>ButtonBarButton</code> 
  *  ItemRenderers is set to <code>!requireSelection</code>.</p>
- * 
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:ButtonBarBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no new tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ButtonBarBase/&gt;
+ *  </pre> 
+  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
