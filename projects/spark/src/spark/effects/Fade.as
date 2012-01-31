@@ -11,6 +11,9 @@
 
 package spark.effects
 {
+import flash.display.DisplayObject;
+import flash.display.MovieClip;
+
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.effects.IEffectInstance;
@@ -161,8 +164,11 @@ public class Fade extends Animate
             // it has no index value.
             if (container === undefined || container === null)
                 return undefined;
-            return IVisualElementContainer(container).
-                getElementIndex(target as IVisualElement);
+            if (container is IVisualElementContainer)
+                return IVisualElementContainer(container).
+                    getElementIndex(target as IVisualElement);
+            else
+                return container.getChildIndex(target);
         }
         
         return super.getValueFromTarget(target, property);
