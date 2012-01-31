@@ -50,6 +50,37 @@ public class DynamicStreamingVideoSource extends Object
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  host
+    //----------------------------------
+   
+    private var _host:Object;
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The uri pointing to the location of the server.
+     *  This should be a String, but it's typed as an Object
+     *  to support any future changes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function get host():Object
+    {
+        return _host;
+    }
+
+    /**
+     *  @private
+     */
+    public function set host(value:Object):void
+    {
+        _host = value;
+    }
+    
+    //----------------------------------
     //  initialIndex
     //----------------------------------
    
@@ -77,35 +108,6 @@ public class DynamicStreamingVideoSource extends Object
     public function set initialIndex(value:int):void
     {
         _initialIndex = value;
-    }
-    
-    //----------------------------------
-    //  serverURI
-    //----------------------------------
-   
-    private var _serverURI:String;
-
-    [Inspectable(category="General")]
-
-    /**
-     *  The uri pointing to the location of the server
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get serverURI():String
-    {
-        return _serverURI;
-    }
-
-    /**
-     *  @private
-     */
-    public function set serverURI(value:String):void
-    {
-        _serverURI = value;
     }
     
     //----------------------------------
