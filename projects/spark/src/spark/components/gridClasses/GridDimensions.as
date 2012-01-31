@@ -694,6 +694,34 @@ public class GridDimensions
     }
     
     /**
+     *  Return the dimensions of a row that's being used to "pad" the grid
+     *  by filling unused space below the last row in a layout where all rows
+     *  are visible.  Pad rows have index >= rowCount, height = defaultRowHeight.
+     */
+    public function getPadRowBounds(row:int):Rectangle
+    {
+        if (row < 0)
+            return null;
+        
+        if (row < rowCount)
+            return getRowBounds(row);
+        
+        const lastRow:int = rowCount - 1;
+        const lastCol:int = columnCount - 1;
+        
+        const x:Number = (lastRow >= 0) ? getCellX(lastRow, 0) : 0;
+        const lastRowBottom:Number = (lastRow >= 0) ? getCellY(lastRow, 0) + getRowHeight(lastRow) : 0;
+        const padRowCount:int = row - rowCount;
+        const padRowTotalGap:Number = (padRowCount > 0) ? (padRowCount - 1) * rowGap : 0;
+        const y:Number = lastRowBottom + (padRowCount * defaultRowHeight) + padRowTotalGap;
+        const rowWidth:Number = 
+            ((lastCol >= 0) && (lastRow >= 0)) ? getCellX(lastRow, lastCol) + getColumnWidth(lastCol) - x : 0;
+        
+        return new Rectangle(x, y, rowWidth, defaultRowHeight);
+        
+    }
+    
+    /**
      *  Returns the layout bounds of the specified column.
      */
     public function getColumnBounds(col:int):Rectangle
