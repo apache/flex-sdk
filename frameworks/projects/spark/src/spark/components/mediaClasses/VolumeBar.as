@@ -66,14 +66,14 @@ import spark.utils.LabelUtil;
 /**
  *  Dispatched when the user presses the mute button control.
  *
- *  @eventType mx.events.FlexEvent
+ *  @eventType flash.events.MouseEvent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="muteButtonClick", type="mx.events.MouseEvent")]
+[Event(name="muteButtonClick", type="flash.events.MouseEvent")]
 
 /**
  *  Open State of the DropDown component
@@ -86,10 +86,10 @@ import spark.utils.LabelUtil;
 [SkinState("open")]
 
 /**
- *  The VideoPlayerVolumeBar is a drop-down button 
- *  that functions as a mute/unmute button and also has a 
- *  pop-up to control the volume.
- * 
+ *  The VideoPlayerVolumeBar is a drop-down slider to control 
+ *  the volume of the video player.  By default it pops up when the
+ *  muteButton is rolled over (with a delay of 200 milliseconds).  The  
+ *  muteButton functions as a mute/unmute button when clicked.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
