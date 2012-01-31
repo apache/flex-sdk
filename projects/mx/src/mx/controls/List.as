@@ -88,6 +88,11 @@ use namespace mx_internal;
  *  attempts to edit an item.
  *
  *  @eventType mx.events.ListEvent.ITEM_EDIT_BEGINNING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditBeginning", type="mx.events.ListEvent")]
 
@@ -96,6 +101,11 @@ use namespace mx_internal;
  *  and the item can be edited.
  *
  *  @eventType mx.events.ListEvent.ITEM_EDIT_BEGIN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditBegin", type="mx.events.ListEvent")]
 
@@ -103,6 +113,11 @@ use namespace mx_internal;
  *  Dispatched when an item editing session is ending for any reason.
  *
  *  @eventType mx.events.ListEvent.ITEM_EDIT_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditEnd", type="mx.events.ListEvent")]
 
@@ -113,6 +128,11 @@ use namespace mx_internal;
  *  Only dispatched if the list item is editable.
  *
  *  @eventType mx.events.ListEvent.ITEM_FOCUS_IN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemFocusIn", type="mx.events.ListEvent")]
 
@@ -124,6 +144,11 @@ use namespace mx_internal;
  *  Only dispatched if the list item is editable.
  *
  *  @eventType mx.events.ListEvent.ITEM_FOCUS_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemFocusOut", type="mx.events.ListEvent")]
 
@@ -139,6 +164,11 @@ use namespace mx_internal;
  *  to configure the data effect. </p>
  *
  * @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="itemsChangeEffect", event="itemsChange")]
 
@@ -214,6 +244,11 @@ use namespace mx_internal;
  *  @includeExample examples/SimpleList.mxml
  *
  *  @see mx.events.ListEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class List extends ListBase implements IIMESupport
 {
@@ -239,6 +274,11 @@ public class List extends ListBase implements IIMESupport
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function List()
     {
@@ -291,6 +331,11 @@ public class List extends ListBase implements IIMESupport
      *  and, therefore, the data type of the item editor instance.</p>
      *
      *  <p>You do not set this property in MXML.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemEditorInstance:IListItemRenderer;
 
@@ -302,6 +347,11 @@ public class List extends ListBase implements IIMESupport
      *  and <code>itemEditEnd</code> events,
      *  you can access the current value of the item being edited
      *  using the <code>editedItemRenderer.data</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editedItemRenderer():IListItemRenderer
     {
@@ -335,6 +385,11 @@ public class List extends ListBase implements IIMESupport
 
     /**
      *  cache of measuring objects by factory
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var measuringObjects:Dictionary;
 
@@ -412,6 +467,11 @@ public class List extends ListBase implements IIMESupport
      *  The user can click on an item renderer to open an editor.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editable:Boolean = false;
 
@@ -426,6 +486,11 @@ public class List extends ListBase implements IIMESupport
      *  <code>editable</code> property is set to <code>true</code>. 
      *
      *  @default new ClassFactory(mx.controls.TextInput)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemEditor:IFactory = new ClassFactory(TextInput);
 
@@ -442,6 +507,11 @@ public class List extends ListBase implements IIMESupport
      *  TextInput, so the default value of the <code>editorDataField</code> property is
      *  <code>"text"</code>, which specifies the <code>text</code> property of the
      *  the TextInput control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorDataField:String = "text";
 
@@ -461,6 +531,11 @@ public class List extends ListBase implements IIMESupport
      *  item renderer that opens an editor.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorHeightOffset:Number = 0;
 
@@ -480,6 +555,11 @@ public class List extends ListBase implements IIMESupport
      *  item renderer that opens an editor.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorWidthOffset:Number = 0;
 
@@ -500,6 +580,11 @@ public class List extends ListBase implements IIMESupport
      *  item renderer that opens an editor.</p>
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorXOffset:Number = 0;
 
@@ -520,6 +605,11 @@ public class List extends ListBase implements IIMESupport
      *  item renderer that opens an editor.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorYOffset:Number = 0;
 
@@ -539,6 +629,11 @@ public class List extends ListBase implements IIMESupport
      *  item renderer that opens an editor.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editorUsesEnterKey:Boolean = false;
 
@@ -606,6 +701,11 @@ public class List extends ListBase implements IIMESupport
      *  dispatches the <code>itemEditBegin</code> event to
      *  open an item editor on the specified item,
      *  </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editedItemPosition():Object
     {
@@ -673,6 +773,11 @@ public class List extends ListBase implements IIMESupport
      *  ignores the <code>itemEditor</code> property.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rendererIsEditor:Boolean = false;
 
@@ -700,6 +805,11 @@ public class List extends ListBase implements IIMESupport
      *  @see flash.system.IMEConversionMode
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get imeMode():String
     {
@@ -1121,6 +1231,11 @@ public class List extends ListBase implements IIMESupport
      * 
      *  @param dataIndex The index of the item for that row in the
      *  data provider. For example, this can be used to color the 10th item differently.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawRowBackground(s:Sprite, rowIndex:int,
                                             y:Number, height:Number, color:uint, dataIndex:int):void
@@ -1410,6 +1525,11 @@ public class List extends ListBase implements IIMESupport
      *  @param y The suggested y position for the indicator.
      *  @param w The suggested width for the indicator.
      *  @param h The suggested height for the indicator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function layoutEditor(x:int, y:int, w:int, h:int):void
     {
@@ -1531,6 +1651,11 @@ public class List extends ListBase implements IIMESupport
      *  @param rowNum The index of the item in the data provider.
      *  
      *  @return A newly constructed ListData object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function makeListData(data:Object, uid:String,
                                  rowNum:int):BaseListData
@@ -1774,6 +1899,11 @@ public class List extends ListBase implements IIMESupport
      *  @param data The object from which the item renderer is created.
      *  
      *  @return The renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function createItemRenderer(data:Object):IListItemRenderer
     {
@@ -2014,6 +2144,11 @@ public class List extends ListBase implements IIMESupport
      *
      *  @param rowIndex The index in the data provider of the item to be 
      *  edited.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createItemEditor(colIndex:int, rowIndex:int):void
     {
@@ -2122,6 +2257,11 @@ public class List extends ListBase implements IIMESupport
      *  for the <code>itemEditEnd</code> event, after
      *  you call the <code>preventDefault()</code> method to prevent
      *  the default event listener from executing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function destroyItemEditor():void
     {
@@ -2169,6 +2309,11 @@ public class List extends ListBase implements IIMESupport
      *  Otherwise, <code>false</code>.
      *  
      *  @see mx.events.ListEventReason
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function endEdit(reason:String):Boolean
     {
@@ -2207,6 +2352,11 @@ public class List extends ListBase implements IIMESupport
      *
      *  @param data The data provider item
      *  @return <code>true</code> if the item is editable
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemEditable(data:Object):Boolean
     {
