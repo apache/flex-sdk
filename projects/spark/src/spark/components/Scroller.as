@@ -12,7 +12,10 @@
 
 package mx.components
 {
+import flash.events.FocusEvent;
+import flash.events.MouseEvent;
 import flash.events.KeyboardEvent;
+import flash.text.TextField;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxComponent;
@@ -122,9 +125,15 @@ public class FxScroller extends FxComponent
     //---------------------------------- 
     
     [SkinPart(required="true")]
+    [Bindable]    
 
     /**
-     * A skin part that defines the horizontal scrollbar.
+     *  A skin part that defines the horizontal scrollbar.
+     * 
+     *  This property should be considered read-only, it's only
+     *  set by the FxScroller's skin.
+     * 
+     *  This property is Bindable.
      */
     public var horizontalScrollBar:FxHScrollBar;
     
@@ -133,24 +142,32 @@ public class FxScroller extends FxComponent
     //---------------------------------- 
     
     [SkinPart(required="true")]
-
+    [Bindable]
+    
     /**
-     * A skin part that defines the vertical scrollbar.
+     *  A skin part that defines the vertical scrollbar.
+     * 
+     *  This property should be considered read-only, it's only
+     *  set by the FxScroller's skin.
+     * 
+     *  This property is Bindable.
      */
     public var verticalScrollBar:FxVScrollBar;
-    
+
+
     //----------------------------------
     //  viewport - default property
     //----------------------------------    
     
     private var _viewport:IViewport;
     
-    [Bindable]
+    [Bindable(event="viewportChanged")]
     
     /**
      *  The viewport component to be scrolled.
      * 
-     *  <p>The viewport is added to the FXScroller component's skin 
+     *  <p>
+     *  The viewport is added to the FXScroller component's skin 
      *  which lays out both the viewport and scrollbars.
      * 
      *  When the viewport property is set, the viewport's clipContent property is 
@@ -159,6 +176,10 @@ public class FxScroller extends FxComponent
      *  Scroller does not support rotating the viewport directly.  The viewport's
      *  contents can be transformed arbitrarily but the viewport itself can not.
      * </p>
+     * 
+     *  This property is Bindable.
+     * 
+     *  @default null
      */
     public function get viewport():IViewport
     {       
@@ -172,9 +193,11 @@ public class FxScroller extends FxComponent
     {
         if (value == _viewport)
             return;
+            
         uninstallViewport();
         _viewport = value;
         installViewport();
+        dispatchEvent(new Event("viewportChanged"));
     }
 
     private function installViewport():void
@@ -522,11 +545,16 @@ public class FxScroller extends FxComponent
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
+        super.keyDownHandler(event);
+
         var vp:IViewport = viewport;
-        if (!vp)
+        if (!vp || event.isDefaultPrevented())
             return;
-            
-        // TBD: is special handling for textfields needed here, as in mx.core.Container?
+
+        // If a TextField has the focus, then assume it will handle all keyboard
+        // events, and that it will not use Event.preventDefault().
+        if (getFocus() is TextField)
+            return;
     
         if (verticalScrollBar && verticalScrollBar.visible)
         {
@@ -555,6 +583,7 @@ public class FxScroller extends FxComponent
             if (!isNaN(vspDelta))
             {
                 vp.verticalScrollPosition += vspDelta;
+                event.preventDefault();
             }
         }
 
@@ -589,9 +618,59 @@ public class FxScroller extends FxComponent
             if (!isNaN(hspDelta))
             {
                 vp.horizontalScrollPosition += hspDelta;
+                event.preventDefault();
             }
         }
     }
+    
+    private function mouseWheelHandler(event:MouseEvent):void
+    {
+        var vp:IViewport = viewport;
+        if (!vp || event.isDefaultPrevented())
+            return;
+
+        var nSteps:uint = Math.abs(event.delta);
+        var unit:ScrollUnit;
+
+        if (verticalScrollBar && verticalScrollBar.visible)
+        {
+            unit = (event.delta < 0) ? ScrollUnit.DOWN : ScrollUnit.UP;
+            for(var vStep:int = 0; vStep < nSteps; vStep++)
+            {
+                var vspDelta:Number = vp.getVerticalScrollPositionDelta(unit);
+                if (!isNaN(vspDelta))
+                    vp.verticalScrollPosition += vspDelta;
+            }
+            event.preventDefault();
+        }
+        else if (horizontalScrollBar && horizontalScrollBar.visible)
+        {
+            unit = (event.delta < 0) ? ScrollUnit.LEFT : ScrollUnit.RIGHT;
+            for(var hStep:int = 0; hStep < nSteps; hStep++)
+            {
+                var hspDelta:Number = vp.getHorizontalScrollPositionDelta(unit);
+                if (!isNaN(hspDelta))
+                    vp.horizontalScrollPosition += hspDelta;
+            }
+            event.preventDefault();
+        }            
+    }
+    
+    /**
+     *  @private
+     */ 
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+         addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+        removeSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
+    }    
         
 }
 
