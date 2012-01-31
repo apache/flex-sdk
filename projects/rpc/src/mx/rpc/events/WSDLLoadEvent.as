@@ -18,13 +18,23 @@ import mx.rpc.wsdl.WSDL;
 [ExcludeClass]
 
 /**
- * This event is dispatched when a WSDL XML document has loaded sucessfully.
- * @private
+ *  The WSDLLoadEvent class represents the event object for the event dispatched 
+ *  when a WSDL XML document has loaded successfully.
  */
 public class WSDLLoadEvent extends XMLLoadEvent
 {
     /**
-     * Creates a new SchemaLoadEvent.
+     * Constructor.
+     *
+     * @param type The event type; indicates the action that caused the event.
+     *
+     * @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     * @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *
+     * @param wsdl The full WSDL document.
+     *
+     * @param location The path used to load the document.
      */
     public function WSDLLoadEvent(type:String, bubbles:Boolean = false, 
         cancelable:Boolean = true, wsdl:WSDL = null, location:String = null)
@@ -44,7 +54,7 @@ public class WSDLLoadEvent extends XMLLoadEvent
     public var wsdl:WSDL
 
     /**
-     * Returns a copy of this WSDLLoadEvent.
+     * Returns a copy of this WSDLLoadEvent object.
      */
     override public function clone():Event
     {
@@ -52,7 +62,7 @@ public class WSDLLoadEvent extends XMLLoadEvent
     }
 
     /**
-     * Returns a String representation of this WSDLLoadEvent.
+     * Returns a String representation of this WSDLLoadEvent object.
      */
     override public function toString():String
     {
@@ -69,6 +79,29 @@ public class WSDLLoadEvent extends XMLLoadEvent
         return new WSDLLoadEvent(LOAD, false, true, wsdl, location);
     }
 
+    /**
+     * The LOAD constant defines the value of the <code>type</code> property of the event object 
+     * for a <code>wsdlLoad</code> event.
+     *
+     * <p>The properties of the event object have the following values:</p>
+     * <table class="innertable">
+     * <tr><th>Property</th><th>Value</th></tr>
+     * <tr><td><code>bubbles</code></td><td><code>false</code></td></tr>
+     * <tr><td><code>cancelable</code></td><td><code>true</code></td></tr>
+     * <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *     event listener that handles the event. For example, if you use 
+     *     <code>myButton.addEventListener()</code> to register an event listener, 
+     *     myButton is the value of the <code>currentTarget</code>. </td></tr>
+     * <tr><td><code>location</code></td><td>The path used to load the document.</td></tr>
+     * <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *     it is not always the Object listening for the event. 
+     *     Use the <code>currentTarget</code> property to always access the 
+     *     Object listening for the event.</td></tr>
+     * <tr><td><code>wsdl</code></td><td>The full WSDL document.</td></tr>
+     * </table>
+     *     
+     * @eventType result      
+     */
     public static const LOAD:String = "wsdlLoad";
 }
 
