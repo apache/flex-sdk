@@ -233,9 +233,9 @@ public class GridLayout extends LayoutBase
         
         layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);        
         
-        var measuredWidth:Number = gridDimensions.getContentWidth(grid.requestedColumnCount);
+        var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getContentHeight(grid.requestedRowCount);
-		var measuredMinWidth:Number = gridDimensions.getContentHeight(grid.requestedMinColumnCount);
+		var measuredMinWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedMinColumnCount);
 		var measuredMinHeight:Number = gridDimensions.getContentHeight(grid.requestedMinRowCount);
 		
         // Use Math.ceil() to make sure that if the content partially occupies
