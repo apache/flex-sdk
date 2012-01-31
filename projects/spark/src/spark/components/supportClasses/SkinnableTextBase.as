@@ -29,7 +29,7 @@ import mx.utils.BitFlagUtil;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionHighlighting;
 import spark.events.TextOperationEvent;
-import spark.primitives.RichEditableText;
+import spark.components.RichEditableText;
 
 use namespace mx_internal;
 
@@ -278,7 +278,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy spark.primitives.RichEditableText#displayAsPassword
+     *  @copy spark.components.RichEditableText#displayAsPassword
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -321,7 +321,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#editable
+     *  @copy spark.components.RichEditableText#editable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -363,7 +363,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#enableIME
+     *  @copy spark.components.RichEditableText#enableIME
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -380,7 +380,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#imeMode
+     *  @copy spark.components.RichEditableText#imeMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -422,7 +422,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#maxChars
+     *  @copy spark.components.RichEditableText#maxChars
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -464,7 +464,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#restrict
+     *  @copy spark.components.RichEditableText#restrict
      * 
      *  @default null
      *  
@@ -508,7 +508,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#selectable
+     *  @copy spark.components.RichEditableText#selectable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -557,7 +557,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  @copy spark.primitives.RichEditableText#selectionActivePosition
+     *  @copy spark.components.RichEditableText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -581,7 +581,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  @copy spark.primitives.RichEditableText#selectionAnchorPosition
+     *  @copy spark.components.RichEditableText#selectionAnchorPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -598,7 +598,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#selectionHighlighting
+     *  @copy spark.components.RichEditableText#selectionHighlighting
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -641,7 +641,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#text
+     *  @copy spark.components.RichEditableText#text
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -830,7 +830,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy spark.primitives.RichEditableText#insertText()
+     *  @copy spark.components.RichEditableText#insertText()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -849,7 +849,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @copy spark.primitives.RichEditableText#appendText()
+     *  @copy spark.components.RichEditableText#appendText()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -868,7 +868,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
     
     /**
-     *  @copy spark.primitives.RichEditableText#selectRange()
+     *  @copy spark.components.RichEditableText#selectRange()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -887,7 +887,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @copy spark.primitives.RichEditableText#selectAll()
+     *  @copy spark.components.RichEditableText#selectAll()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
