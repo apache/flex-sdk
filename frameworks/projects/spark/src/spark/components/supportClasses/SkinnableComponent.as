@@ -237,9 +237,9 @@ public class SkinnableComponent extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get baselinePosition():Number
     {
@@ -621,8 +621,8 @@ public class SkinnableComponent extends UIComponent
             // the skin's styles should be the same as the components
             skin.styleName = this;
              
-			// Note: The Spark PanelAccImpl adds a child Sprite at index 0.
-			// The skin should be in front of that.
+            // Note: The Spark PanelAccImpl adds a child Sprite at index 0.
+            // The skin should be in front of that.
             super.addChild(skin);
             
             skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -794,14 +794,14 @@ public class SkinnableComponent extends UIComponent
      */
     protected function partAdded(partName:String, instance:Object):void
     {
-		// Dispatch a partAdded event.
-		// This event is an internal implementation detail subject to change.
-		// The accessibility implementation classes listen for this to know
-		// when to add their event listeners to skin parts being added.
-		var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_ADDED);
-		event.partName = partName;
-		event.instance = instance;
-		dispatchEvent(event);
+        // Dispatch a partAdded event.
+        // This event is an internal implementation detail subject to change.
+        // The accessibility implementation classes listen for this to know
+        // when to add their event listeners to skin parts being added.
+        var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_ADDED);
+        event.partName = partName;
+        event.instance = instance;
+        dispatchEvent(event);
     }
 
     /**
@@ -824,14 +824,14 @@ public class SkinnableComponent extends UIComponent
      */
     protected function partRemoved(partName:String, instance:Object):void
     {       
-		// Dispatch a partRemoved event.
-		// This event is an internal implementation detail subject to change.
-		// The accessibility implementation classes listen for this to know
-		// when to remove their event listeners from skin parts being removed
-		var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_REMOVED);
-		event.partName = partName;
-		event.instance = instance;
-		dispatchEvent(event);
+        // Dispatch a partRemoved event.
+        // This event is an internal implementation detail subject to change.
+        // The accessibility implementation classes listen for this to know
+        // when to remove their event listeners from skin parts being removed
+        var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_REMOVED);
+        event.partName = partName;
+        event.instance = instance;
+        dispatchEvent(event);
     }
     
     //--------------------------------------------------------------------------
