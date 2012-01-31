@@ -32,10 +32,36 @@ use namespace mx_internal;
  */
 public class ScrollerLayout extends LayoutBase
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
+     *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
+     *  contentWidth >= viewport width + SDT, show the horizontal scrollbar.
+     */
+    mx_internal static const SDT:Number = 1.0;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
     public function ScrollerLayout()    
     {
         super();
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------   
 
     /**
      *  @private
@@ -67,6 +93,52 @@ public class ScrollerLayout extends LayoutBase
         if (((cw == 0) && (ch == 0)) || (isNaN(cw) || isNaN(ch)))
             return new Point(0,0);
         return MatrixUtil.transformSize(cw, ch, viewport.getLayoutMatrix());
+    }
+    
+    //----------------------------------
+    //  canScrollHorizontally
+    //----------------------------------  
+    
+    /**
+     *  @private
+     */
+    private var _canScrollHorizontally:Boolean;
+    
+    /**
+     *  @private
+     *  Helper function to determine whether the viewport scrolls horizontally.
+     * 
+     *  <p>This is used for touch scrolling purposes to 
+     *  determine if one can scroll horizontally.</p>
+     * 
+     *  <p>The value is set in updateDisplayList()</p>
+     */
+    mx_internal function get canScrollHorizontally():Boolean
+    {
+        return _canScrollHorizontally;
+    }
+    
+    //----------------------------------
+    //  canScrollVertically
+    //----------------------------------  
+    
+    /**
+     *  @private
+     */
+    private var _canScrollVertically:Boolean;
+    
+    /**
+     *  @private
+     *  Helper function to determine whether the viewport scrolls vertically.
+     * 
+     *  <p>This is used for touch scrolling purposes to 
+     *  determine if one can scroll vertically.</p>
+     * 
+     *  <p>The value is set in updateDisplayList()</p>
+     */
+    mx_internal function get canScrollVertically():Boolean
+    {
+        return _canScrollVertically;
     }
 
     //----------------------------------
@@ -238,7 +310,13 @@ public class ScrollerLayout extends LayoutBase
         var vsb:ScrollBarBase = getScroller().verticalScrollBar;  
         return (w >= vsb.getPreferredBoundsWidth()) && (h >= vsb.getMinBoundsHeight());
     }
-
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overidden Methods
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      * @private
      *  Computes the union of the preferred size of the visible scrollbars 
@@ -313,8 +391,8 @@ public class ScrollerLayout extends LayoutBase
                 var viewportPreferredW:Number =  viewport.getPreferredBoundsWidth();
                 var viewportContentW:Number = contentSize.x;
                 var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
-                var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + Scroller.SDT) > viewportContentW);
-                if (hAuto && !showHSB && ((viewportPreferredW + Scroller.SDT) <= viewportContentW) && currentSizeNoHSB)
+                var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + SDT) > viewportContentW);
+                if (hAuto && !showHSB && ((viewportPreferredW + SDT) <= viewportContentW) && currentSizeNoHSB)
                     measuredW += viewportW;
                 else
                     measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
@@ -322,8 +400,8 @@ public class ScrollerLayout extends LayoutBase
                 var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
                 var viewportContentH:Number = contentSize.y;
                 var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
-                var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + Scroller.SDT) > viewportContentH);
-                if (vAuto && !showVSB && ((viewportPreferredH + Scroller.SDT) <= viewportContentH) && currentSizeNoVSB)
+                var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + SDT) > viewportContentH);
+                if (vAuto && !showVSB && ((viewportPreferredH + SDT) <= viewportContentH) && currentSizeNoVSB)
                     measuredH += viewportH;
                 else
                     measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
@@ -422,13 +500,14 @@ public class ScrollerLayout extends LayoutBase
                 if (hsb && viewport)
                 {
                     hAuto = true;
-                    hsbVisible = (contentW >= (viewportW + Scroller.SDT));
+                    hsbVisible = (contentW >= (viewportW + SDT));
                 } 
                 break;
             
             default:
                 hsbVisible = false;
         }
+        _canScrollHorizontally = hsbVisible;
 
         var vAuto:Boolean = false;
         var vsbTakeUpSpace:Boolean = true; // if visible
@@ -442,13 +521,14 @@ public class ScrollerLayout extends LayoutBase
                 if (vsb && viewport)
                 { 
                     vAuto = true;
-                    vsbVisible = (contentH >= (viewportH + Scroller.SDT));
+                    vsbVisible = (contentH >= (viewportH + SDT));
                 }                        
                 break;
             
             default:
                 vsbVisible = false;
         }
+        _canScrollVertically = vsbVisible;
         
         // if in touch mode, only show scrollbars if a scroll is currently in progress
         if (scroller.getStyle("interactionMode") == InteractionMode.TOUCH)
@@ -479,10 +559,10 @@ public class ScrollerLayout extends LayoutBase
         var hsbIsDependent:Boolean = false;
         var vsbIsDependent:Boolean = false;
         
-        if (vsbVisible && !hsbVisible && hAuto && (contentW >= (viewportW + Scroller.SDT)))
-            hsbVisible = hsbIsDependent = true;
-        else if (!vsbVisible && hsbVisible && vAuto && (contentH >= (viewportH + Scroller.SDT)))
-            vsbVisible = vsbIsDependent = true;
+        if (vsbVisible && !hsbVisible && hAuto && (contentW >= (viewportW + SDT)))
+            hsbVisible = hsbIsDependent = _canScrollHorizontally = true;
+        else if (!vsbVisible && hsbVisible && vAuto && (contentH >= (viewportH + SDT)))
+            vsbVisible = vsbIsDependent = _canScrollVertically = true;
 
         // If the HSB doesn't fit, hide it and give the space back.   Likewise for VSB.
         // If both scrollbars are supposed to be visible but they don't both fit, 
@@ -532,6 +612,14 @@ public class ScrollerLayout extends LayoutBase
             hsbVisible = false;
         else if (vsbVisible && vsbTakeUpSpace && !vsbFits(w, h))  // just trying to show VSB, but it doesn't fit
             vsbVisible = false;
+        
+        // if the only reason for showing one particular scrollbar was because the 
+        // other scrollbar was visible, and we're now not showing the other scrollbar, 
+        // then there's no need to allow scrolling in that direction anymore.
+        if (hsbIsDependent && !vsbVisible)
+            _canScrollHorizontally = false;
+        if (vsbIsDependent && !hsbVisible)
+            _canScrollVertically = false;
         
         // Reset the viewport's width,height to account for the visible scrollbars, unless
         // the viewport's size was explicitly set, then we just use that.
