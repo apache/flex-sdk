@@ -18,13 +18,18 @@ import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Rectangle;
+import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
 
 import flashx.textLayout.compose.TextLineRecycler;
 
+import mx.core.IEmbeddedFontRegistry;
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.managers.ISystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
@@ -32,6 +37,8 @@ import mx.styles.IAdvancedStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
+
+import spark.utils.TextUtil;
 
 use namespace mx_internal;
 
@@ -89,7 +96,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 
-public class TextBase extends UIComponent
+public class TextBase extends UIComponent implements IFontContextComponent
 {
 
     include "../../core/Version.as";
@@ -488,6 +495,43 @@ public class TextBase extends UIComponent
         }
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IFontContextComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  fontContext
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _fontContext:IFlexModuleFactory;
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get fontContext():IFlexModuleFactory
+    {
+        return _fontContext;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set fontContext(value:IFlexModuleFactory):void
+    {
+        _fontContext = value;
+    }
+    
+    //--------------------------------------------------------------------------
     /**
      *  @private
      */
@@ -978,6 +1022,37 @@ public class TextBase extends UIComponent
         }
     }
 
+    /**
+     *  @private
+     */
+    mx_internal function getEmbeddedFontContext():IFlexModuleFactory
+    {
+        var moduleFactory:IFlexModuleFactory;
+        var fontLookup:String = getStyle("fontLookup");
+        if (fontLookup != FontLookup.DEVICE)
+        {
+            var font:String = getStyle("fontFamily");
+            var bold:Boolean = getStyle("fontWeight") == "bold";
+            var italic:Boolean = getStyle("fontStyle") == "italic";
+            
+            var localLookup:ISystemManager = 
+                fontContext && fontContext is ISystemManager ? 
+                ISystemManager(fontContext) : systemManager;
+            
+            var registry:IEmbeddedFontRegistry =
+                                UIComponent.embeddedFontRegistry;
+            if (registry)
+            {
+                moduleFactory =
+                    registry.getAssociatedModuleFactory(
+                        font, bold, italic, 
+                        this, fontContext, localLookup, true);
+            }
+        }
+                
+        return moduleFactory;
+    }    
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
