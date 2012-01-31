@@ -11,6 +11,7 @@
 
 package spark.accessibility
 {
+
 import mx.accessibility.AccImpl;
 import mx.accessibility.AccConst;
 import mx.core.mx_internal;
@@ -20,8 +21,82 @@ import spark.components.Panel;
 use namespace mx_internal;
 
 /**
- *  PanelAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the Panel class.
+ *  PanelAccImpl is the accessibility implementation class
+ *  for spark.components.Panel.
+ *
+ *  <p>When a Spark Panel is created,
+ *  the <code>accessibilityImplementation</code> property
+ *  of its <code>titleDisplay</code> is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the Panel.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A Panel has no MSAA children.
+ *  All children of the actual Panel are siblings of the Panel
+ *  in the FlashPlayer's MSAA tree, because Flash Player
+ *  does not support objects with accessibility implementations
+ *  having children with their own accessibility implementations.</p>
+ *
+ *  <p>The PanelAccImpl is set as the <code>accessibilityImplementation</code>
+ *  of the <code>titleDisplay</code> object because setting it on the Panel
+ *  itself would not allow the Panel's children to be exposed in MSAA.
+ *  Because of this an invisible rectangle is drawn in the
+ *  <code>titleDisplay</code> making it the same size as the Panel as a whole
+ *  so that the MSAA Location is the bounding rectangle of the entire Panel.
+ *  Screen readers like JAWS rely on the MSAA Location to announce whether
+ *  some component is in the grouping since the MSAA structure is flat.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a Panel is ROLE_SYSTEM_GROUPING.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a Panel is, by default, the title that it displays.
+ *  To override this behavior, set the Panel's <code>accessibilityName</code>
+ *  property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a Panel dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a Panel is, by default, the empty string,
+ *  but you can set the Panel's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a Panel is always STATE_SYSTEM_NORMAL,
+ *  indicating that no state flags are set.</p>
+ *
+ *  <p>Since the state does not change,
+ *  a Panel does not dispatch the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a Panel is always the empty string.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a Panel is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A Panel does not have an MSAA DefaultAction .</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A Panel does not accept focus.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A Panel does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
