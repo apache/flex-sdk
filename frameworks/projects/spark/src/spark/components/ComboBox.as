@@ -732,7 +732,7 @@ public class ComboBox extends DropDownListBase
     /**
      *  @private 
      */ 
-    override protected function findKey(eventCode:int):Boolean
+    override mx_internal function findKey(eventCode:int):Boolean
     {
         return false;
     }
