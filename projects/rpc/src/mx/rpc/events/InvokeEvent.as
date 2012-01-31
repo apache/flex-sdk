@@ -18,6 +18,11 @@ import mx.rpc.AsyncToken;
 
 /**
  * The event that indicates an RPC operation has been invoked.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class InvokeEvent extends AbstractEvent
 {
@@ -42,6 +47,11 @@ public class InvokeEvent extends AbstractEvent
      *       Object listening for the event.</td></tr>
      *  </table>
      *  @eventType invoke 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INVOKE:String = "invoke";
 
@@ -53,6 +63,11 @@ public class InvokeEvent extends AbstractEvent
      * @param token Token that represents the call to the method. Used in the asynchronous 
      *     completion token pattern.
      * @param message Source Message of the request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function InvokeEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false,
             token:AsyncToken = null, message:IMessage = null)
@@ -82,6 +97,11 @@ public class InvokeEvent extends AbstractEvent
     * Returns a string representation of the InvokeEvent.
     *
     * @return String representation of the InvokeEvent.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     override public function toString():String
     {
