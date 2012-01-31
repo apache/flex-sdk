@@ -42,7 +42,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
+    
     //----------------------------------
     //  baseline
     //----------------------------------
@@ -74,8 +74,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _baseline = value;
         invalidateParentSizeAndDisplayList();
     }
-	
-	//----------------------------------
+    
+    //----------------------------------
     //  baselinePosition
     //----------------------------------
 
@@ -614,9 +614,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -643,9 +643,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
