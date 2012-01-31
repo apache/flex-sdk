@@ -26,7 +26,7 @@ package mx.messaging.messages
      * 
      * <p>When these metrics are enabled an instance of this class should be created from 
      * a response, acknowledgement, or message handler via something like: </p>
-     * @example
+     * 
      * <pre>
      *      var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
      * </pre> 
@@ -165,11 +165,11 @@ package mx.messaging.messages
         {
             if (pushedMessageFlag)
             {
-            	return mpip.serverPrePushTime - mpip.receiveTime;
+                return mpip.serverPrePushTime - mpip.receiveTime;
             }
             else
             {
-            	return mpio.sendTime - mpii.receiveTime;
+                return mpio.sendTime - mpii.receiveTime;
             }                
         }       
         
@@ -208,27 +208,27 @@ package mx.messaging.messages
          * @productversion BlazeDS 4
          * @productversion LCDS 3          
          */           
-		public function get serverAdapterTime():Number
-		{
-			if (pushedMessageFlag)
-			{
-				if (mpip == null)
-					return 0;
-				if (mpip.serverPreAdapterTime == 0 || mpip.serverPostAdapterTime == 0)
-					return 0;
-			
-				return mpip.serverPostAdapterTime - mpip.serverPreAdapterTime;				
-			}
-			else
-			{
-				if (mpii == null)
-					return 0;
-				if (mpii.serverPreAdapterTime == 0 || mpii.serverPostAdapterTime == 0)
-					return 0;
-			
-				return mpii.serverPostAdapterTime - mpii.serverPreAdapterTime;
-			}
-		}	
+        public function get serverAdapterTime():Number
+        {
+            if (pushedMessageFlag)
+            {
+                if (mpip == null)
+                    return 0;
+                if (mpip.serverPreAdapterTime == 0 || mpip.serverPostAdapterTime == 0)
+                    return 0;
+            
+                return mpip.serverPostAdapterTime - mpip.serverPreAdapterTime;              
+            }
+            else
+            {
+                if (mpii == null)
+                    return 0;
+                if (mpii.serverPreAdapterTime == 0 || mpii.serverPostAdapterTime == 0)
+                    return 0;
+            
+                return mpii.serverPostAdapterTime - mpii.serverPreAdapterTime;
+            }
+        }   
 
         /**
          * Time spent in a module invoked from the adapter associated with the destination for this message 
@@ -242,28 +242,28 @@ package mx.messaging.messages
          * @playerversion AIR 1.1
          * @productversion BlazeDS 4
          * @productversion LCDS 3          
-         */ 		
-		public function get serverAdapterExternalTime():Number
-		{
-			if (pushedMessageFlag)
-			{
-				if (mpip == null)
-					return 0;
-				if (mpip.serverPreAdapterExternalTime == 0 || mpip.serverPostAdapterExternalTime == 0)
-					return 0;
-			
-				return mpip.serverPostAdapterExternalTime - mpip.serverPreAdapterExternalTime;				
-			}
-			else			
-			{
-				if (mpii == null)
-					return 0;
-				if (mpii.serverPreAdapterExternalTime == 0 || mpii.serverPostAdapterExternalTime == 0)
-					return 0;
-			
-				return mpii.serverPostAdapterExternalTime - mpii.serverPreAdapterExternalTime;
-			}
-		}	
+         */         
+        public function get serverAdapterExternalTime():Number
+        {
+            if (pushedMessageFlag)
+            {
+                if (mpip == null)
+                    return 0;
+                if (mpip.serverPreAdapterExternalTime == 0 || mpip.serverPostAdapterExternalTime == 0)
+                    return 0;
+            
+                return mpip.serverPostAdapterExternalTime - mpip.serverPreAdapterExternalTime;              
+            }
+            else            
+            {
+                if (mpii == null)
+                    return 0;
+                if (mpii.serverPreAdapterExternalTime == 0 || mpii.serverPostAdapterExternalTime == 0)
+                    return 0;
+            
+                return mpii.serverPostAdapterExternalTime - mpii.serverPreAdapterExternalTime;
+            }
+        }   
 
         /**
          * Time that the message waited on the server after it was ready to be pushed to the client
@@ -274,17 +274,17 @@ package mx.messaging.messages
          * @playerversion AIR 1.1
          * @productversion BlazeDS 4
          * @productversion LCDS 3          
-         */		
-		public function get serverPollDelay():Number
-		{
-			if (mpip == null)
-				return 0;
-			if (mpip.serverPrePushTime == 0 || mpio.sendTime == 0)
-				return 0;
-			
-			return mpio.sendTime - mpip.serverPrePushTime;	
-		}
-		
+         */     
+        public function get serverPollDelay():Number
+        {
+            if (mpip == null)
+                return 0;
+            if (mpip.serverPrePushTime == 0 || mpio.sendTime == 0)
+                return 0;
+            
+            return mpio.sendTime - mpip.serverPrePushTime;  
+        }
+        
         /**
          * Server processing time spent outside of the adapter associated with the destination of this message
          * 
@@ -295,11 +295,11 @@ package mx.messaging.messages
          * @playerversion AIR 1.1
          * @productversion BlazeDS 4
          * @productversion LCDS 3          
-         */ 		
-		public function get serverNonAdapterTime():Number
-		{		
-			return serverProcessingTime - serverAdapterTime;
-		}		
+         */         
+        public function get serverNonAdapterTime():Number
+        {       
+            return serverProcessingTime - serverAdapterTime;
+        }       
         
         /**
          * The network round trip time for a client message and the server response to it,
@@ -315,10 +315,10 @@ package mx.messaging.messages
          */             
         public function get networkRTT():Number
         {
-        	if (!pushedMessageFlag)
-            	return totalTime - serverProcessingTime;
+            if (!pushedMessageFlag)
+                return totalTime - serverProcessingTime;
             else
-            	return 0;
+                return 0;
         }           
         
         /**
@@ -504,12 +504,12 @@ package mx.messaging.messages
                 alertString +="Network Roundtrip time (s): " + (networkRTT / 1000) + "\n";
             if (serverProcessingTime != 0)
                 alertString +="Server processing time (s): " + (serverProcessingTime / 1000) + "\n";
-      		if (serverAdapterTime != 0)
-      			alertString +="Server adapter time (s): " + (serverAdapterTime / 1000) + "\n";      
-      		if (serverNonAdapterTime != 0)
-      			alertString +="Server non-adapter time (s): " + (serverNonAdapterTime / 1000) + "\n"      			  
-      		if (serverAdapterExternalTime != 0)
-      			alertString +="Server adapter external time (s): " + (serverAdapterExternalTime / 1000) + "\n";     
+            if (serverAdapterTime != 0)
+                alertString +="Server adapter time (s): " + (serverAdapterTime / 1000) + "\n";      
+            if (serverNonAdapterTime != 0)
+                alertString +="Server non-adapter time (s): " + (serverNonAdapterTime / 1000) + "\n"                  
+            if (serverAdapterExternalTime != 0)
+                alertString +="Server adapter external time (s): " + (serverAdapterExternalTime / 1000) + "\n";     
             
             if (pushedMessageFlag)
             {
@@ -520,8 +520,8 @@ package mx.messaging.messages
                     alertString += "Push one way time (s): " + (pushOneWayTime / 1000) + "\n";
                 if (originatingMessageSize != 0)
                     alertString += "Originating Message size (B): " + originatingMessageSize + "\n";
-      			if (serverPollDelay != 0)
-      				alertString +="Server poll delay (s): " + (serverPollDelay / 1000) + "\n";                        
+                if (serverPollDelay != 0)
+                    alertString +="Server poll delay (s): " + (serverPollDelay / 1000) + "\n";                        
             }
             
             return alertString;
