@@ -195,8 +195,8 @@ public class ButtonBarBase extends ListBase
         
         if (value is ISelectableList)
         {
-            value.addEventListener(FlexEvent.VALUE_COMMIT, dataProvider_changeHandler);
-            value.addEventListener(IndexChangedEvent.CHANGE, dataProvider_changeHandler);
+            value.addEventListener(FlexEvent.VALUE_COMMIT, dataProvider_changeHandler, false, 0, true);
+            value.addEventListener(IndexChangedEvent.CHANGE, dataProvider_changeHandler, false, 0, true);
         }
         
         super.dataProvider = value;
