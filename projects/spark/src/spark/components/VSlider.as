@@ -168,6 +168,9 @@ public class VSlider extends SliderBase
         
         if (tipAsDisplayObject && thumb)
         {
+            // Get the tips bounds. We only care about the dimensions.
+            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
+
             // We are working in thumb.parent coordinates and we assume that there's no scale factor
             // between the tooltip and the thumb.parent.
             var relY:Number = thumb.getLayoutBoundsY() + 
@@ -175,9 +178,6 @@ public class VSlider extends SliderBase
             var relX:Number = layoutDirection == LayoutDirection.RTL ? 
                               initialPosition.x + tipBounds.width : 
                               initialPosition.x;
-
-            // Get the tips bounds. We only care about the dimensions.
-            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
 
             // Ensure that we don't overlap the screen
             var pt:Point = PopUpUtil.positionOverComponent(thumb.parent,
