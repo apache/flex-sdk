@@ -21,6 +21,7 @@ import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.graphics.shaderClasses.LuminosityMaskShader; 
@@ -1137,8 +1138,8 @@ public class GroupBase extends UIComponent implements IViewport
                     var maskComp:UIComponent = _mask as UIComponent;
                     if (maskComp)
                     {
-                        maskComp.validateProperties();
-                        maskComp.validateSize();
+                        // Update properties and resize mask and all children.
+                        UIComponentGlobals.layoutManager.validateClient(maskComp, true);
                         maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
                                                maskComp.getExplicitOrMeasuredHeight());
                     }
