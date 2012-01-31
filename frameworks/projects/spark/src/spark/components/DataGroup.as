@@ -933,6 +933,8 @@ public class DataGroup extends GroupBase
         
         if (layout && layout.useVirtualLayout)
         {
+            // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
+            // will become oldVirtualLayoutStart,End index.   See finishVirtualLayout().
             if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
             {
                 virtualLayoutEndIndex += 1;
@@ -979,6 +981,8 @@ public class DataGroup extends GroupBase
         var myItemRenderer:IVisualElement = indexToRenderer[index];
         if (layout && layout.useVirtualLayout)
         {
+            // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
+            // will become oldVirtualLayoutStart,End index.   See finishVirtualLayout().
             if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
             {
                 virtualLayoutEndIndex -= 1;
