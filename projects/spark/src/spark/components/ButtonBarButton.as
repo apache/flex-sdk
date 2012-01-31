@@ -16,6 +16,8 @@ import flash.events.MouseEvent;
 import spark.components.IItemRenderer;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  The ButtonBarButton class defines the custom item renderer
  *  used by the ButtobBar control. 
@@ -114,7 +116,7 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
             return;
 
         _caret = value;
-        mx_internal::drawFocusAnyway = true;
+        drawFocusAnyway = true;
         drawFocus(value);
     }
 
