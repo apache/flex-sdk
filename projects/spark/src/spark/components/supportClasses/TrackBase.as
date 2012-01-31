@@ -442,8 +442,8 @@ public class FxTrackBase extends FxRange
     {
         var pt:Point = new Point(event.stageX, event.stageY);
         pt = track.globalToLocal(pt);
-        var movePos:Number = pointToPosition(pt.x - _clickOffset.x, 
-                                             pt.y - _clickOffset.y);
+        var movePos:Number = pointToPosition(pt.x - clickOffset.x, 
+                                             pt.y - clickOffset.y);
         var newValue:Number = positionToValue(movePos);
         var roundedValue:Number = nearestValidValue(newValue, valueInterval);
         return roundedValue;
