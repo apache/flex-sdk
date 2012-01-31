@@ -83,7 +83,7 @@ public class HSlider extends Slider
      */
     override protected function calculateThumbSize():Number
     {
-        return thumb.getLayoutBoundsWidth();
+        return thumb ? thumb.getLayoutBoundsWidth() : 0;
     }
 
     //--------------------------------------------------------------------------
