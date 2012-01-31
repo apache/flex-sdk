@@ -1026,10 +1026,13 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             }
             
             var backgroundSkinClass:Class = getStyle("backgroundSkin");
-            background = new backgroundSkinClass();
-            if (background is ISimpleStyleClient)
-                ISimpleStyleClient(background).styleName = this;
-            addChildAt(DisplayObject(background), 0);
+            if (backgroundSkinClass)
+            {
+                background = new backgroundSkinClass();
+                if (background is ISimpleStyleClient)
+                    ISimpleStyleClient(background).styleName = this;
+                addChildAt(DisplayObject(background), 0);
+            }
         }
     }
 
