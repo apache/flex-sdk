@@ -860,7 +860,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (headerVisible && header)
             {
                 header.visibleColumns = visibleColumns;
-				header.headerItemsChanged = true;
+                header.headerItemsChanged = true;
                 header.invalidateSize();
                 header.validateNow();
             }
@@ -1307,13 +1307,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
         super.invalidateDisplayList();
         if (header)
         {
-			header.headerItemsChanged = true;
+            header.headerItemsChanged = true;
             header.invalidateSize();
             header.invalidateDisplayList();
         }
         if (lockedColumnHeader)
         {
-			lockedColumnHeader.headerItemsChanged = true;
+            lockedColumnHeader.headerItemsChanged = true;
             lockedColumnHeader.invalidateSize();
             lockedColumnHeader.invalidateDisplayList();
         }
@@ -1965,12 +1965,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (!displayableColumns)
             return;
 
-		// for purposes of computing rows, we need to accomodate
-		// the case where all the visible columns are locked columns
-		var countableContentListItems:Array = this.listItems;
-		if (visibleColumns && !visibleColumns.length && visibleLockedColumns && visibleLockedColumns.length)
-			countableContentListItems = lockedColumnContent.listItems;
-			
+        // for purposes of computing rows, we need to accomodate
+        // the case where all the visible columns are locked columns
+        var countableContentListItems:Array = this.listItems;
+        if (visibleColumns && !visibleColumns.length && visibleLockedColumns && visibleLockedColumns.length)
+            countableContentListItems = lockedColumnContent.listItems;
+            
         var oldHorizontalScrollBar:Object = horizontalScrollBar;
         var oldVerticalScrollBar:Object = verticalScrollBar;
 
@@ -2031,18 +2031,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
             && listItems[0][colCount - 1].x + 
             visibleColumns[colCount - 1].width > (displayWidth - listContent.x + viewMetrics.left))
             colCount--;
-		else if (colCount > 1 && !collectionHasRows && 
+        else if (colCount > 1 && !collectionHasRows && 
             visibleColumns[colCount - 1] == displayableColumns[displayableColumns.length - 1])
-		{
-			// the slower computation requires adding up the previous columns
-			var colX:int = 0;
-			for (var i:int = 0; i < visibleColumns.length; i++)
-			{
-				colX += visibleColumns[i].width;
-			}
-			if (colX > (displayWidth - listContent.x + viewMetrics.left))
-				colCount--;
-		}
+        {
+            // the slower computation requires adding up the previous columns
+            var colX:int = 0;
+            for (var i:int = 0; i < visibleColumns.length; i++)
+            {
+                colX += visibleColumns[i].width;
+            }
+            if (colX > (displayWidth - listContent.x + viewMetrics.left))
+                colCount--;
+        }
 
         // trace("configureSB", verticalScrollPosition);
 
@@ -2196,28 +2196,28 @@ public class DataGrid extends DataGridBase implements IIMESupport
             for (var i:int = 0; i < n; i++)
             {
                 if (listItems[i][0])
-					lastItem = listItems[i][0];
-					
+                    lastItem = listItems[i][0];
+                    
                 if (rowInfo[i].y <= pt.y && pt.y < rowInfo[i].y + rowInfo[i].height)
                 {
                     item = listItems[i][0];
                     break;
                 }
             }
-			if (!item && lockedRowContent)
-			{
-	            pt = listContent.localToGlobal(pt);
-	            pt = lockedRowContent.globalToLocal(pt);
-				n = lockedRowContent.listItems.length;
-				for (i = 0; i < n; i++)
-				{
-					if (lockedRowContent.rowInfo[i].y <= pt.y && pt.y < lockedRowContent.rowInfo[i].y + lockedRowContent.rowInfo[i].height)
-					{
-						item = lockedRowContent.listItems[i][0];
-						break;
-					}
-				}
-			}
+            if (!item && lockedRowContent)
+            {
+                pt = listContent.localToGlobal(pt);
+                pt = lockedRowContent.globalToLocal(pt);
+                n = lockedRowContent.listItems.length;
+                for (i = 0; i < n; i++)
+                {
+                    if (lockedRowContent.rowInfo[i].y <= pt.y && pt.y < lockedRowContent.rowInfo[i].y + lockedRowContent.rowInfo[i].height)
+                    {
+                        item = lockedRowContent.listItems[i][0];
+                        break;
+                    }
+                }
+            }
 
 
             if (item)
@@ -2225,9 +2225,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
             else
             {
                 if (lastItem)
-					lastDropIndex = itemRendererToIndex(lastItem) + 1;
-				else
-					lastDropIndex = collection ? collection.length : 0;
+                    lastDropIndex = itemRendererToIndex(lastItem) + 1;
+                else
+                    lastDropIndex = collection ? collection.length : 0;
             }
         }
 
@@ -2310,7 +2310,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     {
         var image:DataGridDragProxy = new DataGridDragProxy();
         image.owner = this;
-		image.moduleFactory = moduleFactory;
+        image.moduleFactory = moduleFactory;
         return image;
     }
 
@@ -2388,11 +2388,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 try
                 {
                     iterator.seek(CursorBookmark.FIRST);
-					if (!iteratorValid)
-					{
-						iteratorValid = true;
-						lastSeekPending = null;
-					}
+                    if (!iteratorValid)
+                    {
+                        iteratorValid = true;
+                        lastSeekPending = null;
+                    }
                 }
                 catch(e:ItemPendingError)
                 {
@@ -3004,9 +3004,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         var lastRow:Object = rowInfo[listItems.length - 1];
         var columnHeader:DataGridHeader = (s.parent == lockedColumnContent) ? 
-        								DataGridHeader(lockedColumnHeader) : 
-        								DataGridHeader(header);
-        	
+                                        DataGridHeader(lockedColumnHeader) : 
+                                        DataGridHeader(header);
+            
         var xx:Number = columnHeader.rendererArray[columnIndex].x
         var yy:Number = rowInfo[0].y
 
@@ -3213,6 +3213,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  It creates a
      *  Sprite that contains all of these graphics and adds it as a
      *  child of the listContent at the front of the z-order.
+     * 
+     *  @param contentHolder A container of all of the DataGrid's item renderers and item editors.
+     *  @param visibleColumns An array of the visible columns in the DataGrid.
+     *  @param separators An object that defines the top, bottom, left, and right lines that separate the columns and rows.
      */
     protected function drawLinesAndColumnGraphics(contentHolder:ListBaseContentHolder, visibleColumns:Array, separators:Object):void
     {
@@ -3573,8 +3577,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (!enabled || !editable)
             return;
 
-		if (!collection || collection.length == 0)
-			return;
+        if (!collection || collection.length == 0)
+            return;
 
         // just give focus back to the itemEditorInstance
         if (itemEditorInstance && coord &&
@@ -3699,7 +3703,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     private function scrollToEditedItem(rowIndex:int, colIndex:int):void
     {
         actualContentHolder = listContent;
-		var listItems:Array  = actualContentHolder.listItems;
+        var listItems:Array  = actualContentHolder.listItems;
 
         var lastRowIndex:int = verticalScrollPosition + listItems.length - 1 + lockedRowCount;
         var partialRow:int = (rowInfo[listItems.length - 1].y + rowInfo[listItems.length - 1].height > listContent.height) ? 1 : 0;
@@ -3747,8 +3751,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
             }
         }
 
-		// reset since actualContentHolder could have changed
-		listItems = actualContentHolder.listItems;
+        // reset since actualContentHolder could have changed
+        listItems = actualContentHolder.listItems;
 
         var len:uint = (listItems && listItems[0]) ? listItems[0].length : visibleColumns.length;
         var lastColIndex:int = horizontalScrollPosition + len - 1 + lockedColumnCount;
@@ -4049,8 +4053,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  Determines if the item renderer for a data provider item 
      *  is editable.
      *
-     *  @param data The data provider item
-     *  @return <code>true</code> if the item is editable
+     *  @param data The data provider item.
+     *  @return <code>true</code> if the item is editable.
      */
     public function isItemEditable(data:Object):Boolean
     {
@@ -4942,8 +4946,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     }
 
     /**
-     *  Called from updateDisplayList() to adjust the size and position of
+     *  Called from the <code>updateDisplayList()</code> method to adjust the size and position of
      *  listContent.
+     *  
+     *  @param unscaledWidth The width of the listContent. This value ignores changes to the width from external components or settings.
+     *  @param unscaledHeight The height of the listContent. This value ignores changes to the height from external components or settings.
      */
     override protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
@@ -4981,7 +4988,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             header.setActualSize(unscaledWidth + ww, hh);
             if (!skipHeaderUpdate)
             {
-				header.headerItemsChanged = true;
+                header.headerItemsChanged = true;
                 header.invalidateDisplayList(); // make sure it redraws, even if size didn't change
                 // internal renderers could have changed
             }
@@ -4995,31 +5002,31 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         if (lockedRowCount > 0 && lockedRowContent && lockedRowContent.iterator)
         {
-			try
-			{
-				lockedRowContent.iterator.seek(CursorBookmark.FIRST);
-				var pt:Point = makeRows(lockedRowContent, 0, 0, unscaledWidth, unscaledHeight, 0, 0, true, lockedRowCount, true);
+            try
+            {
+                lockedRowContent.iterator.seek(CursorBookmark.FIRST);
+                var pt:Point = makeRows(lockedRowContent, 0, 0, unscaledWidth, unscaledHeight, 0, 0, true, lockedRowCount, true);
 
-				if (lockedColumnCount > 0)
-				{
-					lcx = viewMetrics.left + Math.min(lockedColumnAndRowContent.leftOffset, 0);
-					lcy = viewMetrics.top + Math.min(lockedColumnAndRowContent.topOffset, 0) + Math.ceil(hh);
-					lockedColumnAndRowContent.move(lcx, lcy);
-					lockedColumnAndRowContent.setActualSize(lockedColumnWidth, lockedColumnAndRowContent.getExplicitOrMeasuredHeight());
-				}
-				lcx = viewMetrics.left + lockedColumnWidth + Math.min(lockedRowContent.leftOffset, 0);
-				lcy = viewMetrics.top + Math.min(lockedRowContent.topOffset, 0) + Math.ceil(hh);
-				lockedRowContent.move(lcx, lcy);
-				ww = Math.max(0, lockedRowContent.rightOffset) - lcx - viewMetrics.right;
-				lockedRowContent.setActualSize(unscaledWidth + ww, lockedRowContent.getExplicitOrMeasuredHeight());
-				hh += lockedRowContent.getExplicitOrMeasuredHeight();
-			}
-			catch (e:ItemPendingError)
-			{
+                if (lockedColumnCount > 0)
+                {
+                    lcx = viewMetrics.left + Math.min(lockedColumnAndRowContent.leftOffset, 0);
+                    lcy = viewMetrics.top + Math.min(lockedColumnAndRowContent.topOffset, 0) + Math.ceil(hh);
+                    lockedColumnAndRowContent.move(lcx, lcy);
+                    lockedColumnAndRowContent.setActualSize(lockedColumnWidth, lockedColumnAndRowContent.getExplicitOrMeasuredHeight());
+                }
+                lcx = viewMetrics.left + lockedColumnWidth + Math.min(lockedRowContent.leftOffset, 0);
+                lcy = viewMetrics.top + Math.min(lockedRowContent.topOffset, 0) + Math.ceil(hh);
+                lockedRowContent.move(lcx, lcy);
+                ww = Math.max(0, lockedRowContent.rightOffset) - lcx - viewMetrics.right;
+                lockedRowContent.setActualSize(unscaledWidth + ww, lockedRowContent.getExplicitOrMeasuredHeight());
+                hh += lockedRowContent.getExplicitOrMeasuredHeight();
+            }
+            catch (e:ItemPendingError)
+            {
                 e.addResponder(new ItemResponder(lockedRowSeekPendingResultHandler, seekPendingFailureHandler,
                                                     null));
 
-			}
+            }
         }
 
         if (lockedColumnCount > 0)
@@ -5118,10 +5125,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 lockedColumnDropIndicator.setActualSize(lockedColumnContent.width - 2, 4);
                 lockedColumnDropIndicator.visible = true;
             }
-			if (dropIndicator.parent == listContent)
-				lockedColumnContent.addChild(DisplayObject(lockedColumnDropIndicator));
-			else
-				lockedColumnAndRowContent.addChild(DisplayObject(lockedColumnDropIndicator));
+            if (dropIndicator.parent == listContent)
+                lockedColumnContent.addChild(DisplayObject(lockedColumnDropIndicator));
+            else
+                lockedColumnAndRowContent.addChild(DisplayObject(lockedColumnDropIndicator));
 
 
             lockedColumnDropIndicator.y = dropIndicator.y;
