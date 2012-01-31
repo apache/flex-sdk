@@ -41,6 +41,7 @@ import flex.skin.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
 import flex.skin.ScrollBarDownButtonSkin; ScrollBarDownButtonSkin;
 import flex.skin.ScrollBarLeftButtonSkin; ScrollBarLeftButtonSkin;
 import flex.skin.ScrollBarRightButtonSkin; ScrollBarRightButtonSkin;
+import flex.skin.ScrollerSkin; ScrollerSkin;
 import flex.skin.SelectorSkin; SelectorSkin;
 import flex.skin.SpinnerDecrButtonSkin; SpinnerDecrButtonSkin;
 import flex.skin.SpinnerIncrButtonSkin; SpinnerIncrButtonSkin;
