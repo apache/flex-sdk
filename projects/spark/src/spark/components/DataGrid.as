@@ -27,11 +27,14 @@ import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.CursorManager;
+import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.CellPosition;
 import spark.components.supportClasses.CellRegion;
 import spark.components.supportClasses.DataGridEditor;
+import spark.components.supportClasses.GridColumn;
 import spark.components.supportClasses.GridDimensions;
 import spark.components.supportClasses.GridLayout;
 import spark.components.supportClasses.GridSelection;
@@ -734,13 +737,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         }
     }
     
-    /**
-     *  @private
-     */
     private function getColumnsLength():uint
     {
         const columns:IList = columns;
         return (columns) ? columns.length : 0;
+    }
+    
+    private function getColumnAt(columnIndex:int):GridColumn
+    {
+        const grid:Grid = grid;
+        if (!grid || !grid.columns)
+            return null;
+        
+        const columns:IList = grid.columns;
+        return ((columnIndex >= 0) && (columnIndex < columns.length)) ? columns.getItemAt(columnIndex) as GridColumn : null;
     }
     
     //----------------------------------
@@ -1605,10 +1615,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Event Handlers
             
-            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, gridMouseDownHandler);
-            grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OVER, gridRollOverHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OUT, gridRollOutHandler);
+            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_MouseDownHandler);
+            grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_MouseUpHandler);
+            grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_RollOverHandler);
+            grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
@@ -1645,6 +1655,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             columnHeaderBar.owner = this;
             columnHeaderBar.columnSeparator = headerColumnSeparator;
+            
+            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
+            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
+            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
+            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
+            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
         }
         
         if (columnHeaderBar)
@@ -1674,10 +1690,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Event Handlers
             
-            grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, gridMouseDownHandler);
-            grid.removeEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler);
-            grid.removeEventListener(GridEvent.GRID_ROLL_OVER, gridRollOverHandler);
-            grid.removeEventListener(GridEvent.GRID_ROLL_OUT, gridRollOutHandler);            
+            grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_MouseDownHandler);
+            grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_MouseUpHandler);
+            grid.removeEventListener(GridEvent.GRID_ROLL_OVER, grid_RollOverHandler);
+            grid.removeEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);            
             grid.removeEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.removeEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);            
             grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);            
@@ -1727,6 +1743,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderBar.horizontalScrollPosition = 0;
             columnHeaderBar.owner = null;
             columnHeaderBar.columnSeparator = null;
+            
+            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
+            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
+            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
+            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
+            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
         }
         
         if (columnHeaderBar)
@@ -3210,7 +3232,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     //--------------------------------------------------------------------------
     //
-    //  GridEvent handlers
+    //  Grid event handlers
     //
     //--------------------------------------------------------------------------
     
@@ -3221,7 +3243,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  scrolling.  While the scroll thumb is depressed don't want the 
      *  hover updated if the mouse drifts into the grid.
      */
-    protected function gridRollOverHandler(event:GridEvent):void
+    protected function grid_RollOverHandler(event:GridEvent):void
     {
         // The related object is the object that was previously under
         // the pointer.
@@ -3237,7 +3259,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  If the mouse button is depressed while outside of the grid, the hover 
      *  indicator is not enabled again until GRID_MOUSE_UP or GRID_ROLL_OUT. 
      */
-    protected function gridRollOutHandler(event:GridEvent):void
+    protected function grid_RollOutHandler(event:GridEvent):void
     {
         grid.hoverRowIndex = -1;
         grid.hoverColumnIndex = -1;
@@ -3250,7 +3272,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  If the mouse button is depressed while outside of the grid, the hover 
      *  indicator is not enabled again until GRID_MOUSE_UP or GRID_ROLL_OUT. 
      */
-    protected function gridMouseUpHandler(event:GridEvent):void
+    protected function grid_MouseUpHandler(event:GridEvent):void
     {
         if (!updateHoverOnRollOver)
         {
@@ -3263,7 +3285,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    protected function gridMouseDownHandler(event:GridEvent):void
+    protected function grid_MouseDownHandler(event:GridEvent):void
     {
         const rowIndex:int = event.rowIndex;
         var columnIndex:int = isRowSelectionMode() ? -1 : event.columnIndex;
@@ -3295,12 +3317,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         }
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
-    
     /**
      *  @private
      *  Redispatch the grid's "caretChange" event.
@@ -3328,7 +3344,95 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (columnHeaderBar && event.property == "horizontalScrollPosition")
             columnHeaderBar.horizontalScrollPosition = Number(event.newValue);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Header event handlers
+    //
+    //--------------------------------------------------------------------------  
+    
+    private var stretchCursorID:int = CursorManager.NO_CURSOR;
+    private var resizeColumn:GridColumn = null;
+    private var resizeAnchorX:Number = NaN;
+    private var resizeColumnWidth:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    protected function separator_mouseDownHandler(event:GridEvent):void
+    {
+        const column:GridColumn = event.column;
+        if (!enabled || !grid.resizableColumns || !column || !column.resizable)
+            return;
+        
+        resizeColumn = event.column;
+        resizeAnchorX = event.localX;
+        resizeColumnWidth = grid.getColumnWidth(resizeColumn.columnIndex);
+        
+        // Give all of the columns to the left of this one an explicit so that resizing
+        // this column doesn't change their width and, consequently, this columns location.
+        
+        const resizeColumnIndex:int = resizeColumn.columnIndex;
+        for (var columnIndex:int = 0; columnIndex < resizeColumnIndex; columnIndex++)
+        {
+            var gc:GridColumn = getColumnAt(columnIndex);
+            if (gc.visible && isNaN(gc.width))
+                gc.width = grid.getColumnWidth(columnIndex);
+        }
     }    
     
+    protected function separator_mouseDragHandler(event:GridEvent):void
+    {
+        if (!resizeColumn)
+            return;
+        
+        const minWidth:Number = resizeColumn.minWidth;
+        const maxWidth:Number = resizeColumn.maxWidth;
+        var newWidth:Number = resizeColumnWidth + (event.localX - resizeAnchorX);
+        
+        if (!isNaN(minWidth))
+            newWidth = Math.max(newWidth, minWidth);
+        else 
+            newWidth = Math.max(0, newWidth);
+        
+        if (!isNaN(maxWidth))
+            newWidth = Math.min(newWidth, maxWidth);
+        
+        resizeColumn.width = newWidth;
+    } 
+    
+    protected function separator_mouseUpHandler(event:GridEvent):void
+    {
+        if (!resizeColumn)
+            return;
+        
+        resizeColumn = null;
+    }     
+    
+    /**
+     *  @private
+     */
+    protected function separator_rollOverHandler(event:GridEvent):void
+    {
+        const column:GridColumn = event.column;
+        if (!enabled || !grid.resizableColumns || !column || !column.resizable)
+            return;
+        
+        var stretchCursorClass:Class = getStyle("stretchCursor");
+        if (stretchCursorClass)
+            stretchCursorID = cursorManager.setCursor(stretchCursorClass, CursorManagerPriority.HIGH, 0, 0);
+    }
+    
+    /**
+     *  @private
+     */
+    protected function separator_rollOutHandler(event:GridEvent):void
+    {
+        if (!enabled)
+            return;
+        
+        cursorManager.removeCursor(stretchCursorID);
+    }     
 }
 }
