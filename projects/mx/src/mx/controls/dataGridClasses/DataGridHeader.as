@@ -295,7 +295,11 @@ public class DataGridHeader extends DataGridHeaderBase
                 extraItem = headerItems.pop();
                 // if it is parented by us, remove it (could be in lockedColumns header)
                 if (extraItem.parent == this)
-                    removeChild(DisplayObject(extraItem));
+                {
+                    // make sure it isn't already in there elsewhere
+                    if (headerItems.indexOf(extraItem) == -1)
+                        removeChild(DisplayObject(extraItem));
+                }
             }
         }
         var headerBG:UIComponent =
