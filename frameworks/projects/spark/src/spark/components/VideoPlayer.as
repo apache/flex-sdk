@@ -323,6 +323,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.VideoPlayerAccImpl")]
+
 [DefaultProperty("source")]
 
 [IconFile("VideoPlayer.png")]
@@ -472,6 +474,18 @@ public class VideoPlayer extends SkinnableComponent
      */
     private static const THUMBNAIL_SOURCE_PROPERTY_FLAG:uint = 1 << 9;
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by VideoPlayerAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -1330,6 +1344,15 @@ public class VideoPlayer extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
   
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (VideoPlayer.createAccessibilityImplementation != null)
+            VideoPlayer.createAccessibilityImplementation(this);
+    }
+
     /**
      *  @private
      */
