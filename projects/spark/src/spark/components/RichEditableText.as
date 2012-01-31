@@ -452,6 +452,17 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
+     *  True if TextOperationEvent.CHANGE should be dispatched.
+     */
+    private var dispatchChangeEvent:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var textDamaged:Boolean = false;
+
+    /**
+     *  @private
      */
     mx_internal var passwordChar:String = "*";
 
@@ -482,17 +493,6 @@ public class RichEditableText extends UIComponent
      */    
     private var errorCaught:Boolean = false;
     
-    /**
-     *  @private
-     *  If true, the content of the textFlow has changed in some way.  In most
-     *  cases this is the same as damaged.
-     * 
-     *  At the end of composition, the change event should be dispatched if it
-     *  wasn't already dispatched one or more times for editing operations.
-     */    
-    private var textFlowChanged:Boolean = false;
-            
-
     /**
      *  @private
      *  Hold the previous editingMode while using a specific instance manager
@@ -846,6 +846,7 @@ public class RichEditableText extends UIComponent
         // Later, after the 'content' has been committed into the TextFlow,
         // getting 'text' will extract the text from the TextFlow.
         _text = null;
+        textDamaged = true;
         textChanged = false;
 
         _content = value;
@@ -1367,8 +1368,11 @@ public class RichEditableText extends UIComponent
      */
     public function get text():String 
     {
-        if (!displayAsPassword)
+        if (textDamaged && !displayAsPassword)
+        {    
             _text = _textContainerManager.getText("\n");
+            textDamaged = false;
+        }
         
         return _text;
     }
@@ -1377,11 +1381,12 @@ public class RichEditableText extends UIComponent
      *  @private
      */
     public function set text(value:String):void
-    {
-        // Use the setter so _text is refreshed if needed.  This check is
-        // needed to block property binding recursion (set causes change event
-        // which causes binding to fire which repeats the process).
-        if (value == text)
+    {       
+        // Text is never null.  null is converted to 0-length string. 
+        if (value == null)
+            value = "";
+            
+        if (value == _text)
             return;
         
         // If we have focus, then we need to immediately create a TextFlow so
@@ -1389,12 +1394,19 @@ public class RichEditableText extends UIComponent
         // be done without having to mouse click or mouse hover over this field.
         // Normally this is done in our focusIn handler by making sure there
         // is a selection.    
-        if (getFocus() == this)
+
+        // If the text has line-ending sequences such as LF or CR+LF, 
+        // a TextFlow with multiple paragraph is produced as the 'content'. 
+        // Otherwise all of the multi-line text got stuffed into one span in 
+        // one paragraph. But when you have a large paragraph 
+        // (i.e., a large TextBlock), FTE is slow to break the first 
+        // TextLine because it analyzes all of the text first.       
+        if (getFocus() == this || textHasLineBreaks(value))
         {
            content = importToFlow(value);
            return;
         }
-                    
+                                                              
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
@@ -1402,9 +1414,7 @@ public class RichEditableText extends UIComponent
         contentChanged = false;
         
         _text = value;
-
-        // Need to set it right away so that the getter can return it.
-        _textContainerManager.setText(_text);
+        textDamaged = false;
         
         textChanged = true;
         
@@ -1518,57 +1528,43 @@ public class RichEditableText extends UIComponent
         	selectionFormatsChanged = false;
         }
 
-        // If the text has line-ending sequences such as LF or CR+LF, 
-        // a TextFlow with multiple paragraph is produced as the 'content'. 
-        // Otherwise all of the multi-line text got stuffed into one span in 
-        // one paragraph. But when you have a large paragraph 
-        // (i.e., a large TextBlock), FTE is slow to break the first 
-        // TextLine because it analyzes all of the text first.       
-        if (textChanged && textHasLineBreaks())
-            content = importToFlow(_text);
-                          
         if (textChanged)
         {
         	if (debug)
         		trace("setText()");
         	
-            textFlowChanged = true;
+            _textContainerManager.setText(_text);
+        
+            dispatchChangeEvent = true;
 
-            // Handle case where content is intially displayed as password.         
-            if (displayAsPassword)
-               displayAsPasswordChanged = true;
-
-
-            // Do not set textChanged to false until the compositionComplete
-            // handler since the CHANGE event for text that is initially set
-            // is a special case since there is no flowOperationEnd event
-            // for this.
+            textChanged = false;
         }
         else if (contentChanged)
         {
         	var textFlow:TextFlow = createTextFlowFromContent();
         	
-        	textFlowChanged = true;
-        	
         	if (debug)
         		trace("setTextFlow()");
         	_textContainerManager.setTextFlow(textFlow);
 
-            // Handle case where content is intially displayed as password.        	
-        	if (displayAsPassword)
-        	   displayAsPasswordChanged = true;
-        	   
-            // Do not set contentChanged to false until the compositionComplete
-            // handler since the CHANGE event for content that is initially set
-            // is a special case since there is no flowOperationEnd event
-            // for this.
+            dispatchChangeEvent = true;
+            
+            contentChanged = false;        	   
         }
 
-        // If the text or content changed, there is no selection.  If we already
-        // have focus, set the selection, since we've already executed our
-        // focusIn handler where this is normally done.
-        if (textFlowChanged && getFocus() == this)
-            setSelectionBasedOnScrolling();
+        // Text or content changed.
+        if (dispatchChangeEvent)
+        {
+            // Handle case where content is intially displayed as password.         
+            if (displayAsPassword)
+               displayAsPasswordChanged = true;
+               
+            // If the text or content changed, there is no selection.  If we 
+            // already have focus, set the selection, since we've already 
+            // executed our focusIn handler where this is normally done.
+            if (getFocus() == this)
+                setSelectionBasedOnScrolling();               
+        }
                 
         // If displayAsPassword changed, it only applies to the display, 
         // not the underlying text.  Do not mark the textFlow as changed.
@@ -1592,9 +1588,11 @@ public class RichEditableText extends UIComponent
             }
             else
             {
+                // Was displayAsPassword.  Now display as plain text.
                 _textContainerManager.setText(_text);
             }
 
+            textDamaged = false;
             displayAsPasswordChanged = false;
         }
         
@@ -2488,10 +2486,9 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private function textHasLineBreaks():Boolean
+    private function textHasLineBreaks(s:String):Boolean
     {
-        return text.indexOf("\n") != -1 ||
-               text.indexOf("\r") != -1;
+        return s.indexOf("\n") != -1 || s.indexOf("\r") != -1;
     }
     
     /**
@@ -2981,24 +2978,17 @@ public class RichEditableText extends UIComponent
     {
         //trace("compositionComplete");
                 
-        // The text flow changed and there wasn't an editing operation
-        // to dispatch the change event so do it here.  This happens if the
-        // text/content is set and there are no additional editing operations. 
-        // We will ignore textFlow changes that occur because the editManager is
-        // being hooked up to the textFlow by the TCM.
-        if (textChanged || contentChanged)
+        // We need to dispatch a change event and it wasn't already done.                
+        // This happens if the text/content is set and there were no additional 
+        // editing operations. 
+        if (dispatchChangeEvent)
         {
-            if (textFlowChanged)
-            {
-                var newEvent:TextOperationEvent =
-                    new TextOperationEvent(TextOperationEvent.CHANGE);
-                dispatchEvent(newEvent);            
-            }
-            
-            textChanged = false;
-            contentChanged = false;        
+            var newEvent:TextOperationEvent =
+                new TextOperationEvent(TextOperationEvent.CHANGE);
+            dispatchEvent(newEvent); 
+                       
+            dispatchChangeEvent = false;
         }
-        textFlowChanged = false;
         
         var dimensionChanged:Boolean = false;
         var oldContentWidth:Number = _contentWidth;
@@ -3071,10 +3061,8 @@ public class RichEditableText extends UIComponent
     {
         //trace("damageHandler", event.damageAbsoluteStart, event.damageLength);
         
-        // The text flow changed.  It could have been either/or content or
-        // styles within the flow.
-        textFlowChanged = true;
-                
+        textDamaged = true;
+        
         invalidateDisplayList();
     }
 
@@ -3176,9 +3164,18 @@ public class RichEditableText extends UIComponent
                 }
             }
 
+            // The text deleted by this operation.  If we're doing our
+            // own manipulation of the textFlow we have to take the deleted
+            // text into account as well as the inserted text.
+            var delSelOp:SelectionState = 
+                insertTextOperation.deleteSelectionState;
+
+            var delLen:int = (delSelOp == null) ? 0 :
+                             delSelOp.absoluteEnd - delSelOp.absoluteStart;
+                
             if (maxChars != 0)
             {
-                var length1:int = text.length;
+                var length1:int = text.length - delLen;
                 var length2:int = textToInsert.length;
                 if (length1 + length2 > maxChars)
                     textToInsert = textToInsert.substr(0, maxChars - length1);
@@ -3186,8 +3183,18 @@ public class RichEditableText extends UIComponent
 
             if (_displayAsPassword)
             {
+                // Remove deleted text.
+                if (delLen > 0)
+                {
+                    _text = splice(_text, delSelOp.absoluteStart, 
+                                   delSelOp.absoluteEnd, "");                                    
+                }
+                
+                // Add in the inserted text.
                 _text = splice(_text, insertTextOperation.absoluteStart,
                                insertTextOperation.absoluteEnd, textToInsert);
+                
+                // Display the passwordChar rather than the actual text.
                 textToInsert = StringUtil.repeat(passwordChar,
                                                  textToInsert.length);
             }
@@ -3263,7 +3270,7 @@ public class RichEditableText extends UIComponent
         newEvent.operation = event.operation;
         dispatchEvent(newEvent);
             
-        textFlowChanged = false;            
+        dispatchChangeEvent = false;            
     }
 
     /**
