@@ -126,7 +126,7 @@ public class TextBox extends TextGraphicElement
     [Inspectable(category="General")]
 
     /**
-     *  The y-coordinate of the baseline of the first line of text.
+     *  @private
      */
     override public function get baselinePosition():Number
     {
@@ -144,7 +144,7 @@ public class TextBox extends TextGraphicElement
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function measure():void
     {
@@ -164,7 +164,7 @@ public class TextBox extends TextGraphicElement
     }
         
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
