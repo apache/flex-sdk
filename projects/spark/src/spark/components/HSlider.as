@@ -95,7 +95,7 @@ public class HSlider extends Slider
                 LayoutItemFactory.getLayoutItemFor(track);
             var trackPos:Number = trackLItem.actualPosition.x;
 
-            thumbLItem.setActualPosition(trackPos + thumbPos,
+            thumbLItem.setActualPosition(Math.round(trackPos + thumbPos),
                                          thumbLItem.actualPosition.y);
         }
     }
