@@ -750,20 +750,24 @@ public class DropDownListBase extends List
                 // Normalize the proposed index for getNavigationDestinationIndex
                 currentIndex = caretIndex < NO_SELECTION ? NO_SELECTION : caretIndex;
                 
-                // FIXME (jszeto) : SDK-24036 Add arrowKeysWrapFocus support
-                
                 switch (navigationUnit)
                 {
                     case NavigationUnit.UP:
                     {
-                        proposedNewIndex = currentIndex - 1;  
+                        if (arrowKeysWrapFocus && currentIndex == 0)
+                            proposedNewIndex = dataProvider.length - 1;
+                        else
+                            proposedNewIndex = currentIndex - 1;
                         event.preventDefault();
                         break;
                     }                      
         
                     case NavigationUnit.DOWN:
                     {
-                        proposedNewIndex = currentIndex + 1;  
+                        if (arrowKeysWrapFocus && currentIndex == (dataProvider.length - 1))
+                            proposedNewIndex = 0;
+                        else
+                            proposedNewIndex = currentIndex + 1;
                         event.preventDefault();
                         break;
                     }
