@@ -107,6 +107,14 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  <p>To improve performance and minimize application size, 
  *  the DataGroup container cannot be skinned. 
  *  If you want to apply a skin, use the SkinnableDataContainer instead. </p>
+ *  
+ *  <p>The DataGroup ciontainer has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *  </table>
  * 
  *  @mxml
  *
@@ -533,6 +541,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  @see #itemRenderer
      *  @see #itemRendererFunction
      *  @see mx.collections.IList
+     *  @see mx.collections.ArrayCollection
+     *  @see mx.collections.ArrayList
+     *  @see mx.collections.XMLListCollection
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -685,7 +696,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return item.toString();
         return " ";
     }
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Item -> Renderer mapping
