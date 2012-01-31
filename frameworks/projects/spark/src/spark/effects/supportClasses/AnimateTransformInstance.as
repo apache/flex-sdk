@@ -476,7 +476,34 @@ public class AnimateTransformInstance extends AnimateInstance
                         autoProps[s] = s;
                     }
                 }
-        }  
+            if (autoProps["postLayoutTranslationZ"] === undefined && motionPaths != null)
+            {
+                var has3DRotation:Boolean = false;
+                var has2DMove:Boolean = false;
+                for (var p:int = 0; p < motionPaths.length; ++p)
+                {
+                    var propName:String = motionPaths[p].property;
+                    if (!has3DRotation &&
+                        (propName == "postLayoutRotationX" ||
+                         propName == "postLayoutRotationY"))
+                    {
+                        has3DRotation = true;
+                        if (has2DMove)
+                            break;
+                    }
+                    else if (!has2DMove &&
+                        (propName == "translationX" ||
+                         propName == "translationY"))
+                    {
+                        has2DMove = true;
+                        if (has3DRotation)
+                            break;
+                    }
+                }
+                if (has3DRotation && has2DMove)
+                    autoProps["postLayoutTranslationZ"] = "postLayoutTranslationZ";
+            }
+        }
         if (motionPaths)
         {
             var i:int;
@@ -818,7 +845,6 @@ public class AnimateTransformInstance extends AnimateInstance
                 tmpOffsetTranslation = tmpPosition;
             }
         }
-        
         target.transformAround(transformCenter, tmpScale, tmpRotation, 
             tmpPosition,tmpOffsetScale,tmpOffsetRotation,tmpOffsetTranslation);
     }
