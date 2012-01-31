@@ -740,8 +740,9 @@ public class DropDownListBase extends List
                 
         if (!dropDownController.processKeyDown(event))
         {
-            var navigationUnit:uint = event.keyCode;
-                        
+            // If rtl layout, need to swap Keyboard.LEFT and Keyboard.RIGHT.
+            var navigationUnit:uint = mapKeycodeForLayoutDirection(event);
+                                    
             if (findKey(event.charCode))
             {
                 event.preventDefault();
@@ -750,7 +751,7 @@ public class DropDownListBase extends List
             
             if (!NavigationUnit.isNavigationUnit(navigationUnit))
                 return;
-
+            
             var proposedNewIndex:int = NO_SELECTION;
             var currentIndex:int;
                         
