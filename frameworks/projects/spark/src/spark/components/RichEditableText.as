@@ -2743,15 +2743,8 @@ public class RichEditableText extends UIComponent
             if (enabled)
             {
                 if (!getSelectionManager().hasSelection())
-                {
                     setSelection(int.MAX_VALUE, int.MAX_VALUE);
                     
-                    // This is ugly but it's the only way to get tabbing into
-                    // the control to allow input without a mouse click.
-                    var controller:ContainerController = 
-                                        textFlow.flowComposer.getControllerAt(0);
-                    controller.tlf_internal::requiredFocusInHandler(event);
-                }
                 releaseSelectionManager();
             }
             
