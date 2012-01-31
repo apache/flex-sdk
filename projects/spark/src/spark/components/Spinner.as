@@ -26,26 +26,51 @@ import mx.managers.IFocusManagerComponent;
  *  as a result of user interaction.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("normal")]
 
 /**
  *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
 
@@ -80,6 +105,11 @@ import mx.managers.IFocusManagerComponent;
  *  @see mx.components.FxNumericStepper
  *
  *  @includeExample examples/FxSpinnerExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxSpinner extends FxRange implements IFocusManagerComponent
 {
@@ -93,6 +123,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxSpinner():void
     {
@@ -111,6 +146,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  A skin part that defines the  button that, 
      *  when pressed, increments the <code>value</code> property
      *  by <code>stepSize</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var incrementButton:FxButton;
     
@@ -120,6 +160,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  A skin part that defines the  button that, 
      *  when pressed, decrements the <code>value</code> property
      *  by <code>stepSize</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var decrementButton:FxButton;
     
@@ -135,6 +180,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function set enabled(value:Boolean):void
     {
@@ -168,6 +218,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  the <code>minimum</code> to the <code>maximum</code> value.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get valueWrap():Boolean
     {
@@ -187,6 +242,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function getCurrentSkinState():String
     {
@@ -236,6 +296,11 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function enableSkinParts(value:Boolean):void
     {
