@@ -12,8 +12,6 @@
 package mx.rpc.xml
 {
 
-[ExcludeClass]
-
 /**
  * Encodes an ActionScript object graph to XML based on an XML schema.
  * 
