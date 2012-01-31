@@ -450,10 +450,12 @@ package mx.utils
         }
         
         /**
-         * Given a url, determines whether the url contains the server.name and
-         * server.port tokens.
+         *  Given a url, determines whether the url contains the server.name and
+         *  server.port tokens.
+         *
+         *  @param url A url string. 
          * 
-         * @return <code>true</code> if the url contains server.name and server.port tokens.
+         *  @return <code>true</code> if the url contains server.name and server.port tokens.
          *
          *  @langversion 3.0
          *  @playerversion Flash 10
