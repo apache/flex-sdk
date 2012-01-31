@@ -554,7 +554,7 @@ include "../styles/metadata/TextStyles.as"
  *  embed the bold typeface; for example:</p>
  * 
  *  <pre>
- *  &lt;mx:style&gt;
+ *  &lt;fx:style&gt;
  *    &#64;font-face {
  *      src:url("../MyFont-Bold.ttf");        
  *      fontFamily: myFont;
@@ -564,7 +564,7 @@ include "../styles/metadata/TextStyles.as"
  *      fontFamily: myFont;
  *      fontWeight: bold;
  *    } 
- *  &lt;/mx:style&gt;
+ *  &lt;/fx:style&gt;
  *  ...
  *  &lt;mx:Button ... styleName="myBoldStyle"/&gt;
  *  </pre>
