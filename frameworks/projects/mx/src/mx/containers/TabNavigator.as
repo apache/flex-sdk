@@ -314,8 +314,6 @@ include "../styles/metadata/FocusStyles.as"
  *  <pre>
  *  &lt;mx:TabNavigator
  *    <b>Styles</b>
- *    fillAlphas="[0.60, 0.40, 0.75, 0.65]"
- *    fillColors="[0xFFFFFF, 0xCCCCCC, 0xFFFFFF, 0xEEEEEE]"
  *    firstTabStyleName="<i>Value of the</i> <code>tabStyleName</code> <i>property</i>"
  *    focusAlpha="0.4"
  *    focusRoundedCorners="tl tr bl br"
