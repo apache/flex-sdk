@@ -42,14 +42,70 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
 include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
-include "../../styles/metadata/SparkColorStyles.as"
+
+/**
+ *  @review
+ *  
+ *  The colors to use for the backgrounds of the items in the list. 
+ *  The value is an array of two or more colors. 
+ *  The backgrounds of the list items alternate among the colors in the array. 
+ * 
+ *  @default undefined
+ */
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+
+/**
+ *  @review
+ * 
+ *  The main color for a component. 
+ *   
+ *  @default 0xCCCCCC
+ */ 
+[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @review
+ * 
+ *  Color of the fill of an itemRenderer
+ *   
+ *  @default 0xFFFFFF
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @review
+ * 
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @review
+ * 
+ *  Color of the highlights when the mouse is over the component
+ *   
+ *  @default 0xCEDBEF
+ */ 
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @review
+ * 
+ *  Color of any symbol of a component. Examples include the check mark of a FxCheckBox or
+ *  the arrow of a FxScrollButton
+ *   
+ *  @default 0x000000
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 [Exclude(name="enabled", kind="property")] 
 
