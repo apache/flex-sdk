@@ -28,12 +28,11 @@ import mx.effects.EffectManager;
  */
 public class AnimateInstance extends EffectInstance implements IAnimationTarget
 {
-    public var animation:Animation = new Animation();
+    public var animation:Animation;
     
     public function AnimateInstance(target:Object)
     {
         super(target);
-        animation.addAnimationTarget(this);
     }
 
     //--------------------------------------------------------------------------
@@ -79,70 +78,38 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      * on fractional pixels.
      */
     protected var roundValues:Boolean;
-    
+
+    private var _easer:IEaser;    
     public function set easer(value:IEaser):void
     {
-        animation.easer = value;
+        _easer = value;
     }
     public function get easer():IEaser
     {
-        return animation.easer;
+        return _easer;
     }
     
+    private var _interpolator:IInterpolator;
     public function set interpolator(value:IInterpolator):void
     {
-        animation.interpolator = value;
+        _interpolator = value;
+        
     }
     public function get interpolator():IInterpolator
     {
-        return animation.interpolator;
+        return _interpolator;
     }
     
+    private var _repeatBehavior:String;
     public function set repeatBehavior(value:String):void
     {
-        animation.repeatBehavior = value;
+        _repeatBehavior = value;
     }
     public function get repeatBehavior():String
     {
-        return animation.repeatBehavior;
+        return _repeatBehavior;
     }
-    
-    override public function set duration(value:Number):void
-    {
-        animation.duration = value;
-    }
-    override public function get duration():Number
-    {
-        return animation.duration;
-    }
-    
-    override public function set startDelay(value:int):void
-    {
-        animation.startDelay = value;
-    }
-    override public function get startDelay():int
-    {
-        return animation.startDelay;
-    }
-    
-    override public function set repeatDelay(value:int):void
-    {
-        animation.repeatDelay = value;
-    }
-    override public function get repeatDelay():int
-    {
-        return animation.repeatDelay;
-    }
-    
-    override public function set repeatCount(value:int):void
-    {
-        animation.repeatCount = value;
-    }
-    override public function get repeatCount():int
-    {
-        return animation.repeatCount;
-    }
-    
+            
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -340,21 +307,25 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // Create the single Animation that will interpolate all properties
             // simultaneously by interpolating the elements of the 
             // from/toVals arrays
-            animation.startValue = fromVals;
-            animation.endValue = toVals;
+            animation = new Animation(fromVals, toVals, duration, this);
         }
         else
         {
             // Only one property; don't bother with the arrays
-            animation.startValue = fromValue;
-            animation.endValue = toValue;
+            animation = new Animation(fromValue, toValue, duration, this);
         }
             
         if (_seekTime > 0)
             animation.seek(_seekTime);
         if (reverseAnimation)
             animation.reverse();
-            
+        animation.interpolator = interpolator;
+        animation.repeatCount = repeatCount;
+        animation.repeatDelay = repeatDelay;
+        animation.repeatBehavior = repeatBehavior;
+        animation.easer = easer;
+        animation.startDelay = startDelay;
+                    
         animation.play();
           
         // TODO (chaase): there may be a better way to organize the 
