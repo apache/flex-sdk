@@ -11,10 +11,19 @@
 
 package spark.effects
 {
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
 import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
+
+use namespace mx_internal;
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="motionPaths", kind="property")]
 
 /**
  *  The Rotate3D class rotate a target object
@@ -39,14 +48,11 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  &lt;mx:Rotate3D
  *    <b>Properties</b>
  *    id="ID"
- *    affectLayout="false"
- *    angleXBy="no default"
+ *    applyChangesPostLayout="true"
  *    angleXFrom="no default"
  *    angleXTo="no default"
- *    angleYBy="no default"
  *    angleYFrom="no default"
  *    angleYTo="no default"
- *    angleZBy="no default"
  *    angleZFrom="no default"
  *    angleZTo="no default"
  *  /&gt;
@@ -82,6 +88,7 @@ public class Rotate3D extends AnimateTransform
         super(target);
         applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
+        applyChangesPostLayout = true;
     }
     
     //--------------------------------------------------------------------------
@@ -91,24 +98,25 @@ public class Rotate3D extends AnimateTransform
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  affectLayout
+    //  applyChangesPostLayout
     //----------------------------------
-
     [Inspectable(category="General")]
-
     /** 
-     *  Specifies whether the parent container of the effect target 
-     *  updates its layout based on changes to the effect target
-     *  while the effect plays.
+     *  @copy AnimateTransform#applyChangesPostLayout
+     *  The default value for this property is true for 3D effects,
+     *  because the Flex layout system ignores 3D transformation properties.
      *
-     *  @default false
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var affectLayout:Boolean = false;
+    override public function get applyChangesPostLayout():Boolean
+    {
+        return super.applyChangesPostLayout;
+    }
     
     //----------------------------------
     //  angleXFrom
@@ -152,30 +160,7 @@ public class Rotate3D extends AnimateTransform
      *  @productversion Flex 4
      */
     public var angleXTo:Number;
-    
-    //----------------------------------
-    //  angleXBy
-    //----------------------------------
-
-    [Inspectable(category="General")]
-
-    /** 
-     *  Degrees by which to rotate the target object around the
-     *  x axis. Value may be negative.
-     *
-     *  <p>If the value of <code>angleXBy</code> is negative,
-     *  the target rotates in a counterclockwise direction.
-     *  Otherwise, it rotates in clockwise direction.
-     *  If you want the target to rotate multiple times,
-     *  set this value to a large positive or small negative number.</p>
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var angleXBy:Number;
-            
+                
     //----------------------------------
     //  angleYFrom
     //----------------------------------
@@ -218,32 +203,9 @@ public class Rotate3D extends AnimateTransform
      *  @productversion Flex 4
      */
     public var angleYTo:Number;
-    
-    //----------------------------------
-    //  angleYBy
-    //----------------------------------
-
-    [Inspectable(category="General")]
-
-    /** 
-     *  Degrees by which to rotate the target object around the
-     *  y axis. Value may be negative.
-     *
-     *  <p>If the value of <code>angleYBy</code> is negative,
-     *  the target rotates in a counterclockwise direction.
-     *  Otherwise, it rotates in clockwise direction.
-     *  If you want the target to rotate multiple times,
-     *  set this value to a large positive or small negative number.</p>
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var angleYBy:Number;
 
     //----------------------------------
-    //  angleXFrom
+    //  angleZFrom
     //----------------------------------
 
     [Inspectable(category="General")]
@@ -285,29 +247,6 @@ public class Rotate3D extends AnimateTransform
      */
     public var angleZTo:Number;
     
-    //----------------------------------
-    //  angleZBy
-    //----------------------------------
-
-    [Inspectable(category="General")]
-
-    /** 
-     *  Degrees by which to rotate the target object around the
-     *  z axis. Value may be negative.
-     *
-     *  <p>If the value of <code>angleZBy</code> is negative,
-     *  the target rotates in a counterclockwise direction.
-     *  Otherwise, it rotates in clockwise direction.
-     *  If you want the target to rotate multiple times,
-     *  set this value to a large positive or small negative number.</p>
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var angleZBy:Number;
-
     /**
      * @private
      */
@@ -322,17 +261,17 @@ public class Rotate3D extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if(affectLayout)
+        if (!applyChangesPostLayout)
         {
-            addMotionPath("rotationX", angleXFrom, angleXTo, angleXBy);
-            addMotionPath("rotationY", angleYFrom, angleYTo, angleYBy);
-            addMotionPath("rotationZ", angleZFrom, angleZTo, angleZBy);
+            addMotionPath("rotationX", angleXFrom, angleXTo);
+            addMotionPath("rotationY", angleYFrom, angleYTo);
+            addMotionPath("rotationZ", angleZFrom, angleZTo);
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutRotationX", angleXFrom, angleXTo, angleXBy);
-            addPostLayoutMotionPath("postLayoutRotationY", angleYFrom, angleYTo, angleYBy);
-            addPostLayoutMotionPath("postLayoutRotationZ", angleZFrom, angleZTo, angleZBy);
+            addPostLayoutMotionPath("postLayoutRotationX", angleXFrom, angleXTo);
+            addPostLayoutMotionPath("postLayoutRotationY", angleYFrom, angleYTo);
+            addPostLayoutMotionPath("postLayoutRotationZ", angleZFrom, angleZTo);
         }
         super.initInstance(instance);
     }    
