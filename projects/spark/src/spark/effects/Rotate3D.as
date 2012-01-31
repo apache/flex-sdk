@@ -307,6 +307,14 @@ public class Rotate3D extends AnimateTransform
      */
     public var angleZBy:Number;
 
+    /**
+     * @private
+     */
+    override public function createInstance(target:Object = null):IEffectInstance
+    {
+        motionPaths = [];
+        return super.createInstance(target);
+    }
                         
     /**
      * @private
