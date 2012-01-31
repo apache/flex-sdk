@@ -13,7 +13,7 @@
                 <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"/>
             </s:HGroup>
 
-            <s:SimpleText width="100%" text="Drag the slider to change the image transparency"/>
+            <s:Label width="100%" text="Drag the slider to change the image transparency"/>
 
             <s:HSlider id="hSlider" minimum="0" maximum="1" value="1" stepSize="0.1"
                     snapInterval="0.1" liveDragging="true" change="fxImage.alpha=hSlider.value;"/>
