@@ -85,8 +85,6 @@ public class TextBox extends TextGraphicElement
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
 		compose(unscaledWidth, unscaledHeight);
-		
-		applyDisplayObjectProperties();
 	}
 
 	//--------------------------------------------------------------------------
