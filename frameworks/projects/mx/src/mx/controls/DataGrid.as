@@ -1845,7 +1845,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             actualContentHolder.setChildIndex(DisplayObject(itemEditorInstance),
                                       actualContentHolder.numChildren - 1);
             var col:DataGridColumn;
-            if (lockedColumnCount && editedItemPosition.columnIndex && visibleLockedColumns[lockedColumnCount - 1].colNum)
+            if (lockedColumnCount && editedItemPosition.columnIndex <= visibleLockedColumns[lockedColumnCount - 1].colNum)
                 col = visibleLockedColumns[actualColIndex];
             else
                 col = visibleColumns[actualColIndex];
