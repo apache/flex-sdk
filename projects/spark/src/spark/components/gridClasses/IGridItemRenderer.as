@@ -17,23 +17,21 @@ import mx.core.IVisualElement;
 import spark.components.Grid;
     
 /**
- *  The IGridItemRenderer interface defines the interface that item renderers 
- *  for the Spark DataGrid and Spark Grid controls must implement.  
- *  The DataGrid and Grid controls are referred to as the item renderer owner
- *  or as the host component of the item renderer.
- *  The item renderer owner uses this API to provide the item renderer 
- *  with the information needed to render one cell of the grid.  
+ *  The IGridItemRenderer interface must be implemented by DataGrid item renderers.  The
+ *  DataGrid uses this API to provide the item renderer with the information needed to 
+ *  render one grid or header <i>cell</i>.  
  *
- *  <p>All of the renderer's properties are set by owner
- *  during the execution of the <code>updateDisplayList()</code> method.
- *  After the properties have been set, Flex calls the item renderer's
- *  <code>prepare()</code> method.  
- *  IGridItemRenderer implementations should override the <code>prepare()</code> method 
- *  to make any final adjustments to its properties or any aspect of its visual elements.</p>
- *
+ *  <p>All of the renderer's properties are set during the execution of its parent's 
+ *  <code>updateDisplayList()</code> method.  After the properties have been set, the 
+ *  item renderer's <code>prepare()</code> method is called.  
+ *  An IGridItemRenderer implementation should override the <code>prepare()</code> method 
+ *  to make any final adjustments to its properties or any aspect of its visual elements.
+ *  Typically, the <code>prepare()</code> is used to configure the renderer's visual
+ *  elements based on the <code>data</code> property.</p>
+ * 
  *  <p>When an item renderer is no longer needed, either because it's going to be added 
- *  to the owner's internal reusable renderer "free" list, 
- *  or because it's no longer needed, the <code>discard()</code> method is called.</p> 
+ *  to an internal reusable renderer "free" list, or because it's never going to be 
+ *  used again, the IGridItemRenderer <code>discard()</code> method is called.</p> 
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.Grid
@@ -68,11 +66,16 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set rowIndex(value:int):void;
     
     /**
-     *  Contains <code>true</code> when either two input gestures occurs within a 
-     *  grid cell: the mouse button is pressed or the touch screen is pressed.   
-     *  The <code>down</code> property is reset to <code>false</code> when 
-     *  the mouse button is released, the user lifts their finger off of
-     *  the touch screen, or the selection is dragged off of the grid cell.   
+     *  This property is set to true when one of two input gestures occurs within a 
+     *  grid cell:  either the mouse button or the touch screen is pressed.   The down 
+     *  property is reset to false when the mouse button goes up, the user lifts off 
+     *  the touch screen, or the mouse/touch is dragged out of the grid cell.   
+     * 
+     *  <p>Unlike a List item renderer, grid item renderers do not have exclusive
+     *  responsibility for displaying the down indicator.  The Grid itself
+     *  renders the down indicator for the selected row or cell. 
+     *  The item renderer can also change its visual properties to emphasize
+     *  that it's being pressed.</p>   
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -96,11 +99,18 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set dragging(value:Boolean):void;
     
     /**
-     *  Contains <code>true</code> if the item renderer is being hovered over by the mouse.
-     *  The item renderer owner is responsible for drawing the hovered indicator 
-     *  for the selected row or cell. 
-     *  However, the item renderer can also change its visual properties to emphasize
-     *  that it's being hovered over.
+     *  Contains <code>true</code> if the item renderer is under the mouse and 
+     *  the Grid's selectionMode is <code>GridSelectionMode.SINGLE_CELL</code> or
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, or if the mouse is within the 
+     *  row the item renderer belongs to and the Grid's selectionMode is 
+     *  <code>GridSelectionMode.SINGLE_ROW</code> or 
+     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+     * 
+     *  <p>Unlike a List item renderer, grid item renderers do not have exclusive
+     *  responsibility for displaying something to indicate that the renderer 
+     *  or its row is under the mouse.  The Grid itself automatically displays the
+     *  hoverIndicator skin part for the hovered row or cell.  Grid item renderers 
+     *  can also change their properties to emphasize that they're hovered.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -113,9 +123,9 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     /**
      *  The string to display in the item renderer.  
      * 
-     *  <p>For example, the GridItemRenderer class automatically copies the 
+     *  <p>The GridItemRenderer class automatically copies the 
      *  value of this property to the <code>text</code> property 
-     *  of its <code>labelDisplay</code> control. 
+     *  of its <code>labelDisplay</code> element, if that element was specified. 
      *  The Grid sets the <code>label</code> to the value returned by the column's 
      *  <code>itemToLabel()</code> method.</p>
      *
@@ -131,11 +141,14 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     
     /**
      *  Contains <code>true</code> if the item renderer's cell is part 
-     *  of the current selection.  
-     *  The item renderer owner is responsible for drawing the selection 
-     *  indicator for the selected row or cell.  
-     *  The item renderer can also change its visual properties 
-     *  to emphasize that it's part of the selection.
+     *  of the current selection.
+     * 
+     *  <p> Unlike a List item renderer, 
+     *  grid item renderers do not have exclusive responsibility for displaying 
+     *  something to indicate that they're part of the selection.  The Grid 
+     *  itself automatically displays the selectionIndicator skin part for the 
+     *  selected rows or cells.  The item renderer can also change its visual properties 
+     *  to emphasize that it's part of the selection.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -146,11 +159,14 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set selected(value:Boolean):void;
     
     /**
-     *  Contains <code>true</code> if the item renderer's cell is 
-     *  contained within the caret indicator.  
-     *  The item renderer owner is responsible for drawing the caret 
-     *  indicator for the row or cell.  
-     *  
+     *  Contains <code>true</code> if the item renderer's cell is indicated by the caret.
+     * 
+     *  <p> Unlike a List item renderer, grid item renderers do not have exclusive 
+     *  responsibility for displaying something to indicate their cell or row has
+     *  the caret.  The Grid itself automatically displays the caretIndicator skin part for the 
+     *  caret row or cell.  The item renderer can also change its visual properties 
+     *  to emphasize that it has the caret.</p></p>
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -160,11 +176,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set showsCaret(value:Boolean):void;    
     
     /**
-     *  The GridColumn object representing the column
-     *  associated with this item renderer.
-     *
-     *  <p>This property is set by the item renderer owner by its
-     *  <code>updateDisplayList()</code> method. </p>
+     *  The GridColumn object representing the column associated with this item renderer.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -176,7 +188,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     
     /**
      *  The column index for this item renderer's cell.  
-     *  This is the same value as column.columnIndex.
+     *  This is the same value as <code>column.columnIndex</code>.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -186,7 +198,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function get columnIndex():int;    
     
     /**
-     *  Called from the item renderer owner's <code>updateDisplayList()</code> method 
+     *  Called from the item renderer parent's <code>updateDisplayList()</code> method 
      *  after all of the renderer's properties have been set.  
      *  The <code>hasBeenRecycled</code> parameter is <code>false</code>
      *  if this renderer has not been used before, meaning it was not recycled.  
@@ -195,16 +207,17 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  property, or because a redisplay was explicitly requested. 
      * 
      *  <p>This method can be used to configure all of a renderer's visual 
-     *  elements and properties
-     *  using this method can be more efficient data binding.  
+     *  elements and properties.
+     *  Using this method can be more efficient than binding <code>data</code>
+     *  properties to visual element properties.  
      *  Note: Because the <code>prepare()</code> method is called frequently, 
-     *  make sure that it performs only what is absolutely necessary.</p>
+     *  make sure that it is coded efficiently.</p>
      *
      *  <p>The <code>prepare()</code> method may be called many times 
      *  before the <code>discard()</code> method is called.</p>
      * 
      *  <p>This method is not intended to be called directly.
-     *  It is called by the item renderer owner.</p>
+     *  It is called by the DataGrid implementation.</p>
      * 
      *  @param hasBeenRecycled  <code>true</code> if this renderer is being reused.
      * 
@@ -216,14 +229,14 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function prepare(hasBeenRecycled:Boolean):void;
         
     /**
-     *  Called from the item renderer owner's <code>updateDisplayList()</code> method 
+     *  Called from the item renderer parent's <code>updateDisplayList()</code> method 
      *  when it has been determined that this renderer will no longer be visible.   
      *  If the <code>willBeRecycled</code> parameter is <code>true</code>, 
      *  then the owner adds this renderer to its internal free list for reuse.  
      *  Implementations can use this method to clear any renderer properties that are no longer needed.
      * 
      *  <p>This method is not intended to be called directly.
-     *  It is called by the item renderer owner.</p>
+     *  It is called by the DataGrid implementation.</p>
      * 
      *  @param willBeRecycled <code>true</code> if this renderer is going to be added 
      *  to the owner's internal free list for reuse.
