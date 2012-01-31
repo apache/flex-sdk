@@ -43,6 +43,11 @@ use namespace mx_internal;
  * The FxAnimateInstance class implements the instance class for the
  * FxAnimate effect. Flex creates an instance of this class when
  * it plays a FxAnimate effect; you do not create one yourself.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimateInstance extends EffectInstance
 {
@@ -64,6 +69,11 @@ public class FxAnimateInstance extends EffectInstance
      *  simply checking whether the property is 'in' the target.
      *  If not, we check whether it is a valid style, and otherwise
      *  throw an error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var isStyleMap:Object = new Object();
     
@@ -96,6 +106,11 @@ public class FxAnimateInstance extends EffectInstance
      * An array of AnimationProperty objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get animationProperties():Array
     {
@@ -116,6 +131,11 @@ public class FxAnimateInstance extends EffectInstance
      * the targets. This can be useful in situations where values resolve to
      * pixel coordinates and snapping to pixels is desired over landing
      * on fractional pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var roundValues:Boolean;
 
@@ -126,6 +146,11 @@ public class FxAnimateInstance extends EffectInstance
      * all standard constraints (left, right, top, bottom, horizontalCenter,
      * verticalCenter) for the duration of the animation, and re-enable them
      * when the animation is complete.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected var affectsConstraints:Boolean;
 
@@ -141,6 +166,11 @@ public class FxAnimateInstance extends EffectInstance
      * property in their affectedProperties array so 
      * that the effect instance has enough information about the target
      * and container to do the job.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var autoRemoveTarget:Boolean = false;
         
@@ -208,6 +238,11 @@ public class FxAnimateInstance extends EffectInstance
     
     /**
      *  @copy mx.effects.IEffectInstance#playheadTime
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get playheadTime():Number 
     {
@@ -267,6 +302,11 @@ public class FxAnimateInstance extends EffectInstance
      *
      *  @param playheadTime The position, in milliseconds, between 0
      *  and the value of the <code>duration</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function seek(playheadTime:Number):void
     {
@@ -289,6 +329,11 @@ public class FxAnimateInstance extends EffectInstance
      *  <p>The effect dispatches the <code>effectEnd</code> event.</p>
      *
      *  @see mx.effects.EffectInstance#end()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function end():void
     {
@@ -310,6 +355,11 @@ public class FxAnimateInstance extends EffectInstance
 
     /**
      *  @copy mx.effects.IEffectInstance#startEffect()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function startEffect():void
     {  
@@ -428,6 +478,11 @@ public class FxAnimateInstance extends EffectInstance
      * Set the values in the given array on the properties held in our
      * animationProperties array. This is called by the update and end 
      * functions, which are called by the Animation during the animation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function applyValues(value:Object):void
     {
@@ -468,6 +523,11 @@ public class FxAnimateInstance extends EffectInstance
      * is calculated from the other value and a supplied delta value.
      * 
      * @return Boolean whether this call changed any values in the list
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function finalizeValues():Boolean
     {
@@ -515,6 +575,11 @@ public class FxAnimateInstance extends EffectInstance
     /**
      * Handles start events from the animation.
      * If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function startHandler(event:AnimationEvent):void
     {
@@ -567,6 +632,11 @@ public class FxAnimateInstance extends EffectInstance
     /**
      * Handles update events from the animation.
      * If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function updateHandler(event:AnimationEvent):void
     {
@@ -577,6 +647,11 @@ public class FxAnimateInstance extends EffectInstance
     /**
      * Handles repeat events from the animation.
      * If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function repeatHandler(event:AnimationEvent):void
     {
@@ -590,6 +665,11 @@ public class FxAnimateInstance extends EffectInstance
 
     /**
      *  @copy mx.effects.IEffectInstance#finishEffect()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function finishEffect():void
     {
@@ -602,6 +682,11 @@ public class FxAnimateInstance extends EffectInstance
      * Handles the end event from the animation. The value here is an Array of
      * values, one for each 'property' in our animationProperties.
      * If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function endHandler(event:AnimationEvent):void
     {
@@ -620,6 +705,11 @@ public class FxAnimateInstance extends EffectInstance
      * Note that if a RemoveAction effect is playing in a CompositeEffect,
      * then the adding/removing is already happening and this function
      * will noop the add.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function addDisappearingTarget():void
     {
@@ -652,6 +742,11 @@ public class FxAnimateInstance extends EffectInstance
      * Note that if a RemoveAction effect is playing in a CompositeEffect,
      * then the adding/removing is already happening and this function
      * will noop the removal.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function removeDisappearingTarget():void
     {
@@ -812,6 +907,11 @@ public class FxAnimateInstance extends EffectInstance
      * Utility function to handle situation where values may be queried or
      * set on the target prior to completely setting up the effect's
      * animationProperties data values (from which the styleMap is created)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setupStyleMapEntry(property:String):void
     {
@@ -878,6 +978,11 @@ public class FxAnimateInstance extends EffectInstance
      * Enables or disables autoLayout in the target's container.
      * This is used to disable layout during the course of an animation,
      * and to re-enable it when the animation finishes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function setupParentLayout(enable:Boolean):void
     {
