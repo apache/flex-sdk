@@ -217,7 +217,10 @@ public class GroupBase extends UIComponent implements IViewport
      *  Three properties are delegated to the layout: clipAndEnableScrolling,
      *  verticalScrollPosition, horizontalScrollPosition.
      *  If the layout is reset, we copy the properties from the old
-     *  layout to the new one.   If the new layout is null, then we
+     *  layout to the new one (we don't copy verticalScrollPosition
+     *  and horizontalScrollPosition from an old layout object to a new layout 
+     *  object because this information might not translate correctly).   
+     *  If the new layout is null, then we
      *  temporarily store the delegated properties in _layoutProperties. 
      */
     public function set layout(value:LayoutBase):void
