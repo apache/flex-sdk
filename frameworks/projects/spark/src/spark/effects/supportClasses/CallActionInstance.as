@@ -73,18 +73,18 @@ public class CallActionInstance extends ActionEffectInstance
     public var functionName:String;
     
     //----------------------------------
-    //  parameters
+    //  args
     //----------------------------------
 
     /** 
-     *  @copy spark.effects.CallAction#parameters
+     *  @copy spark.effects.CallAction#args
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var parameters:Array;
+    public var args:Array;
 
     //--------------------------------------------------------------------------
     //
@@ -100,10 +100,10 @@ public class CallActionInstance extends ActionEffectInstance
         // Dispatch an effectStart event from the target.
         super.play();   
 
-        if (parameters)
+        if (args)
         {
             var theFunction:Function = target[functionName];
-            theFunction.apply(target, parameters);
+            theFunction.apply(target, args);
         }
         else
         {
