@@ -2076,7 +2076,7 @@ public class ComboBox extends ComboBase
         // the dropdown and then click outside the application.
 
         // If the dropdown is open...
-        if (_showingDropdown && _dropdown)
+        if (_showingDropdown && _dropdown && event.target == this)
         {
             // If focus is moving outside the dropdown...
             if (!event.relatedObject ||
