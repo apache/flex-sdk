@@ -38,7 +38,7 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
 //--------------------------------------
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#baseColor
+ *  @copy spark.components.supportClasses.GroupBase#baseColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -49,7 +49,7 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
 
 /**
  *  Name of the skin class to use for this component. The skin must be a class that extends
- *  the mx.components.Skin class. 
+ *  the spark.components.supportClasses.Skin class. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -98,7 +98,7 @@ use namespace mx_internal;  // for mx_internal function mirrorTree
  *  &lt;MyComponent skinClass="my.skins.MyComponentSkin"/&gt;</pre>
  *
  *
- *  @see mx.components.Skin
+ *  @see spark.components.supportClasses.Skin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
