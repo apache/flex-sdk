@@ -26,10 +26,32 @@ import spark.effects.AnimateShaderTransition;
 import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
     
+/**
+ *  The AnimateShaderTransitionInstance class implements the instance class for the
+ *  AnimateShaderTransition effect. Flex creates an instance of this class when
+ *  it plays a AnimateShaderTransition effect; you do not create one yourself.
+ *
+ *  @see spark.effects.AnimateShaderTransition
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
 public class AnimateShaderTransitionInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function AnimateShaderTransitionInstance(target:Object)
     {
         super(target);
@@ -38,11 +60,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     }
 
     /**
-     * The bitmap data representing the start state of this effect.
-     * If this property is not set, it will be calculated automatically
-     * when the effect is played by grabbing a snapshot of the target
-     * object, or by using a transparent bitmap if the object does not
-     * exist in the start state of a transition.
+     *  @copy spark.effects.AnimateShaderTransition#bitmapFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -52,11 +70,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var bitmapFrom:BitmapData;
     
     /**
-     * The bitmap data representing the end state of this effect.
-     * If this property is not set, it will be calculated automatically
-     * when the effect is played by grabbing a snapshot of the target
-     * object, or by using a transparent bitmap if the object does not
-     * exist in the end state of a transition.
+     *  @copy spark.effects.AnimateShaderTransition#bitmapTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -66,49 +80,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var bitmapTo:BitmapData;
 
     /**
-     * The bytecode that a <code>Shader</code> object will use
-     * for running the transition between the two bitmaps. 
-     * 
-     * <p>The shader can have arbitrary functionality and inputs, but 
-     * must, at a minimum, have three <code>image4</code> inputs.
-     * The first input, which can be named anything, should go
-     * unused by your shader code - it exists only to satisfy the
-     * Flash requirement of assigning a filtered object to the
-     * first input. Note that inputs that go completely unused in a
-     * shader kernel may be optimized out, so your kernel code should
-     * at least reference this input to keep it around.</p>
-     * 
-     * <p>There must be at least two other inputs
-     * named <code>from</code> and <code>to</code> and one 
-     * <code>float</code> parameter named <code>progress</code>, where
-     * <code>from/to</code> are the before/after bitmaps, respectively,
-     * and <code>progress</code> is the elapsed fraction of
-     * the effect.</p>
-     * 
-     * <p>Also, there are two optional parameters, <code>width</code>
-     * and <code>height</code>, which if they exist in the shader
-     * will be automatically set to the width and height for the
-     * effect instance target.</p>
-     * 
-     * <p>See the Pixel Bender Toolkit documentation for more
-     * information on writing shaders for Flash.</p>
-     * 
-     * @example To play an effect that uses a fictional Pixel Bender pbj 
-     * file MyShader.pbj, which takes a single <code>direction</code>
-     * parameter, the calling code could do this:
-     * @example <listing version="3.0">
-     *   [Embed(source="MyShader.pbj", mimeType="application/octet-stream")]
-     *   private var ShaderCodeClass:Class;
-     *   var shaderEffect = new AnimateShaderTransition();
-     *   shaderEffect.shaderCode = ShaderCodeClass;
-     *   shaderEffect.shaderProperties = {direction : 1};</listing>
-     * or in MXML code, this:<listing version="3.0">
-     *   &lt;AnimateShaderTransition 
-     *       shaderCode="&64;Embed(source='MyShader.pbj', mimeType='application/octet-stream')"
-     *       shaderProperties="{{direction : 1}}}"/&gt;
-     * </listing>
-     * 
-     * @see flash.display.Shader
+     *  @copy spark.effects.AnimateShaderTransition#shaderCode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -118,17 +90,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var shaderCode:ByteArray;
     
     /**
-     * A map of parameter name/value pairs that the shader
-     * will set its data values to prior to playing. For example,
-     * to set a parameter named <code>direction</code> in a
-     * shader with a Pixel Bender pbj file in Wipe.pbj, the calling 
-     * code could do this:
-     * @example <listing version="3.0">
-     *   [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
-     *   private var WipeCodeClass:Class;
-     *   var shaderEffect = new AnimateShaderTransition();
-     *   shaderEffect.shaderCode = WipeCodeClass;
-     *   shaderEffect.shaderProperties = {direction:1};</listing>
+     *  @copy spark.effects.AnimateShaderTransition#shaderProperties
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -139,9 +101,9 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
 
     /**
      * The Shader that is created using the <code>shaderCode</code>
-     * property as the underlying bytecode. Each instance needs its
-     * own separate Shader, but can share the bytecode. When each instance
-     * is played, we create the Shader that the instance will use.
+     * property as the underlying byte code. Each instance needs its
+     * own separate Shader, but can share the byte code. When each instance
+     * is played, create the Shader that the instance uses.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -274,6 +236,9 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         target.filters = [shaderFilter];
     }
 
+    /**
+     * @private
+     */
     override public function animationStart(animation:Animation):void
     {
         super.animationStart(animation);
@@ -286,6 +251,9 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         // shader filter during the animation.
         oldFilters  = target.filters;
     }    
+    /**
+     * @private
+     */
     override public function animationEnd(animation:Animation):void
     {
         target.filters = oldFilters;
