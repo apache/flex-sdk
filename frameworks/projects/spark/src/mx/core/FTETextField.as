@@ -1930,6 +1930,11 @@ package mx.core
          * 
          *  <p>FTE and TLF use this locale to map Unicode characters
          *  to font glyphs and to find fallback fonts.</p>
+         *
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get locale():String
         {
