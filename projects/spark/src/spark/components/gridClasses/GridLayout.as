@@ -1619,6 +1619,18 @@ public class GridLayout extends LayoutBase
                 gridDimensions.getRowBounds(rowIndex) :
                 gridDimensions.getCellBounds(rowIndex, columnIndex);
             
+            // TODO (klin): Remove this special case for the caret overlapping separators
+            // when we implement column/row gaps.
+            if (indicatorFactory == grid.caretIndicator && bounds)
+            {
+                // increase width and height by 1 to cover separator.
+                if (isCellSelectionMode() && (columnIndex < grid.columns.length - 1))
+                    bounds.width += 1;
+                
+                if ((rowIndex < grid.dataProvider.length - 1) || (visibleRowIndices.length > grid.dataProvider.length))
+                    bounds.height += 1;
+            }
+            
             layoutGridElementR(indicator, bounds);
             layer.addElement(indicator);
             indicator.visible = true;
