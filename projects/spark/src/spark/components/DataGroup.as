@@ -177,14 +177,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return;
         }
                 
-        var obj:DisplayObject = DisplayObject(createRendererForItem(_typicalItem, false));
+        var renderer:IVisualElement = createRendererForItem(_typicalItem, false);
+        var obj:DisplayObject = DisplayObject(renderer);
         if (!obj)
         {
             setTypicalLayoutElement(null);
             return;
         }
 
-        super.addChild(obj)            
+        super.addChild(obj);
+        updateRendererData(renderer, _typicalItem);
         if (obj is IInvalidating)
             IInvalidating(obj).validateNow();
         setTypicalLayoutElement(obj);
@@ -579,10 +581,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // Set the owner property     
         myItemRenderer.owner = this;
 
-        // Set the renderer's data to the item, but only if the item and renderer are different
-        if ((myItemRenderer is IDataRenderer) && (myItemRenderer != item))
-            IDataRenderer(myItemRenderer).data = item;   
-        
         if (myItemRenderer is IItemRenderer)
         	IItemRenderer(myItemRenderer).labelText = itemToLabel(item);
                     
@@ -598,6 +596,20 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         }
 
         return myItemRenderer;
+    }
+    
+    /**
+     *  @private 
+     *  Set the renderer's data to the item, but only if the item and 
+     *  renderer are different.   This step isn't integrated into createRendererForItem()
+     *  so that we can delay calling the IR's 'set data' method until after the
+     *  IR has a valid parent, i.e. until after it has been added to the 
+     *  display list.
+     */
+    private function updateRendererData(renderer:IVisualElement, item:Object):void
+    {
+        if ((renderer is IDataRenderer) && (renderer != item))
+            IDataRenderer(renderer).data = item;   
     }
     
     /**
@@ -924,8 +936,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                     elt = freeRenderers.pop();
                     elt.visible = true;
                     elt.includeInLayout = true;
-                    if (elt is IDataRenderer)
-                        IDataRenderer(elt).data = item;
                     if (elt is IItemRenderer)
                         IItemRenderer(elt).labelText = itemToLabel(item);
                     recycledIR = true;
@@ -941,13 +951,17 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
 
             addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutStartIndex);
             
-            if ((createdIR || recycledIR) && (elt is IInvalidating))
-                IInvalidating(elt).validateNow();
+            if (createdIR || recycledIR) 
+            {
+                updateRendererData(elt, item);
+                if (elt is IInvalidating)
+                    IInvalidating(elt).validateNow();
+            }
             if (createdIR)
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
         }
 
-        return elt;         
+        return elt;
      }
 
     /**
@@ -1025,8 +1039,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         
         var myItemRenderer:IVisualElement = createRendererForItem(item);
         indexToRenderer.splice(index, 0, myItemRenderer);
-
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
+        updateRendererData(myItemRenderer, item);
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_ADD, false, false, 
                       myItemRenderer, index, item));
