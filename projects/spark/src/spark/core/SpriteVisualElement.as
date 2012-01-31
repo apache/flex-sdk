@@ -21,6 +21,7 @@ import mx.core.FlexSprite;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
@@ -464,6 +465,114 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
     
     //----------------------------------
+    //  rotation
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set rotation(value:Number):void
+    {
+        if (rotation == value)
+            return;
+        
+        super.rotation = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  rotationX
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set rotationX(value:Number):void
+    {
+        if (rotationX == value)
+            return;
+        
+        super.rotationX = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  rotationY
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set rotationY(value:Number):void
+    {
+        if (rotationY == value)
+            return;
+        
+        super.rotationY = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  rotationZ
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set rotationZ(value:Number):void
+    {
+        rotation = value;
+    }
+    
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set scaleX(value:Number):void
+    {
+        if (scaleX == value)
+            return;
+        
+        super.scaleX = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set scaleY(value:Number):void
+    {
+        if (scaleY == value)
+            return;
+        
+        super.scaleY = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  scaleZ
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set scaleZ(value:Number):void
+    {
+        if (scaleZ == value)
+            return;
+        
+        super.scaleZ = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
     //  top
     //----------------------------------
     
@@ -602,6 +711,38 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     protected function set viewHeight(value:Number):void
     {
         _viewHeight = value;
+    }
+    
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set x(value:Number):void
+    {
+        if (x == value)
+            return;
+        
+        super.x = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  y
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set y(value:Number):void
+    {
+        if (y == value)
+            return;
+        
+        super.y = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //--------------------------------------------------------------------------
