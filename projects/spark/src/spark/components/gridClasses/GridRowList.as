@@ -193,6 +193,7 @@ public class GridRowList
         {
             _head = new GridRowNode(numColumns, index);
             _tail = _head;
+            _length++;
             return _head;
         }
         
@@ -278,7 +279,11 @@ public class GridRowList
         }
         
         // Uses last searched node if its closest to the target.
-        if (recentNode && temp < lastToIndex && temp < index)
+        if (lastToIndex < 0)
+        {
+            return null;
+        }
+        else if (recentNode && temp < lastToIndex && temp < index)
         {
             if (indexToRecent > 0)
                 result = findBefore(index, recentNode);
@@ -294,7 +299,8 @@ public class GridRowList
             result = findAfter(index, _head);
         }
         
-        recentNode = result;
+        if (result)
+            recentNode = result;
         
         return result;
     }
@@ -359,13 +365,34 @@ public class GridRowList
             return null;
         
         var indexToRecent:int;
+        var temp:int;
         var lastToIndex:int = _tail.rowIndex - index;
         var result:GridRowNode = null;
         
+        if (recentNode)
+        {
+            if (recentNode.rowIndex == index)
+                return recentNode;
+            
+            indexToRecent = recentNode.rowIndex - index;
+            temp = Math.abs(indexToRecent);
+        }
+        
+        if (index < _head.rowIndex)
+        {
+            result = null;
+        }
         // Uses last searched node if its closest to the target.
-        if (lastToIndex < 0)
+        else if (lastToIndex < 0)
         {
             result = _tail;
+        }
+        else if (recentNode && temp < lastToIndex && temp < index)
+        {
+            if (indexToRecent > 0)
+                result = findNearestBefore(index, recentNode);
+            else
+                result = findNearestAfter(index, recentNode);
         }
         else if (lastToIndex < index)
         {
@@ -375,6 +402,8 @@ public class GridRowList
         {
             result = findNearestAfter(index, _head);
         }
+        
+        recentNode = result;
         
         return result;
     }
