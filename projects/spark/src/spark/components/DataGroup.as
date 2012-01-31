@@ -414,6 +414,49 @@ public class DataGroup extends GroupBase
         itemRendererChanged = true;
         typicalItemChanged = true;
     }
+ 
+    //----------------------------------
+    //  rendererUpdateDelegate
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the rendererUpdateDelegate property.
+     */
+    private var _rendererUpdateDelegate:IItemRendererOwner;
+    
+    /**
+     *  @private
+     *  The rendererUpdateDelgate is used to delegate item renderer
+     *  updates to another component, usually the owner of the
+     *  DataGroup within the context of data centric component such
+     *  as List. 
+     *  
+     *  The registered delegate must implement the IItemRendererOwner interface.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    mx_internal function get rendererUpdateDelegate():IItemRendererOwner
+    {
+        return _rendererUpdateDelegate;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set rendererUpdateDelegate(value:IItemRendererOwner):void
+    {
+        _rendererUpdateDelegate = value;
+    }
+    
+    //----------------------------------
+    //  dataProvider
+    //----------------------------------
     
     private var _dataProvider:IList;
     private var dataProviderChanged:Boolean;
@@ -729,23 +772,23 @@ public class DataGroup extends GroupBase
         // so we can ignore any collectionChange.UPDATE events
         renderersBeingUpdated = true;
         
-        //Set the data    
+        // Set the data    
         if ((renderer is IDataRenderer) && (renderer !== data))
             IDataRenderer(renderer).data = data;
         
-        //Newly created renderer with no owner, set owner to this     
+        // Newly created renderer with no owner, set owner to this     
         if (!renderer.owner)
             renderer.owner = this; 
-
-        //If we're the owner, set the label to the toString()
-        //of the data 
-        if (renderer.owner == this && renderer is IItemRenderer)
-            IItemRenderer(renderer).label = itemToLabel(data); 
         
-        //This dataGroup is not the "true" owner, give the true 
-        //owner a chance to update the renderer. 
-        else if (renderer.owner != this)
-            IItemRendererOwner(renderer.owner).updateRenderer(renderer);
+        // If a delegate is specified defer to the rendererUpdateDelegate
+        // to update the renderer.
+        if (_rendererUpdateDelegate)
+            _rendererUpdateDelegate.updateRenderer(renderer);
+
+        // Else if we're the owner, set the label to the toString()
+        // of the data 
+        else if (renderer.owner == this && renderer is IItemRenderer)
+            IItemRenderer(renderer).label = itemToLabel(data); 
         
         // technically if this got called "recursively", this renderersBeingUpdated flag
         // would be prematurely set to false, but in most cases, this check should be 
