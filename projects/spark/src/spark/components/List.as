@@ -1495,6 +1495,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
+        // someone else handled it already
+//        if (event.isDefaultPrevented())
+//            return;
+        
         // Handle the fixup of selection
         var newIndex:int
         if (event.currentTarget is IItemRenderer)
