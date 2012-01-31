@@ -19,6 +19,9 @@ import mx.core.IFactory;
 import mx.core.IIMESupport;
 import mx.core.Singleton;
 import mx.core.mx_internal;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
+import mx.events.PropertyChangeEvent;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
@@ -946,7 +949,19 @@ public class GridColumn extends EventDispatcher
             return;
         
         _visible = value;
-        dispatchChangeEvent("visibleChanged");        
+        
+        // dispatch event for grid.
+        if (grid && grid.columns)
+        {
+            var propertyChangeEvent:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "visible", !_visible, _visible);
+            var collectionEvent:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            collectionEvent.kind = CollectionEventKind.UPDATE;
+            collectionEvent.items.push(propertyChangeEvent);
+            
+            grid.columns.dispatchEvent(collectionEvent);
+        }
+        
+        dispatchChangeEvent("visibleChanged");
     }
 
     //--------------------------------------------------------------------------
