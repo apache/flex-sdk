@@ -24,7 +24,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
