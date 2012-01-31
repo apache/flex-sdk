@@ -1,0 +1,261 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package spark.components.supportClasses
+{
+
+import spark.components.supportClasses.GroupBase;
+import mx.core.ILayoutElement;
+import spark.layout.supportClasses.LayoutBase;
+
+/**
+ *  The ButtonBarHorizontalLayout is a layout specifically designed for the
+ *  Spark ButtonBar skins.
+ *
+ *  The layout lays out the children horizontally, left to right.
+ *  
+ *  The layout measures such that all children are sized at their preferred size.
+ * 
+ *  If there is enough space, each child is set to its preferred size, plus any
+ *  excess space evenly distributed between the children.
+ * 
+ *  If there is not enough space for all the children to be sized to their
+ *  preferred size, then the children that are smaller than the average width
+ *  will be allocated their preferred size and the rest of the elements will be
+ *  reduced equally.
+ * 
+ *  All children are set to the height of the parent.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public class ButtonBarHorizontalLayout extends LayoutBase
+{
+    include "../../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function ButtonBarHorizontalLayout():void
+    {
+        super();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  gap
+    //----------------------------------
+
+    private var _gap:int = 0;
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The horizontal space between layout elements.
+     * 
+     *  Note that the gap is only applied between layout elements, so if there's
+     *  just one element, the gap has no effect on the layout.
+     * 
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */    
+    public function get gap():int
+    {
+        return _gap;
+    }
+
+    /**
+     *  @private
+     */
+    public function set gap(value:int):void
+    {
+        if (_gap == value) 
+            return;
+    
+        _gap = value;
+        invalidateTargetSizeAndDisplayList();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function measure():void
+    {
+        super.measure();
+        
+        var layoutTarget:GroupBase = target;
+        if (!layoutTarget)
+            return;
+
+        var width:Number = 0;
+        var height:Number = 0;
+
+        var count:int = layoutTarget.numElements;
+        for (var i:int = 0; i < count; i++)
+        {
+            var layoutElement:ILayoutElement = layoutTarget.getElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
+                continue;
+
+            width += layoutElement.getPreferredBoundsWidth();
+            height = Math.max(height, layoutElement.getPreferredBoundsHeight());
+
+        }
+
+        layoutTarget.measuredWidth = width;
+        layoutTarget.measuredHeight = height;
+    }
+
+    /**
+     *  @private 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function updateDisplayList(width:Number, height:Number):void
+    {
+        var gap:Number = this.gap;
+        super.updateDisplayList(width, height);
+        
+        var layoutTarget:GroupBase = target;
+        if (!layoutTarget)
+            return;
+
+        // Pass one: calculate the excess space
+        var totalPreferredWidth:Number = 0;            
+        var count:int = layoutTarget.numElements;
+        var elementCount:int = count;
+        var layoutElement:ILayoutElement;
+        for (var i:int = 0; i < count; i++)
+        {
+            layoutElement = layoutTarget.getElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
+            {
+                elementCount--;
+                continue;
+            }
+            totalPreferredWidth += layoutElement.getPreferredBoundsWidth();
+        }
+        
+        // Special case for no elements
+        if (elementCount == 0)
+        {
+            layoutTarget.setContentSize(0, 0);
+            return;
+        }
+        
+        // The content size is always the parent size
+        layoutTarget.setContentSize(width, height);
+
+        // Special case: if width is zero, make the gap zero as well
+        if (width == 0)
+            gap = 0;
+
+        // excessSpace can be negative
+        var excessSpace:Number = width - totalPreferredWidth - gap * (elementCount - 1);
+        var widthToDistribute:Number = width - gap * (elementCount - 1);
+        
+        // Special case: when we don't have enough space we need to count
+        // the number of children smaller than the averager size.
+        var averageWidth:Number;
+        var largeChildrenCount:int = elementCount;
+        if (excessSpace < 0)
+        {
+            averageWidth = width / elementCount;
+            for (i = 0; i < count; i++)
+            {
+                layoutElement = layoutTarget.getElementAt(i);
+                if (!layoutElement || !layoutElement.includeInLayout)
+                    continue;
+
+                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
+                if (preferredWidth <= averageWidth)
+                {
+                    widthToDistribute -= preferredWidth;
+                    largeChildrenCount--;
+                    continue;
+                }
+            }
+            widthToDistribute = Math.max(0, widthToDistribute);
+        }
+        
+        // Resize and position children
+        var x:Number = 0;
+        var childWidth:Number = NaN;
+        var childWidthRounded:Number = NaN;
+        var roundOff:Number = 0;
+        for (i = 0; i < count; i++)
+        {
+            layoutElement = layoutTarget.getElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
+                continue;
+
+            if (excessSpace > 0)
+            {
+                childWidth = widthToDistribute * layoutElement.getPreferredBoundsWidth() / totalPreferredWidth;
+            }
+            else if (excessSpace < 0)
+            {
+                childWidth = (averageWidth < layoutElement.getPreferredBoundsWidth()) ? widthToDistribute / largeChildrenCount : NaN;  
+            }
+            
+            if (!isNaN(childWidth))
+            {
+                // Round, we want integer values
+                childWidthRounded = Math.round(childWidth + roundOff);
+                roundOff += childWidth - childWidthRounded;
+            }
+
+            layoutElement.setLayoutBoundsSize(childWidthRounded, height);
+            layoutElement.setLayoutBoundsPosition(x, 0);
+            
+            // No need to round, width should be an integer number
+            x += gap + layoutElement.getLayoutBoundsWidth(); 
+        }
+    }
+}
+
+}
