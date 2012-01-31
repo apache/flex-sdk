@@ -45,22 +45,17 @@ public class TextBaseAccImpl extends AccImpl
     /**
      *  @private
      */
+    private static const STATE_SYSTEM_READONLY:uint = 0x00000040;
+
+    /**
+     *  @private
+     */
+    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
+
+    /**
+     *  @private
+     */
     private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_STATECHANGE:uint = 0x800A;
-
-    /**
-     *  @private
-     */
-		private static const STATE_SYSTEM_READONLY:uint = 0x00000040;
-
-    /**
-     *  @private
-     */
-	  private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
 
     //--------------------------------------------------------------------------
     //
@@ -141,7 +136,7 @@ public class TextBaseAccImpl extends AccImpl
      */
     override protected function get eventsToHandle():Array
     {
-        return super.eventsToHandle.concat(["show","hide","updateComplete"]);
+        return super.eventsToHandle.concat(["updateComplete"]);
     }
 
     //--------------------------------------------------------------------------
@@ -166,11 +161,10 @@ public class TextBaseAccImpl extends AccImpl
     {
         var accState:uint = getState(childID);
 
-				accState = STATE_SYSTEM_READONLY;
-				
-        if (TextBase(master).enabled == false)
-            accState |= STATE_SYSTEM_UNAVAILABLE;
-
+        accState &= ~STATE_SYSTEM_FOCUSABLE;
+        
+        accState |= STATE_SYSTEM_READONLY;
+        
         return accState;
     }
 
@@ -219,17 +213,11 @@ public class TextBaseAccImpl extends AccImpl
 
         switch (event.type)
         {
-            case "show": case "hide":
-            {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_STATECHANGE);
-                Accessibility.updateProperties();
-                break;
-            }
             case "updateComplete":
             {
-								Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
-								Accessibility.updateProperties();
-								break;
+                Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.updateProperties();
+                break;
             }
         }
     }
