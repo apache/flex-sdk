@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the s:Keyframe and s:MotionPath classes. -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Declarations>
+        <fx:Vector id="kf" type="spark.effects.animation.MotionPath">
+            <s:MotionPath property="scaleX">
+                <s:Keyframe time="250" value="0.5"/>
+                <s:Keyframe time="500" value="1.0"/>
+                <s:Keyframe time="750" value="0.5"/>
+                <s:Keyframe time="1000" value="1.0"/> 
+                <s:Keyframe time="1250" value="0.5"/>
+                <s:Keyframe time="1500" value="1.0"/>
+            </s:MotionPath> 
+            <s:MotionPath property="scaleY">
+                <s:Keyframe time="250" value="0.5"/>
+                <s:Keyframe time="500" value="1.0"/>
+                <s:Keyframe time="750" value="0.5"/>
+                <s:Keyframe time="1000" value="1.0"/>
+                <s:Keyframe time="1250" value="0.5"/>
+                <s:Keyframe time="1500" value="1.0"/>
+            </s:MotionPath>
+        </fx:Vector>
+        
+        <s:Animate id="shrinkEffect"
+            motionPaths="{kf}"
+            target="{myImage}"/>
+    </fx:Declarations>
+
+    <s:Panel id="examplePanel"
+        title="Keyframe and MotionPath Effect Example"
+        width="75%" height="75%">
+        <s:layout>
+            <s:VerticalLayout paddingTop="10" paddingLeft="10"/>
+        </s:layout>
+
+        <!-- Directions -->
+        <s:VGroup id="detailsBox" width="50%" left="0">
+            <s:Label width="99%" color="blue"
+                text="Click the Adobe logo to watch the effect."/>
+        </s:VGroup>
+
+        <mx:Image id="myImage" 
+            source="@Embed(source='assets/logo.jpg')"
+            click="shrinkEffect.end();shrinkEffect.play();"/>
+    </s:Panel>
+</s:Application>
