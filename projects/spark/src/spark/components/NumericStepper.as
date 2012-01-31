@@ -60,7 +60,74 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  component, or steps the NumericStepper by pressing an arrow button
  *  or by calling the <code>changeValueByStep()</code> method.</p>
  *
- *  @see mx.components.Spinner
+ *  @mxml
+ *
+ *  <p>The <code>&lt;NumericStepper&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;NumericStepper
+ *
+ *    <strong>Properties</strong>
+ *    imeMode="null"
+ *    maxChars="0"
+ *    maximum="10"
+ *    valueFormatFunction=""
+ *    valueParseFunction=""
+ *
+ *    <strong>Styles</strong>
+ *
+*    alignmentBaseline="USE_DOMINANT_BASELINE"
+*    baselineShift="0.0"
+*    blockProgression="TB"
+*    breakOpportunity="AUTO"
+*    cffHinting="HORIZONTAL_STEM"
+*    color="0"
+*    contentBackgroundColor=""
+*    digitCase="DEFAULT"
+*    digitWidth="DEFAULT"
+*    direction="LTR"
+*    dominantBaseline="AUTO"
+*    firstBaselineOffset="AUTO"
+*    focusedTextSelectionColor=""
+*    fontFamily="Times New Roman"
+*    fontLookup="DEVICE"
+*    fontSize="12"
+*    fontStyle="NORMAL"
+*    fontWeight="NORMAL"
+*    inactiveTextSelection=""
+*    justificationRule="AUTO"
+*    justificationStyle="AUTO"
+*    kerning="AUTO"
+*    leadingModel="AUTO"
+*    ligatureLevel="COMMON"
+*    lineHeight="120%"
+*    lineThrough="false"
+*    locale="en"
+*    paragraphEndIndent="0"
+*    paragraphSpaceAfter="0"
+*    paragraphSpaceBefore="0"
+*    paragraphStartIndent="0"
+*    renderingMode="CFF"
+*    tabStops="null"
+*    textAlign="START"
+*    textAlignLast="START"
+*    textAlpha="1"
+*    textDecoration="NONE"
+*    textIndent="0"
+*    textJustify="INTER_WORD"
+*    textRotation="AUTO"
+*    trackingLeft="0"
+*    trackingRight="0"
+*    typographicCase="DEFAULT"
+*    unfocusedTextSelectionColor=""
+*    whiteSpaceCollapse="COLLAPSE"
+*  /&gt;
+*  </pre>
+*
+ *  @see spark.components.Spinner
+ *  @see spark.skins.spark.NumericStepperSkin
+ *  @see spark.skins.spark.NumericStepperTextInputSkin
  * 
  *  @includeExample examples/NumericStepperExample.mxml
  *  
@@ -176,7 +243,7 @@ public class NumericStepper extends Spinner
     
      /**
      *  Callback function that formats the value displayed
-     *  in the textDisplay field.
+     *  in the skin's <code>textDisplay</code> property.
      *  The function takes a single Number as an argument
      *  and returns a formatted String.
      *
@@ -217,7 +284,7 @@ public class NumericStepper extends Spinner
      /**
      *  Callback function that extracts the numeric 
      *  value from the displayed value in the 
-     *  textDisplay field.  
+     *  skin's <code>textDisplay</code> field.  
      * 
      *  The function takes a single String as an argument
      *  and returns a Number.
