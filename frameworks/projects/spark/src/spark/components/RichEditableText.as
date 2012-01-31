@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.system.IME;
 import flash.system.IMEConversionMode;
@@ -430,11 +431,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     */
-    private var lastUnscaledWidth:Number = NaN;
-    
-    /**
-     *  @private
      *  True if TextOperationEvent.CHANGING should be dispatched at
      *  operationEnd.
      */
@@ -493,6 +489,13 @@ public class RichEditableText extends UIComponent
      *  released.
      */
     private var priorEditingMode:String;
+
+    /**
+     *  @private
+     *  Cache the width constraint as set by the layout in setLayoutBoundsSize()
+     *  so that text reflow can be calculated during a subsequent measure pass.
+     */
+    private var widthConstraint:Number = NaN;
                 
     //--------------------------------------------------------------------------
     //
@@ -540,39 +543,21 @@ public class RichEditableText extends UIComponent
     }
 
     //----------------------------------
-    //  explicitWidth
+    //  maxWidth
     //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set explicitWidth(value:Number):void
-    {
-        if (value == explicitWidth)
-            return;
-            
-        super.explicitWidth = value;
-        
-        // Re-measure.  The width change could impact the height.
-        invalidateSize();
-    }
 
-    //----------------------------------
-    //  percentWidth
-    //----------------------------------
-    
     /**
      *  @private
      */
-    override public function set percentWidth(value:Number):void
+    override public function get maxWidth():Number
     {
-        if (value == percentWidth)
-            return;
+        if (!_autoSize || !isNaN(explicitMaxWidth))
+            return super.maxWidth;
             
-        super.percentWidth = value;
-        
-        // Re-measure.
-        invalidateSize();
+        // The default for maxWidth is 10000 which isn't a 
+        // reasonable default for the autoSize width so use the default
+        // measured width which is 160 instead.
+        return  UIComponent.DEFAULT_MEASURED_WIDTH;
     }
 
     //--------------------------------------------------------------------------
@@ -619,8 +604,13 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var _clipAndEnableScrolling:Boolean = true;
-    
+    private var _clipAndEnableScrolling:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var clipAndEnableScrollingChanged:Boolean = false;
+        
     /**
      *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
      *  
@@ -643,6 +633,9 @@ public class RichEditableText extends UIComponent
             return;
     
         _clipAndEnableScrolling = value;
+        
+        clipAndEnableScrollingChanged = true;
+        
         // TBD implement this
     }
         
@@ -1609,6 +1602,18 @@ public class RichEditableText extends UIComponent
             selectableChanged = false;        	
         }
         
+        // If this component is in a scroller, then we can't autoSize.  Every
+        // time we autoSize, the scroller responds to the size change, which
+        // causes us to remeasure, which causes the scroller to respond to the
+        // size change, and ask us to remeasure, etc.
+        if (clipAndEnableScrollingChanged)
+        {
+            if (_clipAndEnableScrolling)
+                autoSize = false;
+                
+            clipAndEnableScrollingChanged = false;                
+        }
+                
         if (autoSizeChanged)
         {
             var value:String = _autoSize ? "off" : "auto";
@@ -1645,6 +1650,69 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  We override the setLayoutBoundsSize to determine whether to perform
+     *  text reflow. This is a convenient place, as the layout passes NaN
+     *  for a dimension not constrained to the parent.
+     */
+    override public function setLayoutBoundsSize(
+                                width:Number, height:Number,
+                                postLayoutTransform:Boolean = true):void
+    {
+        //trace("setLayoutBoundsSize", width, height);
+        
+        super.setLayoutBoundsSize(width, height, postLayoutTransform);
+
+        // Only autoSize cares about the real measured width.
+        if (!_autoSize)
+            return;
+            
+        // TODO Possible optimization - if we reflow the text
+        // immediately, we'll be able to detect whether the constrained
+        // width causes the measured height to change.
+        // Also certain layouts like vertical/horizontal will
+        // be able to get the better performance as subsequent elements
+        // will not go through updateDisplayList twice. This also has the
+        // potential of avoiding text compositing during measure.
+
+        // Did we already constrain the width?
+        if (widthConstraint == width)
+            return;
+        
+        // No reflow for explicit lineBreak
+        if (getStyle("lineBreak") == "explicit")
+            return;
+
+        // If we don't measure
+        if (skipMeasure())
+            return;
+
+        if (!isNaN(explicitHeight))
+            return;
+
+        // We support reflow only in the case of constrained width and
+        // unconstrained height. Note that we compare with measuredWidth,
+        // as for example the RichEditableText can be
+        // constrained by the layout with "left" and "right", but the
+        // container width itself may not be constrained and it would depend
+        // on the element's measuredWidth.
+        var constrainedWidth:Boolean = 
+                !isNaN(width) && (width != measuredWidth) && (width != 0);                 
+        if (!constrainedWidth)
+            return;
+            
+        // We support reflow only when we don't have a transform.
+        // We could add support for scale, but not skew or rotation.
+        var matrix:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null;
+        if (matrix != null)
+            return;
+
+        widthConstraint = width;
+        
+        invalidateSize();
+    }
+    
+    /**
+     *  @private
      */
     override protected function skipMeasure():Boolean
     {
@@ -1667,34 +1735,13 @@ public class RichEditableText extends UIComponent
     
         if (_autoSize)
         {
-            // percentWidth is a special case for autoSize since we need
-            // updateDisplay() to first tell us the unscaledWidth that has
-            // been calculated from the percentWidth.
-            if (isSpecialCase())
-            {
-                if (!isNaN(lastUnscaledWidth))
-                {
-                    // second time thru - max width is known
-                    measureUsingWidth(lastUnscaledWidth);
-                }
-                else
-                {
-                    // first time thru - can't determine width
-                    measuredWidth = 0;
-                    measuredHeight = 0;
-                }
-            }
-            else
-            {
-                // Normal autoSize.  If toFit will compose up to maxWidth
-                // width.  If explicit, will compose entire width of text.
-                measureUsingWidth(!isNaN(explicitWidth) ? explicitWidth : maxWidth);               
-            }
+            measureForAutoSize();
         }
         else
         {
             measuredWidth = Math.round(calculateWidthInChars());
-            measuredHeight = Math.ceil(calculateHeightInLines());            
+            
+            measuredHeight = Math.round(calculateHeightInLines());
         }    
                
         //trace("measure", measuredWidth, measuredHeight);
@@ -1709,18 +1756,6 @@ public class RichEditableText extends UIComponent
         //trace("updateDisplayList", unscaledWidth, unscaledHeight);
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        if (isSpecialCase())
-        {
-            var firstTime:Boolean = isNaN(lastUnscaledWidth) ||
-            						lastUnscaledWidth != unscaledWidth;
-            lastUnscaledWidth = unscaledWidth;
-            if (firstTime)
-            {
-                invalidateSize();
-                return;
-            }
-        }
 
         if (!_autoSize)
         {
@@ -2033,18 +2068,24 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  If the explicit widths and heights are not set to NaN, the 
+     *  measuredWidth and measuredHeight are clamped down to these values
+     *  when measure() returns to UIComponent.measureSizes().
      */
-    private function measureUsingWidth(maxComposeWidth:Number):void
-    {
-        // Never compose over the max width because the width will always
-        // be adjusted down to this and it's easy to get into an infinite
-        // measure/update display loop.
-        var composeWidth:Number; 
+    private function measureForAutoSize():void
+    {        
+        var composeWidth:Number;                                       
+
         if (hostFormat.lineBreak == "toFit")
         {
-            // Need to set a width to cause a wrap if text rather than 
-            // formatted content.
-            composeWidth = maxComposeWidth;
+            // Need to set a width to cause a wrap.  Never compose over the 
+            // max width because the width will always be adjusted down to this 
+            // and it's easy to get into an infinite measure/update display 
+            // loop.            
+            if (!isNaN(widthConstraint) && widthConstraint <= maxWidth)
+                composeWidth = widthConstraint
+            else
+                composeWidth = maxWidth;
             explicitMinWidth = NaN;
         }
         else
@@ -2070,23 +2111,20 @@ public class RichEditableText extends UIComponent
         
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
-        measuredHeight = Math.ceil(contentBounds.height);
+        measuredHeight = Math.round(contentBounds.height);
 
-        if (_inputManager.getText().length > 1) 
+        if (_inputManager.getText().length > 0) 
         {
-            // Non-empty text flow.
-            measuredWidth = Math.ceil(contentBounds.width);
+            // Text flow with a terminator (which has width).
+            measuredWidth = Math.round(contentBounds.width);
         }
         else
         {
-            // Empty text flow.  One Em wide with padding.
-            measuredWidth = Math.ceil(getStyle("fontSize") +
-                                      contentBounds.width);
+            // Empty text flow.  One Em wide so there
+            // is a place to put the insertion cursor.
+            measuredWidth = Math.round(contentBounds.width +
+                                       getStyle("fontSize"));
        }
-                
-        // Lock in the compose area so all text is visible.
-        measuredMinWidth = measuredWidth;                     
-        measuredMinHeight = measuredHeight;           
     }
 
     /**
@@ -2172,9 +2210,9 @@ public class RichEditableText extends UIComponent
     	
     	// Without the explicit casts, if padding values are non-zero, the
     	// returned width is a very large number.
-    	return Number(getStyle("paddingLeft")) +
+    	return getStyle("paddingLeft") +
     		   widthInChars * em +
-    		   Number(getStyle("paddingRight"));
+    		   getStyle("paddingRight");
     }
     
     /**
@@ -2184,8 +2222,7 @@ public class RichEditableText extends UIComponent
      */
     private function calculateHeightInLines():Number
     {
-        var height:Number = Number(getStyle("paddingTop")) + 
-                            Number(getStyle("paddingBottom"));
+        var height:Number = getStyle("paddingTop") + getStyle("paddingBottom");
             
         if (heightInLines == 0)
             return height;
@@ -2443,8 +2480,8 @@ public class RichEditableText extends UIComponent
     
       
     /**
-     *  Sets the selection range and.  If the text is not editable or selectable
-     *  this will also implicitly make the text selectable.
+     *  Sets the selection range.  By default, the entire range is selected.
+     *  If you pass negative numbers for the position, it will deselect. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2888,7 +2925,9 @@ public class RichEditableText extends UIComponent
      */
     private function updateCompleteHandler(event:FlexEvent):void
     {
-        lastUnscaledWidth = NaN;
+        // Make sure that if we did a double pass, next time around we'll
+        // measure normally
+        widthConstraint = NaN;
     }
 
     /**
