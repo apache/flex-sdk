@@ -1501,9 +1501,7 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
+     *  <p> This property is intended be used to initialize or bind to the
      *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> 
@@ -1532,15 +1530,30 @@ public class Grid extends Group implements IDataGridElement
         const rowIndex:int = (value) ? value.rowIndex : -1;
         const columnIndex:int = (value) ? value.columnIndex : -1;
         
-        var f:Function = function():void
+        // Defer the selection change if we haven't been initialized
+        
+        if (!initialized)
+        {
+            // Append a deferred operation function that selects the specified cell
+            
+            var f:Function = function():void
+            {
+                if ((rowIndex != -1) && (columnIndex != -1))
+                    setSelectedCell(rowIndex, columnIndex);
+                else
+                    clearSelection();
+            }
+                
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             if ((rowIndex != -1) && (columnIndex != -1))
                 setSelectedCell(rowIndex, columnIndex);
             else
-                clearSelection();
+                clearSelection();            
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }        
                    
     //----------------------------------
@@ -1561,12 +1574,10 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
-     *  selection in MXML markup.  The setSelectedCell(), addSelectedCell(),
-     *  and selectCellRegion() methods should be used for programatic selection 
-     *  updates, for example when writing a keyboard or mouse event handler. </p>  
+     *  <p> This property is intended be used to initialize or bind to the
+     *  selection in MXML markup.  The setSelectedCell() method should be used
+     *  for programatic selection updates, for example when writing a keyboard
+     *  or mouse event handler. </p> 
      * 
      *  @default An empty Vector.<CellPosition>
      * 
@@ -1597,16 +1608,27 @@ public class Grid extends Group implements IDataGridElement
                 valueCopy.push(new CellPosition(cell.rowIndex, cell.columnIndex));
         }
         
-        // Append a deferred operation function that selects the specified cells
+        // Defer the selection change if we haven't been initialized
         
-        var f:Function = function():void
+        if (!initialized)
+        {        
+            // Append a deferred operation function that selects the specified cells
+            
+            var f:Function = function():void
+            {
+                clearSelection();
+                for each (cell in valueCopy)
+                    addSelectedCell(cell.rowIndex, cell.columnIndex);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             clearSelection();
             for each (cell in valueCopy)
-                addSelectedCell(cell.rowIndex, cell.columnIndex);
+                addSelectedCell(cell.rowIndex, cell.columnIndex);            
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }          
 
     //----------------------------------
@@ -1626,12 +1648,10 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
-     *  selection in MXML markup.  The setSelectedIndex() method should be used
+     *  <p> This property is intended be used to initialize or bind to the
+     *  selection in MXML markup.  The setSelectedCell() method should be used
      *  for programatic selection updates, for example when writing a keyboard
-     *  or mouse event handler. </p>
+     *  or mouse event handler. </p> 
      *
      *  @default -1
      * 
@@ -1654,15 +1674,29 @@ public class Grid extends Group implements IDataGridElement
      */
     public function set selectedIndex(value:int):void
     {
-        var f:Function = function():void
+        // Defer the selection change if we haven't been initialized
+        
+        if (!initialized)
+        {        
+            // Append a deferred operation function that selects the specified index
+            
+            var f:Function = function():void
+            {
+                if (value != -1)
+                    setSelectedIndex(value);
+                else
+                    clearSelection();
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             if (value != -1)
                 setSelectedIndex(value);
             else
                 clearSelection();
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }
     
     //----------------------------------
@@ -1683,12 +1717,10 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
-     *  selection in MXML markup.  The setSelectedIndex(), addSelectedIndex(),
-     *  and selectIndices() methods should be used for programatic selection 
-     *  updates, for example when writing a keyboard or mouse event handler. </p> 
+     *  <p> This property is intended be used to initialize or bind to the
+     *  selection in MXML markup.  The setSelectedCell() method should be used
+     *  for programatic selection updates, for example when writing a keyboard
+     *  or mouse event handler. </p> > 
      *
      *  @default An empty Vector.<int>
      * 
@@ -1716,16 +1748,27 @@ public class Grid extends Group implements IDataGridElement
         
         const valueCopy:Vector.<int> = (value) ? value.concat() : new Vector.<int>(0);
         
-        // Append a deferred operation function that selects the specified indices            
+        // Defer the selection change if we haven't been initialized
         
-        var f:Function = function():void
+        if (!initialized)
+        {        
+            // Append a deferred operation function that selects the specified indices
+        
+            var f:Function = function():void
+            {
+                clearSelection();
+                for each (var index:int in valueCopy)
+                    addSelectedIndex(index);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             clearSelection();
             for each (var index:int in valueCopy)
-                addSelectedIndex(index);
+                addSelectedIndex(index);            
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }        
     
     //----------------------------------
@@ -1746,12 +1789,10 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
-     *  selection in MXML markup.  To programatically set the "selected item"
-     *  use <code>dataProvider.getItemIndex()</code> to compute the item's location
-     *  and <code>setSelectedIndex()</code> to change the selection.</p>
+     *  <p> This property is intended be used to initialize or bind to the
+     *  selection in MXML markup.  The setSelectedCell() method should be used
+     *  for programatic selection updates, for example when writing a keyboard
+     *  or mouse event handler. </p> 
      *  
      *  @default undefined
      * 
@@ -1778,19 +1819,37 @@ public class Grid extends Group implements IDataGridElement
      */
     public function set selectedItem(value:Object):void
     {
-        var f:Function = function():void
+        // Defer the selection change if we haven't been initialized
+        
+        if (!initialized)
+        {        
+            // Append a deferred operation function that selects the specified item
+            
+            var f:Function = function():void
+            {
+                if (!dataProvider)
+                    return;
+    
+                const rowIndex:int = dataProvider.getItemIndex(value);
+                if (rowIndex == -1)
+                    clearSelection();
+                else
+                    setSelectedIndex(rowIndex);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             if (!dataProvider)
                 return;
-
+            
             const rowIndex:int = dataProvider.getItemIndex(value);
             if (rowIndex == -1)
                 clearSelection();
             else
-                setSelectedIndex(rowIndex);
+                setSelectedIndex(rowIndex);            
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }        
     
     //----------------------------------
@@ -1810,12 +1869,10 @@ public class Grid extends Group implements IDataGridElement
      *  event. When the user changes the selection programmatically, the 
      *  control dispatches the <code>valueCommit</code> event.</p>
      * 
-     *  <p>Attempts to set this property are deferred until commitProperties()
-     *  runs, and the dataProvider property has been set.  This property is not
-     *  intended for programatic selection updates, it can be used to initialize the
-     *  selection in MXML markup.  To programatically set the "selected item"
-     *  use <code>dataProvider.getItemIndex()</code> to compute the item's location
-     *  and <code>setSelectedIndex()</code> to change the selection.</p>
+     *  <p> This property is intended be used to initialize or bind to the
+     *  selection in MXML markup.  The setSelectedCell() method should be used
+     *  for programatic selection updates, for example when writing a keyboard
+     *  or mouse event handler. </p> 
      *  
      *  @default An empty Vector.<Object>
      * 
@@ -1851,19 +1908,33 @@ public class Grid extends Group implements IDataGridElement
         
         const valueCopy:Vector.<Object> = (value) ? value.concat() : new Vector.<Object>(0);
         
-        // Append a deferred operation function that selects the specified indices            
+        // Defer the selection change if we haven't been initialized
         
-        var f:Function = function():void
+        if (!initialized)
+        {        
+            // Append a deferred operation function that selects the specified items        
+            
+            var f:Function = function():void
+            {
+                if (!dataProvider)
+                    return;
+                
+                clearSelection();
+                for each (var item:Object in valueCopy)
+                    addSelectedIndex(dataProvider.getItemIndex(item));
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }
+        else
         {
             if (!dataProvider)
                 return;
             
             clearSelection();
             for each (var item:Object in valueCopy)
-                addSelectedIndex(dataProvider.getItemIndex(item));
+               addSelectedIndex(dataProvider.getItemIndex(item))            
         }
-        deferredOperations.push(f);  // function f() to be called by commitProperties()
-        invalidateProperties();
     }        
     
     //----------------------------------
