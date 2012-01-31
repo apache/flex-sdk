@@ -770,7 +770,7 @@ public class Group extends GroupBase
             childDO = GraphicElement(item).displayObject;
         }
                 
-        if (childDO)
+        if (childDO && childDO.parent && childDO.parent == this)
             super.removeChild(childDO);
         
         invalidateSize();
