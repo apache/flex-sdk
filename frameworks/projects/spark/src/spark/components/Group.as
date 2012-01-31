@@ -53,7 +53,7 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
  */
-[Event(name="itemAdd", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the content holder.
@@ -61,7 +61,7 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
-[Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -252,7 +252,7 @@ public class Group extends GroupBase
      */ 
     override protected function commitProperties():void
     {
-    	if (contentChanged)
+        if (contentChanged)
         {
             contentChanged = false;
             initializeChildrenArray();
@@ -260,9 +260,9 @@ public class Group extends GroupBase
             maskChanged = true; 
         }
     
-    	// Need to initializeChildrenArray before calling super.commitProperties
-    	// initializeChildrenArray removes all of the display list children.
-    	// GroupBase's commitProperties reattaches the mask
+        // Need to initializeChildrenArray before calling super.commitProperties
+        // initializeChildrenArray removes all of the display list children.
+        // GroupBase's commitProperties reattaches the mask
         super.commitProperties(); 
         
         if (blendModeChanged)
