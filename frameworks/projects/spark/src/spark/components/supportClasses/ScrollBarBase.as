@@ -581,6 +581,54 @@ public class ScrollBarBase extends TrackBase
         }
     }
     
+    //----------------------------------
+    //  content minimum/maximum
+    //----------------------------------
+    
+    private var _contentMinimum:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    mx_internal function get contentMinimum():Number
+    {
+        return _contentMinimum;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set contentMinimum(value:Number):void
+    {
+        if (value == _contentMinimum)
+            return;
+        
+        _contentMinimum = value;
+        invalidateDisplayList();
+    }
+    
+    private var _contentMaximum:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    mx_internal function get contentMaximum():Number
+    {
+        return _contentMaximum;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set contentMaximum(value:Number):void
+    {
+        if (value == _contentMaximum)
+            return;
+        
+        _contentMaximum = value;
+        invalidateDisplayList();
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Methods
