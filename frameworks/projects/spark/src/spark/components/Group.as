@@ -39,6 +39,7 @@ import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.managers.ILayoutManagerClient;
+import mx.styles.IStyleClient;
 
 /**
  *  Dispatched prior to the group's content being changed. This is only
@@ -996,6 +997,11 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         if (item is GraphicElement && !alwaysUseItemRenderer) 
         {
             item.elementHost = this;
+        
+            // If a styleable GraphicElement is being added,
+            // build its protochain for use by getStyle().
+            if (item is IStyleClient)
+                IStyleClient(item).regenerateStyleCache(true);
         }   
         else
         {           
