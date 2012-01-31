@@ -90,7 +90,13 @@ public class PopUp extends UIComponent
 	 */ 
 	public function set content(value:UIComponent):void
 	{
+		if (_content == value)
+			return;
+			
 		_content = value;
+		
+		if (_content)
+			_content.styleName = this;
 		updateContentState();
 	}
 	
