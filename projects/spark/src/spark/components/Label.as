@@ -1266,7 +1266,7 @@ public class Label extends TextBase
         }
         
         // The text was truncated.
-        _isTruncated = true;
+        setIsTruncated(true);
     }
         
     /** 
