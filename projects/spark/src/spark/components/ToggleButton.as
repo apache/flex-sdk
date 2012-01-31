@@ -51,8 +51,9 @@ import spark.components.supportClasses.ToggleButtonBase;
  *
  *  <p>The <code>&lt;ToggleButton&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
+ * 
  *  <pre>
- *  &lt;ToggleButton/&gt;
+ *  &lt;s:ToggleButton/&gt;
  *  </pre>
  *
  *  @see spark.skins.spark.ToggleButtonSkin
