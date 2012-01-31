@@ -28,6 +28,7 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import flex.graphics.graphicsClasses.GraphicElement;
 import flex.graphics.IAssignableDisplayObjectElement;
 import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
@@ -328,10 +329,38 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 }
             }
         }
+
+        // Check whether we manage the elements, or are they managed by an ItemRenderer
+        if (!alwaysUseItemRenderer)
+        {
+            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+            // Validate element properties
+            var length:int = numItems;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:GraphicElement = getItemAt(i) as GraphicElement;
+                if (element)
+                    element.validateProperties();
+            }
+        }
     }
     
     override protected function measure():void
     {
+        // Check whether we manage the elements, or are they managed by an ItemRenderer
+        if (!alwaysUseItemRenderer)
+        {
+            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+            // Validate element size
+            var length:int = numItems;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:GraphicElement = getItemAt(i) as GraphicElement;
+                if (element)
+                    element.validateSize();
+            }
+        }
+
         super.measure();
         
         if (_layout)
@@ -342,40 +371,25 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // TODO!!! Move this above the GraphicElement drawing once layout objects 
-        // understand how to layout GraphicElements. 
         if (_layout)
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // Iterate through the graphic elements, clear their graphics and draw them
-        var length:int = numItems;
-        for (var i:int = 0; i < length; i++)
+        // Check whether we manage the elements, or are they managed by an ItemRenderer
+        if (!alwaysUseItemRenderer)
         {
-            var element:IGraphicElement = getItemAt(i) as IGraphicElement;
-            
-            if (element && !alwaysUseItemRenderer)
+            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+            // Iterate through the graphic elements, clear their graphics and draw them
+            var length:int = numItems;
+            for (var i:int = 0; i < length; i++)
             {
-                var g:Graphics;
-                var elementShape:Shape = elementToDisplayObjectMap[element] as Shape;
-                if (elementShape)
-                {
-                    g = elementShape.graphics;
-                }
-                else
-                {
-                    var elementSprite:Sprite = elementToDisplayObjectMap[element] as Sprite;
-                    if (elementSprite)
-                        g = elementSprite.graphics;
-                }
-                                
-                if (g)
-                {
-                    g.clear();
-                    element.draw(g); 
-                }
+                var element:GraphicElement = getItemAt(i) as GraphicElement;
+                if (element)
+                    element.validateDisplayList();
             }
         }
-            
+
+        // TODO EGeorgie: maybe move this to commitProperties, or at least before
+        // children validateDisplayList()    
         if (transformChanged)
         {
             transformChanged = false;
