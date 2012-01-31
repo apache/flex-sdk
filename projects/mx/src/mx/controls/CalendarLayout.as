@@ -122,7 +122,7 @@ include "../styles/metadata/TextStyles.as"
 [ExcludeClass]
 
 [ResourceBundle("controls")]
-	
+    
 /**
  *  @private
  *  The CalendarLayout class handles the layout of the date grid in a month.
@@ -132,7 +132,7 @@ include "../styles/metadata/TextStyles.as"
  *  @see mx.styles.StyleManager
  */
 public class CalendarLayout extends UIComponent
-							implements IFocusManagerComponent, IFontContextComponent
+                            implements IFocusManagerComponent, IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -173,12 +173,12 @@ public class CalendarLayout extends UIComponent
     /**
      *  @private
      */
-	private var todayColumn:int = -1;
+    private var todayColumn:int = -1;
 
     /**
      *  @private
      */
-	private var enabledDaysInMonth:Array = [];
+    private var enabledDaysInMonth:Array = [];
 
     /**
      *  @private
@@ -188,17 +188,17 @@ public class CalendarLayout extends UIComponent
     /**
      *  @private
      */
-	private var cellHeight:Number = 14;
+    private var cellHeight:Number = 14;
 
     /**
      *  @private
      */
-	private var cellWidth:Number = 14;
+    private var cellWidth:Number = 14;
 
     /**
      *  @private
      */
-	private var yOffset:Number = -1;
+    private var yOffset:Number = -1;
 
     /**
      *  @private
@@ -208,47 +208,47 @@ public class CalendarLayout extends UIComponent
     /**
      *  @private
      */
-	private var disabledArrays:Array = []; // An Array of Arrays
+    private var disabledArrays:Array = []; // An Array of Arrays
 
     /**
      *  @private
      */
-	private var todaysLabelReference:IUITextField = null;
+    private var todaysLabelReference:IUITextField = null;
 
     /**
      *  @private
      */
-	private var selectedMonthYearChanged:Boolean = false;
+    private var selectedMonthYearChanged:Boolean = false;
 
     /**
      *  @private
      */
-	private var todayIndicator:IFlexDisplayObject;
+    private var todayIndicator:IFlexDisplayObject;
 
     /**
      *  @private
      */
-	private var selectionIndicator:Array = [];
+    private var selectionIndicator:Array = [];
 
     /**
      *  @private
      */
-	private var rollOverIndicator:IFlexDisplayObject;
+    private var rollOverIndicator:IFlexDisplayObject;
 
     /**
      *  @private
      */
-	private var selectedRangeCount:int = 0;
+    private var selectedRangeCount:int = 0;
 
     /**
      *  @private
      */
-	private var lastSelectedDate:Date;
+    private var lastSelectedDate:Date;
 
     /**
      *  @private
      */
-	private var rangeStartDate:Date = null;
+    private var rangeStartDate:Date = null;
 
     /**
      *  @private
@@ -267,14 +267,14 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the displayedYear property.
+     *  Storage for the displayedYear property.
      */
-	private var _enabled:Boolean = true;
+    private var _enabled:Boolean = true;
 
     /**
      *  @private
      */
-	private var enabledChanged:Boolean = false;
+    private var enabledChanged:Boolean = false;
 
     [Inspectable(category="General", defaultValue="true")]
 
@@ -311,15 +311,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the allowDisjointSelection property.
+     *  Storage for the allowDisjointSelection property.
      */
-	private var _allowDisjointSelection:Boolean = true;
+    private var _allowDisjointSelection:Boolean = true;
 
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get allowDisjointSelection():Boolean
     {
         return _allowDisjointSelection;
@@ -339,15 +339,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the allowMultipleSelection property.
+     *  Storage for the allowMultipleSelection property.
      */
-	private var _allowMultipleSelection:Boolean = false;
+    private var _allowMultipleSelection:Boolean = false;
 
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get allowMultipleSelection():Boolean
     {
         return _allowMultipleSelection;
@@ -367,28 +367,28 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the dayNames property.
+     *  Storage for the dayNames property.
      */
-	private var _dayNames:Array;
+    private var _dayNames:Array;
 
     /**
      *  @private
      */
-	private var dayNamesChanged:Boolean = false;
+    private var dayNamesChanged:Boolean = false;
 
     /**
-	 *  @private
-	 */
-	private var dayNamesOverride:Array;
-	
+     *  @private
+     */
+    private var dayNamesOverride:Array;
+    
     [Inspectable(category="Other", arrayType="String", defaultValue="null")]
 
     /**
-	 *  @private
-	 */
-	public function get dayNames():Array
+     *  @private
+     */
+    public function get dayNames():Array
     {
-		return _dayNames;
+        return _dayNames;
     }
 
     /**
@@ -398,10 +398,10 @@ public class CalendarLayout extends UIComponent
     {
         dayNamesOverride = value;
 
-		_dayNames = value != null ?
-					value :
-					resourceManager.getStringArray(
-					    "controls", "dayNamesShortest");
+        _dayNames = value != null ?
+                    value :
+                    resourceManager.getStringArray(
+                        "controls", "dayNamesShortest");
 
         // _dayNames will be null if there are no resources.
         _dayNames = _dayNames ? _dayNames.slice(0) : null;
@@ -419,20 +419,20 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the disabledDays property.
+     *  Storage for the disabledDays property.
      */
-	private var _disabledDays:Array = [];
+    private var _disabledDays:Array = [];
 
-	[Inspectable(category="General", arrayType="int")]
+    [Inspectable(category="General", arrayType="int")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get disabledDays():Array
     {
         var result:Array = [];
         
-		for (var i:int = 0, k:int = 0; i < _disabledDays.length; i++)
+        for (var i:int = 0, k:int = 0; i < _disabledDays.length; i++)
         {
             if (_disabledDays[i] >= 0 && _disabledDays[i] <= 6)
             {
@@ -452,10 +452,10 @@ public class CalendarLayout extends UIComponent
         _disabledDays = value.slice(0);
         selectedMonthYearChanged = true;
         
-		invalidateProperties();
-		
-		// This removes the disabled ranges/days from the selected ranges.
-		var selRange:Array = selectedRanges;
+        invalidateProperties();
+        
+        // This removes the disabled ranges/days from the selected ranges.
+        var selRange:Array = selectedRanges;
     }
 
     //----------------------------------
@@ -464,15 +464,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the disabledRanges property.
+     *  Storage for the disabledRanges property.
      */
-	private var _disabledRanges:Array = [];
+    private var _disabledRanges:Array = [];
 
-	[Inspectable(category="General", arrayType="Object")]
+    [Inspectable(category="General", arrayType="Object")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get disabledRanges():Array
     {
         return _disabledRanges.slice(0);
@@ -492,8 +492,8 @@ public class CalendarLayout extends UIComponent
             {
                 disabledRangeMode[i] = 4;
                 _disabledRanges[i] = new Date(value[i].getFullYear(),
-											  value[i].getMonth(),
-											  value[i].getDate());
+                                              value[i].getMonth(),
+                                              value[i].getDate());
             }
             else if (_disabledRanges[i] is Object)
             {
@@ -501,17 +501,17 @@ public class CalendarLayout extends UIComponent
                 _disabledRanges[i] = value[i];
 
                 if (!_disabledRanges[i].rangeStart &&
-					_disabledRanges[i].rangeEnd)
+                    _disabledRanges[i].rangeEnd)
                 {
                     disabledRangeMode[i] = 3;
                 }
                 else if (_disabledRanges[i].rangeStart &&
-						!_disabledRanges[i].rangeEnd)
+                        !_disabledRanges[i].rangeEnd)
                 {
                     disabledRangeMode[i] = 2;
                 }
                 else if (_disabledRanges[i].rangeStart &&
-						 _disabledRanges[i].rangeEnd)
+                         _disabledRanges[i].rangeEnd)
                 {
                     disabledRangeMode[i] = 1;
                 }
@@ -532,21 +532,21 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the displayedMonth property.
+     *  Storage for the displayedMonth property.
      */
-	private var _displayedMonth:int = (new Date()).getMonth();
+    private var _displayedMonth:int = (new Date()).getMonth();
 
-	/**
-	 *  @private
-	 *  Holds the proposed value of displayedMonth until it can be verified in commitProperties
-	 */
-	private var _proposedDisplayedMonth:int = -1;
+    /**
+     *  @private
+     *  Holds the proposed value of displayedMonth until it can be verified in commitProperties
+     */
+    private var _proposedDisplayedMonth:int = -1;
 
     [Inspectable(category="General", defaultValue="0")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get displayedMonth():int
     {
         return _proposedDisplayedMonth == -1 ? _displayedMonth : _proposedDisplayedMonth;
@@ -563,9 +563,9 @@ public class CalendarLayout extends UIComponent
         if (value == _displayedMonth)
             return;
 
-		_proposedDisplayedMonth = value;
-		selectedMonthYearChanged = true;
-		invalidateProperties();
+        _proposedDisplayedMonth = value;
+        selectedMonthYearChanged = true;
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -574,21 +574,21 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the displayedYear property.
+     *  Storage for the displayedYear property.
      */
-	private var _displayedYear:int = (new Date()).getFullYear();
+    private var _displayedYear:int = (new Date()).getFullYear();
 
-	/**
-	 *  @private
-	 *  Holds the proposed value of displayedYear until it can be verified in commitProperties
-	 */
-	private var _proposedDisplayedYear:int = -1;
+    /**
+     *  @private
+     *  Holds the proposed value of displayedYear until it can be verified in commitProperties
+     */
+    private var _proposedDisplayedYear:int = -1;
 
     [Inspectable(category="General", defaultValue="2006")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get displayedYear():int
     {
         return _proposedDisplayedYear == -1 ? _displayedYear : _proposedDisplayedYear;
@@ -616,15 +616,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the firstDayOfWeek property.
+     *  Storage for the firstDayOfWeek property.
      */
-	private var _firstDayOfWeek:int = 0; // Sunday
+    private var _firstDayOfWeek:int = 0; // Sunday
 
     [Inspectable(category="General", defaultValue="0")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get firstDayOfWeek():int
     {
         return _firstDayOfWeek;
@@ -645,7 +645,7 @@ public class CalendarLayout extends UIComponent
         dayNamesChanged = true;
         selectedMonthYearChanged = true;
         
-		invalidateProperties();
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -674,15 +674,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the selectableRange property.
+     *  Storage for the selectableRange property.
      */
-	private var _selectableRange:Object = null;
+    private var _selectableRange:Object = null;
 
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get selectableRange():Object
     {
         return _selectableRange;
@@ -707,15 +707,15 @@ public class CalendarLayout extends UIComponent
         var callMonth:int;
         var callYear:int;
         
-		if (value is Date)
+        if (value is Date)
         {
             selRangeMode = 4;
             
-			_selectableRange = new Date(value.getFullYear(),
-										value.getMonth(),
-										value.getDate());
+            _selectableRange = new Date(value.getFullYear(),
+                                        value.getMonth(),
+                                        value.getDate());
             
-			callMonth  = value.getMonth();
+            callMonth  = value.getMonth();
             callYear = value.getFullYear();
         }
         else if (value is Object)
@@ -727,7 +727,7 @@ public class CalendarLayout extends UIComponent
                 selRangeMode = 3;
                 _selectableRange.rangeEnd = value.rangeEnd;
                 
-				if (todaysYear <= _selectableRange.rangeEnd.getFullYear())
+                if (todaysYear <= _selectableRange.rangeEnd.getFullYear())
                 {
                     if (todaysMonth >= _selectableRange.rangeEnd.getMonth())
                     {
@@ -735,7 +735,7 @@ public class CalendarLayout extends UIComponent
                         callYear = _selectableRange.rangeEnd.getFullYear();
                     }
                     else if (todaysMonth <=
-							 _selectableRange.rangeEnd.getMonth())
+                             _selectableRange.rangeEnd.getMonth())
                     {
                         callMonth = todaysMonth;
                         callYear = todaysYear;
@@ -753,7 +753,7 @@ public class CalendarLayout extends UIComponent
                 selRangeMode = 2;
                 _selectableRange.rangeStart = value.rangeStart;
                 
-				if (todaysYear >= _selectableRange.rangeStart.getFullYear())
+                if (todaysYear >= _selectableRange.rangeStart.getFullYear())
                 {
                     if (todaysMonth <= _selectableRange.rangeStart.getMonth())
                     {
@@ -761,7 +761,7 @@ public class CalendarLayout extends UIComponent
                         callYear = _selectableRange.rangeStart.getFullYear();
                     }
                     else if (todaysMonth >=
-							 _selectableRange.rangeStart.getMonth())
+                             _selectableRange.rangeStart.getMonth())
                     {
                         callMonth = todaysMonth;
                         callYear = todaysYear;
@@ -779,8 +779,8 @@ public class CalendarLayout extends UIComponent
                 _selectableRange.rangeStart = value.rangeStart;
                 _selectableRange.rangeEnd = value.rangeEnd;
                 
-				if (todaysDate >= _selectableRange.rangeStart &&
-					todaysDate <= _selectableRange.rangeEnd)
+                if (todaysDate >= _selectableRange.rangeStart &&
+                    todaysDate <= _selectableRange.rangeEnd)
                 {
                     callMonth = todaysMonth;
                     callYear = todaysYear;
@@ -804,7 +804,7 @@ public class CalendarLayout extends UIComponent
         selectedMonthYearChanged = true;
         invalidateProperties();
         
-		// This removes the non-selectable ranges from the selected ranges.
+        // This removes the non-selectable ranges from the selected ranges.
         var selRange:Array = selectedRanges;
     }
 
@@ -814,15 +814,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the selectableRange property.
+     *  Storage for the selectableRange property.
      */
-	private var _selectedRanges:Array = [];
+    private var _selectedRanges:Array = [];
 
-	[Inspectable(category="General", arrayType="Object")]
+    [Inspectable(category="General", arrayType="Object")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get selectedRanges():Array
     {
         if (_selectableRange)
@@ -830,87 +830,87 @@ public class CalendarLayout extends UIComponent
             switch (selRangeMode)
             {
                 case 1:
-				{
-                	removeRangeFromSelection(null, _selectableRange.rangeStart);
-                	removeRangeFromSelection(_selectableRange.rangeEnd, null);
-                	break;
-				}
+                {
+                    removeRangeFromSelection(null, _selectableRange.rangeStart);
+                    removeRangeFromSelection(_selectableRange.rangeEnd, null);
+                    break;
+                }
 
                 case 2:
                 case 3:
-				{
-                	removeRangeFromSelection(_selectableRange.rangeEnd,
-											 _selectableRange.rangeStart);
+                {
+                    removeRangeFromSelection(_selectableRange.rangeEnd,
+                                             _selectableRange.rangeStart);
                     break;
-				}
+                }
 
                 case 4:
-				{
-                	removeRangeFromSelection(null, _selectableRange as Date);
-                	removeRangeFromSelection(_selectableRange as Date, null);
+                {
+                    removeRangeFromSelection(null, _selectableRange as Date);
+                    removeRangeFromSelection(_selectableRange as Date, null);
                     break;
-				}
+                }
             }
         }
 
         var i:int;
-		
-		for (i = 0; i < _disabledRanges.length; i++)
+        
+        for (i = 0; i < _disabledRanges.length; i++)
         {
             switch (disabledRangeMode[i])
             {
                 case 1:
                 case 2:
                 case 3:
-				{
-                	removeRangeFromSelection(_disabledRanges[i].rangeStart,
-											 _disabledRanges[i].rangeEnd);
-					break;
-				}
+                {
+                    removeRangeFromSelection(_disabledRanges[i].rangeStart,
+                                             _disabledRanges[i].rangeEnd);
+                    break;
+                }
 
-				case 4:
-				{
-					removeRangeFromSelection(_disabledRanges[i],
-											 _disabledRanges[i]);
-					break;
-				}
+                case 4:
+                {
+                    removeRangeFromSelection(_disabledRanges[i],
+                                             _disabledRanges[i]);
+                    break;
+                }
             }
         }
 
         if (_disabledDays.length > 0 && selectedRangeCount)
         {
-			var minDate:Date = _selectedRanges[0].rangeStart;
-			var maxDate:Date = _selectedRanges[0].rangeEnd;
+            var minDate:Date = _selectedRanges[0].rangeStart;
+            var maxDate:Date = _selectedRanges[0].rangeEnd;
 
-			for (i = 1; i < selectedRangeCount; i++)
-   			{
-				if (minDate > _selectedRanges[i].rangeStart)
-				    minDate = _selectedRanges[i].rangeStart;
+            for (i = 1; i < selectedRangeCount; i++)
+            {
+                if (minDate > _selectedRanges[i].rangeStart)
+                    minDate = _selectedRanges[i].rangeStart;
 
-				if (maxDate < _selectedRanges[i].rangeEnd)
-				    maxDate = _selectedRanges[i].rangeEnd;
-			}
+                if (maxDate < _selectedRanges[i].rangeEnd)
+                    maxDate = _selectedRanges[i].rangeEnd;
+            }
 
             for (i = 0; i < _disabledDays.length; i++)
             {
-				var tempDate:Date = minDate;
+                var tempDate:Date = minDate;
 
-				var dayOffset:int = _disabledDays[i] - tempDate.getDay();
+                var dayOffset:int = _disabledDays[i] - tempDate.getDay();
 
-				if (dayOffset < 0)
-				    dayOffset += 7;
+                if (dayOffset < 0)
+                    dayOffset += 7;
 
-				tempDate = incrementDate(tempDate,dayOffset)
+                tempDate = incrementDate(tempDate,dayOffset)
 
-				while (tempDate < maxDate)
-				{
-					removeRangeFromSelection(tempDate,tempDate);
-					tempDate = incrementDate(tempDate,7)
-    			}
+                while (tempDate < maxDate)
+                {
+                    removeRangeFromSelection(tempDate,tempDate);
+                    tempDate = incrementDate(tempDate,7)
+                }
             }
         }
 
-		_selectedRanges.length = selectedRangeCount;
+        _selectedRanges.length = selectedRangeCount;
         return _selectedRanges;
     }
 
@@ -932,15 +932,15 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  @private
-	 *  Storage for the showToday property.
+     *  Storage for the showToday property.
      */
-	private var _showToday:Boolean = true;
+    private var _showToday:Boolean = true;
 
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     public function get showToday():Boolean
     {
         return _showToday;
@@ -966,11 +966,11 @@ public class CalendarLayout extends UIComponent
     [Inspectable(category="General", defaultValue="null")]
 
     /**
-	 *  @private
+     *  @private
      */
     public function get selectedDate():Date
     {
-		return selectedRangeCount ? _selectedRanges[0].rangeStart : null;
+        return selectedRangeCount ? _selectedRanges[0].rangeStart : null;
     }
 
     /**
@@ -978,22 +978,22 @@ public class CalendarLayout extends UIComponent
      */
     public function set selectedDate(value:Date):void
     {
- 		selectedRangeCount = 0;
+        selectedRangeCount = 0;
 
         if (value && !checkDateIsDisabled(value))
         {
-	 		addToSelected(value);
+            addToSelected(value);
             
-			_displayedMonth = value.getMonth();
+            _displayedMonth = value.getMonth();
             _displayedYear = value.getFullYear();
-  		    selectedMonthYearChanged = true;
-        	
-			invalidateProperties();
+            selectedMonthYearChanged = true;
+            
+            invalidateProperties();
         }
         else
-		{
-	 		setSelectedIndicators();
-		}
+        {
+            setSelectedIndicators();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -1031,82 +1031,72 @@ public class CalendarLayout extends UIComponent
 
         disabledSkin0..disabledSkin6
 
-    *  
-
-    *  @langversion 3.0
-
-    *  @playerversion Flash 9
-
-    *  @playerversion AIR 1.1
-
-    *  @productversion Flex 3
-
     */
 
     /**
-	 *  @private
-	 *  Everything that gets initially created now exists.
-	 *  Some things, such as the selection skins and disabled skins,
-	 *  are created later as they are needed.
-	 *  Set the "S", "M", etc. labels in the first row.
-	 *  
-	 *  Set the day-number labels ("1".."31") in the other rows.
-	 *  This method also displays the selection skins,
-	 *  the disabled skins, and the "today" indicator.
-	 */
+     *  @private
+     *  Everything that gets initially created now exists.
+     *  Some things, such as the selection skins and disabled skins,
+     *  are created later as they are needed.
+     *  Set the "S", "M", etc. labels in the first row.
+     *  
+     *  Set the day-number labels ("1".."31") in the other rows.
+     *  This method also displays the selection skins,
+     *  the disabled skins, and the "today" indicator.
+     */
     override protected function createChildren():void
     {
-		super.createChildren();
+        super.createChildren();
 
         var labelPosition:Number = 0;
 
-		createDayLabels(-1);
-		createTodayIndicator(0);
-		
-		if (!rollOverIndicator)
-		{
-			var rollOverIndicatorClass:Class = getStyle("rollOverIndicatorSkin");
-			if (!rollOverIndicatorClass)
-				rollOverIndicatorClass = DateChooserIndicator;
+        createDayLabels(-1);
+        createTodayIndicator(0);
+        
+        if (!rollOverIndicator)
+        {
+            var rollOverIndicatorClass:Class = getStyle("rollOverIndicatorSkin");
+            if (!rollOverIndicatorClass)
+                rollOverIndicatorClass = DateChooserIndicator;
             rollOverIndicator = IFlexDisplayObject(new rollOverIndicatorClass());
-			// too lazy to make an interface for this.
-			if (isDateChooserIndicator(rollOverIndicator))
-				Object(rollOverIndicator).indicatorColor = "rollOverColor";
-			if (rollOverIndicator is ISimpleStyleClient)
-				ISimpleStyleClient(rollOverIndicator).styleName = this;
-			addChildAt(DisplayObject(rollOverIndicator), 0);
-			rollOverIndicator.visible = false;
-		}
+            // too lazy to make an interface for this.
+            if (isDateChooserIndicator(rollOverIndicator))
+                Object(rollOverIndicator).indicatorColor = "rollOverColor";
+            if (rollOverIndicator is ISimpleStyleClient)
+                ISimpleStyleClient(rollOverIndicator).styleName = this;
+            addChildAt(DisplayObject(rollOverIndicator), 0);
+            rollOverIndicator.visible = false;
+        }
 
         // Wait for all of the properties to be set before calling setSelectedMonthAndYear
         dayNamesChanged = true;
         selectedMonthYearChanged = true;
     }
 
- 	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
-		super.commitProperties();
+        super.commitProperties();
 
-		if (hasFontContextChanged() && todayIndicator != null)
+        if (hasFontContextChanged() && todayIndicator != null)
         {
-       		// Re-create the children so we can display
-			// the embedded font from the new font context.
-       		removeSelectionIndicators();
-       		
-       		var childIndex:int = getChildIndex(DisplayObject(todayIndicator));
-       		removeTodayIndicator();
-       		createTodayIndicator(childIndex);
+            // Re-create the children so we can display
+            // the embedded font from the new font context.
+            removeSelectionIndicators();
+            
+            var childIndex:int = getChildIndex(DisplayObject(todayIndicator));
+            removeTodayIndicator();
+            createTodayIndicator(childIndex);
 
-   			childIndex = getChildIndex(dayBlocksArray[0][0]);
-   			removeDayLabels();
-   			createDayLabels(childIndex);
-       		
-       		enabledChanged = true;
-       		dayNamesChanged = true;
-       		selectedMonthYearChanged = true;
+            childIndex = getChildIndex(dayBlocksArray[0][0]);
+            removeDayLabels();
+            createDayLabels(childIndex);
+            
+            enabledChanged = true;
+            dayNamesChanged = true;
+            selectedMonthYearChanged = true;
         }
 
         if (enabledChanged)
@@ -1132,7 +1122,7 @@ public class CalendarLayout extends UIComponent
                 removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
                 removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
                 removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-				removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+                removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
             }
             else
             {
@@ -1145,7 +1135,7 @@ public class CalendarLayout extends UIComponent
                 addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
                 addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
                 addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-				addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+                addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
             }
         }
 
@@ -1160,14 +1150,14 @@ public class CalendarLayout extends UIComponent
         {
             selectedMonthYearChanged = false;
 
-			var proposedDate:Date = 
-				new Date(_proposedDisplayedYear == -1 ? _displayedYear : _proposedDisplayedYear,
-						 _proposedDisplayedMonth == -1 ? _displayedMonth : _proposedDisplayedMonth);
-						 
-			if (isDateInRange(proposedDate, _selectableRange, selRangeMode, true))
-			{			 
-	            setSelectedMonthAndYear();
-	  		}	
+            var proposedDate:Date = 
+                new Date(_proposedDisplayedYear == -1 ? _displayedYear : _proposedDisplayedYear,
+                         _proposedDisplayedMonth == -1 ? _displayedMonth : _proposedDisplayedMonth);
+                         
+            if (isDateInRange(proposedDate, _selectableRange, selRangeMode, true))
+            {            
+                setSelectedMonthAndYear();
+            }   
             
             _proposedDisplayedYear = -1;
             _proposedDisplayedMonth = -1;
@@ -1175,11 +1165,11 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
-	override protected function measure():void
+     *  @private
+     */
+    override protected function measure():void
     {
-		super.measure();
+        super.measure();
 
         var verticalGap:Number = getStyle("verticalGap");
         var horizontalGap:Number = getStyle("horizontalGap");
@@ -1196,13 +1186,13 @@ public class CalendarLayout extends UIComponent
 
         for (var dayOfWeek:int = 0; dayOfWeek < 7; dayOfWeek++)
         {
-			// dayNames will be null if there are no resources.
+            // dayNames will be null if there are no resources.
             var dayName:String = dayNames ? dayNames[dayOfWeek] : "";
             lineMetrics = measureText(dayName);
             if (lineMetrics.width > cellWidth)
                 cellWidth = lineMetrics.width;
             if (lineMetrics.height > cellHeight)
-				cellHeight = lineMetrics.height;
+                cellHeight = lineMetrics.height;
         }
 
         lineMetrics = measureText("30");
@@ -1213,29 +1203,29 @@ public class CalendarLayout extends UIComponent
         if (lineMetrics.height > cellHeight)
             cellHeight = lineMetrics.height;
 
-		measuredWidth = paddingLeft + horizontalGap * 6 +
-						cellWidth * 7 + paddingRight;
+        measuredWidth = paddingLeft + horizontalGap * 6 +
+                        cellWidth * 7 + paddingRight;
         measuredHeight = verticalGap * 6 + cellHeight * 7 +
-						 paddingBottom + paddingTop;
+                         paddingBottom + paddingTop;
         measuredMinWidth = cellWidth * 7;
         measuredMinHeight = cellHeight * 7;
     }
 
     /**
-	 *  @private
-	 */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		//var verticalGap:Number = getStyle("verticalGap");
+        //var verticalGap:Number = getStyle("verticalGap");
         //var horizontalGap:Number = getStyle("horizontalGap");
 
-		var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingLeft:Number = getStyle("paddingLeft");
         var paddingRight:Number = getStyle("paddingRight");
         var paddingBottom:Number = getStyle("paddingBottom");
-		var paddingTop:Number = getStyle("paddingTop");
+        var paddingTop:Number = getStyle("paddingTop");
 
         var blockX:Number = paddingLeft;
 
@@ -1266,11 +1256,11 @@ public class CalendarLayout extends UIComponent
                 label.setActualSize(cellWidth, cellHeight);
                 label.move(blockX, labelPosition);
 
-				if (selectionIndicator[columnIndex][rowIndex])
-				{
-	     			selectionIndicator[columnIndex][rowIndex].setActualSize(cellWidth, cellHeight);
-    	 			selectionIndicator[columnIndex][rowIndex].move(blockX, labelPosition + yOffset);
-    	 		}
+                if (selectionIndicator[columnIndex][rowIndex])
+                {
+                    selectionIndicator[columnIndex][rowIndex].setActualSize(cellWidth, cellHeight);
+                    selectionIndicator[columnIndex][rowIndex].move(blockX, labelPosition + yOffset);
+                }
                //label.width = cellWidth;
                 //label.height = cellHeight;
                 //label.x = blockX;
@@ -1285,11 +1275,11 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     override public function styleChanged(styleProp:String):void
     {
-		var allStyles:Boolean = !styleProp || styleProp == "styleName";
+        var allStyles:Boolean = !styleProp || styleProp == "styleName";
 
         if (allStyles || styleProp == "todayStyleName")
         {
@@ -1304,28 +1294,28 @@ public class CalendarLayout extends UIComponent
                 weekDayStyleName = this;
 
             if (dayBlocksArray)
-			{
-				for (var i:int = 0; i < 7; i++)
-				{
-					// Set the styleName on the top row of day name labels
-					if (dayBlocksArray[i] && dayBlocksArray[i][0])
-						dayBlocksArray[i][0].styleName = weekDayStyleName;
-				}
-			}
+            {
+                for (var i:int = 0; i < 7; i++)
+                {
+                    // Set the styleName on the top row of day name labels
+                    if (dayBlocksArray[i] && dayBlocksArray[i][0])
+                        dayBlocksArray[i][0].styleName = weekDayStyleName;
+                }
+            }
         }
 
         super.styleChanged(styleProp);
     }
 
     /**
-	 *  @private
+     *  @private
      */
-	override protected function resourcesChanged():void
-	{
-		super.resourcesChanged();
+    override protected function resourcesChanged():void
+    {
+        super.resourcesChanged();
 
-		dayNames = dayNamesOverride;
-	}
+        dayNames = dayNamesOverride;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1338,49 +1328,49 @@ public class CalendarLayout extends UIComponent
      *  Creates the day labels and adds them as children of this component.
      * 
      *  @param childIndex The index of where to add the children.
-	 *  If -1, the text fields are appended to the end of the list.
+     *  If -1, the text fields are appended to the end of the list.
      */
     mx_internal function createDayLabels(childIndex:int):void
     {
         var weekDayStyleName:Object = getStyle("weekDayStyleName");
 
-	    // Remember the height of the cells if not set by user.
+        // Remember the height of the cells if not set by user.
         // Create the 7 labels within each DayBlock.
         // The first row in each column displays a day name string,
-		// such as "Sun".
+        // such as "Sun".
         // The other six rows displays day numbers in the range 1-31.
 
         // Calendar days
         for (var columnIndex:int = 0; columnIndex < 7; columnIndex++)
         {
-	        dayBlocksArray[columnIndex] = [];
-    	    selectionIndicator[columnIndex] = [];
+            dayBlocksArray[columnIndex] = [];
+            selectionIndicator[columnIndex] = [];
 
-		    for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
-	        {
-	            var label:IUITextField =
-				dayBlocksArray[columnIndex][rowIndex] =
-					IUITextField(createInFontContext(UITextField));
-	            
-				label.selectable = false;
-	            label.ignorePadding = true;
-	
-				if (childIndex == -1)
-		            addChild(DisplayObject(label));			
-				else
-					addChildAt(DisplayObject(label), childIndex++);
-	
-	            if (rowIndex == 0)
-				{
-	                label.styleName = weekDayStyleName ?
-									  weekDayStyleName :
-									  this;
-				}
-	            else
-				{
-	                label.styleName = this;
-				}
-	        }
+            for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
+            {
+                var label:IUITextField =
+                dayBlocksArray[columnIndex][rowIndex] =
+                    IUITextField(createInFontContext(UITextField));
+                
+                label.selectable = false;
+                label.ignorePadding = true;
+    
+                if (childIndex == -1)
+                    addChild(DisplayObject(label));         
+                else
+                    addChildAt(DisplayObject(label), childIndex++);
+    
+                if (rowIndex == 0)
+                {
+                    label.styleName = weekDayStyleName ?
+                                      weekDayStyleName :
+                                      this;
+                }
+                else
+                {
+                    label.styleName = this;
+                }
+            }
 
             disabledArrays[columnIndex] = new Array(7);
         }
@@ -1394,11 +1384,11 @@ public class CalendarLayout extends UIComponent
     {
        for (var columnIndex:int = 0; columnIndex < 7; columnIndex++)
         {
-		    for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
-	        {
-				removeChild(dayBlocksArray[columnIndex][rowIndex]);
-				dayBlocksArray[columnIndex][rowIndex] = null;
-    	    }
+            for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
+            {
+                removeChild(dayBlocksArray[columnIndex][rowIndex]);
+                dayBlocksArray[columnIndex][rowIndex] = null;
+            }
         }
     }
     
@@ -1408,25 +1398,25 @@ public class CalendarLayout extends UIComponent
      */
     mx_internal function createTodayIndicator(childIndex:int):void
     {
-    	if (!todayIndicator)
-    	{
-			var todayIndicatorClass:Class = getStyle("todayIndicatorSkin");
-			if (!todayIndicatorClass)
-				todayIndicatorClass = DateChooserIndicator;
+        if (!todayIndicator)
+        {
+            var todayIndicatorClass:Class = getStyle("todayIndicatorSkin");
+            if (!todayIndicatorClass)
+                todayIndicatorClass = DateChooserIndicator;
             todayIndicator = IFlexDisplayObject(new todayIndicatorClass());
-			
-			if (isDateChooserIndicator(todayIndicator))
-			{
-				Object(todayIndicator).indicatorColor =
-					"todayColor";
-			}
-			if (todayIndicator is ISimpleStyleClient)
-				ISimpleStyleClient(todayIndicator).styleName = this;
-			
-			addChildAt(DisplayObject(todayIndicator), childIndex);
-			
-			todayIndicator.visible = false;
-    	}
+            
+            if (isDateChooserIndicator(todayIndicator))
+            {
+                Object(todayIndicator).indicatorColor =
+                    "todayColor";
+            }
+            if (todayIndicator is ISimpleStyleClient)
+                ISimpleStyleClient(todayIndicator).styleName = this;
+            
+            addChildAt(DisplayObject(todayIndicator), childIndex);
+            
+            todayIndicator.visible = false;
+        }
     }
 
     /**
@@ -1434,30 +1424,30 @@ public class CalendarLayout extends UIComponent
      */
     mx_internal function removeTodayIndicator():void
     {
-		if (todayIndicator)
-		{
-			removeChild(DisplayObject(todayIndicator));
-			todayIndicator = null;
-		}    	
+        if (todayIndicator)
+        {
+            removeChild(DisplayObject(todayIndicator));
+            todayIndicator = null;
+        }       
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     mx_internal function drawDayNames():void
     {
         for (var columnIndex:int = 0; columnIndex < 7; columnIndex++)
         {
             var dayOfWeek:int = (columnIndex + firstDayOfWeek) % 7;
-        	// dayNames will be null if there are no resources.
+            // dayNames will be null if there are no resources.
             var dayName:String = dayNames ? dayNames[dayOfWeek] : "";
             dayBlocksArray[columnIndex][0].text = dayName;
         }
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     mx_internal function setSelectedMonthAndYear(monthVal:int = -1, yearVal:int = -1):void
     {
         // This lengthy method updates the UI to display a specified month
@@ -1574,11 +1564,11 @@ public class CalendarLayout extends UIComponent
 
             if (_selectableRange)
             {
-            	if (!isDateInRange(cellDate, _selectableRange, selRangeMode))
-            	{
-            		todayLabel.enabled = false;
+                if (!isDateInRange(cellDate, _selectableRange, selRangeMode))
+                {
+                    todayLabel.enabled = false;
                     disabledArrays[columnIndex][rowIndex] = true;
-            	}
+                }
             }
 
             // Disabled Ranges
@@ -1593,11 +1583,11 @@ public class CalendarLayout extends UIComponent
             {
                 for (var dRanges:int = 0; dRanges < _disabledRanges.length; dRanges++)
                 {
-                	if (isDateInRange(cellDate, _disabledRanges[dRanges], disabledRangeMode[dRanges]))
-                	{
-                		todayLabel.enabled = false;
+                    if (isDateInRange(cellDate, _disabledRanges[dRanges], disabledRangeMode[dRanges]))
+                    {
+                        todayLabel.enabled = false;
                         disabledArrays[columnIndex][rowIndex] = true;
-                	}
+                    }
                 }
             }
 
@@ -1657,14 +1647,14 @@ public class CalendarLayout extends UIComponent
         _displayedYear = newYear;
         displayDate = new Date(newYear, newMonth, 1);
         todayIndicator.alpha = (todaysLabelReference) ? ((todaysLabelReference.enabled == false) ? 0.3 : 1.0) : 1.0;
-		setSelectedIndicators();
+        setSelectedIndicators();
         invalidateDisplayList();
     }
 
     /**
-	 *  @private
-	 *  Called from setSelectedMonthAndYear() to get an Offset of the starting day of the month
-	 */
+     *  @private
+     *  Called from setSelectedMonthAndYear() to get an Offset of the starting day of the month
+     */
     mx_internal function getOffsetOfMonth(year:int, month:int):int
     {
         // Determine whether the 1st of the month is a Sunday, Monday, etc.
@@ -1675,8 +1665,8 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     mx_internal function getNumberOfDaysInMonth(year:int, month:int):int
     {
         // "Thirty days hath September..."
@@ -1701,8 +1691,8 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     mx_internal function stepDate(deltaY:int, deltaM:int, triggerEvent:Event = null):void
     {
         var oldYear:int = displayedYear;
@@ -1728,7 +1718,7 @@ public class CalendarLayout extends UIComponent
             event.detail = DateChooserEventDetail.NEXT_MONTH;
         else if (newMonth < oldMonth)
             event.detail = DateChooserEventDetail.PREVIOUS_MONTH;
-    	dispatchEvent(event);
+        dispatchEvent(event);
     }
     
     /**
@@ -1756,50 +1746,50 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     mx_internal function dispatchChangeEvent(triggerEvent:Event = null):void
     {
         var change:CalendarLayoutChangeEvent =
-			new CalendarLayoutChangeEvent(CalendarLayoutChangeEvent.CHANGE);
+            new CalendarLayoutChangeEvent(CalendarLayoutChangeEvent.CHANGE);
         change.newDate = lastSelectedDate;
         change.triggerEvent = triggerEvent;
         dispatchEvent(change);
     }
 
-	/**
-	 *  @private
-	 * 
-	 *  Returns true if the date is within the dates specified by the dateRange object. 
-	 */ 
-	mx_internal function isDateInRange(value:Date, dateRange:Object, rangeMode:int, ignoreDay:Boolean = false):Boolean
-	{
-		var result:Boolean = true;
-		
-		if (dateRange)
+    /**
+     *  @private
+     * 
+     *  Returns true if the date is within the dates specified by the dateRange object. 
+     */ 
+    mx_internal function isDateInRange(value:Date, dateRange:Object, rangeMode:int, ignoreDay:Boolean = false):Boolean
+    {
+        var result:Boolean = true;
+        
+        if (dateRange)
         {
-        	if (ignoreDay)
-        	{
-        		var dateRangeCopy:Object = {};
-        		if (dateRange.rangeStart)
-        		{
-        			var startDate:Date = dateRange.rangeStart;
-        			dateRangeCopy.rangeStart = new Date(startDate.fullYear, startDate.month, 1);
-        		}
-        		if (dateRange.rangeEnd)
-        		{
-        			var endDate:Date = dateRange.rangeEnd;
-        			dateRangeCopy.rangeEnd = new Date(endDate.fullYear, endDate.month, getNumberOfDaysInMonth(endDate.fullYear, endDate.month));
-        		}
-        		dateRange = dateRangeCopy;
-        	}
-        	
+            if (ignoreDay)
+            {
+                var dateRangeCopy:Object = {};
+                if (dateRange.rangeStart)
+                {
+                    var startDate:Date = dateRange.rangeStart;
+                    dateRangeCopy.rangeStart = new Date(startDate.fullYear, startDate.month, 1);
+                }
+                if (dateRange.rangeEnd)
+                {
+                    var endDate:Date = dateRange.rangeEnd;
+                    dateRangeCopy.rangeEnd = new Date(endDate.fullYear, endDate.month, getNumberOfDaysInMonth(endDate.fullYear, endDate.month));
+                }
+                dateRange = dateRangeCopy;
+            }
+            
             switch (rangeMode)
             {
                 case 1:
                 {
                     if (value < dateRange.rangeStart ||
-						value > dateRange.rangeEnd)
+                        value > dateRange.rangeEnd)
                     {
                         result = false;
                     }
@@ -1834,17 +1824,17 @@ public class CalendarLayout extends UIComponent
             }
         }
         
-		return result;
-	}
+        return result;
+    }
 
 
     /**
-	 *  @private
-	 *
-	 *  Checking for valid dates, months and Years before setting them through API
- 	 *  Returns true is date is disabled. null date is considered enabled,
-	 *  as one can set date to null.
-	 */
+     *  @private
+     *
+     *  Checking for valid dates, months and Years before setting them through API
+     *  Returns true is date is disabled. null date is considered enabled,
+     *  as one can set date to null.
+     */
     mx_internal function checkDateIsDisabled(value:Date):Boolean
     {
         if (!value)
@@ -1854,20 +1844,20 @@ public class CalendarLayout extends UIComponent
 
         if (_selectableRange)
         {
-        	if (!isDateInRange(value, _selectableRange, selRangeMode))
-        	{
-        		selectedDateIsDisabled = true;
-        	}
+            if (!isDateInRange(value, _selectableRange, selRangeMode))
+            {
+                selectedDateIsDisabled = true;
+            }
         }
 
         if (_disabledRanges.length > 0)
         {
             for (var dRanges:int = 0; dRanges < _disabledRanges.length; dRanges++)
             {
-            	if (isDateInRange(value, _disabledRanges[dRanges], disabledRangeMode[dRanges]))
-            	{
-            		selectedDateIsDisabled = true;
-            	}
+                if (isDateInRange(value, _disabledRanges[dRanges], disabledRangeMode[dRanges]))
+                {
+                    selectedDateIsDisabled = true;
+                }
             }
         }
 
@@ -1887,157 +1877,157 @@ public class CalendarLayout extends UIComponent
      *  @private
      *  Adds the newDate to the list of selected dates.
      *  If range is true, a range of dates starting from the previous selection is selected.
-	 */
+     */
     mx_internal function addToSelected(newDate:Date, range:Boolean = false):void
     {
 
-		if (!selectedRangeCount)
-			rangeStartDate = null;
+        if (!selectedRangeCount)
+            rangeStartDate = null;
 
-		lastSelectedDate = newDate;
+        lastSelectedDate = newDate;
 
-		if (range == false)
-		{
-			_selectedRanges[selectedRangeCount] = {};
-			_selectedRanges[selectedRangeCount].rangeStart =
-				new Date(newDate);
-			_selectedRanges[selectedRangeCount].rangeEnd =
-				_selectedRanges[selectedRangeCount].rangeStart;
-			selectedRangeCount++;
-		}
-		else
-		{
-		    if (selectedRangeCount == 0)
-		    {
-				_selectedRanges[0] = {};
-				_selectedRanges[0].rangeStart = new Date(newDate);
-			}
-			else
-			{
-	  			selectedRangeCount = 1;
+        if (range == false)
+        {
+            _selectedRanges[selectedRangeCount] = {};
+            _selectedRanges[selectedRangeCount].rangeStart =
+                new Date(newDate);
+            _selectedRanges[selectedRangeCount].rangeEnd =
+                _selectedRanges[selectedRangeCount].rangeStart;
+            selectedRangeCount++;
+        }
+        else
+        {
+            if (selectedRangeCount == 0)
+            {
+                _selectedRanges[0] = {};
+                _selectedRanges[0].rangeStart = new Date(newDate);
+            }
+            else
+            {
+                selectedRangeCount = 1;
 
-				if (!rangeStartDate)
-   				    rangeStartDate = _selectedRanges[0].rangeStart;
+                if (!rangeStartDate)
+                    rangeStartDate = _selectedRanges[0].rangeStart;
 
-   				_selectedRanges[0].rangeStart = new Date(rangeStartDate);
+                _selectedRanges[0].rangeStart = new Date(rangeStartDate);
 
-				if (newDate < _selectedRanges[0].rangeStart)
-				{
-					_selectedRanges[0].rangeEnd = _selectedRanges[0].rangeStart;
-					_selectedRanges[0].rangeStart = new Date(newDate);
-					return;
-				}
-			}
+                if (newDate < _selectedRanges[0].rangeStart)
+                {
+                    _selectedRanges[0].rangeEnd = _selectedRanges[0].rangeStart;
+                    _selectedRanges[0].rangeStart = new Date(newDate);
+                    return;
+                }
+            }
 
-			_selectedRanges[0].rangeEnd = new Date(newDate);
-		}
-	}
+            _selectedRanges[0].rangeEnd = new Date(newDate);
+        }
+    }
 
     /**
      *  @private
      *  Increments/decrements a date by 'No. of days'
-	 *  specified by amount and returns the new date.
+     *  specified by amount and returns the new date.
      */
-	mx_internal function incrementDate(value:Date, amount:int = 1):Date
-	{
-		var newDate:Date = new Date(value);
-		var time:Number = newDate.getTime();
-		newDate.setTime(time + amount * 86400000);
-		return newDate;
-	}
-
-    /**
-     *  @private
-	 *  Returns true if newDate is selected.
-     */
-	mx_internal function isSelected(newDate:Date):Boolean
-	{
-		for (var i:int = 0; i < selectedRangeCount; i++)
-		{
-			if (newDate >= _selectedRanges[i].rangeStart &&
-				newDate <=_selectedRanges[i].rangeEnd)
-			{
-			    return true;
-			}
-		}
-
-		return false;
-	}
-
-    /**
-     *  @private
-	 *  Removes the range of dates specified by startDate and endDate
-	 *  from the selected dates.
-     */
-	mx_internal function removeRangeFromSelection(startDate:Date, endDate:Date):void
+    mx_internal function incrementDate(value:Date, amount:int = 1):Date
     {
-		for (var n:int = 0; n < selectedRangeCount; n++)
-		{
-			var s1:int;
-
-			if (!startDate || startDate <= _selectedRanges[n].rangeStart)
-			    s1 = 1;
-			else if (startDate <= _selectedRanges[n].rangeEnd)
-			    s1 = 2;
-			else if (startDate > _selectedRanges[n].rangeEnd)
-			    s1 = 3;
-
-			if (endDate < _selectedRanges[n].rangeStart)
-			    s1 *= 5;
-			else if (endDate < _selectedRanges[n].rangeEnd)
-			    s1 *= 7;
-			else if (!endDate || endDate >= _selectedRanges[n].rangeEnd)
-			    s1 *= 11;
-
-			switch (s1)
-			{
-				case 5:
-				case 33:
-				    break;
-
-				case 14:
-				{
-					var temp:Date = _selectedRanges[n].rangeEnd;
-
-					_selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
-
-					_selectedRanges[selectedRangeCount] = {};
-					_selectedRanges[selectedRangeCount].rangeStart = incrementDate(endDate);
-					_selectedRanges[selectedRangeCount].rangeEnd = temp;
-					selectedRangeCount += 1;
-					break;
-				}
-
-				case 7:
-				{
-					_selectedRanges[n].rangeStart = incrementDate(endDate);
-					break;
-				}
-
-				case 22:
-				{
-					_selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
-					break;
-				}
-
-				case 11:
-				{
-					_selectedRanges[n] = _selectedRanges[selectedRangeCount-1];
-					_selectedRanges[selectedRangeCount-1] = null;
-					selectedRangeCount -= 1;
-					break;
-				}
-			}
-		}
-	}
+        var newDate:Date = new Date(value);
+        var time:Number = newDate.getTime();
+        newDate.setTime(time + amount * 86400000);
+        return newDate;
+    }
 
     /**
      *  @private
-	 *  Updates the visible property of all the selected indicators.
-	 *  Called when a date range has been selected or deselected.
+     *  Returns true if newDate is selected.
      */
-	mx_internal function setSelectedIndicators():void
-	{
+    mx_internal function isSelected(newDate:Date):Boolean
+    {
+        for (var i:int = 0; i < selectedRangeCount; i++)
+        {
+            if (newDate >= _selectedRanges[i].rangeStart &&
+                newDate <=_selectedRanges[i].rangeEnd)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *  @private
+     *  Removes the range of dates specified by startDate and endDate
+     *  from the selected dates.
+     */
+    mx_internal function removeRangeFromSelection(startDate:Date, endDate:Date):void
+    {
+        for (var n:int = 0; n < selectedRangeCount; n++)
+        {
+            var s1:int;
+
+            if (!startDate || startDate <= _selectedRanges[n].rangeStart)
+                s1 = 1;
+            else if (startDate <= _selectedRanges[n].rangeEnd)
+                s1 = 2;
+            else if (startDate > _selectedRanges[n].rangeEnd)
+                s1 = 3;
+
+            if (endDate < _selectedRanges[n].rangeStart)
+                s1 *= 5;
+            else if (endDate < _selectedRanges[n].rangeEnd)
+                s1 *= 7;
+            else if (!endDate || endDate >= _selectedRanges[n].rangeEnd)
+                s1 *= 11;
+
+            switch (s1)
+            {
+                case 5:
+                case 33:
+                    break;
+
+                case 14:
+                {
+                    var temp:Date = _selectedRanges[n].rangeEnd;
+
+                    _selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
+
+                    _selectedRanges[selectedRangeCount] = {};
+                    _selectedRanges[selectedRangeCount].rangeStart = incrementDate(endDate);
+                    _selectedRanges[selectedRangeCount].rangeEnd = temp;
+                    selectedRangeCount += 1;
+                    break;
+                }
+
+                case 7:
+                {
+                    _selectedRanges[n].rangeStart = incrementDate(endDate);
+                    break;
+                }
+
+                case 22:
+                {
+                    _selectedRanges[n].rangeEnd = incrementDate(startDate,-1);
+                    break;
+                }
+
+                case 11:
+                {
+                    _selectedRanges[n] = _selectedRanges[selectedRangeCount-1];
+                    _selectedRanges[selectedRangeCount-1] = null;
+                    selectedRangeCount -= 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     *  @private
+     *  Updates the visible property of all the selected indicators.
+     *  Called when a date range has been selected or deselected.
+     */
+    mx_internal function setSelectedIndicators():void
+    {
         var offset:int = getOffsetOfMonth(displayedYear, displayedMonth);
         var daysInMonth:int = getNumberOfDaysInMonth(displayedYear, displayedMonth);
 
@@ -2051,16 +2041,16 @@ public class CalendarLayout extends UIComponent
             columnIndex = i % 7;
             rowIndex = 1 + Math.floor(i / 7);
 
-           	if (isSelected(cellDate) && disabledArrays[columnIndex][rowIndex] == false)
-				addSelectionIndicator(columnIndex,rowIndex);
-			else
-				removeSelectionIndicator(columnIndex,rowIndex);
-		}
+            if (isSelected(cellDate) && disabledArrays[columnIndex][rowIndex] == false)
+                addSelectionIndicator(columnIndex,rowIndex);
+            else
+                removeSelectionIndicator(columnIndex,rowIndex);
+        }
 
-		var today:Date = new Date();
+        var today:Date = new Date();
         if (isSelected(today))
-        	todayIndicator.alpha = 1.0;
-	}
+            todayIndicator.alpha = 1.0;
+    }
 
     /**
      *  @private
@@ -2070,40 +2060,40 @@ public class CalendarLayout extends UIComponent
         if (!selectionIndicator[columnIndex][rowIndex])
         {
 
-			var selectionIndicatorClass:Class =
-					getStyle("selectionIndicatorSkin");
-			if (!selectionIndicatorClass)
-				selectionIndicatorClass = DateChooserIndicator;
+            var selectionIndicatorClass:Class =
+                    getStyle("selectionIndicatorSkin");
+            if (!selectionIndicatorClass)
+                selectionIndicatorClass = DateChooserIndicator;
             selectionIndicator[columnIndex][rowIndex] =
-				IFlexDisplayObject(new selectionIndicatorClass());
-			
-			if (isDateChooserIndicator(selectionIndicator[columnIndex][rowIndex]))
-				Object(selectionIndicator[columnIndex][rowIndex]).indicatorColor =
-					"selectionColor";
-			if (selectionIndicator[columnIndex][rowIndex] is ISimpleStyleClient)
-				ISimpleStyleClient(selectionIndicator[columnIndex][rowIndex]).styleName = this;
-			
-			addChildAt(DisplayObject(selectionIndicator[columnIndex][rowIndex]), 0);
+                IFlexDisplayObject(new selectionIndicatorClass());
+            
+            if (isDateChooserIndicator(selectionIndicator[columnIndex][rowIndex]))
+                Object(selectionIndicator[columnIndex][rowIndex]).indicatorColor =
+                    "selectionColor";
+            if (selectionIndicator[columnIndex][rowIndex] is ISimpleStyleClient)
+                ISimpleStyleClient(selectionIndicator[columnIndex][rowIndex]).styleName = this;
+            
+            addChildAt(DisplayObject(selectionIndicator[columnIndex][rowIndex]), 0);
 
-			var selCell:IUITextField = dayBlocksArray[columnIndex][rowIndex];
+            var selCell:IUITextField = dayBlocksArray[columnIndex][rowIndex];
             selectionIndicator[columnIndex][rowIndex].move(selCell.x, selCell.y + yOffset);
-			selectionIndicator[columnIndex][rowIndex].setActualSize(cellWidth, cellHeight);
-	    }
+            selectionIndicator[columnIndex][rowIndex].setActualSize(cellWidth, cellHeight);
+        }
         selectionIndicator[columnIndex][rowIndex].visible = true;
     }
 
     /**
      *  @private
      */
-	mx_internal function removeSelectionIndicator(columnIndex:int,
-												  rowIndex:int):void
-	{
-		if (selectionIndicator[columnIndex][rowIndex])
-		{
-			removeChild(selectionIndicator[columnIndex][rowIndex]);
-	   		selectionIndicator[columnIndex][rowIndex] = null;
-	   	}
-	}
+    mx_internal function removeSelectionIndicator(columnIndex:int,
+                                                  rowIndex:int):void
+    {
+        if (selectionIndicator[columnIndex][rowIndex])
+        {
+            removeChild(selectionIndicator[columnIndex][rowIndex]);
+            selectionIndicator[columnIndex][rowIndex] = null;
+        }
+    }
 
     /**
      *  @private
@@ -2114,10 +2104,10 @@ public class CalendarLayout extends UIComponent
     {
        for (var columnIndex:int = 0; columnIndex < 7; columnIndex++)
         {
-		    for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
-	        {
-	        	removeSelectionIndicator(columnIndex, rowIndex);
-    	    }
+            for (var rowIndex:int = 0; rowIndex < 7; rowIndex++)
+            {
+                removeSelectionIndicator(columnIndex, rowIndex);
+            }
         }
     }
 
@@ -2135,11 +2125,6 @@ public class CalendarLayout extends UIComponent
         /*
              PageUp: Previous Month
              PageDown: Next Month
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
 
         var selChanged:Boolean = false;
@@ -2156,122 +2141,112 @@ public class CalendarLayout extends UIComponent
         5. Home
         6. End
 
-        *  
-
-        *  @langversion 3.0
-
-        *  @playerversion Flash 9
-
-        *  @playerversion AIR 1.1
-
-        *  @productversion Flex 3
-
         */
 
-   		var daysInMonth:int = getNumberOfDaysInMonth(displayedYear, displayedMonth);
+        var daysInMonth:int = getNumberOfDaysInMonth(displayedYear, displayedMonth);
 
-		for (var i:uint = 0; i < 31; i++)
-		{
-	        if (event.keyCode == Keyboard.LEFT)
-	        {
-				if (date > 1)
-				{
-				    date--;
-					selChanged = true;
-				}
-				else
-					return;
-	        }
-	
-	        else if (event.keyCode == Keyboard.RIGHT)
-	        {
-	    		if (date < daysInMonth)
-	    		{
-	    		    date++;
-					selChanged = true;
-				}
-				else
-					return;
-	        }
-	
-	        else if (event.keyCode == Keyboard.UP)
-	        {
-	            if (date > 7)
-	            {
-				    date -= 7;
-					selChanged = true;
-				}
-				else
-					return;
-	        }
-	
-	        else if (event.keyCode == Keyboard.DOWN)
-	        {
-	    		if (date + 7 <= daysInMonth)
-	    		{
-	    		    date += 7;
-					selChanged = true;
-				}
-				else
-					return;
-			}
-	
-	        else if (event.keyCode == Keyboard.HOME)
-	        {
-	        	if (i == 0)
-	            	date = 1;
-	            else
-	            	date++;
-	 			selChanged = true;
-	        }
-	
-	        else if (event.keyCode == Keyboard.END)
-	        {
-	        	if (i == 0)
-	            	date = daysInMonth;
-	            else
-	            	date--;
-	 			selChanged = true;
-	        }
-	
-	        else if (lastSelectedDate && event.shiftKey &&
-	        		 (event.keyCode == Keyboard.PAGE_UP ||
-					  event.keyCode == Keyboard.PAGE_DOWN))
-			{
-	        	selChanged = true;
-			}
-			
-	        else if (lastSelectedDate &&
-	        		 (event.keyCode == 189 ||
-					  event.keyCode == 187)) // for year - and +
-			{
-	        	selChanged = true;
-			}
-	
-	        if (event.keyCode >= Keyboard.PAGE_UP &&
-				event.keyCode <= Keyboard.DOWN)
-			{
-	        	event.stopPropagation();
-			}
-	
-			if (selChanged)
-	        {
-		        var newDate:Date = new Date(displayedYear, displayedMonth, date);
-	
-				if (checkDateIsDisabled(newDate) && !event.shiftKey)
-					continue;
-	
-	    		if (!(event.shiftKey && _allowMultipleSelection))
-	    			selectedRangeCount = 0;
-	
-	            addToSelected(newDate, event.shiftKey && _allowMultipleSelection);
-	
-				setSelectedIndicators();
-	
-				dispatchChangeEvent(event);
-				return;
-	  		}
- 	 	}
+        for (var i:uint = 0; i < 31; i++)
+        {
+            if (event.keyCode == Keyboard.LEFT)
+            {
+                if (date > 1)
+                {
+                    date--;
+                    selChanged = true;
+                }
+                else
+                    return;
+            }
+    
+            else if (event.keyCode == Keyboard.RIGHT)
+            {
+                if (date < daysInMonth)
+                {
+                    date++;
+                    selChanged = true;
+                }
+                else
+                    return;
+            }
+    
+            else if (event.keyCode == Keyboard.UP)
+            {
+                if (date > 7)
+                {
+                    date -= 7;
+                    selChanged = true;
+                }
+                else
+                    return;
+            }
+    
+            else if (event.keyCode == Keyboard.DOWN)
+            {
+                if (date + 7 <= daysInMonth)
+                {
+                    date += 7;
+                    selChanged = true;
+                }
+                else
+                    return;
+            }
+    
+            else if (event.keyCode == Keyboard.HOME)
+            {
+                if (i == 0)
+                    date = 1;
+                else
+                    date++;
+                selChanged = true;
+            }
+    
+            else if (event.keyCode == Keyboard.END)
+            {
+                if (i == 0)
+                    date = daysInMonth;
+                else
+                    date--;
+                selChanged = true;
+            }
+    
+            else if (lastSelectedDate && event.shiftKey &&
+                     (event.keyCode == Keyboard.PAGE_UP ||
+                      event.keyCode == Keyboard.PAGE_DOWN))
+            {
+                selChanged = true;
+            }
+            
+            else if (lastSelectedDate &&
+                     (event.keyCode == 189 ||
+                      event.keyCode == 187)) // for year - and +
+            {
+                selChanged = true;
+            }
+    
+            if (event.keyCode >= Keyboard.PAGE_UP &&
+                event.keyCode <= Keyboard.DOWN)
+            {
+                event.stopPropagation();
+            }
+    
+            if (selChanged)
+            {
+                var newDate:Date = new Date(displayedYear, displayedMonth, date);
+    
+                if (checkDateIsDisabled(newDate) && !event.shiftKey)
+                    continue;
+    
+                if (!(event.shiftKey && _allowMultipleSelection))
+                    selectedRangeCount = 0;
+    
+                addToSelected(newDate, event.shiftKey && _allowMultipleSelection);
+    
+                setSelectedIndicators();
+    
+                dispatchChangeEvent(event);
+                return;
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -2281,9 +2256,9 @@ public class CalendarLayout extends UIComponent
     //--------------------------------------------------------------------------
 
     /**
-	 *  @private
-	 */
-	private function mouseOverHandler(event:MouseEvent):void
+     *  @private
+     */
+    private function mouseOverHandler(event:MouseEvent):void
     {
         if (event.relatedObject && event.relatedObject.parent != this)
             addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
@@ -2292,8 +2267,8 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private function mouseOutHandler(event:MouseEvent):void
     {
         if (event.relatedObject && event.relatedObject.parent != this)
@@ -2306,7 +2281,7 @@ public class CalendarLayout extends UIComponent
             // If todayColumn and todayRow exist and today is not disabled
             if (todayColumn != -1 && todayRow != -1 && !disabledArrays[todayColumn][todayRow])
             {
-            	var today:Date = new Date();
+                var today:Date = new Date();
                 if (!isSelected(today))
                     todayIndicator.alpha = 1.0;
             }
@@ -2318,14 +2293,14 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private function mouseMoveHandler(event:MouseEvent):void
     {
         var paddingLeft:Number = getStyle("paddingLeft");
         var paddingTop:Number = getStyle("paddingTop");
 
-		var firstColX:Number = dayBlocksArray[0][0].x;
+        var firstColX:Number = dayBlocksArray[0][0].x;
         var lastColX:Number = dayBlocksArray[6][0].x;
         var firstRowY:Number = dayBlocksArray[6][0].y + cellHeight;
 
@@ -2368,7 +2343,7 @@ public class CalendarLayout extends UIComponent
             // Set alpha only if today is not disabled
             if (todayColumn != -1 && todayRow != -1 && !disabledArrays[todayColumn][todayRow])
             {
-            	var today:Date = new Date();
+                var today:Date = new Date();
                 if (rollOverIndicator.x == todayIndicator.x &&
                     rollOverIndicator.y == todayIndicator.y)
                 {
@@ -2383,8 +2358,8 @@ public class CalendarLayout extends UIComponent
     }
 
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private function mouseUpHandler(event:MouseEvent):void
     {
         var paddingLeft:Number = getStyle("paddingLeft");
@@ -2408,7 +2383,7 @@ public class CalendarLayout extends UIComponent
 
         if (rowIndex <= 0)
             return;
-		rowIndex = Math.min(rowIndex, 6);
+        rowIndex = Math.min(rowIndex, 6);
 
         var colIndex:int = Math.floor((mouseX-paddingLeft) / cellWidth);
         var selCell:IUITextField = dayBlocksArray[colIndex][rowIndex];//this["dayBlock"+colIndex+"label"+rowIndex];
@@ -2421,60 +2396,60 @@ public class CalendarLayout extends UIComponent
             mouseX >= selCell.x &&
             mouseX <= selCell.x + cellWidth)
         {
-			var newDate:Date = new Date(displayedYear, displayedMonth, int(selCell.text));
+            var newDate:Date = new Date(displayedYear, displayedMonth, int(selCell.text));
 
-			if (event.shiftKey && _allowMultipleSelection)
-			{
-				addToSelected(newDate,true);
-    		    setSelectedIndicators();
-			}
-			else
-   			{
-				var alreadySelected:Boolean = selectionIndicator[colIndex][rowIndex] ? true : false;
+            if (event.shiftKey && _allowMultipleSelection)
+            {
+                addToSelected(newDate,true);
+                setSelectedIndicators();
+            }
+            else
+            {
+                var alreadySelected:Boolean = selectionIndicator[colIndex][rowIndex] ? true : false;
 
-				if (event.ctrlKey && _allowMultipleSelection && _allowDisjointSelection)
-    			{
-					if (alreadySelected)
-					{
+                if (event.ctrlKey && _allowMultipleSelection && _allowDisjointSelection)
+                {
+                    if (alreadySelected)
+                    {
                         removeSelectionIndicator(colIndex,rowIndex);
-          	    		removeRangeFromSelection(newDate,newDate);
-					}
-					else
-					{
-    					addSelectionIndicator(colIndex,rowIndex);
-						addToSelected(newDate);
-					}
-    			}
-    			else
-    			{
-    				rangeStartDate = null;
+                        removeRangeFromSelection(newDate,newDate);
+                    }
+                    else
+                    {
+                        addSelectionIndicator(colIndex,rowIndex);
+                        addToSelected(newDate);
+                    }
+                }
+                else
+                {
+                    rangeStartDate = null;
 
-					if (alreadySelected)
-					{
-						if (selectedRangeCount > 1 || (selectedRangeCount == 1 && _selectedRanges[0].rangeStart != _selectedRanges[0].rangeEnd))
-						{
-							selectedRangeCount = 0;
-                           	addSelectionIndicator(colIndex,rowIndex);
-							addToSelected(newDate);
-						    setSelectedIndicators();
-						}
-						else if (event.ctrlKey)
-						{
-    	                    removeSelectionIndicator(colIndex,rowIndex);
-        	  	    		removeRangeFromSelection(newDate,newDate);
-						}
-					}
-					else
-					{
-							selectedRangeCount = 0;
-                           	addSelectionIndicator(colIndex,rowIndex);
-							addToSelected(newDate);
-        					setSelectedIndicators();
- 					}
-				}
-			}
+                    if (alreadySelected)
+                    {
+                        if (selectedRangeCount > 1 || (selectedRangeCount == 1 && _selectedRanges[0].rangeStart != _selectedRanges[0].rangeEnd))
+                        {
+                            selectedRangeCount = 0;
+                            addSelectionIndicator(colIndex,rowIndex);
+                            addToSelected(newDate);
+                            setSelectedIndicators();
+                        }
+                        else if (event.ctrlKey)
+                        {
+                            removeSelectionIndicator(colIndex,rowIndex);
+                            removeRangeFromSelection(newDate,newDate);
+                        }
+                    }
+                    else
+                    {
+                            selectedRangeCount = 0;
+                            addSelectionIndicator(colIndex,rowIndex);
+                            addToSelected(newDate);
+                            setSelectedIndicators();
+                    }
+                }
+            }
 
-			dispatchChangeEvent(event);
+            dispatchChangeEvent(event);
 
             if (todayColumn != -1 && todayRow != -1 && !disabledArrays[todayColumn][todayRow]) // Set alpha only if today is not disabled
             {
@@ -2485,45 +2460,45 @@ public class CalendarLayout extends UIComponent
             // Hide the rollover indicator if it is the selected cell
             if (selectionIndicator[colIndex][rowIndex])
                 rollOverIndicator.visible = false;
-		}
+        }
     }
 
-   	/**
-	 *  We don't use 'is' to prevent dependency issues
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private static var dcis:Object = {};
+    /**
+     *  We don't use 'is' to prevent dependency issues
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private static var dcis:Object = {};
 
-	private static function isDateChooserIndicator(parent:Object):Boolean
-	{
-		var s:String = getQualifiedClassName(parent);
-		if (dcis[s] == 1)
-			return true;
+    private static function isDateChooserIndicator(parent:Object):Boolean
+    {
+        var s:String = getQualifiedClassName(parent);
+        if (dcis[s] == 1)
+            return true;
 
-		if (dcis[s] == 0)
-			return false;
+        if (dcis[s] == 0)
+            return false;
 
-		if (s == "mx.skins.halo::DateChooserIndicator")
-		{
-			dcis[s] == 1;
-			return true;
-		}
+        if (s == "mx.skins.halo::DateChooserIndicator")
+        {
+            dcis[s] == 1;
+            return true;
+        }
 
-		var x:XML = describeType(parent);
-		var xmllist:XMLList = x.extendsClass.(@type == "mx.skins.halo::DateChooserIndicator");
-		if (xmllist.length() == 0)
-		{
-			dcis[s] = 0;
-			return false;
-		}
-		
-		dcis[s] = 1;
-		return true;
-	}
+        var x:XML = describeType(parent);
+        var xmllist:XMLList = x.extendsClass.(@type == "mx.skins.halo::DateChooserIndicator");
+        if (xmllist.length() == 0)
+        {
+            dcis[s] = 0;
+            return false;
+        }
+        
+        dcis[s] = 1;
+        return true;
+    }
 }
 
 }
