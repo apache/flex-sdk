@@ -25,6 +25,7 @@ import mx.logging.ILogger;
 import mx.logging.Log;
 import mx.messaging.config.LoaderConfig;
 import mx.messaging.config.ServerConfig;
+import mx.messaging.errors.InvalidChannelError;
 import mx.messaging.errors.InvalidDestinationError;
 import mx.messaging.events.ChannelEvent;
 import mx.messaging.events.ChannelFaultEvent;
@@ -1217,6 +1218,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private function calculateEndpoint():void
     {
+        if (uri == null)
+        {
+            var message:String = resourceManager.getString(
+                "messaging", "noURLSpecified");
+            throw new InvalidChannelError(message);
+        }
+
         var uriCopy:String = uri;
         var proto:String = URLUtil.getProtocol(uriCopy);
 
