@@ -11,10 +11,13 @@
 
 package spark.components.supportClasses
 {
-    
+
+import flash.accessibility.Accessibility;    
+import flash.accessibility.AccessibilityProperties;    
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
@@ -306,8 +309,152 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
+	
+	/*
+	
+	Note:
+	
+	SkinnableTextBase does not have an accessibilityImplementation
+	because, if it does, the Flash Player doesn't support text-selection
+	accessibility. The selectionAnchorIndex and selectionActiveIndex
+	getters of the acc impl don't get called, probably because Player 10.1
+	doesn't like the fact that stage.focus is the texDisplay:RichEditableText
+	part instead of the SinnableTextBase component (i.e., the TextInput
+	or TextArea).
+	
+	Instead, we rely on the RichEditableTextAccImpl of the textDisplay
+	to provide accessibility.
+	
+	However, developers expect to be able to control accessibility by setting
+	accessibilityProperties, accessibilityName, accessibilityDescription,
+	tabIndex, etc. on the component itself.
+	
+	In order to make these settings usable by RichEditableTextAccImpl,
+	we push them down into the accessibilityProperties of the RichEditableText,
+	using the invalidateProperties() / commitProperties() pattern.
+	
+	*/
 
-    //----------------------------------
+	//----------------------------------
+	//  accessibilityEnabled
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set accessibilityEnabled(value:Boolean):void
+	{
+		if (!Capabilities.hasAccessibility)
+			return;
+			
+		if (!accessibilityProperties)
+			accessibilityProperties = new AccessibilityProperties();
+		
+		accessibilityProperties.silent = !value;
+		accessibilityPropertiesChanged = true;
+		
+		invalidateProperties();
+	}
+	
+	//----------------------------------
+	//  accessibilityDescription
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set accessibilityDescription(value:String):void
+	{
+		if (!Capabilities.hasAccessibility)
+			return;
+		
+		if (!accessibilityProperties)
+			accessibilityProperties = new AccessibilityProperties();
+		
+		accessibilityProperties.description = value;
+		accessibilityPropertiesChanged = true;
+		
+		invalidateProperties();
+	}
+	
+	//----------------------------------
+	//  accessibilityName
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set accessibilityName(value:String):void 
+	{
+		if (!Capabilities.hasAccessibility)
+			return;
+		
+		if (!accessibilityProperties)
+			accessibilityProperties = new AccessibilityProperties();
+		
+		accessibilityProperties.name = value;
+		accessibilityPropertiesChanged = true;
+		
+		invalidateProperties();
+	}
+	
+	//----------------------------------
+	//  accessibilityProperties
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the accessibilityProperties property.
+	 */
+	private var _accessibilityProperties:AccessibilityProperties = null;
+
+	/**
+	 *  @private
+	 */
+	private var accessibilityPropertiesChanged:Boolean = false;
+	
+	/**
+	 *  @private
+	 */
+	override public function get accessibilityProperties():AccessibilityProperties
+	{
+		return _accessibilityProperties;
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function set accessibilityProperties(
+									value:AccessibilityProperties):void
+	{
+		_accessibilityProperties = value;
+		accessibilityPropertiesChanged = true;
+		
+		invalidateProperties();
+	}
+	
+	//----------------------------------
+	//  accessibilityShortcut
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set accessibilityShortcut(value:String):void
+	{
+		if (!Capabilities.hasAccessibility)
+			return;		
+		
+		if (!accessibilityProperties)
+			accessibilityProperties = new AccessibilityProperties();
+		
+		accessibilityProperties.shortcut = value;
+		accessibilityPropertiesChanged = true;
+		
+		invalidateProperties();
+	}
+
+	//----------------------------------
     //  baselinePosition
     //----------------------------------
 
@@ -356,6 +503,36 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
     }
 
+	//----------------------------------
+	//  tabIndex
+	//----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the tabIndex property.
+     */
+    private var _tabIndex:int = -1;
+	
+    /**
+     *  @private
+     */
+    override public function get tabIndex():int
+    {
+        return _tabIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set tabIndex(
+                                    value:int):void
+    {
+        _tabIndex = value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties proxied to textDisplay
@@ -783,7 +960,31 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
+
+	/**
+	 *  @private
+	 */
+	override protected function commitProperties():void
+	{
+		super.commitProperties();
+		
+		if (accessibilityPropertiesChanged)
+		{
+			if (textDisplay)
+			{
+				textDisplay.accessibilityProperties = _accessibilityProperties;
+                textDisplay.tabIndex = _tabIndex;             
+                
+				// Note: Calling updateProperties() on players that don't
+				// support accessibility will throw an RTE.
+				if (Capabilities.hasAccessibility)
+					Accessibility.updateProperties();
+			}
+			
+			accessibilityPropertiesChanged = false;
+		}
+	}
+
     /**
      *  @private
      */
