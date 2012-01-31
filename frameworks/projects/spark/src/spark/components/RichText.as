@@ -180,11 +180,6 @@ public class TextGraphic extends TextGraphicElement
      */
     private var textInvalid:Boolean = false;
         
-    /**
-     *  @private
-     */
-    private var stylesChanged:Boolean = false;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -322,42 +317,6 @@ public class TextGraphic extends TextGraphicElement
     //  Overridden methods: GraphicElement
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-    {
-        //trace("updateDisplayList", unscaledWidth, unscaledHeight);
-        
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        // The updateDisplayList() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, compose() must not be called.
-        if (!mx_internal::styleChainInitialized)
-            return;
-
-        // Only compose if it's necessary:
-        //   1) A style change.
-        //   2) If both width/height are specified, measure isn't called
-        //      and measuredWidth/Height will be 0 here.
-        //   3) A layout change which leaves the measured values different
-        //      than the unscaled values.
-        //   4) measuredHeight/Width set by measure changed by super class
-        //      to conform to explicit min/max values for width/height.
-        if (stylesChanged || 
-            measuredWidth != unscaledWidth || 
-            measuredWidth != Math.ceil(mx_internal::bounds.width) ||
-            measuredHeight != unscaledHeight ||
-            measuredHeight != Math.ceil(mx_internal::bounds.height))
-        {
-			composeTextLines(unscaledWidth, unscaledHeight);
-		}  
-            
-        mx_internal::clip(unscaledWidth, unscaledHeight);
-    }
     
     /**
      *  @private
@@ -387,8 +346,6 @@ public class TextGraphic extends TextGraphicElement
             hostTextLayoutFormatInvalid = true;
         else
             setHostTextLayoutFormat(styleProp);
-            
-        stylesChanged = true;
     }
 
     //--------------------------------------------------------------------------
@@ -406,6 +363,9 @@ public class TextGraphic extends TextGraphicElement
             textChanged = true;
         else if (cause == "content")
             contentChanged = true;
+            
+        mx_internal::bounds.width = NaN;
+        mx_internal::bounds.height = NaN;
     }
     
     //--------------------------------------------------------------------------
@@ -659,7 +619,7 @@ public class TextGraphic extends TextGraphicElement
         mx_internal::addTextLines(DisplayObjectContainer(displayObject));
         
 		// Just recomposed so reset.
-        stylesChanged = false;
+        mx_internal::stylesChanged = false;
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
@@ -707,25 +667,23 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      *  Called when the TextFlow dispatches a 'damage' event
-     *  to indicate it has been modified.
+     *  to indicate it has been modified.  This could mean the styles changed
+     *  or the content changed, or both changed.
      */
     private function textFlow_damageHandler(
                             event:DamageEvent):void
     {
         //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
                 
-        // The text flow changed.  It could have been either/or content or
-        // styles within the text flow.  Invalidate text so that it will be 
-        // regenerated from the text flow.
+        // Invalidate text.
         textInvalid = true;
         
-        // Make sure composition is done at least once.  It will update
-        // _content with the potentially modified contents of the text flow.
-        stylesChanged = true;
+        // Invalidate styles.
+        mx_internal::stylesChanged = true;
 
-        // Unless both width/height were specified, need to recalc size.
-        if (isNaN(explicitWidth) || isNaN(explicitHeight))
-            invalidateSize();
+        // This is smart enough not to remeasure if the explicit width/height
+        // were specified.
+        invalidateSize();
         
         invalidateDisplayList();  
     }    
