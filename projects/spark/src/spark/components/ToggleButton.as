@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.events.Event;
@@ -39,7 +39,7 @@ import mx.events.FlexEvent;
 /**
  *  Documentation is not currently available.
  */
-public class ToggleButton extends Button
+public class FxToggleButton extends FxButton
 {
     include "../core/Version.as";
 
@@ -52,7 +52,7 @@ public class ToggleButton extends Button
     /**
      *  Constructor. 
      */    
-    public function ToggleButton()
+    public function FxToggleButton()
 	{
 		super();
 		
@@ -65,7 +65,7 @@ public class ToggleButton extends Button
     //
     // -----------------------------------------------------------------------
 
-    protected static const selectedFlag:uint = Button.lastFlag << 1;
+    protected static const selectedFlag:uint = FxButton.lastFlag << 1;
     
 	protected static const lastFlag:uint = selectedFlag;
     
