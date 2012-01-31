@@ -35,8 +35,8 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:SimpleText text="Select an item below:" x="10" y="15" />
-        <s:ButtonBar id="viewMenu" requiresSelection="true" x="10" y="40" width="320"
-                selectionChanged="changeSelection(event)">
+        <s:ButtonBar id="viewMenu" requireSelection="true" x="10" y="40" width="320"
+                change="changeSelection(event)">
             <s:dataProvider>
                 <s:ArrayCollection source="['Home', 'Rooms', 'Dining']" />
             </s:dataProvider>
