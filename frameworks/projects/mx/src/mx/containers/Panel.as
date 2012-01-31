@@ -1560,9 +1560,12 @@ public class Panel extends Container
             titleBar.setActualSize(titleBarWidth, headerHeight);
 
             // Position the titleBarBackground within the titleBar.
-            titleBarBackground.move(0, 0);
-            IFlexDisplayObject(titleBarBackground).setActualSize(
-                titleBarWidth, headerHeight);
+            if (titleBarBackground)
+            {
+                titleBarBackground.move(0, 0);
+                IFlexDisplayObject(titleBarBackground).setActualSize(
+                    titleBarWidth, headerHeight);
+            }
 
             // Set the close button next to the upper-right corner,
             // offset by the border thickness.
