@@ -63,6 +63,11 @@ use namespace mx_internal;
  *  You typically use the Image control for loading static graphic files and SWF files, 
  *  and use the SWFLoader control for loading Flex applications. The Image control 
  *  is also designed to be used in custom item renderers and item editors. </p>
+ * 
+ *  <p><strong>Note: </strong>Flex also includes the BitmapImage class. This class is 
+ *  used for embedding images into skins and FXG components. It is not a general-purpose
+ *  image-loading class. For example, you cannot load images with the BitmapImage class at
+ *  run-time.</p>
  *
  *  <p>Embedded images load immediately, because they are already part of the 
  *  Flex SWF file. However, they add to the size of your application and slow down 
