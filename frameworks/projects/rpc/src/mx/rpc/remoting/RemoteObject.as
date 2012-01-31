@@ -189,6 +189,32 @@ public dynamic class RemoteObject extends AbstractService
         _source = s;
     }
         
+    /**
+     * An optional function, primarily intended for framework developers who need to install
+     * a function to get called with the parameters passed to each remote object invocation.
+     * The function takes an array of parameters and returns the potentially altered array.
+     *
+     * The function definition should look like:
+     * <code>
+     *   function myParametersFunction(parameters:Array):Array
+     * </code>
+     */
+    public var convertParametersHandler:Function;
+
+    /**
+     * An optional function, primarily intended for framework developers who need to install
+     * a hook to process the results of an operation before notifying the result handlers.
+     *
+     * The function definition should look like:
+     * <code>
+     *   function myConvertResultsFunction(result:*, operation:AbstractOperation):*
+     * </code>
+     * 
+     * It is passed the result just after the makeObjectsBindable conversion has been done
+     * but before the result event is created.
+     */
+    public var convertResultHandler:Function;
+
    //-------------------------------------------------------------------------
 
    //
