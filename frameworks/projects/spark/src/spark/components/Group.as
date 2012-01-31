@@ -1,5 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.components 
 {
+
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -19,6 +31,7 @@ import mx.collections.ListCollectionView;
 import mx.graphics.Graphic;
 import mx.graphics.IGraphicElement;
 import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
 import mx.core.IFactory;
@@ -29,6 +42,7 @@ import mx.events.CollectionEvent;
 import mx.styles.IStyleClient;
 
 use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -737,6 +751,8 @@ public class Group extends GroupBase
             // build its protochain for use by getStyle().
             if (item is IStyleClient)
                 IStyleClient(item).regenerateStyleCache(true);
+            if (item is TextGraphicElement)
+                TextGraphicElement(item).stylesInitialized();
         }   
         else
         {
