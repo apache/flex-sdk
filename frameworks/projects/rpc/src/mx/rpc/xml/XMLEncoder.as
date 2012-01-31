@@ -20,6 +20,7 @@ import mx.utils.object_proxy;
 import mx.utils.ObjectProxy;
 import mx.utils.ObjectUtil;
 import mx.collections.IList;
+import flash.system.Capabilities;
 
 [ExcludeClass]
 
@@ -33,6 +34,23 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     public function XMLEncoder()
     {
         super();
+        
+        // Depending on the player type/version, xml characters in strings
+        // need or need not be escaped. AIR 1.5 ('Desktop' version 10) escapes
+        // these characters by default. For all other versions Flex needs to
+        // do it. The version test to determine this behavior is done here, so
+        // that it's not repeated every time xml content is encoded. This is a
+        // fix for bug SDK-18326.
+        if (flash.system.Capabilities.playerType == "Desktop")
+        {
+            var version:String = flash.system.Capabilities.version.split(' ')[1];
+            var majorVersion:Number = Number(version.split(',')[0]);
+            if (majorVersion >= 10)
+            {
+                _escapeXMLChars = false;
+            }
+        }
+        
     }
 
     //--------------------------------------------------------------------------
@@ -1851,7 +1869,10 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     private function escapeXML(value:Object):String
     {
         var str:String = value.toString();
-        str = str.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        if (_escapeXMLChars)
+        {
+            str = str.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        }
         return str;
     }
     
@@ -1908,6 +1929,7 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
 
     private var _strictNillability:Boolean = false;
     private var _xmlSpecialCharsFilter:Function = escapeXML;
+    private var _escapeXMLChars:Boolean = true;
 
 }
 
