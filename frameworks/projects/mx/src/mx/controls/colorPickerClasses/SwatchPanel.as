@@ -151,7 +151,7 @@ include "../../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightColor", type="uint", format="Color", inherit="yes", theme="halo")]
+[Style(name="highlightColor", type="uint", format="Color", inherit="yes", theme="halo, spark")]
 
 /**
  *  Number of pixels between the component's top border
@@ -196,7 +196,7 @@ include "../../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowColor", type="uint", format="Color", inherit="yes", theme="halo")]
+[Style(name="shadowColor", type="uint", format="Color", inherit="yes", theme="halo, spark")]
 
 /**
  *  Height of the larger preview swatch that appears above the swatch grid on
