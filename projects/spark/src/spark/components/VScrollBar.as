@@ -18,7 +18,7 @@ import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
-import spark.components.supportClasses.ScrollBar;
+import spark.components.supportClasses.ScrollBarBase;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
 
@@ -32,7 +32,7 @@ use namespace mx_internal;
 [DefaultTriggerEvent("change")]
 
 /**
- *  The VScrollBar (vertical ScrollBar) control lets you control
+ *  The VScrollBar (vertical scrollbar) control lets you control
  *  the portion of data that is displayed when there is too much data
  *  to fit vertically in a display area.
  * 
@@ -86,7 +86,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VScrollBar extends ScrollBar
+public class VScrollBar extends ScrollBarBase
 {
     include "../core/Version.as";
 
@@ -260,7 +260,7 @@ public class VScrollBar extends ScrollBar
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see spark.components.supportClasses.ScrollBar#changeValueByPage()
+     *  @see spark.components.supportClasses.ScrollBarBase#changeValueByPage()
      *  @see spark.components.supportClasses.Range#setValue()
      *  @see spark.core.IViewport
      *  @see spark.core.IViewport#verticalScrollPosition
@@ -276,7 +276,7 @@ public class VScrollBar extends ScrollBar
         var oldPageSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's changeValueByPage() implementation to get the same
+            // Want to use ScrollBarBase's changeValueByPage() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
@@ -340,7 +340,7 @@ public class VScrollBar extends ScrollBar
         var oldStepSize:Number;
         if (viewport)
         {
-            // Want to use ScrollBar's changeValueByStep() implementation to get the same
+            // Want to use ScrollBarBase's changeValueByStep() implementation to get the same
             // animated behavior for scrollbars with and without viewports.
             // For now, just change pageSize temporarily and call the superclass
             // implementation.
