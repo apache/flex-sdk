@@ -3270,14 +3270,28 @@ class TouchScrollHelper
         // In order to use them to change the scroll position we must convert
         // them to the scroller's local coordinate space first.
         // This code converts the deltas from global to local.
+        //        
+        // Note that we scale the velocity values up and then back down around the 
+        // calls to globalToLocal.  This is because the runtime only returns values
+        // rounded to the nearest 0.05.  The velocities are small number (<4.0) with 
+        // lots of precision that we don't want to lose.  The scaling preserves
+        // a sufficient level of precision for our purposes.
+        throwVelocity.x *= 100000;
+        throwVelocity.y *= 100000;
+        
+        // Because we subtract out the difference between the two coordinate systems' origins,
+        // This is essentially just multiplying by a scaling factor.
         throwVelocity = 
             scroller.globalToLocal(throwVelocity).subtract(scroller.globalToLocal(new Point(0,0)));
+
+        throwVelocity.x /= 100000;
+        throwVelocity.y /= 100000;
         
         // Note that we always call performThrow - even when the velocity is zero.
         // This is needed because we may be past the end of the list and need an 
         // animation to get us back.
         scroller.performThrow(throwVelocity.x, throwVelocity.y);
-    }
+        }
     
     /**
      *  @private
