@@ -30,6 +30,12 @@ use namespace mx_internal;
  *  Dispatched when a message is received by the Consumer.
  *
  *  @eventType mx.messaging.events.MessageEvent.MESSAGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="message", type="mx.messaging.events.MessageEvent")]
 
@@ -60,6 +66,12 @@ use namespace mx_internal;
  *    timestamp="<i>No default.</i>"
  *  /&gt;
  *  </pre> 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MultiTopicConsumer extends AbstractConsumer
 {
@@ -93,6 +105,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      *       trace("-App recieved message: " + msg.toString());
      *   }
      *   </listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MultiTopicConsumer()
     {
@@ -118,12 +136,24 @@ public class MultiTopicConsumer extends AbstractConsumer
      * registered with the boolean true.  When we generate a subscription message and
      * send it to the server, we add/remove those subscriptions from this list.  Thus this
      * list tracks the subscriptions we have sent to the server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var _currentSubscriptions:Object = {};
 
     /** 
      * Used when the subscriptions property changes so we batch all changes made in one
      * frame into a single multi-subscription message
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var _subchangeTimer:Timer = null;
 
@@ -149,6 +179,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * 
      *  <p>The remote destination must understand the value of the selector 
      *  expression.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public function get subscriptions():ArrayCollection
     {
@@ -159,6 +195,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * Provide a new subscriptions array collection.  This should be an ArrayCollection
      * containing SubscriptionInfo instances which define message topics and selectors
      * you want received by this consumer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function set subscriptions(value:ArrayCollection):void
     {
@@ -204,6 +246,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * @param maxFrequency The maximum number of messages per second the Consumer wants
      * to receive for the subscription. Note that this value overwrites the Consumer
      * wide maxFrequency. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function addSubscription(subtopic:String = null, selector:String = null, maxFrequency:uint = 0):void
     {
@@ -217,6 +265,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * @param subtopic The subtopic for the subscription.
      *
      * @param selector The selector for the subscription.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function removeSubscription(subtopic:String = null, selector:String = null):void
     {
@@ -246,6 +300,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * Returns a subscribe message.
      *
      * @return The subscribe CommandMessage.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override protected function buildSubscribeMessage():CommandMessage
     {
@@ -289,6 +349,12 @@ public class MultiTopicConsumer extends AbstractConsumer
      * receive missed messages.
      *
      * @return The unsubscribe CommandMessage.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override protected function buildUnsubscribeMessage(preserveDurable:Boolean):CommandMessage
     {
@@ -350,6 +416,12 @@ public class MultiTopicConsumer extends AbstractConsumer
          * disconnected), we clear out the subscriptions on the server.  The
          * client will then resubscribe and send all subscriptions on the next
          * connect.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */
         if (!value)
             _currentSubscriptions = {};
