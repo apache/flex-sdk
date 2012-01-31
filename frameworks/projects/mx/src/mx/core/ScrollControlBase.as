@@ -46,6 +46,7 @@ use namespace mx_internal;
 
 include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
+include "../styles/metadata/FocusStyles.as"
 include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/TextStyles.as"
 
