@@ -63,9 +63,9 @@
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<include-classes>RPCClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
