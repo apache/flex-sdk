@@ -15,6 +15,12 @@ package mx.messaging.channels
 /**
  *  The SecureAMFChannel class is identical to the AMFChannel class except that it uses a
  *  secure protocol, HTTPS, to send messages to an AMF endpoint.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class SecureAMFChannel extends AMFChannel
 {
@@ -30,6 +36,12 @@ public class SecureAMFChannel extends AMFChannel
 	 *  @param id The id of this Channel.
 	 *  
 	 *  @param uri The uri for this Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function SecureAMFChannel(id:String = null, uri:String = null)
     {
@@ -44,6 +56,12 @@ public class SecureAMFChannel extends AMFChannel
 
     /**
      *  Returns the protocol for this channel (https).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function get protocol():String
     {
