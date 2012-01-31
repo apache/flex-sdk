@@ -367,7 +367,7 @@ public class ChannelSet extends EventDispatcher
                 for (var i:int = 0; i < _messageAgents.length; i++)
                 {
                     ma = MessageAgent(_messageAgents[i]);
-                    ma.mx_internal::setAuthenticated(value, creds);
+                    ma.setAuthenticated(value, creds);
                 } 
             }
             
@@ -923,7 +923,7 @@ public class ChannelSet extends EventDispatcher
         {
             _shouldBeConnected = true;
             _messageAgents.push(agent);
-            agent.mx_internal::internalSetChannelSet(this);
+            agent.internalSetChannelSet(this);
             // Wire up agent's channel event listeners to this ChannelSet.
             addEventListener(ChannelEvent.CONNECT, agent.channelConnectHandler);
             addEventListener(ChannelEvent.DISCONNECT, agent.channelDisconnectHandler);
@@ -1010,8 +1010,8 @@ public class ChannelSet extends EventDispatcher
                 }
                 
                 // Null out automatically assigned ChannelSet on agent; if manually assigned leave it alone.
-                if (agent.mx_internal::channelSetMode == MessageAgent.mx_internal::AUTO_CONFIGURED_CHANNELSET)
-                    agent.mx_internal::internalSetChannelSet(null);
+                if (agent.channelSetMode == MessageAgent.AUTO_CONFIGURED_CHANNELSET)
+                    agent.internalSetChannelSet(null);
             }
         }
     }
