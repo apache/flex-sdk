@@ -327,10 +327,17 @@ public class TextView extends UIComponent implements IViewport
      */
     override public function get baselinePosition():Number
     {
-        // TODO
-        // The baselinePosition calculation in UIComponent
-        // works only for TextField-based components.
-        return 0;
+        var isEmpty:Boolean = text == "";
+        
+        if (isEmpty)
+            text = "Wj";
+
+        mx_internal::validateBaselinePosition();
+        
+        if (isEmpty)
+            text = "";
+
+        return getStyle("paddingTop") + ascent;
     }
 
     //--------------------------------------------------------------------------
