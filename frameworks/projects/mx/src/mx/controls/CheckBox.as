@@ -56,6 +56,8 @@ include "../styles/metadata/IconColorStyles.as"
 
 [IconFile("CheckBox.png")]
 
+[Alternative(replacement="spark.components.CheckBox", since="4.0")]
+
 /**
  *  The CheckBox control consists of an optional label and a small box
  *  that can contain a check mark or not. 
