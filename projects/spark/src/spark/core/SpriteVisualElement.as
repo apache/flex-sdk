@@ -14,6 +14,7 @@ package spark.core
 
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -29,6 +30,8 @@ import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.utils.MatrixUtil;
@@ -415,6 +418,69 @@ public class SpriteVisualElement extends FlexSprite
 
         _bottom = value;
         invalidateParentSizeAndDisplayList();
+    }
+
+    //----------------------------------
+    //  filters
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the filters property.
+     */
+    private var _filters:Array;
+    
+    /**
+     *  @private
+     */
+    override public function get filters():Array
+    {
+        return _filters ? _filters : super.filters;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set filters(value:Array):void
+    {
+        var n:int;
+        var i:int;
+        var e:IEventDispatcher;
+        
+        if (_filters)
+        {
+            n = _filters.length;
+            for (i = 0; i < n; i++)
+            {
+                e = _filters[i] as IEventDispatcher;
+                if (e)
+                    e.removeEventListener(BaseFilter.CHANGE, filterChangeHandler);
+            }
+        }
+        
+        _filters = value;
+        
+        var clonedFilters:Array = [];
+        if (_filters)
+        {
+            n = _filters.length;
+            for (i = 0; i < n; i++)
+            {
+                if (_filters[i] is IBitmapFilter)
+                {
+                    e = _filters[i] as IEventDispatcher;
+                    if (e)
+                        e.addEventListener(BaseFilter.CHANGE, filterChangeHandler);
+                    clonedFilters.push(IBitmapFilter(_filters[i]).clone());
+                }
+                else
+                {
+                    clonedFilters.push(_filters[i]);
+                }
+            }
+        }
+        
+        super.filters = clonedFilters;
     }
 
     //----------------------------------
@@ -1435,6 +1501,14 @@ public class SpriteVisualElement extends FlexSprite
                 break;
             }
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function filterChangeHandler(event:Event):void
+    {
+        filters = _filters;
     }
     
     /**
