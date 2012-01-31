@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
+import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.LineBreak;
 
@@ -26,7 +27,7 @@ import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.TextSelectionVisibility;
+import spark.components.TextSelectionHighlighting;
 import spark.events.TextOperationEvent;
 import spark.primitives.RichEditableText;
 
@@ -110,7 +111,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextBase extends SkinnableComponent 
+public class SkinnableTextBase extends SkinnableComponent 
     implements IFocusManagerComponent, IIMESupport
 {
     include "../../core/Version.as";
@@ -124,62 +125,62 @@ public class TextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private static const AUTO_SIZE_PROPERTY_FLAG:uint = 1 << 0;
-    
-    /**
-     *  @private
-     */
-    private static const CONTENT_PROPERTY_FLAG:uint = 1 << 1;
+    private static const CONTENT_PROPERTY_FLAG:uint = 1 << 0;
 
     /**
      *  @private
      */
-    private static const DISPLAY_AS_PASSWORD_PROPERTY_FLAG:uint = 1 << 2;
+    private static const DISPLAY_AS_PASSWORD_PROPERTY_FLAG:uint = 1 << 1;
     
     /**
      *  @private
      */
-    private static const EDITABLE_PROPERTY_FLAG:uint = 1 << 3;
+    private static const EDITABLE_PROPERTY_FLAG:uint = 1 << 2;
         
     /**
      *  @private
      */
-    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 4;
+    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 5;
+    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 6;
+    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 5;
        
     /**
      *  @private
      */
-    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
+    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 6;
     
     /**
      *  @private
      */
-    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 8;
+    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 7;
 
     /**
      *  @private
      */
-    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 9;
+    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 8;
 
     /**
      *  @private
      */
-    private static const SELECTION_VISIBILITY_PROPERTY_FLAG:uint = 1 << 10;
+    private static const SELECTION_HIGHLIGHTING_FLAG:uint = 1 << 9;
 
     /**
      *  @private
      */
-    private static const TEXT_PROPERTY_FLAG:uint = 1 << 11;
+    private static const TEXT_PROPERTY_FLAG:uint = 1 << 10;
+
+    /**
+     *  @private
+     */
+    private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 11;
 
     /**
      *  @private
@@ -200,12 +201,9 @@ public class TextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function TextBase()
+    public function SkinnableTextBase()
     {
         super();
-        
-        // Push this down to the textView by using the setter.
-        autoSize = false;
     }
 
     //--------------------------------------------------------------------------
@@ -237,7 +235,7 @@ public class TextBase extends SkinnableComponent
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(textView);
+        return getBaselinePositionForPart(textDisplay);
     }
     
 
@@ -249,51 +247,10 @@ public class TextBase extends SkinnableComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Properties proxied to textView
+    //  Properties proxied to textDisplay
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  autoSize
-    //----------------------------------
-
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get autoSize():Boolean
-    {
-        if (textView)
-            return textView.autoSize;
-            
-        // want the default to be true
-        var v:* = textViewProperties.autoSize;        
-        return (v === undefined) ? true : v;
-    }
-
-    /**
-     *  @private
-     */
-    public function set autoSize(value:Boolean):void
-    {
-        if (textView)
-        {
-            textView.autoSize = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), AUTO_SIZE_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            textViewProperties.autoSize = value;
-        }
-            
-        invalidateProperties();            
-    }
-
     //----------------------------------
     //  displayAsPassword
     //----------------------------------
@@ -308,11 +265,11 @@ public class TextBase extends SkinnableComponent
      */
     public function get displayAsPassword():Boolean
     {
-        if (textView)
-            return textView.displayAsPassword;
+        if (textDisplay)
+            return textDisplay.displayAsPassword;
 
         // want the default to be false
-        var v:* = textViewProperties.displayAsPassword
+        var v:* = textDisplayProperties.displayAsPassword
         return (v === undefined) ? false : v;
     }
 
@@ -321,16 +278,16 @@ public class TextBase extends SkinnableComponent
      */
     public function set displayAsPassword(value:Boolean):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.displayAsPassword = value;
-            textViewProperties = BitFlagUtil.update(
-                                    uint(textViewProperties), 
+            textDisplay.displayAsPassword = value;
+            textDisplayProperties = BitFlagUtil.update(
+                                    uint(textDisplayProperties), 
                                     DISPLAY_AS_PASSWORD_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.displayAsPassword = value;
+            textDisplayProperties.displayAsPassword = value;
         }
 
         invalidateProperties();                    
@@ -352,11 +309,11 @@ public class TextBase extends SkinnableComponent
      */
     public function get editable():Boolean
     {
-        if (textView)
-            return textView.editable;
+        if (textDisplay)
+            return textDisplay.editable;
             
         // want the default to be true
-        var v:* = textViewProperties.editable;
+        var v:* = textDisplayProperties.editable;
         return (v === undefined) ? true : v;
     }
 
@@ -365,15 +322,15 @@ public class TextBase extends SkinnableComponent
      */
     public function set editable(value:Boolean):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.editable = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), EDITABLE_PROPERTY_FLAG, true);
+            textDisplay.editable = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), EDITABLE_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.editable = value;
+            textDisplayProperties.editable = value;
         }
 
         invalidateProperties();            
@@ -404,11 +361,11 @@ public class TextBase extends SkinnableComponent
      */
      public function get imeMode():String
     {
-        if (textView)        
-            return textView.imeMode;
+        if (textDisplay)        
+            return textDisplay.imeMode;
             
         // want the default to be null
-        var v:* = textViewProperties.imeMode;
+        var v:* = textDisplayProperties.imeMode;
         return (v === undefined) ? null : v;
     }
 
@@ -417,15 +374,15 @@ public class TextBase extends SkinnableComponent
      */
     public function set imeMode(value:String):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.imeMode = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), IME_MODE_PROPERTY_FLAG, true);
+            textDisplay.imeMode = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.imeMode = value;
+            textDisplayProperties.imeMode = value;
         }
 
         invalidateProperties();            
@@ -452,11 +409,11 @@ public class TextBase extends SkinnableComponent
      */
     public function get maxChars():int 
     {
-        if (textView)
-            return textView.maxChars;
+        if (textDisplay)
+            return textDisplay.maxChars;
             
         // want the default to be 0
-        var v:* = textViewProperties.maxChars;
+        var v:* = textDisplayProperties.maxChars;
         return (v === undefined) ? 0 : v;
     }
     
@@ -465,15 +422,15 @@ public class TextBase extends SkinnableComponent
      */
     public function set maxChars(value:int):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.maxChars = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), MAX_CHARS_PROPERTY_FLAG, true);
+            textDisplay.maxChars = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), MAX_CHARS_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.maxChars = value;
+            textDisplayProperties.maxChars = value;
         }
 
         invalidateProperties();            
@@ -488,11 +445,11 @@ public class TextBase extends SkinnableComponent
      */
     override public function get maxWidth():Number
     {
-        if (textView)
-            return textView.maxWidth;
+        if (textDisplay)
+            return textDisplay.maxWidth;
             
         // want the default to be default max width for UIComponent
-        var v:* = textViewProperties.maxWidth;
+        var v:* = textDisplayProperties.maxWidth;
         return (v === undefined) ? super.maxWidth : v;        
     }
 
@@ -501,15 +458,15 @@ public class TextBase extends SkinnableComponent
      */
     override public function set maxWidth(value:Number):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.maxWidth = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), MAX_WIDTH_PROPERTY_FLAG, true);
+            textDisplay.maxWidth = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.maxWidth = value;
+            textDisplayProperties.maxWidth = value;
         }
 
         invalidateProperties();            
@@ -531,11 +488,11 @@ public class TextBase extends SkinnableComponent
      */
     public function get restrict():String 
     {
-        if (textView)
-            return textView.restrict;
+        if (textDisplay)
+            return textDisplay.restrict;
             
         // want the default to be null
-        var v:* = textViewProperties.restrict;
+        var v:* = textDisplayProperties.restrict;
         return (v === undefined) ? null : v;
     }
     
@@ -544,15 +501,15 @@ public class TextBase extends SkinnableComponent
      */
     public function set restrict(value:String):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.restrict = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), RESTRICT_PROPERTY_FLAG, true);
+            textDisplay.restrict = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), RESTRICT_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.restrict = value;
+            textDisplayProperties.restrict = value;
         }
 
         invalidateProperties();            
@@ -575,11 +532,11 @@ public class TextBase extends SkinnableComponent
      */
     public function get selectable():Boolean
     {
-        if (textView)
-            return textView.selectable;
+        if (textDisplay)
+            return textDisplay.selectable;
             
         // want the default to be true
-        var v:* = textViewProperties.selectable;
+        var v:* = textDisplayProperties.selectable;
         return (v === undefined) ? true : v;
     }
 
@@ -588,15 +545,15 @@ public class TextBase extends SkinnableComponent
      */
     public function set selectable(value:Boolean):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.selectable = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), SELECTABLE_PROPERTY_FLAG, true);
+            textDisplay.selectable = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), SELECTABLE_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.selectable = value;
+            textDisplayProperties.selectable = value;
         }
         
         invalidateProperties();            
@@ -663,7 +620,7 @@ public class TextBase extends SkinnableComponent
     }
 
     //----------------------------------
-    //  selectionVisibility
+    //  selectionHighlighting
     //----------------------------------
 
     /**
@@ -676,31 +633,31 @@ public class TextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get selectionVisibility():String 
+    public function get selectionHighlighting():String 
     {
-        if (textView)
-            return textView.selectionVisibility;
+        if (textDisplay)
+            return textDisplay.selectionHighlighting;
             
         // want the default to be "when focused"
-        var v:* = textViewProperties.selectionVisibility;
-        return (v === undefined) ? TextSelectionVisibility.WHEN_FOCUSED : v;
+        var v:* = textDisplayProperties.selectionHighlighting;
+        return (v === undefined) ? TextSelectionHighlighting.WHEN_FOCUSED : v;
     }
     
     /**
      *  @private
      */
-    public function set selectionVisibility(value:String):void
+    public function set selectionHighlighting(value:String):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.selectionVisibility = value;
-            textViewProperties = BitFlagUtil.update(
-                                    uint(textViewProperties), 
-                                    SELECTION_VISIBILITY_PROPERTY_FLAG, true);
+            textDisplay.selectionHighlighting = value;
+            textDisplayProperties = BitFlagUtil.update(
+                                    uint(textDisplayProperties), 
+                                    SELECTION_HIGHLIGHTING_FLAG, true);
         }
         else
         {
-            textViewProperties.selectionVisibility = value;
+            textDisplayProperties.selectionHighlighting = value;
         }
 
         invalidateProperties();            
@@ -720,11 +677,14 @@ public class TextBase extends SkinnableComponent
      */
     public function get text():String
     {
-        if (textView)
-            return textView.text;
+        if (textDisplay)
+            return textDisplay.text;
             
+        // If there is no textDisplay, it isn't possible to set one of
+        // text, textFlow or content and then get it in another form.
+                    
         // want the default to be the empty string
-        var v:* = textViewProperties.text;
+        var v:* = textDisplayProperties.text;
         return (v === undefined) ? "" : v;
     }
 
@@ -733,72 +693,28 @@ public class TextBase extends SkinnableComponent
      */
     public function set text(value:String):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.text = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), TEXT_PROPERTY_FLAG, true);
+            textDisplay.text = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), TEXT_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.text = value;
+            textDisplayProperties.text = value;
+
+            // Of 'text', 'textFlow', and 'content', the last one set wins.  So
+            // if we're holding onto the properties until the skin is loaded
+            // make sure only the last one set is defined.
+            textDisplayProperties.content = undefined;
+            textDisplayProperties.textFlow = undefined;
         }
 
         invalidateProperties(); 
-
-        // The default event to trigger a validator.
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                   
      }
 
     //----------------------------------
-    //  widthInChars
-    //----------------------------------
-    
-    /**
-     *  The default width for the Text components, measured in characters.
-     *  The width of the "M" character is used for the calculation.
-     *  So if you set this property to 5, it will be wide enough
-     *  to let the user enter 5 ems.
-     *
-     *  @default
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get widthInChars():Number
-    {
-        if (textView)
-            return textView.widthInChars
-            
-        // want the default to be 15 characters
-        var v:* = textViewProperties.widthInChars;
-        return (v === undefined) ? 15 : v;
-    }
-
-    /**
-     *  @private
-     */
-    public function set widthInChars(value:Number):void
-    {
-        if (textView)
-        {
-            textView.widthInChars = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), WIDTH_IN_CHARS_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            textViewProperties.widthInChars = value;
-        }
-
-        invalidateProperties();            
-    }
-    
-    
-    //----------------------------------
-    //  textView
+    //  textDisplay
     //----------------------------------
 
     [SkinPart(required="true")]
@@ -812,26 +728,26 @@ public class TextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var textView:RichEditableText;
+    public var textDisplay:RichEditableText;
 
     /**
      *  @private
-     *  Several properties are proxied to textView.  However, when textView
-     *  is not around, we need to store values set on TextBase.  This object 
-     *  stores those values.  If textView is around, the values are stored 
-     *  on the textView directly.  However, we need to know what values 
-     *  have been set by the developer on TextInput/TextArea (versus set on 
-     *  the textView or defaults of the textView) as those are values 
-     *  we want to carry around if the textView changes (via a new skin). 
-     *  In order to store this info effeciently, textViewProperties becomes 
-     *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitly set on this TextBase.  When the 
-     *  textView is not around, textViewProperties is a typeless 
-     *  object to store these proxied properties.  When textView is around,
-     *  textViewProperties stores booleans as to whether these properties 
-     *  have been explicitly set or not.
+     *  Several properties are proxied to textDisplay.  However, when 
+     *  textDisplay is not around, we need to store values set on 
+     *  SkinnableTextBase.  This object stores those values.  If textDisplay is 
+     *  around, the values are  stored  on the textDisplay directly.  However, 
+     *  we need to know what values have been set by the developer on 
+     *  TextInput/TextArea (versus set on the textDisplay or defaults of the 
+     *  textDisplay) as those are values we want to carry around if the 
+     *  textDisplay changes (via a new skin). In order to store this info 
+     *  efficiently, textDisplayProperties becomes a uint to store a series of 
+     *  BitFlags.  These bits represent whether a property has been explicitly 
+     *  set on this SkinnableTextBase.  When the  textDisplay is not around, 
+     *  textDisplayProperties is a typeless object to store these proxied 
+     *  properties.  When textDisplay is around, textDisplayProperties stores 
+     *  booleans as to whether these properties have been explicitly set or not.
      */
-    private var textViewProperties:Object = {};
+    private var textDisplayProperties:Object = {};
    
     //--------------------------------------------------------------------------
     //
@@ -846,59 +762,55 @@ public class TextBase extends SkinnableComponent
     {
         super.partAdded(partName, instance);
 
-        if (instance == textView)
+        if (instance == textDisplay)
         {
-            // TODO: Remove this hard-coded styleName assignment
-            // once all global text styles are moved to the global
-            // stylesheet. This is a temporary workaround to support
-            // inline text styles for Buttons and subclasses.
-            textView.styleName = this;
-                                      
-            // Copy proxied values from textViewProperties (if set) to textView.
-            textViewAdded();            
+            // Copy proxied values from textDisplayProperties (if set) to 
+            //textDisplay.
+            textDisplayAdded();            
             
             // Start listening for various events from the RichEditableText.
 
-            textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
-                                      textView_selectionChangeHandler);
+            textDisplay.addEventListener(SelectionEvent.SELECTION_CHANGE,
+                                         textDisplay_selectionChangeHandler);
 
-            textView.addEventListener(TextOperationEvent.CHANGING, 
-                                      textView_changingHandler);
+            textDisplay.addEventListener(TextOperationEvent.CHANGING, 
+                                         textDisplay_changingHandler);
 
-            textView.addEventListener(TextOperationEvent.CHANGE,
-                                      textView_changeHandler);
+            textDisplay.addEventListener(TextOperationEvent.CHANGE,
+                                         textDisplay_changeHandler);
 
-            textView.addEventListener(FlexEvent.ENTER,
-                                      textView_enterHandler);
+            textDisplay.addEventListener(FlexEvent.ENTER,
+                                         textDisplay_enterHandler);
         }
     }
 
     /**
      *  @private
      */
-    override protected function partRemoved(partName:String, instance:Object):void
+    override protected function partRemoved(partName:String, 
+                                            instance:Object):void
     {
         super.partRemoved(partName, instance);
 
-        if (instance == textView)
+        if (instance == textDisplay)
         {
-            // Copy proxied values from textView (if explicitly set) to 
-            // textViewProperties.                        
-            textViewRemoved();            
+            // Copy proxied values from textDisplay (if explicitly set) to 
+            // textDisplayProperties.                        
+            textDisplayRemoved();            
             
             // Stop listening for various events from the RichEditableText.
 
-            textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
-                                         textView_selectionChangeHandler);
+            textDisplay.removeEventListener(SelectionEvent.SELECTION_CHANGE,
+                                            textDisplay_selectionChangeHandler);
 
-            textView.removeEventListener(TextOperationEvent.CHANGING,
-                                         textView_changingHandler);
+            textDisplay.removeEventListener(TextOperationEvent.CHANGING,
+                                            textDisplay_changingHandler);
 
-            textView.removeEventListener(TextOperationEvent.CHANGE,
-                                         textView_changeHandler);
+            textDisplay.removeEventListener(TextOperationEvent.CHANGE,
+                                            textDisplay_changeHandler);
 
-            textView.removeEventListener(FlexEvent.ENTER,
-                                         textView_enterHandler);
+            textDisplay.removeEventListener(FlexEvent.ENTER,
+                                            textDisplay_enterHandler);
         }
     }
     
@@ -916,8 +828,8 @@ public class TextBase extends SkinnableComponent
      */
     override public function setFocus():void
     {
-        if (textView)
-            textView.setFocus();
+        if (textDisplay)
+            textDisplay.setFocus();
     }
 
     /**
@@ -925,7 +837,7 @@ public class TextBase extends SkinnableComponent
      */
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
-        return target == textView || super.isOurFocus(target);
+        return target == textDisplay || super.isOurFocus(target);
     }
 
     /**
@@ -958,30 +870,23 @@ public class TextBase extends SkinnableComponent
     /**
      *  @private
      */
-    protected function getContent():Object
-    {
-        if (textView)
-            return textView.content;
-            
-        // want the default to be null
-        var v:* = textViewProperties.content;        
-        return (v === undefined) ? null : v;
-    }
-
-    /**
-     *  @private
-     */
-    protected function setContent(value:Object):void
+    mx_internal function setContent(value:Object):void
     {        
-        if (textView)
+        if (textDisplay)
         {
-            textView.content = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), CONTENT_PROPERTY_FLAG, true);
+            textDisplay.content = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), CONTENT_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.content = value;
+            textDisplayProperties.content = value;
+            
+            // Of 'text', 'textFlow', and 'content', the last one set wins.  So
+            // if we're holding onto the properties until the skin is loaded
+            // make sure only the last one set is defined.
+            textDisplayProperties.text = undefined;
+            textDisplayProperties.textFlow = undefined;
         }
 
         invalidateProperties();            
@@ -990,39 +895,142 @@ public class TextBase extends SkinnableComponent
     //----------------------------------
     //  heightInLines
     //----------------------------------
-
-    // TextArea has this, TextInput does not.
     
     /**
      *  @private
      */
-    protected function getHeightInLines():Number
+    mx_internal function getHeightInLines():Number
     {
-        if (textView)
-            return textView.heightInLines;
+        if (textDisplay)
+            return textDisplay.heightInLines;
             
-        // want the default to be 10 lines
-        var v:* = textViewProperties.heightInLines;        
-        return (v === undefined) ? 10 : v;
+        // want the default to be NaN
+        var v:* = textDisplayProperties.heightInLines;        
+        return (v === undefined) ? NaN : v;
     }
 
     /**
      *  @private
      */
-    protected function setHeightInLines(value:Number):void
+    mx_internal function setHeightInLines(value:Number):void
     {
-        if (textView)
+        if (textDisplay)
         {
-            textView.heightInLines = value;
-            textViewProperties = BitFlagUtil.update(
-                uint(textViewProperties), HEIGHT_IN_LINES_PROPERTY_FLAG, true);
+            textDisplay.heightInLines = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                HEIGHT_IN_LINES_PROPERTY_FLAG, true);
         }
         else
         {
-            textViewProperties.heightInLines = value;
+            textDisplayProperties.heightInLines = value;
         }
 
         invalidateProperties();            
+    }
+
+    //----------------------------------
+    //  textFlow
+    //----------------------------------
+
+    /**
+     *  @private  
+     */
+    mx_internal function getTextFlow():TextFlow 
+    {
+        if (textDisplay)
+            return textDisplay.textFlow;
+            
+        // If there is no textDisplay, it isn't possible to set one of
+        // text, textFlow or content and then get it in another form.
+
+        // want the default to be null
+        var v:* = textDisplayProperties.textFlow;
+        return (v === undefined) ? null : v;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setTextFlow(value:TextFlow):void
+    {
+        if (textDisplay)
+        {
+            textDisplay.textFlow = value;
+            textDisplayProperties = BitFlagUtil.update(
+                                    uint(textDisplayProperties), 
+                                    TEXT_FLOW_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.textFlow = value;
+
+            // Of 'text', 'textFlow', and 'content', the last one set wins.  So
+            // if we're holding onto the properties until the skin is loaded
+            // make sure only the last one set is defined.
+            textDisplayProperties.text = undefined;
+            textDisplayProperties.content = undefined;
+        }
+
+        invalidateProperties();            
+    }
+
+    //----------------------------------
+    //  widthInChars
+    //----------------------------------
+    
+    /**
+     *  The default width for the Text components, measured in characters.
+     *  The width of the "M" character is used for the calculation.
+     *  So if you set this property to 5, it will be wide enough
+     *  to let the user enter 5 ems.
+     *
+     *  @private
+     */
+    mx_internal function getWidthInChars():Number
+    {
+        if (textDisplay)
+            return textDisplay.widthInChars
+            
+        // want the default to be NaN
+        var v:* = textDisplayProperties.widthInChars;
+        return (v === undefined) ? NaN : v;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function setWidthInChars(value:Number):void
+    {
+        if (textDisplay)
+        {
+            textDisplay.widthInChars = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                WIDTH_IN_CHARS_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.widthInChars = value;
+        }
+
+        invalidateProperties();            
+    }
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function selectAll():void
+    {
+        if (!textDisplay)
+            return;
+
+        textDisplay.selectAll();
     }
 
     /**
@@ -1033,13 +1041,12 @@ public class TextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setSelection(anchorIndex:int = 0,
-                                 activeIndex:int = int.MAX_VALUE):void
+    public function selectRange(anchorIndex:int, activeIndex:int):void
     {
-        if (!textView)
+        if (!textDisplay)
             return;
 
-        textView.setSelection(anchorIndex, activeIndex);
+        textDisplay.selectRange(anchorIndex, activeIndex);
     }
 
     /**
@@ -1052,14 +1059,10 @@ public class TextBase extends SkinnableComponent
      */
     public function insertText(text:String):void
     {
-        if (!textView)
+        if (!textDisplay)
             return;
 
-        // Make sure all properties are committed (i.e. pushed down to textView)
-        // before doing the insert.
-        validateNow();
-
-        textView.insertText(text);
+        textDisplay.insertText(text);
     }
 
     /**
@@ -1072,197 +1075,209 @@ public class TextBase extends SkinnableComponent
      */
     public function appendText(text:String):void
     {
-        if (!textView)
+        if (!textDisplay)
             return;
 
-        // Make sure all properties are committed (i.e. pushed down to textView)
-        // before doing the append.
-        validateNow();
-
-        textView.appendText(text);
+        textDisplay.appendText(text);
     }
     
     /**
      *  @private
-     *  Copy values stored locally into textView now that textView has been
-     *  added.
+     *  Copy values stored locally into textDisplay now that textDisplay 
+     *  has been added.
      */
-    private function textViewAdded():void
+    private function textDisplayAdded():void
     {        
-        var newTextViewProperties:uint = 0;
+        var newTextDisplayProperties:uint = 0;
         
-        if (textViewProperties.autoSize !== undefined)
+        if (textDisplayProperties.content !== undefined)
         {
-            textView.autoSize = textViewProperties.autoSize;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), AUTO_SIZE_PROPERTY_FLAG, true);
-        }
-
-        if (textViewProperties.content !== undefined)
-        {
-            textView.content = textViewProperties.content;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), CONTENT_PROPERTY_FLAG, true);
+            textDisplay.content = textDisplayProperties.content;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), CONTENT_PROPERTY_FLAG, true);
         }
  
-        if (textViewProperties.displayAsPassword !== undefined)
+        if (textDisplayProperties.displayAsPassword !== undefined)
         {
-            textView.displayAsPassword = textViewProperties.displayAsPassword
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
+            textDisplay.displayAsPassword = 
+                textDisplayProperties.displayAsPassword
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), 
                 DISPLAY_AS_PASSWORD_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.editable !== undefined)
+        if (textDisplayProperties.editable !== undefined)
         {
-            textView.editable = textViewProperties.editable;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), EDITABLE_PROPERTY_FLAG, true);
+            textDisplay.editable = textDisplayProperties.editable;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), EDITABLE_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.heightInLines !== undefined)
+        if (textDisplayProperties.heightInLines !== undefined)
         {
-            textView.heightInLines = textViewProperties.heightInLines;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
+            textDisplay.heightInLines = textDisplayProperties.heightInLines;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), 
                 HEIGHT_IN_LINES_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.imeMode !== undefined)
+        if (textDisplayProperties.imeMode !== undefined)
         {
-            textView.imeMode = textViewProperties.imeMode;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), IME_MODE_PROPERTY_FLAG, true);
+            textDisplay.imeMode = textDisplayProperties.imeMode;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.maxChars !== undefined)
+        if (textDisplayProperties.maxChars !== undefined)
         {
-            textView.maxChars = textViewProperties.maxChars;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), MAX_CHARS_PROPERTY_FLAG, true);
+            textDisplay.maxChars = textDisplayProperties.maxChars;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), MAX_CHARS_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.maxWidth !== undefined)
+        if (textDisplayProperties.maxWidth !== undefined)
         {
-            textView.maxWidth = textViewProperties.maxWidth;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), MAX_WIDTH_PROPERTY_FLAG, true);
+            textDisplay.maxWidth = textDisplayProperties.maxWidth;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.restrict !== undefined)
+        if (textDisplayProperties.restrict !== undefined)
         {
-            textView.restrict = textViewProperties.restrict;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), RESTRICT_PROPERTY_FLAG, true);
+            textDisplay.restrict = textDisplayProperties.restrict;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), RESTRICT_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.selectable !== undefined)
+        if (textDisplayProperties.selectable !== undefined)
         {
-            textView.selectable = textViewProperties.selectable;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), SELECTABLE_PROPERTY_FLAG, true);
+            textDisplay.selectable = textDisplayProperties.selectable;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), SELECTABLE_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.selectionVisibility !== undefined)
+        if (textDisplayProperties.selectionHighlighting !== undefined)
         {
-            textView.selectionVisibility = textViewProperties.selectionVisibility;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
-                SELECTION_VISIBILITY_PROPERTY_FLAG, true);
+            textDisplay.selectionHighlighting = 
+                textDisplayProperties.selectionHighlighting;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), 
+                SELECTION_HIGHLIGHTING_FLAG, true);
         }
             
-        if (textViewProperties.text != null)
+        if (textDisplayProperties.text != null)
         {
-            textView.text = textViewProperties.text;
-            newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), TEXT_PROPERTY_FLAG, true);
+            textDisplay.text = textDisplayProperties.text;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), TEXT_PROPERTY_FLAG, true);
         }
 
-        if (textViewProperties.widthInChars !== undefined)
+        if (textDisplayProperties.textFlow !== undefined)
         {
-            textView.widthInChars = textViewProperties.widthInChars;
-             newTextViewProperties = BitFlagUtil.update(
-                uint(newTextViewProperties), 
+            textDisplay.textFlow = textDisplayProperties.textFlow;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), TEXT_FLOW_PROPERTY_FLAG, true);
+        }
+
+        if (textDisplayProperties.widthInChars !== undefined)
+        {
+            textDisplay.widthInChars = textDisplayProperties.widthInChars;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), 
                 WIDTH_IN_CHARS_PROPERTY_FLAG, true);
         }
             
         // Switch from storing properties to bit mask of stored properties.
-         textViewProperties = newTextViewProperties;    
+        textDisplayProperties = newTextDisplayProperties;    
     }
     
     /**
      *  @private
-     *  Copy values stored in textView back to local storage since textView is
-     *  about to be removed.
+     *  Copy values stored in textDisplay back to local storage since 
+     *  textDisplay is about to be removed.
      */
-    private function textViewRemoved():void
+    private function textDisplayRemoved():void
     {        
-        var newTextViewProperties:Object = {};
+        var newTextDisplayProperties:Object = {};
         
-        if (BitFlagUtil.isSet(uint(textViewProperties), AUTO_SIZE_PROPERTY_FLAG))
-            newTextViewProperties.autoSize = textView.autoSize;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), CONTENT_PROPERTY_FLAG))
-            newTextViewProperties.content = textView.content;
- 
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            DISPLAY_AS_PASSWORD_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              DISPLAY_AS_PASSWORD_PROPERTY_FLAG))
         {
-            newTextViewProperties.displayAsPassword = textView.displayAsPassword;
+            newTextDisplayProperties.displayAsPassword = 
+                textDisplay.displayAsPassword;
         }
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), EDITABLE_PROPERTY_FLAG))
-            newTextViewProperties.editable = textView.editable;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            HEIGHT_IN_LINES_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              EDITABLE_PROPERTY_FLAG))
         {
-            newTextViewProperties.heightInLines = textView.heightInLines;
+            newTextDisplayProperties.editable = textDisplay.editable;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              HEIGHT_IN_LINES_PROPERTY_FLAG))
+        {
+            newTextDisplayProperties.heightInLines = textDisplay.heightInLines;
         }
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), IME_MODE_PROPERTY_FLAG))
-            newTextViewProperties.imeMode = textView.imeMode;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            MAX_CHARS_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              IME_MODE_PROPERTY_FLAG))
         {
-            newTextViewProperties.maxChars = textView.maxChars;
+            newTextDisplayProperties.imeMode = textDisplay.imeMode;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              MAX_CHARS_PROPERTY_FLAG))
+        {
+            newTextDisplayProperties.maxChars = textDisplay.maxChars;
         }
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            MAX_WIDTH_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              MAX_WIDTH_PROPERTY_FLAG))
         {
-            newTextViewProperties.maxWidth = textView.maxWidth;
+            newTextDisplayProperties.maxWidth = textDisplay.maxWidth;
         }
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), RESTRICT_PROPERTY_FLAG))
-            newTextViewProperties.restrict = textView.restrict;
-
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            SELECTABLE_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              RESTRICT_PROPERTY_FLAG))
         {
-            newTextViewProperties.selectable = textView.selectable;
+            newTextDisplayProperties.restrict = textDisplay.restrict;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              SELECTABLE_PROPERTY_FLAG))
+        {
+            newTextDisplayProperties.selectable = textDisplay.selectable;
         }
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            SELECTION_VISIBILITY_PROPERTY_FLAG))
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              SELECTION_HIGHLIGHTING_FLAG))
         {
-            newTextViewProperties.selectionVisibility = 
-                textView.selectionVisibility;
+            newTextDisplayProperties.selectionHighlighting = 
+                textDisplay.selectionHighlighting;
         }
             
         // Text is special.            
-        if (BitFlagUtil.isSet(uint(textViewProperties), TEXT_PROPERTY_FLAG))
-            newTextViewProperties.text = textView.text;
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), TEXT_PROPERTY_FLAG))
+            newTextDisplayProperties.text = textDisplay.text;
 
-        if (BitFlagUtil.isSet(uint(textViewProperties), 
-            WIDTH_IN_CHARS_PROPERTY_FLAG))
+        // Content is just a setter.  So if it was set, get the textFlow
+        // instead.        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                TEXT_FLOW_PROPERTY_FLAG) || 
+            BitFlagUtil.isSet(uint(textDisplayProperties), 
+                CONTENT_PROPERTY_FLAG))
         {
-            newTextViewProperties.widthInChars = textView.widthInChars;
+            newTextDisplayProperties.textFlow = textDisplay.textFlow;
+        }
+
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+                              WIDTH_IN_CHARS_PROPERTY_FLAG))
+        {
+            newTextDisplayProperties.widthInChars = textDisplay.widthInChars;
         }
             
         // Switch from storing bit mask to storing properties.
-        textViewProperties = newTextViewProperties;
+        textDisplayProperties = newTextDisplayProperties;
     }
     
     //--------------------------------------------------------------------------
@@ -1305,11 +1320,11 @@ public class TextBase extends SkinnableComponent
      *  @private
      *  Called when the RichEditableText dispatches a 'selectionChange' event.
      */
-    private function textView_selectionChangeHandler(event:Event):void
+    private function textDisplay_selectionChangeHandler(event:Event):void
     {
         // Update our storage variables for the selection indices.
-        _selectionAnchorPosition = textView.selectionAnchorPosition;
-        _selectionActivePosition = textView.selectionActivePosition;
+        _selectionAnchorPosition = textDisplay.selectionAnchorPosition;
+        _selectionActivePosition = textDisplay.selectionActivePosition;
         
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
@@ -1324,9 +1339,9 @@ public class TextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function textView_changeHandler(event:TextOperationEvent):void
+    private function textDisplay_changeHandler(event:TextOperationEvent):void
     {        
-        //trace(id, "textView_changeHandler", textView.text);
+        //trace(id, "textDisplay_changeHandler", textDisplay.text);
         
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
@@ -1340,7 +1355,7 @@ public class TextBase extends SkinnableComponent
      *  Called when the RichEditableText dispatches a 'changing' event
      *  before an editing operation.
      */
-    private function textView_changingHandler(event:TextOperationEvent):void
+    private function textDisplay_changingHandler(event:TextOperationEvent):void
     {
         // Redispatch the event that came from the RichEditableText.
         var newEvent:Event = event.clone();
@@ -1358,7 +1373,7 @@ public class TextBase extends SkinnableComponent
      *  Called when the RichEditableText dispatches an 'enter' event
      *  in response to the Enter key.
      */
-    private function textView_enterHandler(event:Event):void
+    private function textDisplay_enterHandler(event:Event):void
     {
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
