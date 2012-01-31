@@ -24,6 +24,11 @@ import mx.controls.listClasses.IListItemRenderer;
  *  @see mx.controls.Menu
  *  @see mx.controls.MenuBar
  *  @see mx.controls.PopUpMenuButton
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MenuEvent extends ListEvent
 {
@@ -75,6 +80,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType change
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CHANGE:String = "change";
 
@@ -118,6 +128,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType itemClick
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_CLICK:String = "itemClick";
 
@@ -161,6 +176,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType menuHide
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public static const MENU_HIDE:String = "menuHide";
 
@@ -204,6 +224,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType itemRollOut
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OUT:String = "itemRollOut";
 
@@ -247,6 +272,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType itemRollOver
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OVER:String = "itemRollOver";
 
@@ -289,6 +319,11 @@ public class MenuEvent extends ListEvent
      *  </table>
      *
      *  @eventType menuShow
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const MENU_SHOW:String = "menuShow";
 
@@ -326,6 +361,11 @@ public class MenuEvent extends ListEvent
      *  @param label The label text of the associated menu item.
      * 
      *  @param index The index in the menu of the associated menu item. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MenuEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = true,
@@ -357,6 +397,11 @@ public class MenuEvent extends ListEvent
     /**
      *  The index of the associated menu item within its parent menu or submenu. 
      *  This is -1 for the menuShow and menuHide events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var index:int;
 
@@ -367,6 +412,11 @@ public class MenuEvent extends ListEvent
     /**
      *  The specific item in the dataProvider. 
      *  This is null for the menuShow and menuHide events. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var item:Object;
 
@@ -377,6 +427,11 @@ public class MenuEvent extends ListEvent
     /**
      *  The label text of the associated menu item.
      *  This is null for the menuShow and menuHide events. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var label:String;
 
@@ -390,6 +445,11 @@ public class MenuEvent extends ListEvent
      *  
      *  This property is null if a MenuBar item is dispatching
      *  the event. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var menu:Menu;
 
@@ -401,6 +461,11 @@ public class MenuEvent extends ListEvent
      *  The MenuBar instance that is the parent of the selected Menu control,
      *  or null when the target Menu control is not parented by a
      *  MenuBar control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var menuBar:MenuBar;
 
