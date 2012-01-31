@@ -14,7 +14,6 @@ package spark.components
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
-import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 
 import mx.core.IFontContextComponent;
@@ -196,6 +195,50 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             invalidateDisplayObjectOrdering();            
     }
 
+    /**
+     * @private
+     */  
+    override mx_internal function set hasMouseListeners(value:Boolean):void
+    {
+        if (mouseOpaque)
+            redrawRequested = true;
+        super.hasMouseListeners = value;
+    }  
+
+    /**
+     *  @private
+     */
+    override public function set width(value:Number):void
+    {
+        if (_width != value)
+        {
+            if (mouseOpaque && hasMouseListeners)
+            {        
+                // Re-render our mouse event fill if necessary.
+                redrawRequested = true;
+                super.$invalidateDisplayList();
+            }
+        }
+        super.width = value;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set height(value:Number):void
+    {
+        if (_height != value)
+        {
+            if (mouseOpaque && hasMouseListeners)
+            {        
+                // Re-render our mouse event fill if necessary.
+                redrawRequested = true;
+                super.$invalidateDisplayList();
+            }
+        }
+        super.height = value;
+    }
+    
 	//--------------------------------------------------------------------------
     //
     //  Properties
@@ -312,50 +355,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         invalidateProperties();
     }
-    
-    //----------------------------------
-    //  mouseOpaque
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the mouseOpaque property
-     */
-    private var _mouseOpaque:Boolean = true;
-    private var mouseEventReferenceCount:int;
-
-    [Inspectable(category="General")]
-    
-    /**
-     *  When set to true the mouseOpaque flag ensures that the entire bounds
-     *  of the Group are opaque to all mouse events such as clicks, rollOvers,
-     *  etc.
-     * 
-     *  @default true
-     *  
-     *  @langversion 4.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get mouseOpaque():Boolean
-    {
-        return _mouseOpaque;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set mouseOpaque(value:Boolean):void
-    {
-        if (value == _mouseOpaque)
-            return;
-            
-        _mouseOpaque = value;
-        if (mouseEventReferenceCount != 0)
-            invalidateDisplayList();
-    }
-    
+        
     //----------------------------------
     //  mxmlContent
     //----------------------------------
@@ -642,95 +642,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         	   !isNaN(scaleGridRight) &&
         	   !isNaN(scaleGridBottom);
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: EventDispatcher
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  We render a transparent background fill by default when we have mouse
-     *  listeners.
-     */
-    override public function addEventListener(type:String, listener:Function,
-        useCapture:Boolean = false, priority:int = 0,
-        useWeakReference:Boolean = false):void
-    {
-        super.addEventListener(type, listener, useCapture, priority, 
-            useWeakReference);
-
-        if (_mouseOpaque &&
-            type == MouseEvent.CLICK ||
-            type == MouseEvent.DOUBLE_CLICK ||
-            type == MouseEvent.MOUSE_DOWN ||
-            type == MouseEvent.MOUSE_MOVE ||
-            type == MouseEvent.MOUSE_OVER ||
-            type == MouseEvent.MOUSE_OUT ||
-            type == MouseEvent.ROLL_OUT ||
-            type == MouseEvent.ROLL_OVER ||
-            type == MouseEvent.MOUSE_UP ||
-            type == MouseEvent.MOUSE_WHEEL)
-        {
-            if (mouseEventReferenceCount++ == 0)
-                invalidateDisplayList();
-        }
-    }
-
-    /**
-     *  @private
-     *  We no longer render our default transparent background fill when we have 
-     *  no mouse listeners.
-     */
-    override public function removeEventListener( type:String, listener:Function,
-        useCapture:Boolean = false):void
-    {
-        super.removeEventListener(type, listener, useCapture);
-
-        if (_mouseOpaque && 
-            type == MouseEvent.CLICK ||
-            type == MouseEvent.DOUBLE_CLICK ||
-            type == MouseEvent.MOUSE_DOWN ||
-            type == MouseEvent.MOUSE_MOVE ||
-            type == MouseEvent.MOUSE_OVER ||
-            type == MouseEvent.MOUSE_OUT ||
-            type == MouseEvent.ROLL_OUT ||
-            type == MouseEvent.ROLL_OVER ||
-            type == MouseEvent.MOUSE_UP ||
-            type == MouseEvent.MOUSE_WHEEL)
-        {
-            if (--mouseEventReferenceCount == 0)
-                invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Automation requires a version of addEventListener that does not
-     *  affect behavior of the underlying component.
-     */  
-    mx_internal function $addEventListener(
-                            type:String, listener:Function,
-                            useCapture:Boolean = false,
-                            priority:int = 0,
-                            useWeakReference:Boolean = false):void
-    {
-        super.addEventListener(type, listener, useCapture,
-                               priority, useWeakReference);
-    }
-
-    /**
-     *  @private
-     *  Automation requires a version of removeEventListener that does not
-     *  affect behavior of the underlying component.
-     */  
-    mx_internal function $removeEventListener(
-                              type:String, listener:Function,
-                              useCapture:Boolean = false):void
-    {
-        super.removeEventListener(type, listener, useCapture);
-    }
       
     //--------------------------------------------------------------------------
     //
@@ -829,6 +740,24 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @private
+     */  
+    override public function setActualSize(w:Number, h:Number):void
+    {
+        if (_width != w || _height != h)
+        {
+            if (mouseOpaque && hasMouseListeners)
+            {        
+                // Re-render our mouse event fill if necessary.
+                redrawRequested = true;
+                super.$invalidateDisplayList();
+            }
+        }
+
+        super.setActualSize(w, h);
+    }
+    
+    /**
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {    	
@@ -843,16 +772,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // This isn't needed for DataGroup because there's no DisplayObject sharing
         var sharedDisplayObject:ISharedDisplayObject = this;
         if (sharedDisplayObject.redrawRequested)
-            graphics.clear();
-        
-        // Render a transparent background fill as necessary to support the mouseOpaque flag.
-        if ( _mouseOpaque && mouseEventReferenceCount != 0)
         {
-            graphics.beginFill(0xFFFFFF, 0);
-            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-            graphics.endFill();
+            graphics.clear();
+            renderFillForMouseOpaque();
         }
-        
+                
         // Iterate through the graphic elements. If an element has a displayObject that has been 
         // invalidated, then validate all graphic elements that draw to this displayObject. 
         // The algorithm assumes that all of the elements that share a displayObject are in between
