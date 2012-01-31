@@ -377,7 +377,7 @@ public class DataGridItemRenderer extends UITextField
             if (!styleDeclaration)
             {
                 styleDeclaration = new CSSStyleDeclaration();
-                styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+                styleDeclaration.setLocalStyle(styleProp, newValue);
 
                 // If inheritingStyles is undefined, then this object is being
                 // initialized and we haven't yet generated the proto chain.  To
@@ -387,7 +387,7 @@ public class DataGridItemRenderer extends UITextField
             }
             else
             {
-                styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+                styleDeclaration.setLocalStyle(styleProp, newValue);
             }
         }
         else
@@ -398,7 +398,7 @@ public class DataGridItemRenderer extends UITextField
             if (!styleDeclaration)
             {
                 styleDeclaration = new CSSStyleDeclaration();
-                styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+                styleDeclaration.setLocalStyle(styleProp, newValue);
 
                 // If nonInheritingStyles is undefined, then this object is being
                 // initialized and we haven't yet generated the proto chain.  To
@@ -408,7 +408,7 @@ public class DataGridItemRenderer extends UITextField
             }
             else
             {
-                styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+                styleDeclaration.setLocalStyle(styleProp, newValue);
             }
         }
 
