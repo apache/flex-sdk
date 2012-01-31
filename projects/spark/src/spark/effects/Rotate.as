@@ -214,7 +214,7 @@ public class Rotate extends AnimateTransform
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutRotationZ", angleFrom, angleTo, angleBy);
+            addMotionPath("postLayoutRotationZ", angleFrom, angleTo, angleBy);
         }
         super.initInstance(instance);
     }    
