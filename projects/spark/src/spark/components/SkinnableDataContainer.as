@@ -786,20 +786,18 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             
             dataGroupProperties = newDataGroupProperties;
             
+            // SkinnableDataContainer needs to do work when a renderer is added, so 
+            // listen for the 'rendererAdd' event and delegate to an event handler
+            dataGroup.addEventListener(
+                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
+            
+            
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
             {
                 // the only reason we have this listener is to re-dispatch events.  So only add it here
                 // if someone's listening on us.
                 dataGroup.addEventListener(
                     PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-            }
-            
-            if (hasEventListener(RendererExistenceEvent.RENDERER_ADD))
-            {
-                // the only reason we have this listener is to re-dispatch events.  So only add it here
-                // if someone's listening on us.
-                dataGroup.addEventListener(
-                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
             }
             
             if (hasEventListener(RendererExistenceEvent.RENDERER_REMOVE))
@@ -889,12 +887,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
         }
         
-        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
-        {
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
-        }
-        
         if (type == RendererExistenceEvent.RENDERER_REMOVE && dataGroup)
         {
             dataGroup.addEventListener(
@@ -921,15 +913,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             {
                 dataGroup.removeEventListener(
                     PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
-            }
-        }
-        
-        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
-        {
-            if (!hasEventListener(RendererExistenceEvent.RENDERER_ADD))
-            {
-                dataGroup.removeEventListener(
-                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
             }
         }
         
