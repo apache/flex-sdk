@@ -82,6 +82,7 @@ public class Move extends AnimateTransform
     {
         super(target);
         instanceClass = AnimateTransformInstance;
+        transformEffectSubclass = true;
     }
 
 
