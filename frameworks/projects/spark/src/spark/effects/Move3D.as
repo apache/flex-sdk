@@ -85,7 +85,8 @@ public class Move3D extends AnimateTransform3D
         ["translationX", "translationY", "translationZ", 
          "postLayoutTranslationX","postLayoutTranslationY","postLayoutTranslationZ",
          "left", "right", "top", "bottom",
-         "horizontalCenter", "verticalCenter"];
+         "horizontalCenter", "verticalCenter",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = 
         ["left", "right", "top", "bottom",
