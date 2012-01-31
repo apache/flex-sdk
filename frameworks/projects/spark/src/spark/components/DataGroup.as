@@ -158,8 +158,10 @@ public class DataGroup extends GroupBase
     {
         return _dataProvider;
     }
-    
-    
+        
+    /**
+     *  @private
+     */
     public function set dataProvider(value:IList):void
     {
         if (_dataProvider)
@@ -182,6 +184,10 @@ public class DataGroup extends GroupBase
         invalidateProperties();
     }
     
+    /**
+     *  Internal DataGroup method used to grab the elements in the dataProvider
+     *  and add them to the DataGroup.
+     */ 
     protected function initializeDataProvider():void
     {
         // Get rid of existing display object children.
@@ -239,6 +245,18 @@ public class DataGroup extends GroupBase
         } */
     }
     
+    /**
+     *  Create the visual representation for the item, if needed.
+     * 
+     *  <p>The rules to create a visual item are:</p>
+     *  <ol><li>if itemRendererFunction is defined, call 
+     *  it to get the renderer factory and instantiate it</li>
+     *  <li>if itemRenderer is defined, instantiate one</li>
+     *  <li>if item is a GraphicElement, create the display 
+     *  object for it</li>
+     *  <li>if item is a DisplayObject, use it directly</li></ol>
+     * 
+     */
     protected function createVisualForItem(item:Object):DisplayObject
     {
         var itemSkin:Object;
@@ -247,7 +265,7 @@ public class DataGroup extends GroupBase
         if (item === null)
             throw new Error("DataGroup content can not contain null items.");
             
-        // Rules for skin lookup:
+        // Rules for lookup:
         // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
         // 2. if itemRenderer is defined, instantiate one
         // 3. if item is a GraphicElement, create the display object for it
@@ -296,6 +314,9 @@ public class DataGroup extends GroupBase
         return itemDisplayObject;
     }
     
+    /**
+     *  Documentation is not currently available. 
+     */
     protected function registerSkin(item:*, itemSkin:Object):void
     {
         if (!skinRegistry)
@@ -304,6 +325,9 @@ public class DataGroup extends GroupBase
         skinRegistry[item] = itemSkin;
     }
     
+    /**
+     *  Documentation is not currently available. 
+     */
     protected function unregisterSkin(item:*, itemSkin:DisplayObject):void
     {
         if (!skinRegistry)
@@ -312,6 +336,9 @@ public class DataGroup extends GroupBase
         delete skinRegistry[item];
     }
     
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -337,6 +364,9 @@ public class DataGroup extends GroupBase
         }
     }
     
+    /**
+     *  @private
+     */
     override public function validateSize(recursive:Boolean = false):void
     {
         // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
@@ -356,6 +386,9 @@ public class DataGroup extends GroupBase
         super.validateSize(recursive);
     }
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -379,9 +412,9 @@ public class DataGroup extends GroupBase
     //  is the item itself. For data items, the layout item is the item renderer
     //  instance that is associated with the item.
     //--------------------------------------------------------------------------
-     /**
-     *  The number of layout items in this Group. Typically this is the same
-     *  as the number of items in the Group.
+    
+    /**
+     *  @private
      */
     override public function get numLayoutItems():int
     {
@@ -389,13 +422,7 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Gets the <i>n</i>th layout item in the Group. For visual items, the 
-     *  layout item is the item itself. For data items, the layout item is the 
-     *  item renderer instance that is associated with the item.
-     *
-     *  @param index The index of the item to retrieve.
-     *
-     *  @return The layout item at the specified index.
+     *  @private
      */
     override public function getLayoutItemAt(index:int):ILayoutItem
     {
@@ -406,6 +433,12 @@ public class DataGroup extends GroupBase
         return LayoutItemFactory.getLayoutItemFor(itemSkin);
     }
     
+    /**
+     *  Internal DataGroup method called to add an item to this DataGroup.
+     *
+     *  @param item The item that was added.
+     *  @param index The index where the item was added.
+     */
     protected function itemAdded(item:Object, index:int):void
     {
         var childDO:DisplayObject;
@@ -422,9 +455,7 @@ public class DataGroup extends GroupBase
             childDO = createVisualForItem(graphicItem);
         }   
         else
-        {     
-            // This always adds the child to the end of the display list. Any 
-            // ordering discrepancies will be fixed up in assignDisplayObjects().
+        {
             childDO = createVisualForItem(item);
         }
         
@@ -437,6 +468,12 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
     }
     
+    /**
+     *  Internal DataGroup method called to remove an item from this DataGroup.
+     *
+     *  @param item The item that is being removed.
+     *  @param index The index of the item that is being removed.
+     */
     protected function itemRemoved(item:Object, index:int):void
     {       
         var skin:* = getItemSkin(item);
@@ -444,16 +481,25 @@ public class DataGroup extends GroupBase
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
+        
+        // if either the item or the skin is a GraphicElement,
+        // release the display objects
         if (item && (item is GraphicElement))
         {
             item.elementHost = null;
             item.sharedDisplayObject = null;
-            childDO = GraphicElement(item).displayObject;
         }
-        else if (skin && skin is DisplayObject)
+        
+        // determine who the child display object is
+        if (skin && (skin is GraphicElement))
+        {
+            childDO = GraphicElement(skin).displayObject;
+        }
+        else if (skin && (skin is DisplayObject))
         {
             childDO = skin as DisplayObject;
         }
+        
         // If the item and skin are different objects, set the skin data to 
         // null here to clear it out. Otherwise, the skin keeps a reference to the item,
         // which can cause problems later.
@@ -467,8 +513,17 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
     }
     
-    // Helper function to remove child from other Group or display list before 
-    // adding to the display list. 
+    /**
+     *  Internal helper method to remove item from another datagroup or display list
+     *  before adding it to this display list.
+     * 
+     *  @param child DisplayObject to add to the display list
+     *  @param item Item associated with the display object to be added.  If 
+     *  the item itself is a display object, it will be the same as the child parameter.
+     *  @param index Index position where the display object will be added
+     * 
+     *  @return DisplayObject that was added
+     */ 
     protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
     { 
         var host:DisplayObject;
@@ -513,6 +568,9 @@ public class DataGroup extends GroupBase
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
     
+    /**
+     *  Collection change handler for the dataProvider.
+     */ 
     protected function collectionChangeHandler(event:Event):void
     {
         if (event is CollectionEvent)
@@ -642,6 +700,9 @@ public class DataGroup extends GroupBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Documentation is not currently available. 
+     */
     public function getItemSkin(item:*):Object
     {
         var result:Object = null;
@@ -655,6 +716,9 @@ public class DataGroup extends GroupBase
         return result;
     }
     
+    /**
+     *  Documentation is not currently available. 
+     */
     public function getSkinItem(skin:Object):*
     {
         // !! This implementation is really slow... 
@@ -672,6 +736,9 @@ public class DataGroup extends GroupBase
     
     protected var maskElements:Dictionary;
     
+    /**
+     *  @private
+     */
     override public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (!maskElements)
@@ -685,6 +752,9 @@ public class DataGroup extends GroupBase
             
     }
     
+    /**
+     *  @private
+     */
     override public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (maskElements && mask in maskElements)
@@ -703,36 +773,54 @@ public class DataGroup extends GroupBase
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
         throw(new Error("addChildAt is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
         throw(new Error("removeChild is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function removeChildAt(index:int):DisplayObject
     {
         throw(new Error("removeChildAt is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
         throw(new Error("setChildIndex is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
         throw(new Error("swapChildren is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
     }
     
+    /**
+     *  @private
+     */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
         throw(new Error("swapChildrenAt is not available in DataGroup. " + 
