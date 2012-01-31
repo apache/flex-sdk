@@ -98,6 +98,8 @@ include "../styles/metadata/GapStyles.as";
 
 [IconFile("Form.png")]
 
+[Alternative(replacement="spark.components.Form", since="4.5")] 
+
 /**
  *  The Form container lets you control the layout of a form,
  *  mark form fields as required or optional, handle error messages,
