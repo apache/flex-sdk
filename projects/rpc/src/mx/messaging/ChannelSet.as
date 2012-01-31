@@ -1083,11 +1083,26 @@ public class ChannelSet extends EventDispatcher
      */ 
     public function logout(agent:MessageAgent=null):AsyncToken
     {        
+        _credentials = null;
         if (agent == null)
         {
             if ((_authAgent != null) && (_authAgent.state == AuthenticationAgent.LOGGING_OUT_STATE
                                          || _authAgent.state == AuthenticationAgent.LOGGING_IN_STATE))
                 throw new IllegalOperationError("ChannelSet is in the process of logging in or logging out.");
+            
+            // Clear out current credentials on the client.
+            var n:int = _messageAgents.length;
+            var i:int = 0;
+            for (; i < n; i++)
+            {
+                _messageAgents[i].internalSetCredentials(null);
+            }
+            n = _channels.length;
+            for (i = 0; i < n; i++)
+            {
+                if (_channels[i] != null)
+                    _channels[i].internalSetCredentials(null);
+            }
             
             var msg:CommandMessage = new CommandMessage();
             msg.operation = CommandMessage.LOGOUT_OPERATION;
@@ -1105,13 +1120,12 @@ public class ChannelSet extends EventDispatcher
             return token;          
         }
         else // Legacy logout logic.
-        {
-            _credentials = null;
-            var n:int = _channels.length;
-            for (var i:int = 0; i < n; i++)
+        {            
+            var n2:int = _channels.length;
+            for (var i2:int = 0; i2 < n2; i2++)
             {
-                if (_channels[i] != null)
-                    _channels[i].logout(agent);
+                if (_channels[i2] != null)
+                    _channels[i2].logout(agent);
             }
             return null; // Legacy service logout() impls don't expect a token.
         }
@@ -1238,23 +1252,23 @@ public class ChannelSet extends EventDispatcher
         var handlingLogin:Boolean = (command.operation == CommandMessage.LOGIN_OPERATION); 
         var creds:String = (handlingLogin) ? String(command.body) : null;
         
-        // First, sync everything with the current credentials.
-        _credentials = creds;
-        var n:int = _messageAgents.length;
-        var i:int = 0;
-        for (; i < n; i++)
-        {
-            _messageAgents[i].internalSetCredentials(creds);
-        }
-        n = _channels.length;
-        for (i = 0; i < n; i++)
-        {
-            if (_channels[i] != null)
-                _channels[i].internalSetCredentials(creds);
-        }
-        
         if (handlingLogin)
         {
+            // First, sync everything with the current credentials.
+            _credentials = creds;
+            var n:int = _messageAgents.length;
+            var i:int = 0;
+            for (; i < n; i++)
+            {
+                _messageAgents[i].internalSetCredentials(creds);
+            }
+            n = _channels.length;
+            for (i = 0; i < n; i++)
+            {
+                if (_channels[i] != null)
+                    _channels[i].internalSetCredentials(creds);
+            }
+            
             agent.state = AuthenticationAgent.LOGGED_IN_STATE;
             // Flip the currently connected channel to authenticated; this percolates
             // back up through the ChannelSet and agent's authenticated properties.
