@@ -286,10 +286,9 @@ include "../../styles/metadata/PaddingStyles.as"
 [Style(name="swatchWidth", type="Number", format="Length", inherit="no")]
 
 /**
- *  @REVIEW 
  *  Name of the style sheet definition to configure the text input control.
  *  The default value is "swatchPanelTextField"
- *  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
