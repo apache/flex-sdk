@@ -637,7 +637,8 @@ public class NumericStepper extends Spinner
         else 
             inputValue = Number(textDisplay.text);
         
-        if (textDisplay.text == "" || (inputValue != value && 
+        if ((textDisplay.text && textDisplay.text.length != value.toString().length)
+            || textDisplay.text == "" || (inputValue != value && 
             (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
         {
             setValue(nearestValidValue(inputValue, snapInterval));
