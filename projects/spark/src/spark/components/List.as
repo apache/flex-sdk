@@ -772,7 +772,6 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_clickHandler(event:MouseEvent):void
     {
-        // TODO (jszeto) Clear the caret 
         var newIndex:Number; 
         
         if (!allowMultipleSelection)
@@ -780,6 +779,13 @@ public class List extends ListBase implements IFocusManagerComponent
             // Single selection case, set the selectedIndex 
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
             
+            var currentRenderer:IItemRenderer;
+            if (caretIndex >= 0)
+            {
+                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
+                currentRenderer.showsCaret = false;
+            }
+
             // Check to see if we're deselecting the currently selected item 
             if (event.ctrlKey && selectedIndex == newIndex)
                 selectedIndex = NO_SELECTION;
@@ -967,7 +973,7 @@ public class List extends ListBase implements IFocusManagerComponent
             invalidateProperties(); 
         }
     }
-
+    
     /**
      *  Tries to find the next item in the data provider that
      *  starts with the character in the <code>eventCode</code> parameter.
@@ -1096,7 +1102,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Delegate to the layout to tell us what the next item is we should select or focus into.
         // TODO (jszeto) At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
-        var proposedNewIndex:int = layout.getNavigationDestinationIndex(caretIndex, navigationUnit); 
+        var proposedNewIndex:int = layout.getNavigationDestinationIndex(caretIndex, navigationUnit, arrowKeysWrapFocus); 
         
         // TODO (jszeto) proposedNewIndex depends on CTRL key
         // move CTRL key logic into single selection
