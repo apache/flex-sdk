@@ -13,6 +13,8 @@ package spark.components
 {
 import mx.events.FlexEvent;
 
+import spark.components.supportClasses.CellPosition;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -167,10 +169,9 @@ public class DataGrid extends GridContainerBase
     //  Public Methods
     //
     //--------------------------------------------------------------------------
-    
-    
+        
     //----------------------------------
-    //  selection for rows and columns
+    //  selection for rows
     //----------------------------------    
     
     /**
@@ -181,28 +182,12 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function selectionContainsIndex(index:int):Boolean 
+    public function selectionContainsIndex(rowIndex:int):Boolean 
     {
         if (grid)
-            return grid.selectionContainsIndex(index);
+            return grid.selectionContainsIndex(rowIndex);
         else
-            return gridSelection.containsRow(index);         
-    }
-    
-    /**
-     *  @copy spark.components.Grid#selectionContainsOnlyIndex()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectionContainsOnlyIndex(index:int):Boolean 
-    {
-        if (grid)
-            return grid.selectionContainsOnlyIndex(index);
-        else
-            return gridSelection.containsOnlyRow(index);
+            return gridSelection.containsRow(rowIndex);         
     }
     
     /**
@@ -213,30 +198,14 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function selectionContainsIndices(indices:Vector.<int>):Boolean 
+    public function selectionContainsIndices(rowIndices:Vector.<int>):Boolean 
     {
         if (grid)
-            return grid.selectionContainsIndices(indices);
+            return grid.selectionContainsIndices(rowIndices);
         else
-            return gridSelection.containsRows(indices);
+            return gridSelection.containsRows(rowIndices);
     }
-    
-    /**
-     *  @copy spark.components.Grid#selectionContainsOnlyIndices()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectionContainsOnlyIndices(indices:Vector.<int>):Boolean 
-    {
-        if (grid)
-            return grid.selectionContainsOnlyIndices(indices);
-        else
-            return gridSelection.containsOnlyRows(indices);
-    }
-    
+        
     /**
      *  @copy spark.components.Grid#setSelectedIndex()
      *  
@@ -245,17 +214,17 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function setSelectedIndex(index:int):Boolean
+    public function setSelectedIndex(rowIndex:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.setSelectedIndex(index);
+            selectionChanged = grid.setSelectedIndex(rowIndex);
         }
         else
         {
-            selectionChanged = gridSelection.setRow(index);
+            selectionChanged = gridSelection.setRow(rowIndex);
             if (selectionChanged)
             {
                 invalidateDisplayList()
@@ -274,17 +243,17 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function addSelectedIndex(index:int):Boolean
+    public function addSelectedIndex(rowIndex:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.addSelectedIndex(index);
+            selectionChanged = grid.addSelectedIndex(rowIndex);
         }
         else
         {
-            selectionChanged = gridSelection.addRow(index);
+            selectionChanged = gridSelection.addRow(rowIndex);
             if (selectionChanged)
             {
                 invalidateDisplayList()
@@ -303,17 +272,17 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function removeSelectedIndex(index:int):Boolean
+    public function removeSelectedIndex(rowIndex:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.removeSelectedIndex(index);
+            selectionChanged = grid.removeSelectedIndex(rowIndex);
         }
         else
         {
-            selectionChanged = gridSelection.removeRow(index);
+            selectionChanged = gridSelection.removeRow(rowIndex);
             if (selectionChanged)
             {
                 invalidateDisplayList()
@@ -325,24 +294,24 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#selectIndices()
+     *  @copy spark.components.Grid#setSelectedIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function selectIndices(indices:Vector.<int>):Boolean
+    public function setSelectedIndices(rowIndices:Vector.<int>):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.selectIndices(indices);
+            selectionChanged = grid.setSelectedIndices(rowIndices);
         }
         else
         {
-            selectionChanged = gridSelection.setRows(indices);
+            selectionChanged = gridSelection.setRows(rowIndices);
             if (selectionChanged)
             {
                 invalidateDisplayList()
@@ -354,17 +323,17 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#allSelectedIndices()
+     *  @copy spark.components.Grid#selectedIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function allSelectedIndices():Vector.<int>
+    public function selectedIndices():Vector.<int>
     {
         if (grid)
-            return grid.allSelectedIndices();
+            return grid.selectedIndices;
         else
             return gridSelection.allRows();
     }
@@ -390,22 +359,6 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#selectionContainsOnlyCell()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectionContainsOnlyCell(rowIndex:int, columnIndex:int):Boolean
-    {
-        if (grid)
-            return grid.selectionContainsOnlyCell(rowIndex, columnIndex);
-        else
-            return gridSelection.containsOnlyCell(rowIndex, columnIndex);
-    }
-    
-    /**
      *  @copy spark.components.Grid#selectionContainsCellRegion()
      * 
      *  @langversion 3.0
@@ -427,32 +380,7 @@ public class DataGrid extends GridContainerBase
                 rowIndex, columnIndex, rowCount, columnCount);
         }
     }
-    
-    /**
-     *  @copy spark.components.Grid#selectionContainsOnlyCellRegion()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function selectionContainsOnlyCellRegion(rowIndex:int, 
-                                                    columnIndex:int, 
-                                                    rowCount:int, 
-                                                    columnCount:int):Boolean
-    {
-        if (grid)
-        {
-            return grid.selectionContainsOnlyCellRegion(
-                rowIndex, columnIndex, rowCount, columnCount);
-        }
-        else
-        {
-            return gridSelection.containsOnlyCellRegion(
-                rowIndex, columnIndex, rowCount, columnCount);
-        }
-    }
-    
+        
     /**
      *  @copy spark.components.Grid#setSelectedCell()
      *  
@@ -573,17 +501,17 @@ public class DataGrid extends GridContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#allSelectedCells()
+     *  @copy spark.components.Grid#selectedCells()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function allSelectedCells():Vector.<Object>
+    public function selectedCells():Vector.<CellPosition>
     {
         if (grid)
-            return grid.allSelectedCells();
+            return grid.selectedCells;
         else
             return gridSelection.allCells();
     }
