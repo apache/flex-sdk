@@ -144,7 +144,7 @@ public class FxListBase extends FxDataContainer
      *  Setting the <code>selectedIndex</code> property deselects the currently selected
      *  item and selects the item at the specified index.
      *
-     *  <p>The value is always between -1 and (<code>numItems</code> - 1). 
+     *  <p>The value is always between -1 and (<code>dataProvider.length</code> - 1). 
      *  If items at a lower index than <code>selectedIndex</code> are 
      *  removed from the component, the selected index is adjusted downward
      *  accordingly.</p>
@@ -250,7 +250,7 @@ public class FxListBase extends FxDataContainer
     /**
      *  Specifies whether an item must always be selected.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
-     *  is always set to a value between 0 and (<code>numItems</code> - 1), 
+     *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1), 
      *  or -1 if there are no items.
      *
      *  @default false
@@ -302,7 +302,7 @@ public class FxListBase extends FxDataContainer
             // TODO: should resetting the dataProvider clear out all of its state?
             // or should we preserve selectedIndex
             if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
-               itemSelected(dataProvider.getItemAt(selectedIndex), true);
+               itemSelected(selectedIndex, true);
             else
                selectedIndex = -1;
         }
@@ -358,14 +358,46 @@ public class FxListBase extends FxDataContainer
      *  Called when an item is selected or deselected. 
      *  Subclasses must override this method to display the selection.
      *
-     *  @param item The item.
+     *  @param index The item index that was selected.
      *
      *  @param selected <code>true</code> if the item is selected, 
      *  and <code>false</code> if it is deselected.
      */
-    protected function itemSelected(item:Object, selected:Boolean):void
+    protected function itemSelected(index:int, selected:Boolean):void
     {
         // Subclasses must override this method to display the selection.
+    }
+    
+    /**
+     *  Returns true if the item is selected by calling 
+     *  <code>isItemIndexSelected()</code>.
+     * 
+     *  <p>If multiple instances of the item are in the list, 
+     *  this will only check to see whether the item at  
+     *  <code>dataProvider.getItemIndex()</code> (usually the first 
+     *  instance of that item) is selected.</p>
+     * 
+     *  @param item The item whose selection status is being checked
+     *
+     *  @return true if the item is selected, false otherwise.
+     */
+    public function isItemSelected(item:Object):Boolean
+    {
+        var index:int = dataProvider.getItemIndex(item);
+        
+        return isItemIndexSelected(index);
+    }
+        
+    /**
+     *  Returns true if the item at the index is selected.
+     * 
+     *  @param index The index of the item whose selection status is being checked
+     *
+     *  @return true if the item at that index is selected, false otherwise.
+     */
+    public function isItemIndexSelected(index:int):Boolean
+    {        
+        return index == selectedIndex;
     }
     
     //--------------------------------------------------------------------------
@@ -412,9 +444,9 @@ public class FxListBase extends FxDataContainer
         
         // Step 3: commit the selection change
         if (_selectedIndex != NO_SELECTION)
-            itemSelected(dataProvider.getItemAt(_selectedIndex), false);
+            itemSelected(_selectedIndex, false);
         if (_proposedSelectedIndex != NO_SELECTION)
-            itemSelected(dataProvider.getItemAt(_proposedSelectedIndex), true);
+            itemSelected(_proposedSelectedIndex, true);
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
