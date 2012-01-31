@@ -15,7 +15,7 @@ import flash.geom.Vector3D;
 
 import mx.core.mx_internal;
 import spark.effects.animation.Animation;
-import spark.effects.animation.AnimationProperty;
+import spark.effects.AnimationProperty;
 import mx.effects.Effect;
 import spark.effects.Animate;
 import spark.effects.supportClasses.AnimateInstance;
