@@ -866,10 +866,11 @@ public class SkinnableContainer extends SkinnableContainerBase
             {
                 var sourceContent:Array = _placeHolderGroup.getMXMLContent();
                 
-                contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
-                
                 // FIXME (rfrishbe): investigate why we need this, especially if these elements shouldn't 
                 // be added to the place holder Group's display list
+                // (aharui) They are added via calls to addElement if no other mxmlContent has been
+                // set.  This is a typical pattern when creating views from AS.  Create the child, 
+                // create the parent, addElement the child to the parent.
                 
                 // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
                 // especially if we make it mx_internal.
@@ -879,6 +880,8 @@ public class SkinnableContainer extends SkinnableContainerBase
                 {
                     _placeHolderGroup.removeElementAt(0);  
                 }
+                
+                contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
                 
             }
             else if (_mxmlContent != null)
