@@ -186,7 +186,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedIndex():int
     {   
-        if (!allowMultipleSelection)
+        if (!allowMultipleSelection || !_selectedIndices)
             return super.selectedIndex;
             
         if (_selectedIndices && _selectedIndices.length > 0)
@@ -335,7 +335,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 indices[i] = dataProvider.getItemIndex(value[i]);
         }
         
-        selectedIndices = value;
+        selectedIndices = indices;
     }
         
     //--------------------------------------------------------------------------
@@ -526,7 +526,6 @@ public class List extends ListBase implements IFocusManagerComponent
                     //and that item was de-selected
                     if (selectedIndices.length == 1 && (selectedIndices[0] == index))
                     {
-                        //selectedIndex = NO_SELECTION;
                         return [NO_SELECTION];  
                     }
                     else
