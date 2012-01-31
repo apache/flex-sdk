@@ -22,6 +22,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IFlexDisplayObject;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
@@ -458,7 +459,7 @@ public class PopUpAnchor extends UIComponent
         // If we're mirroring, then the implicit assumption that x=left will fail,
         // so we compensate here.
         
-        if (layoutDirection == "rtl")
+        if (layoutDirection == LayoutDirection.RTL)
             regPoint.x += popUpBounds.width;
         return MatrixUtil.getConcatenatedComputedMatrix(this).transformPoint(regPoint);
     }
