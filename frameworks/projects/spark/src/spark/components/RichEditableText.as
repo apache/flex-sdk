@@ -99,6 +99,8 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
 [DefaultProperty("content")]
 
+[IconFile("TextView.png")]
+
 /**
  *  Displays text. 
  *  
