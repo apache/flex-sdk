@@ -907,6 +907,17 @@ public class GridColumn extends EventDispatcher
      *  will be given keyboard focus when the user starts editing the item
      *  renderer.
      * 
+     *  <p>By setting this property to true, the developer takes responsibility for 
+     *  validating and saving input collected by the renderer.  If the renderer is configured
+     *  with an override of the IGridItemRenderer prepare() method, then the developer must
+     *  ensure that unsaved input field changes are not overwritten.   For example, if
+     *  rendererIsEditable=true, the renderer contains a single TextInput element that displays
+     *  the value of data.myDataField, and the renderer's prepare() method sets the TextInput's
+     *  text property, then the prepare() method must not set the text property when there
+     *  are pending changes.</p>
+     * 
+     *  <p>TBD: example code or link.</p>
+     * 
      *  @default false
      * 
      *  @langversion 3.0
