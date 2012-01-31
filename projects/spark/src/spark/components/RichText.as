@@ -26,7 +26,6 @@ import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.elements.TextLineCreator;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.TextLineFactory;
 import flashx.textLayout.factory.TruncationOptions;
@@ -816,7 +815,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
             if (embeddedFontContext)
                 textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
             else
-                textFlow.flowComposer.textLineCreator = new TextLineCreator();
+                textFlow.flowComposer.textLineCreator = null;
         }
         if (embeddedFontContext)
         {
