@@ -545,6 +545,19 @@ public class Operation extends AbstractOperation
 
     private var _xmlSpecialCharsFilter:Function;
 
+    /**
+     *  Specifies a custom function used to escape XML special characters before 
+     *  encoding any simple content. 
+     *  Valid for all operations on the web service unless specifically overwritten 
+     *  on the operation level. 
+     *  If no function is provided, the defaults is whatever is set by the 
+     *  particular implementation of IXMLEncoder.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public function get xmlSpecialCharsFilter():Function
     {
         if (_xmlSpecialCharsFilter != null)
@@ -553,6 +566,9 @@ public class Operation extends AbstractOperation
         return AbstractWebService(service).xmlSpecialCharsFilter;
     }
     
+    /**
+     *  @private
+     */
     public function set xmlSpecialCharsFilter(func:Function):void
     {
         _xmlSpecialCharsFilter = func;
@@ -931,8 +947,8 @@ public class Operation extends AbstractOperation
      */
     override mx_internal function processResult(message:IMessage, token:AsyncToken):Boolean
     {
-		if (processSOAP(message, token))
-    	{
+        if (processSOAP(message, token))
+        {
             if (webService.convertResultHandler != null)
                 _result = webService.convertResultHandler(_result, this);
             return true;
