@@ -5054,7 +5054,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override public function itemToLabel(data:Object):String
     {
-        return displayableColumns[sortIndex == -1 ? 0 : sortIndex].itemToLabel(data);
+		return _columns[sortIndex == -1 ? 0 : sortIndex].itemToLabel(data);
     }
 
     //--------------------------------------------------------------------------
