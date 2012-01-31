@@ -148,8 +148,6 @@ use namespace mx_internal;
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *   
- *  @default 0xF9F9F9
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -170,10 +168,8 @@ use namespace mx_internal;
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy mx.controls.listClasses.ListBase#style:selectionColor
+ *  @copy spark.components.List#style:selectionColor
  *
- *  @default 0xA8C6EE
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.0
