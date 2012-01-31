@@ -43,6 +43,11 @@ import mx.utils.ArrayUtil;
  *  call to the same service is in progress while the former will be reset as soon
  *  as a new service invocation is started.
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CallResponder extends EventDispatcher implements IResponder 
 {
@@ -53,6 +58,11 @@ public class CallResponder extends EventDispatcher implements IResponder
      * Each CallResponder monitors dispatches result and fault events received
      * from a single token.  This property value specifies that token.  You typically
      * set this to the 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set token(t:AsyncToken):void
     {
@@ -79,6 +89,11 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  this method directly.
      *
      *  @param  data the ResultEvent delivered by the AsyncToken
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function result(data:Object):void
     {
@@ -94,6 +109,11 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  this method directly.
      *
      *  @param  data the FaultEvent delivered by the AsyncToken
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function fault(data:Object):void
     {
@@ -112,6 +132,11 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  value cleared out on the second and subsequent call to a particular service
      *  method.  Additionally, if a fault occurs this value will still be set to
      *  the last successful result returned by a token monitored by this CallResponder.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var lastResult:*;
 
