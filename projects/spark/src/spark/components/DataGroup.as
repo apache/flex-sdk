@@ -323,15 +323,11 @@ public class DataGroup extends GroupBase
         
         // 2. if itemRenderer is defined, instantiate one
         if (!myItemRenderer && itemRenderer)
-        {
             myItemRenderer = itemRenderer.newInstance();
-        }
         
         // 3. if item is an IVisualElement and a DisplayObject, use it directly
         if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
-        {
             myItemRenderer = IVisualElement(item);
-        }
 
         // Set the renderer's data to the item, but only if the item and renderer are different
         if ((myItemRenderer is IDataRenderer) && (myItemRenderer != item))
@@ -552,6 +548,7 @@ public class DataGroup extends GroupBase
         // size or display list.
         for(var i:int = super.numChildren - 1; i > (endIndex - startIndex); i--)
         {
+            // TODO: dispatch event for this...
             var itemRenderer:IVisualElement = IVisualElement(super.getChildAt(i));
             //trace("DataGroup::endVirtualLayout() removing " + IDataRenderer(itemRenderer).data);
             super.removeChildAt(i);
@@ -601,7 +598,8 @@ public class DataGroup extends GroupBase
                 dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
             }
         }
-        else {
+        else 
+        {
             itemRenderer = mx_internal::getRendererForItemAt(index);            
         }
 
@@ -639,7 +637,6 @@ public class DataGroup extends GroupBase
         
         invalidateSize();
         invalidateDisplayList();
-
     }
     
     /**
@@ -867,66 +864,94 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>addChild()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("addChild is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>addChildAt()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("addChildAt is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>removeChild()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("removeChild is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>removeChildAt()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("removeChildAt is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>setChildIndex()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("setChildIndex is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>swapChildren()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("swapChildren is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  DataGroup manages its own display objects, 
+     *  and you should not call <code>swapChildrenAt()</code> directly.
+     *  If you want to add, remove, or swap items around, modify the 
+     *  <code>dataProvider</code>.
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("swapChildrenAt is not available in DataGroup. " + 
-                "Use methods defined on the dataProvider instead"));
+        throw(new Error("This method is not available in this class.  Please consult the documentation."));
     }
 }
 }
