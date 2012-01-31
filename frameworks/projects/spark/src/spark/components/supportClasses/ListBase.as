@@ -18,7 +18,7 @@ import spark.events.RendererExistenceEvent;
 
 import mx.collections.IList;
 import spark.components.SkinnableDataContainer;
-import spark.components.IItemRendererOwner;
+import spark.components.IItemRendererOwner; 
 import spark.components.IItemRenderer; 
 import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
@@ -418,7 +418,7 @@ public class ListBase extends SkinnableDataContainer
         
         // Obtain reference to newly generated item element which will be used
         // to compute the baseline.
-        var listItem:Object = dataGroup.getElementAt(0);
+        var listItem:Object = dataGroup ? dataGroup.getElementAt(0) : undefined;
         if (!listItem)
             return super.baselinePosition;
         
@@ -515,19 +515,23 @@ public class ListBase extends SkinnableDataContainer
         if (labelFieldOrFunctionChanged)
         {
         	//Cycle through all instantiated renderers
-        	for (var i:int = 0; i < dataGroup.numChildren; i++)
+        	if (dataGroup)
         	{
-        		//TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
-        		//and which is more performant. 
-        		var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
-        		//Push the correct text into the renderer by settings its labelText
-        		//property 
-        		if (renderer)
-        		{
-        			renderer.labelText = itemToLabel(renderer.data); 
-        		}
-        	}
-        	labelFieldOrFunctionChanged = false; 
+	        	for (var i:int = 0; i < dataGroup.numChildren; i++)
+	        	{
+        			//TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
+	        		//and which is more performant. 
+	        		var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
+	        		//Push the correct text into the renderer by settings its labelText
+	        		//property 
+	        		if (renderer)
+		        	{
+	        			renderer.labelText = itemToLabel(renderer.data); 
+		        	}
+	        	}
+	        }
+
+			labelFieldOrFunctionChanged = false; 
         }
     }
     
