@@ -18,7 +18,7 @@ import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.IStyleClient;
+import mx.styles.IAdvancedStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
@@ -28,7 +28,7 @@ import mx.utils.NameUtil;
  *  which display text using CSS styles for the default format.
  */
 public class TextGraphicElement extends GraphicElement
-    implements IStyleClient
+    implements IAdvancedStyleClient
 {
     include "../../core/Version.as";
 
@@ -250,6 +250,38 @@ public class TextGraphicElement extends GraphicElement
 
     //--------------------------------------------------------------------------
     //
+    //  Properties: IAdvancedStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  pseudoSelectorState
+    //----------------------------------
+
+    /**
+     *  This property is required by the IAdvancedStyleClient interface,
+     *  but returns null for TextGraphicElements as they do not have
+     *  state specific behavior.
+     */
+    public function get pseudoSelectorState():String
+    {
+        return null;
+    }
+
+    //----------------------------------
+    //  styleParent
+    //----------------------------------
+
+    /**
+     *  The parent of this component.
+     */ 
+    public function get styleParent():IAdvancedStyleClient
+    {
+        return parent as IAdvancedStyleClient;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -400,6 +432,30 @@ public class TextGraphicElement extends GraphicElement
      *  but doesn't do anything for TextGraphicElements.
      */
     public function registerEffects(effects:Array /* of String */):void
+    {
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IAdvancedStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Determines whether this instance is the same as - or is a subclass of -
+     *  the given type.
+     */ 
+    public function isAssignableToType(type:String):Boolean
+    {
+        return StyleProtoChain.isAssignableToType(this, type);
+    }
+
+    /**
+     *  This method is required by the IAdvancedStyleClient interface,
+     *  but doesn't do anything for TextGraphicElements as they do not have
+     *  state specific behavior.
+     */
+    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
     {
     }
 
