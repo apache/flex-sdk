@@ -3668,7 +3668,9 @@ public class DataGrid extends SkinnableContainerBase
     //--------------------------------------------------------------------------
     
     /**
-     *  Starts an editor session on a selected cell in the grid.
+     *  Starts an editor session on a selected cell in the grid. This method  
+     *  by-passes checks of the editable property on the DataGrid and GridColumn
+     *  that prevent the user interface from starting an editor session.
      * 
      *  A <code>startItemEditorSession</code> event is dispatched before
      *  an item editor is created. This allows a listener dynamically change 
@@ -3683,7 +3685,9 @@ public class DataGrid extends SkinnableContainerBase
      *  @param columnIndex The zero-based column index of the cell to edit.  
      * 
      *  @return <code>true</code> if the editor session was started. 
-     *  Returns <code>false</code> if the editor session was cancelled.
+     *  Returns <code>false</code> if the editor session was cancelled or was
+     *  otherwise unable to be started. Note that an editor session cannot be
+     *  started in a column that is not visible.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
