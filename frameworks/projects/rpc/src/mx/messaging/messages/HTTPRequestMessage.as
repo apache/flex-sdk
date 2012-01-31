@@ -12,10 +12,10 @@
 package mx.messaging.messages
 {
 
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
+// import mx.resources.IResourceManager;
+// import mx.resources.ResourceManager;
 
-[ResourceBundle("messaging")]
+// [ResourceBundle("messaging")]
 
 [RemoteClass(alias="flex.messaging.messages.HTTPMessage")]
 
@@ -90,9 +90,9 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  @private
-     */
     private var resourceManager:IResourceManager =
 									ResourceManager.getInstance();
+     */
 
     //--------------------------------------------------------------------------
     //
@@ -140,12 +140,14 @@ public class HTTPRequestMessage extends AbstractMessage
      */
     public function set method(value:String):void
     {
+		/*
         if (VALID_METHODS.indexOf(value) == -1)
 		{
 			var message:String = resourceManager.getString(
 				"messaging", "invalidRequestMethod");
             throw new ArgumentError(message);
 		}
+		*/
 
         _method = value;
     }
