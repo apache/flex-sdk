@@ -210,32 +210,23 @@ public class StreamingAMFChannel extends AMFChannel
             if (FlexClient.getInstance().id == null && msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER] != null)
                 FlexClient.getInstance().id = msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER];
         }
-        // If the Channel is reconnecting with the session id in the url, don't
-        // report connectSuccess for the initial ping and allow the Channel to
-        // reconnect by removing the waitForFlexClientId lock.
-        if (_reconnectingWithSessionId)
-        {
-            // Allow the Channel to reconnect with the session id.
-            FlexClient.getInstance().waitForFlexClientId = false;
-            _reconnectingWithSessionId = false;
-        }
-        else
-        {
-            if (credentials != null && !(msg is ErrorMessage))
-                setAuthenticated(true);
 
-            if (streamingConnectionHandler == null)
-            {
-                streamingConnectionHandler = new StreamingAMFConnectionHandler(this, _log);
-                streamingConnectionHandler.addEventListener(Event.OPEN, streamOpenHandler);
-                streamingConnectionHandler.addEventListener(Event.COMPLETE, streamCompleteHandler);
-                streamingConnectionHandler.addEventListener(HTTPStatusEvent.HTTP_STATUS, streamHttpStatusHandler);
-                streamingConnectionHandler.addEventListener(IOErrorEvent.IO_ERROR, streamIoErrorHandler);
-                streamingConnectionHandler.addEventListener(SecurityErrorEvent.SECURITY_ERROR, streamSecurityErrorHandler);
-                streamingConnectionHandler.addEventListener(StatusEvent.STATUS, streamStatusHandler);
-            }
-            streamingConnectionHandler.openStreamingConnection(_appendToURL);
+        handleReconnectWithSessionId();
+
+        if (credentials != null && !(msg is ErrorMessage))
+            setAuthenticated(true);
+
+        if (streamingConnectionHandler == null)
+        {
+            streamingConnectionHandler = new StreamingAMFConnectionHandler(this, _log);
+            streamingConnectionHandler.addEventListener(Event.OPEN, streamOpenHandler);
+            streamingConnectionHandler.addEventListener(Event.COMPLETE, streamCompleteHandler);
+            streamingConnectionHandler.addEventListener(HTTPStatusEvent.HTTP_STATUS, streamHttpStatusHandler);
+            streamingConnectionHandler.addEventListener(IOErrorEvent.IO_ERROR, streamIoErrorHandler);
+            streamingConnectionHandler.addEventListener(SecurityErrorEvent.SECURITY_ERROR, streamSecurityErrorHandler);
+            streamingConnectionHandler.addEventListener(StatusEvent.STATUS, streamStatusHandler);
         }
+        streamingConnectionHandler.openStreamingConnection(_appendToURL);
     }
 
     //--------------------------------------------------------------------------
