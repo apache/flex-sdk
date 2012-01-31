@@ -2,48 +2,24 @@
 <!-- Simple example to demonstrate Spark BorderContainer component -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:s="library://ns.adobe.com/flex/spark">
-        		
-    <!-- Define a border component with clipAndEnableScrolling set to true -->
-	<s:BorderContainer width="200" height="200" borderWeight="10" borderColor="blue"
-	    backgroundColor="red" backgroundAlpha="0.5">
-	    
-		<s:borderStroke>
-			<s:LinearGradientStroke weight="5">
-				<fx:Array>
-					<s:GradientEntry color="0xFF0000"/>
-					<s:GradientEntry color="0x0000FF"/>
-				</fx:Array>
-			</s:LinearGradientStroke>
-		</s:borderStroke>
-		
-		<s:backgroundFill>
-			<s:RadialGradient>
-				<fx:Array>
-					<s:GradientEntry color="0xFF0000"/>
-					<s:GradientEntry color="0x0000FF"/>
-					<s:GradientEntry color="0x00FF00"/>
-				</fx:Array>
-			</s:RadialGradient>
-		</s:backgroundFill>
-	    
-		<!-- Define and constrain the scroller to match the size of the BorderContainer -->
-		<s:Scroller top="0" left="0" right="0" bottom="0">
-			<!-- Define a group to hold all the BorderContainer's content -->
-			
-			<s:Group>
-				<!-- Set layout for the content in the Group -->
-				<s:layout>
-					<s:VerticalLayout paddingTop="10" paddingLeft="10"
-					    paddingRight="10" paddingBottom="10"/>
-				</s:layout>
-				
-				<!-- Define content -->
-				<s:Label text="Spark BorderContainer Component"/>
-				<s:NumericStepper/>
-				<s:Button label="Spark Button" chromeColor="yellow"/>
-				<s:TextArea height="250" width="250" text="Large Spark TextArea"/>
-			</s:Group>
-			
-		</s:Scroller>
-	</s:BorderContainer>
+                
+    <s:Panel title="BorderContainer Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0"> 
+
+        <s:BorderContainer 
+            backgroundColor="red" cornerRadius="10"
+            borderStyle="inset" borderWeight="4" 
+            left="10" right="10" top="10" bottom="10">
+            <s:layout>
+                <s:HorizontalLayout 
+                    paddingLeft="5" paddingRight="5" 
+                    paddingTop="5" paddingBottom="5"/>
+            </s:layout>
+            <s:Button label="Button 1"/>
+            <s:Button label="Button 2"/>
+            <s:Button label="Button 3"/>
+            <s:Button label="Button 4"/>
+        </s:BorderContainer> 
+    </s:Panel>
 </s:Application>
