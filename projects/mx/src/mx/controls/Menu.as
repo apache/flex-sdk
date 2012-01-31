@@ -69,6 +69,11 @@ use namespace mx_internal;
  *  of user interaction. 
  *
  *  @eventType mx.events.MenuEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.MenuEvent")]
 
@@ -76,6 +81,11 @@ use namespace mx_internal;
  *  Dispatched when a menu item is selected. 
  *
  *  @eventType mx.events.MenuEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.MenuEvent")]
 
@@ -83,6 +93,11 @@ use namespace mx_internal;
  *  Dispatched when a menu or submenu is dismissed.
  *
  *  @eventType mx.events.MenuEvent.MENU_HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="menuHide", type="mx.events.MenuEvent")]
 
@@ -90,6 +105,11 @@ use namespace mx_internal;
  *  Dispatched when a menu or submenu opens. 
  *
  *  @eventType mx.events.MenuEvent.MENU_SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="menuShow", type="mx.events.MenuEvent")]
 
@@ -97,6 +117,11 @@ use namespace mx_internal;
  *  Dispatched when a user rolls the mouse out of a menu item.
  *
  *  @eventType mx.events.MenuEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.MenuEvent")]
 
@@ -104,6 +129,11 @@ use namespace mx_internal;
  *  Dispatched when a user rolls the mouse over a menu item.
  *
  *  @eventType mx.events.MenuEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.MenuEvent")]
 
@@ -117,6 +147,11 @@ use namespace mx_internal;
  *  This style is only used if <code>backgroundColor</code> is not specified. 
  * 
  *  @default "undefined"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
   
@@ -124,6 +159,11 @@ use namespace mx_internal;
  *  Number of pixels between children (icons and label) in the horizontal direction.
  * 
  *  @default 6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -132,6 +172,11 @@ use namespace mx_internal;
  *  icon and type icon) do not fit in this gap, the gap is expanded to 
  *  fit them properly.
  *  The default value is 18.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="leftIconGap", type="Number", format="Length", inherit="no")]
 
@@ -139,6 +184,11 @@ use namespace mx_internal;
  *  The gap to the right of the label in a menu item.  If the branch icon 
  *  does not fit in this gap, the gap is expanded to fit it properly.
  *  The default value is 15.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rightIconGap", type="Number", format="Length", inherit="no")]
   
@@ -147,6 +197,11 @@ use namespace mx_internal;
  *  The value 0 specifies no transition.
  *  
  *  @default 250 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
@@ -154,6 +209,11 @@ use namespace mx_internal;
  *  The color of the menu item background when a user rolls the mouse over it. 
  *  
  *  @default 0xB2E1FF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -161,6 +221,11 @@ use namespace mx_internal;
  *  The color of the menu item background when a menu item is selected.
  *  
  *  @default 0x7FCEFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -169,6 +234,11 @@ use namespace mx_internal;
  *  control programmatic tweening.
  * 
  *  @default "undefined"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionEasingFunction", type="Function", inherit="no")]
 
@@ -177,6 +247,11 @@ use namespace mx_internal;
  *  submenu menu item. 
  * 
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textIndent", type="Number", format="Length", inherit="yes")]
 
@@ -185,6 +260,11 @@ use namespace mx_internal;
  *  menu item.
  * 
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -192,6 +272,11 @@ use namespace mx_internal;
  *  The color of the menu item text when the menu item is selected.
  * 
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -199,6 +284,11 @@ use namespace mx_internal;
  *  The icon for all enabled menu items that have submenus. 
  * 
  *  The default value is the "MenuBranchEnabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="branchIcon", type="Class", inherit="no")]
 
@@ -206,6 +296,11 @@ use namespace mx_internal;
  *  The icon for all disabled menu items that have submenus. 
  * 
  *  The default value is the "MenuBranchDisabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="branchDisabledIcon", type="Class", inherit="no")]
 
@@ -213,6 +308,11 @@ use namespace mx_internal;
  *  The icon for all enabled menu items whose type identifier is a check box. 
  *  
  *  The default value is the "MenuCheckEnabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="checkIcon", type="Class", inherit="no")]
 
@@ -220,6 +320,11 @@ use namespace mx_internal;
  *  The icon for all dsiabled menu items whose type identifier is a check box. 
  *  
  *  The default value is the "MenuCheckDisabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="checkDisabledIcon", type="Class", inherit="no")]
 
@@ -228,6 +333,11 @@ use namespace mx_internal;
  *  button. 
  *  
  *  The default value is the "MenuRadioEnabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="radioIcon", type="Class", inherit="no")]
 
@@ -236,6 +346,11 @@ use namespace mx_internal;
  *  button. 
  * 
  *  The default value is the "MenuRadioDisabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="radioDisabledIcon", type="Class", inherit="no")]
 
@@ -243,6 +358,11 @@ use namespace mx_internal;
  *  The skin for all menu items which are identified as separators. 
  *  
  *  The default value is the "MenuSeparator" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="separatorSkin", type="Class", inherit="no")]
 
@@ -406,6 +526,11 @@ use namespace mx_internal;
  *  @see mx.effects.Tween
  *  @see mx.managers.PopUpManager
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Menu extends List implements IFocusManagerContainer
 {
@@ -453,6 +578,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  @return An instance of the Menu class. 
      *
      *  @see mx.controls.Menu#popUpMenu()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createMenu(parent:DisplayObjectContainer, mdp:Object, showRoot:Boolean = true):Menu
     {
@@ -482,6 +612,11 @@ public class Menu extends List implements IFocusManagerContainer
      * 
      *  @param mdp dataProvider object set on the popped up Menu. If you omit this 
      *  property, the method sets the Menu data provider to a new, empty XML object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function popUpMenu(menu:Menu, parent:DisplayObjectContainer, mdp:Object):void
     {
@@ -509,6 +644,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  <p>Applications do not normally call the Menu constructor directly.
      *  Instead, Applications will call the <code>Menu.createMenu()</code>
      *  method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Menu()
     {
@@ -631,6 +771,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  menu is a submenu of the parent.
      * 
      *  @return The parent Menu control. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentMenu():Menu
     {
@@ -673,6 +818,11 @@ public class Menu extends List implements IFocusManagerContainer
      * 
      *  The default value is an internal instance of the
      *  DefaultDataDescriptor class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataDescriptor():IMenuDataDescriptor
     {
@@ -807,6 +957,11 @@ public class Menu extends List implements IFocusManagerContainer
      *
      *  @default true
      *  @see #hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showRoot():Boolean
     {
@@ -844,6 +999,11 @@ public class Menu extends List implements IFocusManagerContainer
      * 
      *  @default false
      *  @see #showRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hasRoot():Boolean
     {
@@ -1032,6 +1192,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  Calculates the preferred width and height of the Menu based on the
      *  widths and heights of its menu items. This method does not take into 
      *  account the position and size of submenus. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -1319,6 +1484,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  @param item The menu item to toggle.
      *  @param toggle Boolean value that indicates whether the item is 
      *  toggled. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setMenuItemToggled(item:Object, toggle:Boolean):void
     {
@@ -1356,6 +1526,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  @param rowNum The index of the item in the data provider.
      *  
      *  @return A newly constructed ListData object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function makeListData(data:Object, uid:String, 
         rowNum:int):BaseListData
@@ -1390,6 +1565,11 @@ public class Menu extends List implements IFocusManagerContainer
      *  corner (optional).
      *  @param y Vertical location of the Menu control's upper-left 
      *  corner (optional).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function show(xShow:Object = null, yShow:Object = null):void
     {
@@ -1518,6 +1698,11 @@ public class Menu extends List implements IFocusManagerContainer
     /**
      *  Hides the Menu control and any of its submenus if the Menu control is
      *  visible.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hide():void
     {
@@ -2243,6 +2428,11 @@ public class Menu extends List implements IFocusManagerContainer
 
     /**
      * From any menu, walks up the parent menu chain and finds the root menu.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function getRootMenu():Menu
     {
@@ -2256,6 +2446,11 @@ public class Menu extends List implements IFocusManagerContainer
 
     /**
      * Given a row, find the row's index in the Menu. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      private function getRowIndex(row:IListItemRenderer):int
      {
@@ -2271,6 +2466,11 @@ public class Menu extends List implements IFocusManagerContainer
 
      /**
       *  For autotesting, get the current set of submenus
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
      mx_internal function get subMenus():Array
      {
