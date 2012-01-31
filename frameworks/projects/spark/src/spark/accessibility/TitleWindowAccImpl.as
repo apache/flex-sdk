@@ -29,8 +29,93 @@ import spark.events.SkinPartEvent;
 use namespace mx_internal;
 
 /**
- *  TitleWindowAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the TitleWindow class.
+ *  TitleWindowAccImpl is the accessibility implementation class
+ *  for spark.components.TitleWindow.
+ *
+ *  <p>When a Spark TitleWindow is created,
+ *  the <code>accessibilityImplementation</code> property
+ *  of its <code>titleDisplay</code> is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see this component.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A TitleWindow has no MSAA children.
+ *  All children of the actual TitleWindow are siblings of the TitleWindow
+ *  in the FlashPlayer's MSAA tree, because Flash Player
+ *  does not support objects with accessibility implementations
+ *  having children with their own accessibility implementations.</p>
+ *
+ *  <p>The TitleWindowAcImpl is set as the
+ *  <code>accessibilityImplementation</code> of the <code>titleDisplay</code>
+ *   because setting it on the TitleWindow itself would not allow the
+ *  TitleWindows's children to be exposed in MSAA.
+ *  Because of this an invisible rectangle is drawn in the
+ *  <code>titleDisplay</code> making it the same size as the TitleWindow
+ *  as a whole so that the MSAA Location is the bounding rectangle
+ *  of the entire TitleWindow.
+ *  Screen readers like JAWS rely on the MSAA Location to announce whether
+ *  some component is in the TitleWindow since the MSAA structure is flat.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a TitleWindow is ROLE_SYSTEM_PANE.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a TitleWindow is, by default,
+ *  the title that it displays.
+ *  To override this behavior,
+ *  set the TitleWindow's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a TitleWindow dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a TitleWindow is, by default,
+ *  the empty string, but you can set the TitleWindows's
+ *  <code>accessibilityDescription</code> property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a TitleWindow is always STATE_SYSTEM_MOVEABLE.</p>
+ *
+ *  <p>Since the State does not change,
+ *  a TitleWindow does not dispatch the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a TitleWindow is always the empty string.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a TitleWindow is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A TitleWindow does not have an MSAA DefaultAction.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A TitleWindow does not accept focus.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A TitleWindow does not support selection in the MSAA sense.</p>
+ *
+ *  <p><b>Other</b></p>
+ *
+ *  <p>A TitleWindow also dispatches the following MSAA events:
+ *  <ul>
+ *     <li>EVENT_OBJECT_CREATE, when it is created</li>
+ *     <li>EVENT_OBJECT_DESTROY, when it is closed</li>
+ *     <li>EVENT_OBJECT_LOCATIONCHANGE, when it is moved</li>
+ *  </ul></p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
