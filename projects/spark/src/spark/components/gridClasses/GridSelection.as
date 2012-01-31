@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
 import flash.geom.Rectangle;
 
@@ -19,6 +19,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
 import spark.components.Grid;
+import spark.components.gridClasses.CellPosition;
 
 use namespace mx_internal;
   
@@ -49,7 +50,7 @@ use namespace mx_internal;
  *  @see spark.components.Grid
  *  @see spark.components.Grid#columns
  *  @see spark.components.Grid#dataProvider
- *  @see spark.components.supportClasses.GridSelectionMode
+ *  @see spark.components.gridClasses.GridSelectionMode
  */
 public class GridSelection
 {
@@ -295,7 +296,7 @@ public class GridSelection
      *
      *  @default GridSelectionMode.SINGLE_ROW
      * 
-     *  @see spark.components.supportClasses.GridSelectionMode
+     *  @see spark.components.gridClasses.GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1628,7 +1629,7 @@ public class GridSelection
         while (crIndex < cellRegions.length)
         {
             var cr:CellRect = cellRegions[crIndex];
-            
+             
             // clip or remove any cell regions that extend beyond the
             // new number of columns
             if (cr.right > columnCount)
