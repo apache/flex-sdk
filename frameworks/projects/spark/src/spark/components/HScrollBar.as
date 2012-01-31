@@ -230,7 +230,8 @@ public class HScrollBar extends ScrollBarBase
         
         // convert thumb position to parent's coordinates.
         thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
-        thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
+        if (thumb.parent)
+            thumbPosParentX = thumb.parent.globalToLocal(thumbPos).x;
         
         thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
     }
