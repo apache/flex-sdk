@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2010 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+<s:GridItemEditor xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                                  xmlns:s="library://ns.adobe.com/flex/spark" 
+                                  xmlns:mx="library://ns.adobe.com/flex/mx" 
+                                  xmlns:gridEditorClasses="spark.components.gridEditorClasses.*">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.IList;
+            import mx.collections.ArrayList;
+            import mx.core.IVisualElement;
+            
+            //--------------------------------------------------------------------------
+            //
+            //  Properties
+            //
+            //--------------------------------------------------------------------------
+            
+            //----------------------------------
+            //  dataProvider
+            //----------------------------------
+            
+            private var _dataProvider:IList;
+
+            [Bindable("comboBoxGridItemEditorDataProviderChanged")]
+            
+            /**
+             *  The dataProvider for the combox box in this item editor.
+             */ 
+            public function get dataProvider():IList
+            {
+                return _dataProvider;
+            }
+            
+            /**
+             *  @private
+             */ 
+            public function set dataProvider(value:IList):void
+            {
+                if (_dataProvider == value)
+                    return;
+                
+                _dataProvider = value;
+                dispatchEvent(new Event("comboBoxGridItemEditorDataProviderChanged"));
+            }
+            
+            /**
+             *  @private
+             * 
+             *  returns the selected item in the comboBox.
+             */ 
+            override public function get value():Object
+            {
+                return comboBox.selectedItem;            
+            }
+            
+            /**
+             *  @private
+             * 
+             *  Set the selected item of the combo box with the data from the
+             *  item. 
+             */ 
+            override public function set value(newValue:Object):void
+            {
+                comboBox.selectedItem = newValue;
+            }
+            
+            /**
+             *  @private
+             */ 
+            override public function prepare():void
+            {
+                comboBox.openDropDown();
+            }
+            
+            
+            /**
+             *  @private
+             */ 
+            override public function setFocus():void
+            {
+                // delegate focus to the combox box.
+                comboBox.setFocus();
+            }
+            
+            /**
+             *  @private
+             */ 
+            private function comboBox_changeHandler():void
+            {
+                // When the value in the combo box changes end the editting
+                // to allow the edit to be completed with just one click.
+                // Use callLater to let the change handler finish before
+                // we close the editor.
+                callLater(dataGrid.endItemEditorSession);
+            }
+        ]]>
+    </fx:Script>
+
+    <!-- The editor's ComboBox. -->
+    <s:ComboBox id="comboBox" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
+    
+</s:GridItemEditor>
