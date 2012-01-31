@@ -2054,7 +2054,8 @@ public class DateField extends ComboBase
         textInput.editable = false;
         textInput.addEventListener(TextEvent.TEXT_INPUT, textInput_textInputHandler);
         // hide the border, we use the text input's border
-        border.visible = false;
+        if (border)
+        	border.visible = false;
 
     }
 
