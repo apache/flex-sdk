@@ -555,7 +555,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  A vector of column indices corresponding to the header renderers
      *  which currently have their sort indicators visible.
      * 
-     *  @default []
+     *  @default An empty Vector.<int>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
