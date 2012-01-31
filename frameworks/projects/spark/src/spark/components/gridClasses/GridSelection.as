@@ -889,8 +889,9 @@ public class GridSelection
     {   
         // Find the index of the last isAdd=true cell region that contains 
         // row,columnIndex.
+        const cellRegionsLength:int = cellRegions.length;
         var index:int = -1;
-        for (var i:int = 0; i < cellRegions.length; i++)
+        for (var i:int = 0; i < cellRegionsLength; i++)
         {
             var cr:CellRect = cellRegions[i];
             if (cr.isAdd && cr.containsCell(rowIndex, columnIndex))
@@ -903,7 +904,7 @@ public class GridSelection
         
         // Starting with index, if any subsequent isAdd=false cell region
         // contains row,columnIndex return false.
-        for (i = index + 1; i < cellRegions.length; i++)
+        for (i = index + 1; i < cellRegionsLength; i++)
         {
             cr = cellRegions[i];
             if (!cr.isAdd && cr.containsCell(rowIndex, columnIndex))
