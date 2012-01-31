@@ -491,17 +491,24 @@ public class AnimateTransformInstance extends AnimateInstance
                 // also, adjust for tx/ty with non-default transform center
                 if (adjustXY && 
                     (animProp.property == "translationX" || 
-                     animProp.property == "translationY"))
+                     animProp.property == "translationY" ||
+                     animProp.property == "postLayoutTranslationX" ||
+                     animProp.property == "postLayoutTranslationY"))
                 {
                     for (j = 0; j < animProp.keyframes.length; ++j)
                     {
                         var kf:Keyframe = animProp.keyframes[j];
                         if (isValidValue(kf.value))
                         {
-                            if (animProp.property == "translationX")
+                            if (animProp.property == "translationX" ||
+                                animProp.property == "postLayoutTranslationX")
+                            {
                                 kf.value += transformCenter.x;
-                            else
+                            }
+                            else // animProp.property == translationY || postLayoutTranslationY
+                            {
                                 kf.value += transformCenter.y;
+                            }
                         }
                     }
                 }
