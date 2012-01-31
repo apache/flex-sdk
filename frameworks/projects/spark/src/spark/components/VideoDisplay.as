@@ -483,6 +483,7 @@ public class VideoDisplay extends UIComponent
     
     [Inspectable(Category="General", defaultValue="0")]
     [Bindable("bytesLoadedChange")]
+    [Bindable("mediaPlayerStateChange")]
     
     /**
      *  The number of bytes of data that have been downloaded into the application.
@@ -529,6 +530,7 @@ public class VideoDisplay extends UIComponent
     
     [Inspectable(Category="General", defaultValue="0")]
     [Bindable("currentTimeChange")]
+    [Bindable("mediaPlayerStateChange")]
     
     /**
      *  Current time of the playhead, measured in seconds, 
@@ -552,6 +554,7 @@ public class VideoDisplay extends UIComponent
     
     [Inspectable(Category="General", defaultValue="0")]
     [Bindable("durationChange")]
+    [Bindable("mediaPlayerStateChange")]
     
     /**
      *  Duration of the video's playback, in seconds
@@ -947,6 +950,8 @@ public class VideoDisplay extends UIComponent
         if (thumbnailSource)
         {
             var bitmapImage:BitmapImage;
+            
+            // create thumbnail group if there isn't one
             if (!thumbnailGroup)
             {
                 bitmapImage = new BitmapImage();
@@ -958,14 +963,31 @@ public class VideoDisplay extends UIComponent
                 
                 thumbnailGroup = new Group();
                 thumbnailGroup.addElement(bitmapImage);
-                addChild(thumbnailGroup);
             }
             else
             {
                 bitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
             }
             
+            // if thumbnailGroup isn't on the display list, then add it.
+            if (!this.contains(thumbnailGroup))
+                addChild(thumbnailGroup);
+            
             bitmapImage.source = thumbnailSource;
+            invalidateSize();
+        }
+        else
+        {
+            if (thumbnailGroup)
+            {
+                // null out the source and remove the thumbnail group
+                bitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
+                if (bitmapImage)
+                    bitmapImage.source = null;
+                if (this.contains(thumbnailGroup))
+                    removeChild(thumbnailGroup);
+                invalidateSize();
+            }
         }
     }
     
@@ -1312,7 +1334,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.addEventListener(AudioEvent.MUTED_CHANGE, videoPlayer_mutedChangeHandler);
         
         // public events
-        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
         videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
@@ -1411,8 +1433,14 @@ public class VideoDisplay extends UIComponent
         if (!autoPlay && autoDisplayFirstFrame)
             load();
         
-        
         videoPlayer.element = videoElement;
+        
+        // if our source is null, let's invalidateSize() here.
+        // if it's a bad source, we'll get a playbackError and invalidate
+        // the size down there.  If it's a good source, we'll get a 
+        // dimensionChange event and invalidate the size in there.
+        if (source == null)
+            invalidateSize();
     }
     
     /**
@@ -1426,7 +1454,7 @@ public class VideoDisplay extends UIComponent
     {
         // wait until we can mute, play(), pause(), and seek() before doing anything.
         // We should be able to do all of these operations on the READY state change event.
-        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
+        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandlerForLoading);
     }
     
     //--------------------------------------------------------------------------
@@ -1724,10 +1752,26 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  Event handler for mediaPlayerStateChange event.  We only use this 
-     *  when trying to load up the video without playing it.
+     *  Event handler for mediaPlayerStateChange event.
      */
     private function videoPlayer_mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+    {
+        // if the event change caused us to go in to a state where 
+        // nothing is loaded up and we've no chance of getting a 
+        // dimensionChangeEvent, then let's invalidate our size here
+        if (event.state == MediaPlayerState.PLAYBACK_ERROR)
+            invalidateSize();
+        
+        // this is a public event, so let's re-dispatch it
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     *  Event handler for mediaPlayerStateChange event--used only  
+     *  when trying to load up the video without playing it.
+     */
+    private function videoPlayer_mediaPlayerStateChangeHandlerForLoading(event:MediaPlayerStateChangeEvent):void
     {
         // only come in here when we want to load the video without playing it.
         
@@ -1735,7 +1779,7 @@ public class VideoDisplay extends UIComponent
         if (event.state == MediaPlayerState.READY)
         {
             // now that we are loading up, let's remove the event listener:
-            videoPlayer.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
+            videoPlayer.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandlerForLoading);
             
             // if we are already playing() for some reason because someone called play(), then
             // we don't need to do anything.
