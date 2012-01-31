@@ -12,7 +12,7 @@
 package mx.effects.effectClasses
 {
     
-import mx.filters.IFlexBitmapFilter;
+import mx.filters.IBitmapFilter;
 import mx.effects.FxAnimateFilter;
 
 /**
@@ -49,7 +49,7 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
     /**
      * IBitmapFilter instance to apply and animate.
      */  
-    public var bitmapFilter:IFlexBitmapFilter;
+    public var bitmapFilter:IBitmapFilter;
     
     //--------------------------------------------------------------------------
     //
