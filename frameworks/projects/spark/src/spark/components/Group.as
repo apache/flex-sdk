@@ -368,7 +368,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     /**
      *  The visual content children for this Group.
      *
-     *  <p>The content items should only be IVisualItem objectss.  
+     *  <p>The content items should only be IVisualElement objects.  
      *  An <code>mxmlContent</code> Array should not be shared between multiple
      *  Group containers because visual elements can only live in one container 
      *  at a time.</p>
