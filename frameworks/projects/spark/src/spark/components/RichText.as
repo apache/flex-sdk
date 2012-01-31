@@ -389,6 +389,12 @@ public class RichText extends TextBase implements IFontContextComponent
 	 */
 	private var factory:TextLineFactoryBase;
 
+    /**
+     *  @private
+     *  If true, the damage handler will return immediately.
+     */
+    private var ignoreDamageEvent:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -469,7 +475,10 @@ public class RichText extends TextBase implements IFontContextComponent
     	textFlowChanged = false;
     	contentChanged = false;
     	
-		// The other two are now invalid and must be recalculated when needed.
+        // If there was a textFlow remove its damage handler.
+        removeDamageHandler();
+
+        // The other two are now invalid and must be recalculated when needed.
 		_textFlow = null;
     	_content = null;
     	
@@ -616,7 +625,10 @@ public class RichText extends TextBase implements IFontContextComponent
 		textChanged = false;
         textFlowChanged = false;
         
-		// The other two are now invalid and must be recalculated when needed.
+        // If there was a textFlow remove its damage handler.
+        removeDamageHandler();
+
+        // The other two are now invalid and must be recalculated when needed.
 		_text = null;
 		_textFlow = null;
 		        
@@ -716,7 +728,10 @@ public class RichText extends TextBase implements IFontContextComponent
 		
 		if (value == _textFlow)
 			return;
-			
+			        
+        // If there was a textFlow remove its damage handler.
+        removeDamageHandler();
+        
 		_textFlow = value;
 		textFlowChanged = true;
 		
@@ -825,6 +840,10 @@ public class RichText extends TextBase implements IFontContextComponent
 				_textFlow.flowComposer.textLineCreator = 
 					staticTextFlowFactory.textLineCreator;
 			}
+            
+            // Add a damage handler.
+            _textFlow.addEventListener(DamageEvent.DAMAGE, 
+                                       textFlow_damageHandler);
 		}
 	}
     
@@ -872,14 +891,9 @@ public class RichText extends TextBase implements IFontContextComponent
 	{
 		super.composeTextLines(width, height);
 		
-		// Don't want this handler firing when we're re-composing the text lines.
-		if (factory is TextFlowTextLineFactory && _textFlow != null)
-		{
-			_textFlow.removeEventListener(DamageEvent.DAMAGE,
-										  textFlow_damageHandler);
-		}
-		
-		
+		// Ignore damage events while we're re-composing the text lines.
+        ignoreDamageEvent = true;
+
 		// Set the composition bounds to be used by createTextLines().
 		// If the width or height is NaN, it will be computed by this method
 		// by the time it returns.
@@ -907,11 +921,7 @@ public class RichText extends TextBase implements IFontContextComponent
 		
 		// Listen for "damage" events in case the textFlow is 
 		// modified programatically.
-		if (factory is TextFlowTextLineFactory && _textFlow != null)
-		{
-			_textFlow.addEventListener(DamageEvent.DAMAGE, 
-									   textFlow_damageHandler);
-		}  
+        ignoreDamageEvent = false;
 		
 		// Created all lines.
 		return true;      
@@ -1056,7 +1066,22 @@ public class RichText extends TextBase implements IFontContextComponent
     {
         textLines.push(textLine);
     }
-  
+
+    /**
+     *  @private
+     *  Make sure to remove the damage handler before resetting the text flow.
+     */
+    private function removeDamageHandler():void
+    {
+        // Could check factory is TextFlowTextLineFactory but be safe and 
+        // try to remove whenever there is a text flow.
+        if (_textFlow != null)
+        {
+            _textFlow.removeEventListener(DamageEvent.DAMAGE,
+                textFlow_damageHandler);
+        }
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1071,18 +1096,14 @@ public class RichText extends TextBase implements IFontContextComponent
      */
     private function textFlow_damageHandler(event:DamageEvent):void
     {
-        // If the target is the current textFlow then check the generation.
-        // If there are no changes, don't recompose.  The TextFlowFactory
-        // createTextLines dispatches damage events every time the textFlow
-        // is composed, even if there are no changes.
-        if (TextFlow(event.target) == _textFlow)
-        { 
-            if (_textFlow.generation == lastGeneration)
-                return;
-            
-            // Update the last know generation for _textFlow.
-            lastGeneration = _textFlow.generation;
-        }
+        // If there are no changes to the generation, don't recompose.  
+        // The TextFlowFactory createTextLines dispatches damage events every 
+        // time the textFlow is composed, even if there are no changes.
+        if (ignoreDamageEvent || _textFlow.generation == lastGeneration)
+            return;
+        
+        // Update the last know generation for _textFlow.
+        lastGeneration = _textFlow.generation;
 
         // Invalidate _text and _content.
         _text = null;
