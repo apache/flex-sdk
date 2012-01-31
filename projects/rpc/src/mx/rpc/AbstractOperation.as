@@ -58,6 +58,10 @@ public class AbstractOperation extends AbstractInvoker
      * compiler or automatically by the service when an unknown Operation has
      * been accessed. It is not recommended that a developer use this
      * constructor directly.
+     *  
+     *  @param service The service on which the Operation is being invoked.
+     *  
+     *  @param name The name of the new Operation.
      */
     public function AbstractOperation(service:AbstractService = null, name:String = null)
     {
@@ -90,7 +94,7 @@ public class AbstractOperation extends AbstractInvoker
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -115,8 +119,8 @@ public class AbstractOperation extends AbstractInvoker
         }
         else
         {
-			var message:String = resourceManager.getString(
-				"rpc", "cannotResetOperationName");
+            var message:String = resourceManager.getString(
+                "rpc", "cannotResetOperationName");
             throw new Error(message);
         }
     }
@@ -142,8 +146,8 @@ public class AbstractOperation extends AbstractInvoker
         }
         else
         {
-			var message:String = resourceManager.getString(
-				"rpc", "cannotResetService")
+            var message:String = resourceManager.getString(
+                "rpc", "cannotResetService")
             throw new Error(message);
         }
     }
@@ -186,18 +190,18 @@ public class AbstractOperation extends AbstractInvoker
     */
     override mx_internal function dispatchRpcEvent(event:AbstractEvent):void
     {
-    	event.callTokenResponders();
-    	if (!event.isDefaultPrevented())
-    	{
-	        if (hasEventListener(event.type))
-	        {
-	            dispatchEvent(event);
-	        }
-	        else
-	        {
-	            _service.dispatchEvent(event);
-	        }
-	    }
+        event.callTokenResponders();
+        if (!event.isDefaultPrevented())
+        {
+            if (hasEventListener(event.type))
+            {
+                dispatchEvent(event);
+            }
+            else
+            {
+                _service.dispatchEvent(event);
+            }
+        }
     }
 
 
