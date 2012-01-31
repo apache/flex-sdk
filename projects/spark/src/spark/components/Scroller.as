@@ -442,7 +442,6 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             if (!isNaN(vspDelta))
             {
                 vp.verticalScrollPosition += vspDelta;
-                event.stopPropagation();
             }
         }
 
@@ -461,7 +460,6 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             if (!isNaN(hspDelta))
             {
                 vp.horizontalScrollPosition += hspDelta;
-                event.stopPropagation();
             }
         }
     }
