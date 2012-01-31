@@ -121,6 +121,10 @@ public class TextBase extends UIComponent
     {
         super();
         
+        // set mouseChildren to false so that the TextLines that get 
+        // added don't trap the mouse events.
+        mouseChildren = false;
+        
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
 		if (!truncationIndicatorResource)
