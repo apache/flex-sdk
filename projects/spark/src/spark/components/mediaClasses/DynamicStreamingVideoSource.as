@@ -16,14 +16,33 @@ package spark.components.mediaClasses
 
 /**
  *  The DynamicStreamingVideoSource class represents a streaming video source and can be 
- *  used for streaming pre-recorded video or live streaming video.  In addition, 
- *  it can support a single stream or multiple streams associated with different 
+ *  used for streaming pre-recorded video or live streaming video.  
+ *  You use this class to define a video stream for the VideoPlayer and VideoDisplay controls.
+ *
+ *  <p>This class supports a single stream or multiple streams associated with different 
  *  bitrates.  The <code>VideoPlayer</code> and <code>VideoDisplay</code>
  *  classes can take a DynamicStreamingVideoSource instance as its <code>source</code>
- *  property.
+ *  property.</p>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:DynamicStreamingVideoSource&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:DynamicStreamingVideoSource 
+ *    <strong>Properties</strong>
+ *    host=""
+ *    initialIndex="0"
+ *    streamType="any"
+ *  /&gt;
+ *  </pre>
  *
  *  @see spark.components.VideoPlayer 
  *  @see spark.components.VideoDisplay
+ *  @see spark.components.mediaClasses.DynamicStreamingVideoItem
+ *
+ *  @includeExample examples/DynamicStreamingVideoSourceExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -58,9 +77,14 @@ public class DynamicStreamingVideoSource extends Object
     [Inspectable(category="General")]
 
     /**
-     *  The uri pointing to the location of the server.
-     *  This should be a String, but it's typed as an Object
-     *  to support any future changes.
+     *  The URI of the location of the video server.
+     *  While this property is of type Object, pass 
+     *  the URI as a String. 
+     *
+     *  <p>Use the <code>streamName</code> property of the 
+     *  DynamicStreamingVideoItem class to specify stream name on the server.</p>
+     *
+     *  @see spark.components.mediaClasses.DynamicStreamingVideoItem#streamName
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
