@@ -214,9 +214,13 @@ public class ButtonBarBase extends ListBase
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-        const renderer:IItemRenderer = getItemRenderer(caretIndex) as IItemRenderer;
+        const renderer:IVisualElement = getItemRenderer(caretIndex);
         if (renderer)
-            renderer.showsCaret = isFocused;
+        {
+            renderer.depth = (isFocused) ? 1 : 0;
+            if (renderer is IItemRenderer)             
+                IItemRenderer(renderer).showsCaret = isFocused;
+        }
     }    
     
     /**
