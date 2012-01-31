@@ -15,7 +15,12 @@ package spark.components
 /**
  *  This class specifies the allowed values for the
  *  <code>selectionHighlighting</code> property
- *  in RichEditableText, TextInput, and TextArea.
+ *  of the RichEditableText control, and controls that use
+ *  RichEditableText as a subcomponent (Spark TextInput and Spark TextArea).
+ *  
+ *  @see spark.components.RichEditableText
+ *  @see spark.components.TextArea
+ *  @see spark.components.TextInput
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
