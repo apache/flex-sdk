@@ -17,9 +17,12 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 
+import mx.core.mx_internal;
 import mx.core.IIMESupport;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
+
+use namespace mx_internal;
 
 include "../styles/metadata/BasicInheritingTextStyles.as"
 include "../styles/metadata/AdvancedInheritingTextStyles.as"
@@ -51,6 +54,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 [IconFile("NumericStepper.png")]
 [DefaultTriggerEvent("change")]
+
+[AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
 
 /**
  *  The NumericStepper control lets you select
@@ -175,6 +180,18 @@ public class NumericStepper extends Spinner
     implements IFocusManagerComponent, IIMESupport
 {
     include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by SpinnerAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
     
     //--------------------------------------------------------------------------
     //
@@ -494,6 +511,15 @@ public class NumericStepper extends Spinner
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (NumericStepper.createAccessibilityImplementation != null)
+            NumericStepper.createAccessibilityImplementation(this);
+    }
 
     /**
      *  @private
