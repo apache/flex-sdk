@@ -59,11 +59,15 @@ use namespace mx_internal;
  *  within a set of mutually exclusive choices.
  *  A RadioButton group is composed of two or more RadioButton controls
  *  with the same <code>groupName</code> property.
- *  The RadioButton group can refer to a group created by the
- *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag.
+ *  While grouping RadioButton instances in a RadioButtonGroup is optional,
+ *  a group lets you do things like set a single event handler on a group of buttons,
+ *  rather than on each individual button.
+ *
+ *  <p>The RadioButton group can refer to a group created by the
+ *  <code>&lt;s:RadioButtonGroup&gt;</code> tag.
  *  The user selects only one member of the group at a time.
  *  Selecting an unselected group member deselects the currently selected
- *  RadioButton control within that group.
+ *  RadioButton control within that group.</p>
  *
  *  <p>The RadioButton control has the following default characteristics:</p>
  *     <table class="innertable">
@@ -77,28 +81,32 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Minimum size</td>
- *           <td>0 pixels</td>
+ *           <td>18 pixels wide and 18 pixels high</td>
  *        </tr>
  *        <tr>
  *           <td>Maximum size</td>
- *           <td>Undefined</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
  *        </tr>
  *     </table>
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:RadioButton&gt;</code> tag inherits all of the tag
+ *  <p>The <code>&lt;s:RadioButton&gt;</code> tag inherits all of the tag
  *  attributes of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:RadioButton
+ *  &lt;s:RadioButton
  *    <strong>Properties</strong>
- *    groupName="radioGroup"  
+ *    group=""
+ *    groupName="RadioButtonGroup_<i>n</i>"
+ *    selected=""
+ *    value="null"
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.RadioButtonGroup
- *  
+ *  @see spark.components.RadioButtonGroup
+ *  @see spark.components.RadioButtonGroup
+ *  @see spark.skins.spark.RadioButtonSkin
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -181,8 +189,10 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     /**
      *  The RadioButtonGroup object to which this RadioButton belongs.
      *  When creating radio buttons to put in a RadioButtonGroup, it is 
-     *  advisable to use group for all of the buttons or groupName for all of 
-     *  the buttons. The groupName will be set to the generated name of the 
+     *  advisable to use either the <code>group</code> property 
+     *  or the <code>groupName</code> property for all of 
+     *  the buttons.  The <code>groupName</code> property will be set 
+     *  to the generated name of the 
      *  RadioButtonGroup object.
      *  
      *  @default the default RadioButtonGroup
@@ -288,13 +298,14 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
      *  Specifies the name of the group to which this RadioButton control belongs, or 
      *  specifies the value of the <code>id</code> property of a RadioButtonGroup control
      *  if this RadioButton is part of a group defined by a RadioButtonGroup control.
-     *  All radio buttons with the same groupName will be in the same tab group
-     *  even if they belong to different radio button groups.  When creating
+     *  All radio buttons with the same <code>groupName</code> property will be in the same tab group,
+     *  even if they belong to different radio button groups. When creating
      *  radio buttons to put in a RadioButtonGroup, it is advisable to
-     *  use group for all of the buttons or groupName for all of the buttons.
+     *  use either the <code>group</code> property 
+     *  or the <code>groupName</code> property for all of the buttons.
      *
-     *  @default "RadioButtonGroup_number" where number is an integer greater
-     *  than or equal to 0.
+     *  @default <code>"RadioButtonGroup_<i>n</i>"</code>, where <i>n</i> is an integer greater
+     *  than or equal to 0
      *  @see #group
      * 
      *  @langversion 3.0
