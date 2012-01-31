@@ -443,7 +443,46 @@ public class TextView extends UIComponent implements IViewport
 
         _displayAsPassword = value;
         displayAsPasswordChanged = true;
+
         invalidateDisplayList();
+    }
+
+    //----------------------------------
+    //  editable
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _editable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var editableChanged:Boolean = false;
+
+    /**
+     *  Specifies whether the user is allowed to edit the text in this control.
+     *
+     *  @default true;
+     */
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        if (value == _editable)
+            return;
+
+        _editable = value;
+        editableChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -569,6 +608,42 @@ public class TextView extends UIComponent implements IViewport
     }
     
     //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    /**
+     *  Specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     *  <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @default null
+     * 
+     * @see flash.system.IMEConversionMode
+     */
+     public function get imeMode():String
+    {
+        return _imeMode;
+    }
+
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+    }
+
+    //----------------------------------
     //  maxChars
     //----------------------------------
 
@@ -655,6 +730,45 @@ public class TextView extends UIComponent implements IViewport
     public function set restrict(value:String):void
     {
         _restrict = value;
+    }
+
+    //----------------------------------
+    //  selectable
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _selectable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var selectableChanged:Boolean = false;
+
+    /**
+     *  Specifies whether the text can be selected.
+     *  Making the text selectable lets you copy text from the control.
+     *
+     *  @default true;
+     */
+    public function get selectable():Boolean
+    {
+        return _selectable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set selectable(value:Boolean):void
+    {
+        if (value == _selectable)
+            return;
+
+        _selectable = value;
+        selectableChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
