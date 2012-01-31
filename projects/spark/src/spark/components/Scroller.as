@@ -722,9 +722,9 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */
-    override protected function createSkin():void
+    override protected function attachSkin():void
     {
-        super.createSkin();
+        super.attachSkin();
         skin.layout = new ScrollerLayout();
         installViewport();
     }
@@ -732,11 +732,11 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */
-    override protected function destroySkin():void
+    override protected function detachSkin():void
     {    
         uninstallViewport();
         skin.layout = null;
-        super.destroySkin();
+        super.detachSkin();
     }
     
     /**
