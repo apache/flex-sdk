@@ -145,11 +145,11 @@ import spark.effects.easing.Sine;
  *  </ul>
  *
  *  @see spark.core.IViewport
- *  @see spark.skins.default.ScrollerSkin
- *  @see spark.skins.default.ScrollBarDownButtonSkin
- *  @see spark.skins.default.ScrollBarLeftButtonSkin
- *  @see spark.skins.default.ScrollBarRightButtonSkin
- *  @see spark.skins.default.ScrollBarUpButtonSkin
+ *  @see spark.skins.spark.ScrollerSkin
+ *  @see spark.skins.spark.ScrollBarDownButtonSkin
+ *  @see spark.skins.spark.ScrollBarLeftButtonSkin
+ *  @see spark.skins.spark.ScrollBarRightButtonSkin
+ *  @see spark.skins.spark.ScrollBarUpButtonSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
