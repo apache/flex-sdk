@@ -22,8 +22,8 @@ import flash.utils.Dictionary;
 
 import mx.events.FlexEvent;
 import mx.events.ItemExistenceChangedEvent;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
@@ -676,7 +676,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     /**
      *  @private
      */
-    override public function get numLayoutItems():int
+    override public function get numLayoutElements():int
     {
         return numElements;
     }
@@ -686,11 +686,11 @@ public class Group extends GroupBase implements IVisualElementContainer
      * 
      *  @throws RangeError If the index position does not exist in the child list.
      */ 
-    override public function getLayoutItemAt(index:int):ILayoutItem
+    override public function getLayoutElementAt(index:int):ILayoutElement
     {
         var element:Object = getElementAt(index);
 
-        return LayoutItemFactory.getLayoutItemFor(element);
+        return LayoutElementFactory.getLayoutElementFor(element);
     }
 
     
