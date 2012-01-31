@@ -10,6 +10,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.effects.interpolation
 {
+	
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;    
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("sparkEffects")]
+	
 /**
  * The NumberInterpolator class provides interpolation between
  * <code>Number</code> start and end values. 
@@ -22,6 +32,13 @@ public class NumberInterpolator implements IInterpolator
     {
         super();
     }
+    
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
     
     /**
      * Returns the singleton of this class. Since all NumberInterpolators
@@ -58,9 +75,7 @@ public class NumberInterpolator implements IInterpolator
     {
         if ((startValue is Number && isNaN(Number(startValue))) || 
             (endValue is Number && isNaN(Number(endValue))))
-            throw new Error("Interpolator cannot calculate interpolated " + 
-                            "values when either startValue (" + startValue + ") " + 
-                            "or endValue (" + endValue + ") is not a number");
+            throw new Error(resourceManager.getString("sparkEffects", "cannotCalculateValue", [startValue, endValue]));
         // Quick test for 0 or 1 to avoid round-off error on either end
         if (fraction == 0)
             return startValue;
