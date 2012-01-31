@@ -26,7 +26,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  * effect instance on any given target at a time, which means that they will
  * share the transform center set by any of the contributing effects.</p>
  */       
-public class AnimateTransformRotate3D extends AnimateTransformRotate
+public class AnimateTransformRotate3D extends AnimateTransform
 {
     include "../core/Version.as";
 
@@ -44,6 +44,7 @@ public class AnimateTransformRotate3D extends AnimateTransformRotate
     public function AnimateTransformRotate3D(target:Object=null)
     {
         super(target);
+        applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
     }
     
@@ -52,6 +53,17 @@ public class AnimateTransformRotate3D extends AnimateTransformRotate
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  affectLayout
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /** 
+     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     */
+    public var affectLayout:Boolean = false;
     
     //----------------------------------
     //  angleXFrom
@@ -154,14 +166,76 @@ public class AnimateTransformRotate3D extends AnimateTransformRotate
      * set this value to a large positive or small negative number.</p>
      */
     public var angleYBy:Number;
-            
+
+    //----------------------------------
+    //  angleXFrom
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /** 
+     * The starting angle of rotation of the target object around
+     * the z axis, expressed in degrees.
+     * Valid values range from 0 to 360.
+     */
+    public var angleZFrom:Number;
+
+    //----------------------------------
+    //  angleZTo
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /** 
+     * The ending angle of rotation of the target object around
+     * the z axis, expressed in degrees.
+     * Values can be either positive or negative.
+     *
+     * <p>If the value of <code>angleTo</code> is less
+     * than the value of <code>angleFrom</code>,
+     * the target rotates in a counterclockwise direction.
+     * Otherwise, it rotates in clockwise direction.
+     * If you want the target to rotate multiple times,
+     * set this value to a large positive or small negative number.</p>
+     */
+    public var angleZTo:Number;
+    
+    //----------------------------------
+    //  angleZBy
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /** 
+     * Degrees by which to rotate the target object around the
+     * z axis. Value may be negative.
+     *
+     * <p>If the value of <code>angleZBy</code> is negative,
+     * the target rotates in a counterclockwise direction.
+     * Otherwise, it rotates in clockwise direction.
+     * If you want the target to rotate multiple times,
+     * set this value to a large positive or small negative number.</p>
+     */
+    public var angleZBy:Number;
+
+                        
     /**
      * @private
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("rotationX", angleXFrom, angleXTo, angleXBy);
-        addMotionPath("rotationY", angleYFrom, angleYTo, angleYBy);
+    	if(affectLayout)
+    	{
+	        addMotionPath("rotationX", angleXFrom, angleXTo, angleXBy);
+	        addMotionPath("rotationY", angleYFrom, angleYTo, angleYBy);
+	        addMotionPath("rotationZ", angleZFrom, angleZTo, angleZBy);
+	    }
+	    else
+	    {
+            addPostLayoutMotionPath("postLayoutRotationX", angleXFrom, angleXTo, angleXBy);
+            addPostLayoutMotionPath("postLayoutRotationY", angleYFrom, angleYTo, angleYBy);
+            addPostLayoutMotionPath("postLayoutRotationZ", angleZFrom, angleZTo, angleZBy);
+	    }
         super.initInstance(instance);
     }    
 }
