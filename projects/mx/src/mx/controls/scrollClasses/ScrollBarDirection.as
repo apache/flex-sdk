@@ -19,6 +19,11 @@ package mx.controls.scrollClasses
  *  @see mx.controls.scrollClasses.ScrollBar
  *  @see mx.controls.HScrollBar
  *  @see mx.controls.VScrollBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class ScrollBarDirection
 {
@@ -32,11 +37,21 @@ public final class ScrollBarDirection
 
 	/**
 	 *  Specifies that a ScrollBar control is for horizontal scrolling.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const HORIZONTAL:String = "horizontal";
 	
 	/**
 	 *  Specifies that a ScrollBar control is for vertical scrolling.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const VERTICAL:String = "vertical";
 }
