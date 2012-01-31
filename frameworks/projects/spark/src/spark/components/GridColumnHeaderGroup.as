@@ -274,6 +274,7 @@ package spark.components
             addEventListener(GridEvent.GRID_ROLL_OUT, header_rollOutHandler);
             
             addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, sep_mouseDownHandler);
+            addEventListener(GridEvent.SEPARATOR_MOUSE_UP, sep_mouseUpHandler);
             addEventListener(GridEvent.SEPARATOR_ROLL_OVER, sep_rollOverHandler);
             addEventListener(GridEvent.SEPARATOR_ROLL_OUT, sep_rollOutHandler);
         }
@@ -577,33 +578,7 @@ package spark.components
         //  Overridden Properties
         //
         //--------------------------------------------------------------------------
-        
-        //----------------------------------
-        //  dataProvider
-        //----------------------------------
-        
-        /**
-         *  TBD: this is for the column headers
-         *  
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 1.5
-         *  @productversion Flex 4
-         */
-        override public function set dataProvider(value:IList):void
-        {
-            //if (dataProvider)
-            //    dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
-                    
-            // ensure that our listener is added before the dataGroup which adds a listener during
-            // the base class setter if the dataGroup already exists.  If the dataGroup isn't
-            // created yet, then we still be first.
-            //if (value)
-            //    value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
-            
-            super.dataProvider = value;
-        }
-        
+                
         //----------------------------------
         //  itemRenderer
         //----------------------------------
@@ -860,65 +835,7 @@ package spark.components
         //  Event Handlers
         //
         //--------------------------------------------------------------------------
-        
-        /**
-         *  @private
-         *  Called when the mouse is clicked. 
-         */
-        /*
-        private function item_clickHandler(event:MouseEvent):void
-        {
-            var newIndex:int;
-            if (event.currentTarget is IItemRenderer)
-                newIndex = IItemRenderer(event.currentTarget).itemIndex;
-            else
-                newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);   
-            
-            trace("item_clickHandler", newIndex);
-        }
-    ``` */
-        
-        /**
-         *  @private
-         *  Called when contents within the dataProvider changes.  
-         *
-         *  @param event The collection change event
-         *  
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 1.5
-         *  @productversion Flex 4
-         */
-        /*
-        protected function dataProvider_collectionChangeHandler(event:Event):void
-        {
-            // ToDo: what should be done if columns change?
-            
-            if (event is CollectionEvent)
-            {
-                var ce:CollectionEvent = CollectionEvent(event);
                 
-                if (ce.kind == CollectionEventKind.ADD)
-                {
-                }
-                else if (ce.kind == CollectionEventKind.REMOVE)
-                {
-                }
-                else if (ce.kind == CollectionEventKind.RESET)
-                {
-                }
-                else if (ce.kind == CollectionEventKind.REFRESH)
-                {
-                }
-                else if (ce.kind == CollectionEventKind.REPLACE ||
-                        ce.kind == CollectionEventKind.MOVE)
-                {
-                    //These cases are handled by the DataGroup skinpart  
-                }
-            }       
-        }
-        */
-        
         /**
          *  @private
          */
@@ -1032,6 +949,15 @@ package spark.components
         /**
          *  @private
          */
+        private function sep_mouseUpHandler(event:GridEvent):void
+        {
+            if (!enabled || !grid.resizableColumns)
+                return;
+        }
+
+        /**
+         *  @private
+         */
         private function sep_rollOverHandler(event:GridEvent):void
         {
             if (!enabled || !grid.resizableColumns)
@@ -1039,16 +965,18 @@ package spark.components
             
             var column:GridColumn = event.column;
             
-            //trace("sep_rollOver", event.columnIndex);
-                      
             if (!column.resizable)
                 return;
             
-            // Hide the mouse, attach and show the cursor
+            // Uncomment when resize is implemented.
+
+            // Hide the mouse, attach and show the cursor            
+            /*
             var stretchCursorClass:Class = getStyle("stretchCursor");
             resizeCursorID = cursorManager.setCursor(
                                     stretchCursorClass, 
                                     CursorManagerPriority.HIGH, 0, 0);
+            */
         }
         
         /**
@@ -1059,9 +987,8 @@ package spark.components
             if (!enabled)
                 return;
             
-            //trace("sep_rollOut", event.columnIndex);
-             
-            cursorManager.removeCursor(resizeCursorID);
+            // Uncomment when resize is implemented.
+            //cursorManager.removeCursor(resizeCursorID);
         }    
 
         //--------------------------------------------------------------------------
@@ -1082,7 +1009,7 @@ package spark.components
          *  always a MOUSE_UP.  By default this method dispatches GRID_MOUSE_DOWN, 
          *  GRID_MOUSE_DRAG, or a GRID_MOUSE_UP event in response to the the corresponding
          *  mouse event on a column header or SEPARATOR_MOUSE_DOWN, SEPARATOR_MOUSE_DRAG, 
-         *  or a SEPARATOR__MOUSE_UP event in response to the the corresponding
+         *  or a SEPARATOR_MOUSE_UP event in response to the the corresponding
          *  mouse event on a column header separator.
          * 
          * .The GridEvent's columnIndex, column, item, and itemRenderer 
@@ -1109,7 +1036,7 @@ package spark.components
             {
                 case MouseEvent.MOUSE_MOVE: 
                     if (dragSeparator)
-                        gridEventType = GridEvent.SEPARATOR_MOUSE_DRAG;    
+                        gridEventType = GridEvent.SEPARATOR_MOUSE_DRAG;
                     else
                         gridEventType = GridEvent.GRID_MOUSE_DRAG;
                     break;
@@ -1117,7 +1044,7 @@ package spark.components
                     if (dragSeparator)
                         gridEventType = GridEvent.SEPARATOR_MOUSE_UP;
                     else
-                        gridEventType = GridEvent.GRID_MOUSE_UP; 
+                        gridEventType = GridEvent.GRID_MOUSE_UP;
                     break;
                 case MouseEvent.MOUSE_DOWN: 
                     // Is the mouseDown on a separator or a header?
@@ -1136,7 +1063,7 @@ package spark.components
                     }
                     break;
             }
-            
+                    
             dispatchGridEvent(event, gridEventType, eventHeaderBarXY, eventColumnIndex);
         }
           
