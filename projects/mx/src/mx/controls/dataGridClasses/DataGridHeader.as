@@ -1097,7 +1097,7 @@ public class DataGridHeader extends DataGridHeaderBase
                     }
                 }
                 if (i >= headerItems.length)
-                    return;
+                    i = headerItems.length - 1;
             }
 
             if (visibleColumns[i].sortable)
