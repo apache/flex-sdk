@@ -1097,8 +1097,16 @@ public class ListBase extends SkinnableDataContainer
             else if (ce.kind == CollectionEventKind.RESET)
             {
                 // Data provider is being reset, clear out the selection
-                selectedIndex = -1;
-                setCurrentCaretIndex(-1);  
+                if (dataProvider.length == 0)
+                {
+                    selectedIndex = NO_SELECTION;
+                    setCurrentCaretIndex(NO_CARET);
+                }
+                else
+                {
+                    dataProviderChanged = true; 
+                    invalidateProperties(); 
+                }
             }
             else if (ce.kind == CollectionEventKind.REPLACE ||
                 ce.kind == CollectionEventKind.MOVE ||
