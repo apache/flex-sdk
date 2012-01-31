@@ -1240,6 +1240,7 @@ public class ScrollControlBase extends UIComponent
         addChild(verticalScrollBar);
         
         //need verticalScrollBar.validateNow()?
+        UIComponentGlobals.layoutManager.validateClient(verticalScrollBar, true);
         
         return verticalScrollBar;
     }
