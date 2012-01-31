@@ -204,9 +204,11 @@ public class SimpleXMLDecoder
     }
 
     /**
-     * Returns the local name of an XMLNode.
+     *  Returns the local name of an XMLNode.
      *
-     * @return The local name of an XMLNode.
+     *  @param xmlNode The XMLNode. 
+     *
+     *  @return The local name of an XMLNode.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
