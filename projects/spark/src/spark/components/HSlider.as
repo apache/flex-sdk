@@ -19,7 +19,7 @@ import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxSlider;
 
 /**
- *  HSlider
+ *  The FxHSlider class defines a horizontal slider component.
  */
 public class FxHSlider extends FxSlider
 {
@@ -46,8 +46,7 @@ public class FxHSlider extends FxSlider
     //--------------------------------------------------------------------------
 
     /**
-     *  The size of the track on an HSlider equals the width
-     *  of the track.
+     *  The size of the track, which equals the width of the track.
      */
     override protected function get trackSize():Number
     {
@@ -62,7 +61,7 @@ public class FxHSlider extends FxSlider
     }
 
     /**
-     *  The size of the thumb is equal to the width of the thumb.
+     *  The size of the thumb button, which equals the height of the thumb button.
      */
     override protected function calculateThumbSize():Number
     {
@@ -78,9 +77,9 @@ public class FxHSlider extends FxSlider
     //--------------------------------------------------------------------------
     
     /**
-     *  Position the thumb button according to the given thumbPos
-     *  parameter, relative to the current x location of the track
-     *  in the HSlider control.
+     *  Position the thumb button based on the specified thumb position,
+     *  relative to the current X location of the track
+     *  in the control.
      * 
      *  @param thumbPos A number representing the new position of
      *  the thumb button in the control.
@@ -102,11 +101,15 @@ public class FxHSlider extends FxSlider
     }
     
     /**
+     *  Return the position of the thumb button on a FxHSlider component.
      *  The position of the thumb on an HSlider is equal to the
      *  given localX parameter.
      * 
-     *  @param localX The x position relative to the track
-     *  @param localY The y position relative to the track
+     *  @param localX The x position relative to the track.
+     * 
+     *  @param localY The y position relative to the track.
+     *
+     *  @return The position of the thumb button.
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -115,8 +118,7 @@ public class FxHSlider extends FxSlider
     }
 
     /**
-     *  We adjust the position to center the thumb when clicking
-     *  on the track.
+     *  @inheritDoc
      */
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
