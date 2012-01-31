@@ -19,17 +19,13 @@ import flash.geom.Rectangle;
 
 import mx.collections.IList;
 import mx.core.IFactory;
-import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.managers.CursorManager;
-import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.supportClasses.ColumnHeaderBarLayout;
 import spark.components.supportClasses.GridColumn;
-import spark.components.supportClasses.GridLayer;
 import spark.events.GridEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.MouseEventUtil;
@@ -377,7 +373,6 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
         dispatchChangeEvent("headerRendererChanged");
     }
     
-    
     //----------------------------------
     //  columnSeparator
     //----------------------------------
@@ -545,7 +540,62 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
         _separatorMouseWidth = value;
         invalidateDisplayList();
         dispatchChangeEvent("separatorMouseWidthChanged");
-    }    
+    }
+    
+    //----------------------------------
+    //  visibleSortIndicatorIndices
+    //----------------------------------
+    
+    [Bindable("visibleSortIndicatorIndicesChanged")]
+    
+    private var _visibleSortIndicatorIndices:Vector.<int> = new Vector.<int>();
+    
+    /**
+     *  A vector of column indices corresponding to the header renderers
+     *  which currently have their sort indicators visible.
+     * 
+     *  @default []
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get visibleSortIndicatorIndices():Vector.<int>
+    {
+        return _visibleSortIndicatorIndices.concat();
+    }
+    
+    /**
+     *  @private
+     */
+    public function set visibleSortIndicatorIndices(value:Vector.<int>):void
+    {
+        // Defensively copy vector and tolerate null
+        const valueCopy:Vector.<int> = (value) ? value.concat() : new Vector.<int>();
+        
+        _visibleSortIndicatorIndices = valueCopy;
+        
+        invalidateDisplayList();
+        dispatchChangeEvent("visibleSortIndicatorIndicesChanged");
+    }
+    
+    /**
+     *  Returns true if the sort indicator for the specified column
+     *  is visible.
+     *  
+     *  This is just a more effient version of:
+     *      visibleSortIndicatorIndices.indexOf(columnIndex) != -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function isSortIndicatorVisible(columnIndex:int):Boolean
+    {
+        return (_visibleSortIndicatorIndices.indexOf(columnIndex) != -1);
+    }
     
     //--------------------------------------------------------------------------
     //
