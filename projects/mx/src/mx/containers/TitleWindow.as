@@ -119,7 +119,7 @@ use namespace mx_internal;
 
 [IconFile("TitleWindow.png")]
 
-[Alternative(replacement="spark.components.Panel", since="4.0")]
+[Alternative(replacement="spark.components.TitleWindow", since="4.0")]
 
 /**
  *  A TitleWindow layout container contains a title bar, a caption,
