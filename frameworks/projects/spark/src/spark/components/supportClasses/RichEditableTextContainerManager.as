@@ -70,16 +70,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     private var textView:RichEditableText;
 
-    /**
-     *  @private
-     *  Used for debugging.
-     *  Set this to an RGB uint to draw an opaque background
-     *  so that you can see the bounds of the component.
-     *  If it is null, the background is black pixels at 0 alpha,
-     *  to be transparent but catch mouse events.
-     */
-    mx_internal static var backgroundColor:Object = null; // 0xDDDDDD;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -122,7 +112,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var g:Graphics = container.graphics;
         g.clear();
         g.lineStyle();
-        var bc:Object = mx_internal::backgroundColor;
+        var bc:Object = RichEditableText.mx_internal::backgroundColor;
         if (bc != null)
             g.beginFill(uint(bc)); 
         else
