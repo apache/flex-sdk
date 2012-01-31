@@ -26,7 +26,6 @@ import mx.collections.errors.ItemPendingError;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
-import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.automation.IAutomationObject;
