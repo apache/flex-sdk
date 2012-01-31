@@ -854,6 +854,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             dataGroupProperties = newDataGroupProperties;
             
             dataGroup.dataProvider = null;
+            dataGroup.layout = null;
         }
     }
     
