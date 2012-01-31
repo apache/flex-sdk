@@ -257,6 +257,7 @@ public class TextBox extends TextGraphicElement
         textBlockComposer.textAlign = getStyle("textAlign");
         textBlockComposer.textAlignLast = getStyle("textAlignLast");
         textBlockComposer.textDecoration = getStyle("textDecoration");
+        textBlockComposer.textJustify = getStyle("textJustify");
         textBlockComposer.verticalAlign = getStyle("verticalAlign");
 
         textBlockComposer.composeText(text, elementFormat);
