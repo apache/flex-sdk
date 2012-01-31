@@ -23,11 +23,9 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.validators.IValidatorListener;
 
-import spark.components.supportClasses.GridColumn;
+import spark.components.gridClasses.GridColumn;
 import spark.components.DataGrid;
 import spark.components.Group;
-import spark.components.IGridItemEditor;
-import spark.components.IGridItemRenderer;
 
 use namespace mx_internal;
 
