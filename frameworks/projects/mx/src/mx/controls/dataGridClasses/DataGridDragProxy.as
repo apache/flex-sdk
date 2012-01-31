@@ -113,17 +113,17 @@ public class DataGridDragProxy extends UIComponent
                         col.itemToLabel(data), col.dataField,
                         col.colNum, "", DataGridBase(owner));
                     
-                    if (c is IDropInListItemRenderer)
-                    {
-                        IDropInListItemRenderer(c).listData =
-                            data ? rowData : null;
-                    }
-                    
-                    c.data = data;
-                    c.styleName = DataGridBase(owner);
-                    c.visible = true;
-                    
+                    c.styleName = DataGridBase(owner);                    
                     o.addChild(DisplayObject(c));
+					
+					if (c is IDropInListItemRenderer)
+					{
+						IDropInListItemRenderer(c).listData =
+							data ? rowData : null;
+					}
+					
+					c.data = data;
+					c.visible = true;
                     
                     c.setActualSize(col.width, src.height);
                     c.move(ww, 0);
@@ -142,17 +142,17 @@ public class DataGridDragProxy extends UIComponent
                     col.itemToLabel(data), col.dataField,
                     col.colNum, "", DataGridBase(owner));
                 
-                if (c is IDropInListItemRenderer)
-                {
-                    IDropInListItemRenderer(c).listData =
-                        data ? rowData : null;
-                }
-                
-                c.data = data;
                 c.styleName = DataGridBase(owner);
-                c.visible = true;
-                
                 o.addChild(DisplayObject(c));
+				
+				if (c is IDropInListItemRenderer)
+				{
+					IDropInListItemRenderer(c).listData =
+						data ? rowData : null;
+				}
+				
+				c.data = data;
+				c.visible = true;				
                 
                 c.setActualSize(col.width, src.height);
                 c.move(ww, 0);
