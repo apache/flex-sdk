@@ -250,13 +250,17 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      */
     override public function step(increase:Boolean = true):void
     {
-        if (stepSize == 0)
-            return;
-
-        if (increase)
-            value = (valueWrap && (value == maximum)) ? minimum : value + stepSize;
-        else
-            value = (valueWrap && (value == minimum)) ? maximum : value - stepSize;
+		if (valueWrap)
+		{
+			if (increase && (value == maximum))
+				value = minimum;
+			else if (!increase && (value == minimum))
+				value = maximum;
+			else 
+				super.step(increase);
+		}
+		else
+			super.step(increase);
     }
     
     //--------------------------------------------------------------------------
