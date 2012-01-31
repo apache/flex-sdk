@@ -180,7 +180,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  The SkinnableContainer class is the base class for skinnable containers that have 
  *  visual content.
- *  The SkinnableContainer container take as children any components that implement 
+ *  The SkinnableContainer container takes as children any components that implement 
  *  the IVisualElement interface. 
  *  All Spark and Halo components implement the IVisualElement interface, as does
  *  the GraphicElement class. 
