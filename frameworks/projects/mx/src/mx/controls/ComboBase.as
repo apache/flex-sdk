@@ -1505,7 +1505,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
         var fm:IFocusManager = focusManager;
 
-        if (fm)
+        if (fm && event.target == this)
             fm.defaultButtonEnabled = true;
 
         if (_editable)
