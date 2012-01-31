@@ -23,6 +23,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.resources.ResourceManager;
 import mx.resources.IResourceManager;
 
@@ -46,79 +47,9 @@ public class VideoPlayerAccImpl extends AccImpl
 
 	//--------------------------------------------------------------------------
 	//
-	//  Class MSAA constants
+	//  Class constants
 	//
 	//--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_STATECHANGE:uint = 0x800A;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUSCHANGE:uint = 0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_SLIDER:uint = 0x33;
-
-	/**
-	 *  @private
-	 */
-	private	static const ROLE_SYSTEM_PUSHBUTTON:uint = 0x2B;
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_STATICTEXT:uint = 0x29;
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_GROUPING:uint = 0x14;
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_TOOLBAR:uint = 0x16;
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_PANE:uint = 0x10;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_PRESSED:uint = 0x00000008;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-	/**
-	 *  @private
-	 */
-	private	static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
 
 	/**
 	 *  @private
@@ -221,7 +152,7 @@ public class VideoPlayerAccImpl extends AccImpl
 	{
 	    super(master);
 
-	    role = ROLE_SYSTEM_PANE; 
+	    role = AccConst.ROLE_SYSTEM_PANE; 
 	}
 
 	//--------------------------------------------------------------------------
@@ -348,32 +279,32 @@ public class VideoPlayerAccImpl extends AccImpl
 		    }
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
-			    accRole = ROLE_SYSTEM_PUSHBUTTON;  // playPauseButton
+			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // playPauseButton
 			    break;
     		}
     		case VIDEOPLAYER_SCRUBBAR:
             {
-			    accRole = ROLE_SYSTEM_SLIDER;  // scrubBar
+			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // scrubBar
 			    break;
 		    }
 		    case VIDEOPLAYER_PLAYHEADTIMEDISPLAY:
             {
-			    accRole = ROLE_SYSTEM_STATICTEXT; // playHeadTime
+			    accRole = AccConst.ROLE_SYSTEM_STATICTEXT; // playHeadTime
 			    break;
        		}
     		case VIDEOPLAYER_MUTEBUTTON:
             {
-			    accRole = ROLE_SYSTEM_PUSHBUTTON;  // volumeBar
+			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // volumeBar
 			    break;
 		    }
 		    case VIDEOPLAYER_VOLUMEBAR:
             {
-			    accRole = ROLE_SYSTEM_SLIDER;  // volumeBar
+			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // volumeBar
 			    break;
 		    }
 		    case VIDEOPLAYER_FULLSCREENBUTTON:
             {
-			    accRole = ROLE_SYSTEM_PUSHBUTTON; // fullScreenButton
+			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON; // fullScreenButton
 			    break;
 		    }
 		}
@@ -410,14 +341,14 @@ public class VideoPlayerAccImpl extends AccImpl
 	
         if (videoPlayer.enabled == false)
         {
-            accState |= STATE_SYSTEM_UNAVAILABLE;
+            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
             return accState;
         }
 
         if (childID == VIDEOPLAYER_VOLUMEBAR && 
         !videoPlayer.volumeBar.isDropDownOpen)
         {
-            accState |= STATE_SYSTEM_UNAVAILABLE;
+            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
             return accState;
         }
 
@@ -434,16 +365,16 @@ public class VideoPlayerAccImpl extends AccImpl
         (childID == VIDEOPLAYER_FULLSCREENBUTTON &&
         videoPlayer.fullScreenButton.enabled == false))
         {
-           accState |= STATE_SYSTEM_UNAVAILABLE;
+           accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
            return accState;
         }
 
         // eveything except for the playheadTimeDisplay should be focusable
         if (childID != VIDEOPLAYER_PLAYHEADTIMEDISPLAY) 
-            accState |=	STATE_SYSTEM_FOCUSABLE;
+            accState |=	AccConst.STATE_SYSTEM_FOCUSABLE;
 
         if (childID == index)
-            accState |= STATE_SYSTEM_FOCUSED;
+            accState |= AccConst.STATE_SYSTEM_FOCUSED;
 
         // invisible for slider when not visible
         return accState;
@@ -795,14 +726,14 @@ public class VideoPlayerAccImpl extends AccImpl
 		{
 			case MouseEvent.CLICK:
 			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_STATECHANGE);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
 			case FocusEvent.FOCUS_IN:
 			{
 				Accessibility.sendEvent(master, get_accFocus(), 
-                EVENT_OBJECT_FOCUSCHANGE);
+                AccConst.EVENT_OBJECT_FOCUS);
 				Accessibility.updateProperties();
 				break;
 			}
@@ -811,10 +742,10 @@ public class VideoPlayerAccImpl extends AccImpl
 				if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON || childID == 
                 VIDEOPLAYER_MUTEBUTTON || 
                 childID == VIDEOPLAYER_FULLSCREENBUTTON)
-					msaaEvt = EVENT_OBJECT_NAMECHANGE;
+					msaaEvt = AccConst.EVENT_OBJECT_NAMECHANGE;
 				else if (childID == VIDEOPLAYER_SCRUBBAR || childID == 
                 VIDEOPLAYER_VOLUMEBAR)
-					msaaEvt = EVENT_OBJECT_VALUECHANGE;
+					msaaEvt = AccConst.EVENT_OBJECT_VALUECHANGE;
                 if (childID != VIDEOPLAYER_PLAYHEADTIMEDISPLAY && childID != 0)
                 {
 				    Accessibility.sendEvent(master, childID, msaaEvt);
@@ -825,16 +756,16 @@ public class VideoPlayerAccImpl extends AccImpl
 			case FlexEvent.MUTED_CHANGE:
 			{
 				Accessibility.sendEvent(master, VIDEOPLAYER_MUTEBUTTON, 
-                EVENT_OBJECT_NAMECHANGE);
+                AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
             case VideoEvent.PLAYHEAD_UPDATE:
 			{
 				Accessibility.sendEvent(master, VIDEOPLAYER_SCRUBBAR, 
-                EVENT_OBJECT_VALUECHANGE);
+                AccConst.EVENT_OBJECT_VALUECHANGE);
 				Accessibility.sendEvent(master, VIDEOPLAYER_PLAYHEADTIMEDISPLAY, 
-                EVENT_OBJECT_NAMECHANGE);
+                AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
