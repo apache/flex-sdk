@@ -11,12 +11,13 @@
 
 package mx.components
 {
-    
+
+import flash.display.DisplayObject;
 import flash.geom.Point;
 
+import mx.components.baseClasses.FxSlider;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
-import mx.components.baseClasses.FxSlider;
 
 [IconFile("FxHSlider.png")]
 
@@ -42,7 +43,7 @@ public class FxHSlider extends FxSlider
     {
         super();
     }
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: Slider
@@ -130,6 +131,26 @@ public class FxHSlider extends FxSlider
         var thumbLItem:ILayoutItem = 
             LayoutItemFactory.getLayoutItemFor(thumb);
         return pointToPosition(localX, localY) - thumbLItem.actualSize.x / 2;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function positionDataTip():void
+    {
+    	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
+    	
+    	if (tipAsDisplayObject)
+    	{
+			var relX:Number = thumb.x - (tipAsDisplayObject.width - thumbSize) / 2;
+	        var o:Point = new Point(relX, dataTipOriginalPosition.y);
+	        var r:Point = localToGlobal(o);        
+			r = tipAsDisplayObject.parent.globalToLocal(r);
+			
+			// TODO (jszeto) Change to use ILayoutItem.setActualPosition?
+        	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
+        	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
+    	}
     }
 }
 
