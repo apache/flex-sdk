@@ -2760,13 +2760,17 @@ public class Grid extends Group
      */
     public function ensureCellIsVisible(rowIndex:int, columnIndex:int = -1):void
     {
-        if ((rowIndex < 0) || (rowIndex >= dataProvider.length))  // TBD check for invalid column
+        const columns:IList = this.columns;
+        
+        if (!columns || columnIndex < -1 || columnIndex >= columns.length)
+            return;
+        
+        if (!dataProvider || rowIndex < 0 || rowIndex >= dataProvider.length)
             return;
         
         // A cell's index as defined by LayoutBase it's just its position
         // in the row-major linear ordering of the grid's cells.  
-        
-        const elementIndex:int = (rowIndex * dataProvider.length) + ((columnIndex < 0) ? 0 : columnIndex);
+        const elementIndex:int = (rowIndex * columns.length) + ((columnIndex < 0) ? 0 : columnIndex);
         const scrollHorizontally:Boolean = columnIndex != -1;
         
         // Iterate until we've scrolled elementIndex at least partially into view.
