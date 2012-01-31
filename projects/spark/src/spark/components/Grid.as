@@ -2416,7 +2416,7 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
      *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns <code>true</code> 
-     *  if the row at <code>index></code> is in the current selection.
+     *  if the row at <code>index</code> is in the current selection.
      * 
      *  <p>The <code>rowIndex</code> is the index in the data provider
      *  of the item containing the selected cell.</p>
@@ -2942,17 +2942,32 @@ public class Grid extends Group implements IDataGridElement
      *  index is visible.   Note that getScrollPositionDeltaToElement() is only 
      *  approximate when variableRowHeight=true, so calling this method once will
      *  not necessarily scroll far enough to expose the specified element.
+     * 
+     *  @returns True if either the horizontalScrollPosition or verticalScrollPosition changed.
      */
-    private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean, scrollVertically:Boolean):void
+    private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean, scrollVertically:Boolean):Boolean
     {
         var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(elementIndex);
+        
+        // The cell is completely visible or the specified index is no longer valid so punt.
         if (!spDelta)
-            return;  // the specified index is no longer valid, punt
+            return false;  
+
+        var scrollChanged:Boolean = false;
         
         if (scrollHorizontally)
+        {
             horizontalScrollPosition += spDelta.x;
+            scrollChanged = spDelta.x != 0;
+        }
+        
         if (scrollVertically)
+        {
             verticalScrollPosition += spDelta.y;
+            scrollChanged = scrollChanged || spDelta.y != 0;
+        }
+        
+        return scrollChanged;
     }
     
     /**
@@ -2993,7 +3008,12 @@ public class Grid extends Group implements IDataGridElement
         const columnsLength:int = columns.length;
         const scrollHorizontally:Boolean = columnIndex != -1;
         const scrollVertically:Boolean = rowIndex != -1;
-
+        
+        // If called after the layout cache is cleared, need to rebuild the cache
+        // before accessing visible rows/columns and attempting to scroll.
+        if (getVisibleRowIndices().length == 0 || getVisibleColumnIndices().length == 0)
+            validateNow();
+        
         // When not scrolling horizontally, columnIndex can just be 0.
         if (!scrollHorizontally)
             columnIndex = 0;
@@ -3009,19 +3029,27 @@ public class Grid extends Group implements IDataGridElement
         // in the row-major linear ordering of the grid's cells.
         const elementIndex:int = (rowIndex * columnsLength) + columnIndex;
         
+        var scrollChanged:Boolean = false;
+        var firstScroll:Boolean = true;
+        
         // Iterate until we've scrolled elementIndex at least partially into view.
         do
         {
-            scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
-            if (variableRowHeight || scrollHorizontally || scrollVertically)
-                validateNow();
-            else
-                break;  // fixed row heights, and we're only scrolling vertically
+            scrollChanged = scrollToIndex(elementIndex, scrollHorizontally, scrollVertically);
             
-            // After a validate, if there isn't at least one visible row and
-            // one visible column, bail!
-            if (getVisibleRowIndices().length == 0 || getVisibleColumnIndices().length == 0)
+            // Fixed row heights, and we're only scrolling vertically.
+            if (!variableRowHeight && !scrollHorizontally)
                 return;
+            
+            // Bail. This could indicate there is a bug but it avoids an infinite loop.
+            // scrollToIndex() then validateNow() then scrollToIndex() again and
+            // no changes in scroll position.
+            if (!firstScroll && !scrollChanged)
+                return;
+            
+            validateNow();
+                        
+            firstScroll = false;
         }
         while (!isCellVisible(scrollVertically ? rowIndex : -1, scrollHorizontally ? columnIndex : -1));
         
@@ -4032,8 +4060,13 @@ public class Grid extends Group implements IDataGridElement
             case CollectionEventKind.REMOVE:
                 if (oldCaretRowIndex >= location)
                 {
+                    // ToDo(cframpto):  If the caret is on an item that is deleted, rather than
+                    // removing the caret, which is what we do now, it is preferable
+                    // to have the caret "stick" to the same position.  There is some complexity 
+                    // to picking a row/cell based on what’s currently visible or partially 
+                    // visible – after – the delete operation.
                     if (oldCaretRowIndex < (location + itemsLength))
-                        caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
+                        caretRowIndex = -1; 
                     else
                         caretRowIndex -= itemsLength;    
                 }
@@ -4057,7 +4090,7 @@ public class Grid extends Group implements IDataGridElement
                 newCaretRowIndex = 
                             caretSelectedItem ?
                             _dataProvider.getItemIndex(caretSelectedItem) : -1; 
-                            
+                         
                 // Caret sticks to item if possible and ensure it is totally 
                 // visible by scrolling vertically if necessary.
                 if (newCaretRowIndex != -1)
