@@ -66,6 +66,11 @@ use namespace mx_internal;
  * 
  * &lt;/FxApplication&gt;
  * </listing>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimateFilter extends FxAnimate
 {
@@ -79,6 +84,11 @@ public class FxAnimateFilter extends FxAnimate
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxAnimateFilter(target:Object = null, filter:IBitmapFilter = null)
     {
@@ -99,6 +109,11 @@ public class FxAnimateFilter extends FxAnimate
     
     /**
      *  IBitmapFilter instance to apply and animate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var bitmapFilter:IBitmapFilter;
     
