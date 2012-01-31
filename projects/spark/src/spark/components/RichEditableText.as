@@ -205,6 +205,7 @@ public class TextView extends UIComponent implements IViewport
 
         mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
             
+        addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
     }
     
@@ -1164,36 +1165,49 @@ public class TextView extends UIComponent implements IViewport
 
         var flowComposer:IFlowComposer;
         
+        // Since the edit manager is cached, make sure to apply any 
+        // selection format changes.
+        if (selectionFormatsChanged)
+        {
+            setSelectionFormats(_editManager);
+            selectionFormatsChanged = false;            
+        }
+        
         // Regenerate TextLines if necessary.
         if (textChanged || contentChanged ||
             stylesChanged || displayAsPasswordChanged)
         {
-            // Eliminate detritus from the previous TextFlow.
-            if (textFlow && textFlow.flowComposer &&
-                textFlow.flowComposer.numControllers)
-            {
-                textFlow.flowComposer.removeControllerAt(0);
-            }
-            
-            // If the text was changed, clear the selection.
             if (textChanged || contentChanged)
+            {
+                // Eliminate detritus from the previous TextFlow only if
+                // the text/content has changed. Want to preserve scrolling
+                // position if text changes to displayAsPassword or back to 
+                // plaintext.
+                if (textFlow.flowComposer)
+                    textFlow.flowComposer.removeAllControllers();
+
+                // Clear the selection.
                 if (textFlow.interactionManager)
                     textFlow.interactionManager.setSelection(-1, -1);
-            
-            // Create a new TextFlow for the current text.
+            }
+                            
+            // Create/modify TextFlow for the current text.
             _content = textFlow = createTextFlow();
                         
             // Tell it where to create its TextLines.
-            flowComposer = new StandardFlowComposer();
-            flowComposer.addController(
-                new DisplayObjectContainerController(this));
-            textFlow.flowComposer = flowComposer;
-            
+            if (textChanged || contentChanged)
+            {
+                flowComposer = new StandardFlowComposer();
+                flowComposer.addControllerAt(
+                    new DisplayObjectContainerController(this), 0);
+                textFlow.flowComposer = flowComposer;
+            }
+                                       
             setInteractionManager(textFlow);
 
-            // Listen to events from the TextFlow and its EditManager.
+            // Listen to events from the TextFlow and its SelectionManager.
             addListeners(textFlow);
-            
+
             textChanged = false;
             contentChanged = false;
             stylesChanged = false;
@@ -1203,8 +1217,7 @@ public class TextView extends UIComponent implements IViewport
             editableChanged = false;
             selectableChanged = false;          
         } 
-        else if (enabledChanged || editableChanged || selectableChanged ||
-                    selectionFormatsChanged)
+        else if (enabledChanged || editableChanged || selectableChanged)
         {
             setInteractionManager(textFlow);
             
@@ -1495,8 +1508,11 @@ public class TextView extends UIComponent implements IViewport
      *  Initialize the ISelectionManager with the selection style vlaues.
      *  This should be kept in sync with isSelectionFormat().
      */
-    private function setSelectionFormats(instanceManager:ISelectionManager):void
+    private function setSelectionFormats(interactionManager:ISelectionManager):void
     {        
+        if (!interactionManager)
+            return;
+           
         var selectionColor:* = getStyle("selectionColor");
         var unfocusedAlpha:Number =
             selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ? 
@@ -1504,78 +1520,63 @@ public class TextView extends UIComponent implements IViewport
         var inactiveAlpha:Number =
             selectionVisibility == TextSelectionVisibility.ALWAYS ?
             1.0 : 0.0;
-        instanceManager.focusSelectionFormat = new SelectionFormat(
+        interactionManager.focusSelectionFormat = new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL);
-        instanceManager.noFocusSelectionFormat = new SelectionFormat(
+        interactionManager.noFocusSelectionFormat = new SelectionFormat(
             getStyle("unfocusedSelectionColor"), unfocusedAlpha,
             BlendMode.NORMAL);
-        instanceManager.inactiveSelectionFormat = new SelectionFormat(
+        interactionManager.inactiveSelectionFormat = new SelectionFormat(
             getStyle("inactiveSelectionColor"), inactiveAlpha,
-            BlendMode.NORMAL);                    
+            BlendMode.NORMAL);
     }
         
     /**
      *  @private
-     *  Persist the edit manager.
+     *  Persist the edit manager so selection formatting can be maintained.
      */
     private var _editManager:TextViewEditManager = null;
     
     /**
      *  @private
+     *  Cache the edit manager.  Any formats set on the selection need to
+     *  be maintained if/when the interaction manager is swapped out and
+     *  back in again.
      */
     private function get editManager():TextViewEditManager
     {
-        // Since this is cached, have to be careful to update the
-        // selection formats if they change.
         if (_editManager == null)
         {
             _editManager = new TextViewEditManager(mx_internal::undoManager);
-            selectionFormatsChanged = true;
-        } 
-        
-        if (selectionFormatsChanged)
-        {
             setSelectionFormats(_editManager);
-            selectionFormatsChanged = false;
-        }   
-                 
+        }
+
         return _editManager; 
     }
     
     /**
      *  @private
-     *  Create a new selection manager.  The initial selection is -1, -1.
      */
-    private function get selectionManager():ISelectionManager
-    {
-        var selectionManager:ISelectionManager = new SelectionManager();
-        setSelectionFormats(selectionManager);
-        return selectionManager; 
-    }
-
-    /**
-     *  @private
-     */
-    private function setInteractionManager(textFlow:TextFlow):void
+    private function setInteractionManager(textFlow:TextFlow, 
+                                           updateDisplay:Boolean=false):void
     {
         if (enabled)
         {
             if (_editable)
             {
                 // Give it an EditManager to make it editable. Editable implies selectable.
-                switchInteractionManager(textFlow, editManager);
+                switchToEditingMode(textFlow, EditingMode.READ_WRITE, updateDisplay);
                 return;
             }   
             else if (_selectable)
             {
                 // Give it a SelectionManager to enable selection for cut/paste.
-                switchInteractionManager(textFlow, selectionManager);
+                switchToEditingMode(textFlow, EditingMode.READ_SELECT, updateDisplay);
                 return;                            
             }
         }        
         
         // Not enabled or enabled and neither editable nor selectable.
-        switchInteractionManager(textFlow, null);
+        switchToEditingMode(textFlow, EditingMode.READ_ONLY, updateDisplay);
     }
 
     /**
@@ -1609,16 +1610,16 @@ public class TextView extends UIComponent implements IViewport
      *  is changed, it will cause a selection change event and the selection
      *  will be cleared.  The selection then needs to be reset to maintain it 
      *  across interaction managers.
-     */
-    private function switchInteractionManager(
+     */    
+    private function switchToEditingMode(
                                 textFlow:TextFlow,
-                                selectionManager:ISelectionManager):void
+                                editingMode:String,
+                                updateContainers:Boolean=true):void
     {
         // Nothing to switch.  The current manager will work.
-        if (getEditingMode(textFlow.interactionManager) == 
-                getEditingMode(selectionManager))
+        if (getEditingMode(textFlow.interactionManager) == editingMode)
             return;
-     
+
         // Save the current selection since switching the interaction
         // manager will clear the selection.                   
         if (textFlow.interactionManager != null)
@@ -1627,8 +1628,23 @@ public class TextView extends UIComponent implements IViewport
             _priorSelectionActivePosition = textFlow.interactionManager.activePosition;
         }
 
+        var interactionManager:ISelectionManager;
+        if (editingMode == EditingMode.READ_WRITE)
+        {
+            interactionManager = editManager;
+        } 
+        else if (editingMode == EditingMode.READ_SELECT)
+        {
+            interactionManager = new SelectionManager();
+            setSelectionFormats(interactionManager);
+        }
+        else // EditingMode.READ_ONLY
+        {
+            interactionManager = null;
+        }           
+               
         // Swap in a new manager.            
-        textFlow.interactionManager = selectionManager;
+        textFlow.interactionManager = interactionManager;
 
         // Restore the prior selection in the new selection manager.
         if (textFlow.interactionManager != null)
@@ -1637,12 +1653,11 @@ public class TextView extends UIComponent implements IViewport
                         _priorSelectionAnchorPosition, 
                         _priorSelectionActivePosition);
         }
-        
-        // ToDo: don't think this is really needed
-        textFlow.flowComposer.updateAllContainers();        
-
+     
+        if (updateContainers)
+            textFlow.flowComposer.updateAllContainers();        
     }
-    
+
     /**
      *  @private
      */
@@ -1676,7 +1691,7 @@ public class TextView extends UIComponent implements IViewport
     {
         if (getEditingMode(textFlow.interactionManager) == EditingMode.READ_ONLY)
         {
-            switchInteractionManager(textFlow, selectionManager);
+            switchToEditingMode(textFlow, EditingMode.READ_SELECT, false);
             _selectable = true;
         }
 
@@ -1692,18 +1707,23 @@ public class TextView extends UIComponent implements IViewport
      */
     public function insertText(text:String):void
     {        
+        // Make sure all properties are committed before doing the insert.
+        validateNow();
+
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorManager:ISelectionManager = textFlow.interactionManager;
-        switchInteractionManager(textFlow, editManager);
+        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
+        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         
         // This does nothing if there is not an insertion point, ie
         // there is no selection.
         EditManager(textFlow.interactionManager).insertText(text);
+
+        // Update TLF display.  This initiates the InsertTextOperation.
         textFlow.flowComposer.updateAllContainers();        
 
-        // Restore the prior manager if it wasn't an EditManager.
-        switchInteractionManager(textFlow, priorManager);
+        // Restore the prior editing mode.
+        switchToEditingMode(textFlow, priorEditingMode);
     }
     
     /**
@@ -1715,17 +1735,20 @@ public class TextView extends UIComponent implements IViewport
      */
     public function appendText(text:String):void
     {
+        // Make sure all properties are committed before doing the append.
+        validateNow();
+
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorManager:ISelectionManager = textFlow.interactionManager;
-        switchInteractionManager(textFlow, editManager);
+        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
+        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         
+        // An append is an insert with the selection set to the end.
         textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-        EditManager(textFlow.interactionManager).insertText(text);
-        textFlow.flowComposer.updateAllContainers();        
-        
-        // Restore the prior manager if it wasn't an EditManager.
-        switchInteractionManager(textFlow, priorManager);
+        insertText(text);
+
+        // Restore the prior editing mode.
+        switchToEditingMode(textFlow, priorEditingMode);
     }
 
     /**
@@ -1758,8 +1781,8 @@ public class TextView extends UIComponent implements IViewport
     public function getSelectionFormat(names:Array = null):Object
     {
         // Switch to the EditManager.
-        var priorManager:ISelectionManager = textFlow.interactionManager;
-        switchInteractionManager(textFlow, editManager);
+        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
+        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         var selectionManager:ISelectionManager = textFlow.interactionManager;
                 
         var p:String;
@@ -1828,8 +1851,8 @@ public class TextView extends UIComponent implements IViewport
                 format[p] = characterFormat[p];
         }
         
-        // Restore the prior manager.
-        switchInteractionManager(textFlow, priorManager);
+        // Restore the prior editing mode.
+        switchToEditingMode(textFlow, priorEditingMode);
                 
         return format;
     }
@@ -1875,15 +1898,15 @@ public class TextView extends UIComponent implements IViewport
             }
         }
         
-        var priorManager:ISelectionManager = textFlow.interactionManager;
-        switchInteractionManager(textFlow, editManager);
+        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
+        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         
         // Apply the format to the current selection.
         EditManager(textFlow.interactionManager).applyFormat(
                         characterFormat, paragraphFormat, containerFormat);
         
-        // Restore the prior manager if it wasn't an EditManager.
-        switchInteractionManager(textFlow, priorManager);
+        // Restore the prior editing mode.
+        switchToEditingMode(textFlow, priorEditingMode);
     }
 
     //--------------------------------------------------------------------------
@@ -1895,11 +1918,25 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+        // When gaining focus, show the selection.  Uses the SelectionFormat 
+        // values defined by the SelectionManager.
+        textFlow.flowComposer.showSelection();
+    }
+
+    /**
+     *  @private
+     */
     override protected function focusOutHandler(event:FocusEvent):void
     {
         // By default, we clear the undo history when a TextView loses focus.
         if (mx_internal::clearUndoOnFocusOut)
             mx_internal::undoManager.clear();
+            
+        // When losing focus, hide the selection.  Uses the SelectionFormat 
+        // values defined by the SelectionManager. 
+        textFlow.flowComposer.hideSelection();            
     }
 
     //--------------------------------------------------------------------------
@@ -1916,6 +1953,8 @@ public class TextView extends UIComponent implements IViewport
     private function textFlow_compositionCompleteHandler(
                                     event:CompositionCompletionEvent):void
     {
+        //trace("compositionComplete");
+        
         var containerController:IContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
@@ -2056,6 +2095,15 @@ public class TextView extends UIComponent implements IViewport
         {
             var flowTextOperation:FlowTextOperation =
                 FlowTextOperation(op);
+
+            // Eat 0-length selection.  This can happen when insertion point is 
+            // at start of container and a backspace generates a 
+            // DeleteTextOperation.  
+            if (flowTextOperation.absoluteStart == 0 && flowTextOperation.absoluteEnd == 0)
+            {
+                event.preventDefault();
+                return;
+            }           
             
             if (displayAsPassword)
             {
