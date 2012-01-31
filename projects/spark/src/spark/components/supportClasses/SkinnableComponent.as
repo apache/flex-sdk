@@ -614,7 +614,9 @@ public class FxComponent extends UIComponent
         }
         else
         {
-            myApplicationDomain = systemManager.loaderInfo.applicationDomain;
+            myApplicationDomain = systemManager ? 
+                                    systemManager.loaderInfo.applicationDomain :
+                                    ApplicationDomain.currentDomain;
         }
         
         var type:Class = myApplicationDomain.getDefinition(className) as Class;             
