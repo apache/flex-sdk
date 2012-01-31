@@ -294,8 +294,8 @@ public class HScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // Note:  we use thumb.height here to ensure the thumb doesn't get smaller than square.
-                thumbSize = Math.max(Math.max(thumb.height, thumb.minWidth), thumbSize + pendingValue);
+                // The minimum size we'll shrink the thumb to is either thumb.height or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.height, thumbSize), thumbSize + pendingValue);
             }
             thumbPosTrackX = min;
         }
@@ -303,8 +303,8 @@ public class HScrollBar extends ScrollBarBase
         {
             if (!fixedThumbSize)
             {
-                // Note:  we use thumb.height here to ensure the thumb doesn't get smaller than square.
-                thumbSize = Math.max(Math.max(thumb.height, thumb.minWidth), thumbSize - (pendingValue - max));
+                // The minimum size we'll shrink the thumb to is either thumb.height or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.height, thumbSize), thumbSize - (pendingValue - max));
             }
             thumbPosTrackX = trackSize - thumbSize;
         }
@@ -494,14 +494,25 @@ public class HScrollBar extends ScrollBarBase
     override mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
-            updateMaximumAndPageSize();
+        {
+            if (getStyle("interactionMode") == InteractionMode.TOUCH)
+            {
+                updateMaximumAndPageSize();
+            }
+            else
+            {
+                // SDK-28898: reverted previous behavior for desktop, resets
+                // scroll position to zero when all content is removed.
+                maximum = viewport.contentWidth - viewport.width;
+            }
+        }
     }
     
     /**
      *  @private 
      */
     override public function styleChanged(styleName:String):void
-        {
+    {
         super.styleChanged(styleName);
         
         var allStyles:Boolean = !styleName || styleName == "styleName";
