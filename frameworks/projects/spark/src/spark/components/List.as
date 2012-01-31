@@ -757,10 +757,7 @@ public class List extends ListBase implements IFocusManagerComponent
         var renderer:IVisualElement = event.renderer;
         
         if (renderer)
-        {
             renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
-            updateRenderer(IVisualElement(renderer));
-        }
     }
     
     /**
