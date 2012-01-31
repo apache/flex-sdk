@@ -23,6 +23,9 @@ internal class SparkClasses
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
+import mx.core.UITLFTextField; UITLFTextField;
+import mx.controls.dataGridClasses.TLFDataGridItemRenderer; TLFDataGridItemRenderer ;
+ 
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
 import spark.skins.spark.BorderSkin; BorderSkin;
