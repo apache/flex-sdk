@@ -2002,6 +2002,8 @@ public class SpriteVisualElement extends FlexSprite
 	
 	private var _layoutDirection:String = null;
 	
+    [Inspectable(category="General", enumeration="ltr,rtl")]
+    
     /**
      *  @inheritDoc
      */
