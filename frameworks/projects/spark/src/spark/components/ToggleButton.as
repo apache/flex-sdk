@@ -16,6 +16,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 
 import mx.events.FlexEvent;
+import mx.utils.BitFlagUtil;
 
 /**
  *  Dispatched when the <code>selected</code> property 
@@ -92,7 +93,7 @@ public class FxToggleButton extends FxButton
      */    
     public function get selected():Boolean
     {
-        return flags.isSet(selectedFlag);
+        return BitFlagUtil.isSet(flags, selectedFlag);
     }
     
     /**
@@ -100,8 +101,10 @@ public class FxToggleButton extends FxButton
      */    
     public function set selected(value:Boolean):void
     {
-        if (!flags.update(selectedFlag, value))
+        if (BitFlagUtil.isSet(flags, selectedFlag) == value)
             return;
+         
+        flags = BitFlagUtil.update(flags, selectedFlag, value);
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateButtonState();
