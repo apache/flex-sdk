@@ -605,7 +605,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  The skin also configures the graphic elements used to render visual elements 
  *  used as indicators, separators, and backgrounds. 
  *  The DataGrid skin also defines a default item renderer, 
- *  used to display the contents of each cell.</p>
+ *  used to display the contents of each cell.  
+ *  Please see the documentation for the renderer class for the list of supported styles.</p>
  *
  *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
  *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
@@ -622,6 +623,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @see spark.components.Grid
  *  @see spark.components.gridClasses.GridColumn
  *  @see spark.skins.spark.DataGridSkin
+ *  @see spark.skins.spark.DefaultGridItemRenderer
  *  
  *  @includeExample examples/DataGridSimpleExample.mxml
  *  @includeExample examples/DataGridMasterDetailExample.mxml
