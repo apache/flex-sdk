@@ -1029,14 +1029,20 @@ public class ScrollBar extends TrackBase
     {
         steppingDown = (newValue > value);
         steppingUp = !steppingDown;
+        var denominator:Number = (stepSize != 0) ? stepSize : 1; // avoid div-by-0 below
+        var duration:Number = getStyle("repeatInterval") * 
+            (Math.abs(newValue - value) / denominator);
+        // Cap ease-in factor to 500 ms on long-duration animations
+        var easer:IEaser;
+        if (duration > 5000)
+            easer = new Linear(500/duration);
+        else
+            easer = easyInLinearEaser;
         // FIXME (chaase): we're using ScrollBar's repeatInterval for animated
         // stepping, but Button's repeatInterval for non-animated stepping
-        // FIXME (chaase): think about the total duration for the animation. This
-        // calculation
+        // FIXME (chaase): think about the total duration for the animation.
         // FIXME (chaase): hard-coding easing behavior, how to style it?
-        startAnimation(
-            getStyle("repeatInterval") * (Math.abs(newValue - value) / stepSize),
-            newValue, easyInLinearEaser, getStyle("repeatDelay"));
+        startAnimation(duration, newValue, easer, getStyle("repeatDelay"));
     }
 
     /**
