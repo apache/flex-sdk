@@ -32,7 +32,6 @@ import mx.core.FlexSprite;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
-import mx.core.ILayoutDirection;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
@@ -1954,13 +1953,20 @@ public class SpriteVisualElement extends FlexSprite
 	
 	private var _layoutDirection:String = "inherit";
 	
+    /**
+     *  @inheritDoc
+     */
 	public function get layoutDirection():String
 	{
-		return _layoutDirection;
+        if (_layoutDirection != "inherit")
+            return _layoutDirection;
+        
+        const parentElt:IVisualElement = parent as IVisualElement;
+        return (parentElt) ? parentElt.layoutDirection : "ltr";   
 	}
 	
 	/**
-	 *  @copy mx.core.IVisualElement#layoutDirection
+	 *  @private
 	 */
 	public function set layoutDirection(value:String):void
 	{
@@ -1972,11 +1978,11 @@ public class SpriteVisualElement extends FlexSprite
 	}
     
     /**
-     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()  
+     * @inheritDoc 
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        const parentElt:IVisualElement = parent as IVisualElement;
         if (!parentElt)
             return;
         
