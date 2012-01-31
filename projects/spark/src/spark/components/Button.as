@@ -22,6 +22,7 @@ import flash.utils.Timer;
 
 import flex.core.Flags32;
 import flex.core.SkinnableComponent;
+import flex.graphics.TextBox;
 
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
@@ -104,12 +105,30 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 		// add event listeners to the button
 		addHandlers();
 	}	
-	
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin Parts
+    //
+    //--------------------------------------------------------------------------
+    
+    [SkinPart(required="false")]
+    public var labelField:TextBox;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
 	[Bindable("labelChanged")]
 	public function set label(value:String):void
 	{
 		content = value;
 		dispatchEvent(new Event("labelChanged"));
+		
+		if (labelField)
+			labelField.text = label;
 	}
 	public function get label():String			
 	{
@@ -241,6 +260,22 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 	protected static const lastFlag:uint				= 1 << 5;
 
 	protected var flags:Flags32 = new Flags32();
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+    	super.partAdded(partName, instance);
+    	
+    	if (instance == labelField)
+    	{
+    		labelField.text = label;
+    	}
+    }
 
 	//--------------------------------------------------------------------------
 	//
