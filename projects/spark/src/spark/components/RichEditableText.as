@@ -2970,7 +2970,7 @@ public class RichEditableText extends UIComponent
         }
         textFlowChanged = false;
         
-        var contentChanged:Boolean = false;
+        var dimensionChanged:Boolean = false;
         var oldContentWidth:Number = _contentWidth;
 
         var newContentBounds:Rectangle = _inputManager.getContentBounds();
@@ -2994,7 +2994,7 @@ public class RichEditableText extends UIComponent
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
 
-            contentChanged = true;
+            dimensionChanged = true;
         }
         
         var oldContentHeight:Number = _contentHeight;
@@ -3018,11 +3018,11 @@ public class RichEditableText extends UIComponent
             dispatchPropertyChangeEvent(
                 "contentHeight", oldContentHeight, newContentHeight);
                 
-            contentChanged = true;
+            dimensionChanged = true;
         } 
 
         // If autoSize and text size changed, need to remeasure.
-        if (contentChanged && actuallyAutoSizing)
+        if (dimensionChanged && actuallyAutoSizing)
         {
             invalidateSize();
             invalidateDisplayList();
