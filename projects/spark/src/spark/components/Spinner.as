@@ -86,7 +86,12 @@ import spark.components.supportClasses.Range;
  *  
  *  <p>A Spinner consists of two required buttons,
  *  one to increase the current value and one to decrease the 
- *  current value.</p>
+ *  current value. Users can also use the Up Arrow and Down Arrow keys
+ *  and the mouse wheel to cycle through the values. 
+ *  An input value is committed when the user presses the Enter key,
+ *  removes focus from the component, or steps the Spinner 
+ *  by pressing an arrow button or by calling the 
+ *  <code>changeValueByStep()</code> method.</p>
  *
  *  <p>The scale of an Spinner component is the set of 
  *  allowed values for the <code>value</code> property. 
