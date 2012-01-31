@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sample program for spark.globalization.MatchingCollator -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <fx:Declarations>
+        <s:MatchingCollator id="collator"/>
+    </fx:Declarations>
+
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.events.ListEvent;
+
+            private static const localeList:ArrayCollection
+                = new ArrayCollection([
+                    { label:"English (en)", data:"en" },
+                    { label:"Turkish (tr)", data:"tr" } ]);
+
+            private static const wordList:ArrayCollection
+                = new ArrayCollection([
+                    "Windows", "windows", "WINDOWS",
+                    "Wındows", "wındows", "WİNDOWS" ]);
+
+            private function inputWord_changeHandler(event:Event):void
+            {
+                const word:String = inputWord.selectedItem as String;
+                resultWordList.text = "";
+                for (var i:int = 0; i < wordList.length; ++i)
+                {
+                    if (collator.equals(word, wordList[i]))
+                        resultWordList.text += wordList[i] + " ";
+                }
+            }
+        ]]>
+    </fx:Script>
+
+    <mx:Form>
+        <mx:FormItem label="Select Language">
+            <mx:ComboBox id="localeSelector"
+                change="setStyle('locale', localeSelector.selectedItem.data);"
+                dataProvider="{localeList}"/>
+        </mx:FormItem>
+        <mx:FormItem label="Ignore case">
+            <s:CheckBox id="ignoreCase" selected="{collator.ignoreCase}"
+                change="collator.ignoreCase = ignoreCase.selected"/>
+        </mx:FormItem>
+        <mx:FormItem label="Input word">
+            <mx:ComboBox id="inputWord" dataProvider="{wordList}"/>
+            <s:Button click="inputWord_changeHandler(event)" label="Find"/>
+        </mx:FormItem>
+        <mx:FormItem label="Result Matching Words">
+            <mx:Text id="resultWordList"/>
+        </mx:FormItem>
+    </mx:Form>
+</s:Application>
