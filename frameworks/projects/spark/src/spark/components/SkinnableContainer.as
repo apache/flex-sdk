@@ -137,10 +137,41 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [DefaultProperty("mxmlContentFactory")]
 
 /**
- *  The SkinnableContainer class is the base class for all skinnable components that have 
+ *  The SkinnableContainer class is the base class for skinnable containers that have 
  *  visual content.
+ *  The SkinnableContainer container take as children any components that implement 
+ *  the IVisualElement interface. 
+ *  All Spark and Halo components implement the IVisualElement interface, as does
+ *  the GraphicElement class. 
+ *  That means the container can use the graphics classes, such as Rect and Ellipse, as children.
+ *
+ *  <p>To improve performance and minimize application size, 
+ *  you can use the Group container. The Group container cannot be skinned.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;SkinnableContainer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;SkinnableContainer
+ *    <strong>Properties</strong>
+ *    autoLayout="true"
+ *    clipAndEnableScrolling="false"
+ *    creationPolicy="auto"
+ *    horizontalScrollPosition"null"
+ *    layout"VerticalLayout"
+ *    verticalScrollPosition="null"
+ *  
+ *    <strong>Events</strong>
+ *    elementAdd="<i>No default</i>"
+ *    elementRemove="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see SkinnableDataContainer
+ *  @see Group
+ *  @see spark.skins.default.SkinnableContainerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -288,6 +319,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     /**
      *  @inheritDoc
+     *
+     *  @default auto
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -324,6 +357,8 @@ public class SkinnableContainer extends SkinnableContainerBase
 
     /**
      *  @copy spark.components.supportClasses.GroupBase#autoLayout
+     *
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -363,6 +398,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     /**
      *  @inheritDoc
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -473,6 +510,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
+     *
+     *  @default VerticalLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -785,7 +824,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     //--------------------------------------------------------------------------
     
     /**
-     *  Create our content, if the creationPolicy is != "none".
+     *  Create content children, if the <code>creationPolicy</code> property 
+     *  is not equal to <code>none</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -804,10 +844,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     }
    
     /**
-     *  Called when a skin part has been added or assigned. 
-     *  This method pushes the content, layout, itemRenderer, and
-     *  itemRendererFunction properties down to the contentGroup
-     *  skin part.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -910,7 +947,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     }
 
     /**
-     *  Called when a skin part is removed.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1020,10 +1057,11 @@ public class SkinnableContainer extends SkinnableContainerBase
     //--------------------------------------------------------------------------
 
     /**
-     *  Create the content for this component. When creationPolicy is "auto" or
-     *  "all", this function is called automatically by the Flex framework.
-     *  When creationPolicy="none", this method must be called to initialize
-     *  the content property.
+     *  Create the content for this component. 
+     *  When the <code>creationPolicy</code> property is <code>auto</code> or
+     *  <code>all</code>, this function is called automatically by the Flex framework.
+     *  When <code>creationPolicy</code> is <code>none</code>, you call this method to initialize
+     *  the content.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
