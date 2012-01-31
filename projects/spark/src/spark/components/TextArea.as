@@ -9,18 +9,18 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 	
 import flash.events.Event;
 import flash.events.FocusEvent;
-
-import flex.component.TextView;
-import flex.events.TextOperationEvent;
-
-import mx.core.ScrollPolicy;
-
 import flashx.tcal.formats.LineBreak;
+
+import mx.events.TextOperationEvent;
+import mx.core.ScrollPolicy;
+import mx.components.TextView;
+import mx.components.baseClasses.FxScrollBar;
+import mx.components.baseClasses.FxTextBase;
 
 //--------------------------------------
 //  Other metadata
@@ -36,7 +36,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  Documentation is not currently available.
  */
-public class TextArea extends TextBase
+public class FxTextArea extends FxTextBase
 {
     include "../core/Version.as";
 
@@ -49,7 +49,7 @@ public class TextArea extends TextBase
     /**
      *  Constructor. 
      */    
-	public function TextArea()
+	public function FxTextArea()
 	{
 		super();
 	}
@@ -148,7 +148,7 @@ public class TextArea extends TextBase
 	 *  The ScrollBar for horizontal scrolling that may be present
 	 *  in skins assigned to this TextArea.
 	 */
-	public var horizontalScrollBar:ScrollBar;
+	public var horizontalScrollBar:FxScrollBar;
     
 	//----------------------------------
 	//  horizontalScrollPolicy
@@ -190,7 +190,7 @@ public class TextArea extends TextBase
 	 *  The ScrollBar for vertical scrolling that may be present
 	 *  in skins assigned to this TextArea.
 	 */
-	public var verticalScrollBar:ScrollBar;
+	public var verticalScrollBar:FxScrollBar;
     
 	//----------------------------------
 	//  verticalScrollPolicy
