@@ -18,10 +18,11 @@ import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
+import mx.core.InteractionMode;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
-import mx.events.GestureCaptureEvent;
+import mx.events.TouchInteractionEvent;
 
 import spark.components.Button;
 import spark.events.TrackBaseEvent;
@@ -418,7 +419,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-            thumb.addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_STARTING, thumb_gestureCaptureStartingHandler);
+            thumb.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, thumb_touchInteractionStartingHandler);
             thumb.addEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);
             thumb.addEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
             thumb.stickyHighlighting = true;
@@ -427,8 +428,8 @@ public class TrackBase extends Range
         {
             track.addEventListener(ResizeEvent.RESIZE, track_resizeHandler);
             
-            // track is only clickable if in mouse inputMode
-            if (getStyle("inputMode") == "mouse")
+            // track is only clickable if in mouse interactionMode
+            if (getStyle("interactionMode") == InteractionMode.MOUSE)
                 track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
         }
     }
@@ -443,7 +444,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
-            thumb.removeEventListener(GestureCaptureEvent.GESTURE_CAPTURE_STARTING, thumb_gestureCaptureStartingHandler);
+            thumb.removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, thumb_touchInteractionStartingHandler);
             thumb.removeEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);            
             thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);            
         }
@@ -463,12 +464,12 @@ public class TrackBase extends Range
         
         super.styleChanged(styleName);
         
-        if (allStyles || styleName == "inputMode")
+        if (allStyles || styleName == "interactionMode")
         {
             if (track)
             {
-                // track is only clickable if in mouse inputMode
-                if (getStyle("inputMode") == "mouse")
+                // track is only clickable if in mouse interactionMode
+                if (getStyle("interactionMode") == InteractionMode.MOUSE)
                     track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
                 else
                     track.removeEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
@@ -618,7 +619,7 @@ public class TrackBase extends Range
     /**
      *  @private
      */
-    protected function thumb_gestureCaptureStartingHandler(event:GestureCaptureEvent):void
+    protected function thumb_touchInteractionStartingHandler(event:TouchInteractionEvent):void
     {
         // cancel this event b/c I want to control it
         event.preventDefault();
