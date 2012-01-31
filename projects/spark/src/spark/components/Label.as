@@ -49,14 +49,18 @@ import spark.primitives.supportClasses.TextGraphicElement;
 
 use namespace mx_internal;
 
-[DefaultProperty("text")]
-
 //--------------------------------------
 //  Styles
 //--------------------------------------
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[DefaultProperty("text")]
 
 [IconFile("SimpleText.png")]
 
@@ -165,14 +169,6 @@ public class SimpleText extends TextGraphicElement
      *  existing TextLines instead of having to create new ones.
      */
     private static var recreateTextLine:Function;
-
-    /**
-     *  @private
-     *  Used for debugging.
-     *  Set this to an RGB uint to draw an opaque background
-     *  so that you can see the bounds of the component.
-     */
-    mx_internal static var backgroundColor:Object = null;
 
 	//--------------------------------------------------------------------------
     //
@@ -305,32 +301,6 @@ public class SimpleText extends TextGraphicElement
         _fontContext = value;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: UIComponent
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number,
-    											  unscaledHeight:Number):void
-    {
-    	super.updateDisplayList(unscaledWidth, unscaledHeight);
-    	
-    	// Draw an optional background for debugging.
-    	var bc:Object = backgroundColor;
-    	if (bc != null)
-    	{
-	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
-	        g.lineStyle();
-	        g.beginFill(uint(bc));
-	       	g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
-	        g.endFill();
-	    }
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
