@@ -328,19 +328,20 @@ public class Move3D extends AnimateTransform3D
      * @private
      */
    override protected function initInstance(instance:IEffectInstance):void
-    {
-        if (!applyChangesPostLayout)
-        {
-            addMotionPath("translationX", xFrom, xTo, xBy);
-            addMotionPath("translationY", yFrom, yTo, yBy);
-            addMotionPath("translationZ", zFrom, zTo, zBy);
-        }
-        else
-        {
-            addMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
-            addMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
-            addMotionPath("postLayoutTranslationZ", zFrom, zTo, zBy);
-        }
+    {        
+        var xProp:String = applyChangesPostLayout ? "postLayoutTranslationX" : "translationX";
+        var yProp:String = applyChangesPostLayout ? "postLayoutTranslationY" : "translationY";
+        var zProp:String = applyChangesPostLayout ? "postLayoutTranslationZ" : "translationZ";
+        
+        if (!(isNaN(xFrom) && isNaN(xTo) && isNaN(xBy)))
+            addMotionPath(xProp, xFrom, xTo, xBy);
+        
+        if (!(isNaN(yFrom) && isNaN(yTo) && isNaN(yBy)))
+            addMotionPath(yProp, yFrom, yTo, yBy);
+        
+        if (!(isNaN(zFrom) && isNaN(zTo) && isNaN(zBy)))
+            addMotionPath(zProp, zFrom, zTo, zBy);
+        
         super.initInstance(instance);
     }    
 }
