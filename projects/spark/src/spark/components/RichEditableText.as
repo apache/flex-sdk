@@ -448,19 +448,20 @@ public class RichEditableText extends UIComponent
         if (classInitialized)
             return;
 
-		/**
-		 *  Set the TLF hook used for localizing runtime error messages.
-		 *  TLF itself has English-only messages,
-		 *  but higher layers like Flex can provide localized versions.
-		 */
-		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
-		
-        /**
-         *  Set the TLF hook used to specify the callback used for changing 
-         *  the FontLookup based on SWFContext.  
-         */
+        // Set the TLF hook used for localizing runtime error messages.
+        // TLF itself has English-only messages,
+        // but higher layers like Flex can provide localized versions.
+        GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
+        
+        // Set the TLF hook used to specify the callback used for changing 
+        // the FontLookup based on SWFContext.  
         GlobalSettings.resolveFontLookupFunction = TextUtil.resolveFontLookup;
         
+        // Pre-FP10.1, set default tab stops in TLF.  Without this, if there
+        // is a tab and TLF is measuring width, the tab will
+        // measure as the rest of the remaining width up to 10000.
+        GlobalSettings.enableDefaultTabStops = !Configuration.playerEnablesArgoFeatures;
+
         staticConfiguration = 
             Configuration(TextContainerManager.defaultConfiguration).clone();
         staticConfiguration.manageEnterKey = false; // default is true
