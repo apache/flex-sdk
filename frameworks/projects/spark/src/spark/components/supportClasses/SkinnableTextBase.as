@@ -1001,24 +1001,10 @@ public class TextBase extends SkinnableComponent
      */
     override protected function focusInHandler(event:FocusEvent):void
     {
-        // An editable TCAL Sprite has the concept of "no selection",
-        // represented by (-1, -1), even when the Sprite has focus.
-        // But then no insertion point blinks and you can't enter any text.
-        // So if this component is in that state when it takes focus,
-        // it changes the selection to the end of the text.
-        if (enabled && editable)
-        {
-            if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
-            {
-                setSelection(
-                    mx_internal::_text.length, mx_internal::_text.length);
-            }
-            
-            // Only editable text should have a focus ring.
-            if (focusManager)
-                focusManager.showFocusIndicator = true;
-        }
-                 
+        // Only editable text should have a focus ring.
+        if (enabled && editable && focusManager)
+            focusManager.showFocusIndicator = true;
+
         super.focusInHandler(event);
     }
 
