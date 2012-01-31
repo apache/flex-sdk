@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of a thumb in a Slider.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderThumbSkin extends Border
 {
@@ -79,6 +84,11 @@ public class SliderThumbSkin extends Border
 
     /**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderThumbSkin()
 	{
@@ -117,6 +127,11 @@ public class SliderThumbSkin extends Border
 	
         /**
 	 * For internal use.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function drawThumbState(w:Number, h:Number, borderColors:Array, fillColors:Array, fillAlphas:Array, drawBacking:Boolean, drillHole:Boolean):void
 	{
