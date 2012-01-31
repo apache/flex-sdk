@@ -25,7 +25,7 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.gridClasses.TextGridItemEditor;
+import spark.components.gridClasses.DefaultGridItemEditor;
 
 use namespace mx_internal;
 
@@ -56,7 +56,7 @@ public class GridColumn extends EventDispatcher
     mx_internal static function get defaultItemEditorFactory():IFactory
     {
         if (!_defaultItemEditorFactory)
-            _defaultItemEditorFactory = new ClassFactory(TextGridItemEditor);
+            _defaultItemEditorFactory = new ClassFactory(DefaultGridItemEditor);
         return _defaultItemEditorFactory;
     }
 
