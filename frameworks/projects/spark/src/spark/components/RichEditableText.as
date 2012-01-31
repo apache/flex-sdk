@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components
+package spark.primitives
 {
 
 import flash.display.BlendMode;
@@ -82,12 +82,13 @@ import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
 import mx.utils.StringUtil;
 
-import spark.components.supportClasses.RichEditableTextContainerManager;
+import spark.components.TextSelectionVisibility;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
 import spark.events.TextOperationEvent;
 import spark.primitives.Rect;
+import spark.primitives.supportClasses.RichEditableTextContainerManager;
 import spark.utils.TextUtil;
 
 //--------------------------------------
