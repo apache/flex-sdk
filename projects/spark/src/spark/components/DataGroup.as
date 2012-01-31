@@ -901,13 +901,22 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private function throwCreateRendererFailedError(item:Object):void
     {
         var err:String;
-        if (item is IVisualElement || item is DisplayObject)
+        if (itemIsRenderer(item))
             err = resourceManager.getString("components", "cannotDisplayVisualElement");
         else
             err = resourceManager.getString("components", "unableToCreateRenderer", [item]);
         
         throw new Error(err);
-    }          
+    }
+    
+    /**
+     *  @private
+     *  True if the specified dataProvider item would serve as a renderer.
+     */
+    private function itemIsRenderer(item:Object):Boolean
+    {
+        return (item is IVisualElement) && (item is DisplayObject);
+    }
     
     /**
      *  @private
@@ -932,7 +941,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             addedVirtualRenderer = true;
         }
         
-        if (!renderer && (item is IVisualElement) && (item is DisplayObject))
+        if (!renderer && itemIsRenderer(item))
         {
             renderer = IVisualElement(item);
             addedVirtualRenderer = true;            
@@ -957,7 +966,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (rendererFactory)
             renderer = createRenderer(rendererFactory);
         
-        if (!renderer && (item is IVisualElement) && (item is DisplayObject))
+        if (!renderer && itemIsRenderer(item))
             renderer = IVisualElement(item);
         
         if (!renderer && failRTE)
@@ -1010,11 +1019,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         {
             var item:Object = dataProvider.getItemAt(index);
             var renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
-            if (renderer)
+            
+            // If the (new) item is-a renderer and the old renderer is a different 
+            // DisplayObject, then we can't reuse the old renderer.
+            
+            if (renderer && (!itemIsRenderer(item) || (item == renderer)))
             {
                 setUpItemRenderer(renderer, index, item);
             }
-            else // can't reuse this renderer
+            else
             {
                 removeRendererAt(index); 
                 itemAdded(item, index);
