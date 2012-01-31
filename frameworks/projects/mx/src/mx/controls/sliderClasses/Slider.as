@@ -116,6 +116,18 @@ include "../../styles/metadata/FillStyles.as";
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
 /**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Invert the direction of the thumbs. 
  *  If <code>true</code>, the thumbs will be flipped.
  *  
