@@ -197,7 +197,8 @@ use namespace mx_internal;
  *  The duration of the menu or submenu opening transition, in milliseconds.
  *  The value 0 specifies no transition.
  *  
- *  @default 250 
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 0.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -209,7 +210,8 @@ use namespace mx_internal;
 /**
  *  The color of the menu item background when a user rolls the mouse over it. 
  *  
- *  @default 0xB2E1FF
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -221,7 +223,8 @@ use namespace mx_internal;
 /**
  *  The color of the menu item background when a menu item is selected.
  *  
- *  @default 0x7FCEFF
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -260,7 +263,8 @@ use namespace mx_internal;
  *  The color of the menu item text when a user rolls the mouse over the 
  *  menu item.
  * 
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -272,7 +276,8 @@ use namespace mx_internal;
 /**
  *  The color of the menu item text when the menu item is selected.
  * 
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -284,7 +289,9 @@ use namespace mx_internal;
 /**
  *  The icon for all enabled menu items that have submenus. 
  * 
- *  The default value is the "MenuBranchEnabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuBranchEnabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuArrow</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -296,7 +303,9 @@ use namespace mx_internal;
 /**
  *  The icon for all disabled menu items that have submenus. 
  * 
- *  The default value is the "MenuBranchDisabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuBranchDisabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuArrowDisabled</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -308,7 +317,9 @@ use namespace mx_internal;
 /**
  *  The icon for all enabled menu items whose type identifier is a check box. 
  *  
- *  The default value is the "MenuCheckEnabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuCheckEnabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuCheck</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -320,7 +331,9 @@ use namespace mx_internal;
 /**
  *  The icon for all dsiabled menu items whose type identifier is a check box. 
  *  
- *  The default value is the "MenuCheckDisabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuCheckDisabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuCheckDisabled</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -333,7 +346,9 @@ use namespace mx_internal;
  *  The icon for all enabled menu items whose type identifier is a radio 
  *  button. 
  *  
- *  The default value is the "MenuRadioEnabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuRadioEnabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuRadio</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -346,7 +361,9 @@ use namespace mx_internal;
  *  The icon for all disabled menu items whose type identifier is a radio 
  *  button. 
  * 
- *  The default value is the "MenuRadioDisabled" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuRadioDisabled" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuRadioDisabled</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -358,7 +375,9 @@ use namespace mx_internal;
 /**
  *  The skin for all menu items which are identified as separators. 
  *  
- *  The default value is the "MenuSeparator" symbol in the Assets.swf file.
+ *  The default value for the Halo theme is the "MenuSeparator" symbol
+ *  in the Assets.swf file.
+ *  The default value for the Spark theme is <code>mx.skins.spark.MenuSeparatorSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
