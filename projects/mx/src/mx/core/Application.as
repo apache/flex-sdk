@@ -46,6 +46,11 @@ use namespace mx_internal;
  *  processed by the LayoutManager, and attached to the display list.
  * 
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="applicationComplete", type="mx.events.FlexEvent")]
 
@@ -54,6 +59,11 @@ use namespace mx_internal;
  *  such as an HTTPService, WebService, or RemoteObject fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="error", type="flash.events.ErrorEvent")]
 
@@ -69,6 +79,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  Elements 0 and 1 specify the start and end values for an alpha gradient.
  *
  *  @default [ 1.0, 1.0 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundGradientAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -81,6 +96,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  based on the <code>backgroundColor</code> property.
  *
  *  @default undefined 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundGradientColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -89,6 +109,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  and its content area.  
  *
  *  @default 24
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -97,6 +122,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  and its content area. 
  *
  *  @default 24
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -121,6 +151,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  This factoryClass will be automatically subclassed by any
  *  MXML applications that don't explicitly specify a different
  *  factoryClass.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Frame(factoryClass="mx.managers.SystemManager")]
 
@@ -204,6 +239,11 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @see mx.managers.LayoutManager
  *  @see mx.managers.SystemManager
  *  @see flash.events.EventDispatcher
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Application extends LayoutContainer
 {
@@ -235,6 +275,11 @@ public class Application extends LayoutContainer
      *  The <code>parentApplication</code> property of a UIComponent can be
      *  used to access the sub-Application in which that UIComponent lives,
      *  and to walk up the hierarchy to the top-level Application.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     /*
      *  Note: here are two reasons that 'application' is typed as Object
@@ -249,6 +294,11 @@ public class Application extends LayoutContainer
      *  MyApplication(Application.application).myAppMethod().
      *  Therefore we decided to dispense with strict typing for
      *  'application'.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get application():Object
     {
@@ -263,6 +313,11 @@ public class Application extends LayoutContainer
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Application()
     {
@@ -371,6 +426,11 @@ public class Application extends LayoutContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 24
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var frameRate:Number;
 
@@ -385,6 +445,11 @@ public class Application extends LayoutContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var pageTitle:String;
 
@@ -401,6 +466,11 @@ public class Application extends LayoutContainer
      *    or in the WEB-INF/flex/user_classes directory of your Flex
      *    web application.
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var preloader:Object;
 
@@ -417,6 +487,11 @@ public class Application extends LayoutContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 1000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scriptRecursionLimit:int;
 
@@ -433,6 +508,11 @@ public class Application extends LayoutContainer
      *    The maximum allowable value that you can set is 60 seconds.
      *
      *  @default 60
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scriptTimeLimit:Number;
 
@@ -447,6 +527,11 @@ public class Application extends LayoutContainer
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var usePreloader:Boolean;
 
@@ -608,6 +693,11 @@ public class Application extends LayoutContainer
      *
      *  @see mx.containers.ApplicationControlBar
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var controlBar:IUIComponent;
 
@@ -622,6 +712,11 @@ public class Application extends LayoutContainer
      *  Setting to false is recommended when using the BrowserManager.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var historyManagementEnabled:Boolean = true;
 
@@ -646,6 +741,11 @@ public class Application extends LayoutContainer
      *  <p>There are two sources of parameters: the query string of the
      *  Application's URL, and the value of the FlashVars HTML parameter
      *  (this affects only the main Application).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parameters():Object
     {
@@ -671,6 +771,11 @@ public class Application extends LayoutContainer
      *  </ul>
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var resetHistory:Boolean = true;
     
@@ -719,6 +824,11 @@ public class Application extends LayoutContainer
 
     /**
      *  The URL from which this Application's SWF file was loaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get url():String
     {
@@ -762,6 +872,11 @@ public class Application extends LayoutContainer
      *      ...
      *    &lt;/mx:Application&gt;</pre>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get viewSourceURL():String
     {
@@ -1190,6 +1305,11 @@ public class Application extends LayoutContainer
      *  @param callbackFunc This parameter is ignored.
      *
      *  @param parent This parameter is ignored.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addToCreationQueue(id:Object, preferredIndex:int = -1,
                                        callbackFunc:Function = null,
@@ -1221,6 +1341,11 @@ public class Application extends LayoutContainer
             /*
             trace("addToCreationQueue queueItem",queueItemPointer.id,"queueItem.level",pointerLevel,"obj.level",queueObj.parent.nestLevel,
                     "queueItem.index",pointerIndex,"obj.index",queueObj.index);
+            *  
+            *  @langversion 3.0
+            *  @playerversion Flash 9
+            *  @playerversion AIR 1.1
+            *  @productversion Flex 3
             */
             // If our new item has a preferredIndex
             if (queueObj.index != -1)
