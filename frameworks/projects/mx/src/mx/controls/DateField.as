@@ -331,7 +331,7 @@ include "../styles/metadata/TextStyles.as"
  *    firstDayOfWeek="0"
  *    formatString="MM/DD/YYYY"
  *    labelFunction="<i>Internal formatter</i>"
- *    maxYeay="2100"
+ *    maxYear="2100"
  *    minYear="1900"
  *    monthNames="["January", "February", "March", "April", "May",
  *    "June", "July", "August", "September", "October", "November",
