@@ -121,7 +121,7 @@ public class TextGraphic extends TextGraphicElement
 		}
 		else
 		{
-			var r:Rectangle = textFlowComposer.actualBounds;
+			var r:Rectangle = textFlowComposer.bounds;
 			w = Math.ceil(r.width);
 			h = Math.ceil(r.height);
 		}
@@ -723,15 +723,15 @@ public class TextGraphic extends TextGraphicElement
 	/**
 	 *  @private
 	 */
-	private function compose(width:Number = Infinity,
-							 height:Number = Infinity):void
+	private function compose(width:Number = NaN,
+							 height:Number = NaN):void
 	{
 		textFlow = createTextFlow();
 		_content = textFlow;
 
 		textFlowComposer.removeTextLines(DisplayObjectContainer(displayObject));
 		
-		var bounds:Rectangle = textFlowComposer.requestedBounds;
+		var bounds:Rectangle = textFlowComposer.bounds;
 		bounds.x = 0;
 		bounds.y = 0;
 		bounds.width = width;
