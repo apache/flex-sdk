@@ -19,17 +19,25 @@ import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
 /**
- *  The NumericStepper control lets the user select
+ *  The FxNumericStepper control lets you select
  *  a number from an ordered set.
- *  The NumericStepper control consists of a single-line
+ *  The FxNumericStepper provides the same functionality as
+ *  the FxSpinner component, but adds a TextInput control
+ *  so that you can directly edit the value of the component,
+ *  rather than modifying it by using the control's arrow buttons.
+ *
+ *  <p>The FxNumericStepper control consists of a single-line
  *  input text field and a pair of arrow buttons
  *  for stepping through the possible values.
  *  The Up Arrow and Down Arrow keys also cycle through 
- *  the values. An inputted value is committed whenever
- *  the user presses enter, focuses out of the
- *  NumericStepper, or steps the NumericStepper.
+ *  the values. 
+ *  An input value is committed when
+ *  the user presses the Enter key, removes focus from the
+ *  component, or steps the FxNumericStepper by pressing an arrow button
+ *  or by calling the <code>step()</code> method.</p>
+ *
+ *  @see mx.components.FxSpinner
  * 
- *  @see mx.components.Spinner
  */
 public class FxNumericStepper extends FxSpinner implements IFocusManagerComponent
 {
@@ -58,11 +66,12 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     [SkinPart]
     
     /**
-     *  <code>textInput</code> is a SkinPart that defines a
-     *  TextInput which allows a user to edit the value of
-     *  the NumericStepper. The value is rounded and committed
+     *  A skin part that defines a TextInput control 
+     *  which allows a user to edit the value of
+     *  the FxNumericStepper component. 
+     *  The value is rounded and committed
      *  when the user presses enter, focuses out of
-     *  the NumericStepper, or steps the NumericStepper.
+     *  the FxNumericStepper, or steps the FxNumericStepper.
      */
     public var textInput:FxTextInput;
 
@@ -82,13 +91,13 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      */
     override public function set value(newValue:Number):void
     {
-    	if (newValue == value)
-    	   return;
-    	   
-    	super.value = newValue;
-    	
-    	valueChanged = true;
-    	invalidateProperties();
+        if (newValue == value)
+           return;
+           
+        super.value = newValue;
+        
+        valueChanged = true;
+        invalidateProperties();
     }
     
     //--------------------------------------------------------------------------
@@ -102,10 +111,10 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      */
     override protected function setValue(value:Number):void
     {
-    	super.setValue(value);
-    	
-    	valueChanged = true;
-    	invalidateProperties();
+        super.setValue(value);
+        
+        valueChanged = true;
+        invalidateProperties();
     }
 
     /**
@@ -113,43 +122,43 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      */
     override protected function commitProperties():void
     {
-    	super.commitProperties();
-    	
-    	if (valueChanged)
-    	{
-    		valueChanged = false;
-    		textInput.text = value.toString();
-    	}
-    }
-    
-	/**
-	 *  @private
-	 */
-	override protected function partAdded(partName:String, instance:Object):void
-	{
-        super.partAdded(partName, instance);
+        super.commitProperties();
         
-	    if (instance == textInput)
-	    {
-	        textInput.addEventListener(FlexEvent.ENTER,
-	                                   textInput_enterHandler);
-	        textInput.text = value.toString();
-	    }
-	}
+        if (valueChanged)
+        {
+            valueChanged = false;
+            textInput.text = value.toString();
+        }
+    }
     
     /**
      *  @private
      */
-	override protected function partRemoved(partName:String, instance:Object):void
-	{
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        
+        if (instance == textInput)
+        {
+            textInput.addEventListener(FlexEvent.ENTER,
+                                       textInput_enterHandler);
+            textInput.text = value.toString();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
         super.partRemoved(partName, instance);
         
-	    if (instance == textInput)
-	    {
+        if (instance == textInput)
+        {
             textInput.removeEventListener(FlexEvent.ENTER, 
                                           textInput_enterHandler);
         }
-	}
+    }
 
     /**
      *  @private
@@ -190,9 +199,13 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     }
     
     /**
-     *  Commits the current text of <code>textInput</code> as
-     *  <code>value</code> after rounding the new value using
-     *  <code>nearestValidValue</code>.
+     *  Commits the current text of <code>textInput</code> 
+     *  to the <code>value</code> property. 
+     *  This method uses the <code>nearestValidValue()</code> method 
+     *  to round the input value to the closest multiple of 
+     *  the <code>valueInterval</code> property, 
+     *  and constrains the value to the range defined by the 
+     *  <code>maximum</code> and <code>minimum</code> properties.
      */
     protected function commitTextInput():void
     {
@@ -224,6 +237,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     //---------------------------------
     
     /**
+     *  @private
      *  When the enter key is pressed, NumericStepper commits the
      *  text currently displayed.
      */
