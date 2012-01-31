@@ -19,6 +19,8 @@ import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 import flash.events.Event;
 
+[IconFile("FxVScrollBar.png")]
+
 /**
  *  The FxVScrollBar (vertical ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
