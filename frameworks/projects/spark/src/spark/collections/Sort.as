@@ -40,7 +40,12 @@ import mx.utils.ObjectUtil;
  *  The locale identifier that specifies the language, region, script
  *  and optionally other related tags and keys.
  *  The syntax of this identifier must follow the syntax defined
- *  by the Unicode Technical Standard #35 (e.g. en-US, de-DE, zh-Hans-CN)
+ *  by the Unicode Technical Standard #35 (for example, en-US, de-DE, zh-Hans-CN).
+ * 
+ *  <p>For browser based apps, the default locale is based on the language settings from the browser. 
+ *  (Note that this is not the browser UI language that is available from Javascript, but rather is the list of 
+ *  preferred locales for web pages that the user has set in the browser preferences.) For AIR applications, 
+ *  the default UI locale is based on the user's system preferences.</p>
  * 
  *  @see http://www.unicode.org/reports/tr35/
  *
@@ -66,18 +71,23 @@ import mx.utils.ObjectUtil;
  *     var col:ICollectionView = new ArrayCollection();
  *     // In the real world, the collection would have more than one item.
  *     col.addItem({first:"Anders", last:"Dickerson"});
+ * 
  *     // Create the Sort instance.
  *     var sort:ISort = new Sort();
+ * 
  *     // Set the sort field; sort on the last name first, first name second.
  *     var sortfieldLastName:ISortField = new SortField("last",true);
  *     var sortfieldFirstName:ISortField = new SortField("first",true);
+ * 
  *     // Set the locale style to "en-US" to cause the strings
  *     // to be ordered according to the rules for English as used in the USA.
  *     sortfieldLastName.setStyle("locale","en-US");
  *     sortfieldFirstName.setStyle("locale","en-US");
  *     sort.fields = [sortfieldLastName, sortfieldFirstName];
+ * 
  *     // Assign the Sort object to the view.
  *     col.sort = sort;
+ * 
  *     // Apply the sort to the collection.
  *     col.refresh();
  *  </code></pre>
@@ -90,15 +100,19 @@ import mx.utils.ObjectUtil;
  *  in the SortField object constructor.
  *  For example:
  *  <pre><code>
- *     import spark.collections.*;
+ *     import mx.collections.ArrayCollection;
+ *     import spark.collections.Sort;
+ *     import spark.collections.SortField;
  * 
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem("California");
  *     col.addItem("Arizona");
  *     var sort:Sort = new Sort();
+ * 
  *     // There is only one sort field, so use a <code>null</code> 
  *     // first parameter. 
  *     var sortfield:SortField = new SortField("null",true);
+ * 
  *     // Set the locale style to "en-US" to set the language for the sort.
  *     sortfield.setStyle("locale","en-US");
  *     sort.fields = [sortfield];
@@ -149,13 +163,12 @@ import mx.utils.ObjectUtil;
  *  </li>
  *  </ul>
  *  
- * 
  *  @mxml
  *
  *  <p>The <code>&lt;s:Sort&gt;</code> tag has the following attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Sort
+ *  &lt;s:Sort
  *  <b>Properties</b>
  *  compareFunction="<em>Internal compare function</em>"
  *  fields="null"
