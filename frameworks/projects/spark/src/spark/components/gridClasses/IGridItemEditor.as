@@ -20,7 +20,7 @@ import spark.components.DataGrid;
  *  When the editor is closing the <code>discard()</code> method is called.</p>
  *  
  * <p>When the editor is closed the input value can be saved or cancelled. If saving, 
- * the <code>save()</code> function is called. If canceling the <code>
+ * the <code>save()</code> function is called by the editor. If canceling the <code>
  * cancel()</code> function is called. 
  * </p>
  */
@@ -38,7 +38,7 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     //----------------------------------
     
     /**
-     *  The dataGrid that owns this editor.
+     *  The data grid that owns this editor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -77,6 +77,29 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
     function get columnIndex():int;
     function set columnIndex(value:int):void;
 
+    //----------------------------------
+    //  editorUsesEnterKey
+    //----------------------------------
+
+    /**
+     *  A flag that indicates whether the item editor uses the Enter key.
+     *  If <code>true</code> the item editor uses the Enter key and the
+     *  DataGrid will not look for the Enter key and close the editor in
+     *  response.
+     *  Note that changing this value while the editor is displayed
+     *  will have no effect on the current editor, but will affect the next
+     *  item renderer that opens an editor.
+     *
+     *  @default false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    function get editorUsesEnterKey():Boolean;
+    function set editorUsesEnterKey(value:Boolean):void
+    
     //----------------------------------
     //  rowIndex
     //----------------------------------
@@ -157,6 +180,12 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      *  the data may be saved. If the data is not valid, then the
      *  data is not saved and the editor is not closed.
      * 
+     *  This function should only be called by the editor. To save
+     *  and close the editor call the <code>endItemEditorSession()</code>
+     *  function of the data grid owner.
+     *  
+     *  @see spark.components.DataGrid
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -166,6 +195,12 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
 
     /**
      *  Closes the editor without saving the data.
+     * 
+     *  This function should only be called by the editor. To cancel
+     *  and close the editor call the <code>endItemEditorSession()</code>
+     *  function of the data grid owner.
+     *  
+     *  @see spark.components.DataGrid
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
