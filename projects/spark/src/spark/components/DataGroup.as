@@ -48,6 +48,18 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 [Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="addChild", kind="method")]
+[Exclude(name="addChildAt", kind="method")]
+[Exclude(name="removeChild", kind="method")]
+[Exclude(name="removeChildAt", kind="method")]
+[Exclude(name="setChildIndex", kind="method")]
+[Exclude(name="swapChildren", kind="method")]
+[Exclude(name="swapChildrenAt", kind="method")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -1046,6 +1058,10 @@ public class DataGroup extends GroupBase
 
             return child;
         }
+        else if (child.parent && child.parent is DataGroup)
+        {
+            DataGroup(child.parent)._removeChild(child);
+        }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
             (child is IVisualElement && (child as IVisualElement).layer != 0))
@@ -1191,129 +1207,74 @@ public class DataGroup extends GroupBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>addChild()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  This method allows access to the base class's implementation
+     *  of removeChild() (UIComponent's version), which can be useful since components
+     *  can override removeChild() and thereby hide the native implementation.  For 
+     *  instance, we override removeChild() here to throw an RTE to discourage people
+     *  from using this method.  We need this method so we can remove children
+     *  that were previously attached to another DataGroup (see addItemToDisplayList).
+     */
+    private function _removeChild(child:DisplayObject):DisplayObject
+    {
+        return super.removeChild(child);
+    }
+    
+    /**
+     *  @private
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "addChildDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>addChildAt()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "addChildAtDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>removeChild()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "removeChildDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>removeChildAt()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "removeChildAtDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>setChildIndex()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "setChildIndexDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>swapChildren()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "swapChildrenDataGroupError")));
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  DataGroup manages its own display objects, 
-     *  and you should not call <code>swapChildrenAt()</code> directly.
-     *  If you want to add, remove, or swap items around, modify the 
-     *  <code>dataProvider</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
+        throw(new Error(resourceManager.getString("components", "swapChildrenAtDataGroupError")));
     }
 }
 }
