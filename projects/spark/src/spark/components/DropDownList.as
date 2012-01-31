@@ -28,6 +28,7 @@ and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 package spark.components
 {
 
+import flash.accessibility.Accessibility;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
@@ -42,11 +43,10 @@ import mx.events.FlexEvent;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.TextBase;
-import spark.events.IndexChangeEvent;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
+import spark.events.IndexChangeEvent;
 import spark.utils.LabelUtil;
-import flash.accessibility.Accessibility;
 
 use namespace mx_internal;
 
@@ -548,7 +548,7 @@ public class DropDownList extends List
     /**
      *  @private
      */
-    private var _userProposedSelectedIndex:Number = -1;
+    private var _userProposedSelectedIndex:Number = NO_SELECTION;
     
     /**
      *  @private
@@ -716,6 +716,28 @@ public class DropDownList extends List
         }   
     }
     
+    /**
+     *  @private
+     *  Called whenever we need to change the highlighted selection while the dropDown is open
+     *  ComboBox overrides this behavior
+     */
+    mx_internal function changeHighlightedSelection(newIndex:int):void
+    {
+        // Store the selection in userProposedSelectedIndex because we 
+        // don't want to update selectedIndex until the dropdown closes
+        itemSelected(userProposedSelectedIndex, false);
+        userProposedSelectedIndex = newIndex;
+        itemSelected(userProposedSelectedIndex, true);
+        ensureIndexIsVisible(userProposedSelectedIndex);
+        
+        var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
+        e.oldIndex = caretIndex;
+        setCurrentCaretIndex(userProposedSelectedIndex);
+        e.newIndex = caretIndex;
+        dispatchEvent(e);
+    }
+      
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -760,60 +782,56 @@ public class DropDownList extends List
             if (!NavigationUnit.isNavigationUnit(navigationUnit))
                 return;
 
-            var proposedNewIndex:int = -1;
+            var proposedNewIndex:int = NO_SELECTION;
+            var currentIndex:int;
             
             if (dropDownController.isOpen)
             {   
-                proposedNewIndex = layout.getNavigationDestinationIndex(userProposedSelectedIndex, navigationUnit, arrowKeysWrapFocus);
+                // Normalize the proposed index for getNavigationDestinationIndex
+                currentIndex = userProposedSelectedIndex < NO_SELECTION ? NO_SELECTION : userProposedSelectedIndex;
+                proposedNewIndex = layout.getNavigationDestinationIndex(currentIndex, navigationUnit, arrowKeysWrapFocus);
                 
-                if (proposedNewIndex != -1)
+                if (proposedNewIndex != NO_SELECTION)
                 {
-                    // Store the selection in userProposedSelectedIndex because we 
-                    // don't want to update selectedIndex until the dropdown closes
-                    itemSelected(userProposedSelectedIndex, false);
-                    userProposedSelectedIndex = proposedNewIndex;
-                    itemSelected(userProposedSelectedIndex, true);
-                    ensureIndexIsVisible(userProposedSelectedIndex);
-
-                    var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
-                    e.oldIndex = caretIndex;
-                    setCurrentCaretIndex(userProposedSelectedIndex);
-                    e.newIndex = caretIndex;
-                    dispatchEvent(e);
-
+                    changeHighlightedSelection(proposedNewIndex);
                     event.preventDefault();
                 }
             }
             else if (dataProvider)
             {
+                // Normalize the proposed index for getNavigationDestinationIndex
+                currentIndex = selectedIndex < NO_SELECTION ? NO_SELECTION : selectedIndex;
+                
+                // FIXME (jszeto) : SDK-24036 Add arrowKeysWrapFocus support
+                
                 switch (navigationUnit)
                 {
                     case NavigationUnit.UP:
                     {
-                        proposedNewIndex = selectedIndex - 1;  
+                        proposedNewIndex = currentIndex - 1;  
                         event.preventDefault();
                         break;
                     }                      
         
                     case NavigationUnit.DOWN:
                     {
-                        proposedNewIndex = selectedIndex + 1;  
+                        proposedNewIndex = currentIndex + 1;  
                         event.preventDefault();
                         break;
                     }
                         
                     case NavigationUnit.PAGE_UP:
                     {
-                        proposedNewIndex = selectedIndex == -1 ? 
-                                            -1 : Math.max(selectedIndex - PAGE_SIZE, 0);
+                        proposedNewIndex = currentIndex == NO_SELECTION ? 
+                            NO_SELECTION : Math.max(currentIndex - PAGE_SIZE, 0);
                         event.preventDefault();
                         break;
                     }
                         
                     case NavigationUnit.PAGE_DOWN:
                     {    
-                        proposedNewIndex = selectedIndex == -1 ?
-                                           PAGE_SIZE : (selectedIndex + PAGE_SIZE);
+                        proposedNewIndex = currentIndex == NO_SELECTION ?
+                                           PAGE_SIZE : (currentIndex + PAGE_SIZE);
                         event.preventDefault();
                         break;
                     }
@@ -852,7 +870,7 @@ public class DropDownList extends List
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        if (event.target == this)
+        if (isOurFocus(DisplayObject(event.target)))
             dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
