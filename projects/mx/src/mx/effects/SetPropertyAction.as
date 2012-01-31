@@ -65,7 +65,7 @@ public class SetPropertyAction extends Effect
 	public function SetPropertyAction(target:Object = null)
 	{
 		super(target);
-
+        duration = 0;
 		instanceClass = SetPropertyActionInstance;
 	}
 	
