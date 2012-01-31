@@ -15,6 +15,7 @@ import flash.geom.Rectangle;
 
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.collections.IList;
 
 public class GridDimensions 
 {
@@ -988,6 +989,9 @@ public class GridDimensions
         }
     }
     
+    /**
+     *  Clears the typical cell for every column and row.
+     */
     public function clearTypicalCellWidthsAndHeights():void
     {
         typicalCellWidths.length = 0;
@@ -1003,25 +1007,7 @@ public class GridDimensions
      */
     public function insertRows(startRow:int, count:int):void
     {
-        if (startRow < 0 || count <= 0)
-            return;
-        
-        var node:GridRowNode = rowList.findNearest(startRow);
-        
-        // start on the index we're inserting at.
-        if (node && node.rowIndex < startRow)
-            node = node.next;
-        while (node)
-        {
-            node.rowIndex += count;
-            node = node.next;
-        }
-        
-        this.rowCount += count;
-        
-        // cache is invalid now.
-        recentNode = null;
-        recentNode2 = null;
+        insertRowsAt(startRow, count);
     }
     
     /**
@@ -1040,6 +1026,7 @@ public class GridDimensions
      */
     public function removeRows(startRow:int, count:int):void
     {
+        removeRowsAt(startRow, count);
     }
     
     /**
@@ -1057,6 +1044,16 @@ public class GridDimensions
      */
     public function moveRows(fromRow:int, toRow:int, count:int):void
     {
+        var rows:Vector.<GridRowNode> = removeRowsAt(fromRow, count);
+        
+        // Set the row indices of the nodes that are moving.
+        var diff:int = toRow - fromRow;
+        for each (var node:GridRowNode in rows)
+        {
+            node.rowIndex = node.rowIndex + diff;
+        }
+        
+        insertRowsAt(toRow, count, rows);
     }
     
     /**
@@ -1079,22 +1076,130 @@ public class GridDimensions
         this.startY = 0;
         this.startY2 = 0;
     }
+    
+    /**
+     *  Inserts count number of rows starting from startRow. This will increment 
+     *  rowCount. If the nodes parameter is set, the nodes will be inserted
+     *  to the rowList.
+     */
+    private function insertRowsAt(startRow:int, count:int, nodes:Vector.<GridRowNode> = null):void
+    {
+        if (startRow < 0 || count <= 0)
+            return;
+        
+        var startNode:GridRowNode = rowList.findNearestLTE(startRow);
+        var node:GridRowNode;
+        
+        // start on the index we're inserting at.
+        if (startNode && startNode.rowIndex < startRow)
+            startNode = startNode.next;
+        
+        // first we insert the nodes before this node.
+        if (nodes)
+        {
+            for each (node in nodes)
+            {
+                rowList.insertBefore(startNode, node);
+            }
+        }
+        
+        // increment the index of nodes after this node.
+        node = startNode;
+        while (node)
+        {
+            node.rowIndex += count;
+            node = node.next;
+        }
+        
+        this.rowCount += count;
+        
+        // cache is invalid now.
+        recentNode = null;
+        recentNode2 = null;
+    }
+    
+    /**
+     *  Removes count number of rows starting from startRow. This will
+     *  decrement rowCount. Returns any removed nodes.
+     */
+    private function removeRowsAt(startRow:int, count:int):Vector.<GridRowNode>
+    {
+        var vec:Vector.<GridRowNode> = new Vector.<GridRowNode>();
+        if (startRow < 0 || count <= 0)
+            return vec;
+        
+        var node:GridRowNode = rowList.findNearestLTE(startRow);
+        var endRow:int = startRow + count;
+        var oldNode:GridRowNode;
+        
+        if (node && node.rowIndex < startRow)
+            node = node.next;
+        
+        while (node && node.rowIndex < endRow)
+        {
+            oldNode = node;
+            vec.push(oldNode);
+            node = node.next;
+            rowList.removeNode(oldNode);
+        }
+        
+        while (node)
+        {
+            node.rowIndex -= count;
+            node = node.next;
+        }
+        
+        this.rowCount -= count;
+        
+        // cache is invalid now.
+        recentNode = null;
+        recentNode2 = null;
+        return vec;
+    }
+    
+    /**
+     *  Removes any nodes that occupy the indices between startRow
+     *  and startRow + count.
+     */
+    private function clearRows(startRow:int, count:int):void
+    {
+        if (startRow < 0 || count <= 0)
+            return;
+        
+        var node:GridRowNode = rowList.findNearestLTE(startRow);
+        var endRow:int = startRow + count;
+        var oldNode:GridRowNode;
+        
+        if (node && node.rowIndex < startRow)
+            node = node.next;
+        
+        while (node && node.rowIndex < endRow)
+        {
+            oldNode = node;
+            node = node.next;
+            rowList.removeNode(oldNode);
+        }
+        
+        // cache is invalid now.
+        recentNode = null;
+        recentNode2 = null;
+    }
 
     /**
      *  Handles changes in the dataProvider.
      */
     public function dataProviderCollectionChanged(event:CollectionEvent):Boolean 
     {
+        // TBD (klin): don't think we need to return booleans...
         switch (event.kind)
         {
             case CollectionEventKind.ADD:    return dataProviderCollectionAdd(event);
             case CollectionEventKind.REMOVE: return dataProviderCollectionRemove(event);
-                
-            case CollectionEventKind.REPLACE:
-            case CollectionEventKind.MOVE:
-            case CollectionEventKind.REFRESH:
-            case CollectionEventKind.RESET:
-            case CollectionEventKind.UPDATE:
+            case CollectionEventKind.REPLACE: return dataProviderCollectionReplace(event);
+            case CollectionEventKind.MOVE: return dataProviderCollectionMove(event);
+            case CollectionEventKind.REFRESH: return dataProviderCollectionReset(event);
+            case CollectionEventKind.RESET: return dataProviderCollectionReset(event);
+            case CollectionEventKind.UPDATE: return dataProviderCollectionReplace(event); return true;
                 break;
         }
         
@@ -1115,7 +1220,36 @@ public class GridDimensions
      */
     private function dataProviderCollectionRemove(event:CollectionEvent):Boolean
     {
-        rowCount -= event.items.length;
+        removeRows(event.location, event.items.length);
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function dataProviderCollectionReplace(event:CollectionEvent):Boolean
+    {
+        clearRows(event.location, event.items.length);
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function dataProviderCollectionMove(event:CollectionEvent):Boolean
+    {
+        moveRows(event.oldLocation, event.location, event.items.length);
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function dataProviderCollectionReset(event:CollectionEvent):Boolean
+    {
+        clear();
+        clearTypicalCellWidthsAndHeights();
+        this.rowCount = IList(event.target).length;
         return true;
     }
 }
