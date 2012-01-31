@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- filters/examples/GradientGlowFilterExample .mxml -->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="createFilters()">
+    
+  <fx:Script><![CDATA[ 
+     import spark.filters.*;
+     import flash.filters.BitmapFilterQuality;
+     import flash.filters.BitmapFilterType;
+  
+     private var myGradientGlowFilter:GradientGlowFilter;  
+     private var colors:Array = [0xFFFFFF, 0xFF0000, 0xFFFF00, 0x00CCFF];
+     private var alphas:Array = [0, 1, 1, 1];  
+     private var ratios:Array = [0, 63, 126, 255];
+             
+     public function createFilters():void {        
+        myGradientGlowFilter = new GradientGlowFilter(0, 45, colors, alphas,
+            ratios, 50, 50, 2.5, BitmapFilterQuality.HIGH, BitmapFilterType.OUTER, false);
+        b1.filters = [myGradientGlowFilter];
+     }
+  
+  ]]></fx:Script>
+
+    <s:VGroup>
+        <!-- This button has a filter applied in ActionScript. -->
+        <s:Button id="b1" label="Click me"/>
+
+        <!-- This button has a filter applied in MXML. -->
+        <s:Button id="b2" label="Click me">
+            <s:filters>
+                <s:GradientGlowFilter 
+                    distance="10"
+                    angle="45"
+                    blurX="50" 
+                    blurY="50" 
+                    strength="2.5" 
+                    quality="{BitmapFilterQuality.HIGH}"
+                    type="{BitmapFilterType.OUTER}" 
+                    knockout="false">
+                        <s:entries>
+                            <s:GradientEntry alpha="0" color="0xFFFFFF" ratio="0"/>
+                            <s:GradientEntry alpha="1" color="0xFF0000" ratio="63"/>
+                            <s:GradientEntry alpha="1" color="0xFFFF00" ratio="126"/>
+                            <s:GradientEntry alpha="1" color="0x00CCFF" ratio="255"/>
+                        </s:entries>
+                 </s:GradientGlowFilter>
+            </s:filters>
+        </s:Button>
+    </s:VGroup>        
+</s:Application>
