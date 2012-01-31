@@ -209,7 +209,7 @@ public class AnimateTransform3D extends AnimateTransform
     public var autoCenterProjection:Boolean = true;
 
     /**
-     *  Specifies an angle, as a degree between <code>0</code> and <code>180</code>, 
+     *  Specifies an angle, in degrees between <code>0</code> and <code>180</code>, 
      *  for the field of view in three dimensions. 
      *  This value determines how strong the perspective transformation and distortion apply to
      *  a three-dimensional display object with a non-zero z-coordinate.
