@@ -60,7 +60,6 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
     public function MXItemRenderer()
     {
         super();
-        autoDrawBackground = true;
         focusEnabled = false;
     }
     
