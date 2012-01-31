@@ -3225,7 +3225,7 @@ public class Grid extends Group implements IDataGridElement
         if (!dataProvider || (rowIndex < 0) || (rowIndex >= dataProvider.length))
             return;
         
-        // Provisional implementation: invalidate the entire row
+        // TODO (hmuller) this is a provisional implementation: invalidate the entire row
         const column:GridColumn = getGridColumn(columnIndex);
         const dataField:String = (column) ? column.dataField : null;
         dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
