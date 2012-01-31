@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import spark.components.RichEditableText;
@@ -35,22 +36,6 @@ use namespace mx_internal;
 public class RichEditableTextAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_READONLY:uint = 0x00000040;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
 
     //--------------------------------------------------------------------------
     //
@@ -111,7 +96,7 @@ public class RichEditableTextAccImpl extends AccImpl
     {
         super(master);
 
-        role = 0x2a; // ROLE_SYSTEM_TEXT
+        role = AccConst.ROLE_SYSTEM_TEXT;
     }
 
     //--------------------------------------------------------------------------
@@ -166,7 +151,7 @@ public class RichEditableTextAccImpl extends AccImpl
     {
         var accState:uint = getState(childID);
         if (!RichEditableText(master).editable)
-            accState |= STATE_SYSTEM_READONLY;
+            accState |= AccConst.STATE_SYSTEM_READONLY;
         return accState;
     }
 
@@ -193,7 +178,7 @@ public class RichEditableTextAccImpl extends AccImpl
             case "change":
             {
                 Accessibility.sendEvent(master, 0,
-                                        EVENT_OBJECT_VALUECHANGE, true);
+                                        AccConst.EVENT_OBJECT_VALUECHANGE, true);
                 break;
             }
         }
