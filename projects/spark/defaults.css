@@ -88,6 +88,7 @@ HSlider
 List
 {
 	skinClass: ClassReference("spark.skins.spark.ListSkin");
+    dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
 }
 
 MuteButton
