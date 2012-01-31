@@ -117,6 +117,11 @@ use namespace mx_internal;
  *  Dispatched when the item editor has just been instantiated.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_EDITOR_CREATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditorCreate", type="mx.events.DataGridEvent")]
 
