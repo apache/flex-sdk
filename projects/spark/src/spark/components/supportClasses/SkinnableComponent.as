@@ -19,6 +19,7 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.utils.*;
 
+import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
@@ -443,10 +444,20 @@ public class SkinnableComponent extends UIComponent
     {
         if (skin)
         {
+            // FIXME (egeorgie): revisit this, use Skin's explicit as minimum for the measured with: 
             measuredWidth = skin.getExplicitOrMeasuredWidth();
             measuredHeight = skin.getExplicitOrMeasuredHeight();
-            measuredMinWidth = isNaN( skin.explicitWidth ) ? skin.minWidth : skin.explicitWidth;
-            measuredMinHeight = isNaN( skin.explicitHeight ) ? skin.minHeight : skin.explicitHeight;
+
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                measuredMinWidth = isNaN( skin.explicitWidth ) ? skin.minWidth : skin.explicitWidth;
+                measuredMinHeight = isNaN( skin.explicitHeight ) ? skin.minHeight : skin.explicitHeight;
+            }
+            else
+            {
+                measuredMinWidth = skin.minWidth;
+                measuredMinHeight = skin.minHeight;
+            }
         }
     }
     
