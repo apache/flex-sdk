@@ -109,7 +109,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("dataChange")]  // compatible with FlexEvent.DATA_CHANGE
     
     /**
-     *  The value of the dataProvider "item" for this row, i.e. <code>dataProvider.getItemAt(itemIndex)</code>.
+     *  The value of the dataProvider "item" for this row, i.e. <code>dataProvider.getItemAt(rowIndex)</code>.
      *  Item renderers often bind visual element attributes to data properties.  Note 
      *  that, despite its name, this property does not depend on the column's "dataField". 
      *  
@@ -133,24 +133,24 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     //----------------------------------
-    //  itemIndex
+    //  rowIndex
     //----------------------------------
 
-    private var _itemIndex:int = -1;
+    private var _rowIndex:int = -1;
     
-    [Bindable("itemIndexChanged")]
+    [Bindable("rowIndexChanged")]
     
     /**
      *  The index of the dataProvider item for this item renderer's row.
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>preprare()</code></p>.   
+     *  before calling <code>prepare()</code></p>.   
      * 
      *  @default -1
      */    
     public function get rowIndex():int
     {
-        return _itemIndex;
+        return _rowIndex;
     }
     
     /**
@@ -158,11 +158,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      */    
     public function set rowIndex(value:int):void
     {
-        if (_itemIndex == value)
+        if (_rowIndex == value)
             return;
         
-        _itemIndex = value;
-        dispatchChangeEvent("itemIndexChanged");        
+        _rowIndex = value;
+        dispatchChangeEvent("rowIndexChanged");        
     }
     
     //----------------------------------
