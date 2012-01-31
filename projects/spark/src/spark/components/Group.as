@@ -101,6 +101,29 @@ use namespace mx_internal;
  *  the Group container cannot be skinned. 
  *  If you want to apply a skin, use the SkinnableContainer instead.</p>
  * 
+ *  <p>Note: scale grid may not function correctly when there 
+ *  are DisplayObject children inside of the Group, such as a component 
+ *  or another Group.  If the children are GraphicElements and 
+ *  they all share the Group's DisplayObject, then scale grid will work 
+ *  properly.</p> 
+ * 
+ *  <p>Setting any of the following properties on a GraphicElement child
+ *  will require that GraphicElement to create its own DisplayObject,
+ *  thus negating the scale grid properties on the Group.</p>  
+ * 
+ *  <pre>
+ *  alpha
+ *  blendMode other than BlendMode.NORMAL
+ *  colorTransform
+ *  filters
+ *  mask
+ *  matrix
+ *  rotation
+ *  scaling
+ *  3D properties
+ *  bounds outside the extent of the Group
+ *  </pre>
+ *  
  *  @mxml
  *
  *  <p>The <code>&lt;Group&gt;</code> tag inherits all of the tag 
@@ -853,7 +876,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 	        							   scaleGridTop,	
 	        							   scaleGridRight - scaleGridLeft, 
 	        							   scaleGridBottom - scaleGridTop);
-	        }
+	        } 
 	        else
 	        {
 	        	super.scale9Grid = null;
