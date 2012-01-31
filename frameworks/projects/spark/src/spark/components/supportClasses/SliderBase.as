@@ -43,6 +43,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  The alpha of the focus ring for this component.
+ *
+ *  @default 0.55
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -53,6 +55,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *
+ *  @default 0xFFFFFF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -109,20 +113,21 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *    <strong>Properties</strong>
  *    dataTipFormatFunction="20"
  *    dataTipPrecision="2"
+ *    maximum="10"
  *    showDataTip="true"
- *
+ * 
  *    <strong>Styles</strong>
  *    alignmentBaseline="USE_DOMINANT_BASELINE"
  *    baselineShift="0.0"
- *    breakOpportunity="AUTO"
  *    cffHinting="HORIZONTAL_STEM"
  *    color="0"
  *    digitCase="DEFAULT"
  *    digitWidth="DEFAULT"
  *    direction="LTR"
  *    dominantBaseline="AUTO"
- *    focusColor
- *    fontFamily="Times New Roman"
+ *    focusAlph="0.55"
+ *    focusColor="0xFFFFFF"
+ *    fontFamily="Arial"
  *    fontLookup="DEVICE"
  *    fontSize="12"
  *    fontStyle="NORMAL"
@@ -136,7 +141,6 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *    liveDragging="true"
  *    local="en"
  *    renderingMode="CFF"
- *    textAlign="START"
  *    textAlignLast="START"
  *    textAlpha="1"
  *    textDecoration="NONE"
