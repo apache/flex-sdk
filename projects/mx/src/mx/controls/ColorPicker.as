@@ -1201,7 +1201,7 @@ public class ColorPicker extends ComboBase
             }
 
             // Position: left or right
-            if (point.x + width + dropdownSwatch.width > screen.right && 
+            if (point.x + dropdownSwatch.width > screen.right && 
                 point.x > (screen.left + dropdownSwatch.width))
             {
                 // Dropdown appears to the left instead of right
