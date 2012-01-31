@@ -862,7 +862,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *
      *  <p><strong>Note:</strong> Using the <code>selectedItem</code> property 
      *  is often preferable to using this property. The <code>value</code>
-     *  property exists for backward compatibility with older applications</p>
+     *  property exists for backward compatibility with older applications</p>.
      *
      */
     public function get value():Object
@@ -1245,10 +1245,10 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  an Object containing two properties: <code>width</code> and 
      *  <code>height</code>.
      *
-     *  @param numItems The number of items to check to determine the size
+     *  @param numItems The number of items to check to determine the size.
      *
      *  @return An Object with <code>width</code> and <code>height</code> 
-     *  properties
+     *  properties.
      */
     protected function calculatePreferredSizeFromData(numItems:int):Object
     {
@@ -1260,7 +1260,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  Every dataProvider item must have or will be assigned a unique
      *  identifier (UID).
      *
-     *  @param data A dataProvider item
+     *  @param data A dataProvider item.
      *
      *  @return A unique identifier.
      */
@@ -1317,7 +1317,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  the <code>selectedIndex</code> property if items are added or removed 
      *  before the component's selected item.
      *
-     *  @param event The CollectionEvent dispatched from the collection
+     *  @param event The CollectionEvent dispatched from the collection.
      *
      *  @see mx.events.CollectionEvent
      */
@@ -1390,9 +1390,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
     /**
      *  Handles changes to the TextInput that serves as the editable
-     *  text field in the component.  The method sets 
+     *  text field in the component. The method sets 
      *  <code>selectedIndex</code> to -1 (and therefore 
      *  <code>selectedItem</code> to <code>null</code>).
+     * 
+     *  @param event The event that is triggered each time the text in the control changes.
      */
     protected function textInput_changeHandler(event:Event):void
     {
@@ -1427,9 +1429,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     }
 
     /**
-     *  Performs some action when the drop-down button is pressed.  This is
+     *  Performs some action when the drop-down button is pressed. This is
      *  an abstract base class implementation, so it has no effect and is
      *  overridden by the subclasses.
+     *  
+     *  @param event The event that is triggered when the drop-down button is pressed.
      */
     protected function downArrowButton_buttonDownHandler(event:FlexEvent):void
     {
