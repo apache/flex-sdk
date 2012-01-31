@@ -658,10 +658,10 @@ public class FxAnimateInstance extends EffectInstance
                 var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(target);
                 var parentW:int = 0;
                 var parentH:int = 0;
-                var targetX:Number = layoutElement.getLayoutPositionX();
-                var targetY:Number = layoutElement.getLayoutPositionY();
-                var targetW:Number = layoutElement.getLayoutWidth();
-                var targetH:Number = layoutElement.getLayoutHeight();
+                var targetX:Number = layoutElement.getLayoutBoundsX();
+                var targetY:Number = layoutElement.getLayoutBoundsY();
+                var targetW:Number = layoutElement.getLayoutBoundsWidth();
+                var targetH:Number = layoutElement.getLayoutBoundsHeight();
                 
                 // For 'bottom' or 'verticalCenter' we need the parent height
                 if (constraintsHolder["bottom"] !== undefined ||
