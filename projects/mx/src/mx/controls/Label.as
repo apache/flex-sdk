@@ -172,6 +172,8 @@ include "../styles/metadata/TextStyles.as"
 
 [IconFile("Label.png")]
 
+[Alternative(replacement="spark.primitives.SimpleText", since="4.0")]
+
 /**
  *  The Label control displays a single line of noneditable text.
  *  Use the Text control to create blocks of multiline
