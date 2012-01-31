@@ -603,6 +603,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+		super.partAdded(partName, instance);
+
         if (instance == dataGroup)
         {
             // copy proxied values from dataGroupProperties (if set) to dataGroup
@@ -678,6 +680,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+		super.partRemoved(partName, instance);
+
         if (instance == dataGroup)
         {
             dataGroup.removeEventListener(
