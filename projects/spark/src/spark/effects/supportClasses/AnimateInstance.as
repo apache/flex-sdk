@@ -12,10 +12,10 @@
 package flex.effects.effectClasses
 {
 import flex.effects.Animation;
-import flex.effects.IAnimationTarget;
 import flex.effects.PropertyValuesHolder;
 import flex.effects.easing.IEaser;
 import flex.effects.interpolation.IInterpolator;
+import flex.events.AnimationEvent;
 
 import mx.core.UIComponent;
 import mx.effects.EffectInstance;
@@ -26,7 +26,7 @@ import mx.effects.EffectManager;
  * Animate effect. Flex creates an instance of this class when
  * it plays a Animate effect; you do not create one yourself.
  */
-public class AnimateInstance extends EffectInstance implements IAnimationTarget
+public class AnimateInstance extends EffectInstance
 {
     public var animation:Animation;
     
@@ -307,13 +307,15 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // Create the single Animation that will interpolate all properties
             // simultaneously by interpolating the elements of the 
             // from/toVals arrays
-            animation = new Animation(fromVals, toVals, duration, this);
+            animation = new Animation(fromVals, toVals, duration);
         }
         else
         {
             // Only one property; don't bother with the arrays
-            animation = new Animation(fromValue, toValue, duration, this);
+            animation = new Animation(fromValue, toValue, duration);
         }
+        animation.addEventListener(AnimationEvent.ANIMATION_UPDATE, updateHandler);
+        animation.addEventListener(AnimationEvent.ANIMATION_END, endHandler);
             
         if (_seekTime > 0)
             animation.seek(_seekTime);
@@ -359,27 +361,19 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         }
     }
     
-    public function animationStart(animation:Animation, value:Object):void
-    {
-    }
-
     /**
      * Handles update events from the animation.
      */
-    public function animationUpdate(animation:Animation, value:Object):void
+    protected function updateHandler(event:AnimationEvent):void
     {
-        setVals(value);
-    }
-    
-    public function animationRepeat(animation:Animation, value:Object):void
-    {
+        setVals(event.value);
     }
     
     /**
      * Handles the end event from the animation. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
      */
-    public function animationEnd(animation:Animation, value:Object):void
+    protected function endHandler(event:AnimationEvent):void
     {
         finishEffect();
     }
