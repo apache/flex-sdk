@@ -161,29 +161,26 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	//  layout
 	//----------------------------------
 	
-	private var _layout:Class;
-	
 	/**
 	 *  @copy flex.core.Group#layout
 	 */
-	public function get layout():Class
-	{
-		if (contentGroup)
-			return contentGroup.layout;
-		
-		return _layout;
-	}
+	 
+	private var _layout:Object;
 	
-	public function set layout(value:Class):void
-	{
-		if (value == _layout)
-			return;
-			
-		_layout = value;
-		
-		if (contentGroup)
-			contentGroup.layout = _layout;
-	}
+    public function get layout():Object
+    {
+    	return (contentGroup) ? contentGroup.layout : _layout;
+    }
+
+    public function set layout(value:Object):void
+    {
+		if (value != _layout) {
+    		_layout = value;
+    		if (contentGroup) {
+    			contentGroup.layout = _layout;
+    		}
+		}
+    }
 	
 	//----------------------------------
 	//  itemRenderer
