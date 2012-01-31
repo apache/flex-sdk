@@ -52,6 +52,7 @@ import flashx.textLayout.operations.SplitParagraphOperation;
 
 import mx.core.IViewport;
 import mx.core.UIComponent;
+import mx.core.ScrollUnit;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
 import mx.utils.TextUtil;
@@ -455,9 +456,9 @@ public class TextView extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
+     *  @copy mx.layout.LayoutBase#getHorizontalScrollPositionDelta
      */
-    public function horizontalScrollPositionDelta(unit:uint):Number
+    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     {
         // TBD: replace provisional implementation
         var scrollR:Rectangle = scrollRect;
@@ -469,22 +470,22 @@ public class TextView extends UIComponent implements IViewport
             
         switch (unit)
         {
-            case Keyboard.UP:
+            case ScrollUnit.UP:
                 return (scrollR.x <= 0) ? 0 : -1;
                 
-            case Keyboard.DOWN:
+            case ScrollUnit.DOWN:
                 return (scrollR.x >= maxDelta) ? 0 : 1;
                 
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_LEFT:
                 return Math.max(minDelta, -scrollR.width);
                 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_RIGHT:
                 return Math.min(maxDelta, scrollR.width);
                 
-            case Keyboard.HOME: 
+            case ScrollUnit.HOME: 
                 return minDelta;
                 
-            case Keyboard.END: 
+            case ScrollUnit.END: 
                 return maxDelta;
                 
             default:
@@ -657,9 +658,9 @@ public class TextView extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
+     *  @copy mx.layout.LayoutBase#getVerticalScrollPositionDelta
      */
-    public function verticalScrollPositionDelta(unit:uint):Number
+    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
     {
         // TBD: replace provisional implementation
         var scrollR:Rectangle = scrollRect;
@@ -671,22 +672,22 @@ public class TextView extends UIComponent implements IViewport
             
         switch (unit)
         {
-            case Keyboard.UP:
+            case ScrollUnit.UP:
                 return (scrollR.y <= 0) ? 0 : -1;
                 
-            case Keyboard.DOWN:
+            case ScrollUnit.DOWN:
                 return (scrollR.y >= maxDelta) ? 0 : 1;
                 
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_UP:
                 return Math.max(minDelta, -scrollR.height);
                 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_DOWN:
                 return Math.min(maxDelta, scrollR.height);
                 
-            case Keyboard.HOME: 
+            case ScrollUnit.HOME: 
                 return minDelta;
                 
-            case Keyboard.END: 
+            case ScrollUnit.END: 
                 return maxDelta;
                 
             default:
