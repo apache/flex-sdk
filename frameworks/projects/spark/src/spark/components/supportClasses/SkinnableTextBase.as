@@ -746,7 +746,9 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     //  text
     //----------------------------------
-
+    
+    [Inspectable(category="General")]
+    
     /**
      *  @copy spark.components.RichEditableText#text
      *  
