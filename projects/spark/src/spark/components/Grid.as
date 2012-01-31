@@ -2106,7 +2106,7 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  @private
      */
-    private var _variableRowHeight:Boolean = true;
+    private var _variableRowHeight:Boolean = false;
 
     /**
      *  @private
@@ -2118,9 +2118,10 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  If true, each row's height is the maximum of preferred heights of the cells displayed so far.
      * 
-     *  <p>If <code>false</code>, the height of each row is just the value of <code>rowHeight</code>.</p>
+     *  <p>If <code>false</code>, the height of each row is just the value of <code>rowHeight</code>.
+     *  If rowHeight isn't specified, then the height of each row is defined by the typicalItem</p>
      * 
-     *  @default true
+     *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
