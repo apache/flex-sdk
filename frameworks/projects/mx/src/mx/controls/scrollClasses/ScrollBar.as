@@ -25,8 +25,10 @@ import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.MarshalMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
+import mx.managers.ISystemManager2;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleProxy;
 
@@ -1360,10 +1362,10 @@ public class ScrollBar extends UIComponent
         systemManager.addEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, 
+        systemManager.addEventListener(MarshalMouseEvent.MOUSE_MOVE, 
                             stage_scrollTrack_mouseMoveHandler);
         // in case we go offscreen
-        systemManager.stage.addEventListener(Event.MOUSE_LEAVE, 
+        systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, 
                             scrollTrack_mouseLeaveHandler);
         
         var pt:Point = new Point(event.localX, event.localY);
@@ -1429,10 +1431,10 @@ public class ScrollBar extends UIComponent
         systemManager.removeEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+        systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, 
                             stage_scrollTrack_mouseMoveHandler);
         // in case we go offscreen
-        systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, 
+        systemManager.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
                             scrollTrack_mouseLeaveHandler);
 
         if (trackScrollTimer)
