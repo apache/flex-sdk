@@ -14,6 +14,7 @@ package mx.graphics
 
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
+import flash.text.engine.TextLine;
 
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
@@ -23,12 +24,12 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
+import flashx.textLayout.factory.TextLineFactory;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.tlf_internal;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.TextFlowComposer;
 import mx.graphics.baseClasses.TextGraphicElement;
 import mx.utils.TextUtil;
 
@@ -150,11 +151,6 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private var textFlowComposer:TextFlowComposer = new TextFlowComposer();
-        
-    /**
-     *  @private
-     */
     private var textChanged:Boolean = false;
 
     /**
@@ -177,12 +173,6 @@ public class TextGraphic extends TextGraphicElement
      */
     private var textInvalid:Boolean = false;
         
-    /**
-     *  @private
-     *  This flag is set to true if the text must be clipped.
-     */
-    private var isOverset:Boolean = false;
-
     /**
      *  @private
      */
@@ -236,25 +226,6 @@ public class TextGraphic extends TextGraphicElement
         }
     }
     
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    [Inspectable(category="General")]
-
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        mx_internal::validateBaselinePosition();
-        
-        // Return the baseline of the first line of composed text.
-        return (textFlowComposer.textLines.length > 0) ? 
-            textFlowComposer.textLines[0].y : 0;
-    }
-    
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -343,28 +314,6 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    override protected function measure():void
-    {
-        super.measure();
-        
-        // The measure() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, compose() must not be called.
-        if (!mx_internal::styleChainInitialized)
-            return;
-
-        isOverset = compose(explicitWidth, explicitHeight);
-
-        var bounds:Rectangle = textFlowComposer.bounds;
-        measuredWidth = Math.ceil(bounds.width);
-        measuredHeight = Math.ceil(bounds.height);
-
-        //trace("measure", explicitWidth, explicitHeight, measuredWidth, measuredHeight);
-    }
-    
-    /**
-     *  @private
-     */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
@@ -388,14 +337,14 @@ public class TextGraphic extends TextGraphicElement
         //      to conform to explicit min/max values for width/height.
         if (stylesChanged || 
             measuredWidth != unscaledWidth || 
-            measuredWidth != Math.ceil(textFlowComposer.bounds.width) ||
+            measuredWidth != Math.ceil(mx_internal::bounds.width) ||
             measuredHeight != unscaledHeight ||
-            measuredHeight != Math.ceil(textFlowComposer.bounds.height))
+            measuredHeight != Math.ceil(mx_internal::bounds.height))
         {
-	    isOverset = compose(unscaledWidth, unscaledHeight);
-	}  
+			composeTextLines(unscaledWidth, unscaledHeight);
+		}  
             
-        mx_internal::clip(isOverset, unscaledWidth, unscaledHeight);
+        mx_internal::clip(unscaledWidth, unscaledHeight);
     }
     
     /**
@@ -630,7 +579,8 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private function compose(width:Number = NaN, height:Number = NaN):Boolean
+    override protected function composeTextLines(width:Number = NaN,
+												 height:Number = NaN):void
     {
         // Don't want this handler firing when we're re-composing the text lines.
         textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
@@ -644,28 +594,53 @@ public class TextGraphic extends TextGraphicElement
         textFlow = createTextFlow();
         _content = textFlow;
 
-        textFlowComposer.removeTextLines(DisplayObjectContainer(displayObject));
-        
-        var bounds:Rectangle = textFlowComposer.bounds;
+		// Set the composition bounds to be used by createTextLines().
+		// If the width or height is NaN, it will be computed by this method
+		// by the time it returns.
+		// The bounds are then used by the addTextLines() method
+		// to determine the isOverset flag.
+		// The composition bounds are also reported by the measure() method.
+		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = width;
         bounds.height = height;
 
-        textFlowComposer.composeTextFlow(textFlow);
+        mx_internal::removeTextLines();
+        createTextLines();
+        mx_internal::addTextLines(DisplayObjectContainer(displayObject));
         
-        textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
-        // Just recomposed so reset.
+		// Just recomposed so reset.
         stylesChanged = false;
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
         textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
-
-
-        return textFlowComposer.isOverset;
     }
     
+	/**
+	 *  @private
+	 *  Uses TextLineFactory to compose the textFlow
+	 *  into as many TextLines as fit into the bounds.
+	 */
+	private function createTextLines():void
+	{
+		// Clear any previously generated TextLines from the textLines Array.
+		mx_internal::textLines.length = 0;
+
+        TextLineFactory.createTextLinesFromTextFlow(
+			addTextLine, textFlow, mx_internal::bounds);
+    }
+
+    /**
+     *  @private
+     *  Callback passed to createTextLines().
+     */
+    private function addTextLine(textLine:TextLine):void
+    {
+        mx_internal::textLines.push(textLine);
+    }
+		
     //--------------------------------------------------------------------------
     //
     //  Event handlers
