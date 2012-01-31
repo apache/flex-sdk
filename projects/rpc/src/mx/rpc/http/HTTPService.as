@@ -88,7 +88,11 @@ public class HTTPService extends AbstractInvoker
     /**
      *  Creates a new HTTPService. If you expect the service to send using relative URLs you may
      *  wish to specify the <code>rootURL</code> that will be the basis for determining the full URL (one example
-     *  would be A<code>pplication.application.url</code>).
+     *  would be <code>Application.application.url</code>).
+     *
+     * @param rootURL The URL the HTTPService should use when computing relative URLS.
+     *
+     * @param destination An HTTPService destination name in the service-config.xml file.
      */
     public function HTTPService(rootURL:String = null, destination:String = null)
     {
@@ -627,6 +631,11 @@ function xmlEncoder (myObj)
     /**
      *  Executes an HTTPService request. The parameters are optional, but if specified should
      *  be an Object containing name-value pairs or an XML object depending on the <code>contentType</code>.
+     *
+     *  @param parameters An Object containing name-value pairs or an
+     *  XML object, depending on the content type for service
+     *  requests.
+     * 
      *  @return An object representing the asynchronous completion token. It is the same object
      *  available in the <code>result</code> or <code>fault</code> event's <code>token</code> property.
      */
