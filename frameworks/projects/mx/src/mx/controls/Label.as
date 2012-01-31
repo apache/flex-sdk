@@ -248,6 +248,7 @@ include "../styles/metadata/TextStyles.as"
  *    paddingRight="0"
  *    paddingTop="0"
  *    paddingBottom="0"
+ *    styleSheet="null"
  *    textAlign="left|right|center"
  *    textDecoration="none|underline"
  *    textIndent="0"
@@ -1022,18 +1023,42 @@ public class Label extends UIComponent
 
     /**
      *  @private
+     *  Change flag for the styleSheet property
      */
-    mx_internal function get styleSheet():StyleSheet
+    private var styleSheetChanged:Boolean = false;
+
+    /**
+     *  @private
+     *  Storage for the styleSheet property.
+     */
+    private var _styleSheet:StyleSheet;   
+
+   /**
+    *  A flash.text.StyleSheet object that can perform rendering
+    *  on the Label control's text.
+    *  Used for detailed control of HTML styles for the text.
+    *  For more information, see the flash.text.StyleSheet
+    *  class documentation.
+    * 
+    *  @see flash.text.StyleSheet
+    *
+    *  @default null
+    */
+    public function get styleSheet():StyleSheet
     {
-        return textField.styleSheet;
+        return _styleSheet;
     }
 
     /**
      *  @private
      */
-    mx_internal function set styleSheet(value:StyleSheet):void
+    public function set styleSheet(value:StyleSheet):void
     {
-        textField.styleSheet = value;
+        _styleSheet = value;
+        styleSheetChanged = true;
+        htmlTextChanged = true;
+
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -1339,6 +1364,13 @@ public class Label extends UIComponent
             textField.selectable = _selectable;
             
             selectableChanged = false;
+        }
+
+        if (styleSheetChanged)
+        {
+            textField.styleSheet = _styleSheet;
+
+            styleSheetChanged = false;
         }
 
         if (textChanged || htmlTextChanged)
