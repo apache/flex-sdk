@@ -98,6 +98,12 @@ public class GridDimensions
             return;
         
         _rowCount = value;
+        
+        if (recentNode && recentNode.rowIndex >= _rowCount)
+            recentNode = null;
+        if (recentNode2 && recentNode2.rowIndex >= _rowCount)
+            recentNode2 = null;
+        
         // FIXME (klin): remove a range of indices...
     }
     
@@ -155,32 +161,75 @@ public class GridDimensions
                     typicalCellWidths.length = _columnCount;
                     typicalCellHeights.length = _columnCount;
                 }
-
             }
         }
+        
+        // clear cache
+        recentNode = null;
+        recentNode2 = null;
     }
 
     //----------------------------------
     //  rowGap
     //----------------------------------
+
+    private var _rowGap:Number = 0;
     
     /**
      *  The gap between rows.
      * 
      *  @default 0 
      */
-    public var rowGap:Number = 0;
+    public function get rowGap():Number
+    {
+        return _rowGap;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set rowGap(value:Number):void
+    {
+        if (value == _rowGap)
+            return;
+        
+        _rowGap = value;
+        
+        // reset recent node.
+        recentNode = null;
+        recentNode2 = null;
+    }
     
     //----------------------------------
     //  columnGap
     //----------------------------------
+
+    private var _columnGap:Number = 0;
     
     /**
-     *  The gap between columns. 
-     *      
+     *  The gap between columns.
+     * 
      *  @default 0 
      */
-    public var columnGap:Number = 0;
+    public function get columnGap():Number
+    {
+        return _columnGap;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set columnGap(value:Number):void
+    {
+        if (value == _columnGap)
+            return;
+        
+        _columnGap = value;
+        
+        // reset recent node.
+        recentNode = null;
+        recentNode2 = null;
+    }
     
     //----------------------------------
     //  defaultRowHeight
@@ -562,7 +611,8 @@ public class GridDimensions
             
             // subtract previous node's height and its gap.
             indDiff = node.rowIndex - prevNode.rowIndex - 1;
-            nodeY = currentY = currentY - indDiff * (defaultRowHeight + rowGap) - (prevNode.maxCellHeight + rowGap); 
+            currentY = currentY - indDiff * (defaultRowHeight + rowGap) - (prevNode.maxCellHeight + rowGap);
+            nodeY = currentY;
             node = prevNode;
         }
 
@@ -613,7 +663,8 @@ public class GridDimensions
             
             // add next node's maxCellHeight and rowGap
             indDiff = nextNode.rowIndex - node.rowIndex - 1;
-            nodeY = currentY = currentY + indDiff * (defaultRowHeight + rowGap);
+            currentY = currentY + indDiff * (defaultRowHeight + rowGap);
+            nodeY = currentY; 
             node = nextNode;
         }
         
@@ -902,11 +953,14 @@ public class GridDimensions
     public function getContentWidth(columnCountOverride:int = -1):Number
     {
 		const nCols:int = (columnCountOverride == -1) ? columnCount : columnCountOverride;
-		
-        if (!_columnWidths)
-            return (nCols * (defaultColumnWidth + columnGap)) - columnGap;
-        
         var contentWidth:Number = 0;
+        
+        if (nCols > 1)
+            contentWidth += (nCols - 1) * columnGap;
+        
+        // short circuit for no column widths set yet.
+        if (!_columnWidths)
+            return contentWidth + nCols * defaultColumnWidth;
         
         for (var i:int = 0; i < nCols; i++)
         {
@@ -915,9 +969,6 @@ public class GridDimensions
             else
                 contentWidth += _columnWidths[i];
         }
-        
-        if (nCols > 1)
-            contentWidth += (nCols - 1) * columnGap;
         
         return contentWidth;
     }
@@ -930,27 +981,28 @@ public class GridDimensions
     public function getContentHeight(rowCountOverride:int = -1):Number
     {
 		const nRows:int = (rowCountOverride == -1) ? rowCount : rowCountOverride;
-		
+		var contentHeight:Number = 0;
+        
+        if (nRows > 1)
+            contentHeight += (nRows - 1) * rowGap;
+        
         if (!isNaN(fixedRowHeight))
-            return (nRows * (fixedRowHeight + rowGap)) - rowGap;
+            return contentHeight + nRows * fixedRowHeight;
         
         if (rowList.length == 0)
-            return (nRows * (defaultRowHeight + rowGap)) - rowGap;
+            return contentHeight + nRows * defaultRowHeight;
         
-        var height:Number = 0;
         var node:GridRowNode = rowList.first;
         var numRows:int = 0;
         
         while (node && node.rowIndex < nRows)
         {
-            height += node.maxCellHeight;
+            contentHeight += node.maxCellHeight;
             numRows++;
             node = node.next;
         }
-        
-        var contentHeight:Number = height + (nRows - numRows) * defaultRowHeight;
-        if (nRows > 1)
-            contentHeight += (nRows - 1) * rowGap;
+    
+        contentHeight += (nRows - numRows) * defaultRowHeight;
         
         return contentHeight;
     }
