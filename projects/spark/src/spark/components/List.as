@@ -1298,7 +1298,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Handle the fixup of selection
         var newIndex:int
         if (event.currentTarget is IItemRenderer)
-            newIndex = IItemRenderer(event.currentTarget).index;
+            newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
 
