@@ -491,7 +491,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         if (addingElement)
             maxIndex++;
             
-        if (index > maxIndex)
+        if (index < 0 || index > maxIndex)
             throw new RangeError("Index " + index + " is out of range");
     }
  
