@@ -23,21 +23,31 @@ import mx.utils.OnDemandEventDispatcher;
  *  This IList class generates items that are a sequential series of numbers.
  *  The numbers range between the <code>minimum</code> and <code>maximum</code>
  *  properties. The <code>stepSize</code> property defines the difference between
- *  an item and the next item. 
+ *  an item and the next item.
  * 
- *  The advantage of this class is that the item values are calculated on demand,
- *  instead of stored. 
+ * <p>This class is used primarily as a data provider for the SpinnerList control; for example:</p>
+ * <pre>
+ * &lt;s:SpinnerList&gt;
+ *   &lt;s:dataProvider&gt;
+ *     &lt;s:NumericDataProvider minimum="0" maximum="23" stepSize="1"/&gt;
+ *   &lt;/s:dataProvider&gt;
+ * &lt;/s:SpinnerList&gt; 
+ * </pre>
  * 
- *  Since the values are calculated instead of stored, the addItem, addItemAt, 
- *  removeAll, removeItemAt, itemUpdated and setItemAt IList functions are not
- *  supported. 
+ *  <p>The advantage of this class is that the item values are calculated on demand,
+ *  instead of stored.</p>
+ * 
+ *  <p>Because the values are calculated instead of stored, the <code>addItem()</code>, <code>addItemAt()</code>, 
+ *  <code>removeAll()</code>, <code>removeItemAt()</code>, <code>itemUpdated()</code> and <code>setItemAt()</code> IList methods are not
+ *  supported.</p>
  *    
+ *  @see spark.components.SpinnerList
+ *  @see mx.collections.IList
+ *
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
- *
- *  @see
  */
 public class NumericDataProvider extends OnDemandEventDispatcher implements IList
 {
@@ -84,7 +94,12 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     //  length
     //----------------------------------
     /**
-     *  @inherit 
+     *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
      */ 
     public function get length():int
     {
@@ -115,6 +130,9 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
         return _maximum;
     }
     
+    /**
+     *  @private
+     */
     public function set maximum(value:Number):void
     {
         if (_maximum == value)
@@ -209,7 +227,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     //----------------------------------------------------------------------------------------------
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -224,7 +242,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -239,7 +257,12 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  @inherit
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
      */ 
     public function getItemAt(index:int, prefetch:int=0):Object
     {
@@ -279,7 +302,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  @inherit 
+     *  @inheritDoc 
      */ 
     public function getItemIndex(item:Object):int
     {
@@ -292,7 +315,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -307,7 +330,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -322,7 +345,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -338,7 +361,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  This function is not supported
+     *  This function is not supported.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -354,7 +377,12 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     }
     
     /**
-     *  @inherit 
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
      */ 
     public function toArray():Array
     {
