@@ -228,7 +228,7 @@ public class ControlBar extends Box
 		// Since controlbar isn't a "child" of Panel, we need to call
 		// invalidateViewMetricsAndPadding() here when our size is invalidated.
 		// This causes our parent Panel to adjust size.
-		if (parent)
+		if (parent && parent is Container)
 			Container(parent).invalidateViewMetricsAndPadding();
 	}
 
