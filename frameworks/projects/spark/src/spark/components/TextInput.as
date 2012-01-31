@@ -242,6 +242,22 @@ public class TextInput extends SkinnableTextBase
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  suggestedFocusSkinExclusions
+    //----------------------------------
+    /** 
+     * @private 
+     */     
+    private static const focusExclusions:Array = ["textDisplay"];
+    
+    /**
+     *  @private
+     */
+    override public function get suggestedFocusSkinExclusions():Array
+    {
+        return focusExclusions;
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
