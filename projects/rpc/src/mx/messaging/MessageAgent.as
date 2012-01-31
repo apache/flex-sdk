@@ -686,6 +686,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     {
         if (!_disconnectBarrier)
         {
+            // Ensure wait queue for client id value is destroyed.
+            _clientIdWaitQueue = null;
+            
             _disconnectBarrier = true;
             if (_channelSetMode == AUTO_CONFIGURED_CHANNELSET)
                 internalSetChannelSet(null);
