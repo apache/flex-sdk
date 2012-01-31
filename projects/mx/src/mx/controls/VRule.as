@@ -31,6 +31,11 @@ import mx.core.UIComponent;
  *  </ul>
  *  
  *  @default 0xEEEEEE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowColor", type="uint", format="Color", inherit="yes")]
 
@@ -46,6 +51,11 @@ import mx.core.UIComponent;
  *  </ul>
  *  
  *  @default 0xC4CCCC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="strokeColor", type="uint", format="Color", inherit="yes")]
 
@@ -61,6 +71,11 @@ import mx.core.UIComponent;
  *  </ul>
  *  
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="strokeWidth", type="Number", format="Length", inherit="yes")]
     // Note: stroke-width is inheriting in SVG,
@@ -118,6 +133,11 @@ import mx.core.UIComponent;
  *  @includeExample examples/SimpleVRule.mxml
  *  
  *  @see mx.controls.HRule
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VRule extends UIComponent
 {
@@ -142,6 +162,11 @@ public class VRule extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function VRule()
     {
