@@ -651,42 +651,6 @@ public class VideoPlayer2 extends SkinnableComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-    
-    /**
-     *  
-     * 
-     *  Setting enabled to <code>false</code> disables the UI and 
-     *  pauses the video if it was currently playing.  Re-enabling the component
-     *  does not cause the video to continue playing again; you must 
-     *  explicitly call <code>play()</code>.
-     * 
-     *  <p>Even though the component is initially paused while disabled, 
-     *  if you want to play the video or perform some other action 
-     *  while disabled, you may still do so through method calls, like 
-     *  <code>play()</code>.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        super.enabled = value;
-        
-        if (videoDisplay)
-            videoDisplay.enabled = value;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -1029,7 +993,7 @@ public class VideoPlayer2 extends SkinnableComponent
     //  scaleMode
     //----------------------------------
     
-    [Inspectable(Category="General", defaultValue="true")]
+    [Inspectable(Category="General", enumeration="none,stretch,letterbox,zoom", defaultValue="letterbox")]
     
     /**
      *  @copy spark.components.VideoDisplay#scaleMode
@@ -1361,8 +1325,6 @@ public class VideoPlayer2 extends SkinnableComponent
             }
             
             videoDisplayProperties = newVideoProperties;
-            
-            videoDisplay.enabled = enabled;
             
             if (volumeBar)
             {
