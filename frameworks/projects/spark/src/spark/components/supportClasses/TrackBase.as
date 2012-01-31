@@ -103,14 +103,26 @@ public class FxTrackBase extends FxRange
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent, Range
+    //  Overridden properties: UIComponent, FxRange
     //
     //--------------------------------------------------------------------------
+ 
+    //---------------------------------
+    // enabled
+    //---------------------------------     
     
     /**
      *  Enable (<code>true</code>) or disable (<code>false</code>) this component. 
      *  This property also enables and disables any of the 
      *  skin parts for this component.
+     */
+    override public function get enabled():Boolean
+    {
+        return super.enabled;
+    }
+    
+    /**
+     *  @private
      */
     override public function set enabled(value:Boolean):void
     {
@@ -119,8 +131,21 @@ public class FxTrackBase extends FxRange
         invalidateSkinState();
     }
     
+    //---------------------------------
+    // maximum
+    //---------------------------------     
+    
     /**
-     *  @inheritDoc
+     *  @private
+     *  Overidden so that this property can be the source of a binding expression.
+     */
+     override public function get maximum():Number
+     {
+         return super.maximum;
+     }
+    
+    /**
+     *  @private
      */
     override public function set maximum(value:Number):void
     {
@@ -128,8 +153,21 @@ public class FxTrackBase extends FxRange
         invalidateDisplayList();
     }
 
+    //---------------------------------
+    // minimum
+    //---------------------------------     
+
     /**
-     *  @inheritDoc
+     *  @private
+     *  Overidden so that this property can be the source of a binding expression.
+     */
+     override public function get minimum():Number
+     {
+         return super.minimum;
+     }
+     
+    /**
+     *  @private
      */
     override public function set minimum(value:Number):void
     {
@@ -137,17 +175,32 @@ public class FxTrackBase extends FxRange
         invalidateDisplayList();
     }
     
+    //---------------------------------
+    // value
+    //---------------------------------     
+
+    [Bindable(event="valueCommit")]  // Warning: must match the Bindable tag in FxRange
+    
     /**
-     *  @inheritDoc
+     *  @private 
+     *  Overidden so that this property can be the source of a binding expression.
+     */
+    override public function get value():Number
+    {
+        return super.value;
+    }
+
+    /**
+     *  @private
      */
     override public function set value(newValue:Number):void
     {
         super.value = newValue;
         invalidateDisplayList();
     }
-    
+  
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function setValue(value:Number):void
     {
