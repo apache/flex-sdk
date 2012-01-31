@@ -276,6 +276,11 @@ public class Application extends LayoutContainer
      *  used to access the sub-Application in which that UIComponent lives,
      *  and to walk up the hierarchy to the top-level Application.</p>
      *  
+     *  <p>This property has been deprecated starting in Flex4. Note that this
+     *  property will return applications of type Application and 
+     *  WindowedApplication as before but will return null for applications
+     *  of type FxApplication or FxWindowedApplication.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -295,9 +300,11 @@ public class Application extends LayoutContainer
      *  Therefore we decided to dispense with strict typing for
      *  'application'.
      */
+    [Deprecated(replacement="FlexGlobals.topLevelApplication", since="4.0")]
+    
     public static function get application():Object
     {
-        return ApplicationGlobals.application;
+        return FlexGlobals.topLevelApplication as Application;
     }
 
     //--------------------------------------------------------------------------
@@ -322,8 +329,8 @@ public class Application extends LayoutContainer
             Singleton.getInstance("mx.managers::ILayoutManager"));
         UIComponentGlobals.layoutManager.usePhasedInstantiation = true;
 
-        if (!ApplicationGlobals.application)
-            ApplicationGlobals.application = this;
+        if (!FlexGlobals.topLevelApplication)
+            FlexGlobals.topLevelApplication = this;
 
         super();
 
@@ -561,7 +568,7 @@ public class Application extends LayoutContainer
     override public function get id():String
     {
         if (!super.id &&
-            this == Application.application && 
+            this == FlexGlobals.topLevelApplication && 
             ExternalInterface.available)
         {
             return ExternalInterface.objectID;
