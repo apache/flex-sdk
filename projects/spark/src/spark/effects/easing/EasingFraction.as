@@ -59,6 +59,6 @@ public final class EasingFraction
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const IN_OUT:Number = .5;
+    public static const IN_OUT:Number = 0.5;
 }
 }
