@@ -33,9 +33,9 @@ import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
 
 /**
- * The AnimateInstance class implements the instance class for the
- * Animate effect. Flex creates an instance of this class when
- * it plays a Animate effect; you do not create one yourself.
+ * The FxAnimateInstance class implements the instance class for the
+ * FxAnimate effect. Flex creates an instance of this class when
+ * it plays a FxAnimate effect; you do not create one yourself.
  */
 public class FxAnimateInstance extends EffectInstance
 {
