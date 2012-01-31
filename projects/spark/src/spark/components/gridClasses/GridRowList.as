@@ -463,6 +463,30 @@ public class GridRowList
         return cur;
     }
     
+    
+    /**
+     *  Inserts the specified node at the end of the list.
+     */
+    public function push(node:GridRowNode):void
+    {
+        if (_tail)
+        {
+            node.prev = _tail;
+            node.next = null;
+            _tail.next = node;
+            _tail = node;
+            _length++;
+        }
+        else
+        {
+            node.prev = null;
+            node.next = null;
+            _head = node;
+            _tail = node;
+            _length = 1;
+        }
+    }
+    
     /**
      *  Searches through all nodes for the given value and
      *  removes it from the list if found.
