@@ -8,17 +8,17 @@
         <s:Group left="10" right="10" top="10" bottom="10">
             <!-- Single image, not resized, not repeated. -->
             <s:Graphic x="0" y="0">             
-                <s:BitmapImage id="bg1" source="@Embed('assets/AirIcon12x12.gif')" resizeMode="noScale"/>
+                <s:BitmapImage id="bg1" source="@Embed('assets/AirIcon12x12.gif')" fillMode="clip"/>
             </s:Graphic>
 
             <!-- Single image, scaled to fit specified dimensions. -->
             <s:Graphic x="150" y="0">
-                <s:BitmapImage id="bg2" source="@Embed('assets/AirIcon12x12.gif')" width="60" height="60" resizeMode="scale"/>
+                <s:BitmapImage id="bg2" source="@Embed('assets/AirIcon12x12.gif')" width="60" height="60" fillMode="scale"/>
             </s:Graphic>
 
             <!-- Repeated image to fit specified dimensions. -->
             <s:Graphic x="300" y="0">
-                <s:BitmapImage id="bg3" source="@Embed('assets/AirIcon12x12.gif')" width="120" height="120" resizeMode="repeat"/>
+                <s:BitmapImage id="bg3" source="@Embed('assets/AirIcon12x12.gif')" width="120" height="120" fillMode="repeat"/>
             </s:Graphic>
         </s:Group>
     </s:Panel>
