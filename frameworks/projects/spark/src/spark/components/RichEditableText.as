@@ -1094,11 +1094,50 @@ public class RichEditableText extends UIComponent
      */
     [RichTextContent]
         
-    /**
-     *  This write-only property is for internal use by the MXML compiler.
-     *  Please use the <code>textFlow</code> property to set
-     *  rich text content.
-     */
+	/**
+	 *  This property is intended for use in MXML at compile time;
+	 *  to get or set rich text content at runtime,
+	 *  please use the <code>textFlow</code> property instead.
+	 *
+	 *  <p>The <code>content</code> property is the default property
+	 *  for RichEditableText, so that you can write MXML such as
+	 *  <pre>
+	 *  &lt;s:RichEditableText&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:RichEditableText&gt;
+	 *  </pre>
+	 *  and have the String and SpanElement that you specify
+	 *  as the content be used to create a TextFlow.</p>
+	 *
+	 *  <p>This property is typed as Object because you can set it to
+	 *  to a String, a FlowElement, or an Array of Strings and FlowElements.
+	 *  In the example above, you are specifying the content
+	 *  to be a 2-element Array whose first element is the String
+	 *  "Hello" and whose second element is a SpanElement with the text
+	 *  "World" in boldface.</p>
+	 * 
+	 *  <p>No matter how you specify the content, it gets converted
+	 *  into a TextFlow, and when you get this property, you will get
+	 *  the resulting TextFlow.</p>
+	 * 
+	 *  <p>Adobe recommends using <code>textFlow</code> property
+	 *  to get and set rich text content at runtime,
+	 *  because it is strongly typed as a TextFlow
+	 *  rather than as an Object.
+	 *  A TextFlow is the canonical representation
+	 *  for rich text content in the Text Layout Framework.</p>
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get content():Object
+	{
+		return textFlow;
+	}
+	
+	/**
+	 *  @private
+	 */   
     public function set content(value:Object):void
     {
         // Treat setting the 'content' to null
