@@ -11,45 +11,27 @@
 
 package spark.components
 {
-    import flash.display.DisplayObject;
-    import flash.display.DisplayObjectContainer;
     import flash.events.Event;
-    import flash.events.IEventDispatcher;
-    import flash.events.KeyboardEvent;
     import flash.events.MouseEvent;
     import flash.geom.Point;
     import flash.geom.Rectangle;
-    import flash.ui.Keyboard;
-    import flash.utils.Dictionary;
     
     import mx.collections.IList;
-    import mx.containers.Grid;
     import mx.core.IFactory;
-    import mx.core.ILayoutElement;
     import mx.core.IVisualElement;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.events.CollectionEvent;
     import mx.events.CollectionEventKind;
     import mx.events.FlexEvent;
-    import mx.events.SandboxMouseEvent;
-    import mx.graphics.SolidColor;
-    import mx.managers.IFocusManagerComponent;
-    import mx.utils.MatrixUtil;
     
-    import spark.components.Button;
-    import spark.components.Group;
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
     import spark.components.supportClasses.GridLayout;
     import spark.components.supportClasses.GridSelection;
     import spark.components.supportClasses.GridSelectionMode;
-    import spark.components.supportClasses.GroupBase;
-    import spark.components.supportClasses.ItemRenderer;
-    import spark.core.NavigationUnit;
     import spark.events.GridCaretEvent;
     import spark.events.GridEvent;
-    import spark.primitives.Rect;
     import spark.utils.MouseEventUtil;
     
     use namespace mx_internal;
@@ -578,7 +560,7 @@ package spark.components
          *  <code>GridSelectionMode.SINGLE_ROW</code> or
          *  <code>GridSelectionMode.MULTIPLE_ROWS</code> then the indicator
          *  occupies the entire row and hoverColumnIndex is ignored.  If
-         *  selectionMode is <code>SelectionMode.SINGLE_CELL</code> or
+         *  selectionMode is <code>GridSelectionMode.SINGLE_CELL</code> or
          *  <code>GridSelectionMode.MULTIPLE_CELLS</code> then the hoverIndicator
          *  occupies the specified cell.
          *  
@@ -623,10 +605,10 @@ package spark.components
         /**
          *  Specifies column index of the hoverIndicator visualElement if
          *  <code>showHoverIndicator</code> is true.  If selectionMode is
-         *  <code>SelectionMode.SINGLE_ROW</code> or
+         *  <code>GridSelectionMode.SINGLE_ROW</code> or
          *  <code>GridSelectionMode.MULTIPLE_ROWS</code> then the indicator
          *  occupies the entire row and hoverColumnIndex is ignored.  If
-         *  selectionMode is <code>SelectionMode.SINGLE_CELL</code> or
+         *  selectionMode is <code>GridSelectionMode.SINGLE_CELL</code> or
          *  <code>GridSelectionMode.MULTIPLE_CELLS</code> then the hoverIndicator
          *  occupies the specified cell.
          * 
@@ -1311,10 +1293,10 @@ package spark.components
         
         /**
          *  A visual element that's displayed for each selected row, if
-         *  selectionMode is <code>SelectionMode.SINGLE_ROW</code> or
+         *  selectionMode is <code>GridSelectionMode.SINGLE_ROW</code> or
          *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, or for each
          *  selected cell, if selectionMode is
-         *  <code>SelectionMode.SINGLE_CELL</code> or
+         *  <code>GridSelectionMode.SINGLE_CELL</code> or
          *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  
          *  @default null
@@ -1350,7 +1332,7 @@ package spark.components
         /**
          *  @copy spark.components.supportClasses.GridSelection#selectionMode
          *
-         *  @see spark.components.supportClasses.SelectionMode
+         *  @see spark.components.supportClasses.GridSelectionMode
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -1371,7 +1353,7 @@ package spark.components
                 return;
             
             gridSelection.selectionMode = value;
-            if (selectionMode != value) // value wasn't a valid SelectionMode constant
+            if (selectionMode != value) // value wasn't a valid GridSelectionMode constant
                 return;
             
             anchorRowIndex = 0;
@@ -1471,8 +1453,8 @@ package spark.components
         
         /**
          *  Selects all rows and removes the caret, if <code>selectionMode</code>  
-         *  is <code>SelectionMode.MULTIPLE_ROWS</code>, or all cells, if 
-         *  <code>selectionMode</code> is <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  is <code>GridSelectionMode.MULTIPLE_ROWS</code>, or all cells, if 
+         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          *
          *  <p>If rows or columns are inserted after this method is called, the 
@@ -1504,7 +1486,7 @@ package spark.components
         
         /**
          *  Removes all of the selected rows and cells, if <code>selectionMode</code>  
-         *  is not <code>SelectionMode.NONE</code>.  Removes the caret and
+         *  is not <code>GridSelectionMode.NONE</code>.  Removes the caret and
          *  sets the anchor to the initial item.
          *
          *  @return True if the selection changed or false if there was nothing
@@ -1538,8 +1520,8 @@ package spark.components
         //----------------------------------    
         
         /**
-         *  If <code>selectionMode</code> is <code>SelectionMode.SINGLE_ROW</code>
-         *  or <code>SelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
          *  at <code>index></code> is in the current selection.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1562,8 +1544,8 @@ package spark.components
         }
         
         /**
-         *  If <code>selectionMode</code> is <code>SelectionMode.SINGLE_ROW</code>
-         *  or <code>SelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
          *  at <code>index></code> is in only item in current selection.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1587,7 +1569,7 @@ package spark.components
         
         /**
          *  If <code>selectionMode</code> is 
-         *  <code>SelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
          *  in <code>indices</code> are in the current selection.
          * 
          *  @param indices Vector of 0-based row indices to include in selection. 
@@ -1608,7 +1590,7 @@ package spark.components
         
         /**
          *  If <code>selectionMode</code> is 
-         *  <code>SelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
          *  in <code>indices</code> are the only items in the current selection.
          * 
          *  @param indices Vector of 0-based row indices to include in selection. 
@@ -1629,8 +1611,8 @@ package spark.components
         
         /**
          *  Sets the selection to this row, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_ROW</code> or 
-         *  <code>SelectionMode.MULTIPLE_ROWS</code>.
+         *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1662,8 +1644,8 @@ package spark.components
         
         /**
          *  Adds this row to the selection, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_ROW</code> or 
-         *  <code>SelectionMode.MULTIPLE_ROWS</code>.
+         *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1695,8 +1677,8 @@ package spark.components
         
         /**
          *  Removes this row from the selection, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_ROW</code> or 
-         *  <code>SelectionMode.MULTIPLE_ROWS</code>.
+         *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1728,7 +1710,7 @@ package spark.components
         
         /**
          *  Sets the selection to the specified rows if 
-         *  <code>selectionMode</code> is <code>SelectionMode.MULTIPLE_ROWS</code>.
+         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>Each element in the Vector is an index in <code>dataProvider</code> 
@@ -1760,8 +1742,8 @@ package spark.components
         
         /**
          *  Returns a Vector of the selected rows indices, 
-         *  if <code>selectionMode</code> is <code>SelectionMode.SINGLE_ROW</code> 
-         *  or <code>SelectionMode.MULTIPLE_ROWS</code>.
+         *  if <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  @default []
@@ -1786,8 +1768,8 @@ package spark.components
         //----------------------------------    
         
         /**
-         *  If <code>selectionMode</code> is <code>SelectionMode.SINGLE_CELL</code>
-         *  or <code>SelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code>
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
          *  is in the current selection.
          * 
          *  <p>The <code>rowIndex</code> must be between 0 and the
@@ -1814,8 +1796,8 @@ package spark.components
         }
         
         /**
-         *  If <code>selectionMode</code> is <code>SelectionMode.SINGLE_CELL</code>
-         *  or <code>SelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code>
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
          *  is the only item in the current selection.
          * 
          *  <p>The <code>rowIndex</code> must be between 0 and the
@@ -1843,7 +1825,7 @@ package spark.components
         
         /**
          *  If <code>selectionMode</code> is 
-         *  <code>SelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
          *  in the cell region are in the current selection.
          * 
          *  <p>The <code>rowIndex</code> must be between 0 and the
@@ -1880,7 +1862,7 @@ package spark.components
         
         /**
          *  If <code>selectionMode</code> is 
-         *  <code>SelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
          *  in the cell region are the only items the current selection.
          * 
          *  <p>The <code>rowIndex</code> must be between 0 and the
@@ -1919,8 +1901,8 @@ package spark.components
         
         /**
          *  Sets the selection to this cell, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_CELL</code> or 
-         *  <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  is <code>GridSelectionMode.SINGLE_CELL</code> or 
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1958,8 +1940,8 @@ package spark.components
         
         /**
          *  Adds the cell to the selection, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_CELL</code> or
-         *  <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  is <code>GridSelectionMode.SINGLE_CELL</code> or
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1997,8 +1979,8 @@ package spark.components
         
         /**
          *  Removes the cell from the selection, if <code>selectionMode</code>
-         *  is <code>SelectionMode.SINGLE_CELL</code> or
-         *  <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  is <code>GridSelectionMode.SINGLE_CELL</code> or
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -2036,7 +2018,7 @@ package spark.components
         
         /**
          *  Sets the selection to all the cells in the cell region if 
-         *  <code>selectionMode</code> is <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -2087,8 +2069,8 @@ package spark.components
         
         /**
          *  Returns a Vector of Objects representing the selected cells, 
-         *  if <code>selectionMode</code> is <code>SelectionMode.SINGLE_CELL</code> 
-         *  or <code>SelectionMode.MULTIPLE_CELLS</code>.
+         *  if <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>Each element in the Vector is an object which contains a 
