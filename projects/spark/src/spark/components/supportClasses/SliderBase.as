@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+import __AS3__.vec.Vector;
 
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -29,7 +30,8 @@ import mx.events.FlexEvent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
-import spark.effects.SimpleMotionPath;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
 import spark.effects.animation.Animation;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
@@ -555,7 +557,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                 animator.stop();
                 animator.duration = slideDuration * 
                     (Math.abs(value - RtempValue) / (maximum - minimum));
-                animator.motionPaths = [
+                animator.motionPaths = new <MotionPath>[
                     new SimpleMotionPath("value", value, RtempValue)];
                 
                 dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
