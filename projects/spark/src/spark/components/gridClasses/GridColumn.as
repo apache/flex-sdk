@@ -1109,6 +1109,13 @@ public class GridColumn extends EventDispatcher
      *  If the column is editable, the focusable controls in the item renderer
      *  are given keyboard focus when the user starts editing the item
      *  renderer.
+     *
+     *  <p>When you set this property to <code>true</code>, 
+     *  the cell becomes editable when the user selects it. 
+     *  Because the cell is editable, the DataGrid displays 
+     *  the <code>editorIndicator</code> skin part, 
+     *  which hides the <code>selectionIndicator</code> skin part. 
+     *  Therefore, the user does not see an indicator for cell selection.</p>
      * 
      *  <p>By setting this property to <code>true</code>, you take responsibility for 
      *  validating and saving input collected by the item renderer.  
@@ -1120,8 +1127,6 @@ public class GridColumn extends EventDispatcher
      *  If the renderer's <code>prepare()</code> method sets the TextInput control's
      *  <code>text</code> property, then the <code>prepare()</code> method must 
      *  not set the <code>text</code> property when there are pending changes.</p>
-     * 
-     *  <p>TBD: example code or link.</p>
      * 
      *  @default false
      * 
