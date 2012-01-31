@@ -59,6 +59,8 @@ import mx.styles.IStyleClient;
  *  The DataGroup class converts data elements to visual elements for display.
  *
  *  @see mx.components.Group
+ *  @includeExample examples/DataGroupExample.mxml
+ *
  */
 public class DataGroup extends GroupBase 
 {
@@ -351,8 +353,8 @@ public class DataGroup extends GroupBase
         }
         
         // Need to initializeDataProvider before calling super.commitProperties
-    	// initializeDataProvider removes all of the display list children.
-    	// GroupBase's commitProperties reattaches the mask
+        // initializeDataProvider removes all of the display list children.
+        // GroupBase's commitProperties reattaches the mask
         super.commitProperties();
 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
