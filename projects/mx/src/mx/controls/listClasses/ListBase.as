@@ -71,7 +71,7 @@ import mx.events.DragEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
@@ -8892,7 +8892,7 @@ public class ListBase extends ScrollControlBase
         mouseDownPoint = globalToLocal(pt);
 
         systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
-        systemManager.getSandboxRoot().addEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler, false, 0, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler, false, 0, true);
 
         if (!dragEnabled)
         {
@@ -8915,7 +8915,7 @@ public class ListBase extends ScrollControlBase
     private function mouseIsUp():void
     {
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
-        systemManager.getSandboxRoot().removeEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
 
         if (!dragEnabled && dragScrollingInterval != 0)
         {
