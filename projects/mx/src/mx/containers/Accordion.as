@@ -28,7 +28,6 @@ import mx.core.ComponentDescriptor;
 import mx.core.Container;
 import mx.core.ContainerCreationPolicy;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredContentOwner;
 import mx.core.IFactory;
@@ -627,9 +626,6 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.baselinePosition;
-            
         if (!validateBaselinePosition())
             return NaN;
 
@@ -1507,35 +1503,12 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
             
             if (headerStyleName)
             {
-                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                {               
-                    var headerStyleDecl:CSSStyleDeclaration = 
-                        StyleManager.getStyleDeclaration("." + headerStyleName);
-                    if (headerStyleDecl)
-                    {
-                        // Need to reset the header style declaration and 
-                        // regenerate their style cache
-                        for (var i:int = 0; i < numChildren; i++)
-                        {
-                            header = getHeaderAt(i);
-                            if (header)
-                            {
-                                header.styleDeclaration = headerStyleDecl;
-                                header.regenerateStyleCache(true);
-                                header.styleChanged(null);
-                            }
-                        }
-                    }
-                }
-                else
+                for (var j:int = 0; j < numChildren; j++)
                 {
-                    for (var j:int = 0; j < numChildren; j++)
+                    header = getHeaderAt(j);
+                    if (header)
                     {
-                        header = getHeaderAt(j);
-                        if (header)
-                        {
-                            header.styleName = headerStyleName;
-                        }
+                        header.styleName = headerStyleName;
                     }
                 }
             }
@@ -1727,26 +1700,10 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var header:Button = Button(headerRenderer.newInstance());
         header.name = HEADER_NAME_BASE + (numChildren - 1);
         
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            header.styleName = this;
-        }
-        
         var headerStyleName:String = getStyle("headerStyleName");
         if (headerStyleName)
         {
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                 var headerStyleDecl:CSSStyleDeclaration = StyleManager.
-                        getStyleDeclaration("." + headerStyleName);
-                        
-                if (headerStyleDecl)
-                    header.styleDeclaration = headerStyleDecl;
-            }
-            else
-            {
-                header.styleName = headerStyleName;
-            }
+            header.styleName = headerStyleName;
         }
  
         header.addEventListener(MouseEvent.CLICK, headerClickHandler);
