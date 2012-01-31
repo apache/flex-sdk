@@ -15,12 +15,14 @@ package mx.components
 import flash.display.BlendMode;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
+import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.IFlowComposer;
 import flashx.textLayout.compose.StandardFlowComposer;
@@ -233,6 +235,13 @@ public class TextView extends UIComponent implements IViewport
             
         addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+        
+        // We don't want TLF stopping the propagation of the ENTER key.
+        // Keep in mind that this affects the global default for editable
+        // flows. We set this here to avoid setting one-off configuration 
+        // instances per TextFlow.  
+        TextFlow.defaultConfiguration.manageEnterKey = false;
     }
     
     //--------------------------------------------------------------------------
@@ -1465,6 +1474,20 @@ public class TextView extends UIComponent implements IViewport
         stylesChanged = true;
     }
 
+    /**
+     * @inheritDoc
+     */ 
+    override protected function keyDownHandler(event:KeyboardEvent):void
+    {
+        if (event.keyCode == Keyboard.ENTER && _editManager)
+        {
+            if (multiline)
+                _editManager.splitParagraph();
+            else
+                dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -2181,7 +2204,10 @@ public class TextView extends UIComponent implements IViewport
             textFlow.interactionManager.hasSelection())
         {
             textFlow.flowComposer.showSelection();
-    }
+        }
+        
+        if (focusManager && multiline)
+            focusManager.defaultButtonEnabled = false;
     }
 
     /**
@@ -2199,7 +2225,10 @@ public class TextView extends UIComponent implements IViewport
             textFlow.interactionManager.hasSelection())
         {
             textFlow.flowComposer.hideSelection();            
-    }
+        }
+        
+        if (focusManager)
+            focusManager.defaultButtonEnabled = true;
     }
 
     //--------------------------------------------------------------------------
@@ -2333,7 +2362,7 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      *  Called when the TextFlow dispatches an 'operationBegin' event
      *  before an editing operation.
-     */
+     */     
     private function textFlow_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
@@ -2341,16 +2370,6 @@ public class TextView extends UIComponent implements IViewport
         
         var op:FlowOperation = event.operation;
 
-        // If the user presses the Enter key in a single-line TextView,
-        // we cancel the paragraph-splitting operation and instead
-        // simply dispatch an 'enter' event.
-        if (op is SplitParagraphOperation && !multiline)
-        {
-            event.preventDefault();
-            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
-            return;
-        }
-        
         if (op is InsertTextOperation)
         {
             var insertTextOperation:InsertTextOperation =
