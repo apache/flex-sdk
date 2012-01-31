@@ -385,6 +385,11 @@ public class List extends ListBase implements IFocusManagerComponent
      *  A flag that indicates whether this List's focusable item renderers 
      *  can take keyboard focus. 
      *
+     *  <p><b>Note: </b>This property is similar to the <code>tabChildren</code> property
+     *  used by Flash Player. 
+     *  Use the <code>hasFocusableChildren</code> property with Flex applications.
+     *  Do not use the <code>tabChildren</code> property.</p>
+     *
      *  <p>This is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
      *  internal sub-component and appear as if the component has
@@ -823,11 +828,11 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (multipleSelectionChanged)
         {
-			// multipleSelectionChanged flag is cleared in commitSelection();
-			// this is so, because commitSelection() could be called from
-			// super.commitProperties() as well and in that case we don't
-			// want to commitSelection() twice, as that will actually wrongly 
-			// clear the selection.
+            // multipleSelectionChanged flag is cleared in commitSelection();
+            // this is so, because commitSelection() could be called from
+            // super.commitProperties() as well and in that case we don't
+            // want to commitSelection() twice, as that will actually wrongly 
+            // clear the selection.
             commitSelection();
         }
     }
@@ -891,8 +896,8 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
-		// Clear the flag so that we don't commit the selection again.
-		multipleSelectionChanged = false;
+        // Clear the flag so that we don't commit the selection again.
+        multipleSelectionChanged = false;
 
         var oldSelectedIndex:Number = _selectedIndex;
         var oldCaretIndex:Number = _caretIndex;  
@@ -1281,8 +1286,8 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  Creates an instance of a class that is used to display the visuals
      *  of the dragged items during a drag and drop operation.
-	 *  The default <code>DragEvent.DRAG_START</code> handler passes the
-	 *  instance to the <code>DragManager.doDrag()</code> method. 
+     *  The default <code>DragEvent.DRAG_START</code> handler passes the
+     *  instance to the <code>DragManager.doDrag()</code> method. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1390,11 +1395,11 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Check to see if we're deselecting the currently selected item 
             if (event.ctrlKey && selectedIndex == newIndex)
-			{
-				pendingSelectionOnMouseUp = true;
-				pendingSelectionCtrlKey = true;
-				pendingSelectionShiftKey = event.shiftKey;
-			}
+            {
+                pendingSelectionOnMouseUp = true;
+                pendingSelectionCtrlKey = true;
+                pendingSelectionShiftKey = event.shiftKey;
+            }
             else
                 selectedIndex = newIndex;
         }
@@ -1496,16 +1501,16 @@ public class List extends ListBase implements IFocusManagerComponent
         // If dragging failed, but we had a pending selection, commit it here
         if (pendingSelectionOnMouseUp && !DragManager.isDragging)
         {
-			if (allowMultipleSelection)
-			{
-            	selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
-	        }
-			else
-			{
-				// Must be deselecting the current selected item.
-				selectedIndex = NO_SELECTION;
-			}
-		}
+            if (allowMultipleSelection)
+            {
+                selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
+            }
+            else
+            {
+                // Must be deselecting the current selected item.
+                selectedIndex = NO_SELECTION;
+            }
+        }
 
         // Always clean up the flag, even if currently dragging.
         pendingSelectionOnMouseUp = false;
@@ -1553,81 +1558,81 @@ public class List extends ListBase implements IFocusManagerComponent
         return layout.calculateDropLocation(event);
     }
 
-	/**
-	 *  Creates and instance of the dropIndicator class that is used to
-	 *  display the visuals of the drop location during a drag and dorp
-	 *  operation. The instance is set in the layout's 
-	 *  <code>dropIndicator</code> property.
-	 * 
-	 *  @return Returns the dropIndicator that was set in the layout.
-	 *
-	 *  @see #destroyDropIndicator
+    /**
+     *  Creates and instance of the dropIndicator class that is used to
+     *  display the visuals of the drop location during a drag and dorp
+     *  operation. The instance is set in the layout's 
+     *  <code>dropIndicator</code> property.
+     * 
+     *  @return Returns the dropIndicator that was set in the layout.
+     *
+     *  @see #destroyDropIndicator
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function createDropIndicator():DisplayObject
-	{
-		// Do we have a drop indicator already?
-		if (layout.dropIndicator)
-			return layout.dropIndicator;
-		
-		var dropIndicatorInstance:DisplayObject;
-		if (dropIndicator)
-		{
-			dropIndicatorInstance = DisplayObject(createDynamicPartInstance("dropIndicator"));
-		}
-		else
-		{
-			var dropIndicatorClass:Class = Class(getStyle("dropIndicatorSkin"));
-			if (dropIndicatorClass)
-				dropIndicatorInstance = new dropIndicatorClass();
-		}
-		if (dropIndicatorInstance is IVisualElement)
-			IVisualElement(dropIndicatorInstance).owner = this;
+     */
+    public function createDropIndicator():DisplayObject
+    {
+        // Do we have a drop indicator already?
+        if (layout.dropIndicator)
+            return layout.dropIndicator;
+        
+        var dropIndicatorInstance:DisplayObject;
+        if (dropIndicator)
+        {
+            dropIndicatorInstance = DisplayObject(createDynamicPartInstance("dropIndicator"));
+        }
+        else
+        {
+            var dropIndicatorClass:Class = Class(getStyle("dropIndicatorSkin"));
+            if (dropIndicatorClass)
+                dropIndicatorInstance = new dropIndicatorClass();
+        }
+        if (dropIndicatorInstance is IVisualElement)
+            IVisualElement(dropIndicatorInstance).owner = this;
 
-		// Set it in the layout
-		layout.dropIndicator = dropIndicatorInstance;
-		return dropIndicatorInstance;
-	}
-	
-	/**
-	 *  Releases the dropIndicator instance that is currently set in the layout.
-	 *
-	 *  @return Returns the dropIndicator that was removed. 
-	 * 
-	 *  @see #createDropIndicator
+        // Set it in the layout
+        layout.dropIndicator = dropIndicatorInstance;
+        return dropIndicatorInstance;
+    }
+    
+    /**
+     *  Releases the dropIndicator instance that is currently set in the layout.
+     *
+     *  @return Returns the dropIndicator that was removed. 
+     * 
+     *  @see #createDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function destroyDropIndicator():DisplayObject
-	{
-		var dropIndicatorInstance:DisplayObject = layout.dropIndicator;
-		if (!dropIndicatorInstance)
-			return null;
-		
-		// Release the reference from the layout
-		layout.dropIndicator = null;
-		
-		// Release it if it's a dynamic skin part
-		var count:int = numDynamicParts("dropIndicator");
-		for (var i:int = 0; i < count; i++)
-		{
-			if (dropIndicatorInstance == getDynamicPartAt("dropIndicator", i))
-			{
-				// This was a dynamic part, remove it now:
-				removeDynamicPartInstance("dropIndicator", dropIndicatorInstance);
-				break;
-			}
-		}
-		return dropIndicatorInstance;
-	}
-	
+     */
+    public function destroyDropIndicator():DisplayObject
+    {
+        var dropIndicatorInstance:DisplayObject = layout.dropIndicator;
+        if (!dropIndicatorInstance)
+            return null;
+        
+        // Release the reference from the layout
+        layout.dropIndicator = null;
+        
+        // Release it if it's a dynamic skin part
+        var count:int = numDynamicParts("dropIndicator");
+        for (var i:int = 0; i < count; i++)
+        {
+            if (dropIndicatorInstance == getDynamicPartAt("dropIndicator", i))
+            {
+                // This was a dynamic part, remove it now:
+                removeDynamicPartInstance("dropIndicator", dropIndicatorInstance);
+                break;
+            }
+        }
+        return dropIndicatorInstance;
+    }
+    
     /**
      *  @private
      *  Handles <code>DragEvent.DRAG_ENTER</code> events.  This method
@@ -1658,7 +1663,7 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Create the dropIndicator instance. The layout will take care of
             // parenting, sizing, positioning and validating the dropIndicator.
-			createDropIndicator();
+            createDropIndicator();
             
             // Show focus
             drawFocusAnyway = true;
@@ -1667,8 +1672,8 @@ public class List extends ListBase implements IFocusManagerComponent
             // Notify manager we can drop
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
 
-			// Show drop indicator
-			layout.showDropIndicator(dropLocation);
+            // Show drop indicator
+            layout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -1709,8 +1714,8 @@ public class List extends ListBase implements IFocusManagerComponent
             // Notify manager we can drop
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
 
-			// Show drop indicator
-			layout.showDropIndicator(dropLocation);
+            // Show drop indicator
+            layout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -1756,7 +1761,7 @@ public class List extends ListBase implements IFocusManagerComponent
         drawFocusAnyway = false;
         
         // Destroy the dropIndicator instance
-		destroyDropIndicator();
+        destroyDropIndicator();
     }
     
     /**
@@ -1787,7 +1792,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         // Hide the drop indicator
         layout.hideDropIndicator();
-		destroyDropIndicator();
+        destroyDropIndicator();
         
         // Hide focus
         drawFocus(false);
