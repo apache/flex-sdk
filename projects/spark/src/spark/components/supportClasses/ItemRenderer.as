@@ -170,6 +170,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  background colors for all user interactions.</p>
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get autoDrawBackground():Boolean
     {
@@ -206,6 +211,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  Set to <code>true</code> when the user is pressing down on an item renderer.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     protected function get down():Boolean
     {
@@ -242,6 +252,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  Set to <code>true</code> when the user is hovered over the item renderer.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     protected function get hovered():Boolean
     {
@@ -281,6 +296,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @inheritDoc 
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get itemIndex():int
     {
@@ -337,6 +357,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @inheritDoc 
      *
      *  @default false  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get showsCaret():Boolean
     {
@@ -373,6 +398,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @inheritDoc 
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get selected():Boolean
     {
@@ -408,6 +438,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
 
     /**
      *  @inheritDoc  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get dragging():Boolean
     {
@@ -442,6 +477,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @inheritDoc 
      *
      *  @default ""    
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get label():String
     {
