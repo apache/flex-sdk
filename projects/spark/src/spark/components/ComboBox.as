@@ -36,34 +36,6 @@ import spark.utils.LabelUtil;
  
 use namespace mx_internal;
 
-/*
-TODO (jszeto)
-
-X Implement labelToItemFunction
-X Implement committing input string to selectedItem
-X Keep track of selectedIndex state
-- Implement caret and selection states
-- Implement user interaction behaviors
-X Implement openOnInput
-X Implement TextInput proxy properties
-X Implement itemMatchingFunction property
-X Implement restrict
-X Implement maxChars
-
-X Add wireframe skins
-
-X Support padding styles in TextInput
-
-- Make setting custom selectedItem cancellable
-- Refactor DropDownList into DropDownList and DropDownListBase
-
-B-Feature
-- Add filtering support
-- Add allowCustomSelectedItem support
-- Prompt support
-
-*/
-
 /**
  *  Bottom inset, in pixels, for the text in the 
  *  prompt area of the control.  
@@ -116,7 +88,6 @@ B-Feature
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
-// TODO Fill out ASDoc
 /**
  *  The ComboBox control is a child class of the DropDownListBase control. 
  *  Like the DropDownListBase control, when the user selects an item from 
@@ -225,8 +196,6 @@ public class ComboBox extends DropDownListBase
         super();
         
         addEventListener(KeyboardEvent.KEY_DOWN, capture_keyDownHandler, true);
-        
-        // TODO (jszeto) Add a property to toggle this behavior
         allowCustomSelectedItem = true;
     }
     
@@ -455,9 +424,7 @@ public class ComboBox extends DropDownListBase
     private function processInputField():void
     {
         var matchingItems:Vector.<int>;
-        
-        //trace("CB.processInputField input string",textInput.text);
-        
+                
         if (!dataProvider || dataProvider.length <= 0)
             return;
         
@@ -471,13 +438,9 @@ public class ComboBox extends DropDownListBase
             else
                 matchingItems = findMatchingItems(textInput.text);
             
-            /*trace("CB.processInputField matchingItems:");
-            for (var i:int = 0; i < matchingItems.length; i++)
-                trace("    ["+i+"]",matchingItems[i]);*/
-            
             if (matchingItems.length > 0)
             {
-                super.changeHighlightedSelection(matchingItems[0]);
+                super.changeHighlightedSelection(matchingItems[0], true);
                 
                 var typedLength:int = textInput.text.length;
                 var item:Object = dataProvider ? dataProvider.getItemAt(matchingItems[0]) : undefined;
@@ -486,9 +449,6 @@ public class ComboBox extends DropDownListBase
                     // If we found a match, then replace the textInput text with the match and 
                     // select the non-typed characters
                     var itemString:String = itemToLabel(item);
-                    /*trace("CB.applyIndexToTextInput typed",textInput.text,"match",itemString,
-                        "selectRange start",typedLength,"end",itemString.length);*/
-
                     textInput.selectAll();
                     textInput.insertText(itemString);
                     textInput.selectRange(typedLength, itemString.length);
@@ -558,9 +518,7 @@ public class ComboBox extends DropDownListBase
         {
             selectedIndex = actualProposedSelectedIndex;
         }
-        
-        //trace("CB.applySelection selectRange -1, -1");
-        // TODO (jszeto) Should we always be turning off selection?
+                
         textInput.selectRange(-1, -1);
         
         userTypedIntoText = false;
@@ -623,7 +581,6 @@ public class ComboBox extends DropDownListBase
         {
             if (selectedItem != null && selectedItem != undefined)
             {
-                //trace("CB.updateLabelDisplay [",LabelUtil.itemToLabel(selectedItem, labelField, labelFunction),"]");
                 textInput.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
             }
         }
@@ -668,15 +625,14 @@ public class ComboBox extends DropDownListBase
     /**
      *  @private 
      */ 
-    override mx_internal function changeHighlightedSelection(newIndex:int):void
+    override mx_internal function changeHighlightedSelection(newIndex:int, scrollToTop:Boolean = false):void
     {
-        super.changeHighlightedSelection(newIndex);
+        super.changeHighlightedSelection(newIndex, scrollToTop);
                 
         var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
         if (item)
         {
             var itemString:String = itemToLabel(item);
-            //trace("CB.changeHighlightedSelection item",itemString);
             textInput.selectAll();
             textInput.insertText(itemString);
             textInput.selectAll();
@@ -693,26 +649,18 @@ public class ComboBox extends DropDownListBase
      *  @private 
      */ 
     override protected function keyDownHandler(event:KeyboardEvent) : void
-    {
+    {        
         if (!isTextInputInFocus)
-        {
-            //trace("ComboBox.keyDownHandler code",event.keyCode,"IGNORED");
             keyDownHandlerHelper(event);
-        }
-        
-        // No op. ComboBox listens for keyboard events in the capture phase
     }
     
     /**
      *  @private 
      */ 
     protected function capture_keyDownHandler(event:KeyboardEvent):void
-    {
+    {        
         if (isTextInputInFocus)
-        {
-            //trace("ComboBox.capture_keyDownHandler code",event.keyCode);
             keyDownHandlerHelper(event);
-        }
     }
     
     /**
@@ -843,10 +791,6 @@ public class ComboBox extends DropDownListBase
     
         userTypedIntoText = true;
         
-        //var ito:InsertTextOperation = event.operation as InsertTextOperation;
-        
-        //trace("CB.textInput_changeHandler flow operation",event.operation,"text", ito ? ito.text : '');
-        
         var operation:FlowOperation = event.operation;
 
         // Close the dropDown if we press delete or cut the selected text
@@ -861,7 +805,6 @@ public class ComboBox extends DropDownListBase
                 if (!isDropDownOpen)
                 {
                     // Open the dropDown if it isn't already open
-                    //trace("CB dropDown closed. processInputField delayed");
                     openDropDown();
                     addEventListener(DropDownEvent.OPEN, editingOpenHandler);
                     return;
@@ -877,12 +820,9 @@ public class ComboBox extends DropDownListBase
      */ 
     private function editingOpenHandler(event:DropDownEvent):void
     {
-        //trace("CB calling delayed processInputField");
         removeEventListener(DropDownEvent.OPEN, editingOpenHandler);
         processInputField();
     }
-    
-    
         
 }
 }
