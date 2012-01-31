@@ -393,9 +393,9 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
         if (!value || value == "")
             return;
 
-        // Since Halo and Gumbo share the same automaticRadioButtonGroups slot in
-        // UIComponent, the Gumbo group names are decorated with a prefix to
-        // differentiate.  Gumbo group names can not start with the prefix.
+        // Since Halo and Spark share the same automaticRadioButtonGroups slot in
+        // UIComponent, the Spark group names are decorated with a prefix to
+        // differentiate.  Spark group names can not start with the prefix.
         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
         {
             const FX_GROUP_NAME_PREFIX:String = "_fx_";
