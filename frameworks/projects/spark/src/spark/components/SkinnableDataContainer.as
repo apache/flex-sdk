@@ -29,7 +29,7 @@ import mx.managers.IFocusManagerContainer;
  * data content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class FxDataComponent extends FxContainerBase
+public class FxDataContainer extends FxContainerBase
 {
     include "../core/Version.as";
 
@@ -42,7 +42,7 @@ public class FxDataComponent extends FxContainerBase
     /**
      *  Constructor. 
      */
-	public function FxDataComponent()
+	public function FxDataContainer()
 	{
 		super();
 		
