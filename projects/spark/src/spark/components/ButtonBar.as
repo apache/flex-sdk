@@ -221,7 +221,7 @@ public class FxButtonBar extends FxListBase
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var index:int = dataGroup.mx_internal::getItemIndexForRenderer(
+        var index:int = dataGroup.getItemIndexForRenderer(
                             event.currentTarget as IVisualElement);
 		
 		selectedIndex = index;
@@ -239,7 +239,7 @@ public class FxButtonBar extends FxListBase
 		var renderer:Object;
 
 		currentButton = focusManager.getFocus();
-		index = dataGroup.mx_internal::getItemIndexForRenderer(
+		index = dataGroup.getItemIndexForRenderer(
 		              currentButton as IVisualElement);
 
 		var n:int = dataProvider.length;
@@ -270,7 +270,7 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.mx_internal::getItemIndexForRenderer(
+		        index = dataGroup.getItemIndexForRenderer(
 		                  currentButton as IVisualElement);
 				if (index > 0)
 				{
@@ -285,7 +285,7 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.mx_internal::getItemIndexForRenderer(
+		        index = dataGroup.getItemIndexForRenderer(
 		                  currentButton as IVisualElement);
 				if (index < dataProvider.length - 1)
 				{
