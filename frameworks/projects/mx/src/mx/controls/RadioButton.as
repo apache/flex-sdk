@@ -69,12 +69,14 @@ include "../styles/metadata/IconColorStyles.as"
  *  The RadioButton control lets the user make a single choice
  *  within a set of mutually exclusive choices.
  *  A RadioButton group is composed of two or more RadioButton controls
- *  with the same <code>groupName</code> property.
- *  The RadioButton group can refer to a group created by the
+ *  with the same <code>groupName</code> property. While grouping RadioButton instances
+ *  in a RadioButtonGroup is optional, a group lets you do things 
+ *  like set a single event handler on a group of buttons, rather than
+ *  on each individual button. The RadioButton group can refer to a group created by the
  *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag.
  *  The user selects only one member of the group at a time.
  *  Selecting an unselected group member deselects the currently selected
- *  RadioButton control within that group.
+ *  RadioButton control within that group. 
  *
  *  <p>The RadioButton control has the following default characteristics:</p>
  *     <table class="innertable">
