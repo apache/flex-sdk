@@ -365,9 +365,9 @@ public class RichText extends TextBase implements IFontContextComponent
 
     /**
      *  @private
-     *  Holds the last recorded value of the textFlow generation.  Used to
-     *  determine whether to return immediately from damage event if there 
-     *  have been no changes.
+     *  Holds the last recorded value of the textFlow generation for _textFlow.  
+     *  Used to determine whether to return immediately from damage event if 
+     *  there have been no changes.
      */
     private var lastGeneration:uint = 0;    // 0 means not set
         
@@ -424,7 +424,10 @@ public class RichText extends TextBase implements IFontContextComponent
         	// If 'content' was last set,
         	// we have to first turn that into a TextFlow.
         	if (_content != null)
+            {
 	        	_textFlow = createTextFlowFromContent(_content);
+                lastGeneration = _textFlow.generation;
+            }
 	        		
             // Once we have a TextFlow, we can export its plain text.
             _text = staticPlainTextExporter.export(
@@ -690,6 +693,8 @@ public class RichText extends TextBase implements IFontContextComponent
 				_textFlow = createTextFlowFromContent(_content);
 			else
 				_textFlow = staticPlainTextImporter.importToFlow(_text);
+            
+            lastGeneration = _textFlow ? _textFlow.generation : 0;
 		}
 		
 		return _textFlow;
@@ -1066,16 +1071,19 @@ public class RichText extends TextBase implements IFontContextComponent
      */
     private function textFlow_damageHandler(event:DamageEvent):void
     {
-        //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
-                
-        // No changes so don't recompose.  The TextFlowFactory 
+        // If the target is the current textFlow then check the generation.
+        // If there are no changes, don't recompose.  The TextFlowFactory
         // createTextLines dispatches damage events every time the textFlow
         // is composed, even if there are no changes.
-        if (_textFlow.generation == lastGeneration)
-            return;
+        if (TextFlow(event.target) == _textFlow)
+        { 
+            if (_textFlow.generation == lastGeneration)
+                return;
+            
+            // Update the last know generation for _textFlow.
+            lastGeneration = _textFlow.generation;
+        }
 
-        lastGeneration = _textFlow.generation;
-                
         // Invalidate _text and _content.
         _text = null;
         _content = null;
