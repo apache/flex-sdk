@@ -20,6 +20,7 @@ import mx.core.Container;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 
 use namespace mx_internal;
@@ -166,40 +167,6 @@ public class Form extends Container
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class properties
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static var classInitialized:Boolean = false;
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 *  This method gets called once at first instance construction
-	 *  rather than during class initialization.
-	 *  In order for calls to StyleManager methods to work,
-	 *  the factory class for the application or module
-	 *  must have already registered StyleManagerImpl with Singleton.
-	 *  This may not be the case at class initialization time.
-	 */
-	private static function initializeClass():void
-	{
-		StyleManager.registerInheritingStyle("labelWidth");
-		StyleManager.registerSizeInvalidatingStyle("labelWidth");
-		StyleManager.registerInheritingStyle("indicatorGap");
-		StyleManager.registerSizeInvalidatingStyle("indicatorGap");
-	}
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -218,12 +185,11 @@ public class Form extends Container
     {
         super();
         
-		if (!classInitialized)
-		{
-			initializeClass();
-			classInitialized = true;
-		}
-
+        styleManager.registerInheritingStyle("labelWidth");
+        styleManager.registerSizeInvalidatingStyle("labelWidth");
+        styleManager.registerInheritingStyle("indicatorGap");
+        styleManager.registerSizeInvalidatingStyle("indicatorGap");
+        
         showInAutomationHierarchy = true;
         
         layoutObject.target = this;
@@ -432,7 +398,7 @@ public class Form extends Container
         // that is known to affect layout.
         if (!styleProp ||
             styleProp == "styleName" ||
-            StyleManager.isSizeInvalidatingStyle(styleProp))
+            styleManager.isSizeInvalidatingStyle(styleProp))
         {
             invalidateLabelWidth();
         }
