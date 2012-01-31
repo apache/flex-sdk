@@ -46,6 +46,8 @@ package spark.effects.easing
  *    easeOutFraction="0"
  *   /&gt;
  *  </pre>
+ *
+ *  @includeExample examples/LinearEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
