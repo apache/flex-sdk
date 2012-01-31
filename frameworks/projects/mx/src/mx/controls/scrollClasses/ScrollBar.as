@@ -122,6 +122,19 @@ include "../../styles/metadata/SkinStyles.as"
 [Style(name="downArrowUpSkin", type="Class", inherit="no")]
 
 /**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a ScrollBar button.
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Name of the class to use as the default skin for the down arrow button of 
  *  the scroll bar. 
  *  
