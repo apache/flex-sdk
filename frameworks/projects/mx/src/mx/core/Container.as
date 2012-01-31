@@ -42,7 +42,7 @@ import mx.events.IndexChangedEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.events.ScrollEventDirection;
-import mx.graphics.RoundedRectangle;
+import mx.geom.RoundedRectangle;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
