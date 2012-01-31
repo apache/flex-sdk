@@ -78,6 +78,8 @@ public class TextGraphicElement extends GraphicElement
     public function TextGraphicElement()
     {
         super();
+        
+        dir = "ltr";
 
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
