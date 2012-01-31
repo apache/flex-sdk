@@ -14,6 +14,7 @@ package mx.graphics.baseClasses
 
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Rectangle;
@@ -149,21 +150,9 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    override public function get needsDisplayObject():Boolean
+    override public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
     {
-        return true;
-    }
-    
-    //----------------------------------
-    //  nextSiblingNeedsDisplayObject
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get nextSiblingNeedsDisplayObject():Boolean
-    {
-        return true;
+        return false;
     }
     
     //--------------------------------------------------------------------------
