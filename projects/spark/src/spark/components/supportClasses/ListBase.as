@@ -32,8 +32,6 @@ import spark.utils.LabelUtil;
  - Add setCaretIndex protected setter
  	- Should set currentCaretIndex
  	- Call itemInCaret
-
-
 */
     
 /**
