@@ -16,17 +16,19 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
+import flashx.textLayout.events.SelectionEvent;
+import flashx.textLayout.formats.LineBreak;
+
+import mx.core.IIMESupport;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.managers.IFocusManagerComponent;
+
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionVisibility;
 import spark.components.RichEditableText;
-import mx.core.mx_internal;
-import mx.events.FlexEvent;
 import spark.events.TextOperationEvent;
-import mx.managers.IFocusManagerComponent;
 import spark.utils.MouseShieldUtil;
-
-import flashx.textLayout.events.SelectionEvent;
-import flashx.textLayout.formats.LineBreak;
 
 //--------------------------------------
 //  Events
@@ -105,7 +107,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextBase extends SkinnableComponent implements IFocusManagerComponent
+public class TextBase extends SkinnableComponent 
+    implements IFocusManagerComponent, IIMESupport
 {
     include "../../core/Version.as";
 
