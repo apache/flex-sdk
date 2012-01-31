@@ -13,7 +13,6 @@ package mx.components
 {
 import flash.events.MouseEvent;
 
-import mx.components.FxButton;
 import mx.components.IItemRenderer;
 import mx.core.mx_internal;
 
