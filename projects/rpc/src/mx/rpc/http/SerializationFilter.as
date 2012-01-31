@@ -37,7 +37,7 @@ use namespace mx_internal;
  * or you can statically register a SerializationFilter for a new result format.  If you
  * use this approach, simply by specifying the resultFormat you can use a pre-registered
  * SerializationFilter.  So for example, you might register a SerializationFilter for the
- * "json" type and can then use that filter by setting resultFormat="json".
+ * "json" type and can then use that filter by setting resultFormat="json".</p>
  * </p>
  * <p>
  * Note that HTTPService only provides methods which directly take the request body
