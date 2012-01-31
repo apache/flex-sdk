@@ -98,9 +98,14 @@ public class Skin extends Group implements IHighlightBitmapCaptureClient
 
     /**
      *  Called before a bitmap capture is made for this skin. The default implementation
-     *  excludes items in the focusSkinExclusions array.
+     *  excludes items in the <code>focusSkinExclusions</code> array.
      * 
-     *   @return <code>true</code> if the component must be redrawn. Otherwise, <code>false</code>.
+     *  @return <code>true</code> if the component must be redrawn. Otherwise, <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function beginHighlightBitmapCapture():Boolean
     {
@@ -163,9 +168,14 @@ public class Skin extends Group implements IHighlightBitmapCaptureClient
     
     /**
      *  Called after a bitmap capture is made for this skin. The default implementation 
-     *  restores the items in the focusSkinExclusions array.
+     *  restores the items in the <code>focusSkinExclusions</code> array.
      * 
-     *   @return <code>true</code> if the component must be redrawn. Otherwise, <code>false</code>.
+     *  @return <code>true</code> if the component must be redrawn. Otherwise, <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function endHighlightBitmapCapture():Boolean
     {
