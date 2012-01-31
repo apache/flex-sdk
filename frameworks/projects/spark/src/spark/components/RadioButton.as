@@ -374,16 +374,18 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
     /**
      *  @private
-     *  The radio button was added or removed from a radio button group.  This
-     *  may change the value of the button's enable property.
+     *  The radio button was added or removed from a radio button group or the
+     *  radio button group was enabled/disabled.  All of these events can impact
+     *  the skin state.
      */
-    mx_internal function invalidateRadioButtonState():void
+    mx_internal function invalidateRadioButtonState(always:Boolean = false):void
     {        
-        // If the state of the button combined with the group state is different
+        // Either always do the invalidate or check if the state of the button 
+        // combined with the group state is different.  If different,
         // invalidate the button which will cause the skin to be changed by
         // FxComponent.commitProperties() which uses skinStateIsDirty, enabled
         // and selected to determine if the skin should be changed.
-        if (super.enabled != enabled)
+        if (always || super.enabled != enabled)
             invalidateButtonState();
     }    
     
