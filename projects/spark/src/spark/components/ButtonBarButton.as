@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 import flash.events.MouseEvent;
 
-import mx.components.IItemRenderer;
+import spark.components.IItemRenderer;
 import mx.core.mx_internal;
 
 /**
@@ -21,7 +21,7 @@ import mx.core.mx_internal;
  *  and proxies the <code>label</code> property with the <code>data</code>
  *  property. Used in the default skin for the <code>ButtonBar</code>.
  */
-public class ButtonBarButton extends FxToggleButton implements IItemRenderer
+public class ButtonBarButton extends ToggleButton implements IItemRenderer
 {
     /**
      *  Constructor. 
