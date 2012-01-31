@@ -456,6 +456,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *    typographicCase="default"
  *  /&gt;
  *  </pre>
+ *
+ *  @includeExample examples/VideoPlayerExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
