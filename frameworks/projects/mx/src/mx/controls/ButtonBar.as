@@ -348,6 +348,7 @@ use namespace mx_internal;
         super();
 
         tabEnabled = true;
+        tabFocusEnabled = true;
 
         navItemFactory = new ClassFactory(ButtonBarButton);
 
@@ -794,7 +795,7 @@ use namespace mx_internal;
     {
         var newButton:Button = Button(navItemFactory.newInstance());
 
-        // Set tabEnabled to false so individual buttons don't get focus.
+        // Set focusEnabled to false so individual buttons don't get focus.
         newButton.focusEnabled = false;
         newButton.label = label;
         newButton.setStyle("icon", icon);
