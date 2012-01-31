@@ -34,6 +34,8 @@ package mx.containers
 
 [IconFile("VBox.png")]
 
+[Alternative(replacement="spark.components.VGroup", since="4.0")]
+
 /**
  *  The Halo VBox container lays out its children in a single vertical column.
  *  You use the <code>&lt;mx:VBox&gt;</code> tag instead of the
