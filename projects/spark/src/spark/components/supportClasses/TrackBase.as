@@ -365,20 +365,6 @@ public class TrackBase extends Range
     {
         return minimum;
     }
-        
-
-    /**
-     *  @private
-     */
-    override public function changeValueByStep(increase:Boolean = true):void
-    {
-        var prevValue:Number = this.value;
-
-        super.changeValueByStep(increase);
-        
-        if (value != prevValue)
-            dispatchEvent(new Event(Event.CHANGE));
-    }
 
     /**
      *  @private   
@@ -555,6 +541,8 @@ public class TrackBase extends Range
         
         clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
+
+		dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
     }
 
     /**
@@ -575,7 +563,6 @@ public class TrackBase extends Range
         {
             setValue(newValue); 
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
-            dispatchEvent(new Event(Event.CHANGE));   
         }
     
         event.updateAfterEvent();
@@ -595,6 +582,8 @@ public class TrackBase extends Range
             system_mouseUpHandler);
         
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_RELEASE));
+		
+		dispatchEvent(new Event(Event.CHANGE));
     }
 
     //---------------------------------
