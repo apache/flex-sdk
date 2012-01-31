@@ -26,8 +26,8 @@ import spark.effects.supportClasses.WipeInstance;
  *  that is loaded by the effect. If you want to use 
  *  a different Wipe behavior, you can specify a custom pixel-shader program 
  *  as long as it adheres to the following constraints: 
- *  obey the constraints specified for the <code>shaderCode</code>
- *  property of AnimateShaderTransition class, and supply three additional
+ *  obey the constraints specified for the <code>shaderByteCode</code>
+ *  property of AnimateTransitionShader class, and supply three additional
  *  parameters. The extra parameters required by the Wipe shader 
  *  are an int <code>direction</code> parameter, 
  *  whose values mean the same as the related String properties
@@ -52,8 +52,8 @@ import spark.effects.supportClasses.WipeInstance;
  *  </pre>
  *  
  *  @see spark.effects.WipeDirection
- *  @see spark.effects.AnimateShaderTransition
- *  @see spark.effects.AnimateShaderTransition#shaderCode
+ *  @see spark.effects.AnimateTransitionShader
+ *  @see spark.effects.AnimateTransitionShader#shaderByteCode
  *  @see spark.effects.supportClasses.WipeInstance
  *  
  *  @langversion 3.0
@@ -61,7 +61,7 @@ import spark.effects.supportClasses.WipeInstance;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Wipe extends AnimateShaderTransition
+public class Wipe extends AnimateTransitionShader
 {
     [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
     private static var WipeShaderClass:Class;
@@ -102,7 +102,7 @@ public class Wipe extends AnimateShaderTransition
     {
         super(target);
         instanceClass = WipeInstance;
-        shaderCode = wipeShaderCode;
+        shaderByteCode = wipeShaderCode;
     }
 
     /**
