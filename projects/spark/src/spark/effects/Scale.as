@@ -76,6 +76,15 @@ public class AnimateTransformScale extends AnimateTransform
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  affectLayout
+    //----------------------------------
+    [Inspectable(category="General")]
+    /** 
+     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     */
+    public var affectLayout:Boolean = true;
+    
+    //----------------------------------
     //  scaleYFrom
     //----------------------------------
 
@@ -205,8 +214,16 @@ public class AnimateTransformScale extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("scaleX", scaleXFrom, scaleXTo, scaleXBy);
-        addMotionPath("scaleY", scaleYFrom, scaleYTo, scaleYBy);
+        if(affectLayout)
+        {
+            addMotionPath("scaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addMotionPath("scaleY", scaleYFrom, scaleYTo, scaleYBy);
+        }
+        else
+        {
+            addPostLayoutMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addPostLayoutMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
+        }
         super.initInstance(instance);
     }    
 }
