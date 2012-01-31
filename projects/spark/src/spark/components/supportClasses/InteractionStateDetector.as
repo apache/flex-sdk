@@ -12,7 +12,6 @@
 package spark.components.supportClasses
 {
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.MouseEvent;
@@ -21,10 +20,12 @@ import flash.utils.Timer;
 
 import mx.core.InteractionMode;
 import mx.core.UIComponent;
-import mx.events.FlexEvent;
+import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.ISystemManager;
+
+use namespace mx_internal;
 
 /**
  *  Dispatched after the state has changed.
@@ -41,6 +42,9 @@ import mx.managers.ISystemManager;
 /**
  *  A helper class for components to use to help them determine 
  *  if they should be in the up, over, or down states.
+ * 
+ *  <p>As the state changes, if the transition should play, the 
+ *  playTransitions 
  * 
  *  @see spark.components.supportClasses.InteractionState
  *  
@@ -98,6 +102,23 @@ public class InteractionStateDetector extends EventDispatcher
      *  the renderer was actually selected.
      */
     private var mouseUpDeselectTimer:Timer;
+	
+	/**
+	 *  @private
+	 *  Whether the component using this InteractionStateDetector should 
+	 *  play transitions on a particular state change.
+	 * 
+	 *  <p>This could be moved to the CHANGE event itself, but 
+	 *  seeing as we don't have a formal mechanism for dealing with ItemRenderer
+	 *  transitions in the first place, this seems like an acceptable solution.<p>
+	 * 
+	 *  <p>Currently, InteractionStateDetector is the one who would know whether a 
+	 *  transition should play or not because it knows how it got in to a particular 
+	 *  state and that's what we use to determine whether transitions play or not.  
+	 *  For instance, if a scroll starts while you're in the down state, that should 
+	 *  cancel the down state and not play a transition.</p>
+	 */
+	mx_internal var playTransitions:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -384,13 +405,21 @@ public class InteractionStateDetector extends EventDispatcher
                 // if the user rolls over while holding the mouse button
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
+				
+				// if rolling back over it, turn off transitions
+				if (mouseCaptured)
+					playTransitions = false;
                 hovered = true;
+				playTransitions = true;
                 break;
             }
                 
             case MouseEvent.ROLL_OUT:
             {
+				// when rolled out, turn off transitions
+				playTransitions = false;
                 hovered = false;
+				playTransitions = true;
                 break;
             }
                 
@@ -427,11 +456,9 @@ public class InteractionStateDetector extends EventDispatcher
                 
             case MouseEvent.MOUSE_UP:
             {
-				// FIXME (rfrishbe): we should be setting hovered=true here just like Button does.
-                // we're only not doing it as a temporary thing so tests don't break.  The reason it should 
-                // be true is because if someone hovers over us with the mousedown and then releases up,
-                // the item they release up on should be hovered.
-                //setHovered(true);
+				// If someone mouses up on us, then they must be hovered over 
+				// us now.
+                hovered = true;
                 
                 if (mouseCaptured)
                 {
@@ -495,8 +522,13 @@ public class InteractionStateDetector extends EventDispatcher
         stopSelectRendererAfterDelayTimer();
         
         // cancel the rollover/clickdown on and go back to a normal state
+		
+		// turn off transitions for this change because it's really cancelling the 
+		// the down state
+		playTransitions = false;
         hovered = false;
         mouseCaptured = false;
+		playTransitions = true;
     }
     
     /**
