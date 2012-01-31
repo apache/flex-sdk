@@ -173,7 +173,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     /**
      *  @inheritDoc
      */
-    override protected function getUpdatedSkinState():String
+    override protected function getCurrentSkinState():String
     {
         return enabled ? "normal" : "disabled";
     }
