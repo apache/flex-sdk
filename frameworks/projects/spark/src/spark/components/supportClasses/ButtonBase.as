@@ -142,7 +142,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ButtonBase
+ *  &lt;s:ButtonBase
  *    <strong>Properties</strong>
  *    autoRepeat="false"
  *    content="null"
@@ -588,31 +588,31 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //----------------------------------
     //  keepDown
     //----------------------------------
-	private var _keepDown:Boolean = false;
-	
-	/**
+    private var _keepDown:Boolean = false;
+    
+    /**
      *  @private
      *  If true, forces the button to be in the down state
      */
-	mx_internal function set keepDown(value:Boolean):void
-	{
-		if (_keepDown == value)
-			return;
-		
-		_keepDown = value;
-		if (_keepDown)
-			invalidateSkinState();
-		else
-			invalidateButtonState();
-	}
-	
-	/**
+    mx_internal function set keepDown(value:Boolean):void
+    {
+        if (_keepDown == value)
+            return;
+        
+        _keepDown = value;
+        if (_keepDown)
+            invalidateSkinState();
+        else
+            invalidateButtonState();
+    }
+    
+    /**
      *  @private
      */
-	mx_internal function get keepDown():Boolean
-	{
-		return _keepDown;	
-	}
+    mx_internal function get keepDown():Boolean
+    {
+        return _keepDown;   
+    }
 
 
     //--------------------------------------------------------------------------
@@ -694,8 +694,8 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (!enabled)
             return false;
 
-		if (keepDown)
-			return true;
+        if (keepDown)
+            return true;
 
         if (keyboardPressed)
             return true;
