@@ -391,7 +391,7 @@ public class AbstractWebService extends AbstractService
      * @param qname QName of the SOAPHeader.
      * @param headerName (Optional) Name of a header in the SOAPHeader content.
      *
-     * @return A header if a match is found based on QName, localName, and URI.
+     * @return Returns a header if a match is found based on QName, localName, and URI.
      */
     public function getHeader(qname:QName, headerName:String = null):SOAPHeader
     {
