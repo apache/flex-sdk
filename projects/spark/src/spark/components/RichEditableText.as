@@ -20,33 +20,37 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
+import flashx.tcal.compose.ITCALDisplayController;
+import flashx.tcal.compose.StandardDisplayController;
+import flashx.tcal.container.DisplayObjectContainerController;
+import flashx.tcal.container.IContainerController;
+import flashx.tcal.conversion.TextFilter;
+import flashx.tcal.conversion.ConversionType;
+import flashx.tcal.edit.EditManager;
+import flashx.tcal.edit.ISelectionManager;
+import flashx.tcal.elements.FlowElement;
+import flashx.tcal.elements.ParagraphElement;
+import flashx.tcal.elements.SpanElement;
+import flashx.tcal.elements.TextFlow;
+import flashx.tcal.events.CompositionCompletionEvent;
+import flashx.tcal.events.FlowOperationEvent;
+import flashx.tcal.events.SelectionEvent;
+import flashx.tcal.formats.CharacterFormat;
+import flashx.tcal.formats.ContainerFormat;
+import flashx.tcal.formats.ICharacterFormat;
+import flashx.tcal.formats.IContainerFormat;
+import flashx.tcal.formats.IParagraphFormat;
+import flashx.tcal.formats.ParagraphFormat;
+import flashx.tcal.operations.ApplyFormatOperation;
+import flashx.tcal.operations.FlowOperation;
+import flashx.tcal.operations.SplitParagraphOperation;
+
 import flex.events.TextOperationEvent;
 import flex.intf.IViewport;
 import flex.utils.TextUtil;
 
 import mx.core.UIComponent;
 import mx.events.FlexEvent;
-
-import text.container.IContainerController;
-import text.edit.EditManager;
-import text.edit.ISelectionManager;
-import text.elements.FlowElement;
-import text.elements.ParagraphElement;
-import text.elements.SpanElement;
-import text.elements.TextFlow;
-import text.events.CompositionCompletionEvent;
-import text.events.FlowOperationEvent;
-import text.events.SelectionEvent;
-import text.formats.CharacterFormat;
-import text.formats.ContainerFormat;
-import text.formats.ICharacterFormat;
-import text.formats.IContainerFormat;
-import text.formats.IParagraphFormat;
-import text.formats.ParagraphFormat;
-import text.importExport.TextFilter;
-import text.operations.ApplyFormatOperation;
-import text.operations.FlowOperation;
-import text.operations.SplitParagraphOperation;
 
 //--------------------------------------
 //  Events
@@ -600,23 +604,20 @@ public class TextView extends UIComponent implements IViewport
         if (textChanged || contentChanged || textAttributeChanged)
         {
             // Eliminate detritus from the previous TextFlow.
-            if (textFlow)
-            {
-                var controller:IContainerController = textFlow.controller;
-                if (controller)
-                {
-                    controller.clearAllSelectionShapes();
-                    controller.clearCompositionResults();
-                    controller.rootElement = null;
-                }
-                textFlow.container = null;
-            }
+            if (textFlow && textFlow.displayController)
+                textFlow.displayController.containerControllerList = null;
 
             // Create a new TextFlow for the current text.
             _content = textFlow = createTextFlow();
                         
             // Tell it where to create its TextLines.
-            textFlow.container = this;
+            textFlow.displayController = new StandardDisplayController();
+            var containerControllers:Vector.<IContainerController> =
+                new Vector.<IContainerController>();
+            containerControllers.push(
+                new DisplayObjectContainerController(this));
+            textFlow.displayController.containerControllerList =
+                containerControllers;
             
             // Give it an EditManager to make it editable.
             textFlow.interactionManager = new TextViewEditManager(); 
@@ -639,16 +640,19 @@ public class TextView extends UIComponent implements IViewport
             selectionActivePositionChanged = false;
         }
 
+        var containerController:IContainerController =
+            textFlow.displayController.getContainerControllerAt(0);
+        
         if (horizontalScrollPositionChanged)
         {
-            textFlow.controller.horizontalScrollPosition =
+            containerController.horizontalScrollPosition =
                 _horizontalScrollPosition;
             horizontalScrollPositionChanged = false;
         }
 
         if (verticalScrollPositionChanged)
         {
-            textFlow.controller.verticalScrollPosition =
+            containerController.verticalScrollPosition =
                 _verticalScrollPosition;
             verticalScrollPositionChanged = false;
         }
@@ -693,8 +697,12 @@ public class TextView extends UIComponent implements IViewport
         
         // Tell the TextFlow to generate TextLines within the
         // rectangle (0, 0, unscaledWidth, unscaledHeight).
-        textFlow.controller.updateComposeSize(unscaledWidth, unscaledHeight);
-        textFlow.controller.updateDisplay();
+        var displayController:ITCALDisplayController =
+            textFlow.displayController;
+        var containerController:IContainerController =
+            displayController.getContainerControllerAt(0);
+        containerController.updateComposeSize(unscaledWidth, unscaledHeight);
+        displayController.updateDisplay();
     }
 
     //--------------------------------------------------------------------------
@@ -756,7 +764,7 @@ public class TextView extends UIComponent implements IViewport
 			    '<content>' + markup + '</content>' +
 			'</TextGraphic>';
 		
-		return TextFilter.importFromString(markup, TextFilter.FXG_FORMAT);
+		return TextFilter.importToFlow(markup, TextFilter.FXG_FORMAT);
 	}
 
 	/**
@@ -802,7 +810,7 @@ public class TextView extends UIComponent implements IViewport
 		    {
 			    if (text != null && text != "")
 			    {
-				    textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
+				    textFlow = TextFilter.importToFlow(text, TextFilter.PLAIN_TEXT_FORMAT);
 			    }
 			    else
 			    {
@@ -934,7 +942,8 @@ public class TextView extends UIComponent implements IViewport
      */
     public function export():XML
     {
-        return TextFilter.export(textFlow, TextFilter.TCAL_FORMAT).children()[0];
+        return TextFilter.export(textFlow, TextFilter.TCAL_FORMAT,
+                                 ConversionType.XML_TYPE).children()[0];
     }
 
     /**
@@ -1090,10 +1099,13 @@ public class TextView extends UIComponent implements IViewport
     private function textFlow_compositionCompleteHandler(
                                     event:CompositionCompletionEvent):void
     {
+        var containerController:IContainerController =
+            textFlow.displayController.getContainerControllerAt(0);
+
         var newContentWidth:Number =
-            textFlow.controller.maxHorizontalScrollPosition;
+            containerController.maxHorizontalScrollPosition;
         var newContentHeight:Number =
-            textFlow.controller.maxVerticalScrollPosition;
+            containerController.maxVerticalScrollPosition;
         
         if (newContentWidth != _contentWidth ||
             newContentHeight != _contentHeight)
@@ -1112,10 +1124,13 @@ public class TextView extends UIComponent implements IViewport
      */
     private function textFlow_scrollHandler(event:Event):void
     {
+        var containerController:IContainerController =
+            textFlow.displayController.getContainerControllerAt(0);
+
         var newHorizontalScrollPosition:Number =
-            textFlow.controller.horizontalScrollPosition;
+            containerController.horizontalScrollPosition;
         var newVerticalScrollPosition:Number =
-            textFlow.controller.verticalScrollPosition;
+            containerController.verticalScrollPosition;
 
         if (newHorizontalScrollPosition != _horizontalScrollPosition ||
             newVerticalScrollPosition != _verticalScrollPosition)
@@ -1210,8 +1225,8 @@ public class TextView extends UIComponent implements IViewport
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-import text.edit.EditManager;
-import text.operations.FlowOperation;
+import flashx.tcal.edit.EditManager;
+import flashx.tcal.operations.FlowOperation;
 
 class TextViewEditManager extends EditManager
 {
