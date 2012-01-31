@@ -74,7 +74,6 @@ public class DataGridHeader extends DataGridHeaderBase
         addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
         addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
         addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
     }
 
     /**
@@ -1239,6 +1238,9 @@ public class DataGridHeader extends DataGridHeaderBase
         var s:Sprite;
         var i:int;
 
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler, false, 0, true);
+
         // find out if we hit the sort arrow
         s = Sprite(getChildByName("sortArrowHitArea"));
 
@@ -1320,6 +1322,9 @@ public class DataGridHeader extends DataGridHeaderBase
         var n:int;
         var i:int;
 
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
+
         // find out if we hit the sort arrow
         s = Sprite(getChildByName("sortArrowHitArea"));
 
@@ -1373,6 +1378,12 @@ public class DataGridHeader extends DataGridHeaderBase
                 }
             }
         }
+    }
+
+    private function mouseLeaveHandler(event:Event):void
+    {
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
     }
 
     mx_internal function _placeSortArrow():void
