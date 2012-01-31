@@ -680,7 +680,7 @@ public class DropDownListBase extends List
     /**
      *  @private
      */ 
-    override protected function findKey(eventCode:int):Boolean
+    override mx_internal function findKey(eventCode:int):Boolean
     {
         if (!dataProvider || dataProvider.length == 0)
             return false;
