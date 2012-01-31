@@ -49,7 +49,7 @@ public class Power extends EaseInOutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private var _exponent:int;
+    private var _exponent:Number;
     /**
      *  The exponent used in the easing calculation. 
      *  The higher the value of the <code>exponent</code> property, 
@@ -66,11 +66,11 @@ public class Power extends EaseInOutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get exponent():int
+    public function get exponent():Number
     {
         return _exponent;
     }
-    public function set exponent(value:int):void
+    public function set exponent(value:Number):void
     {
         _exponent = value;
     }
@@ -88,13 +88,14 @@ public class Power extends EaseInOutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Power(easeInFraction:Number = .5, exponent:Number = 2)
+    public function Power(easeInFraction:Number = 0.5, exponent:Number = 2)
     {
         super(easeInFraction);
         this.exponent = exponent;
     }
 
     /**
+     *  @private
      *  Returns a value that represents the eased fraction during the 
      *  ease in phase of the animation. 
      *  The easing calculation for Power is equal to 
@@ -117,10 +118,11 @@ public class Power extends EaseInOutBase
     }
     
     /**
+     *  @private 
      *  Returns a value that represents the eased fraction during the 
      *  ease out phase of the animation. 
      *  The easing calculation for Power is equal to 
-     * <code>1 - ((1-fraction)^^exponent)</code>.
+     *  <code>1 - ((1-fraction)^^exponent)</code>.
      *
      *  @param fraction The fraction elapsed of the easing out phase
      *  of the animation, between 0.0 and 1.0.
