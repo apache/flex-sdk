@@ -20,7 +20,32 @@ import mx.core.ScrollPolicy;
 
 	
 [DefaultProperty("viewport")]
-	
+
+/**
+ *  Support for a displaying a single scrollable component, called a
+ *  "viewport", and a pair of scrollbars.
+ *
+ *  The viewport must implement IViewport.  Group and [TBD] implement
+ *  IViewport.
+ * 
+ *  The scrollbars control the viewport's horizontalScrollPosition and
+ *  verticalScrollPosition properties to make it possible to view the area
+ *  defined by the viewport's contentWidth and contentHeight.
+ * 
+ *  Scroller links the scrollbars' pageSize to the viewport's
+ *  width and height, and their maximum property to the viewport's
+ *  contentWidth and Height less the pageSize.
+ *       
+ *  <p>
+ *  The scrollbars are displayed per the vertical and horizontal scrollbar
+ *  policy properties, which can be "auto", "on", or "off".
+ *  
+ *  The auto policy means that the scrollbar will be visible and included
+ *  in the Scroller's layout when the scrollable container's content is
+ *  larger than the scrollable contiainer itself.
+ *  </p>
+ */
+
 public class Scroller extends SkinnableComponent
 {
     include "../core/Version.as";
@@ -30,7 +55,10 @@ public class Scroller extends SkinnableComponent
     //  Constructor
     //
     //--------------------------------------------------------------------------
-        
+    
+    /**
+     * @private
+     */
 	public function Scroller()
 	{
 		super();
@@ -41,6 +69,15 @@ public class Scroller extends SkinnableComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    private function invalidateSkin():void
+    {
+        if (skinObject)
+        {
+            skinObject.invalidateSize()
+            skinObject.invalidateDisplayList();           
+        }
+    }    
     
     //----------------------------------
     //  horizontalScrollBar
@@ -64,11 +101,20 @@ public class Scroller extends SkinnableComponent
     
     [Bindable]
     
+	/**
+	 *  The viewport component to be scrolled.
+	 * 
+	 *  The viewport is added to the Scroller's skin which lays out
+	 *  both the viewport and scrollbars.
+	 */
     public function get viewport():IViewport
     {       
         return _viewport;
     }
     
+    /**
+     *  @private
+     */
     public function set viewport(value:IViewport):void
     {
         if (value == _viewport)
@@ -101,14 +147,35 @@ public class Scroller extends SkinnableComponent
     //  verticalScrollPolicy
     //----------------------------------
 
-    /**
-     *  @private
-     */
     private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
-    
-    /**
-     *  Documentation is not currently available.
-     */
+
+    [Bindable]
+    [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
+	        
+	/**
+	 *  Indicates under what conditions the vertical scrollbar is displayed.
+	 * 
+	 *  <ul>
+	 *  <li>
+	 *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+	 *  </li> 
+	 *  <li>
+	 *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+	 *  The viewport can still be scrolled programatically, by setting its
+	 *  verticalScrollPosition property.
+	 *  </li>
+	 *  <li>
+	 *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+	 *  the viewport's contentHeight is larger than its height.
+	 *  </li>
+	 *  </ul>
+	 * 
+	 *  <p>
+	 *  The scroll policy affects the measured size of the Scroller.
+	 *  </p>
+	 * 
+	 *  @default ScrollPolicy.AUTO
+	 */ 
     public function get verticalScrollPolicy():String
     {
         return _verticalScrollPolicy;
@@ -123,11 +190,7 @@ public class Scroller extends SkinnableComponent
             return;
 
         _verticalScrollPolicy = value;
-        if (skinObject)
-        {
-            skinObject.invalidateSize();
-            skinObject.invalidateDisplayList();
-        }
+        invalidateSkin();
     }
     
 
@@ -135,14 +198,35 @@ public class Scroller extends SkinnableComponent
     //  horizontalScrollPolicy
     //----------------------------------
 
-    /**
-     *  @private
-     */
     private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
     
-    /**
-     *  Documentation is not currently available.
-     */
+    [Bindable]
+    [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
+
+	/**
+	 *  Indicates under what conditions the horizontal scrollbar is displayed.
+	 * 
+	 *  <ul>
+	 *  <li>
+	 *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+	 *  </li> 
+	 *  <li>
+	 *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+	 *  The viewport can still be scrolled programatically, by setting its
+	 *  horizontalScrollPosition property.
+	 *  </li>
+	 *  <li>
+	 *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+	 *  the viewport's contentWidth is larger than its width.
+	 *  </li>
+	 *  </ul>
+	 * 
+	 *  <p>
+	 *  The scroll policy affects the measured size of the Scroller.
+	 *  </p>
+	 * 
+	 *  @default ScrollPolicy.AUTO
+	 */ 
     public function get horizontalScrollPolicy():String
     {
         return _horizontalScrollPolicy;
@@ -157,11 +241,7 @@ public class Scroller extends SkinnableComponent
             return;
 
         _horizontalScrollPolicy = value;
-        if (skinObject)
-        {
-        	skinObject.invalidateSize();
-            skinObject.invalidateDisplayList();
-        }
+        invalidateSkin();
     }
     
 
@@ -170,13 +250,21 @@ public class Scroller extends SkinnableComponent
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-    
+   
+	/**
+	 *  Called when the vertical scrollbar value changes; updates 
+	 *  the viewport's verticalScrollPosition.
+	 */
     protected function vsb_valueCommitHandler(event:Event):void
     {
         if (viewport)
             viewport.verticalScrollPosition = verticalScrollBar.value;    	
     }
-    
+	
+	/**
+	 *  Called when the horizontal scrollbar value changes; updates 
+	 *  the viewport's horizontalScrollPosition.
+	 */
     protected function hsb_valueCommitHandler(event:Event):void
     {
     	if (viewport)
@@ -196,22 +284,21 @@ public class Scroller extends SkinnableComponent
     	}
     }
     
+   /**
+    *  Called when the viewport's contentWidth changes; invalidates
+    *  the skin's size and display list.
+    */
     protected function viewportContentWidthChanged(event:PropertyChangeEvent):void
     {
-        if (skinObject)
-        {
-        	skinObject.invalidateSize()
-            skinObject.invalidateDisplayList();           
-        }
+    	invalidateSkin();
     }
-    
+	/**
+	 *  Called when the viewport's contentHeight changes; invalidates
+	 *  the skin's size and display list.
+	 */
     protected function viewportContentHeightChanged(event:PropertyChangeEvent):void
     {
-    	if (skinObject)
-    	{
-    		skinObject.invalidateSize();
-            skinObject.invalidateDisplayList();
-    	}
+        invalidateSkin();
     }
     
     //--------------------------------------------------------------------------
