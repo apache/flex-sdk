@@ -55,7 +55,7 @@ use namespace mx_internal;
 [Event(name="elementAdd", type="spark.events.ElementExistenceEvent")]
 
 /**
- *  Dispatched when a visual element is removed to the content holder.
+ *  Dispatched when a visual element is removed from the content holder.
  *  <code>event.element</code> is the visual element that's being removed.
  *
  *  @eventType spark.events.ElementExistenceEvent.ELEMENT_REMOVE
@@ -837,7 +837,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
-		super.partAdded(partName, instance);
+        super.partAdded(partName, instance);
 
         if (instance == contentGroup)
         {
@@ -916,7 +916,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-		super.partRemoved(partName, instance);
+        super.partRemoved(partName, instance);
 
         if (instance == contentGroup)
         {
