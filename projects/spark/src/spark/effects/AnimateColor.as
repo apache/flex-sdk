@@ -43,6 +43,7 @@ public class FxAnimateColor extends FxAnimate
     // Some objects have a 'color' style instead
     private static var RELEVANT_STYLES:Array = ["color"];
 
+    [Inspectable(category="General", format="Color")]
     /**
      * The starting color
      *  
@@ -53,6 +54,7 @@ public class FxAnimateColor extends FxAnimate
      */
     public var colorFrom:uint = StyleManager.NOT_A_COLOR;
     
+    [Inspectable(category="General", format="Color")]
     /**
      * The ending color
      *  
