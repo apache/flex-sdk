@@ -161,7 +161,7 @@ public class HSlider extends SliderBase
             var relX:Number = thumb.getLayoutBoundsX() - 
                                 (tipAsDisplayObject.width - thumb.getLayoutBoundsWidth()) / 2;
             var o:Point = new Point(relX, initialPosition.y);
-            var r:Point = localToGlobal(o);     
+            var r:Point = thumb.parent.localToGlobal(o);     
             
             // Get the screen bounds
             var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
