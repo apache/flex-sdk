@@ -709,6 +709,8 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @copy spark.components.RichEditableText#selectionHighlighting
      *  
+     *  @default TextSelectionHighlighting.WHEN_FOCUSED
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -880,13 +882,13 @@ public class SkinnableTextBase extends SkinnableComponent
         }
     }
     
-	/**
-	 *  @private
-	 */
-	override protected function getCurrentSkinState():String
-	{
+    /**
+     *  @private
+     */
+    override protected function getCurrentSkinState():String
+    {
         return enabled ? "normal" : "disabled";
-	}
+    }
 
     /**
      *  @private
