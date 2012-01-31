@@ -55,10 +55,10 @@ public class AbstractWebService extends AbstractService
      * DefaultHTTP destination. The <code>rootURL</code> is required if you
      * intend to use a relative URL find the WSDL document for this WebService.
      *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @param destination The destination. It should match a destination name 
+     *  in the services-config.xml file.
+     *
+     *  @param rootURL The URL that the WebService should use when computing relative URLs.
      */
     public function AbstractWebService(destination:String = null, rootURL:String = null)
     {
