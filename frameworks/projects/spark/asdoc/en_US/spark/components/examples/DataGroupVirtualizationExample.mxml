@@ -1,91 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark">
-	
-	<fx:Script>
-		<![CDATA[
-			import mx.collections.ArrayCollection;
-			
-			public function generateDataProvider(nItems:int = 10000):ArrayCollection {
-				var ac:ArrayCollection = new ArrayCollection();
-				
-				var sources:Array = ['San Francisco', 'New York', 'Vancouver', 'Denver', 'Hong Kong'];
-				var destinations:Array = ['London', 'Houston', 'Orlando', 'Los Angeles', 'Seattle'];
-				var airlines:Array = ['Air Southwest', 'Air Northwest', 'Yellow Jet', 'Blue Jet', 'Red Jet'];
-				var dates:Array = ['March 23-29', 'April 23-29', 'May 1-3', 'May 10-13', 'June 6'];
-				
-				// create a collection of random flights
-				for (var i:int = 0; i < nItems; i++){
-					var temp:Object = new Object();
-					var random:int = Math.random() * 5;
-					
-					temp.start = sources[random];
-					temp.end = destinations[random];
-					temp.details = dates[random] + ', ' + airlines[random] + " (Flight " + i + ")";
-					ac.addItem(temp);
-				}
-				
-				return ac;
-			
-			}
-		]]>
-	</fx:Script>
-	
-	<s:Scroller>
-		<s:DataGroup width="600" height="200" clipAndEnableScrolling="true" dataProvider="{generateDataProvider(9000)}">
-			<s:layout>
-				<s:VerticalLayout gap="1" useVirtualLayout="true" />
-			</s:layout>
-			<s:itemRenderer>
-				<fx:Component>
-					<s:ItemRenderer height="20" width="600">
-						<s:states>
-							<mx:State name="normal" />
-							<mx:State name="hovered" />
-							<mx:State name="selected" />		
-						</s:states>
-						
-						<s:transitions>
-							<mx:Transition fromState="normal" toState="hovered">
-								<s:Animate target="{plan}" duration="200">
-									<s:SimpleMotionPath property="width" />
-								</s:Animate>
-							</mx:Transition>
-							<mx:Transition fromState="hovered" toState="normal">
-								<s:Animate target="{plan}" duration="200" >
-									<s:SimpleMotionPath property="width" />
-								</s:Animate>
-							</mx:Transition>
-						</s:transitions>
-					
-						<s:Rect left="0" right="0" top="0" bottom="0" radiusX="5" radiusY="5">
-							<s:fill>
-								<mx:SolidColor color="#E1ECF4" />
-							</s:fill>
-						</s:Rect>
-					
-						<s:HGroup verticalAlign="middle">
-					
-							<s:Group id="plan" height="20" width.hovered="330" width="300">
-							
-								<s:Rect left="0" right="0" top="0" bottom="0" radiusX="5" radiusY="5">
-									<s:fill>
-										<mx:SolidColor id="handleFill" color="#65A3CE" color.hovered="#65A3FF" />
-									</s:fill>
-								</s:Rect>
-					
-								<s:SimpleText color="#FFFFFF" fontWeight="bold" left="20" verticalCenter="2" text="{data.start}" />
-								<s:SimpleText color="#FFFFFF" fontWeight="bold" right="20" textAlign="right" verticalCenter="2" text="{data.end}" />
-					
-							</s:Group>
-					
-							<s:SimpleText color="#32353f" fontSize="11" text="{data.details}" />
-						
-						</s:HGroup>
-					</s:ItemRenderer>
-				</fx:Component>
-			</s:itemRenderer>
-		</s:DataGroup>
-	</s:Scroller>
+<!-- Simple example to demonstrate a DataGroup with a virtualized layout. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:mx="library://ns.adobe.com/flex/halo"
+               xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+
+            public function generateDataProvider(nItems:int = 10000):ArrayCollection {
+                var ac:ArrayCollection = new ArrayCollection();
+
+                var sources:Array = ['San Francisco', 'New York', 'Vancouver', 'Denver', 'Hong Kong'];
+                var destinations:Array = ['London', 'Houston', 'Orlando', 'Los Angeles', 'Seattle'];
+                var airlines:Array = ['Green Jet', 'Orange Jet', 'Yellow Jet', 'Blue Jet', 'Red Jet'];
+                var dates:Array = ['March 23-29', 'April 23-29', 'May 1-3', 'May 10-13', 'June 6'];
+
+                // create a collection of random flights
+                for (var i:int = 0; i < nItems; i++){
+                    var temp:Object = new Object();
+                    var random:int = Math.random() * 5;
+
+                    temp.start = sources[random];
+                    temp.end = destinations[random];
+                    temp.details = dates[random] + ', ' + airlines[random] + " (Flight " + i + ")";
+                    ac.addItem(temp);
+                }
+
+                return ac;
+
+            }
+        ]]>
+    </fx:Script>
+
+    <s:Scroller>
+        <s:DataGroup width="600" height="200" clipAndEnableScrolling="true" dataProvider="{generateDataProvider(9000)}">
+            <s:layout>
+                <s:VerticalLayout gap="1" useVirtualLayout="true" />
+            </s:layout>
+            <s:itemRenderer>
+                <fx:Component>
+                    <s:ItemRenderer width="600" height="20">
+                        <s:states>
+                            <mx:State name="normal" />
+                            <mx:State name="hovered" />
+                            <mx:State name="selected" />
+                        </s:states>
+                        
+                        <fx:Script>
+                            <![CDATA[
+                            
+                                override public function set data(value:Object):void {
+                                    super.data = value;
+                                    
+                                    if (data == null) // a renderer's data is set to null when it goes out of view
+                                        return;
+                                    
+                                    txtStart.text = data.start;
+                                    txtEnd.text = data.end;
+                                    txtDetails.text = data.details;
+                                }
+                            ]]>
+                        </fx:Script>
+
+                        <s:transitions>
+                            <mx:Transition fromState="normal" toState="hovered">
+                                <s:Animate target="{flightPlan}" duration="200">
+                                    <s:SimpleMotionPath property="width" />
+                                </s:Animate>
+                            </mx:Transition>
+                            <mx:Transition fromState="hovered" toState="normal">
+                                <s:Animate target="{flightPlan}" duration="200" >
+                                    <s:SimpleMotionPath property="width" />
+                                </s:Animate>
+                            </mx:Transition>
+                        </s:transitions>
+
+                        <s:Rect left="0" right="0" top="0" bottom="0" radiusX="5" radiusY="5">
+                            <s:fill>
+                                <s:SolidColor color="#E1ECF4" />
+                            </s:fill>
+                        </s:Rect>
+
+                        <s:HGroup verticalAlign="middle">
+
+                            <s:Group id="flightPlan" height="20" width="300" width.hovered="330">
+
+                                <s:Rect left="0" right="0" top="0" bottom="0" radiusX="5" radiusY="5">
+                                    <s:fill>
+                                        <s:SolidColor color="#65A3CE" color.hovered="#65A3FF" />
+                                    </s:fill>
+                                </s:Rect>
+
+                                <s:SimpleText id="txtStart" color="#FFFFFF" fontWeight="bold" left="20" verticalCenter="2" />
+                                <s:SimpleText id="txtEnd" color="#FFFFFF" fontWeight="bold" right="20" verticalCenter="2" textAlign="right" />
+
+                            </s:Group>
+
+                            <s:SimpleText id="txtDetails" color="#32353f" fontSize="11" />
+
+                        </s:HGroup>
+                    </s:ItemRenderer>
+                </fx:Component>
+            </s:itemRenderer>
+        </s:DataGroup>
+    </s:Scroller>
 
 </s:Application>
-
