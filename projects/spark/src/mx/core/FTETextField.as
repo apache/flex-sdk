@@ -3563,22 +3563,16 @@ internal class HTMLHelper
         
         if (!textContainerManager)
             textContainerManager = new FTETextFieldTextContainerManager(textField);
+                
+        // FIXME: TLF is investigating if we need this because of a bug
+        // in updateContainer().  If so, this can be removed when the bug
+        // is fixed.
         
-        // FixMe: remove when TLF gives us access to these methods.
-        //
-        // This is a HACK to get this code executed:
-        //     clearContainerChildren(true);  <== true means recycle
-        //     clearComposedLines();
-        // If text is composed and there are textLines on the display list
-        // we need to recycle them so container.numChildren is 0 and
-        // _composedLines.length = 0.  Otherwise, when the lines that are
-        // composed here are added to the display list only the lines at
-        // indexes >= container.numChildren will be added.
-        //
-        // Note: this must preceed the call to setTextFlow to get the
-        // behavior we desire.        
-        textContainerManager.convertToTextFlowWithComposer();
-        
+        // Make sure there is nothing leftover on the display list from
+        // a previous composition of text.
+        textContainerManager.clearContainerChildren(true); // recycle lines
+        textContainerManager.clearComposedLines();
+       
         textContainerManager.compositionWidth = compositionWidth;
         textContainerManager.compositionHeight = compositionHeight;
         
