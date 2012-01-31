@@ -11,6 +11,7 @@
 
 package spark.components
 { 
+    import flash.display.InteractiveObject;
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.geom.Point;
@@ -1358,6 +1359,7 @@ package spark.components
             const itemRenderer:IVisualElement = dataGroup.getElementAt(columnIndex);
             const bubbles:Boolean = mouseEvent.bubbles;
             const cancelable:Boolean = mouseEvent.cancelable;
+            const relatedObject:InteractiveObject = mouseEvent.relatedObject;
             const ctrlKey:Boolean = mouseEvent.ctrlKey;
             const altKey:Boolean = mouseEvent.altKey;
             const shiftKey:Boolean = mouseEvent.shiftKey;
@@ -1366,8 +1368,8 @@ package spark.components
             
             const event:GridEvent = new GridEvent(
                 type, bubbles, cancelable, 
-                gridXY.x, gridXY.y, 0, columnIndex, column, item, itemRenderer, 
-                ctrlKey, altKey, shiftKey, buttonDown, delta);
+                gridXY.x, gridXY.y, -1, columnIndex, column, item, itemRenderer, 
+                relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
             dispatchEvent(event);
         }     
     }
