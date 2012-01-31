@@ -238,5 +238,34 @@ public class Fade extends Animate
             
         super.applyValueToTarget(target, property, value, props);
     }
+
+    /**
+     * @private
+     * Tell the propertyChanges array to keep all values, unchanged or not.
+     * This enables us to check later, when the effect is finished, whether
+     * we need to restore explicit height/width values.
+     */
+    override mx_internal function captureValues(propChanges:Array,
+                                                setStartValues:Boolean, 
+                                                targetsToCapture:Array = null):Array
+    {
+        var propertyChanges:Array = 
+            super.captureValues(propChanges, setStartValues, targetsToCapture);
+        
+        var n:int = propertyChanges.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            if (propertyChanges[i].stripUnchangedValues == false)
+                continue;
+            
+            if (propertyChanges[i].start.hasOwnProperty("alpha"))
+            {
+                if (propertyChanges[i].start["alpha"] == propertyChanges[i].end["alpha"] &&
+                    alphaTo != propertyChanges[i].end["alpha"])
+                    propertyChanges[i].stripUnchangedValues = false;
+            }
+        }
+        return propertyChanges;
+    }
 }
 }
