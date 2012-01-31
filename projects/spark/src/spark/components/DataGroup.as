@@ -47,6 +47,9 @@ import mx.styles.IStyleClient;
 [Event(name="dataProviderChanged", type="flex.events.FlexEvent")]
 
 [DefaultProperty("dataProvider")] 
+/**
+ *  Documentation is not currently available. .
+ */
 public class DataGroup extends GroupBase 
 {
     public function DataGroup()
@@ -603,12 +606,12 @@ public class DataGroup extends GroupBase
             delete maskElements[mask];
             dataProviderChanged = true;
              // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-        	// callLater is necessary because removeMaskElement gets called inside of commitProperties
+            // callLater is necessary because removeMaskElement gets called inside of commitProperties
             callLater(invalidateProperties);
         }
     }
-	
-	override public function addChild(child:DisplayObject):DisplayObject
+    
+    override public function addChild(child:DisplayObject):DisplayObject
     {
         throw(new Error("addChild is not available in DataGroup. " + 
                 "Use methods defined on the dataProvider instead"));
