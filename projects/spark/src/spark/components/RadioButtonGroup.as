@@ -104,7 +104,7 @@ import mx.utils.NameUtil;
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.FxRadioButtonGroup
+ *  @see mx.components.FxRadioButton
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
