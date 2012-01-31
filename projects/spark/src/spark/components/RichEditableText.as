@@ -1089,8 +1089,8 @@ public class TextView extends UIComponent implements IViewport
      */
     public function export():XML
     {
-        return TextFilter.export(textFlow, TextFilter.TEXT_LAYOUT_FORMAT,
-                                 ConversionType.XML_TYPE).children()[0];
+        return XML(TextFilter.export(textFlow, TextFilter.TEXT_LAYOUT_FORMAT,
+                                     ConversionType.XML_TYPE));
     }
 
     /**
