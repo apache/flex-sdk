@@ -13,18 +13,17 @@ package spark.components.gridClasses
 {
 import flash.geom.Rectangle;
 
+import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.collections.ICollectionView;
 
 import spark.components.Grid;
 import spark.components.gridClasses.CellPosition;
 
 use namespace mx_internal;
   
-
 /**
  *  <p>Track a Grid's selectionMode and its set of selected rows, columns, or cells.   
  *  The selected elements are defined by integer indices, where row indices are 
@@ -113,7 +112,12 @@ public class GridSelection
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function GridSelection()
     {
@@ -133,16 +137,8 @@ public class GridSelection
     private var _grid:Grid;
     
     /**
-     *  @private
-     */
-    public function get grid():Grid
-    {
-        return _grid;
-    }
-    
-    /**
      *  This value is created by DataGrid/partAdded() and then set here.   
-     *  It is should only be set once.
+     *  This property should only be set once.
      * 
      *  @default null
      * 
@@ -150,6 +146,14 @@ public class GridSelection
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get grid():Grid
+    {
+        return _grid;
+    }
+    
+    /**
+     *  @private
      */
     public function set grid(value:Grid):void
     {
@@ -249,7 +253,6 @@ public class GridSelection
     //  selectionLength
     //----------------------------------
        
-    // 
     /**
      *  @private
      *  Cache the selectionLength.  Only recalculate if selectionLength is -1.
@@ -1672,7 +1675,6 @@ public class GridSelection
 }
 
 import flash.geom.Rectangle;
-
 
 /**
  * @private
