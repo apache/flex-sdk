@@ -242,10 +242,10 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state
-	 *  @see #stateResponsive
-	 *  @see #load()
-	 *  @see #play()
+     *  @see #state
+     *  @see #stateResponsive
+     *  @see #load()
+     *  @see #play()
      */
     public static const LOADING:String = "loading";
 
@@ -256,7 +256,7 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state	 
+     *  @see #state  
      *  @see #stateResponsive
      */
     public static const CONNECTION_ERROR:String = "connectionError";
@@ -268,7 +268,7 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state	 
+     *  @see #state  
      *  @see #autoRewind
      *  @see #stateResponsive
      */
@@ -280,7 +280,7 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state	 
+     *  @see #state  
      *  @see #stateResponsive
      *  @see #seek()
      */
@@ -291,8 +291,8 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state
-	 *  @see #stateResponsive
+     *  @see #state
+     *  @see #stateResponsive
      */
     public static const RESIZING:String = "resizing";
 
@@ -303,7 +303,7 @@ public class VideoPlayer extends Video
      *
      *  <p>This is a unresponsive state.</p>
      *
-	 *  @see #state
+     *  @see #state
      *  @see #stateResponsive
      */
     public static const EXEC_QUEUED_CMD:String = "execQueuedCmd";
@@ -340,15 +340,15 @@ public class VideoPlayer extends Video
     public static const DEFAULT_IDLE_TIMEOUT_INTERVAL:Number = 300000; // five minutes
     public static const AUTO_RESIZE_INTERVAL:Number = 100;        // .1 seconds
     public static const AUTO_RESIZE_PLAYHEAD_TIMEOUT:Number = .5;       // .5 seconds
- 	public static const AUTO_RESIZE_METADATA_DELAY_MAX:Number = 5;        // .5 seconds
+    public static const AUTO_RESIZE_METADATA_DELAY_MAX:Number = 5;        // .5 seconds
     public static const FINISH_AUTO_RESIZE_INTERVAL:Number = 250;  // .25 seconds
     public static const RTMP_DO_STOP_AT_END_INTERVAL:Number = 500; // .5 seconds
     public static const RTMP_DO_SEEK_INTERVAL:Number = 100; // .1 seconds
     public static const HTTP_DO_SEEK_INTERVAL:Number = 250; // .25 seconds    
-	public static const HTTP_DO_SEEK_MAX_COUNT:Number = 4; // 4 times * .25 seconds = 1 second
+    public static const HTTP_DO_SEEK_MAX_COUNT:Number = 4; // 4 times * .25 seconds = 1 second
     public static const CLOSE_NS_INTERVAL:Number = .25; // .25 secconds
     public static const HTTP_DELAYED_BUFFERING_INTERVAL:Number = 100; // .1 seconds
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Class variables
@@ -395,9 +395,9 @@ public class VideoPlayer extends Video
         atEnd = false;
         cmdQueue = [];
         readyDispatched = false;
-		lastUpdateTime = -1;
-		sawSeekNotify = false;
-		
+        lastUpdateTime = -1;
+        sawSeekNotify = false;
+        
         // put off creation of INCManager until last minute to
         // give time to customize DEFAULT_INCMANAGER
         ncMgrClassName = (ncMgrClassName == null) ? DEFAULT_INCMANAGER : ncMgrClassName;
@@ -442,12 +442,12 @@ public class VideoPlayer extends Video
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 *  See VideoDisplay's autoBandWidthDetection
-	 */
-	public var autoBandWidthDetection:Boolean = false;	
-	
+    /**
+     *  @private
+     *  See VideoDisplay's autoBandWidthDetection
+     */
+    public var autoBandWidthDetection:Boolean = false;  
+    
     /**
      *  @private
      */
@@ -544,12 +544,12 @@ public class VideoPlayer extends Video
      */
     private var autoPlay:Boolean;
 
-	/**
-	 *  @private
-	 *  The bytes loaded at the prior sample.
-	 *  Used to determine whether to dispatch a progress event.
-	 */
-	private var _priorBytesLoaded:int = -1;
+    /**
+     *  @private
+     *  The bytes loaded at the prior sample.
+     *  Used to determine whether to dispatch a progress event.
+     */
+    private var _priorBytesLoaded:int = -1;
     
     /**
      *  @private
@@ -587,12 +587,12 @@ public class VideoPlayer extends Video
      */
     private var cmdQueue:Array;
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -674,24 +674,24 @@ public class VideoPlayer extends Video
     override public function get videoWidth():int
     {
         // _videoWidth and _videoHeight come from the NCManager, which would normally mean they
-		// came from the SMIL and they get top priority if they are non-negative
-		if (internalVideoWidth > 0) return internalVideoWidth;
-		// Next priority is the metadata height and width.  If the metadata height and width are the same,
-		// then it might be buggy metadata from an older version of the sorenson encoder, so we ignore it
-		// and use the super.videoWidth and super.videoHeight instead ONLY if ready has been dispatched.
-		// this is because we never consider the super.videoWidth and super.videoHeight to be ready
-		// until ready is dispatched--it could still be 0 or still match the last video loaded
-		if (metadata != null && !isNaN(metadata.width) && !isNaN(metadata.height))
-		{
-			if (metadata.width == metadata.height && readyDispatched)
-				return super.videoWidth;
-			else
-				return int(metadata.width);
-		}
-		// last priority is the super.videoWidth and the super.videoHeight, which is
-		// only used if ready has been dispatched, otherwise return -1
-		if (readyDispatched) return super.videoWidth;
-		return -1;
+        // came from the SMIL and they get top priority if they are non-negative
+        if (internalVideoWidth > 0) return internalVideoWidth;
+        // Next priority is the metadata height and width.  If the metadata height and width are the same,
+        // then it might be buggy metadata from an older version of the sorenson encoder, so we ignore it
+        // and use the super.videoWidth and super.videoHeight instead ONLY if ready has been dispatched.
+        // this is because we never consider the super.videoWidth and super.videoHeight to be ready
+        // until ready is dispatched--it could still be 0 or still match the last video loaded
+        if (metadata != null && !isNaN(metadata.width) && !isNaN(metadata.height))
+        {
+            if (metadata.width == metadata.height && readyDispatched)
+                return super.videoWidth;
+            else
+                return int(metadata.width);
+        }
+        // last priority is the super.videoWidth and the super.videoHeight, which is
+        // only used if ready has been dispatched, otherwise return -1
+        if (readyDispatched) return super.videoWidth;
+        return -1;
     }
 
     /**
@@ -703,24 +703,24 @@ public class VideoPlayer extends Video
     override public function get videoHeight():int
     {
         // _videoWidth and _videoHeight come from the NCManager, which would normally mean they
-		// came from the SMIL and they get top priority if they are non-negative
-		if (internalVideoHeight > 0) return internalVideoHeight;
-		// Next priority is the metadata height and width.  If the metadata height and width are the same,
-		// then it might be buggy metadata from an older version of the sorenson encoder, so we ignore it
-		// and use the super.videoWidth and super.videoHeight instead ONLY if ready has been dispatched.
-		// this is because we never consider the super.videoWidth and super.videoHeight to be ready
-		// until ready is dispatched--it could still be 0 or still match the last video loaded
-		if (metadata != null && !isNaN(metadata.width) && !isNaN(metadata.height))
-		{
-			if (metadata.width == metadata.height && readyDispatched)
-				return super.videoHeight;
-			else
-				return int(metadata.height);
-		}
-		// last priority is the super.videoWidth and the super.videoHeight, which is
-		// only used if ready has been dispatched, otherwise return -1
-		if (readyDispatched) return super.videoHeight;
-		return -1;
+        // came from the SMIL and they get top priority if they are non-negative
+        if (internalVideoHeight > 0) return internalVideoHeight;
+        // Next priority is the metadata height and width.  If the metadata height and width are the same,
+        // then it might be buggy metadata from an older version of the sorenson encoder, so we ignore it
+        // and use the super.videoWidth and super.videoHeight instead ONLY if ready has been dispatched.
+        // this is because we never consider the super.videoWidth and super.videoHeight to be ready
+        // until ready is dispatched--it could still be 0 or still match the last video loaded
+        if (metadata != null && !isNaN(metadata.width) && !isNaN(metadata.height))
+        {
+            if (metadata.width == metadata.height && readyDispatched)
+                return super.videoHeight;
+            else
+                return int(metadata.height);
+        }
+        // last priority is the super.videoWidth and the super.videoHeight, which is
+        // only used if ready has been dispatched, otherwise return -1
+        if (readyDispatched) return super.videoHeight;
+        return -1;
     }
     
     //----------------------------------
@@ -739,7 +739,7 @@ public class VideoPlayer extends Video
      */
     override public function get visible():Boolean 
     {
-		_visible = super.visible;
+        _visible = super.visible;
         return _visible;
     }
     
@@ -749,7 +749,7 @@ public class VideoPlayer extends Video
     override public function set visible(v:Boolean):void 
     {
         _visible = v;
-		super.visible = _visible;
+        super.visible = _visible;
     }
 
     //--------------------------------------------------------------------------
@@ -800,20 +800,20 @@ public class VideoPlayer extends Video
      *  playing.</p>
      *
      *  @return The playhead position, measured in seconds since the start.  Will return a fractional value.
-	 *
+     *
      *  @tiptext Current position of the playhead in seconds
      *  @helpid 3463
      *  @see #seek()
      */
     public function get playheadTime():Number
     {
- 		var nowTime:Number = (ns == null) ? currentPos : ns.time; // or _ncMgr.isHttp ? ns.time : ns.time + currentPos;
-		if (_metadata && _metadata.audiodelay) 
-		{
-			nowTime -= _metadata.audiodelay;
-			if (nowTime < 0) nowTime = 0;
-		}
-		return nowTime;       
+        var nowTime:Number = (ns == null) ? currentPos : ns.time; // or _ncMgr.isHttp ? ns.time : ns.time + currentPos;
+        if (_metadata && _metadata.audiodelay) 
+        {
+            nowTime -= _metadata.audiodelay;
+            if (nowTime < 0) nowTime = 0;
+        }
+        return nowTime;       
     }
         
     /**
@@ -859,7 +859,7 @@ public class VideoPlayer extends Video
      *  <p>Volume control in range from 0 to 1.</p>
      *
      *  @return The most recent volume setting
-	 *
+     *
      *  @tiptext The volume setting in value range from 0 to 1.
      *  @helpid 3468
      *  @see #soundTransform
@@ -881,9 +881,9 @@ public class VideoPlayer extends Video
         else
             _volume = 1;
 
-		_soundTransform.volume = _volume;
-		if (ns != null) 
-			ns.soundTransform = _soundTransform;
+        _soundTransform.volume = _volume;
+        if (ns != null) 
+            ns.soundTransform = _soundTransform;
     }
 
     //----------------------------------
@@ -923,14 +923,14 @@ public class VideoPlayer extends Video
     //  isRTMP
     //----------------------------------
     
-	/**
-	 * True if stream is RTMP download (streaming from Flash
-	 * Communication Server), read only.
-	 */
+    /**
+     * True if stream is RTMP download (streaming from Flash
+     * Communication Server), read only.
+     */
     public function get isRTMP():Boolean 
     {
         if (_ncMgr == null) 
-			return true;
+            return true;
         return _ncMgr.isRTMP();
     }
 
@@ -997,17 +997,17 @@ public class VideoPlayer extends Video
      */
     public function get stateResponsive():Boolean 
     {
-		switch (_state) 
-		{
-		case DISCONNECTED:
-		case STOPPED:
-		case PLAYING:
-		case PAUSED:
-		case BUFFERING:
-			return true;
-		default:
-			return false;
-		}
+        switch (_state) 
+        {
+        case DISCONNECTED:
+        case STOPPED:
+        case PLAYING:
+        case PAUSED:
+        case BUFFERING:
+            return true;
+        default:
+            return false;
+        }
     }
 
     //----------------------------------
@@ -1243,7 +1243,7 @@ public class VideoPlayer extends Video
     public function setSize(w:Number, h:Number):void
     {
         if (w == width && h == height)
-			return;
+            return;
         super.width = w;
         super.height = h;
     }
@@ -1266,7 +1266,7 @@ public class VideoPlayer extends Video
     public function setScale(xs:Number, ys:Number):void 
     {
         if (xs == super.scaleX && ys == super.scaleY)
-			return; 
+            return; 
         super.scaleX = xs; 
         super.scaleY = ys;
     }
@@ -1406,7 +1406,7 @@ public class VideoPlayer extends Video
                             setState(BUFFERING);
                     }
                 }
-				else
+                else
                 {
                     _pause(false);
                     if (atEnd) 
@@ -1464,20 +1464,20 @@ public class VideoPlayer extends Video
     public function load(url:String, isLive:Boolean = false, totalTime:Number = -1):void 
     {
         if (url == null)
-		{
-			var message:String = resourceManager.getString(
-				"controls", "nullURL");
+        {
+            var message:String = resourceManager.getString(
+                "controls", "nullURL");
             throw new ArgumentError(message);
-		}
+        }
 
         if (_state == EXEC_QUEUED_CMD)
             _state = cachedState;
         else if (!stateResponsive) 
-		{
+        {
             queueCmd(VideoPlayerQueuedCommand.LOAD, url, isLive, totalTime);
             return;
         } 
-		else
+        else
             execQueuedCmds();
         autoPlay = false;
         _load(url, isLive, totalTime);
@@ -1514,14 +1514,14 @@ public class VideoPlayer extends Video
         else if (_state == EXEC_QUEUED_CMD)
             _state = cachedState;
         else if (!stateResponsive) 
-		{
+        {
             queueCmd(VideoPlayerQueuedCommand.PAUSE);
             return;
         } 
-		else
+        else
             execQueuedCmds();
         if (_state == PAUSED || _state == STOPPED || ns == null) 
-			return;
+            return;
         _pause(true);
         setState(PAUSED);
     }
@@ -1556,20 +1556,20 @@ public class VideoPlayer extends Video
         else if (_state == EXEC_QUEUED_CMD)
             _state = cachedState;
         else if (!stateResponsive) 
-		{
+        {
             queueCmd(VideoPlayerQueuedCommand.STOP);
             return;
         } 
-		else
+        else
             execQueuedCmds();
         if (_state == STOPPED || ns == null) 
-			return;
+            return;
 
         if (_ncMgr.isRTMP())
-		{
+        {
             if (_autoRewind && !_isLive) 
             {
-        	    currentPos = 0;
+                currentPos = 0;
                 _play(0, 0);
                 _state = STOPPED;
                 setState(REWINDING);
@@ -1579,7 +1579,7 @@ public class VideoPlayer extends Video
                 closeNS();
                 setState(STOPPED);
             }
-		}
+        }
         else
         {
             _pause(true);
@@ -1620,9 +1620,9 @@ public class VideoPlayer extends Video
      */
     public function seek(time:Number):void
     {
-		// we do not allow more seeks until we are out of an invalid seek time state        
+        // we do not allow more seeks until we are out of an invalid seek time state        
         if (invalidSeekTime)
-        	return;
+            return;
         if (isNaN(time) || time < 0) 
             throw new VideoError(VideoError.INVALID_SEEK);
         if (!isXnOK()) 
@@ -1698,10 +1698,10 @@ public class VideoPlayer extends Video
             _ncMgr.close();
         setState(DISCONNECTED);
         
-		var videoEvent:VideoEvent = new VideoEvent(VideoEvent.CLOSE);
-		videoEvent.state = _state;
-		videoEvent.playheadTime = playheadTime;
-		dispatchEvent(videoEvent);
+        var videoEvent:VideoEvent = new VideoEvent(VideoEvent.CLOSE);
+        videoEvent.state = _state;
+        videoEvent.playheadTime = playheadTime;
+        dispatchEvent(videoEvent);
     }
     
     //----------------------------------
@@ -1732,13 +1732,13 @@ public class VideoPlayer extends Video
         }
         if (lastUpdateTime != theTime) 
         {
-			var videoEvent:VideoEvent =
-				new VideoEvent(VideoEvent.PLAYHEAD_UPDATE);
-			videoEvent.state = _state;
-			videoEvent.playheadTime = theTime;
-			dispatchEvent(videoEvent);
+            var videoEvent:VideoEvent =
+                new VideoEvent(VideoEvent.PLAYHEAD_UPDATE);
+            videoEvent.state = _state;
+            videoEvent.playheadTime = theTime;
+            dispatchEvent(videoEvent);
             
-			lastUpdateTime = theTime;
+            lastUpdateTime = theTime;
         }
     }
 
@@ -1763,7 +1763,7 @@ public class VideoPlayer extends Video
              ns.bytesLoaded == ns.bytesTotal)
            updateProgressTimer.reset();
            
-		_priorBytesLoaded = ns.bytesLoaded;
+        _priorBytesLoaded = ns.bytesLoaded;
     }
 
     /**
@@ -1777,9 +1777,9 @@ public class VideoPlayer extends Video
             // always do nothing
             return;
 
-		switch (event.info.code) 
-		{
-		case "NetStream.Play.Stop":
+        switch (event.info.code) 
+        {
+        case "NetStream.Play.Stop":
             if (startingPlay) 
                 return;
             switch (_state) 
@@ -1792,34 +1792,34 @@ public class VideoPlayer extends Video
                     // yes we are stopped, we already know this
                     break;
                 default:
-                	sawPlayStop = true;
-					break;
-			} // switch (_state)
-			break;
-		case "NetStream.Buffer.Empty":
-			switch (bufferState) 
-			{
-			case BUFFER_FULL:
-				if (sawPlayStop)
-					rtmpDoStopAtEnd(null);
-				else if (_state == PLAYING)
-					setState(BUFFERING);
-				break;
-			}
-			bufferState = BUFFER_EMPTY;
-			sawPlayStop = false;
-			break;
-		case "NetStream.Buffer.Flush":
-			if (sawSeekNotify && _state == SEEKING) 
-			{
-				bufferState = BUFFER_EMPTY;
-				sawPlayStop = false;
-				setStateFromCachedState();
-				doUpdateTime(null);
-			}
-			if (sawPlayStop &&
-				(bufferState == BUFFER_EMPTY || 
-				(_bufferTime <= 0.1 && ns.bufferLength <= 0.1)))
+                    sawPlayStop = true;
+                    break;
+            } // switch (_state)
+            break;
+        case "NetStream.Buffer.Empty":
+            switch (bufferState) 
+            {
+            case BUFFER_FULL:
+                if (sawPlayStop)
+                    rtmpDoStopAtEnd(null);
+                else if (_state == PLAYING)
+                    setState(BUFFERING);
+                break;
+            }
+            bufferState = BUFFER_EMPTY;
+            sawPlayStop = false;
+            break;
+        case "NetStream.Buffer.Flush":
+            if (sawSeekNotify && _state == SEEKING) 
+            {
+                bufferState = BUFFER_EMPTY;
+                sawPlayStop = false;
+                setStateFromCachedState();
+                doUpdateTime(null);
+            }
+            if (sawPlayStop &&
+                (bufferState == BUFFER_EMPTY || 
+                (_bufferTime <= 0.1 && ns.bufferLength <= 0.1)))
             {
                 // if we did a seek toward the end of the file so that
                 // there is less file left to show than we have
@@ -1830,68 +1830,68 @@ public class VideoPlayer extends Video
                 cachedPlayheadTime = playheadTime;
                 rtmpDoStopAtEndTimer.start(); 
             } 
-			switch (bufferState) 
-			{
-			case BUFFER_EMPTY:
-				if ((_state == LOADING && cachedState == PLAYING) 
-						|| _state == BUFFERING)
-					setState(PLAYING);
-				else if (cachedState == BUFFERING)
-					cachedState = PLAYING;
-				bufferState = BUFFER_FLUSH;
-				break;
-			default:
-				if (_state == BUFFERING)
-					setStateFromCachedState();
-				break;
-			} // switch (bufferState)
-			break;
+            switch (bufferState) 
+            {
+            case BUFFER_EMPTY:
+                if ((_state == LOADING && cachedState == PLAYING) 
+                        || _state == BUFFERING)
+                    setState(PLAYING);
+                else if (cachedState == BUFFERING)
+                    cachedState = PLAYING;
+                bufferState = BUFFER_FLUSH;
+                break;
+            default:
+                if (_state == BUFFERING)
+                    setStateFromCachedState();
+                break;
+            } // switch (bufferState)
+            break;
         case "NetStream.Buffer.Full":
-			if (sawSeekNotify && _state == SEEKING) 
-			{
-				bufferState = BUFFER_EMPTY;
-				sawPlayStop = false;
-				setStateFromCachedState();
-				doUpdateTime(null);
-			}        
+            if (sawSeekNotify && _state == SEEKING) 
+            {
+                bufferState = BUFFER_EMPTY;
+                sawPlayStop = false;
+                setStateFromCachedState();
+                doUpdateTime(null);
+            }        
             switch (bufferState) 
             {
                 case BUFFER_EMPTY:
-                	bufferState = BUFFER_FULL;
-					if ((_state == LOADING && cachedState == PLAYING) || _state == BUFFERING)
-						setState(PLAYING);
-					else if (cachedState == BUFFERING)
-						cachedState = PLAYING;	
-					if (rtmpDoStopAtEndTimer.running) 
-					{
-						sawPlayStop = true;
-						rtmpDoStopAtEndTimer.reset();
-					}
+                    bufferState = BUFFER_FULL;
+                    if ((_state == LOADING && cachedState == PLAYING) || _state == BUFFERING)
+                        setState(PLAYING);
+                    else if (cachedState == BUFFERING)
+                        cachedState = PLAYING;  
+                    if (rtmpDoStopAtEndTimer.running) 
+                    {
+                        sawPlayStop = true;
+                        rtmpDoStopAtEndTimer.reset();
+                    }
                     break;
-				case BUFFER_FLUSH:
-					bufferState = BUFFER_FULL;
-					if (rtmpDoStopAtEndTimer.running) 
-					{
-						sawPlayStop = true;
-						rtmpDoStopAtEndTimer.reset();
-					}
+                case BUFFER_FLUSH:
+                    bufferState = BUFFER_FULL;
+                    if (rtmpDoStopAtEndTimer.running) 
+                    {
+                        sawPlayStop = true;
+                        rtmpDoStopAtEndTimer.reset();
+                    }
                     break;
             } // switch (bufferState)
-			if (_state == BUFFERING)
-				setStateFromCachedState();        
-        	break;
+            if (_state == BUFFERING)
+                setStateFromCachedState();        
+            break;
         case "NetStream.Pause.Notify":
             // do nothing
-	        break;
-		case "NetStream.Unpause.Notify":
-			if (_state == PAUSED) 
-			{
-				_state = PLAYING;
-				setState(BUFFERING);
-			} 
-			else
-				cachedState = PLAYING;
-			break;	        
+            break;
+        case "NetStream.Unpause.Notify":
+            if (_state == PAUSED) 
+            {
+                _state = PLAYING;
+                setState(BUFFERING);
+            } 
+            else
+                cachedState = PLAYING;
+            break;          
         case "NetStream.Play.Start":
             rtmpDoStopAtEndTimer.reset(); 
             bufferState = BUFFER_EMPTY;
@@ -1901,44 +1901,44 @@ public class VideoPlayer extends Video
                 startingPlay = false;
                 cachedPlayheadTime = playheadTime;
             }
-			else if (_state == PLAYING)
-				setState(BUFFERING);
-        	break;
+            else if (_state == PLAYING)
+                setState(BUFFERING);
+            break;
         case "NetStream.Play.Reset":
             rtmpDoStopAtEndTimer.reset();
-			if (_state == REWINDING) 
-			{
-				rtmpDoSeekTimer.reset();
-				if (playheadTime == 0 || playheadTime < cachedPlayheadTime)
-					setStateFromCachedState();
-				else 
-				{
-					cachedPlayheadTime = playheadTime;
-					rtmpDoSeekTimer.start();
-				}
-			}
-			break;            
+            if (_state == REWINDING) 
+            {
+                rtmpDoSeekTimer.reset();
+                if (playheadTime == 0 || playheadTime < cachedPlayheadTime)
+                    setStateFromCachedState();
+                else 
+                {
+                    cachedPlayheadTime = playheadTime;
+                    rtmpDoSeekTimer.start();
+                }
+            }
+            break;            
         case "NetStream.Seek.Notify":
-			if (playheadTime != cachedPlayheadTime) 
-			{
-				setStateFromCachedState();
-				doUpdateTime(null);
-			} 
-			else 
-			{
-				sawSeekNotify = true;
-				if (!rtmpDoSeekTimer.running)
-					rtmpDoSeekTimer.start();
-			}
-			break;			      
+            if (playheadTime != cachedPlayheadTime) 
+            {
+                setStateFromCachedState();
+                doUpdateTime(null);
+            } 
+            else 
+            {
+                sawSeekNotify = true;
+                if (!rtmpDoSeekTimer.running)
+                    rtmpDoSeekTimer.start();
+            }
+            break;                
         case "Netstream.Play.UnpublishNotify": 
-			break;	
+            break;  
         case "Netstream.Play.PublishNotify":
-			break;	
+            break;  
         case "NetStream.Play.StreamNotFound":
-        	if (!_ncMgr.connectAgain())
-        		setState(CONNECTION_ERROR);
-        	break;
+            if (!_ncMgr.connectAgain())
+                setState(CONNECTION_ERROR);
+            break;
         case "NetStream.Play.Failed":
         case "NetStream.Failed":
             setState(CONNECTION_ERROR);
@@ -1959,10 +1959,7 @@ public class VideoPlayer extends Video
             delayedBufferingTimer.reset();
             if (invalidSeekTime) 
             {
-                invalidSeekTime = false;
-                invalidSeekRecovery = true;
-                setState(cachedState);
-                seek(playheadTime);
+                recoverInvalidSeek();
             } 
             else    
                 switch (_state) 
@@ -1973,45 +1970,47 @@ public class VideoPlayer extends Video
                         httpDoStopAtEnd();
                         break;
                 }
-        	break;
+            break;
         case "NetStream.Seek.InvalidTime":
-        	if (invalidSeekRecovery) 
-        	{
-				invalidSeekTime = false;
-				invalidSeekRecovery = false;
-				setState(cachedState);
-				seek(0);
-			} 
-			else 
-            	invalidSeekTime = true;
+            if (invalidSeekRecovery) 
+            {
+                invalidSeekTime = false;
+                invalidSeekRecovery = false;
+                setState(cachedState);
+                seek(0);
+            } 
+            else 
+            {
+                recoverInvalidSeek();
+            }
             break;
         case "NetStream.Buffer.Empty":
             bufferState = BUFFER_EMPTY;
             if (_state == PLAYING)
                 delayedBufferingTimer.start(); 
-        	break;
+            break;
         case "NetStream.Buffer.Full":
         case "NetStream.Buffer.Flush":
             delayedBufferingTimer.reset(); 
             bufferState = BUFFER_FULL;
-			if ((_state == LOADING && cachedState == PLAYING) || _state == BUFFERING)
-				setState(PLAYING);
-			else if (cachedState == BUFFERING)
-				cachedState = PLAYING;	
-        	break;
+            if ((_state == LOADING && cachedState == PLAYING) || _state == BUFFERING)
+                setState(PLAYING);
+            else if (cachedState == BUFFERING)
+                cachedState = PLAYING;  
+            break;
         case "NetStream.Seek.Notify":
-        	invalidSeekRecovery = false;
+            invalidSeekRecovery = false;
             switch (_state) 
             {
                 case SEEKING:
                 case REWINDING:
-                	if (!httpDoSeekTimer.running)
-                	{
-                		httpDoSeekCount = 0;
-	                	httpDoSeekTimer.start();
-	                }
-				break;
-			} // switch (_state)                
+                    if (!httpDoSeekTimer.running)
+                    {
+                        httpDoSeekCount = 0;
+                        httpDoSeekTimer.start();
+                    }
+                break;
+            } // switch (_state)                
             break;    
         case "NetStream.Play.StreamNotFound":
             setState(CONNECTION_ERROR);
@@ -2035,8 +2034,8 @@ public class VideoPlayer extends Video
         if (_ncMgr == null ||
              _ncMgr.netConnection == null)
             setState(CONNECTION_ERROR);
-		else 
-		{
+        else 
+        {
             createStream();
             setUpStream();
         }
@@ -2059,7 +2058,7 @@ public class VideoPlayer extends Video
              _ncMgr.netConnection == null)
             setState(CONNECTION_ERROR);
         else 
-		{
+        {
             ns = null;
             _state = STOPPED;
             execQueuedCmds();
@@ -2074,22 +2073,22 @@ public class VideoPlayer extends Video
     public function onMetaData(info:Object):void 
     {
         if (_metadata != null)
-			return;
+            return;
         
-		_metadata = info;
+        _metadata = info;
         
-		if (isNaN(streamLength) || streamLength <= 0)
+        if (isNaN(streamLength) || streamLength <= 0)
             streamLength = info.duration;
 
         if (isNaN(internalVideoWidth) || internalVideoWidth <= 0)
-			internalVideoWidth = info.width;
+            internalVideoWidth = info.width;
 
         if (isNaN(internalVideoHeight) || internalVideoHeight <= 0)
-			internalVideoHeight = info.height;
+            internalVideoHeight = info.height;
 
-		var metadataEvent:MetadataEvent =
-			new MetadataEvent(MetadataEvent.METADATA_RECEIVED);
-		metadataEvent.info = info;
+        var metadataEvent:MetadataEvent =
+            new MetadataEvent(MetadataEvent.METADATA_RECEIVED);
+        metadataEvent.info = info;
         dispatchEvent(metadataEvent);
     }
 
@@ -2100,10 +2099,10 @@ public class VideoPlayer extends Video
      */
     public function onCuePoint(info:Object):void 
     {
-		var metadataEvent:MetadataEvent =
-			new MetadataEvent(MetadataEvent.CUE_POINT);
-		metadataEvent.info = info;
-		dispatchEvent(metadataEvent);
+        var metadataEvent:MetadataEvent =
+            new MetadataEvent(MetadataEvent.CUE_POINT);
+        metadataEvent.info = info;
+        dispatchEvent(metadataEvent);
     }
     
     //----------------------------------
@@ -2115,7 +2114,7 @@ public class VideoPlayer extends Video
      *  does loading work for play and load
      */
     private function _load(url:String, isLive:Boolean, totalTime:Number):void 
-    {    	
+    {       
         if (prevVideoWidth == -1) 
             (videoWidth >= 0) ? prevVideoWidth = videoWidth : prevVideoWidth = 0;
         if (prevVideoHeight == -1) 
@@ -2189,115 +2188,129 @@ public class VideoPlayer extends Video
         _state = s;
         var newState:String = _state;
 
- 		var videoEvent:VideoEvent = new VideoEvent(VideoEvent.STATE_CHANGE);
-		videoEvent.state = newState;
-		videoEvent.playheadTime = playheadTime;
+        var videoEvent:VideoEvent = new VideoEvent(VideoEvent.STATE_CHANGE);
+        videoEvent.state = newState;
+        videoEvent.playheadTime = playheadTime;
         dispatchEvent(videoEvent);
 
-		if (!readyDispatched) 
-		{
-			switch (newState) 
-			{
-				case STOPPED:
-				case PLAYING:
-				case PAUSED:
-				case BUFFERING:    
-				{    
-					readyDispatched = true;
+        if (!readyDispatched) 
+        {
+            switch (newState) 
+            {
+                case STOPPED:
+                case PLAYING:
+                case PAUSED:
+                case BUFFERING:    
+                {    
+                    readyDispatched = true;
  
- 					videoEvent = new VideoEvent(VideoEvent.READY);
-					videoEvent.state = newState;
-					videoEvent.playheadTime = playheadTime;
-					dispatchEvent(videoEvent);
-				}
-	        }
+                    videoEvent = new VideoEvent(VideoEvent.READY);
+                    videoEvent.state = newState;
+                    videoEvent.playheadTime = playheadTime;
+                    dispatchEvent(videoEvent);
+                }
+            }
         }
 
         switch (cachedState) 
         {
             case REWINDING:
-			{
- 				videoEvent = new VideoEvent(VideoEvent.REWIND);
-				videoEvent.state = newState;
-				videoEvent.playheadTime = playheadTime;
+            {
+                videoEvent = new VideoEvent(VideoEvent.REWIND);
+                videoEvent.state = newState;
+                videoEvent.playheadTime = playheadTime;
                 dispatchEvent(videoEvent);
                 
-				if (_ncMgr.isRTMP() && newState == STOPPED)
+                if (_ncMgr.isRTMP() && newState == STOPPED)
                     closeNS();
                 break;
-			}
+            }
         }
 
         switch (newState) 
         {
             case STOPPED:
             case PAUSED:
-			{
+            {
                 if (_ncMgr.isRTMP() && !idleTimeoutTimer.running)
                     idleTimeoutTimer.start(); 
                 break;
-			}
+            }
 
             case SEEKING:
             case REWINDING:
-			{
+            {
                 bufferState = BUFFER_EMPTY;
                 sawPlayStop = false;
                 // no break
-			}
+            }
 
             case PLAYING:
             case BUFFERING:
-			{
+            {
                 if (!updateTimeTimer.running) 
                     updateTimeTimer.start(); 
                 // no break
-			}
+            }
 
             case LOADING:
             case RESIZING:
-			{
+            {
                 idleTimeoutTimer.reset(); 
                 break;
-			}
+            }
         }
 
         execQueuedCmds();
     }
 
-	/**
-	 *  @private
-	 *  Sets state to _cachedState if the _cachedState is PLAYING,
-	 *  PAUSED or BUFFERING, otherwise sets state to STOPPED.
-	 */
-	private function setStateFromCachedState():void
-	{
-		switch (cachedState) 
-		{
-			case PLAYING:
-			case PAUSED:
-			{
-				setState(cachedState);
-				break;
-			}
+    /**
+     *  @private
+     *  Sets state to _cachedState if the _cachedState is PLAYING,
+     *  PAUSED or BUFFERING, otherwise sets state to STOPPED.
+     */
+    private function setStateFromCachedState():void
+    {
+        switch (cachedState) 
+        {
+            case PLAYING:
+            case PAUSED:
+            {
+                setState(cachedState);
+                break;
+            }
 
-			case BUFFERING:
-			{
-				if (bufferState == BUFFER_EMPTY)
-					setState(BUFFERING);
-				else
-					setState(cachedState);
-				break;
-			}
+            case BUFFERING:
+            {
+                if (bufferState == BUFFER_EMPTY)
+                    setState(BUFFERING);
+                else
+                    setState(cachedState);
+                break;
+            }
 
-			default:
-			{
-				setState(STOPPED);
-				break;
-			}
-		}
-	}
-	
+            default:
+            {
+                setState(STOPPED);
+                break;
+            }
+        }
+    }
+    
+    /**
+     * @private
+     * Helper used when an invalid seek occurs. We reset
+     * our player state and seek back to a valid playhead 
+     * location.
+     */
+    private function recoverInvalidSeek():void
+    {
+        setStateFromCachedState();
+        invalidSeekTime = false;
+        invalidSeekRecovery = true;
+        seek(playheadTime);    
+    }
+    
     /**
      *  @private
      *  creates our implementatino of the <code>INCManager</code>.
@@ -2350,25 +2363,25 @@ public class VideoPlayer extends Video
         sawPlayStop = false;
         atEnd = true;
         
-		// all this triggers callbacks, so need to keep checking if
+        // all this triggers callbacks, so need to keep checking if
         // _state == STOPPED--if no longer, then we bail
-		setState(STOPPED);
+        setState(STOPPED);
         if (_state != STOPPED) 
             return;
         
-		doUpdateTime(null);
+        doUpdateTime(null);
         if (_state != STOPPED) 
             return;
- 				
-		var videoEvent:VideoEvent = new VideoEvent(VideoEvent.COMPLETE);
-		videoEvent.state = _state;
-		videoEvent.playheadTime = playheadTime;
+                
+        var videoEvent:VideoEvent = new VideoEvent(VideoEvent.COMPLETE);
+        videoEvent.state = _state;
+        videoEvent.playheadTime = playheadTime;
         dispatchEvent(videoEvent);
         
-		if (_state != STOPPED) 
+        if (_state != STOPPED) 
             return;
         
-		if (_autoRewind && !_isLive && playheadTime != 0) 
+        if (_autoRewind && !_isLive && playheadTime != 0) 
         {
             atEnd = false;
             currentPos = 0;
@@ -2379,27 +2392,27 @@ public class VideoPlayer extends Video
             closeNS();
     }
 
-	/**
-	 *  @private
-	 *  <p>ONLY CALL THIS WITH RTMP STREAMING</p>
-	 *
-	 *  <p>Wait until time goes back to zero to leave rewinding state.</p>
-	 */
-	private function rtmpDoSeek():void 
-	{
-		if (_state != REWINDING && _state != SEEKING) 
-		{
-			rtmpDoSeekTimer.reset();
-			sawSeekNotify = false;
-		} 
-		else if (playheadTime != cachedPlayheadTime) 
-		{
-			rtmpDoSeekTimer.reset();
-			sawSeekNotify = false;
-			setStateFromCachedState();
-			doUpdateTime(null);
-		}
-	}
+    /**
+     *  @private
+     *  <p>ONLY CALL THIS WITH RTMP STREAMING</p>
+     *
+     *  <p>Wait until time goes back to zero to leave rewinding state.</p>
+     */
+    private function rtmpDoSeek():void 
+    {
+        if (_state != REWINDING && _state != SEEKING) 
+        {
+            rtmpDoSeekTimer.reset();
+            sawSeekNotify = false;
+        } 
+        else if (playheadTime != cachedPlayheadTime) 
+        {
+            rtmpDoSeekTimer.reset();
+            sawSeekNotify = false;
+            setStateFromCachedState();
+            doUpdateTime(null);
+        }
+    }
 
     /**
      *  @private
@@ -2416,19 +2429,19 @@ public class VideoPlayer extends Video
         _pause(true);
         setState(STOPPED);
         if (_state != STOPPED)
-			return;
+            return;
         
-		doUpdateTime(null);
+        doUpdateTime(null);
         if (_state != STOPPED)
-			return;
+            return;
 
- 		var videoEvent:VideoEvent = new VideoEvent(VideoEvent.COMPLETE);
-		videoEvent.state = _state;
-		videoEvent.playheadTime = playheadTime;
+        var videoEvent:VideoEvent = new VideoEvent(VideoEvent.COMPLETE);
+        videoEvent.state = _state;
+        videoEvent.playheadTime = playheadTime;
         dispatchEvent(videoEvent);
         
-		if (_state != STOPPED)
-			return;
+        if (_state != STOPPED)
+            return;
 
         if (_autoRewind) 
         {
@@ -2465,15 +2478,15 @@ public class VideoPlayer extends Video
         if (!seekState) 
             return;
 
-		setStateFromCachedState();
-		if (invalidSeekTime) 
-		{
-			invalidSeekTime = false;
-			invalidSeekRecovery = true;
-			seek(playheadTime);
-		} 
-		else
+        if (invalidSeekTime) 
+        {
+            recoverInvalidSeek();
+        } 
+        else
+        {
+            setStateFromCachedState();
             doUpdateTime(null);
+        }
     }
 
     /**
@@ -2507,36 +2520,36 @@ public class VideoPlayer extends Video
     private function doDelayedBuffering(event:Event):void 
     {
         switch (_state) 
-		{
-			case LOADING:
-			case RESIZING:
-				// if loading or resizing, still at beginning so keep whirring, might go into buffering state
-				break;
-			case PLAYING:
-				// still in that playing state, let's go to buffering
-				delayedBufferingTimer.reset(); 
-				setState(BUFFERING);
-				break;
-			default:
-				// any other state, bail and kill timer
-				delayedBufferingTimer.reset(); 
-				break;
+        {
+            case LOADING:
+            case RESIZING:
+                // if loading or resizing, still at beginning so keep whirring, might go into buffering state
+                break;
+            case PLAYING:
+                // still in that playing state, let's go to buffering
+                delayedBufferingTimer.reset(); 
+                setState(BUFFERING);
+                break;
+            default:
+                // any other state, bail and kill timer
+                delayedBufferingTimer.reset(); 
+                break;
         }
     }
 
     /**
      *  @private
      *  Wrapper for <code>NetStream.pause()</code> and <code>NetStream.resume()</code>.
-	 *  Never call these NetStream methods directly; always call this
+     *  Never call these NetStream methods directly; always call this
      *  method because it does some other housekeeping.
      */
     private function _pause(doPause:Boolean):void 
     {
-		rtmpDoStopAtEndTimer.reset();       
+        rtmpDoStopAtEndTimer.reset();       
         if (doPause)
-			ns.pause();
-		else
-			ns.resume();
+            ns.pause();
+        else
+            ns.resume();
     }
 
     /**
@@ -2547,25 +2560,25 @@ public class VideoPlayer extends Video
      */
     private function _play(... rest):void 
     {
-		rtmpDoStopAtEndTimer.reset();
-		startingPlay = true;        
+        rtmpDoStopAtEndTimer.reset();
+        startingPlay = true;        
         switch (rest.length) 
-		{
-			case 0:
-				ns.play(_ncMgr.streamName);
-				break;
-			case 1:
-				ns.play(_ncMgr.streamName, rest[0]);
-				break;
-			case 2:
-				ns.play(_ncMgr.streamName, rest[0], rest[1]);
-				break;
-			default:
-			{
-				var message:String = resourceManager.getString(
-					"controls", "badArgs");
-				throw new ArgumentError(message);
-			}
+        {
+            case 0:
+                ns.play(_ncMgr.streamName);
+                break;
+            case 1:
+                ns.play(_ncMgr.streamName, rest[0]);
+                break;
+            case 2:
+                ns.play(_ncMgr.streamName, rest[0], rest[1]);
+                break;
+            default:
+            {
+                var message:String = resourceManager.getString(
+                    "controls", "badArgs");
+                throw new ArgumentError(message);
+            }
         }
     }
 
@@ -2577,17 +2590,17 @@ public class VideoPlayer extends Video
      */
     private function _seek(time:Number):void 
     {
-		rtmpDoStopAtEndTimer.reset();        
- 		// round the number to three decimal places...
- 		var seekTime:Number = Math.round(time * 1000) / 1000;
- 		
- 		if (_metadata && _metadata.audiodelay && time + _metadata.audiodelay < streamLength) // Revisit
-			time += _metadata.audiodelay;
-		ns.seek(time);
-		invalidSeekTime = false;
-		bufferState = BUFFER_EMPTY;
-		sawPlayStop = false;
-		sawSeekNotify = false;
+        rtmpDoStopAtEndTimer.reset();        
+        // round the number to three decimal places...
+        var seekTime:Number = Math.round(time * 1000) / 1000;
+        
+        if (_metadata && _metadata.audiodelay && time + _metadata.audiodelay < streamLength) // Revisit
+            time += _metadata.audiodelay;
+        ns.seek(time);
+        invalidSeekTime = false;
+        bufferState = BUFFER_EMPTY;
+        sawPlayStop = false;
+        sawSeekNotify = false;
     }
 
     /**
@@ -2604,14 +2617,14 @@ public class VideoPlayer extends Video
         if (_state == LOADING) return true;
         if (_state == CONNECTION_ERROR) return false;
         if (_state != DISCONNECTED) 
-		{
+        {
             if (_ncMgr == null || 
                  _ncMgr.netConnection == null ||
                  !_ncMgr.netConnection.connected)
-			{
+            {
                 setState(DISCONNECTED);
                 return false;
-			}
+            }
             return true;
         }
         return false;
@@ -2652,8 +2665,8 @@ public class VideoPlayer extends Video
                  bufferState == BUFFER_FULL || bufferState == BUFFER_FLUSH || 
                  ((ns) ? ns.time > AUTO_RESIZE_PLAYHEAD_TIMEOUT : false)) 
             { // revisit - Was ns.time > AUTO_RESIZE_PLAYHEAD_TIMEOUT
- 				// if have not received metadata yet, slight delay to avoid race condition in player
- 				// but there may not be any metadata, so cannot wait forever
+                // if have not received metadata yet, slight delay to avoid race condition in player
+                // but there may not be any metadata, so cannot wait forever
 
                 internalVideoWidth = videoWidth;
                 internalVideoHeight = videoHeight;
@@ -2664,7 +2677,7 @@ public class VideoPlayer extends Video
                 return;
         }
         // do not need to do autoresize, but DO need to signal readyness
-		setState(cachedState);
+        setState(cachedState);
     }
 
     /**
@@ -2694,7 +2707,7 @@ public class VideoPlayer extends Video
                     cachedState = PLAYING;
                 }
             }
-			else
+            else
             {
                 _pause(false);
                 cachedState = PLAYING;
@@ -2710,12 +2723,12 @@ public class VideoPlayer extends Video
      */
     private function createStream():void 
     {
-		ns = new VideoPlayerNetStream(_ncMgr.netConnection, this);
-		ns.bufferTime = _bufferTime;
-		ns.soundTransform = _soundTransform;
-		ns.addEventListener(NetStatusEvent.NET_STATUS,
-							(_ncMgr.isRTMP()) ? rtmpOnStatus : httpOnStatus);
-		attachNetStream(ns);
+        ns = new VideoPlayerNetStream(_ncMgr.netConnection, this);
+        ns.bufferTime = _bufferTime;
+        ns.soundTransform = _soundTransform;
+        ns.addEventListener(NetStatusEvent.NET_STATUS,
+                            (_ncMgr.isRTMP()) ? rtmpOnStatus : httpOnStatus);
+        attachNetStream(ns);
     }
 
     /**
@@ -2746,36 +2759,36 @@ public class VideoPlayer extends Video
             internalVideoHeight = -1        
 
         // just start if static, start resize otherwise
-		if (autoPlay) 
-			if (!_ncMgr.isRTMP()) 
-			{
-				cachedState = BUFFERING;
-				_play();
-			} 
-			else if (_isLive) 
-			{
-				cachedState = BUFFERING;
-				_play(-1);
-			} 
-			else 
-			{
-				cachedState = BUFFERING;
-				_play(0);
-			} 
-		else 
-		{
-			cachedState = STOPPED;
-			if (_ncMgr.isRTMP()) 
-				_play(-2, 0);
-			else
-			{
-				_play();
-				_pause(true);
-				_seek(0);
-			} 
-		}
-		
-		autoResizeTimer.reset();
+        if (autoPlay) 
+            if (!_ncMgr.isRTMP()) 
+            {
+                cachedState = BUFFERING;
+                _play();
+            } 
+            else if (_isLive) 
+            {
+                cachedState = BUFFERING;
+                _play(-1);
+            } 
+            else 
+            {
+                cachedState = BUFFERING;
+                _play(0);
+            } 
+        else 
+        {
+            cachedState = STOPPED;
+            if (_ncMgr.isRTMP()) 
+                _play(-2, 0);
+            else
+            {
+                _play();
+                _pause(true);
+                _seek(0);
+            } 
+        }
+        
+        autoResizeTimer.reset();
         autoResizeTimer.start(); 
     }
 
@@ -2823,22 +2836,22 @@ public class VideoPlayer extends Video
             cachedState = _state;
             _state = EXEC_QUEUED_CMD;
             switch (nextCmd.type) 
-			{
-				case VideoPlayerQueuedCommand.PLAY:
-					play(nextCmd.url, nextCmd.isLive, nextCmd.time);
-					break;
-				case VideoPlayerQueuedCommand.LOAD:
-					load(nextCmd.url, nextCmd.isLive, nextCmd.time);
-					break;
-				case VideoPlayerQueuedCommand.PAUSE:
-					pause();
-					break;
-				case VideoPlayerQueuedCommand.STOP:
-					stop();
-					break;
-				case VideoPlayerQueuedCommand.SEEK:
-					seek(nextCmd.time);
-					break;
+            {
+                case VideoPlayerQueuedCommand.PLAY:
+                    play(nextCmd.url, nextCmd.isLive, nextCmd.time);
+                    break;
+                case VideoPlayerQueuedCommand.LOAD:
+                    load(nextCmd.url, nextCmd.isLive, nextCmd.time);
+                    break;
+                case VideoPlayerQueuedCommand.PAUSE:
+                    pause();
+                    break;
+                case VideoPlayerQueuedCommand.STOP:
+                    stop();
+                    break;
+                case VideoPlayerQueuedCommand.SEEK:
+                    seek(nextCmd.time);
+                    break;
             } // switch
         }
     }
@@ -2875,16 +2888,16 @@ dynamic class VideoPlayerNetStream extends NetStream
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function VideoPlayerNetStream(connection:NetConnection,
-										 videoPlayer:VideoPlayer)
-	{
-		super(connection);
+    /**
+     *  Constructor.
+     */
+    public function VideoPlayerNetStream(connection:NetConnection,
+                                         videoPlayer:VideoPlayer)
+    {
+        super(connection);
 
-		this.videoPlayer = videoPlayer;
-	}
+        this.videoPlayer = videoPlayer;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -2892,10 +2905,10 @@ dynamic class VideoPlayerNetStream extends NetStream
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var videoPlayer:VideoPlayer;
+    /**
+     *  @private
+     */
+    private var videoPlayer:VideoPlayer;
 
     //--------------------------------------------------------------------------
     //
@@ -2903,28 +2916,28 @@ dynamic class VideoPlayerNetStream extends NetStream
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Called by the server.
-	 */
-	public function onMetaData(info:Object, ... rest):void
-	{
-		videoPlayer.onMetaData(info);
-	}
+    /**
+     *  @private
+     *  Called by the server.
+     */
+    public function onMetaData(info:Object, ... rest):void
+    {
+        videoPlayer.onMetaData(info);
+    }
 
-	/**
-	 *  @private
-	 *  Called by the server.
-	 */
-	public function onCuePoint(info:Object, ... rest):void
-	{
-		videoPlayer.onCuePoint(info);
-	}
+    /**
+     *  @private
+     *  Called by the server.
+     */
+    public function onCuePoint(info:Object, ... rest):void
+    {
+        videoPlayer.onCuePoint(info);
+    }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     public function onPlayStatus(... rest):void
     {
-    }	
+    }   
 }
