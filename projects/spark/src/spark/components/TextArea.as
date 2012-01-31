@@ -13,6 +13,7 @@ package spark.components
 {
     
 import flash.events.Event;
+
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.TextLayoutFormat;
 
@@ -94,13 +95,13 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.TextAreaAccImpl")]
+
 [DefaultProperty("content")]
 
 [DefaultTriggerEvent("change")]
 
 [IconFile("TextArea.png")]
-
-[AccessibilityClass(implementation="spark.accessibility.TextAreaAccImpl")]
 
 /**
  *  TextArea is a text-entry control that lets users enter and edit
@@ -341,6 +342,29 @@ public class TextArea extends SkinnableTextBase
             
     //--------------------------------------------------------------------------
     //
+    //  Skin parts
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  scroller
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+    /**
+     *  The optional Scroller in the skin,
+     *  used to scroll the RichEditableText.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scroller:Scroller;
+
+    //--------------------------------------------------------------------------
+    //
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
@@ -446,6 +470,31 @@ public class TextArea extends SkinnableTextBase
     }
     
     //----------------------------------
+    //  heightInLines
+    //----------------------------------
+
+    /**
+     *  @copy spark.components.RichEditableText#heightInLines
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get heightInLines():Number
+    {
+        return getHeightInLines();
+    }
+
+    /**
+     *  @private
+     */
+    public function set heightInLines(value:Number):void
+    {
+        setHeightInLines(value);
+    }
+    
+    //----------------------------------
     //  textFlow
     //----------------------------------
 
@@ -476,48 +525,6 @@ public class TextArea extends SkinnableTextBase
 
         setTextFlow(value);
     }
-
-    //----------------------------------
-    //  heightInLines
-    //----------------------------------
-
-    /**
-     *  @copy spark.components.RichEditableText#heightInLines
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get heightInLines():Number
-    {
-        return getHeightInLines();
-    }
-
-    /**
-     *  @private
-     */
-    public function set heightInLines(value:Number):void
-    {
-        setHeightInLines(value);
-    }
-    
-    //----------------------------------
-    //  scroller
-    //----------------------------------
-
-    [SkinPart(required="false")]
-
-    /**
-     *  The optional Scroller in the skin,
-     *  used to scroll the RichEditableText.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var scroller:Scroller;
 
     //----------------------------------
     //  widthInChars
@@ -559,27 +566,6 @@ public class TextArea extends SkinnableTextBase
             TextArea.createAccessibilityImplementation(this);
     }
 
-    
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleProp:String):void
-    {
-        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
-        super.styleChanged(styleProp);
-
-        if (allStyles || styleProp == "horizontalScrollPolicy")
-        {
-            horizontalScrollPolicyChanged = true;
-            invalidateProperties();
-        }
-        if (allStyles || styleProp == "verticalScrollPolicy")
-        {
-            verticalScrollPolicyChanged = true;
-            invalidateProperties();
-        }
-    }
-    
     /**
      *  @private
      *  Pushes various TextInput properties down into the RichEditableText. 
@@ -603,6 +589,26 @@ public class TextArea extends SkinnableTextBase
         }
     }
 
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+        super.styleChanged(styleProp);
+
+        if (allStyles || styleProp == "horizontalScrollPolicy")
+        {
+            horizontalScrollPolicyChanged = true;
+            invalidateProperties();
+        }
+        if (allStyles || styleProp == "verticalScrollPolicy")
+        {
+            verticalScrollPolicyChanged = true;
+            invalidateProperties();
+        }
+    }
+    
     /**
      *  @private
      */
