@@ -929,23 +929,23 @@ public class GroupBase extends UIComponent implements IViewport
      *  properties.
      * 
      *  This method is is intended for layout class developers who should
-     *  call it from the <code>measure()</code> and <code>updateDisplayList()</code> methods.
+     *  call it from <code>updateDisplayList()</code> methods.
      *
-     *  @param w The new value of <code>contentWidth</code>.
+     *  @param width The new value of <code>contentWidth</code>.
      * 
-     *  @param h The new value of <code>contentHeight</code>.
+     *  @param height The new value of <code>contentHeight</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setContentSize(w:Number, h:Number):void
+    public function setContentSize(width:Number, height:Number):void
     {
-        if ((w == _contentWidth) && (h == _contentHeight))
+        if ((width == _contentWidth) && (height == _contentHeight))
            return;
-        setContentWidth(w);
-        setContentHeight(h);
+        setContentWidth(width);
+        setContentHeight(height);
     }
     
     //--------------------------------------------------------------------------
