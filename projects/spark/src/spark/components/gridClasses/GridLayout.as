@@ -11,8 +11,6 @@
 
 package spark.components.supportClasses
 {
-import flash.events.Event;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
@@ -20,12 +18,9 @@ import flash.utils.getTimer;
 import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
-import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
-import mx.core.UIComponent;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -39,11 +34,15 @@ import spark.components.Group;
 import spark.components.IGridItemRenderer;
 import spark.components.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.primitives.supportClasses.GraphicElement;
 import spark.skins.spark.DefaultGridItemRenderer;
 
 use namespace mx_internal;
 
+[ExcludeClass]
+
+/**
+ *  TBD
+ */
 public class GridLayout extends LayoutBase
 {
     include "../../core/Version.as";    
@@ -1587,21 +1586,6 @@ public class GridLayout extends LayoutBase
             freeGridElements(visibleRowBackgrounds.splice(firstVisibleOffset, removeCount));
             freeGridElements(visibleRowSeparators.splice(firstVisibleOffset, removeCount));
             
-            // If the last row is now visible, then the last element of visibleRowSeparators
-            // should be freed and replaced by null.
-            
-            const maxVisibleOffset:int = visibleRowIndices.length - 1;
-            if (maxVisibleOffset >= 0)
-            {
-                const lastRowIndex:int = gridDimensions.rowCount - 1;
-                const lastRowVisible:Boolean = visibleRowIndices[maxVisibleOffset] == lastRowIndex;
-                if (lastRowVisible)
-                {
-                    freeGridElement(visibleRowSeparators[maxVisibleOffset]);
-                    visibleRowSeparators[maxVisibleOffset] = null;
-                }
-            }
-
             const visibleColCount:int = visibleColumnIndices.length;
             const firstRendererOffset:int = firstVisibleOffset * visibleColCount;
             freeItemRenderers(visibleItemRenderers.splice(firstRendererOffset, removeCount * visibleColCount));
