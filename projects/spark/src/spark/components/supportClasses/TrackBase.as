@@ -294,6 +294,7 @@ public class FxTrackBase extends FxRange
                                       track_mouseDownHandler);
             track.removeEventListener("updateComplete", 
                                       track_updateCompleteHandler);
+            tempTrackSize = NaN;                                      
         }
     }
 
