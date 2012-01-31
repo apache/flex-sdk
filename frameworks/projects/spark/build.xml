@@ -91,7 +91,7 @@
 
 		<!-- Call asdoc to generate dita xml files -->
 		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-classes Flex4Classes -doc-namespaces http://ns.adobe.com/mxml/2009 -namespace http://ns.adobe.com/mxml/2009 ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+			<arg line="-doc-classes Flex4Classes -lenient=true -doc-namespaces http://ns.adobe.com/mxml/2009 -namespace http://ns.adobe.com/mxml/2009 ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
 		</exec>
 
 		<!-- updates flex4.swc with asdoc xml -->
