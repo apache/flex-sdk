@@ -975,6 +975,15 @@ public class List extends ListBase implements IIMESupport
         // running.
         if (verticalScrollPosition > 0 && fillerRows > 0 && !runningDataEffect)
         {
+            var bookmark:CursorBookmark = iterator.bookmark;
+            var rowIndex:int = bookmark.getViewIndex();
+            if (verticalScrollPosition != rowIndex - lockedRowCount)
+            {
+                // we got totally out of sync, probably because a filter
+                // removed or added rows
+                super.verticalScrollPosition = Math.max(rowIndex - lockedRowCount, 0);
+            }
+
             if (adjustVerticalScrollPositionDownward(Math.max(rowCount, 1)))
                 return;
         }
