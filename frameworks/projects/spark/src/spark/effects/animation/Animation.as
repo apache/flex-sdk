@@ -258,6 +258,10 @@ public final class Animation
      * Storage for the animationTarget property. 
      */
     private var _playheadTime:Number;
+    
+    [Inspectable(minValue="0.0")]
+    
+    
     /**
      *  The total elapsed time of the animation, including any start delay
      *  and repetitions. For an animation playing through its first cycle,
@@ -293,6 +297,8 @@ public final class Animation
     {
         return _isPlaying;
     }
+    
+    [Inspectable(minValue="0.0")]
     
     /**
      *  The length of time, in milliseconds, of the animation,
@@ -352,6 +358,9 @@ public final class Animation
      * Storage for the repeatCount property. 
      */
     private var _repeatCount:int = 1;
+    
+    [Inspectable(minValue="0")]
+    
     /**
      *  The number of times that this animation repeats. 
      *  A value of 0 means that it repeats indefinitely.
@@ -381,6 +390,9 @@ public final class Animation
      * Storage for the repeatDelay property. 
      */
     private var _repeatDelay:Number = 0;
+    
+    [Inspectable(minValue="0.0")]
+    
     /**
      *  The amount of time, in milliseconds, to delay before each repetition cycle
      *  begins. Setting this value to a non-zero number 
@@ -418,6 +430,9 @@ public final class Animation
      * Storage for the startDelay property. 
      */
     private var _startDelay:Number = 0;
+    
+    [Inspectable(minValue="0.0")]
+    
     /**
      *  The amount of time spent waiting before the animation
      *  begins.
