@@ -69,6 +69,7 @@ use namespace mx_internal;
  *    focalLength="no default"
  *    projectionX="0"
  *    projectionY="0"
+ *    removeLocalProjectionWhenComplete="false"
  *  /&gt;
  *  </pre>
  *
@@ -119,9 +120,12 @@ public class AnimateTransform3D extends AnimateTransform
     //----------------------------------
     [Inspectable(category="General")]
     /** 
-     *  @copy AnimateTransform#applyChangesPostLayout
-     *  The default value for this property is true for 3D effects,
-     *  because the Flex layout system ignores 3D transformation properties.
+     *  Used by the subclasses of AnimateTransform to specify
+     *  whether the effect changes transform values used by the layout 
+     *  manager, or whether it changes values used after layout is run.
+     *  Because the Flex layout system ignores 3D transformation properties,
+     *  this class overrides the <code>AnimateTransform.applyChangesPostLayout</code> property
+     *  to set the default value to <code>true</code> for 3D effects.
      *
      *  @default true
      * 
@@ -205,12 +209,27 @@ public class AnimateTransform3D extends AnimateTransform
     public var autoCenterProjection:Boolean = true;
 
     /**
-     *  @copy flash.geom.PerspectiveProjection#fieldOfView
-     *  
+     *  Specifies an angle, as a degree between <code>0</code> and <code>180</code>, 
+     *  for the field of view in three dimensions. 
+     *  This value determines how strong the perspective transformation and distortion apply to
+     *  a three-dimensional display object with a non-zero z-coordinate.
+     *
+     *  <p>A degree close to <code>0</code> means that the screen's two-dimensional x- and y-coordinates are 
+     *  roughly the same as the three-dimensional x-, y-, and z-coordinates with little or 
+     *  no distortion. In other words, for a small angle, a display object moving down the z axis appears
+     *  to stay near the same size and moves little. </p>
+     *
+     *  <p>A value close to <code>180</code> degrees results in a fisheye lens effect: positions 
+     *  with a <code>z</code> value smaller than <code>0</code> are magnified, while positions with a 
+     *  <code>z</code> value larger than <code>0</code> are minimized. With a large angle, a display object
+     *  moving down the z axis appears to change size quickly and moves a great distance. If the field of view
+     *  is set to <code>0</code> or <code>180</code>, nothing is seen on the screen.</p>
+     *
      *  <p>This property is only used when <code>applyLocalProjection</code>
      *  is set to <code>true</code>.</p>
-     *
+     *  
      *  @see #applyLocalProjection
+     *  @see flash.geom.PerspectiveProjection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -220,12 +239,17 @@ public class AnimateTransform3D extends AnimateTransform
     public var fieldOfView:Number;
 
     /**
-     *  @copy flash.geom.PerspectiveProjection#focalLength
+     *  The distance between the eye or the viewpoint's origin (0,0,0) 
+     *  and the display object located  in the z axis. During the perspective transformation, 
+     *  the <code>focalLength</code> is calculated dynamically 
+     *  using the angle of the field of view and the stage's aspect ratio (stage width divided by 
+     *  stage height).
      *  
      *  <p>This property is only used when <code>applyLocalProjection</code>
      *  is set to <code>true</code>.</p>
      *
      *  @see #applyLocalProjection
+     *  @see flash.geom.PerspectiveProjection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -288,7 +312,7 @@ public class AnimateTransform3D extends AnimateTransform
      * @private
      * 
      * This is where we create the single instance and/or feed extra
-     * MotionPath information (from othe transform-related effects) into the
+     * MotionPath information (from the transform-related effects) into the
      * single transform effect instance.
      */
     override protected function initInstance(instance:IEffectInstance):void
