@@ -38,9 +38,16 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  <p>When a user clicks a CheckBox component or its associated text,
  *  the CheckBox component sets its <code>selected</code> property
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
+ *  @mxml
  *
- * @includeExample examples/CheckBoxExample.mxml
- *  
+ *  <p>The <code>&lt;CheckBox&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no tag attributes:</p>
+ *  <pre>
+ *  &lt;CheckBox/&gt;
+ *  </pre>
+ *
+ *  @includeExample examples/CheckBoxExample.mxml
+ *  @see spark.skins.default.CheckBoxSkin
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
