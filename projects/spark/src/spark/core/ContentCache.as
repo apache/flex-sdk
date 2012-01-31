@@ -697,27 +697,32 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     private function loader_completeHandler(e:Event):void
     {
         var loaderInfo:LoaderInfo = e.target as LoaderInfo;
-       
+        
+        // Lookup our cache entry for this loader. We can't lookup by key since 
+        // loaderInfo.url may have been sanitized/modified by the player (or for 
+        // example converted to a fully qualified form since our initial request).
+        var cachedRequest:CacheEntryNode = cacheEntries.find(loaderInfo) as CacheEntryNode;
+        
         if (e.type == Event.COMPLETE && loaderInfo)
         {
-            // Mark cache entry as complete.
-            var entry:CacheEntryNode = cachedData[loaderInfo.url];
-            if (entry)
-                entry.complete = true;
-            
-            if (!loaderInfo.childAllowsParent)
+            // Mark cache entry as complete. 
+            if (cachedRequest)
             {
+                cachedRequest.complete = true;
+            
                 // Detected that our loader cannot be shared or cached. Mark 
                 // as such and notify and possibly active content requests.
-                addCacheEntry(loaderInfo.url, UNTRUSTED);
-                dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
+                if (!loaderInfo.childAllowsParent)
+                {
+                    addCacheEntry(cachedRequest.source, UNTRUSTED);
+                    dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
+                }
             }
         }
         else if (e.type == IOErrorEvent.IO_ERROR || e.type == SecurityErrorEvent.SECURITY_ERROR)
         {
             // Not suitable for caching.  Lookup our loader info in our cache since
             // the ioError event does not provide us the original url.
-            var cachedRequest:CacheEntryNode = cacheEntries.find(e.target) as CacheEntryNode;
             if (cachedRequest)
                 removeCacheEntry(cachedRequest.source);
         }
