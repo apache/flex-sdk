@@ -494,6 +494,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             redrawRequested = true;
             super.$invalidateDisplayList();
         }
+        
+        if (allStyles || styleName == "inputMode")
+        {
+            addHandlers();
+        }
     }
     
     /**
@@ -575,8 +580,16 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     private function addHandlers():void
     {
-        addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-        addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        if (getStyle("inputMode") == "mouse")
+        {
+            addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+            addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        }
+        else
+        {
+            removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+            removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        }
     }
     
     /**
