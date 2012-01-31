@@ -14,9 +14,9 @@ package flex.component
 
 import flex.core.DataGroup;
 import flex.core.SkinnableComponent;
-import flex.intf.ILayout;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
+import flex.layout.LayoutBase;
 
 import mx.collections.IList;
 import mx.core.IFactory;
@@ -117,14 +117,14 @@ public class DataComponent extends SkinnableComponent implements IFocusManagerCo
 	 *  @copy flex.core.DataGroup#layout
 	 */
 	 
-	private var _layout:ILayout;
+	private var _layout:LayoutBase;
 	
-    public function get layout():ILayout
+    public function get layout():LayoutBase
     {
     	return (dataGroup) ? dataGroup.layout : _layout;
     }
 
-    public function set layout(value:ILayout):void
+    public function set layout(value:LayoutBase):void
     {
 		if (value != _layout) {
     		_layout = value;
