@@ -162,7 +162,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *    clipAndEnableScrolling="false"
  *    creationPolicy="auto"
  *    horizontalScrollPosition="null"
- *    layout="VerticalLayout"
+ *    layout="BasicLayout"
  *    verticalScrollPosition="null"
  *  
  *    <strong>Events</strong>
