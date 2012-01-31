@@ -22,7 +22,7 @@ import mx.effects.effectClasses.WipeLeftInstance;
 [Alternative(replacement="spark.effects.Wipe", since="4.0")]
 
 /**
- *  The WipeLeft class defines a bar wipe left effect.
+ *  The WipeLeft class defines a wipe left effect.
  *  The before or after state of the component must be invisible. 
  * 
  *  <p>You often use this effect with the <code>showEffect</code> 
@@ -36,7 +36,7 @@ import mx.effects.effectClasses.WipeLeftInstance;
  *  <p>This effect inherits the <code>MaskEffect.show</code> property. 
  *  If you set the value to <code>true</code>, the component appears. 
  *  If you set the value to <code>false</code>, the component disappears.
- *	The default value is <code>true</code>.</p>
+ *  The default value is <code>true</code>.</p>
  *
  *  <p>If you specify this effect for a <code>showEffect</code> or 
  *  <code>hideEffect</code> trigger, Flex sets the <code>show</code> property 
@@ -68,28 +68,28 @@ public class WipeLeft extends MaskEffect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function WipeLeft(target:Object = null)
-	{
-		super(target);
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function WipeLeft(target:Object = null)
+    {
+        super(target);
 
-		instanceClass = WipeLeftInstance;
-	}
+        instanceClass = WipeLeftInstance;
+    }
 }
 
 }
