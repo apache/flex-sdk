@@ -11,8 +11,8 @@
 package spark.core
 {
 /**
- *  Enumerated type for the IGraphicElement's <code>displayObjectSharingMode</code>
- *  property.
+ *  The DisplayObjectSharingMode class defines the possible values for the 
+ *  <code>displayObjectSharingMode</code> property of the IGraphicElement class.
  * 
  *  @see IGraphicElement#displayObjectSharingMode
  *  
@@ -24,7 +24,7 @@ package spark.core
 public final class DisplayObjectSharingMode
 {   
     /**
-     *  Such <code>IGraphicElement</code> owns a DisplayObject exclusively.
+     *  IGraphicElement owns a DisplayObject exclusively.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -34,9 +34,9 @@ public final class DisplayObjectSharingMode
     public static const OWNS_UNSHARED_OBJECT:String = "ownsUnsharedObject";
     
     /**
-     *  Such <code>IGraphicElement</code> owns a DisplayObject that is also
-     *  assigned to some other <code>IGraphicElement</code> by the parent
-     *  <code>Group</code>.
+     *  IGraphicElement owns a DisplayObject that is also
+     *  assigned to some other IGraphicElement by the parent
+     *  Group container.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -46,8 +46,8 @@ public final class DisplayObjectSharingMode
     public static const OWNS_SHARED_OBJECT:String = "ownsSharedObject";
     
     /**
-     *  Such <code>IGraphicElement</code> is assigned a DisplayObject by
-     *  its parent <code>Group</code>.
+     *  IGraphicElement is assigned a DisplayObject by
+     *  its parent Group container.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
