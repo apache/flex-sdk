@@ -22,8 +22,11 @@ import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.utils.Dictionary;
 import flash.utils.setInterval;
+
 import mx.collections.CursorBookmark;
 import mx.collections.ItemResponder;
+import mx.collections.ItemWrapper;
+import mx.collections.ModifiedCollectionView;
 import mx.collections.errors.ItemPendingError;
 import mx.controls.scrollClasses.ScrollBar;
 import mx.core.ClassFactory;
@@ -43,8 +46,6 @@ import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.events.ScrollEventDirection;
 import mx.skins.halo.ListDropIndicator;
-import mx.collections.ItemWrapper;
-import mx.collections.ModifiedCollectionView;
 
 use namespace mx_internal;
 
@@ -2435,8 +2436,10 @@ public class TileBase extends ListBase
         }
 
         var colors:Array;
-
-        colors = getStyle("alternatingItemColors");
+		var colorsStyle:Object = getStyle("alternatingItemColors");
+		
+		if (colorsStyle)
+			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
 
         if (!colors || colors.length == 0)
         {
