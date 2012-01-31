@@ -735,7 +735,7 @@ public class SkinnableContainer extends SkinnableContainerBase
                     // create the parent, addElement the child to the parent.
                     
                     // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
-                    // especially if we make it mx_internal.
+                    // especially if we make it mx_internal.  Also look at controlBarContent.
                     
                     // Temporary workaround because copying content from one Group to another throws RTE
                     for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
