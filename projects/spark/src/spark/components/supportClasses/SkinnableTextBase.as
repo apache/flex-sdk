@@ -77,8 +77,8 @@ use namespace mx_internal;
  */
 [Event(name="change", type="spark.events.TextOperationEvent")]
 
-include "../../styles/metadata/AdvancedTextLayoutFormatStyles.as"
-include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../../styles/metadata/BasicInheritingTextStyles.as"
+include "../../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
