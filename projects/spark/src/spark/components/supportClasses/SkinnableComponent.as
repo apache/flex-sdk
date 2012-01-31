@@ -135,6 +135,20 @@ public class SkinnableComponent extends UIComponent
     
     /**
      * @private 
+     * 
+     * Contains a flat list of all the skin parts. This includes
+     * inherited skin parts. It is best to use a for...in to loop
+     * through the skin parts. The property name will be the name of the 
+     * skin part and it's value will be a boolean specifying if it is required
+     * or not.
+     */
+    protected function get skinParts():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private 
      * Storage for skin instance
      */ 
     private var _skin:Skin;
@@ -473,29 +487,24 @@ public class SkinnableComponent extends UIComponent
      */
     protected function findSkinParts():void
     {
-        var className:String = getQualifiedClassName(this);
-        var skinParts:Array = getSkinPartMetadata(className);
-        
         if (skinParts)
         {
-            for (var i:int = 0; i < skinParts.length; i++)
+            for(var id:String in skinParts)
             {
-                var part:SkinPartInfo = skinParts[i];
-                
-                if (part.required)
+                if(skinParts[id] == true)
                 {
-                    if (!(part.id in skin) || skin[part.id] == null)
-                        throw(new Error(resourceManager.getString("components", "requiredSkinPartNotFound", [part.id])));
+                    if (!(id in skin) || skin[id] == null)
+                        throw(new Error(resourceManager.getString("components", "requiredSkinPartNotFound", [id])));
                 }
                 
-                if (part.id in skin)
+                if(id in skin)
                 {
-                    this[part.id] = skin[part.id];
+                    this[id] = skin[id];
                     
                     // If the assigned part has already been instantiated, call partAdded() here,
                     // but only for static parts.
-                    if (this[part.id] != null && !(this[part.id] is IFactory))
-                        partAdded(part.id, this[part.id]);
+                    if (this[id] != null && !(this[id] is IFactory))
+                        partAdded(id, this[id]);
                 }
             }
         }
