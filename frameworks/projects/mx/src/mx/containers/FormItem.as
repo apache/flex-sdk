@@ -486,7 +486,7 @@ public class FormItem extends Container
             if (labelStyleName)
             {
                 var styleDecl:CSSStyleDeclaration =
-                	styleManager.getStyleDeclaration("." + labelStyleName);
+                	styleManager.getMergedStyleDeclaration("." + labelStyleName);
             
                 if (styleDecl)
                     labelObj.styleDeclaration = styleDecl;
@@ -1263,7 +1263,7 @@ public class FormItem extends Container
 	            if (labelStyleName)
 	            {
 	                var styleDecl:CSSStyleDeclaration =
-	                	styleManager.getStyleDeclaration("." + labelStyleName);
+	                	styleManager.getMergedStyleDeclaration("." + labelStyleName);
 	            
 	                if (styleDecl)
 	                {
