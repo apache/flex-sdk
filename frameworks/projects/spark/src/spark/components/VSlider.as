@@ -19,7 +19,6 @@ import flash.geom.Rectangle;
 import spark.components.supportClasses.Slider;
 import mx.core.UIComponent;
 import mx.core.ILayoutElement;
-import spark.layout.supportClasses.LayoutElementFactory;
 
 [IconFile("VSlider.png")]
 
@@ -71,15 +70,8 @@ public class VSlider extends Slider
      *  @productversion Flex 4
      */
     override protected function get trackSize():Number
-        {
-        if (track)
-        {
-            var trackLElement:ILayoutElement = 
-                LayoutElementFactory.getLayoutElementFor(track);
-            return trackLElement.getLayoutBoundsHeight();
-        }
-        else
-           return 0;
+    {
+        return track ? track.getLayoutBoundsHeight() : 0;
     }
     
     /**
@@ -92,9 +84,7 @@ public class VSlider extends Slider
      */
     override protected function calculateThumbSize():Number
     {
-        var thumbLElement:ILayoutElement = 
-            LayoutElementFactory.getLayoutElementFor(thumb);
-        return thumbLElement.getLayoutBoundsHeight();
+        return thumb.getLayoutBoundsHeight();
     }
 
     //--------------------------------------------------------------------------
@@ -120,24 +110,18 @@ public class VSlider extends Slider
     {
         if (thumb)
         {
-            var thumbLElement:ILayoutElement = 
-                LayoutElementFactory.getLayoutElementFor(thumb);
-
             var trackPos:Number = 0;
             var trackLen:Number = 0;
             
             if (track)
             {
-                var trackLElement:ILayoutElement = 
-                    LayoutElementFactory.getLayoutElementFor(track);
-                    
-                trackLen = trackLElement.getLayoutBoundsHeight();
-                trackPos = trackLElement.getLayoutBoundsY();
+                trackLen = track.getLayoutBoundsHeight();
+                trackPos = track.getLayoutBoundsY();
             }
             
-            thumbLElement.setLayoutBoundsPosition(thumbLElement.getLayoutBoundsX(), 
-                                         Math.round(trackPos + trackLen - thumbPos
-                                         - thumbLElement.getLayoutBoundsHeight())); 
+            thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), 
+                                          Math.round(trackPos + trackLen - thumbPos
+                                          - thumb.getLayoutBoundsHeight())); 
         }
     }
     
@@ -161,13 +145,8 @@ public class VSlider extends Slider
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
     {
-        var trackLElement:ILayoutElement = 
-            LayoutElementFactory.getLayoutElementFor(track);
-        var trackLen:Number = trackLElement.getLayoutBoundsHeight();
-        
-        var thumbLElement:ILayoutElement = 
-            LayoutElementFactory.getLayoutElementFor(thumb);
-        var thumbH:Number = thumbLElement.getLayoutBoundsHeight();
+        var trackLen:Number = track.getLayoutBoundsHeight();
+        var thumbH:Number = thumb.getLayoutBoundsHeight();
     
         return trackLen - localY - thumbH; 
     }
@@ -183,9 +162,7 @@ public class VSlider extends Slider
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
     {
-        var thumbLElement:ILayoutElement = 
-            LayoutElementFactory.getLayoutElementFor(thumb);
-        var thumbH:Number = thumbLElement.getLayoutBoundsHeight(); 
+        var thumbH:Number = thumb.getLayoutBoundsHeight(); 
         
         return pointToPosition(localX, localY) + (thumbH / 2);
     }
