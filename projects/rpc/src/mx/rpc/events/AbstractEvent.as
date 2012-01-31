@@ -44,6 +44,11 @@ public class AbstractEvent extends MessageEvent
     {
         return _token;
     }
+
+    mx_internal function setToken(t:AsyncToken):void
+    {
+        _token = t;
+    }
     
     /**
      * Does nothing by default.
