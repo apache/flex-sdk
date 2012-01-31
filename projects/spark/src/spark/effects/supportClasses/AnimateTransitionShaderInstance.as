@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
@@ -21,15 +21,15 @@ import flash.utils.ByteArray;
 import mx.containers.Panel;
 import mx.core.Application;
 import mx.core.UIComponent;
-import mx.effects.FxAnimateShaderTransition;
-import mx.effects.AnimationProperty;
-import mx.events.AnimationEvent;
+import spark.effects.AnimationProperty;
+import spark.effects.AnimateShaderTransition;
+import spark.events.AnimationEvent;
     
-public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
+public class AnimateShaderTransitionInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
-    public function FxAnimateShaderTransitionInstance(target:Object)
+    public function AnimateShaderTransitionInstance(target:Object)
     {
         super(target);
         // Automatically keep disappearing targets around during this effect
@@ -98,11 +98,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * @example <listing version="3.0">
      *   [Embed(source="MyShader.pbj", mimeType="application/octet-stream")]
      *   private var ShaderCodeClass:Class;
-     *   var shaderEffect = new FxAnimateShaderTransition();
+     *   var shaderEffect = new AnimateShaderTransition();
      *   shaderEffect.shaderCode = ShaderCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
      * or in MXML code, this:<listing version="3.0">
-     *   &lt;FxAnimateShaderTransition 
+     *   &lt;AnimateShaderTransition 
      *       shaderCode="&64;Embed(source='MyShader.pbj', mimeType='application/octet-stream')"
      *       shaderProperties="{{direction : 1}}}"/&gt;
      * </listing>
@@ -125,7 +125,7 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * @example <listing version="3.0">
      *   [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
      *   private var WipeCodeClass:Class;
-     *   var shaderEffect = new FxAnimateShaderTransition();
+     *   var shaderEffect = new AnimateShaderTransition();
      *   shaderEffect.shaderCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction:1};</listing>
      *  
@@ -219,9 +219,9 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
         // Last-ditch effort - if we don't have bitmaps yet, then just grab a 
         // snapshot of the current target
         if (!bitmapFrom)
-            bitmapFrom = FxAnimateShaderTransition.getSnapshot(target);
+            bitmapFrom = AnimateShaderTransition.getSnapshot(target);
         if (!bitmapTo)
-            bitmapTo = FxAnimateShaderTransition.getSnapshot(target);
+            bitmapTo = AnimateShaderTransition.getSnapshot(target);
 
         // Fix up the visibility if it's becoming visible
         if (propertyChanges &&
@@ -296,7 +296,7 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
     }
 
     /**
-     * Unlike FxAnimate's getValue we return the value of the property requested
+     * Unlike Animate's getValue we return the value of the property requested
      * from the filter associated with our effect instance rather than 
      * the effect target.
      *  
