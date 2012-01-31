@@ -70,8 +70,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      *  @productversion Flex 4
      *  
      */
-    function get showFocusIndicator():Boolean;
-    function set showFocusIndicator(value:Boolean):void;
+    function get caret():Boolean;
+    function set caret(value:Boolean):void;
     
     /**
      *  The String to display in the item renderer. 
