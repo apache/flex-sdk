@@ -73,15 +73,21 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  Constructor. 
+     * 
+     *  @param columnName Initial value for the <code>dataField</cod> and 
+     *     <code>headerText</code> properties. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function GridColumn()
+    public function GridColumn(columnName:String = null)
     {
         super();
+        
+        if (columnName)
+            dataField = headerText = columnName;
     }
     
     //--------------------------------------------------------------------------
