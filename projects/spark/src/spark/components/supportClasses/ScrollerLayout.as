@@ -174,6 +174,12 @@ public class ScrollerLayout extends LayoutBase
         g.measuredMinHeight = Math.ceil(minH);
     }
     
+    // Used by updateDisplayList() to record the scale of hidden scrollbars
+    private var hsbScaleX:Number = 1;
+    private var hsbScaleY:Number = 1;
+    private var vsbScaleX:Number = 1;
+    private var vsbScaleY:Number = 1;
+
     // Used by updateDisplayList() to prevent looping, see below.
     private var invalidationCount:int = 0;
     
@@ -288,29 +294,48 @@ public class ScrollerLayout extends LayoutBase
         if (!isNaN(explicitViewportW)) viewportW = explicitViewportW;
         if (!isNaN(explicitViewportH)) viewportH = explicitViewportH;
         
-        // layout the viewport
+        // Layout the viewport.
         if (viewport)
         {
             viewport.setLayoutBoundsSize(viewportW, viewportH);
             viewport.setLayoutBoundsPosition(minViewportInset, minViewportInset);
         }
 
-        // layout the scrollbars
+        // Layout the scrollbars.  To make the scrollbars invisible to methods
+        // like getRect() and getBounds() as well as to methods based on them
+        // like hitTestPoint(), we set their scale to 0.  More info about this
+        // here: http://bugs.adobe.com/jira/browse/SDK-21540
 
         if (hsb) hsb.includeInLayout = hsb.visible = showHSB;
         if (showHSB)
         {
+            if (hsb.scaleX == 0) hsb.scaleX = hsbScaleX;
+            if (hsb.scaleY == 0) hsb.scaleY = hsbScaleY;
             var hsbW:Number = (showVSB) ? w - vsbW : w;
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
             hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
-        
+        else
+        {
+            if (hsb.scaleX != 0) hsbScaleX = hsb.scaleX;
+            if (hsb.scaleY != 0) hsbScaleY = hsb.scaleY;
+            hsb.scaleX = hsb.scaleY = 0;
+        }
+
         if (vsb) vsb.includeInLayout = vsb.visible = showVSB;
         if (showVSB)
         {
+            if (vsb.scaleX == 0) vsb.scaleX = vsbScaleX;
+            if (vsb.scaleY == 0) vsb.scaleY = vsbScaleY;
             var vsbH:Number = (showHSB) ? h - hsbH : h;
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
             vsb.setLayoutBoundsPosition(w - vsbW, 0);
+        }
+        else
+        {
+            if (vsb.scaleX != 0) vsbScaleX = vsb.scaleX;
+            if (vsb.scaleY != 0) vsbScaleY = vsb.scaleY;
+            vsb.scaleX = vsb.scaleY = 0;
         }
 
         // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
