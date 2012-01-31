@@ -313,6 +313,12 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     {
         if (value != _label)
             _label = value;
+            
+        //Push the label down into the labelDisplay,
+        //if it exists
+        if (labelDisplay)
+            labelDisplay.text = _label; 
+            
         dispatchEvent(new FlexEvent("textChanged"));
     }
     
@@ -376,8 +382,14 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         
         if (hovered && hasState("hovered"))
             return "hovered";
-            
-        return "normal";
+        
+        if (hasState("normal"))    
+            return "normal";
+        
+        //If none of the above states are defined in the item renderer,
+        //we return the empty string. This means the user-defined renderer
+        //will display but essentially be non-interactive visually. 
+        return null;
     }
     
     //--------------------------------------------------------------------------
