@@ -16,12 +16,11 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.getTimer;
 
 import mx.collections.ArrayList;
 import mx.collections.IList;
-import mx.containers.Grid;
 import mx.core.IFactory;
-import mx.core.IInvalidating;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -290,8 +289,7 @@ public class Grid extends Group implements IDataGridElement
                     
         addEventListener(MouseEvent.MOUSE_UP, grid_mouseUpHandler);
         addEventListener(MouseEvent.MOUSE_MOVE, grid_mouseMoveHandler);
-        addEventListener(MouseEvent.ROLL_OUT, grid_mouseRollOutHandler);
-        addEventListener(MouseEvent.DOUBLE_CLICK, grid_doubleClickHandler);        
+        addEventListener(MouseEvent.ROLL_OUT, grid_mouseRollOutHandler);      
     }
     
     /**
@@ -3796,6 +3794,9 @@ public class Grid extends Group implements IDataGridElement
     private var rollColumnIndex:int = -1;
     private var mouseDownRowIndex:int = -1;
     private var mouseDownColumnIndex:int = -1;
+    private var lastClickTime:Number;
+    // default max time between clicks for a double click is 480ms.
+    mx_internal var DOUBLE_CLICK_TIME:Number = 480;
     
     /**
      *  @private
@@ -3823,7 +3824,6 @@ public class Grid extends Group implements IDataGridElement
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
         var gridEventType:String;
-        var dispatchGridClick:Boolean;
         switch(event.type)
         {
             case MouseEvent.MOUSE_MOVE: 
@@ -3834,8 +3834,6 @@ public class Grid extends Group implements IDataGridElement
             case MouseEvent.MOUSE_UP: 
             {
                 gridEventType = GridEvent.GRID_MOUSE_UP;
-                dispatchGridClick = (eventRowIndex == mouseDownRowIndex &&
-                                     eventColumnIndex == mouseDownColumnIndex);
                 break;
             }
             case MouseEvent.MOUSE_DOWN:
@@ -3849,9 +3847,8 @@ public class Grid extends Group implements IDataGridElement
         }
         
         dispatchGridEvent(event, gridEventType, eventGridXY, eventRowIndex, eventColumnIndex);
-        
-        if (dispatchGridClick)
-            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventGridXY, eventRowIndex, eventColumnIndex);
+        if (gridEventType == GridEvent.GRID_MOUSE_UP)
+            dispatchGridClickEvents(event, eventGridXY, eventRowIndex, eventColumnIndex);
     }
     
     /**
@@ -3941,40 +3938,46 @@ public class Grid extends Group implements IDataGridElement
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
         dispatchGridEvent(event, GridEvent.GRID_MOUSE_UP, eventGridXY, eventRowIndex, eventColumnIndex);
-        
-        if (eventRowIndex == mouseDownRowIndex && eventColumnIndex == mouseDownColumnIndex)
-            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventGridXY, eventRowIndex, eventColumnIndex);
+        dispatchGridClickEvents(event, eventGridXY, eventRowIndex, eventColumnIndex);
     }
     
     /**
      *  @private
-     *  This method is called whenever a DOUBLE_CLICK MouseEvent occurs on the grid
-     *  if the corresponding sequence of down and up events occur within the same grid cell.
-     *  By default it dispatches a GRID_DOUBLE_CLICK event.
+     *  This method is called after we dispatch a GRID_MOUSE_UP.
+     *  It determines whether to dispatch a GRID_CLICK or GRID_DOUBLE_CLICK
+     *  event following a GRID_MOUSE_UP.
      * 
-     *  @param event A DOUBLE_CLICK MouseEvent from the grid.
+     *  A GRID_CLICK event is dispatched when the mouse up event happens in
+     *  the same cell as the mouse down event.
      * 
-     *  @see flash.display.InteractiveObject#doubleClickEnabled    
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  A GRID_DOUBLE_CLICK event is dispatched in place of the GRID_CLICK
+     *  event when the last click event happened within DOUBLE_CLICK_TIME.
      */       
-    protected function grid_doubleClickHandler(event:MouseEvent):void 
+    private function dispatchGridClickEvents(mouseEvent:MouseEvent, gridXY:Point, rowIndex:int, columnIndex:int):void
     {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
-        const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
+        var dispatchGridClick:Boolean = (rowIndex == mouseDownRowIndex &&
+                                         columnIndex == mouseDownColumnIndex);
+        var newClickTime:Number = getTimer();
         
+        // In the case that we dispatched a click last time, check if we
+        // should dispatch a double click this time.
         // This isn't stricly adequate, since the mouse might have been on a different cell for 
         // the first click.  It's not clear that the extra checking would be worthwhile.
+        if (doubleClickEnabled && dispatchGridClick && !isNaN(lastClickTime) &&
+            (newClickTime - lastClickTime <= DOUBLE_CLICK_TIME))
+        {
+            dispatchGridEvent(mouseEvent, GridEvent.GRID_DOUBLE_CLICK, gridXY, rowIndex, columnIndex);
+            lastClickTime = NaN;
+            return;
+        }
         
-        if ((eventRowIndex == mouseDownRowIndex) && (eventColumnIndex == mouseDownColumnIndex)) 
-            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventGridXY, eventRowIndex, eventColumnIndex);            
-    }    
+        // Otherwise, just dispatch the click event.
+        if (dispatchGridClick)
+        {
+            dispatchGridEvent(mouseEvent, GridEvent.GRID_CLICK, gridXY, rowIndex, columnIndex);
+            lastClickTime = newClickTime;
+        }
+    }
     
     /**
      *  @private
