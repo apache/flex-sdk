@@ -1743,7 +1743,7 @@ public class Tree extends List implements IIMESupport
                                         CollectionEvent.COLLECTION_CHANGE,
                                         false, 
                                         true,
-                                        CollectionEventKind.mx_internal::EXPAND);
+                                        CollectionEventKind.EXPAND);
         event.items = [item];
         
         // update the list of _openItems
@@ -3562,7 +3562,7 @@ public class Tree extends List implements IIMESupport
         {
             var ce:CollectionEvent = CollectionEvent(event);
             
-            if (ce.kind == CollectionEventKind.mx_internal::EXPAND)
+            if (ce.kind == CollectionEventKind.EXPAND)
             {
                 //we ignore expand in list/tree
                 event.stopPropagation();
