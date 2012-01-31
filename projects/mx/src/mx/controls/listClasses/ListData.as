@@ -92,7 +92,7 @@ public class ListData extends BaseListData
 	//  icon
 	//----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  A Class representing the icon for the item in the List control computed
@@ -109,7 +109,7 @@ public class ListData extends BaseListData
 	//  labelField
 	//----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
 	 *  The value of the <code>labelField</code> property in the list class.
