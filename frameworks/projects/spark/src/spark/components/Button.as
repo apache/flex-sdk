@@ -52,6 +52,12 @@ import mx.core.IButton;
  *  <code>rollOut</code>, <code>mouseDown</code>, and 
  *  <code>mouseUp</code> events whether enabled or disabled.</p>
  *
+ *  <p>An item renderer lets you customize the display of a list-based component, 
+ *  such as a List or DataGrid control.
+ *  For information about using this component in an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>The Button control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
