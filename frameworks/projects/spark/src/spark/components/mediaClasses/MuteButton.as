@@ -24,7 +24,8 @@ import spark.components.Button;
 //--------------------------------------
 
 /**
- *  Dispatched when the video mutes or unmutes the volume.
+ *  Dispatched when the video mutes or unmutes the volume
+ *  from user-interaction.
  *
  *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
@@ -78,7 +79,7 @@ public class MuteButton extends Button
      */
     private var _muted:Boolean = false;
     
-    [Bindable("mutedChange")]
+    [Bindable("mutedChanged")]
     
     /**
      *  <code>true</code> if the volume of the video is muted; 
@@ -103,7 +104,7 @@ public class MuteButton extends Button
             return;
         
         _muted = value;
-        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
+        dispatchEvent(new Event("mutedChanged"));
     }
     
     //----------------------------------
@@ -151,6 +152,8 @@ public class MuteButton extends Button
         super.clickHandler(event);
         
         muted = !muted;
+        
+        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
     }
 
 }
