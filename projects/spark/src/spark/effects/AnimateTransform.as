@@ -186,7 +186,7 @@ public class AnimateTransform extends Animate
     //
     //--------------------------------------------------------------------------
 
-    // TODO (chaase): Is weak Dictionary sufficient to hold these values and then
+    // FIXME (chaase): Is weak Dictionary sufficient to hold these values and then
     // dispense with them appropriately? What if we get interrupted before we
     // clear the map?
     /**
@@ -201,7 +201,7 @@ public class AnimateTransform extends Animate
      */
     static protected var transformInstancePerTarget:Dictionary = new Dictionary(true);
 
-    // TODO (chaase): consider putting the three per-target maps into one 
+    // FIXME (chaase): consider putting the three per-target maps into one 
     // single structure
     /**
      * @private
@@ -232,9 +232,9 @@ public class AnimateTransform extends Animate
     // Caches the transform center when start values are captured
     // Ensures same center point used to capture and apply start and
     // end values
-    // TODO (chaase): More correct approach might be to animate the 
+    // FIXME (chaase): More correct approach might be to animate the 
     // transform center between start and end
-    // TODO (chaase): If we do keep some mechanism of caching the values,
+    // FIXME (chaase): If we do keep some mechanism of caching the values,
     // need to make sure to delete the map entries when effect is stopped.
     // Current approach clears it at applyEndValues() time, but that won't
     // catch the stop() case.
@@ -522,7 +522,7 @@ public class AnimateTransform extends Animate
     
         if (!transformInstancePerTarget[target])
         {
-            // TODO (chaase): need to clear out this entry once the effect
+            // FIXME (chaase): need to clear out this entry once the effect
             // starts (stops?) because we don't want it hanging around for
             // future runs
             var newInstance:IEffectInstance = super.createInstance(target);
@@ -582,7 +582,7 @@ public class AnimateTransform extends Animate
             if (targetsToCapture == null || targetsToCapture.length == 0 ||
                 targetsToCapture.indexOf(target) >= 0)
             {
-                // TODO (chaase): should only capture values for targets of this effect.
+                // FIXME (chaase): should only capture values for targets of this effect.
                 // currently no easy way to determine this, since if we are
                 // running in a composite effect, that effect will create
                 // propertyChange targets for all effect children.
@@ -612,7 +612,7 @@ public class AnimateTransform extends Animate
                     valueMap.translationY === undefined ||
                     valueMap.translationZ === undefined)
                 {
-                    // TODO (chaase): do we really need this?
+                    // FIXME (chaase): do we really need this?
                     propChanges[i].stripUnchangedValues = false;
                     
                     target.transformPointToParent(computedTransformCenter, xformPosition,
@@ -647,7 +647,7 @@ public class AnimateTransform extends Animate
                         valueMap.postLayoutTranslationY === undefined ||
                         valueMap.postLayoutTranslationZ === undefined)
                     {
-                        // TODO (chaase): do we really need this?
+                        // FIXME (chaase): do we really need this?
                         propChanges[i].stripUnchangedValues = false;
     
                         computedTransformCenter = 
@@ -1073,7 +1073,7 @@ public class AnimateTransform extends Animate
         motionPaths.push(mp);
     }
 
-    // TODO (chaase): This function appears in multiple places. Maybe
+    // FIXME (chaase): This function appears in multiple places. Maybe
     // put it in some util class instead?
     /**
      * @private
@@ -1174,7 +1174,7 @@ public class AnimateTransform extends Animate
 
         // If we're in a transition and we've captured the center already, use it.
         // Otherwise, calculate it.
-        // TODO (chaase): double-check that calling play() directly on an effect
+        // FIXME (chaase): double-check that calling play() directly on an effect
         // that was previously used in a Transition won't mistakenly think that it's
         // now being run in a transition.
         if (propertyChangesArray != null && 
