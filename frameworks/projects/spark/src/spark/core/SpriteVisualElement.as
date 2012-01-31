@@ -20,6 +20,7 @@ import flash.geom.Point;
 import mx.core.FlexSprite;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
 
 /**
@@ -300,7 +301,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @private
      *  Storage for the percentHeight property.
      */
-    private var _percentHeight:Number;
+    mx_internal var _percentHeight:Number;
 
     [Inspectable(category="General")]
     
@@ -309,7 +310,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function get percentHeight():Number
     {
-        return _percentHeight;
+        return mx_internal::_percentHeight;
     }
 
     /**
@@ -317,10 +318,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function set percentHeight(value:Number):void
     {
-        if (_percentHeight == value)
+        if (mx_internal::_percentHeight == value)
             return;
 
-        _percentHeight = value;
+        mx_internal::_percentHeight = value;
         invalidateParentSizeAndDisplayList();
     }
 
@@ -332,7 +333,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      *  @private
      *  Storage for the percentWidth property.
      */
-    private var _percentWidth:Number;
+    mx_internal var _percentWidth:Number;
 
     [Inspectable(category="General")]
     
@@ -341,7 +342,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function get percentWidth():Number
     {
-        return _percentWidth;
+        return mx_internal::_percentWidth;
     }
 
     /**
@@ -349,10 +350,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function set percentWidth(value:Number):void
     {
-        if (_percentWidth == value)
+        if (mx_internal::_percentWidth == value)
             return;
         
-        _percentWidth = value;
+        mx_internal::_percentWidth = value;
         invalidateParentSizeAndDisplayList();
     }
     
