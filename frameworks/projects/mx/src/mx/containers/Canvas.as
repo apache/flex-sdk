@@ -51,6 +51,8 @@ use namespace mx_internal;
 
 [IconFile("Canvas.png")]
 
+[Alternative(replacement="spark.components.Group", since="4.0")]
+
 /**
  *  A Halo Canvas layout container defines a rectangular region
  *  in which you place child containers and controls.
