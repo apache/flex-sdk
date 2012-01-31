@@ -1280,9 +1280,6 @@ public class Application extends SkinnableContainer
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
                 softKeyboardActivateHandler, true, 
                 EventPriority.DEFAULT, true);
-            addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
-                softKeyboardDeactivateHandler, true, 
-                EventPriority.DEFAULT, true);
         }
     }
 
@@ -1579,6 +1576,10 @@ public class Application extends SkinnableContainer
      */    
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {        
+        // Add a listener for the softKeyboard deactivate event to the event target
+        event.target.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                      softKeyboardDeactivateHandler);
+        
         if (this === FlexGlobals.topLevelApplication)
         {
             // Get the keyboard size
@@ -1614,6 +1615,9 @@ public class Application extends SkinnableContainer
      */ 
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
     {
+        // Remove event listener
+        event.target.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+        
         if (this === FlexGlobals.topLevelApplication)
         {            
             isSoftKeyboardActive = false;
