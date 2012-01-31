@@ -10,28 +10,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package mx.components
+package spark.components.supportClasses
 {
 
-import mx.components.baseClasses.FxScrollBar;
-import mx.components.Group;
+import spark.components.supportClasses.ScrollBar;
+import spark.components.Group;
 import mx.core.ILayoutElement;
-import mx.core.IViewport;
+import spark.core.IViewport;
 import mx.core.ScrollPolicy;
-import mx.layout.LayoutBase;
-import mx.layout.LayoutElementFactory;
-import mx.components.FxScroller;
-import mx.components.baseClasses.GroupBase;
-import mx.components.Skin;
+import spark.layout.supportClasses.LayoutBase;
+import spark.layout.supportClasses.LayoutElementFactory;
+import spark.components.Scroller;
+import spark.components.supportClasses.GroupBase;
+import spark.components.supportClasses.Skin;
 
 [ExcludeClass]
 
 /**
  *  @private
  */
-internal class FxScrollerLayout extends LayoutBase
+public class ScrollerLayout extends LayoutBase
 {
-    public function FxScrollerLayout()    
+    public function ScrollerLayout()    
     {
         super();
     }
@@ -41,10 +41,10 @@ internal class FxScrollerLayout extends LayoutBase
         return (item) ? LayoutElementFactory.getLayoutElementFor(item) : null;
     }
     
-    private function getScroller():FxScroller
+    private function getScroller():Scroller
     {
         var g:Skin = target as Skin;
-        return (g) ? g.fxComponent as FxScroller : null;
+        return (g) ? g.fxComponent as Scroller : null;
     }
     
     /**
@@ -65,7 +65,7 @@ internal class FxScrollerLayout extends LayoutBase
      */
     override public function measure():void
     {
-        var scroller:FxScroller = getScroller();
+        var scroller:Scroller = getScroller();
         if (!scroller) 
             return;
             
@@ -82,7 +82,7 @@ internal class FxScrollerLayout extends LayoutBase
             measuredH = viewportElt.getPreferredBoundsHeight();
         }
         
-        var hsb:FxScrollBar = scroller.horizontalScrollBar;
+        var hsb:ScrollBar = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
         switch(scroller.horizontalScrollPolicy) {
             case ScrollPolicy.ON: 
@@ -93,7 +93,7 @@ internal class FxScrollerLayout extends LayoutBase
                 break;
         } 
 
-        var vsb:FxScrollBar = scroller.verticalScrollBar;
+        var vsb:ScrollBar = scroller.verticalScrollBar;
         var showVSB:Boolean = false;
         switch(scroller.verticalScrollPolicy) {
            case ScrollPolicy.ON: 
@@ -142,13 +142,13 @@ internal class FxScrollerLayout extends LayoutBase
      */
     override public function updateDisplayList(w:Number, h:Number):void
     {  
-        var scroller:FxScroller = getScroller();
+        var scroller:Scroller = getScroller();
         if (!scroller) 
             return;
             
         var viewport:IViewport = scroller.viewport;
-        var hsb:FxScrollBar = scroller.horizontalScrollBar;
-        var vsb:FxScrollBar = scroller.verticalScrollBar;
+        var hsb:ScrollBar = scroller.horizontalScrollBar;
+        var vsb:ScrollBar = scroller.verticalScrollBar;
         var hsbElt:ILayoutElement = LayoutElementFor(hsb);
         var vsbElt:ILayoutElement = LayoutElementFor(vsb);
            
