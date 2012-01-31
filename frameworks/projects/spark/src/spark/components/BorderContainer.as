@@ -156,7 +156,7 @@ import spark.components.SkinnableContainer;
  * Because this component does not define a skin for the mobile theme, Adobe
  * recommends that you not use it in a mobile application. Alternatively, you
  * can define your own mobile skin for the component. For more information,
- * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark Skinning</a>.
+ * see <a href="http://help.adobe.com/en_US/flex/mobileapps/WS19f279b149e7481c698e85712b3011fe73-8000.html">Basics of mobile skinning</a>.
  */
 [DiscouragedForProfile("mobileDevice")]
 
