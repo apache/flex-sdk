@@ -259,16 +259,15 @@ public class Scale extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if (!applyChangesPostLayout)
-        {
-            addMotionPath("scaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addMotionPath("scaleY", scaleYFrom, scaleYTo, scaleYBy);
-        }
-        else
-        {
-            addMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
-        }
+        var xProp:String = applyChangesPostLayout ? "postLayoutScaleX" : "scaleX";
+        var yProp:String = applyChangesPostLayout ? "postLayoutScaleY" : "scaleY";
+        
+        if (!(isNaN(scaleXFrom) && isNaN(scaleXTo) && isNaN(scaleXBy)))
+            addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
+        
+        if (!(isNaN(scaleYFrom) && isNaN(scaleYTo) && isNaN(scaleYBy)))
+            addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
+        
         super.initInstance(instance);
     }    
 }
