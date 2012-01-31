@@ -124,7 +124,7 @@ import spark.events.VideoEvent;
 
 [DefaultProperty("source")]
 
-//[IconFile("VideoElement.png")]
+[IconFile("VideoElement.png")]
 
 /**
  *  The VideoElement class is chromeless video player that supports
