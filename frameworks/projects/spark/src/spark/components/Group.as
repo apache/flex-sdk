@@ -27,6 +27,7 @@ import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
 
 import spark.components.supportClasses.GroupBase;
+import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
@@ -223,7 +224,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */  
     override mx_internal function set hasMouseListeners(value:Boolean):void
     {
-        if (mouseOpaque)
+        if (mouseEnabledWhereTransparent)
             redrawRequested = true;
         super.hasMouseListeners = value;
     }  
@@ -235,7 +236,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         if (_width != value)
         {
-            if (mouseOpaque && hasMouseListeners)
+            if (mouseEnabledWhereTransparent && hasMouseListeners)
             {        
                 // Re-render our mouse event fill if necessary.
                 redrawRequested = true;
@@ -252,7 +253,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         if (_height != value)
         {
-            if (mouseOpaque && hasMouseListeners)
+            if (mouseEnabledWhereTransparent && hasMouseListeners)
             {        
                 // Re-render our mouse event fill if necessary.
                 redrawRequested = true;
@@ -387,9 +388,23 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     private var _mxmlContent:Array;
     
     [ArrayElementType("mx.core.IVisualElement")]
-    
+
+    /**
+     *  @private
+     */
+    mx_internal function getMXMLContent():Array
+    {
+        if (_mxmlContent)
+            return _mxmlContent.concat();
+        else
+            return null;
+    }
+
     /**
      *  The visual content children for this Group.
+     * 
+     *  This method is used internally by Flex and is not intended for direct
+     *  use by developers.
      *
      *  <p>The content items should only be IVisualElement objects.  
      *  An <code>mxmlContent</code> Array should not be shared between multiple
@@ -400,22 +415,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  directly. Use the methods defined by the Group class instead.</p>
      *
      *  @default null
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function get mxmlContent():Array
-    {
-        if (_mxmlContent)
-            return _mxmlContent.concat();
-        else
-            return null;
-    }
-    
-    /**
-     *  @private
      */
     public function set mxmlContent(value:Array):void
     {
@@ -768,7 +772,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         if (_width != w || _height != h)
         {
-            if (mouseOpaque && hasMouseListeners)
+            if (mouseEnabledWhereTransparent && hasMouseListeners)
             {        
                 // Re-render our mouse event fill if necessary.
                 redrawRequested = true;
@@ -830,7 +834,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 if (element.depth == 0)
                 {
                     // Is this the start of a new shared sequence?         	
-	            	if (element.sharedIndex <= 0)
+	            	if (element.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
 	            	{
 	            	    // We have finished redrawing the previous sequence
 	            	    if (sharedDisplayObject)
@@ -1163,6 +1167,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
+        checkForRangeError(index1);
+        checkForRangeError(index2);
+
         // Make sure that index1 is the smaller index so that addElementAt 
         // doesn't RTE
         if (index1 > index2)
@@ -1173,17 +1180,35 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
         else if (index1 == index2)
             return;
+
+        var element1:IVisualElement = _mxmlContent[index1];
+        var element2:IVisualElement = _mxmlContent[index2];
+
+        // Make sure we do the proper invalidations, but don't dispatch events
+        if (!mxmlContentChanged)
+        {
+            elementRemoved(element1, index1, false /*notifyListeners*/);
+            elementRemoved(element2, index2, false /*notifyListeners*/);
+        }
         
-        var element1:IVisualElement = getElementAt(index1);
-        var element2:IVisualElement = getElementAt(index2);
-        
-        removeElement(element1);
-        removeElement(element2);
-        
-        addElementAt(element2, index1);
-        addElementAt(element1, index2);
+        // Step 1: remove
+        // Make sure we remove the bigger index first
+        _mxmlContent.splice(index2, 1);
+        _mxmlContent.splice(index1, 1);
+
+        // Step 2: swap
+        // Add them in reverse order 
+        _mxmlContent.splice(index1, 0, element2);
+        _mxmlContent.splice(index2, 0, element1);
+
+        // Make sure we do the proper invalidations, but don't dispatch events
+        if (!mxmlContentChanged)
+        {
+            elementAdded(element2, index1, false /*notifyListeners*/);
+            elementAdded(element1, index2, false /*notifyListeners*/);
+        }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Content management (internal)
@@ -1213,10 +1238,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    mx_internal function elementAdded(element:IVisualElement, index:int):void
+    mx_internal function elementAdded(element:IVisualElement, index:int, notifyListeners:Boolean = true):void
     {
-        var child:DisplayObject;
-        
         if (layout)
             layout.elementAdded(index);        
                 
@@ -1227,7 +1250,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // UIComponent children use moduleFactory.
         if (element is IFontContextComponent && !(element is UIComponent) &&
             IFontContextComponent(element).fontContext == null)
-        {
+        {  
             IFontContextComponent(element).fontContext = moduleFactory;
         }
 
@@ -1248,16 +1271,19 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             {
                 // This always adds the child to the end of the display list. Any 
                 // ordering discrepancies will be fixed up in assignDisplayObjects().
-                child = addItemToDisplayList(DisplayObject(element), element);
+                addDisplayObjectToDisplayList(DisplayObject(element));
             }
             else
             {
-                child = addItemToDisplayList(DisplayObject(element), element, index);
+                addDisplayObjectToDisplayList(DisplayObject(element), index);
             }
         }
         
-        dispatchEvent(new ElementExistenceEvent(
-                      ElementExistenceEvent.ELEMENT_ADD, false, false, element, index));
+        if (notifyListeners)
+        {
+            dispatchEvent(new ElementExistenceEvent(
+                          ElementExistenceEvent.ELEMENT_ADD, false, false, element, index));
+        }
         
         invalidateSize();
         invalidateDisplayList();
@@ -1274,12 +1300,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    mx_internal function elementRemoved(element:IVisualElement, index:int):void
+    mx_internal function elementRemoved(element:IVisualElement, index:int, notifyListeners:Boolean = true):void
     {
         var childDO:DisplayObject = element as DisplayObject;   
-                
-        dispatchEvent(new ElementExistenceEvent(
-                      ElementExistenceEvent.ELEMENT_REMOVE, false, false, element, index));
+
+        if (notifyListeners)
+        {        
+            dispatchEvent(new ElementExistenceEvent(
+                          ElementExistenceEvent.ELEMENT_REMOVE, false, false, element, index));
+        }
         
         if (element && (element is IGraphicElement))
         {
@@ -1307,11 +1336,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // Special case (defensive coding) - if the element was previously
         // a child of this Group, and it didn't release its previously assigned
         // DisplayObject when its parent changed, and there's the possibility that
-        // the Group may assign it the same DisplayObject and the same sharedIndex,
+        // the Group may assign it the same DisplayObject and the same sharing mode,
         // we still need to invalidate and redraw as the displayObject likely has
         // been redrawn while the element was not a child of this Group.
-        if (child.displayObject && child.sharedIndex > 0)
-            graphicElementChanged(child);
+        if (child.displayObject && child.displayObjectSharingMode == DisplayObjectSharingMode.USES_SHARED_OBJECT)
+            invalidateGraphicElementDisplayList(child);
         
         child.parentChanged(this);
 
@@ -1370,14 +1399,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function discardDisplayObject(element:IGraphicElement):void
+    mx_internal function discardDisplayObject(element:IGraphicElement):void
     {
         var oldDisplayObject:DisplayObject = element.displayObject;
         if (!oldDisplayObject)
             return;
 
         // If the element created the display object
-        if (element.sharedIndex <= 0 && oldDisplayObject.parent == this)
+        if (element.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
+            oldDisplayObject.parent == this)
         {
             super.removeChild(oldDisplayObject);
 
@@ -1550,7 +1580,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  is at insertIndex in the display object list.
      * 
      *  If <code>curElement</code> implements IGraphicElement, then both its
-     *  DisplayObject and sharedIndex will be updated.
+     *  DisplayObject and displayObjectSharingMode will be updated.
      * 
      *  @curElement The current element to assign DisplayObject to
      *  @prevEelement The previous element in the list of elements or null.
@@ -1571,27 +1601,27 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             var previous:IGraphicElement = prevElement as IGraphicElement;
 
             var oldDisplayObject:DisplayObject = current.displayObject;
-            var oldSharedIndex:int = current.sharedIndex;
+            var oldSharingMode:String = current.displayObjectSharingMode;
 
             if (previous && previous.canShareWithNext(current) && current.canShareWithPrevious(previous) &&
                 current.setSharedDisplayObject(previous.displayObject))
             {
                 // If we are the second element in the shared sequence,
-                // make sure that the first element has the correct sharedIndex
-                if (previous.sharedIndex == -1)
-                    previous.sharedIndex = 0;
+                // make sure that the first element has the correct displayObjectSharingMode
+                if (previous.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+                    previous.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_SHARED_OBJECT;
 
-                current.sharedIndex = previous.sharedIndex + 1;
+                current.displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
             }
             else if (prevElement == this && current.setSharedDisplayObject(this))
             {
-                current.sharedIndex = 1;
+                current.displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
             }
             else
             {
                 // We don't want to create new DisplayObjects for elements that
                 // already have created their own their display objects.
-                var ownsDisplayObject:Boolean = oldSharedIndex <= 0;
+                var ownsDisplayObject:Boolean = oldSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT;
 
                 // If the element doesn't have a DisplayObject or it doesn't own
                 // the DisplayObject it currently has, then create a new one
@@ -1603,11 +1633,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 // Check displayObject for null, some graphic elements
                 // may choose not to create a DisplayObject during this pass.
                 if (displayObject)
-                    addItemToDisplayList(displayObject, current, insertIndex++);
+                    addDisplayObjectToDisplayList(displayObject, insertIndex++);
 
-                current.sharedIndex = -1;
+                current.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
             }
-            invalidateAfterAssignment(current, oldSharedIndex, oldDisplayObject);
+            invalidateAfterAssignment(current, oldSharingMode, oldDisplayObject);
         }
         return insertIndex;
     }
@@ -1618,78 +1648,46 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  If necesary, removes the old display object from the list.
      */
     private function invalidateAfterAssignment(element:IGraphicElement,
-                                               oldSharedIndex:int,
+                                               oldSharingMode:String,
                                                oldDisplayObject:DisplayObject):void
     {
         // Make sure we remove or mark for redraw the old displayObject
         var displayObject:DisplayObject = element.displayObject;
-        var sharedIndex:int = element.sharedIndex;
+        var sharingMode:String = element.displayObjectSharingMode;
 
-        if (oldDisplayObject == displayObject && oldSharedIndex == sharedIndex)
+        if (oldDisplayObject == displayObject && sharingMode == oldSharingMode)
             return;
 
-        // We don't care about changes from -1 to 0
-        var sharedIndexChanged:Boolean = (sharedIndex != oldSharedIndex && (oldSharedIndex > 0 || sharedIndex > 0 ));
-
         // Make sure we redraw the display object        
-        if (sharedIndexChanged || displayObject != oldDisplayObject)
-        {
-            if (displayObject is ISharedDisplayObject)
-                ISharedDisplayObject(displayObject).redrawRequested = true;
+        if (displayObject is ISharedDisplayObject)
+            ISharedDisplayObject(displayObject).redrawRequested = true;
 
-            // Old display object also needs to be redrawn, in case any other GE still uses it.
-            if (oldDisplayObject is ISharedDisplayObject)
-                ISharedDisplayObject(oldDisplayObject).redrawRequested = true;
-        }
+        // Old display object also needs to be redrawn, in case any other GE still uses it.
+        if (oldDisplayObject is ISharedDisplayObject)
+            ISharedDisplayObject(oldDisplayObject).redrawRequested = true;
 
         // Make sure we remove the old display object, if needed
         if (oldDisplayObject && oldDisplayObject.parent == this &&
-            oldDisplayObject != displayObject && oldSharedIndex <= 0)
+            oldDisplayObject != displayObject && oldSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
             super.removeChild(oldDisplayObject);
     }
 
     /**
-     *  Remove an item from another group or display list
-     *  before adding it to this display list.
-     * 
-     *  @param child DisplayObject to add to the display list.
+     *  @private
      *
-     *  @param item Item associated with the display object to be added.  If 
-     *  the item itself is a display object, it will be the same as the child parameter.
-     *
-     *  @param index Index position where the display object is added.
-     * 
-     *  @return DisplayObject that was added.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  If the displayObject is not a child of this Group, then insert it at the
+     *  specified index (or at the end of the list, when index is -1).
+     *  Else, if the displayObject is already a child of the Group, then simply
+     *  adjust its child index.  
      */ 
-    protected function addItemToDisplayList(child:DisplayObject, element:IVisualElement, index:int = -1):DisplayObject
+    private function addDisplayObjectToDisplayList(child:DisplayObject, index:int = -1):void
     {
-        // Calling removeElement should have already removed the child. This
-        // should handle the case when we don't call removeItem
-        if (child.parent)
-        {
-            if (child.parent == this)
-            {
-                var insertIndex:int;
-                if (index == -1)
-                    insertIndex = super.numChildren - 1;
-                else if (index == 0)
-                    insertIndex = 0;
-                else
-                    insertIndex = index;
-                    
-                super.setChildIndex(child, insertIndex);
-                return child;
-            }
-        }
-            
-        return super.addChildAt(child, index != -1 ? index : super.numChildren);
+        if (child.parent == this)
+            super.setChildIndex(child, index != -1 ? index : super.numChildren - 1);
+        else
+            super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
-    
+
     /**
      *  Notify the host component that an element has changed and needs to be redrawn.
      *  Group calls the <code>validateDisplayList()</code> method on the IGraphicElement
@@ -1702,7 +1700,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function graphicElementChanged(element:IGraphicElement):void
+    public function invalidateGraphicElementDisplayList(element:IGraphicElement):void
     {
         if (element.displayObject is ISharedDisplayObject)
             ISharedDisplayObject(element.displayObject).redrawRequested = true;
@@ -1723,7 +1721,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function graphicElementPropertiesChanged(element:IGraphicElement):void
+    public function invalidateGraphicElementProperties(element:IGraphicElement):void
     {
         invalidateProperties();        
     }
@@ -1740,7 +1738,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function graphicElementSizeChanged(element:IGraphicElement):void
+    public function invalidateGraphicElementSize(element:IGraphicElement):void
     {
         // Invalidate the size only, no need to run the layout. 
         // Later on, if the size changes, then a layout pass will be triggered.
@@ -1759,7 +1757,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function graphicElementLayerChanged(element:IGraphicElement):void
+    public function invalidateGraphicElementSharing(element:IGraphicElement):void
     {
         // One of our children have told us they might need a displayObject     
         invalidateDisplayObjectOrdering();
