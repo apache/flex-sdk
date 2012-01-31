@@ -13,6 +13,8 @@ package mx.skins.halo
 {
 
 import flash.display.Graphics;
+
+import mx.core.FlexVersion;
 import mx.skins.ProgrammaticSkin;
 import mx.utils.ColorUtil;
 
@@ -102,8 +104,19 @@ public class ApplicationBackground extends ProgrammaticSkin
 				bgColor = 0xFFFFFF;
 			
 			fillColors = [];
-			fillColors[0] = ColorUtil.adjustBrightness(bgColor, 15);
-			fillColors[1] = ColorUtil.adjustBrightness(bgColor, -25);
+
+            // Starting in Flex 4, the background color is a solid instead of 
+            // a gradient.
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+            {
+                fillColors[0] = bgColor;
+                fillColors[1] = bgColor;
+            }
+            else 
+            {
+                fillColors[0] = ColorUtil.adjustBrightness(bgColor, 15);
+                fillColors[1] = ColorUtil.adjustBrightness(bgColor, -25);
+            }
 		}
 		
 		if (!fillAlphas)
