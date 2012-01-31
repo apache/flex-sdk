@@ -236,7 +236,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //
     //  Skin Part Property Internals
     //
-    //--------------------------------------------------------------------------        
+    //-------------------------------------------------------------------------- 
+    
+    /**
+     *  @private
+     *  A list of functions to be applied to the grid skin part at partAdded() time.
+     *  This list is used to defer making grid selection updates per the set methods for
+     *  the selectedIndex, selectedIndices, selectedItem, selectedItems, selectedCell
+     *  and selectedCells properties.
+     */
+    private const deferredGridOperations:Vector.<Function> = new Vector.<Function>();
     
     /**
      *  @private
@@ -946,6 +955,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
             grid.addEventListener("columnsChanged", grid_columnsChangedEventHandler);
+            
+            // Deferred operations (grid selection updates)
+            
+            for each (var deferredGridOperation:Function in deferredGridOperations)
+                deferredGridOperation(grid);
+            deferredGridOperations.length = 0;
         }
         
         if (instance == columnHeaderBar)
@@ -1026,6 +1041,25 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         return selectedCells.length ? selectedCells[0] : null;
     }
     
+    /**
+     *  @private
+     */
+    public function set selectedCell(value:CellPosition):void
+    {
+        if (grid)
+            grid.selectedCell = value;
+        else
+        {
+            const valueCopy:CellPosition = (value) ? new CellPosition(value.rowIndex, value.columnIndex) : null;
+
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedCell = valueCopy;
+            }
+            deferredGridOperations.push(f);
+        }
+    }    
+    
     //----------------------------------
     //  selectedCells
     //----------------------------------
@@ -1045,6 +1079,24 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         return grid ? grid.selectedCells : gridSelection.allCells();
     }
+    
+    /**
+     *  @private
+     */
+    public function set selectedCells(value:Vector.<CellPosition>):void
+    {
+        if (grid)
+            grid.selectedCells = value;
+        else
+        {
+            const valueCopy:Vector.<CellPosition> = (value) ? value.concat() : null;
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedCells = valueCopy;
+            }
+            deferredGridOperations.push(f);
+        }
+    }       
     
     //----------------------------------
     //  selectedIndex
@@ -1066,9 +1118,26 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (grid)
             return grid.selectedIndex;
         
-        return selectedIndices.length ? selectedIndices[0] : -1;
+        return (selectedIndices.length > 0) ? selectedIndices[0] : -1;
     }
     
+    /**
+     *  @private
+     */
+    public function set selectedIndex(value:int):void
+    {
+        if (grid)
+            grid.selectedIndex = value;
+        else
+        {
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedIndex = value;
+            }
+            deferredGridOperations.push(f);
+        }
+    }
+
     //----------------------------------
     //  selectedIndices
     //----------------------------------
@@ -1088,6 +1157,24 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         return grid ? grid.selectedIndices : gridSelection.allRows();
     }
+    
+    /**
+     *  @private
+     */
+    public function set selectedIndices(value:Vector.<int>):void
+    {
+        if (grid)
+            grid.selectedIndices = value;
+        else
+        {
+            const valueCopy:Vector.<int> = (value) ? value.concat() : null;
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedIndices = valueCopy;
+            }
+            deferredGridOperations.push(f);
+        }
+    }    
     
     //----------------------------------
     //  selectedItem
@@ -1112,6 +1199,23 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         return (dataProvider && (selectedIndex > 0)) ? 
             dataProvider.getItemAt(selectedIndex) : undefined;
     }
+    
+    /**
+     *  @private
+     */
+    public function set selectedItem(value:Object):void
+    {
+        if (grid)
+            grid.selectedItem = value;
+        else
+        {
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedItem = value;
+            }
+            deferredGridOperations.push(f);
+        }
+    }    
     
     //----------------------------------
     //  selectedItems
@@ -1140,6 +1244,24 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         return items;
     }
+    
+    /**
+     *  @private
+     */
+    public function set selectedItems(value:Vector.<Object>):void
+    {
+        if (grid)
+            grid.selectedItems = value;
+        else
+        {
+            const valueCopy:Vector.<Object> = value.concat();
+            var f:Function = function(g:Grid):void
+            {
+                g.selectedItems = valueCopy;
+            }
+            deferredGridOperations.push(f);
+        }
+    }      
     
     //----------------------------------
     //  selectionLength
