@@ -5887,8 +5887,25 @@ public class ListBase extends ScrollControlBase
                     item.width, rowInfo[rowData.rowIndex].height,
                     getStyle("selectionColor"), item);
 
+                var oldCaretItemRenderer:IListItemRenderer = caretItemRenderer;
                 caretItemRenderer = item;
                 caretUID = rowData.uid;
+
+                if (oldCaretItemRenderer)
+                {
+                    if (oldCaretItemRenderer is IFlexDisplayObject)
+                    {
+                        if (oldCaretItemRenderer is IInvalidating)
+                        {
+                            IInvalidating(oldCaretItemRenderer).invalidateDisplayList();
+                            IInvalidating(oldCaretItemRenderer).validateNow();
+                        }
+                    }
+                    else if (oldCaretItemRenderer is IUITextField)
+                    {
+                        IUITextField(oldCaretItemRenderer).validateNow();
+                    }
+                }
             }
         }
         else if (!caret && caretItemRenderer && caretUID == rowData.uid)
@@ -6434,6 +6451,29 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Determines if the item renderer for a data provider item 
+     *  is the item under the caret due to keyboard navigation.
+     *
+     *  @param data The data provider item.
+     *  @return <code>true</code> if the item under the caret
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function isItemShowingCaret(data:Object):Boolean
+    {
+        if (data == null)
+            return false;
+
+        if (data is String)
+            return (data == caretUID);
+
+        return itemToUID(data) == caretUID;
+    }
+
+    /**
+     *  Determines if the item renderer for a data provider item 
      *  is highlighted (is rolled over via the mouse or under the caret due to keyboard navigation).
      *
      *  @param data The data provider item.
@@ -6452,9 +6492,7 @@ public class ListBase extends ScrollControlBase
         // When something is selected, the selection indicator
         // overlays the highlighted indicator so we want
         // to draw as selected and not highlighted.
-        var isSelected:Boolean = highlightIndicator &&
-            (highlightIndicator.parent.getChildIndex(highlightIndicator) !=
-            highlightIndicator.parent.numChildren - 1)
+        var isSelected:Boolean = highlightUID && selectedData[highlightUID];
 
         if (data is String)
             return (data == highlightUID && !isSelected);
