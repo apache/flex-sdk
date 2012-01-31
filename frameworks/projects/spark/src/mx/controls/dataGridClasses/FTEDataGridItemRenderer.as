@@ -171,7 +171,8 @@ public class FTEDataGridItemRenderer extends UIFTETextField
      *  The implementation of the <code>data</code> property as 
      *  defined by the IDataRenderer interface.
      *
-     *  The value is ignored.  Only the listData property is used.
+     *  <p>The value is ignored.  Only the <code>listData</code> property is used.</p>
+     *
      *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
@@ -250,7 +251,8 @@ public class FTEDataGridItemRenderer extends UIFTETextField
 
     /**
      *  Storage for the inline inheriting styles on this object.
-     *  This CSSStyleDeclaration is created the first time that setStyle()
+     *  This CSSStyleDeclaration object is created the first time that 
+     *  the <code>setStyle()</code> method
      *  is called on this component to set an inheriting style.
      *  
      *  @langversion 3.0
