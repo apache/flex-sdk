@@ -17,6 +17,7 @@ import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
 import mx.core.FlexVersion;
+import mx.styles.IAdvancedStyleClient;
 import mx.core.IFlexModule;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
@@ -1136,6 +1137,22 @@ public class Group extends GroupBase implements IVisualElementContainer,
                     IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
             }
         }
+        
+        if (advanceStyleClientChildren != null)
+		{
+			var nAdvanceStyleClientChildern:int = 
+                                           advanceStyleClientChildren.length;
+			for (var j:int = 0; j < nAdvanceStyleClientChildern; j++)
+			{
+				var iAdvanceStyleClientChild:IAdvancedStyleClient = 
+                                               advanceStyleClientChildren[j];
+				
+				if (iAdvanceStyleClientChild)
+				{
+					iAdvanceStyleClientChild.styleChanged(styleProp);
+				}
+			}
+		}
     }
     
     /**
@@ -1171,6 +1188,20 @@ public class Group extends GroupBase implements IVisualElementContainer,
                 // If not, there's no need to regenerate a new one.
                 if (IUITextField(child).inheritingStyles)
                     StyleProtoChain.initTextField(IUITextField(child));
+            }
+        }
+        
+        // Call this method on each non-visual StyleClient
+        if (advanceStyleClientChildren != null)
+        {
+            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
+            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            {
+                if (advanceStyleClientChildren[j].inheritingStyles !=
+                    StyleProtoChain.STYLE_UNINITIALIZED)
+                {
+                    advanceStyleClientChildren[j].regenerateStyleCache(recursive);
+                }
             }
         }
     }
