@@ -2175,7 +2175,7 @@ public class UIFTETextField extends FTETextField
                 // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
                 if (fontModuleFactory != null) 
                 {
-                    fontContext = ISWFContext(fontModuleFactory);
+                    fontContext = fontModuleFactory;
                     embedFonts = true;
                 }
             }
@@ -2183,7 +2183,7 @@ public class UIFTETextField extends FTETextField
             {
                 embedFonts = getStyle("embedFonts");
                 if (embedFonts)
-                    fontContext = ISWFContext(moduleFactory);
+                    fontContext = moduleFactory;
                 else
                     fontContext = null;
             }
