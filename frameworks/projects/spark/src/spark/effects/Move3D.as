@@ -49,6 +49,12 @@ use namespace mx_internal;
  *  &lt;mx:Move3D
  *    <b>Properties</b>
  *    id="ID"
+ *    xBy="no default"
+ *    xFrom="no default"
+ *    xTo="no default"
+ *    yBy="no default"
+ *    yFrom="no default"
+ *    yTo="no default"
  *    zBy="no default"
  *    zFrom="no default"
  *    zTo="no default"
