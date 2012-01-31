@@ -22,7 +22,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *
  *  @mxml
  *  
- *  <p>The <code>&lt;mx:Panel&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:Panel&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *  
  *  <pre>
