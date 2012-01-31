@@ -232,8 +232,19 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         var bElement:IVisualElement = baselinePositionElement;
         
         // If no baselinePositionElement is specified, use the first element
-        if (bElement == null && numElements > 0)
-            bElement = getElementAt(0);
+        if (bElement == null)
+        {
+            for (var i:int = 0; i < numElements; i++)
+            {
+                var elt:IVisualElement = getElementAt(i);
+                if (elt.includeInLayout)
+                {
+                    bElement = elt;
+                    break;
+                }
+            }
+        }
+            
         
         if (bElement)
             return bElement.baselinePosition + bElement.y;
