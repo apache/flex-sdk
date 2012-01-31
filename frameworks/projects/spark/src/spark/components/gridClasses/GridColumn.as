@@ -1439,10 +1439,8 @@ public class GridColumn extends EventDispatcher
      *  Returns a SortField that can be used to sort a collection by this
      *  column's <code>dataField</code>.
      *  
-     *  <p>If the <code>sortCompareFunction</code> property is defined,
-     *  the SortField's compare function is assigned to a closure around
-     *  the <code>sortCompareFunction</code> that uses the right signature
-     *  for the SortField and captures this column.</p>
+     *  <p>If the <code>sortCompareFunction</code> property is defined, 
+     *  then the SortField's <code>compareFunction</code> is automatically set.</p>
      * 
      *  <p>If the <code>sortCompareFunction</code> property is not defined
      *  and the <code>dataField</code> is complex, then the SortField's
@@ -1454,6 +1452,8 @@ public class GridColumn extends EventDispatcher
      *  <code>labelFunction</code> property is defined, then it assigns the 
      *  <code>compareFunction</code> to a closure that does a basic string compare 
      *  on the <code>labelFunction</code> applied to the data objects.</p>
+     *
+     *  @see spark.collections.SortField 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
