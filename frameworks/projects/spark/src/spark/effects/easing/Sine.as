@@ -19,7 +19,7 @@ package spark.effects.easing
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Sine&gt;</code> tag
+ *  <p>The <code>&lt;s:Sine&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
