@@ -156,7 +156,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;SkinnableContainer
+ *  &lt;s:SkinnableContainer
  *    <strong>Properties</strong>
  *    autoLayout="true"
  *    clipAndEnableScrolling="false"
