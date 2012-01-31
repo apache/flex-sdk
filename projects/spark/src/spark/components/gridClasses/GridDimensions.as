@@ -906,17 +906,20 @@ public class GridDimensions
         if (!_columnWidths)
             return (nCols * (defaultColumnWidth + columnGap)) - columnGap;
         
-        var width:Number = 0;
+        var contentWidth:Number = 0;
         
         for (var i:int = 0; i < nCols; i++)
         {
             if ((i >= _columnWidths.length) || isNaN(_columnWidths[i]))
-                width += defaultColumnWidth + columnGap;
+                contentWidth += defaultColumnWidth;
             else
-                width += _columnWidths[i] + columnGap;
+                contentWidth += _columnWidths[i];
         }
         
-        return width - columnGap;
+        if (nCols > 1)
+            contentWidth += (nCols - 1) * columnGap;
+        
+        return contentWidth;
     }
     
     /**
@@ -952,6 +955,28 @@ public class GridDimensions
         return contentHeight;
     }
     
+    /**
+     *  Returns the sum of the typical cell widths including gaps.  If 
+	 *  columnCountOverride is specified, then the overall typicalCellWidth 
+     *  of as many columns is returned. 
+     */
+    public function getTypicalContentWidth(columnCountOverride:int = -1):Number
+    {
+        const nCols:int = (columnCountOverride == -1) ? columnCount : columnCountOverride;
+        var contentWidth:Number = 0;
+        
+        for (var columnIndex:int = 0; columnIndex < nCols; columnIndex++)
+        {
+            var width:Number = typicalCellWidths[columnIndex];
+            contentWidth += isNaN(width) ? defaultColumnWidth : width;
+        }
+        
+        if (nCols > 1)
+            contentWidth += (nCols - 1) * columnGap;
+
+        return contentWidth;
+    }
+        
     /**
      *  Return the preferred bounds width of the grid's typicalItem when rendered with the item renderer 
      *  for the specified column.  If no value has yet been specified, return NaN.
@@ -1209,7 +1234,7 @@ public class GridDimensions
             case CollectionEventKind.REMOVE: return dataProviderCollectionRemove(event);
             case CollectionEventKind.REPLACE: return dataProviderCollectionReplace(event);
             case CollectionEventKind.MOVE: return dataProviderCollectionMove(event);
-            case CollectionEventKind.REFRESH: return dataProviderCollectionReset(event);
+            case CollectionEventKind.REFRESH: return dataProviderCollectionRefresh(event);
             case CollectionEventKind.RESET: return dataProviderCollectionReset(event);
             case CollectionEventKind.UPDATE: return dataProviderCollectionReplace(event); return true;
                 break;
@@ -1264,5 +1289,15 @@ public class GridDimensions
         this.rowCount = IList(event.target).length;
         return true;
     }
+    
+    /**
+     *  @private
+     */
+    private function dataProviderCollectionRefresh(event:CollectionEvent):Boolean
+    {
+        clear();
+        this.rowCount = IList(event.target).length;
+        return true;
+    }    
 }
 }
