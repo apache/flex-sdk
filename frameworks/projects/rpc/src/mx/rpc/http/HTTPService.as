@@ -12,32 +12,14 @@
 package mx.rpc.http
 {
 
-import flash.utils.getQualifiedClassName;
-import flash.xml.XMLDocument;
-import flash.xml.XMLNode;
-
 import mx.core.mx_internal;
-import mx.collections.ArrayCollection;
-import mx.logging.ILogger;
-import mx.logging.Log;
 import mx.messaging.ChannelSet;
-import mx.messaging.channels.DirectHTTPChannel;
 import mx.messaging.config.LoaderConfig;
+import mx.messaging.events.MessageEvent;
 import mx.messaging.messages.IMessage;
-import mx.messaging.messages.HTTPRequestMessage;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
 import mx.rpc.AbstractInvoker;
-import mx.rpc.AsyncDispatcher;
 import mx.rpc.AsyncRequest;
 import mx.rpc.AsyncToken;
-import mx.rpc.Fault;
-import mx.rpc.events.FaultEvent;
-import mx.rpc.xml.SimpleXMLDecoder;
-import mx.rpc.xml.SimpleXMLEncoder;
-import mx.utils.ObjectProxy;
-import mx.utils.ObjectUtil;
-import mx.utils.StringUtil;
 import mx.utils.URLUtil;
 
 use namespace mx_internal;
@@ -97,9 +79,12 @@ public class HTTPService extends AbstractInvoker
     public function HTTPService(rootURL:String = null, destination:String = null)
     {
         super();
+
+        operation = new AbstractOperation();
         
-        asyncRequest = new AsyncRequest();
-        makeObjectsBindable = true;
+        operation.makeObjectsBindable = true;
+
+        operation._rootURL = rootURL;
 
         // If the SWF was loaded via HTTPS, we'll use the DefaultHTTPS destination by default
         if (destination == null)
@@ -114,11 +99,8 @@ public class HTTPService extends AbstractInvoker
             asyncRequest.destination = destination;
             useProxy = true;
         }
-        
-        _log = Log.getLogger("mx.rpc.http.HTTPService");
     }
 
-    
     //--------------------------------------------------------------------------
     //
     // Constants
@@ -196,35 +178,28 @@ public class HTTPService extends AbstractInvoker
      */
     public static const ERROR_ENCODING:String = "Client.CouldNotEncode";    
     
-    //--------------------------------------------------------------------------
-    //
-    // Variables
-    // 
-    //--------------------------------------------------------------------------
-    
-    /** 
-     *  @private
-     *  A shared direct Http channelset used for service instances that do not use the proxy. 
-     */
-    private static var _directChannelSet:ChannelSet;
-    
-    /**
-     *  @private
-     *  Logger
-     */
-    private var _log:ILogger;
 
     /**
-     *  @private
+     * Propagate event listeners down to the operation since it is firing some of the
+     * events.
      */
-    private var resourceManager:IResourceManager =
-                                    ResourceManager.getInstance();
+    override public function addEventListener(type:String, listener:Function,
+        useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+    {
+        operation.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+    }
 
-    //--------------------------------------------------------------------------
-    //
-    // Properties
-    // 
-    //--------------------------------------------------------------------------
+    mx_internal var operation:AbstractOperation;
+
+    override mx_internal function set asyncRequest(ar:AsyncRequest):void
+    {
+        operation.asyncRequest = ar;
+    }
+    override mx_internal function get asyncRequest():AsyncRequest
+    {
+        return operation.asyncRequest;
+    }
 
     //----------------------------------
     //  channelSet
@@ -261,7 +236,36 @@ public class HTTPService extends AbstractInvoker
      *  like a normal HTTP POST with name-value pairs. <code>application/xml</code> send
      *  requests as XML.
      */
-    public var contentType:String = CONTENT_TYPE_FORM;
+    public function get contentType():String
+    {
+        return operation.contentType;
+    }
+    public function set contentType(c:String):void
+    {
+        operation.contentType = c;
+    }
+
+    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
+    /**
+     * Value that indicates how to handle multiple calls to the same service. The default
+     * value is <code>multiple</code>. The following values are permitted:
+     * <ul>
+     * <li><code>multiple</code> Existing requests are not cancelled, and the developer is
+     * responsible for ensuring the consistency of returned data by carefully
+     * managing the event stream. This is the default value.</li>
+     * <li><code>single</code> Only a single request at a time is allowed on the operation;
+     * multiple requests generate a fault.</li>
+     * <li><code>last</code> Making a request cancels any existing request.</li>
+     * </ul>
+     */
+    public function get concurrency():String
+    {
+        return operation.concurrency;
+    }
+    public function set concurrency(c:String):void
+    {
+        operation.concurrency = c;
+    }
 
     //----------------------------------
     //  destination
@@ -288,6 +292,20 @@ public class HTTPService extends AbstractInvoker
         asyncRequest.destination = value;
     }
 
+    [Inspectable(defaultValue="true", category="General")]
+    /**
+     * When this value is true, anonymous objects returned are forced to bindable objects.
+     */
+    override public function get makeObjectsBindable():Boolean
+    {
+        return operation.makeObjectsBindable;
+    }
+
+    override public function set makeObjectsBindable(b:Boolean):void
+    {
+        operation.makeObjectsBindable = b;
+    }
+
     //----------------------------------
     //  headers
     //----------------------------------
@@ -297,7 +315,14 @@ public class HTTPService extends AbstractInvoker
      *  Custom HTTP headers to be sent to the third party endpoint. If multiple headers need to
      *  be sent with the same name the value should be specified as an Array.
      */
-    public var headers:Object = {};
+    public function get headers():Object
+    {
+        return operation.headers;
+    }
+    public function set headers(r:Object):void
+    {
+        operation.headers = r;
+    }
 
     //----------------------------------
     //  method
@@ -309,7 +334,14 @@ public class HTTPService extends AbstractInvoker
      *  <code>OPTIONS</code>, <code>PUT</code>, <code>TRACE</code> and <code>DELETE</code>.
      *  Lowercase letters are converted to uppercase letters. The default value is <code>GET</code>.
      */
-    public var method:String = HTTPRequestMessage.GET_METHOD;
+    public function get method():String
+    {
+        return operation.method;
+    }
+    public function set method(m:String):void
+    {
+        operation.method = m;
+    }
 
     //----------------------------------
     //  request
@@ -320,42 +352,14 @@ public class HTTPService extends AbstractInvoker
      *  Object of name-value pairs used as parameters to the URL. If
      *  the <code>contentType</code> property is set to <code>application/xml</code>, it should be an XML document.
      */
-    public var request:Object = {};
-
-    //----------------------------------
-    //  requestTimeout
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-        
-    /**
-     *  Provides access to the request timeout in seconds for sent messages. 
-     *  A value less than or equal to zero prevents request timeout.
-     */ 
-    public function get requestTimeout():int
+    public function get request():Object
     {
-        return asyncRequest.requestTimeout;
+        return operation.request;
     }
-    
-    /**
-     *  @private
-     */
-    public function set requestTimeout(value:int):void
+    public function set request(r:Object):void
     {
-        if (asyncRequest.requestTimeout != value)
-        {
-            asyncRequest.requestTimeout = value;
-        }
+        operation.request = r;
     }
-
-    //----------------------------------
-    //  resultFormat
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _resultFormat:String = RESULT_FORMAT_OBJECT;
 
     [Inspectable(enumeration="object,array,xml,flashvars,text,e4x", defaultValue="object", category="General")]
     /**
@@ -388,47 +392,16 @@ public class HTTPService extends AbstractInvoker
      */
     public function get resultFormat():String
     {
-        return _resultFormat;
+        return operation.resultFormat;
     }
-
-    /**
-     *  @private
-     */
-    public function set resultFormat(value:String):void
+    public function set resultFormat(rf:String):void
     {
-        switch (value)
-        {
-            case RESULT_FORMAT_OBJECT:
-            case RESULT_FORMAT_ARRAY:
-            case RESULT_FORMAT_XML:
-            case RESULT_FORMAT_E4X:
-            case RESULT_FORMAT_TEXT:
-            case RESULT_FORMAT_FLASHVARS:
-            {
-                break;
-            }
-
-            default:
-            {
-                var message:String = resourceManager.getString(
-                    "rpc", "invalidResultFormat",
-                    [ value, RESULT_FORMAT_OBJECT, RESULT_FORMAT_ARRAY,
-                      RESULT_FORMAT_XML, RESULT_FORMAT_E4X,
-                      RESULT_FORMAT_TEXT, RESULT_FORMAT_FLASHVARS ]);
-                throw new ArgumentError(message);
-            }
-        }
-        _resultFormat = value;
+        operation.resultFormat = rf;
     }
 
     //----------------------------------
     //  rootURL
     //----------------------------------
-
-    /**
-     *  @private
-     */
-    mx_internal var _rootURL:String;
 
     /**
      *  The URL that the HTTPService object should use when computing relative URLs.
@@ -440,30 +413,52 @@ public class HTTPService extends AbstractInvoker
      */
     public function get rootURL():String
     {
-        if (_rootURL == null)
-        {
-            _rootURL = LoaderConfig.url;
-        }
-        return _rootURL;
+        return operation.rootURL;
+    }
+    public function set rootURL(ru:String):void
+    {
+        operation.rootURL = ru;
     }
 
+    //----------------------------------
+    //  showBusyCursor
+    //----------------------------------
+
+    [Inspectable(defaultValue="false", category="General")]
     /**
-     *  @private
-     */
-    public function set rootURL(value:String):void
+    * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
+    * value is <code>false</code>.
+    */
+    public function get showBusyCursor():Boolean
     {
-        _rootURL = value;
+        return operation.showBusyCursor;
+    }
+
+    public function set showBusyCursor(sbc:Boolean):void
+    {
+        operation.showBusyCursor = sbc;
+    }
+
+    //----------------------------------
+    //  serializationFilter 
+    //----------------------------------
+
+    /**
+     * Provides an adapter which controls the process of converting the HTTP response body into 
+     * ActionScript objects and/or turning the parameters or body into the contentType, URL, and
+     * and post body of the HTTP request.  This can also be set indirectly by setting the 
+     * resultFormat by registering a SerializationFilter using the static method:
+     * SerializationFilter.registerFilterForResultFormat("formatName", filter)
+     */
+    public function get serializationFilter():SerializationFilter
+    {
+        return operation.serializationFilter;
+    }
+    public function set serializationFilter(s:SerializationFilter):void
+    {
+        operation.serializationFilter = s;
     }
     
-    //----------------------------------
-    //  url
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _url:String;
-
     [Inspectable(defaultValue="undefined", category="General")]
     /**
      *  Location of the service. If you specify the <code>url</code> and a non-default destination,
@@ -471,26 +466,13 @@ public class HTTPService extends AbstractInvoker
      */
     public function get url():String
     {
-        return _url;
+        return operation.url;
     }
-
-    /**
-     *  @private
-     */
-    public function set url(value:String):void
+    public function set url(u:String):void
     {
-        _url = value;
+        operation.url = u;
     }
 
-    //----------------------------------
-    //  useProxy
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _useProxy:Boolean = false;
-    
     [Inspectable(defaultValue="false", category="General")]
     /**
      *  Specifies whether to use the Flex proxy service. The default value is <code>false</code>. If you
@@ -502,29 +484,11 @@ public class HTTPService extends AbstractInvoker
      */
     public function get useProxy():Boolean
     {
-        return _useProxy;
+        return operation.useProxy;
     }
-
-    /**
-     *  @private
-     */
-    public function set useProxy(value:Boolean):void
+    public function set useProxy(u:Boolean):void
     {
-        if (value != _useProxy)
-        {
-            _useProxy = value;
-            var dcs:ChannelSet = getDirectChannelSet();
-            if (!useProxy)
-            {
-                if (dcs != asyncRequest.channelSet)
-                    asyncRequest.channelSet = dcs;
-            }
-            else
-            {
-                if (asyncRequest.channelSet == dcs)
-                    asyncRequest.channelSet = null;
-            }
-        }
+        operation.useProxy = u;
     }
 
     //----------------------------------
@@ -565,9 +529,15 @@ function xmlDecoder (myXML)
  return myObj;
 }
 </pre>
-
      */
-    public var xmlDecode:Function;
+    public function get xmlDecode():Function
+    {
+        return operation.xmlDecode;
+    }
+    public function set xmlDecode(u:Function):void
+    {
+        operation.xmlDecode = u;
+    }
 
     //----------------------------------
     //  xmlEncode
@@ -609,7 +579,54 @@ function xmlEncoder (myObj)
 </pre>
 
      */
-    public var xmlEncode:Function;
+    public function get xmlEncode():Function
+    {
+        return operation.xmlEncode;
+    }
+    public function set xmlEncode(u:Function):void
+    {
+        operation.xmlEncode = u;
+    }
+
+    [Bindable("resultForBinding")]
+    /**
+     *  The result of the last invocation.
+     */
+    override public function get lastResult():Object
+    {
+        return operation.lastResult;
+    }
+
+    override public function clearResult(fireBindingEvent:Boolean = true):void
+    {
+        operation.clearResult(fireBindingEvent);
+    }
+
+    //----------------------------------
+    //  requestTimeout
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+        
+    /**
+     *  Provides access to the request timeout in seconds for sent messages. 
+     *  A value less than or equal to zero prevents request timeout.
+     */ 
+    public function get requestTimeout():int
+    {
+        return asyncRequest.requestTimeout;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestTimeout(value:int):void
+    {
+        if (asyncRequest.requestTimeout != value)
+        {
+            asyncRequest.requestTimeout = value;
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -644,127 +661,7 @@ function xmlEncoder (myObj)
         if (parameters == null)
             parameters = request;
 
-        var paramsToSend:Object;
-        var token:AsyncToken;
-        var fault:Fault;
-        var faultEvent:FaultEvent;
-        var msg:String;
-        
-         if (contentType == CONTENT_TYPE_XML)
-         {
-            if (!(parameters is XMLNode) && !(parameters is XML))
-            {
-                if (xmlEncode != null)
-                {
-                    var funcEncoded:Object = xmlEncode(parameters);
-                    if (null == funcEncoded)
-                    {
-                        token = new AsyncToken(null);
-                        msg = resourceManager.getString(
-                            "rpc", "xmlEncodeReturnNull");
-                        fault = new Fault(ERROR_ENCODING, msg);
-                        faultEvent = FaultEvent.createEvent(fault, token);
-                        new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
-                        return token;
-                    }
-                    else if (!(funcEncoded is XMLNode))
-                    {
-                        token = new AsyncToken(null);
-                        msg = resourceManager.getString(
-                            "rpc", "xmlEncodeReturnNoXMLNode");
-                        fault = new Fault(ERROR_ENCODING, msg);
-                        faultEvent = FaultEvent.createEvent(fault, token);
-                        new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
-                        return token;
-                    }
-                    else
-                    {
-                        paramsToSend = XMLNode(funcEncoded).toString();
-                    }
-                }
-                else
-                {
-                    var encoder:SimpleXMLEncoder = new SimpleXMLEncoder(null);                    
-                    var xmlDoc:XMLDocument = new XMLDocument();
-                    
-                    //right now there is a wasted <encoded> wrapper tag
-                    //call.appendChild(encoder.encodeValue(parameters));
-                    var childNodes:Array = encoder.encodeValue(parameters, new QName(null, "encoded"), new XMLNode(1, "top")).childNodes.concat();                    
-                    for (var i:int = 0; i < childNodes.length; ++i)
-                        xmlDoc.appendChild(childNodes[i]);
-
-                    paramsToSend = xmlDoc.toString();
-                }
-            }
-            else
-            {
-                paramsToSend = XML(parameters).toXMLString();
-            }
-        }
-        else if (contentType == CONTENT_TYPE_FORM)
-        {
-            paramsToSend = {};
-            var val:Object;
-            
-            //get all dynamic and all concrete properties from the parameters object
-            var classinfo:Object = ObjectUtil.getClassInfo(parameters);
-            
-            for each (var p:* in classinfo.properties)
-            {
-                val = parameters[p];
-                if (val != null)
-                {
-                    if (val is Array)
-                        paramsToSend[p] = val;
-                    else
-                        paramsToSend[p] = val.toString();
-                }
-            }
-        }
-        else
-        {
-            paramsToSend = parameters;
-        }
-
-        var message:HTTPRequestMessage = new HTTPRequestMessage();
-        if (useProxy)
-        {
-            if (url && url != '')
-            {
-                message.url = URLUtil.getFullURL(rootURL, url);
-            }
-
-        }
-        else
-        {
-            if (!url)
-            {
-                token = new AsyncToken(null);
-                msg = resourceManager.getString(
-                    "rpc", "urlNotSpecified");
-                fault = new Fault(ERROR_URL_REQUIRED, msg);
-                faultEvent = FaultEvent.createEvent(fault, token);
-                new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
-                return token;
-            }
-
-            if (!useProxy)
-            {
-                var dcs:ChannelSet = getDirectChannelSet();
-                if (dcs != asyncRequest.channelSet)
-                    asyncRequest.channelSet = dcs;
-            }
-            
-            message.url = url;
-        }
-
-        message.contentType = contentType;
-        message.method = method.toUpperCase();
-        if (contentType == CONTENT_TYPE_XML && message.method == HTTPRequestMessage.GET_METHOD)
-            message.method = HTTPRequestMessage.POST_METHOD;
-        message.body = paramsToSend;
-        message.httpHeaders = headers;
-        return invoke(message);
+        return operation.sendBody(parameters);
     }
     
     /**
@@ -813,206 +710,11 @@ function xmlEncoder (myObj)
         asyncRequest.setRemoteCredentials(remoteUsername, remotePassword, charset);
     }
 
-    //--------------------------------------------------------------------------
-    //
-    // Internal Methods
-    // 
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override mx_internal function processResult(message:IMessage, token:AsyncToken):Boolean
+    override public function cancel(id:String = null):AsyncToken
     {
-        var body:Object = message.body;
-
-        _log.info("Decoding HTTPService response");
-        _log.debug("Processing HTTPService response message:\n{0}", message);
-
-        if ((body == null) || ((body != null) && (body is String) && (StringUtil.trim(String(body)) == "")))
-        {
-            _result = body;
-            return true;
-        }
-        else if (body is String)
-        {
-            if (resultFormat == RESULT_FORMAT_XML || resultFormat == RESULT_FORMAT_OBJECT 
-                    || resultFormat == RESULT_FORMAT_ARRAY)
-            {
-                //old XML style
-                var tmp:Object = new XMLDocument();
-                XMLDocument(tmp).ignoreWhite = true;
-                try
-                {
-                    XMLDocument(tmp).parseXML(String(body));
-                }
-                catch(parseError:Error)
-                {
-                    var fault:Fault = new Fault(ERROR_DECODING, parseError.message);
-                    dispatchRpcEvent(FaultEvent.createEvent(fault, token, message));
-                    return false;
-                }
-
-                if (resultFormat == RESULT_FORMAT_OBJECT || resultFormat == RESULT_FORMAT_ARRAY)
-                {
-                    var decoded:Object;
-                    var msg:String;
-                    if (xmlDecode != null)
-                    {
-                        decoded = xmlDecode(tmp);
-                        if (decoded == null)
-                        {
-                            msg = resourceManager.getString(
-                                "rpc", "xmlDecodeReturnNull");
-                            var fault1:Fault = new Fault(ERROR_DECODING, msg);
-                            dispatchRpcEvent(FaultEvent.createEvent(fault1, token, message));
-                        }
-                    }
-                    else
-                    {
-                        var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(makeObjectsBindable);
-
-                        decoded = decoder.decodeXML(XMLNode(tmp));
-
-                        if (decoded == null)
-                        {
-                            msg = resourceManager.getString(
-                                "rpc", "defaultDecoderFailed");
-                            var fault2:Fault = new Fault(ERROR_DECODING, msg);
-                            dispatchRpcEvent(FaultEvent.createEvent(fault2, token, message));
-                        }
-                    }
-
-                    if (decoded == null)
-                    {
-                        return false;
-                    }
-
-                    if (makeObjectsBindable && (getQualifiedClassName(decoded) == "Object"))
-                    {
-                        decoded = new ObjectProxy(decoded);
-                    }
-                    else
-                    {
-                        decoded = decoded;
-                    }
-                    
-                    if (resultFormat == RESULT_FORMAT_ARRAY)
-                    {
-                        decoded = decodeArray(decoded);
-                    }
-
-                    _result = decoded;
-                }
-                else
-                {
-                    if (tmp.childNodes.length == 1)
-                    {
-                        tmp = tmp.firstChild;
-                    }
-                    _result = tmp;
-                }
-            }
-            else if (resultFormat == RESULT_FORMAT_E4X)
-            {
-                try
-                {
-                    _result = new XML(String(body));
-                }
-                catch(error:Error)
-                {
-                    var fault3:Fault = new Fault(ERROR_DECODING, error.message);
-                    dispatchRpcEvent(FaultEvent.createEvent(fault3, token, message));
-                    return false;
-                }
-            }
-            else if (resultFormat == RESULT_FORMAT_FLASHVARS)
-            {
-                _result = decodeParameterString(String(body));
-            }
-            else //if only we could assert(theService.resultFormat == "text")
-            {
-                _result = body;
-            }
-        }
-        else
-        {
-            if (resultFormat == RESULT_FORMAT_ARRAY)
-            {
-                body = decodeArray(body);
-            }
-            
-            _result = body;
-        }
-
-        return true;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    // Private Methods
-    // 
-    //--------------------------------------------------------------------------    
-    
-    private function decodeArray(o:Object):Object
-    {
-        var a:Array;
-
-        if (o is Array)
-        {
-            a = o as Array;
-        }
-        else if (o is ArrayCollection)
-        {
-            return o;
-        }
-        else
-        {
-            a = [];
-            a.push(o);
-        }
-
-        if (makeObjectsBindable)
-        {
-            return new ArrayCollection(a);
-        }
-        else
-        {
-            return a;            
-        }
+        return operation.cancel(id);
     }
 
-    private function decodeParameterString(source:String):Object
-    {
-        var trimmed:String = StringUtil.trim(source);
-        var params:Array = trimmed.split('&');
-        var decoded:Object = {};
-        for (var i:int = 0; i<params.length; i++)
-        {
-            var param:String = params[i];
-            var equalsIndex:int = param.indexOf('=');
-            if (equalsIndex != -1)
-            {
-                var name:String = unescape(param.substr(0, equalsIndex));
-                name = name.split('+').join(' ');
-                var value:String = unescape(param.substr(equalsIndex+1));
-                value = value.split('+').join(' ');
-                decoded[name] = value;
-            }
-        }
-        return decoded;
-    }
-
-    private function getDirectChannelSet():ChannelSet
-    {
-        if (_directChannelSet == null)
-        {
-            var dcs:ChannelSet = new ChannelSet();
-            dcs.addChannel(new DirectHTTPChannel("direct_http_channel"));
-            _directChannelSet = dcs;            
-        }
-        return _directChannelSet;  
-    }
 }
 
 }
