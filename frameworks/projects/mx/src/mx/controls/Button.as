@@ -18,6 +18,7 @@ import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
+import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
@@ -2290,6 +2291,12 @@ public class Button extends UIComponent
         var n:Number = offset ? buttonOffset : 0;
 
         var textAlign:String = getStyle("textAlign");
+        // Map new Spark values that might be set in a selector
+		// affecting both Halo and Spark components.
+        if (textAlign == "start") 
+            textAlign = TextFormatAlign.LEFT;
+        else if (textAlign == "end")
+            textAlign = TextFormatAlign.RIGHT;
 
         var bm:EdgeMetrics = currentSkin &&
                              currentSkin is IRectangularBorder ?
@@ -2542,6 +2549,12 @@ public class Button extends UIComponent
         var n:Number = offset ? buttonOffset : 0;
 
         var textAlign:String = getStyle("textAlign");
+        // Map new Spark values that might be set in a selector
+		// affecting both Halo and Spark components.
+		if (textAlign == "start") 
+            textAlign = TextFormatAlign.LEFT;
+        else if (textAlign == "end")
+            textAlign = TextFormatAlign.RIGHT;
 
         var viewWidth:Number = unscaledWidth;
         var viewHeight:Number = unscaledHeight;
