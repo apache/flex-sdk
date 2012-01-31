@@ -397,9 +397,9 @@ public class AnimateTransformInstance extends AnimateInstance
                     parent.transform;
                 originalProjection = parentTransform.perspectiveProjection;
                 var p:PerspectiveProjection = new PerspectiveProjection();
-                if(!isNaN(fieldOfView))
+                if (!isNaN(fieldOfView))
                     p.fieldOfView = fieldOfView;
-                if(!isNaN(focalLength))
+                if (!isNaN(focalLength))
                     p.focalLength = focalLength;
                 
                 var projectionPoint:Point;
