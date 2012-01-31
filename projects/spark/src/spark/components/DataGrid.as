@@ -177,8 +177,9 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="caretChange", type="spark.events.GridCaretEvent")]
-        
 
+[DefaultProperty("dataProvider")]
+        
 /**
  *  TBD
  */  
