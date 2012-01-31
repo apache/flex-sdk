@@ -85,6 +85,18 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Color of the content area of the component.
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Name of the class to use as the default skin for the down arrow.
  * 
  *  @default mx.skins.halo.NumericStepperDownSkin
@@ -148,6 +160,18 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="downArrowUpSkin", type="Class", inherit="no")]
 
 /**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Alphas used for the highlight fill of controls.
  *
  *  @default [ 0.3, 0.0 ]
@@ -158,6 +182,19 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
+
+/**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a ScrollBar button.
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Name of the class to use as the default skin for the up arrow.
