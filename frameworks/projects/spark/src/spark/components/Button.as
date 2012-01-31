@@ -64,9 +64,24 @@ include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
 
 /**
- *  The built-in set of states for the Button component.
+ *  Up State of the Button
  */
-[SkinStates("up", "over", "down", "disabled")]
+[SkinState("up")]
+
+/**
+ *  Over State of the Button
+ */
+[SkinState("over")]
+
+/**
+ *  Down State of the Button
+ */
+[SkinState("down")]
+
+/**
+ *  Disabled State of the Button
+ */
+[SkinState("disabled")]
  
 //--------------------------------------
 //  Other metadata
