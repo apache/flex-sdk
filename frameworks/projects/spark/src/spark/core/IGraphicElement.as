@@ -154,8 +154,8 @@ public interface IGraphicElement extends IVisualElement
      *
      *  @return The display object created
      *  @see #displayObject
-     *  @see mx.components.Group#graphicElementLayerChanged
-     *  @see mx.components.Group#discardDisplayObject
+     *  @see spark.components.Group#graphicElementLayerChanged
+     *  @see spark.components.Group#discardDisplayObject
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -189,7 +189,7 @@ public interface IGraphicElement extends IVisualElement
      *  to the shared <code>DisplayObject</code> of the sequence.
      *
      *  @see #closeSequence
-     *  @see mx.components.Group#graphicElementLayerChanged
+     *  @see spark.components.Group#graphicElementLayerChanged
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -217,7 +217,7 @@ public interface IGraphicElement extends IVisualElement
      *  have more elements appended to its shared sequence.
      * 
      *  @see #canDrawToShared
-     *  @see mx.components.Group#graphicElementLayerChanged
+     *  @see spark.components.Group#graphicElementLayerChanged
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
