@@ -443,7 +443,6 @@ public class SkinnableComponent extends UIComponent
         if (skin)
         {
             skin.owner = this;
-            skin.fxComponent = this;
             
             // As a convenience if someone has declared hostComponent
             // we assign a reference to ourselves.  If the hostComponent
