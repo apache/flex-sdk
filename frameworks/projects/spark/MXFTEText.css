@@ -45,6 +45,7 @@
 
 @namespace charts "mx.charts.chartClasses.*";
 @namespace mx "library://ns.adobe.com/flex/mx";
+@namespace mxair "mx.core.windowClasses.*";
 @namespace olap "mx.controls.olapDataGridClasses.*";
 @namespace s "library://ns.adobe.com/flex/spark";
 
@@ -181,6 +182,16 @@ mx|AdvancedDataGridHeaderRenderer
 mx|AdvancedDataGridSortItemRenderer
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mxair|StatusBar
+{
+    textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mxair|TitleBar
+{
+    textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 charts|ChartLabel
