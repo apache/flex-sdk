@@ -11,11 +11,13 @@ import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemExistenceChangedEvent;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
+
 
 
 /**
@@ -585,10 +587,12 @@ public class DataGroup extends GroupBase
             }
             delete itemToRenderer[item];
               
-            // Free or remove the IR
+            // Free or remove the IR.
             if ((item != elt) && (elt is IDataRenderer))
             {
                 elt.visible = false;
+                if (elt is UIComponent) 
+                    UIComponent(elt).includeInLayout = false;
                 freeRenderers.push(elt);
             }
             else
@@ -610,8 +614,7 @@ public class DataGroup extends GroupBase
         if (!virtualLayoutUnderway)
             super.invalidateSize();
     }
-    
-    
+       
     /**
      *  @private 
      *  Make sure there's a typicalLayoutElement for virtual layout.
@@ -685,7 +688,7 @@ public class DataGroup extends GroupBase
                 virtualLayoutStartIndex = Math.min(index, virtualLayoutStartIndex); 
                 virtualLayoutEndIndex = Math.max(index, virtualLayoutEndIndex);
             }
-                        
+                      
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
             
@@ -696,6 +699,8 @@ public class DataGroup extends GroupBase
                 {
                     elt = freeRenderers.pop();
                     elt.visible = true;
+                    if (elt is UIComponent)
+                        UIComponent(elt).includeInLayout = true;
                     if (elt is IDataRenderer)
                         IDataRenderer(elt).data = item;
                     recycledIR = true;
@@ -864,7 +869,7 @@ public class DataGroup extends GroupBase
                 
             // Quietly ignore invalid indices since they're typically caused
             // by duplicate data items and Halo quietly ignore those
-            if ((insertIndex > 0) && (insertIndex < super.numChildren)) 
+            if ((insertIndex >= 0) && (insertIndex < super.numChildren)) 
                 super.setChildIndex(child, insertIndex);
 
             return child;
