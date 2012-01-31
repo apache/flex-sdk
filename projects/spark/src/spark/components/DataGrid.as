@@ -1689,6 +1689,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (setGridProperty("typicalItem", value))
             dispatchChangeEvent("typicalItemChanged");
     }
+
+    /**
+     *  @copy spark.components.Grid#invalidateTypicalItem
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function invalidateTypicalItem():void
+    {
+        if (grid)
+            grid.invalidateTypicalItem();
+    }
     
     //----------------------------------
     //  variableRowHeight(delegates to grid.variableRowHeight)
@@ -3991,7 +4005,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!enabled || !grid.resizableColumns || !column || !column.resizable)
             return;
         
-        var stretchCursorClass:Class = getStyle("stretchCursor");
+        var stretchCursorClass:Class = getStyle("stretchCursor") as Class;
         if (stretchCursorClass)
             stretchCursorID = cursorManager.setCursor(stretchCursorClass, CursorManagerPriority.HIGH, 0, 0);
     }
