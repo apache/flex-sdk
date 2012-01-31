@@ -30,6 +30,31 @@ use namespace mx_internal;
  */ 
 
 /**
+ *  Specifies the image source to use for the error indicator. 
+ *
+ *  The default value is "assets/RequiredIndicator.png"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="requiredIndicatorSource", type="Class", inherit="no")]
+
+/**
+ *  Specifies the image source to use for the required indicator. 
+ *
+ *  The default value is "assets/ErrorIndicator.png"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="errorIndicatorSource", type="Class", inherit="no")]
+
+
+/**
  *  SkinnableContainer with content and multiple properties. The FormItem's children 
  *  are the content and are placed in the contentGroup skin part. The FormItem 
  *  container defines a number of skin parts, including labelDisplay, 
