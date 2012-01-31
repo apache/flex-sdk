@@ -7,8 +7,8 @@
     <fx:Script>
         <![CDATA[
             // need to import the item renderers
-            import spark.skins.default.DefaultItemRenderer;
-            import spark.skins.default.DefaultComplexItemRenderer;
+            import spark.skins.spark.DefaultItemRenderer;
+            import spark.skins.spark.DefaultComplexItemRenderer;
             import spark.components.Button;
 
             public function customItemRendererFunction(item:*):IFactory {
@@ -27,7 +27,7 @@
         <s:VGroup left="10" right="10" top="10" bottom="10">
             <!-- A DataGroup can hold primitive data items if an 
                  item renderer is defined. -->
-            <s:DataGroup itemRenderer="spark.skins.default.DefaultItemRenderer">
+            <s:DataGroup itemRenderer="spark.skins.spark.DefaultItemRenderer">
                 <s:layout>
                     <s:VerticalLayout gap="1" />
                 </s:layout>
