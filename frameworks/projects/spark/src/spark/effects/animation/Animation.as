@@ -84,6 +84,8 @@ import mx.resources.ResourceManager;
  */
 [Event(name="animationEnd", type="mx.events.AnimationEvent")]
 
+[DefaultProperty("animationProperties")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
@@ -144,28 +146,31 @@ public class Animation extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     * Constructs an Animation object.
+     * Constructs an Animation object. The optional <code>startValue</code> and 
+     * <code>endValue</code> parameters are short-cuts for setting up a simple
+     * animation with a single MotionPath object with two KeyFrames. If either
+     * value is non-null,
+     * <code>startValue</code> will become the <code>value</code> of the
+     * first keyframe of <code>animationProperties</code>, at time 0, and 
+     * <code>endValue</code> will become the <code>value</code> of 
+     * the second keyframe, at time 1.
      * 
-     * @param startValue The initial value that the animation starts at
-     * @param endValue The final value that the animation ends on
      * @param duration The length of time, in milliseconds, that the animation
      * will run
+     * @param startValue The initial value that the animation starts at
+     * @param endValue The final value that the animation ends on
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Animation(startValue:Object=null, endValue:Object=null, 
-                                  duration:Number=-1)
+    public function Animation(duration:Number = -1, startValue:Object = null, 
+        endValue:Object = null)
     {
         this.duration = duration;
-        this.startValue = startValue;
-        this.endValue = endValue;
-        if (!isNaN(duration) && duration != -1)
-            this.duration = duration;
-        if (startValue is Array)
-            arrayMode = true;
+        if (startValue !== null || endValue !== null)
+            animationProperties = [new AnimationProperty("", startValue, endValue)];
     }
     
 
@@ -203,9 +208,6 @@ public class Animation extends EventDispatcher
     // starting. This is set to a non-negative number only when
     // an Animation is paused during its startDelay phase
     private var delayTime:Number = -1;
-    
-
-    private var easingFunction:Function;
     private static var defaultEaser:IEaser = new Sine(.5); 
     private static var delayedStartAnims:Vector.<Animation> =
         new Vector.<Animation>();
@@ -224,6 +226,8 @@ public class Animation extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
+    public var animationProperties:Array;
+    
     /**
      * This variable indicates whether the animation is currently
      * running or not. The value is <code>false</code> unless the animation
@@ -240,44 +244,6 @@ public class Animation extends EventDispatcher
         return _isPlaying;
     }
     
-    /**
-     * The value that the animation will produce at the beginning of the
-     * animation. Values during the animation are calculated using the
-     * <code>startValue</code> and <code>endValue</code>. This value
-     * can be any arbitray object, but this type must be the same as
-     * that for <code>endValue</code>, and types that are not Number
-     * or Arrays of Number can only be handled if an <code>interpolator</code>
-     * is supplied to the Animation to handle calculating intermediate
-     * values.
-     * 
-     * @see #interpolator
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var startValue:Object;
-
-    /**
-     * The value that the animation will produce at the beginning of the
-     * animation. Values during the animation are calculated using the
-     * <code>startValue</code> and <code>endValue</code>. This value
-     * can be any arbitray object, but this type must be the same as
-     * that for <code>endValue</code>, and types that are not Number
-     * or Arrays of Number can only be handled if an <code>interpolator</code>
-     * is supplied to the Animation to handle calculating intermediate
-     * values.
-     * 
-     * @see #interpolator
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var endValue:Object;
-
     /**
      * The length of time, in milliseconds, that this animation will run,
      * not counting any repetitions by use of <code>repeatCount</code>.
@@ -743,8 +709,8 @@ public class Animation extends EventDispatcher
                             _elapsedTime = cycleTime;
                         else
                             _elapsedTime = duration; // must be in repeatDelay phase
-                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, 
-                            getCurrentValue(_elapsedTime));
+                        calculateValue(_elapsedTime);
+                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
                         return false;
                     }
                     else
@@ -753,8 +719,8 @@ public class Animation extends EventDispatcher
                         // end value, then schedule a timer to wake up and
                         // start the next cycle
                         _elapsedTime = duration;
-                        var repeatValue:Object = getCurrentValue(_elapsedTime);
-                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
+                        calculateValue(_elapsedTime);
+                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
                         removeAnimation(this);
                         var delayTimer:Timer = new Timer(repeatDelay, 1);
                         delayTimer.addEventListener(TimerEvent.TIMER, repeat);
@@ -765,7 +731,7 @@ public class Animation extends EventDispatcher
             }
             _elapsedTime = currentTime;
             
-            var currentValue:Object = getCurrentValue(currentTime);
+            calculateValue(currentTime);
 
             if (currentTime >= duration)
             {
@@ -774,9 +740,9 @@ public class Animation extends EventDispatcher
             }
             else
             {
-                sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, currentValue);
+                sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
                 if (repeated)
-                    sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT, currentValue);
+                    sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT);
             }
         }
         return animationEnded;
@@ -790,25 +756,39 @@ public class Animation extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private function sendAnimationEvent(eventType:String, value:Object):void
+    private function sendAnimationEvent(eventType:String):void
     {
         var event:AnimationEvent = new AnimationEvent(eventType);
-        event.value = value;                
         event.animation = this;
         dispatchEvent(event);                
     }
 
+    // TODO (chaase): Make currentValue a map instead, keyed off of
+    // property string. Then the mapping between the order in currentValue
+    // and that in an effect's motion paths array is not so magical
+    /**
+     * This array holds the values as of the current frame of the Animation.
+     * The order of the values are the same as the order given in the
+     * animationProperties array
+     */
+    public var currentValue:Array = [];
+    
     /**
      * @private
      * 
-     * Calculates and returns the appropriate value give the elapsed time
-     * of the animation
+     * Calculates all values for this animation for the elapsed time
      */
-    private function getCurrentValue(currentTime:Number):Object
+    private function calculateValue(currentTime:Number):void
     {
+        var i:int;
+        
+        currentValue = [];
         if (duration == 0)
         {
-            return endValue;
+            for (i = 0; i < animationProperties.length; ++i)
+                currentValue[0] = animationProperties[i].
+                    keyframes[animationProperties[i].keyframes.length - 1].value;
+            return;
         }
     
         if (_invertValues)
@@ -816,7 +796,9 @@ public class Animation extends EventDispatcher
     
         _elapsedFraction = easer.ease(currentTime/duration);
 
-        return interpolator.interpolate(_elapsedFraction, startValue, endValue);
+        if (animationProperties)
+            for (i = 0; i < animationProperties.length; ++i)
+                currentValue[i] = animationProperties[i].getValue(_elapsedFraction);
     }
 
     /**
@@ -863,10 +845,10 @@ public class Animation extends EventDispatcher
             // removed
             // TODO (chaase): this will snap paused and startDelayed animations
             // to their end values. Seems correct, but should check this.
-            var value:Object = getCurrentValue(duration);
+            calculateValue(duration);
             
-            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
-            sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
+            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+            sendAnimationEvent(AnimationEvent.ANIMATION_END);
         }
 
         // The rest of what we need to do is handled by the stop() function
@@ -996,7 +978,7 @@ public class Animation extends EventDispatcher
                 }
             }
             // start/end values only valid after animation starts 
-            sendAnimationEvent(AnimationEvent.ANIMATION_START, startValue);
+            sendAnimationEvent(AnimationEvent.ANIMATION_START);
             setupInterpolation();
             startTime = _intervalTime - playheadTime;
         }
@@ -1020,47 +1002,9 @@ public class Animation extends EventDispatcher
      */
     private function setupInterpolation():void
     {
-        if (!interpolator)
-        {
-            if (startValue is Number && endValue is Number)
-                // Better: default to use actual start/end values instead
-                // of running an Interpolator on our internal Animation's result
-                interpolator = NumberInterpolator.getInstance();
-            else if (startValue is Array && endValue is Array)
-            {
-                // One more try - are they Arrays of Numbers?
-                var startArray:Array = startValue as Array;
-                var endArray:Array = endValue as Array;
-                for (var i:int = 0; i < startArray.length; ++i)
-                {
-                    if (isNaN(startArray[i]))
-                    {
-                        throw new Error(resourceManager.getString("sparkEffects", "startValContainsNonNums"));
-                        return;
-                    }
-                }                        
-                for (i = 0; i < endArray.length; ++i)
-                {
-                    if (isNaN(endArray[i]))
-                    {
-                        throw new Error(resourceManager.getString("sparkEffects", "endValContainsNonNums"));
-                        return;
-                    }
-                }
-                // Must be Arrays of Numbers
-                interpolator = NumberArrayInterpolator.getInstance();
-            }
-        }
-        else
-        {
-            // If they've given us an interpolator, but it doesn't
-            // interpolate arrays and our start/end values are arrays,
-            // then we will assume that they want to use that interpolator
-            // for the elements of the arrays, and we will use 
-            // ArrayInterpolator for the overall arrays.
-            if (arrayMode && (interpolator.interpolatedType != Array))
-                interpolator = new ArrayInterpolator(interpolator);
-        }
+        if (interpolator && animationProperties)
+            for (var i:int = 0; i < animationProperties.length; ++i)
+                animationProperties[i].interpolator = interpolator;
     }
  
     /**
@@ -1178,11 +1122,11 @@ public class Animation extends EventDispatcher
     {
         if (repeatBehavior == REVERSE)
             _invertValues = !_invertValues;
-        var repeatValue:Object = getCurrentValue(0);
+        calculateValue(0);
         // TODO (chaase): Make sure we're not already sending out an UPDATE
         // event with this value
-        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
-        sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT, repeatValue);
+        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+        sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT);
         Animation.addAnimation(this);
     }
     
@@ -1217,13 +1161,13 @@ public class Animation extends EventDispatcher
             }
         }
         numRepeats = 1;
-        sendAnimationEvent(AnimationEvent.ANIMATION_START, startValue);
+        sendAnimationEvent(AnimationEvent.ANIMATION_START);
         
         // start/end values may be changed by FxAnimate (set dynamically),
         // so now we set up our interpolator based on the real values
         setupInterpolation();
         
-        var value:Object = getCurrentValue(0);
+        calculateValue(0);
 
         if (duration == 0)
         {
@@ -1234,7 +1178,7 @@ public class Animation extends EventDispatcher
         {
             // TODO (chaase): Make sure we're not already sending out an
             // UPDATE event with this start value
-            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
+            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
             Animation.addAnimation(this);
             _isPlaying = true;
             if (actualStartTime > 0)
