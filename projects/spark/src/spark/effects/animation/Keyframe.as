@@ -43,7 +43,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Keyframe 
+ *  &lt;s:Keyframe 
  *    id="ID"
  *    easier="Linear"
  *    time="val"
