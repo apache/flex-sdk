@@ -160,6 +160,10 @@ import spark.components.SkinnableContainer;
  *  the appearance of the BorderContainer, you typically do not create a custom skin for it.
  *  If you do create a custom skin, your skin class should apply any styles to control the 
  *  appearance of the container.</p>
+ *
+ *  <p>By default, the stroke of the border is rounded. 
+ *  If you do not want rounded corners, set the <code>joints</code> property of 
+ *  the stroke to <code>JointStyle.MITER</code>. </p>
  *  
  *  <p>The BorderContainer control has the following default characteristics:</p>
  *  <table class="innertable">
