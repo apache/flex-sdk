@@ -1009,7 +1009,7 @@ public class ListBase extends SkinnableDataContainer
         if (instance == dataGroup)
         {
             // Not your typical delegation, see 'set useVirtualLayout'
-            if (_useVirtualLayout && dataGroup.layout)
+            if (_useVirtualLayout && dataGroup.layout && dataGroup.layout.virtualLayoutSupported)
                 dataGroup.layout.useVirtualLayout = true;
             
             dataGroup.addEventListener(
