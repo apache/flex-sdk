@@ -643,6 +643,7 @@ class NetConnectionMessageResponder extends MessageResponder
         errorMsg.faultDetail = resourceManager.getString
             ("messaging", "deliveryInDoubt.details");
         errorMsg.faultCode = ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT;
+        errorMsg.rootCause = event;
         agent.fault(errorMsg, message);
     }
 
@@ -666,6 +667,7 @@ class NetConnectionMessageResponder extends MessageResponder
         {
             errorMsg.faultCode = ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT;
         }
+        errorMsg.rootCause = event;
         agent.fault(errorMsg, message);
     }
 
