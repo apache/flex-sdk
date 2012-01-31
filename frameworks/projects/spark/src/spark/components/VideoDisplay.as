@@ -545,10 +545,9 @@ public class VideoElement extends GraphicElement
     //  playing
     //----------------------------------
     
-    [Inspectable(category="General")]
-    
     private var _playing:Boolean = false;
     
+    [Inspectable(category="General")]
     [Bindable("playingChanged")]
     /**
      *  Returns true if the video is playing or is attempting to play.
