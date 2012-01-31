@@ -630,11 +630,6 @@ public class ScrollBar extends TrackBase
    /**
     *  @private
     *  Called when the viewport's width or height value changes. Does nothing by default.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
     */
     mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -643,11 +638,6 @@ public class ScrollBar extends TrackBase
    /**
     *  @private
     *  Called when the viewport's <code>contentWidth</code> value changes. Does nothing by default.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
     */
     mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
@@ -656,11 +646,6 @@ public class ScrollBar extends TrackBase
     /**
      *  @private 
      *  Called when the viewport's <code>contentHeight</code> value changes. Does nothing by default.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
@@ -669,11 +654,6 @@ public class ScrollBar extends TrackBase
     /**
      *  @private
      *  Called when the viewport's <code>horizontalScrollPosition</code> value changes. Does nothing by default.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     mx_internal function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -682,11 +662,6 @@ public class ScrollBar extends TrackBase
     /**
      *  @private
      *  Called when the viewport's <code>verticalScrollPosition</code> value changes. Does nothing by default. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     mx_internal function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
