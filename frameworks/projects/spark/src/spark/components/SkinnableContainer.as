@@ -544,6 +544,9 @@ public class FxContainer extends FxContainerBase
      */
     private var mxmlContentCreated:Boolean = false;
     
+    [InstanceType("Array")]
+    [ArrayElementType("mx.core.IVisualElement")]
+
     /**
      *  A factory object that creates the initial value for the
      *  content property.
