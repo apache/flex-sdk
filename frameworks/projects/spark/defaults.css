@@ -135,6 +135,12 @@ Spinner
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
+TabBar
+{
+    skinClass: ClassReference("spark.skins.spark.TabBarSkin");
+    cornerRadius: 4;
+}
+
 TextArea
 {
     paddingBottom: 3;
