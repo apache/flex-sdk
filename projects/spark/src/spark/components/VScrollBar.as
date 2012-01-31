@@ -15,6 +15,9 @@ import flash.ui.Keyboard;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxScrollBar;   
+import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
+import flash.events.Event;
 
 /**
  *  The FxVScrollBar (vertical ScrollBar) control lets you control
@@ -65,10 +68,24 @@ public class FxVScrollBar extends FxScrollBar
     // Methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
-     *  Position the thumb button based on the specified thumb position,
-     *  relative to the current Y location of the track in the control.
+     *  Update the value property and, if viewport is non null, then set 
+     *  its verticalScrollPosition to <code>value</code>.
+     * 
+     *  @param value The new value of the <code>value</code> property. 
+     *  @see viewport
+     */
+    override protected function setValue(value:Number):void
+    {
+        super.setValue(value);
+        if (viewport)
+            viewport.verticalScrollPosition = value;
+    }
+        
+    /**
+     *  Position the thumb button according to the given thumbPos parameter,
+     *  relative to the current y location of the track in the scrollbar control.
      * 
      *  @param thumbPos A number representing the new position of the thumb
      *  button in the control.
@@ -210,6 +227,43 @@ public class FxVScrollBar extends FxScrollBar
         super.partAdded(partName, instance);
     }     
 
+    /**
+     *  Set this scrollbar's value to the viewport's current 
+     *  verticalScrollPosition.
+     * 
+     *  @see IViewport#verticalScrollPosition
+     */
+    override protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (viewport)
+            value = viewport.verticalScrollPosition;
+    }
+    
+    /**
+     *  Set this scrollbar's maximum to the viewport's contentHeight 
+     *  less the viewport height and its pageSize to the viewport's height. 
+     */
+    override protected function viewportResizeHandler(event:ResizeEvent):void
+    {
+        if (viewport)
+        {
+            maximum = viewport.contentHeight - viewport.height;
+            pageSize = viewport.height;
+        } 
+    }
+
+    /**
+     *  Set this scrollbar's maximum to the viewport's contentHeight 
+     *  less the viewport height. 
+     *
+     *  @see IViewport#contentWidth
+     *  @see IViewport#width 
+     */
+    override protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (viewport)
+            maximum = viewport.contentHeight - viewport.height;
+    }
     
 }
 
