@@ -12,6 +12,8 @@
 package spark.primitives
 {
 
+// FIXME (rfrishbe): Change package name and classname
+
 import fl.video.DynamicStreamItem;
 import fl.video.MetadataEvent;
 import fl.video.NCManagerDynamicStream;
@@ -29,13 +31,13 @@ import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.media.Video;
 
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 
 import spark.components.mediaClasses.StreamItem;
 import spark.components.mediaClasses.StreamingVideoSource;
 import spark.core.IGraphicElement;
 import spark.events.VideoEvent;
-import spark.primitives.supportClasses.GraphicElement;
 
 use namespace mx_internal;
 
@@ -159,7 +161,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoElement extends GraphicElement
+public class VideoElement extends UIComponent
 {
     include "../core/Version.as";
     
@@ -179,12 +181,7 @@ public class VideoElement extends GraphicElement
         // which is a private class
         VideoPlayer.iNCManagerClass = FlexNCManager;
         
-        // we wrap the VideoPlayer inside of another container because 
-        // the video player doesn't handle setting x/y correctly. we could allocate
-        // layout features and subclass it so that layoutX always sets registrationX on the
-        // videoPlayer, but this seemed more straight forward
-        videoPlayerContainer = new Sprite();
-        
+        // create the underlying FLVPlayback class
         createUnderlyingVideoPlayer();
     }
     
@@ -200,48 +197,6 @@ public class VideoElement extends GraphicElement
      *  future, we may change to a new implementation.
      */
     mx_internal var videoPlayer:VideoPlayer;
-    
-    /**
-     *  @private
-     *  We wrap the VideoPlayer inside of another container because 
-     *  the video player doesn't handle setting x/y correctly. we could allocate
-     *  layout features and subclass it so that layoutX always sets registrationX on the
-     *  videoPlayer, but this seemed more straight forward
-     */
-    private var videoPlayerContainer:DisplayObjectContainer;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get displayObject():DisplayObject
-    {
-        // The VideoElement always has its own DisplayObject
-        return videoPlayerContainer;
-    }
-
-    /**
-     *  @private
-     */
-    override public function setSharedDisplayObject(sharedDisplayObject:DisplayObject):Boolean
-    {
-        // The VideoElement never uses shared DisplayObject
-        return false;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function canShareWithNext(element:IGraphicElement):Boolean
-    {
-        // Other GraphicElements should never use our DisplayObject
-        return false;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -333,16 +288,11 @@ public class VideoElement extends GraphicElement
     //  enabled
     //----------------------------------
 
-    /**
-     *  @private
-     */
-    private var _enabled:Boolean = true;
-
     [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
     [Bindable("enabledChanged")]
 
     /**
-     *  @copy mx.core.IUIComponent#enabled
+     *  @inheritDoc
      * 
      *  <p>Setting enabled to <code>false</code> 
      *  pauses the video if it was currently playing.  Re-enabling the component
@@ -359,20 +309,10 @@ public class VideoElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get enabled():Boolean
+    override public function set enabled(value:Boolean):void
     {
-        return _enabled;
-    }
-
-    /**
-     *  @private
-     */
-    public function set enabled(value:Boolean):void
-    {
-        if (value == _enabled)
+        if (value == enabled)
             return;
-        
-        _enabled = value;
         
         if (!value)
         {
@@ -380,7 +320,45 @@ public class VideoElement extends GraphicElement
                 pause();
         }
         
-        dispatchEvent(new Event("enabledChanged"));
+        super.enabled = value;
+    }
+    
+    //----------------------------------
+    //  loop
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for loop property.
+     */
+    private var _loop:Boolean = false;
+    
+    [Inspectable(Category="General", defaultValue="false")]
+    
+    /**
+     *  Indicates whether the media should play again after playback has completed. 
+     *  The <code>loop</code> property takes precedence over the the <code>autoRewind</code>
+     *  property, so if loop is set to <code>true</code>, the <code>autoRewind</code> 
+     *  property is ignored. 
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get loop():Boolean
+    {
+        return _loop;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set loop(value:Boolean):void
+    {
+        _loop = value;
     }
         
     //----------------------------------
@@ -635,7 +613,7 @@ public class VideoElement extends GraphicElement
         // Otherwise, if we have initialized, let's just set up the 
         // source immediately.  This way people can change the source 
         // and immediately call methods like seek().
-        if (!initialized)
+        if (!initializedOnce)
         {
             sourceChanged = true;
             invalidateProperties();
@@ -756,11 +734,10 @@ public class VideoElement extends GraphicElement
     
     /**
      *  @private
-     *  Since this is a GraphicElement, there's no "initialized" flag.
      *  We do different things in the source setter based on if we 
      *  are initialized or not.
      */
-    private var initialized:Boolean = false;
+    private var initializedOnce:Boolean = false;
     
     /**
      *  @private
@@ -769,7 +746,7 @@ public class VideoElement extends GraphicElement
     {
         super.commitProperties();
         
-        initialized = true;
+        initializedOnce = true;
         
         if (sourceChanged)
         {
@@ -816,7 +793,7 @@ public class VideoElement extends GraphicElement
             videoPlayer.removeEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
             videoPlayer.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
     
-            videoPlayerContainer.removeChild(videoPlayer);
+            removeChild(videoPlayer);
         }
         
         // create new video player
@@ -839,7 +816,7 @@ public class VideoElement extends GraphicElement
         videoPlayer.addEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
         videoPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
 
-        videoPlayerContainer.addChild(videoPlayer);
+        addChild(videoPlayer);
         
         dispatchEvent(new Event("playheadTimeChanged"));
         dispatchEvent(new Event("totalTimeChanged"));
@@ -909,7 +886,7 @@ public class VideoElement extends GraphicElement
     public function pause():void
     {
         // can't call any methods before we've initialized
-        if (!initialized)
+        if (!initializedOnce)
             return;
         
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
@@ -931,7 +908,7 @@ public class VideoElement extends GraphicElement
     public function play():void
     {
         // can't call any methods before we've initialized
-        if (!initialized)
+        if (!initializedOnce)
             return;
         
         // check for 2 cases: streaming video or progressive download
@@ -1090,7 +1067,7 @@ public class VideoElement extends GraphicElement
     public function seek(time:Number):void
     {
         // can't call any methods before we've initialized
-        if (!initialized)
+        if (!initializedOnce)
             return;
         
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
@@ -1119,7 +1096,7 @@ public class VideoElement extends GraphicElement
     public function stop():void
     {
         // can't call any methods before we've initialized
-        if (!initialized)
+        if (!initializedOnce)
             return;
         
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
@@ -1162,6 +1139,12 @@ public class VideoElement extends GraphicElement
         var sparkVideoEvent:spark.events.VideoEvent = 
             new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
         dispatchEvent(sparkVideoEvent);
+        
+        if (loop)
+        {
+            seek(0);
+            play();
+        }
     }
     
     /**
