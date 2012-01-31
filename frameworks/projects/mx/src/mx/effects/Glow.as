@@ -51,6 +51,11 @@ import mx.styles.StyleManager;
  *  @see mx.effects.effectClasses.GlowInstance
  *
  *  @includeExample examples/GlowEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Glow extends TweenEffect
 {
@@ -77,6 +82,11 @@ public class Glow extends TweenEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Glow(target:Object = null)
 	{
@@ -102,6 +112,11 @@ public class Glow extends TweenEffect
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
 	 * 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaFrom:Number = 1;
 	
@@ -116,6 +131,11 @@ public class Glow extends TweenEffect
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaTo:Number = 0;
 	
@@ -130,6 +150,11 @@ public class Glow extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0.
 	 * 
 	 *  @default 5 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXFrom:Number = 5;
 	
@@ -144,6 +169,11 @@ public class Glow extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0.
 	 * 
 	 *  @default 0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXTo:Number = 0;
 	
@@ -158,6 +188,11 @@ public class Glow extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0. 
 	 * 
 	 *  @default 5
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYFrom:Number = 5;
 	
@@ -172,6 +207,11 @@ public class Glow extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0. 
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYTo:Number = 0;
 	
@@ -192,6 +232,11 @@ public class Glow extends TweenEffect
 	 *  application.
 	 * 
 	 *  @default StyleManager.NOT_A_COLOR
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var color:uint = StyleManager.NOT_A_COLOR;
 	
@@ -209,6 +254,11 @@ public class Glow extends TweenEffect
 	 *  an outer glow around the outer edges of the object. 
 	 *
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var inner:Boolean;
 	
@@ -225,6 +275,11 @@ public class Glow extends TweenEffect
 	 *  The default value is <code>false</code> to specify no knockout effect. 
 	 *
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var knockout:Boolean;
 	
@@ -241,6 +296,11 @@ public class Glow extends TweenEffect
 	 *  Valid values are from <code>0</code> to <code>255</code>. 
 	 *
 	 *  @default 2 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var strength:Number = 2;
 	
