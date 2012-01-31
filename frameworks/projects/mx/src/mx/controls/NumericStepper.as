@@ -28,6 +28,7 @@ import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IIMESupport;
+import mx.core.ITextInput;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
@@ -409,7 +410,7 @@ public class NumericStepper extends UIComponent
     /**
      *  @private
      */
-    mx_internal var inputField:TextInput;
+    mx_internal var inputField:ITextInput;
 
     /**
      *  @private
@@ -1122,7 +1123,17 @@ public class NumericStepper extends UIComponent
 
         if (!inputField)
         {
-            inputField = new TextInput();
+            // Mechanism to use TLFTextInput. 
+            var textInputClass:Class = getStyle("textInputClass");            
+            if (!textInputClass || 
+                FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                inputField = new TextInput();
+            }
+            else
+            {
+                inputField = new textInputClass();
+            }
 
             inputField.styleName = new StyleProxy(this, inputFieldStyleFilters);
             inputField.focusEnabled = false;
@@ -1140,7 +1151,7 @@ public class NumericStepper extends UIComponent
             inputField.addEventListener(KeyboardEvent.KEY_DOWN, inputField_keyDownHandler);
             inputField.addEventListener(Event.CHANGE, inputField_changeHandler);
 
-            addChild(inputField);
+            addChild(DisplayObject(inputField));
         }
 
         if (!nextButton)
@@ -1295,8 +1306,7 @@ public class NumericStepper extends UIComponent
      */
     override public function setFocus():void
     {
-        if (stage)
-            stage.focus = TextField(inputField.getTextField());
+        inputField.setFocus();
     }
 
     /**
@@ -1429,7 +1439,7 @@ public class NumericStepper extends UIComponent
                      lastValue - stepSize, true, trigger);
 
             if (oldValue != lastValue)
-                inputField.getTextField().setSelection(0,0);
+                inputField.selectRange(0,0);
         }
     }
 
@@ -1487,7 +1497,7 @@ public class NumericStepper extends UIComponent
     private function buttonClickHandler(event:MouseEvent):void
     {
         inputField.setFocus();
-        inputField.getTextField().setSelection(0, 0);
+        inputField.selectRange(0, 0);
     }
 
     /**
