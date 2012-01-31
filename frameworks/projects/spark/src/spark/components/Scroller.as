@@ -1916,6 +1916,18 @@ public class Scroller extends SkinnableComponent
                         if (canScrollVertically && event.property == VERTICAL_SCROLL_POSITION)
                             currentPageScrollPosition = viewport.verticalScrollPosition;
                     }
+                    else if (throwEffect && throwEffect.isPlaying && throwEffect.isSnapping)
+                    {
+                        // If a throw animation is playing just to snap an element into position,
+                        // then we want to stop the animation as soon as the final position is reached
+                        // to avoid very short snaps taking a relatively long time to complete.
+                        if (Math.abs(viewport.horizontalScrollPosition - throwEffect.finalPosition.x) < 1 &&
+                            Math.abs(viewport.verticalScrollPosition - throwEffect.finalPosition.y) < 1)
+                        {
+                            throwEffect.stop();
+                            snapContentScrollPosition();
+                        }
+                    }
                 }
                 break;
         }
