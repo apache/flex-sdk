@@ -13,7 +13,10 @@ package spark.core
 {
 
 /**
- *  Defines the mask types available for a GraphicElement.
+ *  The MaskType class defines the possible values for the 
+ *  <code>maskType</code> property of the GraphicElement class.
+ * 
+ *  @see spark.primitives.supportClasses.GraphicElement#maskType
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -25,7 +28,8 @@ public final class MaskType
     include "../core/Version.as";
 
     /**
-     *  The mask either displays the pixel or doesn't. Strokes and bitmap filters are not used. 
+     *  The mask either displays the pixel or does not. 
+     *  Strokes and bitmap filters are not used. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
