@@ -769,6 +769,11 @@ public class PopUpButton extends Button
         }
         else
         {
+            showingPopUp = show;
+            
+            if (_popUp.parent == null)
+                return;
+
             point = _popUp.parent.globalToLocal(point);
 
             endY = (point.y + _popUp.height > screen.height && 
@@ -776,7 +781,6 @@ public class PopUpButton extends Button
                                ? -_popUp.height - 2
                                : _popUp.height + 2);
             initY = 0;
-            showingPopUp = show;
             duration = getStyle("closeDuration")
             easingFunction = getStyle("closeEasingFunction") as Function;
         }
@@ -1135,7 +1139,6 @@ public class PopUpButton extends Button
         // we'll be leaked.
         if (_popUp) {
             PopUpManager.removePopUp(_popUp);
-            _popUp = null;
         }
     }
     
