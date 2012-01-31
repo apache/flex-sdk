@@ -20,6 +20,7 @@ import mx.logging.Log;
 import mx.logging.ILogger;
 import mx.messaging.ChannelSet;
 import mx.messaging.events.MessageEvent;
+import mx.messaging.events.MessageFaultEvent;
 import mx.messaging.messages.IMessage;
 import mx.messaging.messages.SOAPMessage;
 import mx.netmon.NetworkMonitor;
@@ -802,6 +803,24 @@ public class Operation extends AbstractOperation
     }
 
     /**
+     * We intercept faults as the SOAP response content may still been present
+     * in the message body.
+     *
+     * @private
+     */
+    override mx_internal function processFault(message:IMessage, token:AsyncToken):Boolean
+    {
+        var dispatchFaultEvent:Boolean = true;
+
+        if (message != null && message.body != null)
+        {
+            dispatchFaultEvent = processSOAP(message, token);
+        }
+
+        return dispatchFaultEvent;
+    }
+
+    /**
      * We decode the SOAP encoded response and update the result and response
      * headers (if any).
      * 
@@ -809,8 +828,16 @@ public class Operation extends AbstractOperation
      */
     override mx_internal function processResult(message:IMessage, token:AsyncToken):Boolean
     {
+        return processSOAP(message, token);
+    }
+
+    /**
+     * @private
+     */ 
+    mx_internal function processSOAP(message:IMessage, token:AsyncToken):Boolean
+    {
         var body:Object = message.body;
-        var dispatchResultEvent:Boolean = true;
+        var eventDispatchRequired:Boolean = true;
 
         try
         {
@@ -830,7 +857,7 @@ public class Operation extends AbstractOperation
             _responseHeaders = soapResult.headers;
 
             // Process headers for both result and fault
-            dispatchResultEvent = processHeaders(_responseHeaders, token, message);
+            eventDispatchRequired = processHeaders(_responseHeaders, token, message);
 
             // Handle faults
             if (soapResult.isFault)
@@ -838,29 +865,32 @@ public class Operation extends AbstractOperation
                 var faults:Array = soapResult.result as Array;
                 for each (var soapFault:Fault in faults)
                 {
+                    soapFault.content = body;
                     dispatchRpcEvent(FaultEvent.createEvent(soapFault, token, message));
                 }
-                dispatchResultEvent = false;
+                eventDispatchRequired = false;
             }
 
-            if (dispatchResultEvent)
+            if (eventDispatchRequired)
                 _result = soapResult.result;
         }
-        catch(fault:Fault)
+        catch (fault:Fault)
         {
+            fault.content = body;
             dispatchRpcEvent(FaultEvent.createEvent(fault, token, message));
-            return false;
+            eventDispatchRequired = false;
         }
-        catch(error:Error)
+        catch (error:Error)
         {
             var errorMsg:String = error.message != null ? error.message : "";
             var fault2:Fault = new Fault("DecodingError", errorMsg);
+            fault2.content = body;
             var faultEvent:FaultEvent = FaultEvent.createEvent(fault2, token, message);
             dispatchRpcEvent(faultEvent);
-            return false;
+            eventDispatchRequired = false;
         }
 
-        return dispatchResultEvent;
+        return eventDispatchRequired;
     }
 
     /**
