@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the Spark PopUpAnchor component -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-	xmlns:s="library://ns.adobe.com/flex/spark" 
-	xmlns:mx="library://ns.adobe.com/flex/mx">
+			   xmlns:s="library://ns.adobe.com/flex/spark">
 	
 	<fx:Style>
 		.popUpForm
@@ -14,35 +13,38 @@
 			paddingRight : 2;
 		}
 	</fx:Style>
-		
+	
 	<s:Panel width="75%" height="75%" title="My PopUpAnchor Example">		
-
+		
 		<!-- Group with default layout so that openBtn and PopUpAnchor will be on top of 
-		     each other such that the popUp can be positioned relative to the button -->
+		each other such that the popUp can be positioned relative to the button -->
 		<s:Group x="10" y="10">
 			<!-- Button used to open PopUp -->
 			<s:Button id="openBtn" label="Open PopUp" click="frmPUA.displayPopUp=true"/>
 			
 			<!-- PopUpAnchor component set to same size as openBtn to ensure that
-			     popUp will be positioned relative to the button -->
+			popUp will be positioned relative to the button -->
 			<s:PopUpAnchor id="frmPUA" popUpPosition="below" styleName="popUpForm" width="92" height="21">
-				<!-- VBox to hold popUp contents -->
-				<mx:VBox paddingTop="5" paddingLeft="5" borderStyle="solid">				
-					<mx:Form>
-						<mx:FormItem label="Name :">
+				<!-- BorderContainer to hold popUp contents -->
+				<s:BorderContainer>			
+					<s:layout>
+						<s:VerticalLayout paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/>
+					</s:layout>
+					<s:Form>											
+						<s:FormItem label="Name :">
 							<s:TextInput/>
-						</mx:FormItem>											
-						<mx:FormItem label="E-Mail :">
+						</s:FormItem>											
+						<s:FormItem label="E-Mail :">
 							<s:TextInput/>
-						</mx:FormItem>
-					</mx:Form>							
-					<mx:HBox>																
+						</s:FormItem>
+					</s:Form>							
+					<s:HGroup>																
 						<!-- Button used to close popUp -->
 						<s:Button label="CLOSE" click="frmPUA.displayPopUp=false"/>
-					</mx:HBox>				
-				</mx:VBox>						
+					</s:HGroup>				
+				</s:BorderContainer>						
 			</s:PopUpAnchor>	
 		</s:Group>
-					
+		
 	</s:Panel>    	
 </s:Application>
