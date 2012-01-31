@@ -16,8 +16,14 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.geom.Point;
+import flash.text.engine.FontPosture;
+import flash.text.engine.FontWeight;
+import flash.text.engine.Kerning;
 
 import flex.graphics.IDisplayObjectElement;
+
+import text.model.TextAlign;
+import text.model.VerticalAlign;
 
 /**
  *  Documentation is not currently available.
@@ -178,7 +184,7 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _fontStyle:String = "normal";
+	private var _fontStyle:String = FontPosture.NORMAL;
 
 	/**
 	 *  Documentation is not currently available.
@@ -212,7 +218,7 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _fontWeight:String = "normal";
+	private var _fontWeight:String = FontWeight.NORMAL;
 
 	/**
 	 *  Documentation is not currently available.
@@ -246,7 +252,7 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _kerning:String = "auto";
+	private var _kerning:String = Kerning.AUTO;
 
 	/**
 	 *  Documentation is not currently available.
@@ -450,7 +456,7 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _textAlign:String = "left";
+	private var _textAlign:String = TextAlign.START;
 
 	/**
 	 *  Documentation is not currently available.
@@ -551,7 +557,7 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _verticalAlign:String = "top";
+	private var _verticalAlign:String = VerticalAlign.TOP;
 
 	/**
 	 *  Documentation is not currently available.
