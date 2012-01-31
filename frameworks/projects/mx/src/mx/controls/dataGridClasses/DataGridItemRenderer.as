@@ -581,7 +581,7 @@ public class DataGridItemRenderer extends UITextField
                 for (var c:int=0; c < styleNames.length; c++)
                 {
                     if (styleNames[c].length) {
-                        classSelectors.push(styleManager.getStyleDeclaration("." + 
+                        classSelectors.push(styleManager.getMergedStyleDeclaration("." + 
                             styleNames[c]));
                     }
                 }
@@ -686,7 +686,7 @@ public class DataGridItemRenderer extends UITextField
                className != "mx.core.UITextField")
         {
             var s:CSSStyleDeclaration =
-                styleManager.getStyleDeclaration(className);
+                styleManager.getMergedStyleDeclaration(className);
             
             if (s)
             {
