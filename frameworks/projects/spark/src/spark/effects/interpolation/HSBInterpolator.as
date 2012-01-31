@@ -32,6 +32,11 @@ import mx.utils.HSBColor;
  * method during the animation.</p>
  * 
  * @see mx.utils.HSBColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class HSBInterpolator implements IInterpolator
 {   
@@ -47,6 +52,11 @@ public class HSBInterpolator implements IInterpolator
      * 
      * @param startRGB the starting color, as an unsigned integer RGB value
      * @param endRGB the ending color, as an unsigned integer RGB value
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function HSBInterpolator(startRGB:uint = StyleManager.NOT_A_COLOR, 
         endRGB:uint = StyleManager.NOT_A_COLOR)
@@ -63,6 +73,11 @@ public class HSBInterpolator implements IInterpolator
      * of HSBInterpolator may be less useful than separate instances
      * of the class, since separate instances can take advantage of
      * pre-calculating the RGB-HSB conversions for the start/end colors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getInstance():HSBInterpolator
     {
@@ -74,6 +89,11 @@ public class HSBInterpolator implements IInterpolator
     /**
      * Returns the <code>uint</code> type, which is the type of
      * object interpolated by ColorInterpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get interpolatedType():Class
     {
@@ -87,6 +107,11 @@ public class HSBInterpolator implements IInterpolator
      * calculations on each of the three values h (hue), s (saturation),
      * and b (brightness) of HSB colors derived from the start and end colors
      * specified in RGB space.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
@@ -168,6 +193,11 @@ public class HSBInterpolator implements IInterpolator
      * will be treated individually. The saturation and brightness
      * components will be clamped to lie within [0-1] and the hue degrees
      * will be modulated by 360 to li within [0,360).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function increment(baseValue:Object, incrementValue:Object):Object
     {
@@ -183,6 +213,11 @@ public class HSBInterpolator implements IInterpolator
      * will be treated individually. The saturation and brightness
      * components will be clamped to lie within [0-1] and the hue degrees
      * will be modulated by 360 to lie within [0,360).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
    public function decrement(baseValue:Object, decrementValue:Object):Object
    {
