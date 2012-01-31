@@ -1266,8 +1266,16 @@ public class List extends ListBase implements IFocusManagerComponent
             }
         }
         
+        // If selection is pending on mouse up then we have just moused down on
+        // an item, part of an already commited selection.
+        // However if we moused down on an item that's not currently selected,
+        // we must commit the selection before trying to start dragging since
+        // listeners may prevent the item from being selected.
+        if (!pendingSelectionOnMouseUp)
+            validateProperties();
+
         // Handle any drag gestures that may have been started
-        if (!dragEnabled)
+        if (!dragEnabled || this.selectedIndices.indexOf(newIndex) == -1)
             return;
         
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
@@ -1281,7 +1289,7 @@ public class List extends ListBase implements IFocusManagerComponent
         systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
         systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
     }
-    
+
     /**
      *  Handles <code>MouseEvent.MOUSE_MOVE</code> events from any mouse
      *  targets contained in the list including the renderers.  This method
