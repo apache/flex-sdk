@@ -704,9 +704,7 @@ public class GridColumn extends EventDispatcher
             var itemData:Object = item;
             for each (var pathElement:String in labelPath)
                 itemData = itemData[pathElement];
-            
-            // Make sure to check for null so that if itemData is "0" the
-            // expression will return true.
+
             if (itemData != null)
                 return itemData.toString();
         }
