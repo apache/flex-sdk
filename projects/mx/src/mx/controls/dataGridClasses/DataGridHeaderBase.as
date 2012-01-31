@@ -33,7 +33,6 @@ import mx.events.DataGridEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.styles.ISimpleStyleClient;
-import mx.styles.StyleManager;
 import mx.core.mx_internal;
 import mx.effects.easing.Back;
 
