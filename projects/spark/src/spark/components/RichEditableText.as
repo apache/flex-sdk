@@ -671,7 +671,7 @@ package spark.components
         /**
          *  @private
          */
-        mx_internal var ignoreDamageEvent:Boolean = false;
+        private var inMeasureMethod:Boolean = false;
         
         /**
          *  @private
@@ -2428,9 +2428,10 @@ package spark.components
          */
         override protected function measure():void 
         {
-            // Don't want to trigger a another remeasure when we modify the
-            // textContainerManager or compose the text.
-            ignoreDamageEvent = true;
+            // If the damage handler is called while measuring text, this means
+            // the text lines are damaged and the display needs to be updated. 
+            // This flag tells the handler to invalidate just the display list.
+            inMeasureMethod = true;
             
             super.measure();
             
@@ -2544,11 +2545,9 @@ package spark.components
                     _textContainerManager.horizontalScrollPosition = 0;
                     _textContainerManager.verticalScrollPosition = 0;                
                 }               
-                
-                invalidateDisplayList();     
             }
             
-            ignoreDamageEvent = false;
+            inMeasureMethod = false;
             
             //trace("measure", measuredWidth, measuredHeight, "autoSize", autoSize);
         }
@@ -4030,8 +4029,15 @@ package spark.components
          */
         private function textContainerManager_damageHandler(event:DamageEvent):void
         {
-            if (ignoreDamageEvent || event.damageLength == 0)
+            if (event.damageLength == 0)
                 return;
+            
+            // Text that is being measured is damaged so update the display.
+            if (inMeasureMethod)
+            {
+                invalidateDisplayList();
+                return;
+            }
             
             //trace("damageHandler", "generation", _textFlow ? _textFlow.generation : -1, "lastGeneration", lastGeneration);
             
