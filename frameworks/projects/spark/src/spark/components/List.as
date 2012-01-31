@@ -9,20 +9,21 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
 
-import flex.events.ItemExistenceChangedEvent;
-import flex.skin.DefaultItemRenderer;
+import mx.events.ItemExistenceChangedEvent;
+import mx.skins.spark.FxDefaultItemRenderer;
 
 import mx.core.ClassFactory;
+import mx.components.baseClasses.FxSelector;
 
 /**
  *  The List class.
  */
-public class List extends Selector
+public class FxList extends FxSelector
 {
     include "../core/Version.as";
 
@@ -41,10 +42,10 @@ public class List extends Selector
     /**
      *  Constructor.
      */
-    public function List()
+    public function FxList()
     {
         super();
-        itemRenderer = new ClassFactory(DefaultItemRenderer);
+        itemRenderer = new ClassFactory(FxDefaultItemRenderer);
     }
     
     //--------------------------------------------------------------------------
