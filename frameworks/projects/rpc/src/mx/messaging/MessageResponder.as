@@ -232,6 +232,9 @@ public class MessageResponder extends Responder
     /**
      *  Constructs an ErrorMessage that can be passed to the associated 
      *  MessageAgent's callbacks upon a request timeout.
+     *
+     *  @return Returns an ErrorMessage that can be passed to the associated
+     *  MessageAgent's callbacks upon a request timeout.
      */
     protected function createRequestTimeoutErrorMessage():ErrorMessage
     {
