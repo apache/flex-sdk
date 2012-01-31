@@ -79,7 +79,10 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
         asyncRequest = new AsyncRequest();
 
         if (destination)
+        {
             this.destination = destination;
+            asyncRequest.destination = destination;
+        }
 
         _operations = {};
     }
@@ -146,6 +149,48 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     public function set destination(name:String):void
     {
         asyncRequest.destination = name;
+    }
+
+
+    //----------------------------------
+    //  managers
+    //----------------------------------
+
+    private var _managers:Array;
+
+    /**
+     * The managers property stores a list of data managers which modify the
+     * behavior of this service.  You can use this hook to define one or more
+     * manager components associated with this service.  When this property is set,
+     * if the managers have a property called "service" that property is set to 
+     * the value of this service.  When this service is initialized, we also call
+     * the initialize method on any manager components.
+     */
+    public function get managers():Array
+    {
+        return _managers;
+    }
+
+    public function set managers(mgrs:Array):void
+    {
+        if (_managers != null)
+        {
+            for (var i:int = 0; i < _managers.length; i++)
+            {
+                var mgr:Object = _managers[i];
+                if (mgr.hasOwnProperty("service"))
+                    mgr.service = null;
+            }
+        }
+        _managers = mgrs;
+        for (i = 0; i < mgrs.length; i++)
+        {
+            mgr = _managers[i];
+            if (mgr.hasOwnProperty("service"))
+                mgr.service = this;
+            if (_initialized && mgr.hasOwnProperty("initialize"))
+                mgr.initialize();
+        }
     }
 
     //----------------------------------
@@ -260,6 +305,23 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     public function willTrigger(type:String):Boolean
     {
         return eventDispatcher.willTrigger(type);
+    }
+
+    /**
+     *  Called to initialize the service.
+     */
+    public function initialize():void
+    {
+        if (!_initialized && _managers != null)
+        {
+            for (var i:int = 0; i < _managers.length; i++)
+            {
+                var mgr:Object = _managers[i];
+                if (mgr.hasOwnProperty("initialize"))
+                    mgr.initialize();
+            }
+            _initialized = true;
+        }
     }
 
     //---------------------------------
@@ -462,6 +524,7 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     mx_internal var _availableChannelIds:Array;
     mx_internal var asyncRequest:AsyncRequest;
     private var eventDispatcher:EventDispatcher;
+    private var _initialized:Boolean = false;
 }
 
 }
