@@ -81,11 +81,6 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
     }
 
     /**
-     * This is a hook to register additional user specified properties for your operation.
-     */
-    public var properties:Object;
-
-    /**
      *  The result format "e4x" specifies that the value returned is an XML instance, which can be accessed using ECMAScript for XML (E4X) expressions.
      */
     mx_internal static const RESULT_FORMAT_E4X:String = "e4x";
