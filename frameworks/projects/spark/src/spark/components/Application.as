@@ -23,7 +23,7 @@ import flash.system.Capabilities;
 import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -166,8 +166,8 @@ public class FxApplication extends FxContainer
             Singleton.getInstance("mx.managers::ILayoutManager"));
         UIComponentGlobals.layoutManager.usePhasedInstantiation = true;
 
-        if (!ApplicationGlobals.application)
-            ApplicationGlobals.application = this;
+        if (!FlexGlobals.topLevelApplication)
+            FlexGlobals.topLevelApplication = this;
 
         super();
                     
@@ -224,6 +224,7 @@ public class FxApplication extends FxContainer
     //  backgroundColor
     //----------------------------------
     
+    [Inspectable(category="General", format="Color")]
     [Bindable("backgroundColorUpdated")]
     
     /**
@@ -236,7 +237,7 @@ public class FxApplication extends FxContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get backgroundColor():Object /* Color (int or String) */
+    public function get backgroundColor():uint
     {
         return getStyle("backgroundColor");
     }
@@ -244,7 +245,7 @@ public class FxApplication extends FxContainer
     /**
      * @private
      */
-    public function set backgroundColor(value:Object /* Color (int or String) */):void
+    public function set backgroundColor(value:uint):void
     {
         if (value == getStyle("backgroundColor"))
             return;
@@ -460,7 +461,7 @@ public class FxApplication extends FxContainer
     override public function get id():String
     {
         if (!super.id &&
-            this == ApplicationGlobals.application && 
+            this == FlexGlobals.topLevelApplication && 
             ExternalInterface.available)
         {
             return ExternalInterface.objectID;
