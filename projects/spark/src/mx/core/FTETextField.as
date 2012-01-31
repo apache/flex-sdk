@@ -17,7 +17,6 @@ package mx.core
     import flash.display.Shape;
     import flash.display.Sprite;
     import flash.events.Event;
-    import flash.events.EventDispatcher;
     import flash.geom.Point;
     import flash.geom.Rectangle;
     import flash.text.StyleSheet;
@@ -42,15 +41,12 @@ package mx.core
     
     import flashx.textLayout.compose.ISWFContext;
     import flashx.textLayout.compose.TextLineRecycler;
+    import flashx.textLayout.formats.ITextLayoutFormat;
     import flashx.textLayout.formats.LeadingModel;
     import flashx.textLayout.formats.LineBreak;
     import flashx.textLayout.formats.TextDecoration;
+    import flashx.textLayout.formats.TextLayoutFormat;
     
-    import mx.core.FTETextField;
-    import mx.core.FlexGlobals;
-    import mx.core.IFlexModuleFactory;
-    import mx.core.IFontContextComponent;
-    import mx.core.mx_internal;
     import mx.managers.SystemManager;
     import mx.managers.SystemManagerGlobals;
     
@@ -2603,7 +2599,51 @@ package mx.core
          */
         private function createHostFormat():void
         {
-            _htmlHelper.hostFormat = new FTETextFieldHostFormat(this);
+            var hostFormat:TextLayoutFormat = new TextLayoutFormat();
+            
+            hostFormat.color = _defaultTextFormat.color;
+            hostFormat.direction = direction;
+            
+            hostFormat.fontFamily = _defaultTextFormat.font;
+            hostFormat.fontLookup = embedFonts ?
+                FontLookup.EMBEDDED_CFF :
+                FontLookup.DEVICE;
+            hostFormat.fontSize = _defaultTextFormat.size;
+            hostFormat.fontStyle = _defaultTextFormat.italic ?
+                FontPosture.ITALIC :
+                FontPosture.NORMAL;
+            hostFormat.fontWeight = _defaultTextFormat.bold ?
+                FontWeight.BOLD :
+                FontWeight.NORMAL;
+            
+            hostFormat.kerning = _defaultTextFormat.kerning ?
+                Kerning.AUTO :
+                Kerning.OFF;
+            hostFormat.leadingModel = LeadingModel.APPROXIMATE_TEXT_FIELD;
+            hostFormat.lineBreak = wordWrap ?
+                LineBreak.TO_FIT :
+                LineBreak.EXPLICIT;
+            hostFormat.lineHeight = _defaultTextFormat.leading;
+            hostFormat.locale = locale;
+            
+            hostFormat.paddingBottom = FTETextField.PADDING_BOTTOM;
+            hostFormat.paddingLeft = FTETextField.PADDING_LEFT;
+            hostFormat.paddingRight = FTETextField.PADDING_RIGHT;
+            hostFormat.paddingTop = FTETextField.PADDING_TOP;
+            
+            hostFormat.paragraphEndIndent = _defaultTextFormat.rightMargin;
+            hostFormat.paragraphStartIndent =  _defaultTextFormat.leftMargin;
+            
+            hostFormat.textAlign = _defaultTextFormat.align;
+            hostFormat.textAlignLast = _defaultTextFormat.align;
+            hostFormat.textDecoration = _defaultTextFormat.underline ?
+                TextDecoration.UNDERLINE :
+                TextDecoration.NONE;
+            hostFormat.textIndent = _defaultTextFormat.indent;
+            
+            hostFormat.trackingRight = _defaultTextFormat.letterSpacing; 
+            
+            _htmlHelper.hostFormat = hostFormat;
         }
         
         // used during compose to track nextLineIndex
@@ -3080,7 +3120,6 @@ import flashx.textLayout.conversion.TextConverter;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
-import flashx.textLayout.elements.LinkElement;
 import flashx.textLayout.elements.IConfiguration;
 import flashx.textLayout.elements.IFormatResolver;
 import flashx.textLayout.elements.LinkElement;
@@ -3096,8 +3135,8 @@ import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
 import flashx.textLayout.formats.TextLayoutFormat;
 
-import mx.core.mx_internal;
 import mx.core.FTETextField;
+import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -3120,148 +3159,6 @@ class FTETextFieldTextContainerManager extends TextContainerManager
     override public function drawBackgroundAndSetScrollRect(scrollX:Number, scrollY:Number):Boolean
     {
         return true;
-    }
-}
-
-/**
- *  @private
- */
-class FTETextFieldHostFormat extends TextLayoutFormat
-{
-    public function FTETextFieldHostFormat(textField:FTETextField)
-    {
-        super();
-        
-        this.textField = textField;
-    }
-    
-    private var textField:FTETextField;
-    
-    public override function get color():*
-    {
-        return textField._defaultTextFormat.color;
-    }
-    
-    public override function get direction():*
-    {
-        return textField.direction;
-    }
-    
-    public override function get fontFamily():*
-    {
-        return textField._defaultTextFormat.font;
-    }
-    
-    public override function get fontLookup():*
-    {
-        return textField.embedFonts ?
-            FontLookup.EMBEDDED_CFF :
-            FontLookup.DEVICE;
-    }
-    
-    public override function get fontSize():*
-    {
-        return textField._defaultTextFormat.size;
-    }
-    
-    public override function get fontStyle():*
-    {
-        return textField._defaultTextFormat.italic ?
-            FontPosture.ITALIC :
-            FontPosture.NORMAL;
-    }
-    
-    public override function get fontWeight():*
-    {
-        return textField._defaultTextFormat.bold ?
-            FontWeight.BOLD :
-            FontWeight.NORMAL;
-    }
-    
-    public override function get kerning():*
-    {
-        return textField._defaultTextFormat.kerning ?
-            Kerning.AUTO :
-            Kerning.OFF;
-    }
-    
-    public override function get leadingModel():*
-    {
-        return LeadingModel.APPROXIMATE_TEXT_FIELD;
-    }
-    
-    public override function get lineBreak():*
-    {
-        return textField.wordWrap ?
-            LineBreak.TO_FIT :
-            LineBreak.EXPLICIT;
-    }
-    
-    public override function get lineHeight():*
-    {
-        return textField._defaultTextFormat.leading;
-    }
-    
-    public override function get locale():*
-    {
-        return textField.locale;
-    }
-    
-    public override function get paddingBottom():*
-    {
-        return FTETextField.PADDING_BOTTOM;
-    }
-    
-    public override function get paddingLeft():*
-    {
-        return FTETextField.PADDING_LEFT;
-    }
-    
-    public override function get paddingRight():*
-    {
-        return FTETextField.PADDING_RIGHT;
-    }
-    
-    public override function get paddingTop():*
-    {
-        return FTETextField.PADDING_TOP;
-    }
-    
-    public override function get paragraphEndIndent():*
-    {
-        return textField._defaultTextFormat.rightMargin;
-    }
-    
-    public override function get paragraphStartIndent():*
-    {
-        return textField._defaultTextFormat.leftMargin;
-    }
-    
-    public override function get textAlign():*
-    {
-        return textField._defaultTextFormat.align;
-    }
-    
-    public override function get textAlignLast():*
-    {
-        return textField._defaultTextFormat.align;
-    }
-    
-    public override function get textDecoration():*
-    {
-        return textField._defaultTextFormat.underline ?
-            TextDecoration.UNDERLINE :
-            TextDecoration.NONE;
-    }
-    
-    public override function get textIndent():*
-    {
-        return textField._defaultTextFormat.indent;
-    }
-    
-    public override function get trackingRight():*
-    {
-        return textField._defaultTextFormat.letterSpacing;
     }
 }
 
