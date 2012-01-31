@@ -18,7 +18,6 @@ import flash.events.MouseEvent;
 import mx.core.ISelectableRenderer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.utils.BitFlagUtil;
 
 /**
  *  Dispatched when the <code>selected</code> property 
@@ -98,7 +97,7 @@ import mx.utils.BitFlagUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxToggleButton extends FxButton implements ISelectableRenderer
+public class FxToggleButton extends FxButton
 {
     include "../core/Version.as";
 
@@ -119,60 +118,23 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
     public function FxToggleButton()
     {
         super();
-
-        flags = BitFlagUtil.update(flags, allowDeselectionFlag, true);
     }
     
-    // -----------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
-    // Public properties defining the state of the ToggleButton.
+    //  Properties
     //
-    // -----------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  selected
+    //----------------------------------
 
     /**
      *  @private
-     */    
-    protected static const selectedFlag:uint = FxButton.lastFlag << 1;
-    
-    /**
-     *  @private
-     */    
-    protected static const showFocusIndicatorFlag:uint = FxButton.lastFlag << 2;
-
-    /**
-     *  @private
-     */    
-    protected static const allowDeselectionFlag:uint = FxButton.lastFlag << 4;
-
-    /**
-     *  @private
-     */    
-    protected static const lastFlag:uint = allowDeselectionFlag;
-    
-    /**
-     *  <code>true</code> if the button can be set to
-	 *  <code>selected = false</code>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function get allowDeselection():Boolean
-    {
-        return BitFlagUtil.isSet(flags, allowDeselectionFlag);
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set allowDeselection(value:Boolean):void
-    {
-        if (BitFlagUtil.isSet(flags, allowDeselectionFlag) == value)
-            return;
-         
-        flags = BitFlagUtil.update(flags, allowDeselectionFlag, value);
-    }
+     *  Storage for the allowDeselection property 
+     */
+    private var _selected:Boolean;
 
     [Bindable]
     
@@ -187,7 +149,7 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
      */    
     public function get selected():Boolean
     {
-        return BitFlagUtil.isSet(flags, selectedFlag);
+        return _selected;
     }
     
     /**
@@ -195,41 +157,12 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
      */    
     public function set selected(value:Boolean):void
     {
-        if (BitFlagUtil.isSet(flags, selectedFlag) == value)
+        if (value == _selected)
             return;
-         
-        flags = BitFlagUtil.update(flags, selectedFlag, value);
 
+        _selected = value;            
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-        invalidateButtonState();
-    }
-
-    /**
-     *  <code>true</code> if the button should display
-     *  as if it has focus even if it doesn't.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function get showFocusIndicator():Boolean
-    {
-        return BitFlagUtil.isSet(flags, showFocusIndicatorFlag);
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set showFocusIndicator(value:Boolean):void
-    {
-        if (BitFlagUtil.isSet(flags, showFocusIndicatorFlag) == value)
-            return;
-         
-        flags = BitFlagUtil.update(flags, showFocusIndicatorFlag, value);
-
-		mx_internal::drawFocusAnyway = true;
-		drawFocus(value);
+        invalidateSkinState();
     }
 
     //--------------------------------------------------------------------------
@@ -249,16 +182,18 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
             return super.getCurrentSkinState() + "AndSelected";
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Event handling
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      */ 
-    override protected function onClick(event:MouseEvent):void
+    override protected function clickHandler(event:MouseEvent):void
     {
-        super.onClick(event);
-
-		if (selected && !allowDeselection)
-			return;
-
+        super.clickHandler(event);
         selected = !selected;
         dispatchEvent(new Event(Event.CHANGE));
         event.updateAfterEvent();
