@@ -17,6 +17,7 @@ import flash.events.ProgressEvent;
 import flash.geom.Point;
 import flash.media.Video;
 
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -130,12 +131,10 @@ public class VideoDisplay extends UIComponent
      */
     public function VideoDisplay()
     {
-        // create the underlying MediaPlayer class first because 
-        // the super() call will set enabled=true, and we have assumptions baked 
-        // in to the component that videoPlayer is always around.
-        createUnderlyingVideoPlayer();
-        
         super();
+        
+        // create the underlying MediaPlayer class first.
+        createUnderlyingVideoPlayer();
         
         // added and removed event listeners to see whether we should
         // start or stop the video
@@ -162,6 +161,57 @@ public class VideoDisplay extends UIComponent
      *  future, we may change to a new implementation.
      */
     mx_internal var videoSprite:MediaPlayerSprite;
+    
+    /**
+     *  @private
+     *  Whether the video is on the display list or not
+     */
+    private var _isOnDisplayList:Boolean = false;
+    
+    /**
+     *  @private
+     *  Whether the we should play the video when the video 
+     *  becomes playable again (visible, on display list, and enabled).
+     *  This starts out as true, but when we pause the video is changePlayback(), 
+     *  we set it to false.  Also, when a user action occurs, like pause() or play()
+     *  or stop() is called, we set it to false as well.
+     */
+    private var playTheVideoOnVisible:Boolean = true;
+    
+    /**
+     *  @private
+     */
+    private var effectiveVisibility:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var effectiveVisibilityChanged:Boolean = false;
+        
+    /**
+     *  @private
+     */
+    private var effectiveEnabled:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var effectiveEnabledChanged:Boolean = false;
+    
+    /**
+     *  @private
+     *  Object for holding videoPlayer properties that we mutate when 
+     *  we go in to full screen mode so that we can set them back 
+     *  when we go back in to the normal mode.
+     */
+    private var videoPlayerProperties:Object;
+    
+    /**
+     *  @private
+     *  We do different things in the source setter based on if we 
+     *  are initialized or not.
+     */
+    private var initializedOnce:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -216,7 +266,10 @@ public class VideoDisplay extends UIComponent
             return;
         
         _autoPlay = value;
-        changePlayback();
+        
+        // call changePlayback() but don't immediately play or pause
+        // based on this change to autoPlay
+        changePlayback(false, false);
     }
     
     //----------------------------------
@@ -340,40 +393,6 @@ public class VideoDisplay extends UIComponent
     {
         return videoPlayer.duration;
     }
-        
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-    
-    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
-    [Bindable("enabledChanged")]
-    
-    /**
-     *  @inheritDoc
-     * 
-     *  <p>Setting enabled to <code>false</code> 
-     *  pauses the video if it was currently playing.  Re-enabling the component
-     *  does not cause the video to continue playing again; you must 
-     *  explicitly call <code>play()</code>.</p>
-     * 
-     *  <p>Even though the component is initially paused while disabled, 
-     *  if you would like to play the video or perform some other action 
-     *  while disabled, you may still do so through method calls, like 
-     *  <code>play()</code>.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        if (value == enabled)
-            return;
-        
-        super.enabled = value;
-        changePlayback();
-    }
     
     //----------------------------------
     //  loop
@@ -456,12 +475,17 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  Controls whether the video continues to play when it is
-     *  hidden.  The video is hidden when either <code>visible</code>
+     *  "hidden".  The video is "hidden" when either <code>visible</code>
      *  is set to <code>false</code> on it or one of its ancestors,  
      *  or when the video is taken off 
      *  of the display list.  If set to <code>true</code>, the video 
      *  will pause playback until the video is visible again.  If set to 
      *  <code>false</code> the video will continue to play when it is hidden.
+     * 
+     *  <p>If the video is disabled (or one of the video's parents are 
+     *  disabled), the video will pause as well, but when it is re-enabled, 
+     *  the video will not play again.  This behavior is not controlled through 
+     *  pauseWhenHidden; it is baked in to the VideoDisplay component.</p>
      * 
      *  @default true
      *  
@@ -490,7 +514,10 @@ public class VideoDisplay extends UIComponent
         else
             removeVisibilityListeners();
         
-        changePlayback();
+        // call changePlayback().  If we're invisible or off the stage, 
+        // setting this to true can pause the video.  However, setting it 
+        // to false should have no immediate impact.
+        changePlayback(value, false);
     }
     
     //----------------------------------
@@ -670,9 +697,15 @@ public class VideoDisplay extends UIComponent
         else if (source is String)
         {
             var urlResource:URLResource = new URLResource(new URL(source as String));
-            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource );
+            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource);
         }
-        changePlayback();
+        
+        // reset the visibilityPausedTheVideo flag
+        playTheVideoOnVisible = true;
+        
+        // set up videoPlayer.autoPlay based on whether this.autoPlay is 
+        // set and whether we are visible and the other typical conditions.
+        changePlayback(false, false);
 
         videoPlayer.element = videoElement;
     }
@@ -681,6 +714,9 @@ public class VideoDisplay extends UIComponent
     //  thumbnailSource
     //----------------------------------
     
+    /**
+     *  @private
+     */
     private var _thumbnailSource:Object;
     
     /**
@@ -830,13 +866,6 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  We do different things in the source setter based on if we 
-     *  are initialized or not.
-     */
-    private var initializedOnce:Boolean = false;
-    
-    /**
-     *  @private
      */
     override protected function commitProperties():void
     {
@@ -844,12 +873,33 @@ public class VideoDisplay extends UIComponent
         
         initializedOnce = true;
         
-        if (visibilityChanged)
+        if (effectiveVisibilityChanged || effectiveEnabledChanged)
         {
-            visibilityChanged = false;
+            // if either visibility of enabled changed, re-compute them here
+            computeEffectiveVisibilityAndEnabled();
             
-            computeEffectiveVisibility();
-            changePlayback();
+            // if visibility changed and we care about it, we can 
+            // cause a play or a pause depending on our visibility
+            var causePause:Boolean = false;
+            var causePlay:Boolean = false;
+            if (effectiveVisibilityChanged && pauseWhenHidden)
+            {
+                causePause = !effectiveVisibility;
+                causePlay = effectiveVisibility;
+            }
+            
+            // if enabled changed, we can only cause a pause.  
+            // Re-enabling a component doesn't cause a play.
+            if (effectiveEnabledChanged)
+            {
+                if (!effectiveEnabled)
+                    causePause = true;
+            }
+            
+            changePlayback(causePause, causePlay);
+            
+            effectiveVisibilityChanged = false;
+            effectiveEnabledChanged = false;
         }
         
         if (sourceChanged)
@@ -951,6 +1001,8 @@ public class VideoDisplay extends UIComponent
         if (!videoPlayerResponsive())
             return;
         
+        playTheVideoOnVisible = false;
+        
         videoPlayer.pause();
     }
     
@@ -968,6 +1020,8 @@ public class VideoDisplay extends UIComponent
         // check to see if we can call methods on the video player object yet
         if (!videoPlayerResponsive())
             return;
+        
+        playTheVideoOnVisible = false;
         
         videoPlayer.play();
     }
@@ -1034,6 +1088,8 @@ public class VideoDisplay extends UIComponent
         if (!videoPlayerResponsive())
             return;
         
+        playTheVideoOnVisible = false;
+        
         videoPlayer.stop();
     }
     
@@ -1074,11 +1130,6 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private var videoPlayerProperties:Object;
-    
-    /**
-     *  @private
-     */
     private function createUnderlyingVideoPlayer():void
     {
         // create new video player
@@ -1111,7 +1162,7 @@ public class VideoDisplay extends UIComponent
     private function get shouldBePlaying():Boolean
     {
         // if disabled, return false
-        if (!enabled)
+        if (!effectiveEnabled)
             return false;
         
         // if we want to look at visibility, check to 
@@ -1132,39 +1183,55 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  Whether the video was paused due to a change in visibility
-     *  or being added/removed from the stage. This starts out as 
-     *  true so the first time we come through in changePlayback(), 
-     *  we play the video.
+     *  This method will pause or play the video by looking at the state of 
+     *  the component and determining whether it should play or pause.  This 
+     *  method gets called when an important event occurs, such as 
+     *  the component being added/removed from the stage, the component's 
+     *  effective visibility changing, or when autoPlay is set.  
+     * 
+     *  <p>Only certain events are "action events" which can cause the video 
+     *  to pause or play immediately.  For example, when autoPlay is set to 
+     *  true/false, that shouldn't cause any immediate action, but changePlayback()
+     *  is still called so that autoPlay can be set on the underlying media player.</p>
+     * 
+     *  <p>Actions that can pause the video are:
+     *  <ul>
+     *      <li>Changes in effective enablement</li>
+     *      <li>Changes in effective visibility</li>
+     *      <li>Changes in staging (added or removed from display list)</li>
+     *      <li>Setting pauseWhenHidden = true</li>
+     *  </ul></p>
+     * 
+     *  <p>Actions that can play the video are:
+     *  <ul>
+     *      <li>Changes in effective visibility</li>
+     *      <li>Changes in staging (added or removed from display list)</li>
+     *  </ul></p>
+     * 
+     *  @param causePause Whether this action can cause a currently playing video to pause
+     *  @param causePlay Whether this action can cause a currently paused video to play
      */
-    private var visibilityPausedTheVideo:Boolean = true;
-    
-    /**
-     *  @private
-     *  This method will pause or play the video when the video
-     *  loads up or the video is added/removed from the stage, 
-     *  or the video's visible property is set.
-     */
-    private function changePlayback():void
+    private function changePlayback(causePause:Boolean, causePlay:Boolean):void
     {
         // if we shouldn't be playing, we pause the video.
         // if we come back up and should be playing, we will
         // start playing the video again if the video wasn't paused 
-        // by the user or developer and autoPlay is true.
+        // by the user or developer and autoPlay is true.       
         if (shouldBePlaying)
         {
+            videoPlayer.autoPlay = autoPlay;
+            
             // only play the video if visibility caused it to pause 
             // (instead of a user or developer calling video.pause()).
             // Also, only play if autoPlay is true.  Otherwise when 
             // the visibility changes, we won't automatically 
             // play the video
-            if (visibilityPausedTheVideo && autoPlay)
+            if (causePlay && (playTheVideoOnVisible && autoPlay))
             {
-                visibilityPausedTheVideo = false;
+                playTheVideoOnVisible = false;
                 
                 // set autoplay and call play() if the 
                 // source has loaded up and it's playable
-                videoPlayer.autoPlay = autoPlay;
                 if (videoPlayer.playable)
                     videoPlayer.play();
             }
@@ -1176,20 +1243,18 @@ public class VideoDisplay extends UIComponent
             // 1) playing
             // 2) paused
             // 3) loading
-            // Here we are checking if we are playing or are not paused (loading) 
+            // Here we are checking if we are playing or loading
             // and going to play soon (autoPlay = true)
-            if (playing || (!videoPlayer.paused && autoPlay))
-                visibilityPausedTheVideo = true;
+            if (causePause && (playing || (videoPlayer.state == MediaPlayerState.INITIALIZING && autoPlay)))
+                playTheVideoOnVisible = true;
 
             // always set autoPlay to false here and 
             // if pausable, pause the video
             videoPlayer.autoPlay = false;
-            if (videoPlayer.pausable)
+            if (causePause && videoPlayer.pausable)
                 videoPlayer.pause();
         }
     }
-    
-    private var _isOnDisplayList:Boolean = false;
     
     /**
      *  @private
@@ -1202,8 +1267,31 @@ public class VideoDisplay extends UIComponent
         if (pauseWhenHidden)
             addVisibilityListeners();
         
-        computeEffectiveVisibility();
-        changePlayback();
+        addEnabledListeners();
+        
+        computeEffectiveVisibilityAndEnabled();
+        
+        // being added to the display list will not pause the video, but 
+        // it may play the video if pauseWhenHidden = true
+        changePlayback(false, pauseWhenHidden);
+    }
+    
+    /**
+     *  @private
+     */
+    private function removedFromStageHandler(event:Event):void
+    {
+        _isOnDisplayList = false;
+        
+        // remove listeners from old parents
+        if (pauseWhenHidden)
+            removeVisibilityListeners();
+        
+        removeEnabledListeners();
+        
+        // being removed from the display list will pause the video if 
+        // pauseWhenHidden = true
+        changePlayback(pauseWhenHidden, false);
     }
     
     /**
@@ -1218,6 +1306,23 @@ public class VideoDisplay extends UIComponent
         {
             current.addEventListener(FlexEvent.HIDE, visibilityChangedHandler, false, 0, true);
             current.addEventListener(FlexEvent.SHOW, visibilityChangedHandler, false, 0, true);
+            
+            current = current.parent as IVisualElement;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Add event listeners for "enabledChanged" event on all ancestors up the parent chain.
+     *  Adding weak event listeners just to be safe.
+     */
+    private function addEnabledListeners():void
+    {
+        var current:IVisualElement = this;
+        while (current)
+        {
+            current.addEventListener("enabledChanged", enabledChangedHandler, false, 0, true);
+            current.addEventListener("enabledChanged", enabledChangedHandler, false, 0, true);
             
             current = current.parent as IVisualElement;
         }
@@ -1241,22 +1346,19 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
+     *  Remove event listeners for "enabledChanged" event on all ancestors up the parent chain.
      */
-    private function removedFromStageHandler(event:Event):void
+    private function removeEnabledListeners():void
     {
-        _isOnDisplayList = false;
-        
-        // remove listeners from old parents
-        if (pauseWhenHidden)
-            removeVisibilityListeners();
-        
-        changePlayback();
+        var current:IVisualElement = this;
+        while (current)
+        {
+            current.removeEventListener("enabledChanged", enabledChangedHandler, false);
+            current.removeEventListener("enabledChanged", enabledChangedHandler, false);
+            
+            current = current.parent as IVisualElement;
+        }
     }
-    
-    /**
-     *  @private
-     */
-    private var visibilityChanged:Boolean = false;
     
     /**
      *  @private
@@ -1265,28 +1367,46 @@ public class VideoDisplay extends UIComponent
      */
     private function visibilityChangedHandler(event:FlexEvent):void
     {
-        visibilityChanged = true;
+        effectiveVisibilityChanged = true;
         invalidateProperties();
     }
-        
+    
     /**
      *  @private
+     *  Event call back whenever the enablement of us or one of our ancestors 
+     *  changes
      */
-    private var effectiveVisibility:Boolean = false;
+    private function enabledChangedHandler(event:Event):void
+    {
+        effectiveEnabledChanged = true;
+        invalidateProperties();
+    }
     
     /**
      *  @private
      */
-    private function computeEffectiveVisibility():void
+    private function computeEffectiveVisibilityAndEnabled():void
     {
+        // start out with true visibility and enablement
+        // then loop up parent-chain to see if any of them are false
         effectiveVisibility = true;
+        effectiveEnabled = true;
         var current:IVisualElement = this;
+        
         while (current)
         {
             if (!current.visible)
             {
                 effectiveVisibility = false;
-                break;
+                if (!effectiveEnabled)
+                    break;
+            }
+            
+            if (current is IUIComponent && !IUIComponent(current).enabled)
+            {
+                effectiveEnabled = false;
+                if (!effectiveVisibility)
+                    break;
             }
             
             current = current.parent as IVisualElement;
