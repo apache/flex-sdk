@@ -1872,7 +1872,7 @@ public class Container extends UIComponent
      *  It is not always possible to determine when a container will have a ContentPane.</p>
      * 
      *  <p><b>Note:</b>If you call the <code>addChild</code> or 
-     *  <code>addChildAt</code>method of the <code>rawChildren</code> object,
+     *  <code>addChildAt</code> method of the <code>rawChildren</code> object,
      *  set <code>tabEnabled = false</code> on the component that you have added.
      *  Doing so prevents users from tabbing to the visual-only component
      *  that you have added.</p>
