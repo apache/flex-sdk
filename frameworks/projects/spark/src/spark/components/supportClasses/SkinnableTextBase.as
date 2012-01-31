@@ -29,7 +29,6 @@ import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionVisibility;
 import spark.events.TextOperationEvent;
 import spark.primitives.RichEditableText;
-import spark.utils.MouseShieldUtil;
 
 //--------------------------------------
 //  Events
@@ -220,12 +219,6 @@ public class TextBase extends SkinnableComponent
      */
     mx_internal var parentDrawsFocus:Boolean = false;
 
-    /**
-     *  @private
-     *  Mouse shield that is put up when this component is disabled.
-     */
-    private var mouseShield:DisplayObject;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -233,13 +226,40 @@ public class TextBase extends SkinnableComponent
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  enabled
+    //  mouseChildren
     //----------------------------------
+
+    private var _explicitMouseChildren:Boolean = true;
 
     /**
      *  @private
      */
-    private var enabledChanged:Boolean = false;
+    override public function set mouseChildren(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseChildren = value;
+        _explicitMouseChildren = value;
+    }
+
+    //----------------------------------
+    //  mouseEnabled
+    //----------------------------------
+
+    private var _explicitMouseEnabled:Boolean = true;
+
+    /**
+     *  @private
+     */
+    override public function set mouseEnabled(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseEnabled = value;
+        _explicitMouseEnabled = value;
+    }
+
+    //----------------------------------
+    //  enabled
+    //----------------------------------
 
     /**
      *  @private
@@ -250,15 +270,14 @@ public class TextBase extends SkinnableComponent
             return;
         
         super.enabled = value;
-        enabledChanged = true;
-        
         invalidateSkinState();
-        
-        // We update the mouseShield that prevents clicks to propagate to
-        // children in our updateDisplayList.
-        invalidateDisplayList();
+
+        // If enabled, reset the mouseChildren, mouseEnabled to the previously
+        // set explicit value, otherwise disable mouse interaction.
+        super.mouseChildren = value ? _explicitMouseChildren : false;
+        super.mouseEnabled  = value ? _explicitMouseEnabled  : false; 
     }
-    
+
     //----------------------------------
     //  baselinePosition
     //----------------------------------
@@ -866,12 +885,6 @@ public class TextBase extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-
-    override protected function updateDisplayList(width:Number, height:Number):void
-    {
-        super.updateDisplayList(width, height);
-        mouseShield = MouseShieldUtil.updateMouseShield(this, mouseShield);
-    }
 
     /**
      *  @private
