@@ -145,6 +145,15 @@ public class AnimateTransformRotate extends AnimateTransform
      */
     public var angleBy:Number;
             
+    //----------------------------------
+    //  affectLayout
+    //----------------------------------
+    [Inspectable(category="General")]
+    /** 
+     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     */
+    public var affectLayout:Boolean = true;
+   
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -167,7 +176,14 @@ public class AnimateTransformRotate extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("rotationZ", angleFrom, angleTo, angleBy);
+        if(affectLayout)
+        {
+            addMotionPath("rotationZ", angleFrom, angleTo, angleBy);
+        }
+        else
+        {
+            addPostLayoutMotionPath("postLayoutRotationZ", angleFrom, angleTo, angleBy);
+        }
         super.initInstance(instance);
     }    
 }
