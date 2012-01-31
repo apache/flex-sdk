@@ -226,7 +226,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             return;
 
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
-        const oldRenderers:Dictionary = new Dictionary();
+        const oldRenderers:Array = [];
         const rendererLayer:Group = this.rendererLayer;
         const overlayLayer:Group = this.overlayLayer;
         const columnSeparatorFactory:IFactory = columnHeaderGroup.columnSeparator;
@@ -234,15 +234,19 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         var renderer:IGridItemRenderer;
         var separator:IVisualElement;
         var column:GridColumn;
+        var columnIndex:int = -1;
         
         // Add all of the renderers whose column is still visible to oldRenderers and free the rest
         
         for each (renderer in visibleHeaderRenderers)
         {
             column = renderer.column;
-            if (column && (visibleColumnIndices.indexOf(column.columnIndex) != -1))
+            columnIndex = (column) ? column.columnIndex : -1;
+            
+            if ((columnIndex != -1) && (visibleColumnIndices.indexOf(columnIndex) != -1) &&
+                (oldRenderers[columnIndex] == null))
             {
-                oldRenderers[column] = renderer;
+                oldRenderers[columnIndex] = renderer;
             }
             else
             {
@@ -274,7 +278,6 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const rendererHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         const maxRendererX:Number = columnHeaderGroup.horizontalScrollPosition + unscaledWidth;
         
-        var columnIndex:int = -1;
         var visibleLeft:Number = 0;
         var visibleRight:Number = 0;
         
@@ -298,8 +301,8 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
 
             // reuse or create a new renderer
             
-            renderer = oldRenderers[column];
-            oldRenderers[column] = null;
+            renderer = oldRenderers[columnIndex];
+            oldRenderers[columnIndex] = null;
             if (!renderer)
             {
                 var factory:IFactory = column.headerRenderer;
