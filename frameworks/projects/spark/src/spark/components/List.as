@@ -1104,6 +1104,12 @@ public class List extends ListBase implements IFocusManagerComponent
             // Going from a null selection, add all
             addedItems = _proposedSelectedIndices;
         }
+
+        // Commit _selectedIndices before calling itemSelected() because
+        // selecting item renderers may cause updates that will check
+        // the value of _selectedIndices. Setting it first makes the
+        // indices consistent with the new selection values on the items.
+        _selectedIndices = _proposedSelectedIndices;
          
         // De-select the old items that were selected 
         if (removedItems.length > 0)
@@ -1125,9 +1131,7 @@ public class List extends ListBase implements IFocusManagerComponent
             }
         }
         
-        // Commit the selected indices and put _proposedSelectedIndices
-        // back to its default value.  
-        _selectedIndices = _proposedSelectedIndices;
+        // Put _proposedSelectedIndices back to its default value.  
         _proposedSelectedIndices = new Vector.<int>();
     }
     
