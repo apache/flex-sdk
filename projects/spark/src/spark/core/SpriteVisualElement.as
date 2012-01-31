@@ -757,11 +757,10 @@ public class SpriteVisualElement extends FlexSprite
         _designLayer = value;
         
         if (_designLayer)
-        {
             _designLayer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
-            super.alpha = _alpha * _designLayer.effectiveAlpha;
-            super.visible = _visible && _designLayer.effectiveVisibility;
-        }
+
+        super.alpha = _designLayer ? _alpha * _designLayer.effectiveAlpha : _alpha;
+        super.visible = _designLayer ? _visible && _designLayer.effectiveVisibility : _visible;
     }
         
     //----------------------------------
