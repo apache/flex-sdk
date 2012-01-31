@@ -369,26 +369,19 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var textFlow:TextFlow = getTextFlowWithComposer();
         
         var operationState:SelectionState =
-            new SelectionState(textFlow, anchorPosition, activePosition); 
+            new SelectionState(textFlow, anchorPosition, activePosition);
+        
+        // On point selection remember pendling formats for next char typed.
+        operationState.selectionManagerOperationState = true;
         
         var op:ApplyFormatOperation = 
             new ApplyFormatOperation(
                 operationState, leafFormat, paragraphFormat, containerFormat);
-        
-        //ToDo: remove generations if not needed
-        
-        //var beforeGeneration:uint = textFlow.generation;
-        //op.setGenerations(beforeGeneration, 0);
-        
+
         var success:Boolean = op.doOperation();
         if (success)
         {
             textFlow.normalize(); 
-            
-            // This has to be done after the normalize, because normalize 
-            // increments the generation number.
-            //op.setGenerations(beforeGeneration, textFlow.generation);					
-            
             textFlow.flowComposer.updateAllControllers(); 
         } 
         
@@ -524,8 +517,17 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var absoluteStart:int = getAbsoluteStart(anchorPosition, activePosition);
         var absoluteEnd:int = getAbsoluteEnd(anchorPosition, activePosition);
         
+        // Need to get the format of the insertion point so that the inserted
+        // text will have this format.
+        var pointFormat:ITextLayoutFormat = 
+            getCommonCharacterFormat(absoluteStart, absoluteStart);
+
         var operationState:SelectionState = 
-            new SelectionState(textFlow, absoluteStart, absoluteEnd);
+            new SelectionState(textFlow, absoluteStart, absoluteEnd, pointFormat);
+ 
+        // If there is an interaction manager, this keeps it in sync with
+        // the results of this operation.
+        operationState.selectionManagerOperationState = true;
         
         var op:InsertTextOperation = 
             new InsertTextOperation(operationState, insertText);
@@ -547,17 +549,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
             // No point format.
             var selectionState:SelectionState =
                 new SelectionState(textFlow, insertPt, insertPt);
-            
-            // If there is a selection manager, keep the selection in
-            // sync and clear the point format as the EditManager insertText
-            // operation does.
-            if (textFlow.interactionManager)
-            {
-                var selectionManager:SelectionManager = 
-                    SelectionManager(textFlow.interactionManager);
-                
-                selectionManager.setSelectionState(selectionState);
-            }
             
             var selectionEvent:SelectionEvent = 
                 new SelectionEvent(SelectionEvent.SELECTION_CHANGE, 
