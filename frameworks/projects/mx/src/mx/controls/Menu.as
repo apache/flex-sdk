@@ -14,7 +14,7 @@ package mx.controls
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.events.Event; 
+import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
@@ -24,6 +24,7 @@ import flash.ui.Keyboard;
 import flash.utils.clearInterval;
 import flash.utils.setTimeout;
 import flash.xml.XMLNode;
+
 import mx.collections.ArrayCollection;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
@@ -2423,13 +2424,26 @@ public class Menu extends List implements IFocusManagerContainer
         if (_do.root)   //verify this is sufficient
             sandBoxRootPoint = _do.root.globalToLocal(sandBoxRootPoint);
         
+        // If the layout is mirrored, and isDirectionLeft then we add the
+        // menu's width to find the origin of menu, rather than subtracting.
+        // Similarly, if isDirectionLeft=false, we subtract the menu item's width.
+        
+        const isLayoutMirrored:Boolean = layoutDirection == "rtl";
+        const menuWidth:Number = menu.getExplicitOrMeasuredWidth();
+        const menuItemWidth:Number = row.width;
+        
         // showX, showY are in sandbox root coordinates
         var showY:Number = sandBoxRootPoint.y;
         var showX:Number;
         if (!isDirectionLeft)
-            showX = sandBoxRootPoint.x + row.width;
+            showX = sandBoxRootPoint.x + ((isLayoutMirrored) ? -menuItemWidth : +menuItemWidth);
         else
-            showX = sandBoxRootPoint.x - menu.getExplicitOrMeasuredWidth();
+            showX = sandBoxRootPoint.x + ((isLayoutMirrored) ? +menuWidth : -menuWidth);
+        
+        // If the layout has been mirrored, then showX is currently menu's right
+        // edge; compensate here.
+        if (isLayoutMirrored)
+            showX -= menuWidth;
         
         // convert to global coordinates to compare with getVisibleApplicationRect().
         // the screen is the visible coordinates of our sandbox (written in global coordinates)
@@ -2439,7 +2453,7 @@ public class Menu extends List implements IFocusManagerContainer
         var screenPoint:Point = sbRoot.localToGlobal(new Point(showX, showY));
         
         // do x
-        var shift:Number = screenPoint.x + menu.getExplicitOrMeasuredWidth() - screen.right;
+        var shift:Number = screenPoint.x + menuWidth - screen.right;
         if (shift > 0 || screenPoint.x < screen.x)
         {
             // if we want to ensure our parent's visible, let's 
@@ -2463,7 +2477,7 @@ public class Menu extends List implements IFocusManagerContainer
             showX = Math.max(showX - shift, 0);
         }
         
-        menu.isDirectionLeft = this.x > showX;
+        menu.isDirectionLeft = (isLayoutMirrored) ? (this.x <= showX) : (this.x > showX);
         
         // now do y
         shift = screenPoint.y + menu.getExplicitOrMeasuredHeight() - screen.bottom;
