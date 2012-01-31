@@ -25,6 +25,7 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.PropertyChangeEvent;
 
 import spark.components.IItemRendererOwner; 
 import spark.components.supportClasses.GroupBase;
@@ -200,7 +201,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         }
 
         super.addChild(obj);
-        updateRendererData(renderer, _typicalItem);
+        updateRendererInformation(renderer, _typicalItem);
         if (obj is IInvalidating)
             IInvalidating(obj).validateNow();
         setTypicalLayoutElement(obj);
@@ -592,12 +593,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
             myItemRenderer = IVisualElement(item);
 
-        // Set the owner property     
-        myItemRenderer.owner = this;
-
-        if (myItemRenderer is IItemRenderer)
-        	IItemRenderer(myItemRenderer).labelText = itemToLabel(item);
-                    
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer && failRTE)
         {
@@ -611,19 +606,41 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
 
         return myItemRenderer;
     }
-    
+   
     /**
-     *  @private 
+     *  A bottleneck method which updates renderer specific information. 
+     * 
      *  Set the renderer's data to the item, but only if the item and 
-     *  renderer are different.   This step isn't integrated into createRendererForItem()
+     *  renderer are different.This step isn't integrated into createRendererForItem()
      *  so that we can delay calling the IR's 'set data' method until after the
      *  IR has a valid parent, i.e. until after it has been added to the 
-     *  display list.
+     *  display list. 
+     * 
+     *  Additionally, this method sets the renderer's labelText (the result of
+     *  which is dependant on its data) and owner properties. 
+     * 
+     *  @param renderer The renderer to update
+     *  
+     *  @param data The renderer's data  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     * 
      */
-    private function updateRendererData(renderer:IVisualElement, item:Object):void
+    public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
     {
-        if ((renderer is IDataRenderer) && (renderer != item))
-            IDataRenderer(renderer).data = item;   
+    	if (!renderer)
+    	   return; 
+        
+        if ((renderer is IDataRenderer) && (renderer != data))
+            IDataRenderer(renderer).data = data;   
+        
+        renderer.owner = this;
+        
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).labelText = itemToLabel(data);
     }
     
     /**
@@ -965,8 +982,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                     elt = freeRenderers.pop();
                     elt.visible = true;
                     elt.includeInLayout = true;
-                    if (elt is IItemRenderer)
-                        IItemRenderer(elt).labelText = itemToLabel(item);
                     recycledIR = true;
                 }
                 else 
@@ -982,7 +997,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             if (createdIR || recycledIR) 
             {
-                updateRendererData(elt, item);
+                updateRendererInformation(elt, item);
                 if (elt is IInvalidating)
                     IInvalidating(elt).validateNow();
             }
@@ -1069,7 +1084,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         var myItemRenderer:IVisualElement = createRendererForItem(item);
         indexToRenderer.splice(index, 0, myItemRenderer);
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
-        updateRendererData(myItemRenderer, item);
+        updateRendererInformation(myItemRenderer, item);
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_ADD, false, false, 
                       myItemRenderer, index, item));
@@ -1248,8 +1263,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             case CollectionEventKind.UPDATE:
             {
-                // update event, do nothing
-                // TODO: maybe we need to do something here, like recreate renderer?
+            	//update the renderer's data and data-dependant
+            	//properties. 
+            	for (var i:int = 0; i < event.items.length; i++)
+            	{
+	            	var pe:PropertyChangeEvent = event.items[i]; 
+	            	if (pe)
+	            	{
+	                    var renderer:IVisualElement = indexToRenderer[dataProvider.getItemIndex(pe.source)];
+	            		if (renderer)
+	            		  IItemRendererOwner(renderer.owner).updateRendererInformation(renderer, pe.source); 
+	            	}
+            	}
                 break;
             }
         }
