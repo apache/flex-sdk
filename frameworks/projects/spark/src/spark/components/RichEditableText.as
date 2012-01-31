@@ -185,12 +185,6 @@ public class TextView extends UIComponent implements IViewport
     private static var staticConfiguration:Configuration =
         new Configuration();
     
-    /**
-     *  @private
-     *  Used for determining whitespace processing during import.
-     */
-    private static var staticImportExportConfiguration:ImportExportConfiguration;
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -202,17 +196,6 @@ public class TextView extends UIComponent implements IViewport
      */
     public function TextView()
     {
-        // Initialize staticImportExportConfiguration at instance-creation
-        // time rather than at static initialization time, to avoid
-        // any class-initialization-order problems.
-        if (!staticImportExportConfiguration)
-        {
-            staticImportExportConfiguration =
-                ImportExportConfiguration.defaultConfiguration;
-            
-            ImportExportConfiguration.restoreDefaults();
-        }
-
         super();
 
         _content = textFlow = createEmptyTextFlow();
@@ -1344,8 +1327,6 @@ public class TextView extends UIComponent implements IViewport
             getStyle("whiteSpaceCollapse");
         staticConfiguration.textFlowInitialCharacterFormat =
             staticCharacterFormat;
-        staticImportExportConfiguration.textFlowConfiguration =
-            staticConfiguration; 
 
         if (markup is String)
         {
@@ -1383,7 +1364,7 @@ public class TextView extends UIComponent implements IViewport
         }
         
         return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                                       staticImportExportConfiguration);
+                                       staticConfiguration);
     }
     
     /**
