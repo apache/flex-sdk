@@ -15,6 +15,12 @@ package mx.messaging.messages
 /**
  * A marker interface that is used to indicate that an IMessage has an
  * alternative smaller form for serialization.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public interface ISmallMessage extends IMessage
 {
@@ -33,6 +39,12 @@ public interface ISmallMessage extends IMessage
      * @return Returns An alternative representation of an
      * flex.messaging.messages.IMessage so that the serialized form
      * is smaller than the regular message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     function getSmallMessage():IMessage;
 }
