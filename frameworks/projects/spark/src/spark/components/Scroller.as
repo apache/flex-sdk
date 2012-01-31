@@ -86,7 +86,8 @@ public class FxScroller extends FxComponent
     //  horizontalScrollBar
     //---------------------------------- 
     
-    [SkinPart]
+    [SkinPart(required="true")]
+
     /**
      * A skin part that defines the horizontal scrollbar.
      */
@@ -96,7 +97,8 @@ public class FxScroller extends FxComponent
     //  verticalScrollBar
     //---------------------------------- 
     
-    [SkinPart]
+    [SkinPart(required="true")]
+
     /**
      * A skin part that defines the vertical scrollbar.
      */
