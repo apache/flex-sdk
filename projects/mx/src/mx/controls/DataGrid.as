@@ -72,6 +72,7 @@ import mx.events.DataGridEventReason;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
+import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.CursorManager;
@@ -3888,6 +3889,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // we disappear on any mouse down outside the editor
         systemManager.getSandboxRoot().
             addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.getSandboxRoot().
+            addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler, false, 0, true);
         // we disappear if stage is resized
         systemManager.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
     }
@@ -3982,6 +3985,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
             systemManager.getSandboxRoot().
                 removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
+            systemManager.getSandboxRoot().
+                removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler);
             systemManager.removeEventListener(Event.RESIZE, editorStageResizeHandler, true);
 
             var event:DataGridEvent =
@@ -4598,10 +4603,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  @private
      */
-    private function editorMouseDownHandler(event:MouseEvent):void
+    private function editorMouseDownHandler(event:Event):void
     {
-        if (!owns(DisplayObject(event.target)))
-            endEdit(DataGridEventReason.OTHER);
+        if (event is MouseEvent && owns(DisplayObject(event.target)))
+			return;
+
+        endEdit(DataGridEventReason.OTHER);
     }
 
     /**
