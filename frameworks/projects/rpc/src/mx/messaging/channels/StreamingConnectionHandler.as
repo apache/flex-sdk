@@ -42,6 +42,12 @@ use namespace mx_internal;
  *  Dispatched when the StreamingConnectionHandler receives a status command from the server.
  *
  *  @eventType flash.events.StatusEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="status", type="flash.events.StatusEvent")]
 
@@ -49,6 +55,12 @@ use namespace mx_internal;
  *  A helper class that is used by the streaming channels to open an internal
  *  HTTP connection to the server that is held open to allow the server to
  *  stream data down to the client with no poll overhead.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class StreamingConnectionHandler extends EventDispatcher
 {
@@ -61,6 +73,12 @@ public class StreamingConnectionHandler extends EventDispatcher
     /**
      *  The code for the StatusEvent dispatched by this handler when a disconnect
      *  command is received from the server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const DISCONNECT_CODE:String = "disconnect";
 
@@ -72,28 +90,58 @@ public class StreamingConnectionHandler extends EventDispatcher
 
     /**
      *  Parameter name for the command passed in the request for a new streaming connection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const COMMAND_PARAM_NAME:String = "command";
 
     /**
      *  A request to open a streaming connection passes this 'command' in the request URI to the
      *  remote endpoint.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const OPEN_COMMAND:String = "open";
 
     /**
      *  A request to close a streaming connection passes this 'command' in the request URI to the
      *  remote endpoint.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const CLOSE_COMMAND:String = "close";
 
     /**
      *  Parameter name for the stream id; passed with commands for an existing streaming connection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const STREAM_ID_PARAM_NAME:String = "streamId";
 
     /**
      *  Parameter name for the version param passed in the request for a new streaming connection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const VERSION_PARAM_NAME:String = "version";
 
@@ -101,6 +149,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  Indicates the stream version used for this channel's stream connection.
      *  Currently just version 1. If the protocol over the wire needs to change in the future
      *  this gives us a way to indicate the change.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private static const VERSION_1:String = "1";
 
@@ -172,6 +226,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *
 	 *  @param channel The Channel that uses this class.
 	 *  @param log Reference to the logger for the associated Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function StreamingConnectionHandler(channel:Channel, log:ILogger)
     {
@@ -188,6 +248,12 @@ public class StreamingConnectionHandler extends EventDispatcher
 
   	/**
   	 * The Channel that uses this class.
+  	 *  
+  	 *  @langversion 3.0
+  	 *  @playerversion Flash 9
+  	 *  @playerversion AIR 1.1
+  	 *  @productversion BlazeDS 4
+  	 *  @productversion LCDS 3 
   	 */
   	 protected var channel:Channel;
 
@@ -195,6 +261,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  Byte buffer used to store the current chunk from the remote endpoint.
      *  Once a full chunk has been buffered, a message instance encoded in binary
      *  AMF format can be read from the chunk and dispatched.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected var chunkBuffer:ByteArray;
 
@@ -202,11 +274,23 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  Counter that keeps track of how many data bytes remain to be read for the current chunk.
      *  A sentinal value of -1 indicates an initial state (either waiting for the first chunk or
      *  just finished parsing the previous chunk).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected var dataBytesToRead:int = -1;
 
     /**
      *  Index into the chunk buffer pointing to the first byte of chunk data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected var dataOffset:int;
 
@@ -230,23 +314,47 @@ public class StreamingConnectionHandler extends EventDispatcher
 
     /**
      *  Storage for the hex-format chunk size value from the byte stream.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var hexChunkSize:String;
 
     /**
      *  Current parse state on the streaming connection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var state:int = INIT_STATE;
 
     /**
      *  URLStream used to open a streaming connection from the server to
      *  the client over HTTP.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var streamingConnection:URLStream;
 
     /**
      *  URLStream used to close the original streaming connection opened from
      *  the server to the client over HTTP.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	private var streamingConnectionCloser:URLStream;
 
@@ -262,6 +370,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *
      *  @param appendToURL The string to append such as session id to the endpoint
      *  url while making the streaming connection request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function openStreamingConnection(appendToURL:String=null):void
     {
@@ -299,6 +413,12 @@ public class StreamingConnectionHandler extends EventDispatcher
 
     /**
      *  Used by the streaming channels to shut down the streaming connection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function closeStreamingConnection():void
     {
@@ -386,6 +506,12 @@ public class StreamingConnectionHandler extends EventDispatcher
 	 *  returns null and subclasses must override this method.
 	 *
 	 *  @return Returns the message that was read.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
     protected function readMessage():IMessage
     {
@@ -404,6 +530,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *
      *  @param value The hex value as a String.
      *  @return The hex value converted as a decimal int.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function convertHexToDecimal(value:String):int
     {
@@ -427,6 +559,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  has been closed by the server by re-dispatching the event for the channel.
      *
      *  @param event The COMPLETE Event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamCompleteHandler(event:Event):void
     {
@@ -438,6 +576,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  re-dispatching the event for the channel.
      *
      *  @param event The HTTPStatusEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamHttpStatusHandler(event:HTTPStatusEvent):void
     {
@@ -449,6 +593,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  re-dispatching the event for the channel.
      *
      *  @param event The IOErrorEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamIoErrorHandler(event:IOErrorEvent):void
     {
@@ -461,6 +611,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  not advance the channel to a connected state yet.
      *
      *  @param event The OPEN Event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamOpenHandler(event:Event):void
     {
@@ -473,6 +629,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  encoded in binary AMF format or a block of bytes to read off the network but skip any processing of.
      *
      *  @param event The ProgressEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamProgressHandler(event:ProgressEvent):void
     {
@@ -671,6 +833,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  re-dispatching the event for the channel.
      *
      *  @param event The SecurityErrorEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamSecurityErrorHandler(event:SecurityErrorEvent):void
     {
