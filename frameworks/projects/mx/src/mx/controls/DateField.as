@@ -37,7 +37,7 @@ import mx.events.DateChooserEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
@@ -2229,9 +2229,9 @@ public class DateField extends ComboBase
                                    dropdown_mouseDownOutsideHandler);
         _dropdown.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                    dropdown_mouseDownOutsideHandler);
-        _dropdown.addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,
+        _dropdown.addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,
                                    dropdown_mouseDownOutsideHandler);
-        _dropdown.addEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE,
+        _dropdown.addEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE,
                                    dropdown_mouseDownOutsideHandler);
         
         creatingDropdown = false;
@@ -2475,7 +2475,7 @@ public class DateField extends ComboBase
             if (! hitTestPoint(mouseEvent.stageX, mouseEvent.stageY, true))
                 displayDropdown(false, event);
         }
-        else if (event is SandboxRootMouseEvent) 
+        else if (event is SandboxMouseEvent) 
             displayDropdown(false, event);
             
     }
