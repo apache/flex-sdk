@@ -233,12 +233,13 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="gridDoubleClick", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched when the selection has changed. 
+ *  Dispatched when the selection is going to change.
+ *  Calling the <code>preventDefault()</code> method
+ *  on the event prevents the selection from changing.
  *  
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you change the selection programmatically, 
  *  the component does not dispatch the <code>selectionChanging</code> event. 
- *  It dispatches the <code>valueCommit</code> event instead.</p>
  *
  *  @eventType spark.events.GridSelectionChangeEvent.SELECTION_CHANGING
  *  
@@ -250,9 +251,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="selectionChanging", type="spark.events.GridSelectionEvent")]
 
 /**
- *  Dispatched when the selection is going to change. 
- *  Calling the <code>preventDefault()</code> method
- *  on the event prevents the selection from changing.
+ *  Dispatched when the selection has changed. 
  *  
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you change the selection programmatically, 
