@@ -1524,7 +1524,7 @@ public class TextArea extends ScrollControlBase
      *  Specifies whether the text can be selected.
      *  Making the text selectable lets you copy text from the control.
      *
-     *  @default false;
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
