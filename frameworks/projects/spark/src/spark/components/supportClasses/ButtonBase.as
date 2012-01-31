@@ -349,7 +349,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //----------------------------------
     //  baselinePosition
     //----------------------------------
-
+    
     /**
      *  @private
      */
