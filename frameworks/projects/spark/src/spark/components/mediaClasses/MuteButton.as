@@ -9,27 +9,45 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components
+package spark.components.mediaClasses
 {
 
 import flash.events.Event;
+import flash.events.MouseEvent;
 
 import mx.events.FlexEvent;
 
+import spark.components.Button;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
 /**
- *  The VideoPlayerVolumeBarMuteButton is a mute button 
- *  to be used inside the VideoPlayerVolumeBar.  The VideoPlayer
- *  hooks it up so that when the button is clicked it'll 
- *  mute/unmute the volume.  This button has a value property 
- *  so that the visuals of the button can change based on the 
- *  volume.
+ *  Dispatched when the video mutes or unmutes the volume.
+ *
+ *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoPlayerVolumeBarMuteButton extends Button
+[Event(name="mutedChange", type="mx.events.FlexEvent")]
+
+/**
+ *  The MuteButton is a mute button. The VideoPlayer
+ *  hooks it up so that when the button is clicked it'll 
+ *  mute/unmute the volume.  This button has a volume property 
+ *  and a mute property so that the visuals of the button can 
+ *  change based on them.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public class MuteButton extends Button
 {   
         
     /**
@@ -40,7 +58,7 @@ public class VideoPlayerVolumeBarMuteButton extends Button
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function VideoPlayerVolumeBarMuteButton()
+    public function MuteButton()
     {
         super();
     }
@@ -52,11 +70,48 @@ public class VideoPlayerVolumeBarMuteButton extends Button
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  value
+    //  muted
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _muted:Boolean = false;
+    
+    [Bindable("mutedChange")]
+    
+    /**
+     *  <code>true</code> if the volume of the video is muted; 
+     *  <code>false</code> otherwise.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get muted():Boolean
+    {
+        return _muted;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set muted(value:Boolean):void
+    {
+        if (_muted == value)
+            return;
+        
+        _muted = value;
+        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
+    }
+    
+    //----------------------------------
+    //  volume
     //----------------------------------
     
     // default to 1
-    private var _value:Number = 1;
+    private var _volume:Number = 1;
     
     [Bindable(event="valueCommit")]
 
@@ -68,21 +123,34 @@ public class VideoPlayerVolumeBarMuteButton extends Button
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get value():Number
+    public function get volume():Number
     {
-        return _value;
+        return _volume;
     }
     
     /**
      *  @private
      */
-    public function set value(value:Number):void
+    public function set volume(value:Number):void
     {
-        if (_value == value)
+        if (_volume == value)
             return;
             
-        _value = value;
+        _volume = value;
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    override protected function clickHandler(event:MouseEvent):void
+    {
+        super.clickHandler(event);
+        
+        muted = !muted;
     }
 
 }
