@@ -653,7 +653,7 @@ public class ListBase extends SkinnableDataContainer
 		}
         
         if (dispatchChangeEvent)
-            dispatchChangeAfterSelection = dispatchChangeEvent;
+            dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
         _proposedSelectedIndex = value;
         invalidateProperties();
     }
@@ -740,7 +740,7 @@ public class ListBase extends SkinnableDataContainer
             return;
         
         if (dispatchChangeEvent)
-            dispatchChangeAfterSelection = dispatchChangeEvent;
+            dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
         
         _pendingSelectedItem = value;
         invalidateProperties();
