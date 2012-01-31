@@ -289,19 +289,19 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function skinLoaded():void
+    override protected function loadSkin():void
     {
-        super.skinLoaded();
+        super.loadSkin();
         installViewport();
     }
     
     /**
      *  @private
      */
-    override protected function unloadingSkin():void
+    override protected function unloadSkin():void
     {    
-        super.unloadingSkin();
         uninstallViewport();
+        super.unloadSkin();
     }
     
     /**
