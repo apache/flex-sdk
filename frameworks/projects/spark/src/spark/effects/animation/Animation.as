@@ -211,7 +211,7 @@ public final class Animation
      *  The set of MotionPath objects that define the properties and values
      *  that the Animation will animate over time.
      *
-     *  @see spark.effects.MotionPath
+     *  @see spark.effects.animation.MotionPath
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
