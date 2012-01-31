@@ -118,7 +118,7 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A required skin part that defines the DataGroup where the data 
