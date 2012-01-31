@@ -805,7 +805,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
     [Bindable("change")]
     [Bindable("valueCommit")]
-    [Inspectable(environment="none")]
+    [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  The item in the data provider at the selectedIndex.
