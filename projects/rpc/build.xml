@@ -17,8 +17,8 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <!-- overriding from build.properties -->
-    <property name="playerglobal.version" value="9"/>  
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="9"/>
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of rpc.swc and its English and Japanese resources"/>
 
@@ -60,7 +60,8 @@
 		-->
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/rpc.swc"
-			   resource-bundle-list="${basedir}/bundles.properties">
+               resource-bundle-list="${basedir}/bundles.properties">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->               
             <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
@@ -70,7 +71,7 @@
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 			</external-library-path>
 			<locale/>
@@ -106,7 +107,7 @@
 			<include-libraries/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
