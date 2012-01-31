@@ -26,12 +26,12 @@ use namespace mx_internal;
 
 /**
  *  ButtonBarBaseAccImpl is the accessibility implementation class
- *  for spark.components.ButtonBarBase.
+ *  for spark.components.supportClasses.ButtonBarBase.
  *
  *  <p>Although TabBar has its own accessibility implementation subclass,
  *  ButtonBar simply uses the one for ButtonBarBase.
  *  Therefore, the rest of this description refers to the commonly-used
- *  ButtonBar class rather than the ButtonBarBase base class.</p>
+ *  ButtonBar component rather than the ButtonBarBase base class.</p>
  *
  *  <p>When a Spark ButtonBar is created,
  *  its <code>accessibilityImplementation</code> property
