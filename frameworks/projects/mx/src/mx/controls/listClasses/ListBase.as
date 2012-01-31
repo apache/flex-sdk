@@ -8893,8 +8893,8 @@ public class ListBase extends ScrollControlBase
         pt = DisplayObject(event.target).localToGlobal(pt);
         mouseDownPoint = globalToLocal(pt);
 
-        systemManager.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
-        systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler, false, 0, true);
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler, false, 0, true);
 
         if (!dragEnabled)
         {
@@ -8916,8 +8916,8 @@ public class ListBase extends ScrollControlBase
 
     private function mouseIsUp():void
     {
-        systemManager.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
-        systemManager.removeEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler);
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler);
 
         if (!dragEnabled && dragScrollingInterval != 0)
         {
