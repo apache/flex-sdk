@@ -14,7 +14,9 @@ package mx.messaging.config
 
 import flash.utils.getDefinitionByName;
 
+
 import mx.collections.ArrayCollection;
+import mx.core.Application;
 import mx.core.mx_internal;
 import mx.messaging.Channel;
 import mx.messaging.ChannelSet;
@@ -69,29 +71,29 @@ public class ServerConfig
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the resourceManager getter.
-	 *  This gets initialized on first access,
-	 *  not at static initialization time, in order to ensure
-	 *  that the Singleton registry has already been initialized.
-	 */
-	private static var _resourceManager:IResourceManager;
-	
-	/**
-	 *  @private
+    /**
+     *  @private
+     *  Storage for the resourceManager getter.
+     *  This gets initialized on first access,
+     *  not at static initialization time, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _resourceManager:IResourceManager;
+    
+    /**
+     *  @private
      *  A reference to the object which manages
      *  all of the application's localized resources.
      *  This is a singleton instance which implements
      *  the IResourceManager interface.
-	 */
-	private static function get resourceManager():IResourceManager
-	{
-		if (!_resourceManager)
-			_resourceManager = ResourceManager.getInstance();
+     */
+    private static function get resourceManager():IResourceManager
+    {
+        if (!_resourceManager)
+            _resourceManager = ResourceManager.getInstance();
 
-		return _resourceManager;
-	}
+        return _resourceManager;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -99,12 +101,12 @@ public class ServerConfig
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  The server configuration data.
-	 */
-	public static var serverConfigData:XML;
-	
+    /**
+     *  @private
+     *  The server configuration data.
+     */
+    public static var serverConfigData:XML;
+    
     /**
      *  @private
      *  Caches shared ChannelSets, keyed by strings having the format:
@@ -139,9 +141,9 @@ public class ServerConfig
     // 
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  xml
-	//----------------------------------
+    //----------------------------------
+    //  xml
+    //----------------------------------
 
     /**
      *  The XML configuration; this value must contain the relevant portions of
@@ -263,7 +265,7 @@ public class ServerConfig
      */
     public static function getChannelSet(destinationId:String):ChannelSet
     {             	
-    	var destinationConfig:XML = getDestinationConfig(destinationId);   	
+        var destinationConfig:XML = getDestinationConfig(destinationId);   	
         return internalGetChannelSet(destinationConfig, destinationId);
     }
     
@@ -278,20 +280,20 @@ public class ServerConfig
      */
     public static function getProperties(destinationId:String):XMLList
     {
-    	var destination:XMLList = xml..destination.(@id == destinationId);
-    		
-    	if (destination.length() > 0)
-		{
-    		return destination.properties;
-		}
-    	else
-		{
-			var message:String = resourceManager.getString(
-				"messaging", "unknownDestination", [ destinationId ]);
-    		throw new InvalidDestinationError(message);
-		}
-    	
-    	return destination;
+        var destination:XMLList = xml..destination.(@id == destinationId);
+            
+        if (destination.length() > 0)
+        {
+            return destination.properties;
+        }
+        else
+        {
+            var message:String = resourceManager.getString(
+                "messaging", "unknownDestination", [ destinationId ]);
+            throw new InvalidDestinationError(message);
+        }
+        
+        return destination;
     }
         
     //--------------------------------------------------------------------------
@@ -354,8 +356,8 @@ public class ServerConfig
      */
     mx_internal static function getChannelIdList(destination:String):Array
     {                    
-     	var destinationConfig:XML = getDestinationConfig(destination);	
-		return destinationConfig? getChannelIds(destinationConfig) 
+         var destinationConfig:XML = getDestinationConfig(destination);	
+        return destinationConfig? getChannelIds(destinationConfig) 
                                         : getDefaultChannelIds();
     }
 
@@ -364,14 +366,14 @@ public class ServerConfig
      *  Used by the Channels to determine whether the Channel should request 
      *  dynamic configuration from the server for its MessageAgents. 
      */	 
-	mx_internal static function needsConfig(channel:Channel):Boolean
-	{
-	    // Configuration for the endpoint has not been fetched by some other channel.
-	    if (_configFetchedChannels == null || _configFetchedChannels[channel.endpoint] == null)
+    mx_internal static function needsConfig(channel:Channel):Boolean
+    {
+        // Configuration for the endpoint has not been fetched by some other channel.
+        if (_configFetchedChannels == null || _configFetchedChannels[channel.endpoint] == null)
         {	            
-    	    var channelSets:Array = channel.channelSets;
-    	    var m:int = channelSets.length;
-    		for (var i:int = 0; i < m; i++)
+            var channelSets:Array = channel.channelSets;
+            var m:int = channelSets.length;
+            for (var i:int = 0; i < m; i++)
             {
                 var messageAgents:Array = ChannelSet(channelSets[i]).messageAgents;
                 var n:int = messageAgents.length;
@@ -383,8 +385,8 @@ public class ServerConfig
             }
         }
         return false;        	        	    
-	}	    
-    	     		         
+    }	    
+                              
     /**
      *  @private
      *  This method updates the xml with serverConfig object returned from the
@@ -392,79 +394,79 @@ public class ServerConfig
      */
      mx_internal static function updateServerConfigData(serverConfig:ConfigMap, endpoint:String = null):void
      {      	        
-		if (serverConfig != null) 
-		{	
-		    if (endpoint != null)
-		    {
-    		    // Add the endpoint uri to the list of uris whose configuration 
-    		    // has been fetched.
-    		    if (_configFetchedChannels == null)
-    		        _configFetchedChannels = {};
-    		        
-    		    _configFetchedChannels[endpoint] = true;
-		    }
-		    
-			var newServices:XML = <services></services>; 																						
-			convertToXML(serverConfig, newServices);
-	        
-	        // Update default-channels of the application     
+        if (serverConfig != null) 
+        {	
+            if (endpoint != null)
+            {
+                // Add the endpoint uri to the list of uris whose configuration 
+                // has been fetched.
+                if (_configFetchedChannels == null)
+                    _configFetchedChannels = {};
+                    
+                _configFetchedChannels[endpoint] = true;
+            }
+            
+            var newServices:XML = <services></services>; 																						
+            convertToXML(serverConfig, newServices);
+            
+            // Update default-channels of the application     
             xml["default-channels"] = newServices["default-channels"];	             
             
             // Update the services
-			for each (var newService:XML in newServices..service)
-			{    
-				var oldServices:XMLList = xml.service.(@id == newService.@id);
-				if (oldServices.length() != 0)
-				{					
-					// Assuming only one service exists with the id
-					var oldService:XML = oldServices[0];
-														
-					// Update destinations
-					for each (var newDestination:XML in newService..destination)
-					{
-						var oldDestinations:XMLList = oldService.destination.(@id == newDestination.@id);
-						if (oldDestinations.length() != 0)
-						{
-							// Assuming only one destination exists with the id
-							delete oldDestinations[0];							
-						}
-						oldService.appendChild(newDestination);
-					}
-				}
-				else
-				{
-					xml.appendChild(newService);			
-				}
-			}
-			
-			// Update the channels
-			var newChannels:XMLList = newServices.channels;
+            for each (var newService:XML in newServices..service)
+            {    
+                var oldServices:XMLList = xml.service.(@id == newService.@id);
+                if (oldServices.length() != 0)
+                {					
+                    // Assuming only one service exists with the id
+                    var oldService:XML = oldServices[0];
+                                                        
+                    // Update destinations
+                    for each (var newDestination:XML in newService..destination)
+                    {
+                        var oldDestinations:XMLList = oldService.destination.(@id == newDestination.@id);
+                        if (oldDestinations.length() != 0)
+                        {
+                            // Assuming only one destination exists with the id
+                            delete oldDestinations[0];							
+                        }
+                        oldService.appendChild(newDestination);
+                    }
+                }
+                else
+                {
+                    xml.appendChild(newService);			
+                }
+            }
+            
+            // Update the channels
+            var newChannels:XMLList = newServices.channels;
             if (newChannels.length() > 0)
             {                
-       		    var oldChannels:XML = xml.channels[0];          
-	    		if (oldChannels == null || oldChannels.length() == 0)	    		
-    			{
-			        xml.appendChild(newChannels);
-	    		}
-	    		// Commenting this section out as there is no real use case
-	    		// for updating channel definitions. 
-	    		/*
-		    	else
-			    {
-			        for each (var newChannel:XML in newChannels.channel)
-			        {
-			            var oldChannel:XMLList = oldChannels.channel.(@id == newChannel.@id);
-			            if (oldChannel.length() > 0)
-	                    {
-	                        // Assuming only one channel exists with the same id.
-	                        delete oldChannel[0];	                    	                    
-	                    }
-	                    oldChannels.appendChild(newChannel);        
-			        }
-			    }
-			    */
+                   var oldChannels:XML = xml.channels[0];          
+                if (oldChannels == null || oldChannels.length() == 0)	    		
+                {
+                    xml.appendChild(newChannels);
+                }
+                // Commenting this section out as there is no real use case
+                // for updating channel definitions. 
+                /*
+                else
+                {
+                    for each (var newChannel:XML in newChannels.channel)
+                    {
+                        var oldChannel:XMLList = oldChannels.channel.(@id == newChannel.@id);
+                        if (oldChannel.length() > 0)
+                        {
+                            // Assuming only one channel exists with the same id.
+                            delete oldChannel[0];	                    	                    
+                        }
+                        oldChannels.appendChild(newChannel);        
+                    }
+                }
+                */
             }			   
-		}
+        }
      }
    
     //--------------------------------------------------------------------------
@@ -486,13 +488,13 @@ public class ServerConfig
      */
     private static function createChannel(channelId:String):Channel
     {
-		var message:String;
-		     
+        var message:String;
+             
         var channels:XMLList = xml.channels.channel.(@id == channelId);
         if (channels.length() == 0)
         {
-			message = resourceManager.getString(
-				"messaging", "unknownChannelWithId", [ channelId ]);
+            message = resourceManager.getString(
+                "messaging", "unknownChannelWithId", [ channelId ]);
             throw new InvalidChannelError(message);
         }
                 
@@ -505,92 +507,101 @@ public class ServerConfig
             var channelClass:Class = getDefinitionByName(className) as Class;
             channel = new channelClass(channelId, uri);
             channel.applySettings(channelConfig);
+        
+            // WSRP support
+            // If we have an WSRP_ENCODED_CHANNEL in FlashVars, 
+            // use that instead of uri configured in the config file
+            if (Application.application.parameters.WSRP_ENCODED_CHANNEL != null)
+            {
+                channel.url = Application.application.parameters.WSRP_ENCODED_CHANNEL;
+                //trace("Using WSRP_ENCODED_CHANNEL: " + channel.url);
+            }
         }
         catch(e:ReferenceError)
         {
-			message = resourceManager.getString(
-				"messaging", "unknownChannelClass", [ className ]);
+            message = resourceManager.getString(
+                "messaging", "unknownChannelClass", [ className ]);
             throw new InvalidChannelError(message);
         }
         return channel;
     }
     
-   	/**
-   	 * Converts the ConfigMap of properties into XML
-   	 */
-	private static function convertToXML(config:ConfigMap, configXML:XML):void
-	{				
-		for (var propertyKey:Object in config)
-		{			
-			var propertyValue:Object = config[propertyKey];
-						
-			if (propertyValue is String)
-			{
-				if (propertyKey == "")
-				{
-					// Add as a value	
-					var name:Object = configXML.localName();
-					var parent:XML = configXML.parent();
-					parent[name] = propertyValue;
-				}
-				else
-				{
-					// Add as an attribute
-					configXML.@[propertyKey] = propertyValue;
-				}				
-			}			
-			else if (propertyValue is ArrayCollection || propertyValue is Array)
-			{				
-				var propertyValueList:Array; 
-				if (propertyValue is ArrayCollection)
-					propertyValueList = ArrayCollection(propertyValue).toArray();
-				else
-					propertyValueList = propertyValue as Array;
-					
-			    for (var i:int = 0; i < propertyValueList.length; i++)    	            
-	    		{	    			
-   					var propertyXML1:XML = <{propertyKey}></{propertyKey}>				
-					configXML.appendChild(propertyXML1);
-					convertToXML(propertyValueList[i] as ConfigMap, propertyXML1);
-	    		}				
-			}
-			else // assuming that it is ConfigMap
-			{
-   				var propertyXML2:XML = <{propertyKey}></{propertyKey}>				
-				configXML.appendChild(propertyXML2);
-				convertToXML(propertyValue as ConfigMap, propertyXML2);				
-			}
-		}
-	}
-	
+       /**
+        * Converts the ConfigMap of properties into XML
+        */
+    private static function convertToXML(config:ConfigMap, configXML:XML):void
+    {				
+        for (var propertyKey:Object in config)
+        {			
+            var propertyValue:Object = config[propertyKey];
+                        
+            if (propertyValue is String)
+            {
+                if (propertyKey == "")
+                {
+                    // Add as a value	
+                    var name:Object = configXML.localName();
+                    var parent:XML = configXML.parent();
+                    parent[name] = propertyValue;
+                }
+                else
+                {
+                    // Add as an attribute
+                    configXML.@[propertyKey] = propertyValue;
+                }				
+            }			
+            else if (propertyValue is ArrayCollection || propertyValue is Array)
+            {				
+                var propertyValueList:Array; 
+                if (propertyValue is ArrayCollection)
+                    propertyValueList = ArrayCollection(propertyValue).toArray();
+                else
+                    propertyValueList = propertyValue as Array;
+                    
+                for (var i:int = 0; i < propertyValueList.length; i++)    	            
+                {	    			
+                       var propertyXML1:XML = <{propertyKey}></{propertyKey}>				
+                    configXML.appendChild(propertyXML1);
+                    convertToXML(propertyValueList[i] as ConfigMap, propertyXML1);
+                }				
+            }
+            else // assuming that it is ConfigMap
+            {
+                   var propertyXML2:XML = <{propertyKey}></{propertyKey}>				
+                configXML.appendChild(propertyXML2);
+                convertToXML(propertyValue as ConfigMap, propertyXML2);				
+            }
+        }
+    }
+    
     private static function getChannelIds(destinationConfig:XML):Array
     {
         var result:Array = [];
         var channels:XMLList = destinationConfig.channels.channel;
-	    var n:int = channels.length();
-	    for (var i:int = 0; i < n; i++)    	            
-	    {
-	        result.push(channels[i].@ref.toString());
-	    }
+        var n:int = channels.length();
+        for (var i:int = 0; i < n; i++)    	            
+        {
+            result.push(channels[i].@ref.toString());
+        }
         return result;
     }
-	
+    
     /**
      * @private
      * This method returns a list of default channel ids for the application 
      */ 
-	private static function getDefaultChannelIds():Array
-	{
-		var result:Array = [];
-		var channels:XMLList = xml["default-channels"].channel;
+    private static function getDefaultChannelIds():Array
+    {
+        var result:Array = [];
+        var channels:XMLList = xml["default-channels"].channel;
         var n:int = channels.length();		
         for (var i:int = 0; i < n; i++)
         {
             result.push(channels[i].@ref.toString());
         }  			            
         return result;   	    				             	
-	}
-	 
+    }
+     
     /**
      *  Returns the destination XML data specific to the destination and message
      *  type specified. Returns null if the destination is not found.
@@ -601,7 +612,7 @@ public class ServerConfig
         var destinationCount:int = destinations.length();
         if (destinationCount == 0)	
         {
-			return null;         
+            return null;         
         }
         else 
         {
@@ -624,23 +635,23 @@ public class ServerConfig
                                         destinationId:String):ChannelSet
     {
         var channelIds:Array;
-		var clustered:Boolean;
+        var clustered:Boolean;
          
         if (destinationConfig == null)
         {
-        	channelIds = getDefaultChannelIds();    
+            channelIds = getDefaultChannelIds();    
             if (channelIds.length == 0)
             {
-				var message:String = resourceManager.getString(
-					"messaging", "noChannelForDestination", [ destinationId ]);
+                var message:String = resourceManager.getString(
+                    "messaging", "noChannelForDestination", [ destinationId ]);
                 throw new InvalidDestinationError(message);                   
             }        	        
-        	clustered = false; 
+            clustered = false; 
         }
         else
         {
-			channelIds = getChannelIds(destinationConfig);
-			clustered = (destinationConfig.properties.network.cluster.length() > 0) ? true : false;			
+            channelIds = getChannelIds(destinationConfig);
+            clustered = (destinationConfig.properties.network.cluster.length() > 0) ? true : false;			
         } 
                             
         var channelSetId:String = channelIds.join(",") + ":" + clustered;
