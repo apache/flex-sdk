@@ -11,6 +11,7 @@
 
 package spark.accessibility
 {
+
 import flash.accessibility.Accessibility;
 import flash.events.Event;
 
@@ -24,13 +25,22 @@ import spark.components.List;
 import spark.components.supportClasses.ListBase;
 import spark.events.IndexChangeEvent;
 
-
-
 use namespace mx_internal;
 
 /**
- *  ListBaseAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the ListBase class.
+ *  ListBaseAccImpl is a superclass of the Spark ListAccImpl,
+ *  DropDownListAccImpl, ComboBoxAccImpl, ButtonBarBaseAccImpl,
+ *  and TabBarAccImpl.
+ *
+ *  <p>Please see the documentation of these classes for more information
+ *  about how the Spark components List, DropDownList, ComboBox, ButtonBar,
+ *  and TabBar implement accessibility.</p>
+ *
+ *  @see spark.accessibility.ListAccImpl
+ *  @see spark.accessibility.DropDownListAccImpl
+ *  @see spark.accessibility.ComboBoxAccImpl
+ *  @see spark.accessibility.ButtonBarBaseAccImpl
+ *  @see spark.accessibility.TabBarAccImpl  
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
