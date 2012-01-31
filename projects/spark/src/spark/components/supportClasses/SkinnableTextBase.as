@@ -744,7 +744,10 @@ public class TextBase extends SkinnableComponent
             textViewProperties.text = value;
         }
 
-        invalidateProperties();                    
+        invalidateProperties(); 
+
+        // The default event to trigger a validator.
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                   
      }
 
     //----------------------------------
@@ -1315,6 +1318,9 @@ public class TextBase extends SkinnableComponent
         
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
+        
+        // The default event to trigger a validator.
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
 
     /**
