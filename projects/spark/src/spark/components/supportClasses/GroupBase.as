@@ -1,4 +1,4 @@
-package flex.core
+package mx.components.baseClasses
 {
 import flash.display.DisplayObject;
 import flash.display.Sprite;
@@ -8,23 +8,25 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
-import flex.graphics.Graphic;
-import flex.graphics.IGraphicElement;
-import flex.graphics.IGraphicElementHost;
-import flex.graphics.MaskType;
-import flex.graphics.TransformUtil;
-import flex.graphics.graphicsClasses.GraphicElement;
-import flex.intf.ILayoutItem;
-import flex.intf.IViewport;
-import flex.layout.LayoutBase;
-import flex.layout.BasicLayout;
-import flex.layout.LayoutItemFactory;
+import mx.graphics.IGraphicElementHost;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
+import mx.graphics.Graphic;
+
+import mx.graphics.MaskType;
+import mx.utils.MatrixUtil;
+import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.IGraphicElement;
+import mx.layout.ILayoutItem;
+import mx.core.IViewport;
+import mx.layout.LayoutBase;
+import mx.layout.BasicLayout;
+import mx.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
+import mx.components.ResizeMode;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
@@ -41,12 +43,12 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
-include "../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
 /**
  *  The GroupBase class.
@@ -337,7 +339,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Bindable]
 
     /**
-     *  @copy flex.intf.IViewport#horizontalScrollPosition
+     *  @copy mx.core.IViewport#horizontalScrollPosition
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -357,7 +359,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Bindable]
     
     /**
-     *  @copy flex.intf.IViewport#verticalScrollPosition
+     *  @copy mx.core.IViewport#verticalScrollPosition
      */
     public function get verticalScrollPosition():Number 
     {
@@ -375,7 +377,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------
 
     /**
-     *  @copy flex.intf.IViewport#horizontalScrollPositionDelta
+     *  @copy mx.core.IViewport#horizontalScrollPositionDelta
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -383,7 +385,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @copy flex.intf.IViewport#verticalScrollPositionDelta
+     *  @copy mx.core.IViewport#verticalScrollPositionDelta
      */
     public function verticalScrollPositionDelta(unit:uint):Number
     {
@@ -406,7 +408,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Inspectable(category="General")]    
 
     /**
-     *  @copy flex.core.IViewport#contentWidth
+     *  @copy mx.core.IViewport#contentWidth
      */
     public function get contentWidth():Number 
     {
@@ -432,7 +434,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Inspectable(category="General")]    
 
     /**
-     *  @copy flex.core.IViewport#contentWidth
+     *  @copy mx.core.IViewport#contentWidth
      */
     public function get contentHeight():Number 
     {
@@ -471,7 +473,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------
     
     /**
-     *  @copy flex.intf.IViewport#clipContent
+     *  @copy mx.core.IViewport#clipContent
      */
     public function get clipContent():Boolean 
     {
