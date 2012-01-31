@@ -27,20 +27,25 @@
                 collection.addItem({first:"Steve", last:"Maccormick"});
                 collection.addItem({first:"Aiden", last:"MacCormick"});
                 collection.addItem({first:"Eileen", last:"MacGregor"});
+                
                 // Create the Sort instance.
                 var sort:Sort = new Sort();
+                
                 // Set the sort field; sort on the last name first, first name 
                 // second.
                 var sortfieldLastName:SortField = new SortField("last",true);
                 var sortfieldFirstName:SortField = new SortField("first",true);
                 sort.fields = [sortfieldLastName, sortfieldFirstName];
+                
                 // Add the sort field objects to this application's list of
                 // style clients.  This will cause the sort field objects to 
                 // inherit the locale style from this Application. 
                 addStyleClient(sortfieldLastName);
                 addStyleClient(sortfieldFirstName);
+                
                 // Assign the Sort object to the view.
                 collection.sort = sort;
+                
                 // Apply the sort to the collection.
                 collection.refresh();
             }
@@ -57,12 +62,14 @@
             <s:Label text="Example: 'en-US', 'fr-FR', 'zh-CN', 'ar-SA'"/>
         </s:VGroup>
         
-        <mx:DataGrid dataProvider="{collection}" 
+        <s:DataGrid dataProvider="{collection}" width="100%"
                      creationComplete="{collection.refresh()}">
-            <mx:columns>
-                <mx:DataGridColumn dataField="last" />
-                <mx:DataGridColumn dataField="first"/>
-            </mx:columns>
-        </mx:DataGrid>
+            <s:columns>
+                <s:ArrayList>
+                    <s:GridColumn dataField="last"/>
+                    <s:GridColumn dataField="first"/>
+                </s:ArrayList>
+            </s:columns>
+        </s:DataGrid>
     </s:VGroup>
 </s:Application>
