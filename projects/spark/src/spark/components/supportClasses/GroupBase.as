@@ -812,17 +812,19 @@ public class GroupBase extends UIComponent implements IViewport
     //  resizeMode
     //----------------------------------
     
-    private var _resizeMode:String = ResizeMode.NOSCALE; 
+    private var _resizeMode:String = ResizeMode.NO_SCALE; 
+    
+    [Inspectable(category="General", enumeration="noScale,scale", defaultValue="noScale")]
 
     /**
      *  The ResizeMode for this container. If the resize mode
-     *  is set to <code>ResizeMode.NOSCALE</code>, resizing is done by laying 
+     *  is set to <code>ResizeMode.NO_SCALE</code>, resizing is done by laying 
      *  out the children with the new width and height. If the 
      *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
      *  keep their unscaled width and height and the children 
      *  are scaled to change size.
      * 
-     * <p>The default value is <code>ResizeMode.NOSCALE</code>, corresponding to "noScale".</p>
+     * <p>The default value is <code>ResizeMode.NO_SCALE</code>, corresponding to "noScale".</p>
      * 
      * @see spark.components.ResizeMode
      *  
@@ -867,7 +869,7 @@ public class GroupBase extends UIComponent implements IViewport
     private var _mouseEnabledWhereTransparent:Boolean = true;
     private var mouseEventReferenceCount:int;
 
-    [Inspectable(category="General", enumeration="true,false")]
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
     
     /**
      *  When set to <code>true</code>, the <code>mouseOpaque</code> property 
@@ -1655,11 +1657,12 @@ public class GroupBase extends UIComponent implements IViewport
     //  maskType
     //----------------------------------
     
-    [Bindable("propertyChange")]
-    [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     private var _maskType:String = MaskType.CLIP;
     private var maskTypeChanged:Boolean;
     private var originalMaskFilters:Array;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     
     /**
      *  <p>The mask type. Possible values are <code>MaskType.CLIP</code>, <code>MaskType.ALPHA</code> 
