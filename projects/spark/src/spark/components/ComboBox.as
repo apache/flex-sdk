@@ -870,6 +870,17 @@ public class ComboBox extends DropDownListBase
         }
     }
     
+    /**
+     *  @private 
+     */
+    override protected function itemRemoved(index:int):void
+    {
+        if (index == selectedIndex)
+            updateLabelDisplay("");
+        
+        super.itemRemoved(index);       
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
