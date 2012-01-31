@@ -124,7 +124,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Name of the class to use as the default skin for the down arrow.
  * 
- *  @default mx.skins.halo.NumericStepperDownSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperDownSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperDecrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -137,7 +139,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Down arrow
  *  when the arrow is disabled.
  *
- *  @default mx.skins.halo.NumericStepperDownSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperDownSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperDecrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -150,7 +154,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Down arrow
  *  when the arrow is enabled and a user presses the mouse button over the arrow.
  *
- *  @default mx.skins.halo.NumericStepperDownSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperDownSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperDecrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -163,7 +169,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Down arrow
  *  when the arrow is enabled and the mouse pointer is over the arrow.
  *  
- *  @default mx.skins.halo.NumericStepperDownSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperDownSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperDecrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -243,7 +251,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Name of the class to use as the default skin for the up arrow.
  *  
- *  @default mx.skins.halo.NumericStepperUpSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperUpSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperIncrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -256,7 +266,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Up arrow
  *  when the arrow is disabled.
  *
- *  @default mx.skins.halo.NumericStepperUpSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperUpSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperIncrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -269,7 +281,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Up arrow
  *  when the arrow is enabled and a user presses the mouse button over the arrow.
  *
- *  @default mx.skins.halo.NumericStepperUpSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperUpSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperIncrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -282,7 +296,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Up arrow
  *  when the arrow is enabled and the mouse pointer is over the arrow.
  *
- *  @default mx.skins.halo.NumericStepperUpSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperUpSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperIncrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -295,7 +311,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Up arrow
  *  when the arrow is enabled and the mouse pointer is not on the arrow.
  *
- *  @default mx.skins.halo.NumericStepperUpSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.NumericStepperUpSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.StepperIncrButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
