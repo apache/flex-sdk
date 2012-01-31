@@ -1360,7 +1360,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.text</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableStageText.text</b></p>
+     *  spark.components.supportClasses.StyleableStageText#text</b></p>
      * 
      *  @see spark.components.RichEditableText#text
      *  @see spark.components.supportClasses.StyleableStageText#text
