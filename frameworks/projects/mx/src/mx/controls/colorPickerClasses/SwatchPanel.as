@@ -1125,6 +1125,8 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
      */    
     override public function styleChanged(styleProp:String):void
     {
+        super.styleChanged(styleProp);
+        
         if (!initializing)
             refresh();
     }
