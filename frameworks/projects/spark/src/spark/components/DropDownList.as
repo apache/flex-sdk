@@ -640,8 +640,7 @@ public class DropDownList extends List
      */
     protected function dropDownController_openHandler(event:DropdownEvent):void
     {
-    	// set skin state
-    	skin.currentState = getCurrentSkinState();
+    	invalidateSkinState();
     	
     	ensureItemIsVisible(selectedIndex);
     	
@@ -659,7 +658,7 @@ public class DropDownList extends List
      */
     protected function dropDownController_closeHandler(event:DropdownEvent):void
     {
-    	skin.currentState = getCurrentSkinState();
+    	invalidateSkinState();
     	
     	// TODO!! Add logic to handle commitData
     	//if (event.isDefaultPrevented())
