@@ -33,59 +33,95 @@ use namespace mx_internal;
 [Exclude(name="repeatDelay", kind="property")]
 
 /**
- * This effect controls all transform-related animations on target
- * objects. Transform operations, e.g., translation, scale, and
- * rotation, must be combined into single operations that act
- * together in order to avoid clobbering overlapping values. Therefore,
- * this effect works by combining all current transform effects
- * (AnimateTransform and any subclasses) on a particular target into one 
- * single global instance for that target.
+ *  The AnimateTransform effect controls all transform-related animations on target
+ *  objects. Transform operations, such s translation, scale, and
+ *  rotation, are combined into single operations that act
+ *  in parallel to avoid any conflict when modifying overlapping property values. 
+ *  This effect works by combining all current transform effects
+ *  on a target into one single effect instance for that target.
  * 
- * <p>The transform is controlled by animating the properties of
- * translation (translationX, translationY, and translationZ), 
- * rotation (rotationX, rotationY,
- * and rotationZ), and scale (scaleX, scaleY, scaleZ). If any of
- * these properties are not provided in the set of MotionPath objects
- * for this effect, then it is assumed that these properties can
- * be derived from the object and are not changing during the course
- * of this effect.</p>
+ *  <p>The transform is controlled by animating the properties of
+ *  translation (<code>translationX</code>, <code>translationY</code>, 
+ *  and <code>translationZ</code>), 
+ *  rotation (<code>rotationX</code>, <code>rotationY</code>,
+ *  and <code>rotationZ</code>), and 
+ *  scale (<code>scaleX</code>, <code>scaleY</code>, <code>scaleZ</code>). 
+ *  If any of
+ *  these properties are not provided in the set of MotionPath objects
+ *  for this effect, then it is assumed that these properties can
+ *  be derived from the object and are not changing during the course
+ *  of this effect.</p>
  * 
- * <p>It is important to note that the translation properties
- * (translationX, translationY, and translationZ)
- * specify how much the transformCenter moves during
- * the animation, not the absolute locations of the x, y, and z
- * coordinate of the target object. Typically, these mean the same thing
- * because the transformCenter of the object is at (0, 0). But if 
- * the <code>autoCenterTransform</code> property is set, this changes.
- * For example, an object doing a simple rotation around its center will 
- * have different (x, y) coordinates at the start and end, even though
- * the center of the object has not been translated. By specifying
- * that translationX/Y/Z act on the transformCenter instead, we can
- * correctly specify an animation with rotation only and no translation
- * and get the desired result.</p>
+ *  <p>Note that the translation properties
+ *  (<code>translationX</code>, <code>translationY</code>, 
+ *  and <code>translationZ</code>)
+ *  specify how much the transform center of the target moves during
+ *  the animation, not the absolute locations of the x, y, and z
+ *  coordinate of the target. Typically, these mean the same thing
+ *  because the transform center of the target is at (0, 0, 0) by default. </p>
  * 
- * <p>This combination of multiple transform effects happens
- * internally and the caller of the effects need not be aware of it,
- * but it does force certain constraints that should be considered:
- * (1) the transformCenter for the target object (either set on the object
- * itself or set indirectly through the <code>autoCenterTransform</code>
- * or <code>transformX</code>, <code>transformY</code>, 
- * or <code>transformZ</code> properties in this effect) will be
- * globally applied to all transform effects on that target, so they
- * should all use the same values, (2) these transform effects ignore
- * repeat parameters, since the effects of any single Transform effect
- * will impact all other Transform effects running on the same target
- * (effects can still be repeated by encapsulating them in 
- * CompositeEffects which repeat), (3) the subclasses of AnimateTransform provide an
- * easy way for simple manipulations of the transform effect, but for
- * full control and fine-grained manipulation of the underlying keyframe
- * times and values, use the AnimateTransform effect directly.</p>
- * 
- * An additional constraint of this effect and its subclasses is that
- * the target must be of type UIComponent or GraphicElement (or a subclass
- * of those classes), or any other object which has similarly
- * defined and implemented <code>transformAround()</code> and 
- * <code>transformPointToParent()</code> functions.
+ *  <p>But if you explicitly set the location of the transform center, or set 
+ *  the <code>autoCenterTransform</code> property to true, 
+ *  the transform center of the target is not (0, 0, 0).</p>
+ *  
+ *  <p>While this combination of multiple transform effects happens
+ *  internally,
+ *  it does force certain constraints that should be considered:</p>
+ *
+ *  <ul>
+ *    <li>The <code>transformCenter</code> for the target object is 
+ *      globally applied to all transform effects on that target, so it 
+ *      should be set to the same value on all targets.</li>
+ *    <li>Transform effects ignore repeat parameters, 
+ *      since the effects of any single Transform effect
+ *      impact all other Transform effects running on the same target.
+ *      Effects can still be repeated by encapsulating them in a 
+ *      CompositeEffect.</li>
+ *    <li>The subclasses of the AnimateTransform class provide an
+ *      easy way for simple manipulations of the transform effect, but for
+ *      full control and fine-grained manipulation of the underlying keyframe
+ *      times and values, use the AnimateTransform effect directly.</li>
+ *  </ul>
+ *  
+ *  <p>An additional constraint of this effect and its subclasses is that
+ *  the target must be of type UIComponent or GraphicElement (or a subclass
+ *  of those classes), or any other object which has similarly
+ *  defined and implements the <code>transformAround()</code> and 
+ *  <code>transformPointToParent()</code> functions.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:AnimateTransform&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:AnimateTransform
+ *    <b>Properties</b>
+ *    id="ID"
+ *    autoCenterTransform="false"
+ *    rotationX="no default"
+ *    rotationY="no default"
+ *    rotationZ="no default"
+ *    scaleX="no default"
+ *    scaleY="no default"
+ *    scaleZ="no default"
+ *    transformX="0"
+ *    transformY="0"
+ *    transformZ="0"
+ *    translationX="no default"
+ *    translationY="no default"
+ *    translationZ="no default"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.AnimateTransformInstance
+ *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class AnimateTransform extends Animate
 {
@@ -120,7 +156,14 @@ public class AnimateTransform extends Animate
     //--------------------------------------------------------------------------
 
     /**
-     * Constructor.
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function AnimateTransform(target:Object=null)
     {
@@ -157,6 +200,9 @@ public class AnimateTransform extends Animate
      * to a target as a part of the 
      */
     static protected var appliedStartValuesPerTarget:Dictionary = new Dictionary(true);
+    /**
+     * @private
+     */
     static protected var appliedEndValuesPerTarget:Dictionary = new Dictionary(true);
     
     /**
@@ -187,24 +233,30 @@ public class AnimateTransform extends Animate
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     * This flag controls whether the transform effect will occur
-     * around the center of the target, <code>(width/2, height/2)</code>.
-     * If the flag is not set, the transform center is determined by
-     * the transform center of the object (<code>transformX, transformY,
-     * transformZ</code>) and the <code>transformX, transformY,
-     * transformZ</code> properties in this effect. That is, the
-     * transform center is the transform center of the target object,
-     * where any of the <code>transformX, transformY,
-     * transformZ</code> properties are overriden by those
-     * values in the effect, if set.
+     *  Specifies whether the transform effect occurs
+     *  around the center of the target, <code>(width/2, height/2)</code>.
+     *  If the flag is not set, the transform center is determined by
+     *  the transform center of the object (<code>transformX, transformY,
+     *  transformZ</code>) and the <code>transformX, transformY,
+     *  transformZ</code> properties in this effect. That is, the
+     *  transform center is the transform center of the target object,
+     *  where any of the <code>transformX, transformY,
+     *  transformZ</code> properties are overriden by those
+     *  values in the effect, if set.
      * 
-     * @default false
-     * @see mx.core.UIComponent#transformX 
-     * @see mx.core.UIComponent#transformY
-     * @see mx.core.UIComponent#transformZ
-     * @see #transformX
-     * @see #transformY
-     * @see #transformZ
+     *  @default false
+     * 
+     *  @see mx.core.UIComponent#transformX 
+     *  @see mx.core.UIComponent#transformY
+     *  @see mx.core.UIComponent#transformZ
+     *  @see #transformX
+     *  @see #transformY
+     *  @see #transformZ
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var autoCenterTransform:Boolean = false;
     
@@ -215,17 +267,22 @@ public class AnimateTransform extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * Sets the x coordinate for the transform center, unless overriden
-     * by the <code>autoCenterTransform</code> property.
+     *  Sets the x coordinate for the transform center, unless overriden
+     *  by the <code>autoCenterTransform</code> property.
      * 
-     * <p>If <code>autoCenterTransform</code> is not true, the transform
-     * center will be determined by the <code>transformX</code>,
-     * <code>transformY</code>, and <code>transformZ</code> properties
-     * of the target object, but each of those properties can be
-     * overriden by setting the respective properties in this effect.</p>
-     * 
-     * @see mx.core.UIComponent#transformX 
-     * @see #autoCenterTransform
+     *  <p>If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the target object, but each of those properties can be
+     *  overriden by setting the respective properties in this effect.</p>
+     *  
+     *  @see mx.core.UIComponent#transformX 
+     *  @see #autoCenterTransform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var transformX:Number;
 
@@ -236,17 +293,22 @@ public class AnimateTransform extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * Sets the y coordinate for the transform center, unless overriden
-     * by the <code>autoCenterTransform</code> property.
+     *  Sets the y coordinate for the transform center, unless overriden
+     *  by the <code>autoCenterTransform</code> property.
      * 
-     * <p>If <code>autoCenterTransform</code> is not true, the transform
-     * center will be determined by the <code>transformX</code>,
-     * <code>transformY</code>, and <code>transformZ</code> properties
-     * of the target object, but each of those properties can be
-     * overriden by setting the respective properties in this effect.</p>
-     * 
-     * @see mx.core.UIComponent#transformY
-     * @see #autoCenterTransform
+     *  <p>If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the target object, but each of those properties can be
+     *  overriden by setting the respective properties in this effect.</p>
+     *  
+     *  @see mx.core.UIComponent#transformY
+     *  @see #autoCenterTransform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var transformY:Number;
 
@@ -257,17 +319,22 @@ public class AnimateTransform extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * Sets the z coordinate for the transform center, unless overriden
-     * by the <code>autoCenterTransform</code> property.
-     * 
-     * <p>If <code>autoCenterTransform</code> is not true, the transform
-     * center will be determined by the <code>transformX</code>,
-     * <code>transformY</code>, and <code>transformZ</code> properties
-     * of the target object, but each of those properties can be
-     * overriden by setting the respective properties in this effect.</p>
-     * 
-     * @see mx.core.UIComponent#transformZ
-     * @see #autoCenterTransform
+     *  Sets the z coordinate for the transform center, unless overriden
+     *  by the <code>autoCenterTransform</code> property.
+     *  
+     *  <p>If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the target object, but each of those properties can be
+     *  overriden by setting the respective properties in this effect.</p>
+     *  
+     *  @see mx.core.UIComponent#transformZ
+     *  @see #autoCenterTransform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var transformZ:Number;
 
@@ -281,7 +348,12 @@ public class AnimateTransform extends Animate
      */
     private var _translationX:MotionPath;
     /**
-     * The MotionPath describing the change in <code>x</code> during the effect
+     *  The MotionPath object describing the change in <code>x</code> during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get translationX():MotionPath
     {
@@ -307,7 +379,12 @@ public class AnimateTransform extends Animate
      */
     private var _translationY:MotionPath;
     /**
-     * The MotionPath describing the change in <code>y</code> during the effect
+     *  The MotionPath object describing the change in <code>y</code> during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get translationY():MotionPath
     {
@@ -333,7 +410,12 @@ public class AnimateTransform extends Animate
      */
     private var _translationZ:MotionPath;
     /**
-     * The MotionPath describing the change in <code>z</code> during the effect
+     *  The MotionPath object describing the change in <code>z</code> during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get translationZ():MotionPath
     {
@@ -359,8 +441,13 @@ public class AnimateTransform extends Animate
      */
     private var _rotationX:MotionPath;
     /**
-     * The MotionPath describing the change in rotation around the x
-     * axis during the effect
+     *  The MotionPath object describing the change in rotation around the x
+     *  axis during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rotationX():MotionPath
     {
@@ -386,8 +473,13 @@ public class AnimateTransform extends Animate
      */
     private var _rotationY:MotionPath;
     /**
-     * The MotionPath describing the change in rotation around the y
-     * axis during the effect
+     *  The MotionPath object describing the change in rotation around the y
+     *  axis during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rotationY():MotionPath
     {
@@ -413,8 +505,13 @@ public class AnimateTransform extends Animate
      */
     private var _rotationZ:MotionPath;
     /**
-     * The MotionPath describing the change in rotation around the z
-     * axis during the effect
+     *  The MotionPath object describing the change in rotation around the z
+     *  axis during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rotationZ():MotionPath
     {
@@ -440,8 +537,13 @@ public class AnimateTransform extends Animate
      */
     private var _scaleX:MotionPath;
     /**
-     * The MotionPath describing the change in scale in the x direction
-     * during the effect
+     *  The MotionPath object describing the change in scale in the x direction
+     *  during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleX():MotionPath
     {
@@ -467,8 +569,13 @@ public class AnimateTransform extends Animate
      */
     private var _scaleY:MotionPath;
     /**
-     * The MotionPath describing the change in scale in the y direction
-     * during the effect
+     *  The MotionPath object describing the change in scale in the y direction
+     *  during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleY():MotionPath
     {
@@ -494,8 +601,13 @@ public class AnimateTransform extends Animate
      */
     private var _scaleZ:MotionPath;
     /**
-     * The MotionPath describing the change in scale in the z direction
-     * during the effect
+     *  The MotionPath object describing the change in scale in the z direction
+     *  during the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleZ():MotionPath
     {
@@ -518,12 +630,21 @@ public class AnimateTransform extends Animate
     //--------------------------------------------------------------------------
 
     /**
-     * Creates the instance for this effect. Unlike other effects which operate
-     * autonomously, this effect uses only a single effect instance per target.
-     * So all objects of type AnimateTransform or its subclasses will share this
-     * one global instance. If there is already an instance created for the effect,
-     * the values from the new effect will be inserted as animation values into
-     * the existing instance.
+     *  Creates the instance for this effect. Unlike other effects which operate
+     *  autonomously, this effect uses only a single effect instance per target.
+     *  So all objects of type AnimateTransform, or its subclasses, share this
+     *  one global instance. If there is already an instance created for the effect,
+     *  the values from the new effect will be inserted as animation values into
+     *  the existing instance.
+     *
+     *  @param target The Object to animate with this effect.  
+     *
+     *  @return The effect instance object for the effect. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function createInstance(target:Object = null):IEffectInstance
     {       
@@ -846,11 +967,21 @@ public class AnimateTransform extends Animate
     }
     
     /**
-     * Adds a MotionPath object to the transform effect with the
-     * given parameters. If a MotionPath
-     * on the same property already exists, adds the keyframes from the
-     * new MotionPath object into the existing MotionPath object, sorted
-     * by the time values.
+     *  Adds a MotionPath object to the transform effect with the
+     *  given parameters. 
+     *  If a MotionPath object 
+     *  on the same property already exists, adds the keyframes from the
+     *  new MotionPath object into the existing MotionPath object, sorted
+     *  by the time values.
+     *
+     *  @param property The name of the property being animated.
+     *
+     *  @param valueFrom The initial value of the property.
+     *  
+     *  @param valueTo The final value of the property.
+     *  
+     *  @param valueBy An optional parameter that specifies the delta with
+     *  which to calculate either the from or to values, if one is omitted. 
      */
     protected function addMotionPath(property:String,
         valueFrom:Number = NaN, valueTo:Number = NaN, valueBy:Number = NaN):void
