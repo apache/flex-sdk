@@ -15,9 +15,9 @@ package flex.component
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.ui.Keyboard;
 import flash.geom.Point;
-import mx.logging.AbstractTarget;
+import flash.ui.Keyboard;
+
 import mx.managers.IFocusManagerComponent;
 
 /**
@@ -62,8 +62,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     private var _liveDragging:Boolean = false;
     
     /**
-     *  When liveDragging is enabled, the thumb's value is committed as it is
-     *  dragged along the track instead of when the thumb is released.
+     *  When liveDragging is enabled, the thumb's value is
+     *  committed as it is dragged along the track instead
+     *  of when the thumb is released.
      * 
      *  @default false
      */
@@ -85,7 +86,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Sets the focus onto the thumb. 
      */
     override public function setFocus():void
     {
@@ -106,7 +106,18 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                                    thumb_keyboardHandler);
         }
     }
-    
+
+    /**
+     *  Converts a point retrieved from clicking on the track
+     *  into a position. This allows subclasses to center
+     *  their thumb when clicking on the track.
+     */
+    protected function pointClickToPosition(localX:Number, 
+                                            localY:Number):Number
+    {
+        return 0;
+    }
+
     //--------------------------------------------------------------------------
     // 
     // Event Handlers
@@ -165,15 +176,18 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //---------------------------------
 
     /**
-     *  Handle keyboard events. Left/Down decreases the value by snapInterval
-     *  or if snapInterval is 0 then it decreases the value by stepSize. The
-     *  opposite for Right/Up arrows. The Home and End keys set the value
+     *  Handle keyboard events. Left/Down decreases the value
+     *  decreases the value by stepSize. The opposite for
+     *  Right/Up arrows. The Home and End keys set the value
      *  to the min and max respectively.
      */
     protected function thumb_keyboardHandler(event:KeyboardEvent):void
     {
-        // TODO: Perhaps provide a way to easily override the keyboard
-        // behavior. Consider reversed HSliders or VSliders.
+        // TODO: Provide a way to easily override the keyboard
+        // behavior. This means having a callback in the subclasses
+        // that tell the superclass all the positions in an array
+        // but defaulting to the normal stepping behavior when no
+        // array is returned. Consider reversed HSliders or VSliders.
         var prevValue:Number = this.value;
         var newValue:Number;
         
@@ -182,39 +196,21 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.LEFT:
             {
-                if (snapInterval > 0)
-                {
-                    newValue = nearestValidValue(value - snapInterval);
-                    positionThumb(valueToPosition(newValue));
-                    setValue(newValue);
-                }
-                else
-                {
-                    newValue = nearestValidValue(value - stepSize);
-                    positionThumb(valueToPosition(newValue));
-                    setValue(newValue);
-                }
+                newValue = nearestValidValue(value - stepSize, stepSize);
+                positionThumb(valueToPosition(newValue));
+                setValue(newValue);
                 break;
             }
 
             case Keyboard.UP:
             case Keyboard.RIGHT:
             {
-                if (snapInterval > 0)
-                {
-                    newValue = nearestValidValue(value + snapInterval);
-                    positionThumb(valueToPosition(newValue));
-                    setValue(newValue);
-                }
-                else
-                {
-                    newValue = nearestValidValue(value + stepSize);
-                    positionThumb(valueToPosition(newValue));
-                    setValue(newValue);
-                }
+                newValue = nearestValidValue(value + stepSize, stepSize);
+                positionThumb(valueToPosition(newValue));
+                setValue(newValue);
                 break;
             }
-
+            
             case Keyboard.HOME:
             {
                 value = minimum;
@@ -232,15 +228,15 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             dispatchEvent(new Event("change"));
     }
 
-
     //---------------------------------
     // Track down handlers
     //---------------------------------
     
     /**
-     *  Handle mouse-down events for the slider track. We calculate the
-     *  value based on the new position and then move the thumb to the
-     *  correct location as well as commit the value.
+     *  Handle mouse-down events for the slider track. We
+     *  calculate the value based on the new position and then
+     *  move the thumb to the correct location as well as
+     *  commit the value.
      */
     override protected function track_mouseDownHandler(event:MouseEvent):void
     {
@@ -249,10 +245,10 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         
         // Calculate the new value.
         var pt:Point = new Point(event.stageX, event.stageY);
-        pt = globalToLocal(pt);
-        var tempPosition:Number = pointToPosition(pt.x, pt.y);
+        pt = track.globalToLocal(pt);
+        var tempPosition:Number = pointClickToPosition(pt.x, pt.y);
         var tempValue:Number = positionToValue(tempPosition);
-        var RtempValue:Number = nearestValidValue(tempValue);
+        var RtempValue:Number = nearestValidValue(tempValue, valueInterval);
         
         // Move the thumb to the new value
         positionThumb(valueToPosition(RtempValue));
