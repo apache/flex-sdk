@@ -21,6 +21,11 @@ use namespace mx_internal;
 /**
  *  The skins of the DateChooser's indicators for 
  *  displaying today, rollover and selected dates.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateChooserIndicator extends ProgrammaticSkin
 {
@@ -34,6 +39,11 @@ public class DateChooserIndicator extends ProgrammaticSkin
 
     /**
      *  Constructor	 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DateChooserIndicator()
     {
