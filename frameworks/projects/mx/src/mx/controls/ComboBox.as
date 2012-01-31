@@ -12,6 +12,7 @@
 package mx.controls
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -45,10 +46,12 @@ import mx.events.CollectionEventKind;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.InterManagerRequest;
 import mx.events.ListEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
+import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -1524,6 +1527,21 @@ public class ComboBox extends ComboBase
         var point:Point = new Point(0, unscaledHeight);
         point = localToGlobal(point);
         
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle;
+
+        if (sm != sbRoot)
+        {
+            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                    false, false,
+                                    "getVisibleApplicationRect"); 
+            sbRoot.dispatchEvent(request);
+            screen = Rectangle(request.value);
+        }
+        else
+            screen = sm.getVisibleApplicationRect();
+
         //opening the dropdown 
         if (show)
         {
@@ -1543,13 +1561,11 @@ public class ComboBox extends ComboBase
             else
                 PopUpManager.bringToFront(_dropdown);
 
-            point = _dropdown.parent.globalToLocal(point);
-
             // if we donot have enough space in the bottom display the dropdown
             // at the top. But if the space there is also less than required
             // display it below.
-            if (point.y + _dropdown.height > screen.height &&
-                point.y > _dropdown.height)
+            if (point.y + _dropdown.height > screen.bottom &&
+                point.y > screen.top + _dropdown.height)
             {
                 // Dropdown will go below the bottom of the stage
                 // and be clipped. Instead, have it grow up.
@@ -1563,6 +1579,8 @@ public class ComboBox extends ComboBase
                 tweenUp = false;
             }
         
+            point = _dropdown.parent.globalToLocal(point);
+
             var sel:int = _dropdown.selectedIndex;
             if (sel == -1)
                 sel = 0;
@@ -1596,9 +1614,8 @@ public class ComboBox extends ComboBase
         // closing the dropdown 
         else if (_dropdown)
         {
-            point = _dropdown.parent.globalToLocal(point);
             // Set up the tween and relevant variables. 
-            endY = (point.y + _dropdown.height > screen.height || tweenUp
+            endY = (point.y + _dropdown.height > screen.bottom || tweenUp
                                ? -_dropdown.height
                                : _dropdown.height);
             _showingDropdown = show;
