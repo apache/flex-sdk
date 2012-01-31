@@ -11,7 +11,6 @@
 
 package mx.components
 {
-import flash.display.DisplayObject;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
@@ -252,37 +251,35 @@ public class FxList extends FxListBase
     /**
      *  @private
      */
-    override protected function itemSelected(item:Object, selected:Boolean):void
+    override protected function itemSelected(index:int, selected:Boolean):void
     {
-        var item:Object = dataGroup.getItemRenderer(item);
+        super.itemSelected(index, selected);
         
-        if (item)
+        var renderer:Object = dataGroup.getItemRenderer(index);
+        
+        if (renderer)
         {
-            if ("selected" in item)
-                item.selected = selected;
+            if ("selected" in renderer)
+                renderer.selected = selected;
             else
             {
                 // TODO: localize below (and other messages)
-                throw new Error("The item needs to support the \"selected\" property " + 
+                throw new Error("The item renderer needs to support the \"selected\" property " + 
                         "for selection to work.  An easy way to accomplish this is by wrapping " + 
                         "your component in a DefaultComplexItemRenderer");
             }
         }
     }
-        
+    
     /**
-     *  Returns true if the item is selected.
+     *  @private
      */
-    public function isItemSelected(item:Object):Boolean
+    override public function isItemIndexSelected(index:int):Boolean
     {
         if (allowMultipleSelection)
-        {
-            var itemIndex:int = dataProvider.getItemIndex(item);
-            
-            return selectedIndices.indexOf(itemIndex) != -1;
-        }
+            return selectedIndices.indexOf(index) != -1;
         
-        return item == selectedItem;
+        return index == selectedIndex;
     }
         
     /**
@@ -385,7 +382,7 @@ public class FxList extends FxListBase
             count = removedItems.length;
             for (i = 0; i < count; i++)
             {
-                itemSelected(dataProvider.getItemAt(removedItems[i]), false);
+                itemSelected(removedItems[i], false);
             }
         }
         
@@ -395,7 +392,7 @@ public class FxList extends FxListBase
             count = addedItems.length;
             for (i = 0; i < count; i++)
             {
-                itemSelected(dataProvider.getItemAt(addedItems[i]), true);
+                itemSelected(addedItems[i], true);
             }
         }
     }
@@ -412,13 +409,14 @@ public class FxList extends FxListBase
      */
     private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
     {
-        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
+        var index:int = event.index;
+        var renderer:Object = event.renderer;
         
         if (renderer)
             renderer.addEventListener("click", item_clickHandler);
             
-        if (isItemSelected(event.relatedObject))
-            itemSelected(event.relatedObject, true);
+        if (isItemIndexSelected(index))
+            itemSelected(index, true);
     }
     
     /**
@@ -426,8 +424,9 @@ public class FxList extends FxListBase
      *  Called when an item has been removed from this component.
      */
     private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
-    {        
-        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
+    {
+        var index:int = event.index;
+        var renderer:Object = event.renderer;
         
         if (renderer)
             renderer.removeEventListener("click", item_clickHandler);
@@ -441,7 +440,7 @@ public class FxList extends FxListBase
     {
         // Multiple selection needs to be added here....
         
-        selectedItem = dataGroup.getRendererItem(DisplayObject(event.currentTarget));
+        selectedIndex = dataGroup.getRendererItem(event.currentTarget);
     }
     
     /**
