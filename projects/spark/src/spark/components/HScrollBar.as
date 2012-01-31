@@ -18,7 +18,12 @@ import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("HScrollBar.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The HScrollBar (horizontal ScrollBar) control lets you control
