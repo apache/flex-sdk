@@ -13,14 +13,15 @@ package mx.containers
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+
 import mx.automation.IAutomationObject;
 import mx.core.Container;
 import mx.core.ContainerCreationPolicy;
 import mx.core.EdgeMetrics;
-import mx.managers.IHistoryManagerClient;
 import mx.core.IInvalidating;
+import mx.core.INavigatable;
+import mx.core.INavigatorContent;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
@@ -28,11 +29,15 @@ import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.EffectManager;
 import mx.events.ChildExistenceChangedEvent;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
+import mx.events.PropertyChangeEvent;
 import mx.geom.RoundedRectangle;
 import mx.managers.HistoryManager;
+import mx.managers.IHistoryManagerClient;
 
 use namespace mx_internal;
 
@@ -228,7 +233,7 @@ include "../styles/metadata/GapStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class ViewStack extends Container implements IHistoryManagerClient
+public class ViewStack extends Container implements IHistoryManagerClient, INavigatable
 {
     include "../core/Version.as";
 
@@ -301,7 +306,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  @private
      *  Remember which child has an overlay mask, if any.
      */
-    private var overlayChild:Container;
+    private var overlayChild:UIComponent;
 
     /**
      *  @private
@@ -608,19 +613,19 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get selectedChild():Container
+    public function get selectedChild():INavigatorContent
     {
         if (selectedIndex == -1)
             return null;
 
-        return Container(getChildAt(selectedIndex));
+        return INavigatorContent(getChildAt(selectedIndex));
     }
 
     /**
      *  @private
      */
     public function set selectedChild(
-                            value:Container):void
+                            value:INavigatorContent):void
     {
         var newIndex:int = getChildIndex(DisplayObject(value));
 
@@ -816,8 +821,8 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
         if (numChildren > 0 && selectedIndex != -1)
         {
-            var child:Container =
-                Container(getChildAt(selectedIndex));
+            var child:UIComponent =
+                UIComponent(getChildAt(selectedIndex));
 
             minWidth = child.minWidth;
             preferredWidth = child.getExplicitOrMeasuredWidth();
@@ -847,7 +852,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
         // cache until we're fully initialized.  (bug 102639)
         // This check was moved from the beginning of this function to
         // here to fix bug 103665.
-        if (selectedChild && Container(selectedChild).numChildrenCreated == -1)
+        if (selectedChild && INavigatorContent(selectedChild).deferredContentCreated == false)
             return;
 
         // Don't remember sizes if we don't have any children
@@ -907,8 +912,8 @@ public class ViewStack extends Container implements IHistoryManagerClient
         // Stretch the selectedIndex to fill our size
         if (selectedIndex != -1)
         {
-            var child:Container =
-                Container(getChildAt(selectedIndex));
+            var child:UIComponent =
+                UIComponent(getChildAt(selectedIndex));
 
             var newWidth:Number = w;
             var newHeight:Number = h;
@@ -968,7 +973,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
         // Remember which child has an overlay, so that we don't inadvertently
         // create an overlay on one child and later try to remove the overlay
         // of another child. (bug 100731)
-        overlayChild = selectedChild;
+        overlayChild = (selectedChild as UIComponent);
         if (!overlayChild)
             return;
 
@@ -976,7 +981,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
         overlayTargetArea = targetArea;
 
         if (selectedChild &&
-            selectedChild.numChildrenCreated == -1)
+            selectedChild.deferredContentCreated == false)
             // No children have been created
         {
             // Wait for the childrenCreated event before creating the overlay
@@ -1022,11 +1027,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
         {
             for (var i:int = 0; i < numChildren; i++)
             {
-                var containerChild:Container =
-                    getChildAt(i) as Container;
+                var containerChild:INavigatorContent =
+                    getChildAt(i) as INavigatorContent;
 
-                if (containerChild && containerChild.numChildrenCreated == -1)
-                    containerChild.createComponentsFromDescriptors();
+                if (containerChild && containerChild.deferredContentCreated == false)
+                    containerChild.createDeferredContent();
             }
         }
     }
@@ -1154,10 +1159,10 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
         // Stop all currently playing effects
         if (lastIndex != -1 && lastIndex < numChildren)
-            Container(getChildAt(lastIndex)).endEffectsStarted();
+            UIComponent(getChildAt(lastIndex)).endEffectsStarted();
         
         if (_selectedIndex != -1)
-            selectedChild.endEffectsStarted();
+            (selectedChild as UIComponent).endEffectsStarted();
 
         // Remember the old index.
         lastIndex = _selectedIndex;
@@ -1184,7 +1189,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
         if (lastIndex != -1 && lastIndex < numChildren)
         {
-            var currentChild:Container = Container(getChildAt(lastIndex));
+            var currentChild:UIComponent = UIComponent(getChildAt(lastIndex));
 
             currentChild.setVisible(false); // Hide the current child
 
@@ -1232,11 +1237,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
         // Performance optimization: don't call createComponents if we know
         // that createComponents has already been called.
-        if (selectedChild && selectedChild.numChildrenCreated == -1)
+        if (selectedChild && selectedChild.deferredContentCreated == false)
         {
             if (initialized)  // Only listen if the ViewStack has already been initialized.
                 selectedChild.addEventListener(FlexEvent.CREATION_COMPLETE,childCreationCompleteHandler);
-            selectedChild.createComponentsFromDescriptors(true);
+            selectedChild.createDeferredContent();
         }
 
         // Do the initial measurement/layout pass for the
@@ -1260,6 +1265,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
         event.newIndex = newIndex;
         event.relatedObject = getChildAt(newIndex);
         dispatchEvent(event);
+        dispatchEvent(new Event("navigationChange"));
     }
 
     //--------------------------------------------------------------------------
@@ -1327,6 +1333,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
             // They are made as they become the selected child.
             uiChild.visible = false;
         }
+        if (child is INavigatorContent)
+        {
+            child.addEventListener("labelChanged", navigatorChildChangedHandler);
+            child.addEventListener("iconChanged", navigatorChildChangedHandler);
+        }
 
         // If we just created the first child and no selected index has
         // been proposed, then propose this child to be selected.
@@ -1357,6 +1368,12 @@ public class ViewStack extends Container implements IHistoryManagerClient
         var child:DisplayObject = event.relatedObject;
         var index:int = getChildIndex(child);
         
+        if (child is INavigatorContent)
+        {
+            child.removeEventListener("labelChanged", navigatorChildChangedHandler);
+            child.removeEventListener("iconChanged", navigatorChildChangedHandler);
+        }
+
         // Handle the simple case.
         if (index > selectedIndex)
             return;
@@ -1394,6 +1411,198 @@ public class ViewStack extends Container implements IHistoryManagerClient
             invalidateProperties();
         }
     }
+  
+
+    /**
+     *  @private
+     */
+    override public function addChildAt(item:DisplayObject, index:int):DisplayObject
+    {
+        var obj:DisplayObject = super.addChildAt(item, index);
+        internalDispatchEvent(CollectionEventKind.ADD, obj, index);
+        return obj;
+    }
+
+    /**
+     *  @private
+     */
+    override public function removeChildAt(index:int):DisplayObject
+    {
+        var obj:DisplayObject = super.removeChildAt(index);
+        internalDispatchEvent(CollectionEventKind.REMOVE, obj, index);
+        return obj;
+    }
+
+    /**
+     *  @private
+     */
+    override public function removeAllChildren():void
+    {
+        super.removeAllChildren();
+        internalDispatchEvent(CollectionEventKind.RESET);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  IList Implementation
+    //  Viewstack implements IList so it can be plugged into a Spark ButtonBar
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  The IList implementation dispatches change events when 
+     *  label or icon properties change.
+     */
+    private function navigatorChildChangedHandler(event:Event):void
+    {
+        var pe:PropertyChangeEvent = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+        pe.source = event.target;
+        pe.property = (event.type == "labelChanged") ? "label" : "icon";
+
+        internalDispatchEvent(CollectionEventKind.UPDATE, pe, getChildIndex(event.target as DisplayObject));
+    }
+
+    /**
+     *  Dispatches a collection event with the specified information.
+     *
+     *  @param kind String indicates what the kind property of the event should be
+     *  @param item Object reference to the item that was added or removed
+     *  @param location int indicating where in the source the item was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
+    {
+        if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
+        {
+            var event:CollectionEvent =
+                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            event.kind = kind;
+            event.items.push(item);
+            event.location = location;
+            dispatchEvent(event);
+        }
+
+        // now dispatch a complementary PropertyChangeEvent
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
+           (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
+        {
+            var objEvent:PropertyChangeEvent =
+                new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+            objEvent.property = location;
+            if (kind == CollectionEventKind.ADD)
+                objEvent.newValue = item;
+            else
+                objEvent.oldValue = item;
+            dispatchEvent(objEvent);
+        }
+    }
+
+    /**
+     *  @private
+     *  IList implementation of length returns numChildren
+     */
+    public function get length():int
+    {
+    	return numChildren;
+    }
+
+    /**
+     *  @private
+     *  IList implementation of addItem calls addChild
+     */
+    public function addItem(item:Object):void
+    {
+    	addChild(item as DisplayObject);
+    }
+
+    /**
+     *  @private
+     *  IList implementation of addItemAt calls addChildAt
+     */
+    public function addItemAt(item:Object, index:int):void
+    {
+    	addChildAt(item as DisplayObject, index);
+    }
+
+    /**
+     *  @private
+     *  IList implementation of getItemAt calls getChildAt
+     */
+    public function getItemAt(index:int, prefetch:int = 0):Object
+    {
+    	return getChildAt(index);
+    }
+
+    /**
+     *  @private
+     *  IList implementation of getItemIndex calls getChildIndex
+     */
+    public function getItemIndex(item:Object):int
+    {
+    	return getChildIndex(item as DisplayObject);
+    }
+
+    /**
+     *  @private
+     *  IList implementation of itemUpdated doesn't do anything
+     */
+    public function itemUpdated(item:Object, property:Object = null, 
+                         oldValue:Object = null, 
+                         newValue:Object = null):void
+    {
+    	
+    }                         
+
+    /**
+     *  @private
+     *  IList implementation of removeAll calls removeAllChildren
+     */
+    public function removeAll():void
+    {
+    	removeAllChildren();
+    }
+
+    /**
+     *  @private
+     *  IList implementation of removeItemAt calls removeChildAt
+     */
+    public function removeItemAt(index:int):Object
+    {
+        return removeChildAt(index);
+    }
+
+    /**
+     *  @private
+     *  IList implementation of setItemAt removes the old
+     *  child and adds the new
+     */
+    public function setItemAt(item:Object, index:int):Object
+    {
+    	var result:Object = removeChildAt(index);
+    	addChildAt(item as DisplayObject,index);
+    	return result;
+    }
+
+    /**
+     *  @private
+     *  IList implementation of toArray returns array of children
+     */
+    public function toArray():Array 
+    {
+        var result:Array = [];
+        for(var i:int =0;i<numChildren;i++)
+        {
+        	result.push(getChildAt(i));
+        }
+        return result;
+    }
+    
+    
 }
 
 }
