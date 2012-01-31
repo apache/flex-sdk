@@ -312,7 +312,7 @@ public class HGroup extends Group
     //  variablecolumnHeight
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
 
     /**
      * @copy spark.layouts.HorizontalLayout#variableColumnWidth
