@@ -270,8 +270,8 @@ public class Resize extends Animate
             var n:int = propertyChanges.length;
             for (var i:int = 0; i < n; i++)
             {
-                if (targetsToCapture != null &&
-                    targetsToCapture.indexOf(propChanges[i].target) >= 0)
+                if (targetsToCapture == null || targetsToCapture.length == 0 ||
+                    targetsToCapture.indexOf(propertyChanges[i].target) >= 0)
                 {
                     propertyChanges[i].stripUnchangedValues = false;
                 }
