@@ -46,8 +46,8 @@ public class ItemRenderer extends MXMLComponent
     //
     //--------------------------------------------------------------------------
     
-    [Bindable("contentColorChanged")]
-    public function get contentColor():uint
+    [Bindable("contentBackgroundColorChanged")]
+    public function get contentBackgroundColor():uint
     {
         var alternatingColors:Array = getStyle("alternatingItemColors");
         
@@ -65,12 +65,12 @@ public class ItemRenderer extends MXMLComponent
             return alternatingColors[idx % alternatingColors.length];
         }
         
-        return getStyle("contentColor");
+        return getStyle("contentBackgroundColor");
     }
     
-    public function set contentColor(value:uint):void
+    public function set contentBackgroundColor(value:uint):void
     {
-        setStyle("contentColor", value);
+        setStyle("contentBackgroundColor", value);
     }
     
     [Bindable("rollOverColorChanged")]
@@ -179,12 +179,12 @@ public class ItemRenderer extends MXMLComponent
         
         if (allStyles || styleName == "alternatingItemColors")
         {
-            conditionalEventDispatch("contentColorChanged");
+            conditionalEventDispatch("contentBackgroundColorChanged");
         }
         
-        if (allStyles || styleName == "contentColor")
+        if (allStyles || styleName == "contentBackgroundColor")
         {
-            conditionalEventDispatch("contentColorChanged");
+            conditionalEventDispatch("contentBackgroundColorChanged");
         }
         
         if (allStyles || styleName == "rollOverColor")
