@@ -1798,8 +1798,8 @@ public class ListBase extends ScrollControlBase
             listItems[listItems.length-1][0].y + rowHeight - oldContentHeight + listContent.topOffset :
             0;
        
-        if (iteratorValid)
-            iterator.seek(cursorPos, 0);
+        iterator.seek(cursorPos, 0);
+
         // make sure list content is moved to the appropriate place.
         // might be able to optimize and not do this every time
         adjustListContent(unscaledWidth,unscaledHeight);
@@ -4634,9 +4634,10 @@ public class ListBase extends ScrollControlBase
             }
             catch(e:ItemPendingError)
             {
-                lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, listItems.length)
-                e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
-                                                lastSeekPending));
+                //AJH commented out to fix one bug.  We'll see if it causes others
+                //lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, listItems.length)
+                //e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
+                //                                lastSeekPending));
                 // trace("IPE in UpdateDisplayList");
                 iteratorValid = false;
                 // don't do anything, we'll repaint when the data arrives
@@ -10083,7 +10084,7 @@ public class ListBase extends ScrollControlBase
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
         systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
 
-        if (!dragEnabled && dragScrollingInterval != 0)
+        if (dragScrollingInterval != 0)
         {
             clearInterval(dragScrollingInterval);
             dragScrollingInterval = 0;
