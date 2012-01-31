@@ -595,15 +595,15 @@ public class SkinnableComponent extends UIComponent
     {
         if (skinParts)
         {
-            for(var id:String in skinParts)
+            for (var id:String in skinParts)
             {
-                if(skinParts[id] == true)
+                if (skinParts[id] == true)
                 {
                     if (!(id in skin))
                         throw(new Error(resourceManager.getString("components", "requiredSkinPartNotFound", [id])));
                 }
                 
-                if(id in skin)
+                if (id in skin)
                 {
                     this[id] = skin[id];
                     
@@ -933,7 +933,7 @@ public class SkinnableComponent extends UIComponent
         if (skinParts)
         {
             var skinPartID:String = event.property as String;
-            if(skinParts[skinPartID] != null)
+            if (skinParts[skinPartID] != null)
             {
                 if (event.newValue == null)
                 {
