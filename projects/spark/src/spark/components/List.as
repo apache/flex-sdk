@@ -434,7 +434,7 @@ public class FxList extends FxListBase
     {
         // Multiple selection needs to be added here....
         
-        selectedIndex = dataGroup.mx_internal::getItemIndexForRenderer(event.currentTarget as IVisualElement);
+        selectedIndex = dataGroup.getItemIndexForRenderer(event.currentTarget as IVisualElement);
     }
     
     /**
