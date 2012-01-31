@@ -1352,6 +1352,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Clear the selection, but remember which items were moved
         var movedIndices:Vector.<int> = selectedIndices;
         selectedIndices = new Vector.<int>();
+        validateProperties(); // To commit the selection
         
         // Remove the moved items
         movedIndices.sort(compareValues);
@@ -1895,6 +1896,12 @@ public class List extends ListBase implements IFocusManagerComponent
         if (dragSource.hasFormat("orderedItemsCaretIndex"))
             caretIndex = event.dragSource.dataForFormat("orderedItemsCaretIndex") as int;
         
+        // Clear the selection first to avoid extra work while adding and removing items.
+        // We will set a new selection further below in the method.
+        var indices:Vector.<int> = selectedIndices; 
+        selectedIndices = new Vector.<int>();
+        validateProperties(); // To commit the selection
+        
         // If we are reordering the list, remove the items now,
         // adjusting the dropIndex in the mean time.
         // If the items are drag moved to this list from a different list,
@@ -1904,10 +1911,8 @@ public class List extends ListBase implements IFocusManagerComponent
             event.action == DragManager.MOVE &&
             event.dragInitiator == this)
         {
-            var indices:Vector.<int> = selectedIndices;
-            indices.sort(compareValues);
-            
             // Remove the previously selected items
+            indices.sort(compareValues);
             for (var i:int = indices.length - 1; i >= 0; i--)
             {
                 if (indices[i] < dropIndex)
