@@ -1042,7 +1042,7 @@ public class Button extends UIComponent
         _data = value;
 
         if (_listData && _listData is DataGridListData && 
-        	DataGridListData(_listData).dataField !=null)
+            DataGridListData(_listData).dataField !=null)
         {
             newSelected = _data[DataGridListData(_listData).dataField];
 
@@ -1633,8 +1633,8 @@ public class Button extends UIComponent
         }
         catch(e:Error)
         {
-		    bm = new EdgeMetrics(3, 3, 3, 3);
-		}
+            bm = new EdgeMetrics(3, 3, 3, 3);
+        }
     
         var tempCurrentIcon:IFlexDisplayObject = getCurrentIcon();  
         var iconWidth:Number = tempCurrentIcon ? tempCurrentIcon.width : 0;
@@ -1709,7 +1709,7 @@ public class Button extends UIComponent
         var textWidth:Number = 0;
         var textHeight:Number = 0;
 
-		// trace("measure: Button " + this + " label = " + label);
+        // trace("measure: Button " + this + " label = " + label);
         if (label)
         {
             var lineMetrics:TextLineMetrics = measureText(label);
@@ -2859,16 +2859,6 @@ public class Button extends UIComponent
         roll over Button -> stay in "up" phase
         mouse up while over Button -> "over" phase
         continue with step 2 of first three sequences above
-
-    *  
-
-    *  @langversion 3.0
-
-    *  @playerversion Flash 9
-
-    *  @playerversion AIR 1.1
-
-    *  @productversion Flex 3
 
     */
 
