@@ -18,7 +18,7 @@ import flash.events.MouseEvent;
 import spark.components.supportClasses.ToggleButtonBase;
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
