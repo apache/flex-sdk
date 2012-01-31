@@ -3121,11 +3121,19 @@ public class Grid extends Group implements IDataGridElement
      *  During virtual layout updateDisplayList() eagerly validates lazily
      *  created (or recycled) IRs.   We don't want changes to those IRs to
      *  invalidate the size of the grid.
+     * 
+     *  This method also dispatches an invalidateSize event that's used 
+     *  by the DataGrid to invalidate IDataGridElements.
      */
     override public function invalidateSize():void
     {
         if (!inUpdateDisplayList)
+        {
+            const notifyListeners:Boolean = !invalidateSizeFlag;            
             super.invalidateSize();
+            if (notifyListeners)
+                dispatchChangeEvent("invalidateSize");            
+        }
     }
     
     /**
@@ -3133,11 +3141,19 @@ public class Grid extends Group implements IDataGridElement
      *  During virtual layout updateDisplayList() eagerly validates lazily
      *  created (or recycled) IRs.  Calls to invalidateDisplayList() eventually
      *  short-circuit but doing so early saves a few percent.
+     * 
+     *  This method also dispatches an invalidateDisplayList event that's used 
+     *  by the DataGrid to invalidate IDataGridElements.
      */
     override public function invalidateDisplayList():void
     {
         if (!inUpdateDisplayList)
+        {
+            const notifyListeners:Boolean = !invalidateDisplayListFlag;
             super.invalidateDisplayList();
+            if (notifyListeners)
+                dispatchChangeEvent("invalidateDisplayList");
+        }
     }
 
     /**
