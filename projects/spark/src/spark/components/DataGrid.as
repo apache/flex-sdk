@@ -177,7 +177,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  <p>
  *  The scroll policy affects the measured size of the scroller skin part.  This style
- *  is simply a cover for the scroller skin part's horizontalScrollPolicy.
+ *  is simply a cover for the scroller skin part's horizontalScrollPolicy.  It is not an 
+ *  inheriting style so, for example, it will not affect item renderers.
  *  </p>
  * 
  *  @default ScrollPolicy.AUTO
@@ -211,7 +212,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  <p>
  *  The scroll policy affects the measured size of the scroller skin part.  This style
- *  is simply a cover for the scroller skin part's verticalScrollPolicy.
+ *  is simply a cover for the scroller skin part's verticalScrollPolicy.  It is not an 
+ *  inheriting style so, for example, it will not affect item renderers.
  *  </p>
  * 
  *  @default ScrollPolicy.AUTO
