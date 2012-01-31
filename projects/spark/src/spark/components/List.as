@@ -184,7 +184,10 @@ public class List extends ListBase implements IFocusManagerComponent
         //Going from multiple to single, clear out selection  
         if (!_allowMultipleSelection)
         {
-            _proposedSelectedIndices = [NO_SELECTION]; 
+            if (!requiresSelection)
+                _proposedSelectedIndices = [NO_SELECTION];
+            else 
+                _proposedSelectedIndices = [0];
             commitMultipleSelection(); 
         } 
     }
@@ -199,11 +202,20 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedIndex():int
     {   
-        if (!allowMultipleSelection || !_selectedIndices)
+        if (!allowMultipleSelection)
             return super.selectedIndex;
+        
+        //The case that selection has been set as a result of 
+        //requiresSelection, we want to make sure the multiple selection
+        //properties stay in sync. 
+        if (!_selectedIndices && _selectedIndex >= 0)
+        {
+            _selectedIndices = [_selectedIndex]; 
+            return _selectedIndex; 
+        }
             
         if (_selectedIndices && _selectedIndices.length > 0)
-            return _selectedIndices[0];
+            return _selectedIndices[_selectedIndices.length - 1];
             
         return NO_SELECTION;
     }
@@ -212,7 +224,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      */
     override public function set selectedIndex(value:int):void
-    {
+    {        
         if (!allowMultipleSelection)
         {
             super.selectedIndex = value;
@@ -238,7 +250,7 @@ public class List extends ListBase implements IFocusManagerComponent
             return super.selectedItem;
             
         if (_selectedIndices && _selectedIndices.length > 0)
-            return dataProvider.getItemAt(_selectedIndices[0]); 
+            return dataProvider.getItemAt(_selectedIndices[_selectedIndices.length - 1]); 
             
         return undefined;
     }
@@ -538,7 +550,12 @@ public class List extends ListBase implements IFocusManagerComponent
                     //Quick check to see if selectedIndices had only one selected item
                     //and that item was de-selected
                     if (selectedIndices.length == 1 && (selectedIndices[0] == index))
-                        return [NO_SELECTION];  
+                    {
+                        //we need to respect requiresSelection 
+                        if (!requiresSelection)
+                            return [NO_SELECTION];
+                        else return [selectedIndices[0]]; 
+                    }
                     else
                     {
                         // Go through and see if the index passed in was in the 
@@ -550,7 +567,7 @@ public class List extends ListBase implements IFocusManagerComponent
                             if (_selectedIndices[i] == index)
                                 found = true; 
                             else if (_selectedIndices[i] != index)
-                                interval.push(_selectedIndices[i]); 
+                                interval.push(_selectedIndices[i]);
                         }
                         if (!found)
                         {
@@ -562,6 +579,9 @@ public class List extends ListBase implements IFocusManagerComponent
                         return interval; 
                     } 
                 }
+                //Ctrl+click with no previously selected items 
+                else 
+                    return [index]; 
             }
             //A single item was newly selected, add that to the selection interval.  
             else 
@@ -572,7 +592,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             //A contiguous selection action has occurred. Figure out which new 
             //indices to add to the selection interval and return that. 
-            var start:Number = (!isEmpty(selectedIndices)) ? selectedIndices[0] : -1; 
+            var start:Number = (!isEmpty(selectedIndices)) ? selectedIndices[0] : 0; 
             var end:Number = index; 
             if (start < end)
             {
