@@ -412,7 +412,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoPlayer2 extends SkinnableComponent
+public class VideoPlayer extends SkinnableComponent
 {
     include "../core/Version.as";
     
@@ -486,7 +486,7 @@ public class VideoPlayer2 extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function VideoPlayer2()
+    public function VideoPlayer()
     {
         super();
     }
@@ -1319,6 +1319,9 @@ public class VideoPlayer2 extends SkinnableComponent
         {
             videoDisplayProperties.volume = value;
         }
+        
+        if (volumeBar)
+            volumeBar.value = value;
     }
     
     //--------------------------------------------------------------------------
