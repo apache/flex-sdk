@@ -53,6 +53,11 @@ use namespace mx_internal;
  *  Dispatched when the specified UIComponent closes. 
  *
  *  @eventType mx.events.DropdownEvent.CLOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.DropdownEvent")]
 
@@ -60,6 +65,11 @@ use namespace mx_internal;
  *  Dispatched when the specified UIComponent opens.
  *
  *  @eventType mx.events.DropdownEvent.OPEN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="open", type="mx.events.DropdownEvent")]
 
@@ -73,17 +83,32 @@ include "../styles/metadata/IconColorStyles.as"
  *  Number of pixels between the divider line and the right 
  *  edge of the component.
  *  The default value is 16.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="arrowButtonWidth", type="Number", format="Length", inherit="no")]
 
 /**
  *  Length of a close transition, in milliseconds.
  *  The default value is 250.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeDuration", type="Number", format="Time", inherit="no")]
 
 /**
  *  Easing function to control component closing tween.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeEasingFunction", type="Function", inherit="no")]
 
@@ -91,17 +116,32 @@ include "../styles/metadata/IconColorStyles.as"
  *  The default icon class for the main button.
  *
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="icon", type="Class", inherit="no", states="up, over, down, disabled")]
 
 /**
  *  Length of an open transition, in milliseconds.
  *  The default value is 250.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
 /**
  *  Easing function to control component opening tween.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openEasingFunction", type="Function", inherit="no")]
 
@@ -111,6 +151,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  UIComponent object popped up by this control. 
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpStyleName", type="String", inherit="no")]
 
@@ -118,6 +163,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  Skin class for the popUpDown state (when arrowButton is in down 
  *  state) of the background and border.
  *  @default mx.skins.halo.PopUpButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpDownSkin", type="Class", inherit="no")]
 
@@ -125,6 +175,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  Number of vertical pixels between the PopUpButton and the
  *  specified popup UIComponent.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpGap", type="Number", format="Length", inherit="no")]
 
@@ -133,6 +188,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  Supported classes are mx.skins.halo.PopUpIcon
  *  and mx.skins.halo.PopUpMenuIcon.
  *  @default mx.skins.halo.PopUpIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpIcon", type="Class", inherit="no")]
 
@@ -140,12 +200,22 @@ include "../styles/metadata/IconColorStyles.as"
  *  Skin class for the popUpOver state (over arrowButton) of 
  *  the background and border.
  *  @default mx.skins.halo.PopUpButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpOverSkin", type="Class", inherit="no")]
 
 /**
  *  Default stateful skin class for the control.
  *  @default mx.skins.halo.PopUpButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="skin", type="Class", inherit="no", states="up, over, down, disabled, popUpOver, popUpDown")]
 
@@ -239,6 +309,11 @@ include "../styles/metadata/IconColorStyles.as"
  *
  *  @includeExample examples/PopUpButtonExample.mxml
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PopUpButton extends Button 
 {
@@ -252,6 +327,11 @@ public class PopUpButton extends Button
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PopUpButton()
     {
@@ -401,6 +481,11 @@ public class PopUpButton extends Button
      *  the <code>openAlways</code> property.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function get openAlways():Boolean
     {
@@ -435,6 +520,11 @@ public class PopUpButton extends Button
      *  For example, you can specify a Menu, TileList, or Tree control. 
      *
      *  @default null 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get popUp():IUIComponent
     {
@@ -671,6 +761,11 @@ public class PopUpButton extends Button
     
     /**
      *  Opens the UIComponent object specified by the <code>popUp</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public function open():void
     {
@@ -694,6 +789,11 @@ public class PopUpButton extends Button
     
     /**
      *  Closes the UIComponent object opened by the PopUpButton control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public function close():void
     {
