@@ -63,11 +63,6 @@ FxScroller
     skinZZ: ClassReference("mx.skins.spark.FxScrollerSkin");
 }
 
-FxSelector
-{
-	skinZZ: ClassReference("mx.skins.spark.FxSelectorSkin");
-}
-
 FxSpinner
 {
     skinZZ: ClassReference("mx.skins.spark.FxSpinnerSkin");    
