@@ -14,6 +14,7 @@ package spark.components.supportClasses
 
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
@@ -22,7 +23,9 @@ import flash.ui.Keyboard;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.EffectEvent;
+import mx.events.FlexEvent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
@@ -30,6 +33,7 @@ import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Sine;
+import spark.events.TrackBaseEvent;
 
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -241,10 +245,19 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    override public function setFocus():void
+    override public function drawFocus(isFocused:Boolean):void
     {
-        if (stage)
-            stage.focus = thumb;
+        // if there's a thumb, just draw focus on the thumb; 
+        // otherwise, draw it on the whole component
+        if (thumb)
+        {
+            thumb.mx_internal::drawFocusAnyway = true;
+            thumb.drawFocus(isFocused);
+        }
+        else
+        {
+            super.drawFocus(isFocused);
+        }
     }
     
     /**
@@ -270,34 +283,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 		}
 		
 		return formattedValue;
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        
-        if (instance == thumb)
-        {
-            thumb.addEventListener(KeyboardEvent.KEY_DOWN, 
-                                   thumb_keyDownHandler);
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        super.partRemoved(partName, instance);
-        
-        if (instance == thumb)
-        {
-            thumb.removeEventListener(KeyboardEvent.KEY_DOWN, 
-                                      thumb_keyDownHandler);
-        }
     }
 
     /**
@@ -399,7 +384,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         if (getStyle("liveDragging") && currValue != value)
         {
             setValue(currValue)
-            dispatchEvent(new Event("change"));
+            dispatchEvent(new Event(Event.CHANGE));
         }
         
         if (dataTipInstance && showDataTip)
@@ -431,7 +416,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         if (!getStyle("liveDragging") && currValue != value)
         {
             setValue(currValue);
-            dispatchEvent(new Event("change"));
+            dispatchEvent(new Event(Event.CHANGE));
         }        
         
         if (dataTipInstance)
@@ -445,7 +430,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     }
 
     //---------------------------------
-    // Thumb keyboard handlers
+    // Keyboard handlers
     //---------------------------------
 
     /**
@@ -455,8 +440,10 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  Right/Up arrows. The Home and End keys set the value
      *  to the min and max respectively.
      */
-    protected function thumb_keyDownHandler(event:KeyboardEvent):void
+    override protected function keyDownHandler(event:KeyboardEvent):void
     {
+        super.keyDownHandler(event);
+        
         // TODO: Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
         // that tell the superclass all the positions in an array
@@ -504,7 +491,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         }
 
         if (value != prevValue)
-            dispatchEvent(new Event("change"));
+            dispatchEvent(new Event(Event.CHANGE));
             
         if (stopPropagation)
         	event.stopPropagation();
@@ -555,16 +542,14 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                     (Math.abs(value - RtempValue) / (maximum - minimum));
                 animator.motionPaths = [
                     new SimpleMotionPath("value", value, RtempValue)];
-                // TODO (rfrishbe): figure out the pattern here once ARB is resolved.
-                // Whether we dispatch "changing" always or just in this case,
-                // whether it's cancelable, and where this event lives (in what class)
-                dispatchEvent(new Event("changing"));
+                
+                dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
                 animator.play();
             }
             else
             {
                 setValue(RtempValue);
-                dispatchEvent(new Event("change"));
+                dispatchEvent(new Event(Event.CHANGE));
             }
         }
 
