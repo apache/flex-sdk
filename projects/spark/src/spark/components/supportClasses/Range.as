@@ -245,7 +245,7 @@ public class Range extends SkinnableComponent
      *  If it is 0, then 
      *  <code>value</code> can be any number between <code>minimum</code> and 
      *  <code>maximum</code>. 
-     *  You can alsways set <code>value</code> to 
+     *  You can always set <code>value</code> to 
      *  <code>minimum</code> or <code>maximum</code>.
      *  Changing <code>valueInterval</code> also may change 
      *  <code>stepSize</code> to be a multiple of 
