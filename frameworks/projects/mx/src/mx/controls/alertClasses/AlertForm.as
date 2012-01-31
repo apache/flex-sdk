@@ -59,6 +59,11 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AlertForm()
 	{
@@ -75,6 +80,11 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 
 	/**
 	 *  The UITextField that displays the text of the Alert control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	mx_internal var textField:IUITextField;
 
@@ -92,11 +102,21 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 
 	/**
 	 *  The DisplayObject that displays the icon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var icon:DisplayObject;
 
     /**
      *  An Array that contains any Buttons appearing in the Alert control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	mx_internal var buttons:Array = [];
 
