@@ -612,34 +612,38 @@ public class List extends ListBase implements IFocusManagerComponent
     protected function list_keyDownHandler(event:KeyboardEvent):void
     {    	
         super.keyDownHandler(event);
-        var delta:int = 0;
-
-        if (layout is VerticalLayout)
-            switch(event.keyCode)
-            {
-                case Keyboard.UP: delta = -1; break;
-                case Keyboard.DOWN: delta = +1; break;
-            }
-        else if (layout is HorizontalLayout)
-            switch(event.keyCode)
-            {
-                case Keyboard.LEFT: delta = -1; break;
-                case Keyboard.RIGHT: delta = +1; break;
-            }
         
-        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
-        // change because we don't want another component to start handling these
-        // events when the selectedIndex reaches a limit.
-        if (delta != 0)
+        if (dataProvider)
         {
-            event.preventDefault();
-            var maxSelectedIndex:int = dataProvider.length - 1;
-            selectedIndex = Math.min(Math.max(0, selectedIndex + delta), maxSelectedIndex);
-            // TODO (jszeto) Added this because we want the selection to commit immediately
-            // Explore better way to accomplish this. 
-            commitSelectedIndex();
-            ensureIndexIsVisible(selectedIndex);
-        }
+	        var delta:int = 0;
+	
+	        if (layout is VerticalLayout)
+	            switch(event.keyCode)
+	            {
+	                case Keyboard.UP: delta = -1; break;
+	                case Keyboard.DOWN: delta = +1; break;
+	            }
+	        else if (layout is HorizontalLayout)
+	            switch(event.keyCode)
+	            {
+	                case Keyboard.LEFT: delta = -1; break;
+	                case Keyboard.RIGHT: delta = +1; break;
+	            }
+	        
+	        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
+	        // change because we don't want another component to start handling these
+	        // events when the selectedIndex reaches a limit.
+	        if (delta != 0)
+	        {
+	            event.preventDefault();
+	            var maxSelectedIndex:int = dataProvider.length - 1;
+	            selectedIndex = Math.min(Math.max(0, selectedIndex + delta), maxSelectedIndex);
+	            // TODO (jszeto) Added this because we want the selection to commit immediately
+	            // Explore better way to accomplish this. 
+	            commitSelectedIndex();
+	            ensureIndexIsVisible(selectedIndex);
+	        }
+		}
     }
   
 }
