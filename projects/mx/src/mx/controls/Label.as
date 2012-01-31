@@ -344,11 +344,6 @@ public class Label extends UIComponent
             </TEXTFORMAT>
         trace(myLabel.text);
             This is bold.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 9
-    *  @playerversion AIR 1.1
-    *  @productversion Flex 3
     */
 
     //--------------------------------------------------------------------------
@@ -1400,11 +1395,6 @@ public class Label extends UIComponent
             g.drawRect(0, 0, unscaledWidth, unscaledHeight);
             g.endFill();
         }
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
                 
         // The textField occupies the entire Label bounds minus the padding.
