@@ -18,6 +18,7 @@ import flash.geom.Rectangle;
 
 import mx.core.IDataRenderer;
 import mx.core.LayoutDirection;
+import mx.utils.PopUpUtil;
 
 import spark.components.supportClasses.SliderBase;
 
@@ -167,28 +168,27 @@ public class VSlider extends SliderBase
         
         if (tipAsDisplayObject && thumb)
         {
-            // Get the tips bounds. We only care about the dimensions.
-            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
+            // We are working in thumb.parent coordinates and we assume that there's no scale factor
+            // between the tooltip and the thumb.parent.
             var relY:Number = thumb.getLayoutBoundsY() + 
                             (thumb.getLayoutBoundsHeight() - tipAsDisplayObject.height) / 2;
             var relX:Number = layoutDirection == LayoutDirection.RTL ? 
                               initialPosition.x + tipBounds.width : 
                               initialPosition.x;
-            var o:Point = new Point(relX, relY);
-            var r:Point = thumb.parent.localToGlobal(o);        
-            
-            // Get the screen bounds
-            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect(null, true);
-            
-            // Make sure the tip doesn't exceed the bounds of the screen
-            r.x = Math.floor( Math.max(screenBounds.left, 
-                                Math.min(screenBounds.right - tipBounds.width, r.x)));
-            r.y = Math.floor( Math.max(screenBounds.top, 
-                                Math.min(screenBounds.bottom - tipBounds.height, r.y)));
-            
-            r = tipAsDisplayObject.parent.globalToLocal(r);
-            tipAsDisplayObject.x = r.x;
-            tipAsDisplayObject.y = r.y;
+
+            // Get the tips bounds. We only care about the dimensions.
+            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
+
+            // Ensure that we don't overlap the screen
+            var pt:Point = PopUpUtil.positionOverComponent(thumb.parent,
+                                                           systemManager,
+                                                           tipBounds.width, 
+                                                           tipBounds.height,
+                                                           NaN,
+                                                           null,
+                                                           new Point(relX, relY));
+            tipAsDisplayObject.x = Math.floor(pt.x);
+            tipAsDisplayObject.y = Math.floor(pt.y);
         }
     }
     
