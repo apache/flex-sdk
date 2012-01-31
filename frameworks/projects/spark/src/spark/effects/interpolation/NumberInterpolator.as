@@ -59,6 +59,11 @@ public class NumberInterpolator implements IInterpolator
             throw new Error("Interpolator cannot calculate interpolated " + 
                             "values when either startValue (" + startValue + ") " + 
                             "or endValue (" + endValue + ") is not a number");
+        // Quick test for 0 or 1 to avoid round-off error on either end
+        if (fraction == 0)
+            return startValue;
+        else if (fraction == 1)
+            return endValue;
         return Number(startValue) + (fraction * (Number(endValue) - Number(startValue)));
     }
     
