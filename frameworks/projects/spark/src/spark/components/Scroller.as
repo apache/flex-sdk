@@ -265,90 +265,18 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-   
-    /**
-     *  @private
-     *  Called when the vertical scrollbar value changes; updates 
-     *  the viewport's verticalScrollPosition.
-     */
-    protected function vsb_valueCommitHandler(event:Event):void
-    {
-        if (viewport)
-            viewport.verticalScrollPosition = verticalScrollBar.value;      
-    }
-    
-    /**
-     *  @private
-     *  Called when the horizontal scrollbar value changes; updates 
-     *  the viewport's horizontalScrollPosition.
-     */
-    protected function hsb_valueCommitHandler(event:Event):void
-    {
-        if (viewport)
-           viewport.horizontalScrollPosition = horizontalScrollBar.value;
-    }
+
     
     private function viewport_propertyChangeHandler(event:PropertyChangeEvent):void
     {
-        switch(event.property) {
-            case "contentWidth": 
-                viewportContentWidthChanged(event);
-                break;
-                
-            case "contentHeight": 
-                viewportContentHeightChanged(event);
-                break;
-                
-            case "horizontalScrollPosition":
-                viewportHorizontalScrollPositionChanged(event);
-                break;
-
-            case "verticalScrollPosition":
-                viewportVerticalScrollPositionChanged(event);
-                break;
+    	switch(event.property) 
+    	{
+    		case "contentWidth": 
+    		case "contentHeight": 
+                invalidateSkin();
+    		    break;
         }
     }
-    
-   /**
-    *  @private
-    *  Called when the viewport's contentWidth changes; invalidates
-    *  the skin's size and display list.
-    */
-    protected function viewportContentWidthChanged(event:PropertyChangeEvent):void
-    {
-        invalidateSkin();
-    }
-    /**
-     *  @private
-     *  Called when the viewport's contentHeight changes; invalidates
-     *  the skin's size and display list.
-     */
-    protected function viewportContentHeightChanged(event:PropertyChangeEvent):void
-    {
-        invalidateSkin();
-    }
-    
-    /**
-     *  @private
-     *  Called when the viewport's horizontalScrollPosition changes; sets the 
-     *  horizontal scrollbar's value.
-     */
-    protected function viewportHorizontalScrollPositionChanged(event:PropertyChangeEvent):void
-    {
-       if (horizontalScrollBar)
-           horizontalScrollBar.value = viewport.horizontalScrollPosition;
-    }  
-    
-    /**
-     *  @private
-     *  Called when the viewport's verticalScrollPosition changes; sets the 
-     *  vertical scrollbar's value.
-     */
-    protected function viewportVerticalScrollPositionChanged(event:PropertyChangeEvent):void
-    {
-       if (verticalScrollBar)
-           verticalScrollBar.value = viewport.verticalScrollPosition;
-    }   
     
     //--------------------------------------------------------------------------
     //
@@ -382,16 +310,10 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
         super.partAdded(partName, instance);
         
         if (instance == verticalScrollBar)
-        {
             verticalScrollBar.viewport = viewport;            
-            verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
-        }
         
         if (instance == horizontalScrollBar)
-        {
             horizontalScrollBar.viewport = viewport;            
-            horizontalScrollBar.addEventListener("valueCommit", hsb_valueCommitHandler);
-        }
     }
     
     /**
@@ -402,16 +324,10 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
         super.partRemoved(partName, instance);
         
         if (instance == verticalScrollBar)
-        {
             verticalScrollBar.viewport = null;
-            verticalScrollBar.removeEventListener("valueCommit", vsb_valueCommitHandler);
-        }
         
         if (instance == horizontalScrollBar)
-        {
             horizontalScrollBar.viewport = null;
-            horizontalScrollBar.removeEventListener("valueCommit", hsb_valueCommitHandler);
-        }
     }
     
     /**
