@@ -828,8 +828,8 @@ public class Container extends UIComponent
      */
     public function get borderMetrics():EdgeMetrics
     {
-        return border && border is IBorder ?
-               IBorder(border).borderMetrics :
+        return border && border is IRectangularBorder ?
+               IRectangularBorder(border).borderMetrics :
                EdgeMetrics.EMPTY;
     }
 
