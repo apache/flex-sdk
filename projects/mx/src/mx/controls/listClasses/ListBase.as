@@ -2824,10 +2824,12 @@ public class ListBase extends ScrollControlBase
     {
         _itemRenderer = value;
 
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
 
         itemsSizeChanged = true;
+        itemsNeedMeasurement = true;
         rendererChanged = true;
 
         dispatchEvent(new Event("itemRendererChanged"));
