@@ -1075,6 +1075,9 @@ public class ChannelSet extends EventDispatcher
      *  than clear any credentials that have been cached for use in automatic reconnects.</p>
      *  
      *  @param agent Legacy argument. The MessageAgent that is initiating the logout.
+     *  
+     *  @return Returns a token that client code may
+     *  add a responder to in order to handle success or failure directly.
      * 
      *  @return Returns a token that client code may
      *  add a responder to in order to handle success or failure directly.
