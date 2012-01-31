@@ -24,6 +24,11 @@ import mx.effects.IEffectTargetHost;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.RemoveItemAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class RemoveItemActionInstance extends ActionEffectInstance
 {
@@ -39,6 +44,11 @@ public class RemoveItemActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function RemoveItemActionInstance(target:Object)
 	{
