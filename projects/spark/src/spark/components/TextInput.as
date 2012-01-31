@@ -73,8 +73,9 @@ use namespace mx_internal;
  *  <p><b>The TextInput skin for the mobile theme uses the StyleableStageText class instead 
  *  of RichEditableText.</b>  
  *  Since StyleableStageText uses native text fields it allows for better text entry and 
- *  manipulation experiences on mobile devices however there are some
- *  <a href="supportClasses/StyleableStageText.html">limitations</a> that you should consider.
+ *  manipulation experiences on mobile devices however there are
+ *  <a href="supportClasses/StyleableStageText.html">limitations and differences</a> that you should
+ *  consider.
  *  The native text controls used by StageText apply different paddings around text. 
  *  In order to avoid vertical scrolling, the StageText-based TextInput skin attempts to estimate 
  *  this padding and compensate for that. 
@@ -91,18 +92,17 @@ use namespace mx_internal;
  *  <p>The text is formatted using CSS styles such as <code>fontFamily</code>
  *  and <code>fontSize</code>.</p>
  *
- *  <p>The <code>widthInChars</code> property provides a convenient way
- *  to specify the width in a way that scales with the font size.
- *  You can use the <code>typicalText</code> property as well.
- *  Note that if you use <code>typicalText</code>, the
- *  <code>widthInChars</code> and <code>heightInLines</code>
- *  are ignored.
- *  Of course, you can also specify an explicit width in pixels,
+ *  <p>For the Spark theme you can specify the width of the control using the 
+ *  <code>widthInChars</code> property which provides a convenient way to specify the width in a 
+ *  way that scales with the font size or you can use the <code>typicalText</code> property.
+ *  Note that if you use <code>typicalText</code>, the <code>widthInChars</code> property is ignored.
+ *  For all themes, you can also specify an explicit width in pixels,
  *  a percent width, or use constraints such as <code>left</code>
  *  and <code>right</code>.
  *  You do not normally do anything to specify the height;
  *  the control's default height is sufficient to display
- *  one line of text.</p>
+ *  one line of text.
+ *  </p>
  *
  *  <p>You can use the <code>maxChars</code> property to limit the number
  *  of character that the user can enter, and the <code>restrict</code>
@@ -110,9 +110,9 @@ use namespace mx_internal;
  *  To use this control for password input, set the
  *  <code>displayAsPassword</code> property to <code>true</code>.</p>
  *
- *  <p>The soft-keyboard-specific properties, <code>autoCapitalize</code>
+ *  <p>For the mobile theme, the soft-keyboard-specific properties, <code>autoCapitalize</code>,
  *  <code>autoCorrect</code>, <code>returnKeyLabel</code> and <code>softKeyboardType</code>
- *  are keybostf hints supported in the mobile theme. 
+ *  properties specify keyboard hints. 
  *  If a soft-keyboard is present but does not support a feature represented by the 
  *  hint, the hint is ignored. 
  *  In mobile environments with only hardware keyboards, these hints are ignored. 
@@ -128,10 +128,12 @@ use namespace mx_internal;
  *  Mobile theme. It handles displaying and editing the text.
  *  (The skin also handles drawing the border and background.)
  *  This RichEditableText or StyleableStageText instance can be accessed as the <code>textDisplay</code>
- *  object.</p>
+ *  object.  For the mobile theme, if you wish to use the TextField-based skin, rather than the
+ *  StageText-based skin, set the <code>skinClass</code> property to
+ *  <code>"spark.skins.mobile.TextInputSkin"</code>.</p>
  *
- *  <p>As a result of its RichEditableText using TLF, the Spark TextInput control
- *  supports displaying left-to-right (LTR) text, such as French,
+ *  <p>For the Spark theme, as a result of its RichEditableText using TLF, 
+ *  the Spark TextInput control supports displaying left-to-right (LTR) text, such as French,
  *  right-to-left (RTL) text, such as Arabic, and bidirectional text
  *  such as a French phrase inside of an Arabic one.
  *  If the predominant text direction is right-to-left,
@@ -154,7 +156,7 @@ use namespace mx_internal;
  *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
  *  Custom Spark item renderers</a>. </p>
  *
- *  <p>The TextInput control has the following default characteristics:</p>
+ *  <p>For the Spark theme, the TextInput control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
  *           <th>Characteristic</th>
@@ -174,6 +176,18 @@ use namespace mx_internal;
  *        </tr>
  *     </table>
  *
+ *  <p>For the Mobile theme, the TextInput control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.mobile.StageTextInputSkin</td>
+ *        </tr>
+ *     </table>
+ *
  *  @includeExample examples/TextInputExample.mxml
  *
  *  @mxml
@@ -183,9 +197,8 @@ use namespace mx_internal;
  *
  *  <pre>
  *  &lt;s:TextInput
- *    <strong>Properties</strong>
- *    typicalText=null
- *    widthInChars="<i>Calculated default</i>"
+    <strong>Properties</strong>
+ *    widthInChars="<i>Calculated default</i>"  <b>[applies to Spark theme]</b>
  *  
  *    <strong>Events</strong>
  *    enter="<i>No default</i>"
