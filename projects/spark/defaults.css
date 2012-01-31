@@ -171,7 +171,7 @@ global
 {
     /* Looks */
     /* color: #000000; */
-    backgroundImageResizeMode : "scale";
+    backgroundImageFillMode : "scale";
     baseColor: #CCCCCC;
     borderVisible : true;
     borderWeight : 1;
