@@ -29,7 +29,6 @@ import flash.text.engine.FontLookup;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
-import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ISWFContext;
@@ -1010,57 +1009,6 @@ public class RichEditableText extends UIComponent
     {
         return _contentWidth;
     }
-
-    //----------------------------------
-    //  contextMenu
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Use to distinguish between null because it hasn't been set yet and
-     *  null because it was set to null to remove the default context menu.
-     */
-    mx_internal var contextMenuSet:Boolean;
-    
-    /**
-     *  The context menu associated with this component.  If the context menu 
-     *  has not been set this is the default context menu which will be used.  
-     *  Set the context menu to <code>null</code> to remove the default menu.
-     *
-     *  @see flash.display.InteractiveObject
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-//    override public function get contextMenu():ContextMenu
-//    {
-//        if (!contextMenuSet)
-//        {
-//            super.contextMenu = _textContainerManager.getContextMenu();
-//            contextMenuSet = true;
-//        }
-//        
-//        return super.contextMenu;
-//    }
-    
-    /**
-     *  @private
-     */
-//    override public function set contextMenu(value:ContextMenu):void
-//    {
-//        if (contextMenuSet && super.contextMenu == value)
-//            return;
-//        
-//        // If the context menu is being reset need to update the menu listeners.
-//        if (contextMenuSet && super.contextMenu)
-//            _textContainerManager.resetContextMenuListener(value);
-//        
-//        super.contextMenu = value;
-//        
-//        contextMenuSet = true;
-//    }
 
     //----------------------------------
     //  horizontalScrollPosition
