@@ -56,7 +56,7 @@ include "../styles/metadata/GapStyles.as";
 /**
  *  Specifies the skin to use for the required field indicator. 
  *
- *  @default mx.containers.FormItem.Required
+ *  The default value is the "mx.containers.FormItem.Required" symbol in the Assets.swf file.
  */
 [Style(name="indicatorSkin", type="Class", inherit="no")]
 
@@ -137,11 +137,12 @@ include "../styles/metadata/GapStyles.as";
  *    direction="vertical|horizontal"
  *    label=""
  *    required="false|true"
+ *  
  *    <strong>Styles</strong>
  *    horizontalAlign="left|center|right"
  *    horizontalGap="8"
  *    indicatorGap="14"
- *    indicatorSkin="Class; mx.container.FormItem.Required"
+ *    indicatorSkin="<i>'mx.containers.FormItem.Required' symbol in Assets.swf</i>"
  *    labelStyleName=""
  *    labelWidth="<i>Calculated</i>"
  *    paddingBottom="0"
