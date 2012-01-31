@@ -279,7 +279,7 @@ public class Application extends LayoutContainer
      *  <p>This property has been deprecated starting in Flex4. Note that this
      *  property will return applications of type Application and 
      *  WindowedApplication as before but will return null for applications
-     *  of type FxApplication or FxWindowedApplication.
+     *  of type FxApplication or FxWindowedApplication.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1141,9 +1141,9 @@ public class Application extends LayoutContainer
      */
     override mx_internal function initThemeColor():Boolean
     {
-    	if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-    		return true;
-    	
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+            return true;
+        
         var result:Boolean = super.initThemeColor();
         
         if (!result)
