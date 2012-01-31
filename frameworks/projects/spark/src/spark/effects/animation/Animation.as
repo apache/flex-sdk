@@ -158,7 +158,6 @@ public final class Animation
      */
     private static var linearEaser:IEaser;
     
-    private var arrayMode:Boolean;
     // FIXME (chaase): more efficient way to store/remove these than in an array?
     // Dictionary, perhaps (although that may be unordered and less
     // efficient to access)
@@ -447,19 +446,20 @@ public final class Animation
     //----------------------------------
 
     /**
-     *  The interpolator used by the Animation instance to calculate values between
+     *  The interpolator used by the Animation instance 
+     *  to calculate values between
      *  the start and end values of the property. 
      *  By default, the class uses the NumberInterpolator class or, 
-     *  in the case of the start and end values being arrays, 
-     *  by the ArrayInterpolator class.
-     *  Interpolation of other data types, or of Numbers that should be interpolated
+     *  in the case of the start and end values being arrays or Vectors, 
+     *  by the MultiValueInterpolator class.
+     *  Interpolation of other data types, or 
+     *  of Numbers that should be interpolated
      *  differently, such as <code>uint</code> values that hold color
      *  channel information, can be handled by supplying a different
      *  interpolator.
      *
      *  @see spark.effects.interpolation.NumberInterpolator
-     *  @see spark.effects.interpolation.ArrayInterpolator
-     *  
+     *  @see spark.effects.interpolation.MultiValueInterpolator
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
