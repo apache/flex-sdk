@@ -70,7 +70,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderAlpha", type="Number", inherit="no")]
+[Style(name="borderAlpha", type="Number", inherit="no", theme="halo")]
 
 /**
  *  Thickness of the bottom border of the Panel control.
@@ -86,7 +86,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThicknessBottom", type="Number", format="Length", inherit="no")]
+[Style(name="borderThicknessBottom", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Thickness of the left border of the Panel.
@@ -98,7 +98,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThicknessLeft", type="Number", format="Length", inherit="no")]
+[Style(name="borderThicknessLeft", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Thickness of the right border of the Panel.
@@ -110,7 +110,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThicknessRight", type="Number", format="Length", inherit="no")]
+[Style(name="borderThicknessRight", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Thickness of the top border of the Panel.
@@ -122,7 +122,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThicknessTop", type="Number", format="Length", inherit="no")]
+[Style(name="borderThicknessTop", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Name of the CSS style declaration that specifies styles to apply to 
@@ -147,7 +147,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Boolean property that controls the visibility
@@ -160,7 +160,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="dropShadowEnabled", type="Boolean", inherit="no")]
+[Style(name="dropShadowEnabled", type="Boolean", inherit="no", theme="halo")]
 
 /**
  *  Array of two colors used to draw the footer
@@ -178,7 +178,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="footerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+[Style(name="footerColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Array of two colors used to draw the header.
@@ -195,7 +195,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+[Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Height of the header.
@@ -218,7 +218,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Number of pixels between the container's lower border
@@ -259,7 +259,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="roundedBottomCorners", type="Boolean", inherit="no")]
+[Style(name="roundedBottomCorners", type="Boolean", inherit="no", theme="halo")]
 
 /**
  *  Direction of drop shadow.
@@ -273,7 +273,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no")]
+[Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no", theme="halo")]
 
 /**
  *  Distance of drop shadow.
@@ -286,7 +286,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowDistance", type="Number", format="Length", inherit="no")]
+[Style(name="shadowDistance", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Style declaration name for the status in the title bar.
