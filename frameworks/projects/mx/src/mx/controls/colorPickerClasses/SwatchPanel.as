@@ -401,6 +401,14 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
 
     /**
      *  @private
+     *  Set by the parent to determine the type of TextInput to be created.
+     *  If this style is also set on this component directly, it will take
+     *  precedence.
+     */    
+    mx_internal var textInputClass:Class;
+
+    /**
+     *  @private
      */    
     private var border:SwatchPanelSkin;
 
@@ -995,17 +1003,16 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
         // Create the hex text field  
         if (!textInput)
 		{			
-            // Mechanism to use TLFTextInput. 
-            var textInputClass:Class = getStyle("textInputClass");            
-            if (!textInputClass || 
-                FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-            {
+            // Mechanism to use FTETextInput. Look for it in SwatchPanel and
+            // if not found see if we got it from our parent.
+            var c:Class = getStyle("textInputClass");
+            if (!c) 
+                c = textInputClass;
+            
+            if (!c || FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
                 textInput = new TextInput();
-            }
             else
-            {
                 textInput = new textInputClass();
-            }
 			
 			textInput.styleName = getStyle("textFieldStyleName");
 			
@@ -1212,9 +1219,21 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
                 label = dataProvider.getItemAt(focusedIndex)[labelField];
             }
 
+            
+            // TLFTextInput does not maintain its selection when the
+            // text is reset.  Remember to maintain soft link to FTETextInput.
+            if (!(textInput is TextInput))
+            {
+                var anchorPosition:int = textInput.selectionAnchorPosition;
+                var activePosition:int = textInput.selectionActivePosition;
+            }
+
             textInput.text = label != null && label.length != 0 ?
 							 label :
                              rgbToHex(color);
+
+            if (!(textInput is TextInput))
+                textInput.selectRange(anchorPosition, activePosition);
         }
     }
 
