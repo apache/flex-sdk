@@ -480,10 +480,14 @@ class NetConnectionMessageResponder extends MessageResponder
     //--------------------------------------------------------------------------
 
     /**
-     * @private
+     *  @private
      */
-    private var resourceManager:IResourceManager =
-                                    ResourceManager.getInstance();
+    private var handled:Boolean;
+
+    /**
+     *  @private
+     */
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -499,6 +503,9 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     override protected function resultHandler(msg:IMessage):void
     {
+        if (handled)
+            return;
+            
         disconnect();
         if (msg is AsyncMessage)
         {
@@ -545,6 +552,9 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     override protected function statusHandler(msg:IMessage):void
     {
+        if (handled)
+            return;
+            
         disconnect();
 
         // even a fault is still an acknowledgement of a message sent so pass it on...
@@ -606,6 +616,9 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     override protected function requestTimedOut():void
     {
+        if (handled)
+            return;
+            
         disconnect();
         statusHandler(createRequestTimeoutErrorMessage());
     }
@@ -627,6 +640,9 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     protected function channelDisconnectHandler(event:ChannelEvent):void
     {
+        if (handled)
+            return;
+            
         disconnect();
         var errorMsg:ErrorMessage = new ErrorMessage();
         errorMsg.correlationId = message.messageId;
@@ -650,6 +666,9 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     protected function channelFaultHandler(event:ChannelFaultEvent):void
     {
+        if (handled)
+            return;
+            
         disconnect();
         var errorMsg:ErrorMessage = event.createErrorMessage();
         errorMsg.correlationId = message.messageId;
@@ -675,6 +694,7 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     private function disconnect():void
     {
+        handled = true;
         channel.removeEventListener(ChannelEvent.DISCONNECT, channelDisconnectHandler);
         channel.removeEventListener(ChannelFaultEvent.FAULT, channelFaultHandler);
     }
