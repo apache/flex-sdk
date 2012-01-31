@@ -17,7 +17,7 @@ import flash.utils.Timer;
 import mx.components.Group;
 import mx.effects.Animation;
 import mx.effects.PropertyValuesHolder;
-import mx.effects.easing.IEaser;
+import mx.effects.fxEasing.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
 
