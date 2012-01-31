@@ -12,8 +12,8 @@
 package spark.components
 {
 import flash.events.Event;
-import spark.layout.HorizontalLayout;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.HorizontalLayout;
+import spark.layouts.supportClasses.LayoutBase;
 
 [IconFile("HGroup.png")]
 
@@ -25,7 +25,7 @@ import spark.layout.supportClasses.LayoutBase;
  * 
  * The layout property should not be set or configured directly.
  * 
- * @see spark.layout.HorizontalLayout
+ * @see spark.layouts.HorizontalLayout
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,7 +42,7 @@ public class HGroup extends Group
      *  Resetting the layout property or setting its properties directly
      *  is not supported.
      * 
-     *  @see spark.layout.HorizontalLayout
+     *  @see spark.layouts.HorizontalLayout
      *  @see spark.components.VGroup
      *  
      *  @langversion 3.0
@@ -72,7 +72,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layout.HorizontalLayout#gap
+     * @copy spark.layouts.HorizontalLayout#gap
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -99,7 +99,7 @@ public class HGroup extends Group
     [Bindable("propertyChange")]    
         
     /**
-     * @copy spark.layout.HorizontalLayout#columnCount
+     * @copy spark.layouts.HorizontalLayout#columnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -116,7 +116,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layout.HorizontalLayout#requestedColumnCount
+     * @copy spark.layouts.HorizontalLayout#requestedColumnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -143,7 +143,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy spark.layout.HorizontalLayout#columnWidth
+     * @copy spark.layouts.HorizontalLayout#columnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -170,7 +170,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy spark.layout.HorizontalLayout#variableColumnWidth
+     * @copy spark.layouts.HorizontalLayout#variableColumnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -195,7 +195,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layout.HorizontalLayout#verticalAlign
+     * @copy spark.layouts.HorizontalLayout#verticalAlign
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -222,7 +222,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy spark.layout.HorizontalLayout#firstIndexInView
+     * @copy spark.layouts.HorizontalLayout#firstIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -241,7 +241,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy spark.layout.HorizontalLayout#lastIndexInView
+     * @copy spark.layouts.HorizontalLayout#lastIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
