@@ -62,7 +62,7 @@
 			Write a bundle list of referenced resource bundles
 			into the file bundles.properties in this directory.
 		-->
-		<compc fork="true"
+		<compc fork="true" minimum-supported-version="4.0.0"
 			   output="${FLEX_HOME}/frameworks/libs/spark.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
@@ -78,7 +78,7 @@
 			</external-library-path>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
-			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>
+			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>	
 			<locale/>
             <keep-as3-metadata name="SkinPart"/>
 			<accessible>true</accessible>
@@ -93,7 +93,7 @@
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-		<compc fork="true"
+		<compc fork="true" minimum-supported-version="4.0.0"
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/spark_rb.swc"
 			   locale="${locale}">
 
