@@ -36,6 +36,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -116,6 +121,11 @@ use namespace mx_internal;
  *  @see mx.controls.SWFLoader
  *
  *  @includeExample examples/SimpleImage.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Image extends SWFLoader
                    implements IDataRenderer, IDropInListItemRenderer,
@@ -131,6 +141,11 @@ public class Image extends SWFLoader
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Image()
     {
@@ -222,6 +237,11 @@ public class Image extends SWFLoader
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -271,6 +291,11 @@ public class Image extends SWFLoader
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
