@@ -423,12 +423,12 @@ public class HScrollBar extends ScrollBarBase
     mx_internal function mouseWheelHandler(event:MouseEvent):void
     {
         const vp:IViewport = viewport;
-        if (event.isDefaultPrevented() || !vp || !vp.visible)
+        if (event.isDefaultPrevented() || !vp || !vp.visible || !visible)
             return;
         
         var nSteps:uint = Math.abs(event.delta);
         var navigationUnit:uint;
-        
+
         // Scroll event.delta "steps".  
         navigationUnit = (event.delta < 0) ? NavigationUnit.RIGHT : NavigationUnit.LEFT;
         for (var hStep:int = 0; hStep < nSteps; hStep++)
