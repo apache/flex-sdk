@@ -68,7 +68,7 @@ public class ItemRenderer extends MXMLComponent
 		if (value != _selected)
 		{
 			_selected = value;
-			currentState = getUpdatedSkinState();
+			currentState = getCurrentSkinState();
 		}
 	}
 	
@@ -77,48 +77,6 @@ public class ItemRenderer extends MXMLComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    
-    private var _orientation:Number;	// 0 for vertical, 1 for horizontal
-    
-    override protected function measure():void
-    {
-    	// TODO: This is temporary code to make sure the item renderer
-    	// fills out the width of the parent when layout is vertical,
-    	// and the height of the parent when the layout is horizontal.
-    	// Need to figure out a permanent solution for this
-    	if (parent is DataGroup)
-    	{
-    		if (DataGroup(parent).layout is VerticalLayout)
-    		{
-    			if (_orientation != 0)
-    			{
-    				_orientation = 0;
-    				percentWidth = 100;
-    				percentHeight = NaN;
-    			}
-    		}
-    		else if (DataGroup(parent).layout is HorizontalLayout)
-    		{
-    			if (_orientation != 1)
-    			{
-    				_orientation = 1;
-    				percentWidth = NaN;
-    				percentHeight = 100;
-    			}
-    		}
-    		else if (!isNaN(_orientation))
-    		{
-    			_orientation = NaN;
-    			percentWidth = percentHeight = NaN;
-    		}
-    	}
-    	
-    	super.measure();
-    }
     
     /**
      *  @private
@@ -136,7 +94,7 @@ public class ItemRenderer extends MXMLComponent
      *  Return the skin state. This can be overridden by subclasses to add more states.
      *  NOTE: Undocumented for now since MXMLComponent class has not been fleshed out.
      */
-	protected function getUpdatedSkinState():String
+	protected function getCurrentSkinState():String
 	{
 		if (selected)
 			return "selected";
@@ -154,7 +112,7 @@ public class ItemRenderer extends MXMLComponent
 	private function rollOverHandler(event:MouseEvent):void
 	{
 		hovered = true;
-		currentState = getUpdatedSkinState();
+		currentState = getCurrentSkinState();
 	}
 	
 	/**
@@ -164,7 +122,7 @@ public class ItemRenderer extends MXMLComponent
 	private function rollOutHandler(event:MouseEvent):void
 	{
 		hovered = false;
-		currentState = getUpdatedSkinState();
+		currentState = getCurrentSkinState();
 	}
 	
 	/**
