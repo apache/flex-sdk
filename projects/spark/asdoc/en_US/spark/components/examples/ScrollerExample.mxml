@@ -8,10 +8,10 @@
     <mx:Panel title="Spinner Control Example" height="75%" width="75%" paddingTop="10"
         paddingLeft="10" horizontalCenter="0" verticalCenter="0">
 
-        <s:Scroller>
-            <s:Group width="100" height="100"> 
+        <s:Scroller width="100" height="100">
+            <s:Group> 
                 <mx:Image width="300" height="400" 
-                    source="@Embed(source='assets/logo.jpg')"/> 
+                    source="@Embed(source='/assets/logo.jpg')"/> 
             </s:Group>        
         </s:Scroller>     
                                                           
