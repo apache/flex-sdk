@@ -26,7 +26,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  * effect instance on any given target at a time, which means that they will
  * share the transform center set by any of the contributing effects.</p>
  */       
-public class AnimateTransformRotate3D extends AnimateTransform
+public class Rotate3D extends AnimateTransform
 {
     include "../core/Version.as";
 
@@ -41,7 +41,7 @@ public class AnimateTransformRotate3D extends AnimateTransform
      *
      * @param target The Object to animate with this effect.
      */
-    public function AnimateTransformRotate3D(target:Object=null)
+    public function Rotate3D(target:Object=null)
     {
         super(target);
         applyLocalProjection = true;
