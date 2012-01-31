@@ -43,6 +43,19 @@ include "../../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
+ *  Accent color used by component skins. The default button skin uses this color
+ *  to tint the background. Slider track highlighting uses this color. 
+ * 
+ *  @default #0099FF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  The colors to use for the backgrounds of the items in the list. 
  *  The value is an array of two or more colors. 
  *  The backgrounds of the list items alternate among the colors in the array. 
@@ -141,6 +154,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
 
 /**
