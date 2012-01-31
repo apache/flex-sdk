@@ -20,7 +20,7 @@ package spark.effects.easing
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:EaseInOutBase&gt;</code> tag
+ *  <p>The <code>&lt;s:EaseInOutBase&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
