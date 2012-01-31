@@ -29,7 +29,7 @@ use namespace mx_internal;
 
 
 /**
- *  ButtonAccImpl is a subclass of AccessibilityImplementation
+ *  ButtonBaseAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the Button class.
  *
  *  @langversion 3.0
@@ -37,7 +37,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ButtonAccImpl extends AccImpl
+public class ButtonBaseAccImpl extends AccImpl
 {
     include "../core/Version.as";
 
@@ -77,7 +77,7 @@ public class ButtonAccImpl extends AccImpl
                                 component:UIComponent):void
     {
         component.accessibilityImplementation =
-            new ButtonAccImpl(component);
+            new ButtonBaseAccImpl(component);
     }
 
     //--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public class ButtonAccImpl extends AccImpl
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ButtonAccImpl(master:UIComponent)
+    public function ButtonBaseAccImpl(master:UIComponent)
     {
         super(master);
 
