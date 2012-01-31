@@ -74,7 +74,8 @@ use namespace mx_internal;
  *    viewport=""
  *  /&gt;
  *  </pre>
- *  
+ *   
+ *  @includeExample examples/VScrollBarExample.mxml
  *  @see spark.skins.spark.VScrollBarSkin
  *  @see spark.skins.spark.VScrollBarThumbSkin
  *  @see spark.skins.spark.VScrollBarTrackSkin
