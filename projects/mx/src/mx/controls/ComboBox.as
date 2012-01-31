@@ -1762,7 +1762,7 @@ public class ComboBox extends ComboBase
         point = localToGlobal(point);
         
         var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var screen:Rectangle = sm.getVisibleApplicationRect();
+        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
 
         //opening the dropdown 
         if (show)
