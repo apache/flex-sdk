@@ -106,8 +106,6 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     {
         super(rootURL, destination);
 
-        showBusyCursor = false;
-        concurrency = Concurrency.MULTIPLE;
     }
 
     //--------------------------------------------------------------------------
@@ -121,72 +119,6 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
      */
     private var resourceManager:IResourceManager =
 									ResourceManager.getInstance();
-
-    //--------------------------------------------------------------------------
-    //
-    // Properties
-    // 
-    //--------------------------------------------------------------------------
-
-    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
-    /**
-     * Value that indicates how to handle multiple calls to the same service. The default
-     * value is <code>multiple</code>. The following values are permitted:
-     * <ul>
-     * <li><code>multiple</code> Existing requests are not cancelled, and the developer is
-     * responsible for ensuring the consistency of returned data by carefully
-     * managing the event stream. This is the default value.</li>
-     * <li><code>single</code> Only a single request at a time is allowed on the operation;
-     * multiple requests generate a fault.</li>
-     * <li><code>last</code> Making a request cancels any existing request.</li>
-     * </ul>
-     */
-    public function get concurrency():String
-    {
-        return _concurrency;
-    }
-
-    /**
-     *  @private
-     */
-    public function set concurrency(c:String):void
-    {
-        _concurrency = c;
-    }
-
-    [Inspectable(defaultValue="false", category="General")]
-    /**
-    * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
-    * value is <code>false</code>.
-    */
-    public function get showBusyCursor():Boolean
-    {
-        return _showBusyCursor;
-    }
-
-    public function set showBusyCursor(sbc:Boolean):void
-    {
-        _showBusyCursor = sbc;
-    }
-
-
-    //--------------------------------------------------------------------------
-    //
-    // Public Methods
-    // 
-    //--------------------------------------------------------------------------
-
-    /**
-     * @private
-     */
-    override public function cancel(id:String = null):AsyncToken
-    {
-        if (showBusyCursor)
-        {
-            CursorManager.removeBusyCursor();
-        }
-        return super.cancel(id);
-    }
 
     /**
      * Called after the implementing object has been created and all
@@ -209,66 +141,12 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
         this.document = document;
     }
 
-    /**
-     * Executes an HTTPService request. The parameters are optional, but if specified should
-     * be an Object containing name-value pairs or an XML object depending on the contentType.
-     * @return an AsyncToken.  It will be the same object available in the <code>result</code>
-     * or <code>fault</code> event's <code>token</code> property.
-     */
-    override public function send(parameters:Object = null):AsyncToken
-    {
-        //concurrency check
-        if (Concurrency.SINGLE == concurrency && activeCalls.hasActiveCalls())
-        {
-            var token:AsyncToken = new AsyncToken(null);
-			var message:String = resourceManager.getString(
-				"rpc", "pendingCallExists");
-            var fault:Fault = new Fault("ConcurrencyError", message);
-            var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token);
-            new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
-            return token;
-        }
-
-        return super.send(parameters);
-    }
-
 
     //--------------------------------------------------------------------------
     //
     // Internal Methods
     // 
     //--------------------------------------------------------------------------
-
-    override mx_internal function invoke(message:IMessage, token:AsyncToken = null):AsyncToken
-    {
-        if (showBusyCursor)
-        {
-            CursorManager.setBusyCursor();
-        }
-
-        return super.invoke(message, token);
-    }
-
-    /*
-     * Kill the busy cursor, find the matching call object and pass it back
-     */
-    override mx_internal function preHandle(event:MessageEvent):AsyncToken
-    {
-        if (showBusyCursor)
-        {
-            CursorManager.removeBusyCursor();
-        }
-
-        var wasLastCall:Boolean = activeCalls.wasLastCall(AsyncMessage(event.message).correlationId);
-        var token:AsyncToken = super.preHandle(event);
-
-        if (Concurrency.LAST == concurrency && !wasLastCall)
-        {
-            return null;
-        }
-        //else
-        return token;
-    }
 
     /**
      * If this event is a fault, and the event type does not
@@ -315,13 +193,10 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     // 
     //--------------------------------------------------------------------------
 
-    private var _concurrency:String;
-    
 	private var document:Object; //keep the document for validation
     
 	private var id:String; //need to know our own id for validation
     
-	private var _showBusyCursor:Boolean;
 }
 
 }
