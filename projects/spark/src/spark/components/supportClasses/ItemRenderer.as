@@ -193,7 +193,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */    
     private var _itemIndex:int;
     
-    [Bindable("dataChange")]
+    [Bindable("itemIndexChanged")]
     
     /**
      *  @inheritDoc 
@@ -220,6 +220,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             redrawRequested = true;
             super.$invalidateDisplayList();
         }
+        
+        dispatchEvent(new Event("itemIndexChanged"));
     }
     
     //----------------------------------
@@ -352,7 +354,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */ 
     private var _label:String = "";
     
-    [Bindable("dataChange")]
+    [Bindable("labelChanged")]
     
     /**
      *  @inheritDoc 
@@ -378,6 +380,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         // if it exists
         if (labelDisplay)
             labelDisplay.text = _label;
+        
+        dispatchEvent(new Event("labelChanged"));
     }
     
     //--------------------------------------------------------------------------
