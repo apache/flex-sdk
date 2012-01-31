@@ -19,7 +19,6 @@ import flash.events.Event;
 
 import mx.accessibility.AccConst;
 import mx.accessibility.AccImpl;
-import mx.accessibility.PanelAccImpl;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ResizeEvent;
