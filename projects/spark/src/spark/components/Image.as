@@ -787,7 +787,7 @@ public class Image extends SkinnableComponent
     //  scaleMode
     //----------------------------------
     
-    [Inspectable(category="General", enumeration="stretch,letterbox", defaultValue="letterbox")]
+    [Inspectable(category="General", enumeration="stretch,letterbox,zoom", defaultValue="letterbox")]
     
     /**
      *  @copy spark.primitives.BitmapImage#scaleMode
