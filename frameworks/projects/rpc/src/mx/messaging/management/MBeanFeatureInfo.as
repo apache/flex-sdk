@@ -18,11 +18,23 @@ import mx.utils.ObjectUtil;
 
 /**
  * Client representation of metadata for a MBean feature.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MBeanFeatureInfo 
 {
     /**
      *  Creates a new instance of an empty MBeanFeatureInfo.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function MBeanFeatureInfo()
 	{
@@ -31,11 +43,23 @@ public class MBeanFeatureInfo
 	
 	/**
 	 * The name of the MBean feature.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public var name:String;
 	
 	/**
 	 * The description of the MBean feature.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public var description:String;
 
@@ -43,6 +67,12 @@ public class MBeanFeatureInfo
      *  Returns a string representation of the feature info.
      * 
      *  @return String representation of the feature info.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function toString():String
     {
