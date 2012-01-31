@@ -23,10 +23,13 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CloseEvent;
 import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.events.ShowAlertRequest;
+import mx.utils.SandboxUtil;
 
 use namespace mx_internal;
 
@@ -470,10 +473,25 @@ public class Alert extends Panel
                                 iconClass:Class = null, 
                                 defaultButtonFlag:uint = 0x4 /* Alert.OK */):Alert
     {
+    	// If we need to use a bridge, then send a message to the top-level 
+    	// system manager to show an Alert.
+    	var sm:ISystemManager2 = ISystemManager2(Application.application.systemManager);
+    	if (sm.useBridge())
+    	{
+    		var mutualTrust:Boolean = SandboxUtil.hasMutualTrustWithParent(sm);
+    		var request:ShowAlertRequest = new ShowAlertRequest(text, title, flags, 
+    															mutualTrust ? parent : null, 
+    															closeHandler,
+    															iconClass, defaultButtonFlag);
+    		sm.sandboxBridgeGroup.parentBridge.dispatchEvent(request);
+    		return null;
+    	}
+
         var modal:Boolean = (flags & Alert.NONMODAL) ? false : true;
 
         if (!parent)
             parent = Sprite(Application.application);   
+
         
         var alert:Alert = new Alert();
 
