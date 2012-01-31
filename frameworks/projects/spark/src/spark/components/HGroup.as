@@ -15,6 +15,8 @@ import flash.events.Event;
 import mx.components.Group;
 import mx.layout.HorizontalLayout;
 
+[IconFile("HGroup.png")]
+
 /**
  * A Group with a HorizontalLayout.  
  * 
