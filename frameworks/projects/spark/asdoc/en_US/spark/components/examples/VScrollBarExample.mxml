@@ -5,7 +5,9 @@
     xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:s="library://ns.adobe.com/flex/spark" >
     
-    <mx:Box borderStyle="solid" x="10" y="10">
+    <s:Panel title="VScrollBar Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
         <s:HGroup>
             <s:DataGroup id="viewport" left="10" top="10"
                          clipAndEnableScrolling="true"
@@ -34,5 +36,5 @@
                           top="10" 
                           height="{viewport.height}"/>
         </s:HGroup>
-    </mx:Box>    
+    </s:Panel>    
 </s:Application>
