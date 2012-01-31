@@ -525,7 +525,6 @@ public class Grid extends Group implements IDataGridElement
         if (_caretColumnIndex == value || value < -1)
             return;
         
-        _oldCaretColumnIndex = _caretColumnIndex;        
         _caretColumnIndex = value;
         
         caretChanged = true;
@@ -580,7 +579,6 @@ public class Grid extends Group implements IDataGridElement
         if (_caretRowIndex == value || value < -1)
             return;
         
-        _oldCaretRowIndex = _caretRowIndex;        
         _caretRowIndex = value;
         
         caretChanged = true;
@@ -3417,11 +3415,7 @@ public class Grid extends Group implements IDataGridElement
         if (caretChanged)
         {
             // Validate values now.  Need to let caret be set in the same
-            // update as the dp and/or columns.  -1 is a valid value.
-            
-            // If adjusting the index, don't use the setter.  Need to preserve 
-            // the old caret index so it can be reported in the caret change 
-            // event.
+            // update as the dp and/or columns.  -1 is a valid value.            
             if (_dataProvider && caretRowIndex >= _dataProvider.length)
                 _caretRowIndex = _dataProvider.length - 1;
             if (_columns && caretColumnIndex >= _columns.length)
@@ -3432,6 +3426,11 @@ public class Grid extends Group implements IDataGridElement
                 _dataProvider.getItemAt(_caretRowIndex) : null;
 
             dispatchCaretChangeEvent();
+            
+            // Last reported values.
+            _oldCaretRowIndex = _caretRowIndex;
+            _oldCaretColumnIndex = _caretColumnIndex;
+            
             caretChanged = false;        
          }
     }
