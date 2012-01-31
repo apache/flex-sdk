@@ -397,7 +397,6 @@ public class TextArea extends SkinnableTextBase
      *  within <p>, <span>, etc.
      */
     [RichTextContent]
-    [Inspectable(environment="none")]
         
     /**
      *  This property is intended for use in MXML at compile time;
@@ -427,6 +426,8 @@ public class TextArea extends SkinnableTextBase
      *  to a TextFlow object. When you get the value of this property, you get
      *  the resulting TextFlow object.</p>
      * 
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -454,7 +455,16 @@ public class TextArea extends SkinnableTextBase
     [Inspectable(category="General", minValue="0.0")]
 
     /**
-     *  @copy spark.components.RichEditableText#heightInLines
+     *  The default height of the control, measured in lines.
+     *
+     *  <p>For the Spark theme, see
+     *  <b>spark.components.RichEditableText.heightInLines</b></p>
+     *
+     *  <p>For the Mobile theme, this is not supported.</p>
+     * 
+     *  @see spark.components.RichEditableText#heightInLines
+     * 
+     *  @default NaN
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -484,8 +494,17 @@ public class TextArea extends SkinnableTextBase
     // TLF work.
 
     /**
-     *  @copy spark.components.RichEditableText#textFlow
-     *  
+     *  The TextFlow representing the rich text displayed by this component.
+     *
+     *  <p>For the Spark theme, see
+     *  <b>spark.components.RichEditableText.textFlow</b></p>
+     *
+     *  <p>For the Mobile theme, this is not supported.</p>
+     * 
+     *  @see spark.components.RichEditableText#textFlow
+     * 
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -513,7 +532,16 @@ public class TextArea extends SkinnableTextBase
     [Inspectable(category="General", minValue="0.0")]
 
     /**
-     *  @copy spark.components.RichEditableText#widthInChars
+     *  The default width of the control, measured in em units.
+     *
+     *  <p>For the Spark theme, see
+     *  <b>spark.components.RichEditableText.widthInChars</b></p>
+     *
+     *  <p>For the Mobile theme, this is not supported.</p>
+     * 
+     *  @see spark.components.RichEditableText#widthInChars
+     * 
+     *  @default NaN
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
