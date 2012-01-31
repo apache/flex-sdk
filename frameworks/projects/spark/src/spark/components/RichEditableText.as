@@ -42,18 +42,18 @@ import text.edit.SplitParOperation;
 import text.edit.StyleChangeOperation;
 import text.importExport.TextFilter;
 import text.model.BlockProgression;
-import text.model.CharacterAttributes;
-import text.model.ContainerAttributes;
+import text.model.CharacterFormat;
+import text.model.ContainerFormat;
 import text.model.Direction;
 import text.model.FlowElement;
-import text.model.ICharacterAttributes;
-import text.model.IContainerAttributes;
-import text.model.IParagraphAttributes;
+import text.model.ICharacterFormat;
+import text.model.IContainerFormat;
+import text.model.IParagraphFormat;
 import text.model.LeafElement;
 import text.model.LineBreak;
 import text.model.ModelChangeEvent;
 import text.model.Paragraph;
-import text.model.ParagraphAttributes;
+import text.model.ParagraphFormat;
 import text.model.Span;
 import text.model.TextAlign;
 import text.model.TextDecoration;
@@ -157,7 +157,7 @@ public class TextView extends UIComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Properties: Text Attributes
+    //  Properties: Text formatting
     //
     //--------------------------------------------------------------------------
     
@@ -1554,12 +1554,12 @@ public class TextView extends UIComponent
             else if (content is Array)
             {
                 textFlow = createEmptyTextFlow();
-                textFlow.appendChildren = content as Array;
+                textFlow.mxmlChildren = content as Array;
             }
             else if (content is FlowElement)
             {
                 textFlow = createEmptyTextFlow();
-                textFlow.appendChildren = [ content ];
+                textFlow.mxmlChildren = [ content ];
             }
 			else if (content is String)
 			{
@@ -1589,66 +1589,66 @@ public class TextView extends UIComponent
 		contentChanged = false;
 		textChanged = false;
 
-        var containerAttributes:IContainerAttributes =
-            textFlow.containerAttributes;
-        var paragraphAttributes:IParagraphAttributes =
-            textFlow.paragraphAttributes;
-        var characterAttributes:ICharacterAttributes =
-            textFlow.characterAttributes;
+        var containerFormat:IContainerFormat =
+            textFlow.containerFormat;
+        var paragraphFormat:IParagraphFormat =
+            textFlow.paragraphFormat;
+        var characterFormat:ICharacterFormat =
+            textFlow.characterFormat;
         
-        if (!containerAttributes || containerAttributes.blockProgression == null)
+        if (!containerFormat || containerFormat.blockProgression == null)
             textFlow.blockProgression = blockProgression;
-        if (!characterAttributes || characterAttributes.color == null)
+        if (!characterFormat || characterFormat.color == null)
             textFlow.color = color;
-        if (!paragraphAttributes || paragraphAttributes.direction == null)
+        if (!paragraphFormat || paragraphFormat.direction == null)
             textFlow.direction = direction;
-		if (!characterAttributes || characterAttributes.fontFamily == null)
+		if (!characterFormat || characterFormat.fontFamily == null)
             textFlow.fontFamily = fontFamily;
-		if (!characterAttributes || characterAttributes.fontSize == null)
+		if (!characterFormat || characterFormat.fontSize == null)
             textFlow.fontSize = fontSize;
-		if (!characterAttributes || characterAttributes.fontStyle == null)
+		if (!characterFormat || characterFormat.fontStyle == null)
 		    textFlow.fontStyle = fontStyle;
-		if (!characterAttributes || characterAttributes.fontWeight == null)
+		if (!characterFormat || characterFormat.fontWeight == null)
 		    textFlow.fontWeight = fontWeight;
-		if (!characterAttributes || characterAttributes.kerning == null)
+		if (!characterFormat || characterFormat.kerning == null)
 		    textFlow.kerning = kerning;
-		if (!characterAttributes || characterAttributes.lineHeight == null)
+		if (!characterFormat || characterFormat.lineHeight == null)
 		    textFlow.lineHeight = lineHeight;
-		if (!containerAttributes || containerAttributes.lineBreak == null)
+		if (!containerFormat || containerFormat.lineBreak == null)
 		    textFlow.lineBreak = lineBreak;
-		if (!characterAttributes || characterAttributes.lineThrough == null)
+		if (!characterFormat || characterFormat.lineThrough == null)
 		    textFlow.lineThrough = lineThrough;
-        if (!paragraphAttributes || paragraphAttributes.marginBottom == null)
+        if (!paragraphFormat || paragraphFormat.marginBottom == null)
 		    textFlow.marginBottom = marginBottom;
-        if (!paragraphAttributes || paragraphAttributes.marginLeft == null)
+        if (!paragraphFormat || paragraphFormat.marginLeft == null)
 		    textFlow.marginLeft = marginLeft;
-        if (!paragraphAttributes || paragraphAttributes.marginRight == null)
+        if (!paragraphFormat || paragraphFormat.marginRight == null)
 		    textFlow.marginRight = marginRight;
-        if (!paragraphAttributes || paragraphAttributes.marginTop == null)
+        if (!paragraphFormat || paragraphFormat.marginTop == null)
 		    textFlow.marginTop = marginTop;
-        if (!containerAttributes || containerAttributes.paddingBottom == null)
+        if (!containerFormat || containerFormat.paddingBottom == null)
 		    textFlow.paddingBottom = paddingBottom;
-        if (!containerAttributes || containerAttributes.paddingLeft == null)
+        if (!containerFormat || containerFormat.paddingLeft == null)
 		    textFlow.paddingLeft = paddingLeft;
-        if (!containerAttributes || containerAttributes.paddingRight == null)
+        if (!containerFormat || containerFormat.paddingRight == null)
 		    textFlow.paddingRight = paddingRight;
-        if (!containerAttributes || containerAttributes.paddingTop == null)
+        if (!containerFormat || containerFormat.paddingTop == null)
 		    textFlow.paddingTop = paddingTop;
-        if (!paragraphAttributes || paragraphAttributes.textAlign == null)
+        if (!paragraphFormat || paragraphFormat.textAlign == null)
 		    textFlow.textAlign = textAlign;
-        if (!paragraphAttributes || paragraphAttributes.textAlignLast == null)
+        if (!paragraphFormat || paragraphFormat.textAlignLast == null)
 		    textFlow.textAlignLast = textAlignLast;
-		if (!characterAttributes || characterAttributes.textAlpha == null)
+		if (!characterFormat || characterFormat.textAlpha == null)
 		    textFlow.textAlpha = textAlpha;
-		if (!characterAttributes || characterAttributes.textDecoration == null)
+		if (!characterFormat || characterFormat.textDecoration == null)
 		    textFlow.textDecoration = textDecoration;
-        if (!paragraphAttributes || paragraphAttributes.textIndent == null)
+        if (!paragraphFormat || paragraphFormat.textIndent == null)
 		    textFlow.textIndent = textIndent;
-		if (!characterAttributes || characterAttributes.trackingRight == null)
+		if (!characterFormat || characterFormat.trackingRight == null)
 		    textFlow.trackingRight = tracking; // what about trackingLeft?
-        if (!containerAttributes || containerAttributes.verticalAlign == null)
+        if (!containerFormat || containerFormat.verticalAlign == null)
 		    textFlow.verticalAlign = verticalAlign;
-		if (!characterAttributes || characterAttributes.whitespaceCollapse == null)
+		if (!characterFormat || characterFormat.whitespaceCollapse == null)
 		    textFlow.whitespaceCollapse = whiteSpaceCollapse; // different case
 
 		return textFlow;
@@ -1740,70 +1740,70 @@ public class TextView extends UIComponent
         var p:String;
         var kind:String;
         
-        var needContainerAttributes:Boolean = false;
-        var needParagraphAttributes:Boolean = false;
-        var needCharacterAttributes:Boolean = false;
+        var needContainerFormat:Boolean = false;
+        var needParagraphFormat:Boolean = false;
+        var needCharacterFormat:Boolean = false;
 
         if (!names)
         {
-            names = TextUtil.ALL_ATTRIBUTE_NAMES;
+            names = TextUtil.ALL_FORMAT_NAMES;
             
-            needContainerAttributes = true;
-            needParagraphAttributes = true;
-            needCharacterAttributes = true;
+            needContainerFormat = true;
+            needParagraphFormat = true;
+            needCharacterFormat = true;
         }
         else
         {
             for each (p in names)
             {
-                kind = TextUtil.ATTRIBUTE_MAP[p];
+                kind = TextUtil.FORMAT_MAP[p];
 
                 if (kind == TextUtil.CONTAINER)
-                    needContainerAttributes = true;
+                    needContainerFormat = true;
                 else if (kind == TextUtil.PARAGRAPH)
-                    needParagraphAttributes = true;
+                    needParagraphFormat = true;
                 else if (kind == TextUtil.CHARACTER)
-                    needCharacterAttributes = true;
+                    needCharacterFormat = true;
             }
         }
         
-        var containerAttributes:IContainerAttributes;
-        var paragraphAttributes:IParagraphAttributes;
-        var characterAttributes:ICharacterAttributes;
+        var containerFormat:IContainerFormat;
+        var paragraphFormat:IParagraphFormat;
+        var characterFormat:ICharacterFormat;
         
-        if (needContainerAttributes)
+        if (needContainerFormat)
         {
-            containerAttributes =
-                selectionManager.getCommonContainerAttributes();
+            containerFormat =
+                selectionManager.getCommonContainerFormat();
         }
         
-        if (needParagraphAttributes)
+        if (needParagraphFormat)
         {
-            paragraphAttributes =
-                selectionManager.getCommonParagraphAttributes();
+            paragraphFormat =
+                selectionManager.getCommonParagraphFormat();
         }
 
-        if (needCharacterAttributes)
+        if (needCharacterFormat)
         {
-            characterAttributes =
-                selectionManager.getCommonCharacterAttributes();
+            characterFormat =
+                selectionManager.getCommonCharacterFormat();
         }
 
-        var attributes:Object = {};
+        var format:Object = {};
         
         for each (p in names)
         {
-            kind = TextUtil.ATTRIBUTE_MAP[p];
+            kind = TextUtil.FORMAT_MAP[p];
             
             if (kind == TextUtil.CONTAINER)
-                attributes[p] = containerAttributes[p];
+                format[p] = containerFormat[p];
             else if (kind == TextUtil.PARAGRAPH)
-                attributes[p] = paragraphAttributes[p];
+                format[p] = paragraphFormat[p];
             else if (kind == TextUtil.CHARACTER)
-                attributes[p] = characterAttributes[p];
+                format[p] = characterFormat[p];
         }
         
-        return attributes;
+        return format;
     }
 
     /**
@@ -1815,57 +1815,57 @@ public class TextView extends UIComponent
      *  <code>setAttributes({ fontSize: 12, color: 0xFF0000 })</code>
      *  will set the fontSize and color of the selection.
      *  The supported attributes are those in the
-     *  ICharacterAttributes and IParagraphAttributes interfaces.
+     *  ICharacterFormat and IParagraphFormat interfaces.
      */
     public function setAttributes(attributes:Object):void
     {
-        var containerAttributes:ContainerAttributes;
-        var paragraphAttributes:ParagraphAttributes;
-        var characterAttributes:CharacterAttributes;
+        var containerFormat:ContainerFormat;
+        var paragraphFormat:ParagraphFormat;
+        var characterFormat:CharacterFormat;
         
         for (var p:String in attributes)
         {
-            var kind:String = TextUtil.ATTRIBUTE_MAP[p];
+            var kind:String = TextUtil.FORMAT_MAP[p];
             
             if (kind == TextUtil.CONTAINER)
             {
-                if (!containerAttributes)
-                   containerAttributes =  new ContainerAttributes();
-                containerAttributes[p] = attributes[p];
+                if (!containerFormat)
+                   containerFormat =  new ContainerFormat();
+                containerFormat[p] = attributes[p];
             }
             else if (kind == TextUtil.PARAGRAPH)
             {
-                if (!paragraphAttributes)
-                   paragraphAttributes =  new ParagraphAttributes();
-                paragraphAttributes[p] = attributes[p];
+                if (!paragraphFormat)
+                   paragraphFormat =  new ParagraphFormat();
+                paragraphFormat[p] = attributes[p];
             }
             else if (kind == TextUtil.CHARACTER)
             {
-                if (!characterAttributes)
-                   characterAttributes =  new CharacterAttributes();
-                characterAttributes[p] = attributes[p];
+                if (!characterFormat)
+                   characterFormat =  new CharacterFormat();
+                characterFormat[p] = attributes[p];
             }
         }
         
         var editManager:TextViewEditManager =
             TextViewEditManager(textFlow.selectionManager);
         
-        if (containerAttributes)
+        if (containerFormat)
         {
             editManager.execute(new ContainerStyleChangeOperation(
-                editManager, containerAttributes));
+                editManager, containerFormat));
         }
 
-        if (paragraphAttributes)
+        if (paragraphFormat)
         {
             editManager.execute(new ParagraphStyleChangeOperation(
-                editManager, paragraphAttributes));
+                editManager, paragraphFormat));
         }
 
-        if (characterAttributes)
+        if (characterFormat)
         {
             editManager.execute(new StyleChangeOperation(
-                editManager, characterAttributes));
+                editManager, characterFormat));
         }
     }
 
