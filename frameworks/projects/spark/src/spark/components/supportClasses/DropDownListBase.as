@@ -691,7 +691,7 @@ public class DropDownListBase extends List
                 if (isDropDownOpen)
                     changeHighlightedSelection(matchingIndex);
                 else
-                    selectedIndex = matchingIndex; 
+                    setSelectedIndex(matchingIndex, true); 
                 
                 return true;
             }
@@ -836,7 +836,7 @@ public class DropDownListBase extends List
                 proposedNewIndex = Math.min(proposedNewIndex, maxIndex);
                 
                 if (proposedNewIndex >= 0)
-                    selectedIndex = proposedNewIndex;
+                    setSelectedIndex(proposedNewIndex, true);
             }
         }
         else
@@ -903,7 +903,9 @@ public class DropDownListBase extends List
         
         if (!event.isDefaultPrevented())
         {
-            selectedIndex = userProposedSelectedIndex;  
+            // Even if the dropDown was programmatically closed, assume the selection 
+            // changed as a result of a previous user interaction
+            setSelectedIndex(userProposedSelectedIndex, true);  
         }
         else
         {
