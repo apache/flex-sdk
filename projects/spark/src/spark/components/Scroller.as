@@ -42,10 +42,8 @@ import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 
-import spark.components.ScrollSnappingMode;
 import spark.components.supportClasses.GroupBase;
 import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
@@ -1378,8 +1376,53 @@ public class Scroller extends SkinnableComponent
             }
             
             // Scroll the element into view
+            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element, 
+                elementLocalBounds, entireElementVisible);
             
-            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element, elementLocalBounds, entireElementVisible);
+            // Compute new delta if element is visible in the viewport bounds but is
+            // clipped/obscured by the soft keyboard
+            var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+            var eltBounds:Rectangle;
+            var adjustForSoftKeyboard:Boolean = topLevelApp && 
+                                                (!topLevelApp.resizeForSoftKeyboard) &&
+                                                (stage.softKeyboardRect.height > 0);
+            
+            if (adjustForSoftKeyboard)
+            {
+                eltBounds = layout.getChildElementBounds(element);
+                
+                // Get keyboard y-position in the scroller's coordinates
+                var keyboardTopLocal:Number = this.globalToLocal(stage.softKeyboardRect.topLeft).y;
+                var scrollerHeight:Number = this.getLayoutBoundsHeight();
+                
+                // Does the keyboard clip the scroller?
+                // Is the bottom of the element clipped or outside the visible
+                // scroller height?
+                if ((keyboardTopLocal >= 0) &&
+                    (keyboardTopLocal < scrollerHeight) && 
+                    ((eltBounds.bottom - viewport.verticalScrollPosition) > keyboardTopLocal))
+                {
+                    // Compute a new delta to accomodate the soft keyboard
+                    var dy:Number = 0;
+                    
+                    if (eltBounds.height > keyboardTopLocal)
+                    {
+                        // Top justify if the element is taller than the 
+                        // scroller's visible height
+                        dy = eltBounds.top;
+                    }
+                    else
+                    {
+                        // Bottom justify the element
+                        dy = eltBounds.bottom - keyboardTopLocal;
+                    }
+                    
+                    var dx:Number = (delta) ? delta.x : 0;
+                    
+                    // account for current verticalScrollPosition
+                    delta = new Point(dx, dy - viewport.verticalScrollPosition);
+                }
+            }
             
             if (delta)
             {
@@ -1389,7 +1432,9 @@ public class Scroller extends SkinnableComponent
                 // We only care about focusThickness if we are positioning the whole element 
                 if (!elementLocalBounds)
                 {
-                    var eltBounds:Rectangle = layout.getChildElementBounds(element);
+                    if (!eltBounds)
+                        eltBounds = layout.getChildElementBounds(element);
+                    
                     var focusThickness:Number = 0;
                 
                     if (element is IStyleClient)
@@ -1408,7 +1453,10 @@ public class Scroller extends SkinnableComponent
                         else if (viewport.horizontalScrollPosition + width < eltBounds.right + focusThickness)
                             viewport.horizontalScrollPosition = eltBounds.right + focusThickness - width;
                     }
-                    snapContentScrollPosition();
+                
+                    // Do not snap vertically when increasing the 
+                    // verticalScrollPosition for the soft keyboard
+                    snapContentScrollPosition(true, !adjustForSoftKeyboard);
                 }
                 
                 if (doValidateNow && viewport is UIComponent)
@@ -2587,12 +2635,9 @@ public class Scroller extends SkinnableComponent
     {
         super.createChildren();
         
-        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
-        
         // Only listen for softKeyboardEvents if the 
         // softKeyboardBehavior attribute in the application descriptor equals "none"
-        // Check that the top level app has resizeForSoftKeyboard == true
-        if (topLevelApp && topLevelApp.resizeForSoftKeyboard && Application.softKeyboardBehavior == "none")
+        if (Application.softKeyboardBehavior == "none")
         {
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
                 softKeyboardActivateHandler, false, 
@@ -3021,15 +3066,21 @@ public class Scroller extends SkinnableComponent
      *  @private
      *  Snap the scroll positions to valid values.
      */
-    private function snapContentScrollPosition():void
+    private function snapContentScrollPosition(snapHorizontal:Boolean = true, snapVertical:Boolean = true):void
     {
-        viewport.horizontalScrollPosition = getSnappedPosition( 
-            Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
-            HORIZONTAL_SCROLL_POSITION);
+        if (snapHorizontal)
+        {
+            viewport.horizontalScrollPosition = getSnappedPosition( 
+                Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
+                HORIZONTAL_SCROLL_POSITION);
+        }
 
-        viewport.verticalScrollPosition = getSnappedPosition( 
-            Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
-            VERTICAL_SCROLL_POSITION);
+        if (snapVertical)
+        {
+            viewport.verticalScrollPosition = getSnappedPosition( 
+                Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
+                VERTICAL_SCROLL_POSITION);
+        }
     }
     
     /**
