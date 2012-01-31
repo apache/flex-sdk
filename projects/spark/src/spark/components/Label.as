@@ -36,13 +36,12 @@ import flashx.textLayout.compose.TextLineRecycler;
 
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
-import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.mx_internal;
-import mx.managers.ISystemManager;
 
 import spark.components.supportClasses.TextBase;
+import spark.utils.TextUtil;
 
 use namespace mx_internal;
 
@@ -191,7 +190,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *    direction="ltr"
  *    dominantBaseline="auto"
  *    fontFamily="Arial"
- *    fontLookup="device"
+ *    fontLookup="embeddedCFF"
  *    fontSize="12"
  *    fontStyle="normal"
  *    fontWeight="normal"
@@ -232,7 +231,6 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  @productversion Flex 4
  */
 public class Label extends TextBase
-    implements IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -255,8 +253,6 @@ public class Label extends TextBase
         
         staticEastAsianJustifier = new EastAsianJustifier();
         
-        staticTextFormat = new TextFormat();
-
         if ("recreateTextLine" in staticTextBlock)
             recreateTextLine = staticTextBlock["recreateTextLine"];
     }
@@ -292,12 +288,6 @@ public class Label extends TextBase
      */
     private static var staticEastAsianJustifier:EastAsianJustifier;
     
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
-     */
-    private static var staticTextFormat:TextFormat;
-        
     /**
      *  @private
      *  A reference to the recreateTextLine() method in staticTextBlock,
@@ -415,42 +405,6 @@ public class Label extends TextBase
      *  to render the text.
      */
     private var elementFormat:ElementFormat;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IFontContextComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  fontContext
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _fontContext:IFlexModuleFactory;
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get fontContext():IFlexModuleFactory
-    {
-        return _fontContext;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontContext(value:IFlexModuleFactory):void
-    {
-        _fontContext = value;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -603,6 +557,12 @@ public class Label extends TextBase
                     FontLookup.EMBEDDED_CFF :
                     FontLookup.DEVICE;
             }
+            else if (s == FontLookup.EMBEDDED_CFF && !embeddedFontContext)
+            {
+                // If the embedded font isn't found, fall back to device font,
+                // before falling back to the player's default font.
+                s = FontLookup.DEVICE;
+            }
             fontDescription.fontLookup = s;
         }
         
@@ -703,40 +663,6 @@ public class Label extends TextBase
         return elementFormat;
     }
     
-    /**
-     *  @private
-     *  Uses the component's CSS styles to determine the module factory
-     *  that should creates its TextLines.
-     */
-    private function getEmbeddedFontContext():IFlexModuleFactory
-    {
-        var moduleFactory:IFlexModuleFactory;
-        
-        var fontLookup:String = getStyle("fontLookup");
-        if (fontLookup != FontLookup.DEVICE)
-        {
-            var font:String = getStyle("fontFamily");
-            var bold:Boolean = getStyle("fontWeight") == "bold";
-            var italic:Boolean = getStyle("fontStyle") == "italic";
-            
-            var localLookup:ISystemManager = 
-                fontContext && fontContext is ISystemManager ? 
-                ISystemManager(fontContext) : systemManager;
-                
-            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-                font, bold, italic, this, fontContext, localLookup, true);
-        }
-
-        if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
-        {
-            // if we couldn't find the font and somebody insists it is
-            // embedded, try the default fontContext
-            moduleFactory = fontContext;
-        }
-        
-        return moduleFactory;
-    }
-
     /**
      *  @private
      */
