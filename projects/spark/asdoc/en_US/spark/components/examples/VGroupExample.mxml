@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Spark Group component. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo" >
+
+    <s:Panel title="VGroup Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0"> 
+        <s:Group left="10" right="10" top="10" bottom="10">
+        
+            <s:VGroup gap="1">
+                <s:Button label="1" width="50" height="50" />
+                <s:Button label="2" width="50" height="50" />
+                <s:Button label="3" width="50" height="50" />
+                <s:Button label="4" width="50" height="50" />        
+            </s:VGroup>
+            
+        </s:Group>
+    </s:Panel>
+
+</s:Application>
