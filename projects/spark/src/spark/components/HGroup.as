@@ -18,14 +18,29 @@ import spark.layouts.supportClasses.LayoutBase;
 [IconFile("HGroup.png")]
 
 /**
- * A Group with a HorizontalLayout.  
+ *  The HGroup container is an instance of the Group container 
+ *  that uses the HorizontalLayout class.  
+ *  Do not modify the <code>layout</code> property. 
+ *  instead, use the properties of the HGroup class to modify the 
+ *  characteristics of the HorizontalLayout class.
  * 
- * All of the HorizontalLayout properties exposed by this class are simply
- * delegated to the layout property.
+ *  @mxml
+ *
+ *  <p>The <code>&lt;HGroup&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;HGroup
+ *    <strong>Properties</strong>
+ *    columnWidth="no default"
+ *    gap="6"
+ *    requestedColumnCount="-1"
+ *    variableColumnWidth"true"
+ *    verticalAlign="top"
+ *  /&gt;
+ *  </pre>
  * 
- * The layout property should not be set or configured directly.
- * 
- * @see spark.layouts.HorizontalLayout
+ *  @see spark.layouts.HorizontalLayout
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,15 +49,14 @@ import spark.layouts.supportClasses.LayoutBase;
  */
 public class HGroup extends Group
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     /**
-     *  Initializes the layout property to an instance of HorizontalLayout.
+     *  Constructor. 
+     *  Initializes the <code>layout</code> property to an instance of 
+     *  the HorizontalLayout class.
      * 
-     *  Resetting the layout property or setting its properties directly
-     *  is not supported.
-     * 
-     *  @see spark.layouts.HorizontalLayout
+     *  @see spark.layout.HorizontalLayout
      *  @see spark.components.VGroup
      *  
      *  @langversion 3.0
@@ -72,7 +86,9 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.HorizontalLayout#gap
+     *  @copy spark.layouts.HorizontalLayout#gap
+     * 
+     *  @default 6
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -99,7 +115,9 @@ public class HGroup extends Group
     [Bindable("propertyChange")]    
         
     /**
-     * @copy spark.layouts.HorizontalLayout#columnCount
+     *  @copy spark.layouts.HorizontalLayout#columnCount
+     * 
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -116,7 +134,9 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.HorizontalLayout#requestedColumnCount
+     *  @copy spark.layouts.HorizontalLayout#requestedColumnCount
+     * 
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -171,6 +191,8 @@ public class HGroup extends Group
 
     /**
      * @copy spark.layouts.HorizontalLayout#variableColumnWidth
+     * 
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -195,7 +217,9 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy spark.layouts.HorizontalLayout#verticalAlign
+     *  @copy spark.layouts.HorizontalLayout#verticalAlign
+     *  
+     *  @default "top"
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -222,7 +246,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy spark.layouts.HorizontalLayout#firstIndexInView
+     *  @copy spark.layouts.HorizontalLayout#firstIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
