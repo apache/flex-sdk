@@ -1422,11 +1422,6 @@ public class Scroller extends SkinnableComponent
         else if (canScrollVertically)
             scrollProperty = VERTICAL_SCROLL_POSITION;
         
-        // If there's an animation playing, we need
-        // to stop it before we snap the element into
-        // position.
-        stopAnimations();
-
         if (animate)
         {
             if (!snapElementAnimation)
@@ -1448,18 +1443,6 @@ public class Scroller extends SkinnableComponent
 			return null;
         }
     }
-    
-    /**
-     *  @private 
-     */
-    private function stopAnimations():void
-    {
-        if (throwEffect && throwEffect.isPlaying)
-            throwEffect.stop();
-        if (snapElementAnimation && snapElementAnimation.isPlaying)
-            snapElementAnimation.stop();
-    }
-
     
     //--------------------------------------------------------------------------
     // 
@@ -2541,12 +2524,6 @@ public class Scroller extends SkinnableComponent
             {
                 installTouchListeners();
                 
-                // Need to make sure the scroll ranges are updated now, since they may
-                // not have been if the scroller was in non-touch mode when the content
-                // was created/changed.
-                scrollRangesChanged = true;
-                invalidateProperties();
-
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper();
@@ -2669,14 +2646,12 @@ public class Scroller extends SkinnableComponent
         
         if (pageScrollingChanged)
         {
-            stopAnimations();
             determineCurrentPageScrollPosition();
             pageScrollingChanged = false;
         }
         
         if (snappingModeChanged)
         {
-            stopAnimations();
             snapContentScrollPosition();
             snappingModeChanged = false;                
         }
@@ -3030,12 +3005,6 @@ public class Scroller extends SkinnableComponent
     private function mouseDownHandler(event:MouseEvent):void
     {
         stopThrowEffectOnMouseDown();
-        
-        // If the snap animation is playing, we need to stop it
-        // before watching for a scroll and potentially beginning
-        // a new touch interaction.
-        if (snapElementAnimation && snapElementAnimation.isPlaying)
-            snapElementAnimation.stop();
         
         captureNextClick = false;
         
