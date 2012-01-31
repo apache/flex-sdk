@@ -460,6 +460,8 @@ include "../styles/metadata/TextStyles.as"
 
 [IconFile("ComboBox.png")]
 
+[Alternative(replacement="spark.components.DropDownList", since="4.0")]
+
 /**
  *  The ComboBox control contains a drop-down list
  *  from which the user can select a single value.
