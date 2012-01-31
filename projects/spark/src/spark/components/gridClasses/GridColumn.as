@@ -1045,7 +1045,7 @@ public class GridColumn extends EventDispatcher
         const tipField:String = (dataTipField) ? dataTipField : grid.dataTipField;
         const tipPath:Array = (tipField) ? [tipField] : dataFieldPath;
         
-        return itemToString(item, tipPath, tipFunction);      
+        return itemToString(item, tipPath, tipFunction, this);      
     }
     
     /**
