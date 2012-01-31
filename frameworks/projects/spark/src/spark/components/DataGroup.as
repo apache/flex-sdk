@@ -612,6 +612,17 @@ public class DataGroup extends GroupBase
 
     /**
      *  @private
+     *  Provisional access to the item renderers for FxList and FxButtonBar.
+     */
+    internal function getItemIndexForRenderer(renderer:IVisualElement):int
+    {
+        var child:DisplayObject = DisplayObject(renderer);
+        return (child.parent == this) ? super.getChildIndex(child) : -1;
+    }
+    
+    
+    /**
+     *  @private
      */
     override public function invalidateLayering():void
     {
