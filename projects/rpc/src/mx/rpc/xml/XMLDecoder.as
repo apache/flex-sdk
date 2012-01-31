@@ -1010,7 +1010,7 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
             return true;
         }
 
-		// If maxOccurs > 1 we always create an array, even if it will be empty or null.
+        // If maxOccurs > 1 we always create an array, even if it will be empty or null.
         if (maxOccurs > 1)
         {
             // If we have a type, provide this when creating an array in case
@@ -1025,12 +1025,23 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
             var emptyArray:* = createIterableValue(typeQName);
 
             // If this is not the only property in the definition, we assign the
-            // array on a named property on the parent. If this property has no 
-            // siblings, the array should be the parent object itself.
-			if (hasSiblings)
-			    setValue(parent, elementQName, emptyArray, typeQName);
-			else
-			    setValue(parent, null, emptyArray, typeQName);
+            // array on a named property on the parent.
+            if (hasSiblings)
+            {
+                setValue(parent, elementQName, emptyArray, typeQName);
+            }
+            else
+            {
+                // If this is a "wrapped array", the iterable value should be assigned
+                // as the value of the parent itself. However, we only replace
+                // the parent if it hasn't been created already. (It could be
+                // created if the parent QName has a registered collectionClass
+                // in the SchemaTypeRegistry - see bug FB-11399).
+                if (!(parent is ContentProxy && parent.object_proxy::content != undefined))
+                {
+                    setValue(parent, null, emptyArray, typeQName);
+                }
+            }
         }
 
         // If minOccurs == 0 the element is optional so we can omit it if
