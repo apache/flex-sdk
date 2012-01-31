@@ -21,7 +21,7 @@ package spark.components.supportClasses
     /**
      *  A DisplayLayer class maintains an ordered list of DisplayObjects sorted on
      *  depth.
-     *  Developers don't instantiate this class, but use the <code>overlay</code>
+     *  You do not instantiate this class, but use the <code>overlay</code>
      *  property of <code>Group</code> and <code>DataGroup</code>.
      *
      *  @see spark.components.Group#overlay
@@ -83,6 +83,10 @@ package spark.components.supportClasses
         
         /**
          *  Returns the DisplayObject with the specified index. 
+         *
+         *  @param index The index of the object.
+         *
+         *  @return The object.
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -99,6 +103,10 @@ package spark.components.supportClasses
         
         /**
          *  Returns the depth for the specified DisplayObject.
+         *
+         *  @param displayObject The object.
+         *
+         *  @return The depth of the object.
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -117,10 +125,15 @@ package spark.components.supportClasses
         /**
          *  Adds a <code>displayObject</code> with the specified depth to the ordered list.
          *  The position of the <code>displayObject</code> in the sorted lists is based on
-         *  its depth, the object will be inserted after all objects with less than or equal
-         *  depth value.
+         *  its depth.
+         *  The object is inserted after all objects with less than or equal
+         *  <code>depth</code> value.
+         *
+         *  @param displayObject The object to add.
+         *
+         *  @param depth The depth of the object.   
          * 
-         *  @return Returns the index of the object.
+         *  @return The index of the object.
          *
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -161,6 +174,10 @@ package spark.components.supportClasses
         
         /**
          *  Removes the specified <code>displayObject</code> from the sorted list.
+         *
+         *  @param displayObject The object.
+         *
+         *  @return The removed object.
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
