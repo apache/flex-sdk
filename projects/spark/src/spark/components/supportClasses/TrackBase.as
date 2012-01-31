@@ -513,9 +513,8 @@ public class TrackBase extends Range
     {
         var range:Number = maximum - minimum;
         
-        if (range == 0) // Divide by 0 error.
+        if (range <= 0) // Divide by 0 error or nonsense
             return 0;
-            
         var posRange:Number = trackSize - thumbSize;
         var thumbPos:Number = (value - minimum) * (posRange / range);
         
