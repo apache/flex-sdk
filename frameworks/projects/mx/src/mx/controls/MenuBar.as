@@ -38,6 +38,7 @@ import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -1801,7 +1802,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         
         // If the layout has been mirrored, then the 0,0 is the uppper
         // right corner; compensate here.
-        if (layoutDirection == "rtl")
+        if (layoutDirection == LayoutDirection.RTL)
             pt.x -= menu.getExplicitOrMeasuredWidth();
 
         // check to see if we'll go offscreen
