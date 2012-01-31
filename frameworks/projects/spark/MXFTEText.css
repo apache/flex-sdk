@@ -12,20 +12,35 @@
 */
 
 /*
-    This style sheet should be used if you would like to use the new
-    Flash Text Engine (FTE) and Text Layout Framework (TLF) text in your Halo
-    controls.  FTE/TLF provides text editing with high-quality international
-    typography and layout.  It supports displaying left-to-right (ltr) text such 
-    as French, right-to-left (rtl) text such as Arabic, and bidirectional text
-    such as a French phrase inside of an Arabic one.
+    This style sheet configures many -- but not all -- MX components
+    to use the new Flash Text Engine (FTE) and Text Layout Framework (TLF)
+    to display and edit text, rather than using the older TextField class.
+
+    If you are using the command-line MXML compiler, you should apply
+    this style sheet as one of the themes for your application:
+
+        mxmlc -theme+=frameworks/projects/spark/MXFTEText.css MyApp.mxml
+
+    FTE and TLF provide text rendering and editing
+    with high-quality international typography and layout.
+    They support displaying left-to-right (ltr) text such as French,
+    right-to-left (rtl) text such as Arabic, and bidirectional text
+    such as a French phrase inside of an Arabic sentence.
+    FTE and TLF are used for all text rendering in Spark components.
+
+    By using this style sheet, your MX and Spark components can use
+	the same embedded font; otherwise, you have to embed a font twice,
+	once with embedAsCFF="true" for Spark components using FTE/TLF
+	and once with embedAsCFF="false" for MX components using TextField.
+
+    Note: The <mx:TextInput>, <mx:TextArea>, and <mx:RichTextEditor>
+	components are not supported by this style sheet, because the
+	FTETextField class does not support all the functionality
+	that TextField supports.
+	You should use the <s:TextInput>, <s:TextArea>, and <s:RichEditableText>
+	components instead if you require FTE/TLF text.
 
     You should not modify this file.
-
-    You use this style sheet by applying it as theme to your application.
-
-    Alternatively you may apply this style sheet in your application with
-        <fx:Style source="path/MXFTEText.css" />
-    but you will see compiler warnings for any unused selectors.
 */
 
 @namespace "library://ns.adobe.com/flex/halo";
