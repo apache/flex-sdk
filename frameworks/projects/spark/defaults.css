@@ -15,7 +15,7 @@
 
 FxButton
 {
-	skinZZ: ClassReference("mx.skins.spark.FxButtonSkin");
+	skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
 	
 	/* These font styles are shared by all Button subclasses,
 	   including ToggleButton, RadioButton, and CheckBox. */
@@ -26,82 +26,82 @@ FxButton
 
 FxCheckBox
 {
-	skinZZ: ClassReference("mx.skins.spark.FxCheckBoxSkin");
+	skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
 }
 
-FxDataComponent
+FxDataContainer
 {
-	skinZZ: ClassReference("mx.skins.spark.FxDataContainerSkin");
+	skinClass: ClassReference("mx.skins.spark.FxDataContainerSkin");
 }
 
 FxHScrollBar
 {
-    skinZZ: ClassReference("mx.skins.spark.FxHScrollBarSkin");
+    skinClass: ClassReference("mx.skins.spark.FxHScrollBarSkin");
 }
 
 FxHSlider
 {
-    skinZZ: ClassReference("mx.skins.spark.FxHSliderSkin");
+    skinClass: ClassReference("mx.skins.spark.FxHSliderSkin");
 }
 
 FxContainer
 {
-	skinZZ: ClassReference("mx.skins.spark.FxContainerSkin");
+	skinClass: ClassReference("mx.skins.spark.FxContainerSkin");
 }
 
 FxList
 {
-	skinZZ: ClassReference("mx.skins.spark.FxListSkin");
+	skinClass: ClassReference("mx.skins.spark.FxListSkin");
 }
 
 FxNumericStepper
 {
-    skinZZ: ClassReference("mx.skins.spark.FxNumericStepperSkin");
+    skinClass: ClassReference("mx.skins.spark.FxNumericStepperSkin");
 }
 
 FxRadioButton
 {
-	skinZZ: ClassReference("mx.skins.spark.FxRadioButtonSkin");
+	skinClass: ClassReference("mx.skins.spark.FxRadioButtonSkin");
 }
 
 FxScroller
 {
-    skinZZ: ClassReference("mx.skins.spark.FxScrollerSkin");
+    skinClass: ClassReference("mx.skins.spark.FxScrollerSkin");
 }
 
 FxSpinner
 {
-    skinZZ: ClassReference("mx.skins.spark.FxSpinnerSkin");    
+    skinClass: ClassReference("mx.skins.spark.FxSpinnerSkin");    
 }
 
 FxTextArea
 {
-	skinZZ: ClassReference("mx.skins.spark.FxTextAreaSkin");
+	skinClass: ClassReference("mx.skins.spark.FxTextAreaSkin");
 }
 
 FxTextInput
 {
-	skinZZ: ClassReference("mx.skins.spark.FxTextInputSkin");
+	skinClass: ClassReference("mx.skins.spark.FxTextInputSkin");
 }
 
 FxToggleButton
 {
-	skinZZ: ClassReference("mx.skins.spark.FxToggleButtonSkin");
+	skinClass: ClassReference("mx.skins.spark.FxToggleButtonSkin");
 }
 
 FxVScrollBar
 {
-	skinZZ: ClassReference("mx.skins.spark.FxVScrollBarSkin");
+	skinClass: ClassReference("mx.skins.spark.FxVScrollBarSkin");
 }
 
 FxVSlider
 {
-    skinZZ: ClassReference("mx.skins.spark.FxVSliderSkin");
+    skinClass: ClassReference("mx.skins.spark.FxVSliderSkin");
 }
 
 FxApplication
 {
-	skinZZ: ClassReference("mx.skins.spark.FxApplicationSkin");
+	skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
 }
 
 /* Default text styles for the Gumbo components. Eventually these
