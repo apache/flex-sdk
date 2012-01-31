@@ -71,18 +71,6 @@ public class Skin extends Group
 	{
 		super();
 	}
-
-	/**
-	 *  items that should be included when rendering the focus ring.
-	 *  Only items of type DisplayObject or GraphicElement should be excluded. Items
-	 *  of other types will be ignored.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get focusSkinExclusions():Array { return null;}
     
     /**
      *  @private
