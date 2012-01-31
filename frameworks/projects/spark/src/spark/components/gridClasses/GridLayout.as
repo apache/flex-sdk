@@ -233,13 +233,13 @@ public class GridLayout extends LayoutBase
      */
     override public function getElementBounds(index:int):Rectangle
     {
-        const dataProvider:IList = (grid) ? grid.dataProvider : null;
-        if (!dataProvider || (dataProvider.length == 0)) 
+        const columns:IList = (grid) ? grid.columns : null;
+        if (!columns) 
             return null;
         
-        const rowCount:uint = dataProvider.length;
-        const rowIndex:int = index / rowCount;
-        const columnIndex:int = index - (rowIndex * rowCount);
+        const columnsLength:uint = columns.length;
+        const rowIndex:int = index / columnsLength;
+        const columnIndex:int = index - (rowIndex * columnsLength);
         return gridDimensions.getCellBounds(rowIndex, columnIndex); 
     }
     
