@@ -279,9 +279,14 @@ public class TextView extends UIComponent implements IViewport
         if (value == _content)
             return;
 
+        // Setting 'content' temporarily causes 'text' to become null.
+        // Later, after the 'content' has been committed into the TextFlow,
+        // getting 'text' will extract the text from the TextFlow.
+        _text = null;
+        textChanged = false;
+
         _content = value;
         contentChanged = true;
-        textInvalid = true;
 
         invalidateSize();
         invalidateDisplayList();
@@ -533,7 +538,7 @@ public class TextView extends UIComponent implements IViewport
     private var textChanged:Boolean = false;
 
     /**
-     *  The text String displayed by this TextView..
+     *  The text String displayed by this TextView.
      */
     public function get text():String 
     {
@@ -551,9 +556,17 @@ public class TextView extends UIComponent implements IViewport
      */
     public function set text(value:String):void
     {
-        if (value == _text)
+		// If 'text' is being set after 'content', ignore it
+        // because 'content' has precedence.
+        if (contentChanged)
             return;
 
+        // Setting 'text' temporarily causes 'content' to become null.
+        // Later, after the 'text' has been committed into the TextFlow,
+        // getting 'content' will return the TextFlow.
+        _content = null;
+        contentChanged = false;
+        
         _text = value;
         textChanged = true;
         
@@ -774,6 +787,11 @@ public class TextView extends UIComponent implements IViewport
             if (textFlow && textFlow.flowComposer)
                 textFlow.flowComposer.removeControllerAt(0);
 
+            // If the text was changed, clear the selection.
+            if (textChanged || contentChanged)
+            	if (textFlow.interactionManager)
+                	textFlow.interactionManager.setSelection(-1, -1);
+            
             // Create a new TextFlow for the current text.
             _content = textFlow = createTextFlow();
                         
@@ -784,8 +802,8 @@ public class TextView extends UIComponent implements IViewport
             textFlow.flowComposer = flowComposer;
             
             // Give it an EditManager to make it editable.
-            textFlow.interactionManager = new TextViewEditManager(); 
-            
+            textFlow.interactionManager = new TextViewEditManager();
+
             // Listen to events from the TextFlow and its EditManager.
             addListeners(textFlow);
             
@@ -931,52 +949,49 @@ public class TextView extends UIComponent implements IViewport
 	 */
 	private function createTextFlow():TextFlow
 	{
-		if (contentChanged || textChanged)
-        {
-		    if (contentChanged)
-		    {
-                if (content is TextFlow)
-                {
-                    textFlow = TextFlow(content);
-                }
-                else if (content is Array)
-                {
-                    textFlow = new TextFlow();
-                    textFlow.mxmlChildren = content as Array;
-                }
-                else if (content is FlowElement)
-                {
-                    textFlow = new TextFlow();
-                    textFlow.mxmlChildren = [ content ];
-                }
-			    else if (content is String)
-			    {
-				    textFlow = importMarkup(String(content));
-			    }
-			    else if (content == null)
-			    {
-				    textFlow = createEmptyTextFlow();
-			    }
-                else
-                {
-                    throw new Error("invalid content");
-                }
-		    }
-		    else if (textChanged)
-		    {
-			    if (text != null && text != "")
-			    {
-				    textFlow = TextFilter.importToFlow(text, TextFilter.PLAIN_TEXT_FORMAT);
-			    }
-			    else
-			    {
-				    textFlow = createEmptyTextFlow();
-			    }
-		    }
-        }
-
- 		contentChanged = false;
-		textChanged = false;
+		if (contentChanged)
+		{
+            if (_content is TextFlow)
+            {
+                textFlow = TextFlow(_content);
+            }
+            else if (_content is Array)
+            {
+                textFlow = new TextFlow();
+                textFlow.mxmlChildren = _content as Array;
+            }
+            else if (_content is FlowElement)
+            {
+                textFlow = new TextFlow();
+                textFlow.mxmlChildren = [ _content ];
+            }
+			else if (_content is String)
+			{
+				textFlow = importMarkup(String(_content));
+			}
+			else if (_content == null)
+			{
+				textFlow = createEmptyTextFlow();
+			}
+            else
+            {
+                throw new Error("invalid content");
+            }
+            textInvalid = true;
+            dispatchEvent(new Event("textInvalid"));
+		}
+		else if (textChanged)
+		{
+            var t:String = _text;
+			if (t != null && t != "")
+			{
+				textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
+			}
+			else
+			{
+				textFlow = createEmptyTextFlow();
+			}
+		}
 
         if (hostFormatsInvalid)
         {
@@ -1324,6 +1339,7 @@ public class TextView extends UIComponent implements IViewport
         // cause the 'text' getter to call extractText() to extract
         // the text by walking the TextFlow.
         textInvalid = true;
+        dispatchEvent(new Event("textInvalid"));
 
         // Dispatch a 'change' event from the TextView
         // as notification that an editing operation has occurred.
