@@ -557,7 +557,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  width,height is this DataGroup's with and height.
      *
      *  This method is intended to be overriden by subclasses that
-     *  need to handle virtualzed getLayoutElement requests specially.
+     *  need to handle virtualized getLayoutElement requests specially.
      *  
      *  This method is called at updateDisplayList time and when
      *  the scroll position changes.
