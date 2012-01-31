@@ -2507,7 +2507,9 @@ package spark.components
                 
                 textChanged = false;
                 textFlowChanged = false;
-                contentChanged = false;             
+                contentChanged = false;
+				invalidateSize();
+				invalidateDisplayList();
             }
             
             // If displayAsPassword changed, it only applies to the display, 
