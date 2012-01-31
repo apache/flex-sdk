@@ -85,6 +85,8 @@ use namespace mx_internal;
 
 [Alternative(replacement="spark.components.ButtonBar", since="4.0")]
 
+[DefaultTriggerEvent("itemClick")]
+
 /**
  *  The ToggleButtonBar control defines a horizontal or vertical 
  *  group of buttons that maintain their selected or deselected state.
