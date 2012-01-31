@@ -9,31 +9,31 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.FxSlider;
+import spark.components.supportClasses.Slider;
 import mx.core.UIComponent;
 import mx.core.ILayoutElement;
-import mx.layout.LayoutElementFactory;
+import spark.layout.supportClasses.LayoutElementFactory;
 
-[IconFile("FxVSlider.png")]
+[IconFile("VSlider.png")]
 
 /**
- *  The FxVSlider class defines a vertical slider component.
+ *  The VSlider class defines a vertical slider component.
  *
- *  @includeExample examples/FxVSliderExample.mxml
+ *  @includeExample examples/VSliderExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxVSlider extends FxSlider
+public class VSlider extends Slider
 {
     include "../core/Version.as";
 
@@ -51,7 +51,7 @@ public class FxVSlider extends FxSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxVSlider()
+    public function VSlider()
     {
         super();
     }
@@ -142,7 +142,7 @@ public class FxVSlider extends FxSlider
     }
     
     /**
-     *  Return the position of the thumb button on a FxVSlider component.
+     *  Return the position of the thumb button on a VSlider component.
      *  This value is equal to the
      *  track height subtracted by the Y position of the thumb button
      *  relative to the track, and subtracted by the height of the thumb button.
