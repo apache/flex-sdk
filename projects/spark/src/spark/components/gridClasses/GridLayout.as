@@ -461,6 +461,8 @@ public class GridLayout extends LayoutBase
         const startColIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
         const startCellR:Rectangle = gridDimensions.getCellBounds(startRowIndex, startColIndex);        
+        if (!startCellR)
+            return;
         
         // Compute newVisibleColumns
         
