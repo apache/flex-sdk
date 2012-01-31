@@ -71,8 +71,6 @@ use namespace mx_internal;
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="content", kind="property")]
-
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
@@ -1021,12 +1019,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         // Remove the item from the group if that group isn't this group
         if (host && host is IVisualElementContainer && host != this)
             IVisualElementContainer(host).removeElement(item);
-        else if (host && host is DataGroup && host != this)
-        {
-            var dp:IList = DataGroup(host).dataProvider;
-            var index:int = dp.getItemIndex(item);
-            dp.removeItemAt(index);
-        }
+        
         
         // Calling removeItem should have already removed the child. This
         // should handle the case when we don't call removeItem
