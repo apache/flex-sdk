@@ -150,6 +150,7 @@ public class MXTreeItemRenderer extends MXItemRenderer
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
      *  Handle special behavior when clicking on the disclosure icon
      */
     protected function disclosureGroup_mouseDownHandler(event:MouseEvent):void
@@ -171,6 +172,7 @@ public class MXTreeItemRenderer extends MXItemRenderer
     }
     
     /**
+     *  @private
      *  Handle special behavior when clicking on the disclosure icon
      */
     protected function disclosureGroup_clickHandler(event:MouseEvent):void
