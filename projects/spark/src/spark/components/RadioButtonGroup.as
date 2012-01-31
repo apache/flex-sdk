@@ -75,7 +75,7 @@ use namespace mx_internal;
  *  that act as a single mutually exclusive control; therefore,
  *  a user can select only one  control at a time.
  *  The <code>id</code> property is required when you use the
- *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag to define the name
+ *  <code>&lt;s:RadioButtonGroup&gt;</code> tag to define the name
  *  of the group.
  *
  *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher,
@@ -93,14 +93,15 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Group&gt;</code> tag inherits all of the
+ *  <p>The <code>&lt;s:Group&gt;</code> tag inherits all of the
  *  tag attributes of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:RadioButtonGroup
+ *  &lt;s:RadioButtonGroup
  *    <strong>Properties</strong>
- *    enabled="true|false"
- *    id="<i>No default</i>"
+ *    enabled="true"
+ *    selectedValue="null"
+ *    selection="null"
  *
  *    <strong>Events</strong>
  *    change="<i>No default</i>"
@@ -108,7 +109,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.RadioButton
+ *  @see spark.components.RadioButton
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -381,8 +382,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @param index The index of the  control in the
      *  RadioButtonGroup control, where the index of the first control is 0.
      *
-     *  @return The specified RadioButton control if index between
-     *  0 and numRadioButtons, otherwise null.
+     *  @return The specified RadioButton control if index is between
+     *  0 and the value of <code>numRadioButtons</code>, otherwise, <code>null</code>.
      * 
      *  @see numRadioButtons
      *  
