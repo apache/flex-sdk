@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flashx.textLayout.controls
+package mx.core
 {
 	
 import flash.display.DisplayObject;
@@ -57,10 +57,10 @@ import flashx.textLayout.formats.LeadingModel;
 import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
 import flashx.textLayout.formats.TextLayoutFormat;
-import flashx.textLayout.tlf_internal;
 
-// FIXME (gosmith): mx_internal once the class moves to mx.core
-use namespace tlf_internal;
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
 /**
  *  TLFTextField is a Sprite which displays text by using the new
@@ -141,10 +141,10 @@ public class TLFTextField extends Sprite
 	 *  @private
 	 *  TextField has fixed 2-pixel padding.
 	 */
-	tlf_internal static const PADDING_LEFT:Number = 2;
-	tlf_internal static const PADDING_TOP:Number = 2;
-	tlf_internal static const PADDING_RIGHT:Number = 2;
-	tlf_internal static const PADDING_BOTTOM:Number = 2;
+	mx_internal static const PADDING_LEFT:Number = 2;
+	mx_internal static const PADDING_TOP:Number = 2;
+	mx_internal static const PADDING_RIGHT:Number = 2;
+	mx_internal static const PADDING_BOTTOM:Number = 2;
 	
 	/**
 	 *  @private
@@ -902,7 +902,7 @@ public class TLFTextField extends Sprite
 	 *  The getter returns a copy of the object stored here.
 	 *  Note that No field of this TextFormat will ever be null.
 	 */
-	tlf_internal var _defaultTextFormat:TextFormat;
+	mx_internal var _defaultTextFormat:TextFormat;
 	
 	/**
 	 *  @copy flash.text.TextField#defaultTextFormat
@@ -2949,15 +2949,16 @@ import flash.text.engine.FontWeight;
 import flash.text.engine.Kerning;
 
 import flashx.textLayout.container.TextContainerManager;
-import flashx.textLayout.controls.TLFTextField;
 import flashx.textLayout.elements.IConfiguration;
 import flashx.textLayout.formats.ITextLayoutFormat;
 import flashx.textLayout.formats.LeadingModel;
 import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
-import flashx.textLayout.tlf_internal;
 
-use namespace tlf_internal;
+import mx.core.TLFTextField;
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
 /**
  *  @private
