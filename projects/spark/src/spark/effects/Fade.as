@@ -162,7 +162,8 @@ public class Fade extends Animate
             var container:* = target.parent;
             // if the target has no parent, return undefined for index to indicate that
             // it has no index value.
-            if (container === undefined || container === null)
+            if (container === undefined || container === null ||
+                ("mask" in container && container.mask == target))
                 return undefined;
             if (container is IVisualElementContainer)
                 return IVisualElementContainer(container).
