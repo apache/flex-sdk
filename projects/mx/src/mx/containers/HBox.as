@@ -38,6 +38,7 @@ use namespace mx_internal;
 [IconFile("HBox.png")]
 
 [Alternative(replacement="spark.components.HGroup", since="4.0")]
+[Alternative(replacement="spark.components.Border", since="4.0")]
 
 /**
  *  The Halo HBox container lays out its children in a single horizontal row.
