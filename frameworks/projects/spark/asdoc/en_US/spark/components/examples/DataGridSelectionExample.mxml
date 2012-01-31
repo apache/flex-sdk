@@ -145,7 +145,7 @@ Vector of CellPosition objects.
                      text="Selected Cells: minimum = {selectionMinimum}, maximum = {selectionMaximum}, average = {selectionAverage}"/>
         </s:controlBarContent>
 
-        <s:DataGrid id="dataGrid" left="5" right="5"
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5"
                 alternatingRowColors="[0xFFFFFF, 0xEDFFE9]"
                 selectionMode="multipleCells"
                 valueCommit="selectionChangeHandler()"
