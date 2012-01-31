@@ -142,17 +142,17 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     private static const forceLoad0:Class = flex.layout.BasicLayout;
     private static const forceLoad1:Class = flex.layout.HorizontalLayout;
     private static const forceLoad2:Class = flex.layout.VerticalLayout;
-     
+    
     public function set layout(value:Object):void
     {
     	if (value is ILayout) {
     		_layout = ILayout(value);
     	    _layoutClass = null;
-    	}
+    }
     	else if (value is String) {
     		_layout = null;
 		    _layoutClass = flash.utils.getDefinitionByName(String(value)) as Class;
-    	}
+    }
     	else if (value is Class) {
     		_layout = null;
     		_layoutClass = Class(value);
@@ -165,6 +165,62 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         invalidateProperties();    	
     }
 
+    private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
+    
+    public function get resizeMode():String
+    {
+        return ResizeMode.toString(_resizeMode);
+    }
+    
+    public function set resizeMode(stringValue:String):void
+    {
+        var value:uint = ResizeMode.toUINT(stringValue); 
+        if (_resizeMode == value)
+            return;
+            
+        _resizeMode = value;
+
+        // We need the measured values and _resizeMode affects
+        // our measure (skipMeasure implementation checks resizeMode) so
+        // we need to invalidate the size.
+        invalidateSize();
+
+        // TODO EGeorgie: can we directly call setActualSize instead?
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    override public function setActualSize(w:Number, h:Number):void
+    {
+        if (_resizeMode == ResizeMode._SCALE_UINT)
+        {
+            // TODO EGeorgie: make sure we don't invalidate again while
+            // setting the scale!
+            if (measuredWidth != 0)
+            {
+                scaleX = w / measuredWidth;
+                w = measuredWidth;
+            }
+            if (measuredHeight != 0)
+            {
+                scaleY = h / measuredHeight;
+                h = measuredHeight;
+            }
+        }
+
+        super.setActualSize(w, h);
+    }
+    
+    /**
+     *  @inheritDoc
+     */    
+    override protected function skipMeasure():Boolean
+    {
+        // We never want to skip measure, if we resize by scaling
+        return _resizeMode == ResizeMode._SCALE_UINT ? false : super.skipMeasure();
+    }
 
     protected function initializeChildrenArray():void
     {   
@@ -465,7 +521,7 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             UIComponent(parent).invalidateDisplayList();
         }
     }
-	    
+    
     //----------------------------------
     //  horizontal,verticalScrollPosition
     //----------------------------------
@@ -512,7 +568,7 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     [Bindable] public var contentHeight:Number;
 	
 
-    //--------------------------------------------------------------------------
+        //--------------------------------------------------------------------------
     //
     //  Properties: Overriden Focus management
     //
@@ -923,14 +979,14 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     //  Layout
     //
     //--------------------------------------------------------------------------
-  
+    
     protected function initializeLayoutObject():void
     {
 		if (_layout == null) {
 			_layout = (_layoutClass) ? new _layoutClass() : new BasicLayout();
 		}
         ILayout(_layout).target = this;
-            
+        
         invalidateSize();
         invalidateDisplayList();
     }
