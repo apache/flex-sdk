@@ -14,7 +14,7 @@
                     <s:VerticalLayout gap="1" />
                 </s:layout>
 
-                <s:SimpleText text="Group with a vertical layout" />
+                <s:Label text="Group with a vertical layout" />
                 <s:Rect width="150" height="20">
                     <s:fill>
                         <s:SolidColor color="0xE3E3E3" />
@@ -40,7 +40,7 @@
                     <s:HorizontalLayout gap="1" />
                 </s:layout>
 
-                <s:SimpleText text="Group with a horizontal layout" />
+                <s:Label text="Group with a horizontal layout" />
                 <s:Rect width="25" height="25">
                     <s:fill>
                         <s:SolidColor color="0xE3E3E3" />
@@ -70,7 +70,7 @@
                     </s:fill>
                 </s:Rect>
 
-                <s:SimpleText x="0" y="0" text="Group with a basic layout" />
+                <s:Label x="0" y="0" text="Group with a basic layout" />
                 <s:Rect x="20" y="20" width="30" height="25">
                     <s:fill>
                         <s:SolidColor color="0xE3E3E3" />
