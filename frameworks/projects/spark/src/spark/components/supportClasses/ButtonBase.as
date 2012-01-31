@@ -816,7 +816,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     
     /**
      *  @private
-     *  This method adds the mouseEventHandler as an event listener to
+     *  This method adds the systemManager_mouseUpHandler as an event listener to
      *  the stage and the systemManager so that it gets called even if mouse events
      *  are dispatched outside of the button. This is needed for example when the
      *  user presses the button, drags out and releases the button.
@@ -824,24 +824,24 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     private function addSystemMouseHandlers():void
     {
         systemManager.getSandboxRoot().addEventListener(
-            MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+            MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
 
         systemManager.getSandboxRoot().addEventListener(
-            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
     }
 
     /**
      *  @private
-     *  This method removes the mouseEventHandler as an event listener from
-     *  the stage and the systemManager.
+     *  This method removes the systemManager_mouseUpHandler as an event
+     *  listener from the stage and the systemManager.
      */
     private function removeSystemMouseHandlers():void
     {
         systemManager.getSandboxRoot().removeEventListener(
-            MouseEvent.MOUSE_UP, mouseEventHandler, true /* useCapture */);
+            MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
 
         systemManager.getSandboxRoot().removeEventListener(
-            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
     }
     
     /**
@@ -918,6 +918,23 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         autoRepeatTimer = null;
     }
 
+    /**
+     *  This method is called when handling a MouseEvent.MOUSE_UP event
+     *  when the user clicks on the button. It is only called when the button
+     *  is the target and when mouseCaptured is true. It allows subclasses
+     *  to update the properties of the button right as it is clicked to
+     *  avoid the button being in transitional states between the mouse up
+     *  and click events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function buttonReleased():void
+    {
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers: UIComponent
@@ -974,12 +991,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  where appropriate and updates the <code>hovered</code> and
      *  <code>mouseCaptured</code> properties.
      *  <p>This method gets called to handle MouseEvent.ROLL_OVER, MouseEvent.ROLL_OUT,
-     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, MouseEvent.CLICK and 
-     *  SandboxMouseEvent.MOUSE_UP_SOMEWHERE.</p>
-     *  <p>For MouseEvent.MOUSE_UP and SandboxMouseEvent.MOUSE_UP_SOMEWHERE, the event 
-     *  target can be other than the ButtonBase - for example when the user presses the 
-     *  ButtonBase, we listen for MOUSE_UP and MOUSE_UP_SOMEWHERE to handle cases where the user drags
-     *  outside the ButtonBase and releases the mouse.</p>
+     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, and MouseEvent.CLICK.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1008,7 +1020,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             
             case MouseEvent.MOUSE_DOWN:
             {
-                // When the button is down we need to listen for mouse events outsied the button so that
+                // When the button is down we need to listen for mouse events outside the button so that
                 // we update the state appropriately on mouse up.  Whenever mouseCaptured changes to false,
                 // it will take care to remove those handlers.
                 addSystemMouseHandlers();
@@ -1018,12 +1030,18 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 
             case MouseEvent.MOUSE_UP:
             {
-                if (event.currentTarget == this)
+                // Call buttonReleased() if we mouse up on the button and if the mouse
+                // was captured before.
+                if (event.target == this)
+                {
                     hovered = true;
-            } //fallthrough:
-            case SandboxMouseEvent.MOUSE_UP_SOMEWHERE:
-            {
-                mouseCaptured = false;
+                    
+                    if (mouseCaptured)
+                    {
+                        buttonReleased();
+                        mouseCaptured = false;
+                    }
+                }
                 break;
             }
 
@@ -1058,6 +1076,19 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
     }
 
+    /**
+     *  @private
+     */
+    private function systemManager_mouseUpHandler(event:Event):void
+    {
+        // If the target is the button, do nothing because the
+        // mouseEventHandler will be handle it.
+        if (event.target == this)
+            return;
+        
+        mouseCaptured = false;
+    }
+    
     /**
      *  @private
      */
