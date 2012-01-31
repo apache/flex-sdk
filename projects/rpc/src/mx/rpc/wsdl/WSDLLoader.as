@@ -81,6 +81,11 @@ public class WSDLLoader extends XMLLoader
     /**
      * Asynchronously loads a WSDL for a given URL, including resolving all
      * WSDL imports and includes and XML Schema imports and includes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function load(url:String):void
     {
@@ -170,6 +175,11 @@ public class WSDLLoader extends XMLLoader
      * This handler is triggered when all schema imports and
      * includes have loaded. This is necessary as the WSDL imports and
      * includes are likely to be finished before the schema sections.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function schemaLoadHandler(event:SchemaLoadEvent):void
     {
@@ -179,6 +189,11 @@ public class WSDLLoader extends XMLLoader
     /**
      * Checks whether a WSDL and all of its Schemas have finished loading.
      * If there are no loads outstanding, a WSDL load event will be dispatched.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function checkLoadsOutstanding():void
     {
@@ -208,6 +223,11 @@ public class WSDLLoader extends XMLLoader
      * 
      * The WSDLLoader attempts to keep track of imports to avoid cyclic
      * dependencies.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     private function wsdlImports(wsdl:WSDL, parentLocation:String):void
     {
