@@ -32,48 +32,8 @@ import spark.components.RichEditableText;
 use namespace mx_internal;
 
 //--------------------------------------
-//  Events
+//  Styles
 //--------------------------------------
-
-/**
- *  Dispached after the <code>selectionAnchorPosition</code> and/or
- *  <code>selectionActivePosition</code> properties have changed
- *  for any reason.
- *
- *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="selectionChange", type="mx.events.FlexEvent")]
-
-/**
- *  Dispatched before a user editing operation occurs.
- *  You can alter the operation, or cancel the event
- *  to prevent the operation from being processed.
- *
- *  @eventType spark.events.TextOperationEvent.CHANGING
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="changing", type="spark.events.TextOperationEvent")]
-
-/**
- *  Dispatched after a user editing operation is complete.
- *
- *  @eventType spark.events.TextOperationEvent.CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="change", type="spark.events.TextOperationEvent")]
 
 include "../../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../../styles/metadata/BasicInheritingTextStyles.as"
@@ -150,8 +110,55 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-[AccessibilityClass(implementation="spark.accessibility.SkinnableTextBaseAccImpl")]
+//--------------------------------------
+//  Events
+//--------------------------------------
 
+/**
+ *  Dispached after the <code>selectionAnchorPosition</code> and/or
+ *  <code>selectionActivePosition</code> properties have changed
+ *  for any reason.
+ *
+ *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="selectionChange", type="mx.events.FlexEvent")]
+
+/**
+ *  Dispatched before a user editing operation occurs.
+ *  You can alter the operation, or cancel the event
+ *  to prevent the operation from being processed.
+ *
+ *  @eventType spark.events.TextOperationEvent.CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="changing", type="spark.events.TextOperationEvent")]
+
+/**
+ *  Dispatched after a user editing operation is complete.
+ *
+ *  @eventType spark.events.TextOperationEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="change", type="spark.events.TextOperationEvent")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.SkinnableTextBaseAccImpl")]
 
 /**
  *  The base class for skinnable components, such as the Spark TextInput
@@ -272,10 +279,46 @@ public class SkinnableTextBase extends SkinnableComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Variables
+    //  Skin parts
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  textDisplay
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+    /**
+     *  The RichEditableText that may be present
+     *  in any skin assigned to this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var textDisplay:RichEditableText;
+
+    /**
+     *  @private
+     *  Several properties are proxied to textDisplay.  However, when 
+     *  textDisplay is not around, we need to store values set on 
+     *  SkinnableTextBase.  This object stores those values.  If textDisplay is 
+     *  around, the values are  stored  on the textDisplay directly.  However, 
+     *  we need to know what values have been set by the developer on 
+     *  TextInput/TextArea (versus set on the textDisplay or defaults of the 
+     *  textDisplay) as those are values we want to carry around if the 
+     *  textDisplay changes (via a new skin). In order to store this info 
+     *  efficiently, textDisplayProperties becomes a uint to store a series of 
+     *  BitFlags.  These bits represent whether a property has been explicitly 
+     *  set on this SkinnableTextBase.  When the  textDisplay is not around, 
+     *  textDisplayProperties is a typeless object to store these proxied 
+     *  properties.  When textDisplay is around, textDisplayProperties stores 
+     *  booleans as to whether these properties have been explicitly set or not.
+     */
+    private var textDisplayProperties:Object = {};
+   
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -751,42 +794,6 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
      }
 
-    //----------------------------------
-    //  textDisplay
-    //----------------------------------
-
-    [SkinPart(required="false")]
-
-    /**
-     *  The RichEditableText that may be present
-     *  in any skin assigned to this component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var textDisplay:RichEditableText;
-
-    /**
-     *  @private
-     *  Several properties are proxied to textDisplay.  However, when 
-     *  textDisplay is not around, we need to store values set on 
-     *  SkinnableTextBase.  This object stores those values.  If textDisplay is 
-     *  around, the values are  stored  on the textDisplay directly.  However, 
-     *  we need to know what values have been set by the developer on 
-     *  TextInput/TextArea (versus set on the textDisplay or defaults of the 
-     *  textDisplay) as those are values we want to carry around if the 
-     *  textDisplay changes (via a new skin). In order to store this info 
-     *  efficiently, textDisplayProperties becomes a uint to store a series of 
-     *  BitFlags.  These bits represent whether a property has been explicitly 
-     *  set on this SkinnableTextBase.  When the  textDisplay is not around, 
-     *  textDisplayProperties is a typeless object to store these proxied 
-     *  properties.  When textDisplay is around, textDisplayProperties stores 
-     *  booleans as to whether these properties have been explicitly set or not.
-     */
-    private var textDisplayProperties:Object = {};
-   
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
