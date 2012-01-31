@@ -2607,14 +2607,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
             contentHolder.addChildAt(rowBGs, 0);
         }
 
-		
-		var colors:Array;
-		var colorsStyle:Object = getStyle("alternatingItemColors");
-		
-		if (colorsStyle)
-			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
+        
+        var colors:Array;
+        var colorsStyle:Object = getStyle("alternatingItemColors");
+        
+        if (colorsStyle)
+            colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
 
-		if (!colors || colors.length == 0)
+        if (!colors || colors.length == 0)
         {
             while (rowBGs.numChildren > n)
             {
@@ -5390,12 +5390,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
         losingFocus = false;
     }
     
+    /**
+     *  @private
+     */ 
     protected function isComplexColumn( property:String ):Boolean
     {
         return ( property.indexOf( "." ) != -1 );
     }
 
     //Gets the reference to the parent object where a property will be updated
+    /**
+     *  @private
+     */ 
     protected function deriveComplexFieldReference( data:Object, complexFieldNameComponents:Array ):Object
     {
         var currentRef:Object = data;
@@ -5411,6 +5417,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
     //default implementations of these two methods, intended for subclassing
     //not checking if it really is a complex value here as the performance hit of doing this here is negligible
     //compared with every display
+    /**
+     *  @private
+     */ 
     protected function getCurrentDataValue( data:Object, property:String ):String
     {
         if ( !isComplexColumn( property ) )
@@ -5423,6 +5432,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
     }
 
     //Passing all of these parameters as it basically allows everything you would need to subclass for all sorts of fun implementations
+    /**
+     *  @private
+     */ 
     protected function setNewValue( data:Object, property:String, value:Object, columnIndex:int ):Boolean 
     {
         if ( !isComplexColumn( property ) )
