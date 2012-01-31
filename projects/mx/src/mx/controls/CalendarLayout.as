@@ -2178,9 +2178,13 @@ public class CalendarLayout extends UIComponent
 
         var daysInMonth:int = getNumberOfDaysInMonth(displayedYear, displayedMonth);
 
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                
         for (var i:uint = 0; i < 31; i++)
         {
-            if (event.keyCode == Keyboard.LEFT)
+            if (keyCode == Keyboard.LEFT)
             {
                 if (date > 1)
                 {
@@ -2191,7 +2195,7 @@ public class CalendarLayout extends UIComponent
                     return;
             }
     
-            else if (event.keyCode == Keyboard.RIGHT)
+            else if (keyCode == Keyboard.RIGHT)
             {
                 if (date < daysInMonth)
                 {
@@ -2202,7 +2206,7 @@ public class CalendarLayout extends UIComponent
                     return;
             }
     
-            else if (event.keyCode == Keyboard.UP)
+            else if (keyCode == Keyboard.UP)
             {
                 if (date > 7)
                 {
@@ -2213,7 +2217,7 @@ public class CalendarLayout extends UIComponent
                     return;
             }
     
-            else if (event.keyCode == Keyboard.DOWN)
+            else if (keyCode == Keyboard.DOWN)
             {
                 if (date + 7 <= daysInMonth)
                 {
@@ -2224,7 +2228,7 @@ public class CalendarLayout extends UIComponent
                     return;
             }
     
-            else if (event.keyCode == Keyboard.HOME)
+            else if (keyCode == Keyboard.HOME)
             {
                 if (i == 0)
                     date = 1;
@@ -2233,7 +2237,7 @@ public class CalendarLayout extends UIComponent
                 selChanged = true;
             }
     
-            else if (event.keyCode == Keyboard.END)
+            else if (keyCode == Keyboard.END)
             {
                 if (i == 0)
                     date = daysInMonth;
@@ -2243,21 +2247,21 @@ public class CalendarLayout extends UIComponent
             }
     
             else if (lastSelectedDate && event.shiftKey &&
-                     (event.keyCode == Keyboard.PAGE_UP ||
-                      event.keyCode == Keyboard.PAGE_DOWN))
+                     (keyCode == Keyboard.PAGE_UP ||
+                      keyCode == Keyboard.PAGE_DOWN))
             {
                 selChanged = true;
             }
             
             else if (lastSelectedDate &&
-                     (event.keyCode == 189 ||
-                      event.keyCode == 187)) // for year - and +
+                     (keyCode == 189 ||
+                      keyCode == 187)) // for year - and +
             {
                 selChanged = true;
             }
     
-            if (event.keyCode >= Keyboard.PAGE_UP &&
-                event.keyCode <= Keyboard.DOWN)
+            if (keyCode >= Keyboard.PAGE_UP &&
+                keyCode <= Keyboard.DOWN)
             {
                 event.stopPropagation();
             }
