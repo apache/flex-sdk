@@ -15,7 +15,7 @@ Keyboard Interaction
 - List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
-- Modify DropDownEvent to have commitData boolean property. 
+- Handle commitData 
 - Add typicalItem support for measuredSize (lower priority) 
 
 *  @langversion 3.0
@@ -199,8 +199,17 @@ public class DropDownList extends List
 	private var _dropDownController:DropDownController;	
 	
 	/**
-     *  @private
-     *  TODO (jszeto) Add ASdoc comments
+     *  Instance of the helper class that handles all of the mouse, keyboard 
+     *  and focus user interactions. The type of this class is determined by the
+     *  <code>dropDownControllerClass</code> property. 
+     * 
+     *  The <code>initializeDropDownController()</code> function is called after 
+     *  the dropDownController is created in the constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	protected function get dropDownController():DropDownController
 	{
@@ -214,8 +223,15 @@ public class DropDownList extends List
 	private var _dropDownControllerClass:Class = DropDownController;	
 
 	/**
-     *  @private
-     *  TODO (jszeto) Add ASdoc comments
+     *  The class used to create an instance for the <code>dropDownController</code> 
+     *  property. Set this property if you want to use a 
+     *  <code>DropDownController</code> subclass to modify the default mouse, 
+     *  keyboard and focus user interactions.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	public function set dropDownControllerClass(value:Class):void
 	{
@@ -246,10 +262,8 @@ public class DropDownList extends List
      *  The prompt for the DropDownList control. A prompt is
      *  a String that is displayed in the TextInput portion of the
      *  DropDownList when <code>selectedIndex</code> = -1.  It is usually
-     *  a String like "Select one...".  If there is no
-     *  prompt, the DropDownList control sets <code>selectedIndex</code> to 0
-     *  and displays the first item in the <code>dataProvider</code>.
-     *  
+     *  a String like "Select one...". 
+     *        
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -386,7 +400,7 @@ public class DropDownList extends List
     override public function set selectedIndices(value:Array):void
     {
     	// TODO (jszeto) This needs to be localized
-    	throw new Error("The selectedIndices property is not supported in DropDownList");
+    	throw new Error(resourceManager.getString("components", "selectedIndicesDropDownListError"));
     }
     
     //----------------------------------
@@ -399,7 +413,7 @@ public class DropDownList extends List
     override public function set selectedItems(value:Array):void
     {
     	// TODO (jszeto) This needs to be localized
-    	throw new Error("The selectedItems property is not supported in DropDownList");
+    	throw new Error(resourceManager.getString("components", "selectedItemsDropDownListError"));
     }
     
     
@@ -410,10 +424,7 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------   
 
 	/**
-     *  Initializes the dropDown and changes the skin state to open. 
-     * 
-     *  It should not be necessary to override this function. Instead, override the
-     *  initializeDropDown function. 
+     *  Opens the dropDown. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -426,12 +437,7 @@ public class DropDownList extends List
     }
 	
 	 /**
-     *  Changes the skin state to normal, commits the data from the dropDown and 
-     *  performs some cleanup.  
-     * 
-     *  The user can close the dropDown either in a committing or non-committing manner 
-     *  based on their interaction gesture. If the user has performed a committing 
-     *  gesture, then set commitData to true. 
+     *  Closes the dropDown. 
      *   
      *  @param commitData Flag indicating if the component should commit the selected
      *  data from the dropDown. 
@@ -447,8 +453,14 @@ public class DropDownList extends List
     }
 	
 	/**
-     *  @private
-     *  TODO (jszeto) Should this be exposed? If yes, needs ASDOC
+     *  Initializes the <code>dropDownController</code> after it has been created. 
+     *  Override this function if you create a <code>DropDownController</code> subclass 
+     *  and need to perform additional initialization.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4 
      */
 	protected function initializeDropDownController():void
 	{		
@@ -573,7 +585,6 @@ public class DropDownList extends List
      */
     override protected function item_clickHandler(event:MouseEvent):void
 	{
-		//trace("DDL.item_clickHandler mouse event",event.type);
 		super.item_clickHandler(event);
 		closeDropDown(true);
 	}
@@ -585,7 +596,6 @@ public class DropDownList extends List
     // doesn't listen for keyDown events in the capture phase 
     override protected function keyDownHandler(event:KeyboardEvent) : void
 	{
-		//trace("DropDownList.keyDownHandler key",event.keyCode);
 		list_keyDownHandler(event);
 	}
         
@@ -594,7 +604,6 @@ public class DropDownList extends List
 	 */
 	override protected function list_keyDownHandler(event:KeyboardEvent) : void
 	{
-		//trace("DropDownList.list_keyDownHandler key",event.keyCode);
 		if(!enabled)
             return;
         
@@ -620,19 +629,33 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
-     *  TODO (jszeto) Add ASDoc comments
+     *  Event handler for the <code>dropDownController</code> 
+     *  <code>DropdownEvent.OPEN</code> event. Updates the skin's state and 
+     *  ensures that the selectedItem is visible. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dropDownController_openHandler(event:DropdownEvent):void
     {
     	// set skin state
     	skin.currentState = getCurrentSkinState();
+    	
+    	ensureIndexIsVisible(selectedIndex);
+    	
     	dispatchEvent(event);
     }
     
     /**
-     *  @private
-     *  TODO (jszeto) Add ASDoc comments
+     *  Event handler for the <code>dropDownController</code> 
+     *  <code>DropdownEvent.CLOSE</code> event. Updates the skin's state.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dropDownController_closeHandler(event:DropdownEvent):void
     {
