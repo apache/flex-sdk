@@ -11,27 +11,22 @@
 
 package mx.effects.effectClasses
 {
-import flash.events.Event;
 import flash.events.TimerEvent;
-import flash.geom.Point;
 import flash.utils.Timer;
 
-import mx.components.Group;
-import mx.components.baseClasses.GroupBase;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.Animation;
 import mx.effects.EffectInstance;
-import mx.effects.EffectManager;
 import mx.effects.PropertyValuesHolder;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
 import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
-import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
-import mx.core.IVisualElementContainer;
 
 use namespace mx_internal;
 
@@ -592,7 +587,7 @@ public class FxAnimateInstance extends EffectInstance
                 if (parentStart && !parentEnd)
                 {
                     if (parentStart is IVisualElementContainer)
-                        IVisualElementContainer(parentStart).addElement(target);
+                        IVisualElementContainer(parentStart).addElement(target as IVisualElement);
                     else
                         parentStart.addChild(target);
                     needsRemoval = true;
@@ -623,7 +618,7 @@ public class FxAnimateInstance extends EffectInstance
                 if (parentStart && !parentEnd)
                 {
                     if (parentStart is IVisualElementContainer)
-                        IVisualElementContainer(parentStart).removeElement(target);
+                        IVisualElementContainer(parentStart).removeElement(target as IVisualElement);
                     else
                         parentStart.removeChild(target);
                 }
