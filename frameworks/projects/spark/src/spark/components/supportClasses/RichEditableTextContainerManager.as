@@ -73,7 +73,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      */
-    //private var hasScrollRect:Boolean = false;
+    private var hasScrollRect:Boolean = false;
 
     /**
      *  @private
