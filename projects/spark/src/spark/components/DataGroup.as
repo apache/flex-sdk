@@ -12,7 +12,7 @@ import mx.core.IInvalidating;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemExistenceChangedEvent;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 import mx.styles.IStyleClient;
