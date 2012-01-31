@@ -29,6 +29,7 @@ import mx.core.IVisualElementContainer;
 import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
+import mx.effects.easing.Exponential;
 import mx.events.EffectEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchScrollEvent;
@@ -37,12 +38,14 @@ import mx.managers.IFocusManagerComponent;
 import spark.components.Group;
 import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.TouchScrollingEasing;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
 import spark.effects.Animate;
+import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Power;
 
 use namespace mx_internal;
 
@@ -538,12 +541,6 @@ public class Scroller extends SkinnableComponent
      *  Effect used for touch scroll throwing
      */
     private var throwEffect:Animate;
-    
-    /**
-     *  @private
-     *  Easing object used for touch scroll throwing
-     */
-    private var throwEaser:TouchScrollingEasing;
     
     /**
      *  @private
@@ -1049,26 +1046,42 @@ public class Scroller extends SkinnableComponent
      *  @private
      *  Helper function to determine whether the viewport scrolls horizontally
      */
-    mx_internal function get shouldScrollHorizontally():Boolean
+    mx_internal function get canScrollHorizontally():Boolean
     {
-        var viewportUIC:IUIComponent = viewport as IUIComponent;
-        var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
-        var viewportW:Number = isNaN(explicitViewportW) ? (viewport.width - (minViewportInset * 2)) : explicitViewportW;
+        if (getStyle("horizontalScrollPolicy") == ScrollPolicy.ON)
+            return true;
         
-        return viewport.contentWidth >= (viewportW + SDT);
+        if (getStyle("horizontalScrollPolicy") == ScrollPolicy.AUTO)
+        {
+            var viewportUIC:IUIComponent = viewport as IUIComponent;
+            var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
+            var viewportW:Number = isNaN(explicitViewportW) ? (viewport.width - (minViewportInset * 2)) : explicitViewportW;
+            
+            return viewport.contentWidth >= (viewportW + SDT);
+        }
+        
+        return false;
     }
     
     /**
      *  @private
      *  Helper function to determine whether the viewport scrolls vertically
      */
-    mx_internal function get shouldScrollVertically():Boolean
+    mx_internal function get canScrollVertically():Boolean
     {
-        var viewportUIC:IUIComponent = viewport as IUIComponent;
-        var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
-        var viewportH:Number = isNaN(explicitViewportH) ? (viewport.height - (minViewportInset * 2)) : explicitViewportH;
+        if (getStyle("verticalScrollPolicy") == ScrollPolicy.ON)
+            return true;
         
-        return viewport.contentHeight >= (viewportH + SDT);
+        if (getStyle("verticalScrollPolicy") == ScrollPolicy.AUTO)
+        {
+            var viewportUIC:IUIComponent = viewport as IUIComponent;
+            var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
+            var viewportH:Number = isNaN(explicitViewportH) ? (viewport.height - (minViewportInset * 2)) : explicitViewportH;
+            
+            return viewport.contentHeight >= (viewportH + SDT);
+        }
+        
+        return false;
     }
     
     /**
@@ -1105,14 +1118,12 @@ public class Scroller extends SkinnableComponent
         {
             throwEffect = new Animate();
             throwEffect.addEventListener(EffectEvent.EFFECT_END, throwEffect_effectEndHandler);
-            throwEffect.addEventListener(EffectEvent.EFFECT_UPDATE, throwEffect_effectUpdateHandler);
             throwEffect.target = viewport;
             throwEffect.duration = THROW_EFFECT_TIME;
             
             // effect and easer stuff should be combined some or maybe we just need one 
             // touch specific class rather than two
-            throwEaser = new TouchScrollingEasing(0);
-            
+            var throwEaser:IEaser = new Power(0, 4);
             throwEffect.easer = throwEaser;
         }
         
@@ -1126,8 +1137,7 @@ public class Scroller extends SkinnableComponent
         var decelerationRateY:Number = velocityY/THROW_EFFECT_TIME;
         
         // figure out where we're scrolling to
-        if (getStyle("horizontalScrollPolicy") == "on" || 
-            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+        if (canScrollHorizontally)
         {
             var hsp:Number = viewport.horizontalScrollPosition;
             var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
@@ -1139,8 +1149,7 @@ public class Scroller extends SkinnableComponent
             
         }
         
-        if (getStyle("verticalScrollPolicy") == "on" || 
-            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+        if (canScrollVertically)
         {
             var vsp:Number = viewport.verticalScrollPosition;
             var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
@@ -1151,22 +1160,27 @@ public class Scroller extends SkinnableComponent
             finalVSP = viewport.verticalScrollPosition - (velocityY * THROW_EFFECT_TIME) + (.5 * decelerationRateY * THROW_EFFECT_TIME * THROW_EFFECT_TIME);
         }
         
-        // set up easer for the the throw
-        throwEaser.velocityX = velocityX;
-        throwEaser.velocityY = velocityY;
-        throwEaser.maxVSP = maxHeight;
-        throwEaser.maxHSP = maxWidth;
-        
         // maybe use motion paths with more keyframes for the bounce effect??
         
         var throwEffectMotionPaths:Vector.<MotionPath> = new Vector.<MotionPath>();
         
         // set up a simple motion path for the animation from our current hsp/vsp to
         // the final hsp/vsp.
-        if (getStyle("horizontalScrollPolicy") == "on" || 
-            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+        var timeToReachHSP:Number = 0;
+        var timeToReachVSP:Number = 0;
+        
+        if (canScrollHorizontally)
         {
             var horizontalMP:MotionPath = new SimpleMotionPath("horizontalScrollPosition", hsp, finalHSP);
+            var hspToUse:Number = Math.min(Math.max(finalHSP,0), maxWidth);
+            
+            // see formula in VSP section.
+            if (finalHSP == hspToUse)
+                timeToReachHSP = THROW_EFFECT_TIME;
+            else
+                timeToReachHSP = THROW_EFFECT_TIME*(1-(Math.pow(1-((hspToUse-hsp)/(finalHSP-hsp)),.25)));
+            
+            horizontalMP.keyframes = Vector.<Keyframe>([new Keyframe(0, null), new Keyframe(timeToReachHSP, hspToUse)]);
             throwEffectMotionPaths.push(horizontalMP);
             scrollingHorizontally = true;
         }
@@ -1175,10 +1189,21 @@ public class Scroller extends SkinnableComponent
             scrollingHorizontally = false;
         }
         
-        if (getStyle("verticalScrollPolicy") == "on" || 
-            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+        if (canScrollVertically)
         {
-            var verticalMP:MotionPath = new SimpleMotionPath("verticalScrollPosition", vsp, finalVSP);
+            var verticalMP:SimpleMotionPath = new SimpleMotionPath("verticalScrollPosition");
+            var vspToUse:Number = Math.min(Math.max(finalVSP,0), maxHeight);
+            
+            // since easing function is f(t) = start + (final - start) * e(t)
+            // e(t) = Math.pow(1 - t/THROW_EFFECT_TIME, 4)
+            // We want to solve for t when e(t) = vspToUse
+            // t = THROW_EFFECT_TIME*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
+            if (finalVSP == vspToUse)
+                timeToReachVSP = THROW_EFFECT_TIME;
+            else
+                timeToReachVSP = THROW_EFFECT_TIME*(1-(Math.pow(1-((vspToUse-vsp)/(finalVSP-vsp)),.25)));
+            
+            verticalMP.keyframes = Vector.<Keyframe>([new Keyframe(0, null), new Keyframe(timeToReachVSP, vspToUse)]);
             throwEffectMotionPaths.push(verticalMP);
             scrollingVertically = true;
         }
@@ -1186,6 +1211,8 @@ public class Scroller extends SkinnableComponent
         {
             scrollingVertically = false;
         }
+        
+        throwEffect.duration = Math.max(timeToReachVSP, timeToReachHSP);
         
         throwEffect.motionPaths = throwEffectMotionPaths;
     }
@@ -1508,17 +1535,15 @@ public class Scroller extends SkinnableComponent
             hspBeforeTouchScroll = viewport.horizontalScrollPosition;
             vspBeforeTouchScroll = viewport.verticalScrollPosition;
             
-            if (getStyle("horizontalScrollPolicy") == "on" || 
-                (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
-            {
+            // FIXME (rfrishbe): should the ScrollerLayout just listen to 
+            // Scroller events to determine this rather than doing it here.
+            // Also should figure out who's in charge of fading the alpha of the
+            // scrollbars...Scroller or ScrollerLayout (or even HScrollbar/VScrollbar)?
+            if (canScrollHorizontally)
                 horizontalScrollInProgress = true;
-            }
             
-            if (getStyle("verticalScrollPolicy") == "on" || 
-                (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
-            {
+            if (canScrollVertically)
                 verticalScrollInProgress = true;
-            }
             
             // need to invaliadte the ScrollerLayout object so it'll update the
             // scrollbars in overlay mode
@@ -1589,67 +1614,32 @@ public class Scroller extends SkinnableComponent
         var xMove:int = 0;
         var yMove:int = 0;
         
-        if (getStyle("horizontalScrollPolicy") == "on" || 
-            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
-        {
+        if (canScrollHorizontally)
             xMove = event.dragX;
-        }
         
-        if (getStyle("verticalScrollPolicy") == "on" || 
-            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
-        {
+        if (canScrollVertically)
             yMove = event.dragY;
-        }
         
-        // FIXME (rfrishbe): figure out how we want negative signs to work
-        viewport.horizontalScrollPosition = hspBeforeTouchScroll - xMove;
-        viewport.verticalScrollPosition = vspBeforeTouchScroll - yMove;
-    }
-    
-    /**
-     *  @private
-     *  Used to get rid of the scrollbars early if they've hit the max or min values
-     *  FIXME (rfrishbe): This should be baked in to the effect instead of in here
-     */
-    private function throwEffect_effectUpdateHandler(event:EffectEvent):void
-    {
-        if (shouldStopScrolling)
-            throwEffect.stop();
-    }
-    
-    /**
-     *  @private
-     *  Returns true if the animation should stop because we've gone passed 
-     *  the scrolling bounds.  This is called form the throwEffect_effectUpdateHandler
-     *  and before the throwEffect is started.  Ideally this logic should be baked in 
-     *  to the effect itself.
-     */ 
-    private function get shouldStopScrolling():Boolean
-    {
-        if (scrollingVertically && scrollingHorizontally)
-        {
-            if ((viewport.horizontalScrollPosition <= 0 || viewport.horizontalScrollPosition >= throwEaser.maxHSP) && 
-                (viewport.verticalScrollPosition <= 0 || viewport.verticalScrollPosition >= throwEaser.maxVSP))
-            {
-                return true;
-            }
-        }
-        else if (scrollingVertically)
-        {
-            if (viewport.verticalScrollPosition <= 0 || viewport.verticalScrollPosition >= throwEaser.maxVSP)
-            {
-                return true;
-            }
-        }
-        else if (scrollingHorizontally)
-        {
-            if (viewport.horizontalScrollPosition <= 0 || viewport.horizontalScrollPosition >= throwEaser.maxHSP)
-            {
-                return true;
-            }
-        }
+        var newHSP:Number = hspBeforeTouchScroll - xMove;
+        var newVSP:Number = vspBeforeTouchScroll - yMove;
         
-        return false;
+        // use min and max to clamp hsp/vsp values for now.  At some point we may allow them to 
+        // "pull" it in to the negatives, but now not
+        var hsp:Number = viewport.horizontalScrollPosition;
+        var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+        var cWidth:Number = viewport.contentWidth;
+        var maxWidth:Number = Math.max(0, (cWidth == 0) ? viewport.horizontalScrollPosition : cWidth - viewportWidth);
+        var vsp:Number = viewport.verticalScrollPosition;
+        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+        var cHeight:Number = viewport.contentHeight;
+        var maxHeight:Number = Math.max(0, (cHeight == 0) ? viewport.verticalScrollPosition : cHeight - viewportHeight);
+        
+        // clamp the values here
+        newHSP = Math.min(Math.max(newHSP,0), maxWidth);
+        newVSP = Math.min(Math.max(newVSP,0), maxHeight);
+            
+        viewport.horizontalScrollPosition = newHSP;
+        viewport.verticalScrollPosition = newVSP;
     }
     
     /**
@@ -1673,17 +1663,7 @@ public class Scroller extends SkinnableComponent
         stoppedPreemptively = false;
         setUpThrowEffect(event.velocityX, event.velocityY);
         
-        if (!shouldStopScrolling)
-        {
-            // if we should throw, start the effect now
-            throwEffect.play();
-        }
-        else
-        {
-            // otherwise, let's end it early and fake this event so the ScrollThrowHelper will 
-            // know to stop scrolling and things will continue normally
-            dispatchEvent(new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END));
-        }
+        throwEffect.play();
     }
     
     /**
@@ -1755,7 +1735,7 @@ class TouchScrollHelper
      *  Number of mouse movements to keep in the history to calculate 
      *  velocity.
      */
-    private static const HISTORY:int = 5;
+    private static const EVENT_HISTORY_LENGTH:int = 5;
     
     /**
      *  @private
@@ -1763,68 +1743,12 @@ class TouchScrollHelper
      */
     private static const MIN_START_VELOCITY:Number = 0.05;
     
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-    
     /**
      *  @private
-     *  Helper function used to calculate velocity from a set of
-     *  points and a set of time values for when those points occurred.
-     * 
-     *  <p>The size of clickHistory and timeHistory should be the same.  
-     *  The size of the returned array should have one less item.</p>
+     *  Weights to use when calculating velocity, giving the last velocity more of a weight 
+     *  than the previous ones.
      */
-    private static function calculateVelocity(clickHistory:Vector.<Point>, timeHistory:Vector.<int>):Vector.<Point>
-    {
-        var len:int = clickHistory.length - 1;
-        if (len <= 0)
-            
-            return null;
-        
-        var velocities:Vector.<Point> = new Vector.<Point>(len);
-        
-        for (var i:int = 0; i < len; i++)
-        {
-            var point1:Point = clickHistory[i];
-            var point2:Point = clickHistory[i+1];
-            var distance:Point = point2.subtract(point1);
-            var time:Number = timeHistory[i+1] - timeHistory[i];
-            velocities[i] = new Point(distance.x/time, distance.y/time);
-        }
-        
-        return velocities;
-    }
-    
-    /**
-     *  @private
-     *  Helper function that takes an vector of points and a vector
-     *  of weights and creates a weighted average from them.</p>
-     */
-    private static function averagePoints(points:Vector.<Point>, weighted:Vector.<Number>):Point
-    {
-        var len:int = points.length;
-        
-        var currentPoint:Point = new Point(0, 0);
-        var totalWeight:Number = 0;
-        
-        for (var i:int = 0; i < len; i++)
-        {
-            var point:Point = new Point(points[i].x, points[i].y);
-            totalWeight += weighted[i];
-            point.x *= weighted[i];
-            point.y *= weighted[i];
-            currentPoint.x += point.x;
-            currentPoint.y += point.y;
-        }
-        
-        currentPoint.x = currentPoint.x/totalWeight;
-        currentPoint.y = currentPoint.y/totalWeight;
-        
-        return currentPoint;
-    }
+    private static const VELOCITY_WEIGHTS:Vector.<Number> = Vector.<Number>([1,1.33,1.66,2]);
     
     //--------------------------------------------------------------------------
     //
@@ -1839,8 +1763,8 @@ class TouchScrollHelper
     {
         super();
         
-        mouseEventCoordinatesHistory = new Vector.<Point>();
-        mouseEventTimeHistory = new Vector.<int>();
+        mouseEventCoordinatesHistory = new Vector.<Point>(EVENT_HISTORY_LENGTH);
+        mouseEventTimeHistory = new Vector.<int>(EVENT_HISTORY_LENGTH);
         
         this.scroller = scroller;
     }
@@ -1886,6 +1810,12 @@ class TouchScrollHelper
     
     /**
      *  @private
+     *  The displayObject that was mousedowned on.
+     */
+    private var mouseDownedDisplayObject:DisplayObject;
+    
+    /**
+     *  @private
      *  The point that a scroll was recognized from.
      * 
      *  <p>This is different from mouseDownedPoint because the user may 
@@ -1894,7 +1824,7 @@ class TouchScrollHelper
      *  the delta scrolled to be calculated from the mouseDowned point 
      *  because that would look jerky the first time a scroll occurred.</p>
      */
-    private var scrollStartPoint:Point;
+    private var scrollGestureAnchorPoint:Point;
     
     /**
      *  @private
@@ -1904,17 +1834,19 @@ class TouchScrollHelper
     
     /**
      *  @private
-     *  The displayObject that was mousedowned on.
-     */
-    private var mouseDownedDisplayObject:DisplayObject;
-    
-    /**
-     *  @private
      *  Keeps track of the coordinates where the mouse events 
      *  occurred.  We use this for velocity calculation along 
      *  with timeHistory.
      */
     private var mouseEventCoordinatesHistory:Vector.<Point>;
+    
+    /**
+     *  @private
+     *  Length of items in the mouseEventCoordinatesHistory and 
+     *  timeHistory Vectors since a circular buffer is used to 
+     *  conserve points.
+     */
+    private var mouseEventLength:Number = 0;
     
     /**
      *  @private
@@ -1964,13 +1896,12 @@ class TouchScrollHelper
             // if we were already scrolling, continue scrolling
             if (isScrolling)
             {
-                scrollStartPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
+                scrollGestureAnchorPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
                 mouseDownedPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
             }
             
-            // store last 5 values
-            mouseEventCoordinatesHistory.length = 0;
-            mouseEventTimeHistory.length = 0;
+            // reset circular buffer index/length
+            mouseEventLength = 0;
             
             addMouseEventHistory(mouseEvent);
         }
@@ -2001,20 +1932,33 @@ class TouchScrollHelper
      */
     private function addMouseEventHistory(event:MouseEvent):Point
     {
-        var p:Point = new Point(event.stageX, event.stageY);
-        var differencePoint:Point = p.subtract(mouseDownedPoint);
+        // calculate dx, dy
+        var dx:Number = event.stageX - mouseDownedPoint.x;
+        var dy:Number = event.stageY - mouseDownedPoint.y;
         
-        // only store the last 5
-        if (mouseEventCoordinatesHistory.length >= HISTORY)
+        // either use a Point object already created or use one already created
+        // in mouseEventCoordinatesHistory
+        var currentPoint:Point;
+        var currentIndex:int = (mouseEventLength % EVENT_HISTORY_LENGTH);
+        if (mouseEventCoordinatesHistory[currentIndex])
         {
-            mouseEventCoordinatesHistory.shift();
-            mouseEventTimeHistory.shift();
+            currentPoint = mouseEventCoordinatesHistory[currentIndex];
+            currentPoint.x = dx;
+            currentPoint.y = dy;
+        }
+        else
+        {
+            currentPoint = new Point(dx, dy);
+            mouseEventCoordinatesHistory[currentIndex] = currentPoint;
         }
         
-        mouseEventCoordinatesHistory.push(differencePoint);
-        mouseEventTimeHistory.push(GetTimerUtil.getTimerFunction() - startTime);
+        // add time history as well
+        mouseEventTimeHistory[currentIndex] = GetTimerUtil.getTimerFunction() - startTime;
         
-        return differencePoint;
+        // increment current length if appropriate
+        mouseEventLength ++;
+        
+        return currentPoint;
     }
 
     /**
@@ -2060,7 +2004,7 @@ class TouchScrollHelper
      *  If we are scrolling, this is used to dispatch TouchScrollEvent.TOUCH_SCROLL_DRAG
      *  events and to determine how far the user has scrolled.
      */
-    protected function sbRoot_mouseMoveHandler(event:MouseEvent):void
+    private function sbRoot_mouseMoveHandler(event:MouseEvent):void
     {
         var mouseDownedDifference:Point = addMouseEventHistory(event);
         
@@ -2072,17 +2016,11 @@ class TouchScrollHelper
             var possibleScrollVertically:Boolean = false;
             
             // figure out if we can even scroll horizontally or vertically
-            if (scroller.getStyle("horizontalScrollPolicy") == "on" || 
-                (scroller.getStyle("horizontalScrollPolicy") == "auto" && scroller.shouldScrollHorizontally))
-            {
+            if (scroller.canScrollHorizontally)
                 possibleScrollHorizontally = true;
-            }
             
-            if (scroller.getStyle("verticalScrollPolicy") == "on" || 
-                (scroller.getStyle("verticalScrollPolicy") == "auto" && scroller.shouldScrollVertically))
-            {
+            if (scroller.canScrollVertically)
                 possibleScrollVertically = true;
-            }
             
             // now figure out if we should scroll horizontally or vertically based on our slop
             if (possibleScrollHorizontally && possibleScrollVertically)
@@ -2113,14 +2051,14 @@ class TouchScrollHelper
                 }
                 
                 // if the event has been accepted, then dispatch a bubbling start event
-                var scrollDragStartEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_START);
+                var scrollDragStartEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_START, true, true);
                 scrollDragStartEvent.scrollingObject = scroller;
-                scroller.dispatchEvent(scrollDragStartEvent);
+                mouseDownedDisplayObject.dispatchEvent(scrollDragStartEvent);
                 
                 // FIXME (rfrishbe): the difference should not be from the original point but from the slop.
                 // otherwise we "jump" on the first move.
                 // we should reset startPoint here to be this point minus slop (in the direction that caused the scroll)
-                scrollStartPoint = new Point(event.stageX, event.stageY);
+                scrollGestureAnchorPoint = new Point(event.stageX, event.stageY);
                 isScrolling = true;
                 
                 // velocity calculations come from mouseDownedPoint.  The drag ones com from scrollStartPoint.
@@ -2133,14 +2071,14 @@ class TouchScrollHelper
         if (isScrolling)
         {
             // calculate the delta
-            var p:Point = new Point(event.stageX, event.stageY);
-            var scrollDifferencePoint:Point = p.subtract(scrollStartPoint);
+            var dx:Number = event.stageX - scrollGestureAnchorPoint.x;
+            var dy:Number = event.stageY - scrollGestureAnchorPoint.y;
             
             // dispatch the event
             var scrollDragEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_DRAG, false, false);
             scrollDragEvent.scrollingObject = scroller;
-            scrollDragEvent.dragX = scrollDifferencePoint.x;
-            scrollDragEvent.dragY = scrollDifferencePoint.y;
+            scrollDragEvent.dragX = dx;
+            scrollDragEvent.dragY = dy;
             
             scroller.dispatchEvent(scrollDragEvent);
             event.updateAfterEvent();
@@ -2151,7 +2089,7 @@ class TouchScrollHelper
      *  @private
      *  Called when the user releases the mouse/touches up
      */
-    protected function sbRoot_mouseUpHandler(event:Event):void
+    private function sbRoot_mouseUpHandler(event:Event):void
     {
         uninstallMouseListeners();
         
@@ -2170,17 +2108,29 @@ class TouchScrollHelper
         
         // calculate average time b/w events and see if the last two (mouseMove and this mouseUp) 
         // were far apart.  If they were, then don't do anything if the velocity of them is small.
-        var averageTime:Number = 0;
-        var len:int = mouseEventTimeHistory.length;
+        var averageDt:Number = 0;
+        var len:int = (mouseEventLength > EVENT_HISTORY_LENGTH ? EVENT_HISTORY_LENGTH : mouseEventLength);
+        
+        // if haven't wrapped around, then startIndex = 0.  If we've wrapped around, 
+        // then startIndex = mouseEventLength % EVENT_HISTORY_LENGTH.  The equation 
+        // below handles both of those cases
+        const startIndex:int = ((mouseEventLength - len) % EVENT_HISTORY_LENGTH);
+        const endIndex:int = ((mouseEventLength - 1) % EVENT_HISTORY_LENGTH);
         
         // gauranteed to have 2 mouse events b/c atleast a mousedown and a mousemove 
         // because if there was no mousemove, we definitely would not be scrolling and 
         // would have exited this function earlier
-        for (var i:int = 0; i < len - 2; i++)
+        var currentIndex:int = startIndex;
+        while (currentIndex != endIndex)
         {
-            averageTime += mouseEventTimeHistory[i+1] - mouseEventTimeHistory[i];
+            // calculate nextIndex here so we can use it in the calculations
+            var nextIndex:int = ((currentIndex + 1) % EVENT_HISTORY_LENGTH);
+            
+            averageDt += mouseEventTimeHistory[nextIndex] - mouseEventTimeHistory[currentIndex];
+            
+            currentIndex = nextIndex;
         }
-        averageTime /= len-2;
+        averageDt /= len-1;
         
         // use the amount they've used as well as the velocity to denote how far to throw the list.
         // to do this, we multiply by the ratio of how far they moved with respect to the screen size 
@@ -2194,14 +2144,15 @@ class TouchScrollHelper
         // FIXME (rfrishbe): use stage.stageWidth, stage.width, root.width, or FlexGlobals.topLevelApplication.width?
         var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.width)/3;
         var heightToUseForRatio:Number = (2*scroller.height + scroller.stage.height)/3;
-        var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[len-1];
+        var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
         var movedRatio:Point = new Point(Math.abs(RATIO_TO_USE*lastMouseEventPoint.x/widthToUseForRatio), Math.abs(RATIO_TO_USE*lastMouseEventPoint.y/heightToUseForRatio));
 
         // calculate the last velocity and make sure there was no pause that occurred
-        var lastTime:Number = mouseEventTimeHistory[len-1] - mouseEventTimeHistory[len-2];
-        var lastVelocity:Point = lastMouseEventPoint.subtract(mouseEventCoordinatesHistory[len-2]);
-        lastVelocity.x /= lastTime;
-        lastVelocity.y /= lastTime;
+        var indexBeforeLast:int = ((mouseEventLength - 2) % EVENT_HISTORY_LENGTH);
+        var lastDt:Number = mouseEventTimeHistory[endIndex] - mouseEventTimeHistory[indexBeforeLast];
+        var lastVelocity:Point = lastMouseEventPoint.subtract(mouseEventCoordinatesHistory[indexBeforeLast]);
+        lastVelocity.x /= lastDt;
+        lastVelocity.y /= lastDt;
         lastVelocity.x *= movedRatio.x;
         lastVelocity.y *= movedRatio.y;
         
@@ -2210,7 +2161,7 @@ class TouchScrollHelper
         // FIXME (rfrishbe): should be minXVelocity, minYVelocity, minDiagonalVelocity
         // FIXME (rfrishbe): this should be parameterized better and the heuristic should 
         // be documented better
-        if ( (lastTime >= 3*averageTime) &&
+        if ( (lastDt >= 3*averageDt) &&
             (lastVelocity.length <= MIN_START_VELOCITY))
         {
             isScrolling = false;
@@ -2223,9 +2174,7 @@ class TouchScrollHelper
         }
         
         // calculate the velocity using a weighted average
-        var velocities:Vector.<Point> = calculateVelocity(mouseEventCoordinatesHistory, mouseEventTimeHistory);
-        var velocityWeights:Vector.<Number> = Vector.<Number>([1,1.33,1.66,2]);
-        var throwVelocity:Point = averagePoints(velocities, velocityWeights);
+        var throwVelocity:Point = calculateThrowVelocity();
         
         // use ratio of how far they scrolled to scale the velocity
         throwVelocity.x *= movedRatio.x;
@@ -2253,6 +2202,54 @@ class TouchScrollHelper
             scrollEndEvent.scrollingObject = scroller;
             scroller.dispatchEvent(scrollEndEvent);
         }
+    }
+    
+    /**
+     *  @private
+     *  Helper function to calculate the current throwVelocity().
+     *  
+     *  <p>It calculates the velocities and then calculates a weighted 
+     *  average from them.</p>
+     */
+    private function calculateThrowVelocity():Point
+    {
+        var len:int = (mouseEventLength > EVENT_HISTORY_LENGTH ? EVENT_HISTORY_LENGTH : mouseEventLength);
+        
+        // we are guarenteed to have 2 items here b/c of mouseDown and a mouseMove
+        
+        // if haven't wrapped around, then startIndex = 0.  If we've wrapped around, 
+        // then startIndex = mouseEventLength % EVENT_HISTORY_LENGTH.  The equation 
+        // below handles both of those cases
+        const startIndex:int = ((mouseEventLength - len) % EVENT_HISTORY_LENGTH);
+        const endIndex:int = ((mouseEventLength - 1) % EVENT_HISTORY_LENGTH);
+        
+        // variables to store a running average
+        var weightedSumX:Number = 0;
+        var weightedSumY:Number = 0;
+        var totalWeight:Number = 0;
+        
+        var currentIndex:int = startIndex;
+        var i:int = 0;
+        while (currentIndex != endIndex)
+        {
+            // calculate nextIndex early so we can re-use it for these calculations
+            var nextIndex:int = ((currentIndex + 1) % EVENT_HISTORY_LENGTH);
+            
+            // Get dx, dy, and dt
+            var dt:Number = mouseEventTimeHistory[nextIndex] - mouseEventTimeHistory[currentIndex];
+            var dx:Number = mouseEventCoordinatesHistory[nextIndex].x - mouseEventCoordinatesHistory[currentIndex].x;
+            var dy:Number = mouseEventCoordinatesHistory[nextIndex].y - mouseEventCoordinatesHistory[currentIndex].y;
+            
+            // calculate a weighted sum for velocities
+            weightedSumX += (dx/dt) * VELOCITY_WEIGHTS[i];
+            weightedSumY += (dy/dt) * VELOCITY_WEIGHTS[i];
+            totalWeight += VELOCITY_WEIGHTS[i];
+            
+            currentIndex = nextIndex;
+            i++;
+        }
+        
+        return new Point(weightedSumX/totalWeight, weightedSumY/totalWeight);
     }
     
     /**
