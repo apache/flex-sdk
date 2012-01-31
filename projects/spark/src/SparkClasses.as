@@ -30,6 +30,7 @@ import spark.core.ContentCache; ContentCache;
 import spark.core.IDisplayText; IDisplayText;
 import spark.core.IEditableText; IEditableText;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
+import spark.components.IconPlacement; IconPlacement;
 import spark.components.supportClasses.CellPosition; CellPosition;
 import spark.components.supportClasses.CellRegion; CellRegion;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
