@@ -35,6 +35,8 @@ public class Responder implements IResponder
 	/**
 	 *  This method is called by a remote service when the return value has been 
 	 *  received.
+         *
+         * @param data While <code>data</code> is typed as Object, it is often (but not always) an mx.rpc.events.ResultEvent.
 	 */
 	public function result(data:Object):void
 	{
@@ -43,6 +45,8 @@ public class Responder implements IResponder
 	
 	/**
 	 *  This method is called by a service when an error has been received.
+         *
+         * @param info While <code>info</code> is typed as Object, it is often (but not always) an mx.rpc.events.FaultEvent.
 	 */
 	public function fault(info:Object):void
 	{
