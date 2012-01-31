@@ -12,6 +12,7 @@
 
 package mx.components
 {
+import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.events.KeyboardEvent;
