@@ -2563,7 +2563,7 @@ public class DateField extends ComboBase
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        if (showingDropdown && event != null)
+        if (showingDropdown && event != null && event.target == this)
             displayDropdown(false);
 
         super.focusOutHandler(event);
