@@ -19,12 +19,11 @@ import mx.controls.Label;
 import mx.core.IFactory;
 import mx.core.IViewport;
 import mx.core.IVisualElement;
-import mx.core.ScrollUnit;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.RendererExistenceEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.graphics.Graphic;
@@ -193,7 +192,7 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @private
      * 
-     *  Three properties are delegated to the layout: clipContent,
+     *  Three properties are delegated to the layout: clipAndEnableScrolling,
      *  verticalScrollPosition, horizontalScrollPosition.
      *  If the layout is reset, we copy the properties from the old
      *  layout to the new one.   If the new layout is null, then we
@@ -206,7 +205,7 @@ public class GroupBase extends UIComponent implements IViewport
 
         if (value)
         {
-            value.clipContent = clipContent;
+            value.clipAndEnableScrolling = clipAndEnableScrolling;
             value.verticalScrollPosition = verticalScrollPosition;
             value.horizontalScrollPosition = horizontalScrollPosition;
             _layoutProperties = null;
@@ -216,7 +215,7 @@ public class GroupBase extends UIComponent implements IViewport
             _layoutProperties = {
                 verticalScrollPosition: _layout.verticalScrollPosition,
                 horizontalScrollPosition: _layout.horizontalScrollPosition,
-                clipContent: _layout.clipContent 
+                clipAndEnableScrolling: _layout.clipAndEnableScrolling 
             };
         }
 
@@ -285,28 +284,28 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     //----------------------------------
-    //  clipContent
+    //  clipAndEnableScrolling
     //----------------------------------
     
     /**
-     *  @copy mx.core.IViewport#clipContent
+     *  @copy mx.core.IViewport#clipAndEnableScrolling
      */
-    public function get clipContent():Boolean 
+    public function get clipAndEnableScrolling():Boolean 
     {
-        return (_layout) ? _layout.clipContent : _layoutProperties.clipContent;
+        return (_layout) ? _layout.clipAndEnableScrolling : _layoutProperties.clipAndEnableScrolling;
     }
 
     /**
      *  @private
      */
-    public function set clipContent(value:Boolean):void 
+    public function set clipAndEnableScrolling(value:Boolean):void 
     {
         if (_layout)
-            _layout.clipContent = value;
+            _layout.clipAndEnableScrolling = value;
         else
-            _layoutProperties.clipContent = value;
+            _layoutProperties.clipAndEnableScrolling = value;
 
-        // Clip content affects measured minimum size
+        // clipAndEnableScrolling affects measured minimum size
         invalidateSize();
     }    
     
@@ -629,7 +628,7 @@ public class GroupBase extends UIComponent implements IViewport
             
             // Special case: If the group clips content, or resizeMode is "scale"
             // then measured minimum size is zero
-            if (clipContent || resizeMode == ResizeMode.SCALE)
+            if (clipAndEnableScrolling || resizeMode == ResizeMode.SCALE)
             {
                 measuredMinWidth = 0;
                 measuredMinHeight = 0;
@@ -713,17 +712,17 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @copy mx.core.IViewport#horizontalScrollPositionDelta
      */
-    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
-        return (layout) ? layout.getHorizontalScrollPositionDelta(unit) : 0;     
+        return (layout) ? layout.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
     }
     
     /**
      *  @copy mx.core.IViewport#verticalScrollPositionDelta
      */
-    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
-        return (layout) ? layout.getVerticalScrollPositionDelta(unit) : 0;     
+        return (layout) ? layout.getVerticalScrollPositionDelta(scrollUnit) : 0;     
     }
     
     //--------------------------------------------------------------------------
@@ -878,26 +877,27 @@ public class GroupBase extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
     
     /**
-     *  The number of layout elements in this container. Typically this is the same
-     *  as the number of items in the container.
+     *  @copy mx.core.IVisualElementContainer#numElements
      */
-    public function get numLayoutElements():int
+    public function get numElements():int
     {
         return -1;
     }
     
     /**
-     *  Gets the <i>n</i>th layout item in the container. For visual elements, the 
-     *  layout element is the element itself. For data items, the layout element is the 
-     *  item renderer instance that is associated with the data item.
-     *
-     *  @param index The index of the layout item to retrieve.
-     *
-     *  @return The layout item at the specified index.
+     *  @copy mx.core.IVisualElementContainer#getElementAt
      */
-    public function getLayoutElementAt(index:int):ILayoutElement
+    public function getElementAt(index:int):IVisualElement
     {
         return null;
+    }
+    
+    /**
+     *  @copy mx.core.IVisualElementContainer#getElementIndex
+     */
+    public function getElementIndex(element:IVisualElement):int
+    {
+        return -1;
     }
     
     //----------------------------------
