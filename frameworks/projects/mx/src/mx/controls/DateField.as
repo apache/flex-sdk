@@ -162,22 +162,6 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
- *  Radius of component corners.
- *  The following components support this style: Alert, Button, ComboBox,  
- *  LinkButton, MenuBar, NumericStepper, Panel, ScrollBar, Tab, TitleWindow, 
- *  and any component
- *  that supports a <code>borderStyle</code> property set to <code>"solid"</code>.
- *  The default value depends on the component class;
- *  if not overriden for the class, the default value is <code>0</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
  *  Name of the CSS Style declaration to use for the styles for the
  *  DateChooser control's drop-down list.
  *  By default, the DateChooser control uses the DateField control's
@@ -194,68 +178,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="dateChooserStyleName", type="String", inherit="no")]
-
-/**
- *  Alphas used for the background fill of controls. Use [1, 1] to make the control background
- *  opaque.
- *  
- *  @default [ 0.6, 0.4 ]
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="nextMonthStyleFilters, prevMonthStyleFilters, dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
- *  Colors used to tint the background of the control.
- *  Pass the same color for both values for a flat-looking control.
- *  
- *  @default [ 0xFFFFFF, 0xCCCCCC ]
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="nextMonthStyleFilters, prevMonthStyleFilters, dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
- *  Colors of the band at the top of the DateChooser control.
- *  The default value is <code>[ 0xE6EEEE, 0xFFFFFF ]</code>.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
- *  Name of the style sheet definition to configure the text (month name and year)
- *  and appearance of the header area of the control.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="headerStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
- *  Alpha transparencies used for the highlight fill of controls.
- *  The first value specifies the transparency of the top of the highlight and the second value specifies the transparency 
- *  of the bottom of the highlight. The highlight covers the top half of the skin.
- *  
- *  @default [ 0.3, 0.0 ]
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
 /**
  *  Color of the highlight area of the date when the user holds the
@@ -303,33 +225,6 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="todayColor", type="uint", format="Color", inherit="yes", theme="halo")]
-
-/**
- *  Name of the style sheet definition to configure the appearance of the current day's
- *  numeric text, which is highlighted
- *  in the control when the <code>showToday</code> property is <code>true</code>.
- *  Specify a <code>color</code> style property to change the font color.
- *  If omitted, the current day text inherits
- *  the text styles of the control.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="todayStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
-
-/**
- *  Name of the style sheet definition to configure the weekday names of
- *  the control. If omitted, the weekday names inherit the text
- *  styles of the control.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="weekDayStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
 //--------------------------------------
 //  Excluded APIs
