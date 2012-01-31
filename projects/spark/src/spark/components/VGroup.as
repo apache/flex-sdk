@@ -25,7 +25,7 @@ import spark.layout.VerticalLayout;
  * 
  *  The layout property should not be set or configured directly.
  * 
- *  @see mx.layout.VerticalLayout
+ *  @see spark.layout.VerticalLayout
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,8 +42,8 @@ public class VGroup extends Group
      *  Resetting the layout property or setting its properties directly
      *  is not supported.
      * 
-     *  @see mx.layout.VerticalLayout
-     *  @see mx.components.HGroup
+     *  @see spark.layout.VerticalLayout
+     *  @see spark.components.HGroup
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -71,7 +71,7 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.VerticalLayout#gap
+     * @copy spark.layout.VerticalLayout#gap
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -96,7 +96,7 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.VerticalLayout#horizontalAlign
+     * @copy spark.layout.VerticalLayout#horizontalAlign
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -123,7 +123,7 @@ public class VGroup extends Group
     [Bindable("propertyChange")]
 
     /**
-     * @copy mx.layout.VerticalLayout#rowCount
+     * @copy spark.layout.VerticalLayout#rowCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -140,7 +140,7 @@ public class VGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.VerticalLayout#requestedRowCount
+     * @copy spark.layout.VerticalLayout#requestedRowCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -167,7 +167,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy mx.layout.VerticalLayout#rowHeight
+     * @copy spark.layout.VerticalLayout#rowHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -194,7 +194,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy mx.layout.VerticalLayout#variableRowHeight
+     * @copy spark.layout.VerticalLayout#variableRowHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -221,7 +221,7 @@ public class VGroup extends Group
     [Bindable("indexInViewChanged")]    
  
     /**
-     * @copy mx.layout.VerticalLayout#firstIndexInView
+     * @copy spark.layout.VerticalLayout#firstIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -240,7 +240,7 @@ public class VGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy mx.layout.VerticalLayout#lastIndexInview
+     * @copy spark.layout.VerticalLayout#lastIndexInview
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
