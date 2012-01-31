@@ -288,7 +288,8 @@ public class VideoElement extends GraphicElement
      */
     public function get autoRewind():Boolean
     {
-        return mx_internal::videoPlayer.autoRewind;
+        var myVideoPlayer:VideoPlayer = mx_internal::videoPlayer;
+        return myVideoPlayer.autoRewind;
     }
     
     public function set autoRewind(value:Boolean):void
