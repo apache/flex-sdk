@@ -79,12 +79,6 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     
     /**
      *  @private
-     *  Flag that is set when the mouse is hovered over the item renderer.
-     */
-    private var hovered:Boolean = false;
-    
-    /**
-     *  @private
      *  Whether the renderer's state is invalid or not.
      */
     private var rendererStateIsDirty:Boolean = false;
@@ -103,7 +97,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  handleHighlightBackground
+    //  autoDrawBackground
     //----------------------------------
     
     /**
@@ -147,6 +141,42 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         }
     }
     
+    //----------------------------------
+    //  hovered
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the selected property 
+     */    
+    private var _hovered:Boolean = false;
+    
+    /**
+     *  Flag that is set when the mouse is hovered over the item renderer.
+     *
+     *  @default false
+     */    
+    protected function get hovered():Boolean
+    {
+        return _hovered;
+    }
+    
+    /**
+     *  @private
+     */    
+    protected function set hovered(value:Boolean):void
+    {
+        if (value != _hovered)
+        {
+            _hovered = value;
+            setCurrentState(getCurrentRendererState(), playTransitions);
+            if (autoDrawBackground)
+            {
+                redrawRequested = true;
+                super.$invalidateDisplayList();
+            }
+        }
+    }
+
     //----------------------------------
     //  itemIndex
     //----------------------------------
@@ -458,7 +488,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     override mx_internal function drawBackground():void
     {
-        // if handleHighlightBackground is set to true, we always 
+        // if autoDrawBackground is set to true, we always 
         // draw a background and don't need to worry about mouseEnabledWhereTransparent.
         // However, if it's false, then we should just let super.drawBackground()
         // do its job.
@@ -551,15 +581,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     protected function itemRenderer_rollOverHandler(event:MouseEvent):void
     {
         if (!anyButtonDown(event))
-        {
             hovered = true;
-            setCurrentState(getCurrentRendererState(), playTransitions);
-            if (autoDrawBackground)
-            {
-                redrawRequested = true;
-                super.$invalidateDisplayList();
-            }
-        }
     }
     
     /**
@@ -569,12 +591,6 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     protected function itemRenderer_rollOutHandler(event:MouseEvent):void
     {
         hovered = false;
-        setCurrentState(getCurrentRendererState(), playTransitions);
-        if (autoDrawBackground)
-        {
-            redrawRequested = true;
-            super.$invalidateDisplayList();
-        }
     }
 
 }
