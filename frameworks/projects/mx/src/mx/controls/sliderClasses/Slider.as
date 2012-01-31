@@ -547,8 +547,6 @@ public class Slider extends UIComponent
     public function Slider()
     {
         super();
-
-        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
