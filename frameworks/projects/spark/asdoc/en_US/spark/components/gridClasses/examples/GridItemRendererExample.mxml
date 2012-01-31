@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Demonstate how to control text wrapping in DataGrid GridItemRenderer item renderer.
+
+This DataGrid example demonstrates how to control text wrapping with a simple custom item renderer 
+based on GridItemRenderer.   All cells in this example display the same lengthy string which does 
+not contain newlines.  Note that the Flex text components unconditionally render newline characters 
+that appear in the text.
+
+The "Label Renderer" column's renderer is a custom GridItemRenderer that displays its text with
+an s:Label component.  We use the Label's maxDisplayedLines property to control line breaking 
+and to include "..." truncation when the single line of text doesn't fit.
+
+Note also: this example's column widths and row heights are defined by the DataGrid's typicalItem.  
+The typical item uses explicit newlines to create a string that occupies three lines and a 
+reasonable column width.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Declarations>
+        <fx:String id="sampleText">Lorem Ipsum is the standard dummy text of the typesetting industry.</fx:String>
+        <fx:int id="maxDisplayedLines">0</fx:int>        
+    </fx:Declarations>    
+    
+    <s:Panel title="Spark DataGrid Control Example which demonstrates how to control text wrapping in a GridItemRenderer"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:VGroup>
+                <s:CheckBox id="vrh" selected="@{dataGrid.variableRowHeight}" 
+                    label="dataGrid.variableRowHeight={vrh.selected}"/>            
+                <s:CheckBox id="lb" selected="true" 
+                    valueCommit="maxDisplayedLines=(lb.selected) ? 0 : 1" 
+                    label="labelRenderer.maxDisplayedLines={maxDisplayedLines}"/> 
+            </s:VGroup>
+        </s:controlBarContent>
+    
+        <s:DataGrid id="dataGrid" variableRowHeight="false" verticalCenter="0" horizontalCenter="0">
+            <s:columns>
+                <s:ArrayList>                    
+                     <!--
+                        Simple custom item renderer based on GridItemRenderer and Label.
+                        Prevent line breaking by setting maxDisplayedLines="1".
+                    -->
+                    <s:GridColumn dataField="value" headerText="Label Renderer">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:GridItemRenderer>
+                                    <s:Label id="labelDisplay"
+                                        left="5" top="9" right="5" bottom="5"
+                                        maxDisplayedLines="{outerDocument.maxDisplayedLines}"/>
+                                </s:GridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>
+                    </s:GridColumn>
+                </s:ArrayList>
+            </s:columns>
+            
+            <!--
+                The typicalItem defines column widths and the default row height.  The text
+                occpies three lines because we've used the odd XML '&#10;' escape to introduce 
+                two newlines (the value of the newline character is decimal 10).
+            -->
+            <s:typicalItem>
+                <s:DataItem value="Lorem Ipsum sample text.&#10;newline&#10;"/>
+            </s:typicalItem>
+            
+            <s:ArrayCollection>
+                <s:DataItem value="{sampleText}"/>
+                <s:DataItem value="{sampleText}"/>
+                <s:DataItem value="{sampleText}"/>
+            </s:ArrayCollection>
+        </s:DataGrid>
+    </s:Panel>
+</s:Application>
