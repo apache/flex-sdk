@@ -515,7 +515,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         if (isEmpty)
             text = "Wj";
 
-        mx_internal::validateBaselinePosition();
+        validateBaselinePosition();
         
         if (isEmpty)
             text = "";
