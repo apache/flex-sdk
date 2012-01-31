@@ -1760,7 +1760,7 @@ public class Slider extends UIComponent
      *  is equal to the available width minus the <code>trackMargin</code> times 2.
      *
      *  <p>Tick marks are spaced at even intervals along the track starting from the beginning of the track. An additional tick mark is placed
-     *  at the end of the track if one doesn't already exist (if the tick interval isn't a multiple of the maximum value). The tick mark
+     *  at the end of the track if one doesn't already exist (if the tick interval isn't a factor of the maximum value). The tick mark
      *  y-position is based on the <code>tickOffset</code>. An offset of 0 places the bottom of the tick at the top of the track. Negative offsets
      *  move the ticks upwards while positive offsets move them downward through the track.</p>
      *
