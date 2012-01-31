@@ -50,6 +50,11 @@ public class WSDLEncoding
      * restrictive (exactly like the encodingStyle attribute defined in the
      * SOAP specification).
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get encodingStyle():String
     {
@@ -77,6 +82,11 @@ public class WSDLEncoding
      * header type. The referenced message need not be the same as the message
      * that defines the SOAP Body.&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get message():QName
     {
@@ -100,6 +110,11 @@ public class WSDLEncoding
      * &quot;The wrapper element is named identically to the operation name and
      * its namespace is the value of the <code>namespace</code> attribute.&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get namespaceURI():String
     {
@@ -128,6 +143,11 @@ public class WSDLEncoding
      * binding). If the parts attribute is omitted, then all parts defined by
      * the message are assumed to be included in the SOAP Body portion.&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parts():Array
     {
@@ -137,6 +157,11 @@ public class WSDLEncoding
     /**
      * The SOAPConstants associated with this set of encoding rules
      * for the WSDL binding of a messsage for a particular operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get soapConstants():SOAPConstants
     {
@@ -158,6 +183,11 @@ public class WSDLEncoding
      * encoded using some encoding rules, or whether the parts define the
      * concrete schema of the message.&quot;
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get useStyle():String
     {
@@ -177,6 +207,11 @@ public class WSDLEncoding
 
     /**
      * Determines whether a part should be included when encoding this message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasPart(name:String):Boolean
     {
@@ -198,6 +233,11 @@ public class WSDLEncoding
      * Establishes a subset of parts that should be included in the message.
      * If a subset is not defined, the default is to include all parts in a
      * message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setParts(value:String):void
     {
