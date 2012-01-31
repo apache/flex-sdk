@@ -196,9 +196,14 @@ package spark.components
     //--------------------------------------
     
     [AccessibilityClass(implementation="spark.accessibility.RichEditableTextAccImpl")]
+    
     [DefaultProperty("content")]
+    
     [IconFile("RichEditableText.png")]
+    
     [DefaultTriggerEvent("change")]
+    
+    [DiscouragedForProfile("mobileDevice")]
     
     /**
      *  RichEditableText is a low-level UIComponent for displaying,
