@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
-import flex.intf.ILayoutItem;
-import flex.layout.LayoutItemFactory;
-	
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
+import mx.components.baseClasses.FxScrollBar;	
 
 /**
  *  The VScrollBar (vertical ScrollBar) control lets you control
@@ -26,7 +26,7 @@ import flex.layout.LayoutItemFactory;
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
  */
-public class VScrollBar extends ScrollBar
+public class FxVScrollBar extends FxScrollBar
 {
     include "../core/Version.as";
 
@@ -39,7 +39,7 @@ public class VScrollBar extends ScrollBar
     /**
      *  Constructor. 
      */    
-    public function VScrollBar()
+    public function FxVScrollBar()
     {
         super();
     }
