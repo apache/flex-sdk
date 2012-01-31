@@ -63,7 +63,7 @@ import spark.components.supportClasses.Slider;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;HSlider&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:HSlider&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  *  <pre>
  *  &lt;s:HSlider/&gt;
