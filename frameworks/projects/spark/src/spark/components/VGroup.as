@@ -11,10 +11,9 @@
 
 package flex.component
 {
-import flex.core.Group;
-import flex.intf.ILayout;
-import flex.layout.VerticalLayout;
 import flash.events.Event;
+import flex.core.Group;
+import flex.layout.VerticalLayout;
 
 /**
  *  A Group with a VerticalLayout.  
@@ -28,15 +27,24 @@ import flash.events.Event;
  */
 public class VGroup extends Group
 {
+    include "../core/Version.as";
+	
     /**
      *  Initializes the layout property to an instance of VerticalLayout.
-     *   
+     *  
+     *  Resetting the layout property or setting its properties directly
+     *  is not supported.
+     * 
      *  @see flex.layout.VerticalLayout
+     *  @see flex.component.HGroup
      */  
 	public function VGroup():void
 	{
 		super();
-		super.layout = new VerticalLayout();
+		var vl:VerticalLayout = new VerticalLayout();
+        vl.addEventListener("indexInViewChanged", redispatchHandler);
+        vl.addEventListener("propertyChange", redispatchHandler);
+        layout = vl;
 	}
 	
     private function get verticalLayout():VerticalLayout
@@ -73,7 +81,9 @@ public class VGroup extends Group
     //----------------------------------
     //  rowCount
     //----------------------------------
-        
+
+    [Bindable("propertyChange")]
+
     /**
      * @copy flex.layout.VerticalLayout#rowCount
      */
@@ -149,6 +159,8 @@ public class VGroup extends Group
     //----------------------------------
     //  firstIndexInView
     //----------------------------------
+
+    [Bindable("indexInViewChanged")]    
  
     /**
      * @copy flex.layout.VerticalLayout#firstIndexInView
@@ -162,13 +174,26 @@ public class VGroup extends Group
     //  lastIndexInView
     //----------------------------------
 
+    [Bindable("indexInViewChanged")]    
+
     /**
      * @copy flex.layout.VerticalLayout#lastIndexInview
      */
     public function get lastIndexInView():int
     {
         return verticalLayout.lastIndexInView;
-    }   
+    } 
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    private function redispatchHandler(event:Event):void
+    {
+        dispatchEvent(event);
+    }
     
 }
 }
