@@ -688,13 +688,20 @@ public class Application extends SkinnableContainer
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *  @see splashScreenScaleMode
+     *  @see splashScreenMinimumDisplayTime
+     */
+    public function get splashScreenImage():Class
+    {
+        // When set through mxml, the compiler uses the value in the generated loader class.
+        return systemManager.info()["splashScreenImage"];
+    }
+    
+    /**
+     *  @private
      */
     public function set splashScreenImage(value:Class):void
     {
-        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
-
-        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
-        // special attributes as "public vars"?
+        systemManager.info()["splashScreenImage"] = value;
     }
 
     //----------------------------------
@@ -728,14 +735,9 @@ public class Application extends SkinnableContainer
      *
      *  @default "none"
      *  @see splashScreenImage
+     *  @see splashScreenMinimumDisplayTime
      */
-    public function set splashScreenScaleMode(value:String):void
-    {
-        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
-        
-        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
-        // special attributes as "public vars"?
-    }
+    public var splashScreenScaleMode:String;
 
     //----------------------------------
     //  splashScreenMinimumDisplayTime
@@ -753,14 +755,10 @@ public class Application extends SkinnableContainer
      *
      *  @default 1000
      *  @see splashScreenImage
+     *  @see splashScreenScaleMode
      */
-    public function set splashScreenMinimumDisplayTime(value:int):void
-    {
-        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
-        
-        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
-        // special attributes as "public vars"?
-    }
+    public var splashScreenMinimumDisplayTime:Number;
+    
 
     //----------------------------------
     //  usePreloader
