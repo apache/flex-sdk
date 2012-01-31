@@ -172,6 +172,12 @@ public class CommandMessage extends AsyncMessage
      */
     public static const CREDENTIALS_CHARSET_HEADER:String = "DSCredentialsCharset";  
 
+    /**
+     * Header to indicate the maximum number of messages a Consumer wants to 
+     * receive per second.
+     */
+    public static const MAX_FREQUENCY_HEADER:String = "DSMaxFrequency";
+
     //--------------------------------------------------------------------------
     //
     // Private Static Constants for Serialization
