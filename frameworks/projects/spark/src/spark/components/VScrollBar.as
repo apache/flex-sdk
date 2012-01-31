@@ -279,21 +279,21 @@ public class VScrollBar extends ScrollBarBase
         // beyond its min/max, we want the scroll thumb to shink in size. 
         // Note: not checking interactionMode==TOUCH here because it is assumed that
         // value will never exceed min/max unless in touch mode.
-        if (value < min)
+        if (pendingValue < min)
         {
             if (!fixedThumbSize)
             {
-                // Note:  we use thumb.width here to ensure the thumb doesn't get smaller than square.
-                thumbSize = Math.max(Math.max(thumb.width, thumb.minHeight), thumbSize + value);
+                // The minimum size we'll shrink the thumb to is either thumb.width or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.width, thumbSize), thumbSize + pendingValue);
             }
             thumbPosTrackY = min;
         }
-        if (value > max)
+        if (pendingValue > max)
         {
             if (!fixedThumbSize)
             {
-                // Note:  we use thumb.width here to ensure the thumb doesn't get smaller than square.
-                thumbSize = Math.max(Math.max(thumb.width, thumb.minHeight), thumbSize - (value - max));
+                // The minimum size we'll shrink the thumb to is either thumb.width or thumbSize: whichever is smaller.
+                thumbSize = Math.max(Math.min(thumb.width, thumbSize), thumbSize - (pendingValue - max));
             }
             thumbPosTrackY = trackSize - thumbSize;
         }
@@ -485,7 +485,18 @@ public class VScrollBar extends ScrollBarBase
     override mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
-            updateMaximumAndPageSize();
+        {
+            if (getStyle("interactionMode") == InteractionMode.TOUCH)
+            {
+                updateMaximumAndPageSize();
+            }
+            else
+            {
+                // SDK-28898: reverted previous behavior for desktop, resets
+                // scroll position to zero when all content is removed.
+                maximum = viewport.contentHeight - viewport.height;
+            }
+        }
     }
     
     /**
