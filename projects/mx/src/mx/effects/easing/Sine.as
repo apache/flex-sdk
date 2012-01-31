@@ -13,6 +13,15 @@ package mx.effects.easing
 {
 
 /**
+ *  The new effects provided as of Flex 4 use classes which implement the 
+ *  IEaser interface instead of the easing functions in classes like Sine for 
+ *  the earlier Flex 3 effects. To achieve the same functionality of the old Sine
+ *  class, create a spark.effects.Sine instance with an appropriate 
+ *  <code>easeInFraction</code> to get the desired result.
+ */
+[Alternative(replacement="spark.effects.easing.Sine", since="4.0")]
+
+/**
  *  The Sine class defines three easing functions to implement 
  *  motion with Flex effect classes, where the motion is defined by 
  *  a sine wave.
