@@ -2526,6 +2526,14 @@ public class List extends ListBase implements IFocusManagerComponent
             event.preventDefault();
             return; 
         }
+        
+        // FIXME (rfrishbe): hack for 5-way
+        if (getStyle("inputMode") == "touch" && event.keyCode == Keyboard.ENTER)
+        {
+            setSelectedIndex(caretIndex, true); 
+            event.preventDefault();
+            return; 
+        }
 
         // 2. Or was an alphanumeric key hit? 
         // Hitting an alphanumeric key causes List's
