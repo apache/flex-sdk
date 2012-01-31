@@ -61,27 +61,30 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Used to initialize the DataGrid's rowBackground.   If defined, the alternatingRowColorsBackground
- *  skin part is used to render row backgrounds whose fill color is defined by successive entries
+ *  Used to initialize the DataGrid's <code>rowBackground</code> skin part.   
+ *  If defined, the <code>alternatingRowColorsBackground</code>
+ *  skin part is used to render row backgrounds whose 
+ *  fill color is defined by successive entries
  *  in the array value of this style.
  * 
  *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="alternatingRowColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="spark")]
 
 /**
- *  The alpha of the border for this component.
+ *  The alpha value of the border for this component.
+ *  Valid values are 0.0 to 1.0. 
  *
  *  @default 1.0
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="borderAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
@@ -93,7 +96,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
@@ -105,17 +108,18 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
 
 /**
  *  The alpha of the content background for this component.
+ *  Valid values are 0.0 to 1.0. 
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
@@ -127,7 +131,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
@@ -135,11 +139,11 @@ use namespace mx_internal;
 /**
  *  The class to use as the skin for the cursor that indicates that a column
  *  can be resized.
- *  The default value is the "cursorStretch" symbol from the Assets.swf file.
+ *  The default value is the <code>cursorStretch</code> symbol from the Assets.swf file.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="stretchCursor", type="Class", inherit="no")]
@@ -148,43 +152,46 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
- *  Name of the class of the itemEditor to be used if one is not
- *  specified for a column.  This is a way to set
- *  an item editor for a group of DataGrids instead of having to
- *  set each one individually.  If you set the DataGridColumn's itemEditor
- *  property, it supercedes this value.
+ *  The class to use as the item editor, if one is not
+ *  specified by a column.  
+ *  This style property lets you set
+ *  an item editor for a group of DataGrid controls instead of having to
+ *  set each one individually.  
+ *  The <code>DataGridColumn.itemEditor</code> property supercedes this value.
+ *  
  *  @default null
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="defaultDataGridItemEditor", type="Class", inherit="no")]
 
 /**
- *  Indicates under what conditions the horizontal scroll bar is displayed.
+ *  Indicates the conditions for which the horizontal scroll bar is displayed.
  * 
  *  <ul>
  *  <li>
- *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  <code>ScrollPolicy.ON</code> ("on") - The scroll bar is always displayed.
  *  </li> 
  *  <li>
- *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  <code>ScrollPolicy.OFF</code> ("off") - The scroll bar is never displayed.
  *  The viewport can still be scrolled programmatically, by setting its
- *  horizontalScrollPosition property.
+ *  <code>horizontalScrollPosition</code> property.
  *  </li>
  *  <li>
- *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
- *  the viewport's contentWidth is larger than its width.
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - The scroll bar is displayed when 
+ *  the viewport's <code>contentWidth</code> is larger than its width.
  *  </li>
  *  </ul>
  * 
  *  <p>
- *  The scroll policy affects the measured size of the scroller skin part.  This style
- *  is simply a cover for the scroller skin part's horizontalScrollPolicy.  It is not an 
- *  inheriting style so, for example, it will not affect item renderers.
- *  </p>
+ *  The scroll policy affects the measured size of the scroller skin part.  
+ *  This style is a reference to the scroller skin part's 
+ *  <code>horizontalScrollPolicy</code> style.  
+ *  It is not an inheriting style 
+ *  Therefor, for example, it will not affect item renderers. </p>
  * 
  *  @default ScrollPolicy.AUTO
  *
@@ -192,7 +199,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
@@ -202,24 +209,25 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  <ul>
  *  <li>
- *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  <code>ScrollPolicy.ON</code> ("on") - The scroll bar is always displayed.
  *  </li> 
  *  <li>
- *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  <code>ScrollPolicy.OFF</code> ("off") - The scroll bar is never displayed.
  *  The viewport can still be scrolled programmatically, by setting its
- *  verticalScrollPosition property.
+ *  <code>verticalScrollPosition</code> property.
  *  </li>
  *  <li>
- *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
- *  the viewport's contentHeight is larger than its height.
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - The scroll bar is displayed when 
+ *  the viewport's <code>contentHeight</code> is larger than its height.
  *  </li>
  *  </ul>
  * 
  *  <p>
- *  The scroll policy affects the measured size of the scroller skin part.  This style
- *  is simply a cover for the scroller skin part's verticalScrollPolicy.  It is not an 
- *  inheriting style so, for example, it will not affect item renderers.
- *  </p>
+ *  The scroll policy affects the measured size of the scroller skin part.  
+ *  This style is a reference to the scroller skin part's 
+ *  <code>verticalScrollPolicy</code> style.  
+ *  It is not an inheriting style 
+ *  Therefor, for example, it will not affect item renderers. </p>
  * 
  *  @default ScrollPolicy.AUTO
  *
@@ -227,7 +235,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
 [Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
@@ -237,99 +245,101 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 //--------------------------------------
 
 /**
- *  Dispatched by the grid skin part when the caret position, size, or
+ *  Dispatched by the <code>grid</code> skin part when the caret position, size, or
  *  visibility has changed due to user interaction or being programmatically set.
  *
  *  @eventType spark.events.GridCaretEvent.CARET_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
 /**
- *  Dispatched by the grid skin part when the mouse button is pressed over a Grid cell.
+ *  Dispatched by the <code>grid</code> skin part when the mouse button 
+ *  is pressed over a grid cell.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_DOWN
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part after a GRID_MOUSE_DOWN event if the mouse moves before the button is released.
+ *  Dispatched by the <code>grid</code> skin part after a <code>gridMouseDown</code> event 
+ *  if the mouse moves before the button is released.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_DRAG
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseDrag", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part after a GRID_MOUSE_DOWN event when the mouse button is released, even
- *  if the mouse is no longer within the Grid.
+ *  Dispatched by the <code>grid</code> skin part after a <code>gridMouseDown</code> event 
+ *  when the mouse button is released, even if the mouse is no longer within the grid.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_UP
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseUp", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part when the mouse enters a grid cell.
+ *  Dispatched by the <code>grid</code> skin part when the mouse enters a grid cell.
  *
  *  @eventType spark.events.GridEvent.GRID_ROLL_OVER
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridRollOver", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part when the mouse leaves a grid cell.
+ *  Dispatched by the <code>grid</code> skin part when the mouse leaves a grid cell.
  *
  *  @eventType spark.events.GridEvent.GRID_ROLL_OUT
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridRollOut", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part when the mouse is clicked over a cell
+ *  Dispatched by the <code>grid</code> skin part when the mouse is clicked over a cell
  *
  *  @eventType spark.events.GridEvent.GRID_CLICK
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridClick", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched by the grid skin part when the mouse is double-clicked over a cell
+ *  Dispatched by the <code>grid</code> skin part when the mouse is double-clicked over a cell
  *
  *  @eventType spark.events.GridEvent.GRID_DOUBLE_CLICK
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridDoubleClick", type="spark.events.GridEvent")]
@@ -343,11 +353,11 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  When you change the selection programmatically, 
  *  the component does not dispatch the <code>selectionChanging</code> event. </p>
  *
- *  @eventType spark.events.GridSelectionChangeEvent.SELECTION_CHANGING
+ *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="selectionChanging", type="spark.events.GridSelectionEvent")]
@@ -360,11 +370,11 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  the component does not dispatch the <code>selectionChange</code> event. 
  *  It dispatches the <code>valueCommit</code> event instead.</p>
  *
- *  @eventType spark.events.GridSelectionChangeEvent.SELECTION_CHANGE
+ *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="selectionChange", type="spark.events.GridSelectionEvent")]
@@ -375,12 +385,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Dispatched when a new item editor session has been requested. A listener can
- *  dynamically determine if a cell is editable and cancel the edit (with 
- *  preventDefault()) if it is not. A listener may also dynamically 
- *  change the editor that will be used by assigning a different item editor to
- *  a column.
+ *  dynamically determine if a cell is editable and cancel the edit (by calling
+ *  the <code>preventDefault()</code> method) if it is not. 
+ *  A listener may also dynamically change the editor used by assigning a 
+ *  different item editor to a column.
  * 
- *  <p>If this event is cancelled the item editor will not be created.</p>
+ *  <p>If this event is canceled the item editor will not be created.</p>
  *
  *  @eventType spark.events.GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING
  *  
@@ -389,7 +399,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridItemEditorSessionStarting", type="spark.events.GridItemEditorEvent")]
@@ -403,7 +413,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridItemEditorSessionStart", type="spark.events.GridItemEditorEvent")]
@@ -418,7 +428,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridItemEditorSessionSave", type="spark.events.GridItemEditorEvent")]
@@ -432,7 +442,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="gridItemEditorSessionCancel", type="spark.events.GridItemEditorEvent")]
@@ -450,7 +460,15 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [IconFile("DataGrid.png")]
 
 /**
- *  TBD(hmuller)
+ *  The DataGrid class
+ *
+ *  @see Grid
+ *  @see spark.components.gridClasses.GridColumn
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */  
 public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, 
                                                                 IGridItemRendererOwner, 
@@ -481,7 +499,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function DataGrid()
@@ -995,7 +1013,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get dataTipField():String
@@ -1023,7 +1041,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get dataTipFunction():Function
@@ -1064,7 +1082,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get editable():Boolean
@@ -1092,7 +1110,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get editorColumnIndex():int
@@ -1115,7 +1133,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get editorRowIndex():int
@@ -1139,7 +1157,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get enableIME():Boolean
@@ -1193,7 +1211,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get imeMode():String
@@ -1228,7 +1246,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public function get itemEditor():IFactory
@@ -1267,7 +1285,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get itemEditorInstance():IGridItemEditor
@@ -1289,7 +1307,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get itemRenderer():IFactory
@@ -1315,7 +1333,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get preserveSelection():Boolean
@@ -1346,7 +1364,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requireSelection():Boolean
@@ -1377,7 +1395,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requestedRowCount():int
@@ -1402,7 +1420,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requestedColumnCount():int
@@ -1427,7 +1445,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requestedMaxRowCount():int
@@ -1452,7 +1470,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requestedMinRowCount():int
@@ -1477,7 +1495,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get requestedMinColumnCount():int
@@ -1504,7 +1522,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get resizableColumns():Boolean
@@ -1532,7 +1550,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get rowHeight():Number
@@ -1563,7 +1581,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionMode():String
@@ -1630,7 +1648,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get showDataTips():Boolean
@@ -1668,7 +1686,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get sortableColumns():Boolean
@@ -1699,7 +1717,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get typicalItem():Object
@@ -1741,7 +1759,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get variableRowHeight():Boolean
@@ -2229,7 +2247,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedCell():CellPosition
@@ -2271,7 +2289,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedCells():Vector.<CellPosition>
@@ -2309,7 +2327,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedIndex():int
@@ -2349,7 +2367,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedIndices():Vector.<int>
@@ -2387,7 +2405,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedItem():Object
@@ -2428,7 +2446,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectedItems():Vector.<Object>
@@ -2474,7 +2492,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionLength():int
@@ -2493,7 +2511,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function invalidateCell(rowIndex:int, columnIndex:int):void
@@ -2507,7 +2525,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectAll():Boolean
@@ -2533,7 +2551,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function clearSelection():Boolean
@@ -2563,7 +2581,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectionContainsIndex(rowIndex:int):Boolean 
@@ -2579,7 +2597,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectionContainsIndices(rowIndices:Vector.<int>):Boolean 
@@ -2595,7 +2613,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function setSelectedIndex(rowIndex:int):Boolean
@@ -2621,7 +2639,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function addSelectedIndex(rowIndex:int):Boolean
@@ -2647,7 +2665,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function removeSelectedIndex(rowIndex:int):Boolean
@@ -2673,7 +2691,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectIndices(rowIndex:int, rowCount:int):Boolean
@@ -2703,7 +2721,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectionContainsCell(rowIndex:int, columnIndex:int):Boolean
@@ -2719,7 +2737,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectionContainsCellRegion(rowIndex:int, columnIndex:int, 
@@ -2742,7 +2760,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function setSelectedCell(rowIndex:int, columnIndex:int):Boolean
@@ -2768,7 +2786,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function addSelectedCell(rowIndex:int, columnIndex:int):Boolean
@@ -2794,7 +2812,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function removeSelectedCell(rowIndex:int, columnIndex:int):Boolean
@@ -2820,7 +2838,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectCellRegion(rowIndex:int, columnIndex:int, 
@@ -2892,7 +2910,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     protected function commitInteractiveSelection(
@@ -3032,7 +3050,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     protected function commitCaretPosition(newCaretRowIndex:int, 
@@ -3172,7 +3190,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      *  
      */ 
@@ -3197,7 +3215,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
     public function endItemEditorSession(cancel:Boolean = false):Boolean
@@ -3239,7 +3257,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function sortByColumns(columnIndices:Vector.<int>):Boolean
@@ -3699,7 +3717,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function ensureCellIsVisible(rowIndex:int, columnIndex:int = -1):void
