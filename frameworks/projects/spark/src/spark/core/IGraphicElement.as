@@ -120,7 +120,7 @@ public interface IGraphicElement extends IVisualElement
      *  Creates a new <code>DisplayObject</code> where this <code>IGraphicElement</code>
      *  is drawn.
      *  
-     *  Subsequent calls to the getter of the <code>displayObject<code> property must
+     *  Subsequent calls to the getter of the <code>displayObject</code> property must
      *  return the same display object.
      *
      *  After the <code>DisplayObject</code> is created, the parent <code>Group</code>
@@ -168,7 +168,7 @@ public interface IGraphicElement extends IVisualElement
      *  mask, alpha, filters, color transform, 3D, layer, etc.</p>
      *
      *  When this method returns true, subsequent calls to the getter of the
-     *  <code>displayObject<code> property must return the same display object.
+     *  <code>displayObject</code> property must return the same display object.
      *
      *  <p>Note that in certain cases the <code>sharedDisplayObject</code> may be
      *  the parent <code>Group</code> itself.  In the rest of the cases the
