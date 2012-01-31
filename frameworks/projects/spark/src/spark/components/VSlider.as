@@ -26,6 +26,11 @@ import mx.layout.LayoutElementFactory;
  *  The FxVSlider class defines a vertical slider component.
  *
  *  @includeExample examples/FxVSliderExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxVSlider extends FxSlider
 {
@@ -39,6 +44,11 @@ public class FxVSlider extends FxSlider
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxVSlider()
     {
@@ -53,6 +63,11 @@ public class FxVSlider extends FxSlider
 
     /**
      *  The size of the track, which equals the height of the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function get trackSize():Number
         {
@@ -68,6 +83,11 @@ public class FxVSlider extends FxSlider
     
     /**
      *  The size of the thumb button, which equals the height of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function calculateThumbSize():Number
     {
@@ -89,6 +109,11 @@ public class FxVSlider extends FxSlider
      * 
      *  @param thumbPos A number representing the new position of
      *  the thumb button in the control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function positionThumb(thumbPos:Number):void
     {
@@ -126,6 +151,11 @@ public class FxVSlider extends FxSlider
      *  @param localY The y position relative to the track.
      *
      *  @return The position of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -143,6 +173,11 @@ public class FxVSlider extends FxSlider
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
