@@ -9,30 +9,26 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
 import mx.collections.IList;
 import mx.core.IFactory;
-import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
-import spark.components.ColumnHeaderBar;
-import spark.components.DataGrid;
 import spark.components.Grid;
+import spark.components.GridColumnHeaderGroup;
 import spark.components.Group;
-import spark.components.IGridItemRenderer;
-import spark.components.supportClasses.GridLayer;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
 [ExcludeClass]
 
-public class ColumnHeaderBarLayout extends LayoutBase
+public class GridColumnHeaderGroupLayout extends LayoutBase
 {
     /**
      *  Constructor. 
@@ -42,7 +38,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    public function ColumnHeaderBarLayout()
+    public function GridColumnHeaderGroupLayout()
     {
         super();
     }
@@ -118,16 +114,16 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     override protected function scrollPositionChanged():void
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
-        if (!columnHeaderBar)
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
+        if (!columnHeaderGroup)
             return;
         
-        super.scrollPositionChanged();  // sets columnHeaderBar.scrollRect
+        super.scrollPositionChanged();  // sets columnHeaderGroup.scrollRect
         
         // Only invalidate if we're clipping and scrollR extends outside visibleRenderersBounds
-        const scrollR:Rectangle = columnHeaderBar.scrollRect;
+        const scrollR:Rectangle = columnHeaderGroup.scrollRect;
         if (scrollR && !visibleRenderersBounds.containsRect(scrollR))
-            columnHeaderBar.invalidateDisplayList();
+            columnHeaderGroup.invalidateDisplayList();
     }    
     
     /**
@@ -135,16 +131,16 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     override public function measure():void
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid)
+        if (!columnHeaderGroup || !grid)
             return;        
         
-        const columnHeaderBarNumElements:int = columnHeaderBar.numElements;
-        for (var eltIndex:int = 0; eltIndex < columnHeaderBarNumElements; eltIndex++)
+        const columnHeaderGroupNumElements:int = columnHeaderGroup.numElements;
+        for (var eltIndex:int = 0; eltIndex < columnHeaderGroupNumElements; eltIndex++)
         {
-            var renderer:IGridItemRenderer = columnHeaderBar.getElementAt(eltIndex) as IGridItemRenderer;
+            var renderer:IGridItemRenderer = columnHeaderGroup.getElementAt(eltIndex) as IGridItemRenderer;
             if (!renderer || !renderer.visible)
                 continue;
             
@@ -161,16 +157,16 @@ public class ColumnHeaderBarLayout extends LayoutBase
                 maxRendererHeight = Math.max(maxRendererHeight, rendererHeight);
         }
         
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
-        const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
-        const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
-        const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
+        const paddingRight:Number = columnHeaderGroup.getStyle("paddingRight");
+        const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
+        const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
         var measuredWidth:Number = Math.ceil(grid.getPreferredBoundsWidth() + paddingLeft + paddingRight);
         var measuredHeight:Number = Math.ceil(maxRendererHeight + paddingTop + paddingBottom);
         
-        columnHeaderBar.measuredWidth = Math.max(measuredWidth, columnHeaderBar.minWidth);
-        columnHeaderBar.measuredHeight = Math.max(measuredHeight, columnHeaderBar.minHeight);
+        columnHeaderGroup.measuredWidth = Math.max(measuredWidth, columnHeaderGroup.minWidth);
+        columnHeaderGroup.measuredHeight = Math.max(measuredHeight, columnHeaderGroup.minHeight);
     }
 
     /**
@@ -178,25 +174,25 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid)
+        if (!columnHeaderGroup || !grid)
             return;
 
         const visibleColumnIndices:Vector.<int> = grid.getVisibleColumnIndices();
         const oldRenderers:Dictionary = new Dictionary();
 
-        const overlayGroup:Group = columnHeaderBar.overlayGroup;
-        const columnSeparatorFactory:IFactory = columnHeaderBar.columnSeparator;
+        const overlayGroup:Group = columnHeaderGroup.overlayGroup;
+        const columnSeparatorFactory:IFactory = columnHeaderGroup.columnSeparator;
         var renderer:IGridItemRenderer;
         var column:GridColumn;
         
         // Add all of the renderers whose column is still visible to oldRenderers and free the rest
         
-        for (var eltIndex:int = 0; eltIndex < columnHeaderBar.numElements; eltIndex++)
+        for (var eltIndex:int = 0; eltIndex < columnHeaderGroup.numElements; eltIndex++)
         {
-            renderer = columnHeaderBar.getElementAt(eltIndex) as IGridItemRenderer;
+            renderer = columnHeaderGroup.getElementAt(eltIndex) as IGridItemRenderer;
             if (!renderer || !renderer.visible)
                 continue;
             
@@ -219,17 +215,17 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         // Layout the header renderers and update the CHB's content size
         
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
-        const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
-        const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
-        const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
+        const paddingRight:Number = columnHeaderGroup.getStyle("paddingRight");
+        const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
+        const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
         const columns:IList = grid.columns;
         const columnsLength:int = (columns) ? columns.length : 0;
         const lastVisibleColumnIndex:int = grid.getPreviousVisibleColumnIndex(columnsLength);
         const rendererY:Number = paddingTop;
         const rendererHeight:Number = unscaledHeight - paddingTop - paddingBottom;
-        const maxRendererX:Number = columnHeaderBar.horizontalScrollPosition + unscaledWidth;
+        const maxRendererX:Number = columnHeaderGroup.horizontalScrollPosition + unscaledWidth;
         
         const allocatedItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
         var createdItemRenderers:Vector.<IGridItemRenderer> = null;
@@ -240,7 +236,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         // This isn't quite as simple as: 
         //     for each (var columnIndex:int in visibleColumnIndices)
-        // since the ColumnHeaderBar may be wider than the grid because it
+        // since the GridColumnHeaderGroup may be wider than the grid because it
         // spans the vertical scrollbar.  If it does, we may need to display 
         // additional column headers (usually one).  
         
@@ -264,7 +260,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             {
                 var factory:IFactory = column.headerRenderer;
                 if (!factory)
-                    factory = columnHeaderBar.headerRenderer;
+                    factory = columnHeaderGroup.headerRenderer;
                 renderer = allocateVisualElement(factory) as IGridItemRenderer;
                 
                 // Track which item renderers were created (uncommon) or recycled
@@ -287,8 +283,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
             renderer.column = column;
             renderer.label = column.headerText;
             renderer.visible = true; 
-            if (renderer.parent != columnHeaderBar)
-                columnHeaderBar.addElement(renderer);
+            if (renderer.parent != columnHeaderGroup)
+                columnHeaderGroup.addElement(renderer);
             
             // layout the renderer
             
@@ -325,7 +321,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             }
         }
         
-        columnHeaderBar.setContentSize(grid.contentWidth, rendererHeight);
+        columnHeaderGroup.setContentSize(grid.contentWidth, rendererHeight);
         
         visibleRenderersBounds.left = visibleLeft;
         visibleRenderersBounds.right = visibleRight;
@@ -346,7 +342,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         // validation to avoid a display list flash.
         
         overlayGroup.validateNow();
-        columnHeaderBar.validateNow();
+        columnHeaderGroup.validateNow();
     }
     
     //---------------------------------------------------------------
@@ -358,14 +354,14 @@ public class ColumnHeaderBarLayout extends LayoutBase
     /**
      *  Returns the column index corresponding to the specified coordinates,
      *  or -1 if the coordinates are out of bounds. The coordinates are 
-     *  resolved with respect to the ColumnHeaderBar layout target.
+     *  resolved with respect to the GridColumnHeaderGroup layout target.
      * 
      *  <p>If all of the columns or rows for the grid have not yet been scrolled
      *  into view, the returned index may only be an approximation, 
      *  based on all of the columns' <code>typicalItem</code>s.</p>
      *  
-     *  @param x The pixel's x coordinate relative to the columnHeaderBar
-     *  @param y The pixel's y coordinate relative to the columnHeaderBar
+     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
+     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
      *  @return the index of the column or -1 if the coordinates are out of bounds. 
      * 
      *  @langversion 3.0
@@ -375,20 +371,20 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid)
+        if (!columnHeaderGroup || !grid)
             return -1; 
         
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
         return grid.getColumnIndexAt(x + paddingLeft, 0);
     }
     
     /**
      *  Returns the column separator index corresponding to the specified 
      *  coordinates, or -1 if the coordinates don't overlap a separator. The 
-     *  coordinates are resolved with respect to the ColumnHeaderBar layout target.
+     *  coordinates are resolved with respect to the GridColumnHeaderGroup layout target.
      * 
      *  <p>A separator is considered to "overlap" the specified location if the
      *  x coordinate is within <code>separatorMouseWidth</code> of separator's
@@ -404,8 +400,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
      *  into view, the returned index may only be an approximation, 
      *  based on all of the columns' <code>typicalItem</code>s.</p>
      *  
-     *  @param x The pixel's x coordinate relative to the columnHeaderBar
-     *  @param y The pixel's y coordinate relative to the columnHeaderBar
+     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
+     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
      *  @return the index of the column or -1 if the coordinates don't overlap a separator.
      * 
      *  @langversion 3.0
@@ -415,13 +411,13 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     public function getSeparatorIndexAt(x:Number, y:Number):int
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid || !grid.columns)
+        if (!columnHeaderGroup || !grid || !grid.columns)
             return -1; 
         
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
         const columnIndex:int = grid.getColumnIndexAt(x + paddingLeft, 0);
         
         if (columnIndex == -1)
@@ -432,7 +428,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         const columnLeft:Number = grid.getCellX(0, columnIndex);
         const columnRight:Number = columnLeft + grid.getColumnWidth(columnIndex);
-        const smw:Number = columnHeaderBar.separatorMouseWidth;
+        const smw:Number = columnHeaderGroup.separatorMouseWidth;
         
         if (!isFirstColumn && (x > (columnLeft - smw)) && (x < (columnLeft + smw)))
             return grid.getPreviousVisibleColumnIndex(columnIndex);
@@ -445,7 +441,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
     
     /**
      *  Returns the current pixel bounds of the specified header (renderer), or null if 
-     *  no such column exists.  Header bounds are reported in ColumnHeaderBar coordinates.
+     *  no such column exists.  Header bounds are reported in GridColumnHeaderGroup coordinates.
      * 
      *  <p>If all of the visible columns preceeding the specified column have not 
      *  yet been scrolled into view, the returned bounds may only be an approximation, 
@@ -461,10 +457,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */     
     public function getHeaderBounds(columnIndex:int):Rectangle
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid)
+        if (!columnHeaderGroup || !grid)
             return null;
         
         const columns:IList = grid.columns;
@@ -477,19 +473,19 @@ public class ColumnHeaderBarLayout extends LayoutBase
         if (!column.visible)
             return null;
         
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
-        const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
-        const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
-        const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
+        const paddingRight:Number = columnHeaderGroup.getStyle("paddingRight");
+        const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
+        const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
         var isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(columnsLength);
         var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
         const rendererY:Number = paddingTop;
         var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
-        const rendererHeight:Number = columnHeaderBar.height - paddingTop - paddingBottom;        
+        const rendererHeight:Number = columnHeaderGroup.height - paddingTop - paddingBottom;        
         
         if (isLastColumn)
-            rendererWidth = horizontalScrollPosition + columnHeaderBar.width - rendererX - paddingRight;
+            rendererWidth = horizontalScrollPosition + columnHeaderGroup.width - rendererX - paddingRight;
         
         return new Rectangle(rendererX, rendererY, rendererWidth, rendererHeight);
     }
@@ -517,10 +513,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
      */
     public function getHeaderRendererAt(columnIndex:int):IGridItemRenderer
     {
-        const columnHeaderBar:ColumnHeaderBar = columnHeaderBar;
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
         
-        if (!columnHeaderBar || !grid || (columnIndex < 0))
+        if (!columnHeaderGroup || !grid || (columnIndex < 0))
             return null;
         
         // If columnIndex refers to a visible header renderer, return it
@@ -529,10 +525,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
         const eltIndex:int = visibleColumnIndices.indexOf(columnIndex);
         if (eltIndex != -1)
         {
-            const columnHeaderBarNumElements:int = columnHeaderBar.numElements;
-            for (var index:int = 0; index < columnHeaderBarNumElements; index++)
+            const columnHeaderGroupNumElements:int = columnHeaderGroup.numElements;
+            for (var index:int = 0; index < columnHeaderGroupNumElements; index++)
             {
-                var elt:IGridItemRenderer = columnHeaderBar.getElementAt(index) as IGridItemRenderer;
+                var elt:IGridItemRenderer = columnHeaderGroup.getElementAt(index) as IGridItemRenderer;
                 if (elt && elt.visible && elt.column && (elt.column.columnIndex == columnIndex))
                     return elt;
             }
@@ -550,10 +546,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         var factory:IFactory = column.headerRenderer;
         if (!factory)
-            factory = columnHeaderBar.headerRenderer;
+            factory = columnHeaderGroup.headerRenderer;
         const renderer:IGridItemRenderer = allocateVisualElement(factory) as IGridItemRenderer;
         
-        columnHeaderBar.addElement(renderer);
+        columnHeaderGroup.addElement(renderer);
 
         // initialize the renderer
         
@@ -562,24 +558,24 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         // layout the renderer
 
-        const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
-        const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
-        const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
-        const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
+        const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
+        const paddingRight:Number = columnHeaderGroup.getStyle("paddingRight");
+        const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
+        const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
         const isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(columns.length);
         const rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
         const rendererY:Number = paddingTop;
-        const rendererHeight:Number = columnHeaderBar.height - paddingTop - paddingBottom;
+        const rendererHeight:Number = columnHeaderGroup.height - paddingTop - paddingBottom;
         var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
         
         if (isLastColumn)
-            rendererWidth = horizontalScrollPosition + columnHeaderBar.width - rendererX - paddingRight;
+            rendererWidth = horizontalScrollPosition + columnHeaderGroup.width - rendererX - paddingRight;
         
         renderer.setLayoutBoundsSize(rendererWidth, rendererHeight);
         renderer.setLayoutBoundsPosition(rendererX, rendererY);
         
-        columnHeaderBar.removeElement(renderer);
+        columnHeaderGroup.removeElement(renderer);
         renderer.visible = false;
         
         return renderer;
@@ -652,14 +648,14 @@ public class ColumnHeaderBarLayout extends LayoutBase
     }
     
     
-    private function get columnHeaderBar():ColumnHeaderBar
+    private function get columnHeaderGroup():GridColumnHeaderGroup
     {
-        return target as ColumnHeaderBar;
+        return target as GridColumnHeaderGroup;
     }       
     
     private function get grid():Grid
     {
-        const chb:ColumnHeaderBar = columnHeaderBar;
+        const chb:GridColumnHeaderGroup = columnHeaderGroup;
         if (chb.dataGrid)
             return chb.dataGrid.grid;
         
