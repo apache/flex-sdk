@@ -133,6 +133,15 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    override public function set suspendBackgroundProcessing(value:Boolean):void
+    {
+        // Noop: this flag causes Flex 4 effects to break because they
+        // depend on the layout validation process that the flag suppresses
+    }
+
     private var _motionPaths:Vector.<MotionPath>;
     /**
      *  @copy spark.effects.Animate#motionPaths
