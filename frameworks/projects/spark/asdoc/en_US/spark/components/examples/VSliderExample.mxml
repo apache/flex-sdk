@@ -2,34 +2,32 @@
 <!-- Simple example to demonstrate the Spark VSlider control-->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <fx:Script>
-        <![CDATA[
-            private var imageX:Number = 0;
+	<fx:Script>
+		<![CDATA[
 
-            // Function to change the image size.
-            private function changeSize():void {
-                fxImage.x = uint(imageX + vSlider.value);
-            }
-        ]]>
-    </fx:Script>
+			// Function to change the image size.
+			private function changePosition():void
+			{
+				fxImage.x=vSlider.value;
+			}
+		]]>
+	</fx:Script>
 
-    <!-- Panel used as a container for Spark VSlider control examples -->
-    <s:Panel title="Spark VSlider Control Example"
-            width="75%" height="75%"
-            horizontalCenter="0" verticalCenter="0">
-        <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:HGroup>
-                <!-- Spark VSlider that calls the function changeSize anytime the value is
-                     changed -->
-                <s:VSlider id="vSlider" minimum="1" liveDragging="true" 
-                        change="changeSize();"/>
-                <s:Group width="100%" height="100%">
-                    <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"
-                            creationComplete="imageX = fxImage.x;"/>
-                </s:Group>
-            </s:HGroup>
-            <s:SimpleText width="100%" text="Drag the slider to move the image" />
-        </s:VGroup>
-    </s:Panel>
+	<!-- Panel used as a container for Spark VSlider control examples -->
+	<mx:Panel title="Spark VSlider Control Example" height="75%" width="75%" paddingTop="10"
+	    paddingLeft="10" horizontalCenter="0" verticalCenter="0">
 
+
+		<s:Group>
+            <!-- Spark VSlider that calls the function changePosition anytime the value is
+		        changed -->
+		    <s:VSlider id="vSlider" minimum="20" maximum="200" liveDragging="true"
+		        change="changePosition();" value="20" x="0" y="0"/>
+		    <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"
+                creationComplete="fxImage.x=vSlider.value" />
+        </s:Group>
+
+        <mx:Text width="100%" text="Drag the slider to move the image"/>
+
+	</mx:Panel>
 </s:Application>
