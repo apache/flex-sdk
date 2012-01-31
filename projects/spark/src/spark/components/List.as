@@ -321,7 +321,9 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
  *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
  *  as the value of the <code>layout</code> property. 
- *  Do not use BasicLayout with the Spark list-based controls.</p>
+ *  Do not use BasicLayout with the Spark list-based controls.  When a layout is specified,
+ *  the layout's typicalLayoutElement property should not be set; it's automatically set
+ *  to an item renderer created with the List's <code>typicalItem</code>.</p>
  *
  *  <p>To use this component in a list-based component, such as a List or DataGrid, 
  *  create an item renderer.
