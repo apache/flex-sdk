@@ -12,6 +12,7 @@
 package spark.components.gridClasses
 {
     
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
 import spark.components.Grid;
@@ -71,7 +72,8 @@ public class GridLayer extends Group
         if (grid && grid.inUpdateDisplayList)
             return;
         
-        super.invalidateDisplayList();
+        if (grid)
+            grid.invalidateDisplayList();
     }
     
     /**
@@ -83,7 +85,8 @@ public class GridLayer extends Group
         if (grid && grid.inUpdateDisplayList)
             return;
         
-        super.invalidateSize();        
+        if (grid)
+            grid.invalidateSize();        
     }
 }
 }
