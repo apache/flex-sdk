@@ -151,6 +151,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 [DefaultProperty("label")]
 
+[AccessibilityClass(implementation="spark.accessibility.ButtonAccImpl")]
+
 /**
  *  The ButtonBase component is the base class for the all Spark button components.
  *  Button and ToggleButtonBase are subclasses of ButtonBase.
@@ -223,6 +225,18 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 public class ButtonBase extends SkinnableComponent implements IFocusManagerComponent
 {
     include "../../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ButtonAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -639,7 +653,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
-
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ButtonBase.createAccessibilityImplementation != null)
+            ButtonBase.createAccessibilityImplementation(this);
+    }
+    
     //----------------------------------
     //  baselinePosition
     //----------------------------------
