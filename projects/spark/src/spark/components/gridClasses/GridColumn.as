@@ -458,8 +458,9 @@ public class GridColumn extends EventDispatcher
             return;
         
         _headerRenderer = value;
-        
-        // TBD(hmuller): invalidate CHB
+
+        if (grid)
+            grid.invalidateDisplayList();
         
         dispatchChangeEvent("headerRendererChanged");
     }
@@ -494,7 +495,6 @@ public class GridColumn extends EventDispatcher
     {
         _headerText = value;
         
-        // Todo: invalidate just the GridColumnHeaderGroup not the entire grid?
         if (grid)
             grid.invalidateDisplayList();
 
@@ -853,7 +853,7 @@ public class GridColumn extends EventDispatcher
     
     private var _maxWidth:Number = NaN;
     
-    [Bindable("maxWidthChanged")]    
+    [Bindable("maxWidthChanged")]
     
     /**
      *  The maximum width of this column in pixels. If specified, the grid's layout will make
@@ -901,6 +901,8 @@ public class GridColumn extends EventDispatcher
     
     private var _rendererIsEditable:Boolean = false;
     
+    [Bindable("rendererIsEditableChanged")]
+    
     /**
      *  Determines whether any of the item renderer's controls are editable.
      *  If the column is editable, the focusable controls in the item renderer
@@ -935,7 +937,11 @@ public class GridColumn extends EventDispatcher
      */
     public function set rendererIsEditable(value:Boolean):void
     {
+        if (_rendererIsEditable == value)
+            return;
+        
         _rendererIsEditable = value;
+        dispatchChangeEvent("rendererIsEditableChanged");
     }
     
     //----------------------------------
@@ -944,7 +950,8 @@ public class GridColumn extends EventDispatcher
     
     private var _resizable:Boolean = true;
     
-    [Bindable("resizableChanged")]    
+    [Bindable("resizableChanged")]   
+    [Inspectable(category="General")]
     
     /**
      *  Enable interactive resizing of this column's width if the grid's 
@@ -1066,8 +1073,6 @@ public class GridColumn extends EventDispatcher
             return;
         
         _sortable = value;
-        
-        // TODO (klin): Should we remove the sort?
         
         dispatchChangeEvent("sortableChanged");        
     }
