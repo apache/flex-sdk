@@ -119,6 +119,18 @@ include "../styles/metadata/SkinStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Gap between the label and icon, when the <code>labelPlacement</code> property
  *  is set to <code>left</code> or <code>right</code>.
  * 
