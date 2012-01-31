@@ -14,6 +14,7 @@ package spark.components
 
 import flash.events.Event;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.media.Video;
 
 import mx.core.IUIComponent;
@@ -39,6 +40,8 @@ import org.osmf.media.IMediaResource;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.MediaPlayerState;
 import org.osmf.media.URLResource;
+import org.osmf.metadata.MediaType;
+import org.osmf.metadata.MediaTypeFacet;
 import org.osmf.net.NetLoader;
 import org.osmf.net.dynamicstreaming.DynamicStreamingItem;
 import org.osmf.net.dynamicstreaming.DynamicStreamingNetLoader;
@@ -60,15 +63,31 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the data is received as a download operation progresses.
+ *  This event is only dispatched when playing a video by downloading it 
+ *  directly from a server, typically by issuing an HTTP request.
+ *  It is not displatched when playing a video from a special media server, 
+ *  such as Flash Media Server.
  *
  *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */
 [Event(name="bytesLoadedChange",type="org.osmf.events.LoadEvent")]
+
+/**
+ *  Dispatched when the playhead reaches the duration for playable media.
+ * 
+ *  @eventType org.osmf.events.TimeEvent.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion Flex 4
+ */	 
+[Event(name="complete", type="org.osmf.events.TimeEvent")]
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
@@ -78,8 +97,8 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
- **/
+ *  @productversion Flex 4
+ */
 [Event(name="currentTimeChange",type="org.osmf.events.TimeEvent")]
 
 /**
@@ -90,7 +109,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */
 [Event(name="durationChange", type="org.osmf.events.TimeEvent")]
 
@@ -102,7 +121,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */ 
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
 
@@ -1294,6 +1313,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(TimeEvent.COMPLETE, dispatchEvent);
         
         addChild(videoSprite);
     }
@@ -1350,12 +1370,21 @@ public class VideoDisplay extends UIComponent
                 
                 dsr.initialIndex = streamingSource.initialIndex;
                 
+                // add video type metadata so if the URL is ambiguous, OSMF will 
+                // know what type of file we're trying to connect to
+                dsr.metadata.addFacet(new MediaTypeFacet(MediaType.VIDEO));
+                
                 videoElement = new org.osmf.video.VideoElement(new DynamicStreamingNetLoader(), dsr);
             }
         }
         else if (source is String)
         {
             var urlResource:URLResource = new URLResource(new URL(source as String));
+            
+            // add video type metadata so if the URL is ambiguous, OSMF will 
+            // know what type of file we're trying to connect to
+            urlResource.metadata.addFacet(new MediaTypeFacet(MediaType.VIDEO)); 
+            
             videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource);
         }
         else if (source is IMediaResource)
@@ -1677,14 +1706,6 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      */
-    private function videoPlayer_dimensionChangeHandler(event:DimensionEvent):void
-    {
-        invalidateSize();
-    }
-    
-    /**
-     *  @private
-     */
     private function videoPlayer_volumeChangeHandler(event:AudioEvent):void
     {
         dispatchEvent(new Event("volumeChanged"));
@@ -1717,18 +1738,33 @@ public class VideoDisplay extends UIComponent
             // we don't need to do anything.
             if (videoPlayer.playing)
                 return;
-        
-            // going to call play(), pause(), seek().  These are asynchronous operations, but 
-            // NetStream will "do the right thing" if I call play() and then pause().  However, 
-            // seek is still asynchronous, so I need to keep the video muted until the 
-            // seek is complete.
-            videoPlayer.addEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
             
             beforeLoadMuted = videoPlayer.muted;
             videoPlayer.muted = true;
+            videoPlayer.view.visible = false;
             
             inLoadingState = true;
+            
+            // call play(), here, then wait to call pause() and seek(0) in the 
+            // dimensionChangeHandler
             videoPlayer.play();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function videoPlayer_dimensionChangeHandler(event:DimensionEvent):void
+    {
+        invalidateSize();
+        
+        // if we're loading up the video, then let's finish the load in here
+        if (inLoadingState)
+        {
+            // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
+            videoPlayer.addEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+            
+            // called play(), now call pause() and seek(0);
             videoPlayer.pause();
             videoPlayer.seek(0);
         }
@@ -1746,6 +1782,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
         inLoadingState = false;
         videoPlayer.muted = beforeLoadMuted;
+        videoPlayer.view.visible = true;
     }
 }
 }
