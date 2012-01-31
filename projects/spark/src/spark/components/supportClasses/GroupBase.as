@@ -282,15 +282,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             
             invalidateParentSizeAndDisplayList();
         }
-
-        if (scrollPositionChanged) {
-            scrollPositionChanged = false;
-            var r:Rectangle = scrollRect;
-            if (r == null) r = new Rectangle(0, 0, width, height);
-            r.x = _horizontalScrollPosition;
-            r.y = _verticalScrollPosition;
-            scrollRect = r; 
-        }
     }
     
     override protected function measure():void
@@ -299,40 +290,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         
         if (_layout)
             _layout.measure();
-    }
-    
-    /**
-     *  @private
-     *  Conditionally sets the origin of the scrollRect to 
-     *  verticalScrollPosition,horizontalScrollPosition and its width
-     *  width,height to w,h (unscaledWidth,unscaledHeight).  We avoid setting
-     *  the scrollRect (and therefore clipping) when scrolling isn't indicated:
-     *  if the scrollRect is currently null and the scrollPosition properties
-     *  are 0, and the Group's contentWidth,Height is &lt;= to
-     *  unscaledWidth/Height, then the scrollRect is not set.
-     */ 
-    private function updateScrollRect(w:Number, h:Number):void
-    {
-        var r:Rectangle = scrollRect;
-        if (r) 
-        {
-            r.width = w;
-            r.height = h;
-            scrollRect = r;
-        }
-        else // scrollRect wasn't set
-        {
-            var hsp:Number = horizontalScrollPosition;
-            var vsp:Number = verticalScrollPosition;
-            var cw:Number = contentWidth;
-            var ch:Number = contentHeight;
-            
-            // Don't set the scrollRect needlessly.
-            if ((hsp != 0) || (vsp != 0) || (cw > w) || (ch > h))
-            {
-                scrollRect = new Rectangle(hsp, vsp, w, h);
-            }
-        }
     }
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -347,87 +304,40 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
 
         if (_layout)
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
-            
-        updateScrollRect(unscaledWidth, unscaledHeight);
     }
     
     //----------------------------------
     //  horizontalScrollPosition
     //----------------------------------
         
-    private var scrollPositionChanged:Boolean = false;
-    private var _horizontalScrollPosition:Number = 0;
-    
     [Bindable]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The X coordinate of the origin of the region this Group is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>
-     * 
-     *  @default 0
-     */
+
     public function get horizontalScrollPosition():Number 
     {
-        return _horizontalScrollPosition;
+        return (layout) ? layout.horizontalScrollPosition : 0;
     }
-    
-    /**
-     *  @private
-     */
+
     public function set horizontalScrollPosition(value:Number):void 
     {
-        if (value == _horizontalScrollPosition) 
-            return;
-    
-        _horizontalScrollPosition = value;
-        scrollPositionChanged = true;
-        invalidateProperties();
+        if (layout)
+            layout.horizontalScrollPosition = value;
     }
     
     //----------------------------------
     //  verticalScrollPosition
     //----------------------------------
-
-    private var _verticalScrollPosition:Number = 0;
     
     [Bindable]
-    [Inspectable(category="General")]    
-    
-    /**
-     *  The Y coordinate of the origin of the region this Group is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>                 
-     * 
-     *  @default 0
-     */
+
     public function get verticalScrollPosition():Number 
     {
-        return _verticalScrollPosition;
+        return (layout) ? layout.verticalScrollPosition : 0;
     }
-    
-    /**
-     *  @private
-     */
+
     public function set verticalScrollPosition(value:Number):void 
     {
-        if (value == _verticalScrollPosition)
-            return;
-            
-        _verticalScrollPosition = value;
-        scrollPositionChanged = true;
-        invalidateProperties();
+        if (layout)
+            layout.verticalScrollPosition = value;
     }
     
     
