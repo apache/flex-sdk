@@ -123,28 +123,28 @@ public class Channel extends EventDispatcher implements IMXMLObject
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructs an instance of a generic Channel that connects to the
-	 *  specified endpoint URI.
+    /**
+     *  Constructs an instance of a generic Channel that connects to the
+     *  specified endpoint URI.
      *
-	 *  <b>Note</b>: The Channel type should not be constructed directly. Instead
-	 *  create instances of protocol specific subclasses such as RTMPChannel or
-	 *  AMFChannel.
+     *  <b>Note</b>: The Channel type should not be constructed directly. Instead
+     *  create instances of protocol specific subclasses such as RTMPChannel or
+     *  AMFChannel.
      *
-	 *  @param id The id of this channel.
-	 * 
-	 *  @param uri The endpoint URI for this channel.
-	 */
-	public function Channel(id:String = null, uri:String = null)
-	{
-		super();
+     *  @param id The id of this channel.
+     * 
+     *  @param uri The endpoint URI for this channel.
+     */
+    public function Channel(id:String = null, uri:String = null)
+    {
+        super();
 
-		_log = Log.getLogger("mx.messaging.Channel");
-		_failoverIndex = -1;
-	    this.id = id;
-		_primaryURI = uri;
-		this.uri = uri; // Current URI
-	}
+        _log = Log.getLogger("mx.messaging.Channel");
+        _failoverIndex = -1;
+        this.id = id;
+        _primaryURI = uri;
+        this.uri = uri; // Current URI
+    }
 
     /**
      * @private
@@ -160,12 +160,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Used to prevent multiple logouts.
-	 */
-	mx_internal var authenticating:Boolean;
-	
+    /**
+     *  @private
+     *  Used to prevent multiple logouts.
+     */
+    mx_internal var authenticating:Boolean;
+    
     /**
      *  @private
      *  The credentials string that is passed via a CommandMessage to the server when the
@@ -184,11 +184,11 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     public var enableSmallMessages:Boolean = true;
 
-	/**
-	 *  @private
-	 *  Provides access to a logger for this channel.
-	 */
-	protected var _log:ILogger;
+    /**
+     *  @private
+     *  Provides access to a logger for this channel.
+     */
+    protected var _log:ILogger;
     
     /**
      *  @private
@@ -202,13 +202,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private var _connectTimer:Timer;   
 
-	/**
-	 *  @private
-	 *  Current index into failover URIs during a failover attempt.
-	 *  When not failing over, this variable is reset to a sentinal
-	 *  value of -1.
-	 */
-	private var _failoverIndex:int; 
+    /**
+     *  @private
+     *  Current index into failover URIs during a failover attempt.
+     *  When not failing over, this variable is reset to a sentinal
+     *  value of -1.
+     */
+    private var _failoverIndex:int; 
 
     /**
      * @private
@@ -237,13 +237,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private var _previouslyConnected:Boolean;
     
-	/**
-	 *  @private
-	 *  Primary URI; the initial URI for this channel.
-	 */
-	private var _primaryURI:String
-	
-	/**
+    /**
+     *  @private
+     *  Primary URI; the initial URI for this channel.
+     */
+    private var _primaryURI:String
+    
+    /**
      *  @private
      *  Used for pinned reconnect attempts.
      */
@@ -256,16 +256,16 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @private
      */
     private var resourceManager:IResourceManager = ResourceManager.getInstance();   
-	
-	//--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
     //
     // Properties
     // 
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  channelSets
-	//----------------------------------
+    //----------------------------------
+    //  channelSets
+    //----------------------------------
     
     /**
      *  @private
@@ -280,9 +280,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
         return _channelSets;   
     }    
 
-	//----------------------------------
-	//  connected
-	//----------------------------------
+    //----------------------------------
+    //  connected
+    //----------------------------------
 
     /**
      *  @private
@@ -290,43 +290,43 @@ public class Channel extends EventDispatcher implements IMXMLObject
     private var _connected:Boolean = false;
 
     [Bindable(event="propertyChange")]
-	/**
-	 *  Indicates whether this channel has established a connection to the 
-	 *  remote destination.
-	 */
-	public function get connected():Boolean
-	{
-	    return _connected;
-	}
-	
-	/**
-	 *  @private
-	 */
-	protected function setConnected(value:Boolean):void
-	{
-	    if (_connected != value)
-	    {
-	        if (_connected)
-	           _previouslyConnected = true;
-	        
-	        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "connected", _connected, value)
-	        _connected = value;
-	        dispatchEvent(event);
-	        if (!value)
-	            setAuthenticated(false);
-        }
-	}
-	
-	//----------------------------------
-	//  connectTimeout
-	//----------------------------------
+    /**
+     *  Indicates whether this channel has established a connection to the 
+     *  remote destination.
+     */
+    public function get connected():Boolean
+    {
+        return _connected;
+    }
     
     /**
-	 *  @private
-	 */
-	private var _connectTimeout:int = -1;	
-	
-	/**
+     *  @private
+     */
+    protected function setConnected(value:Boolean):void
+    {
+        if (_connected != value)
+        {
+            if (_connected)
+               _previouslyConnected = true;
+            
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "connected", _connected, value)
+            _connected = value;
+            dispatchEvent(event);
+            if (!value)
+                setAuthenticated(false);
+        }
+    }
+    
+    //----------------------------------
+    //  connectTimeout
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _connectTimeout:int = -1;   
+    
+    /**
      *  Provides access to the connect timeout in seconds for the channel. 
      *  A value of 0 or below indicates that a connect attempt will never 
      *  be timed out on the client.
@@ -339,40 +339,40 @@ public class Channel extends EventDispatcher implements IMXMLObject
     {
         return _connectTimeout;
     }
-	
-	/**
-	 *  @private
-	 */
-	public function set connectTimeout(value:int):void
-	{
-	    _connectTimeout = value;
-    }	
-	
-	//----------------------------------
-	//  endpoint
-	//----------------------------------	
+    
+    /**
+     *  @private
+     */
+    public function set connectTimeout(value:int):void
+    {
+        _connectTimeout = value;
+    }   
+    
+    //----------------------------------
+    //  endpoint
+    //----------------------------------    
 
     /**
      *  @private
      */ 
-	private var _endpoint:String;	
-	
-	/**
-	 *  Provides access to the endpoint for this channel.
-	 *  This value is calculated based on the value of the <code>uri</code>
-	 *  property.
-	 */
-	public function get endpoint():String
-	{
-	    if (!_isEndpointCalculated)
-    	    calculateEndpoint();
-	    return _endpoint;
-	}
-	
-	//----------------------------------
-	//  loginAfterDisconnect
-	//----------------------------------
-	    
+    private var _endpoint:String;   
+    
+    /**
+     *  Provides access to the endpoint for this channel.
+     *  This value is calculated based on the value of the <code>uri</code>
+     *  property.
+     */
+    public function get endpoint():String
+    {
+        if (!_isEndpointCalculated)
+            calculateEndpoint();
+        return _endpoint;
+    }
+    
+    //----------------------------------
+    //  loginAfterDisconnect
+    //----------------------------------
+        
     /**
      *  @private
      */
@@ -380,13 +380,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
     
     mx_internal function get loginAfterDisconnect():Boolean
     {
-    	return _loginAfterDisconnect;
-    }	
+        return _loginAfterDisconnect;
+    }   
     
-	//----------------------------------
-	//  recordMessageTimes
-	//----------------------------------
-	    
+    //----------------------------------
+    //  recordMessageTimes
+    //----------------------------------
+        
     /**
      * @private
      */
@@ -398,13 +398,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     public function get recordMessageTimes():Boolean
     {
-    	return _recordMessageTimes;
-    }	
+        return _recordMessageTimes;
+    }   
 
-	//----------------------------------    
-	//  recordMessageSizes
-	//----------------------------------
-	    
+    //----------------------------------    
+    //  recordMessageSizes
+    //----------------------------------
+        
     /**
      * @private
      */
@@ -416,17 +416,17 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */   
     public function get recordMessageSizes():Boolean
     {
-    	return _recordMessageSizes;
+        return _recordMessageSizes;
     }         
-	
-	//----------------------------------
-	//  reconnecting
-	//----------------------------------
+    
+    //----------------------------------
+    //  reconnecting
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _reconnecting:Boolean = false;
+    /**
+     *  @private
+     */
+    private var _reconnecting:Boolean = false;
 
     [Bindable(event="propertyChange")]
     /**
@@ -441,102 +441,105 @@ public class Channel extends EventDispatcher implements IMXMLObject
     private function setReconnecting(value:Boolean):void
     {
         if (_reconnecting != value)
-	    {
-	        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "reconnecting", _reconnecting, value);
-	        _reconnecting = value;
-	        dispatchEvent(event);
+        {
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "reconnecting", _reconnecting, value);
+            _reconnecting = value;
+            dispatchEvent(event);
         }
     }
-	
-	//----------------------------------
-	//  failoverURIs
-	//----------------------------------	
-	
-	/**
-	 *  @private
-	 */
-	private var _failoverURIs:Array;	
-	
-	/**
+    
+    //----------------------------------
+    //  failoverURIs
+    //----------------------------------    
+    
+    /**
+     *  @private
+     */
+    private var _failoverURIs:Array;    
+    
+    /**
      *  Provides access to the set of endpoint URIs that this channel can
-	 *  attempt to failover to if the endpoint is clustered.
+     *  attempt to failover to if the endpoint is clustered.
+     *
+     *  <p>This property is automatically populated when clustering is enabled.
+     *  If you don't use clustering, you can set your own values.</p>
      */ 
     public function get failoverURIs():Array
     {
         return (_failoverURIs != null) ? _failoverURIs : [];
     }
-	
-	/**
-	 *  @private
-	 */
-	public function set failoverURIs(value:Array):void
-	{
-	    if (value != null)
-	    {
-	        _failoverURIs = value;
-	        _failoverIndex = -1; // Reset the index, because URIs have changed
-	    }
-    } 	
+    
+    /**
+     *  @private
+     */
+    public function set failoverURIs(value:Array):void
+    {
+        if (value != null)
+        {
+            _failoverURIs = value;
+            _failoverIndex = -1; // Reset the index, because URIs have changed
+        }
+    }   
 
-	//----------------------------------
-	//  id
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _id:String;	
-	
-	/**
-	 *  Provides access to the id of this channel.
-	 */
-	public function get id():String
-	{
-	    return _id;
-	}
-	
-	public function set id(value:String):void
-	{
-	    if (_id != value)
-	        _id = value;
-	}
+    //----------------------------------
+    //  id
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _id:String; 
+    
+    /**
+     *  Provides access to the id of this channel.
+     */
+    public function get id():String
+    {
+        return _id;
+    }
+    
+    public function set id(value:String):void
+    {
+        if (_id != value)
+            _id = value;
+    }
 
-	//----------------------------------
-	//  authenticated
-	//----------------------------------
+    //----------------------------------
+    //  authenticated
+    //----------------------------------
 
     private var _authenticated:Boolean = false;
     
     [Bindable(event="propertyChange")]
-	/**
-	 *  Indicates if this channel is authenticated.
+    /**
+     *  Indicates if this channel is authenticated.
      */
-	public function get authenticated():Boolean
-	{
-	    return _authenticated;
-	}
-	
-	mx_internal function setAuthenticated(value:Boolean):void
-	{
-	    if (value != _authenticated)
-	    {
-	        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "authenticated", _authenticated, value);
-	        _authenticated = value;
+    public function get authenticated():Boolean
+    {
+        return _authenticated;
+    }
+    
+    mx_internal function setAuthenticated(value:Boolean):void
+    {
+        if (value != _authenticated)
+        {
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "authenticated", _authenticated, value);
+            _authenticated = value;
 
-	        var cs:ChannelSet;
-	        for (var i:int = 0; i < _channelSets.length; i++)
-	        {
-	            cs = ChannelSet(_channelSets[i]);
-	            cs.mx_internal::setAuthenticated(authenticated, credentials)
-	        }
-	            
-	        dispatchEvent(event);
-	    }
-	}	
+            var cs:ChannelSet;
+            for (var i:int = 0; i < _channelSets.length; i++)
+            {
+                cs = ChannelSet(_channelSets[i]);
+                cs.mx_internal::setAuthenticated(authenticated, credentials)
+            }
+                
+            dispatchEvent(event);
+        }
+    }   
 
-	//----------------------------------
-	//  protocol
-	//----------------------------------
+    //----------------------------------
+    //  protocol
+    //----------------------------------
 
     /**
      *  Provides access to the protocol that the channel uses.
@@ -553,9 +556,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
             + "string.");     
     }
 
-	//----------------------------------
-	//  realtime
-	//----------------------------------
+    //----------------------------------
+    //  realtime
+    //----------------------------------
 
     /**
      *  @private
@@ -566,16 +569,16 @@ public class Channel extends EventDispatcher implements IMXMLObject
         return false;
     }
     
-	//----------------------------------
-	//  requestTimeout
-	//----------------------------------
+    //----------------------------------
+    //  requestTimeout
+    //----------------------------------
     
     /**
-	 *  @private
-	 */
-	private var _requestTimeout:int = -1;	
-	
-	/**
+     *  @private
+     */
+    private var _requestTimeout:int = -1;   
+    
+    /**
      *  Provides access to the default request timeout in seconds for the 
      *  channel. A value of 0 or below indicates that outbound requests will 
      *  never be timed out on the client.
@@ -586,13 +589,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
     {
         return _requestTimeout;
     }
-	
-	/**
-	 *  @private
-	 */
-	public function set requestTimeout(value:int):void
-	{
-	    _requestTimeout = value;
+    
+    /**
+     *  @private
+     */
+    public function set requestTimeout(value:int):void
+    {
+        _requestTimeout = value;
     }
 
     //----------------------------------
@@ -614,23 +617,23 @@ public class Channel extends EventDispatcher implements IMXMLObject
         return _shouldBeConnected;
     }
 
-	//----------------------------------
-	//  uri
-	//----------------------------------
+    //----------------------------------
+    //  uri
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
-	private var _uri:String;
+    private var _uri:String;
 
-	/**
-	 *  Provides access to the URI used to create the whole endpoint URI for this channel. 
-	 *  The URI can be a partial path, in which case the full endpoint URI is computed as necessary.
-	 */
-	public function get uri():String
-	{
-	    return _uri;
-	} 
+    /**
+     *  Provides access to the URI used to create the whole endpoint URI for this channel. 
+     *  The URI can be a partial path, in which case the full endpoint URI is computed as necessary.
+     */
+    public function get uri():String
+    {
+        return _uri;
+    } 
 
     public function set uri(value:String):void
     {
@@ -641,16 +644,16 @@ public class Channel extends EventDispatcher implements IMXMLObject
         }
     }
 
-	/**
-	 * @private
-	 * This alternate property for an endpoint URL is provided to match the
-	 * endpoint configuration attribute &quot;url&quot;. This property is
-	 * equivalent to the <code>uri</code> property.
-	 */
-	public function get url():String
-	{
-	    return uri;
-	} 
+    /**
+     * @private
+     * This alternate property for an endpoint URL is provided to match the
+     * endpoint configuration attribute &quot;url&quot;. This property is
+     * equivalent to the <code>uri</code> property.
+     */
+    public function get url():String
+    {
+        return uri;
+    } 
 
     /**
      * @private
@@ -660,9 +663,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
         uri = value;
     }
 
-	//----------------------------------
-	//  useSmallMessages
-	//----------------------------------
+    //----------------------------------
+    //  useSmallMessages
+    //----------------------------------
 
     /**
      * @private
@@ -712,10 +715,10 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  &lt;/channel&gt;
      *  </pre>
      */
-	public function applySettings(settings:XML):void
-	{
-	    if (Log.isInfo())
-	        _log.info("'{0}' channel settings are:\n{1}", id, settings);
+    public function applySettings(settings:XML):void
+    {
+        if (Log.isInfo())
+            _log.info("'{0}' channel settings are:\n{1}", id, settings);
 
         if (settings.properties.length() != 0)
         {
@@ -732,8 +735,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 requestTimeout = props[REQUEST_TIMEOUT_SECONDS].toString();
             var serializationProps:XMLList = props[SERIALIZATION];
             if (serializationProps.length() != 0 && serializationProps[ENABLE_SMALL_MESSAGES].toString()== FALSE)
-           		    enableSmallMessages = false;
-           	}
+                    enableSmallMessages = false;
+            }
         }
 
     /**
@@ -771,22 +774,22 @@ public class Channel extends EventDispatcher implements IMXMLObject
         var failoverURIs:Array = urls.slice(1);
         if (failoverURIs.length > 0)
             this.failoverURIs = failoverURIs;
-	}
+    }
 
-	/**
-	 *  Connects the ChannelSet to the Channel. If the Channel has not yet
-	 *  connected to its endpoint, it attempts to do so.
-	 *  Channel subclasses must override the <code>internalConnect()</code> 
-	 *  method, and call the <code>connectSuccess()</code> method once the
-	 *  underlying connection is established.
-	 * 
-	 *  @param channelSet The ChannelSet to connect to the Channel.
-	 */
-	final public function connect(channelSet:ChannelSet):void
-	{	    	    
-	    var exists:Boolean = false;
-		var n:int = _channelSets.length;
-		for (var i:int = 0; i < _channelSets.length; i++)
+    /**
+     *  Connects the ChannelSet to the Channel. If the Channel has not yet
+     *  connected to its endpoint, it attempts to do so.
+     *  Channel subclasses must override the <code>internalConnect()</code> 
+     *  method, and call the <code>connectSuccess()</code> method once the
+     *  underlying connection is established.
+     * 
+     *  @param channelSet The ChannelSet to connect to the Channel.
+     */
+    final public function connect(channelSet:ChannelSet):void
+    {               
+        var exists:Boolean = false;
+        var n:int = _channelSets.length;
+        for (var i:int = 0; i < _channelSets.length; i++)
         {
             if (_channelSets[i] == channelSet)
             {
@@ -794,16 +797,16 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 break;   
             }
         }
-		
-		_shouldBeConnected = true;
-		if (!exists)
-		{
-			_channelSets.push(channelSet);
-			// Wire up ChannelSet's channel event listeners.
-	        addEventListener(ChannelEvent.CONNECT, channelSet.channelConnectHandler);
-	        addEventListener(ChannelEvent.DISCONNECT, channelSet.channelDisconnectHandler);
-	        addEventListener(ChannelFaultEvent.FAULT, channelSet.channelFaultHandler);
-        }		
+        
+        _shouldBeConnected = true;
+        if (!exists)
+        {
+            _channelSets.push(channelSet);
+            // Wire up ChannelSet's channel event listeners.
+            addEventListener(ChannelEvent.CONNECT, channelSet.channelConnectHandler);
+            addEventListener(ChannelEvent.DISCONNECT, channelSet.channelDisconnectHandler);
+            addEventListener(ChannelFaultEvent.FAULT, channelSet.channelFaultHandler);
+        }       
         // If we are already connected, notify the ChannelSet. Otherwise connect
         // if necessary.
         if (connected)
@@ -847,33 +850,33 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 internalConnect();
             }
         }
-	}
+    }
 
-	/**
-	 *  Disconnects the ChannelSet from the Channel. If the Channel is connected
-	 *  to its endpoint and it has no more connected ChannelSets it will 
-	 *  internally disconnect.
-	 *
-	 *  <p>Channel subclasses need to override the 
-	 *  <code>internalDisconnect()</code> method, and call the
-	 *  <code>disconnectSuccess()</code> method when the underlying connection
-	 *  has been terminated.</p>
-	 * 
-	 *  @param channelSet The ChannelSet to disconnect from the Channel.
-	 */
-	final public function disconnect(channelSet:ChannelSet):void
-	{
-	    // If we own the wait guard for initial Channel connects release it.
-	    // This will only be true if this Channel is the first to attempt to connect
-	    // but its connect attempt is still pending when disconnect() is invoked.
-	    if (_ownsWaitGuard)
-	    {
-	        _ownsWaitGuard = false;
-	        FlexClient.getInstance().waitForFlexClientId = false; // Allow other Channels to connect.
-	    }
-	    
-	    // Disconnect the channelSet.
-	    var i:int = channelSet != null ? _channelSets.indexOf(channelSet) : -1;
+    /**
+     *  Disconnects the ChannelSet from the Channel. If the Channel is connected
+     *  to its endpoint and it has no more connected ChannelSets it will 
+     *  internally disconnect.
+     *
+     *  <p>Channel subclasses need to override the 
+     *  <code>internalDisconnect()</code> method, and call the
+     *  <code>disconnectSuccess()</code> method when the underlying connection
+     *  has been terminated.</p>
+     * 
+     *  @param channelSet The ChannelSet to disconnect from the Channel.
+     */
+    final public function disconnect(channelSet:ChannelSet):void
+    {
+        // If we own the wait guard for initial Channel connects release it.
+        // This will only be true if this Channel is the first to attempt to connect
+        // but its connect attempt is still pending when disconnect() is invoked.
+        if (_ownsWaitGuard)
+        {
+            _ownsWaitGuard = false;
+            FlexClient.getInstance().waitForFlexClientId = false; // Allow other Channels to connect.
+        }
+        
+        // Disconnect the channelSet.
+        var i:int = channelSet != null ? _channelSets.indexOf(channelSet) : -1;
         if (i != -1)
         {
             _channelSets.splice(i, 1);
@@ -888,8 +891,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 channelSet.channelDisconnectHandler(ChannelEvent.createEvent(ChannelEvent.DISCONNECT, this, false));
             }
         
-    	    // Shut down the underlying connection if this Channel has no more 
-    	    // ChannelSets using it.
+            // Shut down the underlying connection if this Channel has no more 
+            // ChannelSets using it.
             if (_channelSets.length == 0)
             {
                 _shouldBeConnected = false;
@@ -897,18 +900,18 @@ public class Channel extends EventDispatcher implements IMXMLObject
                     internalDisconnect();
             }
         }
-	}
-	
-	/**
-	 *  Sends a CommandMessage to the server to logout if the Channel is connected.
-	 *  Current credentials are cleared.
-	 * 
-	 *  @param agent The MessageAgent to logout.
-	 */
-	public function logout(agent:MessageAgent):void
+    }
+    
+    /**
+     *  Sends a CommandMessage to the server to logout if the Channel is connected.
+     *  Current credentials are cleared.
+     * 
+     *  @param agent The MessageAgent to logout.
+     */
+    public function logout(agent:MessageAgent):void
     {
         if ((connected && authenticated && credentials) || (authenticating && credentials))
-        {    	
+        {       
             var msg:CommandMessage = new CommandMessage();
             msg.operation = CommandMessage.LOGOUT_OPERATION;
             internalSend(new AuthenticationMessageResponder(agent, msg, this, _log));
@@ -917,29 +920,29 @@ public class Channel extends EventDispatcher implements IMXMLObject
         credentials = null;
     }
 
-	/**
-	 *  Sends the specified message to its target destination.
-	 *  Subclasses must override the <code>internalSend()</code> method to
-	 *  perform the actual send.
+    /**
+     *  Sends the specified message to its target destination.
+     *  Subclasses must override the <code>internalSend()</code> method to
+     *  perform the actual send.
      *
-	 *  @param agent The MessageAgent that is sending the message.
-	 * 
-	 *  @param message The Message to send.
-	 * 
-	 *  @throws mx.messaging.errors.InvalidDestinationError If neither the MessageAgent nor the
-	 *                                  message specify a destination.
-	 */
-	public function send(agent:MessageAgent, message:IMessage):void
-	{
+     *  @param agent The MessageAgent that is sending the message.
+     * 
+     *  @param message The Message to send.
+     * 
+     *  @throws mx.messaging.errors.InvalidDestinationError If neither the MessageAgent nor the
+     *                                  message specify a destination.
+     */
+    public function send(agent:MessageAgent, message:IMessage):void
+    {
         // Set the destination header of the message if it is not already set.
         if (message.destination.length == 0)
         {
             if (agent.destination.length == 0)
-			{
-				var msg:String = resourceManager.getString(
-					"messaging", "noDestinationSpecified");
+            {
+                var msg:String = resourceManager.getString(
+                    "messaging", "noDestinationSpecified");
                 throw new InvalidDestinationError(msg);
-			}
+            }
             message.destination = agent.destination;
         }
 
@@ -952,55 +955,55 @@ public class Channel extends EventDispatcher implements IMXMLObject
         var responder:MessageResponder = getMessageResponder(agent, message);
         initializeRequestTimeout(responder);
         internalSend(responder);
-	}
+    }
 
-	/**
-	 *  Sets the credentials to the specified value. 
-	 *  If the credentials are non-null and the Channel is connected, this method also
-	 *  sends a CommandMessage to the server to login using the credentials.
-	 * 
-	 *  @param credentials The credentials string.
-	 *  @param agent The MessageAgent to login, that will handle the login result.
+    /**
+     *  Sets the credentials to the specified value. 
+     *  If the credentials are non-null and the Channel is connected, this method also
+     *  sends a CommandMessage to the server to login using the credentials.
+     * 
+     *  @param credentials The credentials string.
+     *  @param agent The MessageAgent to login, that will handle the login result.
      *  @param charset The character set encoding used while encoding the
      *  credentials. The default is null, which implies the legacy charset of
      *  ISO-Latin-1.
-	 *
-	 *  @throws flash.errors.IllegalOperationError in two situations; if credentials
-	 *  have already been set and an authentication is in progress with the remote
-	 *  detination, or if authenticated and the credentials specified don't match
-	 *  the currently authenticated credentials.
-	 */
-	public function setCredentials(credentials:String, agent:MessageAgent=null, charset:String=null):void
-	{
-	    var changedCreds:Boolean = this.credentials !== credentials;
+     *
+     *  @throws flash.errors.IllegalOperationError in two situations; if credentials
+     *  have already been set and an authentication is in progress with the remote
+     *  detination, or if authenticated and the credentials specified don't match
+     *  the currently authenticated credentials.
+     */
+    public function setCredentials(credentials:String, agent:MessageAgent=null, charset:String=null):void
+    {
+        var changedCreds:Boolean = this.credentials !== credentials;
 
-	    if (authenticating && changedCreds)
-	        throw new IllegalOperationError("Credentials cannot be set while authenticating or logging out.");
+        if (authenticating && changedCreds)
+            throw new IllegalOperationError("Credentials cannot be set while authenticating or logging out.");
 
-	    if (authenticated && changedCreds)
-	        throw new IllegalOperationError("Credentials cannot be set when already authenticated. Logout must be performed before changing credentials.");
-	    
-	    this.credentials = credentials;
-	    if (connected && changedCreds && credentials != null)
-	    {
+        if (authenticated && changedCreds)
+            throw new IllegalOperationError("Credentials cannot be set when already authenticated. Logout must be performed before changing credentials.");
+        
+        this.credentials = credentials;
+        if (connected && changedCreds && credentials != null)
+        {
             authenticating = true;
-	        var msg:CommandMessage = new CommandMessage();
-	        msg.operation = CommandMessage.LOGIN_OPERATION;
-	        msg.body = credentials;
-	        if (charset != null)
-	            msg.headers[CommandMessage.CREDENTIALS_CHARSET_HEADER] = charset;	        
-    	    internalSend(new AuthenticationMessageResponder(agent, msg, this, _log));  
-	    }
-	}
-	
+            var msg:CommandMessage = new CommandMessage();
+            msg.operation = CommandMessage.LOGIN_OPERATION;
+            msg.body = credentials;
+            if (charset != null)
+                msg.headers[CommandMessage.CREDENTIALS_CHARSET_HEADER] = charset;           
+            internalSend(new AuthenticationMessageResponder(agent, msg, this, _log));  
+        }
+    }
+    
     /**
      * @private     
      * Should we record any performance metrics
      */       
     public function get mpiEnabled():Boolean
     {
-    	return _recordMessageSizes || _recordMessageTimes;
-    }  		
+        return _recordMessageSizes || _recordMessageTimes;
+    }       
 
     //--------------------------------------------------------------------------
     //
@@ -1027,9 +1030,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @param msgResp The message responder to use for the internal message.
      */
     mx_internal function sendInternalMessage(msgResp:MessageResponder):void
-	{
-	    internalSend(msgResp);
-	}
+    {
+        internalSend(msgResp);
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1037,168 +1040,168 @@ public class Channel extends EventDispatcher implements IMXMLObject
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Processes a failed internal connect and dispatches the 
-	 *  <code>FAULT</code> event for the channel.
-	 *  If the Channel has <code>failoverURI</code> values, it will
-	 *  attempt to reconnect automatically by trying these URI values in order until 
-	 *  a connection is established or the available values are exhausted.
-	 * 
-	 *  @param event The ChannelFaultEvent for the failed connect.
-	 */
-	protected function connectFailed(event:ChannelFaultEvent):void
-	{	   	     
-	    shutdownConnectTimer();
-	    setConnected(false);
-	    
-	    if (Log.isError())
+    /**
+     *  Processes a failed internal connect and dispatches the 
+     *  <code>FAULT</code> event for the channel.
+     *  If the Channel has <code>failoverURI</code> values, it will
+     *  attempt to reconnect automatically by trying these URI values in order until 
+     *  a connection is established or the available values are exhausted.
+     * 
+     *  @param event The ChannelFaultEvent for the failed connect.
+     */
+    protected function connectFailed(event:ChannelFaultEvent):void
+    {            
+        shutdownConnectTimer();
+        setConnected(false);
+        
+        if (Log.isError())
             _log.error("'{0}' channel connect failed.", id);
             
         if (!event.rejected && shouldAttemptFailover())
         {
             _connecting = true;
-	        failover();            
+            failover();            
         }
         else // Not attempting failover.
         {
-    	    connectCleanup();
+            connectCleanup();
         }
         
         if (reconnecting)
             event.reconnecting = true;
         dispatchEvent(event);
-	}
+    }
 
-	/**
-	 *  Processes a successful internal connect and dispatches the 
-	 *  <code>CONNECT</code> event for the Channel.
-	 */
-	protected function connectSuccess():void
-	{
-	    shutdownConnectTimer();
-	    
+    /**
+     *  Processes a successful internal connect and dispatches the 
+     *  <code>CONNECT</code> event for the Channel.
+     */
+    protected function connectSuccess():void
+    {
+        shutdownConnectTimer();
+        
         // If there were any attached agents that needed configuration they
         // should be reset.
         if (ServerConfig.fetchedConfig(endpoint))
         {
-    		for (var i:int = 0; i < channelSets.length; i++)
+            for (var i:int = 0; i < channelSets.length; i++)
             {
                 var messageAgents:Array = ChannelSet(channelSets[i]).messageAgents;
                 for (var j:int = 0; j < messageAgents.length; j++)
-				{
+                {
                     messageAgents[j].needsConfig = false;
-				}
+                }
             }
         }
             
-	    setConnected(true);
-	    _failoverIndex = -1;
-	    
-	    if (Log.isInfo())
-	        _log.info("'{0}' channel is connected.", id);
-	          
-	    dispatchEvent(ChannelEvent.createEvent(ChannelEvent.CONNECT, this, reconnecting));
-	                                                            
-        connectCleanup();
-	}
-	
-	/**
-	 *  Handles a connect timeout by dispatching a ChannelFaultEvent. 
-	 *  Subtypes may overide this to shutdown the current connect attempt but must 
-	 *  call <code>super.connectTimeoutHandler(event)</code>.
-	 * 
-	 *  @param event The timer event indicating that the connect timeout has been reached.
-	 */
-	protected function connectTimeoutHandler(event:TimerEvent):void
-	{
-	    shutdownConnectTimer();
-	    if (!connected)
-	    {
-    	    _shouldBeConnected = false;
-    	    var errorText:String = resourceManager.getString(
-				"messaging", "connectTimedOut");
-    	    var faultEvent:ChannelFaultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Connect.Failed", "error", errorText);
-    	    connectFailed(faultEvent);
-    	}                
-	}
-
-	/**
-	 *  Processes a successful internal disconnect and dispatches the 
-	 *  <code>DISCONNECT</code> event for the Channel.
-	 *  If the disconnect is due to a network failure and the Channel has 
-	 *  <code>failoverURI</code> values, it will attempt to reconnect automatically 
-	 *  by trying these URI values in order until a connection is established or the 
-	 *  available values are exhausted.
-	 *  
-	 *  @param rejected True if the disconnect should skip any
-	 *         failover processing that would otherwise be attempted; false
-	 *         if failover processing should be allowed to run.
-	 */
-	protected function disconnectSuccess(rejected:Boolean = false):void
-	{	  	      
-	    setConnected(false);
-	    
+        setConnected(true);
+        _failoverIndex = -1;
+        
         if (Log.isInfo())
-		    _log.info("'{0}' channel disconnected.", id);
-		
-		if (!rejected && shouldAttemptFailover())
-		{
-		    _connecting = true;
-	        failover();
-	    }
-	    else
-	    {
-	        connectCleanup();
-	    }
-		
-		dispatchEvent(ChannelEvent.createEvent(ChannelEvent.DISCONNECT, this, 
-		                                    reconnecting, rejected));
-	}
+            _log.info("'{0}' channel is connected.", id);
+              
+        dispatchEvent(ChannelEvent.createEvent(ChannelEvent.CONNECT, this, reconnecting));
+                                                                
+        connectCleanup();
+    }
+    
+    /**
+     *  Handles a connect timeout by dispatching a ChannelFaultEvent. 
+     *  Subtypes may overide this to shutdown the current connect attempt but must 
+     *  call <code>super.connectTimeoutHandler(event)</code>.
+     * 
+     *  @param event The timer event indicating that the connect timeout has been reached.
+     */
+    protected function connectTimeoutHandler(event:TimerEvent):void
+    {
+        shutdownConnectTimer();
+        if (!connected)
+        {
+            _shouldBeConnected = false;
+            var errorText:String = resourceManager.getString(
+                "messaging", "connectTimedOut");
+            var faultEvent:ChannelFaultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Connect.Failed", "error", errorText);
+            connectFailed(faultEvent);
+        }                
+    }
 
-	/**
-	 *  Processes a failed internal disconnect and dispatches the
-	 *  <code>FAULT</code> event for the channel.
-	 * 
-	 *  @param event The ChannelFaultEvent for the failed disconnect.
-	 */
-	protected function disconnectFailed(event:ChannelFaultEvent):void
-	{
-	    _connecting = false;  
-	    setConnected(false);
+    /**
+     *  Processes a successful internal disconnect and dispatches the 
+     *  <code>DISCONNECT</code> event for the Channel.
+     *  If the disconnect is due to a network failure and the Channel has 
+     *  <code>failoverURI</code> values, it will attempt to reconnect automatically 
+     *  by trying these URI values in order until a connection is established or the 
+     *  available values are exhausted.
+     *  
+     *  @param rejected True if the disconnect should skip any
+     *         failover processing that would otherwise be attempted; false
+     *         if failover processing should be allowed to run.
+     */
+    protected function disconnectSuccess(rejected:Boolean = false):void
+    {             
+        setConnected(false);
+        
+        if (Log.isInfo())
+            _log.info("'{0}' channel disconnected.", id);
+        
+        if (!rejected && shouldAttemptFailover())
+        {
+            _connecting = true;
+            failover();
+        }
+        else
+        {
+            connectCleanup();
+        }
+        
+        dispatchEvent(ChannelEvent.createEvent(ChannelEvent.DISCONNECT, this, 
+                                            reconnecting, rejected));
+    }
 
-	    if (Log.isError())
-	        _log.error("'{0}' channel disconnect failed.", id);
-	    
-	    if (reconnecting)
-	    {
-	        resetToPrimaryURI();
-	        event.reconnecting = false;
-	    }	    
-	    dispatchEvent(event);
-	}
-	
-	/**
-	 *  Handles a change to the guard condition for managing initial Channel connect for the application.
-	 *  When this is invoked it means that this Channel is waiting to attempt to connect.
-	 * 
-	 *  @param event The PropertyChangeEvent dispatched by the FlexClient singleton.
-	 */
-	protected function flexClientWaitHandler(event:PropertyChangeEvent):void
-	{
-	    if (event.property == "waitForFlexClientId")
-	    {
-	        var flexClient:FlexClient = event.source as FlexClient;
-	        if (flexClient.waitForFlexClientId == false) // The wait is over, claim it and attempt to connect.
-	        {	            
-	            flexClient.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, flexClientWaitHandler);
-	            flexClient.waitForFlexClientId = true;
-	            // This will cause other Channels to wait to attempt to connect.
+    /**
+     *  Processes a failed internal disconnect and dispatches the
+     *  <code>FAULT</code> event for the channel.
+     * 
+     *  @param event The ChannelFaultEvent for the failed disconnect.
+     */
+    protected function disconnectFailed(event:ChannelFaultEvent):void
+    {
+        _connecting = false;  
+        setConnected(false);
+
+        if (Log.isError())
+            _log.error("'{0}' channel disconnect failed.", id);
+        
+        if (reconnecting)
+        {
+            resetToPrimaryURI();
+            event.reconnecting = false;
+        }       
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  Handles a change to the guard condition for managing initial Channel connect for the application.
+     *  When this is invoked it means that this Channel is waiting to attempt to connect.
+     * 
+     *  @param event The PropertyChangeEvent dispatched by the FlexClient singleton.
+     */
+    protected function flexClientWaitHandler(event:PropertyChangeEvent):void
+    {
+        if (event.property == "waitForFlexClientId")
+        {
+            var flexClient:FlexClient = event.source as FlexClient;
+            if (flexClient.waitForFlexClientId == false) // The wait is over, claim it and attempt to connect.
+            {               
+                flexClient.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, flexClientWaitHandler);
+                flexClient.waitForFlexClientId = true;
+                // This will cause other Channels to wait to attempt to connect.
                 // This Channel can continue its attempt.
                 _ownsWaitGuard = true;
-	            internalConnect();
-	        }
-	    }
-	}
+                internalConnect();
+            }
+        }
+    }
 
     /**
      *  Returns the appropriate MessageResponder for the Channel's
@@ -1232,7 +1235,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Must be overridden.
      * 
      *  @param rejected True if the disconnect was due to a connection rejection or timeout
-     * 					and reconnection should not be attempted automatically; otherwise false. 
+     *                  and reconnection should not be attempted automatically; otherwise false. 
      */
     protected function internalDisconnect(rejected:Boolean = false):void {}
     
@@ -1423,12 +1426,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
         ++_failoverIndex;
         if ((_failoverIndex + 1) <= failoverURIs.length)
         {
-	        setReconnecting(true);
+            setReconnecting(true);
             uri = failoverURIs[_failoverIndex];
             
             if (Log.isInfo())
             {
-		        _log.info("'{0}' channel attempting to connect to {1}.", id, endpoint);
+                _log.info("'{0}' channel attempting to connect to {1}.", id, endpoint);
             }
             // NetConnection based channels may have their underlying resources
             // GC'ed at the end of the execution of the handler that has
@@ -1449,8 +1452,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
         {
             if (Log.isInfo())
             {
-		        _log.info("'{0}' channel has exhausted failover options and has reset to its primary endpoint.", id);
-		    }
+                _log.info("'{0}' channel has exhausted failover options and has reset to its primary endpoint.", id);
+            }
             // Nothing left to failover to; reset to primary.
             resetToPrimaryURI();         
         }
@@ -1541,7 +1544,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
         {
             _connectTimer.stop();
             _connectTimer.removeEventListener(TimerEvent.TIMER, connectTimeoutHandler);
-    	    _connectTimer = null;
+            _connectTimer = null;
         }
     }
 
@@ -1591,24 +1594,24 @@ import mx.events.PropertyChangeEvent;
  */
 class AuthenticationMessageResponder extends MessageResponder
 {
-	//--------------------------------------------------------------------------
-	//
-	// Constructor
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    // Constructor
+    // 
+    //--------------------------------------------------------------------------
 
     public function AuthenticationMessageResponder(agent:MessageAgent,
                                 message:IMessage, channel:Channel, log:ILogger)
     {
-	    super(agent, message, channel);
-	    _log = log;
+        super(agent, message, channel);
+        _log = log;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	// Variables
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    // Variables
+    // 
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
