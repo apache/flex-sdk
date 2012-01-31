@@ -11,26 +11,33 @@
 
 package spark.core
 {
-    
+
 import flash.display.DisplayObjectContainer;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
+import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
+import flash.geom.Vector3D;
 
+import mx.core.AdvancedLayoutFeatures;
 import mx.core.FlexSprite;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.geom.Transform;
 import mx.utils.MatrixUtil;
+
+import spark.components.ResizeMode;
 
 use namespace mx_internal;
 
 /**
- *  The SpriteVisualElement class is a light-weight Sprite-based implemention 
- *  of IVisualElement.  It can be dropped in to Spark containers and be laid 
+ *  The SpriteVisualElement class is a light-weight Sprite-based implemention
+ *  of IVisualElement.  It can be dropped in to Spark containers and be laid
  *  out and renderered correctly.
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -40,7 +47,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 {
     /**
      *  Constructor.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -49,9 +56,192 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     public function SpriteVisualElement()
     {
         super();
+		naturalWidth = super.width;
+		naturalHeight = super.height;
+		_width = naturalWidth;
+		_height = naturalHeight;
     }
-    
-    //--------------------------------------------------------------------------
+
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+
+	// When changing these constants, make sure you change
+	// the constants with the same name in UIComponent    
+	private static const DEFAULT_MAX_WIDTH:Number = 10000;
+	private static const DEFAULT_MAX_HEIGHT:Number = 10000;
+
+	/**
+	 *  @private
+	 *  Storage for the original size of the graphic. Initialized in the c-tor.
+	 */
+	private var naturalWidth:Number;
+	private var naturalHeight:Number;
+
+	/**
+	 *  @private
+	 *  Storage for advanced layout and transform properties.
+	 */
+	private var _layoutFeatures:AdvancedLayoutFeatures;
+
+	/**
+	 *  @private
+	 *  When true, the transform on this component consists only of translation.
+	 *  Otherwise, it may be arbitrarily complex.
+	 */
+	private var hasDeltaIdentityTransform:Boolean = true;
+
+	/**
+	 *  @private
+	 *  Storage for the modified Transform object that can dispatch
+	 *  change events correctly.
+	 */
+	private var _transform:flash.geom.Transform;
+
+	/**
+	 *  @private
+	 *  Static point for use in transformPointToParent
+	 */
+	private static var xformPt:Point;
+	
+	/**
+	 *  @private
+	 *  Initializes the implementation and storage of some of the less
+	 *  frequently used advanced layout features of a component.
+	 *  Call this function before attempting to use any of the
+	 *  features implemented by the AdvancedLayoutFeatures object.
+	 */
+	private function initAdvancedLayoutFeatures():void
+	{
+		var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+
+		hasDeltaIdentityTransform = false;
+
+		features.layoutScaleX = scaleX;
+		features.layoutScaleY = scaleY;
+		features.layoutScaleZ = scaleZ;
+		features.layoutRotationX = rotationX;
+		features.layoutRotationY = rotationY;
+		features.layoutRotationZ = rotation;
+		features.layoutX = x;
+		features.layoutY = y;
+		features.layoutZ = z;
+
+		// Initialize the internal variable last,
+		// since the transform getters depend on it.
+		_layoutFeatures = features;
+
+		invalidateTransform();
+	}
+
+	/**
+	 *  @private
+	 *  Makes sure that the computed matrix will be committed.
+	 */
+	private function invalidateTransform():void
+	{
+		if (_layoutFeatures && _layoutFeatures.updatePending == false)
+		{
+			_layoutFeatures.updatePending = true;
+			applyComputedMatrix();
+		}
+	}
+
+	/**
+	 *  @private
+	 *  Commits the computed matrix built from the combination of the layout
+	 *  matrix and the transform offsets to the flash displayObject's transform.
+	 */
+	private function applyComputedMatrix():void
+	{
+		_layoutFeatures.updatePending = false;
+
+		if (_layoutFeatures.is3D)
+			super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
+		else
+			super.transform.matrix = _layoutFeatures.computedMatrix;
+	}
+
+	/**
+	 *  @private
+	 *  Returns the layout matrix, or null if it only consists of translations.
+	 */
+	protected function nonDeltaLayoutMatrix():Matrix
+	{
+		if (hasDeltaIdentityTransform)
+			return null;
+		if (_layoutFeatures != null)
+		{
+			return _layoutFeatures.layoutMatrix;
+		}
+		else
+		{
+			// Lose scale.
+			// if scale is actually set (and it's not just our "secret scale"), then
+			// layoutFeatures wont' be null and we won't be down here
+			return MatrixUtil.composeMatrix(x, y, 1, 1, rotation, 0, 0);
+		}
+	}
+
+	/**
+	 *  @private
+	 *  Resizes the sprite to the specified pre-transform size
+	 */
+	private function setActualSize(width:Number, height:Number):void
+	{
+		_width = width;
+		_height = height;
+
+		if (resizeMode == ResizeMode.NORMAL)
+		{
+			// Set the internal scale to 1
+			if (_layoutFeatures)
+			{
+				_layoutFeatures.stretchX = 1;
+				_layoutFeatures.stretchY = 1;
+			}
+		}
+		else
+		{
+			// Scale from the measured size to the layout size
+			var measuredWidth:Number = isNaN(_viewWidth) ? naturalWidth : _viewWidth;
+			var measuredHeight:Number = isNaN(_viewHeight) ? naturalHeight : _viewHeight;
+
+			var sx:Number = measuredWidth != 0 ? _width / measuredWidth : 1;
+			var sy:Number = measuredHeight != 0 ? _height / measuredHeight : 1;
+
+			if (_layoutFeatures == null)
+				initAdvancedLayoutFeatures();
+
+			_layoutFeatures.stretchX = sx;
+			_layoutFeatures.stretchY = sy;
+		}
+
+		invalidateTransform();
+	}
+
+	/**
+	 *  @private 
+	 *  Moves the sprite to the specified position, doesn't invalidate parent.
+	 */
+	private function move(x:Number, y:Number):void
+	{
+		if (_layoutFeatures == null)
+		{
+			super.x = x;
+			super.y = y;
+		}
+		else
+		{
+			_layoutFeatures.layoutX = x;
+			_layoutFeatures.layoutY = y;
+			invalidateTransform();
+		}
+	}
+	
+	//--------------------------------------------------------------------------
     //
     //  Properties
     //
@@ -60,7 +250,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //----------------------------------
     //  baseline
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the baseline property.
@@ -71,7 +261,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -93,7 +283,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _baseline = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  baselinePosition
     //----------------------------------
@@ -102,21 +292,21 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public function get baselinePosition():Number
-    {    
+    {
         return 0;
     }
-    
+
     //----------------------------------
     //  bottom
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the bottom property.
@@ -127,7 +317,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -149,40 +339,44 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _bottom = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  height
     //----------------------------------
-    
+
     private var _explicitHeight:Number = NaN;    // The height explicitly set by the user
-    private var _layoutHeight:Number = 0;        // The height that's set by the layout
-        
+    private var _height:Number = 0;        		 // The height that's set by the layout
+
     /**
      *  @private
      */
     [PercentProxy("percentHeight")]
     override public function get height():Number
     {
-        return _layoutHeight;
+        return _height;
     }
-    
+
     /**
      *  @private
      */
     override public function set height(value:Number):void
     {
-        _layoutHeight = value;
-        if (_explicitHeight == value)
+		// Apply to the current actual size
+        _height = value;
+		setActualSize(_width, _height);
+
+		// Modify the explicit height
+		if (_explicitHeight == value)
             return;
-        _explicitHeight = value;
+
+		_explicitHeight = value;
         invalidateParentSizeAndDisplayList();
-        super.height = _layoutHeight;
-    }
-    
+	}
+
     //----------------------------------
     //  horizontalCenter
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the horizontalCenter property.
@@ -193,7 +387,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -215,7 +409,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _horizontalCenter = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  includeInLayout
     //----------------------------------
@@ -230,7 +424,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @copy mx.core.UIComponent#includeInLayout
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -240,7 +434,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         return _includeInLayout;
     }
-    
+
     /**
      *  @private
      */
@@ -252,20 +446,20 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _includeInLayout = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  depth
-    //----------------------------------  
-    
+    //----------------------------------
+
     /**
      *  @private
      *  Storage for the depth property.
      */
     private var _depth:Number = 0;
-    
+
     /**
      *  @copy spark.primitives.supportClasses.GraphicElement#depth
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -281,18 +475,18 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function set depth(value:Number):void
     {
-        if(value == _depth)
+        if (value == _depth)
             return;
 
         _depth = value;
-        if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
+        if (parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
     }
-    
+
     //----------------------------------
     //  left
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the left property.
@@ -303,7 +497,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -325,7 +519,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _left = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  owner
     //----------------------------------
@@ -337,7 +531,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -352,11 +546,11 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         _owner = value;
     }
-    
+
     //----------------------------------
     //  percentHeight
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the percentHeight property.
@@ -364,10 +558,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     mx_internal var _percentHeight:Number;
 
     [Inspectable(category="General")]
-    
+
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -393,7 +587,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //----------------------------------
     //  percentWidth
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the percentWidth property.
@@ -401,10 +595,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     mx_internal var _percentWidth:Number;
 
     [Inspectable(category="General")]
-    
+
     /**
      *  @copy mx.core.UIComponent#percentWidth
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -422,15 +616,15 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         if (_percentWidth == value)
             return;
-        
+
         _percentWidth = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  right
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the right property.
@@ -441,7 +635,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -463,59 +657,200 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _right = value;
         invalidateParentSizeAndDisplayList();
     }
-    
-    //----------------------------------
+
+	//----------------------------------
+	//  x
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+	override public function get x():Number
+	{
+		return (_layoutFeatures == null) ? super.x : _layoutFeatures.layoutX;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set x(value:Number):void
+	{
+		if (x == value)
+			return;
+		
+		move(value, y);
+		invalidateParentSizeAndDisplayList();
+	}
+	
+	//----------------------------------
+	//  y
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+	override public function get y():Number
+	{
+		return (_layoutFeatures == null) ? super.y : _layoutFeatures.layoutY;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set y(value:Number):void
+	{
+		if (y == value)
+			return;
+
+		move(x, value);
+		invalidateParentSizeAndDisplayList();
+	}
+
+	//----------------------------------
+	//  z
+	//----------------------------------
+
+	override public function get z():Number
+	{
+		return (_layoutFeatures == null) ? super.z : _layoutFeatures.layoutZ;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set z(value:Number):void
+	{
+		if (z == value)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutZ = value;
+
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
+	//----------------------------------
     //  rotation
     //----------------------------------
-    
+
+	/**
+	 *  @private
+	 */
+	override public function get rotation():Number
+	{
+		return (_layoutFeatures == null) ? super.rotation : _layoutFeatures.layoutRotationZ;
+	}
+
     /**
      *  @private
      */
     override public function set rotation(value:Number):void
     {
-        if (rotation == value)
-            return;
-        
-        super.rotation = value;
-        invalidateParentSizeAndDisplayList();
+		if (rotation == value)
+			return;
+
+		hasDeltaIdentityTransform = false;
+		if (_layoutFeatures == null)
+			super.rotation = MatrixUtil.clampRotation(value);
+		else
+			_layoutFeatures.layoutRotationZ = value;
+
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  rotationX
     //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set rotationX(value:Number):void
-    {
-        if (rotationX == value)
-            return;
-        
-        super.rotationX = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
+
+	/**
+	 *  Indicates the x-axis rotation of the DisplayObject instance, in degrees,
+	 *  from its original orientation relative to the 3D parent container.
+	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+	 *  represent counterclockwise rotation. Values outside this range are added
+	 *  to or subtracted from 360 to obtain a value within the range.
+	 *
+	 *  This property is ignored during calculation by any of Flex's 2D layouts.
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	override public function get rotationX():Number
+	{
+		return (_layoutFeatures == null) ? super.rotationX : _layoutFeatures.layoutRotationX;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set rotationX(value:Number):void
+	{
+		if (rotationX == value)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		_layoutFeatures.layoutRotationX = value;
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
     //----------------------------------
     //  rotationY
     //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set rotationY(value:Number):void
-    {
-        if (rotationY == value)
-            return;
-        
-        super.rotationY = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
+
+	/**
+	 *  Indicates the y-axis rotation of the DisplayObject instance, in degrees,
+	 *  from its original orientation relative to the 3D parent container.
+	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+	 *  represent counterclockwise rotation. Values outside this range are added
+	 *  to or subtracted from 360 to obtain a value within the range.
+	 *
+	 *  This property is ignored during calculation by any of Flex's 2D layouts.
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	override public function get rotationY():Number
+	{
+		return (_layoutFeatures == null) ? super.rotationY : _layoutFeatures.layoutRotationY;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set rotationY(value:Number):void
+	{
+		if (rotationY == value)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		_layoutFeatures.layoutRotationY = value;
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
     //----------------------------------
     //  rotationZ
     //----------------------------------
-    
+
+	/**
+	 *  @private
+	 */
+	override public function get rotationZ():Number
+	{
+		return rotation;
+	}
+
     /**
      *  @private
      */
@@ -523,59 +858,101 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         rotation = value;
     }
-    
+
     //----------------------------------
     //  scaleX
     //----------------------------------
-    
+
     /**
      *  @private
      */
-    override public function set scaleX(value:Number):void
-    {
-        if (scaleX == value)
-            return;
-        
-        super.scaleX = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
+	override public function get scaleX():Number
+	{
+		// if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
+		// super.scaleX might be some other value since we change the width/height
+		// through scaling
+		return (_layoutFeatures == null) ? 1 : _layoutFeatures.layoutScaleX;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set scaleX(value:Number):void
+	{
+		if (value == scaleX)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutScaleX = value;
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
     //----------------------------------
     //  scaleY
     //----------------------------------
-    
+
     /**
      *  @private
      */
-    override public function set scaleY(value:Number):void
-    {
-        if (scaleY == value)
-            return;
-        
-        super.scaleY = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
+	override public function get scaleY():Number
+	{
+		// if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
+		// super.scaleX might be some other value since we change the width/height
+		// through scaling
+		return (_layoutFeatures == null) ? 1 : _layoutFeatures.layoutScaleY;
+	}
+
+	override public function set scaleY(value:Number):void
+	{
+		if (value == scaleY)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutScaleY = value;
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
     //----------------------------------
     //  scaleZ
     //----------------------------------
-    
+
     /**
      *  @private
      */
-    override public function set scaleZ(value:Number):void
-    {
-        if (scaleZ == value)
-            return;
-        
-        super.scaleZ = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
+	override public function get scaleZ():Number
+	{
+		return (_layoutFeatures == null) ? super.scaleZ : _layoutFeatures.layoutScaleZ;
+	}
+
+	/**
+	 * @private
+	 */
+	override public function set scaleZ(value:Number):void
+	{
+		if (scaleZ == value)
+			return;
+
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutScaleZ = value;
+		invalidateTransform();
+		invalidateParentSizeAndDisplayList();
+	}
+
     //----------------------------------
     //  top
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the top property.
@@ -586,7 +963,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -608,11 +985,11 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _top = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  verticalCenter
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the verticalCenter property.
@@ -623,7 +1000,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -645,36 +1022,40 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _verticalCenter = value;
         invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  width
     //----------------------------------
-    
+
     private var _explicitWidth:Number = NaN;    // The width explicitly set by the user
-    private var _layoutWidth:Number = 0;      // The width that's set by the layout
-    
+    private var _width:Number = 0;        		// The width that's set by the layout
+
     /**
      *  @private
      */
     [PercentProxy("percentWidth")]
     override public function get width():Number
     {
-        return _layoutWidth;
+        return _width;
     }
-    
+
     /**
      *  @private
      */
     override public function set width(value:Number):void
     {
-        _layoutWidth = value;
-        if (_explicitWidth == value)
+		// Apply to the current actual size
+        _width = value;
+		setActualSize(_width, _height);
+
+		// Modify the explicit width
+		if (_explicitWidth == value)
             return;
-        _explicitWidth = value;
-        invalidateParentSizeAndDisplayList();
-        super.width = _layoutWidth;
+
+		_explicitWidth = value;
+		invalidateParentSizeAndDisplayList();
     }
-    
+
     //----------------------------------
     //  viewWidth
     //----------------------------------
@@ -683,7 +1064,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @copy spark.primitives.Graphic#viewWidth
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -697,12 +1078,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //----------------------------------
     //  viewHeight
     //----------------------------------
-    
+
     private var _viewHeight:Number = NaN;
-    
+
     /**
      *  @copy spark.primitives.Graphic#viewHeight
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -712,52 +1093,122 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         _viewHeight = value;
     }
-    
-    //----------------------------------
-    //  x
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set x(value:Number):void
-    {
-        if (x == value)
-            return;
-        
-        super.x = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
-    //----------------------------------
-    //  y
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set y(value:Number):void
-    {
-        if (y == value)
-            return;
-        
-        super.y = value;
-        invalidateParentSizeAndDisplayList();
-    }
-    
-    //--------------------------------------------------------------------------
+
+	//----------------------------------
+	//  resizeMode
+	//----------------------------------
+
+	private var _resizeMode:String = ResizeMode.SCALE;
+
+	/**
+	 *  @private
+	 */
+	public function get resizeMode():String
+	{
+		return _resizeMode;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set resizeMode(value:String):void
+	{
+		if (_resizeMode == value)
+			return;
+
+		_resizeMode = value;
+
+		// When resize mode changes, reapply the current size,
+		// so that the correct scale can be calcualted and applied correctly.
+		setActualSize(_width, _height);
+	}
+
+	//----------------------------------
+	//  transform
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+	override public function get transform():flash.geom.Transform
+	{
+		if (_transform == null)
+		{
+			setTransform(new mx.geom.Transform(this));
+		}
+		return _transform;
+	}
+
+	/**
+	 * @private
+	 */
+	override public function set transform(value:flash.geom.Transform):void
+	{
+		var m:Matrix = value.matrix;
+		var m3:Matrix3D =  value.matrix3D;
+		var ct:ColorTransform = value.colorTransform;
+		var pp:PerspectiveProjection = value.perspectiveProjection;
+
+		var mxTransform:mx.geom.Transform = value as mx.geom.Transform;
+		if (mxTransform)
+		{
+			if (!mxTransform.applyMatrix)
+				m = null;
+			
+			if (!mxTransform.applyMatrix3D)
+				m3 = null;
+		}
+		
+		setTransform(value);
+
+		if (m != null)
+			setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
+		else if (m3 != null)
+			setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
+
+		super.transform.colorTransform = ct;
+		super.transform.perspectiveProjection = pp;
+	}
+
+	/**
+	 *  @private
+	 */
+	private function setTransform(value:flash.geom.Transform):void
+	{
+		// Clean up the old transform
+		var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
+		if (oldTransform)
+			oldTransform.target = null;
+
+		var newTransform:mx.geom.Transform = value as mx.geom.Transform;
+
+		if (newTransform)
+			newTransform.target = this;
+
+		_transform = value;
+	}
+
+	/**
+	 *  @private
+	 */
+	mx_internal function get $transform():flash.geom.Transform
+	{
+		return super.transform;
+	}
+
+	//--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
     private function get preferredWidth():Number
     {
         if (!isNaN(_explicitWidth))
             return _explicitWidth;
         if (!isNaN(_viewWidth))
             return _viewWidth;
-        return super.width;
+        return naturalWidth;
     }
 
     private function get preferredHeight():Number
@@ -766,12 +1217,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
             return _explicitHeight;
         if (!isNaN(_viewHeight))
             return _viewHeight;
-        return super.height;
+        return naturalHeight;
     }
-        
+
     /**
-     *  @inheritDoc 
-     *  
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -779,18 +1230,18 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postLayoutTransform ? transform.matrix : null;
+        var m:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null;
         if (!m)
             return x;
-            
+
         var topLeft:Point = new Point(0, 0);
         MatrixUtil.transformBounds(new Point(width, height), m, topLeft);
         return topLeft.x;
     }
 
     /**
-     *  @inheritDoc 
-     *  
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -798,10 +1249,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postLayoutTransform ? transform.matrix : null;
+        var m:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null;
         if (!m)
             return y;
-            
+
         var topLeft:Point = new Point(0, 0);
         MatrixUtil.transformBounds(new Point(width, height), m, topLeft);
         return topLeft.y;
@@ -809,7 +1260,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @copy mx.core.ILayoutElement#getLayoutBoundsWidth()
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -821,8 +1272,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
 
     /**
-     *  @inheritDoc 
-     *  
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -835,7 +1286,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -843,12 +1294,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return getPreferredBoundsWidth(postLayoutTransform);
+		return transformWidthForLayout(DEFAULT_MAX_WIDTH, DEFAULT_MAX_HEIGHT, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -856,12 +1307,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return getPreferredBoundsHeight(postLayoutTransform);
+		return transformHeightForLayout(DEFAULT_MAX_WIDTH, DEFAULT_MAX_HEIGHT, postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -869,12 +1320,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return getPreferredBoundsWidth(postLayoutTransform);
+        return resizeMode == ResizeMode.SCALE ? 0 : getPreferredBoundsWidth(postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -882,12 +1333,12 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return getPreferredBoundsHeight(postLayoutTransform);
+        return resizeMode == ResizeMode.SCALE ? 0 : getPreferredBoundsHeight(postLayoutTransform);
     }
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -900,7 +1351,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -910,10 +1361,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         return transformHeightForLayout(preferredWidth, preferredHeight, postLayoutTransform);
     }
-    
+
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -921,20 +1372,18 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix;
-        if (!postLayoutTransform)
-            m = transform.matrix;
+		var m:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null;
         if (!m)
             return x;
-        
+
         var topLeft:Point = new Point(0, 0);
         MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
         return topLeft.x;
     }
-    
+
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -942,9 +1391,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix;
-        if (!postLayoutTransform)
-            m = transform.matrix;
+		var m:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null;
         if (!m)
             return y;
 
@@ -952,11 +1399,11 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
         return topLeft.y;
     }
-    
+
     /**
      *  Invalidates parent size and display list if
      *  this object affects its layout (includeInLayout is true).
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -974,10 +1421,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         p.invalidateSize();
         p.invalidateDisplayList();
     }
-    
+
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -988,19 +1435,16 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         var currentBoundsX:Number = getLayoutBoundsX(postLayoutTransform);
         var currentBoundsY:Number = getLayoutBoundsY(postLayoutTransform);
 
-        var newX:Number = x + newBoundsX - currentBoundsX;
-        var newY:Number = y + newBoundsY - currentBoundsY;
+        var xOffset:Number = newBoundsX - currentBoundsX;
+        var yOffset:Number = newBoundsY - currentBoundsY;
 
-        if (newX != x || newY != y)
-        {
-            super.x = newX;
-            super.y = newY;
-        }
+        if (xOffset != 0 || yOffset != 0)
+			move(x + xOffset, y + yOffset);
     }
 
     /**
      *  @inheritDoc
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1010,99 +1454,177 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
                                         height:Number,
                                         postLayoutTransform:Boolean = true):void
     {
-        if (postLayoutTransform)
-        {
-            // If the size is specified post-transform,
-            // then always snap to the preferredSize.
-            width = preferredWidth;
-            height = preferredHeight;
-        }
-        else
-        {
-            if (isNaN(width))
-                width = preferredWidth;
-            if (isNaN(height))
-                height = preferredHeight;
-        }
+		var m:Matrix = postLayoutTransform ? nonDeltaLayoutMatrix() : null; 
+		
+		if (!m)
+		{
+			if (isNaN(width))
+				width = preferredWidth;
+			if (isNaN(height))
+				height = preferredHeight;
+			
+			setActualSize(width, height);
+			return;
+		}
+		
+		var fitSize:Point = MatrixUtil.fitBounds(width, height, m,
+												 preferredWidth,
+												 preferredHeight,
+												 getMinBoundsWidth(false),
+												 getMinBoundsHeight(false),
+												 getMaxBoundsWidth(false),
+												 getMaxBoundsWidth(false));
 
-        _layoutWidth = width;
-        _layoutHeight = height;
-        super.width = _layoutWidth;
-        super.height = _layoutHeight;
+		// If we couldn't fit at all, default to the minimum size
+		if (!fitSize)
+			setActualSize(preferredWidth, preferredHeight);
+		else
+			setActualSize(fitSize.x, fitSize.y);
     }
 
-    /**
-     *  @inheritDoc
-     *  
+	/**
+	 *  @inheritDoc
+	 *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function getLayoutMatrix():Matrix
-    {
-        // flash returns copies.
-        return transform.matrix;       
-    }
+	 */
+	public function getLayoutMatrix():Matrix
+	{
+		if (_layoutFeatures != null)
+		{
+			// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+			// since this is an internal class, we don't need to worry about developers
+			// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+			// we hand out a clone.
+			return _layoutFeatures.layoutMatrix.clone();
+		}
+		else
+		{
+			// flash also returns copies.
+			return super.transform.matrix;
+		}
+	}
 
-    /**
-     *  @inheritDoc
-     *  
+	/**
+	 *  @inheritDoc
+	 *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
-    {
-        // flash will make a copy of this on assignment.
-        transform.matrix = value;
-        
-        if (invalidateLayout)
-            invalidateParentSizeAndDisplayList();
-    }
+	 */
+	public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
+	{
+		hasDeltaIdentityTransform = false;
+		if (_layoutFeatures == null)
+		{
+			// flash will make a copy of this on assignment.
+			super.transform.matrix = value;
+		}
+		else
+		{
+			// layout features will internally make a copy of this matrix rather than
+			// holding onto a reference to it.
+			_layoutFeatures.layoutMatrix = value;
+			invalidateTransform();
+		}
 
-    /**
-     *  @inheritDoc
-     *  
+		if (invalidateLayout)
+			invalidateParentSizeAndDisplayList();
+	}
+
+	/**
+	 *  @inheritDoc
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function getLayoutMatrix3D():Matrix3D
+	{
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+		// since this is an internal class, we don't need to worry about developers
+		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+		// we hand out a clone.
+		return _layoutFeatures.layoutMatrix3D.clone();
+	}
+
+	/**
+	 *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
+	 *  doesn't trigger a layout pass.
+	 *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function getLayoutMatrix3D():Matrix3D
-    {
-        // flash returns copies.
-        return transform.matrix3D;        
-    }
+	 */
+	public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
+	{
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		// layout features will internally make a copy of this matrix rather than
+		// holding onto a reference to it.
+		_layoutFeatures.layoutMatrix3D = value;
+		invalidateTransform();
 
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
-    {
-        // flash will make a copy of this on assignment.
-        transform.matrix3D = value;
-        
-        if (invalidateLayout)
-            invalidateParentSizeAndDisplayList();
-    }
-    
-    /**
+		if (invalidateLayout)
+			invalidateParentSizeAndDisplayList();
+	}
+	
+	public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+	{
+		if (_layoutFeatures != null)
+		{
+			_layoutFeatures.transformPointToParent(true, transformCenter,
+				position, postLayoutPosition);
+		}
+		else
+		{
+			if (xformPt == null)
+				xformPt = new Point();
+			if (transformCenter)
+			{
+				xformPt.x = transformCenter.x;
+				xformPt.y = transformCenter.y;
+			}
+			else
+			{
+				xformPt.x = 0;
+				xformPt.y = 0;
+			}
+			var tmp:Point = (super.transform.matrix != null) ?
+				super.transform.matrix.transformPoint(xformPt) :
+				xformPt;
+			if (position != null)
+			{            
+				position.x = tmp.x;
+				position.y = tmp.y;
+				position.z = 0;
+			}
+			if (postLayoutPosition != null)
+			{
+				postLayoutPosition.x = tmp.x;
+				postLayoutPosition.y = tmp.y;
+				postLayoutPosition.z = 0;
+			}
+		}
+	}
+
+	/**
      *  Transform the element's size.
-     *  
+     *
      *  @param width The target pre-transform width.
-     *  
+     *
      *  @param height The target pre-transform height.
-     *  
+     *
      *  @return Returns the transformed width. Transformation is this element's
      *  layout transformation matrix.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1114,8 +1636,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         if (postLayoutTransform)
         {
-            var m:Matrix = transform.matrix;
-            if (m)
+            var m:Matrix = nonDeltaLayoutMatrix();
+			if (m)
             {
                 var size:Point = new Point(width, height);
                 width = MatrixUtil.transformSize(size, m).x;
@@ -1127,14 +1649,14 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
     /**
      *  Transform the element's size.
-     *  
+     *
      *  @param width The target pre-transform width.
-     *  
+     *
      *  @param height The target pre-transform height.
-     *  
+     *
      *  @return Returns the transformed height. Transformation is this element's
      *  layout transformation matrix.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1146,14 +1668,14 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         if (postLayoutTransform)
         {
-            var m:Matrix = transform.matrix;
-            if (m)
+            var m:Matrix = nonDeltaLayoutMatrix();
+			if (m)
             {
                 var size:Point = new Point(width, height);
                 height = MatrixUtil.transformSize(size, m).y;
             }
         }
-        
+
         return height;
     }
 }
