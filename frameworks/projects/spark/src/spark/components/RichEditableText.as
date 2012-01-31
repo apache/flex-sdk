@@ -245,8 +245,6 @@ public class RichEditableText extends UIComponent
     	
     	staticImportConfiguration = new Configuration();
     	
-    	staticEmbeddedFont = new EmbeddedFont("", false, false);
-    	
     	staticTextFormat = new TextFormat();
     }
     
@@ -278,12 +276,6 @@ public class RichEditableText extends UIComponent
      */
     private static var staticImportConfiguration:Configuration;
     
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
-     */
-    private static var staticEmbeddedFont:EmbeddedFont;
-        
     /**
      *  @private
      *  Used in getEmbeddedFontContext().
@@ -2003,10 +1995,8 @@ public class RichEditableText extends UIComponent
 			var bold:Boolean = getStyle("fontWeight") == "bold";
 			var italic:Boolean = getStyle("fontStyle") == "italic";
 			
-			staticEmbeddedFont.initialize(font, bold, italic);
-            
             moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	staticEmbeddedFont, fontContext);
+            	font, bold, italic, this, fontContext);
 
             // If we found the font, then it is embedded. 
             // But some fonts are not listed in info()
