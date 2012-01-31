@@ -80,7 +80,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Color of the fill of an itemRenderer
+ *  Color of the fill of an item renderer
  *   
  *  @default 0xFFFFFF
  *  
@@ -134,6 +134,29 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  The GroupBase class defines the base class for components that display visual elements.
  *  A group component does not control the layout of the visual items that it contains. 
  *  Instead, the layout is handled by a separate layout component.
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;GroupBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;GroupBase
+ *    <strong>Properties</strong>
+ *    autoLayout="true"
+ *    clipAndEnableScrolling="false"
+ *    horizontalScrollPosition="null"
+ *    layout="BasicLayout"
+ *    mask=""
+ *    maskType="clip"
+ *    resizeMode="normal"
+ *    verticalScrollPosition="no default"
+ *  
+ *    <strong>Events</strong>
+ *    elementAdd="<i>No default</i>"
+ *    elementRemove="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see spark.layouts.supportClasses.LayoutBase
  *  @see spark.components.ResizeMode
@@ -384,6 +407,8 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy spark.core.IViewport#clipAndEnableScrolling
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -562,7 +587,7 @@ public class GroupBase extends UIComponent implements IViewport
  *  keep their unscaled width and height and the children 
  *  are scaled to change size.
  * 
- * @default ResizeMode.NORMAL
+ * <p>The default value is <code>ResizeMode.NORMAL</code>, corresponding to "normal".</p>
  * 
  * @see spark.components.ResizeMode
  *  
@@ -630,11 +655,11 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function childTransformChanged():void
     {
-    	if (autoLayout)
-    	{
-	    	invalidateSize();
-	    	invalidateDisplayList();
-    	}
+        if (autoLayout)
+        {
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }
     
     /**
@@ -658,7 +683,7 @@ public class GroupBase extends UIComponent implements IViewport
     {
         super.invalidateDisplayList();
     }
-	
+    
     /**
      *  @inheritDoc
      *  
@@ -738,27 +763,27 @@ public class GroupBase extends UIComponent implements IViewport
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		if (maskChanged)
+        if (maskChanged)
         {
             maskChanged = false;
             if (_mask)
             {
-            	maskTypeChanged = true;
+                maskTypeChanged = true;
             
-		        if (!_mask.parent)
-	            {
-	            	// TODO!!! This needs to be a sibling because alpha
-	                super.addChild(_mask);
-	                var maskComp:UIComponent = _mask as UIComponent;
-	                if (maskComp)
-	                {
-		                maskComp.validateProperties();
-	                    maskComp.validateSize();
-	                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-	                                           maskComp.getExplicitOrMeasuredHeight());
-	                }
-	            }
-	        }
+                if (!_mask.parent)
+                {
+                    // TODO!!! This needs to be a sibling because alpha
+                    super.addChild(_mask);
+                    var maskComp:UIComponent = _mask as UIComponent;
+                    if (maskComp)
+                    {
+                        maskComp.validateProperties();
+                        maskComp.validateSize();
+                        maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
+                                               maskComp.getExplicitOrMeasuredHeight());
+                    }
+                }
+            }
         }
         
         if (maskTypeChanged)    
@@ -902,7 +927,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  Sets the <code>contentWidth</code> and <code>contentHeight</code>
      *  properties.
      * 
-     *  This method is is intended for layout class developers who should
+     *  This method is intended for layout class developers who should
      *  call it from <code>updateDisplayList()</code> methods.
      *
      *  @param width The new value of <code>contentWidth</code>.
@@ -1105,6 +1130,8 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  The mask type.
      *  Possible values are <code>MaskType.CLIP</code> and <code>MaskType.ALPHA</code>. 
+     *
+     *  <p>The default value is <code>MaskType.CLIP</code>, corresponding to "clip".</p>
      *
      *  @see  spark.core.MaskType
      *  
