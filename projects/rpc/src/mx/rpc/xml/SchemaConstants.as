@@ -253,12 +253,22 @@ public class SchemaConstants
     /**
      * The namespace representing the version of XML Schema Definition (XSD). 
      * Currently versions 1999, 2000 and 2001 are supported.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _xsdNS:Namespace;
 
     /**
      * The namespace representing the version of XML Schema Instance (XSI). 
      * Currently versions 1999, 2000 and 2001 are supported.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _xsiNS:Namespace;
 
