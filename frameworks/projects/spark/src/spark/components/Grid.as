@@ -243,7 +243,7 @@ public class Grid extends Group implements IDataGridElement
     public var selectionLayer:GridLayer;    
     public var rendererLayer:GridLayer;
     public var overlayLayer:GridLayer;
-    
+    public var editorIndicatorLayer:GridLayer;
     
     //--------------------------------------------------------------------------
     //
@@ -268,8 +268,9 @@ public class Grid extends Group implements IDataGridElement
         selectionLayer = new GridLayer();
         rendererLayer = new GridLayer(this);
         overlayLayer = new GridLayer();
+        editorIndicatorLayer = new GridLayer();
         
-        for each (var layer:GridLayer in [backgroundLayer, selectionLayer, overlayLayer])
+        for each (var layer:GridLayer in [backgroundLayer, selectionLayer, editorIndicatorLayer, overlayLayer])
             addElement(layer.root);      
         
         MouseEventUtil.addDownDragUpListeners(this, 
