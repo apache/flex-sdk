@@ -28,6 +28,8 @@ package spark.effects.easing
  *    id="ID"
  *   /&gt;
  *  </pre>
+ *
+ *  @includeExample examples/SinePowerEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
