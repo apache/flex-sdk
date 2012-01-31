@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects
+package spark.effects
 {
 
-import mx.effects.effectClasses.SetActionInstance;
+import spark.effects.supportClasses.SetActionInstance;
 
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
