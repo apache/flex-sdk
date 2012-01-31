@@ -13,6 +13,7 @@ package spark.components
 {
 
 import flash.display.BlendMode;
+import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -26,9 +27,8 @@ import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 
-import flashx.textLayout.compose.IFlowComposer;
-import flashx.textLayout.compose.StandardFlowComposer;
-import flashx.textLayout.container.ContainerController;
+import flashx.textLayout.container.IInputManagerClient;
+import flashx.textLayout.container.InputManager;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
@@ -61,11 +61,8 @@ import flashx.textLayout.operations.FlowOperation;
 import flashx.textLayout.operations.FlowTextOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.operations.PasteOperation;
-import flashx.textLayout.operations.SplitParagraphOperation;
 import flashx.textLayout.tlf_internal;
 
-import spark.core.IViewport;
-import spark.core.ScrollUnit;
 import mx.core.EmbeddedFont;
 import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
@@ -73,12 +70,16 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 import mx.events.FlexEvent;
-import spark.events.TextOperationEvent;
 import mx.utils.StringUtil;
+
+import spark.core.IViewport;
+import spark.core.ScrollUnit;
+import spark.core.CSSTextLayoutFormat;
+import spark.core.TextBaseClassWithStylesAndFocus;
+import spark.events.TextOperationEvent;
 import spark.utils.TextUtil;
 
 //--------------------------------------
@@ -111,7 +112,7 @@ import spark.utils.TextUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="spark.events.TextOperationEvent")]
+[Event(name="changing", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
@@ -123,7 +124,7 @@ import spark.utils.TextUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="change", type="spark.events.TextOperationEvent")]
+[Event(name="change", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched when the user pressed the Enter key.
@@ -157,48 +158,62 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  Displays text. 
  *  
- *  <p>RichEditableText has more functionality than SimpleText and RichText. In addition to the text rendering 
- *  capabilities of RichText, RichEditableText also supports hyperlinks, scrolling, selecting, and editing.</p>
+ *  <p>TextView has more functionality than TextBox and TextGraphic. In addition to the text rendering 
+ *  capabilities of TextGraphic, TextView also supports hyperlinks, scrolling, selecting, and editing.</p>
  *  
- *  <p>The RichEditableText class is similar to the mx.controls.TextArea control, except that it does 
+ *  <p>The TextView class is similar to the mx.controls.TextArea control, except that it does 
  *  not have chrome.</p>
  *  
- *  <p>The RichEditableText class does not support drawing a background, border, or scrollbars. To do that,
+ *  <p>The TextView class does not support drawing a background, border, or scrollbars. To do that,
  *  you combine it with other components.</p>
  *  
- *  <p>Because RichEditableText extends UIComponent, it can take focus and allows user interaction such as selection.</p>
+ *  <p>Because TextView extends UIComponent, it can take focus and allows user interaction such as selection.</p>
  *  
- *  @see mx.graphics.SimpleText
- *  @see mx.graphics.RichText
+ *  @see mx.graphics.TextBox
+ *  @see mx.graphics.TextGraphic
  *
- *  @includeExample examples/RichEditableTextExample.mxml
+ *  @includeExample examples/TextViewExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichEditableText extends UIComponent implements IViewport
+public class RichEditableText extends TextBaseClassWithStylesAndFocus
+	implements IInputManagerClient, IViewport, IFontContextComponent
 {
     include "../core/Version.as";
         
     //--------------------------------------------------------------------------
     //
-    //  Class methods
+    //  Class initialization
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      */
-    private static function splice(str:String, start:int, end:int,
-                                   strToInsert:String):String
+    private static function initClass():void
     {
-        return str.substring(0, start) +
-               strToInsert +
-               str.substring(end, str.length);
+    	// Create a single Configuration used by all InputManager instances.
+    	// It tells InputManager that we don't want it to handle the ENTER key,
+    	// because we need the ENTER key to behave differently based on the
+    	// 'multiline' property.
+    	staticInputManagerConfiguration =
+    		Configuration(InputManager.defaultInputManagerConfiguration).clone();
+    	staticInputManagerConfiguration.manageEnterKey = false;
+    	
+    	staticTextLayoutFormat = new TextLayoutFormat;
+    	
+    	staticImportConfiguration = new Configuration();
+    	
+    	staticEmbeddedFont = new EmbeddedFont("", false, false);
+    	
+    	staticTextFormat = new TextFormat();
     }
-
+    
+    initClass();    
+    
     //--------------------------------------------------------------------------
     //
     //  Class variables
@@ -207,18 +222,60 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Used for determining whitespace processing during import.
+	 *  Used for telling InputManager not to process the Enter key.
      */
-    private static var staticTextLayoutFormat:TextLayoutFormat =
-        new TextLayoutFormat();
+    private static var staticInputManagerConfiguration:Configuration;
     
     /**
      *  @private
-     *  Used for determining whitespace processing during import.
+     *  Used for determining whitespace processing
+     *  when the 'content' property is set.
      */
-    private static var staticConfiguration:Configuration =
-        new Configuration();
+    private static var staticTextLayoutFormat:TextLayoutFormat;
+        
+    /**
+     *  @private
+     *  Used for determining whitespace processing
+     *  when the 'content' property is set.
+     */
+    private static var staticImportConfiguration:Configuration;
     
+    /**
+     *  @private
+     *  Used in getEmbeddedFontContext().
+     */
+    private static var staticEmbeddedFont:EmbeddedFont;
+        
+    /**
+     *  @private
+     *  Used in getEmbeddedFontContext().
+     */
+    private static var staticTextFormat:TextFormat;
+        
+    /**
+     *  @private
+	 *  Used for debugging.
+	 *  Set this to true to get trace output
+	 *  showing what InputManager APIs are being called.
+     */
+    mx_internal static var debug:Boolean = false;
+    
+    /**
+     *  @private
+     *  Used for debugging.
+     *  Set this to an RGB uint to draw an opaque background
+     *  so that you can see the bounds of the component.
+     *  If it is null, the background is black pixels at 0 alpha,
+     *  to be transparent but catch mouse events.
+     */
+    mx_internal static var backgroundColor:Object = null; // 0xDDDDDD;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class properties
+    //
+    //--------------------------------------------------------------------------
+
     //----------------------------------
     //  embeddedFontRegistry
     //----------------------------------
@@ -251,6 +308,23 @@ public class RichEditableText extends UIComponent implements IViewport
 
     //--------------------------------------------------------------------------
     //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static function splice(str:String, start:int, end:int,
+                                   strToInsert:String):String
+    {
+        return str.substring(0, start) +
+               strToInsert +
+               str.substring(end, str.length);
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -267,23 +341,47 @@ public class RichEditableText extends UIComponent implements IViewport
     {
         super();
         
-        // Even if no text/content specified, want to have a flow composer
-        // so text can be input if the control is editable.  Use setter.
-        content = textFlow = createEmptyTextFlow();
+        // Create the TLF InputManager, using this component
+        // as both the DisplayObjectContainer for its TextLines
+        // and the implementor of its IInputManagerClient callbacks.
+        // This InputManager instance persists for the lifetime
+        // of the component.
+        _inputManager = new InputManager(this, this, 100, 100, 
+                                         staticInputManagerConfiguration);
+                
+        // Add event listeners on this component.
         
-        mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
-            
         addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
+        
         addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+        
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-
+        
         addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
         
-        // We don't want TLF stopping the propagation of the ENTER key.
-        // Keep in mind that this affects the global default for editable
-        // flows. We set this here to avoid setting one-off configuration 
-        // instances per TextFlow.  
-        TextFlow.defaultConfiguration.manageEnterKey = false;
+        // Add event listeners on its InputManager.
+        
+        _inputManager.addEventListener(
+            CompositionCompletionEvent.COMPOSITION_COMPLETE,
+            inputManager_compositionCompleteHandler);
+        
+        _inputManager.addEventListener(
+        	DamageEvent.DAMAGE, inputManager_damageHandler);
+
+        _inputManager.addEventListener(
+        	Event.SCROLL, inputManager_scrollHandler);
+
+        _inputManager.addEventListener(
+            SelectionEvent.SELECTION_CHANGE,
+            inputManager_selectionChangeHandler);
+
+        _inputManager.addEventListener(
+            FlowOperationEvent.FLOW_OPERATION_BEGIN,
+            inputManager_flowOperationBeginHandler);
+
+        _inputManager.addEventListener(
+            FlowOperationEvent.FLOW_OPERATION_END,
+            inputManager_flowOperationEndHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -293,52 +391,18 @@ public class RichEditableText extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
 
     /**
-     * @private
-     * 
-     * Cache last value of embedded font.
+     *  @private
+     *  This object reports the TLF formats that correspond
+     *  to this component's CSS styles.
      */
-    private var cachedEmbeddedFont:EmbeddedFont = null;
+    private var hostFormat:ITextLayoutFormat;
 
     /**
      *  @private
-     * Holds the last recorded value of the module factory used to create the font.
+     *  This variable is initialize to true so that hostFormat
+     *  gets initialized the first time through commitProperties().
      */
-    private var embeddedFontContext:IFlexModuleFactory = null;
-
-    /**
-     *  @private
-     *  If the embeddedFontContext changed
-     */
-    private var embeddedFontContextChanged:Boolean;
-
-    /**
-     *  @private
-     *  True if we need to compute the fontLookup
-     */
-    private var autoFontLookup:Boolean = false;
-
-    /**
-     *  @private
-     */
-    private var textFlow:TextFlow;
-            
-    /**
-     *  @private
-     *  This object is determined by the CSS styles of the RichEditableText
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
-     */
-    private var hostTextLayoutFormat:TextLayoutFormat = new TextLayoutFormat();
-
-    /**
-     *  @private
-     *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
-     *  and hostContainerFormat need to be recalculated from the CSS styles
-     *  of the RichEditableText. It is set true by stylesInitialized() and also
-     *  when styleChanged() is called with a null argument, indicating that
-     *  multiple styles have changed.
-     */
-    private var hostTextLayoutFormatInvalid:Boolean = false;
+    private var hostFormatChanged:Boolean = true;
 
     /**
      *  @private
@@ -385,12 +449,36 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  @private
      */
-    mx_internal var undoManager:IUndoManager = new UndoManager();
+    mx_internal var undoManager:IUndoManager;
 
     /**
      *  @private
      */
     mx_internal var clearUndoOnFocusOut:Boolean = true;
+
+    /**
+     *  @private
+     *  TODO! This can't be public.
+     */
+	public var hasScrollRect:Boolean = false;
+
+    /**
+     *  @private
+     *  To preserve the selection anchor position across selection managers.
+     */
+    private var priorSelectionAnchorPosition:int = -1;
+
+    /**
+     *  @private
+     *  To preserve the selection active position across selection managers.
+     */
+    private var priorSelectionActivePosition:int = -1;
+    
+    /**
+     *  @private
+     *  Holds the last recorded value of the module factory used to create the font.
+     */
+    mx_internal var embeddedFontContext:IFlexModuleFactory;
 
     //--------------------------------------------------------------------------
     //
@@ -420,6 +508,271 @@ public class RichEditableText extends UIComponent implements IViewport
         return getStyle("paddingTop") + ascent;
     }
 
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var enabledChanged:Boolean = false;
+
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        if (value == super.enabled)
+            return;
+
+        super.enabled = value;
+        enabledChanged = true;
+
+        invalidateProperties();
+        invalidateDisplayList();
+    }
+
+    //----------------------------------
+    //  explicitWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set explicitWidth(value:Number):void
+    {
+        if (value == explicitWidth)
+            return;
+            
+        super.explicitWidth = value;
+        
+        // Re-measure.  The width change could impact the height.
+        invalidateSize();
+    }
+
+    //----------------------------------
+    //  percentWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set percentWidth(value:Number):void
+    {
+        if (value == percentWidth)
+            return;
+            
+        super.percentWidth = value;
+        
+        // Re-measure.
+        invalidateSize();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IFontContextComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  fontContext
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _fontContext:IFlexModuleFactory;
+
+    /**
+     *  @private
+     */
+    public function get fontContext():IFlexModuleFactory
+    {
+        return _fontContext;
+    }
+
+    /**
+     *  @private
+     */
+    public function set fontContext(value:IFlexModuleFactory):void
+    {
+        _fontContext = value;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IViewport
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  clipAndEnableScrolling
+    //----------------------------------
+        
+    /**
+     *  @private
+     */
+    private var _clipAndEnableScrolling:Boolean = true;
+    
+    /**
+     *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get clipAndEnableScrolling():Boolean 
+    {
+        return _clipAndEnableScrolling;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clipAndEnableScrolling(value:Boolean):void 
+    {
+        if (value == _clipAndEnableScrolling) 
+            return;
+    
+        _clipAndEnableScrolling = value;
+        // TBD implement this
+    }
+        
+    //----------------------------------
+    //  contentHeight
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _contentHeight:Number = 0;
+
+    [Bindable("propertyChange")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get contentHeight():Number
+    {
+        return _contentHeight;
+    }
+
+    //----------------------------------
+    //  contentWidth
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _contentWidth:Number = 0;
+
+    [Bindable("propertyChange")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get contentWidth():Number
+    {
+        return _contentWidth;
+    }
+
+    //----------------------------------
+    //  horizontalScrollPosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _horizontalScrollPosition:Number = 0;
+
+    /**
+     *  @private
+     */
+    private var horizontalScrollPositionChanged:Boolean = false;
+ 
+    [Bindable("propertyChange")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get horizontalScrollPosition():Number
+    {
+        return _horizontalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set horizontalScrollPosition(value:Number):void
+    {
+        if (value == _horizontalScrollPosition)
+            return;
+
+        _horizontalScrollPosition = value;
+        horizontalScrollPositionChanged = true;
+
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  verticalScrollPosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _verticalScrollPosition:Number = 0;
+
+    /**
+     *  @private
+     */
+    private var verticalScrollPositionChanged:Boolean = false;
+ 
+    [Bindable("propertyChange")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get verticalScrollPosition():Number
+    {
+        return _verticalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set verticalScrollPosition(value:Number):void
+    {
+        if (value == _verticalScrollPosition)
+            return;
+
+        _verticalScrollPosition = value;
+        verticalScrollPositionChanged = true;
+
+        invalidateProperties();
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -433,8 +786,9 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  @private
      *  The default is true.
+     *  TODO! The default should be true.
      */
-    private var _autoSize:Boolean = true;
+    private var _autoSize:Boolean = false;
 
     /**
      *  @private
@@ -468,40 +822,6 @@ public class RichEditableText extends UIComponent implements IViewport
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
-    }
-        
-    //----------------------------------
-    //  clipAndEnableScrolling
-    //----------------------------------
-        
-    /**
-     *  @private
-     */
-    private var _clipAndEnableScrolling:Boolean = true;
-    
-    /**
-     *  @copy spark.layout.supportClasses.LayoutBase#clipAndEnableScrolling
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get clipAndEnableScrolling():Boolean 
-    {
-        return _clipAndEnableScrolling;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set clipAndEnableScrolling(value:Boolean):void 
-    {
-        if (value == _clipAndEnableScrolling) 
-            return;
-    
-        _clipAndEnableScrolling = value;
-        // TBD implement this
     }
         
     //----------------------------------
@@ -553,54 +873,6 @@ public class RichEditableText extends UIComponent implements IViewport
         invalidateDisplayList();
     }
     
-    //----------------------------------
-    //  contentHeight
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _contentHeight:Number = 0;
-
-    [Bindable("propertyChange")]
-    
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentHeight():Number
-    {
-        return _contentHeight;
-    }
-
-    //----------------------------------
-    //  contentWidth
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _contentWidth:Number = 0;
-
-    [Bindable("propertyChange")]
-    
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentWidth():Number
-    {
-        return _contentWidth;
-    }
-
     //----------------------------------
     //  displayAsPassword
     //----------------------------------
@@ -689,45 +961,28 @@ public class RichEditableText extends UIComponent implements IViewport
     }
 
     //----------------------------------
-    //  enabled
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var enabledChanged:Boolean = false;
-
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        if (value == super.enabled)
-            return;
-
-        super.enabled = value;
-        enabledChanged = true;
-
-        invalidateProperties();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  explicitWidth
+    //  editingMode
     //----------------------------------
     
     /**
      *  @private
+     *  The editingMode of this component's InputManager.
+     *  Note that this is not a public property
+     *  and does not use the invalidation mechanism.
      */
-    override public function set explicitWidth(value:Number):void
+    private function get editingMode():String
     {
-        if (value == explicitWidth)
-            return;
-            
-        super.explicitWidth = value;
-        
-        // Re-measure.  The width change could impact the height.
-        invalidateSize();
+    	return _inputManager.editingMode;
+    }
+    
+    /**
+     *  @private
+     */
+    private function set editingMode(value:String):void
+    {
+    	if (mx_internal::debug)
+     		trace("editingMode = ", value);
+     	_inputManager.editingMode = value;
     }
 
     //----------------------------------
@@ -747,8 +1002,8 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  The height of the control, in lines.
      *  
-     *  <p>RichEditableText's measure() method does not determine the measured size from 
-     *  the text to be displayed, because a RichEditableText often starts out with no 
+     *  <p>TextView's measure() method does not determine the measured size from 
+     *  the text to be displayed, because a TextView often starts out with no 
      *  text. Instead it uses this property, and the widthInChars property 
      *  to determine its measuredWidth and measuredHeight. These are 
      *  similar to the cols and rows of an HTML TextArea.</p>
@@ -776,96 +1031,6 @@ public class RichEditableText extends UIComponent implements IViewport
 
         invalidateSize();
         invalidateDisplayList();
-    }
-    
-    //----------------------------------
-    //  horizontalScrollPosition
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _horizontalScrollPosition:Number = 0;
-
-    /**
-     *  @private
-     */
-    private var horizontalScrollPositionChanged:Boolean = false;
- 
-    [Bindable("propertyChange")]
-    
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get horizontalScrollPosition():Number
-    {
-        return _horizontalScrollPosition;
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPosition(value:Number):void
-    {
-        if (value == _horizontalScrollPosition)
-            return;
-
-        _horizontalScrollPosition = value;
-        horizontalScrollPositionChanged = true;
-
-        invalidateProperties();
-    }
-    
-    //----------------------------------
-    //  horizontalScrollPositionDelta
-    //----------------------------------
-
-    /**
-     *  @copy spark.layout.supportClasses.LayoutBase#getHorizontalScrollPositionDelta
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
-    {
-        // TBD: replace provisional implementation
-        var scrollR:Rectangle = scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = contentWidth - scrollR.width - scrollR.x;
-        var minDelta:Number = -scrollR.x; 
-            
-        switch (scrollUnit)
-        {
-            case ScrollUnit.UP:
-                return (scrollR.x <= 0) ? 0 : -1;
-                
-            case ScrollUnit.DOWN:
-                return (scrollR.x >= maxDelta) ? 0 : 1;
-                
-            case ScrollUnit.PAGE_LEFT:
-                return Math.max(minDelta, -scrollR.width);
-                
-            case ScrollUnit.PAGE_RIGHT:
-                return Math.min(maxDelta, scrollR.width);
-                
-            case ScrollUnit.HOME: 
-                return minDelta;
-                
-            case ScrollUnit.END: 
-                return maxDelta;
-                
-            default:
-                return 0;
-        }       
     }
     
     //----------------------------------
@@ -910,6 +1075,25 @@ public class RichEditableText extends UIComponent implements IViewport
     }
 
     //----------------------------------
+    //  inputManager
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _inputManager:InputManager; /*** public? ***/
+            
+    /**
+     *  @private
+     *  The TLF InputManager instance that displays,
+     *  scrolls, and edits the text in this component.
+     */
+	mx_internal function get inputManager():InputManager
+	{
+		return _inputManager;
+	}
+	
+    //----------------------------------
     //  maxChars
     //----------------------------------
 
@@ -919,7 +1103,7 @@ public class RichEditableText extends UIComponent implements IViewport
     private var _maxChars:int = 0;
 
     /**
-     *  The maximum number of characters that the RichEditableText can contain,
+     *  The maximum number of characters that the TextView can contain,
      *  as entered by a user.
      *  A script can insert more text than maxChars allows;
      *  the maxChars property indicates only how much text a user can enter.
@@ -959,7 +1143,7 @@ public class RichEditableText extends UIComponent implements IViewport
      *  Determines whether the user can enter multiline text.
      *  If <code>true</code>, the Enter key starts a new paragraph.
      *  If <code>false</code>, the Enter key doesn't affect the text
-     *  but causes the RichEditableText to dispatch an <code>"enter"</code> event.
+     *  but causes the TextView to dispatch an <code>"enter"</code> event.
      * 
      *  @default true
      *  
@@ -979,24 +1163,6 @@ public class RichEditableText extends UIComponent implements IViewport
     public function set multiline(value:Boolean):void
     {
         _multiline = value;
-    }
-
-    //----------------------------------
-    //  percentWidth
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set percentWidth(value:Number):void
-    {
-        if (value == percentWidth)
-            return;
-            
-        super.percentWidth = value;
-        
-        // Re-measure.
-        invalidateSize();
     }
 
     //----------------------------------
@@ -1085,6 +1251,8 @@ public class RichEditableText extends UIComponent implements IViewport
      */
     private var _selectionActivePosition:int = -1;
 
+	[Bindable("selectionChange")]
+
     /**
      *  The active position of the selection.
      *  The "active" point is the end of the selection
@@ -1112,6 +1280,8 @@ public class RichEditableText extends UIComponent implements IViewport
      *  @private
      */
     private var _selectionAnchorPosition:int = -1;
+
+	[Bindable("selectionChange")]
 
     /**
      *  The anchor position of the selection.
@@ -1154,7 +1324,7 @@ public class RichEditableText extends UIComponent implements IViewport
      *  
      *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
      *  
-     *  @see spark.components.TextSelectionVisibility
+     *  @see mx.components.TextSelectionVisibility
      * 
      *  @default TextSelectionVisibility.WHEN_FOCUSED
      *  
@@ -1198,7 +1368,7 @@ public class RichEditableText extends UIComponent implements IViewport
     private var textChanged:Boolean = false;
 
     /**
-     *  The text String displayed by this RichEditableText.
+     *  The text String displayed by this TextView.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1236,113 +1406,17 @@ public class RichEditableText extends UIComponent implements IViewport
     }
     
     //----------------------------------
-    //  verticalScrollPosition
+    //  textFlow
     //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _verticalScrollPosition:Number = 0;
-
-    /**
-     *  @private
-     */
-    private var verticalScrollPositionChanged:Boolean = false;
- 
-    [Bindable("propertyChange")]
     
     /**
      *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public function get verticalScrollPosition():Number
+    public function get textFlow():TextFlow
     {
-        return _verticalScrollPosition;
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPosition(value:Number):void
-    {
-        if (value == _verticalScrollPosition)
-            return;
-
-        _verticalScrollPosition = value;
-        verticalScrollPositionChanged = true;
-
-        invalidateProperties();
-    }
-        
-    //----------------------------------
-    //  verticalScrollPositionDelta
-    //----------------------------------
-
-    /**
-     *  @copy spark.layout.supportClasses.LayoutBase#getVerticalScrollPositionDelta
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
-    {
-        // TBD: replace provisional implementation
-        var scrollR:Rectangle = scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y;
-        
-        var flowComposer:IFlowComposer = textFlow.flowComposer;
-            
-        switch (scrollUnit)
-        {
-            case ScrollUnit.UP:
-            {
-                return !flowComposer || flowComposer.numControllers == 0 ?
-                       0 :
-                       flowComposer.getControllerAt(0).getScrollDelta(-1);
-            }
-                
-            case ScrollUnit.DOWN:
-            {
-                return !flowComposer || flowComposer.numControllers == 0 ?
-                       0 :
-                       flowComposer.getControllerAt(0).getScrollDelta(1);
-            }
-                
-            case ScrollUnit.PAGE_UP:
-            {
-                return Math.max(minDelta, -scrollR.height);
-            }
-                
-            case ScrollUnit.PAGE_DOWN:
-            {
-                return Math.min(maxDelta, scrollR.height);
-            }
-                
-            case ScrollUnit.HOME:
-            {
-                return minDelta;
-            }
-                
-            case ScrollUnit.END:
-            {
-                return maxDelta;
-            }
-                
-            default:
-            {
-                return 0;
-            }
-        }       
+    	if (mx_internal::debug)
+    		trace("getTextFlow()");
+    	return _inputManager.getTextFlow();
     }
     
     //----------------------------------
@@ -1404,104 +1478,86 @@ public class RichEditableText extends UIComponent implements IViewport
     override protected function commitProperties():void
     {
         super.commitProperties();
+        
+        if (hostFormatChanged)
+        {
+	        // If the CSS styles for this component specify an embedded font,
+	        // embeddedFontContext will be set to the module factory that
+	        // should create TextLines (since they must be created in the
+	        // SWF where the embedded font is.)
+	        // Otherwise, this will be null.
+            mx_internal::embeddedFontContext = getEmbeddedFontContext();
+            
+            if (mx_internal::debug)
+            	trace("hostFormat=");
+            _inputManager.hostFormat =
+            	hostFormat = new CSSTextLayoutFormat(this);
+       			// Note: CSSTextLayoutFormat has special processing
+        		// for the fontLookup style. If it is "auto",
+        		// the fontLookup format is set to either
+        		// "device" or "embedded" depending on whether
+        		// embeddedFontContext is null or non-null.
 
-        // Since the edit manager is cached, make sure to apply any 
-        // selection format changes.
+            hostFormatChanged = false;
+        }
+        
         if (selectionFormatsChanged)
         {
-            setSelectionFormats(_editManager);
-            selectionFormatsChanged = false;            
+        	if (mx_internal::debug)
+        		trace("invalidateInteractionManager()");
+        	_inputManager.invalidateInteractionManager();
+        	
+        	selectionFormatsChanged = false;
+        }
+
+        if (textChanged)
+        {
+        	if (mx_internal::debug)
+        		trace("setText()");
+        	_inputManager.setText(_text);
+        	
+        	textChanged = false;
+        }
+        else if (contentChanged)
+        {
+        	var textFlow:TextFlow = createTextFlowFromContent();
+        	
+        	textInvalid = true;
+        	dispatchEvent(new Event("textInvalid"));
+        	
+        	if (mx_internal::debug)
+        		trace("setTextFlow()");
+        	_inputManager.setTextFlow(textFlow);
+        	
+        	contentChanged = false;
         }
         
-        // Regenerate TextLines if necessary.
-        if (textChanged || contentChanged ||
-            stylesChanged || displayAsPasswordChanged)
+        if (enabledChanged || selectableChanged || editableChanged)
         {
-            if (textChanged || contentChanged)
-             {
-                // Eliminate detritus from the previous TextFlow only if
-                // the text/content has changed. Want to preserve scrolling
-                // position if text changes to displayAsPassword or back to 
-                // plaintext.
-                if (textFlow.flowComposer)
-                    textFlow.flowComposer.removeAllControllers();
-
-                // Clear the selection.
-                if (textFlow.interactionManager)
-                    textFlow.interactionManager.setSelection(-1, -1);
-            }
-                            
-            // Create/modify TextFlow for the current text.
-            _content = textFlow = createTextFlow();
-
-            if (embeddedFontContextChanged)
-            {
-                embeddedFontContextChanged = false;
-
-                if (embeddedFontContext)
-                    textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
-                else
-                    textFlow.flowComposer.textLineCreator = null;
-            }
-
-            // Tell it where to create its TextLines.
-            if (textChanged || contentChanged)
-            {
-                textFlow.flowComposer.addControllerAt(
-                    new ContainerController(this), 0);
-                // Set scroll policy appropriately.
-                autoSizeChanged = true;
-            }
-                                                               
-            // read-write, read-select, or read-only.                                                              
-            setInteractionManager(textFlow);
-
-            // Listen to events from the TextFlow and its SelectionManager.
-            addListeners(textFlow);
-
-            textChanged = false;
-            contentChanged = false;
-            stylesChanged = false;
-            displayAsPasswordChanged = false;
-
+        	updateEditingMode();
+        	
             enabledChanged = false;
             editableChanged = false;
-            selectableChanged = false;          
-        } 
-        else if (enabledChanged || editableChanged || selectableChanged)
-        {
-            setInteractionManager(textFlow);
-            
-            enabledChanged = false;
-            editableChanged = false;
-            selectableChanged = false;
+            selectableChanged = false;        	
         }
         
-        var flowComposer:IFlowComposer = textFlow.flowComposer;
-        if (!flowComposer || flowComposer.numControllers == 0)
-            return;
-        
-        var containerController:ContainerController =
-            flowComposer.getControllerAt(0);
-
         if (autoSizeChanged)
         {
             var value:String = _autoSize ? "off" : "auto";
-            containerController.horizontalScrollPolicy = value;
-            containerController.verticalScrollPolicy = value; 
-                        
+            _inputManager.horizontalScrollPolicy = value;
+            _inputManager.verticalScrollPolicy = value; 
+                         
             autoSizeChanged = false;
         }
         
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
-                containerController.horizontalScrollPosition;
-            containerController.horizontalScrollPosition =
+                _inputManager.horizontalScrollPosition;
+            _inputManager.horizontalScrollPosition =
                 _horizontalScrollPosition;            
             dispatchPropertyChangeEvent("horizontalScrollPosition",
-                oldHorizontalScrollPosition, 
-                containerController.horizontalScrollPosition);
+                oldHorizontalScrollPosition, _horizontalScrollPosition);
             
             horizontalScrollPositionChanged = false;            
         }
@@ -1509,12 +1565,11 @@ public class RichEditableText extends UIComponent implements IViewport
         if (verticalScrollPositionChanged)
         {
             var oldVerticalScrollPosition:Number = 
-                containerController.verticalScrollPosition;
-            containerController.verticalScrollPosition =
+                _inputManager.verticalScrollPosition;
+            _inputManager.verticalScrollPosition =
                 _verticalScrollPosition;
             dispatchPropertyChangeEvent("verticalScrollPosition",
-                oldVerticalScrollPosition, 
-                containerController.verticalScrollPosition);
+                oldVerticalScrollPosition, _verticalScrollPosition);
             
             verticalScrollPositionChanged = false;            
         }
@@ -1538,7 +1593,7 @@ public class RichEditableText extends UIComponent implements IViewport
     override protected function measure():void 
     {
         super.measure();
-
+        
         // Recalculate the ascent, and descent
         // if these might have changed.
         if (fontMetricsInvalid)
@@ -1570,14 +1625,12 @@ public class RichEditableText extends UIComponent implements IViewport
             {
                 // Normal autoSize.  If toFit will compose up to maxWidth
                 // width.  If explicit, will compose entire width of text.
-                measureUsingWidth(maxWidth);               
+                measureUsingWidth(!isNaN(explicitWidth) ? explicitWidth : maxWidth);               
             }
         }
         else
         {
-            measuredWidth = Math.round(getStyle("paddingLeft") +
-                                       widthInChars * getStyle("fontSize") +
-                                       getStyle("paddingRight"));
+            measuredWidth = Math.round(calculateWidthInChars());
             measuredHeight = Math.ceil(calculateHeightInLines());            
         }    
                
@@ -1594,18 +1647,10 @@ public class RichEditableText extends UIComponent implements IViewport
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        /*
-        var g:Graphics = graphics;
-        g.clear();
-        g.lineStyle(NaN);
-        g.beginFill(0xEEEEEE, 1.0);
-        g.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        g.endFill();
-        */
-
         if (isSpecialCase())
         {
-            var firstTime:Boolean = isNaN(lastUnscaledWidth) || lastUnscaledWidth != unscaledWidth;
+            var firstTime:Boolean = isNaN(lastUnscaledWidth) ||
+            						lastUnscaledWidth != unscaledWidth;
             lastUnscaledWidth = unscaledWidth;
             if (firstTime)
             {
@@ -1615,25 +1660,30 @@ public class RichEditableText extends UIComponent implements IViewport
         }
 
         // Don't trigger a damage event since we know we're recomposing.
-        textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
+        _inputManager.removeEventListener(
+        	DamageEvent.DAMAGE, inputManager_damageHandler);
         
-        // Tell the TextFlow to generate TextLines within the
-        // rectangle (0, 0, unscaledWidth, unscaledHeight).
-        var flowComposer:IFlowComposer = textFlow.flowComposer;
-        var containerController:ContainerController =
-            flowComposer.getControllerAt(0);   
-                        
         // If autoSize, the text flow is already composed (although there are
         // certain styles that require a recompose since the composition width
         // and height matter).  Setting the composition size since it will 
         // trigger a damage event.
-       if (!_autoSize || recomposeForStyles())                     
-            containerController.setCompositionSize(unscaledWidth, unscaledHeight);        
+        if (!_autoSize || recomposeForStyles())
+        {                     
+            _inputManager.compositionWidth = unscaledWidth;
+            _inputManager.compositionHeight = unscaledHeight;
+        }
 
-        flowComposer.updateAllControllers();
+		if (mx_internal::debug)
+			trace("updateToController()");
+        if (mx_internal::embeddedFontContext)
+            _inputManager.textLineCreator = ITextLineCreator(mx_internal::embeddedFontContext);
+        else
+            _inputManager.textLineCreator = null;
+        _inputManager.updateToController();
         
         // Reinstate the damage handler.
-        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
+        _inputManager.addEventListener(
+        	DamageEvent.DAMAGE, inputManager_damageHandler);        
     }
 
     /**
@@ -1649,7 +1699,7 @@ public class RichEditableText extends UIComponent implements IViewport
         super.stylesInitialized();
 
         fontMetricsInvalid = true;
-        hostTextLayoutFormatInvalid = true;
+        hostFormatChanged = true;
         stylesChanged = true;
     }
 
@@ -1679,11 +1729,18 @@ public class RichEditableText extends UIComponent implements IViewport
         // property in either hostContainerFormat, hostParagraphFormat,
         // or hostCharacterFormat immediately.
         if (styleProp == null || styleProp == "styleName")
-            hostTextLayoutFormatInvalid = true;
-        else if (isSelectionFormat(styleProp))
+        {
+            hostFormatChanged = true;
             selectionFormatsChanged = true;
+        }
+        else if (isSelectionFormat(styleProp))
+        {
+            selectionFormatsChanged = true;
+        }
         else
-            setHostTextLayoutFormat(styleProp);
+        {
+            hostFormatChanged = true;
+        }
 
         // Need to regenerate text flow.
         invalidateProperties();
@@ -1691,18 +1748,238 @@ public class RichEditableText extends UIComponent implements IViewport
         stylesChanged = true;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IInputManagerClient
+    //
+    //--------------------------------------------------------------------------
+
     /**
-     * @inheritDoc
-     */ 
-    override protected function keyDownHandler(event:KeyboardEvent):void
+     *  Documentation is not currently available.
+     */
+    public function drawBackgroundAndSetScrollRect(
+    					inputManager:InputManager,
+    					scrollX:Number, scrollY:Number):Boolean
+	{
+		var width:Number = inputManager.compositionWidth;
+		var height:Number = inputManager.compositionHeight;
+		
+		if (isNaN(width) || isNaN(height))
+			return false; // just measuring!
+		
+		if (scrollX == 0 &&
+			scrollY == 0 &&
+			inputManager.contentWidth <= width &&
+			inputManager.contentHeight <= height)
+		{
+			// skip the scrollRect
+			if (hasScrollRect)
+			{
+				scrollRect = null;
+				hasScrollRect = false;					
+			}
+		}
+		else
+		{
+			scrollRect = new Rectangle(scrollX, scrollY, width, height);
+			hasScrollRect = true;
+		}
+		
+        // Client must draw a background, even it if is 100% transparent.
+		var g:Graphics = graphics;
+		g.clear();
+        g.lineStyle();
+        var bc:Object = mx_internal::backgroundColor;
+        if (bc != null)
+			g.beginFill(uint(bc)); 
+        else
+        	g.beginFill(0x000000, 0);
+       	g.drawRect(scrollX, scrollY, width, height);
+        g.endFill();
+        
+        return hasScrollRect;
+	}
+		
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function getUndoManager(
+						inputManager:InputManager):IUndoManager
+	{
+		if (!mx_internal::undoManager)
+		{
+			mx_internal::undoManager = new UndoManager();
+			mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
+		}
+			
+		return mx_internal::undoManager;
+	}
+	
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function getFocusSelectionFormat(
+						inputManager:InputManager):SelectionFormat
+	{
+        var selectionColor:* = getStyle("selectionColor");
+
+        // The insertion point is black, inverted, which makes it
+        // the inverse color of the background, for maximum readability.         
+        return new SelectionFormat(
+        	selectionColor, 1.0, BlendMode.NORMAL, 
+			0x000000, 1.0, BlendMode.INVERT);
+	}
+    
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function getNoFocusSelectionFormat(
+						inputManager:InputManager):SelectionFormat
+	{
+        var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
+
+        var unfocusedAlpha:Number =
+            selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ?
+            1.0 :
+            0.0;
+
+        // No insertion point when no focus.
+        return new SelectionFormat(
+            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
+            unfocusedSelectionColor, 0.0);
+	}
+    
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function getInactiveSelectionFormat(
+						inputManager:InputManager):SelectionFormat
+	{
+        var inactiveSelectionColor:* = getStyle("inactiveSelectionColor"); 
+
+        var inactiveAlpha:Number =
+            selectionVisibility == TextSelectionVisibility.ALWAYS ?
+            1.0 :
+            0.0;
+
+        // No insertion point when not active.
+        return new SelectionFormat(
+            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
+            inactiveSelectionColor, 0.0);
+	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IViewport
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  horizontalScrollPositionDelta
+    //----------------------------------
+
+    /**
+     *  @copy mx.layout.LayoutBase#getHorizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
-        if (event.keyCode == Keyboard.ENTER && _editManager)
+        // TBD: replace provisional implementation
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = contentWidth - scrollR.width - scrollR.x;
+        var minDelta:Number = -scrollR.x; 
+            
+        switch (scrollUnit)
         {
-            if (multiline)
-                _editManager.splitParagraph();
-            else
-                dispatchEvent(new FlexEvent(FlexEvent.ENTER));
-        }
+            case ScrollUnit.UP:
+                return (scrollR.x <= 0) ? 0 : -1;
+                
+            case ScrollUnit.DOWN:
+                return (scrollR.x >= maxDelta) ? 0 : 1;
+                
+            case ScrollUnit.PAGE_LEFT:
+                return Math.max(minDelta, -scrollR.width);
+                
+            case ScrollUnit.PAGE_RIGHT:
+                return Math.min(maxDelta, scrollR.width);
+                
+            case ScrollUnit.HOME: 
+                return minDelta;
+                
+            case ScrollUnit.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
+    }
+    
+    //----------------------------------
+    //  verticalScrollPositionDelta
+    //----------------------------------
+
+    /**
+     *  @copy mx.layout.LayoutBase#getVerticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    {
+        // TBD: replace provisional implementation
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y;
+        
+        switch (scrollUnit)
+        {
+            case ScrollUnit.UP:
+            {
+                return _inputManager.getScrollDelta(-1);
+            }
+                
+            case ScrollUnit.DOWN:
+            {
+                return _inputManager.getScrollDelta(1);
+            }
+                
+            case ScrollUnit.PAGE_UP:
+            {
+                return Math.max(minDelta, -scrollR.height);
+            }
+                
+            case ScrollUnit.PAGE_DOWN:
+            {
+                return Math.min(maxDelta, scrollR.height);
+            }
+                
+            case ScrollUnit.HOME:
+            {
+                return minDelta;
+            }
+                
+            case ScrollUnit.END:
+            {
+                return maxDelta;
+            }
+                
+            default:
+            {
+                return 0;
+            }
+        }       
     }
     
     //--------------------------------------------------------------------------
@@ -1710,6 +1987,74 @@ public class RichEditableText extends UIComponent implements IViewport
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
+	/**
+	 *  @private
+	 *  Uses the component's CSS styles to determine the module factory
+	 *  that should creates its TextLines.
+	 */
+	private function getEmbeddedFontContext():IFlexModuleFactory
+	{
+		var moduleFactory:IFlexModuleFactory;
+		
+		var fontLookup:String = getStyle("fontLookup");
+		if (fontLookup == "auto")
+        {
+			var font:String = getStyle("fontFamily");
+			var bold:Boolean = getStyle("fontWeight") == "bold";
+			var italic:Boolean = getStyle("fontStyle") == "italic";
+			
+			staticEmbeddedFont.initialize(font, bold, italic);
+            
+            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
+            	staticEmbeddedFont, fontContext);
+
+            // If we found the font, then it is embedded. 
+            // But some fonts are not listed in info()
+            // and are therefore not in the above registry.
+            // So we call isFontFaceEmbedded() which gets the list
+            // of embedded fonts from the player.
+            if (!moduleFactory) 
+            {
+                var sm:ISystemManager;
+                if (fontContext != null && fontContext is ISystemManager)
+                	sm = ISystemManager(fontContext);
+                else if (parent is IUIComponent)
+                	sm = IUIComponent(parent).systemManager;
+
+                staticTextFormat.font = font;
+                staticTextFormat.bold = bold;
+                staticTextFormat.italic = italic;
+                
+                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
+                    moduleFactory = sm;
+            }
+        }
+        else
+        {
+            moduleFactory = fontLookup == FontLookup.EMBEDDED_CFF ?
+                			fontContext :
+            				null;
+        }
+        
+        return moduleFactory;
+	}
+
+    /**
+     *  @private
+     */
+    private function getSelectionManager():SelectionManager
+    {
+    	return SelectionManager(_inputManager.getInteractionManager());
+    }
+
+    /**
+     *  @private
+     */
+    private function getEditManager():EditManager
+    {
+    	return EditManager(_inputManager.getInteractionManager());
+    }
 
     /**
      *  @private
@@ -1745,7 +2090,6 @@ public class RichEditableText extends UIComponent implements IViewport
         var topAligned:Boolean = (verticalAlign == "top");
 
         return !topAligned;
-
     }
 
     /**
@@ -1753,15 +2097,11 @@ public class RichEditableText extends UIComponent implements IViewport
      */
     private function measureUsingWidth(maxComposeWidth:Number):void
     {
-        var flowComposer:IFlowComposer = textFlow.flowComposer;
-        var containerController:ContainerController =
-            flowComposer.getControllerAt(0);
-
         // Never compose over the max width because the width will always
         // be adjusted down to this and it's easy to get into an infinite
         // measure/update display loop.
         var composeWidth:Number; 
-        if (textFlow.hostFormat.lineBreak == "toFit")
+        if (hostFormat.lineBreak == "toFit")
         {
             // Need to set a width to cause a wrap if text rather than 
             // formatted content.
@@ -1781,25 +2121,29 @@ public class RichEditableText extends UIComponent implements IViewport
         // The bottom border can grow to allow all the text to fit.
         // If dimension is NaN, composer will measure text in that 
         // direction. 
-        containerController.setCompositionSize(composeWidth, NaN);
+        _inputManager.compositionWidth = composeWidth;
+        _inputManager.compositionHeight = NaN;
 
         // Compose only.  The display is not updated.
+        /**************
         flowComposer.compose();
+        */
+        _inputManager.updateToController();
 
         // If it's an empty text flow, there is one line with one
         // character so the height is good for the line.
-        measuredHeight = Math.ceil(containerController.contentHeight);
+        measuredHeight = Math.ceil(_inputManager.contentHeight);
 
-        if (containerController.textLength > 1)
+        if (_inputManager.getText().length > 1) 
         {
             // Non-empty text flow.
-            measuredWidth = Math.ceil(containerController.contentWidth);
+            measuredWidth = Math.ceil(_inputManager.contentWidth);
         }
         else
         {
             // Empty text flow.  One Em wide with padding.
             measuredWidth = Math.ceil(getStyle("fontSize") +
-                                      containerController.contentWidth);
+                                      _inputManager.contentWidth);
        }
                 
         // Lock in the compose area so all text is visible.
@@ -1816,23 +2160,41 @@ public class RichEditableText extends UIComponent implements IViewport
      */
     private function calculateFontMetrics():void
     {
+        // If the CSS styles for this component specify an embedded font,
+        // embeddedFontContext will be set to the module factory that
+        // should create TextLines (since they must be created in the
+        // SWF where the embedded font is.)
+        // Otherwise, this will be null.
+        mx_internal::embeddedFontContext = getEmbeddedFontContext();
+        
         var fontDescription:FontDescription = new FontDescription();
-        fontDescription.fontName = getStyle("fontFamily");
-
-        var checkForEmbed:Boolean = false;
-
+        
         var s:String;
 
         s = getStyle("cffHinting");
         if (s != null)
         	fontDescription.cffHinting = s;
         
-        s = getStyle("fontLookup");
-        if (s != null && s != "auto")
-        	fontDescription.fontLookup = s;
-        else
-            checkForEmbed = true;
+        s = getStyle("fontFamily");
+        if (s != null)
+        	fontDescription.fontName = s;
         
+        s = getStyle("fontLookup");
+        if (s != null)
+        {
+        	// FTE understands only "device" and "embeddedCFF"
+        	// for fontLookup. But Flex allows this style to be
+        	// set to "auto", in which case we automatically
+        	// determine it based on whether the CSS styles
+        	// specify an embedded font.
+        	if (s == "auto")
+        	{
+        		s = mx_internal::embeddedFontContext ?
+        			FontLookup.EMBEDDED_CFF :
+                	FontLookup.DEVICE;
+        	}
+        }
+         
         s = getStyle("fontStyle");
         if (s != null)
         	fontDescription.fontPosture = s;
@@ -1840,45 +2202,6 @@ public class RichEditableText extends UIComponent implements IViewport
         s = getStyle("fontWeight");
         if (s != null)
         	fontDescription.fontWeight = s;
-        
-        if (checkForEmbed)
-        {
-            var embeddedFont:EmbeddedFont = getEmbeddedFont(
-                fontDescription.fontName, 
-                fontDescription.fontWeight == "bold", 
-                fontDescription.fontPosture == "italic");
-            
-            embeddedFontContext = 
-                embeddedFontRegistry.getAssociatedModuleFactory(
-                    embeddedFont, moduleFactory);
-
-            // if we found the font, then it is embedded. 
-            // Some fonts are not listed in info(), so are not in the above registry.
-            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
-            if (embeddedFontContext != null) 
-            {
-                fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
-            }
-            else
-            {
-                var sm:ISystemManager = creatingSystemManager();
-                var textFormat:TextFormat = new TextFormat();
-                textFormat.font = fontDescription.fontName;
-                textFormat.bold = fontDescription.fontWeight == "bold";
-                textFormat.italic = fontDescription.fontPosture == "italic";
-                if (sm != null && sm.isFontFaceEmbedded(textFormat))
-                {
-                    fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
-                }
-            }
-        }
-        else
-        {
-            if (fontDescription.fontLookup == FontLookup.EMBEDDED_CFF)
-                embeddedFontContext = moduleFactory;
-            else
-                embeddedFontContext = null;
-        }
         
         var elementFormat:ElementFormat = new ElementFormat();
         elementFormat.fontDescription = fontDescription;
@@ -1895,6 +2218,18 @@ public class RichEditableText extends UIComponent implements IViewport
         
         ascent = textLine.ascent;
         descent = textLine.descent;
+    }
+    
+    /**
+     *  @private
+     */
+    private function calculateWidthInChars():Number
+    {
+    	var em:Number = getStyle("fontSize");
+    	
+    	return getStyle("paddingLeft") +
+    		  widthInChars * em +
+    		  getStyle("paddingRight");
     }
     
     /**
@@ -1923,9 +2258,8 @@ public class RichEditableText extends UIComponent implements IViewport
         if (heightInLines > 1)
         {
             var value:Object = getStyle("lineHeight");     
-            var lineHeight:Number = TextUtil.getNumberOrPercentOf(
-                                                    value, 
-                                                    getStyle("fontSize"));
+            var lineHeight:Number =
+            	TextUtil.getNumberOrPercentOf(value, getStyle("fontSize"));
                 
             // Default is 120%
             if (isNaN(lineHeight))
@@ -1952,85 +2286,7 @@ public class RichEditableText extends UIComponent implements IViewport
         p.replaceChildren(0, 0, span);
         return textFlow;
     }
-
-    private function checkEmbeddedFontContext():void
-    {
-        var embeddedFont:EmbeddedFont = getEmbeddedFont(
-            hostTextLayoutFormat.fontFamily, 
-            hostTextLayoutFormat.fontWeight == "bold", 
-            hostTextLayoutFormat.fontStyle == "italic");
-        
-        var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
-
-        if (autoFontLookup)
-        {
-            embeddedFontContext = 
-                embeddedFontRegistry.getAssociatedModuleFactory(
-                    embeddedFont, moduleFactory);
-
-            // if we found the font, then it is embedded. 
-            // Some fonts are not listed in info(), so are not in the above registry.
-            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
-            if (embeddedFontContext != null) 
-            {
-                hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
-            }
-            else
-            {
-                var sm:ISystemManager = creatingSystemManager();
-                var textFormat:TextFormat = new TextFormat();
-                textFormat.font = hostTextLayoutFormat.fontFamily;
-                textFormat.bold = hostTextLayoutFormat.fontWeight == "bold";
-                textFormat.italic = hostTextLayoutFormat.fontStyle == "italic";
-                if (sm != null && sm.isFontFaceEmbedded(textFormat))
-                {
-                    hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
-                }
-                else
-                {
-                    hostTextLayoutFormat.fontLookup = FontLookup.DEVICE;
-                }
-            }
-        }
-        else
-        {
-            if (hostTextLayoutFormat.fontLookup == FontLookup.EMBEDDED_CFF)
-                embeddedFontContext = moduleFactory;
-            else
-                embeddedFontContext = null;
-        }
-        // force us to re-create the textline factory
-        if (oldEmbeddedFontContext != embeddedFontContext)
-            embeddedFontContextChanged = true;
-    }
-
-    /**
-     *  @private
-     */
-    private function setHostTextLayoutFormat(styleProp:String):void
-    {
-        if (styleProp in hostTextLayoutFormat)
-        {
-            var value:* = getStyle(styleProp);
-
-            if (styleProp == "tabStops" && value === undefined)
-                value = [];
-
-            if (styleProp == "fontLookup")
-            {
-                if (value == "auto")
-                    autoFontLookup = true;
-                else
-                {
-                    autoFontLookup = false;
-                    hostTextLayoutFormat[styleProp] = value;
-                }
-            }
-            else
-                hostTextLayoutFormat[styleProp] = value;
-        }      
-    }
-
+    
     /**
      *  @private
      */
@@ -2046,7 +2302,7 @@ public class RichEditableText extends UIComponent implements IViewport
         staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
         staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        staticConfiguration.textFlowInitialFormat =
+        staticImportConfiguration.textFlowInitialFormat =
             staticTextLayoutFormat;
 
         if (markup is XML || markup is String)
@@ -2110,7 +2366,7 @@ public class RichEditableText extends UIComponent implements IViewport
         }
         
         return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                            staticConfiguration);
+                            staticImportConfiguration);
     }
     
     /**
@@ -2139,78 +2395,41 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Keep this method in sync with the same method in RichText.
      */
-    private function createTextFlow():TextFlow
+    private function createTextFlowFromContent():TextFlow
     {
-        if (contentChanged)
+    	var textFlow:TextFlow;
+    	
+        if (_content is TextFlow)
         {
-            if (_content is TextFlow)
-            {
-                textFlow = TextFlow(_content);
-            }
-            else if (_content is Array)
-            {
-                textFlow = createTextFlowFromChildren(_content as Array);
-            }
-            else if (_content is FlowElement)
-            {
-                textFlow = createTextFlowFromChildren([ _content ]);
-            }
-            else if (_content is String || _content is XML)
-            {
-                textFlow = createTextFlowFromMarkup(_content);
-            }
-            else if (_content == null)
-            {
-                textFlow = createEmptyTextFlow();
-            }
-            else
-            {
-                textFlow = createTextFlowFromMarkup(_content.toString());
-            }
-            textInvalid = true;
-            dispatchEvent(new Event("textInvalid"));
+            textFlow = TextFlow(_content);
         }
-        else if (textChanged)
+        else if (_content is Array)
         {
-            var t:String = _text;
-            if (t != null && t != "")
-            {
-                textFlow = importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
-            }
-            else
-            {
-                textFlow = createEmptyTextFlow();
-            }
+            textFlow = createTextFlowFromChildren(_content as Array);
         }
-
-        if (textChanged || contentChanged || displayAsPasswordChanged)
+        else if (_content is FlowElement)
         {
-            if (_displayAsPassword)
-                TextUtil.obscureTextFlow(textFlow, mx_internal::passwordChar);
-            else if (_text != null && displayAsPasswordChanged)
-                TextUtil.unobscureTextFlow(textFlow, _text);
+            textFlow = createTextFlowFromChildren([ _content ]);
         }
-
-        if (hostTextLayoutFormatInvalid)
+        else if (_content is String || _content is XML)
         {
-            for (var p:String in TextLayoutFormat.tlf_internal::description)
-            {
-                setHostTextLayoutFormat(p);
-            }
-            hostTextLayoutFormatInvalid = false;
+            textFlow = createTextFlowFromMarkup(_content);
         }
-
-        checkEmbeddedFontContext();
-        textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
+        else if (_content == null)
+        {
+            textFlow = createEmptyTextFlow();
+        }
+        else
+        {
+            textFlow = createTextFlowFromMarkup(_content.toString());
+        }
         
         return textFlow;
     }
     
     /**
      *  @private
-     * 
      *  This will throw on import error.
      */
     private function importToFlow(source:Object, format:String, 
@@ -2225,210 +2444,36 @@ public class RichEditableText extends UIComponent implements IViewport
         return importer.importToFlow(source);        
     }
 
-     /**
+    /**
      *  @private
      *  Is this a style associated with the SelectionFormat?
      */
     private function isSelectionFormat(styleProp:String):Boolean
     {        
         return styleProp &&
-                (styleProp == "selectionColor" || 
-                    styleProp == "unfocusedSelectionColor" ||
-                        styleProp == "inactiveSelectionColor");
+               (styleProp == "selectionColor" || 
+                styleProp == "unfocusedSelectionColor" ||
+                styleProp == "inactiveSelectionColor");
     }
        
     /**
      *  @private
-     *  Initialize the ISelectionManager with the selection style vlaues.
-     *  This should be kept in sync with isSelectionFormat().
      */
-    private function setSelectionFormats(interactionManager:ISelectionManager):void
-    {        
-        if (!interactionManager)
-            return;
-           
-        var selectionColor:* = getStyle("selectionColor");
-        var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
-
-        var unfocusedAlpha:Number =
-            selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ? 
-            1.0 : 0.0;
-        var inactiveSelectionColor:* = getStyle("inactiveSelectionColor"); 
-
-        var inactiveAlpha:Number =
-            selectionVisibility == TextSelectionVisibility.ALWAYS ?
-            1.0 : 0.0;
-        // The cursor is black, inverted, which makes it the inverse color
-        // of the background, for maximum readability.         
-        interactionManager.focusSelectionFormat = new SelectionFormat(
-            selectionColor, 1.0, BlendMode.NORMAL, 
-            0x000000, 1.0, BlendMode.INVERT);
-
-        // No cursor when no focus.
-        interactionManager.noFocusSelectionFormat = new SelectionFormat(
-            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
-            unfocusedSelectionColor, 0);
-        
-        // No cursor when not active.
-        interactionManager.inactiveSelectionFormat = new SelectionFormat(
-            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
-            inactiveSelectionColor, 0);
+    private function updateEditingMode():void
+    {
+    	var newEditingMode:String = EditingMode.READ_ONLY;
+    	
+    	if (enabled)
+    	{
+    		if (_editable)
+    			newEditingMode = EditingMode.READ_WRITE;
+    		else if (_selectable)
+    			newEditingMode = EditingMode.READ_SELECT;
+    	}
+    	
+  		editingMode = newEditingMode;
     }
         
-    /**
-     *  @private
-     *  Persist the edit manager so selection formatting can be maintained.
-     */
-    private var _editManager:EditManager = null;
-    
-    /**
-     *  @private
-     *  Cache the edit manager.  Any formats set on the selection need to
-     *  be maintained if/when the interaction manager is swapped out and
-     *  back in again.
-     */
-    private function get editManager():EditManager
-    {
-        if (_editManager == null)
-        {
-            _editManager = new EditManager(mx_internal::undoManager);
-            setSelectionFormats(_editManager);
-        }
-
-        return _editManager; 
-    }
-    
-    /**
-     *  @private
-     */
-    private function setInteractionManager(textFlow:TextFlow, 
-                                           updateDisplay:Boolean=false):void
-    {
-        if (enabled)
-        {
-            if (_editable)
-            {
-                // Give it an EditManager to make it editable. Editable implies selectable.
-                switchToEditingMode(textFlow, EditingMode.READ_WRITE, updateDisplay);
-                return;
-            }   
-            else if (_selectable)
-            {
-                // Give it a SelectionManager to enable selection for cut/paste.
-                switchToEditingMode(textFlow, EditingMode.READ_SELECT, updateDisplay);
-                return;                            
-            }
-        }        
-        
-        // Not enabled or enabled and neither editable nor selectable.
-        switchToEditingMode(textFlow, EditingMode.READ_ONLY, updateDisplay);
-    }
-
-    /**
-     *  @private
-     *  To preserve the selection anchor position across selection managers.
-     */
-    private var _priorSelectionAnchorPosition:int = -1;
-
-    /**
-     *  @private
-     *  To preserve the selection active position across selection managers.
-     */
-    private var _priorSelectionActivePosition:int = -1;
-
-    /**
-     *  @private
-     *  Return the editing mode of the interaction manager
-     *      EditingMode.READ_ONLY   (neither selectable nor editable)
-     *      EditingMode.READ_SELECT (selectable and not editable)
-     *      EditingMode.READ_WRITE  (selectable and editable)
-     */
-    private function getEditingMode(manager:ISelectionManager):String
-    {
-        return manager ? manager.editingMode : EditingMode.READ_ONLY;
-    }
-    
-    /**
-     *  @private
-     *  Switch the interaction manager, preserving the selection from the
-     *  current intereration manager.  When the TextFlow's interaction manager
-     *  is changed, it will cause a selection change event and the selection
-     *  will be cleared.  The selection then needs to be reset to maintain it 
-     *  across interaction managers.
-     */    
-    private function switchToEditingMode(
-                                textFlow:TextFlow,
-                                editingMode:String,
-                                updateContainers:Boolean=true):void
-    {
-        // Nothing to switch.  The current manager will work.
-        if (getEditingMode(textFlow.interactionManager) == editingMode)
-            return;
-
-        // Save the current selection since switching the interaction
-        // manager will clear the selection.                   
-        if (textFlow.interactionManager != null)
-        {
-            _priorSelectionAnchorPosition = textFlow.interactionManager.anchorPosition;
-            _priorSelectionActivePosition = textFlow.interactionManager.activePosition;
-        }
-
-        var interactionManager:ISelectionManager;
-        if (editingMode == EditingMode.READ_WRITE)
-        {
-            interactionManager = editManager;
-        } 
-        else if (editingMode == EditingMode.READ_SELECT)
-        {
-            interactionManager = new SelectionManager();
-            setSelectionFormats(interactionManager);
-        }
-        else // EditingMode.READ_ONLY
-        {
-            interactionManager = null;
-        }           
-               
-        // Swap in a new manager.            
-        textFlow.interactionManager = interactionManager;
-
-        // Restore the prior selection in the new selection manager.
-        if (textFlow.interactionManager != null)
-        {
-            textFlow.interactionManager.setSelection(
-                        _priorSelectionAnchorPosition, 
-                        _priorSelectionActivePosition);
-        }
-     
-        if (updateContainers)
-            textFlow.flowComposer.updateAllControllers();        
-    }
-
-    /**
-     *  @private
-     */
-    private function addListeners(textFlow:TextFlow):void
-    {
-        textFlow.addEventListener(
-            CompositionCompletionEvent.COMPOSITION_COMPLETE,
-            textFlow_compositionCompleteHandler);
-        
-        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
-
-        textFlow.addEventListener(Event.SCROLL, textFlow_scrollHandler);
-
-        textFlow.addEventListener(
-            SelectionEvent.SELECTION_CHANGE,
-            textFlow_selectionChangeHandler);
-
-        textFlow.addEventListener(
-            FlowOperationEvent.FLOW_OPERATION_BEGIN,
-            textFlow_flowOperationBeginHandler);
-
-        textFlow.addEventListener(
-            FlowOperationEvent.FLOW_OPERATION_END,
-            textFlow_flowOperationEndHandler);
-    }
-
     /**
      *  Sets the selection range and.  If the text is not editable or selectable
      *  this will also implicitly make the text selectable.
@@ -2441,16 +2486,18 @@ public class RichEditableText extends UIComponent implements IViewport
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
     {
-        if (getEditingMode(textFlow.interactionManager) == EditingMode.READ_ONLY)
+        if (editingMode == EditingMode.READ_ONLY)
         {
-            switchToEditingMode(textFlow, EditingMode.READ_SELECT, false);
+            editingMode = EditingMode.READ_SELECT;
             _selectable = true;
         }
 
-        textFlow.interactionManager.setSelection(anchorPosition, activePosition);        
+		var selectionManager:SelectionManager = getSelectionManager();
+        
+        selectionManager.setSelection(anchorPosition, activePosition);        
                 
         // Update the display with the new selection.
-        textFlow.interactionManager.refreshSelection();
+        selectionManager.refreshSelection();
       }
     
     /**
@@ -2472,26 +2519,26 @@ public class RichEditableText extends UIComponent implements IViewport
 
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
-        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
+        var priorEditingMode:String = editingMode;
+        editingMode = EditingMode.READ_WRITE;
+        var editManager:EditManager = getEditManager();
         
         // If no selection, then it's an append.
-        if (!textFlow.interactionManager.hasSelection())
-            textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-        
-        EditManager(textFlow.interactionManager).insertText(text);
+         if (!editManager.hasSelection())
+            editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);       
+        editManager.insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        textFlow.flowComposer.updateAllControllers();        
+        _inputManager.updateToController();        
 
         // Restore the prior editing mode.
-        switchToEditingMode(textFlow, priorEditingMode);
+        editingMode = priorEditingMode;
     }
     
     /**
-     *  Appends the specified text to the end of the RichEditableText,
+     *  Appends the specified text to the end of the TextView,
      *  as if you had clicked at the end and typed it.
-     *  When RichEditableText supports vertical scrolling,
+     *  When TextView supports vertical scrolling,
      *  it will scroll to ensure that the last line
      *  of the inserted text is visible.
      *  
@@ -2507,23 +2554,24 @@ public class RichEditableText extends UIComponent implements IViewport
 
         // Always use the EditManager regardless of the values of
         // selectable, editable and enabled.
-        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
-        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
+        var priorEditingMode:String = editingMode;
+        editingMode = EditingMode.READ_WRITE;
+        var editManager:EditManager = getEditManager();
         
         // An append is an insert with the selection set to the end.
-        textFlow.interactionManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-        EditManager(textFlow.interactionManager).insertText(text);
+        editManager.setSelection(int.MAX_VALUE, int.MAX_VALUE);
+        editManager.insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        textFlow.flowComposer.updateAllControllers();        
+        _inputManager.updateToController();        
 
         // Restore the prior editing mode.
-        switchToEditingMode(textFlow, priorEditingMode);
+        editingMode = priorEditingMode;
     }
 
     /**
      *  Returns a String containing markup describing
-     *  this RichEditableText's TextFlow.
+     *  this TextView's TextFlow.
      *  This markup String has the appropriate format
      *  for setting the <code>content</code> property.
      *  
@@ -2563,9 +2611,9 @@ public class RichEditableText extends UIComponent implements IViewport
         var format:Object = {};
         
         // Switch to the EditManager.
-        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
-        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
-        var selectionManager:ISelectionManager = textFlow.interactionManager;
+        var priorEditingMode:String = editingMode;
+        editingMode = EditingMode.READ_WRITE;
+        var selectionManager:SelectionManager = getSelectionManager();
                 
         // This internal TLF object maps the names of format properties
         // to Property instances.
@@ -2637,7 +2685,7 @@ public class RichEditableText extends UIComponent implements IViewport
         }
         
         // Restore the prior editing mode.
-        switchToEditingMode(textFlow, priorEditingMode);
+        editingMode = priorEditingMode;
                 
         return format;
     }
@@ -2661,9 +2709,9 @@ public class RichEditableText extends UIComponent implements IViewport
     public function setSelectionFormat(attributes:Object):void
     {
         // Switch to the EditManager.
-        var priorEditingMode:String =
-            getEditingMode(textFlow.interactionManager);
-        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
+        var priorEditingMode:String = editingMode;
+        editingMode = EditingMode.READ_WRITE;
+        var editManager:EditManager = getEditManager();
         
         // Assign each specified attribute to one of three format objects,
         // depending on whether it is container-, paragraph-,
@@ -2703,13 +2751,61 @@ public class RichEditableText extends UIComponent implements IViewport
         }
         
         // Apply the three format objects to the current selection.
-        EditManager(textFlow.interactionManager).applyFormat(
-            characterFormat, paragraphFormat, containerFormat);
+        editManager.applyFormat(
+        	characterFormat, paragraphFormat, containerFormat);
         
         // Restore the prior editing mode.
-        switchToEditingMode(textFlow, priorEditingMode);
+        editingMode = priorEditingMode;
     }
 
+	/**
+	 *  @private
+	 */
+    private function handlePasteOperation(op:PasteOperation):void
+    {
+        if (!restrict && !maxChars && !displayAsPassword)
+            return;
+            
+        var textScrap:TextScrap = op.scrapToPaste();
+        var pastedText:String = TextUtil.extractText(textScrap.textFlow);
+
+        // We know it's an EditManager or we wouldn't have gotten here.
+        var editManager:EditManager = getEditManager();
+
+        // Generate a CHANGING event for the PasteOperation but not for the
+        // DeleteTextOperation or the InsertTextOperation which are also part
+        // of the paste.
+        dispatchChangingEvent = false;
+                        
+        var selectionState:SelectionState = new SelectionState(
+        	textFlow, op.absoluteStart, op.absoluteStart + pastedText.length);             
+        editManager.deleteText(selectionState);
+
+        // Insert the same text, the same place where the paste was done.
+        // This will go thru the InsertPasteOperation and do the right
+        // things with restrict, maxChars and displayAsPassword.
+        selectionState = new SelectionState(
+        	textFlow, op.absoluteStart, op.absoluteStart);
+        editManager.insertText(pastedText, selectionState);        
+
+        dispatchChangingEvent = true;
+    }
+
+    /**
+     *  @private
+     */
+    /*
+    private function isOverset(controller:IContainerController):Boolean
+    {
+        // In some circumsances, the last controller gets all of the 
+        // content. In this case, test contentHeight vs. compositionHeight. 
+        // In other cases (the proper case) use textLengths to check.
+        return controller.contentHeight > controller.compositionHeight || 
+               (controller.absoluteStart + controller.textLength < 
+               controller.textFlow.textLength);
+    }
+    */
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers: UIComponent
@@ -2719,7 +2815,7 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  @private
      */
-    override protected function focusInHandler(event:FocusEvent):void
+    protected function focusInHandler(event:FocusEvent):void
     {        
         if (focusManager && multiline)
             focusManager.defaultButtonEnabled = false;
@@ -2728,9 +2824,9 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  @private
      */
-    override protected function focusOutHandler(event:FocusEvent):void
+    protected function focusOutHandler(event:FocusEvent):void
     {
-        // By default, we clear the undo history when a RichEditableText loses focus.
+        // By default, we clear the undo history when a TextView loses focus.
         if (mx_internal::clearUndoOnFocusOut)
             mx_internal::undoManager.clear();
                     
@@ -2738,6 +2834,23 @@ public class RichEditableText extends UIComponent implements IViewport
             focusManager.defaultButtonEnabled = true;
     }
 
+    /**
+     *  @private
+     */ 
+    protected function keyDownHandler(event:KeyboardEvent):void
+    {
+        if (editingMode != EditingMode.READ_WRITE)
+        	return;
+        
+        if (event.keyCode == Keyboard.ENTER)
+        {
+            if (multiline)
+        		getEditManager().splitParagraph();
+            else
+                dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+         }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -2746,27 +2859,32 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Called when the TextFlow dispatches a 'compositionComplete' event
+     */
+    private function updateCompleteHandler(event:FlexEvent):void
+    {
+        lastUnscaledWidth = NaN;
+    }
+
+    /**
+     *  @private
+     *  Called when the InputManager dispatches a 'compositionComplete' event
      *  when it has recomposed the text into TextLines.
      */
-    private function textFlow_compositionCompleteHandler(
+    private function inputManager_compositionCompleteHandler(
                                     event:CompositionCompletionEvent):void
     {
         //trace("compositionComplete");
         
-        var containerController:ContainerController =
-            textFlow.flowComposer.getControllerAt(0);
-
         var oldContentWidth:Number = _contentWidth;
-        var newContentWidth:Number = containerController.contentWidth;
+        var newContentWidth:Number = _inputManager.contentWidth;
         
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentWidth can be slightly larger than the requested
         // compositionWidth.
-        if (newContentWidth > containerController.compositionWidth &&
-            Math.round(newContentWidth) == containerController.compositionWidth)
+        if (newContentWidth > _inputManager.compositionWidth &&
+            Math.round(newContentWidth) == _inputManager.compositionWidth)
         { 
-            newContentWidth = containerController.compositionWidth;
+            newContentWidth = _inputManager.compositionWidth;
         }
             
         if (newContentWidth != oldContentWidth)
@@ -2780,15 +2898,15 @@ public class RichEditableText extends UIComponent implements IViewport
         }
         
         var oldContentHeight:Number = _contentHeight;
-        var newContentHeight:Number = containerController.contentHeight;
+        var newContentHeight:Number = _inputManager.contentHeight;
 
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentHeight can be slightly larger than the requested
         // compositionHeight.  
-        if (newContentHeight > containerController.compositionHeight &&
-            Math.round(newContentHeight) == containerController.compositionHeight)
+        if (newContentHeight > _inputManager.compositionHeight &&
+            Math.round(newContentHeight) == _inputManager.compositionHeight)
         { 
-            newContentHeight = containerController.compositionHeight;
+            newContentHeight = _inputManager.compositionHeight;
         }
             
         if (newContentHeight != oldContentHeight)
@@ -2804,30 +2922,18 @@ public class RichEditableText extends UIComponent implements IViewport
         // If autoSize and there is overset text, remeasure.  contentHeight
         // will not be the total height of the text unless composition is done 
         // and scrolling is *on*.
+        /********************************************************
         if (_autoSize && isOverset(containerController))
             invalidateSize();
+        */
     }
     
     /**
      *  @private
-     */
-    private function isOverset(controller:ContainerController):Boolean
-    {
-        // In some circumsances, the last controller gets all of the 
-        // content. In this case, test contentHeight vs. compositionHeight. 
-        // In other cases (the proper case) use textLengths to check.
-        return controller.contentHeight > controller.compositionHeight || 
-               (controller.absoluteStart + controller.textLength < 
-               controller.textFlow.textLength);
-    }
-    
-    /**
-     *  @private
-     *  Called when the TextFlow dispatches a 'damage' event.  The TextFlow
+     *  Called when the InputManager dispatches a 'damage' event.  The TextFlow
      *  could have been modified interactively or programatically.
      */
-    private function textFlow_damageHandler(
-                        event:DamageEvent):void
+    private function inputManager_damageHandler(event:DamageEvent):void
     {
         //trace("damageHandler", event.damageStart, event.damageLength);
         
@@ -2845,17 +2951,14 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Called when the TextFlow dispatches a 'scroll' event
+     *  Called when the InputManager dispatches a 'scroll' event
      *  as it autoscrolls.
      */
-    private function textFlow_scrollHandler(event:Event):void
+    private function inputManager_scrollHandler(event:Event):void
     {
-        var containerController:ContainerController =
-            textFlow.flowComposer.getControllerAt(0);
-
         var oldHorizontalScrollPosition:Number = _horizontalScrollPosition;
         var newHorizontalScrollPosition:Number =
-            containerController.horizontalScrollPosition;
+            _inputManager.horizontalScrollPosition;
         if (newHorizontalScrollPosition != oldHorizontalScrollPosition)
         {
             _horizontalScrollPosition = newHorizontalScrollPosition;
@@ -2866,7 +2969,7 @@ public class RichEditableText extends UIComponent implements IViewport
         
         var oldVerticalScrollPosition:Number = _verticalScrollPosition;
         var newVerticalScrollPosition:Number =
-            containerController.verticalScrollPosition;
+            _inputManager.verticalScrollPosition;
         if (newVerticalScrollPosition != oldVerticalScrollPosition)
         {
             _verticalScrollPosition = newVerticalScrollPosition;
@@ -2878,13 +2981,15 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Called when the TextFlow dispatches a 'selectionChange' event.
+     *  Called when the InputManager dispatches a 'selectionChange' event.
      */
-    private function textFlow_selectionChangeHandler(
+    private function inputManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
-        _selectionAnchorPosition = textFlow.interactionManager.anchorPosition;
-        _selectionActivePosition = textFlow.interactionManager.activePosition;
+        var selectionManager:SelectionManager = getSelectionManager();
+
+        _selectionAnchorPosition = selectionManager.anchorPosition;
+        _selectionActivePosition = selectionManager.activePosition;
         
         //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition);
             
@@ -2893,10 +2998,10 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Called when the TextFlow dispatches an 'operationBegin' event
+     *  Called when the InputManager dispatches an 'operationBegin' event
      *  before an editing operation.
      */     
-    private function textFlow_flowOperationBeginHandler(
+    private function inputManager_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
         //trace("operationBegin");
@@ -2969,7 +3074,7 @@ public class RichEditableText extends UIComponent implements IViewport
             }
         }
  
-        // Dispatch a 'changing' event from the RichEditableText
+        // Dispatch a 'changing' event from the TextView
         // as notification that an editing operation is about to occur.
         if (dispatchChangingEvent)
         {
@@ -2978,7 +3083,7 @@ public class RichEditableText extends UIComponent implements IViewport
             newEvent.operation = op;
             dispatchEvent(newEvent);
             
-            // If the event dispatched from this RichEditableText is canceled,
+            // If the event dispatched from this TextView is canceled,
             // cancel the one from the EditManager, which will prevent
             // the editing operation from being processed.
             if (newEvent.isDefaultPrevented())
@@ -2988,10 +3093,10 @@ public class RichEditableText extends UIComponent implements IViewport
     
     /**
      *  @private
-     *  Called when the TextFlow dispatches an 'operationEnd' event
+     *  Called when the InputManager dispatches an 'operationEnd' event
      *  after an editing operation.
      */
-    private function textFlow_flowOperationEndHandler(
+    private function inputManager_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
         //trace("operationEnd");
@@ -3007,80 +3112,12 @@ public class RichEditableText extends UIComponent implements IViewport
         textInvalid = true;
         dispatchEvent(new Event("textInvalid"));
 
-        // Dispatch a 'change' event from the RichEditableText
+        // Dispatch a 'change' event from the TextView
         // as notification that an editing operation has occurred.
         var newEvent:TextOperationEvent =
             new TextOperationEvent(TextOperationEvent.CHANGE);
         newEvent.operation = event.operation;
         dispatchEvent(newEvent);
-    }
-
-    private function handlePasteOperation(op:PasteOperation):void
-    {
-        if (!restrict && !maxChars && !displayAsPassword)
-            return;
-            
-        var textScrap:TextScrap = op.scrapToPaste();
-        var pastedText:String = TextUtil.extractText(textScrap.textFlow);
-
-        // We know it's an EditManager or we wouldn't have gotten here.
-        var editManager:EditManager = EditManager(textFlow.interactionManager);
-
-        // Generate a CHANGING event for the PasteOperation but not for the
-        // DeleteTextOperation or the InsertTextOperation which are also part
-        // of the paste.
-        dispatchChangingEvent = false;
-                        
-        var selectionState:SelectionState = 
-            new SelectionState(textFlow, op.absoluteStart, 
-                    op.absoluteStart + pastedText.length);             
-        editManager.deleteText(selectionState);
-
-        // Insert the same text, the same place where the paste was done.
-        // This will go thru the InsertPasteOperation and do the right
-        // things with restrict, maxChars and displayAsPassword.
-        selectionState = 
-            new SelectionState(textFlow, op.absoluteStart, op.absoluteStart);
-        editManager.insertText(pastedText, selectionState);        
-
-        dispatchChangingEvent = true;
-    }
-
-    /**
-     *  @private
-     */
-    private function updateCompleteHandler(event:FlexEvent):void
-    {
-        lastUnscaledWidth = NaN;
-    }
-
-    private function creatingSystemManager():ISystemManager
-    {
-        return ((moduleFactory != null) && (moduleFactory is ISystemManager))
-                ? ISystemManager(moduleFactory)
-                : IUIComponent(parent).systemManager;
-    }
-    
-    /**
-     * @private
-     * 
-     * Get the embedded font for a set of font attributes.
-     */ 
-    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
-    {
-        // Check if we can reuse a cached value.
-        if (cachedEmbeddedFont)
-        {
-            if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
-            {
-                return cachedEmbeddedFont;
-            }   
-        }
-        
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
-        
-        return cachedEmbeddedFont;
     }
 }
 
