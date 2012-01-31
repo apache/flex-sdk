@@ -17,7 +17,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 /**
- *  Dispatched when the value of the Slider control changes
+ *  Dispatched when the value of the control changes
  *  as a result of user interaction.
  *
  *  @eventType mx.events.Event
@@ -27,9 +27,13 @@ import flash.geom.Point;
 /**
  *  TrackBase is a base class for components with a track
  *  and one or more thumbs such as Slider and ScrollBar. It
- *  declares two required SkinParts, thumb and track. TrackBase
- *  also provides the code for thumb dragging which is shared
- *  by Slider and ScrollBar.
+ *  declares two required SkinParts, <code>thumb</code> and
+ *  <code>track</code>. TrackBase also provides the code for
+ *  thumb dragging which is shared by Slider and ScrollBar.
+ * 
+ *  @see flex.component.Range
+ *  @see flex.component.Slider
+ *  @see flex.component.ScrollBar
  */
 public class TrackBase extends Range
 {
@@ -58,23 +62,33 @@ public class TrackBase extends Range
     [SkinPart]
     
     /**
-     *  <code>thumb</code> is a SkinPart that defines a button that can be
-     *  dragged along the track to increase or decrease the slider's 
-     *  <code>value</code> property. Updates to the <code>value</code> 
-     *  through other means will automatically update the position of the 
-     *  thumb with respect to the track.
+     *  <code>thumb</code> is a SkinPart that defines a button
+     *  that can be dragged along the track to increase or
+     *  decrease the slider's <code>value</code> property.
+     *  Updates to the <code>value</code> through other means
+     *  will automatically update the position of the thumb
+     *  with respect to the track.
      */
     public var thumb:Button;
     
     [SkinPart]
     
     /**
-     *  <code>track</code> is a SkinPart that defines a button that, when 
-     *  pressed, will set the <code>value</code> to the value corresponding
-     *  with that position.
+     *  <code>track</code> is a SkinPart that defines a button
+     *  that, when  pressed, will set the <code>value</code>
+     *  to the value corresponding with that position.
      */
     public var track:Button; 
-    
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    private var tempTrackSize:Number = NaN;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent, Range
@@ -91,12 +105,6 @@ public class TrackBase extends Range
         enableSkinParts(value);
     }
     
-    override public function set value(newValue:Number):void
-    {
-        super.value = newValue;
-        invalidateDisplayList();
-    }
-
     override public function set maximum(value:Number):void
     {
         super.maximum = value;
@@ -108,7 +116,13 @@ public class TrackBase extends Range
         super.minimum = value;
         invalidateDisplayList();
     }
-
+    
+    override public function set value(newValue:Number):void
+    {
+        super.value = newValue;
+        invalidateDisplayList();
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -137,10 +151,11 @@ public class TrackBase extends Range
     //---------------------------------
     
     /**
-     *  This method returns the size of the scrollbar's logical track. 
-     *  Subclasses need to override this method to return an appropriate 
-     *  value. Note that this number can represent any system of units, but
-     *  those units must be consistent with the values returned by 
+     *  This method returns the size of the logical track. 
+     *  Subclasses need to override this method to return 
+     *  an appropriate value. Note that this number can 
+     *  represent any system of units, but those units must 
+     *  be consistent with the values returned by
      *  pointToPosition, thumbSize, and valueToPosition.
      */
     protected function get trackSize():Number
@@ -155,9 +170,10 @@ public class TrackBase extends Range
     private var _thumbSize:Number = 0;
     
     /**
-     *  The size of the thumb on the logical track in the units of the
-     *  subclass, which must be consistent with trackSize, pointToPosition
-     *  and valueToPosition. The default thumbSize on the logical track is 0.
+     *  The size of the thumb on the logical track in the 
+     *  units of the subclass, which must be consistent with 
+     *  trackSize, pointToPosition and valueToPosition. The 
+     *  default thumbSize on the logical track is 0.
      * 
      *  @default 0
      */
@@ -168,39 +184,10 @@ public class TrackBase extends Range
     
     protected function set thumbSize(value:Number):void
     {
-        _thumbSize = value;
-        
-        invalidateDisplayList();
-    }
-
-    //---------------------------------
-    // snapInterval
-    //---------------------------------
-
-    private var _snapInterval:Number = 0;
-    
-    private var snapIntervalChanged:Boolean = false;
-    
-    /**
-     *  The snapInterval restricts the allowed values to the minimum,
-     *  maximum, and multiples of the snapInterval starting from the
-     *  minimum.
-     */
-    public function get snapInterval():Number
-    {
-        return _snapInterval;
-    }
-    
-    public function set snapInterval(value:Number):void
-    {
-        if (value == snapInterval)
+        if (value == _thumbSize)
             return;
-        
-        _snapInterval = value;
-        snapIntervalChanged = true;
-        
-        invalidateProperties();
-        invalidateDisplayList();   
+
+        _thumbSize = value;
     }
     
     //--------------------------------------------------------------------------
@@ -212,36 +199,25 @@ public class TrackBase extends Range
     /**
      *  @private
      */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (snapIntervalChanged)
-        {
-            setValue(nearestValidValue(value));
-            
-            snapIntervalChanged = false;
-        }
-    }
-
-    /**
-     *  @private
-     */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        thumbSize = calculateThumbSize();
+        sizeThumb(thumbSize);
+
         positionThumb(valueToPosition(value));
     }
 
     /**
-     *  Adds an eventListener for the updateComplete event so that the
-     *  Slider will correctly position the thumb.
+     *  Adds an eventListener for the updateComplete event so
+     *  that TrackBase will correctly position the thumb.
      */
     override protected function attachBehaviors():void
     {
         super.attachBehaviors();
-        skinObject.addEventListener("updateComplete", skin_updateCompleteHandler);
+        track.addEventListener("updateComplete", track_updateCompleteHandler);
     }
     
     /**
@@ -250,7 +226,7 @@ public class TrackBase extends Range
     override protected function removeBehaviors():void
     {
         super.removeBehaviors();
-        skinObject.removeEventListener("updateComplete", skin_updateCompleteHandler);
+        track.removeEventListener("updateComplete", track_updateCompleteHandler);
     }
 
     /**
@@ -260,12 +236,14 @@ public class TrackBase extends Range
     {
         if (instance == thumb)
         {
-            thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
+            thumb.addEventListener(MouseEvent.MOUSE_DOWN,
+                                   thumb_mouseDownHandler);
             thumb.stickyHighlighting = true;
         }
         else if (instance == track)
         {
-            track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
+            track.addEventListener(MouseEvent.MOUSE_DOWN,
+                                   track_mouseDownHandler);
         }
         
         enableSkinParts(enabled);
@@ -287,47 +265,9 @@ public class TrackBase extends Range
                                       track_mouseDownHandler);
         }
     }
-    
-    /**
-     *  Returns the nearest allowed value. The default allowed values
-     *  are the minimum, maximum, and multiples of the snapInterval
-     *  starting from the minimum. If the snapInterval is 0, then 
-     *  nearestValidValue() just returns the value. A snapInterval less
-     *  than 0 is not supported.
-     */
-    override protected function nearestValidValue(value:Number):Number
-    {
-        // NaN returns 0
-        if (isNaN(value))
-            value = 0;
-            
-        if (value > maximum)
-            return maximum;
-        else if (value < minimum)
-            return minimum;
-            
-        if (snapInterval == 0)
-            return value;
-
-        var closest:Number = Math.round((value - minimum) / snapInterval)
-                             * snapInterval + minimum;
-
-        if (closest >= maximum)
-            return maximum;
-        else if (closest <= minimum)
-            return minimum;
-
-        var cdiff:Number = Math.abs(closest - value);
-        var maxdiff:Number = Math.abs(maximum - value);
-        
-        if (maxdiff <= cdiff)
-            return maximum;
-        else
-            return closest;
-    }
 
     /**
-     *  Make the skins reflect the enabled state of the trackBase
+     *  Make the skins reflect the enabled state of TrackBase
      */
     protected function enableSkinParts(value:Boolean):void
     {
@@ -338,10 +278,10 @@ public class TrackBase extends Range
     }
     
     /**
-     *  Utility method which returns the range value for a given
-     *  position on the track. The range value is calculated by
+     *  Utility method which returns the Range value for a given
+     *  position on the track. The Range value is calculated by
      *  finding what fraction of the logical track the position
-     *  represents and then multiplying that by the range.
+     *  represents and then multiplying that by the Range.
      */
     protected function positionToValue(position:Number):Number
     {
@@ -351,8 +291,8 @@ public class TrackBase extends Range
             return minimum;
 
         var range:Number = maximum - minimum;
-        var val:Number = minimum + position * (range / posRange);
-        return val;
+        var value:Number = minimum + position * (range / posRange);
+        return value;
     }
     
     /**
@@ -378,7 +318,7 @@ public class TrackBase extends Range
      *  This function returns a position on the slider relative to its
      *  orientation and shape. The <code>localX</code> and <code>localY</code>
      *  values represent the location in the local coordinate system of the
-     *  slider. Subclasses must override this method and return the
+     *  track. Subclasses must override this method and return the
      *  appropriate value for their situation. Values should not be clamped to
      *  the ends of the track, as that clamping will happen later, prior
      *  to setting the thumb position.
@@ -394,6 +334,26 @@ public class TrackBase extends Range
      *  the thumb appropriately for their situation.
      */
     protected function positionThumb(thumbPos:Number):void {}
+    
+    /**
+     *  This method sizes the thumb button correctly, given
+     *  the thumbSize. Subclasses should override this method to size 
+     *  the thumb appropriately for their situation.
+     */
+    protected function sizeThumb(thumbSize:Number):void {}
+
+    /**
+     *  This utility method calculates an appropriate size for the thumb
+     *  button, given the current range, pageSize, and trackSize settings.
+     *  Subclasses should override this to calculate the correct size in
+     *  the units of position.
+     * 
+     *  @default 0
+     */
+    protected function calculateThumbSize():Number
+    {
+        return 0;
+    }
 
     /**
      *  Given a MouseEvent that contains where the thumb was dragged to and
@@ -405,11 +365,11 @@ public class TrackBase extends Range
     protected function calculateNewValue(prevValue:Number, event:MouseEvent):Number
     {
         var pt:Point = new Point(event.stageX, event.stageY);
-        pt = globalToLocal(pt);
+        pt = track.globalToLocal(pt);
         var movePos:Number = pointToPosition(pt.x - _clickOffset.x, 
                                              pt.y - _clickOffset.y);
         var newValue:Number = positionToValue(movePos);
-        var roundedValue:Number = nearestValidValue(newValue);
+        var roundedValue:Number = nearestValidValue(newValue, stepSize);
         return roundedValue;
     }
 
@@ -421,12 +381,20 @@ public class TrackBase extends Range
 
     /**
      *  @private
-     *  Force the Slider to set itself up correctly now that the
-     *  skins have completed loading.
+     *  Force the component to set itself up correctly now that the
+     *  track is completely loaded.
      */
-    private function skin_updateCompleteHandler(event:Event):void
-    {   
-        invalidateDisplayList();
+    protected function track_updateCompleteHandler(event:Event):void
+    {
+        //TODO: Consider the case where the track moves (like the move
+        //effect). Perhaps this handler should run every time... 
+        if (trackSize != tempTrackSize)
+        {
+            thumbSize = calculateThumbSize();
+            sizeThumb(thumbSize);
+            positionThumb(valueToPosition(value));
+            tempTrackSize = trackSize;
+        }
     }
 
     //---------------------------------
@@ -434,8 +402,8 @@ public class TrackBase extends Range
     //---------------------------------
     
     /**
-     *  Handle mouse-down events on the scroll thumb. Records the difference
-     *  between positions.
+     *  Handle mouse-down events on the scroll thumb. Records 
+     *  the mouse down point in clickOffset.
      */
     protected function thumb_mouseDownHandler(event:MouseEvent):void
     {
@@ -443,7 +411,7 @@ public class TrackBase extends Range
         // which would push this enabled check into the child/skin components
         if (!enabled)
             return;
-            
+
         addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
                 stage_mouseMoveHandler);
         addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
@@ -453,7 +421,7 @@ public class TrackBase extends Range
         // use this in later drag operations to determine how much to move the
         // thumb button
         var pt:Point = new Point(event.stageX, event.stageY);
-        var pt2:Point = globalToLocal(pt);
+        var pt2:Point = track.globalToLocal(pt);
         pt = thumb.globalToLocal(pt);
         _clickOffset = pt;
     }
@@ -483,10 +451,11 @@ public class TrackBase extends Range
 
         positionThumb(valueToPosition(newValue));
         
-        var oldValue:Number = value;
-        setValue(newValue);
-        if (newValue != oldValue)
-            dispatchEvent(new Event("change"));
+        if (newValue != value)
+        {
+            setValue(newValue);
+            dispatchEvent(new Event("change"));   
+        }
         
         event.updateAfterEvent();
     }
@@ -519,9 +488,9 @@ public class TrackBase extends Range
     //---------------------------------
     
     /**
-     *  Handle mouse-down events for the scroll track. Subclasses should
-     *  override this method if they want the track to recognize
-     *  mouse clicks on the track.
+     *  Handle mouse-down events for the scroll track. Subclasses
+     *  should override this method if they want the track to
+     *  recognize mouse clicks on the track.
      */
     protected function track_mouseDownHandler(event:MouseEvent):void {}
 }
