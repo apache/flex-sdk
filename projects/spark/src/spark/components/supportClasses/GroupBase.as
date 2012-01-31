@@ -773,17 +773,19 @@ public class GroupBase extends UIComponent implements IViewport
      */
     protected function renderFillForMouseOpaque():void
     {
-        if (_mouseOpaque && _hasMouseListeners)
-        {
-            graphics.clear();
-            graphics.beginFill(0xFFFFFF, 0);
+        if (!_mouseOpaque || !_hasMouseListeners)
+            return;
+        
+        var w:Number = (_resizeMode == _SCALE_UINT) ? measuredWidth : unscaledWidth;
+        var h:Number = (_resizeMode == _SCALE_UINT) ? measuredHeight : unscaledHeight;
 
-            var w:Number = (_resizeMode == _SCALE_UINT) ? measuredWidth : unscaledWidth;
-            var h:Number = (_resizeMode == _SCALE_UINT) ? measuredHeight : unscaledHeight;
-            graphics.drawRect(0, 0, w, h);
-          
-            graphics.endFill();
-        }
+        if (isNaN(w) || isNaN(h))
+            return;
+
+        graphics.clear();
+        graphics.beginFill(0xFFFFFF, 0);
+        graphics.drawRect(0, 0, w, h);
+        graphics.endFill();
     }
 
     //----------------------------------
