@@ -43,10 +43,7 @@ public class HGroup extends Group
     public function HGroup():void
     {
         super();
-        var hl:HorizontalLayout = new HorizontalLayout();
-        hl.addEventListener("indexInViewChanged", redispatchHandler);
-        hl.addEventListener("propertyChange", redispatchHandler);
-        layout = hl;        
+        layout = new HorizontalLayout();
     }
     
     private function get horizontalLayout():HorizontalLayout
@@ -191,6 +188,38 @@ public class HGroup extends Group
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     * @private
+     */
+    override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+    {
+        switch(type)
+        {
+            case "indexInViewChanged":
+            case "propertyChange":
+                if (!hasEventListener(type))
+                    horizontalLayout.addEventListener(type, redispatchHandler);
+                break;
+        }
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference)
+    }    
+    
+    /**
+     * @private
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        switch(type)
+        {
+            case "indexInViewChanged":
+            case "propertyChange":
+                if (!hasEventListener(type))
+                    horizontalLayout.removeEventListener(type, redispatchHandler);
+                break;
+        }
+    }
     
     private function redispatchHandler(event:Event):void
     {
