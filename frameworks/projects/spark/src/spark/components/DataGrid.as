@@ -11,24 +11,22 @@
 
 package spark.components
 {
-import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 
+import mx.collections.ICollectionView;
 import mx.collections.IList;
+import mx.collections.Sort;
+import mx.collections.SortField;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
-import mx.core.IToolTip;
-import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.PropertyChangeEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
@@ -47,7 +45,6 @@ import spark.events.GridCaretEvent;
 import spark.events.GridEvent;
 import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
-
 
 use namespace mx_internal;
 
@@ -161,7 +158,6 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
-
 
 /**
  *  Dispatched by the grid skin part after a GRID_MOUSE_DOWN event if the mouse moves before the button is released.
@@ -355,17 +351,13 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.DataGridAccImpl")]
+
 [DefaultProperty("dataProvider")]
 
 [DiscouragedForProfile("mobileDevice")]
 
 [IconFile("DataGrid.png")]
-
-//--------------------------------------
-//  Other metadata
-//--------------------------------------
-
-[AccessibilityClass(implementation="spark.accessibility.DataGridAccImpl")]
 
 /**
  *  TBD(hmuller)
@@ -398,7 +390,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.4
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function DataGrid()
@@ -1541,6 +1533,47 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }    
     
     //----------------------------------
+    //  sortableColumns
+    //----------------------------------
+    
+    private var _sortableColumns:Boolean = true;
+    
+    [Bindable("sortableColumnsChanged")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  A flag that indicates whether the user can interactively sort columns.
+     *  If <code>true</code>, the user can sort the dataProvider by the
+     *  dataField of a column by clicking on the column's header.
+     *  If <code>true</code>, individual columns must have their 
+     *  <code>sortable</code> properties set to <code>false</code> to 
+     *  prevent the user from sorting by a particular column.  
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get sortableColumns():Boolean
+    {
+        return _sortableColumns;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set sortableColumns(value:Boolean):void
+    {
+        if (_sortableColumns == value)
+            return;
+        
+        _sortableColumns = value;
+        dispatchChangeEvent("sortableColumnsChanged");
+    }        
+    
+    //----------------------------------
     //  typicalItem delegates to (delegates to grid.typicalItem)
     //----------------------------------    
     
@@ -1878,6 +1911,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (grid)
                 columnHeaderBar.dataGrid = this;
             
+            columnHeaderBar.addEventListener(GridEvent.GRID_CLICK, columnHeaderBar_clickHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
@@ -1974,6 +2008,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (instance == columnHeaderBar)
         {
             columnHeaderBar.dataGrid = null;
+            columnHeaderBar.removeEventListener(GridEvent.GRID_CLICK, columnHeaderBar_clickHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
             columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
@@ -2969,6 +3004,117 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     //--------------------------------------------------------------------------
     //
+    //  Sorting Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Sort the DataGrid by one or more columns and refresh the display.
+     * 
+     *  If the dataProvider is an ICollectionView, then it's sort property will be
+     *  set to a value based on each column's dataField, sortCompareFunction,
+     *  and sortDescending flag, and then the dataProvider's refresh() method will be called.
+     * 
+     *  If the dataProvider is not an ICollectionView, then this method has no effect.
+     * 
+     *  @param columnIndices The indices of the columns by which to sort the dataProvider.
+     * 
+     *  @return true if the dataProvider can be sorted with the provided column indices.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function sortByColumns(columnIndices:Vector.<int>):Boolean
+    {
+        const dataProvider:ICollectionView = this.dataProvider as ICollectionView;
+        if (!dataProvider)
+            return false;
+        
+        var sort:Sort = dataProvider.sort;
+        if (sort)
+            sort.compareFunction = null;
+        else
+            sort = new Sort();
+        
+        var sortFields:Array = createSortFields(columnIndices, sort.fields);
+        if (!sortFields)
+            return false;
+        
+        sort.fields = sortFields;
+        
+        dataProvider.sort = sort;
+        dataProvider.refresh();
+        return true;
+    }
+
+    /**
+     *  @priavte
+     *  This function builds an array of SortFields based on the column
+     *  indices given. The direction is based on the current value of
+     *  sortDescending from the column.
+     */
+    private function createSortFields(columnIndices:Vector.<int>, previousFields:Array):Array
+    {
+        if (columnIndices.length == 0)
+            return null;
+        
+        var fields:Array = new Array();
+        
+        for each (var columnIndex:int in columnIndices)
+        {
+            var col:GridColumn = this.getColumnAt(columnIndex);
+            
+            // columns all must either have a dataField or a labelFunction
+            if (!col || (col.dataField == null && col.labelFunction == null))
+                return null;
+            
+            var sortField:SortField = null;
+            var sortDescending:Boolean = col.sortDescending;
+            var i:int;
+            
+            // Check if we just sorted this column.
+            for (i = 0; i < fields.length; i++)
+            {
+                if (fields[i].name == col.dataField)
+                {
+                    // just sorted this column, so flip sortDescending.
+                    sortDescending = !fields[i].descending;
+                }
+            }
+            
+            // If we haven't sorted by this column yet, check if
+            // we've sorted by this column in the previous sort.
+            if (!sortField && previousFields)
+            {
+                for (i = 0; i < previousFields.length; i++)
+                {
+                    if (previousFields[i].name == col.dataField)
+                    {
+                        // sortField exists in previous sort, so flip sortDescending.
+                        sortField = previousFields[i];
+                        sortDescending = !sortField.descending;
+                        break;
+                    }
+                }
+            }
+            
+            // Create a SortField from the column.
+            if (!sortField)
+                sortField = col.sortField;
+            
+            col.sortDescending = sortDescending;
+            sortField.descending = sortDescending;
+            
+            fields.push(sortField);
+        }
+        
+        return fields;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Private Methods
     //
     //--------------------------------------------------------------------------
@@ -3578,6 +3724,21 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     private var resizeColumn:GridColumn = null;
     private var resizeAnchorX:Number = NaN;
     private var resizeColumnWidth:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    protected function columnHeaderBar_clickHandler(event:GridEvent):void
+    {
+        const column:GridColumn = event.column;
+        if (!enabled || !sortableColumns || !column || !column.sortable)
+            return;
+    
+        const columnIndices:Vector.<int> = Vector.<int>([column.columnIndex]);
+        
+        if (sortByColumns(columnIndices))
+            columnHeaderBar.visibleSortIndicatorIndices = columnIndices;
+    }
     
     /**
      *  @private
