@@ -41,6 +41,15 @@ import mx.utils.BitFlagUtil;
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
 [DefaultProperty("dataProvider")]
 
 [IconFile("FxDataContainer.png")]
