@@ -146,8 +146,8 @@ public class FxComponent extends UIComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  @private 
-     */
+     *  @private
+     */ 
     override public function get pseudoSelectorState():String
     {
         return getCurrentSkinState();
@@ -158,7 +158,15 @@ public class FxComponent extends UIComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+     *  @private 
+     */
+    override public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    {
+        return getCurrentSkinState() == pseudoState || currentState == pseudoState;
+    }
+
     /**
      *  @private
      */
