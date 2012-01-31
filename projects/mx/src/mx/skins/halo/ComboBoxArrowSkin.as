@@ -140,7 +140,7 @@ public class ComboBoxArrowSkin extends Border
 		var dropdownBorderColor:Number = getStyle("dropdownBorderColor");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");		
 		var themeColor:uint = getStyle("themeColor");
 				
