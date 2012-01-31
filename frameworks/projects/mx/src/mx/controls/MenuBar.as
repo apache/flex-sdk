@@ -13,6 +13,7 @@ package mx.controls
 {
 
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -21,8 +22,10 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 import flash.xml.XMLNode;
+
 import mx.collections.ArrayCollection;
 import mx.collections.ICollectionView;
+import mx.collections.IViewCursor;
 import mx.collections.XMLListCollection;
 import mx.collections.errors.ItemPendingError;
 import mx.containers.ApplicationControlBar;
@@ -36,21 +39,21 @@ import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
+import mx.events.InterManagerRequest;
 import mx.events.MenuEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
+import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
-import mx.collections.IViewCursor;
-import mx.events.InterManagerRequest;
 
 use namespace mx_internal;
 
@@ -1837,6 +1840,13 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         var sm:ISystemManager = systemManager.topLevelSystemManager;
         var screen:Rectangle = sm.getVisibleApplicationRect();
 
+        // pop it up if we haven't already.  this allows us to validate the menu and get correct sizes
+        if (menu.parentDisplayObject && (!menu.parent || !menu.parent.contains(menu.parentDisplayObject)))
+        {
+            PopUpManager.addPopUp(menu, this, false);
+            menu.addEventListener(MenuEvent.MENU_HIDE, menuHideHandler, false, EventPriority.DEFAULT_HANDLER);
+        }
+        
         UIComponentGlobals.layoutManager.validateClient(menu, true);
         
         // popups go on the root of the swf which if loaded, is not
@@ -1858,6 +1868,24 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             pt.y += 2;
 
         menu.show(pt.x, pt.y);
+    }
+    
+    /**
+     *  @private
+     *  Removes the root menu from the display list.  This is called only for
+     *  menus created using "createMenu".
+     * 
+     *  MJM private static?
+     */
+    private static function menuHideHandler(event:MenuEvent):void
+    {
+        var menu:Menu = Menu(event.target);
+        if (!event.isDefaultPrevented() && event.menu == menu)
+        {
+            menu.supposedToLoseFocus = true;
+            PopUpManager.removePopUp(menu);
+            menu.removeEventListener(MenuEvent.MENU_HIDE, menuHideHandler);
+        }
     }
 
     /**
