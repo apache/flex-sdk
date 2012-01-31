@@ -159,8 +159,10 @@ global
     
     /* Behaviors */
     fixedThumbSize: false;
+    fullScreenHideControlsDelay: 3000;
     horizontalScrollPolicy: "auto";
     liveDragging: false;
+    rollOverOpenDelay: 200;
     slideDuration: 300;
     smoothScrolling: true;
     verticalScrollPolicy: "auto";
