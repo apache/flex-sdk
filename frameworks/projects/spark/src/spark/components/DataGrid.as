@@ -1950,7 +1950,7 @@ public class DataGrid extends SkinnableContainerBase
     public function invalidateTypicalItem():void
     {
         if (grid)
-            grid.invalidateTypicalItem();
+            grid.invalidateTypicalItemRenderer();
     }
     
     //----------------------------------
