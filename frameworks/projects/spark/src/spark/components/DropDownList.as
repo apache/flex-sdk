@@ -38,17 +38,16 @@ import flash.ui.Keyboard;
 import mx.collections.IList;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
-
 import mx.events.FlexEvent;
 
-import spark.components.Button;
 import spark.components.supportClasses.ButtonBase;
+import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
 import spark.events.DropDownEvent;
+import spark.layouts.VerticalLayout;
+import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
-
-import spark.components.supportClasses.DropDownController;
 
 /**
  *  Dispatched when the dropDown is dismissed for any reason such when 
@@ -355,7 +354,7 @@ public class DropDownList extends List
     //  labelFunction
     //----------------------------------
     
-     /**
+    /**
      *  @private
      */
     override public function set labelFunction(value:Function):void
@@ -366,6 +365,23 @@ public class DropDownList extends List
     	super.labelFunction = value;
     	labelChanged = true;
     	invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get layout():LayoutBase
+    {
+    	// Since the dataGroup is optional, if it doesn't exist yet,
+    	// then just default to using a VerticalLayout so that keyboard
+        // navigation will still work. 
+        return (dataGroup) 
+            ? super.layout 
+            : new VerticalLayout();
     }
     
     //----------------------------------
@@ -511,6 +527,12 @@ public class DropDownList extends List
     		openButton.enabled = enabled;
     	}
     	
+    	if (instance == labelElement)
+    	{
+    		labelChanged = true;
+        	invalidateProperties();
+    	}
+    	
     	if (instance == dropDown && dropDownController)
     		dropDownController.dropDown = dropDown;
     }
@@ -583,18 +605,24 @@ public class DropDownList extends List
      */
     protected function dropDownController_openHandler(event:DropDownEvent):void
     {
-    	invalidateSkinState();
-    	
-    	// TODO (jszeto) Need to call this after the dropDown has been fully 
-		// initialized
-    	ensureItemIsVisible(selectedIndex);
-    	
-    	dispatchEvent(event);
+    	addEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
+    	invalidateSkinState();	
     }
     
     /**
+     *  @private
+     */
+    private function open_updateCompleteHandler(event:FlexEvent):void
+	{	
+		removeEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
+    	ensureItemIsVisible(selectedIndex);
+    	
+		dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
+	}
+    
+    /**
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropDownEvent.CLOSE</code> event. Updates the skin's state.
+     *  <code>DropDownEvent.CLOSE</code> event. Updates thbe skin's state.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -603,13 +631,22 @@ public class DropDownList extends List
      */
     protected function dropDownController_closeHandler(event:DropDownEvent):void
     {
+    	addEventListener(FlexEvent.UPDATE_COMPLETE, close_updateCompleteHandler);
     	invalidateSkinState();
     	
     	// TODO!! Add logic to handle commitData
     	// if (event.isDefaultPrevented())
-    	
-    	dispatchEvent(event);
     }
 
+	/**
+     *  @private
+     */
+    private function close_updateCompleteHandler(event:FlexEvent):void
+	{	
+		removeEventListener(FlexEvent.UPDATE_COMPLETE, close_updateCompleteHandler);
+    	
+		dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
+	}
+	
 }
 }
