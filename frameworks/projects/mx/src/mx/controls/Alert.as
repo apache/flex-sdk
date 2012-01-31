@@ -27,16 +27,12 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
-import mx.events.MarshalEvent;
-import mx.events.SandboxBridgeRequest;
 import mx.graphics.RadialGradient;
 import mx.managers.ISystemManager;
-import mx.managers.ISystemManager2;
 import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
-import mx.utils.SandboxUtil;
 
 use namespace mx_internal;
 
@@ -484,8 +480,8 @@ public class Alert extends Panel
 
         if (!parent)
         {
-            var sm:ISystemManager2 = ISystemManager2(Application.application.systemManager);
-            if (sm.useBridge())
+            var sm:ISystemManager = ISystemManager(Application.application.systemManager);
+            if (sm.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
                 parent = Sprite(Application.application);
