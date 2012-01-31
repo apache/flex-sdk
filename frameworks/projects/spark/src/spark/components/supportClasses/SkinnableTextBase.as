@@ -1448,7 +1448,7 @@ public class SkinnableTextBase extends SkinnableComponent
             return softKeyboardClient.autoCorrect; 
         
         var v:* = textDisplay ? undefined : textDisplayProperties.autoCorrect;
-        return (v === undefined) ? false : v;
+        return (v === undefined) ? true : v;
     }
     
     public function set autoCorrect(value:Boolean):void
