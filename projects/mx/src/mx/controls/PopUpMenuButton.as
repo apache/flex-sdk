@@ -406,11 +406,9 @@ public class PopUpMenuButton extends PopUpButton
      *  and localization.</p>
      *
      *  <p>The label function must take a single argument which is the item
-     *  in the dataProvider and return a String.</p>
+     *  in the dataProvider and return a String, as the following example shows:</p>
      * 
-     *  <blockquote>
-     *  <code>labelFunction(item:Object):String</code>
-     *  </blockquote>
+     *  <pre>labelFunction(item:Object):String</pre>
      *
      *  @default null
      */
@@ -509,8 +507,8 @@ public class PopUpMenuButton extends PopUpButton
             {
                 selectedIndex = 0;
                 
-				var cursor:IViewCursor = dataProvider.createCursor()
-				cursor.seek(CursorBookmark.FIRST, 0);
+                var cursor:IViewCursor = dataProvider.createCursor()
+                cursor.seek(CursorBookmark.FIRST, 0);
 
                 var item:* = cursor.current;
                 
@@ -651,8 +649,8 @@ public class PopUpMenuButton extends PopUpButton
             menuEvent.menu = popUpMenu;
             menuEvent.menu.selectedIndex = selectedIndex;
 
-			var cursor:IViewCursor = dataProvider.createCursor();
-			cursor.seek(CursorBookmark.FIRST, selectedIndex);
+            var cursor:IViewCursor = dataProvider.createCursor();
+            cursor.seek(CursorBookmark.FIRST, selectedIndex);
 
             menuEvent.item =  cursor.current
             menuEvent.itemRenderer = itemRenderer;
@@ -675,8 +673,8 @@ public class PopUpMenuButton extends PopUpButton
         // Change label/icon if selectedIndex is changed programatically.
         if (popUpMenu.selectedIndex >= 0)
         {
-			var cursor:IViewCursor = dataProvider.createCursor();
-			cursor.seek(CursorBookmark.FIRST, selectedIndex);
+            var cursor:IViewCursor = dataProvider.createCursor();
+            cursor.seek(CursorBookmark.FIRST, selectedIndex);
 
             selectedIndex = popUpMenu.selectedIndex;
             if (labelSet)
