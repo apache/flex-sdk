@@ -31,7 +31,7 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
-import mx.graphics.RoundedRectangle;
+import mx.geom.RoundedRectangle;
 import mx.managers.HistoryManager;
 
 use namespace mx_internal;
