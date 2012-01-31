@@ -144,7 +144,11 @@ public interface ISOAPDecoder extends IXMLDecoder
     //--------------------------------------------------------------------------
 
     /**
-     * Decodes a SOAP response into a result and headers.
+     *  Decodes a SOAP response into a result and headers.
+     *
+     *  @param response The SOAP response object.
+     *
+     *  @return A SOAPResult object containing the response. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
