@@ -94,10 +94,32 @@ public class GridLayout extends LayoutBase
     
     /**
      *  @private
+     *  Clear everything.
      */
     override public function clearVirtualLayoutCache():void
     {
-        // TBD(hmuller):DTRT when the target changes
+        freeGridElements(visibleRowBackgrounds);
+        freeGridElements(visibleRowSeparators);
+        visibleRowIndices.length = 0;
+        
+        freeGridElements(visibleColumnBackgrounds);
+        freeGridElements(visibleColumnSeparators);        
+        visibleColumnIndices.length = 0;
+        
+        freeItemRenderers(visibleItemRenderers);
+        
+        freeGridElements(visibleSelectionIndicators);
+        visibleRowSelectionIndices.length = 0;
+        visibleColumnSelectionIndices.length = 0;
+        
+        freeGridElement(hoverIndicator)
+        hoverIndicator = null;
+        
+        freeGridElement(caretIndicator);
+        caretIndicator = null;
+        
+        visibleItemRenderersBounds.setEmpty();
+        visibleGridBounds.setEmpty();
     }      
 
     /**
@@ -942,6 +964,15 @@ public class GridLayout extends LayoutBase
     private var visibleRowSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
     private var visibleColumnSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
     
+    /**
+     *  @private
+     *  Common code for laying out the rowBackround, rowSeparator, columnSeparator visual elements.
+     * 
+     *  For row,columnSeparators, lastIndex identifies the element in the new layout for which 
+     *  no separator is drawn.  If the previous layout - oldVisibleIndices - included the lastIndex,
+     *  it needs to be freed, even though it exists in the new layout (newVisibleIndices).   See
+     *  freeLinearElements().
+     */
     private function layoutLinearElements (
         factory:IFactory,
         container:IVisualElementContainer,
@@ -966,8 +997,8 @@ public class GridLayout extends LayoutBase
         
         // Free and clear oldVisibleElements that are no long visible
         
-        freeLinearElements(oldVisibleElements, oldVisibleIndices, newVisibleIndices);
-        
+        freeLinearElements(oldVisibleElements, oldVisibleIndices, newVisibleIndices, lastIndex);
+            
         // Create, layout, and return newVisibleElements
         
         const newVisibleElementCount:uint = newVisibleIndices.length;
@@ -1067,26 +1098,30 @@ public class GridLayout extends LayoutBase
      *  order.  When an element is freed, the corresponding member of the vector parameter
      *  is set to null.
      * 
-     *  This method is a somewhat more efficient implementation of the following:
+     *  This method is [supposed to be a] somewhat more efficient implementation of the following:
      * 
      *  for (var i:int = 0; i < elements.length; i++)
-     *     if (newIndices.indexOf(oldIndices[i]) == -1)
      *     {
+     *     if ((oldIndices[i] == lastIndex) || (newIndices.indexOf(oldIndices[i]) == -1))
      *         freeGridElement(elements[i]);
      *         elements[i] = null;
      *     }
      *  
+     *  The lastIndex parameter is used to handle row and column separators, where the last
+     *  element is left out since separators only appear in between elements.  If the lastIndex
+     *  appears in oldIndices, we're not going to need the old element.
      */
     private function freeLinearElements (
         elements:Vector.<IVisualElement>, 
         oldIndices:Vector.<int>, 
-        newIndices:Vector.<int>):void
+        newIndices:Vector.<int>, 
+        lastIndex:int):void
     {
         // TBD(hmuller): rewrite this, should be one pass (no indexOf)
         for (var i:int = 0; i < elements.length; i++)
         {
             const offset:int = newIndices.indexOf(oldIndices[i]);
-            if (offset == -1)
+            if ((oldIndices[i] == lastIndex) || (newIndices.indexOf(oldIndices[i]) == -1))
             {
                 const elt:IVisualElement = elements[i];
                 if (elt)
@@ -1580,29 +1615,7 @@ public class GridLayout extends LayoutBase
      */
     private function dataProviderCollectionReset(event:CollectionEvent):Boolean
     {
-        freeGridElements(visibleRowBackgrounds);
-        freeGridElements(visibleRowSeparators);
-        visibleRowIndices.length = 0;
-
-        freeGridElements(visibleColumnBackgrounds);
-        freeGridElements(visibleColumnSeparators);        
-        visibleColumnIndices.length = 0;
-        
-        freeItemRenderers(visibleItemRenderers);
-        
-        freeGridElements(visibleSelectionIndicators);
-        visibleRowSelectionIndices.length = 0;
-        visibleColumnSelectionIndices.length = 0;
-        
-        freeGridElement(hoverIndicator)
-        hoverIndicator = null;
-        
-        freeGridElement(caretIndicator);
-        caretIndicator = null;
-        
-        visibleItemRenderersBounds.setEmpty();
-        visibleGridBounds.setEmpty();
-               
+        clearVirtualLayoutCache();
         return true;
     }
     
