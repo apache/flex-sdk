@@ -323,11 +323,69 @@ public class VGroup extends Group
     }
     
     //----------------------------------
-    //  requestedRowCount
+    //  requestedMaxRowCount
     //----------------------------------
 
     [Inspectable(category="General")]
 
+    /**
+     *  @copy spark.layouts.VerticalLayout#requestedMaxRowCount
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMaxRowCount():int
+    {
+        return verticalLayout.requestedMaxRowCount;
+    }
+
+    /**
+     *  @private
+     */
+    public function set requestedMaxRowCount(value:int):void
+    {
+        verticalLayout.requestedMaxRowCount = value;
+    }    
+    
+    //----------------------------------
+    //  requestedMinRowCount
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.VerticalLayout#requestedMinRowCount
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMinRowCount():int
+    {
+        return verticalLayout.requestedMinRowCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMinRowCount(value:int):void
+    {
+        verticalLayout.requestedMinRowCount = value;
+    }    
+    
+    //----------------------------------
+    //  requestedRowCount
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
     /**
      *  @copy spark.layouts.VerticalLayout#requestedRowCount
      * 
@@ -342,7 +400,7 @@ public class VGroup extends Group
     {
         return verticalLayout.requestedRowCount;
     }
-
+    
     /**
      *  @private
      */
