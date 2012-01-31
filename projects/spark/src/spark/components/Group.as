@@ -31,6 +31,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
 import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
+import mx.core.Container;
 
 use namespace mx_internal;
 
@@ -300,6 +301,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
 
     /**
+     *  @private
      *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
      *  
@@ -329,8 +331,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             var n:int = _mxmlContent.length;
             for (i = 0; i < n; i++)
-            {
-                elementAdded(_mxmlContent[i], i);
+            {   
+                var elt:IVisualElement = _mxmlContent[i];
+
+                // A common mistake is to bind the viewport property of an FxScroller
+                // to a group that was defined in the MXML file with a different parent    
+                if (elt.parent && (elt.parent != this))
+                    throw new Error(resourceManager.getString("components", "mxmlElementNoMultipleParents", [elt]));
+
+                elementAdded(elt, i);
             }
         }
     }
