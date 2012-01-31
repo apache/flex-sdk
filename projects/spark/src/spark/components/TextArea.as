@@ -363,6 +363,23 @@ public class TextArea extends SkinnableTextBase
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  suggestedFocusSkinExclusions
+    //----------------------------------
+    
+    /** 
+     * @private 
+     */     
+    private static const focusExclusions:Array = ["scroller", "textDisplay"];
+    
+    /**
+     *  @private
+     */
+    override public function get suggestedFocusSkinExclusions():Array
+    {
+        return focusExclusions;
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
