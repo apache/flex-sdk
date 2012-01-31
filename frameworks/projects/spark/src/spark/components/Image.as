@@ -31,9 +31,6 @@ import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
-// Support basic text styles for any optional preloader label(s).
-include "../styles/metadata/BasicInheritingTextStyles.as"
-
 //--------------------------------------
 //  SkinStates
 //--------------------------------------
