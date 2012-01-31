@@ -163,6 +163,9 @@ public class SimpleText extends TextGraphicElement
      */
     override protected function composeOnHeightChange():Boolean
     {
+        if (super.composeOnHeightChange())
+            return true;
+
         var verticalAlign:String = getStyle("verticalAlign");
         var topAligned:Boolean = (verticalAlign == "top");
 
@@ -176,6 +179,9 @@ public class SimpleText extends TextGraphicElement
      */
     override protected function composeOnWidthChange():Boolean
     {
+        if (super.composeOnWidthChange())
+            return true;
+
         var direction:String = getStyle("direction");
         var textAlign:String = getStyle("textAlign");
 
@@ -207,14 +213,70 @@ public class SimpleText extends TextGraphicElement
         bounds.width = width;
         bounds.height = height;
 
+        // Remove the text lines from the container.  If we're recycling the
+        // text lines, leave them in mx_internal::textLines.
         mx_internal::removeTextLines();
-		createTextLines(elementFormat);
-        mx_internal::addTextLines(DisplayObjectContainer(displayObject));
+        if (!recycleTextLines)
+            mx_internal::textLines.length = 0;
+            
+		var createdAllLines:Boolean = createTextLines(elementFormat);
+        var toFitLineBreak:Boolean = getStyle("lineBreak") == "toFit";
+        
+        // Need truncation if all the following are true
+        // - truncation options exist (0=no trunc, -1=fill up bounds then trunc,
+        //      n=n lines then trunc)
+        // - compose width is specified
+        // - explicit line breaking is not used
+        // - content doesn't fit
+        if (truncation && toFitLineBreak &&
+            !doesComposedTextFit(height, createdAllLines, truncation))
+        {
+            truncateText(width, height);
+        }
+        
+        // Done with the lines now.  
+        releaseLinesFromTextBlock(mx_internal::textLines);
+        
+        // If toFit and explicit width, adjust the bounds to match.
+        // This will save a recompose and/or clip in updateDisplayList() if 
+        // the bounds width matches the unscaled width.
+        if (toFitLineBreak && !isNaN(width) && mx_internal::bounds.width < width)
+            mx_internal::bounds.width = width;
+                                               
+        // Add the new text lines to the container.
+        mx_internal::addTextLines(DisplayObjectContainer(drawnDisplayObject));
+
+        // Figure out if a scroll rect is needed.
+        mx_internal::isOverset = mx_internal::isTextOverset(width, height);
         
         // Just recomposed so reset.
-        mx_internal::stylesChanged = false;                
+        mx_internal::invalidateCompose = false;                
     }
+    
+    /**
+     *  @private
+     *  Cleans up and sets the validity of the lines disassociated with the 
+     *  TextBlock to TextLineValidity.INVALID.
+     */
+    private function releaseLinesFromTextBlock(textLines:Array):void
+    {
+        var firstLine:TextLine = staticTextBlock.firstLine;
+        var lastLine:TextLine = staticTextBlock.lastLine;
+        
+        if (firstLine)
+            staticTextBlock.releaseLines(firstLine, lastLine);        
+     }
 
+    /**
+     *  @private
+     *  Returns true if the player being used supports recycling
+     *  text lines.  Support was added in FP 10.1.
+     */
+    private function get recycleTextLines():Boolean
+    {
+        return "recreateTextLine" in staticTextBlock;
+    }        
+     
 	/**
 	 *  @private
 	 *  Creates an ElementFormat (and its FontDescription)
@@ -354,8 +416,9 @@ public class SimpleText extends TextGraphicElement
 	 *  @private
 	 *  Stuffs the specified text and formatting info into a TextBlock
      *  and uses it to create as many TextLines as fit into the bounds.
+     *  Returns true if all the text was composed into textLines.
 	 */
-	private function createTextLines(elementFormat:ElementFormat):void
+	private function createTextLines(elementFormat:ElementFormat):Boolean
 	{
 		// Get CSS styles that affect a TextBlock and its justifier.
 		var direction:String = getStyle("direction");
@@ -400,17 +463,26 @@ public class SimpleText extends TextGraphicElement
 		}
                 
 		// Then create TextLines using this TextBlock.
-		createTextLinesFromTextBlock(staticTextBlock);
+		return createTextLinesFromTextBlock(staticTextBlock,
+		                                    mx_internal::textLines,
+		                                    mx_internal::bounds);
 	}
 
 	/**
 	 *  @private
+	 *  Compose into textLines.  bounds on input is size of composition
+	 *  area and on output is the size of the composed content.
+	 *  The caller must call releaseLinesFromTextBlock() to release the
+	 *  textLines from the TextBlock.  This must be done after truncation
+	 *  so that the composed lines can be broken into atoms to figure out
+	 *  where the truncation indicator should be placed.
+	 * 
+     *  Returns true if all the text was composed into textLines.
 	 */
-	private function createTextLinesFromTextBlock(textBlock:TextBlock):void
+	private function createTextLinesFromTextBlock(textBlock:TextBlock,
+                	                              textLines:Array,
+                	                              bounds:Rectangle):Boolean
 	{
-		// Clear any previously generated TextLines from the textLines Array.
-		mx_internal::textLines.length = 0;
-				
 		// Get CSS styles for formats that we have to apply ourselves.
 		var direction:String = getStyle("direction");
         var lineBreak:String = getStyle("lineBreak");
@@ -425,13 +497,11 @@ public class SimpleText extends TextGraphicElement
         var textDecoration:String = getStyle("textDecoration");
         var verticalAlign:String = getStyle("verticalAlign");
 
-		var bounds:Rectangle = mx_internal::bounds;
-
 		var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
 		var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
 		
 		if (isNaN(innerWidth))
-			innerWidth = TextLine.MAX_LINE_WIDTH;
+			innerWidth = maxWidth;
 
         var maxLineWidth:Number = lineBreak == "explicit" ?
                                   TextLine.MAX_LINE_WIDTH :
@@ -439,9 +509,10 @@ public class SimpleText extends TextGraphicElement
 		
 		if (innerWidth < 0 || innerHeight < 0 || !textBlock)
 		{
+            textLines.length = 0;
 			bounds.width = 0;
 			bounds.height = 0;
-			return;
+			return false;
 		}
 
 		var fontSize:Number = staticTextElement.elementFormat.fontSize;
@@ -464,10 +535,13 @@ public class SimpleText extends TextGraphicElement
 		var totalTextHeight:Number = 0;
 		
 		var n:int = 0;
+        var nRecycleLines:int = recycleTextLines ? textLines.length : 0;
 		var nextTextLine:TextLine;
 		var nextY:Number = 0;
 		var textLine:TextLine;
-        var createdAllLines:Boolean = false;
+        
+		// For truncation, need to know if all lines have been composed.
+		var createdAllLines:Boolean = false;
 		
 		// Generate TextLines, stopping when we run out of text
 		// or reach the bottom of the requested bounds.
@@ -475,7 +549,19 @@ public class SimpleText extends TextGraphicElement
 		// (0, 0, innerWidth, innerHeight), with top-left alignment.
 		while (true)
 		{
-			nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
+		    if (nRecycleLines > 0)
+		    {
+		        //trace("recreateTextLine", n);
+		        var recycleLine:TextLine = textLines[n];
+                nextTextLine = textBlock["recreateTextLine"]
+                                    (recycleLine, textLine, maxLineWidth);		        
+                nRecycleLines--;    
+		    }
+		    else
+		    {
+                nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
+            }
+            
 			if (!nextTextLine)
             {
 				createdAllLines = true;
@@ -493,7 +579,7 @@ public class SimpleText extends TextGraphicElement
 
 			// We'll keep this line. Put it into the textLines array.
 			textLine = nextTextLine;
-			mx_internal::textLines[n++] = textLine;
+			textLines[n++] = textLine;
 			
 			// Assign its location based on left/top alignment.
 			// Its x position is 0 by default.
@@ -536,6 +622,9 @@ public class SimpleText extends TextGraphicElement
             }
 		}
 
+        // If recycling text lines, eliminate any unused lines.
+        textLines.length = n;
+        
 		// At this point, n is the number of lines that fit
 		// and textLine is the last line that fit.
 
@@ -543,17 +632,13 @@ public class SimpleText extends TextGraphicElement
 		{
 			bounds.width = paddingLeft + paddingRight;
 			bounds.height = paddingTop + paddingBottom;
-			return;
+			return createdAllLines;
 		}
 		
-		if (isNaN(bounds.width))
-            bounds.width = paddingLeft + maxTextWidth + paddingRight;
-        if (isNaN(bounds.height))
-            bounds.height = paddingTop + textLine.y +
-							textLine.descent + paddingBottom;
-		
-		innerWidth = bounds.width - paddingLeft - paddingRight;
-		innerHeight = bounds.height - paddingTop - paddingBottom;
+        // innerWidth remains the same.  alignment is done over the innerWidth
+        // not over the width of the text that was just composed.
+		if (isNaN(bounds.height))
+            innerHeight = textLine.y + textLine.descent;
 
         var leftAligned:Boolean = 
             textAlign == "start" && direction == "ltr" ||
@@ -585,15 +670,15 @@ public class SimpleText extends TextGraphicElement
         var lastLineIsSpecial:Boolean =
             textAlign == "justify" && createdAllLines;
 
-		// Make each line static (which decouples it from the TextBlock
-		// that created it and makes it consume less memory)
-		// and reposition each line if necessary
+        var minX:Number = innerWidth;
+        var minY:Number = innerHeight;
+        var maxX:Number = 0;
+        
+		// Reposition each line if necessary.
 		// based on the horizontal and vertical alignment.
 		for (var i:int = 0; i < n; i++)
 		{
-			textLine = TextLine(mx_internal::textLines[i]);
-
-			textLine.validity = TextLineValidity.STATIC;
+			textLine = TextLine(textLines[i]);
 
 			// If textAlign is "justify" and there is more than one line,
             // the last one (if we created it) gets horizontal aligned
@@ -643,8 +728,287 @@ public class SimpleText extends TextGraphicElement
 				textLine.y = y;
 				previousTextLine = textLine;
 			}
+
+            // Upper left corner of bounding box may not be 0,0 after
+            // styles are applied or rounding error from minY calculation.
+            // y is one decimal place and ascent isn't rounded so minY can be 
+            // slightly less than zero. 
+            minX = Math.min(minX, textLine.x);             
+            minY = Math.min(minY, textLine.y - textLine.ascent);
+            maxX = Math.max(maxX, textLine.x + textLine.textWidth); 
 		}
+
+        bounds.x = minX - paddingLeft;
+        bounds.y = minY - paddingTop;
+        bounds.right = maxX + paddingRight;
+        bounds.bottom = textLine.y + textLine.descent + paddingBottom;
+        
+        return createdAllLines;
 	}
+	
+    /**
+     *  @private
+     *  width and height are the ones used to do the compose, not the measured
+     *  results resulting from the compose.
+     * 
+     *  Adapted from justification code in TLF's
+     *  TextLineFactory.textLinesFromString().
+     */
+	private function truncateText(width:Number, height:Number):void
+	{
+	    var lineCountLimit:int = truncation;
+        var somethingFit:Boolean = false;
+        var truncLineIndex:int = 0;    
+
+        // Compute the truncation line.
+        truncLineIndex = computeLastAllowedLineIndex(height, lineCountLimit);
+                                     
+        if (truncLineIndex >= 0)
+        {
+            // Estimate the initial truncation position using the following 
+            // steps. 
+            
+            // 1. Measure the space that the truncation indicator will take
+            // by composing the truncation resource using the same bounds
+            // and formats.
+            staticTextElement.text = mx_internal::truncationIndicatorResource;
+            var measureLines:Array = new Array();
+            var measureBounds:Rectangle = new Rectangle(0, 0, width, NaN);
+    
+            createTextLinesFromTextBlock(staticTextBlock, 
+                                         measureLines, 
+                                         measureBounds);
+                                               
+            releaseLinesFromTextBlock(measureLines);
+                                                                                  
+            // 2. Move target line for truncation higher by as many lines 
+            // as the number of full lines taken by the truncation 
+            // indicator.
+            truncLineIndex -= (measureLines.length - 1);
+            if (truncLineIndex >= 0)
+            {
+                // 3. Calculate allowed width (width left over from the 
+                // last line of the truncation indicator).
+                var measuredTextLine:TextLine = 
+                        TextLine(measureLines[measureLines.length-1]);      
+                var allowedWidth:Number = 
+                    measuredTextLine.specifiedWidth -
+                    measuredTextLine.unjustifiedTextWidth;                          
+                                        
+                // 4. Get the initial truncation position on the target 
+                // line given this allowed width. 
+                var truncateAtCharPosition:int = 
+                    getTruncationPosition(mx_internal::textLines[truncLineIndex], 
+                                          allowedWidth);
+
+                // The following loop executes repeatedly composing text until 
+                // it fits.  In each iteration, an atoms's worth of characters 
+                // of original content is dropped
+                do
+                {
+                    // Replace all content starting at the inital truncation 
+                    // position with the truncation indicator.
+                    var truncText:String = 
+                            text.slice(0, truncateAtCharPosition) +
+                                       mx_internal::truncationIndicatorResource;
+
+                    // (Re)-initialize bounds for next compose.
+                    mx_internal::bounds.x = 0;
+                    mx_internal::bounds.y = 0;
+                    mx_internal::bounds.width = width;
+                    mx_internal::bounds.height = height;
+                                                                                    
+                    staticTextElement.text = truncText;
+                    var createdAllLines:Boolean = 
+                        createTextLinesFromTextBlock(staticTextBlock,
+                                                     mx_internal::textLines,
+                                                     mx_internal::bounds);
+        
+                    if (doesComposedTextFit(height, 
+                                            createdAllLines, 
+                                            lineCountLimit))
+                    {
+                        somethingFit = true;
+                        break; 
+                    }       
+                    
+                     // No original content left to make room for 
+                     // truncation indicator.
+                    if (truncateAtCharPosition == 0)
+                        break;
+                    
+                    // Try again by truncating at the beginning of the 
+                    // preceding atom.
+                    truncateAtCharPosition = 
+                            getNextTruncationPosition(truncLineIndex,
+                                                      truncateAtCharPosition);                            
+                } while (true);
+            }
+        }
+        
+        // If nothing fit, return no lines and bounds that just contains
+        // padding.
+        if (!somethingFit)
+        {
+            mx_internal::textLines.length = 0;
+
+            var paddingBottom:Number = getStyle("paddingBottom");
+            var paddingLeft:Number = getStyle("paddingLeft");
+            var paddingRight:Number = getStyle("paddingRight");
+            var paddingTop:Number = getStyle("paddingTop");
+            
+            mx_internal::bounds.x = 0;
+            mx_internal::bounds.y = 0;
+            mx_internal::bounds.width = paddingLeft + paddingRight;
+            mx_internal::bounds.height = paddingTop + paddingBottom;
+        }
+    }
+        
+    /**
+     * Determines if the composed text fits in the given height and 
+     * line count limit. 
+     */ 
+    private function doesComposedTextFit(height:Number,
+                                         createdAllLines:Boolean,
+                                         lineCountLimit:int):Boolean
+    {
+        var textLines:Array = mx_internal::textLines;
+
+        // Not all text composed because it didn't fit within bounds.
+        if (!createdAllLines)
+            return false;
+                    
+        // More text lines than allowed lines.                    
+        if (lineCountLimit != -1 && textLines.length > lineCountLimit)
+            return false;
+        
+        // No lines or no height restriction.
+        if (!textLines.length || isNaN(height))
+            return true;
+                                             
+        // Does the bottom of the last line fall within the bounds?                                                    
+        var lastLine:TextLine = TextLine(textLines[textLines.length - 1]);        
+        var lastLineExtent:Number = lastLine.y + lastLine.descent;
+        
+        return lastLineExtent <= height;
+    }
+
+    /** 
+     * Calculates the last line that fits in the given height and line count 
+     * limit.
+     */
+    private function computeLastAllowedLineIndex(height:Number,
+                                                 lineCountLimit:int):int
+    {           
+        var textLines:Array = mx_internal::textLines;
+        var truncationLineIndex:int = textLines.length - 1;
+        
+        if (!isNaN(height))
+        {
+            // Search in reverse order since truncation near the end is the 
+            // more common use case.
+            do
+            {
+                var textLine:TextLine = TextLine(textLines[truncationLineIndex]);
+                if (textLine.y + textLine.descent <= height)
+                    break;
+                                
+                truncationLineIndex--;
+            }
+            while (truncationLineIndex >= 0);
+        }   
+    
+        // if line count limit is smaller, use that
+        if (lineCountLimit != -1 && lineCountLimit <= truncationLineIndex)
+            truncationLineIndex = lineCountLimit - 1;            
+            
+        return truncationLineIndex;            
+    }
+
+    /** 
+     * Gets the truncation position on a line given the allowed width.
+     * - Must be at an atom boundary.
+     * - Must scan the line for atoms in logical order, not physical position 
+     *   order.
+     * For example, given bi-di text ABאבCD
+     * atoms must be scanned in this order: 
+     * A, B, א
+     * ג, C, D  
+     */
+    private function getTruncationPosition(line:TextLine, 
+                                           allowedWidth:Number):int
+    {           
+        var consumedWidth:Number = 0;
+        var charPosition:int = line.textBlockBeginIndex;
+        
+        while (charPosition < line.textBlockBeginIndex + line.rawTextLength)
+        {
+            var atomIndex:int = line.getAtomIndexAtCharIndex(charPosition);
+            var atomBounds:Rectangle = line.getAtomBounds(atomIndex); 
+            consumedWidth += atomBounds.width;
+            if (consumedWidth > allowedWidth)
+                break;
+                
+            charPosition = line.getAtomTextBlockEndIndex(atomIndex);
+        }
+        
+        line.flushAtomData();
+        
+        return charPosition;
+    }
+        
+    /** 
+     * Gets the next truncation position by shedding an atom's worth of 
+     * characters.
+     */
+    private function getNextTruncationPosition(truncationLineIndex:int,
+                                               truncateAtCharPosition:int):int
+    {
+        var textLines:Array = mx_internal::textLines;
+
+        // 1. Get the position of the last character of the preceding atom
+        // truncateAtCharPosition-1, because truncateAtCharPosition is an 
+        // atom boundary.
+        truncateAtCharPosition--; 
+        
+        // 2. Find the new target line (i.e., the line that has the new 
+        // truncation position).  If the last truncation position was at the 
+        // beginning of the target line, the new position may have moved to a 
+        // previous line.  It is also possible for this position to be found 
+        // in the next line because the truncation indicator may have combined 
+        // with original content to form a word that may not have afforded a 
+        // suitable break opportunity.  In any case, the new truncation 
+        // position lies in the vicinity of the previous target line, so a 
+        // linear search suffices.
+        var line:TextLine = TextLine(textLines[truncationLineIndex]);
+        do
+        {
+            if (truncateAtCharPosition >= line.textBlockBeginIndex && 
+                truncateAtCharPosition < line.textBlockBeginIndex + line.rawTextLength)
+            {
+                break;
+            }
+            if (truncateAtCharPosition < line.textBlockBeginIndex)
+                truncationLineIndex--;
+            else
+                truncationLineIndex++;
+            line = TextLine(textLines[truncationLineIndex]);
+        }
+        while (true);
+
+        // 3. Get the line atom index at this position          
+        var atomIndex:int = 
+                        line.getAtomIndexAtCharIndex(truncateAtCharPosition);
+        
+        // 4. Get the char index for this atom index
+        var nextTruncationPosition:int = 
+                        line.getAtomTextBlockBeginIndex(atomIndex);
+        
+        line.flushAtomData();
+        
+        return nextTruncationPosition;
+    } 
+        
 }
 
 }
