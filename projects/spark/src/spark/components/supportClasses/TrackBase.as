@@ -312,6 +312,62 @@ public class TrackBase extends Range
     }
     
     //---------------------------------
+    // scaleX
+    //---------------------------------
+    
+    /**
+     *  @private
+     *  Overridden so that we can call invalidateDisplayList() 
+     *  when scaleX changes since the positioning of the thumb 
+     *  is incorrect when scaleX = 0 thanks to globalToLocal/localToGlobal().
+     * 
+     *  <p>We override it here in TrackBase instead of where the issue 
+     *  actually exists (HScrollBar, HSlider, VScrollBar, VSlider) because it 
+     *  is easier this way and most subclasses who rely on updateSkinDisplayList() 
+     *  will probably run in to this issue.</p>
+     */
+    override public function set scaleX(value:Number):void
+    {
+        if (value == super.scaleX)
+            return;
+        
+        // if we were scaled at 0 and are being set to something else,
+        // invalidate the display list (see comment above)
+        if (super.scaleX == 0)
+            invalidateDisplayList();
+        
+        super.scaleX = value;
+    }
+    
+    //---------------------------------
+    // scaleY
+    //---------------------------------
+    
+    /**
+     *  @private
+     *  Overridden so that we can call invalidateDisplayList() 
+     *  when scaleY changes since the positioning of the thumb 
+     *  is incorrect when scaleY = 0 thanks to globalToLocal/localToGlobal().
+     * 
+     *  <p>We override it here in TrackBase instead of where the issue 
+     *  actually exists (HScrollBar, HSlider, VScrollBar, VSlider) because it 
+     *  is easier this way and most subclasses who rely on updateSkinDisplayList() 
+     *  will probably run in to this issue.</p>
+     */
+    override public function set scaleY(value:Number):void
+    {
+        if (value == super.scaleY)
+            return;
+        
+        // if we were scaled at 0 and are being set to something else,
+        // invalidate the display list (see comment above)
+        if (super.scaleY == 0)
+            invalidateDisplayList();
+        
+        super.scaleY = value;
+    }
+    
+    //---------------------------------
     // value
     //---------------------------------     
 
