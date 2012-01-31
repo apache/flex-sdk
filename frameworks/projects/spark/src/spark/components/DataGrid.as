@@ -317,7 +317,7 @@ public class DataGrid extends GridContainerBase
     [Bindable("valueCommit")]
     
     /**
-     *  @copy spark.components.Grid#selectedItems
+     *  @copy spark.components.Grid#selectionLength
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -466,17 +466,17 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function selectIndices(startRowIndex:int, endRowIndex:int):Boolean
+    public function selectIndices(rowIndex:int, rowCount:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.selectIndices(startRowIndex, endRowIndex);
+            selectionChanged = grid.selectIndices(rowIndex, rowCount);
         }
         else
         {
-            selectionChanged = gridSelection.setRows(startRowIndex, endRowIndex);
+            selectionChanged = gridSelection.setRows(rowIndex, rowCount);
             if (selectionChanged)
             {
                 invalidateDisplayList()
