@@ -859,13 +859,14 @@ public class List extends ListBase implements IFocusManagerComponent
             
             for (var i:int = 0; i < count; i++)
             {
-                // FIXME (dsubrama): What exactly should we do if an 
-                //invalid item is in the selectedItems vector? 
                 var index:int = dataProvider.getItemIndex(value[i]);
                 if (index != -1)
                 { 
                     indices.splice(0, 0, index);   
                 }
+                // If an invalid item is in the selectedItems vector,
+                // we set selectedItems to an empty vector, which 
+                // essentially clears selection. 
                 if (index == -1)
                 {
                     indices = new Vector.<int>();
@@ -2238,7 +2239,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // commitProperties, the caretIndex will be adjusted to 
             // match the selectedIndex; 
             
-            // FIXME (dsubrama): We should revisit the synchronous nature of the 
+            // TODO (dsubrama): We should revisit the synchronous nature of the 
             // de-careting/re-careting behavior.
             itemShowingCaret(caretIndex, false); 
             caretIndexAdjusted = true; 
@@ -2426,14 +2427,10 @@ public class List extends ListBase implements IFocusManagerComponent
             return; 
             
         // Delegate to the layout to tell us what the next item is we should select or focus into.
-        // FIXME (dsubrama): At some point we should refactor this so we don't depend on layout
+        // TODO (dsubrama): At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
         var proposedNewIndex:int = layout.getNavigationDestinationIndex(caretIndex, navigationUnit, arrowKeysWrapFocus); 
         
-        // FIXME (dsubrama): proposedNewIndex depends on CTRL key
-        // move CTRL key logic into single selection
-        // add SPACE logic - add to selection for multi-select or change selection for single-select
-
         // Note that the KeyboardEvent is canceled even if the current selected or in focus index
         // doesn't change because we don't want another component to start handling these
         // events when the index reaches a limit.
