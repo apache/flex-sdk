@@ -534,8 +534,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             }
         }
         
-        if (drawBackground)
-            graphics.beginFill(backgroundColor, 1);
+        graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
         
         if (showsCaret)
         {
@@ -548,8 +547,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             graphics.drawRect(0, 0, w, h);
         }
             
-        if (drawBackground)
-            graphics.endFill();
+        graphics.endFill();
     }
     
     //--------------------------------------------------------------------------
