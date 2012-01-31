@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.events.Event;
 import flash.events.MouseEvent;
 
-import mx.components.baseClasses.ToggleButtonBase;
+import spark.components.supportClasses.ToggleButtonBase;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
@@ -27,26 +27,26 @@ import mx.components.baseClasses.ToggleButtonBase;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
-[IconFile("FxCheckBox.png")]
+[IconFile("CheckBox.png")]
 
 /**
- *  The FxCheckBox component consists of an optional label and a small box
+ *  The CheckBox component consists of an optional label and a small box
  *  that can contain a check mark or not. 
  *  You can place the optional text label to the left, right, top, or bottom
  *  of the CheckBox.
  *
- *  <p>When a user clicks a FxCheckBox component or its associated text,
- *  the FxCheckBox component sets its <code>selected</code> property
+ *  <p>When a user clicks a CheckBox component or its associated text,
+ *  the CheckBox component sets its <code>selected</code> property
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
  *
- * @includeExample examples/FxCheckBoxExample.mxml
+ * @includeExample examples/CheckBoxExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxCheckBox extends ToggleButtonBase
+public class CheckBox extends ToggleButtonBase
 {
     include "../core/Version.as";
 
@@ -64,7 +64,7 @@ public class FxCheckBox extends ToggleButtonBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxCheckBox()
+    public function CheckBox()
     {
         super();
     }
