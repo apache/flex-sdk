@@ -38,12 +38,8 @@ import flashx.textLayout.formats.LineBreak;
 [Event(name="enter", type="mx.events.FlexEvent")]
 
 //--------------------------------------
-//  Other metadata
+//  Skin states
 //--------------------------------------
-
-[DefaultProperty("text")]
-
-[IconFile("TextInput.png")]
 
 /**
  *  Normal State
@@ -64,6 +60,14 @@ import flashx.textLayout.formats.LineBreak;
  *  @productversion Flex 4
  */
 [SkinState("disabled")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[DefaultProperty("text")]
+
+[IconFile("TextInput.png")]
 
 /**
  *  A text field that lets users enter and edit a single line
