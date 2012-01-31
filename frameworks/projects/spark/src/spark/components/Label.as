@@ -90,10 +90,10 @@ public class TextBox extends TextGraphicElement
 		var w:Number;
 		var h:Number;
 
-		if (drawWidth != 0 && drawHeight != 0)
+		if (!isNaN(explicitWidth) && !isNaN(explicitHeight))
 		{
-			w = drawWidth;
-			h = drawHeight;
+			w = explicitWidth;
+			h = explicitHeight;
 		}
 		else
 		{
@@ -117,11 +117,15 @@ public class TextBox extends TextGraphicElement
 	/**
 	 *  @private
 	 */
-	override public function draw(g:Graphics):void 
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
 	{
-		super.draw(g);
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		compose(drawWidth, drawHeight);
+		compose(unscaledWidth, unscaledHeight);
 		
 		applyDisplayObjectProperties();
 	}
