@@ -841,6 +841,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return;
         }
         
+        // Can't reuse renderers if ...
+        if ((itemRenderer == null) || (itemRendererFunction != null))  
+            removeAllItemRenderers();   // indexToRenderer.length = 0
+
         if (layout && layout.useVirtualLayout)
         {
             // The item renderers will be created lazily, at updateDisplayList() time
@@ -849,10 +853,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return;
         }
         
-        // Can't reuse renderers if ...
-        if ((itemRenderer == null) || (itemRendererFunction != null))  
-            removeAllItemRenderers();   // indexToRenderer.length = 0
-
         const dataProviderLength:int = dataProvider.length; 
 
         // Remove the renderers we're not going to need
