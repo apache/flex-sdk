@@ -36,6 +36,11 @@ use namespace mx_internal;
  *  this group changes.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -44,6 +49,11 @@ use namespace mx_internal;
  *  You can also set a handler for individual RadioButton controls.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
@@ -99,6 +109,11 @@ use namespace mx_internal;
  *  @includeExample examples/RadioButtonGroupExample.mxml
  *
  *  @see mx.controls.RadioButton
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 {
@@ -117,6 +132,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  the <code>document</code> parameter should not be used.
      *
      *  @see flash.events.EventDispatcher
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RadioButtonGroup(document:IFlexDisplayObject = null)
     {
@@ -158,6 +178,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Determines whether selection is allowed.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enabled():Boolean
     {
@@ -218,6 +243,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  <code>ButtonLabelPlacement.BOTTOM</code>, and <code>ButtonLabelPlacement.TOP</code>.</p>
      *
      *  @default "right"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelPlacement():String
     {
@@ -248,6 +278,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  The number of RadioButtons that belong to this RadioButtonGroup.
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get numRadioButtons():int
     {
@@ -281,6 +316,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  <code>label</code> property matches this value.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedValue():Object
     {
@@ -338,6 +378,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Setting this property to <code>null</code> deselects the currently selected RadioButton control.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selection():RadioButton
     {
@@ -369,6 +414,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  If the object is a deep property on document, <code>id</code> is null.
      *
      *  @see mx.core.IMXMLObject
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
     {
@@ -384,6 +434,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  RadioButtonGroup control, where the index of the first control is 0.
      *
      *  @return The specified RadioButton control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getRadioButtonAt(index:int):RadioButton
     {
