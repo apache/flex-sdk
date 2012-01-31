@@ -48,7 +48,6 @@ use namespace mx_internal;
  *  &lt;mx:Rotate3D
  *    <b>Properties</b>
  *    id="ID"
- *    applyChangesPostLayout="true"
  *    angleXFrom="no default"
  *    angleXTo="no default"
  *    angleYFrom="no default"
@@ -63,7 +62,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */       
-public class Rotate3D extends AnimateTransform
+public class Rotate3D extends AnimateTransform3D
 {
     include "../core/Version.as";
 
@@ -97,27 +96,6 @@ public class Rotate3D extends AnimateTransform
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  applyChangesPostLayout
-    //----------------------------------
-    [Inspectable(category="General")]
-    /** 
-     *  @copy AnimateTransform#applyChangesPostLayout
-     *  The default value for this property is true for 3D effects,
-     *  because the Flex layout system ignores 3D transformation properties.
-     *
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function get applyChangesPostLayout():Boolean
-    {
-        return super.applyChangesPostLayout;
-    }
-    
     //----------------------------------
     //  angleXFrom
     //----------------------------------
