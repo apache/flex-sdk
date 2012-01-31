@@ -414,13 +414,13 @@ public class SkinnableComponent extends UIComponent
         }
     }
     
-	/**
-	 *  Unload the skin for this component. This method should not be called
-	 *  directly. Typically, subclasses will not need to override this method.
-	 *
-	 *  This method is called whenever a skin is changed at runtime. It removes the skin,
-	 *  clears all part associations, and calls unloadingSkin().
-	 */
+    /**
+     *  Unload the skin for this component. This method should not be called
+     *  directly. Typically, subclasses will not need to override this method.
+     *
+     *  This method is called whenever a skin is changed at runtime. It calls 
+     *  unloadingSkin(), removes the skin, and clears all part associations.
+     */
     protected function unloadSkin():void
     {       
         if (skinObject)
