@@ -18,6 +18,8 @@ import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxSlider;
 
+[IconFile("FxHSlider.png")]
+
 /**
  *  The FxHSlider class defines a horizontal slider component.
  */
