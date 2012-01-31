@@ -171,6 +171,18 @@ SkinnableContainer
     skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
+SkinnableTextBase:normalWithPrompt 
+{
+    color: #CCCCCC;
+    fontStyle: italic;
+}
+
+SkinnableTextBase:disabledWithPrompt 
+{
+    color: #CCCCCC;
+    fontStyle: italic;
+}
+
 Spinner
 {
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
