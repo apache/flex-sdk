@@ -176,11 +176,11 @@ import spark.components.SkinnableContainer;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:BorderContainer&gt;</code> tag inherits all the tag attributes
+ *  <p>The <code>&lt;s:BorderContainer&gt;</code> tag inherits all the tag attributes
  *  of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:BorderContainer
+ *  &lt;s:BorderContainer
  *    <b>Properties</b>
  *    backgroundFill="null"
  *    borderStroke="null"
