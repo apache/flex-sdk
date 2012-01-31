@@ -136,7 +136,7 @@ public class SchemaManager extends QualifiedResourceManager
 
         // We keep track of the initial scope for reset()
         if (schemaStack.length == 1)
-            initialScope = schemaStack[0];
+            initialScope = schemaStack[0] as Array;
     }
 
     /**
@@ -185,7 +185,24 @@ public class SchemaManager extends QualifiedResourceManager
     public function getNamedDefinition(name:QName, ...componentTypes:Array):XML
     {
         var schemas:Array = currentScope();
+        var definition:XML = findDefinition(schemas, name, componentTypes);
 
+        // If we cannot find the definition in the current scope, try from
+        // the initial scope.
+        if (definition == null && schemas != initialScope)
+        {
+            definition = findDefinition(initialScope, name, componentTypes);
+        }
+
+        return definition;
+    }
+
+    /**
+     * @private
+     * Look for the definition of the QName in the schemas provided.
+     */ 
+    private function findDefinition(schemas:Array, name:QName, componentTypes:Array):XML
+    {
         for (var s:int = 0; s < schemas.length; s++)
         {
             var schema:Schema = schemas[s];
@@ -200,8 +217,7 @@ public class SchemaManager extends QualifiedResourceManager
         }
 
         return null;
-    }
-
+    } 
 
     /**
      * Locate a schema for the given namespace and push it to a
@@ -516,7 +532,7 @@ public class SchemaManager extends QualifiedResourceManager
      *  @productversion Flex 3
      */
     private var schemaStack:Array;
-    private var initialScope:*;
+    private var initialScope:Array;
     private var _namespaces:Object;
     private var _schemaMarshaller:SchemaMarshaller;
     private var _schemaConstants:SchemaConstants;
