@@ -878,7 +878,7 @@ public class PopUpButton extends Button
         var easingFunction:Function;
         var duration:Number;
         var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var screen:Rectangle = sm.getVisibleApplicationRect();
+        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
 
         if (show)
         {
