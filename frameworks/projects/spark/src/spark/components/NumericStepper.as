@@ -14,6 +14,7 @@ package mx.components
 
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.FocusEvent;
 
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
@@ -144,6 +145,59 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden Properties: FxRange
+    //
+    //--------------------------------------------------------------------------
+    
+    //---------------------------------
+    // maximum
+    //---------------------------------   
+    
+    private var _maximum:Number = 10;
+    private var maxChanged:Boolean = false;
+    
+    /**
+     *  Number which represents the maximum value possible for 
+     *  <code>value</code>. If the values for either 
+     *  <code>minimum</code> or <code>value</code> are greater
+     *  than <code>maximum</code>, they will be changed to 
+     *  reflect the new <code>maximum</code>
+     *
+     *  @default 10
+     */
+    override public function get maximum():Number
+    {
+        return _maximum;
+    }
+    
+    override public function set maximum(value:Number):void
+    {
+        if (value == _maximum)
+            return;
+
+        _maximum = value;
+        maxChanged = true;
+
+        invalidateProperties();
+    }
+    
+    //---------------------------------
+    // stepSize
+    //---------------------------------   
+    
+    private var stepSizeChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function set stepSize(value:Number):void
+    {
+        stepSizeChanged = true;
+        super.stepSize = value;       
+    }   
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
@@ -152,9 +206,16 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  @private
      */
     override protected function commitProperties():void
-    {
+    {	
         super.commitProperties();
-
+		
+		if (maxChanged || stepSizeChanged)
+    	{
+    		textInput.widthInChars = calculateWidestValue();
+    		maxChanged = false;
+    		stepSizeChanged = false;
+    	}
+			
         if (maxCharsChanged)
         {
             textInput.maxChars = _maxChars;
@@ -182,11 +243,17 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         {
             textInput.focusEnabled = false;
             textInput.maxChars = _maxChars;
-            // restrict to digits, minus sign, decimal point, and comma
+            // Restrict to digits, minus sign, decimal point, and comma
             textInput.restrict = "0-9\\-\\.\\,";
             textInput.addEventListener(FlexEvent.ENTER,
                                        textInput_enterHandler);
+            textInput.addEventListener(FocusEvent.FOCUS_OUT, 
+                                       textInput_focusOutHandler); 
             textInput.text = value.toString();
+            // Set the the textInput to be wide enough to display
+            // widest possible value. 
+            textInput.widthInChars = calculateWidestValue(); 
+            
         }
     }
     
@@ -257,7 +324,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  and constrains the value to the range defined by the 
      *  <code>maximum</code> and <code>minimum</code> properties.
      */
-    protected function commitTextInput():void
+    protected function commitTextInput(dispatchChange:Boolean = false):void
     {
         var inputValue:Number = Number(textInput.text);
         var prevValue:Number = value;
@@ -274,6 +341,34 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         
         // Select all the text.
         textInput.setSelection();
+        
+        if (dispatchChange)
+        {
+            if (value != prevValue)
+                dispatchEvent(new Event(Event.CHANGE));
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    // 
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Helper method that returns a number corresponding
+     *  to the length of the maximum value displayable in 
+     *  the textInput.  
+     */
+    private function calculateWidestValue():Number
+    {
+        var widestNumber:Number = minimum.toString().length >
+                              maximum.toString().length ?
+                              minimum :
+                              maximum;
+    	widestNumber += stepSize;
+    	return widestNumber.toString().length;
     }
     
     //--------------------------------------------------------------------------
@@ -287,14 +382,19 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  When the enter key is pressed, NumericStepper commits the
      *  text currently displayed.
      */
-    protected function textInput_enterHandler(event:Event):void
+    private function textInput_enterHandler(event:Event):void
     {
-        var prevValue:Number = value;
-        
-        commitTextInput();
-        
-        if (value != prevValue)
-            dispatchEvent(new Event("change"));
+        commitTextInput(true);
+    }
+    
+    /**
+     *  @private
+     *  When the enter key is pressed, NumericStepper commits the
+     *  text currently displayed.
+     */
+    private function textInput_focusOutHandler(event:Event):void
+    {
+        commitTextInput(true);
     }
 }
 
