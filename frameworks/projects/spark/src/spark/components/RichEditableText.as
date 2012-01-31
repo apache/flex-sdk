@@ -1875,15 +1875,42 @@ public class RichEditableText extends UIComponent
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
-        // The scroller's keyDown handler is activated before TLF's keyDown
-        // handler which recognizes many more keys and key combinations than
-        // the scroller does.  Tell the scroller there is no delta and then
-        // let TLF handle the scrolling.  When TLF scrolls, it will call our
-        // scroll handler which will update horizontalScrollPosition.  The
-        // scroller is bound to this so it will get notified and do the
-        // appropriate adjustments to the slider, etc.  
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+
+        // maxDelta is the horizontalScrollPosition delta required 
+        // to scroll to the RIGHT and minDelta scrolls to LEFT. 
+        var maxDelta:Number = contentWidth - scrollR.right;
+        var minDelta:Number = -scrollR.left;
         
-        return 0;
+        // Scroll by a "character" which is 1 em (matches widthInChars()).
+        var em:Number = getStyle("fontSize");
+            
+        // ToDo: what if blockDirection!=TB and direction!=LTR?                   
+        switch (scrollUnit)
+        {
+            case ScrollUnit.LEFT:
+                return (scrollR.left <= 0) ? 0 : Math.max(minDelta, -em);
+                
+            case ScrollUnit.RIGHT:
+                return (scrollR.right >= contentWidth) ? 0 : Math.min(maxDelta, em);
+                
+            case ScrollUnit.PAGE_LEFT:
+                return Math.max(minDelta, -scrollR.width);
+                
+            case ScrollUnit.PAGE_RIGHT:
+                return Math.min(maxDelta, scrollR.width);
+                
+            case ScrollUnit.HOME: 
+                return minDelta;
+                
+            case ScrollUnit.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }
     }
     
     //----------------------------------
@@ -1900,9 +1927,39 @@ public class RichEditableText extends UIComponent
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
-        // See comment at getHorizontalScrollPositionDelta.
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
 
-        return 0;        
+        // maxDelta is the horizontalScrollPosition delta required 
+        // to scroll to the END and minDelta scrolls to HOME. 
+        var maxDelta:Number = contentHeight - scrollR.bottom;
+        var minDelta:Number = -scrollR.top;
+                
+        // ToDo: what if blockDirection!=TB and direction!=LTR?                   
+        switch (scrollUnit)
+        {
+            case ScrollUnit.UP:
+                return _inputManager.getScrollDelta(-1);
+                
+            case ScrollUnit.DOWN:
+                return _inputManager.getScrollDelta(1);
+                
+            case ScrollUnit.PAGE_UP:
+                return Math.max(minDelta, -scrollR.height);
+                
+            case ScrollUnit.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.height);
+                
+            case ScrollUnit.HOME:
+                return minDelta;
+                
+            case ScrollUnit.END:
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
     }
     
     //--------------------------------------------------------------------------
