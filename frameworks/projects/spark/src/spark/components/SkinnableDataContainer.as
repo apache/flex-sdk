@@ -263,7 +263,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //
     //--------------------------------------------------------------------------
     
-	[Bindable]
+    [Bindable]
     [SkinPart(required="false")]
     
     /**
@@ -576,7 +576,11 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      *  item renderer's <code>label</code> property and 
      *  <code>owner</code> property. 
      *  
-     *  @param renderer The renderer being updated 
+     *  @param renderer The renderer being updated. 
+     *  
+     *  @param itemIndex The index of the data item in the data provider. 
+     *  
+     *  @param data The data object this item renderer is representing. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
