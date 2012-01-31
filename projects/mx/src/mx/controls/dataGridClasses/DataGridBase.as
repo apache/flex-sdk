@@ -801,7 +801,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                 else
                     clearRow(contentHolder, rowNum);
 
-                bSelected = selectedData[uid] != null;
+                bSelected = isItemSelectable(data) && isItemSelected(uid);
                 bHighlight = highlightUID == uid;
                 bCaret = caretUID == uid;
                 setRowInfo(contentHolder, rowNum, yy, hh, uid);
