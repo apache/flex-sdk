@@ -51,6 +51,11 @@ include "../styles/metadata/GapStyles.as";
  *  and its content area.  
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -59,6 +64,11 @@ include "../styles/metadata/GapStyles.as";
  *  and its content area. 
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -113,6 +123,11 @@ include "../styles/metadata/GapStyles.as";
  *  </pre>
  *
  *  @see flash.events.EventDispatcher
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LayoutContainer extends Container implements IConstraintLayout
 {
@@ -137,6 +152,11 @@ public class LayoutContainer extends Container implements IConstraintLayout
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LayoutContainer()
     {
@@ -160,11 +180,21 @@ public class LayoutContainer extends Container implements IConstraintLayout
 
     /**
      *  The mx.containers.utilityClasses.Layout subclass that is doing the layout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var canvasLayoutClass:Class = CanvasLayout;
 
     /**
      *  The mx.containers.utilityClasses.Layout subclass that is doing the layout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var boxLayoutClass:Class = BoxLayout;
 
@@ -212,6 +242,11 @@ public class LayoutContainer extends Container implements IConstraintLayout
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintColumns():Array
     {
@@ -252,6 +287,11 @@ public class LayoutContainer extends Container implements IConstraintLayout
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintRows():Array
     {
@@ -302,6 +342,11 @@ public class LayoutContainer extends Container implements IConstraintLayout
      *  explicitly define the location of each child component. 
      *
      *  @default "vertical"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get layout():String
     {
