@@ -37,6 +37,7 @@ import mx.managers.ILayoutManagerContainerClient;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.supportClasses.GroupBase;
+import spark.core.IGraphicElement;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -2190,13 +2191,20 @@ public class GridLayout extends LayoutBase
                 {
                     if (validatingElt is ILayoutManagerClient)
                         UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(validatingElt), true);
+                    else if (validatingElt is IGraphicElement)
+                        validateGraphicElement(IGraphicElement(validatingElt));
                     else
                         validatingElt.validateNow();
                 }
                 renderer.setLayoutBoundsSize(width, height);
             }
             if (validatingElt)
-                validatingElt.validateNow();  
+            {
+                if (validatingElt is IGraphicElement)
+                    validateGraphicElement(IGraphicElement(validatingElt));
+                else
+                    validatingElt.validateNow();
+            }
         }
         
         renderer.setLayoutBoundsPosition(x, y);
@@ -2208,6 +2216,20 @@ public class GridLayout extends LayoutBase
         }
     }
 
+    /*
+     * For graphic elements we don't want to call validateNow() since it calls
+     * validateClient on the parent of the graphic element which is the GridLayer.  
+     * Every time a graphic element is added to the GridLayer a redraw is requested of the 
+     * GridLayer which includes validating all the existing graphic elements.  The redraw of the 
+     * GridLayer will be done later.
+     */
+    private function validateGraphicElement(graphicElt:IGraphicElement):void
+    {
+        graphicElt.validateProperties();
+        graphicElt.validateSize();
+        graphicElt.validateDisplayList();        
+    }
+    
     private function layoutGridElementR(elt:IVisualElement, bounds:Rectangle):void
     {
         if (bounds)
