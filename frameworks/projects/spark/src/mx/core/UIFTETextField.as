@@ -2158,6 +2158,10 @@ public class UIFTETextField extends FTETextField
         // Set the text format.
         if (styleChangedFlag)
         {
+            // direction is used by getTextStyles() so update it first.
+            direction = getStyle("direction");
+            locale = getStyle("locale");
+            
             var textFormat:TextFormat = getTextStyles();
             if (textFormat.font)
             {
@@ -2191,9 +2195,6 @@ public class UIFTETextField extends FTETextField
                 sharpness = getStyle("fontSharpness");
                 thickness = getStyle("fontThickness");
             }
-
-            direction = getStyle("direction")
-            locale = getStyle("locale");
 
             if (!styleSheet)
             {
