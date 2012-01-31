@@ -54,8 +54,8 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/BasicTextLayoutFormatStyles.as"
-include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
+include "../styles/metadata/BasicInheritingTextStyles.as"
+include "../styles/metadata/BasicNonInheritingTextStyles.as"
 
 //--------------------------------------
 //  Other metadata
@@ -341,8 +341,8 @@ public class SimpleText extends TextGraphicElement
         // - compose width is specified
         // - explicit line breaking is not used
         // - content doesn't fit
-        if (truncation && getStyle("lineBreak") == "toFit" &&
-            !doesComposedTextFit(height, allLinesComposed, truncation))
+        if (maxDisplayedLines && getStyle("lineBreak") == "toFit" &&
+            !doesComposedTextFit(height, allLinesComposed, maxDisplayedLines))
         {
             truncateText(width, height);
         }
@@ -1016,7 +1016,7 @@ public class SimpleText extends TextGraphicElement
      */
 	private function truncateText(width:Number, height:Number):void
 	{
-	    var lineCountLimit:int = truncation;
+	    var lineCountLimit:int = maxDisplayedLines;
         var somethingFit:Boolean = false;
         var truncLineIndex:int = 0;    
 
@@ -1129,7 +1129,7 @@ public class SimpleText extends TextGraphicElement
         }
         
         // The text was truncated.
-        isTextTruncated = true;
+        _isTruncated = true;
     }
         
     /** 
