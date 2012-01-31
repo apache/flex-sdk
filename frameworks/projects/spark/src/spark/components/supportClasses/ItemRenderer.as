@@ -70,7 +70,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         // Initially state is dirty
         rendererStateIsDirty = true;
         
-        addHandlers();
+        itemRendererInteractionStateDetector = new ItemRendererInteractionStateDetector(this);
+        itemRendererInteractionStateDetector.addEventListener(Event.CHANGE, itemRendererInteractionStateDetector_changeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -78,6 +79,12 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     //  Private Properties
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Helper class to help determine when we are in the hovered or down states
+     */
+    private var itemRendererInteractionStateDetector:ItemRendererInteractionStateDetector;
     
     /**
      *  @private
@@ -118,7 +125,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  the item renderer is automatically drawn, and it 
      *  depends on the styles that are set (<code>contentBackgroundColor</code>, 
      *  <code>alternatingItemColor</code>, <code>rollOverColor</code>, 
-     *  <code>selectionColor</code>) 
+     *  <code>downColor</code>, <code>selectionColor</code>) 
      *  and the state that the item renderer is in.</p>
      *
      *  <p>If <code>false</code>, the item render draws no backgrounds.
@@ -150,16 +157,58 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     }
     
     //----------------------------------
+    //  down
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the down property 
+     */    
+    private var _down:Boolean = false;
+    
+    /**
+     *  Set to <code>true</code> when the user is pressing down on an item renderer.
+     * 
+     *  <p>This property is only applicable when <code>interactionMode</code>
+     *  is set to <code>"touch"</code>.</p>
+     *
+     *  @default false
+     */    
+    protected function get down():Boolean
+    {
+        return _down;
+    }
+    
+    /**
+     *  @private
+     */    
+    protected function set down(value:Boolean):void
+    {
+        if (value != _down)
+        {
+            _down = value;
+            setCurrentState(getCurrentRendererState(), playTransitions);
+            if (autoDrawBackground)
+            {
+                redrawRequested = true;
+                super.$invalidateDisplayList();
+            }
+        }
+    }
+    
+    //----------------------------------
     //  hovered
     //----------------------------------
     /**
      *  @private
-     *  storage for the selected property 
+     *  storage for the hovered property 
      */    
     private var _hovered:Boolean = false;
     
     /**
      *  Set to <code>true</code> when the mouse is hovered over the item renderer.
+     * 
+     *  <p>This property is only applicable when <code>interactionMode</code>
+     *  is set to <code>"mouse"</code>.</p>
      *
      *  @default false
      */    
@@ -184,7 +233,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             }
         }
     }
-
+    
     //----------------------------------
     //  itemIndex
     //----------------------------------
@@ -415,13 +464,33 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     //  Methods - ItemRenderer State Support 
     //
     //--------------------------------------------------------------------------
+
     /**
      *  Returns the name of the state to be applied to the renderer. For example, a
      *  very basic List item renderer would return the String "normal", "hovered", 
-     *  or "selected" to specify the renderer's state. 
+     *  or "selected" to specify the renderer's state if in mouse <code>interactionMode</code>.
+     *  If in touch <code>interactionMode</code>, the basic set of states are: "normal", 
+     *  "down", "selected", and "downAndSelected".
      * 
      *  <p>A subclass of ItemRenderer must override this method to return a value 
      *  if the behavior desired differs from the default behavior.</p>
+     * 
+     *  <p>In Flex 4.0, the 3 main states were "normal", "hovered", and "selected".
+     *  In Flex 4.5, "down" and "downAndSelected" have been added.</p>
+     * 
+     *  <p>The full set of states supported (in order of precedence) are: 
+     *    <ul>
+     *      <li>dragging</li>
+     *      <li>downAndSelected <i>(only applicable in touch <code>interactionMode</code>)</i></li>
+     *      <li>selectedAndShowsCaret</li>
+     *      <li>hoveredAndShowsCaret <i>(only applicable in mouse <code>interactionMode</code>)</i></li>
+     *      <li>normalAndShowsCaret</li>
+     *      <li>down <i>(only applicable in touch <code>interactionMode</code>)</i></li>
+     *      <li>selected</li>
+     *      <li>hovered <i>(only applicable in mouse <code>interactionMode</code>)</i></li>
+     *      <li>normal</li>
+     *    </ul>
+     *  </p>
      * 
      *  @return A String specifying the name of the state to apply to the renderer. 
      *  
@@ -432,20 +501,27 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
+        // this code is pretty confusing without multi-dimensional states, but it's
+        // defined in order of precedence.
+        
         if (dragging && hasState("dragging"))
             return "dragging";
         
-        // TODO (rfrishbe): do we need a down state here and would keyboard put it in the downstate?
-
+        if (selected && down && hasState("downAndSelected"))
+            return "downAndSelected";
+        
         if (selected && showsCaret && hasState("selectedAndShowsCaret"))
             return "selectedAndShowsCaret";
-            
+        
         if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
             return "hoveredAndShowsCaret";
-             
+        
         if (showsCaret && hasState("normalAndShowsCaret"))
             return "normalAndShowsCaret"; 
-            
+          
+        if (down && hasState("down"))
+            return "down";
+        
         if (selected && hasState("selected"))
             return "selected";
         
@@ -456,7 +532,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             return "normal";
         
         // If none of the above states are defined in the item renderer,
-        // we return the empty string. This means the user-defined renderer
+        // we return null. This means the user-defined renderer
         // will display but essentially be non-interactive visually. 
         return null;
     }
@@ -492,15 +568,10 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         
         if (autoDrawBackground && (allStyles || styleName == "alternatingItemColors" || 
             styleName == "contentBackgroundColor" || styleName == "rollOverColor" || 
-            styleName == "selectionColor"))
+            styleName == "downColor" || styleName == "selectionColor"))
         {
             redrawRequested = true;
             super.$invalidateDisplayList();
-        }
-        
-        if (allStyles || styleName == "interactionMode")
-        {
-            addHandlers();
         }
     }
     
@@ -532,7 +603,9 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
         
-        if (selected)
+        if (down)
+            backgroundColor = getStyle("downColor");
+        else if (selected)
             backgroundColor = getStyle("selectionColor");
         else if (hovered)
             backgroundColor = getStyle("rollOverColor");
@@ -579,66 +652,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     
     /**
      *  @private
-     *  Keeps track of whether rollover/rollout events were added
-     * 
-     *  We need to be careful about calling add/remove event listener because 
-     *  of the reference counting going on in 
-     *  super.addEventListener/removeEventListener.
      */
-    private var rolloverEventsAdded:Boolean = false;
-    
-    /**
-     *  @private
-     *  Attach the mouse events.
-     */
-    private function addHandlers():void
+    private function itemRendererInteractionStateDetector_changeHandler(event:Event):void
     {
-        if (getStyle("interactionMode") == InteractionMode.MOUSE)
-        {
-            if (!rolloverEventsAdded)
-            {
-                rolloverEventsAdded = true;
-                addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-        else
-        {
-            if (rolloverEventsAdded)
-            {
-                rolloverEventsAdded = false;
-                removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function anyButtonDown(event:MouseEvent):Boolean
-    {
-        var type:String = event.type;
-        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOver event handler.
-     */
-    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
-    {
-        if (!anyButtonDown(event))
-            hovered = true;
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOut event handler.
-     */
-    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
-    {
-        hovered = false;
+        hovered = itemRendererInteractionStateDetector.hovered;
+        down = itemRendererInteractionStateDetector.down;
     }
 
 }
