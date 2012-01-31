@@ -76,7 +76,7 @@ public class Panel extends SkinnableContainer
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  middleButton
+    //  titleField
     //---------------------------------- 
     
     [SkinPart(required="true")]
