@@ -343,12 +343,25 @@ public class FormItem extends SkinnableContainer
         else if (instance == errorTextDisplay)
             updateErrorTextDisplay();
         else if (instance == helpContentGroup)
+        {
+            helpContentChanged = true;
             createHelpContent();
+        }
         else if (instance == contentGroup)
         {
             contentGroup.addEventListener(FlexEvent.VALID, contentGroup_validHandler, true);
             contentGroup.addEventListener(FlexEvent.INVALID, contentGroup_invalidHandler, true);
         }
+    }
+    
+    override protected function partRemoved(partName:String, instance:Object) : void
+    {
+        super.partRemoved(partName, instance);
+        
+        // Remove the helpContent from the helpContentGroup so that it can be parented
+        // by a different skin's helpContentGroup
+        if (instance == helpContentGroup)
+            helpContentGroup.removeAllElements();
     }
     
     //--------------------------------------------------------------------------
