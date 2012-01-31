@@ -25,7 +25,7 @@ import mx.core.IButton;
 /**
  *  The Button component is a commonly used rectangular button.
  *  The Button component looks like it can be pressed.
- *  It can have a text label, an icon, or both on its face.
+ *  The default skin has a text label.
  *
  *  <p>Buttons typically use event listeners to perform an action 
  *  when the user selects the control. When a user clicks the mouse 
@@ -137,6 +137,9 @@ public class Button extends ButtonBase implements IButton
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override public function set styleName(value:Object):void
     {
         super.styleName = value;
@@ -154,6 +157,10 @@ public class Button extends ButtonBase implements IButton
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
     private function emphasizeStyleName():void
     {
         var style:String = styleName is String ? styleName as String : "";
