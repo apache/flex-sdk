@@ -32,17 +32,18 @@ include "../styles/metadata/BasicParagraphFormatTextStyles.as"
 include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 
 /**
- *  Documentation is not currently available.
+ *  A box, specified in the parent Group element's coordinate space, that contains text.
+ *  Defined by a TextGraphic element.
  */
 public class TextBox extends TextGraphicElement
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
@@ -70,40 +71,40 @@ public class TextBox extends TextGraphicElement
         return NaN;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function TextBox()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
+    /**
+     *  Constructor. 
+     */
+    public function TextBox()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var textBlockComposer:TextBlockComposer = new TextBlockComposer();
+    
+    /**
+     *  @private
+     */
+    private var textBlockComposer:TextBlockComposer = new TextBlockComposer();
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: GraphicElement
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: GraphicElement
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @inheritDoc
-	 */
+    /**
+     *  @inheritDoc
+     */
     override protected function measure():void
     {
         super.measure();
@@ -112,84 +113,84 @@ public class TextBox extends TextGraphicElement
         var height:Number = !isNaN(explicitHeight) ? explicitHeight : Infinity;
         compose(width, height);
 
-		var r:Rectangle = textBlockComposer.actualBounds;
+        var r:Rectangle = textBlockComposer.actualBounds;
         measuredWidth = Math.ceil(r.width);
-		measuredHeight = Math.ceil(r.height);
-	}
-		
-	/**
-	 *  @inheritDoc
-	 */
+        measuredHeight = Math.ceil(r.height);
+    }
+        
+    /**
+     *  @inheritDoc
+     */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
-	{
+    {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		compose(unscaledWidth, unscaledHeight);
-	}
+        compose(unscaledWidth, unscaledHeight);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function compose(width:Number = Infinity,
-							 height:Number = Infinity):void
-	{
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function compose(width:Number = Infinity,
+                             height:Number = Infinity):void
+    {
         var fontDescription:FontDescription = new FontDescription();
-		fontDescription.cffHinting = getStyle("cffHinting");
-		fontDescription.fontLookup = getStyle("fontLookup");
-		fontDescription.fontName = getStyle("fontFamily");
-		fontDescription.fontPosture = getStyle("fontStyle");
-		fontDescription.fontWeight = getStyle("fontWeight");
-		fontDescription.renderingMode = getStyle("renderingMode");
-		
-		var elementFormat:ElementFormat = new ElementFormat();
-		elementFormat.alignmentBaseline = getStyle("alignmentBaseline");
-		elementFormat.alpha = getStyle("textAlpha");
+        fontDescription.cffHinting = getStyle("cffHinting");
+        fontDescription.fontLookup = getStyle("fontLookup");
+        fontDescription.fontName = getStyle("fontFamily");
+        fontDescription.fontPosture = getStyle("fontStyle");
+        fontDescription.fontWeight = getStyle("fontWeight");
+        fontDescription.renderingMode = getStyle("renderingMode");
+        
+        var elementFormat:ElementFormat = new ElementFormat();
+        elementFormat.alignmentBaseline = getStyle("alignmentBaseline");
+        elementFormat.alpha = getStyle("textAlpha");
         elementFormat.baselineShift = getStyle("baselineShift");
         elementFormat.color = getStyle("color");
         elementFormat.digitCase = getStyle("digitCase");
         elementFormat.digitWidth = getStyle("digitWidth");
         elementFormat.dominantBaseline = getStyle("dominantBaseline");
-		elementFormat.fontDescription = fontDescription;
-		elementFormat.fontSize = getStyle("fontSize");
+        elementFormat.fontDescription = fontDescription;
+        elementFormat.fontSize = getStyle("fontSize");
         setKerning(elementFormat);
-		elementFormat.ligatureLevel = getStyle("ligatureLevel");
-		elementFormat.locale = getStyle("locale");
-		elementFormat.textRotation = getStyle("textRotation");
+        elementFormat.ligatureLevel = getStyle("ligatureLevel");
+        elementFormat.locale = getStyle("locale");
+        elementFormat.textRotation = getStyle("textRotation");
         setTracking(elementFormat);
-		elementFormat.typographicCase = getStyle("typographicCase");
+        elementFormat.typographicCase = getStyle("typographicCase");
         
-		textBlockComposer.removeTextLines(
+        textBlockComposer.removeTextLines(
             DisplayObjectContainer(displayObject));
-		
-		var bounds:Rectangle = textBlockComposer.requestedBounds;
-		bounds.x = 0;
-		bounds.y = 0;
-		bounds.width = width;
-		bounds.height = height;
+        
+        var bounds:Rectangle = textBlockComposer.requestedBounds;
+        bounds.x = 0;
+        bounds.y = 0;
+        bounds.width = width;
+        bounds.height = height;
 
-		textBlockComposer.lineHeight = getStyle("lineHeight");
-		textBlockComposer.paddingBottom = getStyle("paddingBottom");
-		textBlockComposer.paddingLeft = getStyle("paddingLeft");
-		textBlockComposer.paddingRight = getStyle("paddingRight");
-		textBlockComposer.paddingTop = getStyle("paddingTop");
-		textBlockComposer.textAlign = getStyle("textAlign");
-		textBlockComposer.verticalAlign = getStyle("verticalAlign");
+        textBlockComposer.lineHeight = getStyle("lineHeight");
+        textBlockComposer.paddingBottom = getStyle("paddingBottom");
+        textBlockComposer.paddingLeft = getStyle("paddingLeft");
+        textBlockComposer.paddingRight = getStyle("paddingRight");
+        textBlockComposer.paddingTop = getStyle("paddingTop");
+        textBlockComposer.textAlign = getStyle("textAlign");
+        textBlockComposer.verticalAlign = getStyle("verticalAlign");
 
-		textBlockComposer.composeText(text, elementFormat);
-				
-		textBlockComposer.addTextLines(DisplayObjectContainer(displayObject));
-	}
+        textBlockComposer.composeText(text, elementFormat);
+                
+        textBlockComposer.addTextLines(DisplayObjectContainer(displayObject));
+    }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     private function setKerning(elementFormat:ElementFormat):void
     {
         var kerning:Object = getStyle("kerning");
@@ -202,9 +203,9 @@ public class TextBox extends TextGraphicElement
         elementFormat.kerning = String(kerning);
     }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     private function setTracking(elementFormat:ElementFormat):void
     {
         var trackingLeft:Object = getStyle("trackingLeft");
