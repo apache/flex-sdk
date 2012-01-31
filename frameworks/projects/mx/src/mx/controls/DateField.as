@@ -59,6 +59,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.CalendarLayoutChangeEvent.CHANGE
  *  @helpid 3613
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.CalendarLayoutChangeEvent")]
 
@@ -68,6 +73,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.DropdownEvent.CLOSE
  *  @helpid 3615
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.DropdownEvent")]
 
@@ -80,6 +90,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -88,6 +103,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.DropdownEvent.OPEN
  *  @helpid 3614
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="open", type="mx.events.DropdownEvent")]
 
@@ -96,6 +116,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.DateChooserEvent.SCROLL
  *  @helpid 3616
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="scroll", type="mx.events.DateChooserEvent")]
 
@@ -117,12 +142,22 @@ include "../styles/metadata/TextStyles.as"
  *  components that support the <code>borderStyle</code> style.
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is <code>0xB7BABC</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  The bounding box thickness of the DateChooser control.
  *  The default value is 1.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThickness", type="Number", format="Length", inherit="no")]
 
@@ -134,6 +169,11 @@ include "../styles/metadata/TextStyles.as"
  *  that supports a <code>borderStyle</code> property set to <code>"solid"</code>.
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is <code>0</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -147,6 +187,11 @@ include "../styles/metadata/TextStyles.as"
  *  of the DateChooser class, including <code>cornerRadius</code>,
  *  <code>fillAlphas</code>, <code>fillColors</code>, <code>headerColors</code>, <code>headerStyleName</code>, 
  *  <code>highlightAlphas</code>, <code>todayStyleName</code>, and <code>weekdayStyleName</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dateChooserStyleName", type="String", inherit="no")]
 
@@ -155,6 +200,11 @@ include "../styles/metadata/TextStyles.as"
  *  opaque.
  *  
  *  @default [ 0.6, 0.4 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="nextMonthStyleFilters, prevMonthStyleFilters, dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -163,18 +213,33 @@ include "../styles/metadata/TextStyles.as"
  *  Pass the same color for both values for a flat-looking control.
  *  
  *  @default [ 0xFFFFFF, 0xCCCCCC ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="nextMonthStyleFilters, prevMonthStyleFilters, dateChooserStyleName", deprecatedSince="3.0")]
 
 /**
  *  Colors of the band at the top of the DateChooser control.
  *  The default value is <code>[ 0xE6EEEE, 0xFFFFFF ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
 /**
  *  Name of the style sheet definition to configure the text (month name and year)
  *  and appearance of the header area of the control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -184,6 +249,11 @@ include "../styles/metadata/TextStyles.as"
  *  of the bottom of the highlight. The highlight covers the top half of the skin.
  *  
  *  @default [ 0.3, 0.0 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -191,6 +261,11 @@ include "../styles/metadata/TextStyles.as"
  *  Color of the highlight area of the date when the user holds the
  *  mouse pointer over a date in the DateChooser control.
  *  @default 0xE3FFD6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -198,12 +273,22 @@ include "../styles/metadata/TextStyles.as"
  *  Color of the highlight area of the currently selected date
  *  in the DateChooser control.
  *  @default 0xCDFFC1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Name of the class to use as the default skin for the background and border. 
  *  For the DateField class, there is no default value.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="skin", type="Class", inherit="no", states=" up, over, down, disabled")]
 
@@ -211,6 +296,11 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Color of the highlight of today's date in the DateChooser control.
  *  The default value is <code>0x2B333</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="todayColor", type="uint", format="Color", inherit="yes")]
 
@@ -221,6 +311,11 @@ include "../styles/metadata/TextStyles.as"
  *  Specify a <code>color</code> style property to change the font color.
  *  If omitted, the current day text inherits
  *  the text styles of the control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="todayStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -228,6 +323,11 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the style sheet definition to configure the weekday names of
  *  the control. If omitted, the weekday names inherit the text
  *  styles of the control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="weekDayStyleName", type="String", inherit="no", deprecatedReplacement="dateChooserStyleName", deprecatedSince="3.0")]
 
@@ -389,6 +489,11 @@ include "../styles/metadata/TextStyles.as"
  *  @includeExample examples/DateFieldExample.mxml
  *
  *  @helpid 3617
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateField extends ComboBase
                        implements IDataRenderer, IDropInListItemRenderer,
@@ -435,6 +540,11 @@ public class DateField extends ComboBase
      *
      *  @return The formatted date as a Date object.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function stringToDate(valueString:String, inputFormat:String):Date
     {
@@ -511,6 +621,11 @@ public class DateField extends ComboBase
      *  @return The formatted date as a String.
      *
      *  @example <pre>var todaysDate:String = DateField.dateToString(new Date(), "MM/DD/YYYY");</pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function dateToString(value:Date, outputFormat:String):String
     {
@@ -576,6 +691,11 @@ public class DateField extends ComboBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DateField()
     {
@@ -724,6 +844,11 @@ public class DateField extends ComboBase
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -789,6 +914,11 @@ public class DateField extends ComboBase
      *  
      *  @default [ "S", "M", "T", "W", "T", "F", "S" ]
      *  @helpid 3626
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dayNames():Array
     {
@@ -845,6 +975,11 @@ public class DateField extends ComboBase
      *
      *  @default []
      *  @helpid 3627
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get disabledDays():Array
     {
@@ -918,6 +1053,11 @@ public class DateField extends ComboBase
      *
      *  @default []
      *  @helpid 3629
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get disabledRanges():Array
     {
@@ -966,6 +1106,11 @@ public class DateField extends ComboBase
      *  <p>The default value is the current month.</p>
      *
      *  @helpid 3624
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get displayedMonth():int
     {
@@ -1014,6 +1159,11 @@ public class DateField extends ComboBase
      *  <p>The default value is the current year.</p>
      *
      *  @helpid 3625
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get displayedYear():int
     {
@@ -1049,6 +1199,11 @@ public class DateField extends ComboBase
      *  contained by the DateField control.  The class used 
      *  can be set with <code>dropdownFactory</code> as long as 
      *  it extends <code>DateChooser</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropdown():DateChooser
     {
@@ -1072,6 +1227,11 @@ public class DateField extends ComboBase
      *  as the date-chooser
      *  The default value is an IFactory for DateChooser
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropdownFactory():IFactory
     {
@@ -1119,6 +1279,11 @@ public class DateField extends ComboBase
      *
      *  @default 0 (Sunday)
      *  @helpid 3623
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get firstDayOfWeek():Object
     {
@@ -1167,6 +1332,11 @@ public class DateField extends ComboBase
      *  delimiter, and punctuation characters.
      * 
      *  @default "MM/DD/YYYY"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get formatString():String
     {
@@ -1230,6 +1400,11 @@ public class DateField extends ComboBase
      *  @default null
      *  @see mx.controls.DateField#parseFunction
      *  @helpid 3618
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -1276,6 +1451,11 @@ public class DateField extends ComboBase
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -1310,6 +1490,11 @@ public class DateField extends ComboBase
      *  @default 2100
      *
      *  @helpid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxYear():int
     {
@@ -1353,6 +1538,11 @@ public class DateField extends ComboBase
      *  @default 1900
      *
      *  @helpid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minYear():int
     {
@@ -1407,6 +1597,11 @@ public class DateField extends ComboBase
      *
      *  @default [ "January", "February", "March", "April", "May", "June", 
      *  "July", "August", "September", "October", "November", "December" ]
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get monthNames():Array
     {
@@ -1464,6 +1659,11 @@ public class DateField extends ComboBase
      *  symbol after the month name. 
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get monthSymbol():String
     {
@@ -1528,6 +1728,11 @@ public class DateField extends ComboBase
      *  @see mx.controls.DateField#labelFunction
      * 
      *  @helpid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parseFunction():Function
     {
@@ -1587,6 +1792,11 @@ public class DateField extends ComboBase
      *
      *  @default null
      *  @helpid 3628
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectableRange():Object
     {
@@ -1635,6 +1845,11 @@ public class DateField extends ComboBase
      *
      *  @default null
      *  @helpid 3630
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedDate():Date
     {
@@ -1680,6 +1895,11 @@ public class DateField extends ComboBase
      *
      *  @default true
      *  @helpid 3622
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showToday():Boolean
     {
@@ -1724,6 +1944,11 @@ public class DateField extends ComboBase
      *  before the month in the date format.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get yearNavigationEnabled():Boolean
     {
@@ -1771,6 +1996,11 @@ public class DateField extends ComboBase
      *  add a symbol after the year. 
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get yearSymbol():String
     {
@@ -2076,6 +2306,11 @@ public class DateField extends ComboBase
      *  Opens the DateChooser control.
      *
      *  @helpid 3620
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function open():void
     {
@@ -2086,6 +2321,11 @@ public class DateField extends ComboBase
      *  Closes the DateChooser control.
      *
      *  @helpid 3621
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close():void
     {
