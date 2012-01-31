@@ -43,11 +43,11 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the dropDown is dismissed for any reason such when 
- *  the user:
+ *  Dispatched when the volume drop-down slider is dismissed for any reason, 
+ *  such as when the user:
  *  <ul>
- *      <li>selects an item in the dropDown</li>
- *      <li>mouses outside outside of the dropDown</li>
+ *      <li>Selects an item in the drop-down slider</li>
+ *      <li>Clicks outside of the drop-down slider</li>
  *  </ul>
  *
  *  @eventType spark.events.DropDownEvent.CLOSE
@@ -60,9 +60,9 @@ use namespace mx_internal;
 [Event(name="close", type="spark.events.DropDownEvent")]
 
 /**
- *  Dispatched when the mouses over the dropDown button
- *  to display the dropDown.  It is also dispatched if the user
- *  uses the keyboard and types Ctrl-Down to open the dropDown.
+ *  Dispatched when the user mouses over the drop-down slider 
+ *  to display it. It is also dispatched if the user
+ *  uses the keyboard and types Ctrl-Down to open the drop-down slider.
  *
  *  @eventType spark.events.DropDownEvent.OPEN
  *  
@@ -74,8 +74,7 @@ use namespace mx_internal;
 [Event(name="open", type="spark.events.DropDownEvent")]
 
 /**
- *  Dispatched when the video mutes or unmutes the volume
- *  from user-interaction.
+ *  Dispatched when the user mutes or unmutes the volume.
  *
  *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
@@ -91,8 +90,9 @@ use namespace mx_internal;
 //--------------------------------------
     
 /**
- *  The delay, in milliseconds, to wait before opening the volume slider, 
- *  while the anchor button is hovered.
+ *  The delay, in milliseconds, before opening the volume slider 
+ *  after the user moves the mouse over the volume icon in 
+ *  the VideoDisplay control.
  *  
  *  @default 200
  * 
@@ -108,7 +108,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Open State of the DropDown component
+ *  Open state of the drop-down slider.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -118,12 +118,13 @@ use namespace mx_internal;
 [SkinState("open")]
 
 /**
- *  The VolumeBar is a drop-down slider to control 
- *  the volume of the video player.  By default it pops up when the
- *  muteButton is rolled over (with a delay of 200 milliseconds).  The  
- *  muteButton functions as a mute/unmute button when clicked.
+ *  The VolumeBar class defines a drop-down slider to control 
+ *  the volume of the VideoDisplay control.  
+ *  By default, the drop-down slider opens when the user moves the mouse
+ *  over the volume icon of the VideoDisplay control. 
+ *  The <code>rollOverOpenDelay</code> style defines a delay of 200 milliseconds 
+ *  before opening the drop-down slider.  
  *
- *  @see spark.components.VideoPlayer 
  *  @see spark.components.VideoDisplay
  *  
  *  @langversion 3.0
@@ -179,9 +180,10 @@ public class VolumeBar extends VSlider
     
     
     /**
-     *  A skin part that defines the dropDown area. When the volume slider 
-     *  dropdown is open, clicking anywhere outside of the dropDown skin 
-     *  part will close the  video slider dropdown. 
+     *  A skin part that defines the drop-down area of the volume drop-down slider. 
+     *  When the volume slider drop down is open, 
+     *  clicking anywhere outside of the <code>dropDown</code> skin part
+     *  closes the drop-down slider. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -204,7 +206,7 @@ public class VolumeBar extends VSlider
     private var _dropDownController:DropDownController;    
     
     /**
-     *  Instance of the helper class that handles all of the mouse, keyboard 
+     *  Instance of the DropDownController class that handles all of the mouse, keyboard 
      *  and focus user interactions.  
      * 
      *  @langversion 3.0
@@ -217,6 +219,9 @@ public class VolumeBar extends VSlider
         return _dropDownController;
     }
     
+    /**
+     *  @private
+     */
     protected function set dropDownController(value:DropDownController):void
     {
         if (_dropDownController == value)
@@ -267,8 +272,8 @@ public class VolumeBar extends VSlider
     [Bindable("mutedChange")]
     
     /**
-     *  <code>true</code> if the volume of the video is muted; 
-     *  <code>false</code> otherwise.
+     *  Contains <code>true</code> if the volume of the video is muted, 
+     *  and <code>false</code> if not.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -465,7 +470,7 @@ public class VolumeBar extends VSlider
     //--------------------------------------------------------------------------   
 
     /**
-     *  Opens the dropDown. 
+     *  Opens the drop-down slider. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -478,10 +483,10 @@ public class VolumeBar extends VSlider
     }
     
      /**
-     *  Closes the dropDown. 
+     *  Closes the drop-down slider. 
      * 
-     *  @param commit Flag indicating if the component should commit the selected
-     *  data from the dropDown. 
+     *  @param commit Set to <code>true</code> if the component should commit the value
+     *  from the drop-down slider. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
