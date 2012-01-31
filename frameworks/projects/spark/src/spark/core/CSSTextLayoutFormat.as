@@ -30,6 +30,12 @@ import mx.styles.IStyleClient;
  *  This takes less memory than using an instance of TextLayoutFormat
  *  because this class has only one var while TextLayoutFormat
  *  has one for every format.
+ *
+ *  The only extra functionality supported here, beyond what TLF has,
+ *  is the ability for the fontLookup style to have the value "auto";
+ *  in this case, the client object's embeddedFontContext is used
+ *  to determine whether the the fontLookup format in TLF should be
+ *  "embeddedCFF" or "device".
  */
 public class CSSTextLayoutFormat implements ITextLayoutFormat
 {
@@ -386,6 +392,38 @@ public class CSSTextLayoutFormat implements ITextLayoutFormat
 	public function get paddingTop():*
 	{
 		return client.getStyle("paddingTop");
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function get paragraphEndIndent():*
+	{
+		return client.getStyle("paragraphEndIndent");
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function get paragraphSpaceAfter():*
+	{
+		return client.getStyle("paragraphSpaceAfter");
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function get paragraphSpaceBefore():*
+	{
+		return client.getStyle("paragraphSpaceBefore");
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function get paragraphStartIndent():*
+	{
+		return client.getStyle("paragraphStartIndent");
 	}
 	
 	/**
