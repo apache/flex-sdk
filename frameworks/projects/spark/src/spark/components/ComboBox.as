@@ -228,6 +228,11 @@ public class ComboBox extends DropDownListBase
     /**
      *  Static constant representing the value of the <code>selectedIndex</code> property
      *  when the user enters a value into the prompt area, and the value is committed. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const CUSTOM_SELECTED_ITEM:int = ListBase.CUSTOM_SELECTED_ITEM;
     
@@ -442,8 +447,8 @@ public class ComboBox extends DropDownListBase
      */
     override public function set typicalItem(value:Object):void
     {   
-		if (value != typicalItem)
-			return;
+        if (value != typicalItem)
+            return;
      
         super.typicalItem = value;
         
@@ -719,6 +724,9 @@ public class ComboBox extends DropDownListBase
         }
     }
     
+    /**
+     *  @private 
+     */ 
     override protected function findKey(eventCode:int):Boolean
     {
         return false;
