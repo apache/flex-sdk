@@ -102,6 +102,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         
         if (instance == textInput)
         {
+            textInput.focusEnabled = false;
             textInput.addEventListener(FlexEvent.ENTER,
                                        textInput_enterHandler);
             textInput.text = value.toString();
