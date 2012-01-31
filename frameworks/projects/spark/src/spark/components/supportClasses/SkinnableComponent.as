@@ -47,12 +47,6 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 [Style(name="skinZZ", type="Class")]
 
 /**
- *  @private
- *  TODO: Determine final name for this style.
- */
-[Style(name="skinFactory", type="Object")]
-
-/**
  *  The SkinnableComponent class.
  */
 public class SkinnableComponent extends UIComponent
@@ -130,20 +124,6 @@ public class SkinnableComponent extends UIComponent
     public function get skinObject():Skin
     {
         return _skinObject;
-    }
-    
-    /**
-     *  @private
-     *  Temporary (?) hack to get skinFactory to work as an attribute that points to an external file.
-     */
-    public function get skinFactory():IFactory
-    {
-        return getStyle("skinFactory");
-    }
-    
-    public function set skinFactory(value:IFactory):void
-    {
-        setStyle("skinFactory", value);
     }
     
     //--------------------------------------------------------------------------
