@@ -20,7 +20,7 @@ package spark.effects.easing
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Sine extends EaseInOut
+public class Sine extends EaseInOutBase
 {    
     /**
      * Constructs a Sine instance with an optional 
