@@ -40,8 +40,6 @@ include "../styles/metadata/LeadingStyle.as"
 
 [IconFile("Text.png")]
 
-[Alternative(replacement="spark.primitives.SimpleText", since="4.0")]
-
 /**
  *  The Text control displays multiline, noneditable text.
  *  Use the Label control if you need only a single line of text.
@@ -96,7 +94,7 @@ include "../styles/metadata/LeadingStyle.as"
  *           <td>0 pixels.</td>
  *        </tr>
  *        <tr>
- *           <td>Maximum size</td>
+ *           <td>ChMaximum sizear03</td>
  *           <td>10000 by 10000 pixels</td>
  *        </tr>
  *     </table>
@@ -118,11 +116,6 @@ include "../styles/metadata/LeadingStyle.as"
  *  @see mx.controls.TextInput
  *  @see mx.controls.TextArea
  *  @see mx.controls.RichTextEditor
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 public class Text extends Label
 {
@@ -169,11 +162,6 @@ public class Text extends Label
 
     /**
      *  Constructor.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     public function Text()
     {
@@ -210,25 +198,25 @@ public class Text extends Label
 	//----------------------------------
 	//  explicitWidth
 	//----------------------------------
-    
+
     /**
      *  @private
      */
     override public function set explicitWidth(value:Number):void
     {
-        // Due to player bugs relating to scaling text, we
-        // have to be careful to set wordWrap appropriately
-        // (which we do in commitProperties).
-        // Also have to re-measure when width changes, because width
-        // can affect height.
-        if (value != explicitWidth)
-        {
-            widthChanged = true;
-            invalidateProperties();
-            invalidateSize();
-        }
+    	// Due to player bugs relating to scaling text, we
+    	// have to be careful to set wordWrap appropriately
+    	// (which we do in commitProperties).
+    	// Also have to re-measure when width changes, because width
+    	// can affect height.
+    	if (value != explicitWidth)
+    	{
+    		widthChanged = true;
+   			invalidateProperties();
+    		invalidateSize();
+    	}
 
-        super.explicitWidth = value;
+    	super.explicitWidth = value;
     }
 
 	//----------------------------------
@@ -264,19 +252,19 @@ public class Text extends Label
      */
     override public function set percentWidth(value:Number):void
     {
-        // Due to player bugs relating to scaling text, we
-        // have to be careful to set wordWrap appropriately
-        // (which we do in commitProperties).
-        // Also have to re-measure when width changes, because width
-        // can affect height.
-        if (value != percentWidth)
-        {
-            widthChanged = true;
-            invalidateProperties();
-            invalidateSize();
-        }
+    	// Due to player bugs relating to scaling text, we
+    	// have to be careful to set wordWrap appropriately
+    	// (which we do in commitProperties).
+    	// Also have to re-measure when width changes, because width
+    	// can affect height.
+    	if (value != percentWidth)
+    	{
+    		widthChanged = true;
+ 			invalidateProperties();
+    		invalidateSize();
+    	}
 
-        super.percentWidth = value;
+    	super.percentWidth = value;
     }
 
     //--------------------------------------------------------------------------
@@ -373,7 +361,7 @@ public class Text extends Label
             availableWidth = explicitWidth;
         else if (!isNaN(explicitMaxWidth))
             availableWidth = explicitMaxWidth;
-        
+
         measureUsingWidth(availableWidth);
     }
     
@@ -411,7 +399,7 @@ public class Text extends Label
         // Although we also set wordWrap in commitProperties(), we do 
         // this here to handle width being set through setActualSize().
         if (Math.floor(width) < Math.floor(measuredWidth))
-            textField.wordWrap =  true;
+			textField.wordWrap = true;
     }
 
     //--------------------------------------------------------------------------
@@ -489,7 +477,7 @@ public class Text extends Label
         // from the explicit line breaks such as "\n" and "<br>".
         else
         {
-            var oldWordWrap:Boolean = textField.wordWrap;
+        	var oldWordWrap:Boolean = textField.wordWrap;
             textField.wordWrap = false;
             
             measuredWidth = Math.ceil(textField.textWidth) +
