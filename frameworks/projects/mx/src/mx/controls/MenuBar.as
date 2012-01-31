@@ -50,6 +50,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
 import mx.collections.IViewCursor;
+import mx.events.InterManagerRequest;
 
 use namespace mx_internal;
 
@@ -1656,15 +1657,28 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         // The getMenuAt function will create the Menu if it doesn't
         // already exist.
         var menu:Menu = getMenuAt(index);
-        var sm:ISystemManager = systemManager;
-        var screen:Rectangle = sm.screen;
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle;
+                                                                 
+        if (sm != sbRoot)
+        {
+            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                    false, false,
+                                    "getVisibleApplicationRect"); 
+            sbRoot.dispatchEvent(request);
+            screen = Rectangle(request.value);
+        }
+        else
+            screen = sm.getVisibleApplicationRect();
 
         UIComponentGlobals.layoutManager.validateClient(menu, true);
-
+        
         // popups go on the root of the swf which if loaded, is not
         // necessarily at 0,0 in global coordinates
         var pt:Point = new Point(0, 0);
         pt = DisplayObject(item).localToGlobal(pt);
+        
         // check to see if we'll go offscreen
         if (pt.y + item.height + 1 + menu.getExplicitOrMeasuredHeight() > screen.height + screen.y)
             pt.y -= menu.getExplicitOrMeasuredHeight();
@@ -1672,7 +1686,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
             pt.y += item.height + 1;
         if (pt.x + menu.getExplicitOrMeasuredWidth() > screen.width + screen.x)
             pt.x = screen.x + screen.width - menu.getExplicitOrMeasuredWidth();
-        pt = DisplayObject(sm.topLevelSystemManager).globalToLocal(pt);
+        pt = sbRoot.globalToLocal(pt);
 
         // If inside an ACB, slight offset looks much better.
         if (isInsideACB)
