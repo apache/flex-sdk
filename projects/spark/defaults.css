@@ -181,11 +181,6 @@ VideoPlayer
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
 
-VideoPlayer2
-{
-    skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin2");
-}
-
 VolumeBar
 {
     skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.VolumeBarSkin");
