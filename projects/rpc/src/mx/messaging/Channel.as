@@ -767,20 +767,10 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Subclasses should override this method to apply any settings that may be
      *  necessary for an individual channel.
-     *  Make sure to call <code>super.applySettings()</code> to apply common settings for the channel.
+     *  Make sure to call <code>super.applySettings()</code> to apply common settings for the channel. * *  This method is used primarily in Channel subclasses.
      *
      *  @param settings XML fragment of the services-config.xml file for this channel.
-     *  The following fragment includes the &lt;channel&gt; tag with
-     *  all of its configuration settings:
-     *  <pre>
-     *  &lt;channel id="my-amf" type="mx.messaging.channels.AMFChannel"&gt;
-     *    &lt;endpoint uri="/dev/messagebroker/amf" type="flex.messaging.endpoints.AmfEndpoint"/&gt;
-     *    &lt;properties&gt;
-     *      &lt;polling-enabled&gt;false&lt;/polling-enabled&gt;
-     *    &lt;/properties&gt;
-     *  &lt;/channel&gt;
-     *  </pre>
-     */
+       */
     public function applySettings(settings:XML):void
     {
         if (Log.isInfo())
