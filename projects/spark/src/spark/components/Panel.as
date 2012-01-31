@@ -306,7 +306,8 @@ public class Panel extends SkinnableContainer
             controlBarGroupProperties.visible = value;
 
         invalidateSkinState();
-        skin.invalidateSize();
+        if (skin)
+            skin.invalidateSize();
     }
 
     //----------------------------------
