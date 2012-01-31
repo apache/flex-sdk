@@ -211,7 +211,7 @@ public class ButtonBar extends ButtonBarBase implements IFocusManagerComponent
     
         // not really a default handler, we just want it to run after the datagroup
         if (value)
-            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER);
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER, true);
 
         super.dataProvider = value;
     }
