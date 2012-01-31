@@ -22,6 +22,11 @@ import mx.rpc.wsdl.WSDL;
 
 /**
  * This event is dispatched when a WSDL XML document has loaded successfully.   
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LoadEvent extends WSDLLoadEvent
 {
@@ -32,6 +37,11 @@ public class LoadEvent extends WSDLLoadEvent
      * @param cancelable Specifies whether the behavior associated with the event can be prevented.
      * @param wsdl Object that contains the WSDL document.
      * @param location URL of the WSDL document.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LoadEvent(type:String, bubbles:Boolean = false, 
         cancelable:Boolean = true, wsdl:WSDL = null, location:String = null)
@@ -47,6 +57,11 @@ public class LoadEvent extends WSDLLoadEvent
     /**
      * This getter is retained to provide legacy access to the loaded document
      * as an instance of flash.xml.XMLDocument.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get document():XMLDocument
     {
@@ -67,6 +82,11 @@ public class LoadEvent extends WSDLLoadEvent
      * Returns a copy of this LoadEvent.
      *
      * @return Returns a copy of this LoadEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function clone():Event
     {
@@ -77,6 +97,11 @@ public class LoadEvent extends WSDLLoadEvent
      * Returns a String representation of this LoadEvent.
      *
      * @return Returns a String representation of this LoadEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
@@ -108,6 +133,11 @@ public class LoadEvent extends WSDLLoadEvent
     *  </table>
     *
     *  @eventType load 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */    
     public static const LOAD:String = "load";
 
