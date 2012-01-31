@@ -173,7 +173,7 @@ public class FxScroller extends FxComponent
      *  The viewport is added to the FXScroller component's skin 
      *  which lays out both the viewport and scrollbars.
      * 
-     *  When the viewport property is set, the viewport's clipContent property is 
+     *  When the viewport property is set, the viewport's clipAndEnableScrolling property is 
      *  set to true to enable scrolling.
      * 
      *  Scroller does not support rotating the viewport directly.  The viewport's
@@ -196,7 +196,7 @@ public class FxScroller extends FxComponent
     {
         if (value == _viewport)
             return;
-            
+        
         uninstallViewport();
         _viewport = value;
         installViewport();
@@ -207,10 +207,9 @@ public class FxScroller extends FxComponent
     {
         if (skin && viewport)
         {
-            viewport.clipContent = true;
+            viewport.clipAndEnableScrolling = true;
             skin.addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
-            addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);            
         }
         if (verticalScrollBar)
             verticalScrollBar.viewport = viewport;
@@ -226,10 +225,31 @@ public class FxScroller extends FxComponent
             verticalScrollBar.viewport = null;        
         if (skin && viewport)
         {
-            viewport.clipContent = false;
+            viewport.clipAndEnableScrolling = false;
             skin.removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
-            removeSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);            
+        }
+    }
+    
+    /**
+     *  Boolean to let us know if we need to add system handlers or not.
+     *  We can't do this early on because systemManager may be null
+     */ 
+    private var systemListenersNeeded:Boolean = true;
+    
+    /**
+     *  @private
+     *  
+     *  Need to add system handlers in commitProperties() because at 
+     *  createChildren() time, systemManager may be null (it's null 
+     *  when it's parent (or grandparent) isn't added to the display list yet).
+     */
+    override protected function commitProperties():void
+    {
+        if (systemListenersNeeded)
+        {
+            addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
+            systemListenersNeeded = false;
         }
     }
     
@@ -660,17 +680,17 @@ public class FxScroller extends FxComponent
             return;
 
         var nSteps:uint = Math.abs(event.delta);
-        var unit:ScrollUnit;
+        var scrollUnit:uint;
 
         // Scroll event.delta "steps".  If the VSB is up, scroll vertically,
         // if -only- the HSB is up then scroll horizontally.
          
         if (verticalScrollBar && verticalScrollBar.visible)
         {
-            unit = (event.delta < 0) ? ScrollUnit.DOWN : ScrollUnit.UP;
+            scrollUnit = (event.delta < 0) ? ScrollUnit.DOWN : ScrollUnit.UP;
             for(var vStep:int = 0; vStep < nSteps; vStep++)
             {
-                var vspDelta:Number = vp.getVerticalScrollPositionDelta(unit);
+                var vspDelta:Number = vp.getVerticalScrollPositionDelta(scrollUnit);
                 if (!isNaN(vspDelta))
                     vp.verticalScrollPosition += vspDelta;
             }
@@ -678,10 +698,10 @@ public class FxScroller extends FxComponent
         }
         else if (horizontalScrollBar && horizontalScrollBar.visible)
         {
-            unit = (event.delta < 0) ? ScrollUnit.LEFT : ScrollUnit.RIGHT;
+            scrollUnit = (event.delta < 0) ? ScrollUnit.LEFT : ScrollUnit.RIGHT;
             for(var hStep:int = 0; hStep < nSteps; hStep++)
             {
-                var hspDelta:Number = vp.getHorizontalScrollPositionDelta(unit);
+                var hspDelta:Number = vp.getHorizontalScrollPositionDelta(scrollUnit);
                 if (!isNaN(hspDelta))
                     vp.horizontalScrollPosition += hspDelta;
             }
