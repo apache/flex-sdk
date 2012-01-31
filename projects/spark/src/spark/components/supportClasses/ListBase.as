@@ -73,7 +73,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The ListBase class is the base class for all components that support
  *  selection. 
  *
- *  @mxml <p>The <code>&lt;ListBase&gt;</code> tag inherits all of the tag 
+ *  @mxml <p>The <code>&lt;s:ListBase&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
