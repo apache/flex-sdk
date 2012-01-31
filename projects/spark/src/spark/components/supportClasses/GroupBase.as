@@ -730,7 +730,23 @@ public class GroupBase extends UIComponent implements IViewport
 
         graphics.clear();
         graphics.beginFill(0xFFFFFF, 0);
-        graphics.drawRect(0, 0, w, h);
+
+        if (layout && layout.useVirtualLayout)
+            graphics.drawRect(horizontalScrollPosition, verticalScrollPosition, w, h);
+        else
+        {
+            const tileSize:int = 4096;
+            const maxX:int = Math.round(Math.max(w, contentWidth));
+            const maxY:int = Math.round(Math.max(h, contentHeight));
+            for (var x:int = 0; x < maxX; x += tileSize)
+                for (var y:int = 0; y < maxY; y += tileSize)
+                {
+                    var tileWidth:int = Math.min(maxX - x, tileSize);
+                    var tileHeight:int = Math.min(maxY - y, tileSize);
+                    graphics.drawRect(x, y, tileWidth, tileHeight); 
+                }
+        }
+
         graphics.endFill();
     }
 
