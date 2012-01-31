@@ -16,6 +16,8 @@ import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 
 import mx.events.IndexChangedEvent;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 	
 /**
  *  Dispatched when the selection is going to change. Calling preventDefault()
@@ -32,7 +34,7 @@ import mx.events.IndexChangedEvent;
  *  The Selector class is the base class for all components that support
  *  selection.
  */
-public class Selector extends ItemsComponent
+public class Selector extends DataComponent
 {
     include "../core/Version.as";
 
@@ -65,10 +67,10 @@ public class Selector extends ItemsComponent
 	 */
 	public function Selector()
     {
-    	addEventListener(FlexEvent.CONTENT_CHANGING, contentChangingHandler);
-    	addEventListener(FlexEvent.CONTENT_CHANGED, contentChangedHandler);
-		addEventListener(ItemExistenceChangedEvent.ITEM_ADD, itemAddedHandler);
-		addEventListener(ItemExistenceChangedEvent.ITEM_REMOVE, itemRemovedHandler);
+    	addEventListener(FlexEvent.DATA_PROVIDER_CHANGING, dataProviderChangingHandler);
+    	addEventListener(FlexEvent.DATA_PROVIDER_CHANGED, dataProviderChangedHandler);
+    	if (dataProvider)
+    	    dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -162,12 +164,12 @@ public class Selector extends ItemsComponent
     	if (selectedIndex == NO_SELECTION)
     	   return undefined;
     	   
-        return getItemAt(selectedIndex);
+        return dataProvider.getItemAt(selectedIndex);
     }
     
     public function set selectedItem(value:*):void
     {
-        selectedIndex = getItemIndex(value);
+        selectedIndex = dataProvider.getItemIndex(value);
     }
 
     //----------------------------------
@@ -237,7 +239,7 @@ public class Selector extends ItemsComponent
             
             if (requiresSelection &&
                     selectedIndex == NO_SELECTION &&
-                    numItems > 0)
+                    dataProvider.length > 0)
             {
             	// Set the proposed selected index here to make sure
             	// commitSelectedIndex() is called below.
@@ -298,14 +300,14 @@ public class Selector extends ItemsComponent
     private function commitSelectedIndex():Boolean
     {
         // Step 1: make sure the proposed selected index is in range.
-        var maxIndex:int = numItems - 1;
+        var maxIndex:int = dataProvider.length - 1;
         var oldIndex:int = _selectedIndex;
         
         if (_proposedSelectedIndex < NO_SELECTION)
             _proposedSelectedIndex = NO_SELECTION;
         if (_proposedSelectedIndex > maxIndex)
             _proposedSelectedIndex = maxIndex;
-        if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && numItems > 0)
+        if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && dataProvider.length > 0)
             return false;
         
         // Step 2: dispatch the "selectionChanging" event. If preventDefault() is called
@@ -322,9 +324,9 @@ public class Selector extends ItemsComponent
         
         // Step 3: commit the selection change
         if (_selectedIndex != NO_SELECTION)
-        	itemSelected(getItemAt(_selectedIndex), false);
+        	itemSelected(dataProvider.getItemAt(_selectedIndex), false);
         if (_proposedSelectedIndex != NO_SELECTION)
-        	itemSelected(getItemAt(_proposedSelectedIndex), true);
+        	itemSelected(dataProvider.getItemAt(_proposedSelectedIndex), true);
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
@@ -369,16 +371,14 @@ public class Selector extends ItemsComponent
      *  @private
      *  Called when an item has been added to this component.
      */
-    protected function itemAddedHandler(event:ItemExistenceChangedEvent):void
+    protected function itemAddedHandler(item:*, index:int):void
     {
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
-               
-        var itemIndex:int = getItemIndex(event.relatedObject);
         
         // If an item is added before the selected item, bump up our
         // selected index backing variable. 
-        if (itemIndex <= selectedIndex)
+        if (index <= selectedIndex)
             adjustSelectedIndex(selectedIndex + 1);
     }
     
@@ -386,23 +386,21 @@ public class Selector extends ItemsComponent
      *  @private
      *  Called when an item has been removed from this component.
      */
-    protected function itemRemovedHandler(event:ItemExistenceChangedEvent):void
+    protected function itemRemovedHandler(item:*, index:int):void
     {
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
-            
-        var itemIndex:int = getItemIndex(event.relatedObject);
         
         // If the selected item is being removed, clear the selection (or
         // reset to the first item if requiresSelection is true)
-        if (itemIndex == selectedIndex)
+        if (index == selectedIndex)
         {
-            if (requiresSelection && numItems > 0)
+            if (requiresSelection && dataProvider.length > 0)
                 selectedIndex = 0;
             else
                 selectedIndex = -1;
         }
-        else if (itemIndex < selectedIndex)
+        else if (index < selectedIndex)
         {
             // An item below the selected index has been removed, bump
             // the selected index backing variable.
@@ -413,22 +411,63 @@ public class Selector extends ItemsComponent
     /**
      *  @private
      */
-    private function contentChangingHandler(event:FlexEvent):void
+    private function dataProviderChangingHandler(event:FlexEvent):void
     {
+        dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+        
     	doingWholesaleChanges = true;
     }
     
     /**
      *  @private
      */
-    private function contentChangedHandler(event:FlexEvent):void
+    private function dataProviderChangedHandler(event:FlexEvent):void
     {
     	doingWholesaleChanges = false;
     	
-    	if (selectedIndex >= 0 && selectedIndex < numItems)
-    	   itemSelected(getItemAt(selectedIndex), true);
+    	if (selectedIndex >= 0 && selectedIndex < dataProvider.length)
+    	   itemSelected(dataProvider.getItemAt(selectedIndex), true);
     	else
     	   selectedIndex = -1;
+    	   
+    	dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+    }
+    
+    protected function collectionChangeHandler(event:Event):void
+    {
+        if (event is CollectionEvent)
+        {
+            var ce:CollectionEvent = CollectionEvent(event);
+
+            if (ce.kind == CollectionEventKind.ADD)
+            {
+                itemAddedHandler(ce.items[0], ce.location);
+            }
+            else if (ce.kind == CollectionEventKind.REPLACE)
+            {
+                itemRemovedHandler(ce.items[0], ce.location);
+            }
+            else if (ce.kind == CollectionEventKind.REMOVE)
+            {
+                
+            }
+            else if (ce.kind == CollectionEventKind.MOVE)
+            {
+                
+            }
+            else if (ce.kind == CollectionEventKind.REFRESH)
+            {
+                
+            }
+            else if (ce.kind == CollectionEventKind.RESET)
+            {
+            }
+            else if (ce.kind == CollectionEventKind.UPDATE)
+            {
+                
+            }
+        }
+            
     }
 }
 
