@@ -91,6 +91,12 @@ public class AbstractOperation extends AbstractInvoker
     public var arguments:Object;
 
     /**
+     * This is a hook primarily for framework developers to register additional user 
+     * specified properties for your operation.
+     */
+    public var properties:Object;
+
+    /**
      *  @private
      */
     private var resourceManager:IResourceManager =
@@ -199,8 +205,8 @@ public class AbstractOperation extends AbstractInvoker
             }
             else
             {
-            	if (_service != null)
-		    _service.dispatchEvent(event);
+                if (_service != null)
+                    _service.dispatchEvent(event);
             }           
         }
     }
