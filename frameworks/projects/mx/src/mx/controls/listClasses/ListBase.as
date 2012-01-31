@@ -3935,8 +3935,6 @@ public class ListBase extends ScrollControlBase
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
 
-        validateMatrix();
-
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
@@ -3951,7 +3949,10 @@ public class ListBase extends ScrollControlBase
                                   getExplicitOrMeasuredHeight());
                 }
             }
-
+            
+            // Don't validate transform.matrix until after setting actual size
+            validateMatrix();
+            
             if (runDataEffectNextUpdate)
             {
                 runDataEffectNextUpdate = false;
@@ -3963,6 +3964,8 @@ public class ListBase extends ScrollControlBase
 
             invalidateDisplayListFlag = false;
         }
+        else
+            validateMatrix();
     }
 
     /**
