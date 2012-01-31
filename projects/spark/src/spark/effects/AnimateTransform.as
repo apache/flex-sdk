@@ -229,17 +229,6 @@ public class AnimateTransform extends Animate
     private static var xformPosition:Vector3D = new Vector3D();
     private static var postLayoutPosition:Vector3D = new Vector3D();
 
-    // Caches the transform center when start values are captured
-    // Ensures same center point used to capture and apply start and
-    // end values
-    // FIXME (chaase): More correct approach might be to animate the 
-    // transform center between start and end
-    // FIXME (chaase): If we do keep some mechanism of caching the values,
-    // need to make sure to delete the map entries when effect is stopped.
-    // Current approach clears it at applyEndValues() time, but that won't
-    // catch the stop() case.
-    private var transformCenterPerTarget:Dictionary = new Dictionary(true);
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -513,21 +502,11 @@ public class AnimateTransform extends Animate
                 if (!(target is IUIComponent) && !(target is IGraphicElement))
                     continue;
     
-                // cache transform center at captureStartValues time; this will
-                // force captureEndValues to use the transform center
-                var computedTransformCenter:Vector3D;
-                if (!setStartValues && transformCenterPerTarget[target] !== undefined)
-                {
-                    computedTransformCenter = transformCenterPerTarget[target];
-                }
-                else
-                {
-                    computedTransformCenter = computeTransformCenterForTarget(target);
-                    if (setStartValues)
-                        transformCenterPerTarget[target] = computedTransformCenter;
-                }
-    
                 valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
+
+                var computedTransformCenter:Vector3D = 
+                    computeTransformCenterForTarget(target, valueMap);
+    
                 if (valueMap.translationX === undefined ||
                     valueMap.translationY === undefined ||
                     valueMap.translationZ === undefined)
@@ -547,21 +526,21 @@ public class AnimateTransform extends Animate
                 // they might not have explcitly defined any offsets.  If that's the case, 
                 // we still need to capture default start values, so let's initialize the offsets
                 // to a default set anyway.
-            if(postLayoutTransformPropertiesSet && target.postLayoutTransformOffsets == null)
-                target.postLayoutTransformOffsets = new TransformOffsets();
+                if (postLayoutTransformPropertiesSet && target.postLayoutTransformOffsets == null)
+                    target.postLayoutTransformOffsets = new TransformOffsets();
                 
                 // if the target doesn't have any offsets, there's no need to capture
                 // offset values.
-            if(target.postLayoutTransformOffsets != null)
+                if (target.postLayoutTransformOffsets != null)
                 {
-                var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
-                valueMap.postLayoutRotationX = postLayoutTransformOffsets.rotationX;
-                valueMap.postLayoutRotationY = postLayoutTransformOffsets.rotationY;
-                valueMap.postLayoutRotationZ = postLayoutTransformOffsets.rotationZ;
-    
-                valueMap.postLayoutScaleX = postLayoutTransformOffsets.scaleX;
-                valueMap.postLayoutScaleY = postLayoutTransformOffsets.scaleY;
-                valueMap.postLayoutScaleZ = postLayoutTransformOffsets.scaleZ;
+                    var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
+                    valueMap.postLayoutRotationX = postLayoutTransformOffsets.rotationX;
+                    valueMap.postLayoutRotationY = postLayoutTransformOffsets.rotationY;
+                    valueMap.postLayoutRotationZ = postLayoutTransformOffsets.rotationZ;
+        
+                    valueMap.postLayoutScaleX = postLayoutTransformOffsets.scaleX;
+                    valueMap.postLayoutScaleY = postLayoutTransformOffsets.scaleY;
+                    valueMap.postLayoutScaleZ = postLayoutTransformOffsets.scaleZ;
     
                     if (valueMap.postLayoutTranslationX === undefined ||
                         valueMap.postLayoutTranslationY === undefined ||
@@ -570,8 +549,6 @@ public class AnimateTransform extends Animate
                         // FIXME (chaase): do we really need this?
                         propChanges[i].stripUnchangedValues = false;
     
-                        computedTransformCenter = 
-                            computeTransformCenterForTarget(target); 
                         target.transformPointToParent(computedTransformCenter, null,
                             postLayoutPosition);               
                         valueMap.postLayoutTranslationX = postLayoutPosition.x;
@@ -596,13 +573,20 @@ public class AnimateTransform extends Animate
      * - else get the transformXYZ properties in the target and override
      * these values by the effects transformXYZ properties
      */
-    private function computeTransformCenterForTarget(target:Object):Vector3D    
+    private function computeTransformCenterForTarget(target:Object, 
+                                                     valueMap:Object = null):Vector3D    
     {
         var computedTransformCenter:Vector3D;
         
         if (autoCenterTransform)
         {
-            computedTransformCenter = new Vector3D(target.width/2,target.height/2,0);
+            var w:Number = (valueMap != null && valueMap["width"] !== undefined) ?
+                valueMap["width"] :
+                target.width;
+            var h:Number = (valueMap != null && valueMap["height"] !== undefined) ?
+                valueMap["height"] :
+                target.height;
+            computedTransformCenter = new Vector3D(w/2, h/2, 0);
         }
         else
         {
@@ -683,10 +667,7 @@ public class AnimateTransform extends Animate
                     }
                 }
                 // Now transform it
-                var xformCenter:Vector3D = 
-                    (transformCenterPerTarget[target] !== undefined) ?
-                    transformCenterPerTarget[target] :
-                    computeTransformCenterForTarget(target);
+                var xformCenter:Vector3D = computeTransformCenterForTarget(target, valueMap);
                 var tmpScale:Vector3D;
                 var tmpPosition:Vector3D;
                 var tmpRotation:Vector3D;
@@ -834,10 +815,6 @@ public class AnimateTransform extends Animate
             applyValues(propChanges, targets, false);
             super.applyEndValues(propChanges, targets);
         }
-        if (targets != null)
-            for (var i:int = 0; i < targets.length; ++i)
-                if (transformCenterPerTarget[targets[i]] !== undefined)
-                    delete transformCenterPerTarget[targets[i]];
     }
 
     /**
@@ -1100,22 +1077,11 @@ public class AnimateTransform extends Animate
             return;
         transformInstance.initialized = true;
 
-        // If we're in a transition and we've captured the center already, use it.
-        // Otherwise, calculate it.
-        // FIXME (chaase): double-check that calling play() directly on an effect
-        // that was previously used in a Transition won't mistakenly think that it's
-        // now being run in a transition.
-        if (propertyChangesArray != null && 
-            transformCenterPerTarget[instance.target] !== undefined)
-        {
-            transformInstance.transformCenter = 
-                transformCenterPerTarget[instance.target];
-        }
-        else
-        {
+        // Only use transformCenter in instance if not auto-centering
+        if (!autoCenterTransform)
             transformInstance.transformCenter = 
                 computeTransformCenterForTarget(instance.target);
-        }
+        transformInstance.autoCenterTransform = autoCenterTransform;
         
         // Need to hide these properties from the superclass, as they are
         // already handled in our single instance. But restore them afterwards
