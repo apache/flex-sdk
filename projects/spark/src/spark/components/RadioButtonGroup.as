@@ -16,14 +16,16 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+
 import mx.core.ApplicationGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.IMXMLObject;
 import mx.core.IRawChildrenContainer;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.ItemClickEvent;
+import mx.utils.NameUtil;
 
 //--------------------------------------
 //  Events
@@ -45,6 +47,9 @@ import mx.events.ItemClickEvent;
 /**
  *  Dispatched when a user selects a FxRadioButton control in the group.
  *  You can also set a handler for individual FxRadioButton controls.
+ *
+ *  This event is dispatched only when the 
+ *  user interacts with the radio buttons by using the mouse.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
  *  
@@ -139,6 +144,12 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     //  Variables
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Since there is no id, generate one, if needed.
+     */
+    private var name:String;
 
     /**
      *  @private
@@ -324,6 +335,9 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     public function set selection(value:FxRadioButton):void
     {
+        if ( _selection == value)
+            return;
+        
         // Going through the selection setter should never fire a change event.
         mx_internal::setSelection(value, false);
     }
@@ -379,6 +393,18 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
             return radioButtons[index];
             
         return null;
+    }
+
+    /**
+     *  @private
+     *  String to uniquely identify this radio button group.
+     */
+    mx_internal function get name():String
+    {
+        if (name == null)               
+            name = NameUtil.createUniqueName(this);
+
+        return name;
     }
 
     /**
@@ -466,37 +492,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      */
-    protected function getEnabled():Boolean
-    {
-        return _enabled;
-    }
-
-    /**
-     *  @private
-     *  Return the value or the label value
-     *  of the selected radio button.
-     */
-    private function getValue():String
-    {
-        if (selection)
-        {
-            return selection.value &&
-                   selection.value is String &&
-                   String(selection.value).length != 0 ?
-                   String(selection.value) :
-                   selection.label;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    /**
-     *  @private
-     */
     mx_internal function setSelection(value:FxRadioButton, fireChange:Boolean = true):void
     {
+        if (_selection == value)
+            return;
+            
         if (value == null && _selection != null)
         {
             _selection.selected = false;
@@ -525,17 +525,18 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function changeSelection(index:int, fireChange:Boolean = true):void
     {
-        if (getRadioButtonAt(index))
+        var rb:FxRadioButton = getRadioButtonAt(index);
+        if (rb && rb != _selection)
         {
             // Unselect the currently selected radio
-            if (selection)
-                selection.selected = false;
+            if (_selection)
+                _selection.selected = false;
 
             // Change the focus to the new radio.
             // Set the state of the new radio to true.
             // Fire a click event for the new radio.
             // Fire a click event for the radio group.
-            _selection = getRadioButtonAt(index);
+            _selection = rb;
             _selection.selected = true;
             if (fireChange)
                 dispatchEvent(new Event(Event.CHANGE));
@@ -544,6 +545,20 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
+     *  Sandbox root of FxRadioButton "a" in breadthOrderCompare().
+     */
+    private var aSbRoot:DisplayObject;
+    
+    /**
+     *  @private
+     *  Sandbox root of FxRadioButton "b" in breadthOrderCompare().
+     */
+    private var bSbRoot:DisplayObject;
+
+    /**
+     *  @private
+     *  Returns -1 if a is before b in sort order, 0 if a and b have same
+     *  sort order and 1 if a after b in sort order.
      */
     private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number
     {
@@ -552,7 +567,21 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
         if (!aParent || !bParent)
             return 0;
-
+   
+        // Only set when a is the radio button.  The sandbox root should be the
+        // same for the parents.
+        if (a is FxRadioButton)
+            aSbRoot = FxRadioButton(a).systemManager.getSandboxRoot();
+            
+        // Only set when b is the radio button.  The sandbox root should be the
+        // same for the parents.
+        if (b is FxRadioButton)
+            bSbRoot = FxRadioButton(b).systemManager.getSandboxRoot();
+        
+        // If reached the sandbox root of either then done.
+        if (aParent == aSbRoot || bParent == bSbRoot)
+            return 0;    
+            
         var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
         var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
 
@@ -581,6 +610,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     //--------------------------------------------------------------------------
      /**
      *  @private
+     *  Called during a state transition when rb is added back to display list.
      */
     private function radioButton_addedHandler(event:Event):void
     {
