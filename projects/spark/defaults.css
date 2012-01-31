@@ -47,6 +47,7 @@ DropDownList
 
 SkinnableComponent
 {
+    errorSkin: ClassReference("spark.skins.default.ErrorSkin");
     focusSkin: ClassReference("spark.skins.default.FocusSkin");
 }
 
