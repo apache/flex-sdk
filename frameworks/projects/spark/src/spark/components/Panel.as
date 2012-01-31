@@ -223,10 +223,12 @@ public class Panel extends SkinnableContainer
         {
             controlBarGroup.mxmlContent = value;
             controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
-                                                        CONTROLBAR_PROPERTY_FLAG, true);
+                                                        CONTROLBAR_PROPERTY_FLAG, value != null);
         }
         else
             controlBarGroupProperties.controlBarContent = value;
+
+        invalidateSkinState();
     }
 
     //----------------------------------
