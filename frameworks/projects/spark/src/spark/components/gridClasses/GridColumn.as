@@ -16,6 +16,7 @@ import flash.events.EventDispatcher;
 
 import mx.core.ClassFactory;
 import mx.core.IFactory;
+import mx.core.IIMESupport;
 import mx.core.Singleton;
 import mx.core.mx_internal;
 
@@ -315,7 +316,7 @@ public class GridColumn extends EventDispatcher
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4.5
      */
     public function get editable():Boolean
     {
@@ -413,6 +414,49 @@ public class GridColumn extends EventDispatcher
     }
    
     //----------------------------------
+    //  imeMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  Specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     * <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @see flash.system.IMEConversionMode
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+    }
+    
+    //----------------------------------
     //  itemEditor
     //----------------------------------
     
@@ -434,6 +478,10 @@ public class GridColumn extends EventDispatcher
      * 
      *  @default null
      *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
      */
     public function get itemEditor():IFactory
     {
@@ -737,10 +785,10 @@ public class GridColumn extends EventDispatcher
     }
     
     //----------------------------------
-    //  renderIsEditable
+    //  rendererIsEditable
     //----------------------------------
     
-    private var _renderIsEditable:Boolean = false;
+    private var _rendererIsEditable:Boolean = false;
     
     /**
      *  Determines whether any of the item renderer's controls are editable.
@@ -750,17 +798,17 @@ public class GridColumn extends EventDispatcher
      * 
      *  @default false
      */
-    public function get renderIsEditable():Boolean
+    public function get rendererIsEditable():Boolean
     {
-        return _renderIsEditable;
+        return _rendererIsEditable;
     }
     
     /**
      *  @private
      */
-    public function set renderIsEditable(value:Boolean):void
+    public function set rendererIsEditable(value:Boolean):void
     {
-        _renderIsEditable = value;
+        _rendererIsEditable = value;
     }
     
     //----------------------------------
