@@ -18,6 +18,7 @@ import flash.events.FocusEvent;
 import flash.utils.getQualifiedClassName;
 
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -37,65 +38,6 @@ use namespace mx_internal;
 public class SliderAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_INDICATOR:uint = 0x27;
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_PUSHBUTTON:uint = 0x2B;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
-
-
-
 
     //--------------------------------------------------------------------------
     //
@@ -157,7 +99,7 @@ public class SliderAccImpl extends AccImpl
     {
         super(master);
 
-        role = 0x33; // ROLE_SYSTEM_SLIDER
+        role = AccConst.ROLE_SYSTEM_SLIDER;
 
         master.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
     }
@@ -183,12 +125,12 @@ public class SliderAccImpl extends AccImpl
             case 1:
             case 3:
             {
-                childRole = ROLE_SYSTEM_INDICATOR;
+                childRole = AccConst.ROLE_SYSTEM_INDICATOR;
                 break;
             }
             case 2:
             {
-                childRole = ROLE_SYSTEM_PUSHBUTTON;
+                childRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;
                 break;
             }
             default:
@@ -325,7 +267,7 @@ public class SliderAccImpl extends AccImpl
             case "change":
             {
                 Accessibility.sendEvent(master, 0,
-                                        EVENT_OBJECT_VALUECHANGE, true);
+                                        AccConst.EVENT_OBJECT_VALUECHANGE, true);
                 break;
             }
         }
@@ -339,7 +281,7 @@ public class SliderAccImpl extends AccImpl
      */
     private function focusInHandler(event:Event):void
     {
-        Accessibility.sendEvent(master, 0, EVENT_OBJECT_FOCUS);
+        Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
     }
 }
 }
