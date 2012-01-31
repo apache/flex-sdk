@@ -29,8 +29,9 @@ use namespace mx_internal;
 /**
  *  Dispatched by the container when it's opened and ready for user interaction.
  * 
- *  This event is dispatched when the container switches from "closed" to "normal"
- *  state and the transition to that state completes.
+ *  <p>This event is dispatched when the container switches from the 
+ *  <code>closed</code> to <code>normal</code> skin state and the transition 
+ *  to that state completes.</p>
  *
  *  @eventType spark.events.PopUpEvent.OPEN
  * 
@@ -44,17 +45,22 @@ use namespace mx_internal;
 /**
  *  Dispatched by the container when it's closed.
  * 
- *  This event is dispatched when the container switches from "normal" to "closed"
- *  state and the transition to that state completes.
+ *  <p>This event is dispatched when the container switches from the 
+ *  <code>normal</code> to <code>closed</code> skin state and 
+ *  the transition to that state completes.</p>
  * 
- *  <p>The event provides a mechanism to pass commit information from the container to
- *  a listener.  One typical usage scenario is building a multiple-choice dialog with a 
- *  cancel button.  When a valid option is selected, the developer closes the dialog
- *  with a call to the <code>SkinnablePopUpContainer.close()</code> method, passing
+ *  <p>The event provides a mechanism to pass commit information from 
+ *  the container to an event listener.  
+ *  One typical usage scenario is building a multiple-choice dialog with a 
+ *  cancel button.  
+ *  When a valid option is selected, you close the pop up 
+ *  with a call to the <code>close()</code> method, passing
  *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
- *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
- *  it will dispatch this event.  Then, in the listener, the developer can check
- *  the <code>commit</code> parameter and perform the appropriate action.  </p>
+ *  any relevant data.  
+ *  When the SkinnablePopUpContainer has completed closing,
+ *  it dispatches this event.  
+ *  Then, in the event listener, you can check the <code>commit</code> 
+ *  property and perform the appropriate action.  </p>
  *
  *  @eventType spark.events.PopUpEvent.CLOSE
  * 
@@ -70,7 +76,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Closed State
+ *  The closed state.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -80,20 +86,50 @@ use namespace mx_internal;
 [SkinState("closed")]
 
 /**
- *  The SkinnablePopUpContainer class is a SkinnableContainer that also acts as a pop-up.
+ *  The SkinnablePopUpContainer class is a SkinnableContainer that functions as a pop-up.
+ *  One typical use for a SkinnablePopUpContainer container is to open a simple window 
+ *  in an application, such as an alert window, to indicate that the user must perform some action.
  *
- *  The SkinnablePopUpContainer is initially in its "closed" state and when it's opened
- *  it will add itself as a pop-up to the PopUpManager and transition to its "normal" state.
+ *  <p>You do not create a SkinnablePopUpContainer container as part of the normal layout 
+ *  of its parent container. 
+ *  Instead, it appears as a pop-up window on top of its parent. 
+ *  Therefore, you do not create it directly in the MXML code of your application.</p>
  *
- *  <p>When using SkinnablePopUpContainer the pop-up is defined in mxml as
- *  a SkinnablePopUpContainer component.  To show the component create an instance and
- *  call the <code>open()</code> method. The developers are responsible for the sizing and positioning
- *  of the component.  To close the component call the <code>close()</code>
- *  method.  If the pop-up needs to pass data back to a handler, you can add a listener for 
- *  the <code>PopUp.CLOSE</code> event and specify the data in the <code>close()</code> method.</p>
+ *  <p>Instead, you create is as an MXML component, often in a separate MXML file. 
+ *  To show the component create an instance of the MXML component, and
+ *  then call the <code>open()</code> method. 
+ *  You can also set the size and position of the component when you open it.</p>  
  *
- *  To define open and close animations, use a custom skin with transitions between the "closed"
- *  and "normal" states.
+ *  <p>To close the component, call the <code>close()</code> method.  
+ *  If the pop-up needs to return data to a handler, you can add an event listener for 
+ *  the <code>PopUp.CLOSE</code> event, and specify the returned data in 
+ *  the <code>close()</code> method.</p>
+ *
+ *  <p>The SkinnablePopUpContainer is initially in its <code>closed</code> skin state. 
+ *  When it opens, it adds itself as a pop-up to the PopUpManager, 
+ *  and transition to the <code>normal</code> skin state.
+ *  To define open and close animations, use a custom skin with transitions between 
+ *  the <code>closed</code> and <code>normal</code> skin states.</p>
+ * 
+ *  <p>The SkinnablePopUpContainer container has the following default characteristics:</p>
+ *     <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *     <tr><td>Default skin class</td><td>spark.skins.spark.SkinnablePopUpContainerSkin</td></tr>
+ *     </table>
+ *
+ *  @mxml <p>The <code>&lt;s:SkinnablePopUpContainer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:SkinnablePopUpContainer 
+ *    <strong>Events</strong>
+ *    close="<i>No default</i>"
+ *    open="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see spark.skins.spark.SkinnablePopUpContainerSkin
  *
@@ -164,7 +200,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  True when the container is open and is currently showing as a pop-up.  
+     *  Contains <code>true</code> when the container is open and is currently showing as a pop-up.  
      *
      *  @see #open
      *  @see #close 
@@ -199,12 +235,17 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  Brings up the container as a pop-up and switches the state from "closed" to "normal",
-     *  waits till any state transitions are finished playing and dispatches <code>FlexEvent.OPEN</code> event.
+     *  Opens the container as a pop-up, and switches the skin state from 
+     *  <code>closed</code> to <code>normal</code>.
+     *  After and transitions finish playing, it dispatches  the 
+     *  <code>FlexEvent.OPEN</code> event.
      *
-     *  @param owner The owner of the container.
+     *  @param owner The owner of the container. 
+     *  The popup appears over this container.
      *
      *  @param modal Whether the container should be modal.
+     *  A modal container takes all keyboard and mouse input until it is closed.
+     *  A nonmodal container allows other components to accept input while the pop-up window is open.
      *
      *  @see #close 
      * 
@@ -245,20 +286,29 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     }
     
     /**
-     *  Changes the current state to "closed", waits till any state transitions are finished playing,
-     *  dispatches a <code>PopUpEvent.CLOSE</code> event and removes the container from the PopUpManager.
+     *  Changes the current skin state to <code>closed</code>, waits until any state transitions 
+     *  finish playing, dispatches a <code>PopUpEvent.CLOSE</code> event, 
+     *  and then removes the container from the PopUpManager.
      *
-     *  <p>The PopUpEvent provides a mechanism to pass commit information from the container to
-     *  a listener.  One typical usage scenario is building a multiple-choice dialog with a 
-     *  cancel button.  When a valid option is selected, the developer closes the dialog
-     *  with a call to the <code>SkinnablePopUpContainer.close()</code> method, passing
-     *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
-     *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
-     *  it will dispatch this event.  Then, in the listener, the developer can check
+     *  <p>Use the <code>close()</code> method of the SkinnablePopUpContainer container 
+     *  to pass data back to the main application from the pop up. 
+     *  One typical usage scenario is building a dialog with a cancel button.  
+     *  When a valid option is selected in the dialog box, you close the dialog
+     *  with a call to the <code>close()</code> method, passing
+     *  <code>true</code> to the <code>commit</code> parameter and optionally passing 
+     *  any relevant data.  
+     *  When the SkinnablePopUpContainer has completed closing,
+     *  it dispatch the <code>close</code> event.  
+     *  In the event listener for the <code>close</code> event, you can check
      *  the <code>commit</code> parameter and perform the appropriate actions.  </p>
      *
-     *  @param commit The value for the <code>commit</code> property of the <code>PopUpEvent</code> event.
-     *  @param data The value for the <code>data</code> property for the <code>PopUpEvent</code> event.
+     *  @param commit Specifies if the return data should be committed by the application. 
+     *  The value of this argument is written to the <code>commit</code> property of 
+     *  the <code>PopUpEvent</code> event object.
+     * 
+     *  @param data Specifies any data returned to the application. 
+     *  The value of this argument is written to the <code>data</code> property of 
+     *  the <code>PopUpEvent</code> event object.
      *
      *  @see #open
      * 
