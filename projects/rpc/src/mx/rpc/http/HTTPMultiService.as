@@ -81,12 +81,12 @@ public dynamic class HTTPMultiService extends AbstractService
     
     /**
      *  Creates a new HTTPService. If you expect the service to send using relative URLs you may
-     *  wish to specify the <code>rootURL</code> that will be the basis for determining the full URL (one example
+     *  wish to specify the <code>baseURL</code> that will be the basis for determining the full URL (one example
      *  would be <code>Application.application.url</code>).
      *
-     * @param rootURL The URL the HTTPService should use when computing relative URLS.
+     * @param baseURL The URL the HTTPService should use when computing relative URLS.
      */
-    public function HTTPMultiService(rootURL:String = null, destination:String = null)
+    public function HTTPMultiService(baseURL:String = null, destination:String = null)
     {
         super();
         
@@ -103,6 +103,8 @@ public dynamic class HTTPMultiService extends AbstractService
             asyncRequest.destination = destination;
         
         _log = Log.getLogger("mx.rpc.http.HTTPMultiService");
+
+        this.baseURL = baseURL;
     }
 
     //--------------------------------------------------------------------------
@@ -268,29 +270,11 @@ public dynamic class HTTPMultiService extends AbstractService
     //----------------------------------
 
     /**
-     *  @private
-     */
-    mx_internal var _rootURL:String;
-
-    /**
      *  The URL that the HTTPService object should use when computing relative URLs.
-     *  If not set explicitly <code>rootURL</code> is automatically set to the URL of
-     *  mx.messaging.config.LoaderConfig.url.
+     *  This contains a prefix which is prepended onto any URLs when it is set.
+     *  It defaults to null in which case the URLs for each operation are used.
      */
-    public function get rootURL():String
-    {
-        if (_rootURL == null)
-            _rootURL = LoaderConfig.url;
-        return _rootURL;
-    }
-
-    /**
-     *  @private
-     */
-    public function set rootURL(value:String):void
-    {
-        _rootURL = value;
-    }
+    public var baseURL:String;
     
     /**
      *  @private
@@ -380,25 +364,6 @@ public dynamic class HTTPMultiService extends AbstractService
         }
         return ol
     }
-
-    /**
-     * Ensures that this method reports an accurate error when an attempt is made to 
-     * retrieve a non-existent operation.
-     */
-    override public function getOperation(name:String):mx.rpc.AbstractOperation
-    {
-        var op:mx.rpc.AbstractOperation = super.getOperation(name);
-        if (op == null)
-            throw new ArgumentError("No operation named: " + name + " defined on HTTPMultiService");
-        return op;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // Methods
-    // 
-    //--------------------------------------------------------------------------
-    
 
     //--------------------------------------------------------------------------
     //
