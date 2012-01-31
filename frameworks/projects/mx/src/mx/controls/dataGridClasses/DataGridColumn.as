@@ -881,7 +881,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 
     /**
      *  The minimum width of the column.
-     *  @default 20.
+     *  @default 20
      */
     public function get minWidth():Number
     {
