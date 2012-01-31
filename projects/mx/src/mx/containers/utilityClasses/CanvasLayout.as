@@ -206,14 +206,14 @@ public class CanvasLayout extends Layout
 		for (i = 0; i < IConstraintLayout(target).constraintColumns.length; i++)
 		{
 			var col:ConstraintColumn = IConstraintLayout(target).constraintColumns[i];
-			if (col.mx_internal::contentSize)
-				col.mx_internal::_width = NaN;
+			if (col.contentSize)
+				col._width = NaN;
 		}
 		for (i = 0; i < IConstraintLayout(target).constraintRows.length; i++)
 		{
 			var row:ConstraintRow = IConstraintLayout(target).constraintRows[i];
-			if (row.mx_internal::contentSize)
-				row.mx_internal::_height = NaN;
+			if (row.contentSize)
+				row._height = NaN;
 		}
 		
 		measureColumnsAndRows();
@@ -242,9 +242,9 @@ public class CanvasLayout extends Layout
 		// during measure. In order to avoid a race condition when the 
 		// scrollable area is within a scrollbar's width of the view metrics,
 		// we use the non-update viewMetrics, which don't include scrollbars.
-		target.mx_internal::doingLayout = false;
+		target.doingLayout = false;
 		var vm:EdgeMetrics = target.viewMetrics;
-		target.mx_internal::doingLayout = true;
+		target.doingLayout = true;
 		
 		var viewableWidth:Number = unscaledWidth - vm.left - vm.right;
 		var viewableHeight:Number = unscaledHeight - vm.top - vm.bottom;
@@ -265,14 +265,14 @@ public class CanvasLayout extends Layout
 			for (i = 0; i < IConstraintLayout(target).constraintColumns.length; i++)
 			{
 				var col:ConstraintColumn = IConstraintLayout(target).constraintColumns[i];
-				if (col.mx_internal::contentSize)
-					col.mx_internal::_width = NaN;
+				if (col.contentSize)
+					col._width = NaN;
 			}
 			for (i = 0; i < IConstraintLayout(target).constraintRows.length; i++)
 			{
 				var row:ConstraintRow = IConstraintLayout(target).constraintRows[i];
-				if (row.mx_internal::contentSize)
-					row.mx_internal::_height = NaN;
+				if (row.contentSize)
+					row._height = NaN;
 			}
 			
 			measureColumnsAndRows();
@@ -1020,7 +1020,7 @@ public class CanvasLayout extends Layout
  		for (i = 0; i < IConstraintLayout(target).constraintColumns.length; i++)
  		{
  			var col:ConstraintColumn = IConstraintLayout(target).constraintColumns[i];
- 			if (col.mx_internal::contentSize)
+ 			if (col.contentSize)
  			{
  				if (col.id == leftBoundary)
  				{
@@ -1086,7 +1086,7 @@ public class CanvasLayout extends Layout
 		for (i = 0; i < IConstraintLayout(target).constraintRows.length; i++)
 		{
 			var row:ConstraintRow = IConstraintLayout(target).constraintRows[i];
-			if (row.mx_internal::contentSize)
+			if (row.contentSize)
 			{
 				if (row.id == topBoundary)
 				{
@@ -1220,12 +1220,12 @@ public class CanvasLayout extends Layout
 				cc = cols[i];
 				if (!isNaN(cc.percentWidth))
 					percentageSize.push(cc);
-				else if (!isNaN(cc.width) && !cc.mx_internal::contentSize)
+				else if (!isNaN(cc.width) && !cc.contentSize)
 					fixedSize.push(cc);
 				else 
 				{
 					contentSize.push(cc);
-					cc.mx_internal::contentSize = true;
+					cc.contentSize = true;
 				}
 			}
 			//fixed size columns 
@@ -1331,12 +1331,12 @@ public class CanvasLayout extends Layout
 				{
 					percentageSize.push(cr);
 				}
-				else if (!isNaN(cr.height) && !cr.mx_internal::contentSize)
+				else if (!isNaN(cr.height) && !cr.contentSize)
 					fixedSize.push(cr);
 				else
 				{
 					contentSize.push(cr);
-					cr.mx_internal::contentSize = true;
+					cr.contentSize = true;
 				}
 			}
 			//fixed size rows 
