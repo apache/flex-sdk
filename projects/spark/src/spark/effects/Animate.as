@@ -164,6 +164,7 @@ public class FxAnimate extends Effect
     //
     //--------------------------------------------------------------------------
 
+    [Inspectable(category="General", arrayType="spark.effects.MotionPath")]
     /**
      * An array of AnimationProperty objects, each of which holds the
      * name of the property being animated and the values that the property
@@ -336,17 +337,11 @@ public class FxAnimate extends Effect
         animateInstance.adjustConstraints = adjustConstraints;
         animateInstance.disableLayout = disableLayout;
         
-        // Deep-copy the animationProperties into the instance
-        if (animationProperties != null)
+        if (animationProperties)
         {
-            animateInstance.animationProperties = new Array(animationProperties.length);
-            var i:int, j:int;
-            for (i = 0; i < animationProperties.length; ++i)
-            {
-                var prop:AnimationProperty = AnimationProperty(animationProperties[i]);
-                animateInstance.animationProperties[i] = new AnimationProperty(
-                    prop.property, prop.valueFrom, prop.valueTo, prop.valueBy);
-            }
+            animateInstance.animationProperties = [];
+            for (var i:int = 0; i < animationProperties.length; ++i)
+                animateInstance.animationProperties[i] = animationProperties[i].clone();
         }
     }
 
