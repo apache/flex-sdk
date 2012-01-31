@@ -195,32 +195,93 @@ public class TextBox extends TextGraphicElement
     {
         var container:DisplayObjectContainer = 
             DisplayObjectContainer(displayObject);
+            
+		// When you databind to a text formatting style on a TextBox,
+		// as in <TextBox fontFamily="{fontCombo.selectedItem}"/>
+		// the databinding can cause the style to be set to null.
+		// Setting null values for properties in an FTE FontDescription
+		// or ElementFormat throw an error, so the following code does
+		// null-checking on the problematic properties.
+        
+        var s:String;
         
         var fontDescription:FontDescription = new FontDescription();
-        fontDescription.cffHinting = getStyle("cffHinting");
-        fontDescription.fontLookup = getStyle("fontLookup");
-        fontDescription.fontName = getStyle("fontFamily");
-        fontDescription.fontPosture = getStyle("fontStyle");
-        fontDescription.fontWeight = getStyle("fontWeight");
-        fontDescription.renderingMode = getStyle("renderingMode");
+        
+        s = getStyle("cffHinting");
+        if (s != null)
+        	fontDescription.cffHinting = s;
+        
+        s = getStyle("fontLookup");
+        if (s != null)
+        	fontDescription.fontLookup = s;
+        
+        s = getStyle("fontFamily");
+        if (s != null)
+        	fontDescription.fontName = s;
+        
+        s = getStyle("fontStyle");
+        if (s != null)
+        	fontDescription.fontPosture = s;
+        
+        s = getStyle("fontWeight");
+        if (s != null)
+        	fontDescription.fontWeight = s;
+        	
+        s = getStyle("renderingMode");
+        if (s != null)
+        	fontDescription.renderingMode = s;
         
         var elementFormat:ElementFormat = new ElementFormat();
-        elementFormat.alignmentBaseline = getStyle("alignmentBaseline");
+        
+		s = getStyle("alignmentBaseline");
+		if (s != null)
+			elementFormat.alignmentBaseline = s;
+			
         elementFormat.alpha = getStyle("textAlpha");
+        	
         elementFormat.baselineShift = getStyle("baselineShift");
-        elementFormat.breakOpportunity = getStyle("breakOpportunity");
+        	
+        s = getStyle("breakOpportunity");
+        if (s != null)
+        	elementFormat.breakOpportunity = s;
+        	
         elementFormat.color = getStyle("color");
-        elementFormat.digitCase = getStyle("digitCase");
-        elementFormat.digitWidth = getStyle("digitWidth");
-        elementFormat.dominantBaseline = getStyle("dominantBaseline");
+        
+        s = getStyle("digitCase");
+        if (s != null)
+        	elementFormat.digitCase = s;
+        	
+        s = getStyle("digitWidth");
+        if (s != null)
+        	elementFormat.digitWidth = s;
+        	
+        s = getStyle("dominantBaseline");
+        if (s != null)
+        	elementFormat.dominantBaseline = s;
+        	
         elementFormat.fontDescription = fontDescription;
+        
         elementFormat.fontSize = getStyle("fontSize");
+        
         setKerning(elementFormat);
-        elementFormat.ligatureLevel = getStyle("ligatureLevel");
-        elementFormat.locale = getStyle("locale");
-        elementFormat.textRotation = getStyle("textRotation");
+        
+        s = getStyle("ligatureLevel");
+        if (s != null)
+        	elementFormat.ligatureLevel = s;
+        
+        s = getStyle("locale");
+        if (s != null)
+        	elementFormat.locale = s;
+        
+        s = getStyle("textRotation");
+        if (s != null)
+        	elementFormat.textRotation = s;
+        
         setTracking(elementFormat);
-        elementFormat.typographicCase = getStyle("typographicCase");
+        
+        s = getStyle("typographicCase");
+        if (s != null)
+        	elementFormat.typographicCase = s;
         
         textBlockComposer.removeTextLines(container);
         
@@ -266,7 +327,9 @@ public class TextBox extends TextGraphicElement
         else if (kerning === false)
             kerning = Kerning.OFF;
         
-        elementFormat.kerning = String(kerning);
+        var s:String = String(kerning);
+        if (s != null)
+           elementFormat.kerning = s;
     }
 
     /**
