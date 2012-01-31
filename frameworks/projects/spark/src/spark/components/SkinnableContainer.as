@@ -799,10 +799,10 @@ public class SkinnableContainer extends SkinnableContainerBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
+    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
     {
         return (contentGroup) ?
-            contentGroup.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
+            contentGroup.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
     }
     
     /**
@@ -813,10 +813,10 @@ public class SkinnableContainer extends SkinnableContainerBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
         return (contentGroup) ? 
-            contentGroup.getVerticalScrollPositionDelta(scrollUnit) : 0;     
+            contentGroup.getVerticalScrollPositionDelta(navigationUnit) : 0;     
     }
 
     //--------------------------------------------------------------------------
@@ -859,7 +859,7 @@ public class SkinnableContainer extends SkinnableContainerBase
         {
             if (_placeHolderGroup != null)
             {
-                var sourceContent:Array = _placeHolderGroup.mxmlContent;
+                var sourceContent:Array = _placeHolderGroup.getMXMLContent();
                 
                 contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
                 
@@ -988,7 +988,7 @@ public class SkinnableContainer extends SkinnableContainerBase
                 
             contentGroupProperties = newContentGroupProperties;
             
-            var myMxmlContent:Array = contentGroup.mxmlContent;
+            var myMxmlContent:Array = contentGroup.getMXMLContent();
             
             if (myMxmlContent)
             {
