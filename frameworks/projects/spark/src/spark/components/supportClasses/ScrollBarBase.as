@@ -148,7 +148,7 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;ScrollBar&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:ScrollBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
