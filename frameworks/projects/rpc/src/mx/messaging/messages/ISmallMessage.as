@@ -15,7 +15,6 @@ package mx.messaging.messages
 /**
  * A marker interface that is used to indicate that an IMessage has an
  * alternative smaller form for serialization.
- * @private
  */
 public interface ISmallMessage extends IMessage
 {
