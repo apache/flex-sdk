@@ -22,6 +22,7 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -228,6 +229,11 @@ public class Grid extends Group
      */
     private var dragInProgress:Boolean = false;
     
+    /**
+     *  @private
+     *  True if the columns were generated rather than explicitly set.
+     */
+    private var generatedColumns:Boolean = false;
     
     // TODO(hmuller): the following public variables are temporary 
     
@@ -311,10 +317,13 @@ public class Grid extends Group
     //----------------------------------
     //  anchorColumnIndex
     //----------------------------------
-    
+
     [Bindable("anchorColumnIndexChanged")]
     
     private var _anchorColumnIndex:int = 0;
+
+    // True if either anchorColumnIndex or anchorRowIndex changes.
+    private var anchorChanged:Boolean = false;
     
     /**
      *  The column index of the "anchor" for the next shift selection.
@@ -351,6 +360,10 @@ public class Grid extends Group
         }
         
         _anchorColumnIndex = value;
+        
+        anchorChanged = true;
+        invalidateProperties();
+        
         dispatchChangeEvent("anchorColumnIndexChanged");
     }
     
@@ -394,6 +407,10 @@ public class Grid extends Group
             return;
         
         _anchorRowIndex = value;
+        
+        anchorChanged = true;
+        invalidateProperties();
+        
         dispatchChangeEvent("anchorRowIndexChanged");
     }
     
@@ -750,6 +767,7 @@ public class Grid extends Group
         }
                                    
         columnsChanged = true;
+        generatedColumns = false;        
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -768,7 +786,7 @@ public class Grid extends Group
     
     /**
      *  @private
-     *  This method is similar to mx.controls.DataGrid/generateCols().
+     *  This method is similar to mx.controls.DataGrid/ls().
      */
     private function generateColumns():IList
     {
@@ -838,7 +856,7 @@ public class Grid extends Group
         const newDataProvider:IList = dataProvider;
         if (newDataProvider)
             newDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);        
-                    
+       
         dataProviderChanged = true;
         invalidateProperties();
         invalidateSize();
@@ -1358,11 +1376,18 @@ public class Grid extends Group
     //  rowHeight
     //----------------------------------
     
-    [Inspectable(category="General", minValue="0.0")]        
-    
-    [Bindable("rowBackgroundChanged")]
-    
+    /**
+     *  @private
+     */
     private var _rowHeight:Number = NaN;      
+    
+    /**
+     *  @private
+     */
+    private var rowHeightChanged:Boolean;
+    
+    [Inspectable(category="General", minValue="0.0")]            
+    [Bindable("rowBackgroundChanged")]
     
     /**
      *  If <code>variableRowHeight</code> is <code>false</code>, then 
@@ -1394,13 +1419,9 @@ public class Grid extends Group
             return;
         
         _rowHeight = value;
-        if (variableRowHeight)
-            gridDimensions.defaultRowHeight = value;
-        else
-            gridDimensions.fixedRowHeight = value;
-        
-        invalidateSize();
-        invalidateDisplayList();
+        rowHeightChanged = true;        
+        invalidateProperties();
+
         dispatchChangeEvent("rowHeightChanged");            
     }
     
@@ -1936,8 +1957,7 @@ public class Grid extends Group
         if (selectionMode != value) // value wasn't a valid GridSelectionMode constant
             return;
         
-        anchorRowIndex = 0;
-        anchorColumnIndex = 0;
+        initializeAnchorPosition();
         if (!requireSelection)
             initializeCaretPosition();
         
@@ -1991,7 +2011,15 @@ public class Grid extends Group
     //  typicalItem
     //----------------------------------
     
+    /**
+     *  @private
+     */
     private var _typicalItem:Object = null;
+
+    /**
+     *  @private
+     */
+    private var typicalItemChanged:Boolean = false;
     
     [Bindable("typicalItemChanged")]
     
@@ -2026,8 +2054,11 @@ public class Grid extends Group
         _typicalItem = value;
         gridDimensions.clearTypicalCellWidthsAndHeights();
         
+        typicalItemChanged = true;       
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
+        
         dispatchChangeEvent("typicalItemChanged");
     }
     
@@ -2035,7 +2066,15 @@ public class Grid extends Group
     //  variableRowHeight
     //----------------------------------
     
+    /**
+     *  @private
+     */
     private var _variableRowHeight:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var variableRowHeightChanged:Boolean = false;
     
     [Bindable("variableRowHeightChanged")]
     
@@ -2064,12 +2103,10 @@ public class Grid extends Group
         if (value == variableRowHeight)
             return;
         
-        _variableRowHeight = value;
+        _variableRowHeight = value;        
+        variableRowHeightChanged = true;        
+        invalidateProperties();
         
-        clearGridLayoutCache(false);
-
-        invalidateSize();
-        invalidateDisplayList();
         dispatchChangeEvent("variableRowHeightChanged");            
     }
     
@@ -2123,6 +2160,11 @@ public class Grid extends Group
      */
     public function selectAll():Boolean
     {           
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.selectAll();
         if (selectionChanged)
         {               
@@ -2149,6 +2191,11 @@ public class Grid extends Group
      */
     public function clearSelection():Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+
         const selectionChanged:Boolean = gridSelection.removeAll();
         if (selectionChanged)
         {
@@ -2158,8 +2205,7 @@ public class Grid extends Group
         
         // Remove caret and reset the anchor.
         initializeCaretPosition();
-        anchorRowIndex = 0;
-        anchorColumnIndex = 0;
+        initializeAnchorPosition();
         
         return selectionChanged;
     }
@@ -2239,6 +2285,11 @@ public class Grid extends Group
      */
     public function setSelectedIndex(rowIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+                
         const selectionChanged:Boolean = gridSelection.setRow(rowIndex);
         if (selectionChanged)
         {
@@ -2277,6 +2328,11 @@ public class Grid extends Group
      */
     public function addSelectedIndex(rowIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+                
         const selectionChanged:Boolean = gridSelection.addRow(rowIndex);
         if (selectionChanged)
         {
@@ -2316,6 +2372,11 @@ public class Grid extends Group
      */
     public function removeSelectedIndex(rowIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.removeRow(rowIndex);
         if (selectionChanged)
         {
@@ -2354,6 +2415,11 @@ public class Grid extends Group
      */
     public function selectIndices(rowIndex:int, rowCount:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = 
             gridSelection.setRows(rowIndex, rowCount);
         if (selectionChanged)
@@ -2469,6 +2535,11 @@ public class Grid extends Group
      */
     public function setSelectedCell(rowIndex:int, columnIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.setCell(rowIndex, columnIndex);
         if (selectionChanged)
         {
@@ -2514,6 +2585,11 @@ public class Grid extends Group
      */
     public function addSelectedCell(rowIndex:int, columnIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.addCell(rowIndex, columnIndex);
         if (selectionChanged)
         {
@@ -2559,6 +2635,11 @@ public class Grid extends Group
      */
     public function removeSelectedCell(rowIndex:int, columnIndex:int):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.removeCell(rowIndex, columnIndex);
         if (selectionChanged)
         {
@@ -2614,6 +2695,11 @@ public class Grid extends Group
     public function selectCellRegion(rowIndex:int, columnIndex:int, 
                                      rowCount:uint, columnCount:uint):Boolean
     {
+        // Need to apply pending dataProvider and column changes so selection
+        // isn't reset after it is set here.
+        if (invalidatePropertiesFlag)
+            UIComponentGlobals.layoutManager.validateClient(this, false);
+        
         const selectionChanged:Boolean = gridSelection.setCellRegion(
             rowIndex, columnIndex, 
             rowCount, columnCount);
@@ -2873,8 +2959,36 @@ public class Grid extends Group
      */
     override protected function commitProperties():void
     {
-        if (!columns && (typicalItem || (dataProvider && (dataProvider.length > 0))))
+        // rowHeight and variableRowHeight can be set in either order
+        if (variableRowHeightChanged || rowHeightChanged)
+        {
+            if (rowHeightChanged)
+                gridDimensions.defaultRowHeight = _rowHeight;
+            gridDimensions.fixedRowHeight = variableRowHeight ? NaN : _rowHeight;
+            
+            if ((!variableRowHeight && rowHeightChanged) || variableRowHeightChanged)
+            {
+                clearGridLayoutCache(false);
+                invalidateSize();
+                invalidateDisplayList();
+            }
+            
+            rowHeightChanged = false;
+            variableRowHeightChanged = false;
+        }
+
+        // Try to generate columns if there aren't any or there are generated
+        // ones which need to be regenerated because the typicalItem or 
+        // dataProvider changed.
+        if (!columns || (generatedColumns && 
+            (typicalItemChanged || (!typicalItem && dataProviderChanged))))
+        {
+            const oldColumns:IList = columns;
             columns = generateColumns();
+            generatedColumns = (columns != null);
+            columnsChanged = columns != oldColumns;
+        }
+        typicalItemChanged = false;
         
         // If the dataProvider or columns change, reset the selection and 
         // the grid dimensions.  This has to be done here rather than in the 
@@ -2894,14 +3008,23 @@ public class Grid extends Group
                 gridSelection.requireSelection = savedRequireSelection;
             }
             
-            clearGridLayoutCache(false);
-                 
+           clearGridLayoutCache(columnsChanged);
+            
+            // To workaround the loop-prevention logic in the scroller which 
+            // may not allow the width of the viewport to be reduced if there 
+            // are automatic scrollbars.  See ScrollerLayout/measure().
+            setLayoutBoundsSize(0, 0, false); 
+            
             if (!caretChanged)
                 initializeCaretPosition();
+
+            if (!anchorChanged)
+                initializeAnchorPosition();
             
             dataProviderChanged = false;
             columnsChanged = false;
         }
+        anchorChanged = false;
         
         // Deferred selection operations
         
@@ -2936,7 +3059,7 @@ public class Grid extends Group
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         inUpdateDisplayList = false;
     }
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Internal Grid Access
@@ -2979,7 +3102,7 @@ public class Grid extends Group
         return dataProvider.getItemIndex(item);
     }
     
-   /**
+    /**
      *  @private
      */
     private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
@@ -3585,12 +3708,20 @@ public class Grid extends Group
                 gridDimensions.clearTypicalCellWidthsAndHeights();
             
             gridDimensions.clear();
+            
             // clearing the gridDimensions resets rowCount
-            if (_dataProvider)
-                gridDimensions.rowCount = _dataProvider.length;
-            if (_columns)
-                gridDimensions.columnCount = _columns.length;
+            gridDimensions.rowCount = _dataProvider ? _dataProvider.length : 0;
+            gridDimensions.columnCount = _columns ? _columns.length : 0;
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function initializeAnchorPosition():void
+    {
+        anchorRowIndex = 0; 
+        anchorColumnIndex = 0; 
     }
     
     /**
