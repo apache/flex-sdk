@@ -896,26 +896,34 @@ public class RichText extends TextBase
 	 *  @see spark.utils.TextFlowUtil#importFromXML()
      *  @see spark.components.RichEditableText#text
 	 */
-	public function get textFlow():TextFlow
-	{
-		// We might not have a valid _textFlow for two reasons:
-		// either because the 'text' was set (which is the state
-		// after construction) or because the 'content' was set.
-		if (!_textFlow)
-		{
-			if (_content != null)
-				_textFlow = createTextFlowFromContent(_content);
-			else
-				_textFlow = staticPlainTextImporter.importToFlow(_text);
+    public function get textFlow():TextFlow
+    {
+        // We might not have a valid _textFlow for two reasons:
+        // either because the 'text' was set (which is the state
+        // after construction) or because the 'content' was set.
+        if (!_textFlow)
+        {
+            if (_content != null)
+                _textFlow = createTextFlowFromContent(_content);
+            else
+                _textFlow = staticPlainTextImporter.importToFlow(_text);
             
             lastGeneration = _textFlow ? _textFlow.generation : 0;
-		}
-		
-		_textFlow.addEventListener(DamageEvent.DAMAGE,
-								   textFlow_damageHandler);
-		
-		return _textFlow;
-	}
+        }
+        
+        _textFlow.addEventListener(DamageEvent.DAMAGE,
+                                   textFlow_damageHandler);
+              
+        // Ensure our textFlow has the most appropriate
+        // swf context associated with it.                           
+        if (_textFlow.flowComposer)
+        {
+            _textFlow.flowComposer.swfContext = 
+                ISWFContext(getEmbeddedSwfContext);  
+        }                    
+        
+        return _textFlow;
+    }
 	
 	/**
 	 *  @private
@@ -1002,26 +1010,9 @@ public class RichText extends TextBase
     
         lastGeneration = _textFlow ? _textFlow.generation : 0;
         
-    	// At this point we know which TextLineFactory we're going to use
-    	// and we know the _text or _textFlow that it will compose.
-
-		var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
-		
-		// If the CSS styles for this component specify an embedded font,
-		// embeddedFontContext will be set to the module factory that
-		// should create TextLines (since they must be created in the
-		// SWF where the embedded font is.)
-		// Otherwise, this will be null.
-		embeddedFontContext = getEmbeddedFontContext();
-		
-		if (embeddedFontContext != oldEmbeddedFontContext)
-		{
-			staticTextFlowFactory.swfContext =
-				ISWFContext(embeddedFontContext)
-			staticStringFactory.swfContext = 
-				ISWFContext(embeddedFontContext)
-		}
-				
+        // At this point we know which TextLineFactory we're going to use
+        // and we know the _text or _textFlow that it will compose.
+                    
 		// If the styles have changed, hostFormat will have
 		// been set to null to indicate that it is invalid.
 		// In that case, create a new one.
@@ -1040,13 +1031,7 @@ public class RichText extends TextBase
 			// We might have a new TextFlow, or a new hostFormat,
 			// so attach the latter to the former.
 			_textFlow.hostFormat = hostFormat;
-		
-			if (_textFlow.flowComposer)
-			{
-				_textFlow.flowComposer.swfContext = 
-					staticTextFlowFactory.swfContext;
-			}
-            
+	
             // Add a damage handler.
             _textFlow.addEventListener(DamageEvent.DAMAGE, 
                                        textFlow_damageHandler);
@@ -1242,17 +1227,17 @@ public class RichText extends TextBase
 	 *  Uses TextLineFactory to compose the textFlow
 	 *  into as many TextLines as fit into the bounds.
 	 */
-	private function createTextLines():void
-	{
-		// Clear any previously generated TextLines from the textLines Array.
-		textLines.length = 0;
-		
-		// Note: Even if we have nothing to compose, we nevertheless
-		// use the StringTextLineFactory to compose an empty string.
-		// Since it appends the paragraph terminator "\u2029",
-		// it actually creates and measures one TextLine.
-		// Its width is 0 but its height is equal to the font's
-		// ascent plus descent.
+    private function createTextLines():void
+    {
+        // Clear any previously generated TextLines from the textLines Array.
+        textLines.length = 0;
+        
+        // Note: Even if we have nothing to compose, we nevertheless
+        // use the StringTextLineFactory to compose an empty string.
+        // Since it appends the paragraph terminator "\u2029",
+        // it actually creates and measures one TextLine.
+        // Its width is 0 but its height is equal to the font's
+        // ascent plus descent.
         
         factory.compositionBounds = bounds;   
         
@@ -1265,17 +1250,31 @@ public class RichText extends TextBase
             truncationOptions.truncationIndicator =
                 TextBase.truncationIndicatorResource;
         }        
-		factory.truncationOptions = truncationOptions;
-		
+        factory.truncationOptions = truncationOptions;
+        
+        // If the CSS styles for this component specify an embedded font,
+        // embeddedFontContext will be set to the module factory that
+        // should create TextLines (since they must be created in the
+        // SWF where the embedded font is). Otherwise, this will be null.
+        embeddedFontContext = getEmbeddedFontContext();
+       
         if (factory is StringTextLineFactory)
         {
-			// We know text is non-null since it got this far.
-			staticStringFactory.text = _text;
-			staticStringFactory.textFlowFormat = hostFormat;
-			staticStringFactory.createTextLines(addTextLine);
-		}
+            // We know text is non-null since it got this far.
+            staticStringFactory.text = _text;
+            staticStringFactory.textFlowFormat = hostFormat;
+            staticStringFactory.swfContext = ISWFContext(embeddedFontContext);
+            staticStringFactory.createTextLines(addTextLine);
+        }
         else if (factory is TextFlowTextLineFactory)
         {
+            if (_textFlow && _textFlow.flowComposer)
+            {
+                _textFlow.flowComposer.swfContext = 
+                    ISWFContext(embeddedFontContext);
+            }
+            
+            staticTextFlowFactory.swfContext = ISWFContext(embeddedFontContext);
             staticTextFlowFactory.createTextLines(addTextLine, _textFlow);
         }
         
