@@ -15,6 +15,11 @@ package mx.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
 [IconFile("FxCheckBox.png")]
 
 /**
