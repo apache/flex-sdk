@@ -385,23 +385,6 @@ public class List extends ListBase implements IFocusManagerComponent
             removeEventListener(DragEvent.DRAG_START, dragStartHandler, false);
             removeEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false);
         }
-        
-        if (dataGroup)
-        {
-            // FIXME (egeorgie): Figure out a more efficient way to iterate through the item renderers.
-            var count:int = dataGroup.numElements;
-            for (var i:int = 0; i < count; i++)
-            {
-                var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer;
-                if (renderer)
-                {
-                    if (_dragEnabled)
-                        renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
-                    else
-                        renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
-                }
-            }
-        }
     }
     
     //----------------------------------
@@ -1007,7 +990,7 @@ public class List extends ListBase implements IFocusManagerComponent
                         {
                             interval.splice(0, 0, selectedIndices[0]); 
                             return interval; 
-                    }
+                        }
                     }
                     else
                     {
@@ -1050,7 +1033,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // A contiguous selection action has occurred. Figure out which new 
             // indices to add to the selection interval and return that. 
-            var start:int = (!isEmpty(selectedIndices)) ? selectedIndices[0] : 0; 
+            var start:int = (!isEmpty(selectedIndices)) ? selectedIndices[selectedIndices.length - 1] : 0; 
             var end:int = index; 
             if (start < end)
             {
@@ -1221,9 +1204,11 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  Handles <code>MouseEvent.MOUSE_DOWN</code> events from any of the 
-     *  item renderers. This method remembers the mouse down point and
+     *  item renderers. This method handles the updating and commitment 
+     *  of selection as well as remembers the mouse down point and
      *  attaches <code>MouseEvent.MOUSE_MOVE</code> and
-     *  <code>MouseEvent.MOUSE_UP</code> listeners.
+     *  <code>MouseEvent.MOUSE_UP</code> listeners in order to handle
+     *  drag gestures.
      *
      *  @param event The MouseEvent object.
      *  
@@ -1234,8 +1219,38 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
+        // Handle the fixup of selection 
+        var newIndex:Number; 
+        
+        if (!allowMultipleSelection)
+        {
+            // Single selection case, set the selectedIndex 
+            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
+            
+            var currentRenderer:IItemRenderer;
+            if (caretIndex >= 0)
+            {
+                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
+                if (currentRenderer)
+                    currentRenderer.showsCaret = false;
+            }
+            
+            // Check to see if we're deselecting the currently selected item 
+            if (event.ctrlKey && selectedIndex == newIndex)
+                selectedIndex = NO_SELECTION;
+                // Otherwise, select the new item 
+            else
+                selectedIndex = newIndex;
+        }
+        else 
+        {
+            // Multiple selection is handled by the helper method below
+            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
+        }
+        
+        // Handle any drag gestures that may have been started
         var renderer:IItemRenderer = event.currentTarget as IItemRenderer;
-        if (!renderer || !renderer.selected)
+        if (!renderer || !dragEnabled)
             return;
         
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
@@ -1646,9 +1661,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!renderer)
             return;
         
-        renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
-        if (dragEnabled)
-            renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
+        renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
@@ -1663,44 +1676,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!renderer)
             return;
         
-        renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
-        if (dragEnabled)
-            renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
-    }
-    
-    /**
-     *  @private
-     *  Called when an item is clicked.
-     */
-    protected function item_clickHandler(event:MouseEvent):void
-    {
-        var newIndex:Number; 
-        
-        if (!allowMultipleSelection)
-        {
-            // Single selection case, set the selectedIndex 
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
-            
-            var currentRenderer:IItemRenderer;
-            if (caretIndex >= 0)
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (currentRenderer)
-                    currentRenderer.showsCaret = false;
-            }
-
-            // Check to see if we're deselecting the currently selected item 
-            if (event.ctrlKey && selectedIndex == newIndex)
-                selectedIndex = NO_SELECTION;
-            // Otherwise, select the new item 
-            else
-                selectedIndex = newIndex;
-        }
-        else 
-        {
-            // Multiple selection is handled by the helper method below
-            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
-        }
+        renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
