@@ -31,7 +31,6 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -406,15 +405,6 @@ public class TextArea extends ScrollControlBase
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            var t:String = text;
-            if (!t || t == "")
-                t = " ";
-    
-            return viewMetrics.top + measureText(t).ascent;
-        }
-        
         if (!validateBaselinePosition())
             return NaN;
         
