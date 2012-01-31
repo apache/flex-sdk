@@ -74,7 +74,7 @@ public class StreamingHTTPChannel extends HTTPChannel
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates an new StreamingHTTPChannel instance.
+     *  Constructor.
      *
      *  @param id The id of this Channel.
      *
@@ -430,7 +430,7 @@ class StreamingHTTPConnectionHandler extends StreamingConnectionHandler
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates an new StreamingHTTPConnectionHandler instance.
+     *  Constructor.
      *
      *  @param channel The Channel that uses this class.
      *  @param log Reference to the logger for the associated Channel.
