@@ -140,8 +140,6 @@ public class RichText extends TextGraphicElement
         staticTextFlowFactory.verticalScrollPolicy = "off";
         staticTextFlowFactory.horizontalScrollPolicy = "off";
         
-        staticEmbeddedFont = new EmbeddedFont("", false, false);
-
         staticTextFormat = new TextFormat();
      }
     
@@ -177,12 +175,6 @@ public class RichText extends TextGraphicElement
      */
     private static var staticTextFlowFactory:TextFlowTextLineFactory;
     
-    /**
-     *  @private
-     *  Used in getEmbeddedFontContext().
-     */
-    private static var staticEmbeddedFont:EmbeddedFont;
-
     /**
      *  @private
      *  Used in getEmbeddedFontContext().
@@ -549,10 +541,9 @@ public class RichText extends TextGraphicElement
 			var bold:Boolean = getStyle("fontWeight") == "bold";
 			var italic:Boolean = getStyle("fontStyle") == "italic";
 			
-			staticEmbeddedFont.initialize(font, bold, italic);
-            
             moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	staticEmbeddedFont, fontContext);
+            	font, bold,	italic,
+                this, fontContext);
 
             // If we found the font, then it is embedded. 
             // But some fonts are not listed in info()
