@@ -11,10 +11,19 @@
 
 package spark.effects
 {
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
 import spark.effects.supportClasses.AnimateTransformInstance;
     
+use namespace mx_internal;
+    
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="motionPaths", kind="property")]
+
 /**
  *  The Move3D class moves a target object in the x, y, and z dimensions.
  *  The x, y, and z property specifications of the Move3D effect specify 
@@ -39,6 +48,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  &lt;mx:Move3D
  *    <b>Properties</b>
  *    id="ID"
+ *    applyChangesPostLayout="true"
  *    zBy="no default"
  *    zFrom="no default"
  *    zTo="no default"
@@ -69,11 +79,32 @@ public class Move3D extends Move
     public function Move3D(target:Object=null)
     {
         super(target);
-        affectLayout = false;
+        applyChangesPostLayout = true;
         applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
     }
         
+    //----------------------------------
+    //  applyChangesPostLayout
+    //----------------------------------
+    [Inspectable(category="General")]
+    /** 
+     *  @copy AnimateTransform#applyChangesPostLayout
+     *  The default value for this property is true for 3D effects,
+     *  because the Flex layout system ignores 3D transformation properties.
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get applyChangesPostLayout():Boolean
+    {
+        return super.applyChangesPostLayout;
+    }
+
     //----------------------------------
     //  zBy
     //----------------------------------
@@ -138,7 +169,7 @@ public class Move3D extends Move
      */
    override protected function initInstance(instance:IEffectInstance):void
     {
-        if(affectLayout)
+        if (!applyChangesPostLayout)
         {
             addMotionPath("translationZ", zFrom, zTo, zBy);
         }
