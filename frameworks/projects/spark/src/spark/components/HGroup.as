@@ -12,8 +12,8 @@
 package spark.components
 {
 import flash.events.Event;
-import spark.components.Group;
 import spark.layout.HorizontalLayout;
+import spark.layout.supportClasses.LayoutBase;
 
 [IconFile("HGroup.png")]
 
@@ -52,7 +52,8 @@ public class HGroup extends Group
      */  
     public function HGroup():void
     {
-        super(new HorizontalLayout());
+        super();
+        super.layout = new HorizontalLayout();
     }
     
     private function get horizontalLayout():HorizontalLayout
@@ -250,7 +251,25 @@ public class HGroup extends Group
     public function get lastIndexInView():int
     {
         return horizontalLayout.lastIndexInView;
-    } 
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------    
+        
+    /**
+     *  @private
+     */
+    override public function set layout(value:LayoutBase):void
+    {
+        throw(new Error(resourceManager.getString("components", "layoutReadOnly")));
+    }
     
     //--------------------------------------------------------------------------
     //
