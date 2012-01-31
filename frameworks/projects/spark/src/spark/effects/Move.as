@@ -272,8 +272,8 @@ public class Move extends AnimateTransform
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
-            addPostLayoutMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
+            addMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
         }
         super.initInstance(instance);
     }    
