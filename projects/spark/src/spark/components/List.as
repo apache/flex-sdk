@@ -16,10 +16,12 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
+import flash.utils.Timer;
 
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
@@ -44,6 +46,7 @@ import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
+import spark.events.TouchScrollEvent;
 import spark.layouts.supportClasses.DropLocation;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
@@ -315,6 +318,8 @@ public class List extends ListBase implements IFocusManagerComponent
                 Class(ApplicationDomain.currentDomain.getDefinition(
                     "spark.components.RichEditableText"));
         }
+        
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -1178,6 +1183,20 @@ public class List extends ListBase implements IFocusManagerComponent
         return index == selectedIndex;
     }
     
+    /**
+     *  @private
+     */
+    override mx_internal function shouldItemAppearSelected(index:int):Boolean
+    {
+        if (getStyle("inputMode") == "touch")
+        {
+            if (pendingSelectionOnMouseUp && mouseDownIndex == index && mouseDownSelectTimer && !mouseDownSelectTimer.running)
+                return true;
+        }
+        
+        return isItemIndexSelected(index);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -1506,6 +1525,8 @@ public class List extends ListBase implements IFocusManagerComponent
         else
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
 
+        mouseDownCancelledFromScroll = false;
+        
         if (!allowMultipleSelection)
         {
             // Single selection case, set the selectedIndex 
@@ -1518,11 +1539,20 @@ public class List extends ListBase implements IFocusManagerComponent
             }
             
             // Check to see if we're deselecting the currently selected item 
-            if (event.ctrlKey && selectedIndex == newIndex)
+            if ((event.ctrlKey && selectedIndex == newIndex) || (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling))
             {
                 pendingSelectionOnMouseUp = true;
-                pendingSelectionCtrlKey = true;
+                pendingSelectionCtrlKey = event.ctrlKey;
                 pendingSelectionShiftKey = event.shiftKey;
+                
+                if (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling)
+                {
+                    if (selectedIndex != newIndex)
+                    {
+                        // visually select the item here
+                        selectMouseDownItemAfterDelay(150);
+                    }
+                }
             }
             else
                 setSelectedIndex(newIndex, true);
@@ -1531,11 +1561,22 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // Don't commit the selection immediately, but wait to see if the user
             // is actually dragging. If they don't drag, then commit the selection
-            if (isItemIndexSelected(newIndex))
+            if (isItemIndexSelected(newIndex) || (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling))
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionShiftKey = event.shiftKey;
                 pendingSelectionCtrlKey = event.ctrlKey;
+                
+                if (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling)
+                {
+                    if (!isItemIndexSelected(newIndex))
+                    {
+                        // visually select the item here
+                        selectMouseDownItemAfterDelay(150);
+                        
+                        // FIXME (rfrishbe): Need to also deselect the old item
+                    }
+                }
             }
             else
             {
@@ -1554,7 +1595,7 @@ public class List extends ListBase implements IFocusManagerComponent
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
         mouseDownIndex = newIndex;
 
-        var listenForDrag:Boolean = (dragEnabled && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
+        var listenForDrag:Boolean = (dragEnabled && getStyle("inputMode") == "mouse" && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
         // Handle any drag gestures that may have been started
         if (listenForDrag)
         {
@@ -1569,6 +1610,24 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
             systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+        }
+    }
+    
+    private var mouseDownSelectTimer:Timer;
+    
+    private function selectMouseDownItemAfterDelay(delay:Number):void
+    {
+        mouseDownSelectTimer = new Timer(delay, 1);
+        mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
+        mouseDownSelectTimer.start();
+    }
+    
+    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        if (mouseDownIndex != -1)
+        {
+            // select item visually now
+            itemSelected(mouseDownIndex, true);
         }
     }
 
@@ -1620,14 +1679,20 @@ public class List extends ListBase implements IFocusManagerComponent
         }
     }
     
+    private var mouseDownCancelledFromScroll:Boolean = false;
+    
     private function removeMouseHandlersForDragStart():void
     {
         // If dragging failed, but we had a pending selection, commit it here
-        if (pendingSelectionOnMouseUp && !DragManager.isDragging)
+        if (pendingSelectionOnMouseUp && !DragManager.isDragging && !mouseDownCancelledFromScroll)
         {
             if (allowMultipleSelection)
             {
                 setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
+            }
+            else if (getStyle("inputMode") == "touch" && selectedIndex == NO_SELECTION)
+            {
+                setSelectedIndex(mouseDownIndex, true);
             }
             else
             {
@@ -1894,6 +1959,32 @@ public class List extends ListBase implements IFocusManagerComponent
         
         // Destroy the dropIndicator instance
         destroyDropIndicator();
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    // FIXME (rfrishbe): this should really be on start, not starting...
+    private function touchScrollStartingHandler(event:TouchScrollEvent):void
+    {
+        if (event.scrollingObject == this.scroller)
+        {
+            // cancel actual selection
+            mouseDownCancelledFromScroll = true;
+            
+            // remove visual selection indicator
+            mouseDownSelectTimer.stop();
+            mouseDownSelectTimer = null;
+            itemSelected(mouseDownIndex, false);
+            mouseDownIndex = -1;
+            mouseDownPoint = null;
+            pendingSelectionOnMouseUp = false;
+        }
     }
     
     /**
