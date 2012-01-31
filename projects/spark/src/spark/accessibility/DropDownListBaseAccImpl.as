@@ -15,6 +15,7 @@ package spark.accessibility
     import flash.accessibility.Accessibility;
     import flash.events.Event;
     
+import mx.accessibility.AccConst;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.accessibility.AccImpl;
@@ -34,57 +35,6 @@ package spark.accessibility
     public class DropDownListBaseAccImpl extends ListBaseAccImpl
     {
         include "../core/Version.as";
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Class constants
-        //
-        //--------------------------------------------------------------------------
-        
-        /**
-         *  @private
-         */
-        private static const ROLE_SYSTEM_LISTITEM:uint = 0x22;
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_EXPANDED:uint = 0x00000200;
-        
-        /**
-         *  @private
-         */
-        private static const STATE_SYSTEM_COLLAPSED:uint = 0x00000400;
-        
-        /**
-         *  @private
-         */
-        private static const EVENT_SYSTEM_STATECHANGE:uint = 0x800a;
-        
-        /**
-         *  @private
-         */
-        private static const EVENT_SYSTEM_VALUECHANGE:uint = 0x800e;
-        
-        /**
-         *  @private
-         */
-        private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
         
         //-------------------------------------------------------------------------
         //
@@ -146,7 +96,7 @@ package spark.accessibility
         {
             super(master);
             
-            role = 0x2E; // ROLE_SYSTEM_COMBOBOX
+            role = AccConst.ROLE_SYSTEM_COMBOBOX;
         }
         
         //--------------------------------------------------------------------------
@@ -201,9 +151,9 @@ package spark.accessibility
             if (childID == 0)
             {
                 if (DropDownListBase(master).isDropDownOpen)
-                    accState |= STATE_SYSTEM_EXPANDED;
+                    accState |= AccConst.STATE_SYSTEM_EXPANDED;
                 else
-                    accState |= STATE_SYSTEM_COLLAPSED;
+                    accState |= AccConst.STATE_SYSTEM_COLLAPSED;
             }
             
             return accState;
@@ -227,20 +177,20 @@ package spark.accessibility
             {
                 case "open":
                 {
-                    Accessibility.sendEvent(master, 0, EVENT_SYSTEM_STATECHANGE);
+                    Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
                     
                     var index:uint = DropDownListBase(master).selectedIndex;
                     if (index >= 0)
                     {
                         Accessibility.sendEvent(master, index + 1,
-                            EVENT_OBJECT_FOCUS);
+                            AccConst.EVENT_OBJECT_FOCUS);
                     }
                     break;
                 }
                 case "close":
                 {
-                    Accessibility.sendEvent(master, 0, EVENT_SYSTEM_STATECHANGE);
-                    Accessibility.sendEvent(master, 0, EVENT_OBJECT_FOCUS);
+                    Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
+                    Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
                     break;
                 }
                 case "change":
@@ -248,7 +198,7 @@ package spark.accessibility
                     if (!(DropDownListBase(master).isDropDownOpen))
                     {
                         Accessibility.sendEvent(master, 0, 
-                            EVENT_SYSTEM_VALUECHANGE, true);
+                            AccConst.EVENT_OBJECT_VALUECHANGE, true);
                         break;
                     }
                 }
