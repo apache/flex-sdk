@@ -56,6 +56,11 @@ public class SchemaManager extends QualifiedResourceManager
      * different Schemas that use different version of the XML Schema
      * specification? If so, then the schemaConstants could be obtained
      * from each Schema.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get schemaConstants():SchemaConstants
     {
@@ -106,6 +111,11 @@ public class SchemaManager extends QualifiedResourceManager
     /**
      * Adds a Schema to the current scope. If a Schema already exists in
      * the scope then the scope is promoted to an Array of Schemas.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addSchema(schema:Schema, toCurrentScope:Boolean = true):void
     {
@@ -131,6 +141,11 @@ public class SchemaManager extends QualifiedResourceManager
 
     /**
      * Returns the Schema that was last used to retrieve a definition.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentSchema():Schema
     {
@@ -161,6 +176,11 @@ public class SchemaManager extends QualifiedResourceManager
      * @param componentTypes A list of structural element types that may have
      * the name provided, such as &lt;element&gt;, &lt;complexType&gt;, &lt;simpleType&gt;,
      * &lt;attribute&gt; or &lt;attributeGroup&gt;. The first one found is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getNamedDefinition(name:QName, ...componentTypes:Array):XML
     {
@@ -186,6 +206,11 @@ public class SchemaManager extends QualifiedResourceManager
     /**
      * Locate a schema for the given namespace and push it to a
      * new scope level.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pushNamespaceInScope(nsParam:*):Boolean
     {
@@ -209,6 +234,11 @@ public class SchemaManager extends QualifiedResourceManager
      * current schema for that scope.
      * 
      * @param schema The Schema to push to a new scope
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pushSchemaInScope(schema:Schema):void
     {
@@ -319,6 +349,11 @@ public class SchemaManager extends QualifiedResourceManager
      * the current schema, regardless of declarations for unprefixed namespaces.
      * qualifyToTargetNamespace should be true when resolving names coming from
      * the following schema attributes: name, ref.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function getQNameForPrefixedName(prefixedName:String, parent:XML=null,
                                     qualifyToTargetNamespace:Boolean=false):QName
@@ -406,6 +441,11 @@ public class SchemaManager extends QualifiedResourceManager
     /**
      * Converts ActionScript to XML based on default rules
      * established for each of the built-in XML Schema types.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function marshall(value:*, type:QName = null, restriction:XML = null):String
     {
@@ -416,6 +456,11 @@ public class SchemaManager extends QualifiedResourceManager
      * Informs the SchemaManager that the current definition is no
      * longer being processed so we release the associated Schema from the
      * current scope of qualified definitions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function releaseScope():*
     {
@@ -424,6 +469,11 @@ public class SchemaManager extends QualifiedResourceManager
 
     /**
      * Reverts to initialScope.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reset():void
     {
@@ -435,6 +485,11 @@ public class SchemaManager extends QualifiedResourceManager
     /**
      * Converts XML to ActionScript based on default rules
      * established for each of the built-in XML Schema types.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unmarshall(value:*, type:QName = null, restriction:XML = null):*
     {
@@ -454,6 +509,11 @@ public class SchemaManager extends QualifiedResourceManager
      * A Stack of Schemas which records the current scope and the last Schema
      * that was accessed to locate a definition. Multiple Schemas may be
      * placed in Scope at any level by adding them to the Stack as an Array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var schemaStack:Array;
     private var initialScope:*;
