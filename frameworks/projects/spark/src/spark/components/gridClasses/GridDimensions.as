@@ -599,7 +599,7 @@ public class GridDimensions
         var node:GridRowNode = rowList.find(row);
         
         if (node)
-            return node.getCellHeight(row);
+            return node.getCellHeight(col);
         
         return NaN;
     }
