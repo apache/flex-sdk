@@ -133,8 +133,8 @@ public interface IViewport extends IVisualElement
      *  Returns the amount to add to the viewport's current 
      *  <code>horizontalScrollPosition</code> to scroll by the requested scrolling unit.
      *
-     *  @param scrollUnit The amount to scroll. 
-     *  The value of unit must be one of the following spark.core.ScrollUnit
+     *  @param navigationUnit The amount to scroll. 
+     *  The value of unit must be one of the following spark.core.NavigationUnit
      *  constants: <code>LEFT</code>, <code>RIGHT</code>, <code>PAGE_LEFT</code>, 
      *  <code>PAGE_RIGHT</code>, <code>HOME</code>, or <code>END</code>.
      *  To scroll by a single column, use <code>LEFT</code> or <code>RIGHT</code>.
@@ -142,21 +142,21 @@ public interface IViewport extends IVisualElement
      *
      *  @return The number of pixels to add to <code>horizontalScrollPosition</code>.
      * 
-     *  @see ScrollUnit
+     *  @see NavigationUnit
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function getHorizontalScrollPositionDelta(scrollUnit:uint):Number;
+    function getHorizontalScrollPositionDelta(navigationUnit:uint):Number;
     
     /**
      *  Returns the amount to add to the viewport's current 
      *  <code>verticalScrollPosition</code> to scroll by the requested scrolling unit.
      *
-     *  @param scrollUnit The amount to scroll. 
-     *  The value of unit must be one of the following spark.core.ScrollUnit
+     *  @param navigationUnit The amount to scroll. 
+     *  The value of unit must be one of the following spark.core.NavigationUnit
      *  constants: <code>UP</code>, <code>DOWN</code>, <code>PAGE_UP</code>, 
      *  <code>PAGE_DOWN</code>, <code>HOME</code>, or <code>END</code>.
      *  To scroll by a single row use <code>UP</code> or <code>DOWN</code>.
@@ -164,14 +164,14 @@ public interface IViewport extends IVisualElement
      *
      *  @return The number of pixels to add to <code>verticalScrollPosition</code>.
      * 
-     *  @see ScrollUnit
+     *  @see NavigationUnit
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function getVerticalScrollPositionDelta(scrollUnit:uint):Number;
+    function getVerticalScrollPositionDelta(navigationUnit:uint):Number;
      
     /**
      *  If <code>true</code>, specifies to clip the children to the boundaries of the viewport. 
