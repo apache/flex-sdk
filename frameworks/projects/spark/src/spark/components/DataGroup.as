@@ -501,7 +501,7 @@ public class DataGroup extends GroupBase
                         item = IDataRenderer(renderer).data;
                     else
                         item = renderer;
-                    mx_internal::itemRemoved(item, index);
+                    itemRemoved(item, index);
                 }
                 indexToRenderer = [];
             }
@@ -518,7 +518,7 @@ public class DataGroup extends GroupBase
                         item = IDataRenderer(renderer).data;
                     else
                         item = renderer;
-                    mx_internal::itemRemoved(item, index);
+                    itemRemoved(item, index);
                 }
                 indexToRenderer = [];
                 
@@ -555,7 +555,7 @@ public class DataGroup extends GroupBase
             if (!vLayout)
             {
                 for (index = 0; index < _dataProvider.length; index++)
-                    mx_internal::itemAdded(_dataProvider.getItemAt(index), index);
+                    itemAdded(_dataProvider.getItemAt(index), index);
             }
             else
             {
@@ -671,7 +671,7 @@ public class DataGroup extends GroupBase
                 
             initializeDataProvider();
             
-            mx_internal::maskChanged = true;
+            maskChanged = true;
         }
         
         // Need to initializeDataProvider before calling super.commitProperties
@@ -801,7 +801,7 @@ public class DataGroup extends GroupBase
         if (topLayerItems != null)
         {
             keepLayeringEnabled = true;
-            GroupBase.mx_internal::sortOnLayer(topLayerItems);
+            GroupBase.sortOnLayer(topLayerItems);
             len = topLayerItems.length;
             for (i=0;i<len;i++)
             {
@@ -815,7 +815,7 @@ public class DataGroup extends GroupBase
             keepLayeringEnabled = true;
             insertIndex=0;
 
-            GroupBase.mx_internal::sortOnLayer(bottomLayerItems);
+            GroupBase.sortOnLayer(bottomLayerItems);
             len = bottomLayerItems.length;
 
             for (i=0;i<len;i++)
@@ -1385,7 +1385,7 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = 0; i < length; i++)
         {
-            mx_internal::itemAdded(items[i], location + i);
+            itemAdded(items[i], location + i);
         }
     }
     
@@ -1397,7 +1397,7 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
         {
-            mx_internal::itemRemoved(items[i], location + i);
+            itemRemoved(items[i], location + i);
         }
     }
     
@@ -1406,14 +1406,14 @@ public class DataGroup extends GroupBase
      */
     protected function adjustAfterMove(item:Object, location:int, oldLocation:int):void
     {
-        mx_internal::itemRemoved(item, oldLocation);
+        itemRemoved(item, oldLocation);
         
         // if item is removed before the newly added item
         // then change index to account for this
         if (location > oldLocation)
-            mx_internal::itemAdded(item, location-1);
+            itemAdded(item, location-1);
         else
-            mx_internal::itemAdded(item, location);
+            itemAdded(item, location);
     }
     
     /**
@@ -1424,12 +1424,12 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
         {
-            mx_internal::itemRemoved(items[i].oldValue, location + i);               
+            itemRemoved(items[i].oldValue, location + i);               
         }
         
         for (i = length-1; i >= 0; i--)
         {
-            mx_internal::itemAdded(items[i].newValue, location);
+            itemAdded(items[i].newValue, location);
         }
     }
     
