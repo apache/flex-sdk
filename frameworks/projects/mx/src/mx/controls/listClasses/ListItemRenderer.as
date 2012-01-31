@@ -15,7 +15,6 @@ package mx.controls.listClasses
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import mx.core.FlexVersion
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -154,14 +153,6 @@ public class ListItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            if (!label)
-                return 0;
-                
-            return label.baselinePosition;
-        }
-        
         if (!validateBaselinePosition())
             return NaN;
         
