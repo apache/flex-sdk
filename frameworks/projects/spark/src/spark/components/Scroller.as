@@ -140,8 +140,6 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *   
- *  @default undefined
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
