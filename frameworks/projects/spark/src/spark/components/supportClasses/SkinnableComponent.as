@@ -12,12 +12,12 @@
 package flex.core
 {
 
+import flash.events.Event;
 import flash.system.ApplicationDomain;
 import flash.utils.*;
 
 import mx.core.IFactory;
 import mx.core.UIComponent;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
@@ -60,7 +60,7 @@ public class SkinnableComponent extends UIComponent
     public function SkinnableComponent()
     {
         // Initially state is dirty
-        invalidateFlags |= STATE_DIRTY;
+        skinStateIsDirty = true;
     }
     
     //--------------------------------------------------------------------------
@@ -86,11 +86,40 @@ public class SkinnableComponent extends UIComponent
         // TODO: Send notification
     }
     
+    // we need all these getters/setters around skinObject so it
+    // can be a public read-only Bindable variable and a protected
+    // read/write variable.
+    private var __skinObject:Skin;
+    
+    [Bindable("skinObjectChanged")]
+    
     /**
-     *  The instantiated skin object. This property should not be set directly.
+     *  The instantiated skin object. This property should not be set 
+     *  directly but should be set using loadSkin().
      */
-    [Bindable]
-    protected var skinObject:Skin;
+    protected function get _skinObject():Skin
+    {
+        return __skinObject;
+    }
+    
+    protected function set _skinObject(value:Skin):void
+    {
+    	if (value === __skinObject)
+    	   return;
+        
+        __skinObject = value;
+        dispatchEvent(new Event("skinObjectChanged"));
+    }
+    
+    [Bindable("skinObjectChanged")]
+    
+    /**
+     *  The instantiated skin object.
+     */
+    public function get skinObject():Skin
+    {
+        return _skinObject;
+    }
     
     /**
      *  @private
@@ -134,6 +163,12 @@ public class SkinnableComponent extends UIComponent
             skinChanged = false;
             unloadSkin();
             loadSkin();
+        }
+        
+        if (skinStateIsDirty)
+        {
+            commitSkinState( getUpdatedSkinState() );
+            skinStateIsDirty = false;
         }
     }
     
@@ -201,26 +236,11 @@ public class SkinnableComponent extends UIComponent
      */
     protected function invalidateSkinState():void
     {
-        if ((invalidateFlags & STATE_DIRTY) != 0)
+        if (skinStateIsDirty)
             return; // State is already invalidated
 
-        invalidateFlags |= STATE_DIRTY;
-        if (parent && UIComponentGlobals.layoutManager)
-            UIComponentGlobals.layoutManager.invalidateProperties(this);
-    }
-
-    // TODO EGeorgie: we're not supposed to override UIComponent:validateProperties,
-    // but we'll do so here for now, until we figure out how we refactor UIComponent for flex4 
-    /** 
-     *  @private
-     */
-    override public function validateProperties():void
-    {
-        super.validateProperties();
-
-        if ((invalidateFlags & STATE_DIRTY) != 0)
-            commitSkinState( getUpdatedSkinState() );
-        invalidateFlags &= ~STATE_DIRTY;
+        skinStateIsDirty = true;
+        invalidateProperties();
     }
 
     /**
@@ -234,31 +254,26 @@ public class SkinnableComponent extends UIComponent
         skinObject.currentState = newState;
     }
 
-    private const STATE_DIRTY:int= 0x00000001;
-    
-    /**
-     *  @private
-     *  invalidation flags.
-     */
-    protected var invalidateFlags:int;  
-
     //--------------------------------------------------------------------------
     //
     //  Methods - Skin/Behavior lifecycle
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  Load the skin for the component. This method should not be called
-     *  directly. Typically, subclasses will not need to override this method.
-     */
+	/**
+	 *  Load the skin for the component. This method should not be called
+	 *  directly. Typically, subclasses will not need to override this method.
+	 * 
+	 *  It instantiates the skin for the component, adds the skin as a child, 
+	 *  resolves all part associations, and calls attachBehaviors().
+	 */
     protected function loadSkin():void
     {
         // Factory
         var skinClassFactory:IFactory = getStyle("skinFactory") as IFactory;        
         
         if (skinClassFactory)
-            skinObject = skinClassFactory.newInstance() as Skin;
+            _skinObject = skinClassFactory.newInstance() as Skin;
         
         // Class
         if (!skinObject)
@@ -266,7 +281,7 @@ public class SkinnableComponent extends UIComponent
             var skinClass:Class = getStyle("skinZZ") as Class;
             
             if (skinClass)
-                skinObject = new skinClass();
+                _skinObject = new skinClass();
         }
         
         if (skinObject)
@@ -336,26 +351,34 @@ public class SkinnableComponent extends UIComponent
         }
     }
     
-    /**
-     *  Attach behaviors to the component. This method should be overridden
-     *  by subclasses. 
-     */
+	/**
+	 *  Attach behaviors to the component. This method should be overridden
+	 *  by subclasses.  The code to attach behaviors to an individual part
+	 *  should be put into partAdded().  The code to attach behaviors to 
+	 *  the skin object as a whole, should be done here.
+	 *  
+	 *  It is called by the loadSkin() method.
+	 */
     protected function attachBehaviors():void
     {
         skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
-        // Declarative behaviors get attached here
+        // Declarative behaviors to the skin get attached here.  
+        // Use partAdded for individual part behaviors
     }
     
-    /**
-     *  Remove behavior from the component. This method should be overridden
-     *  by subclasses. 
-     */
+	/**
+	 *  Remove behavior from the component. This method should be overridden
+	 *  by subclasses. 
+	 *
+	 *  It is called by the unloadSkin() method.
+	 */
     protected function removeBehaviors():void
     {
         skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
-        // Declarative behaviors get removed here
+        // Declarative behaviors to the skin get removed here.
+        // Use partRemoved for individual part behaviors
     }
     
     /**
@@ -373,18 +396,31 @@ public class SkinnableComponent extends UIComponent
             for (var i:int = 0; i < parts.length; i++)
             {
                 var skinPart:SkinPartInfo = parts[i];
+                var skinPartID:String = skinPart.id;
                 
-                if (!(this[skinPart.id] is IFactory))
-                    partRemoved(skinPart.id, this[skinPart.id]);
-                this[skinPart.id] = null;
+                if (!(this[skinPartID] is IFactory))
+                {
+                    partRemoved(skinPartID, this[skinPartID]);
+                }
+                else
+                {
+                    var len:int = numDynamicParts(skinPartID);
+                    for (var j:int = 0; j < len; j++)
+                        removePartInstance(skinPartID, getDynamicPartAt(skinPartID, j));
+                }
+                
+                this[skinPartID] = null;
             }
         }
     }
     
-    /**
-     *  Unload the skin for this component. This method should not be called
-     *  directly. Typically, subclasses will not need to override this method.
-     */
+	/**
+	 *  Unload the skin for this component. This method should not be called
+	 *  directly. Typically, subclasses will not need to override this method.
+	 *
+	 *  This method is called whenever a skin is changed at runtime. It removes the skin,
+	 *  clears all part associations, and calls removeBehaviors().
+	 */
     protected function unloadSkin():void
     {       
         if (skinObject)
@@ -392,7 +428,7 @@ public class SkinnableComponent extends UIComponent
             removeBehaviors();
             clearSkinParts();
             removeChild(skinObject);
-            skinObject = null;
+            _skinObject = null;
         }
     }
 
@@ -621,6 +657,7 @@ public class SkinnableComponent extends UIComponent
                 if (event.property == skinPart.id)
                 {
                     this[skinPart.id] = event.newValue;
+                    
                     if (!(this[skinPart.id] is IFactory))
                         partAdded(skinPart.id, this[skinPart.id]);
                     break;
@@ -637,8 +674,16 @@ public class SkinnableComponent extends UIComponent
     
     /**
      *  @private
+     *  True if the skin has changed and hasn't gone through validation yet.
      */
     private var skinChanged:Boolean = false;
+    
+        
+    /**
+     *  @private
+     *  Whether the skin state is invalid or not.
+     */
+    protected var skinStateIsDirty:Boolean = false;  
 }
 
 }
