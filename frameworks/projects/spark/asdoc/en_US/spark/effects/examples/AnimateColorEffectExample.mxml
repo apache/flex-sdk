@@ -22,11 +22,11 @@
         <s:HGroup top="5">
             <!-- Our target to affect-->
             <s:VGroup id="targetBox" width="50%"  horizontalAlign="center">
-                <s:SimpleText id="targetLabel" text="Nokia 9930" fontSize="14"/>
+                <s:Label id="targetLabel" text="Nokia 9930" fontSize="14"/>
                 <s:BitmapImage id="targetImg" source="@Embed(source='assets/Nokia_6630.png')"/>
             </s:VGroup>
             <s:VGroup id="detailsBox" width="50%" left="0">
-                <s:SimpleText id="detailText" width="99%" color="blue"
+                <s:Label id="detailText" width="99%" color="blue"
 		        	text="The:AnimateColor effect changes the color of a target using the following parameters: colorFrom, colorTo. Click 'Animate Color' to watch the effect."/>
             </s:VGroup>
         </s:HGroup>
