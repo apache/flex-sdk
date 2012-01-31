@@ -139,6 +139,20 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
+ *  Color of the background of an item renderer when it is pressed down
+ * 
+ *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *   
+ *  @default 0xA8C6EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
@@ -149,13 +163,15 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- * @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *   
+ *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
- */ 
+ */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
@@ -270,6 +286,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *    digitWidth="default"
  *    direction="LTR"
  *    dominantBaseline="auto"
+ *    downColor=""
  *    firstBaselineOffset="auto"
  *    focusColor=""
  *    focusedTextSelectionColor=""
