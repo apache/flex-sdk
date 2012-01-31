@@ -20,6 +20,7 @@ import mx.core.mx_internal;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
+import flash.events.Event;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
@@ -38,7 +39,62 @@ public class ItemRenderer extends MXMLComponent
 		
 		addHandlers();
 	}
-	
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Style-driven properties
+    //
+    //--------------------------------------------------------------------------
+    
+    [Bindable("contentColorChanged")]
+    public function get contentColor():uint
+    {
+        var alternatingColors:Array = getStyle("alternatingItemColors");
+        
+        if (alternatingColors)
+        {
+            var idx:int;
+            
+            if (parent is DataGroup)
+                idx = DataGroup(parent).dataProvider.getItemIndex(data);
+            else if (parent is Group)
+                idx = Group(parent).getItemIndex(this);
+            else
+                idx = parent.getChildIndex(this);
+             
+            return alternatingColors[idx % alternatingColors.length];
+        }
+        
+        return getStyle("contentColor");
+    }
+    
+    public function set contentColor(value:uint):void
+    {
+        setStyle("contentColor", value);
+    }
+    
+    [Bindable("rollOverColorChanged")]
+    public function get rollOverColor():uint
+    {
+        return getStyle("rollOverColor");
+    }
+    
+    public function set rollOverColor(value:uint):void
+    {
+        setStyle("rollOverColor", value);
+    }
+    
+    [Bindable("selectionColorChanged")]
+    public function get selectionColor():uint
+    {
+        return getStyle("selectionColor");
+    }
+    
+    public function set selectionColor(value:uint):void
+    {
+        setStyle("selectionColor", value);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -74,7 +130,7 @@ public class ItemRenderer extends MXMLComponent
             currentState = getCurrentSkinState();
         }
     }
-	
+    
     //----------------------------------
     //  labelField
     //----------------------------------
@@ -115,6 +171,39 @@ public class ItemRenderer extends MXMLComponent
     //
     //--------------------------------------------------------------------------
     
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = styleName == null || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        if (allStyles || styleName == "alternatingItemColors")
+        {
+            conditionalEventDispatch("contentColorChanged");
+        }
+        
+        if (allStyles || styleName == "contentColor")
+        {
+            conditionalEventDispatch("contentColorChanged");
+        }
+        
+        if (allStyles || styleName == "rollOverColor")
+        {
+            conditionalEventDispatch("rollOverColorChanged");
+        }
+        
+        if (allStyles || styleName == "selectionColor")
+        {
+            conditionalEventDispatch("selectionColorChanged");
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      *  Attach the mouse events.
@@ -140,6 +229,15 @@ public class ItemRenderer extends MXMLComponent
 			return "hovered";
 			
 		return "normal";
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function conditionalEventDispatch(eventName:String):void
+	{
+	    if (hasEventListener(eventName))
+	       dispatchEvent(new Event(eventName));
 	}
 	
 	/**
