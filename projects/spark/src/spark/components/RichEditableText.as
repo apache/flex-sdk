@@ -69,7 +69,6 @@ import flashx.undo.IUndoManager;
 import mx.core.EmbeddedFont;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
-import mx.core.IFontContextComponent;
 import mx.core.IIMESupport;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
@@ -221,7 +220,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends UIComponent
-	implements IViewport, IFontContextComponent, IIMESupport
+	implements IViewport, IIMESupport
 {
     include "../core/Version.as";
         
@@ -565,37 +564,6 @@ public class RichEditableText extends UIComponent
 
         invalidateProperties();
         invalidateDisplayList();
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IFontContextComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  fontContext
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _fontContext:IFlexModuleFactory;
-
-    /**
-     *  @private
-     */
-    public function get fontContext():IFlexModuleFactory
-    {
-        return _fontContext;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontContext(value:IFlexModuleFactory):void
-    {
-        _fontContext = value;
     }
 
     //--------------------------------------------------------------------------
@@ -1974,28 +1942,28 @@ public class RichEditableText extends UIComponent
 	 */
 	private function getEmbeddedFontContext():IFlexModuleFactory
 	{
-		var moduleFactory:IFlexModuleFactory;
+		var fontContext:IFlexModuleFactory;
 		
 		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup == "auto")
+		if (fontLookup != FontLookup.DEVICE)
         {
 			var font:String = getStyle("fontFamily");
 			var bold:Boolean = getStyle("fontWeight") == "bold";
 			var italic:Boolean = getStyle("fontStyle") == "italic";
 			
-            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold, italic, this, fontContext);
+            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
+            	font, bold, italic, this, moduleFactory);
 
             // If we found the font, then it is embedded. 
             // But some fonts are not listed in info()
             // and are therefore not in the above registry.
             // So we call isFontFaceEmbedded() which gets the list
             // of embedded fonts from the player.
-            if (!moduleFactory) 
+            if (!fontContext) 
             {
                 var sm:ISystemManager;
-                if (fontContext != null && fontContext is ISystemManager)
-                	sm = ISystemManager(fontContext);
+                if (moduleFactory != null && moduleFactory is ISystemManager)
+                	sm = ISystemManager(moduleFactory);
                 else if (parent is IUIComponent)
                 	sm = IUIComponent(parent).systemManager;
 
@@ -2004,17 +1972,18 @@ public class RichEditableText extends UIComponent
                 staticTextFormat.italic = italic;
                 
                 if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-                    moduleFactory = sm;
+                    fontContext = sm;
             }
         }
-        else
+
+        if (!fontContext && fontLookup == FontLookup.EMBEDDED_CFF)
         {
-            moduleFactory = fontLookup == FontLookup.EMBEDDED_CFF ?
-                			fontContext :
-            				null;
+            // if we couldn't find the font and somebody insists it is
+            // embedded, try the default moduleFactory
+            fontContext = moduleFactory;
         }
         
-        return moduleFactory;
+        return fontContext;
 	}
 
     /**
