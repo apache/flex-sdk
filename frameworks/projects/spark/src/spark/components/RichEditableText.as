@@ -190,8 +190,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 //--------------------------------------
 
 [DefaultProperty("content")]
-
 [IconFile("RichEditableText.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  Displays text. 
