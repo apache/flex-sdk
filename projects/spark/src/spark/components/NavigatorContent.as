@@ -18,16 +18,29 @@ import mx.core.IDeferredContentOwner;
 import mx.core.INavigatorContent
 
 /**
- *  The NavigatorChild class is used in ViewStack, TabNavigator and Accordion
- *  to allow Spark components to be managed by these navigators.
+ *  The NavigatorContent class defines a Spark container that can be used 
+ *  in an MX navigator container, such as the ViewStack, TabNavigator and Accordion containers.
+ *
+ *  <p>Do not use a NavigatorContent container outside of an MX navigator container.</p>
+ *
+ *  <p>The creation policy of the NavigatorContent container is based on the creation policy 
+ *  of its parent navigator container: </p>
+ *
+ *  <ul>
+ *    <li>If the creation policy of the parent is none, then the creation policy of the NavigatorContent is none.</li>
+ *    <li>If the creation policy of the parent is all, then the creation policy of the NavigatorContent is all.</li>
+ *    <li>If the creation policy of the parent is auto, then the creation policy of the NavigatorContent is none.</li>
+ *  </ul>
+ * 
+ *  <p>The NavigatorContent container does not support the queued creation policy.</p>
  *
  *  @mxml
  *
- *  <p>The <code>&lt;s:NavigatorChild&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:NavigatorContent&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;s:NavigatorChild
+ *  &lt;s:NavigatorContent
  *    <strong>Properties</strong>
  *    icon="null"
  *    label=""
@@ -35,7 +48,9 @@ import mx.core.INavigatorContent
  *  /&gt;
  *  </pre>
  *
- *  @see SkinnableContainer
+ *  @see mx.containers.Accordion
+ *  @see mx.containers.TabNavigator
+ *  @see mx.containers.ViewStack
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
