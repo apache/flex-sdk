@@ -28,6 +28,7 @@ import mx.utils.StringUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.TextBase;
+import spark.events.TouchScrollEvent;
 
 use namespace mx_internal;
 
@@ -817,6 +818,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollDragStart);
     }
     
     /**
@@ -996,6 +998,22 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
+     */
+    protected function touchScrollDragStart(event:TouchScrollEvent):void
+    {
+        // cancel the rollover/clickdown on and go back to a normal state
+        hovered = false;
+        
+        if (mouseCaptured)
+        {
+            // FIXME (rfrishbe): do we call buttonReleased if we didn't actually get a mouseUp event?
+            buttonReleased();
+            mouseCaptured = false;
+        }
+    }
+    
+    /**
      *  This method handles the mouse events, calls the <code>clickHandler</code> method 
      *  where appropriate and updates the <code>hovered</code> and
      *  <code>mouseCaptured</code> properties.
@@ -1021,13 +1039,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 // if the user rolls over while holding the mouse button
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
-                    hovered = true;
+                hovered = true;
+//                event.preventDefault();
                 break;
             }
 
             case MouseEvent.ROLL_OUT:
             {
                 hovered = false;
+//                event.preventDefault();
                 break;
             }
             
@@ -1038,6 +1058,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 // it will take care to remove those handlers.
                 addSystemMouseHandlers();
                 mouseCaptured = true;
+//                event.preventDefault();
                 break;
             }
 
@@ -1053,6 +1074,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                     {
                         buttonReleased();
                         mouseCaptured = false;
+//                        event.preventDefault();
                     }
                 }
                 break;
@@ -1068,6 +1090,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                     event.stopImmediatePropagation();
                 else
                     clickHandler(MouseEvent(event));
+//                event.preventDefault();
                 return;
             }
         }
