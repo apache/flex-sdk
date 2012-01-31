@@ -12,6 +12,7 @@
 package mx.controls
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -31,6 +32,7 @@ import mx.events.ColorPickerEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.InterManagerRequest;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManager;
 import mx.managers.ISystemManager;
@@ -1166,35 +1168,49 @@ public class ColorPicker extends ComboBase
             dropdownSwatch.showTextField = showTextField;
             dropdownSwatch.selectedColor = selectedColor;
             dropdownSwatch.owner = this;
-            point = dropdownSwatch.parent.globalToLocal(point);
 
             // Position: top or bottom
-            var yOffset:Number = point.y;
-            var sm:ISystemManager = systemManager;         
-            if (point.y + dropdownSwatch.height > sm.screen.height && point.y > (height + dropdownSwatch.height)) // Up
+            var sm:ISystemManager = systemManager.topLevelSystemManager;
+            var sbRoot:DisplayObject = sm.getSandboxRoot();
+            var screen:Rectangle;
+
+            if (sm != sbRoot)
+            {
+                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                        false, false,
+                                        "getVisibleApplicationRect"); 
+                sbRoot.dispatchEvent(request);
+                screen = Rectangle(request.value);
+            }
+            else
+                screen = sm.getVisibleApplicationRect();
+
+            if (point.y + height + dropdownGap + dropdownSwatch.height > screen.bottom && 
+                point.y > (screen.top + dropdownGap + dropdownSwatch.height)) // Up
             {
                 // Dropdown opens up instead of down
-                yOffset -= dropdownGap + dropdownSwatch.height;
+                point.y -= dropdownGap + dropdownSwatch.height;
                 initY = -dropdownSwatch.height/scaleY;
                 dropdownSwatch.tweenUp = true;
             }
             else // Down
             {
-                yOffset += dropdownGap + height;
+                point.y += dropdownGap + height;
                 initY = dropdownSwatch.height/scaleY;
                 dropdownSwatch.tweenUp = false;
             }
 
             // Position: left or right
-            var xOffset:Number = point.x;
-            if (point.x + dropdownSwatch.width > sm.screen.width && point.x > (width + dropdownSwatch.width))
+            if (point.x + width + dropdownSwatch.width > screen.right && 
+                point.x > (screen.left + dropdownSwatch.width))
             {
                 // Dropdown appears to the left instead of right
-                xOffset -= (dropdownSwatch.width - width);
+                point.x -= (dropdownSwatch.width - width);
             }
 
             // Position the dropdown
-            dropdownSwatch.move(xOffset, yOffset);
+            point = dropdownSwatch.parent.globalToLocal(point);
+            dropdownSwatch.move(point.x, point.y);
 
             //dropdownSwatch.setFocus();
 
