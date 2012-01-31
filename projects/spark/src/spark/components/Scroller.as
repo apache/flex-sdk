@@ -957,35 +957,12 @@ public class Scroller extends SkinnableComponent
         }
     }
     
-    // To avoid unconditionally linking the RichEditableText class we lazily
-    // get a reference if it's been linked already.  See below.
-    //private static var textDisplayClassLoaded:Boolean = false;
-    //private static var textDisplayClass:Class = null;
-
     private function skin_mouseWheelHandler(event:MouseEvent):void
     {
-        var vp:IViewport = viewport;
-        if (!vp || event.isDefaultPrevented())
+        const vp:IViewport = viewport;
+        if (event.isDefaultPrevented() || !vp || !vp.visible)
             return;
             
-        // If a TextField has the focus, then check to see if it's already
-        // handling mouse wheel events.  For now, we'll make the same 
-        // assumption about RichEditableText.
-        
-        /*var focusOwner:InteractiveObject = getFocus();
-        if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
-            return;    
-
-        if (!textDisplayClassLoaded)
-        {
-            textDisplayClassLoaded = true;
-            const s:String = "spark.components.RichEditableText";
-            if (ApplicationDomain.currentDomain.hasDefinition(s))
-                textDisplayClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
-        }
-        if (textDisplayClass && (focusOwner is textDisplayClass))
-            return;*/
-
         var nSteps:uint = Math.abs(event.delta);
         var navigationUnit:uint;
 
@@ -1005,7 +982,7 @@ public class Scroller extends SkinnableComponent
         }
         else if (horizontalScrollBar && horizontalScrollBar.visible)
         {
-            navigationUnit = (event.delta < 0) ? NavigationUnit.LEFT : NavigationUnit.RIGHT;
+            navigationUnit = (event.delta < 0) ? NavigationUnit.RIGHT : NavigationUnit.LEFT;
             for (var hStep:int = 0; hStep < nSteps; hStep++)
             {
                 var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
