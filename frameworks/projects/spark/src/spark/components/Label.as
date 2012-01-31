@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -42,7 +42,7 @@ import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -59,27 +59,27 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
 
 [DefaultProperty("text")]
 
-[IconFile("SimpleText.png")]
+[IconFile("Label.png")]
 
 /**
- *  SimpleText is a GraphicElement that can render
+ *  Label is a GraphicElement that can render
  *  one or more lines of uniformly-formatted text.
  *  The text to be displayed is determined by the
- *  <code>text</code> property inherited from TextGraphicElement.
+ *  <code>text</code> property inherited from TextBase.
  *  The formatting of the text is specified by the element's CSS styles,
  *  such as <code>fontFamily</code> and <code>fontSize</code>.
  *
- *  <p>SimpleText, which is new with Flex 4, makes use of the new
+ *  <p>Label, which is new with Flex 4, makes use of the new
  *  Flash Text Engine (FTE) in Flash Player 10 to provide high-quality
  *  international typography.
- *  Because SimpleText is fast and lightweight, it is especially suitable
+ *  Because Label is fast and lightweight, it is especially suitable
  *  for use cases that involve rendering many small pieces of non-interactive
  *  text, such as item renderers, labels in Button skins, etc.</p>
  *
  *  <p>The Spark architecture provides three text "primitives" -- 
- *  SimpleText, RichText, and RichEditableText --
+ *  Label, RichText, and RichEditableText --
  *  as part of its pay-only-for-what-you-need philosophy.
- *  SimpleText is the fastest and most lightweight,
+ *  Label is the fastest and most lightweight,
  *  but is limited in its capabilities: no complex formatting,
  *  no scrolling, no selection, no editing, and no hyperlinks.
  *  RichText and RichEditableText are built on the Text Layout
@@ -91,30 +91,26 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  selection, editing, hyperlinks, images loaded from URLs, etc.
  *  You should use the fastest one that meets your needs.</p>
  *
- *  <p>SimpleText is similar to the older MX control mx.controls.Label.
+ *  <p>spark.controlsLabel is similar to the older MX control mx.controls.Label.
  *  The most important differences to understand are
  *  <ul>
- *    <li>SimpleText uses FTE, the player's new text engine,
- *        while Label uses the obsolete TextField class.</li>
- *    <li>SimpleText offers better typography, and better support
- *        for international languages, than Label.</li>
- *    <li>SimpleText can display multiple lines, which Label cannot.</li>
- *    <li>Label can display a limited subset of HTML,
- *        while SimpleText can only display text with uniform formatting.</li>
- *    <li>Label can be made selectable, while SimpleText cannot.</li>
- *    <li>Label is a UIComponent that can be used in either MX
- *        containers such as HBox or in Spark containers such as Group.
- *        SimpleText is a GraphicElement that can only be used
- *        inside Spark containers.</li>
+ *    <li>Spark Label uses FTE, the player's new text engine,
+ *        while MX Label uses the obsolete TextField class.</li>
+ *    <li>Spark Label offers better typography, and better support
+ *        for international languages, than MX Label.</li>
+ *    <li>Spark Label can display multiple lines, which MX Label cannot.</li>
+ *    <li>MX Label can display a limited subset of HTML,
+ *        while Spark Label can only display text with uniform formatting.</li>
+ *    <li>MX Label can be made selectable, while Label cannot.</li>
  *  </ul></p>
  *
- *  <p>In SimpleText, three character sequences are recognized
+ *  <p>In Label, three character sequences are recognized
  *  as explicit line breaks: CR (<code>"\r"</code>), LF (<code>"\n"</code>),
  *  and CR+LF (<code>"\r\n"</code>).</p>
  *
- *  <p>If you don't specify any kind of width for a SimpleText,
+ *  <p>If you don't specify any kind of width for a Label,
  *  then the longest line, as determined by these explicit line breaks,
- *  will determine the width of the SimpleText.</p>
+ *  will determine the width of the Label.</p>
  *
  *  <p>If you do specify some kind of width, then the specified text is
  *  word-wrapped at the right edge of the component's bounds, because the
@@ -128,7 +124,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  and the ends of lines extending past the right edge will be clipped.</p>
  *
  *  <p>If you have more text than you have room to display it,
- *  SimpleText can truncate the text for you.
+ *  Label can truncate the text for you.
  *  Truncating text means replacing excess text
  *  with a truncation indicator such as "...".
  *  See the inherited properties <code>maxDisplayedLines</code>
@@ -142,14 +138,14 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  <code>paddingLeft</code>, <code>paddingTop</code>, 
  *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</p>
  *
- *  <p>By default a SimpleText has no background,
+ *  <p>By default a Label has no background,
  *  but you can draw one using the <code>backgroundColor</code>
  *  and <code>backgroundAlpha</code> styles.
  *  Borders are not supported.
  *  If you need a border, or a more complicated background, use a separate
- *  graphic element, such as a Rect, behind the SimpleText.</p>
+ *  graphic element, such as a Rect, behind the Label.</p>
  *
- *  <p>SimpleText supports displaying left-to-right (LTR) text such as French,
+ *  <p>Label supports displaying left-to-right (LTR) text such as French,
  *  right-to-left (RTL) text such as Arabic, and bidirectional text
  *  such as a French phrase inside of an Arabic paragraph.
  *  If the predominant text direction is right-to-left,
@@ -161,15 +157,15 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  To get the opposite alignment,
  *  set <code>textAlign</code> to <code>"end"</code>.</p>
  *
- *  <p>SimpleText uses the TextBlock class in the Flash Text Engine
+ *  <p>Label uses the TextBlock class in the Flash Text Engine
  *  to create one or more TextLine objects to statically display
  *  its text String in the format determined by its CSS styles.
  *  For performance, its TextLines do not contain information
  *  about individual glyphs; for more info, see
  *  flash.text.engine.TextLineValidity.STATIC.</p>
  *
- *  @see mx.components.RichEditableText
- *  @see mx.graphics.RichText
+ *  @see spark.components.RichEditableText
+ *  @see spark.components.RichText
  *  
  *  @includeExample examples/SimpleTextExample.mxml
  *  
@@ -178,7 +174,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SimpleText extends TextGraphicElement
+public class Label extends TextBase
 	implements IFontContextComponent
 {
     include "../core/Version.as";
@@ -336,7 +332,7 @@ public class SimpleText extends TextGraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function SimpleText()
+    public function Label()
     {
         super();
     }
@@ -387,7 +383,7 @@ public class SimpleText extends TextGraphicElement
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: TextGraphicElement
+    //  Overridden methods: TextBase
     //
     //--------------------------------------------------------------------------
     
@@ -453,7 +449,7 @@ public class SimpleText extends TextGraphicElement
         }
                                                        
         // Add the new text lines to the container.
-        addTextLines(DisplayObjectContainer(drawnDisplayObject));
+        addTextLines(this);
 
         // Figure out if a scroll rect is needed.
         isOverset = isTextOverset(width, height);
@@ -473,7 +469,7 @@ public class SimpleText extends TextGraphicElement
 	/**
 	 *  @private
 	 *  Creates an ElementFormat (and its FontDescription)
-	 *  based on the SimpleText's CSS styles.
+	 *  based on the Label's CSS styles.
 	 *  These must be recreated each time because FTE
 	 *  does not allow them to be reused.
 	 *  As a side effect, this method also sets embeddedFontContext
@@ -483,8 +479,8 @@ public class SimpleText extends TextGraphicElement
 	 */
 	private function createElementFormat():ElementFormat
 	{
-		// When you databind to a text formatting style on a SimpleText,
-		// as in <SimpleText fontFamily="{fontCombo.selectedItem}"/>
+		// When you databind to a text formatting style on a Label,
+		// as in <Label fontFamily="{fontCombo.selectedItem}"/>
 		// the databinding can cause the style to be set to null.
 		// Setting null values for properties in an FTE FontDescription
 		// or ElementFormat throw an error, so the following code does
@@ -570,7 +566,7 @@ public class SimpleText extends TextGraphicElement
         if (s != null)
 		{
         	// TLF adds the concept of a locale-based "auto" setting for
-			// dominantBaseline, so we support that in SimpleText as well
+			// dominantBaseline, so we support that in Label as well
 			// so that "auto" can be used in the global selector.
 			// TLF's rule is that "auto" means "ideographicCenter"
 			// for Japanese and Chinese locales and "roman" for other locales.
@@ -688,7 +684,7 @@ public class SimpleText extends TextGraphicElement
         // Since a CSS selector or parent container
 		// can affect both Halo and Spark components,
 		// we need to map true to "on" and false to "off"
-		// here and in SimpleText.
+		// here and in Label.
 		// For Halo components, UITextField and UITLFTextField
 		// do the opposite mapping
 		// of "auto" and "on" to true and "off" to false.
@@ -745,7 +741,7 @@ public class SimpleText extends TextGraphicElement
 
         // TLF adds the concept of a locale-based "auto" setting for
 		// justificationRule and justificationStyle, so we support
-		// that in SimpleText as well so that "auto" can be used
+		// that in Label as well so that "auto" can be used
 		// in the global selector.
 		// TLF's rule is that "auto" for justificationRule means "eastAsian"
 		// for Japanese and Chinese locales and "space" for other locales,
