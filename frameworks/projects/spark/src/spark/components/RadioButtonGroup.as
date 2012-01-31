@@ -68,6 +68,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 [IconFile("RadioButtonGroup.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The RadioButtonGroup control defines a group of RadioButton controls
