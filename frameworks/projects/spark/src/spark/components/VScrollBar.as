@@ -17,7 +17,7 @@ import mx.events.ResizeEvent;
 
 import spark.components.supportClasses.ScrollBar;
 import spark.core.IViewport;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 
 //--------------------------------------
 //  Other metadata
@@ -243,7 +243,7 @@ public class VScrollBar extends ScrollBar
             // implementation.
             oldPageSize = pageSize;
             pageSize = Math.abs(viewport.getVerticalScrollPositionDelta(
-                (increase) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP));
+                (increase) ? NavigationUnit.PAGE_DOWN : NavigationUnit.PAGE_UP));
         }
         super.page(increase);
         if (viewport)
@@ -258,7 +258,7 @@ public class VScrollBar extends ScrollBar
         if (viewport)
         {
             var vpPageSize:Number = Math.abs(viewport.getVerticalScrollPositionDelta(
-                (newValue > value) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP));
+                (newValue > value) ? NavigationUnit.PAGE_DOWN : NavigationUnit.PAGE_UP));
             super.animatePaging(newValue, vpPageSize);
             return;
         }        
@@ -306,7 +306,7 @@ public class VScrollBar extends ScrollBar
             // implementation.
             oldStepSize = stepSize;
             stepSize = Math.abs(viewport.getVerticalScrollPositionDelta(
-                (increase) ? ScrollUnit.DOWN : ScrollUnit.UP));
+                (increase) ? NavigationUnit.DOWN : NavigationUnit.UP));
         }
         super.step(increase);
         if (viewport)
