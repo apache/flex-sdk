@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 
 import mx.effects.effectClasses.ActionEffectInstance;
@@ -22,7 +22,7 @@ import mx.effects.effectClasses.ActionEffectInstance;
  *
  *  @see flex.effects.CallFunctionAction
  */  
-public class CallFunctionActionInstance extends ActionEffectInstance
+public class CallActionInstance extends ActionEffectInstance
 {
     include "../../core/Version.as";
 
@@ -37,7 +37,7 @@ public class CallFunctionActionInstance extends ActionEffectInstance
      *
      *  @param target The Object to animate with this effect.
      */
-    public function CallFunctionActionInstance(target:Object)
+    public function CallActionInstance(target:Object)
     {
         super(target);
     }
