@@ -747,7 +747,7 @@ public class FxAnimateInstance extends EffectInstance
             value = target[name];
         else
             value = target.getStyle(name);
-        if (!isNaN(value))
+        if (!isNaN(value) && value != null)
         {
             if (!constraintsHolder)
                 constraintsHolder = new Object();
