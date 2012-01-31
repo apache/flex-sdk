@@ -19,10 +19,9 @@ import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
  *  The Move effect move the target object
- *  in the x and y directions. An important difference between the Move
- *  effect and the Move effect is that the x and y property specifications
- *  for Move specify not absolute values of the x and y coordinates on the target,
- *  but rather the change in x and y that should occur to the transform center around
+ *  in the x and y directions. 
+ *  The x and y property specifications of the Move effect specify 
+ *  the change in x and y that should occur to the transform center around
  *  which the overall transform occurs. 
  *  If, for example, the 
  *  <code>autoCenterTransform</code> property is set, then the from/to/by values
@@ -87,7 +86,16 @@ public class Move extends AnimateTransform
     //----------------------------------
     [Inspectable(category="General")]
     /** 
-     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     *  Specifies whether the parent container of the effect target 
+     *  updates its layout based on changes to the effect target
+     *  while the effect plays.
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var affectLayout:Boolean = true;
 
@@ -231,7 +239,7 @@ public class Move extends AnimateTransform
         }
         else
         {
-        	addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
             addPostLayoutMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
         }
         super.initInstance(instance);
