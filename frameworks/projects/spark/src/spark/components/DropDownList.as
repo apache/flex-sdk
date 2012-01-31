@@ -38,12 +38,13 @@ import flash.ui.Keyboard;
 import mx.collections.IList;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
-import mx.events.DropdownEvent;
+
 import mx.events.FlexEvent;
 
 import spark.components.Button;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.ListBase;
+import spark.events.DropDownEvent;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
@@ -59,28 +60,28 @@ import spark.components.supportClasses.DropDownController;
  *  displayed</li>
  *  </ul>
  *
- *  @eventType mx.events.DropdownEvent.CLOSE
+ *  @eventType spark.events.DropDownEvent.CLOSE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="close", type="mx.events.DropdownEvent")]
+[Event(name="close", type="spark.events.DropDownEvent")]
 
 /**
  *  Dispatched when the user clicks the dropDown button
  *  to display the dropDown.  It is also dispatched if the user
  *  uses the keyboard and types Ctrl-Down to open the dropDown.
  *
- *  @eventType mx.events.DropdownEvent.OPEN
+ *  @eventType spark.events.DropDownEvent.OPEN
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="open", type="mx.events.DropdownEvent")]
+[Event(name="open", type="spark.events.DropDownEvent")]
 
 /**
  *  Open State of the DropDown component
@@ -134,18 +135,6 @@ public class DropDownList extends List
     public var labelElement:TextGraphicElement;
 	
 	/**
-     *  A skin part that defines the anchor button.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart(required="true")]
-    public var button:ButtonBase;
-	
-	
-	/**
      *  A skin part that defines the dropDown area. When the DropDownList is open,
      *  clicking anywhere outside of the dropDown skin part will close the   
      *  DropDownList. 
@@ -157,6 +146,17 @@ public class DropDownList extends List
      */
     [SkinPart(required="false")]
     public var dropDown:DisplayObject;
+    
+    /**
+     *  A skin part that defines the anchor button.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    [SkinPart(required="true")]
+    public var openButton:ButtonBase;
     	
 	/**
      *  Constructor. 
@@ -171,11 +171,7 @@ public class DropDownList extends List
 		super();
 		super.allowMultipleSelection = false;
 		
-		if (_dropDownControllerClass)
-		{
-			_dropDownController = new _dropDownControllerClass();
-			initializeDropDownController();
-		}
+		dropDownController = new DropDownController();
 	}
 	
 	//--------------------------------------------------------------------------
@@ -215,42 +211,22 @@ public class DropDownList extends List
 	{
 		return _dropDownController;
 	}
-
-	//----------------------------------
-    //  dropDownControllerClass
-    //----------------------------------
 	
-	private var _dropDownControllerClass:Class = DropDownController;	
-
-	/**
-     *  The class used to create an instance for the <code>dropDownController</code> 
-     *  property. Set this property if you want to use a 
-     *  <code>DropDownController</code> subclass to modify the default mouse, 
-     *  keyboard and focus user interactions.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-	public function set dropDownControllerClass(value:Class):void
+	protected function set dropDownController(value:DropDownController):void
 	{
-		if (_dropDownControllerClass == value)
+		if (_dropDownController == value)
 			return;
 			
-		_dropDownControllerClass = value;
-		_dropDownController = new _dropDownControllerClass();
-		initializeDropDownController();
+		_dropDownController = value;
+			
+		_dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
+		_dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
+			
+		if (openButton)
+			_dropDownController.openButton = openButton;
+		if (dropDown)
+			_dropDownController.dropDown = dropDown;	
 	}
-	
-	/**
-     *  @private
-     */
-	public function get dropDownControllerClass():Class
-	{
-		return _dropDownControllerClass;
-	}
-
 
 	//----------------------------------
     //  prompt
@@ -263,7 +239,9 @@ public class DropDownList extends List
      *  a String that is displayed in the TextInput portion of the
      *  DropDownList when <code>selectedIndex</code> = -1.  It is usually
      *  a String like "Select one...". 
-     *        
+     *  
+     *  @default ""
+     *       
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -315,8 +293,8 @@ public class DropDownList extends List
      */
     override public function get baselinePosition():Number
     {
-    	if (button)
-    		return button.baselinePosition;
+    	if (openButton)
+    		return openButton.baselinePosition;
     	else
     		return NaN;
     }
@@ -352,8 +330,8 @@ public class DropDownList extends List
     		return;
     	
     	super.enabled = value;
-    	if (button)
-    		button.enabled = value;
+    	if (openButton)
+    		openButton.enabled = value;
     }
     
     //----------------------------------
@@ -399,7 +377,6 @@ public class DropDownList extends List
      */
     override public function set selectedIndices(value:Array):void
     {
-    	// TODO (jszeto) This needs to be localized
     	throw new Error(resourceManager.getString("components", "selectedIndicesDropDownListError"));
     }
     
@@ -412,7 +389,6 @@ public class DropDownList extends List
      */
     override public function set selectedItems(value:Array):void
     {
-    	// TODO (jszeto) This needs to be localized
     	throw new Error(resourceManager.getString("components", "selectedItemsDropDownListError"));
     }
     
@@ -439,7 +415,7 @@ public class DropDownList extends List
 	 /**
      *  Closes the dropDown. 
      *   
-     *  @param commitData Flag indicating if the component should commit the selected
+     *  @param commit Flag indicating if the component should commit the selected
      *  data from the dropDown. 
      *  
      *  @langversion 3.0
@@ -447,34 +423,10 @@ public class DropDownList extends List
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeDropDown(commitData:Boolean):void
+    public function closeDropDown(commit:Boolean):void
     {
-    	dropDownController.closeDropDown(commitData);
+    	dropDownController.closeDropDown(commit);
     }
-	
-	/**
-     *  Initializes the <code>dropDownController</code> after it has been created. 
-     *  Override this function if you create a <code>DropDownController</code> subclass 
-     *  and need to perform additional initialization.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4 
-     */
-	protected function initializeDropDownController():void
-	{		
-		if (dropDownController)
-		{
-			dropDownController.addEventListener(DropdownEvent.OPEN, dropDownController_openHandler);
-			dropDownController.addEventListener(DropdownEvent.CLOSE, dropDownController_closeHandler);
-			
-			if (button)
-				dropDownController.button = button;
-			if (dropDown)
-				dropDownController.dropDown = dropDown;
-		}
-	}
 	
 	/**
      *  @private
@@ -552,11 +504,11 @@ public class DropDownList extends List
     {
     	super.partAdded(partName, instance);
  
- 		if (instance == button)
+ 		if (instance == openButton)
     	{
     		if (dropDownController)
-    			dropDownController.button = button;
-    		button.enabled = enabled;
+    			dropDownController.openButton = openButton;
+    		openButton.enabled = enabled;
     	}
     	
     	if (instance == dropDown && dropDownController)
@@ -570,8 +522,8 @@ public class DropDownList extends List
     {
     	if (dropDownController)
     	{
-    		if (instance == button)
-	    		dropDownController.button = null;
+    		if (instance == openButton)
+	    		dropDownController.openButton = null;
     	
     		if (instance == dropDown)
     			dropDownController.dropDown = null;
@@ -588,27 +540,18 @@ public class DropDownList extends List
 		super.item_clickHandler(event);
 		closeDropDown(true);
 	}
-    
-    /**
-     *  @private
-     */
-    // TODO (jszeto) Workaround for now until we can fix List so that it 
-    // doesn't listen for keyDown events in the capture phase 
-    override protected function keyDownHandler(event:KeyboardEvent) : void
-	{
-		list_keyDownHandler(event);
-	}
-        
+            
     /**
 	 *  @private
 	 */
-	override protected function list_keyDownHandler(event:KeyboardEvent) : void
+	override protected function keyDownHandler(event:KeyboardEvent) : void
 	{
 		if(!enabled)
             return;
         
-        if (!dropDownController.keyDownHandler(event))
-        	super.list_keyDownHandler(event);
+        // TODO (jszeto) Fix arrow key navigation. layout object is null.
+        if (!dropDownController.processKeyDown(event))
+        	super.keyDownHandler(event);
 
 	}
 	
@@ -617,7 +560,7 @@ public class DropDownList extends List
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-		dropDownController.focusOutHandler(event);
+		dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
     }
@@ -630,7 +573,7 @@ public class DropDownList extends List
     
     /**
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropdownEvent.OPEN</code> event. Updates the skin's state and 
+     *  <code>DropDownEvent.OPEN</code> event. Updates the skin's state and 
      *  ensures that the selectedItem is visible. 
      * 
      *  @langversion 3.0
@@ -638,10 +581,12 @@ public class DropDownList extends List
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_openHandler(event:DropdownEvent):void
+    protected function dropDownController_openHandler(event:DropDownEvent):void
     {
     	invalidateSkinState();
     	
+    	// TODO (jszeto) Need to call this after the dropDown has been fully 
+		// initialized
     	ensureItemIsVisible(selectedIndex);
     	
     	dispatchEvent(event);
@@ -649,19 +594,19 @@ public class DropDownList extends List
     
     /**
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropdownEvent.CLOSE</code> event. Updates the skin's state.
+     *  <code>DropDownEvent.CLOSE</code> event. Updates the skin's state.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_closeHandler(event:DropdownEvent):void
+    protected function dropDownController_closeHandler(event:DropDownEvent):void
     {
     	invalidateSkinState();
     	
     	// TODO!! Add logic to handle commitData
-    	//if (event.isDefaultPrevented())
+    	// if (event.isDefaultPrevented())
     	
     	dispatchEvent(event);
     }
