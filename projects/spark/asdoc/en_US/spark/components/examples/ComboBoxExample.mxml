@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark ComboBox control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo">
+                   
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection; 
+            
+            [Bindable]
+            public var complexDP:ArrayCollection = new ArrayCollection(
+                [	{ingredient:"Salmon", category:"Meat"}, 
+                	{ingredient:"Potato", category:"Starch"}, 
+                	{ingredient:"Cucumber", category:"Vegetable"}, 
+                    {ingredient:"Steak", category:"Meat"}, 
+                    {ingredient:"Rice", category:"Starch"}, 
+                    {ingredient:"Cumin", category:"Spice"}
+                ]                
+            );
+
+			<!-- Function to handel custom input strings -->                        
+            private function myLabelToItemFunction(input:String):*
+            {
+            	<!-- Returns object that matches items in dataProvider -->
+                return {ingredient:input, category:"mystery"};
+            }            
+        ]]>
+    </fx:Script>
+    
+    <s:Panel title="Spark ComboBox Example" width="75%" height="75%">    
+    	<s:layout>
+    		<s:VerticalLayout paddingTop="10" paddingLeft="10"/>
+    	</s:layout>
+    
+    	<!-- Label that displayed current property values -->
+		<s:Label text="Index : {cb.selectedIndex} 
+						Item : {cb.selectedItem.ingredient} 
+						Type : {cb.selectedItem.category}"/>
+
+		<!-- ComboBox with custom labelToItem function -->
+		<s:ComboBox 
+			id="cb" 
+			dataProvider="{complexDP}" 
+			width="150" 
+			labelToItemFunction="{myLabelToItemFunction}"
+			selectedIndex="0" 
+			labelField="ingredient"/>   			
+	</s:Panel>    
+</s:Application>
