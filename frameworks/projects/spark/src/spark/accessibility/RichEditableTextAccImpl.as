@@ -243,6 +243,8 @@ public class RichEditableTextAccImpl extends AccImpl
         var accState:uint = getState(childID);
         if (!RichEditableText(master).editable)
             accState |= AccConst.STATE_SYSTEM_READONLY;
+        if (RichEditableText(master).displayAsPassword)
+            accState |= AccConst.STATE_SYSTEM_PROTECTED;
         return accState;
     }
 
