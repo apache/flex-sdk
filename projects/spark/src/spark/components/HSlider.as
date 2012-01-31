@@ -28,8 +28,30 @@ import spark.components.supportClasses.Slider;
 [DefaultTriggerEvent("change")]
 
 /**
- *  The HSlider class defines a horizontal slider component.
+ *  The HSlider (horizontal slider) control lets users select a value
+ *  by moving a slider thumb between the end points of the slider track.
+ *  The HSlider control has a horizontal direction. The slider track stretches
+ *  from left to right.
+ *  The current value of the slider is determined by the relative location
+ *  of the thumb between the end points of the slider, corresponding to the
+ *  slider's minimum and maximum values.
  *
+ *  <p>The slider can allow a continuous range of values between its minimum
+ *  and maximum values or it can be restricted to values at specific intervals
+ *  between the minimum and maximum value. The slider can contain a data tip
+ *  to show its current value.</p>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;HSlider&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no tag attributes:</p>
+ *  <pre>
+ *  &lt;HSlider/&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.spark.HSliderSkin
+ *  @see spark.skins.spark.HSliderThumbSkin
+ *  @see spark.skins.spark.HSliderTrackSkin
  *  @includeExample examples/HSliderExample.mxml
  *  
  *  @langversion 3.0
