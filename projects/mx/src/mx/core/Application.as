@@ -34,7 +34,6 @@ import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
@@ -1218,7 +1217,7 @@ public class Application extends LayoutContainer
             var rc:Number;
             var sc:Number;
             var globalSelector:CSSStyleDeclaration = 
-                StyleManager.getStyleDeclaration("global");
+                styleManager.getStyleDeclaration("global");
             
             if (globalSelector)
             {
