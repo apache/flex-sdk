@@ -98,7 +98,7 @@ public class HTTPChannel extends PollingChannel
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates an new HTTPChannel instance.
+     *  Constructor.
      *
      *  @param id The id of this Channel.
      *  @param uri The uri for this Channel.
