@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.core
+package mx.components.baseClasses
 {
 
 import flash.events.Event;
@@ -19,6 +19,7 @@ import flash.utils.*;
 import mx.core.IFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.components.Skin;
 import mx.events.PropertyChangeEvent;
 
 use namespace mx_internal;
@@ -27,16 +28,16 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
-include "../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 
 /**
  *  Name of the skin to use for this component. The skin must be a class that extends
- *  the flex.core.Skin class. 
+ *  the mx.components.Skin class. 
  * 
  *  NOTE: We need to give the "skin" style a different name in order to resolve the
  *  collision with the Flex 3 "skin" style.
@@ -47,8 +48,8 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 [Style(name="skinZZ", type="Class")]
 
 /**
- *  The SkinnableComponent class defines the base class for skinnable components. 
- *  The skins used by a SkinnableComponent class are child classes of the Skin class.
+ *  The FxComponent class defines the base class for skinnable components. 
+ *  The skins used by a FxComponent class are child classes of the Skin class.
  *
  *  <p>Associate a skin class with a component class by setting the <code>skinZZ</code> style property of the 
  *  component class. You can set the <code>skinZZ</code> property in CSS, as the following example shows:</p>
@@ -66,9 +67,9 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *
  *  @see mx.core.Skin
  */
-public class SkinnableComponent extends UIComponent
+public class FxComponent extends UIComponent
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -79,7 +80,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Constructor.
      */
-    public function SkinnableComponent()
+    public function FxComponent()
     {
         // Initially state is dirty
         skinStateIsDirty = true;
@@ -108,8 +109,8 @@ public class SkinnableComponent extends UIComponent
     
     private function set _skinObject(value:Skin):void
     {
-        if (value === __skinObject)
-           return;
+    	if (value === __skinObject)
+    	   return;
         
         __skinObject = value;
         dispatchEvent(new Event("skinObjectChanged"));
@@ -215,7 +216,7 @@ public class SkinnableComponent extends UIComponent
      *  Button component could return the String "up", "down", "over", or "disabled" 
      *  to specify the state.
      * 
-     *  <p>A subclass of SkinnableComponent must override this method to return a value.</p>
+     *  <p>A subclass of FxComponent must override this method to return a value.</p>
      * 
      *  @return A string specifying the name of the state to apply to the skin.
      */
@@ -226,7 +227,7 @@ public class SkinnableComponent extends UIComponent
     
     /**
      *  Marks the component so that its <code>commitSkinState()</code> method
-     *  gets called during a later screen update. 
+     *  gets called during a later screen update.
      *  The <code>commitSkinState()</code> method sets the new state of the skin.
      */
     protected function invalidateSkinState():void
@@ -240,7 +241,7 @@ public class SkinnableComponent extends UIComponent
 
     /**
      *  Sets the new state of the skin. 
-     *  A subclass of SkinnableComponent can override this method to add 
+     *  A subclass of FxComponent can override this method to add 
      *  extra validation logic.
      * 
      *  @param newState A string specifying the name of the state to set.
@@ -256,17 +257,17 @@ public class SkinnableComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
+	/**
      *  Load the skin for the component. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls 
      *  the <code>UIComponent.commitProperties()</code> method.
-     *  Typically, a subclass of SkinnableComponent does not override this method.
-     * 
+     *  Typically, a subclass of FxComponent does not override this method.
+	 * 
      *  <p>This method instantiates the skin for the component, 
      *  adds the skin as a child of the component, 
      *  resolves all part associations for the skin, and calls the <code>skinLoaded()</code> method.</p>
-     */
+	 */
     protected function loadSkin():void
     {
         // Factory
@@ -303,7 +304,7 @@ public class SkinnableComponent extends UIComponent
                 }
                 catch (err:Error) {}
             }
-            
+           	
             addChild(skinObject);
         }
         else
@@ -320,7 +321,7 @@ public class SkinnableComponent extends UIComponent
      *  Find the skin parts in the skin class and assign them to the properties of the component.
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-     *  Typically, a subclass of SkinnableComponent does not override this method.
+     *  Typically, a subclass of FxComponent does not override this method.
      */
     protected function findSkinParts():void
     {
@@ -352,17 +353,17 @@ public class SkinnableComponent extends UIComponent
         }
     }
     
-    /**
+	/**
      *  Attach behaviors to the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-     *
-     *  <p>A subclass of SkinnableComponent must override this method to
+	 *  
+     *  <p>A subclass of FxComponent must override this method to
      *  attach behaviors to the skin object.</p>
      * 
      *  <p>Override the <code>partAdded()</code> method to attach behaviors to 
      *  an individual part of the skin.</p>
-     */
+	 */
     protected function skinLoaded():void
     {
         skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -371,13 +372,13 @@ public class SkinnableComponent extends UIComponent
         // Use partAdded for individual part behaviors
     }
     
-    /**
+	/**
      *  Remove behavior from the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
-     *
-     *  <p>This method should be overridden by subclasses of SkinnableComponent. </p>
-     */
+	 *
+     *  <p>This method should be overridden by subclasses of FxComponent. </p>
+	 */
     protected function unloadingSkin():void
     {
         skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -391,7 +392,7 @@ public class SkinnableComponent extends UIComponent
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
      *
-     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
+     *  <p>Typically, subclasses of FxComponent do not override this method.</p>
      */
     protected function clearSkinParts():void
     {
@@ -429,7 +430,7 @@ public class SkinnableComponent extends UIComponent
      *  This method calls the <code>unloadingSkin()</code> method, removes the skin, 
      *  and clears all part associations.
      *
-     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
+     *  <p>Typically, subclasses of FxComponent do not override this method.</p>
      */
     protected function unloadSkin():void
     {       
