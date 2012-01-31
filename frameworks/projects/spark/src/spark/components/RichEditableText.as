@@ -582,6 +582,11 @@ public class RichEditableText extends UIComponent
     private var _clipAndEnableScrolling:Boolean = false;
 
     /**
+     *  @private
+     */
+    private var clipAndEnableScrollingChanged:Boolean = false;
+
+    /**
      *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
      *  
      *  @langversion 3.0
@@ -605,6 +610,7 @@ public class RichEditableText extends UIComponent
             return;
     
         _clipAndEnableScrolling = value;
+        clipAndEnableScrollingChanged = true;
         
         // Value could impact whether we are actually autoSizing.
         invalidateSize();
@@ -1385,7 +1391,18 @@ public class RichEditableText extends UIComponent
         // which causes binding to fire which repeats the process).
         if (value == text)
             return;
-            
+        
+        // If we have focus, then we need to immediately create a TextFlow so
+        // the interaction manager will be created and editing/selection can
+        // be done without having to mouse click or mouse hover over this field.
+        // Normally this is done in our focusIn handler by making sure there
+        // is a selection.    
+        if (getFocus() == this)
+        {
+            content = value;
+            return;
+        }
+                    
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
@@ -1546,7 +1563,13 @@ public class RichEditableText extends UIComponent
             // is a special case since there is no flowOperationEnd event
             // for this.
         }
-        
+
+        // If the text or content changed, there is no selection.  If we already
+        // have focus, set the selection, since we've already executed our
+        // focusIn handler where this is normally done.
+        if (textFlowChanged && getFocus() == this)
+            setSelectionBasedOnScrolling();
+                
         // If displayAsPassword changed, it only applies to the display, 
         // not the underlying text.  Do not mark the textFlow as changed.
         if (displayAsPasswordChanged)
@@ -1584,6 +1607,23 @@ public class RichEditableText extends UIComponent
             selectableChanged = false;        	
         }
                         
+        if (clipAndEnableScrollingChanged)
+        {
+            // Not sure if there is any real difference between on and auto.
+            // The TLF code seems to check for !off.
+            if (_clipAndEnableScrolling)
+            {
+                _inputManager.horizontalScrollPolicy = "on";
+                _inputManager.verticalScrollPolicy = "on";
+            }
+            else
+            {
+                _inputManager.horizontalScrollPolicy = "auto";
+                _inputManager.verticalScrollPolicy = "auto";
+            }
+            clipAndEnableScrollingChanged = false;
+        }
+                                    
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
@@ -1835,37 +1875,15 @@ public class RichEditableText extends UIComponent
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
-        // TBD: replace provisional implementation
-        var scrollR:Rectangle = scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = contentWidth - scrollR.width - scrollR.x;
-        var minDelta:Number = -scrollR.x; 
-            
-        switch (scrollUnit)
-        {
-            case ScrollUnit.UP:
-                return (scrollR.x <= 0) ? 0 : -1;
-                
-            case ScrollUnit.DOWN:
-                return (scrollR.x >= maxDelta) ? 0 : 1;
-                
-            case ScrollUnit.PAGE_LEFT:
-                return Math.max(minDelta, -scrollR.width);
-                
-            case ScrollUnit.PAGE_RIGHT:
-                return Math.min(maxDelta, scrollR.width);
-                
-            case ScrollUnit.HOME: 
-                return minDelta;
-                
-            case ScrollUnit.END: 
-                return maxDelta;
-                
-            default:
-                return 0;
-        }       
+        // The scroller's keyDown handler is activated before TLF's keyDown
+        // handler which recognizes many more keys and key combinations than
+        // the scroller does.  Tell the scroller there is no delta and then
+        // let TLF handle the scrolling.  When TLF scrolls, it will call our
+        // scroll handler which will update horizontalScrollPosition.  The
+        // scroller is bound to this so it will get notified and do the
+        // appropriate adjustments to the slider, etc.  
+        
+        return 0;
     }
     
     //----------------------------------
@@ -1882,51 +1900,9 @@ public class RichEditableText extends UIComponent
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
-        // TBD: replace provisional implementation
-        var scrollR:Rectangle = scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y;
-        
-        switch (scrollUnit)
-        {
-            case ScrollUnit.UP:
-            {
-                return _inputManager.getScrollDelta(-1);
-            }
-                
-            case ScrollUnit.DOWN:
-            {
-                return _inputManager.getScrollDelta(1);
-            }
-                
-            case ScrollUnit.PAGE_UP:
-            {
-                return Math.max(minDelta, -scrollR.height);
-            }
-                
-            case ScrollUnit.PAGE_DOWN:
-            {
-                return Math.min(maxDelta, scrollR.height);
-            }
-                
-            case ScrollUnit.HOME:
-            {
-                return minDelta;
-            }
-                
-            case ScrollUnit.END:
-            {
-                return maxDelta;
-            }
-                
-            default:
-            {
-                return 0;
-            }
-        }       
+        // See comment at getHorizontalScrollPositionDelta.
+
+        return 0;        
     }
     
     //--------------------------------------------------------------------------
@@ -2042,6 +2018,32 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     */
+    private function setSelectionBasedOnScrolling(always:Boolean=true):void
+    {
+        // Only set the selection if there isn't already one.
+        if (!always)
+        {
+            var done:Boolean = false;
+            var sm:ISelectionManager = getSelectionManager();
+            if (sm.hasSelection())
+                done = true;
+            releaseSelectionManager();
+            
+            if (done)
+                return;
+        }
+        
+        // If scrolling, the selection/insertion point is at the begining.
+        // Othewise, it is at the end.
+        if (_clipAndEnableScrolling)                
+            setSelection(0, 0);
+        else
+            setSelection(int.MAX_VALUE, int.MAX_VALUE);
+    }
+    
+    /**
+     *  @private
      *  If the explicit widths and heights are not set to NaN, the 
      *  measuredWidth and measuredHeight are clamped down to these values
      *  when measure() returns to UIComponent.measureSizes().
@@ -2050,23 +2052,27 @@ public class RichEditableText extends UIComponent
     {        
         var composeWidth:Number;                                       
 
+        // Need to set a width to cause a wrap.  Use constrainedWidth,
+        // explicit maxWidth or default for maxWidth, in that order.
+        // Never compose over max width because the width will always be 
+        // adjusted down to this and it's easy to get into an infinite 
+        // measure/update display loop.            
         if (hostFormat.lineBreak == "toFit")
         {
-            // The default for maxWidth is 10000 which isn't a 
-            // reasonable default for the autoSize width so use the default
-            // measured width which is 160 instead.
-             var maxWidth:Number = !isNaN(explicitMaxWidth) ?
-                              explicitMaxWidth : 
-                              UIComponent.DEFAULT_MEASURED_WIDTH;
-            
-            // Need to set a width to cause a wrap.  Never compose over the 
-            // max width because the width will always be adjusted down to this 
-            // and it's easy to get into an infinite measure/update display 
-            // loop.            
+            // Constrain the width if it's less than maxWidth.
             if (!isNaN(widthConstraint) && widthConstraint <= maxWidth)
+            {
                 composeWidth = widthConstraint
+            }
             else
-                composeWidth = maxWidth;
+            {
+                // The default maxWidth is 10000 which isn't a 
+                // reasonable default for the autoSize width so use the default
+                // measured width which is 160 instead.
+                composeWidth = !isNaN(explicitMaxWidth) ?
+                               explicitMaxWidth : 
+                               UIComponent.DEFAULT_MEASURED_WIDTH;
+            }
             explicitMinWidth = NaN;
         }
         else
@@ -2810,18 +2816,14 @@ public class RichEditableText extends UIComponent
     mx_internal function focusInHandler(event:FocusEvent):void
     {
         //trace("focusIn handler");
+            
         if (_editable)
         {
-            // If no selection, give it one so that there is an insertion
-            // cursor and text can be input.
-            if (enabled)
-            {
-                if (!getSelectionManager().hasSelection())
-                    setSelection(int.MAX_VALUE, int.MAX_VALUE);
-                    
-                releaseSelectionManager();
-            }
-            
+            // If no selection, give it one so that the underlying selection
+            // manager is put in place if it isn't already there and editing
+            // will work without doing a mouse click or mouse hover first.           
+            setSelectionBasedOnScrolling(false);
+
             if (_imeMode != null)
             {
                 IME.enabled = true;
@@ -3038,6 +3040,8 @@ public class RichEditableText extends UIComponent
             _inputManager.verticalScrollPosition;
         if (newVerticalScrollPosition != oldVerticalScrollPosition)
         {
+            //trace("vsp scroll", oldVerticalScrollPosition, "->", newVerticalScrollPosition);
+
             _verticalScrollPosition = newVerticalScrollPosition;
             
             dispatchPropertyChangeEvent("verticalScrollPosition",
@@ -3066,10 +3070,12 @@ public class RichEditableText extends UIComponent
         var changed:Boolean = oldAnchor != _selectionAnchorPosition ||
                               oldActive != _selectionActivePosition;
                               
-        //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition, "selection_change", changed);
         
-        if (changed)    
+        if (changed)
+        {    
+            //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition);
             dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
+        }
     }
 
     /**
@@ -3217,11 +3223,6 @@ public class RichEditableText extends UIComponent
             
             invalidateDisplayList();
         } 
-        else if (event.status == InlineGraphicElementStatus.ERROR)
-        {
-            if (event.errorEvent is IOErrorEvent)
-                trace(IOErrorEvent(event.errorEvent).text);
-        }
     }    
 }
 
