@@ -52,7 +52,6 @@ import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
 import mx.core.FlexVersion;
-import mx.core.IBorder;
 import mx.core.IChildList;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
@@ -60,6 +59,7 @@ import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IPropertyChangeNotifier;
 import mx.core.IRawChildrenContainer;
+import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
@@ -728,8 +728,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             var top:Number = 0;
     
-            if (border && border is IBorder)
-                top = IBorder(border).borderMetrics.top;
+            if (border && border is IRectangularBorder)
+                top = IRectangularBorder(border).borderMetrics.top;
     
             return top + measureText(" ").ascent;
         }
