@@ -12,6 +12,7 @@
 package mx.controls.dataGridClasses
 {
 
+import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.getQualifiedSuperclassName;
@@ -29,8 +30,10 @@ import mx.core.UIComponentGlobals;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.InterManagerRequest;
 import mx.events.ToolTipEvent;
 import mx.managers.ILayoutManagerClient;
+import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
@@ -636,16 +639,32 @@ public class DataGridItemRenderer extends UITextField
 		var toolTip:IToolTip = event.toolTip;
 
 		// Calculate global position of label.
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle;
 		var pt:Point = new Point(0, 0);
 		pt = localToGlobal(pt);
-		pt = toolTip.parent.globalToLocal(pt);			
+		pt = sbRoot.globalToLocal(pt);			
 		
 		toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
-			
-		var screen:Rectangle = systemManager.screen;
+
+        if (sm != sbRoot)
+        {
+            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                    false, false,
+                                    "getVisibleApplicationRect"); 
+            sbRoot.dispatchEvent(request);
+            screen = Rectangle(request.value);
+        }
+        else
+            screen = sm.getVisibleApplicationRect();
+
 		var screenRight:Number = screen.x + screen.width;
-		if (toolTip.x + toolTip.width > screenRight)
-			toolTip.move(screenRight - toolTip.width, toolTip.y);
+		pt.x = toolTip.x;
+		pt.y = toolTip.y;
+        pt = sbRoot.localToGlobal(pt);
+		if (pt.x + toolTip.width > screenRight)
+			toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
 	}
 }
 
