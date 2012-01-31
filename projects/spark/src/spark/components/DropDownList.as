@@ -20,12 +20,6 @@ import spark.utils.LabelUtil;
     
 use namespace mx_internal;
 
-//--------------------------------------
-//  Other metadata
-//--------------------------------------
-
-[AccessibilityClass(implementation="spark.accessibility.DropDownListAccImpl")]
-
 /**
  *  The DropDownList control contains a drop-down list
  *  from which the user can select a single value.
@@ -78,18 +72,6 @@ public class DropDownList extends DropDownListBase
 {
     include "../core/Version.as";
     
-    //--------------------------------------------------------------------------
-    //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Placeholder for mixin by ListAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
- 
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -195,17 +177,6 @@ public class DropDownList extends DropDownListBase
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Called by the initialize() method of UIComponent
-     *  to hook in the accessibility code.
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (DropDownList.createAccessibilityImplementation != null)
-            DropDownList.createAccessibilityImplementation(this);
-    }
     
     /**
      *  @private
