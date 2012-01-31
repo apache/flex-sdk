@@ -194,12 +194,12 @@ public class SkinnableContainer extends SkinnableContainerBase
     /**
      *  @private
      */
-    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 0;
+    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 0;
     
     /**
      *  @private
      */
-    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
+    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 1;
     
     /**
      *  @private
@@ -209,12 +209,12 @@ public class SkinnableContainer extends SkinnableContainerBase
     /**
      *  @private
      */
-    private static const VERTICAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 3;
+    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 4;
+    private static const VERTICAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 4;
 
     //--------------------------------------------------------------------------
     //
@@ -550,7 +550,21 @@ public class SkinnableContainer extends SkinnableContainerBase
     //  mxmlContent
     //----------------------------------    
     
+    /**
+     *  @private
+     *  Variable used to store the mxmlContent when the contentGroup is 
+     *  not around, and there hasnt' been a need yet for the placeHolderGroup.
+     */
     private var _mxmlContent:Array;
+    
+    /**
+     *  @private
+     *  Variable that represents whether the content has been explicitely set 
+     *  (via mxmlContent setter or with the mutation APIs, like addElement).  
+     *  This is used to figure out whether we should override the default "content"
+     *  that is in the contentGroup of a skin.
+     */
+    private var _contentModified:Boolean = false;
     
     [ArrayElementType("mx.core.IVisualElement")]
     
@@ -570,6 +584,9 @@ public class SkinnableContainer extends SkinnableContainerBase
             _placeHolderGroup.mxmlContent = value;
         else
             _mxmlContent = value;
+        
+        if (value != null)
+            _contentModified = true;
     }
     
     //----------------------------------
@@ -703,6 +720,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
+        _contentModified = true;
         return currentContentGroup.addElement(element);
     }
     
@@ -716,6 +734,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
+        _contentModified = true;
         return currentContentGroup.addElementAt(element, index);
     }
     
@@ -729,6 +748,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
+        _contentModified = true;
         return currentContentGroup.removeElement(element);
     }
     
@@ -742,6 +762,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeElementAt(index:int):IVisualElement
     {
+        _contentModified = true;
         return currentContentGroup.removeElementAt(index);
     }
     
@@ -755,6 +776,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeAllElements():void
     {
+        _contentModified = true;
         currentContentGroup.removeAllElements();
     }
     
@@ -763,6 +785,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
+        _contentModified = true;
         currentContentGroup.setElementIndex(element, index);
     }
     
@@ -776,6 +799,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
+        _contentModified = true;
         currentContentGroup.swapElements(element1, element2);
     }
     
@@ -789,6 +813,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
+        _contentModified = true;
         currentContentGroup.swapElementsAt(index1, index2);
     }
     
@@ -862,32 +887,35 @@ public class SkinnableContainer extends SkinnableContainerBase
     {
         if (instance == contentGroup)
         {
-            if (_placeHolderGroup != null)
+            if (_contentModified)
             {
-                var sourceContent:Array = _placeHolderGroup.getMXMLContent();
-                
-                // FIXME (rfrishbe): investigate why we need this, especially if these elements shouldn't 
-                // be added to the place holder Group's display list
-                // (aharui) They are added via calls to addElement if no other mxmlContent has been
-                // set.  This is a typical pattern when creating views from AS.  Create the child, 
-                // create the parent, addElement the child to the parent.
-                
-                // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
-                // especially if we make it mx_internal.
-                
-                // Temporary workaround because copying content from one Group to another throws RTE
-                for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
+                if (_placeHolderGroup != null)
                 {
-                    _placeHolderGroup.removeElementAt(0);  
+                    var sourceContent:Array = _placeHolderGroup.getMXMLContent();
+                    
+                    // FIXME (rfrishbe): investigate why we need this, especially if these elements shouldn't 
+                    // be added to the place holder Group's display list
+                    // (aharui) They are added via calls to addElement if no other mxmlContent has been
+                    // set.  This is a typical pattern when creating views from AS.  Create the child, 
+                    // create the parent, addElement the child to the parent.
+                    
+                    // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
+                    // especially if we make it mx_internal.
+                    
+                    // Temporary workaround because copying content from one Group to another throws RTE
+                    for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
+                    {
+                        _placeHolderGroup.removeElementAt(0);  
+                    }
+                    
+                    contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
+                    
                 }
-                
-                contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
-                
-            }
-            else if (_mxmlContent != null)
-            {
-                contentGroup.mxmlContent = _mxmlContent;
-                _mxmlContent = null;
+                else if (_mxmlContent != null)
+                {
+                    contentGroup.mxmlContent = _mxmlContent;
+                    _mxmlContent = null;
+                }
             }
             
             // copy proxied values from contentGroupProperties (if set) to contentGroup
@@ -998,7 +1026,7 @@ public class SkinnableContainer extends SkinnableContainerBase
             
             var myMxmlContent:Array = contentGroup.getMXMLContent();
             
-            if (myMxmlContent)
+            if (_contentModified && myMxmlContent)
             {
                 _placeHolderGroup = new Group();
                      
