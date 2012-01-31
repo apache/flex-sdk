@@ -130,6 +130,22 @@ use namespace mx_internal;
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
+/**
+ *  Name of the class of the itemEditor to be used if one is not
+ *  specified for a column.  This is a way to set
+ *  an item editor for a group of DataGrids instead of having to
+ *  set each one individually.  If you set the DataGridColumn's itemEditor
+ *  property, it supercedes this value.
+ *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="defaultDataGridItemEditor", type="Class", inherit="no")]
+
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -280,7 +296,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  <p>If this event is cancelled the item editor will not be created.</p>
  *
- *  @eventType spark.events.GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  @see flash.events.Event
@@ -290,12 +306,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="startGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
+[Event(name="gridItemEditorSessionStarting", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched immediately after an item editor has been opened. 
  *
- *  @eventType spark.events.GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  * 
@@ -304,13 +320,13 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="openGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
+[Event(name="gridItemEditorSessionStart", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched after the data in item editor has been saved into the data provider
  *  and the editor has been closed.  
  *
- *  @eventType spark.events.GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  
@@ -319,12 +335,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="saveGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
+[Event(name="gridItemEditorSessionSave", type="spark.events.GridItemEditorEvent")]
 
 /**
  *  Dispatched after the item editor has been closed without saving its data.  
  *
- *  @eventType spark.events.GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION
+ *  @eventType spark.events.GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL
  *  
  *  @see spark.components.DataGrid.itemEditorInstance
  *  
@@ -333,7 +349,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="cancelGridItemEditorSession", type="spark.events.GridItemEditorEvent")]
+[Event(name="gridItemEditorSessionCancel", type="spark.events.GridItemEditorEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -736,10 +752,25 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /** 
      *  @private
+     *  Maximum time in milliseconds between a click and a double click.
+     *  
+     */ 
+    mx_internal var doubleClickTime:Number = 250;
+    
+    /** 
+     *  @private
      * 
      *  Key used to start editting a cell.
      */ 
     mx_internal var editKey:uint = Keyboard.F2;
+    
+    /** 
+     *  @private
+     *  A cell editor is initiated by a single click on a selected cell. 
+     *  If this variable is true then also open an editor when a cell is 
+     *  double clicked, otherwise cancel the edit.
+     */ 
+    mx_internal var editOnDoubleClick:Boolean = false;
     
     /** 
      *  @private
@@ -751,7 +782,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  the initialize() function.
      */ 
     mx_internal var editor:DataGridEditor;
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties 
@@ -1152,21 +1183,19 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  <p>To access the item editor instance and the new item value when an 
      *  item is being edited, you use the <code>itemEditorInstance</code> 
      *  property. The <code>itemEditorInstance</code> property
-     *  is not valid until after the event listener for
-     *  the <code>itemEditBegin</code> event executes. Therefore, you typically
-     *  only access the <code>itemEditorInstance</code> property from within 
-     *  the event listener for the <code>itemEditEnd</code> event.</p>
+     *  is not valid until the <code>itemEditorSessionStart</code> event is 
+     *  dispatched.</p>
      *
      *  <p>The <code>DataGridColumn.itemEditor</code> property defines the
-     *  class of the item editor
-     *  and, therefore, the data type of the item editor instance.</p>
+     *  class of the item editor and, therefore, the data type of the item
+     *  editor instance.</p>
      *
      *  <p>You do not set this property in MXML.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4.5
      */
     public function get itemEditorInstance():IGridItemEditor
     {
