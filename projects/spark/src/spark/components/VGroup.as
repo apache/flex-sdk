@@ -21,7 +21,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  The VGroup container is an instance of the Group container 
  *  that uses the VerticalLayout class.  
  *  Do not modify the <code>layout</code> property. 
- *  instead, use the properties of the VGroup class to modify the 
+ *  Instead, use the properties of the VGroup class to modify the 
  *  characteristics of the VerticalLayout class.
  * 
  *  @mxml
@@ -34,6 +34,10 @@ import spark.layouts.supportClasses.LayoutBase;
  *    <strong>Properties</strong>
  *    gap="6"
  *    horizontalAlign="left"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
  *    requestedRowCount"-1"
  *    rowHeight="no default"
  *    variableRowHeight="true"
@@ -148,6 +152,8 @@ public class VGroup extends Group
     /**
      *  @copy spark.layouts.VerticalLayout#paddingLeft
      *  
+     *  @default 0
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -174,6 +180,8 @@ public class VGroup extends Group
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingRight
+     *  
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -202,6 +210,8 @@ public class VGroup extends Group
     /**
      *  @copy spark.layouts.VerticalLayout#paddingTop
      *  
+     *  @default 0
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -228,6 +238,8 @@ public class VGroup extends Group
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingBottom
+     *  
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -382,7 +394,7 @@ public class VGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy spark.layouts.VerticalLayout#lastIndexInview
+     *  @copy spark.layouts.VerticalLayout#lastIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
