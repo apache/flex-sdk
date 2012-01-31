@@ -15,6 +15,13 @@ package mx.effects
 import mx.effects.effectClasses.WipeUpInstance;
 
 /**
+ *  The direction-specific Wipe effects in Flex 3 have been replaced by a more generic
+ *  Wipe effect that takes a generic direction. To get similar behavior from the new
+ *  Wipe effect, set the <code>direction</code> parameter appropriately.
+ */
+[Alternative(replacement="spark.effects.Wipe", since="4.0")]
+
+/**
  *  The WipeUp class defines a bar wipe up effect.
  *  The before or after state of the component must be invisible. 
  * 
