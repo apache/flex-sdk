@@ -20,11 +20,6 @@ import mx.utils.ObjectProxy;
 /**
  *  The SimpleXMLDecoder class deserialize XML into a graph of ActionScript objects.
  * Use  this class when no schema information is available.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 public class SimpleXMLDecoder
 {
@@ -101,11 +96,6 @@ public class SimpleXMLDecoder
      *  @param dataNode An XMLNode to be converted into a tree of ActionScript Objects.
      *
      *  @return A tree of ActionScript Objects.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     public function decodeXML(dataNode:XMLNode):Object
     {
@@ -204,16 +194,11 @@ public class SimpleXMLDecoder
     }
 
     /**
-     *  Returns the local name of an XMLNode.
+     * Returns the local name of an XMLNode.
      *
      *  @param xmlNode The XMLNode. 
      *
-     *  @return The local name of an XMLNode.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     * @return The local name of an XMLNode.
      */
     public static function getLocalName(xmlNode:XMLNode):String
     {
