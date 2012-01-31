@@ -239,7 +239,14 @@ public class TouchScrollHelper
      *  True if we should watch for scrolling on the vertical axis.
      */
     private var canScrollVertically:Boolean;
-    
+
+    /**
+     *  @private
+     *  Keeps track of whether we currently have our mouse listeners installed.
+     *  Used to avoid handling redundant events.  
+     */
+    private var mouseListenersInstalled:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -372,6 +379,8 @@ public class TouchScrollHelper
         sbRoot.addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, sbRoot_mouseUpHandler);
         
         target.systemManager.deployMouseShields(true);
+        
+        mouseListenersInstalled = true;
     }
     
     /**
@@ -392,6 +401,8 @@ public class TouchScrollHelper
         sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, sbRoot_mouseUpHandler);
 
         target.systemManager.deployMouseShields(false);
+
+        mouseListenersInstalled = false;
     }
     
     //--------------------------------------------------------------------------
@@ -596,8 +607,14 @@ public class TouchScrollHelper
      */
     private function sbRoot_mouseUpHandler(event:Event):void
     {
+        // We install this mouseUp handler on both the sandbox root and the stage.
+        // This can result in receiving more than one event for a single up gesture.
+        // So we use the mouseListenersInstalled flag to ignore redundant events.
+        if (!mouseListenersInstalled)
+            return;
+
         uninstallMouseListeners();
-        
+
         // If we weren't already scrolling, then let's not start scrolling now
         if (!isScrolling)
             return;
