@@ -56,7 +56,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo")]
+[Style(name="backgroundAlpha", type="Number", inherit="no")]
 
 /**
  *  The color of the background of the entire
