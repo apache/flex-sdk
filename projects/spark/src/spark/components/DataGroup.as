@@ -136,7 +136,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class DataGroup extends GroupBase implements IItemRendererOwner 
+public class DataGroup extends GroupBase 
 {
     /**
      *  Constructor.
@@ -240,7 +240,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         }
 
         super.addChild(obj);
-        updateRendererInformation(renderer, _typicalItem);
+        updateRenderer(renderer, _typicalItem);
         if (obj is IInvalidating)
             IInvalidating(obj).validateNow();
         setTypicalLayoutElement(renderer);
@@ -652,35 +652,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
    
     /**
-     *  Sets the renderer's <code>data</code> property to the data item.
-     *  It also sets the renderer's <code>labelText</code> property 
-     *  by calling the <code>itemToLabel()</code> method. 
-     * 
-     *  @param renderer The item renderer to update.
-     *  
-     *  @param data The data item.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     * 
-     */
-    public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
-    {
-        if (!renderer)
-           return; 
-        
-        if ((renderer is IDataRenderer) && (renderer != data))
-            IDataRenderer(renderer).data = data;   
-        
-        renderer.owner = this;
-        
-        if (renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(data);
-    }
-    
-    /**
      *  @private
      */
     override protected function commitProperties():void
@@ -711,6 +682,42 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             initializeTypicalItem();
         }
     }
+    
+    /**
+     *  @private 
+     *  Sets the renderer's data, owner and labelText properties. 
+     *  Then, gives the "true" owner a chance to call update the 
+     *  renderer if this DataGroup is not the owner. "True" owners 
+     *  would use their impl of updateRenderer to clear out stale 
+     *  properties for when the renderer is being recycled, and set
+     *  new properties like owner, labelText, selected, etc. 
+     * 
+     */
+    private function updateRenderer(renderer:IVisualElement, data:Object):void
+    {
+        if (!renderer)
+           return; 
+        
+        //Set the data    
+        if ((renderer is IDataRenderer) && (renderer != data))
+            IDataRenderer(renderer).data = data;   
+        
+        //Newly created renderer with no owner, set owner to this     
+        if (!renderer.owner)
+            renderer.owner = this; 
+
+        //If we're the owner, set the labelText to the toString()
+        //of the data 
+        if (renderer.owner == this && renderer is IItemRenderer)
+            IItemRenderer(renderer).labelText = itemToLabel(data); 
+        
+        //This dataGroup is not the "true" owner, give the true 
+        //owner a chance to update the renderer. 
+        else if (renderer.owner != this)
+            IItemRendererOwner(renderer.owner).updateRenderer(renderer);
+                        
+    }
+
     
     private function manageDisplayObjectLayers():void
     {
@@ -1032,7 +1039,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             if (createdIR || recycledIR) 
             {
-                updateRendererInformation(elt, item);
+                updateRenderer(elt, item);
                 if (elt is IInvalidating)
                     IInvalidating(elt).validateNow();
             }
@@ -1119,7 +1126,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         var myItemRenderer:IVisualElement = createRendererForItem(item);
         indexToRenderer.splice(index, 0, myItemRenderer);
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
-        updateRendererInformation(myItemRenderer, item);
+        updateRenderer(myItemRenderer, item);
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_ADD, false, false, 
                       myItemRenderer, index, item));
@@ -1307,8 +1314,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                     if (pe)
                     {
                         var renderer:IVisualElement = indexToRenderer[dataProvider.getItemIndex(pe.source)];
-                        if (renderer)
-                          IItemRendererOwner(renderer.owner).updateRendererInformation(renderer, pe.source); 
+                        updateRenderer(renderer, pe.source); 
                     }
                 }
                 break;
