@@ -1069,7 +1069,7 @@ public class PopUpButton extends Button
         // the popUp and then click outside the application.
 
         // If the dropdown is open...
-        if (showingPopUp && _popUp)
+        if (showingPopUp && _popUp && event.target == this)
         {
             // If focus is moving outside the popUp...
             if (!event.relatedObject)
