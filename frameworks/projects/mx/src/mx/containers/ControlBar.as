@@ -13,10 +13,13 @@ package mx.containers
 {
 
 import mx.core.Container;
+import mx.core.FlexVersion;
 import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
+import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -139,6 +142,18 @@ public class ControlBar extends Box
         // ControlBar defaults to direction="horizontal", but can be changed
         // later if desired
         direction = BoxDirection.HORIZONTAL;
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = 
+                StyleManager.getStyleDeclaration("mx.containers.ControlBar");
+            
+            if (typeSelector)
+            {
+                if (typeSelector.getStyle("borderStyle") === undefined)
+                    typeSelector.setStyle("borderStyle", "controlBar");
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
