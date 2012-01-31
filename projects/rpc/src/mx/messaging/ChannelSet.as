@@ -1309,6 +1309,22 @@ public class ChannelSet extends EventDispatcher
     
     //--------------------------------------------------------------------------
     //
+    // Protected Methods
+    // 
+    //--------------------------------------------------------------------------        
+    
+    /**
+     *  Redispatches message events from the currently connected Channel.
+     * 
+     *  @param event The MessageEvent from the Channel.
+     */
+    protected function messageHandler(event:MessageEvent):void
+    {
+        dispatchEvent(event);
+    }    
+    
+    //--------------------------------------------------------------------------
+    //
     // Private Methods
     // 
     //--------------------------------------------------------------------------    
@@ -1349,17 +1365,6 @@ public class ChannelSet extends EventDispatcher
     private function dispatchRPCEvent(event:AbstractEvent):void
     {
         event.callTokenResponders();
-        dispatchEvent(event);
-    }
-    
-    /**
-     *  @private
-     *  Redispatches message events from the currently connected Channel.
-     * 
-     *  @param event The MessageEvent from the Channel.
-     */
-    private function messageHandler(event:MessageEvent):void
-    {
         dispatchEvent(event);
     }
     
