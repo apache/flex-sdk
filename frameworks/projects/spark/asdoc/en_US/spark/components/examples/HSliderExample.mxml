@@ -16,7 +16,7 @@
             <s:SimpleText width="100%" text="Drag the slider to change the image transparency"/>
 
             <s:HSlider id="hSlider" minimum="0" maximum="1" value="1" stepSize="0.1"
-                    valueInterval="0.1" liveDragging="true" change="fxImage.alpha=hSlider.value;"/>
+                    snapInterval="0.1" liveDragging="true" change="fxImage.alpha=hSlider.value;"/>
          </s:VGroup>
     </s:Panel>
 
