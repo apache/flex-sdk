@@ -168,7 +168,10 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  Skin class for the popUpDown state (when arrowButton is in down 
  *  state) of the background and border.
- *  @default mx.skins.halo.PopUpButtonSkin
+ * 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.PopUpButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.PopUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -194,7 +197,8 @@ include "../styles/metadata/IconColorStyles.as"
  *  The icon used for the right button of PopUpButton.
  *  Supported classes are mx.skins.halo.PopUpIcon
  *  and mx.skins.halo.PopUpMenuIcon.
- *  @default mx.skins.halo.PopUpIcon
+ * 
+ *  @default mx.skins.halo.PopUpIcon (for Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -206,7 +210,10 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  Skin class for the popUpOver state (over arrowButton) of 
  *  the background and border.
- *  @default mx.skins.halo.PopUpButtonSkin
+ *  
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.PopUpButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.PopUpButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
