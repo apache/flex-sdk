@@ -64,6 +64,8 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
 
 [IconFile("RichText.png")]
 
+[DiscouragedForProfile("mobileDevice")]
+
 /**
  *  RichText is a low-level UIComponent that can display one or more lines
  *  of richly-formatted text and embedded images.
