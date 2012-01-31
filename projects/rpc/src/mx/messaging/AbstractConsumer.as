@@ -182,6 +182,40 @@ public class AbstractConsumer extends MessageAgent
         }
 	}
 
+    //----------------------------------
+    //  maxFrequency
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _maxFrequency:uint = 0;
+
+    [Bindable(event="propertyChange")]
+    /**
+     *  Determines the maximum number of messages per second the Consumer wants
+     *  to receive. A server that understands this value will use it as an input
+     *  while it determines how fast to send messages to the Consumer. Default is 0 
+     *  which means Consumer does not have a preference for the message rate. 
+     *  Note that this property should be set before the Consumer subscribes and
+     *  any changes after Consumer subscription will not have any effect until 
+     *  Consumer unsubscribes and resubscribes.
+     */ 
+    public function get maxFrequency():uint
+    {
+        return _maxFrequency;
+    }
+
+    /**
+     *  @private
+     */
+    public function set maxFrequency(value:uint):void
+    {
+        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "maxFrequency", _maxFrequency, value);
+        _maxFrequency = value;
+        dispatchEvent(event);
+    }
+
 	//----------------------------------
 	//  resubscribeAttempts
 	//----------------------------------
@@ -750,6 +784,8 @@ public class AbstractConsumer extends MessageAgent
         msg.operation = CommandMessage.SUBSCRIBE_OPERATION;
         msg.clientId = clientId;
         msg.destination = destination;
+        if (maxFrequency > 0)
+            msg.headers[CommandMessage.MAX_FREQUENCY_HEADER] = maxFrequency;
         return msg;
 	}
 
