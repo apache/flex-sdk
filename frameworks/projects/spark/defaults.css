@@ -96,6 +96,7 @@ FxSpinner
 
 FxTextArea
 {
+	lineBreak: "toFit";
 	skinClass: ClassReference("mx.skins.spark.FxTextAreaSkin");
 }
 
