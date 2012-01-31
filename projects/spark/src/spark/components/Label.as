@@ -155,50 +155,15 @@ public class SimpleText extends TextGraphicElement
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Certain styles require the text to be recomposed when the height
-     *  changes.
-     */
-    override protected function composeOnHeightChange():Boolean
-    {
-        if (super.composeOnHeightChange())
-            return true;
 
-        var verticalAlign:String = getStyle("verticalAlign");
-        var topAligned:Boolean = (verticalAlign == "top");
-
-        return !topAligned;
-    }
-
-    /**
-     *  @private
-     *  Certain styles require the text to be recomposed when the width
-     *  changes.
-     */
-    override protected function composeOnWidthChange():Boolean
-    {
-        if (super.composeOnWidthChange())
-            return true;
-
-        var direction:String = getStyle("direction");
-        var textAlign:String = getStyle("textAlign");
-
-        var leftAligned:Boolean =
-            textAlign == "left" ||
-            textAlign == "start" && direction == "ltr" ||
-            textAlign == "end" && direction == "rtl";
-
-        return !leftAligned;   
-    }
-    
     /**
      *  @private
      */
     override protected function composeTextLines(width:Number = NaN,
 												 height:Number = NaN):void
     {
+        super.composeTextLines(width, height);
+        
         var elementFormat:ElementFormat = createElementFormat();
             
 		// Set the composition bounds to be used by createTextLines().
@@ -220,7 +185,6 @@ public class SimpleText extends TextGraphicElement
             mx_internal::textLines.length = 0;
             
 		var createdAllLines:Boolean = createTextLines(elementFormat);
-        var toFitLineBreak:Boolean = getStyle("lineBreak") == "toFit";
         
         // Need truncation if all the following are true
         // - truncation options exist (0=no trunc, -1=fill up bounds then trunc,
@@ -228,7 +192,7 @@ public class SimpleText extends TextGraphicElement
         // - compose width is specified
         // - explicit line breaking is not used
         // - content doesn't fit
-        if (truncation && toFitLineBreak &&
+        if (truncation && getStyle("lineBreak") == "toFit" &&
             !doesComposedTextFit(height, createdAllLines, truncation))
         {
             truncateText(width, height);
@@ -240,8 +204,11 @@ public class SimpleText extends TextGraphicElement
         // If toFit and explicit width, adjust the bounds to match.
         // This will save a recompose and/or clip in updateDisplayList() if 
         // the bounds width matches the unscaled width.
-        if (toFitLineBreak && !isNaN(width) && mx_internal::bounds.width < width)
+        if (getStyle("lineBreak") == "toFit" && 
+            !isNaN(width) && mx_internal::bounds.width < width)
+        {
             mx_internal::bounds.width = width;
+        }
                                                
         // Add the new text lines to the container.
         mx_internal::addTextLines(DisplayObjectContainer(drawnDisplayObject));
