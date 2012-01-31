@@ -1512,7 +1512,9 @@ public class Label extends UIComponent
             textField.addEventListener("textInsert",
                                        textField_textModifiedHandler);                                       
             textField.addEventListener("textReplace",
-                                       textField_textModifiedHandler);                                       
+                                       textField_textModifiedHandler);
+            textField.addEventListener("textFieldWidthChange",
+                                       textField_textFieldWidthChangeHandler);
                                        
             if (childIndex == -1)
                 addChild(DisplayObject(textField));
@@ -1536,6 +1538,8 @@ public class Label extends UIComponent
                                           textField_textModifiedHandler);                                       
             textField.removeEventListener("textReplace",
                                           textField_textModifiedHandler);                                       
+            textField.removeEventListener("textFieldWidthChange",
+                                          textField_textFieldWidthChangeHandler);
             removeChild(DisplayObject(textField));
             textField = null;
         }
@@ -1670,6 +1674,15 @@ public class Label extends UIComponent
         textFieldChanged(false);
     }
 
+    /**
+     *  @private
+     *  Changing the width of the text field can cause the text to reflow.
+     *  Make sure our local _textWidth and _textHeight are in sync with text field.
+     */
+    private function textField_textFieldWidthChangeHandler(event:Event):void
+    {
+        textFieldChanged(true);
+    }   
 }
 
 }
