@@ -416,36 +416,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var selRange:ElementRange = 
             ElementRange.createElementRange(textFlow, absoluteStart, absoluteEnd); 
         
-        var leaf:FlowLeafElement = selRange.firstLeaf;
-        var attr:TextLayoutFormat = new TextLayoutFormat(leaf.computedFormat);
-        
-        // If there is a insertion point, see if there is an interaction
-        // manager with a pending point format.
-        if (anchorPosition != -1 && anchorPosition == activePosition)
-        {
-            if (textFlow.interactionManager)
-            {
-                var selectionState:SelectionState = 
-                    textFlow.interactionManager.getSelectionState();                
-                if (selectionState.pointFormat)
-                    attr.apply(selectionState.pointFormat);
-            }
-        }
-        else
-        {
-            for (;;)
-            {
-                if (leaf == selRange.lastLeaf)
-                    break;
-                leaf = leaf.getNextLeaf();
-                attr.removeClashing(leaf.computedFormat);
-            }
-        }
-        
-        return Property.extractInCategory(
-                    TextLayoutFormat, 
-                    TextLayoutFormat.description, 
-                    attr, Category.CHARACTER) as ITextLayoutFormat;
+        return selRange.getCommonCharacterFormat();
     }
     
     /**
@@ -458,13 +429,11 @@ public class RichEditableTextContainerManager extends TextContainerManager
     {
         var textFlow:TextFlow = getTextFlowWithComposer();
         
-        var controller:ContainerController = 
-            textFlow.flowComposer.getControllerAt(0);
-            
-        return Property.extractInCategory(
-                    TextLayoutFormat, TextLayoutFormat.description, 
-                    controller.computedFormat,
-                    Category.CONTAINER) as ITextLayoutFormat;
+        // absoluteStart and absoluteEnd values not used. 
+        var selRange:ElementRange = 
+            ElementRange.createElementRange(textFlow, 0, textFlow.textLength - 1); 
+        
+        return selRange.getCommonContainerFormat();
     }
     
     /**
@@ -487,22 +456,8 @@ public class RichEditableTextContainerManager extends TextContainerManager
 
         var selRange:ElementRange = 
             ElementRange.createElementRange(textFlow, absoluteStart, absoluteEnd); 
-        
-        var para:ParagraphElement = selRange.firstParagraph;
-        var attr:TextLayoutFormat = new TextLayoutFormat(para.computedFormat);
-        for (;;)
-        {
-            if (para == selRange.lastParagraph)
-                break;
-            
-            para = textFlow.findAbsoluteParagraph(
-                            para.getAbsoluteStart() + para.textLength);
-            attr.removeClashing(para.computedFormat);
-        }
-        
-        return Property.extractInCategory(TextLayoutFormat,
-                    TextLayoutFormat.description,
-                    attr, Category.PARAGRAPH) as ITextLayoutFormat;
+                
+        return selRange.getCommonParagraphFormat();
     }
     
     /**
@@ -648,18 +603,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         if (!event.isDefaultPrevented())
             super.keyUpHandler(event);
     }
-    
-    /**
-     *  @private
-     */
-    override public function mouseWheelHandler(event:MouseEvent):void
-    {
-        // Bug: ContainerController.mouseWheelHandler() should be checking
-        // if the default behavior is prevented before it acts on the event.
-        if (!event.isDefaultPrevented())
-            super.mouseWheelHandler(event);
-    }
-    
+        
     /**
      *  @private
      */
