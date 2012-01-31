@@ -50,6 +50,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.effects.supportClasses.ResizeInstance
+ *
+ *  @includeExample examples/ResizeEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
