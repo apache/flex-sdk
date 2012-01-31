@@ -704,7 +704,34 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 invalidateDisplayList();
         }
     }
-        
+    
+    /**
+     *  @private
+     *  Automation requires a version of addEventListener that does not
+     *  affect behavior of the underlying component.
+     */  
+    mx_internal function $addEventListener(
+                            type:String, listener:Function,
+                            useCapture:Boolean = false,
+                            priority:int = 0,
+                            useWeakReference:Boolean = false):void
+    {
+        super.addEventListener(type, listener, useCapture,
+                               priority, useWeakReference);
+    }
+
+    /**
+     *  @private
+     *  Automation requires a version of removeEventListener that does not
+     *  affect behavior of the underlying component.
+     */  
+    mx_internal function $removeEventListener(
+                              type:String, listener:Function,
+                              useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+    }
+      
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
