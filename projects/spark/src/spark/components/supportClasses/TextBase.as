@@ -263,7 +263,7 @@ public class TextGraphicElement extends GraphicElement
     	visibleChanged = true;
 
     	invalidateDisplayList();
-    }
+        }
              
     //--------------------------------------------------------------------------
     //
@@ -472,89 +472,89 @@ public class TextGraphicElement extends GraphicElement
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
+    //----------------------------------
 	//  isTruncated
-	//----------------------------------
+    //----------------------------------
 	
-	/**
-	 *  @private
+    /**
+     *  @private
 	 *  Storage for the isTruncated property.
-	 */
+     */
 	mx_internal var _isTruncated:Boolean = false;
-	
-	/**
+        
+    /**
 	 *  Determines if the text, once composed, has been truncated.
 	 *
 	 *  @return <code>true</code> if the text has been truncated.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
 	public function get isTruncated():Boolean
-	{
+    {
 		// For some reason, the compiler needs an explicit cast to Boolean
 		// to avoid a warning even though at runtime "is Boolean" is true.
 		return Boolean(_isTruncated);
-	}
-	
-	//----------------------------------
+    }
+    
+    //----------------------------------
 	//  maxDisplayedLines
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
 	private var _maxDisplayedLines:int = 0;
-	
-	/**
-	 *  Documentation is not currently available.
-	 *  This property is ignored if lineBreak="explicit".
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    
+    /**
+     *  Documentation is not currently available.
+     *  This property is ignored if lineBreak="explicit".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
 	public function get maxDisplayedLines():int
-	{
+    {
 		return _maxDisplayedLines;
-	}
-	
-	/**
-	 *  @private
-	 */
+    }
+    
+    /**
+     *  @private
+     */
 	public function set maxDisplayedLines(value:int):void
-	{
+    {
 		if (value != _maxDisplayedLines)
-		{
+    	{
 			_maxDisplayedLines = value;
-			
+    		
 			invalidateTextLines();
-			
-			invalidateSize();
-			invalidateDisplayList();
-		}
-	}
+                 		
+    		invalidateSize();
+    		invalidateDisplayList();
+    	}
+    }
 	
-	/**
-	 *  @private
-	 */
-	override public function canShareWithNext(element:IGraphicElement):Boolean
-	{
-		return false;
-		// TODO: Returning false is a temporary workaround to fix SDK-21084
-		// for Beta 1. The real problem involves how Group does z-ordering
-		// of its children without taking TextLines into account.
-		// We should restore the code below after we have a proper fix
-		// for SDK-21084.
-		
-		// We can share with the next GraphicElement only if it is also
-		// a TextGraphicElement, as TextGraphicElements add child DisplayObjects
-		// instead of drawing the the DisplayObject's graphics.
-		//return element is TextGraphicElement && super.canShareWithNext(element);
-	}
+    /**
+     *  @private
+     */
+    override public function canShareWithNext(element:IGraphicElement):Boolean
+    {
+        return false;
+        // FIXME (egeorgie): Returning false is a temporary workaround to fix SDK-21084
+        // for Beta 1. The real problem involves how Group does z-ordering
+        // of its children without taking TextLines into account.
+        // We should restore the code below after we have a proper fix
+        // for SDK-21084.
+        
+        // We can share with the next GraphicElement only if it is also
+        // a TextGraphicElement, as TextGraphicElements add child DisplayObjects
+        // instead of drawing the the DisplayObject's graphics.
+        //return element is TextGraphicElement && super.canShareWithNext(element);
+    }
 	
     //----------------------------------
     //  styleChainInitialized
@@ -638,7 +638,7 @@ public class TextGraphicElement extends GraphicElement
      */
     override public function parentChanged(value:Group):void
     {
-        // TODO EGeorgie: we add event listener to the parent, as adding event
+        // FIXME (egeorgie): we add event listener to the parent, as adding event
         // listener to the TextGraphicElement itself doesn't work, as we perform
         // double invalidation, but our updateDisplayList gets called only once
         // and  the code in the base GraphicElement class assumes that
@@ -721,7 +721,7 @@ public class TextGraphicElement extends GraphicElement
     {
         super.setLayoutBoundsSize(width, height, postLayoutTransform);
 
-        // TODO EGeorgie: possible optimization - if we reflow the text
+        // FIXME (egeorgie): possible optimization - if we reflow the text
         // immediately, we'll be able to detect whether the constrained
         // width causes the measured height to change.
         // Also certain layouts like vertical/horizontal will
@@ -792,7 +792,7 @@ public class TextGraphicElement extends GraphicElement
         var compose:Boolean = false;
         var clipText:Boolean = false;
         
-        // ToDo: optimize for right-to-left text so compose isn't always done
+        // FIXME (gosmith): optimize for right-to-left text so compose isn't always done
         // when height or width changes.
         if (invalidateCompose || 
             composeForAlignStyles(unscaledWidth, unscaledHeight))
@@ -1179,14 +1179,14 @@ public class TextGraphicElement extends GraphicElement
             // redo the truncation if we don't already have the number of
             // truncation lines needed.
             if (maxDisplayedLines > 0 &&
-                (unscaledHeight < bounds.height ||
+               (unscaledHeight < bounds.height ||
                  textLines.length != maxDisplayedLines))
             {
                 return true;
             }
         }
 
-        // ToDo: optimize this case.        
+        // FIXME (gosmith): optimize this case.        
         if (getStyle("blockProgression") != "tb")
             return true;    
             
@@ -1206,7 +1206,7 @@ public class TextGraphicElement extends GraphicElement
                 return true;
         }
         
-        // ToDo: optimize this case.        
+        // FIXME (gosmith): optimize this case.        
         if (getStyle("blockProgression") != "tb")
             return true;
                     
