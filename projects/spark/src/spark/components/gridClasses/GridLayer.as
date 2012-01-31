@@ -12,7 +12,9 @@
 package spark.components.supportClasses
 {
     
+import mx.core.IInvalidating;
 import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 
 import spark.components.Grid;
@@ -21,38 +23,92 @@ import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
-[ExcludeClass]
-
 /**
- *  @private
- *  A simple no-layout container for Grid visual elements.   This class has-a Group, rather than 
- *  being one, to accomodate using the Grid itself as a layer.
+ *  The element type for the Grid layers property.
+ * 
+ *  <p>A GridLayer is a non-visual object that has a simple no-layout container for Grid visual elements.  
+ *  Visual elements are added to the layer's (internal) container with addElement() and removed with 
+ *  removeElement().   GridLayer containers must not impose a layout on their elements, the Grid's 
+ *  layout is responsible for sizing and positioning all GridLayer elements.</p>
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.4
+ *  @productversion Flex 4.5
  */
 public class GridLayer
 {
-    public function GridLayer(layerRoot:Group = null)
+    public function GridLayer()
     {
         super();
-        _root = (layerRoot) ? layerRoot : new LayerGroup();
     }
     
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
-    //--------------------------------------------------------------------------    
+    //-------------------------------------------------------------------------- 
     
-    private var _root:Group;
-    
+    //----------------------------------
+    //  id
+    //----------------------------------
+
+    private var _id:String;
     
     /**
-     *  The root of the hierarchy that addGridElement() adds visual elements to and
-     *  removeGridElement() removes them from.   To add a GridLayer to another Group,
-     *  add its root: myGroup.add(myGridLayer.root).
+     *  A unique identifier for this layer.   The Grid's layout looks up layers by id.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5  
      */
-    public function get root():Group
+    public function get id():String
     {
+        return _id;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set id(value:String):void
+    {
+        _id = value;
+    }
+    
+    
+    //----------------------------------
+    //  root
+    //----------------------------------
+    
+    private var _root:IVisualElement;
+    
+    /**
+     *  The root of the hierarchy that addElement() adds visual elements to and
+     *  removeElement() removes them from.   To add a GridLayer to another Group,
+     *  add its root: myGroup.addElement(myGridLayer.root).
+     * 
+     *  @default A Group configured with a no-op layout.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5
+     */
+    public function get root():IVisualElement
+    {
+        if (!_root)
+            _root = new LayerGroup();
+        
         return _root;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set root(value:IVisualElement):void
+    {
+        _root = value;
     }
     
     //--------------------------------------------------------------------------
@@ -64,21 +120,44 @@ public class GridLayer
     /**
      *  Add the specified element to this GridLayer.  The relative order of elements
      *  is not guaranteed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5
      */
-    public function addGridElement(elt:IVisualElement):void
+    public function addElement(elt:IVisualElement):void
     {
         if (elt.parent != root)
-            root.addElement(elt);
+            IVisualElementContainer(root).addElement(elt);
     }
     
     /**
-     *  Remove the specified element from this GridLayer.  
+     *  Remove the specified element from this GridLayer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5  
      */
-    public function removeGridElement(elt:IVisualElement):void
+    public function removeElement(elt:IVisualElement):void
     {
         if (elt.parent == root)
-            root.removeElement(elt);
-    }      
+            IVisualElementContainer(root).removeElement(elt);
+    }
+    
+    /** 
+     *  Validate this layer's display list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5
+     */
+    public function validateNow():void
+    {
+        IInvalidating(root).validateNow();
+    }
 }
 }
 
