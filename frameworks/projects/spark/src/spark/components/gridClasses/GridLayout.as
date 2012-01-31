@@ -19,16 +19,21 @@ import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
 import org.osmf.metadata.IFacet;
 
+import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
 import spark.layouts.supportClasses.LayoutBase;
+import spark.layouts.HorizontalLayout;
 import spark.primitives.Rect;
+import spark.components.ColumnHeaderBar;
 
+use namespace mx_internal;
 
 public class GridLayout extends LayoutBase
 {
@@ -39,6 +44,45 @@ public class GridLayout extends LayoutBase
     // out how to migrate data from the old GLC to the new one.
     // Note also: if this was going to be shared, it should arrive as a constructor parameter.
     public var gridDimensions:GridDimensions = new GridDimensions();
+        
+    
+    public function GridLayout()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Property Overrides
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
+
+    /**
+     *  GridLayout only supports virtual layout, the value of this property can not be changed.
+     *  
+     *  @return True.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */    
+    override public function get useVirtualLayout():Boolean
+    {
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set useVirtualLayout(value:Boolean):void
+    {
+    }   
+    
     
     //--------------------------------------------------------------------------
     //
@@ -71,14 +115,21 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
+        // TBD(hmuller):need an implementation
+        var measuredWidth:Number = 640;
+        var measuredHeight:Number = 480;
+        var measuredMinWidth:Number = 640;
+        var measuredMinHeight:Number = 480;
+        
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
-        /*
+        
         grid.measuredWidth = Math.ceil(measuredWidth);    
         grid.measuredHeight = Math.ceil(measuredHeight);    
         grid.measuredMinWidth = Math.ceil(measuredMinWidth);    
         grid.measuredMinHeight = Math.ceil(measuredMinHeight); 
-        */
+        
+       // trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
     }
     
     /**
@@ -86,6 +137,8 @@ public class GridLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
+        
         if (!grid)
             return;
         
@@ -102,14 +155,11 @@ public class GridLayout extends LayoutBase
         const scrollY:Number = verticalScrollPosition;
         layoutItemRenderers(grid.itemRendererGroup, scrollX, scrollY, unscaledWidth, unscaledHeight);
         
-        // Layout the row and column backgrounds
+        // Layout the row backgrounds
         
         visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, grid.backgroundGroup, 
             visibleRowBackgrounds, oldVisibleRowIndices, visibleRowIndices, layoutRowBackground);
-        
-        visibleColumnBackgrounds = layoutLinearElements(grid.columnBackground, grid.backgroundGroup, 
-            visibleColumnBackgrounds, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnBackground);
-        
+
         // Layout the row and column separators
         
         const lastRowIndex:int = gridDimensions.rowCount - 1;
@@ -122,7 +172,7 @@ public class GridLayout extends LayoutBase
         visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayGroup, 
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastColumnIndex);
         
-        // Layout the hoverIndicator, caretIndicator, and selectionIndicators
+        // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
         layoutHoverIndicator(grid.backgroundGroup);
         layoutSelectionIndicators(grid.selectionGroup);
@@ -155,11 +205,17 @@ public class GridLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     private function get grid():Grid
     {
         return target as Grid;
     }
     
+    /**
+     *  @private
+     */
     private function getGridColumn(columnIndex:int):GridColumn
     {
         const columns:IList = grid.columns;
@@ -169,6 +225,34 @@ public class GridLayout extends LayoutBase
         return columns.getItemAt(columnIndex) as GridColumn;
     }
     
+    /**
+     *  @private
+     *  ToDo(cframpto): what is the proper way to get at this?
+     */
+    private function getColumnHeaderBar():ColumnHeaderBar
+    {
+        const dataGrid:DataGrid = grid.gridOwner as DataGrid;
+        if (dataGrid == null)
+            return null;
+        
+        return dataGrid.columnHeaderBar;
+    }
+
+    /**
+     *  @private
+     */
+    private function getGridColumnHeader(columnIndex:int):IVisualElement
+    {
+        const headerBar:ColumnHeaderBar = getColumnHeaderBar();
+        if (headerBar == null)
+            return null;
+        
+        return headerBar.getElementAt(columnIndex);
+    }
+    
+    /**
+     *  @private
+     */
     private function getDataProviderItem(rowIndex:int):Object
     {
         const dataProvider:IList = grid.dataProvider;
@@ -176,12 +260,6 @@ public class GridLayout extends LayoutBase
             return null;
         
         return dataProvider.getItemAt(rowIndex);
-    }
-    
-    private function getItemRendererFactory(columnIndex:int):IFactory
-    {
-        const column:GridColumn = getGridColumn(columnIndex);
-        return (column) ? column.itemRenderer as IFactory : null;        
     }
     
     // TBD(hmuller): need a change notification scheme for the factory properties
@@ -233,7 +311,7 @@ public class GridLayout extends LayoutBase
         const colGap:int = gridDimensions.columnGap;
         
         // Compute the row,column index and bounds of the upper left "start" cell
-        
+                
         const startColIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
         const startCellR:Rectangle = gridDimensions.getCellBounds(startRowIndex, startColIndex);        
@@ -271,10 +349,10 @@ public class GridLayout extends LayoutBase
                 var renderer:IVisualElement = takeVisibleItemRenderer(rowIndex, colIndex);
                 if (!renderer)
                 {       
-                    var factory:IFactory = getItemRendererFactory(colIndex);
+                    var dataItem:Object = getDataProviderItem(rowIndex);
+                    var column:GridColumn = getGridColumn(colIndex);
+                    var factory:IFactory = column.itemToRenderer(dataItem);
                     renderer = allocateGridElement(factory) as IVisualElement;
-                    // TBD(hmuller): if factory == null, then dataProvider[row][gridColumn.dataField]
-                    // TBD(hmuller): what if renderer is *still* null (no factory, nothing at dataField).
                 }
                 
                 if (renderer.parent != itemRendererGroup)
@@ -285,9 +363,30 @@ public class GridLayout extends LayoutBase
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
                 layoutGridElement(renderer, cellX, cellY, colWidth, rowHeight);
                 
+                // If there is a column header, it should be the same width
+                // as the column.
+                var headerElement:IVisualElement = getGridColumnHeader(colIndex);
+                if (headerElement)
+                    headerElement.width = colWidth;
+                
                 // TBD(hmuller): need a local preferred bounds method once layoutGridElement supports constraints
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
+            }
+            
+            // ToDo(cframpto): where and how should this be done?
+            const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
+            if (columnHeaderBar)
+            {
+                // Horizontal layout repositions all the elements.  The layout
+                // starts at paddingLeft.  There is "gap" between each element.
+                if (columnHeaderBar.layout is HorizontalLayout)
+                {
+                    var headerBarLayout:HorizontalLayout = 
+                        HorizontalLayout(columnHeaderBar.layout);
+                    headerBarLayout.gap = colGap;
+                    headerBarLayout.paddingLeft = grid.x;
+                }
             }
             
             // TBD: if gridDimensions.rowHeight is now larger, we need to make another
@@ -309,14 +408,24 @@ public class GridLayout extends LayoutBase
         
         // Update visibleItemRenderersBounds
         
-        const lastRowIndex:int = newVisibleRowIndices[newVisibleRowIndices.length - 1];
-        const lastColIndex:int = newVisibleColumnIndices[newVisibleColumnIndices.length - 1];
-        const lastCellR:Rectangle = gridDimensions.getCellBounds(lastRowIndex, lastColIndex);
-        
-        visibleItemRenderersBounds.x = startCellR.x;
-        visibleItemRenderersBounds.y = startCellR.y;
-        visibleItemRenderersBounds.width = lastCellR.x + lastCellR.width - startCellR.x;
-        visibleItemRenderersBounds.height = lastCellR.y + lastCellR.height - startCellR.y;
+        if (newVisibleRowIndices.length > 0 && newVisibleColumnIndices.length > 0)
+        {
+            const lastRowIndex:int = newVisibleRowIndices[newVisibleRowIndices.length - 1];
+            const lastColIndex:int = newVisibleColumnIndices[newVisibleColumnIndices.length - 1];
+            const lastCellR:Rectangle = gridDimensions.getCellBounds(lastRowIndex, lastColIndex);
+            
+            visibleItemRenderersBounds.x = startCellR.x;
+            visibleItemRenderersBounds.y = startCellR.y;
+            visibleItemRenderersBounds.width = lastCellR.x + lastCellR.width - startCellR.x;
+            visibleItemRenderersBounds.height = lastCellR.y + lastCellR.height - startCellR.y;
+        }
+        else
+        {
+            visibleItemRenderersBounds.x = 0;
+            visibleItemRenderersBounds.y = 0;
+            visibleItemRenderersBounds.width = 0;
+            visibleItemRenderersBounds.height = 0;
+        }
         
         // Update visibleItemRenderers et al
         
@@ -324,7 +433,37 @@ public class GridLayout extends LayoutBase
         visibleRowIndices = newVisibleRowIndices;
         visibleColumnIndices = newVisibleColumnIndices;
     }
-    
+       
+    /* ToDo: typicalLayoutElement getter will return default so check for null 
+       won't work.  If replacing typicalLayoutElement need to free the old one.
+    private function ensureTypicalItem():void
+    {
+        if (typicalLayoutElement !== null || grid.typicalItem == null)
+            return;
+        
+        var typicalItem:Object = grid.typicalItem;
+        var column:GridColumn = getGridColumn(0);
+        var factory:IFactory = column.itemToRenderer(typicalItem);
+        const renderer:IVisualElement = 
+            allocateGridElement(factory) as IVisualElement;
+        
+        if (renderer == null)
+            return;
+        
+        grid.itemRendererGroup.addElement(IVisualElement(renderer));
+        
+        initializeItemRenderer(renderer, 0, 0);
+        
+        const validatingElt:IInvalidating = renderer as IInvalidating;
+        if (validatingElt)        
+            validatingElt.validateNow();
+                
+       grid.itemRendererGroup.removeElement(IVisualElement(renderer));
+       
+       typicalLayoutElement = renderer;
+    } 
+    */
+            
     private function getVisibleItemRendererIndex(rowIndex:int, columnIndex:int):int
     {
         if ((visibleRowIndices == null) || (visibleColumnIndices == null))
@@ -374,8 +513,11 @@ public class GridLayout extends LayoutBase
             gridRenderer.itemIndex = rowIndex;
             gridRenderer.column = gridColumn;
             const dataItem:Object = getDataProviderItem(rowIndex);
-            const dataField:String = gridColumn.dataField;
-            gridRenderer.data = (dataItem && dataField) ? gridRenderer.data = dataItem[dataField] : dataItem;
+            gridRenderer.label = gridColumn.itemToLabel(dataItem);
+            gridRenderer.data = dataItem;
+            
+            if (grid.gridOwner)
+                grid.gridOwner.prepareItemRenderer(gridRenderer, true);
         }
     }
     
@@ -387,7 +529,10 @@ public class GridLayout extends LayoutBase
         // Reset back to (0,0), otherwise when the element is reused
         // it will be validated at its last layout size which causes
         // problems with text reflow.
-        renderer.setLayoutBoundsSize(0, 0, false);        
+        renderer.setLayoutBoundsSize(0, 0, false);     
+        
+        if (grid.gridOwner)
+            grid.gridOwner.discardItemRenderer(renderer, true);
     }
     
     private function freeItemRenderer(renderer:IVisualElement):void
@@ -453,7 +598,7 @@ public class GridLayout extends LayoutBase
         {
             var newEltIndex:int = newVisibleIndices[index];
             if (newEltIndex == lastIndex)
-                continue;
+                break;
             
             // If an element already exists for visibleIndex then use it, otherwise create one
             
@@ -476,7 +621,66 @@ public class GridLayout extends LayoutBase
         return newVisibleElements;
     }
     
-    
+    private function layoutCellElements (
+        factory:IFactory,
+        container:IVisualElementContainer,
+        oldVisibleElements:Vector.<IVisualElement>,
+        oldVisibleRowIndices:Vector.<int>, oldVisibleColumnIndices:Vector.<int>,
+        newVisibleRowIndices:Vector.<int>, newVisibleColumnIndices:Vector.<int>,
+        layoutFunction:Function):Vector.<IVisualElement>
+    {
+        // If a factory wasn't provided, discard the old visible elements, then return
+        
+        if (factory == null)
+        {
+            for each (var oldElt:IVisualElement in oldVisibleElements)
+            {
+                removeGridElement(oldElt);
+                if (oldElt.parent == container)
+                    container.removeElement(oldElt);
+            }
+            return new Vector.<IVisualElement>(0);
+        }
+        
+        // Create, layout, and return newVisibleElements
+        
+        const newVisibleElementCount:uint = newVisibleRowIndices.length;
+        const newVisibleElements:Vector.<IVisualElement> = 
+            new Vector.<IVisualElement>(newVisibleElementCount);
+
+        // Free and clear oldVisibleElements that are no long visible.
+        
+        freeCellElements(oldVisibleElements, newVisibleElements,
+                         oldVisibleRowIndices, newVisibleRowIndices,
+                         oldVisibleColumnIndices, newVisibleColumnIndices);
+                 
+        for (var index:int = 0; index < newVisibleElementCount; index++) 
+        {
+            var newEltRowIndex:int = newVisibleRowIndices[index];
+            var newEltColumnIndex:int = newVisibleColumnIndices[index];
+            
+            // If an element already exists for visibleIndex then use it, 
+            // otherwise create one.
+            
+            var elt:IVisualElement = newVisibleElements[index];
+            if (elt === null)
+            {
+                // Initialize the element, and then delegate to the layout 
+                // function.
+                elt = allocateGridElement(factory);
+                newVisibleElements[index] = elt;
+            }
+                        
+            if (elt.parent != container)
+                container.addElement(elt);
+            elt.visible = true;
+            
+            layoutFunction(elt, newEltRowIndex, newEltColumnIndex);
+        }
+        
+        return newVisibleElements;
+    }
+
     /** 
      *  @private
      *  Free each member of elements if the corresponding member of oldIndices doesn't 
@@ -499,8 +703,6 @@ public class GridLayout extends LayoutBase
         oldIndices:Vector.<int>, 
         newIndices:Vector.<int>):void
     {
-        const lastOffset:int = newIndices.length - 1;
-        
         // TBD(hmuller): rewrite this, should be one pass (no indexOf)
         for (var i:int = 0; i < elements.length; i++)
         {
@@ -515,6 +717,66 @@ public class GridLayout extends LayoutBase
                 }
             }
         }
+    }      
+    
+    private function freeCellElements (
+        elements:Vector.<IVisualElement>, newElements:Vector.<IVisualElement>, 
+        oldRowIndices:Vector.<int>, newRowIndices:Vector.<int>,
+        oldColumnIndices:Vector.<int>, newColumnIndices:Vector.<int>):void
+    {
+        var freeElement:Boolean = true;
+       
+        // assumes newRowIndices.length == newColumnIndices.length
+        const numNewCells:int = newRowIndices.length;
+        var newIndex:int = 0;
+        
+        for (var i:int = 0; i < elements.length; i++)
+        {
+            const elt:IVisualElement = elements[i];
+            if (elt == null)
+                continue;
+            
+            // assumes oldIndices.length == elements.length
+            const oldRowIndex:int = oldRowIndices[i];
+            const oldColumnIndex:int = oldColumnIndices[i];
+            
+            for ( ; newIndex < numNewCells; newIndex++)
+            {
+                const newRowIndex:int = newRowIndices[newIndex];
+                const newColumnIndex:int = newColumnIndices[newIndex];
+                
+                if (newRowIndex == oldRowIndex)
+                {
+                    if (newColumnIndex == oldColumnIndex)
+                    {
+                        // Same cell still selected so reuse the selection.
+                        // Save it in the correct place in newElements.  That 
+                        // way we know its location based on 
+                        // newRowIndices[newIndex], newColumnIndices[newIndex].
+                        newElements[newIndex] = elt;
+                        freeElement = false;
+                        break;
+                    }
+                    else if (newColumnIndex > oldColumnIndex)
+                    {
+                        // not found
+                        break;
+                    }
+                }
+                else if (newRowIndex > oldRowIndex)
+                {
+                    // not found
+                    break;
+                }
+            }
+            
+            if (freeElement)
+                freeGridElement(elt);
+                
+            freeElement = true;
+        }
+        
+        elements.length = 0;
     }      
     
     private function layoutRowBackground(rowBackground:IVisualElement, rowIndex:int):void
@@ -555,34 +817,114 @@ public class GridLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
-    private var visibleRowSelectionIndicators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
+    private var visibleSelectionIndicators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
     private var visibleRowSelectionIndices:Vector.<int> = new Vector.<int>(0);    
+    private var visibleColumnSelectionIndices:Vector.<int> = new Vector.<int>(0);
+    
+    private function isRowSelectionMode():Boolean
+    {
+        const mode:String = grid.selectionMode;
+        return mode == GridSelectionMode.SINGLE_ROW || 
+                mode == GridSelectionMode.MULTIPLE_ROWS;
+    }
+    
+    private function isCellSelectionMode():Boolean
+    {
+        const mode:String = grid.selectionMode;        
+        return mode == GridSelectionMode.SINGLE_CELL || 
+                mode == GridSelectionMode.MULTIPLE_CELLS;
+    }     
     
     private function layoutSelectionIndicators(container:IVisualElementContainer):void
     {
-        const gridSelection:GridSelection = grid.gridSelection;
         const selectionIndicatorFactory:IFactory = grid.selectionIndicator;
         
-        // TBD: if gridSelection or indicatorFactory are null, then clear everything and punt.
-        
-        // layout and update visibleRowSelectionIndicators,Indices
-        
-        // TBD: this could be a GridSelection operation
-        const oldVisibleRowSelectionIndices:Vector.<int> = visibleRowSelectionIndices;
-        visibleRowSelectionIndices = new Vector.<int>();
-        for each (var rowIndex:int in visibleRowIndices)
-            if (gridSelection.containsRow(rowIndex))
-                visibleRowSelectionIndices.push(rowIndex);
+        // layout and update visibleSelectionIndicators,Indices
+                
+        if (isRowSelectionMode())
+        {
+            // Selection is row-based so if there are existing cell selections, 
+            // free them since they can't be reused.
+            // TBD: this check won't work with column selections.
+            if (visibleColumnSelectionIndices.length)
+            {
+                freeGridElements(visibleSelectionIndicators);
+                visibleSelectionIndicators.length = 0;
+                visibleRowSelectionIndices.length = 0;
+                visibleColumnSelectionIndices.length = 0;
+            }
+
+            var oldVisibleRowSelectionIndices:Vector.<int> = 
+                visibleRowSelectionIndices;
             
-        visibleRowSelectionIndicators = layoutLinearElements(
-            selectionIndicatorFactory,
-            container,
-            visibleRowSelectionIndicators, 
-            oldVisibleRowSelectionIndices, 
-            visibleRowSelectionIndices, 
-            layoutRowSelectionIndicator);
+            // Load this up with the currently selected rows.
+            visibleRowSelectionIndices = new Vector.<int>();
+            
+            for each (var rowIndex:int in visibleRowIndices)
+            {
+                if (grid.selectionContainsIndex(rowIndex))
+                {
+                    visibleRowSelectionIndices.push(rowIndex);
+                }
+            }
+            
+            // Display the row selections.
+            visibleSelectionIndicators = layoutLinearElements(
+                selectionIndicatorFactory,
+                container,
+                visibleSelectionIndicators, 
+                oldVisibleRowSelectionIndices, 
+                visibleRowSelectionIndices, 
+                layoutRowSelectionIndicator);
+            
+            return;
+        }
         
-        // TBD: columns and cells...
+        // Selection is not row-based so if there are existing row selections, 
+        // free them since they can't be reused.
+        // TBD: this check won't work with column selections.
+        if (visibleRowSelectionIndices.length && 
+            visibleColumnSelectionIndices.length == 0)
+        {
+            freeGridElements(visibleSelectionIndicators);
+            visibleSelectionIndicators.length = 0;
+            visibleRowSelectionIndices.length = 0;
+        }
+        
+        if (isCellSelectionMode())
+        {
+            oldVisibleRowSelectionIndices = visibleRowSelectionIndices;
+            const oldVisibleColumnSelectionIndices:Vector.<int> = 
+                visibleColumnSelectionIndices;
+            
+            // Load up the vectors with the row/column of each selected cell.
+            visibleRowSelectionIndices = new Vector.<int>();
+            visibleColumnSelectionIndices = new Vector.<int>();
+            for each (rowIndex in visibleRowIndices)
+            {
+                for each (var columnIndex:int in visibleColumnIndices)
+                {
+                    if (grid.selectionContainsCell(rowIndex, columnIndex))
+                    {
+                        visibleRowSelectionIndices.push(rowIndex);
+                        visibleColumnSelectionIndices.push(columnIndex);
+                    }
+                }
+            } 
+                 
+            // Display the cell selections.
+            visibleSelectionIndicators = layoutCellElements(
+                selectionIndicatorFactory,
+                container,
+                visibleSelectionIndicators, 
+                oldVisibleRowSelectionIndices, oldVisibleColumnSelectionIndices,
+                visibleRowSelectionIndices, visibleColumnSelectionIndices,
+                layoutCellSelectionIndicator);
+            
+            return;
+        }
+        
+        // No selection.
     }
     
     private function layoutRowSelectionIndicator(indicator:IVisualElement, rowIndex:int):void
@@ -590,6 +932,13 @@ public class GridLayout extends LayoutBase
         layoutGridElementR(indicator, gridDimensions.getRowBounds(rowIndex));
     }    
     
+    private function layoutCellSelectionIndicator(indicator:IVisualElement, 
+                                                  rowIndex:int,
+                                                  columnIndex:int):void
+    {
+        layoutGridElementR(indicator, gridDimensions.getCellBounds(rowIndex, columnIndex));
+    }    
+
     //--------------------------------------------------------------------------
     //
     //  Indicators: hover, caret
@@ -606,19 +955,26 @@ public class GridLayout extends LayoutBase
         rowIndex:int,
         columnIndex:int):IVisualElement
     {
-        if ((rowIndex == -1) && indicator)
-            indicator.visible = false;
-        else if (rowIndex != -1)
+        if (rowIndex == -1 || grid.selectionMode == GridSelectionMode.NONE)
         {
-            if (!indicator && indicatorFactory)
-                indicator = indicatorFactory.newInstance() as IVisualElement;
             if (indicator)
-            {
-                layoutGridElementR(indicator, gridDimensions.getRowBounds(rowIndex));
-                container.addElement(indicator);  // add or move to the top
-                indicator.visible = true;
-            }
+                indicator.visible = false;
+            return indicator;
         }
+        
+        if (!indicator && indicatorFactory)
+            indicator = indicatorFactory.newInstance() as IVisualElement;
+        
+        if (indicator)
+        {
+            var bounds:Rectangle = isRowSelectionMode() ? 
+                gridDimensions.getRowBounds(rowIndex) :
+                gridDimensions.getCellBounds(rowIndex, columnIndex);
+            layoutGridElementR(indicator, bounds);
+            container.addElement(indicator);  // add or move to the top
+            indicator.visible = true;
+        }
+        
         return indicator;
     }
     
@@ -897,5 +1253,205 @@ public class GridLayout extends LayoutBase
         if (bounds)
             layoutGridElement(elt, bounds.x, bounds.y, bounds.width, bounds.height);
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Public API Exported for Grid Cover Methods 
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Return the dataProvider indices of the currently visible rows.  Note that the 
+     *  item renderers for the first and last rows may only be partially visible.  The 
+     *  returned vector's contents are in the order they're displayed.
+     * 
+     *  @return A vector of the visible row indices.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */ 
+    public function getVisibleRowIndices():Vector.<int>
+    {
+        return visibleRowIndices.concat();
+    }
+    
+    /**
+     *  Return the indices of the currently visible columns.  Note that the 
+     *  item renderers for the first and last columns may only be partially visible.  The 
+     *  returned vector's contents are in the order they're displayed.
+     * 
+     *  <p>The following example function uses this method to compute a vector of 
+     *  visible GridColumn objects.</p>
+     *  <pre>
+     *  function getVisibleColumns():Vector.&lt;GridColumn&gt;
+     *  {
+     *      var visibleColumns = new Vector.&lt;GridColumn&gt;;
+     *      for each (var columnIndex:int in grid.getVisibleColumnIndices())
+     *          visibleColumns.push(grid.columns.getItemAt(columnIndex));
+     *      return visibleColumns;
+     *  }
+     *  </pre> 
+     * 
+     *  @return A vector of the visible column indices.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */ 
+    public function getVisibleColumnIndices():Vector.<int>
+    {
+        return visibleColumnIndices.concat();
+    }
+    
+    /**
+     *  Returns the current pixel bounds of the specified cell, or null if no such cell exists.
+     *  Cell bounds are reported in grid coordinates.
+     * 
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return A <code>Rectangle</code> that represents the cell's pixel bounds, or null.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */ 
+    public function getCellBounds(rowIndex:int, columnIndex:int):Rectangle
+    {
+        return gridDimensions.getCellBounds(rowIndex, columnIndex);
+    }
+
+    /**
+     *  Returns the current pixel bounds of the specified row, or null if no such row exists.
+     *  Row bounds are reported in grid coordinates.
+
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     *  @return A <code>Rectangle</code> that represents the row's pixel bounds, or null.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function getRowBounds(rowIndex:int):Rectangle
+    {
+        return gridDimensions.getRowBounds(rowIndex);        
+    }
+
+    /**
+     *  Returns the current pixel bounds of the specified column, or null if no such column exists.
+     *  Column bounds are reported in grid coordinates.
+     * 
+     *  <p>If all of the cells in the specified column have not yet been scrolled into view, the 
+     *  returned bounds may only be an approximation, based on the column's <code>typicalItem</code>.</p>
+     *  
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return A <code>Rectangle</code> that represents the column's pixel bounds, or null.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getColumnBounds(columnIndex:int):Rectangle
+    {
+        return gridDimensions.getColumnBounds(columnIndex); 
+    }
+
+    /**
+     *  Return the row and column indices of the cell that overlaps the pixel at the 
+     *  specified grid coordinate as an Object with "rowIndex" and "columnIndex" properties.  
+     *  If no such cell exists, null is returned.
+     * 
+     *  <p>The example function below uses this method to compute the value of the 
+     *  <code>dataField</code> for a grid cell.</p> 
+     *  <pre>
+     *  function getCellData(x:Number, y:Number):Object
+     *  {
+     *      var cell:Object = getCellAt(x, y);
+     *      if (!cell)
+     *          return null;
+     *      var GridColumn:column = grid.columns.getItemAt(cell.columnIndex);
+     *      return grid.dataProvider[cell.rowIndex][column.dataField];
+     *  }
+     *  </pre> 
+     * 
+     *  @param x The pixel's x coordinate relative to the grid.
+     *  @param y The pixel's y coordinate relative to the grid.
+     *  @return An object like <code>{rowIndex:0, columnIndex:0}</code> or null. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getCellAt(x:Number, y:Number):Object
+    {
+        const rowIndex:int = gridDimensions.getRowIndexAt(x, y);
+        const columnIndex:int = gridDimensions.getColumnIndexAt(x, y);
+        if ((rowIndex == -1) || (columnIndex == -1))
+            return null;
+        return {rowIndex:rowIndex, columnIndex:columnIndex};
+    }
+
+    /**
+     *  Returns a vector of objects whose "rowIndex" and "columnIndex" properties specify the 
+     *  row and column indices of the cells that overlap the specified grid region.  If no
+     *  such cells exist, an empty vector is returned.
+     *  
+     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid.
+     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid. 
+     *  @return A vector of objects like <code>Vector.&lt;Object&gt;([{rowIndex:0, columnIndex:0}, ...])</code>. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<Object>
+    { 
+        // TBD(hmuller)
+        return new Vector.<Object>;
+    }
+
+    
+    /**
+     *  Returns a reference to the item renderer currently displayed at the 
+     *  specified cell.  If the requested item renderer is not visible then 
+     *  (each time this method is called) a new item renderer is created.  If 
+     *  the specified is invalid, e.g. if <code>rowIndex == -1</code>, 
+     *  then null is returned.
+     * 
+     *  @param rowIndex The 0-based row index of the item renderer's cell.
+     *  @param columnIndex The 0-based column index of the item renderer's cell.
+     *  @return The item renderer
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getItemRendererAt(rowIndex:int, columnIndex:int):IVisualElement
+    {
+        const visibleItemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
+        if (visibleItemRenderer)
+            return visibleItemRenderer;
+        // TBD(hmuller): create an item renderer
+        return null;
+    }
+
+    // TBD: isCellVisible(rowIndex, columnIndex)
+    // TBD: getCellValue(rowIndex, columnIndex)? getCellLabel()?
 }
 }
