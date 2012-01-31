@@ -26,8 +26,8 @@ import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionVisibility;
-import spark.components.RichEditableText;
 import spark.events.TextOperationEvent;
+import spark.primitives.RichEditableText;
 import spark.utils.MouseShieldUtil;
 
 //--------------------------------------
