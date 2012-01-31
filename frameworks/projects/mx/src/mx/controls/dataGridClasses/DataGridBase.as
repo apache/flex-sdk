@@ -2253,6 +2253,61 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             else
                 item.mask = createItemMask(0, rowY + yOffset, rowWidth, Math.max(rowHeight - yOffset, 0));
         }
+        if (lockedColumnContent)
+        {
+            lastRowItems = lockedColumnContent.listItems[lastRowIndex];
+            numColumns = lastRowItems.length;
+            rowWidth = lockedColumnContent.width;
+            for (i = 0; i < numColumns; i++)
+            {
+                item = lastRowItems[i];
+                yOffset = item.y - rowY;
+                if (item is IUITextField)
+                    item.height = Math.max(rowHeight - yOffset, 0);
+                else
+                    item.mask = createItemMask(0, rowY + yOffset, rowWidth, Math.max(rowHeight - yOffset, 0), lockedColumnContent);
+            }
+
+        }
+    }
+
+    /**
+     *  @private
+     */
+    override mx_internal function removeClipMask():void
+    {
+        super.removeClipMask();
+
+        if (!lockedColumnContent)
+            return;
+
+        // If there are no rows, do nothing.
+        var lastRowIndex:int = listItems.length - 1;
+        if (lastRowIndex < 0)
+            return;
+
+        // Undo the effects of the last "for" loop in addClipMask
+        var rowHeight:Number = rowInfo[lastRowIndex].height;
+        var lastRowInfo:ListRowInfo = rowInfo[lastRowIndex];
+        var lastRowItems:Array = lockedColumnContent.listItems[lastRowIndex];
+        if (lastRowItems)
+        {
+            var numColumns:int = lastRowItems.length;
+            for (var i:int = 0; i < numColumns; i++)
+            {
+                var item:DisplayObject = lastRowItems[i];
+                if (item is IUITextField)
+                {
+                    if (item.height != rowHeight - (item.y - lastRowInfo.y))
+                        item.height = rowHeight - (item.y - lastRowInfo.y);
+                }
+                else if (item && item.mask)
+                {
+                    itemMaskFreeList.push(item.mask);
+                    item.mask = null;
+                }
+            }
+        }
     }
 
     /**
