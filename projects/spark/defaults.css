@@ -51,7 +51,7 @@ CheckBox
 
 ComboBox
 {
-    dropShadowVisible: true;
+/*  dropShadowVisible: true; in spark.css */
     paddingBottom: 3;
     paddingLeft: 3;
     paddingRight: 3;
@@ -67,7 +67,7 @@ DataGrid
 
 DropDownList
 {
-    dropShadowVisible: true;
+/*  dropShadowVisible: true; in spark.css */
     skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
@@ -133,10 +133,13 @@ NumericStepper
 Panel
 {
     backgroundColor: #FFFFFF;
+/* in spark.css */
+/*
     borderAlpha: 0.5;
     borderColor: 0;
     cornerRadius: 0;
     dropShadowVisible: true;
+*/
 	skinClass: ClassReference("spark.skins.spark.PanelSkin");
 }
 
@@ -229,10 +232,13 @@ TextInput
 
 TitleWindow
 {
+/* in spark.css */
+/*
 	borderAlpha: 0.8;
 	borderColor: 0;
 	cornerRadius: 0;
 	dropShadowVisible: true;
+*/
 	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
 }
 
@@ -248,7 +254,7 @@ VideoDisplay
 
 VideoPlayer
 {
-    dropShadowVisible: true;
+/*  dropShadowVisible: true; in spark.css */
     layoutDirection: "ltr";
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
