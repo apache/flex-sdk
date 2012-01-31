@@ -872,8 +872,8 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
     
     /**
-     *  When set to <code>true</code>, the <code>mouseOpaque</code> property 
-     *  ensures that the entire bounds of the Group are opaque to all 
+     *  When <code>true</code>, this property 
+     *  ensures that the entire bounds of the Group respond to 
      *  mouse events such as click and roll over.
      * 
      *  @default true
