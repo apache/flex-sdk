@@ -28,6 +28,7 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.PropertyChangeEvent;
 import mx.styles.ISimpleStyleClient;
 
 import spark.components.ColumnHeaderBar;
@@ -50,7 +51,6 @@ public class GridLayout extends LayoutBase
     // out how to migrate data from the old GLC to the new one.
     // Note also: if this was going to be shared, it should arrive as a constructor parameter.
     public var gridDimensions:GridDimensions;
-        
     
     public function GridLayout()
     {
@@ -1539,6 +1539,7 @@ public class GridLayout extends LayoutBase
                 return dataProviderCollectionReset(event);
                 
             case CollectionEventKind.UPDATE:
+                return dataProviderCollectionUpdate(event);
             case CollectionEventKind.REPLACE:
                 break;
         }
@@ -1657,6 +1658,35 @@ public class GridLayout extends LayoutBase
     private function dataProviderCollectionReset(event:CollectionEvent):Boolean
     {
         clearVirtualLayoutCache();
+        return true;
+    }
+    
+    /**
+     *  @private
+     *  Called in response to an item being updated in the dataProvider. Checks
+     *  to see if the item is visible and invalidates the grid if it is. Otherwise, 
+     *  do nothing.
+     */
+    private function dataProviderCollectionUpdate(event:CollectionEvent):Boolean
+    {
+        var data:Object;
+        const itemsLength:int = event.items.length;
+        const itemRenderersLength:int = visibleItemRenderers.length;
+        
+        for (var i:int = 0; i < itemsLength; i++)
+        {
+            data = PropertyChangeEvent(event.items[i]).source;
+            
+            for (var j:int = 0; j < itemRenderersLength; j++)
+            {
+                var renderer:IGridItemRenderer = visibleItemRenderers[j] as IGridItemRenderer;
+                if (renderer && renderer.data == data)
+                {
+                    this.freeItemRenderer(renderer);
+                    visibleItemRenderers[j] = null;
+                }
+            }
+        }
         return true;
     }
     
