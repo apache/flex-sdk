@@ -32,6 +32,11 @@ import mx.utils.NameUtil;
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
  *  which display text using CSS styles for the default format.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TextGraphicElement extends GraphicElement
     implements IAdvancedStyleClient
@@ -62,6 +67,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function TextGraphicElement()
     {
@@ -175,6 +185,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
     {
@@ -216,6 +231,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get className():String
     {
@@ -237,6 +257,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get inheritingStyles():Object
     {
@@ -266,6 +291,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get nonInheritingStyles():Object
     {
@@ -294,6 +324,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get styleDeclaration():CSSStyleDeclaration
     {
@@ -320,6 +355,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  The parent of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get styleParent():IAdvancedStyleClient
     {
@@ -356,6 +396,11 @@ public class TextGraphicElement extends GraphicElement
         
     /**
      *  The text in this element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get text():String 
     {
@@ -388,6 +433,11 @@ public class TextGraphicElement extends GraphicElement
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get truncation():int
     {
@@ -441,6 +491,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function styleChanged(styleProp:String):void
     {
@@ -455,6 +510,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getStyle(styleProp:String):*
     {
@@ -465,6 +525,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
@@ -473,6 +538,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function clearStyle(styleProp:String):void
     {
@@ -481,6 +551,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getClassStyleDeclarations():Array
     {
@@ -489,6 +564,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
@@ -497,6 +577,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
@@ -506,6 +591,11 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  This method is required by the IStyleClient interface,
      *  but doesn't do anything for TextGraphicElements.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function registerEffects(effects:Array /* of String */):void
     {
@@ -521,6 +611,11 @@ public class TextGraphicElement extends GraphicElement
      *  This method is required by the IAdvancedStyleClient interface,
      *  but always returns false for TextGraphicElements as they do not have
      *  state specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function isPseudoSelectorMatch(pseudoState:String):Boolean
     {
@@ -530,6 +625,11 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  Determines whether this instance is the same as - or is a subclass of -
      *  the given type.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function isTypeSelectorMatch(type:String):Boolean
     {
@@ -540,6 +640,11 @@ public class TextGraphicElement extends GraphicElement
      *  This method is required by the IAdvancedStyleClient interface,
      *  but doesn't do anything for TextGraphicElements as they do not have
      *  state specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
     {
@@ -561,6 +666,11 @@ public class TextGraphicElement extends GraphicElement
      *  your TextGraphicElement's styles will be fully initialized before
      *  the first time its component's <code>measure</code> and
      *  <code>updateDisplayList</code> methods are called.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function stylesInitialized():void
     {
@@ -643,6 +753,11 @@ public class TextGraphicElement extends GraphicElement
 	 *  because this causes Player 10.0 to allocate memory.
 	 *  And if scrollRect is already set to a Rectangle instance,
 	 *  reuse it rather than creating a new one.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     mx_internal function clip(w:Number, h:Number):void
 	{
