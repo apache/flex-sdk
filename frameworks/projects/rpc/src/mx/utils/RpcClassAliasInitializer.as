@@ -47,6 +47,8 @@ import mx.messaging.messages.SOAPMessage;
 import mx.utils.ObjectProxy;
 
 /**
+ *  The RpcClassAliasInitializer class registers all 
+ * classes for AMF serialization needed by the Flex RPC library.
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -57,8 +59,8 @@ public class RpcClassAliasInitializer
 {
     /**
      * In the event that an application does not use the Flex UI classes which processes
-     * the [RemoteClass(alias="")] bootstrap code, this function will register all the
-     * classes for AMF serialization needed by the flex rpc library.
+     * the <code>[RemoteClass(alias="")]</code> bootstrap code, this function registers all the
+     * classes for AMF serialization needed by the Flex RPC library.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
