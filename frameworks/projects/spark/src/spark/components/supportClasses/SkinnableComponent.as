@@ -451,8 +451,8 @@ public class SkinnableComponent extends UIComponent
                 if (focusObj)
                     super.addChildAt(focusObj, 0);
             }
-            if (focusObj && "focusObject" in focusObj)
-                focusObj["focusObject"] = this;
+            if (focusObj && "target" in focusObj)
+                focusObj["target"] = this;
         }
         else
         {
@@ -694,8 +694,8 @@ public class SkinnableComponent extends UIComponent
                 
                 if (errorObj)
                 {
-                    if ("errorObject" in errorObj)
-                        errorObj["errorObject"] = this;
+                    if ("target" in errorObj)
+                        errorObj["target"] = this;
                     super.addChild(errorObj);
                 }
             }
