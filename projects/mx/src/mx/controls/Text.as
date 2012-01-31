@@ -193,25 +193,25 @@ public class Text extends Label
     /**
      *  @private
      */
-	private var widthChanged:Boolean = true;
-	
+    private var widthChanged:Boolean = true;
+    
     /**
      *  @private
      */
     override public function set explicitWidth(value:Number):void
     {
-    	// Due to player bugs relating to scaling text, we
-    	// have to be careful to set wordWrap appropriately
-    	// (which we do in commitProperties).
-    	// Also have to re-measure when width changes, because width
-    	// can affect height.
-    	if (value != explicitWidth)
-    	{
-    		widthChanged = true;
-   			invalidateProperties();
-    		invalidateSize();
-    	}
-    	super.explicitWidth = value;
+        // Due to player bugs relating to scaling text, we
+        // have to be careful to set wordWrap appropriately
+        // (which we do in commitProperties).
+        // Also have to re-measure when width changes, because width
+        // can affect height.
+        if (value != explicitWidth)
+        {
+            widthChanged = true;
+            invalidateProperties();
+            invalidateSize();
+        }
+        super.explicitWidth = value;
     }
 
     /**
@@ -219,18 +219,18 @@ public class Text extends Label
      */
     override public function set percentWidth(value:Number):void
     {
-    	// Due to player bugs relating to scaling text, we
-    	// have to be careful to set wordWrap appropriately
-    	// (which we do in commitProperties).
-    	// Also have to re-measure when width changes, because width
-    	// can affect height.
-    	if (value != percentWidth)
-    	{
-    		widthChanged = true;
- 			invalidateProperties();
-    		invalidateSize();
-    	}
-    	super.percentWidth = value;
+        // Due to player bugs relating to scaling text, we
+        // have to be careful to set wordWrap appropriately
+        // (which we do in commitProperties).
+        // Also have to re-measure when width changes, because width
+        // can affect height.
+        if (value != percentWidth)
+        {
+            widthChanged = true;
+            invalidateProperties();
+            invalidateSize();
+        }
+        super.percentWidth = value;
     }
 
     //--------------------------------------------------------------------------
@@ -251,17 +251,20 @@ public class Text extends Label
 
     }
 
-	override protected function commitProperties():void
-	{
-		super.commitProperties();
-		// if explicitWidth or percentWidth changed, we want to set
-		// wordWrap appropriately before measuring()
-		if (widthChanged)
-		{
-			textField.wordWrap = !isNaN(percentWidth) || !isNaN(explicitWidth);
-			widthChanged = false;
-		}
-	}
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        // if explicitWidth or percentWidth changed, we want to set
+        // wordWrap appropriately before measuring()
+        if (widthChanged)
+        {
+            textField.wordWrap = !isNaN(percentWidth) || !isNaN(explicitWidth);
+            widthChanged = false;
+        }
+    }
 
     /**
      *  @private
@@ -347,7 +350,7 @@ public class Text extends Label
         // Although we also set wordWrap in commitProperties(), we do 
         // this here to handle width being set through setActualSize().
         if (Math.floor(width) < Math.floor(measuredWidth))
-			textField.wordWrap =  true;
+            textField.wordWrap =  true;
     }
 
     //--------------------------------------------------------------------------
@@ -423,7 +426,7 @@ public class Text extends Label
         // from the explicit line breaks such as "\n" and "<br>".
         else
         {
-        	var oldWordWrap:Boolean = textField.wordWrap;
+            var oldWordWrap:Boolean = textField.wordWrap;
             textField.wordWrap = false;
             
             measuredWidth = Math.ceil(textField.textWidth) + UITextField.TEXT_WIDTH_PADDING;
