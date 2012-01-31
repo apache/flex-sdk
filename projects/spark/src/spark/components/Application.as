@@ -28,6 +28,7 @@ import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.managers.FocusManager;
+import mx.managers.IActiveWindowManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
@@ -792,7 +793,12 @@ public class Application extends SkinnableContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-            sm.activate(this);
+			var awm:IActiveWindowManager = 
+				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+			if (awm)
+           		awm.activate(this);
+            else
+                focusManager.activate();
         }
     }
     
