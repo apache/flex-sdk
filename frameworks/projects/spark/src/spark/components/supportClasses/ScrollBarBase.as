@@ -35,6 +35,17 @@ import spark.effects.easing.Sine;
 use namespace mx_internal;
 
 /**
+ *  Inactive State
+ *  This is the state when there is no content to scroll through (maximum <= minimum).
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("inactive")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
@@ -313,6 +324,32 @@ public class ScrollBar extends TrackBase
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
+     *  Invalidate the skin state when minimum is changed.
+     */
+    override public function set minimum(value:Number):void
+    {
+        if (value == super.minimum)
+            return;
+        
+        super.minimum = value;
+        invalidateSkinState();
+    }
+    
+    /**
+     *  @private
+     *  Invalidate the skin state when maximum is changed.
+     */
+    override public function set maximum(value:Number):void
+    {
+        if (value == super.maximum)
+            return;
+        
+        super.maximum = value;
+        invalidateSkinState();
+    }
+    
+    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -499,6 +536,17 @@ public class ScrollBar extends TrackBase
             _pageSize = nearestValidSize(_pageSize);
             pageSizeChanged = false;
         }
+    }
+        
+    /**
+     *  @private
+     */
+    override protected function getCurrentSkinState():String
+    {
+        if (maximum <= minimum)
+            return "inactive";
+        
+        return super.getCurrentSkinState();
     }
     
     /**
