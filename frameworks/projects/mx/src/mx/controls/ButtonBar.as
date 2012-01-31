@@ -236,6 +236,8 @@ use namespace mx_internal;
 
 [IconFile("ButtonBar.png")]
 
+[Alternative(replacement="spark.components.ButtonBar", since="4.0")]
+
 [MaxChildren(0)]
 
 /**
