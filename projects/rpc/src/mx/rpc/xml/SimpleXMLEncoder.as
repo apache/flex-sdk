@@ -19,6 +19,11 @@ import mx.utils.ObjectUtil;
 /**
  * The SimpleXMLEncoder class takes ActionScript Objects and encodes them to XML
  * using default serialization.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SimpleXMLEncoder
 {
@@ -114,6 +119,11 @@ public class SimpleXMLEncoder
      * 
      * @param parentNode An XMLNode under which to put the encoded
      * value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeValue(obj:Object, qname:QName, parentNode:XMLNode):XMLNode
     {
