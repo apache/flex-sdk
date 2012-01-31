@@ -28,7 +28,7 @@ import spark.effects.effectClasses.AnimateTransformInstance;
  */       
 public class AnimateTransformRotate3D extends AnimateTransformRotate
 {
-    include "../../spark.core.Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
