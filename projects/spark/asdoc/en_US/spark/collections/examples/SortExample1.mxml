@@ -7,16 +7,16 @@
     <fx:Declarations>
         <s:Sort id="sortbyLastName_FirstName">
             <s:fields>
-                <s:SortField name="last" />
-                <s:SortField name="first" />
+                <s:SortField name="last"/>
+                <s:SortField name="first"/>
             </s:fields>
         </s:Sort>
         <mx:ArrayCollection id="collection" sort="{sortbyLastName_FirstName}">
             <mx:source>
-                <fx:Object first="Anders" last="Dickerson" />
-                <fx:Object first="Eileen" last="Maccormick" />
-                <fx:Object first="Aiden" last="MacCormick" />
-                <fx:Object first="Steve" last="MacGregor" />
+                <fx:Object first="Anders" last="Dickerson"/>
+                <fx:Object first="Eileen" last="Maccormick"/>
+                <fx:Object first="Aiden" last="MacCormick"/>
+                <fx:Object first="Steve" last="MacGregor"/>
             </mx:source>
         </mx:ArrayCollection>
     </fx:Declarations>
@@ -26,7 +26,8 @@
             <s:HGroup>
                 <s:Label text="Input Locale ID Name: "/>
                 <s:TextInput id="inputLocaleIDName"/>
-                <!-- Sets the locale style on the document UI component.
+                <!-- 
+                Sets the locale style on the document UI component.
                 The SortField and Sort objects defined in the 
                 fx:Declarations section will inherit this style.
                 -->
@@ -35,12 +36,14 @@
             </s:HGroup>
             <s:Label text="Example: 'en-US', 'fr-FR', 'zh-CN', 'ar-SA'"/>
         </s:VGroup>
-        <mx:DataGrid dataProvider="{collection}" 
+        <s:DataGrid dataProvider="{collection}" width="100%"
                      creationComplete="{collection.refresh()}">
-            <mx:columns>
-                <mx:DataGridColumn dataField="last" />
-                <mx:DataGridColumn dataField="first"/>
-            </mx:columns>
-        </mx:DataGrid>
+            <s:columns>
+                <s:ArrayList>
+                    <s:GridColumn dataField="last"/>
+                    <s:GridColumn dataField="first"/>
+                </s:ArrayList>
+            </s:columns>
+        </s:DataGrid>
     </s:VGroup>
 </s:Application>
