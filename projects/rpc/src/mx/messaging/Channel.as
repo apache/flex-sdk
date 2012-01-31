@@ -499,9 +499,6 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	    {
 	        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "authenticated", _authenticated, value);
 	        _authenticated = value;
-	        
-	        if (!_authenticated)
-	            credentials = null;
 
 	        var cs:ChannelSet;
 	        for (var i:int = 0; i < _channelSets.length; i++)
