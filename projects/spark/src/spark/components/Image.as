@@ -309,10 +309,10 @@ public class Image extends SkinnableComponent
     //  imageDisplay
     //----------------------------------
     
-    [SkinPart(required="false")]
+    [SkinPart(required="true")]
     
     /**
-     *  A skin part that defines image content.
+     *  A required skin part that defines image content.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -858,7 +858,7 @@ public class Image extends SkinnableComponent
         }
         else if (instance == progressIndicator)
         {
-            if (_loading && progressIndicator)
+            if (_loading && progressIndicator && imageDisplay)
                 progressIndicator.value = percentComplete(imageDisplay.bytesLoaded, imageDisplay.bytesTotal);
         }
     }
@@ -915,6 +915,10 @@ public class Image extends SkinnableComponent
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, HORIZONTAL_ALIGN_PROPERTY_FLAG))
                 newImageDisplayProperties.horizontalAlign = imageDisplay.horizontalAlign;
+            
+            // Reset our previous image display source to null on the chance that it is busy
+            // loading something.
+            imageDisplay.source = null;
             
             imageDisplayProperties = newImageDisplayProperties;
         }
