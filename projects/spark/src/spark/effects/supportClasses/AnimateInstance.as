@@ -27,7 +27,7 @@ import mx.effects.PropertyValuesHolder;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
