@@ -443,17 +443,27 @@ public class SkinnableComponent extends UIComponent
     {
         if (skin)
         {
-            // FIXME (egeorgie): revisit this, use Skin's explicit as minimum for the measured with: 
-            measuredWidth = skin.getExplicitOrMeasuredWidth();
-            measuredHeight = skin.getExplicitOrMeasuredHeight();
-
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
             {
+                measuredWidth = skin.getExplicitOrMeasuredWidth();
+                measuredHeight = skin.getExplicitOrMeasuredHeight();
+
                 measuredMinWidth = isNaN( skin.explicitWidth ) ? skin.minWidth : skin.explicitWidth;
                 measuredMinHeight = isNaN( skin.explicitHeight ) ? skin.minHeight : skin.explicitHeight;
             }
             else
             {
+                measuredWidth = skin.measuredWidth; 
+                measuredHeight = skin.measuredHeight;
+
+                // Use Skin's explicit as minimum for the measured width: 
+                if (!isNaN(skin.explicitWidth) && measuredWidth < skin.explicitWidth)
+                    measuredWidth = skin.explicitWidth;
+
+                // Use Skin's explicit as minimum for the measured height: 
+                if (!isNaN(skin.explicitHeight) && measuredHeight < skin.explicitHeight)
+                    measuredHeight = skin.explicitHeight;
+
                 measuredMinWidth = skin.minWidth;
                 measuredMinHeight = skin.minHeight;
             }
