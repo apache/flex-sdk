@@ -166,19 +166,21 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  Displays text. 
  *  
- *  <p>TextView has more functionality than TextBox and TextGraphic. In addition to the text rendering 
- *  capabilities of TextGraphic, TextView also supports hyperlinks, scrolling, selecting, and editing.</p>
+ *  <p>RichEditableText has more functionality than SimpleText and RichText. In 
+ *  addition to the text rendering capabilities of RichText, TextView also 
+ * supports hyperlinks, scrolling, selecting, and editing.</p>
  *  
- *  <p>The TextView class is similar to the mx.controls.TextArea control, except that it does 
- *  not have chrome.</p>
+ *  <p>The RichEditableText class is similar to the spark.components.TextArea 
+ *  control, except that it does not have chrome.</p>
  *  
- *  <p>The TextView class does not support drawing a background, border, or scrollbars. To do that,
- *  you combine it with other components.</p>
+ *  <p>The RichEditableText class does not support drawing a background, border, 
+ *  or scrollbars. To do that, you combine it with other components.</p>
  *  
- *  <p>Because TextView extends UIComponent, it can take focus and allows user interaction such as selection.</p>
+ *  <p>Because RichEditableText extends UIComponent, it can take focus and 
+ *  allows user interaction such as selection.</p>
  *  
- *  @see mx.graphics.TextBox
- *  @see mx.graphics.TextGraphic
+ *  @see spark.primitives.SimpleText
+ *  @see spark.primitives.RichText
  *
  *  @includeExample examples/TextViewExample.mxml
  *  
@@ -414,11 +416,6 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var stylesChanged:Boolean = false;
-    
-    /**
-     *  @private
-     */
     private var fontMetricsInvalid:Boolean = false;
     
     /**
@@ -498,7 +495,7 @@ public class RichEditableText extends UIComponent
      *  wasn't already dispatched one or more times for editing operations.
      *
      */    
-    private var textFlowChanged:Boolean = true;
+    private var textFlowChanged:Boolean = false;
             
     //--------------------------------------------------------------------------
     //
@@ -1389,20 +1386,8 @@ public class RichEditableText extends UIComponent
      */
     public function get text():String 
     {
-        // If displayAsPassword is changing, use the old value until the
-        // change is committed.
-        if (!displayAsPassword && !displayAsPasswordChanged ||
-            displayAsPassword && displayAsPasswordChanged)
-        {
-            _text = _inputManager.getText("\n");
-            
-            // ToDo: asked TLF if they not put the terminator on the last
-            // paragraph
-            
-            // Remove terminator on the last paragraph, ie remove the last char.
-            if (_text.length > 0 && _text.charAt(_text.length-1) == "\n")
-                _text = _text.slice(0, -1);
-        }
+        if (!displayAsPassword)
+            _text = getText();
         
         return _text;
     }
@@ -1549,7 +1534,15 @@ public class RichEditableText extends UIComponent
         	
             textFlowChanged = true;
 
-        	textChanged = false;
+            // Handle case where content is intially displayed as password.         
+            if (displayAsPassword)
+               displayAsPasswordChanged = true;
+
+
+            // Do not set textChanged to false until the compositionComplete
+            // handler since the CHANGE event for text that is initially set
+            // is a special case since there is no flowOperationEnd event
+            // for this.
         }
         else if (contentChanged)
         {
@@ -1560,11 +1553,19 @@ public class RichEditableText extends UIComponent
         	if (mx_internal::debug)
         		trace("setTextFlow()");
         	_inputManager.setTextFlow(textFlow);
-        	
-        	contentChanged = false;
+
+            // Handle case where content is intially displayed as password.        	
+        	if (displayAsPassword)
+        	   displayAsPasswordChanged = true;
+        	   
+            // Do not set contentChanged to false until the compositionComplete
+            // handler since the CHANGE event for content that is initially set
+            // is a special case since there is no flowOperationEnd event
+            // for this.
         }
         
-
+        // If displayAsPassword changed, it only applies to the display, 
+        // not the underlying text.  Do not mark the textFlow as changed.
         if (displayAsPasswordChanged)
         {
             // If there is any text, convert it to the passwordChar.
@@ -1572,19 +1573,22 @@ public class RichEditableText extends UIComponent
             {
                 // Make sure _text is set with the actual text before we
                 // change the displayed text.
-                var textToDisplay:String = text;
+                _text = getText();
                 
-                textToDisplay = StringUtil.repeat(
-                    mx_internal::passwordChar, textToDisplay.length);
-                _inputManager.setText(textToDisplay);
-                
-                textFlowChanged = true;                    
+                // ToDo: if content, should the paragraph terminators be
+                // left in the string so the displayAsPassword string has the
+                // same form as the original string?  This is only an issue
+                // for TextArea.
+                var textToDisplay:String = StringUtil.repeat(
+                    mx_internal::passwordChar, _text.length);
+                    
+                _inputManager.setText(textToDisplay);                            
             }
-            else if (!_content)
+            else
             {
-                _inputManager.setText(_text ? _text : "");
-                textFlowChanged = true;                    
+                _inputManager.setText(_text);
             }
+
             displayAsPasswordChanged = false;
         }
         
@@ -1739,7 +1743,6 @@ public class RichEditableText extends UIComponent
 
         fontMetricsInvalid = true;
         hostFormatChanged = true;
-        stylesChanged = true;
     }
 
     /**
@@ -1783,8 +1786,6 @@ public class RichEditableText extends UIComponent
 
         // Need to regenerate text flow.
         invalidateProperties();
-
-        stylesChanged = true;
     }
 
     //--------------------------------------------------------------------------
@@ -2390,7 +2391,29 @@ public class RichEditableText extends UIComponent
     	
   		editingMode = newEditingMode;
     }
+      
+    /**
+     *  @private
+     *  Get the text from the textFlow.  This wrapper can go away once Vellum
+     *  gives us a getText that doesn't put a paragraph terminator on the
+     *  last paragraph.
+     */
+    private function getText():String
+    {
+        var t:String = _inputManager.getText("\n");
         
+        // ToDo: asked TLF if they not put the terminator on the last
+        // paragraph
+        
+        // Remove terminator on the last paragraph, ie remove the last char.
+        // t true implies length > 0.
+        if (t && t.charAt(t.length-1) == "\n")
+            t = t.slice(0, -1);
+            
+        return t;            
+    }
+    
+      
     /**
      *  Sets the selection range and.  If the text is not editable or selectable
      *  this will also implicitly make the text selectable.
@@ -2858,16 +2881,23 @@ public class RichEditableText extends UIComponent
                 
         // The text flow changed and there wasn't an editing operation
         // to dispatch the change event so do it here.  This happens if the
-        // text is initially set and no further editing operations occur.
-        if (textFlowChanged)
+        // text/content is set and there are no additional editing operations. 
+        // We will ignore textFlow changes that occur because the editManager is
+        // being hooked up to the textFlow by the TCM.
+        if (textChanged || contentChanged)
         {
-            var newEvent:TextOperationEvent =
-                new TextOperationEvent(TextOperationEvent.CHANGE);
-            dispatchEvent(newEvent);
+            if (textFlowChanged)
+            {
+                var newEvent:TextOperationEvent =
+                    new TextOperationEvent(TextOperationEvent.CHANGE);
+                dispatchEvent(newEvent);            
+            }
             
-            textFlowChanged = false;
+            textChanged = false;
+            contentChanged = false;        
         }
-
+        textFlowChanged = false;
+        
         var oldContentWidth:Number = _contentWidth;
 
         var newContentBounds:Rectangle = _inputManager.getContentBounds();
