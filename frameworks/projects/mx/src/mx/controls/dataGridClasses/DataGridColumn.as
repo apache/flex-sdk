@@ -230,6 +230,15 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         return _embeddedFontRegistry;
     }
 
+    private static var _defaultItemEditorFactory:IFactory;
+
+    mx_internal static function get defaultItemEditorFactory():IFactory
+    {
+        if (!_defaultItemEditorFactory)
+            _defaultItemEditorFactory = new ClassFactory(TextInput);
+        return _defaultItemEditorFactory;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -610,6 +619,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     //  editable
     //----------------------------------
 
+    private var _editable:Boolean = true;
+
     [Inspectable(category="General")]
 
     /**
@@ -627,7 +638,19 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var editable:Boolean = true;
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        _editable = value;
+    }
+
 
     //----------------------------------
     //  itemEditor
@@ -646,7 +669,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var itemEditor:IFactory = new ClassFactory(TextInput);
+    public var itemEditor:IFactory = defaultItemEditorFactory;
 
     //----------------------------------
     //  editorDataField
