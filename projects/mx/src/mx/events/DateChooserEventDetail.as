@@ -17,6 +17,11 @@ package mx.events
  *  of a DateChooserEvent object.
  *
  *  @see mx.events.DateChooserEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class DateChooserEventDetail
 {
@@ -30,21 +35,41 @@ public final class DateChooserEventDetail
 
 	/**
 	 *  Indicates that the user scrolled the calendar to the next month.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NEXT_MONTH:String = "nextMonth";
 
 	/**
 	 *  Indicates that the user scrolled the calendar to the next year.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NEXT_YEAR:String = "nextYear";
 
 	/**
 	 *  Indicates that the user scrolled the calendar to the previous month.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const PREVIOUS_MONTH:String = "previousMonth";
 
 	/**
 	 *  Indicates that the user scrolled the calendar to the previous year.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const PREVIOUS_YEAR:String = "previousYear";
 }
