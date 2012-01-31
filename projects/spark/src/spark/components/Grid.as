@@ -25,7 +25,7 @@ package spark.components
     import mx.events.CollectionEvent;
     import mx.events.CollectionEventKind;
     import mx.events.FlexEvent;
-    import mx.utils.ObjectUtil;    
+    import mx.utils.ObjectUtil;
     
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
@@ -435,6 +435,8 @@ package spark.components
          */
         public function set caretColumnIndex(value:int):void
         {
+            // TBD(hmuller): this short-circuit doens't seem right.  Don't update the _caretColumnIndex
+            // if selectionMode == ROW,ROWS?  What if the selectionMode has changed at commitProperties time?
             if (caretColumnIndex == value || 
                 selectionMode == GridSelectionMode.SINGLE_ROW || 
                 selectionMode == GridSelectionMode.MULTIPLE_ROWS)
@@ -2282,7 +2284,6 @@ package spark.components
             return gridLayout.getItemRendererAt(rowIndex, columnIndex);
         }
         
-        
         //--------------------------------------------------------------------------
         //
         //  Method Overrides
@@ -2317,6 +2318,7 @@ package spark.components
             // setters because the gridSelection and gridDimensions might not 
             // be set yet, depending on the order they are initialized when the 
             // grid skin part is added to the data grid.
+            
             if (dataProviderChanged || columnsChanged)
             {
                 // Remove the current selection and, if requireSelection, make
@@ -2338,6 +2340,9 @@ package spark.components
                     if (columnsChanged && _columns)
                         gridDimensions.columnCount = _columns.length;
                 }
+                
+                caretRowIndex = -1;
+                caretColumnIndex = -1;
                 
                 dataProviderChanged = false;
                 columnsChanged = false;
@@ -2628,6 +2633,88 @@ package spark.components
         //  IList listeners: columns, dataProvider
         //
         //--------------------------------------------------------------------------  
+
+        /**
+         *  @private
+         *  Update caretRowIndex if necessary.  This method should only be called when 
+         *  caretRowIndex is valid, i.e. != -1.
+         */
+        private function updateCaretForDataProviderChange(event:CollectionEvent):void
+        {
+            const oldCaretRowIndex:int = caretRowIndex;
+            const location:int = event.location;
+            var itemsLength:int;
+
+            switch (event.kind)
+            {
+                case CollectionEventKind.ADD:
+                    if (oldCaretRowIndex >= location)
+                        caretRowIndex += event.items.length;
+                    break;
+               
+                case CollectionEventKind.REMOVE:
+                    if (oldCaretRowIndex >= location)
+                    {
+                        itemsLength = event.items.length;
+                        if (oldCaretRowIndex < (location + itemsLength))
+                            caretRowIndex = -1;
+                        else
+                            caretRowIndex -= itemsLength;    
+                    }
+                    
+                    break;
+                
+                case CollectionEventKind.MOVE:
+                    {
+                        const oldLocation:int = event.oldLocation;
+                        itemsLength = event.items.length;
+                        if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
+                            caretRowIndex += location - oldLocation;
+                    }
+                    break;                        
+                    
+                case CollectionEventKind.REPLACE:
+                case CollectionEventKind.UPDATE:
+                    break;
+                
+                case CollectionEventKind.REFRESH:
+                case CollectionEventKind.RESET:
+                    caretRowIndex = -1;
+                    caretColumnIndex = -1;
+                    break;
+            }
+                        
+        }
+        
+        /**
+         *  @private
+         *  Update hoverRowIndex if necessary.  This method should only be called when 
+         *  hoverRowIndex is valid, i.e. != -1.
+         */
+        private function updateHoverForDataProviderChange(event:CollectionEvent):void
+        {
+            const oldHoverRowIndex:int = hoverRowIndex;
+            const location:int = event.location;
+            
+            switch (event.kind)
+            {
+                case CollectionEventKind.ADD:
+                case CollectionEventKind.REMOVE:
+                case CollectionEventKind.REPLACE:
+                case CollectionEventKind.UPDATE:
+                case CollectionEventKind.MOVE:
+                    if (oldHoverRowIndex >= location)
+                        hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
+                    break;
+                
+                
+                case CollectionEventKind.REFRESH:
+                case CollectionEventKind.RESET:
+                    hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
+                    break;
+            }
+                        
+        }
         
         /**
          *  @private
@@ -2636,13 +2723,19 @@ package spark.components
         {
             if (gridDimensions)
                 gridDimensions.dataProviderCollectionChanged(event);
+            
             if (gridLayout)
                 gridLayout.dataProviderCollectionChanged(event);
+            
             if (gridSelection)
                 gridSelection.dataProviderCollectionChanged(event);
             
-            // TBD: hover and caretIndex
+            if (caretRowIndex != -1)
+                updateCaretForDataProviderChange(event);
             
+            if (gridDimensions && (hoverRowIndex != -1))
+                updateHoverForDataProviderChange(event);
+
             invalidateSize();
             invalidateDisplayList();
         }
