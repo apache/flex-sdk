@@ -856,19 +856,7 @@ public class PopUpButton extends Button
         var easingFunction:Function;
         var duration:Number;
         var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle;
-
-        if (sm != sbRoot)
-        {
-            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                                    false, false,
-                                    "getVisibleApplicationRect"); 
-            sbRoot.dispatchEvent(request);
-            screen = Rectangle(request.value);
-        }
-        else
-            screen = sm.getVisibleApplicationRect();
+        var screen:Rectangle = sm.getVisibleApplicationRect();
 
         if (show)
         {
