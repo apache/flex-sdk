@@ -24,6 +24,7 @@ import flash.system.Capabilities;
 import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
+
 import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.Singleton;
@@ -37,6 +38,7 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.utils.BitFlagUtil;
 import mx.utils.LoaderUtil;
+
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -48,9 +50,9 @@ use namespace mx_internal;
 /**
  *  Dispatched after the Application has been initialized,
  *  processed by the LayoutManager, and attached to the display list.
- * 
+ *
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -60,9 +62,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an HTTPService call fails.
- * 
+ *
  *  @eventType flash.events.ErrorEvent.ERROR
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -72,9 +74,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an uncaught error is caught by the Global Exception Handler
- * 
+ *
  *  @eventType flash.events.UncaughtErrorEvent.UNCAUGHT_ERROR
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.0
@@ -89,7 +91,7 @@ use namespace mx_internal;
 /**
  *  The background color of the application. This color is used as the stage color for the
  *  application and the background color for the HTML embed tag.
- *   
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -116,7 +118,7 @@ use namespace mx_internal;
  *  This factoryClass will be automatically subclassed by any
  *  MXML applications that don't explicitly specify a different
  *  factoryClass.
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -139,7 +141,7 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default size</td>
- *           <td>375 pixels high and 500 pixels wide in the Standalone Flash Player, 
+ *           <td>375 pixels high and 500 pixels wide in the Standalone Flash Player,
  *               and all available space in a browser</td>
  *        </tr>
  *        <tr>
@@ -155,10 +157,10 @@ use namespace mx_internal;
  *           <td>spark.skins.spark.ApplicationSkin</td>
  *        </tr>
  *     </table>
- * 
+ *
  *  @mxml
  *
- *  <p>The <code>&lt;s:Application&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:Application&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
@@ -178,7 +180,7 @@ use namespace mx_internal;
  *    usePreloader="true"
  *    viewSourceURL=""
  *    xmlns:<i>No default</i>="<i>No default</i>"
- *  
+ *
  *    <strong>Events</strong>
  *    applicationComplete="<i>No default</i>"
  *    error="<i>No default</i>"
@@ -193,7 +195,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Application extends SkinnableContainer 
+public class Application extends SkinnableContainer
 {
     include "../core/Version.as";
 
@@ -202,7 +204,7 @@ public class Application extends SkinnableContainer
     //  Class constants
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private
      */
@@ -232,7 +234,7 @@ public class Application extends SkinnableContainer
 
     /**
      *  Constructor.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -248,9 +250,9 @@ public class Application extends SkinnableContainer
             FlexGlobals.topLevelApplication = this;
 
         super();
-                    
+
         showInAutomationHierarchy = true;
-        
+
         initResizeBehavior();
     }
 
@@ -264,7 +266,7 @@ public class Application extends SkinnableContainer
      *  @private
      */
     private var resizeHandlerAdded:Boolean = false;
-    
+
     /**
      *  @private
      */
@@ -275,7 +277,7 @@ public class Application extends SkinnableContainer
      *  Placeholder for Preloader object reference.
      */
     private var preloadObj:Object;
-    
+
     /**
      *  @private
      *  This flag indicates whether the width of the Application instance
@@ -284,7 +286,7 @@ public class Application extends SkinnableContainer
      *  width of the Application should be modified.
      */
     private var resizeWidth:Boolean = true;
-    
+
     /**
      *  @private
      *  This flag indicates whether the height of the Application instance
@@ -293,12 +295,12 @@ public class Application extends SkinnableContainer
      *  height of the Application should be modified.
      */
     private var resizeHeight:Boolean = true;
-    
+
     /**
      *  @private
-     */ 
+     */
     private var synchronousResize:Boolean = false;
-    
+
     /**
      * @private
      * (Possibly null) reference to the View Source context menu item,
@@ -309,22 +311,22 @@ public class Application extends SkinnableContainer
     //----------------------------------
     //  colorCorrection
     //----------------------------------
-    
+
     [Inspectable(enumeration="default,off,on", defaultValue="default" )]
-    
+
    /**
-    *  The value of the stage's <code>colorCorrection</code> property. 
-    *  If this application does not have access to the stage's <code>colorCorrection</code> property, 
+    *  The value of the stage's <code>colorCorrection</code> property.
+    *  If this application does not have access to the stage's <code>colorCorrection</code> property,
     *  the value of the <code>colorCorrection</code> property is <code>null</code>.
-    *  
+    *
     *  <p>Only the main application is allowed to set the <code>colorCorrection</code>
-    *  property. If a nested application's needs to set the color correction property, it 
+    *  property. If a nested application's needs to set the color correction property, it
     *  must set it by referencing the main application's instance.</p>
     *
     *  @default ColorCorrection.DEFAULT
     *
     *  @see flash.display.ColorCorrection
-    *  
+    *
     *  @langversion 3.0
     *  @playerversion Flash 10
     *  @playerversion AIR 1.5
@@ -346,7 +348,7 @@ public class Application extends SkinnableContainer
 
         return null;
     }
-    
+
     /**
      * @private
      */
@@ -358,40 +360,40 @@ public class Application extends SkinnableContainer
         if (sm && sm.stage && sm.isTopLevelRoot())
             sm.stage.colorCorrection = value;
     }
-    
+
     /**
      *  @private
      *  Several properties are proxied to controlBarGroup.  However, when controlBarGroup
-     *  is not around, we need to store values set on SkinnableContainer.  This object 
-     *  stores those values.  If controlBarGroup is around, the values are stored 
-     *  on the controlBarGroup directly.  However, we need to know what values 
-     *  have been set by the developer on the SkinnableContainer (versus set on 
-     *  the controlBarGroup or defaults of the controlBarGroup) as those are values 
-     *  we want to carry around if the controlBarGroup changes (via a new skin). 
-     *  In order to store this info effeciently, controlBarGroupProperties becomes 
-     *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitely set on this SkinnableContainer.  When the 
-     *  controlBarGroup is not around, controlBarGroupProperties is a typeless 
+     *  is not around, we need to store values set on SkinnableContainer.  This object
+     *  stores those values.  If controlBarGroup is around, the values are stored
+     *  on the controlBarGroup directly.  However, we need to know what values
+     *  have been set by the developer on the SkinnableContainer (versus set on
+     *  the controlBarGroup or defaults of the controlBarGroup) as those are values
+     *  we want to carry around if the controlBarGroup changes (via a new skin).
+     *  In order to store this info effeciently, controlBarGroupProperties becomes
+     *  a uint to store a series of BitFlags.  These bits represent whether a
+     *  property has been explicitely set on this SkinnableContainer.  When the
+     *  controlBarGroup is not around, controlBarGroupProperties is a typeless
      *  object to store these proxied properties.  When controlBarGroup is around,
-     *  controlBarGroupProperties stores booleans as to whether these properties 
+     *  controlBarGroupProperties stores booleans as to whether these properties
      *  have been explicitely set or not.
      */
     private var controlBarGroupProperties:Object = { visible: true };
 
     //----------------------------------
     //  controlBarGroup
-    //---------------------------------- 
-    
+    //----------------------------------
+
     [SkinPart(required="false")]
 
     /**
-     *  The skin part that defines the appearance of the 
+     *  The skin part that defines the appearance of the
      *  control bar area of the container.
-     *  By default, the ApplicationSkin class defines the control bar area to appear at the top 
-     *  of the content area of the Application container with a grey background. 
+     *  By default, the ApplicationSkin class defines the control bar area to appear at the top
+     *  of the content area of the Application container with a grey background.
      *
      *  @see spark.skins.spark.ApplicationSkin
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -401,23 +403,23 @@ public class Application extends SkinnableContainer
 
     //----------------------------------
     //  controlBarContent
-    //---------------------------------- 
-    
+    //----------------------------------
+
     [ArrayElementType("mx.core.IVisualElement")]
-    
+
     /**
-     *  The set of components to include in the control bar area of the 
-     *  Application container. 
-     *  The location and appearance of the control bar area of the Application container 
-     *  is determined by the spark.skins.spark.ApplicationSkin class. 
-     *  By default, the ApplicationSkin class defines the control bar area to appear at the top 
-     *  of the content area of the Application container with a grey background. 
+     *  The set of components to include in the control bar area of the
+     *  Application container.
+     *  The location and appearance of the control bar area of the Application container
+     *  is determined by the spark.skins.spark.ApplicationSkin class.
+     *  By default, the ApplicationSkin class defines the control bar area to appear at the top
+     *  of the content area of the Application container with a grey background.
      *  Create a custom skin to change the default appearance of the control bar.
      *
      *  @default null
      *
      *  @see spark.skins.spark.ApplicationSkin
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -439,7 +441,7 @@ public class Application extends SkinnableContainer
         if (controlBarGroup)
         {
             controlBarGroup.mxmlContent = value;
-            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint,
                                                         CONTROLBAR_PROPERTY_FLAG, value != null);
         }
         else
@@ -450,13 +452,13 @@ public class Application extends SkinnableContainer
 
     //----------------------------------
     //  controlBarLayout
-    //---------------------------------- 
-    
+    //----------------------------------
+
     /**
      *  Defines the layout of the control bar area of the container.
      *
      *  @default HorizontalLayout
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -464,8 +466,8 @@ public class Application extends SkinnableContainer
      */
     public function get controlBarLayout():LayoutBase
     {
-        return (controlBarGroup) 
-            ? controlBarGroup.layout 
+        return (controlBarGroup)
+            ? controlBarGroup.layout
             : controlBarGroupProperties.layout;
     }
 
@@ -474,7 +476,7 @@ public class Application extends SkinnableContainer
         if (controlBarGroup)
         {
             controlBarGroup.layout = value;
-            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint,
                                                         LAYOUT_PROPERTY_FLAG, true);
         }
         else
@@ -483,20 +485,20 @@ public class Application extends SkinnableContainer
 
     //----------------------------------
     //  controlBarVisible
-    //---------------------------------- 
-    
+    //----------------------------------
+
     /**
      *  If <code>true</code>, the control bar is visible.
      *  The flag has no affect if there is no value set for
      *  the <code>controlBarContent</code> property.
      *
-     *  <p><b>Note:</b> The Application container does not monitor the 
-     *  <code>controlBarGroup</code> property. 
-     *  If other code makes it invisible, the Application container might 
+     *  <p><b>Note:</b> The Application container does not monitor the
+     *  <code>controlBarGroup</code> property.
+     *  If other code makes it invisible, the Application container might
      *  not update correctly.</p>
      *
      *  @default true
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -504,8 +506,8 @@ public class Application extends SkinnableContainer
      */
     public function get controlBarVisible():Boolean
     {
-        return (controlBarGroup) 
-            ? controlBarGroup.visible 
+        return (controlBarGroup)
+            ? controlBarGroup.visible
             : controlBarGroupProperties.visible;
     }
 
@@ -514,7 +516,7 @@ public class Application extends SkinnableContainer
         if (controlBarGroup)
         {
             controlBarGroup.visible = value;
-            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint,
                                                         VISIBLE_PROPERTY_FLAG, value);
         }
         else
@@ -545,11 +547,11 @@ public class Application extends SkinnableContainer
 
     /**
      *    Specifies the frame rate of the application.
-     * 
+     *
      *    <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 24
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -565,13 +567,13 @@ public class Application extends SkinnableContainer
      *    Specifies a string that appears in the title bar of the browser.
      *    This property provides the same functionality as the
      *    HTML <code>&lt;title&gt;</code> tag.
-     * 
-     *    <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code. 
-     *    The value set in MXML code is designed to be used by a tool to update the HTML templates 
+     *
+     *    <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.
+     *    The value set in MXML code is designed to be used by a tool to update the HTML templates
      *    provided with the SDK.</p>
      *
      *    @default ""
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -591,38 +593,38 @@ public class Application extends SkinnableContainer
      *  A SWC component must be in the same directory as the MXML file
      *  or in the WEB-INF/flex/user_classes directory of your Flex
      *  web application.
-     * 
+     *
      *  <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.</p>
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public var preloader:Object;
-    
+
     //----------------------------------
     //  preloaderChromeColor
     //----------------------------------
-    
+
     [Inspectable(defaultValue="0xCCCCCC", format="Color")]
-    
+
     /**
      *  Specifies the chrome color used by the default preloader component. This property
      *  has the same effect as the <code>chromeColor</code> style used by Spark skins.
-     *  Typically this property should be set to the same value as the 
+     *  Typically this property should be set to the same value as the
      *  Application container's <code>chromeColor</code> style property.
-     *    
+     *
      *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    
+
     /* This property is not directly read by the download progress bar (preloader)
-     * component. It is here so that it gets picked up by the compiler and included 
+     * component. It is here so that it gets picked up by the compiler and included
      * in the info() structure for the generated system manager. The download progress bar
      * grabs the value directly from the info() structure. */
     public var preloaderChromeColor:uint;
@@ -634,14 +636,14 @@ public class Application extends SkinnableContainer
     [Inspectable(defaultValue="1000")]
 
     /**
-     *    Specifies the maximum depth of Flash Player or AIR 
+     *    Specifies the maximum depth of Flash Player or AIR
      *    call stack before the player stops.
      *    This is essentially the stack overflow limit.
-     * 
+     *
      *    <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 1000
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -662,13 +664,103 @@ public class Application extends SkinnableContainer
      *    The maximum allowable value that you can set is 60 seconds.
      *
      *  @default 60
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public var scriptTimeLimit:Number;
+
+    //----------------------------------
+    //  splashScreenImage
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The image class for the SplashScreen preloader.
+     *
+     *  Typically developers set to an embedded resource, i.e. splashScreenImage="@Embed('Default.png')".
+     *
+     *  <p><b>Note:</b> The property has effect only when the preloader is set to <code>spark.preloaders.SplashScreen</code>.
+     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *
+     *  @see splashScreenScaleMode
+     */
+    public function set splashScreenImage(value:Class):void
+    {
+        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
+
+        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
+        // special attributes as "public vars"?
+    }
+
+    //----------------------------------
+    //  splashScreenScaleMode
+    //----------------------------------
+
+    [Inspectable(category="General", enumeration="none,letterbox,stretch,zoom", defaultValue="none")]
+
+    /**
+     *  The splash screen image scale mode.
+     *
+     *  <p>A value of "none" implies that the image size is set to match its intrinsic size.
+     *
+     *  A value of "stretch" sets the width and the height of the image to the
+     *  stage width and height, possibly changing the content aspect ratio.
+     *
+     *  A value of "letterbox" sets the width and height of the image as close to the stage width and height
+     *  as possible while maintaining aspect ratio.  The image is stretched to a maximum of the stage bounds,
+     *  with spacing added inside the stage to maintain the aspect ratio if necessary.
+     *
+     *  A value of "zoom" is similar to "letterbox", except that "zoom" stretches the
+     *  image past the bounds of the stage, to remove the spacing required to maintain aspect ratio.
+     *  This has the effect of using the entire bounds of the stage, but also possibly cropping some of the image.
+     *
+     *  <b>Note:</b> The portion of the stage that is not covered by the image will show in the Application's <code>backgroundColor</code>.</p>
+     *
+     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property is set
+     *  and the preloader is <code>spark.preloaders.SplashScreen</code>.
+     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *
+     *  @default "none"
+     *  @see splashScreenImage
+     */
+    public function set splashScreenScaleMode(value:String):void
+    {
+        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
+        
+        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
+        // special attributes as "public vars"?
+    }
+
+    //----------------------------------
+    //  splashScreenMinimumDisplayTime
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  Minimum amount of time, in milliseconds, to show the splash screen image.
+     *
+     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property is set
+     *  and the preloader is <code>spark.preloaders.SplashScreen</code>.
+     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *
+     *  @default 1000
+     *  @see splashScreenImage
+     */
+    public function set splashScreenMinimumDisplayTime(value:int):void
+    {
+        // Do nothing, the compiler will place the value in the generated SystemManager's info object.
+        
+        // FIXME (egeorgie): why the discrepancy between this as "read-only-setters" and the rest of the
+        // special attributes as "public vars"?
+    }
 
     //----------------------------------
     //  usePreloader
@@ -678,11 +770,11 @@ public class Application extends SkinnableContainer
 
     /**
      *    If <code>true</code>, specifies to display the application preloader.
-     * 
+     *
      *    <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default true
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -695,7 +787,7 @@ public class Application extends SkinnableContainer
     //  Overridden properties (to block metadata from superclasses)
     //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     //  id
     //----------------------------------
@@ -708,7 +800,7 @@ public class Application extends SkinnableContainer
     override public function get id():String
     {
         if (!super.id &&
-            this == FlexGlobals.topLevelApplication && 
+            this == FlexGlobals.topLevelApplication &&
             ExternalInterface.available)
         {
             return ExternalInterface.objectID;
@@ -733,7 +825,7 @@ public class Application extends SkinnableContainer
             invalidateProperties();
         }
     }
-    
+
     //----------------------------------
     //  percentWidth
     //----------------------------------
@@ -804,7 +896,7 @@ public class Application extends SkinnableContainer
      *  <p>There are two sources of parameters: the query string of the
      *  Application's URL, and the value of the FlashVars HTML parameter
      *  (this affects only the main Application).</p>
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -828,7 +920,7 @@ public class Application extends SkinnableContainer
 
     /**
      *  The URL from which this Application's SWF file was loaded.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -838,7 +930,7 @@ public class Application extends SkinnableContainer
     {
         return _url;
     }
-    
+
     //----------------------------------
     //  viewSourceURL
     //----------------------------------
@@ -855,7 +947,7 @@ public class Application extends SkinnableContainer
      *  default context menu.  Selecting the menu item opens the
      *  <code>viewSourceURL</code> in a new window.
      *
-     *  <p>You must set the <code>viewSourceURL</code> property 
+     *  <p>You must set the <code>viewSourceURL</code> property
      *  using MXML, not using ActionScript, as the following example shows:</p>
      *
      *  <pre>
@@ -863,7 +955,7 @@ public class Application extends SkinnableContainer
      *      ...
      *    &lt;/Application&gt;</pre>
      *
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -873,7 +965,7 @@ public class Application extends SkinnableContainer
     {
         return _viewSourceURL;
     }
-    
+
     /**
      *  @private
      */
@@ -889,7 +981,7 @@ public class Application extends SkinnableContainer
     //--------------------------------------------------------------------------
 
     /**
-     *  @private 
+     *  @private
      */
     override protected function invalidateParentSizeAndDisplayList():void
     {
@@ -914,13 +1006,13 @@ public class Application extends SkinnableContainer
     override public function initialize():void
     {
         // trace("FxApp initialize FxApp");
-        
+
         var sm:ISystemManager = systemManager;
-        
+
 		// add listener if one is already attached
 		if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
 			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
-		
+
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
@@ -931,7 +1023,7 @@ public class Application extends SkinnableContainer
         initContextMenu();
 
         super.initialize();
-        
+
         // Stick a timer here so that we will execute script every 1.5s
         // no matter what.
         // This is strictly for the debugger to be able to halt.
@@ -939,7 +1031,7 @@ public class Application extends SkinnableContainer
         if (sm.isTopLevel() && Capabilities.isDebugger == true)
             setInterval(debugTickler, 1500);
     }
-    
+
     /**
      *  @private
      */
@@ -949,7 +1041,7 @@ public class Application extends SkinnableContainer
 
         resizeWidth = isNaN(explicitWidth);
         resizeHeight = isNaN(explicitHeight);
-        
+
         if (resizeWidth || resizeHeight)
         {
             resizeHandler(new Event(Event.RESIZE));
@@ -969,58 +1061,58 @@ public class Application extends SkinnableContainer
                 resizeHandlerAdded = false;
             }
         }
-        
+
         if (percentBoundsChanged)
         {
             updateBounds();
             percentBoundsChanged = false;
         }
     }
-    
+
     /**
      *  @private
      */
     override protected function resourcesChanged():void
     {
         super.resourcesChanged();
-        
+
         // "View Source" on the context menu
         if (viewSourceCMI)
         {
             viewSourceCMI.caption = resourceManager.getString("components", "viewSource");
         }
     }
-    
+
     /**
      *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
-        
+
         if (instance == controlBarGroup)
         {
             // copy proxied values from controlBarGroupProperties (if set) to contentGroup
             var newControlBarGroupProperties:uint = 0;
-            
+
             if (controlBarGroupProperties.controlBarContent !== undefined)
             {
                 controlBarGroup.mxmlContent = controlBarGroupProperties.controlBarContent;
-                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties,
                                                                CONTROLBAR_PROPERTY_FLAG, true);
             }
 
             if (controlBarGroupProperties.layout !== undefined)
             {
                 controlBarGroup.layout = controlBarGroupProperties.layout;
-                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties,
                                                                LAYOUT_PROPERTY_FLAG, true);
             }
 
             if (controlBarGroupProperties.visible !== undefined)
             {
                 controlBarGroup.visible = controlBarGroupProperties.visible;
-                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties,
                                                                VISIBLE_PROPERTY_FLAG, true);
             }
 
@@ -1030,7 +1122,7 @@ public class Application extends SkinnableContainer
 
     /**
      *  @private
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1043,18 +1135,18 @@ public class Application extends SkinnableContainer
         if (instance == controlBarGroup)
         {
             // copy proxied values from contentGroup (if explicitely set) to contentGroupProperties
-            
+
             var newControlBarGroupProperties:Object = {};
-            
+
             if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG))
                 newControlBarGroupProperties.controlBarContent = controlBarGroup.getMXMLContent();
-            
+
             if (BitFlagUtil.isSet(controlBarGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newControlBarGroupProperties.layout = controlBarGroup.layout;
-            
+
             if (BitFlagUtil.isSet(controlBarGroupProperties as uint, VISIBLE_PROPERTY_FLAG))
                 newControlBarGroupProperties.visible = controlBarGroup.visible;
-            
+
             controlBarGroupProperties = newControlBarGroupProperties;
 
             controlBarGroup.mxmlContent = null;
@@ -1064,7 +1156,7 @@ public class Application extends SkinnableContainer
 
     /**
      *  @private
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1092,35 +1184,35 @@ public class Application extends SkinnableContainer
     //----------------------------------
     //  unscaledHeight
     //----------------------------------
-    
+
     /**
      *  @private
      */
     override mx_internal function setUnscaledHeight(value:Number):void
     {
-        // we invalidate so we can properly add/remove the resize 
+        // we invalidate so we can properly add/remove the resize
         // event handler (SDK-12664)
         invalidateProperties();
-        
+
         super.setUnscaledHeight(value);
     }
-    
+
     //----------------------------------
     //  unscaledWidth
     //----------------------------------
-    
+
     /**
      *  @private
      */
     override mx_internal function setUnscaledWidth(value:Number):void
     {
-        // we invalidate so we can properly add/remove the resize 
+        // we invalidate so we can properly add/remove the resize
         // event handler (SDK-12664)
         invalidateProperties();
-        
+
         super.setUnscaledWidth(value);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -1145,7 +1237,7 @@ public class Application extends SkinnableContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-            var awm:IActiveWindowManager = 
+            var awm:IActiveWindowManager =
                 IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
             if (awm)
                 awm.activate(this);
@@ -1153,7 +1245,7 @@ public class Application extends SkinnableContainer
                 focusManager.activate();
         }
     }
-    
+
     /**
      *  @private
      *  Disable all the built-in items except "Print...".
@@ -1169,7 +1261,7 @@ public class Application extends SkinnableContainer
                 InteractiveObject(systemManager).contextMenu = contextMenu as ContextMenu;
             return;
         }
-        
+
         var defaultMenu:ContextMenu = new ContextMenu();
         defaultMenu.hideBuiltInItems();
         defaultMenu.builtInItems.print = true;
@@ -1178,15 +1270,15 @@ public class Application extends SkinnableContainer
         {
             // don't worry! this gets updated in resourcesChanged()
             const caption:String = resourceManager.getString("components", "viewSource");
-            
+
             viewSourceCMI = new ContextMenuItem(caption, true);
             viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuItemSelectHandler);
-            
+
             defaultMenu.customItems.push(viewSourceCMI);
         }
 
         contextMenu = defaultMenu;
-        
+
         if (systemManager is InteractiveObject)
             InteractiveObject(systemManager).contextMenu = defaultMenu;
     }
@@ -1199,20 +1291,20 @@ public class Application extends SkinnableContainer
     private function initResizeBehavior():void
     {
         var version:Array = Capabilities.version.split(' ')[1].split(',');
-        
-        synchronousResize = (parseFloat(version[0]) > 10 || 
+
+        synchronousResize = (parseFloat(version[0]) > 10 ||
             (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1))
             && (Capabilities.playerType != "Desktop");
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
     //
     //--------------------------------------------------------------------------
-    
+
     /**
-     *  @private 
+     *  @private
      *  Triggered by a resize event of the stage.
      *  Sets the new width and height.
      *  After the SystemManager performs its function,
@@ -1225,14 +1317,14 @@ public class Application extends SkinnableContainer
         if (!percentBoundsChanged)
         {
             updateBounds();
-            
-            // Update immediately when stage resizes so that we may appear 
+
+            // Update immediately when stage resizes so that we may appear
             // in synch with the stage rather than visually "catching up".
-            if (synchronousResize) 
+            if (synchronousResize)
                 UIComponentGlobals.layoutManager.validateNow();
         }
     }
-    
+
     /**
      *  @private
      *  Called when the "View Source" item in the application's context menu is
@@ -1242,7 +1334,7 @@ public class Application extends SkinnableContainer
     {
         navigateToURL(new URLRequest(_viewSourceURL), "_blank");
     }
-    
+
     /**
      *  @private
      *  Sets the new width and height after the Stage has resized
@@ -1259,26 +1351,26 @@ public class Application extends SkinnableContainer
         // based on the current SystemManager's width/height.
         // If developer has specified min/max values,
         // then application will not resize beyond those values.
-        
+
         var w:Number;
         var h:Number
-        
+
         if (resizeWidth)
         {
             if (isNaN(percentWidth))
             {
                 w = DisplayObject(systemManager).width;
             }
-            else 
+            else
             {
                 super.percentWidth = Math.max(percentWidth, 0);
                 super.percentWidth = Math.min(percentWidth, 100);
                 w = percentWidth*DisplayObject(systemManager).width/100;
             }
-            
+
             if (!isNaN(explicitMaxWidth))
                 w = Math.min(w, explicitMaxWidth);
-            
+
             if (!isNaN(explicitMinWidth))
                 w = Math.max(w, explicitMinWidth);
         }
@@ -1286,7 +1378,7 @@ public class Application extends SkinnableContainer
         {
             w = width;
         }
-        
+
         if (resizeHeight)
         {
             if (isNaN(percentHeight))
@@ -1299,10 +1391,10 @@ public class Application extends SkinnableContainer
                 super.percentHeight = Math.min(percentHeight, 100);
                 h = percentHeight*DisplayObject(systemManager).height/100;
             }
-            
+
             if (!isNaN(explicitMaxHeight))
                 h = Math.min(h, explicitMaxHeight);
-            
+
             if (!isNaN(explicitMinHeight))
                 h = Math.max(h, explicitMinHeight);
         }
@@ -1310,18 +1402,18 @@ public class Application extends SkinnableContainer
         {
             h = height;
         }
-        
+
         if (w != width || h != height)
         {
             invalidateProperties();
             invalidateSize();
         }
-        
+
         setActualSize(w, h);
-        
-        invalidateDisplayList();        
+
+        invalidateDisplayList();
     }
-	
+
 	/**
 	 * @private
 	 */
@@ -1331,8 +1423,8 @@ public class Application extends SkinnableContainer
 		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
 			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 		super.addEventListener(type, listener, useCapture, priority, useWeakReference)
-	}    
-	
+	}
+
 	/**
 	 * @private
 	 */
@@ -1342,7 +1434,7 @@ public class Application extends SkinnableContainer
 		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
 			systemManager.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 	}
-	
+
 	private function uncaughtErrorRedispatcher(event:Event):void
 	{
 		if (!dispatchEvent(event))
