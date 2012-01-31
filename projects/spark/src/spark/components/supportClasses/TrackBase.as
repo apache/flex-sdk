@@ -314,111 +314,48 @@ public class TrackBase extends Range
     
     //--------------------------------------------------------------------------
     //
-    // Properties
-    //
-    //--------------------------------------------------------------------------
-
-    //---------------------------------
-    // clickOffset
-    //---------------------------------
-    
-    private var _clickOffset:Point;
-    
-    /**
-     *  The point in the local coordinates of 
-     *  the thumb button where the last mouse down event occurred. 
-     *  This property is used by the <code>calculateNewValue()</code> method 
-     *  to determine the value that the thumb button has been dragged to.
-     *
-     *  @return Point object rerpresenting, in the local coordinates of 
-     *  the thumb button, where the last mouse down event occurred. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function get clickOffset():Point
-    {
-        return _clickOffset;
-    }
-
-    //---------------------------------
-    // trackSize
-    //---------------------------------
-    
-    /**
-     *  The size of the logical track. 
-     *  Subclasses need to override this method to return 
-     *  an appropriate value. 
-     *
-     *  <p>Note that this number can 
-     *  represent any system of units, but those units must 
-     *  be consistent with the values returned by the 
-     *  <code>pointToPosition()</code>, <code>calculateThumbSize()</code>, 
-     *  and <code>valueToPosition()</code> methods.</p>
-     *
-     *  @return The size of the logical track. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function get trackSize():Number
-    {
-        return 0;
-    }
-    
-    //---------------------------------
-    // thumbSize
-    //---------------------------------
-    
-    private var _thumbSize:Number = 0;
-    
-    /**
-     *  The size of the thumb button on the logical track in the 
-     *  units of the subclass, which must be consistent with 
-     *  <code>trackSize</code> property, and with 
-     *  the <code>pointToPosition()</code> and <code>valueToPosition()</code> methods. 
-     * 
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function get thumbSize():Number
-    {
-        return _thumbSize;
-    }
-    
-    /**
-     *  @private
-     */
-    protected function set thumbSize(value:Number):void
-    {
-        if (value == _thumbSize)
-            return;
-
-        _thumbSize = value;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     // Methods
     //
     //--------------------------------------------------------------------------
 
     /**
+     *  Convert a track relative x,y pixel location into a value between 
+     *  minimum and maximum inclusive.  
+     * 
+     *  <p>TrackBase subclasses must override this method and perform conversions
+     *  that take their own geometry into account.
+     * 
+     *  For example a vertical slider might compute a value like this:
+     *  <pre>
+     *  return (y / track.height) * (maximum - minimum);
+     *  </pre>
+     *  </p>
+     * 
+     *  <p>By default this method just returns <code>minimum</code>.</p>
+     * 
+     *  @param x The x coordinate of the location relative to the track's origin.
+     *  @param y The y coordinate of the location relative to the track's origin.
+     *  @return A value between minimum and maximum, inclusive.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function pointToValue(x:Number, y:Number):Number
+    {
+        return minimum;
+    }
+        
+
+    /**
      *  @private
      */
-    override public function step(increase:Boolean = true):void
+    override public function changeValueByStep(increase:Boolean = true):void
     {
         var prevValue:Number = this.value;
 
-        super.step(increase);
+        super.changeValueByStep(increase);
         
         if (value != prevValue)
             dispatchEvent(new Event(Event.CHANGE));
@@ -474,178 +411,6 @@ public class TrackBase extends Range
             track.removeEventListener(ResizeEvent.RESIZE, track_resizeHandler);
         }
     }
-    
-    /**
-     *  Return the value corresponding to a position on the track. 
-     *  The value is calculated by
-     *  finding what fraction of the logical track the <code>position</code>
-     *  represents, and then multiplying that by 
-     *  the range of possible values for the track.
-     *
-     *  @param position A position on the track.
-     *
-     *  @return A value, between <code>minimum</code> and <code>maximum</code>, 
-     *  corresponding to <code>position</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function positionToValue(position:Number):Number
-    {
-        var posRange:Number = trackSize - thumbSize;
-
-        if (posRange == 0) // Divide by 0 error.
-            return minimum;
-
-        var range:Number = maximum - minimum;
-        var value:Number = minimum + position * (range / posRange);
-        return value;
-    }
-    
-    /**
-     *  Return the position of the thumb button on the track
-     *  corresponding to a given value. 
-     *  
-     *  <p>Calculate the thumb button position by finding 
-     *  the fraction of the range of possible values that 
-     *  <code>value</code> represents, and then multiplying that by
-     *  the logical track size, minus the logical thumb size.</p>
-     *
-     *  @param value A value, between <code>minimum</code> and <code>maximum</code>.
-     *
-     *  @return A position on the track corresponding to <code>value</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function valueToPosition(value:Number):Number
-    {
-        var range:Number = maximum - minimum;
-        
-        if (range <= 0) // Divide by 0 error or nonsense
-            return 0;
-        var posRange:Number = trackSize - thumbSize;
-        var thumbPos:Number = (value - minimum) * (posRange / range);
-        
-        return thumbPos;
-    }
-    
-    /**
-     *  Returns a position on the track. 
-     *  The <code>localX</code> and <code>localY</code>
-     *  values represent the location in the local coordinate system of the
-     *  track. 
-     *
-     *  <p>Subclasses must override this method and return the
-     *  appropriate value. Values should not be clamped to
-     *  the ends of the track, as that clamping will happen later, prior
-     *  to setting position of the thumb button.</p>
-     *
-     *  @param localX The X-location in the local coordinate system of the
-     *  track.
-     *
-     *  @param localY The Y-location in the local coordinate system of the
-     *  track.
-     *
-     *  @return The posisiton on the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function pointToPosition(localX:Number, localY:Number):Number
-    {
-        return 0;
-    }
-
-    /**
-     *  Set the position of the thumb button. 
-     *
-     *  <p>Subclasses should override this method to position 
-     *  the thumb button.</p>
-     *
-     *  @param thumbPos The new position of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function positionThumb(thumbPos:Number):void {}
-    
-    /**
-     *  Sets the size of the thumb button.
-     *  
-     *  <p>Subclasses should override this method to size 
-     *  the thumb button.</p>
-     *
-     *  @param thumbSize The new size of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function sizeThumb(thumbSize:Number):void {}
-
-    /**
-     *  Returns the size of the thumb button
-     *  given the current setting of the range, 
-     *  <code>trackSize</code>, or other settings.
-     *  Subclasses should override this to calculate the correct size in
-     *  the units of position.
-     * 
-     *  @return The size of the thumb button. 
-     *  The default size is 0.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function calculateThumbSize():Number
-    {
-        return 0;
-    }
-
-    /**
-     *  From a MouseEvent object that contains the 
-     *  position where the thumb button was dragged to, and
-     *  the previous position of the thumb button, 
-     *  return the value corresponding to the new position. 
-     *  The value is restricted to the range defined by the 
-     *  <code>minimum</code> and <code>maximum</code> values. 
-     *
-     *  <p>This method usually should not be overridden.</p>
-     *
-     *  @param prevValue The previous position of the thumb button.
-     *
-     *  @param event A MouseEvent object.
-     *
-     *  @return The value that corresponds to the new track position
-     *  as calculated by the <code>nearestValidValue()</code> method.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function calculateNewValue(prevValue:Number, event:MouseEvent):Number
-    {
-        var pt:Point = new Point(event.stageX, event.stageY);
-        pt = track.globalToLocal(pt);
-        var movePos:Number = pointToPosition(pt.x - clickOffset.x, 
-                                             pt.y - clickOffset.y);
-        var newValue:Number = positionToValue(movePos);
-        var roundedValue:Number = nearestValidValue(newValue, valueInterval);
-        return roundedValue;
-    }
-    
     /**
      *  @private
      */ 
@@ -672,7 +437,7 @@ public class TrackBase extends Range
     override protected function updateDisplayList(w:Number, h:Number):void
     {
         super.updateDisplayList(w, h);
-        completeTrackLayout();
+        updateSkinDisplayList();
     }
 
     //--------------------------------------------------------------------------
@@ -680,18 +445,22 @@ public class TrackBase extends Range
     // Event Handlers
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Location of the mouse down event on the thumb, relative to the thumb's origin.
+     *  Used to update the value property when the mouse is dragged. 
+     */
+    private var clickOffset:Point;
     
     /**
-     *  Set <code>thumbSize</code> to the value of <code>calculateThumbSize()</code>
-     *  and then size and position the thumb with <code>sizeThumb()</code> and 
-     *  <code>positionThumb</code>.
-     *   
-     *  We're assuming that the track's skin will layout the thumb at its default size
-     *  and position.   
+     *  Set the bounds of skin parts - typically the thumb - whose geometry isn't fully
+     *  specified by the skin's layout.
      * 
-     *  We complete the layout here, when either the track or thumb
-     *  has changed size, or when the track's display list is updated, 
-     *  by recomputing the thumb's size and position.  
+     *  <p>Most subclasses override this method to update the thumb's size, position, and 
+     *  visibility, based on the minimum, maximum, and value properties. </p>
+     * 
+     *  <p>Does nothing by default.</p> 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -699,19 +468,15 @@ public class TrackBase extends Range
      *  @productversion Flex 4
      * 
      */
-    protected function completeTrackLayout():void
-    {
-        thumbSize = calculateThumbSize();
-        sizeThumb(thumbSize);
-        positionThumb(valueToPosition(value));
-    }
+    protected function updateSkinDisplayList():void {}
+
     
     /**
      *  @private
      */
     private function track_resizeHandler(event:Event):void
     {
-        completeTrackLayout();
+        updateSkinDisplayList();
     }
 
     /**
@@ -719,7 +484,7 @@ public class TrackBase extends Range
      */
     private function thumb_resizeHandler(event:Event):void
     {
-        completeTrackLayout();
+        updateSkinDisplayList();
     }
     
     /**
@@ -727,7 +492,7 @@ public class TrackBase extends Range
      */
     private function thumb_updateCompleteHandler(event:Event):void
     {
-        completeTrackLayout();
+        updateSkinDisplayList();
         thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
     }
     
@@ -743,7 +508,6 @@ public class TrackBase extends Range
     protected function system_mouseWheelHandler(event:MouseEvent):void
     {
     	var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
-        positionThumb(valueToPosition(newValue));
         setValue(newValue);
         event.preventDefault();  	
     }
@@ -772,19 +536,9 @@ public class TrackBase extends Range
      */
     protected function thumb_mouseDownHandler(event:MouseEvent):void
     {
-        addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
-                stage_mouseMoveHandler);
-        addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
-                stage_mouseUpHandler);
-                            
-        // Record the location where this mouse-down event occurred; we will
-        // use this in later drag operations to determine how much to move the
-        // thumb button
-        var pt:Point = new Point(event.stageX, event.stageY);
-        var pt2:Point = track.globalToLocal(pt);
-        pt = thumb.globalToLocal(pt);
-        _clickOffset = pt;
-        
+        addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, stage_mouseMoveHandler);
+        addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, stage_mouseUpHandler);
+        clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
     }
     
@@ -810,17 +564,17 @@ public class TrackBase extends Range
      */
     protected function system_mouseMoveHandler(event:MouseEvent):void
     {
-        var newValue:Number = calculateNewValue(value, event);
+        var p:Point = track.globalToLocal(new Point(event.stageX, event.stageY));
+        var newValue:Number = pointToValue(p.x - clickOffset.x, p.y - clickOffset.y);
+        newValue = nearestValidValue(newValue, snapInterval);
 
-        positionThumb(valueToPosition(newValue));
-        
         if (newValue != value)
         {
-            setValue(newValue);
+            setValue(newValue); 
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
             dispatchEvent(new Event(Event.CHANGE));   
         }
-        
+    
         event.updateAfterEvent();
     }
     
@@ -842,11 +596,8 @@ public class TrackBase extends Range
      */
     protected function system_mouseUpHandler(event:MouseEvent):void
     {
-        removeSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, 
-                stage_mouseMoveHandler);
-        removeSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
-                stage_mouseUpHandler);
-                
+        removeSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, stage_mouseMoveHandler);
+        removeSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, stage_mouseUpHandler);
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_RELEASE));
     }
 
@@ -860,7 +611,7 @@ public class TrackBase extends Range
      *  should override this method if they want the track to
      *  recognize mouse clicks on the track.
      */
-    protected function track_mouseDownHandler(event:MouseEvent):void {}
+    protected function track_mouseDownHandler(event:MouseEvent):void { }
     
     //---------------------------------
     // Mouse click handlers
