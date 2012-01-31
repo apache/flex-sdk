@@ -4,8 +4,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark">
         		
     <!-- Define a border component with clipAndEnableScrolling set to true -->
-	<s:Border width="200" height="200" clipAndEnableScrolling="true"
-	    borderWeight="10" borderColor="blue"
+	<s:Border width="200" height="200" borderWeight="10" borderColor="blue"
 	    backgroundColor="red" backgroundAlpha="0.5">
 	    
 		<s:borderStroke>
