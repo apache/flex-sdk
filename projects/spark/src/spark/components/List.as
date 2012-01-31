@@ -258,6 +258,17 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     private var mouseDownIndex:int = -1;
     
+    /**
+     *  @private
+     *  When dragging is enabled with multiple selection, the selection is not
+     *  comitted immediately on mouse down, but we wait to see whether the user
+     *  intended to start a drag gesture instead. In that case we postpone
+     *  comitting the selection until mouse up.
+     */
+    private var pendingSelectionOnMouseUp:Boolean = false;
+    private var pendingSelectionShiftKey:Boolean;
+    private var pendingSelectionCtrlKey:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Skin Parts
@@ -967,11 +978,10 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Taking into account which modifier keys were clicked, the new
      *  selectedIndices interval is calculated. 
      */
-    private function calculateSelectedIndicesInterval(renderer:IVisualElement, shiftKey:Boolean, ctrlKey:Boolean):Vector.<int>
+    private function calculateSelectedIndicesInterval(index:int, shiftKey:Boolean, ctrlKey:Boolean):Vector.<int>
     {
         var i:int; 
         var interval:Vector.<int> = new Vector.<int>();  
-        var index:Number = dataGroup.getElementIndex(renderer); 
         
         if (!shiftKey)
         {
@@ -1219,14 +1229,12 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
-        // Handle the fixup of selection 
-        var newIndex:Number; 
-        
+        // Handle the fixup of selection
+        var newIndex:Number = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
+
         if (!allowMultipleSelection)
         {
             // Single selection case, set the selectedIndex 
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
-            
             var currentRenderer:IItemRenderer;
             if (caretIndex >= 0)
             {
@@ -1244,21 +1252,26 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         else 
         {
-            // Multiple selection is handled by the helper method below
-            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
+            // Don't commit the selection immediately, but wait to see if the user
+            // is actually dragging. If they don't drag, then commit the selection
+            if (dragEnabled && isItemIndexSelected(newIndex))
+            {
+                pendingSelectionOnMouseUp = true;
+                pendingSelectionShiftKey = event.shiftKey;
+                pendingSelectionCtrlKey = event.ctrlKey;
+            }
+            else
+            {
+                selectedIndices = calculateSelectedIndicesInterval(newIndex, event.shiftKey, event.ctrlKey);
+            }
         }
         
         // Handle any drag gestures that may have been started
-        var renderer:IItemRenderer = event.currentTarget as IItemRenderer;
-        if (!renderer || !dragEnabled)
+        if (!dragEnabled)
             return;
         
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
-        
-        // Find the index of the item we're down on, this is the drag focus item.
-        // FIXME (egeorgie): When we start selecting/updating caret on mouse down, reuse the caret item,
-        // instead of calculating the index.
-        mouseDownIndex = dataGroup.getElementIndex(renderer);
+        mouseDownIndex = newIndex;
         
         // Listen for MOUSE_MOVE on both the list and the sandboxRoot.
         // The user may have cliked on the item renderer close
@@ -1318,6 +1331,13 @@ public class List extends ListBase implements IFocusManagerComponent
     
     private function removeMouseHandlersForDragStart():void
     {
+        // If dragging failed, but we had a pending selection, commit it here
+        if (pendingSelectionOnMouseUp && !DragManager.isDragging)
+        {
+            selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
+            pendingSelectionOnMouseUp = false;
+        }
+        
         mouseDownPoint = null;
         mouseDownIndex = -1;
         
