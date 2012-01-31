@@ -291,7 +291,7 @@ include "../styles/metadata/TextStyles.as"
 public class Container extends UIComponent
                        implements IContainer, IDataRenderer, 
                        IFocusManagerContainer, IListItemRenderer,
-                       IRawChildrenContainer
+                       IRawChildrenContainer, IChildList
 {
     include "../core/Version.as"
 
