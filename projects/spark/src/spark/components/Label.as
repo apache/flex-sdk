@@ -1306,17 +1306,17 @@ public class Label extends TextBase
                 new Vector.<DisplayObject>();
             var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
     
-            createTextLinesFromTextBlock(staticTextBlock, 
-                                         indicatorLines, 
-                                         indicatorBounds);
+            var indicatorFits:Boolean = createTextLinesFromTextBlock(staticTextBlock, 
+                                                                     indicatorLines, 
+                                                                     indicatorBounds);
                                                
             releaseLinesFromTextBlock();
                                                                                                          
             // 2. Move target line for truncation higher by as many lines 
             // as the number of full lines taken by the truncation 
-            // indicator.
+            // indicator. Indicator should also be able to fit.
             truncLineIndex -= (indicatorLines.length - 1);
-            if (truncLineIndex >= 0)
+            if (truncLineIndex >= 0 && indicatorFits)
             {
                 // 3. Calculate allowed width (width left over from the 
                 // last line of the truncation indicator).
