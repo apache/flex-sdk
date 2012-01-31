@@ -49,9 +49,12 @@ import mx.effects.Tween;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
+import mx.events.FlexMouseEvent;
 import mx.events.ListEvent;
+import mx.events.MarshalMouseEvent;
 import mx.events.MenuEvent;
 import mx.managers.IFocusManagerContainer;
+import mx.managers.ISystemManager2;
 import mx.managers.PopUpManager;
 
 use namespace mx_internal;
@@ -1471,7 +1474,9 @@ public class Menu extends List implements IFocusManagerContainer
         supposedToLoseFocus = true;
         
         // If the user clicks outside the menu, then hide the menu
-        systemManager.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
+        var sbRoot:DisplayObject = ISystemManager2(systemManager).getSandboxRoot();
+        sbRoot.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
+        addEventListener(MarshalMouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
     }
 
     /**
@@ -1517,8 +1522,9 @@ public class Menu extends List implements IFocusManagerContainer
 
             // Now that the menu is no longer visible, it doesn't need
             // to listen to mouseDown events anymore.
-            systemManager.removeEventListener(MouseEvent.MOUSE_DOWN,
-                                                   mouseDownOutsideHandler);
+            var sbRoot:DisplayObject = ISystemManager2(systemManager).getSandboxRoot();
+            sbRoot.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler);
+            removeEventListener(MarshalMouseEvent.MOUSE_DOWN, mouseDownOutsideHandler);
 
             // Fire an event
             var menuEvent:MenuEvent = new MenuEvent(MenuEvent.MENU_HIDE);
@@ -1575,9 +1581,15 @@ public class Menu extends List implements IFocusManagerContainer
     /**
      *  @private
      */
-    private function mouseDownOutsideHandler(event:MouseEvent):void
+    private function mouseDownOutsideHandler(event:Event):void
     {
-        if (!isMouseOverMenu(event) && !isMouseOverMenuBarItem(event))
+        if (event is MouseEvent)
+        {
+            var mouseEvent:MouseEvent = MouseEvent(event);
+            if (!isMouseOverMenu(mouseEvent) && !isMouseOverMenuBarItem(mouseEvent))
+                hideAllMenus();
+        }
+        else if (event is MarshalMouseEvent)
             hideAllMenus();
     }
 
