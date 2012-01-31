@@ -586,8 +586,9 @@ public class ComboBox extends DropDownListBase
         {
             setSelectedIndex(actualProposedSelectedIndex, true);
         }
-                
-        textInput.selectRange(-1, -1);
+
+		if (textInput)
+			textInput.selectRange(-1, -1);
         
         userTypedIntoText = false;
     }
@@ -729,9 +730,9 @@ public class ComboBox extends DropDownListBase
         if (newIndex >= 0)
         {
             var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
-            if (item)
+            if (item && textInput)
             {
-                var itemString:String = itemToLabel(item);
+                var itemString:String = itemToLabel(item); 
                 textInput.selectAll();
                 textInput.insertText(itemString);
                 textInput.selectAll();
@@ -786,7 +787,8 @@ public class ComboBox extends DropDownListBase
         else if (event.keyCode == Keyboard.ESCAPE)
         {
             // Restore the previous selectedItem
-            textInput.text = itemToLabel(selectedItem);
+			if (textInput)
+				textInput.text = itemToLabel(selectedItem);
             changeHighlightedSelection(selectedIndex);
         }
     }
@@ -796,7 +798,7 @@ public class ComboBox extends DropDownListBase
      */
     override public function setFocus():void
     {
-        if (stage)
+        if (stage && textInput)
         {            
             stage.focus = textInput.textDisplay;            
         }
@@ -807,6 +809,9 @@ public class ComboBox extends DropDownListBase
      */
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
+		if (!textInput)
+			return false;
+		
         return target == textInput.textDisplay;
     }
     
@@ -837,7 +842,8 @@ public class ComboBox extends DropDownListBase
         // always commit the selection if we focus out        
         if (!isDropDownOpen)
         {
-            if (textInput.text != itemToLabel(selectedItem))
+            if (textInput && 
+				textInput.text != itemToLabel(selectedItem))
                 applySelection();
         }
             
