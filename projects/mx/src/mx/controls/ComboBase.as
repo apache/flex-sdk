@@ -1418,7 +1418,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 if (border)
                 	border.setActualSize(w, h);
                 textInput.setActualSize(w - arrowWidth, textInputHeight);
-                textInput.showBorder(false);
+                textInput.showBorderAndBackground(false);
                 textInput.move(textInput.x, ((h - textInputHeight - paddingTop - paddingBottom) / 2) + paddingTop);
                 downArrowButton.setActualSize(unscaledWidth, unscaledHeight);
             }
@@ -1429,7 +1429,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 	border.setActualSize(w - arrowWidth, h);
                 textInput.setActualSize(w - arrowWidth, h);
                 downArrowButton.setActualSize(arrowWidth, unscaledHeight);
-                textInput.showBorder(true);
+                textInput.showBorderAndBackground(true);
             }
         }
         
