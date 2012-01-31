@@ -233,8 +233,8 @@ public class FormItem extends Container
         _horizontalScrollPolicy = ScrollPolicy.OFF;
         _verticalScrollPolicy = ScrollPolicy.OFF;
         
-        mx_internal::verticalLayoutObject.target = this;
-        mx_internal::verticalLayoutObject.direction = BoxDirection.VERTICAL;
+        verticalLayoutObject.target = this;
+        verticalLayoutObject.direction = BoxDirection.VERTICAL;
     }
 
     //--------------------------------------------------------------------------
