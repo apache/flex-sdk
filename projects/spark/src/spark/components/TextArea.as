@@ -390,6 +390,11 @@ public class FxTextArea extends FxTextBase
 									  textView_textInvalidHandler);
 
         }
+        
+        // The scroller, between textView and this in the chain, should not 
+        // getFocus.
+        if (instance == scroller)
+            scroller.focusEnabled = false;
 	}
 
 	//--------------------------------------------------------------------------
