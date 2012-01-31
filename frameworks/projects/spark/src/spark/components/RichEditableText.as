@@ -592,7 +592,8 @@ package spark.components
             _textContainerManager = createTextContainerManager();
             
             // Add event listeners on this component.
-            
+            addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			
             // The focusInHandler is called by the TCMContainer focusInHandler.
             // The focusOutHandler is called by the TCMContainer focusOutHandler.
             // The keyDownHandler is called by the TCMContainer keyDownHandler.
@@ -4061,6 +4062,18 @@ package spark.components
                          systemManager_mouseUpHandler, true /*useCapture*/);
         }
         
+		/**
+		 *  @private
+		 *  call a TLF method so we don't leak
+		 */
+		private function removedFromStageHandler(event:Event):void
+		{
+			if (event.target == this)
+			{
+				TextContainerManager.releaseReferences();
+			}    
+		}
+		
         /**
          *  @private
          *  If the textFlow hasn't changed the generation remains the same.
