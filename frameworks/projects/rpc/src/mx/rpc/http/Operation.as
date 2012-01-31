@@ -18,6 +18,7 @@ import mx.logging.Log;
 import mx.rpc.AbstractService;
 import mx.rpc.AsyncRequest;
 import mx.rpc.AsyncToken;
+import mx.utils.URLUtil;
 
 use namespace mx_internal;
 
@@ -119,18 +120,28 @@ public class Operation extends AbstractOperation
     }
 
     /**
-     * If the rootURL property is not set on the operation, it is inherited from
-     * the service level.
+     * The rootURL is used to compute the URL for an HTTP service operation when the
+     * a relative URL is specified for the operation.  The directory name of the
+     * rootURL is prepended to any relative URLs for the operation.  It is typically
+     * more convenient to set the baseURL since baseURL specifies the directory name
+     * directly whereas rootURL specifies the name of a file whose directory name is
+     * prepended.  If neither rootURL nor baseURL are set explicitly, the directory name
+     * of the .swf file is prepended to relative paths.
      */
     override public function get rootURL():String
     {
         if (_rootURL == null)
         {
-            if (_multiService.baseURL != null)
+            var useRootURL:String = _multiService.baseURL;
+            if (useRootURL != null && useRootURL.length > 0)
             {
-                if (_multiService.baseURL.charAt(_multiService.baseURL.length - 1) != '/')
-                    return _multiService.baseURL + "/";
-                return _multiService.baseURL;
+                if (useRootURL.charAt(useRootURL.length - 1) != '/')
+                    useRootURL = useRootURL + "/";
+
+                // If this is relative to the 
+                if (useRootURL.charAt(0) == "/")
+                    useRootURL = URLUtil.getFullURL(super.rootURL, useRootURL);
+                return useRootURL;
             }
             else
                 return super.rootURL; // defaults to SWF's URL
@@ -198,8 +209,19 @@ public class Operation extends AbstractOperation
                     throw new ArgumentError("HTTPMultiService operation called with " + argumentNames.length + " argumentNames and " + args.length + " number of parameters.  When argumentNames is specified, it must match the number of arguments passed to the invocation");
                 else
                 {
-                    for (var i:int = 0; i < argumentNames.length; i++)
-                        params[argumentNames[i]] = args[i];
+                    // Special case for XML content type when only one parameter is provided.
+                    // This gets rid of the need for a serializationFilter for this simple case.
+                    // If there is more than one parameter though, we do not have a reliable way
+                    // to turn the arguments into a body.
+                    if (argumentNames.length == 1 && contentType == CONTENT_TYPE_XML)
+                    {
+                        params = args[0];
+                    }
+                    else
+                    {
+                        for (var i:int = 0; i < argumentNames.length; i++)
+                            params[argumentNames[i]] = args[i];
+                    }
                 }
             }
         }
