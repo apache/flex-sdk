@@ -14,7 +14,7 @@
 		<s:NumericStepper id="myNS" width="55" value="1.5" stepSize="1.5" 
 		    valueInterval="1.5" valueWrap="true"/>      
         
-		<!-- Label that displays the current value of the NumericStepper -->
+		<!-- Label that displays the current value of the Spark NumericStepper -->
 		<mx:Label color="purple" text="Current value = {myNS.value}"/>
                                                             
 	</mx:Panel>                             
