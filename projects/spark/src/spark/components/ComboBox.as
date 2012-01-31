@@ -116,15 +116,15 @@ public class ComboBox extends DropDownList
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function ComboBox()
- 	{
- 	    super();
+    public function ComboBox()
+    {
+        super();
         
         addEventListener(KeyboardEvent.KEY_DOWN, capture_keyDownHandler, true);
         
         // TODO (jszeto) Add a property to toggle this behavior
         allowCustomSelectedItem = true;
- 	}
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -163,7 +163,7 @@ public class ComboBox extends DropDownList
      * 
      *  The function signature is this:
      * 
-     *  function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector.<int>
+     *  <pre>function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector</pre>
      * 
      *  If the value is null, the ComboBox will find matches using the following algorithm:
      * 
