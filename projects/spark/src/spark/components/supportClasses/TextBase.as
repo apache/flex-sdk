@@ -12,9 +12,11 @@
 package mx.graphics.baseClasses
 {
 
+import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.geom.Rectangle;
+import flash.text.engine.TextLine;
 
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
@@ -51,6 +53,24 @@ public class TextGraphicElement extends GraphicElement
     //  Variables
     //
     //--------------------------------------------------------------------------
+    
+	/**
+     *  @private
+     *  The composition bounds used when creating the TextLines.
+     */
+    mx_internal var bounds:Rectangle = new Rectangle(0, 0, NaN, NaN);
+
+    /**
+     *  @private
+	 *  The TextLines created to render the text.
+     */
+    mx_internal var textLines:Array = [];
+            
+    /**
+     *  @private
+     *  This flag is set to true if the text must be clipped.
+     */
+    mx_internal var isOverset:Boolean = false;
 
     /**
      *  @private
@@ -67,7 +87,25 @@ public class TextGraphicElement extends GraphicElement
     //  Overridden properties: GraphicElement
     //
     //--------------------------------------------------------------------------
-    
+        
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        mx_internal::validateBaselinePosition();
+        
+        // Return the baseline of the first line of composed text.
+        return mx_internal::textLines.length > 0 ?
+			   mx_internal::textLines[0].y : 0;
+    }
+
     //----------------------------------
     //  needsDisplayObject
     //----------------------------------
@@ -340,23 +378,22 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
+    override protected function measure():void
     {
-        /*
-        var g:Graphics = Sprite(displayObject).graphics;
+        super.measure();
         
-        // TODO EGeorgie: clearing the graphics needs to be shared when
-        // the display objects are shared.
-        g.clear();
+        // The measure() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, composeTextLines() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
 
-        g.lineStyle()
-        g.beginFill(0xCCCCCC);
-        g.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        g.endFill();
-        */
+        composeTextLines(explicitWidth, explicitHeight);
+
+        measuredWidth = Math.ceil(mx_internal::bounds.width);
+        measuredHeight = Math.ceil(mx_internal::bounds.height);
     }
-
+            
     //--------------------------------------------------------------------------
     //
     //  Methods: ISimpleStyleClient
@@ -490,12 +527,67 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-     *  TODO Make this mx_internal.
+     *  TODO This should be mx_internal, but that causes a compiler error.
      */
     protected function invalidateTextLines(cause:String):void
     {
     }
     
+    /**
+     *  @private
+     *  TODO This should be mx_internal, but that causes a compiler error.
+     */
+    protected function composeTextLines(width:Number = NaN,
+										height:Number = NaN):void
+	{
+	}
+
+	/**
+	 *  @private
+	 *  Adds the TextLines created by composeTextLines()
+     *  to a specified DisplayObjectContainer.
+	 *  Sets the isOverset flag to indicate whether they require clipping.
+	 */
+	mx_internal function addTextLines(container:DisplayObjectContainer,
+								  index:int = 0):void
+	{
+		var n:int = mx_internal::textLines.length;
+		for (var i:int = n - 1; i >= 0; i--)
+		{
+			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
+			container.addChildAt(textLine, index);
+		}
+		
+		var r:Rectangle = container.getBounds(container);
+		mx_internal::isOverset = !mx_internal::bounds.containsRect(r);
+	}
+
+	/**
+	 *  @private
+	 *  Removes the TextLines created by composeTextLines()
+     *  from whatever container they were added to, and frees them.
+	 *  Empties the textLines Array.
+	 */
+	mx_internal function removeTextLines():void
+	{
+		var n:int = mx_internal::textLines.length;		
+		if (n == 0)
+			return;
+
+		// The old TextLines might have been added to a different
+		// container than the one we'd use now to add new TextLines.
+		var container:DisplayObjectContainer =
+			mx_internal::textLines[0].parent;
+
+		for (var i:int = 0; i < n; i++)
+		{
+			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
+			container.removeChild(textLine);
+		}
+
+		mx_internal::textLines.length = 0;
+	}
+
     /**
 	 *  Use scrollRect to clip overset lines.
 	 *  But don't read or write scrollRect if you can avoid it,
@@ -503,9 +595,9 @@ public class TextGraphicElement extends GraphicElement
 	 *  And if scrollRect is already set to a Rectangle instance,
 	 *  reuse it rather than creating a new one.
      */
-    mx_internal function clip(overset:Boolean, w:Number, h:Number):void
+    mx_internal function clip(w:Number, h:Number):void
 	{
-        if (overset)
+        if (mx_internal::isOverset)
         {
             var r:Rectangle = displayObject.scrollRect;
             if (r)
