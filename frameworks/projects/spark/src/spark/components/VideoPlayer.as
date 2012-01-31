@@ -27,6 +27,7 @@ import mx.core.FlexGlobals;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.managers.PopUpManager;
 import mx.utils.BitFlagUtil;
 
 import org.osmf.events.LoadEvent;
@@ -62,9 +63,21 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */
 [Event(name="bytesLoadedChange",type="org.osmf.events.LoadEvent")]
+
+/**
+ *  Dispatched when the playhead reaches the duration for playable media.
+ * 
+ *  @eventType org.osmf.events.TimeEvent.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion Flex 4
+ */	 
+[Event(name="complete", type="org.osmf.events.TimeEvent")]
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
@@ -74,8 +87,8 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
- **/
+ *  @productversion Flex 4
+ */
 [Event(name="currentTimeChange",type="org.osmf.events.TimeEvent")]
 
 /**
@@ -86,7 +99,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */
 [Event(name="durationChange", type="org.osmf.events.TimeEvent")]
 
@@ -98,7 +111,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
- *  @productversion OSMF 1.0
+ *  @productversion Flex 4
  */ 
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
 
@@ -1459,6 +1472,7 @@ public class VideoPlayer extends SkinnableComponent
             videoDisplay.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, videoDisplay_bytesLoadedChangeHandler);
             videoDisplay.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoDisplay_mediaPlayerStateChangeHandler);
             videoDisplay.addEventListener(TimeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
+            videoDisplay.addEventListener(TimeEvent.COMPLETE, dispatchEvent);
             
             // just strictly for binding purposes
             videoDisplay.addEventListener("sourceChanged", dispatchEvent);
@@ -1742,6 +1756,7 @@ public class VideoPlayer extends SkinnableComponent
             videoDisplay.removeEventListener(LoadEvent.BYTES_LOADED_CHANGE, videoDisplay_bytesLoadedChangeHandler);
             videoDisplay.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoDisplay_mediaPlayerStateChangeHandler);
             videoDisplay.removeEventListener(TimeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
+            videoDisplay.removeEventListener(TimeEvent.COMPLETE, dispatchEvent);
             
             // just strictly for binding purposes
             videoDisplay.removeEventListener("sourceChanged", dispatchEvent);
@@ -2086,11 +2101,9 @@ public class VideoPlayer extends SkinnableComponent
             beforeFullScreenInfo = {parent: this.parent,
                 x: this.x,
                 y: this.y,
-                width: this.getPreferredBoundsWidth(false),
-                height: this.getPreferredBoundsHeight(false),
-                includeInLayout: this.includeInLayout};
+                explicitWidth: this.explicitWidth,
+                explicitWidth: this.explicitWidth};
             
-            includeInLayout = false;
             pauseWhenHidden = false;
             
             // remove from old parent
@@ -2106,19 +2119,19 @@ public class VideoPlayer extends SkinnableComponent
                 parent.removeChild(this);
             }
             
-            // add to new parent
-            if (FlexGlobals.topLevelApplication is IVisualElementContainer)
-                IVisualElementContainer(FlexGlobals.topLevelApplication).addElement(this);
-            else
-                FlexGlobals.topLevelApplication.addChild(this);
+            // add as a popup
+            PopUpManager.addPopUp(this, FlexGlobals.topLevelApplication as DisplayObject);
             
             // Resize the component to be the full screen of the stage.
             // Push the component at (0,0).  It should be on top of everything 
-            // at this point because it was added directly to the application.
+            // at this point because it was added as a popup
             setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight, true);
+            // set the explicit width/height to make sure this value sticks regardless 
+            // of any other code or layout passes.  Calling setLayoutBoundsSize() before hand
+            // allows us to use postLayout width/height
+            this.explicitWidth = width;
+            this.explicitHeight = height;
             setLayoutBoundsPosition(0, 0, true);
-            invalidateSize();
-            invalidateDisplayList();
             
             // this is for video performance reasons, but sometimes the videoObject isn't there
             // if the source is null
@@ -2233,7 +2246,8 @@ public class VideoPlayer extends SkinnableComponent
         // reset it so we're re-included in the layout
         this.x = beforeFullScreenInfo.x;
         this.y = beforeFullScreenInfo.y;
-        this.setLayoutBoundsSize(beforeFullScreenInfo.width, beforeFullScreenInfo.height);
+        this.explicitWidth = beforeFullScreenInfo.explicitWidth;
+        this.explicitHeight = beforeFullScreenInfo.explicitHeight;
         
         // sometimes there's no video object currently or there might not've been a 
         // video object when we went in to fullScreen mode.  There may be no videoObject
@@ -2245,23 +2259,13 @@ public class VideoPlayer extends SkinnableComponent
         }
         
         // remove from top level application:
-        if (parent is IVisualElementContainer)
-        {
-            var ivec:IVisualElementContainer = IVisualElementContainer(parent);
-            ivec.removeElement(this);
-        }
-        else
-        {
-            parent.removeChild(this);
-        }
+        PopUpManager.removePopUp(this);
         
         // add back to original parent
         if (beforeFullScreenInfo.parent is IVisualElementContainer)
             beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
         else
             beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
-        
-        includeInLayout = beforeFullScreenInfo.includeInLayout;
         
         // want to update pauseWhenHidden, but can't do it here
         // b/c the AIR window thinks it's invisible at this point
