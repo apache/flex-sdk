@@ -47,7 +47,24 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 [Style(name="skinZZ", type="Class")]
 
 /**
- *  The SkinnableComponent class.
+ *  The SkinnableComponent class defines the base class for skinnable components. 
+ *  The skins used by a SkinnableComponent class are child classes of the Skin class.
+ *
+ *  <p>Associate a skin class with a component class by setting the <code>skinZZ</code> style property of the 
+ *  component class. You can set the <code>skinZZ</code> property in CSS, as the following example shows:</p>
+ *
+ *  <pre>  MyComponent
+ *  {
+ *    skinClass: ClassReference("my.skins.MyComponentSkin")
+ *  }</pre>
+ *
+ *  <p>The following example sets the <code>skinZZ</code> property in MXML:</p>
+ *
+ *  <pre>
+ *  &lt;MyComponent skinZZ="my.skins.MyComponentSkin"/&gt;</pre>
+ *
+ *
+ *  @see mx.core.Skin
  */
 public class SkinnableComponent extends UIComponent
 {
@@ -60,7 +77,7 @@ public class SkinnableComponent extends UIComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor
+     *  Constructor.
      */
     public function SkinnableComponent()
     {
@@ -91,8 +108,8 @@ public class SkinnableComponent extends UIComponent
     
     private function set _skinObject(value:Skin):void
     {
-    	if (value === __skinObject)
-    	   return;
+        if (value === __skinObject)
+           return;
         
         __skinObject = value;
         dispatchEvent(new Event("skinObjectChanged"));
@@ -101,8 +118,9 @@ public class SkinnableComponent extends UIComponent
     [Bindable("skinObjectChanged")]
     
     /**
-     *  The instantiated skin object. This is a read-only property that
-     *  should be set by loadSkin().
+     *  The instance of the skin class for this component instance. 
+     *  This is a read-only property that you set 
+     *  by calling the <code>loadSkin()</code> method.
      */
     public function get skinObject():Skin
     {
@@ -194,11 +212,12 @@ public class SkinnableComponent extends UIComponent
 
     /**
      *  Returns the name of the state to be applied to the skin. For example, a
-     *  Button could have "up", "down", "over", and "disabled" states.
+     *  Button component could return the String "up", "down", "over", or "disabled" 
+     *  to specify the state.
      * 
-     *  Subclasses must override to return a value.
+     *  <p>A subclass of SkinnableComponent must override this method to return a value.</p>
      * 
-     *  @return A string specifying the name of the state.
+     *  @return A string specifying the name of the state to apply to the skin.
      */
     protected function getUpdatedSkinState():String 
     {
@@ -207,7 +226,8 @@ public class SkinnableComponent extends UIComponent
     
     /**
      *  Marks the component so that its <code>commitSkinState()</code> method
-     *  gets called during a later screen update.
+     *  gets called during a later screen update. 
+     *  The <code>commitSkinState()</code> method sets the new state of the skin.
      */
     protected function invalidateSkinState():void
     {
@@ -219,7 +239,8 @@ public class SkinnableComponent extends UIComponent
     }
 
     /**
-     *  Sets the new state of the skin. Subclasses can override to add 
+     *  Sets the new state of the skin. 
+     *  A subclass of SkinnableComponent can override this method to add 
      *  extra validation logic.
      * 
      *  @param newState A string specifying the name of the state to set.
@@ -235,13 +256,17 @@ public class SkinnableComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Load the skin for the component. This method should not be called
-	 *  directly. Typically, subclasses will not need to override this method.
-	 * 
-	 *  It instantiates the skin for the component, adds the skin as a child, 
-	 *  resolves all part associations, and calls skinLoaded().
-	 */
+    /**
+     *  Load the skin for the component. 
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when it calls 
+     *  the <code>UIComponent.commitProperties()</code> method.
+     *  Typically, a subclass of SkinnableComponent does not override this method.
+     * 
+     *  <p>This method instantiates the skin for the component, 
+     *  adds the skin as a child of the component, 
+     *  resolves all part associations for the skin, and calls the <code>skinLoaded()</code> method.</p>
+     */
     protected function loadSkin():void
     {
         // Factory
@@ -278,7 +303,7 @@ public class SkinnableComponent extends UIComponent
                 }
                 catch (err:Error) {}
             }
-           	
+            
             addChild(skinObject);
         }
         else
@@ -292,9 +317,10 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Find the skin parts and assign them to the properties in the component.
-     *  This method is called by loadSkin(), and should not be called directly.
-     *  Typically, subclasses will not need to override this method.
+     *  Find the skin parts in the skin class and assign them to the properties of the component.
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
+     *  Typically, a subclass of SkinnableComponent does not override this method.
      */
     protected function findSkinParts():void
     {
@@ -326,14 +352,17 @@ public class SkinnableComponent extends UIComponent
         }
     }
     
-	/**
-	 *  Attach behaviors to the skin object. This method should be overridden
-	 *  by subclasses.  The code to attach behaviors to an individual part
-	 *  should be put into partAdded().  The code to attach behaviors to 
-	 *  the skin object as a whole, should be done here.
-	 *  
-	 *  It is called by the loadSkin() method.
-	 */
+    /**
+     *  Attach behaviors to the skin object. 
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
+     *
+     *  <p>A subclass of SkinnableComponent must override this method to
+     *  attach behaviors to the skin object.</p>
+     * 
+     *  <p>Override the <code>partAdded()</code> method to attach behaviors to 
+     *  an individual part of the skin.</p>
+     */
     protected function skinLoaded():void
     {
         skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -342,12 +371,13 @@ public class SkinnableComponent extends UIComponent
         // Use partAdded for individual part behaviors
     }
     
-	/**
-	 *  Remove behavior from the skin object. This method should be overridden
-	 *  by subclasses. 
-	 *
-	 *  It is called by the unloadSkin() method.
-	 */
+    /**
+     *  Remove behavior from the skin object. 
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
+     *
+     *  <p>This method should be overridden by subclasses of SkinnableComponent. </p>
+     */
     protected function unloadingSkin():void
     {
         skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -357,9 +387,11 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Clear out references to skin parts. This method is called automatically
-     *  by unloadSkin(), and should not be called directly.
-     *  Typically, subclasses will not need to override this method.
+     *  Clear out references to skin parts. 
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
+     *
+     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
      */
     protected function clearSkinParts():void
     {
@@ -390,11 +422,14 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Unload the skin for this component. This method should not be called
-     *  directly. Typically, subclasses will not need to override this method.
+     *  Unload the skin for this component. 
+     *  You do not call this method directly. 
+     *  Flex calls it automatically when a skin is changed at runtime.
      *
-     *  This method is called whenever a skin is changed at runtime. It calls 
-     *  unloadingSkin(), removes the skin, and clears all part associations.
+     *  This method calls the <code>unloadingSkin()</code> method, removes the skin, 
+     *  and clears all part associations.
+     *
+     *  <p>Typically, subclasses of SkinnableComponent do not override this method.</p>
      */
     protected function unloadSkin():void
     {       
@@ -412,8 +447,20 @@ public class SkinnableComponent extends UIComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  Called when a part has been added. Override this function to attach
-     *  behavior to the part.
+     *  Called when a skin part is added. 
+     *  You do not call this method directly. 
+     *  For static parts, Flex calls it automatically when it calls the <code>loadSkin()</code> method. 
+     *  For dynamic parts, Flex calls it automatically when it calls 
+     *  the <code>createPartInstance()</code> method. 
+     *
+     *  <p>Override this function to attach behavior to the part. 
+     *  If you want to override behavior on a skin part that is inherited from a base class, 
+     *  make sure that you do not call the <code>super.partAdded()</code> method. 
+     *  Otherwise, you should always call the <code>super.partAdded()</code> method.</p>
+     *
+     *  @param partname The name of the part.
+     *
+     *  @param instance The part.
      */
     protected function partAdded(partName:String, instance:Object):void
     {   
@@ -421,7 +468,16 @@ public class SkinnableComponent extends UIComponent
 
     /**
      *  Called when an instance of a dynamic part is being removed. 
-     *  Override this function to remove behavior from the part.
+     *  You do not call this method directly. 
+     *  For static parts, Flex calls it automatically when it calls the <code>unloadSkin()</code> method. 
+     *  For dynamic parts, Flex calls it automatically when it calls 
+     *  the <code>removePartInstance()</code> method. 
+     *
+     *  <p>Override this function to remove behavior from the part.</p>
+     *
+     *  @param partname The name of the part.
+     *
+     *  @param instance The part.
      */
     protected function partRemoved(partName:String, instance:Object):void
     {       
@@ -438,9 +494,15 @@ public class SkinnableComponent extends UIComponent
     private var dynamicPartsCache:Object;
     
     /**
-     *  Create an instance of a dynamic part. Dynamic parts should always be instantiated
-     *  by this method, rather than directly calling newInstance() on the factory.
+     *  Create an instance of a dynamic part. 
+     *  Dynamic parts should always be instantiated by this method, 
+     *  rather than directly by calling the <code>newInstance()</code> method on the factory.
      *  This method creates the part, but does not add it to the display list.
+     *  The componet must call UIComponent.addItem()
+     *
+     *  @param partName The name of the part.
+     *
+     *  @return The instance of the part, or null if it cannot create the part.
      */
     protected function createPartInstance(partName:String):Object
     {
@@ -469,8 +531,13 @@ public class SkinnableComponent extends UIComponent
     }
     
     /**
-     *  Remove an instance of a dynamic part. This method must be called before a dynamic part is
-     *  deleted. This method does not remove the part from the display list.
+     *  Remove an instance of a dynamic part. 
+     *  You must call this method  before a dynamic part is deleted.
+     *  This method does not remove the part from the display list.
+     *
+     *  @param partname The name of the part.
+     *
+     *  @param instance The part.
      */
     protected function removePartInstance(partName:String, instance:Object):void
     {
@@ -484,6 +551,10 @@ public class SkinnableComponent extends UIComponent
 
     /**
      *  Returns the number of instances of a dynamic part.
+     *
+     *  @param partName The name of the dynamic part.
+     *
+     *  @return The number of instances of the dynamic part.
      */
     protected function numDynamicParts(partName:String):int
     {
@@ -495,6 +566,12 @@ public class SkinnableComponent extends UIComponent
     
     /**
      *  Returns a specific instance of a dynamic part.
+     *
+     *  @param partName The name of the dynamic part.
+     *
+     *  @param index The index of the dynamic part.
+     *
+     *  @return The instance of the part, or null if it the part does not exist.
      */
     protected function getDynamicPartAt(partName:String, index:int):Object
     {
