@@ -34,6 +34,8 @@ import spark.events.TrackBaseEvent;
 
 use namespace mx_internal;
 
+include "../../styles/metadata/BasicInheritingTextStyles.as"
+
 /**
  *  The alpha of the focus ring for this component.
  * 
@@ -67,6 +69,15 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [Style(name="liveDragging", type="Boolean", inherit="no")]
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="color", kind="style")]
+[Exclude(name="fontSize", kind="style")]
+[Exclude(name="fontWeight", kind="style")]
+[Exclude(name="textAlign", kind="style")]
 
 /**
  *  The Slider class lets users select a value by moving a slider thumb between 
@@ -471,14 +482,23 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         if (dataTip && showDataTip && enabled)
         {
             dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
-            systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
-            
-            dataTipInstance.data = formatDataTipText(
-                nearestValidValue(pendingValue, snapInterval));
-            
+			
+			dataTipInstance.data = formatDataTipText(
+				nearestValidValue(pendingValue, snapInterval));
+			
+			var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent;
+			
+			// Allow styles to be inherited from Slider.
+			if (tipAsUIComponent)
+			{
+				tipAsUIComponent.owner = this;
+				tipAsUIComponent.isPopUp = true;
+			}
+
+			systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
+			
             // Force the dataTip to render so that we have the correct size since
             // updateDataTip might need the size
-            var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
             if (tipAsUIComponent)
             {
                 tipAsUIComponent.validateNow();
