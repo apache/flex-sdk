@@ -72,6 +72,11 @@ import mx.resources.ResourceManager;
  * 
  * @see mx.graphics.GraphicElement
  * @see flash.display.DisplayObject
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimateShaderTransition extends FxAnimate
 {
@@ -120,6 +125,11 @@ public class FxAnimateShaderTransition extends FxAnimate
      * when the effect is played by grabbing a snapshot of the target
      * object, or by using a transparent bitmap if the object does not
      * exist in the start state of a transition.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var bitmapFrom:BitmapData;
     
@@ -129,6 +139,11 @@ public class FxAnimateShaderTransition extends FxAnimate
      * when the effect is played by grabbing a snapshot of the target
      * object, or by using a transparent bitmap if the object does not
      * exist in the end state of a transition.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var bitmapTo:BitmapData;
 
@@ -179,6 +194,11 @@ public class FxAnimateShaderTransition extends FxAnimate
      * </listing>
      * 
      * @see flash.display.Shader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var shaderCode:Object;
     
@@ -194,6 +214,11 @@ public class FxAnimateShaderTransition extends FxAnimate
      *   var shaderEffect = new FxAnimateShaderTransition();
      *   shaderEffect.shaderCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var shaderProperties:Object;
     
