@@ -929,10 +929,14 @@ public class Scroller extends SkinnableComponent
             switch (event.keyCode)
             {
                 case Keyboard.LEFT:
-                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
+                    hspDelta = (layoutDirection == "ltr") ?
+                        vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT) :
+                        vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
                     break;
                 case Keyboard.RIGHT:
-                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
+                    hspDelta = (layoutDirection == "ltr") ?
+                        vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT) :
+                        vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
                     break;
                 case Keyboard.HOME:
                     hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.HOME);
@@ -943,12 +947,20 @@ public class Scroller extends SkinnableComponent
                 // If there's no vertical scrollbar, then map page up/down to
                 // page left,right
                 case Keyboard.PAGE_UP:
-                     if (!verticalScrollBar || !(verticalScrollBar.visible))   
-                         hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT);
+                     if (!verticalScrollBar || !(verticalScrollBar.visible)) 
+                     {
+                         hspDelta = (layoutDirection == "ltr") ?
+                             vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT) :
+                             vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
+                     }
                      break;
                 case Keyboard.PAGE_DOWN:
-                     if (!verticalScrollBar || !(verticalScrollBar.visible))   
-                         hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT);
+                     if (!verticalScrollBar || !(verticalScrollBar.visible)) 
+                     {
+                         hspDelta = (layoutDirection == "ltr") ?
+                             vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT) :
+                             vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
+                     }
                      break;
             }
             if (!isNaN(hspDelta))
