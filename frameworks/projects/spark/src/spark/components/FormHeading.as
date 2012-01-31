@@ -55,6 +55,8 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
  */
 [DiscouragedForProfile("mobileDevice")]
 
+[IconFile("FormHeading.png")]
+
 /**
  * A simple form item component which contains a label. It is used to 
  * provide a heading to a set of form items. It is basically a FormItem 
