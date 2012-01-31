@@ -355,7 +355,7 @@ public class PopUpAnchor extends UIComponent
     protected function calculatePopUpPosition():Point
     {
         // This implementation doesn't handle rotation
-        var matrix:Matrix = getPopUpMatrix();
+        var matrix:Matrix = MatrixUtil.getConcatenatedComputedMatrix(this)
              
         var regPoint:Point = new Point();
         
@@ -501,26 +501,7 @@ public class PopUpAnchor extends UIComponent
         PopUpManager.removePopUp(popUp);
         popUpIsDisplayed = false;
     }
-    
-    /**
-     *  @private Get the concatenated matrix from the PopUpAnchor to the popUp parent 
-     */ 
-    private function getPopUpMatrix():Matrix
-    {
-        // Take the PopUpAnchor's concatenatedMatrix 
-        // and subtract out the popUp parent's concatenatedMatrix
-        var matrix:Matrix = systemManager.getSandboxRoot().transform.concatenatedMatrix;
         
-        if (matrix)
-        {
-            matrix.invert();
-            //matrix.concat(MatrixUtil.getConcatenatedMatrix(this));
-            matrix.concat(MatrixUtil.getConcatenatedComputedMatrix(this));            
-        }
-        
-        return matrix;
-    }
-    
     /**
      *  @private 
      */
@@ -579,7 +560,7 @@ public class PopUpAnchor extends UIComponent
         if (!popUpIsDisplayed)
             return;
                 
-        var m:Matrix = getPopUpMatrix();
+        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(this);
          
         // Set the dimensions explicitly because UIComponents always set themselves to their
         // measured / explicit dimensions if they are parented by the SystemManager. 
