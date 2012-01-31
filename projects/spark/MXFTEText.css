@@ -64,10 +64,14 @@ DateChooser
 	textFieldClass: ClassReference("mx.core.UITLFTextField");
 }
 
-
 DateField
 {
 	textInputClass: ClassReference("mx.controls.TLFTextInput");
+}
+
+Label
+{
+	textFieldClass: ClassReference("mx.core.UITLFTextField");
 }
 
 ListItemRenderer
