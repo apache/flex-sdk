@@ -392,7 +392,6 @@ public class GridLayout extends LayoutBase
     
     /**
      *  @private
-     *  ToDo(cframpto): what is the proper way to get at this?
      */
     private function getColumnHeaderBar():ColumnHeaderBar
     {
@@ -2052,18 +2051,32 @@ public class GridLayout extends LayoutBase
         // TBD(hmuller)
         return new Vector.<Object>;
     }
-
     
     /**
-     *  Returns a reference to the item renderer currently displayed at the 
-     *  specified cell.  If the requested item renderer is not visible then 
-     *  (each time this method is called) a new item renderer is created.  If 
-     *  the specified is invalid, e.g. if <code>rowIndex == -1</code>, 
-     *  then null is returned.
+     *  If the requested item renderer is visible, returns a reference to 
+     *  the item renderer currently displayed at the specified cell.  Once the 
+     *  item renderer is no longer visible it is recycled and its properties 
+     *  will be reset.  
      * 
+     *  <p>If the requested item renderer is not visible then, 
+     *  each time this method is called, a new item renderer is created.  The
+     *  new item renderer is not visible</p>
+     * 
+     *  <p>If the specified column doesn't have an explicit width, then the width
+     *  of this cell will be based on the <code>typicalItem</code>.  If a 
+     *  <code>typicalItem</code> was not specified or hasn't been measured yet, 
+     *  then the item renderer's width will default to <code>150</code>.</p>
+     * 
+     *  <p>If the grid property <code>variableRowHeight</code> is 
+     *  <code>true</code> (the default) and an overall row height hasn't been 
+     *  cached for the specified row, then the item renderer's height is based 
+     *  on the <code>typicalItem</code>.  If the <code>typicalItem</code> wasn't 
+     *  specified or has not been measured yet, then the item renderer's height 
+     *  will default to <code>26</code>.</p>
+     *  
      *  @param rowIndex The 0-based row index of the item renderer's cell.
      *  @param columnIndex The 0-based column index of the item renderer's cell.
-     *  @return The item renderer
+     *  @return The item renderer or null if the cell location is invalid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2075,8 +2088,30 @@ public class GridLayout extends LayoutBase
         const visibleItemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
         if (visibleItemRenderer)
             return visibleItemRenderer;
-        // TBD(hmuller): create an item renderer
-        return null;
+        
+        // Create an item renderer.
+        var dataItem:Object = getDataProviderItem(rowIndex);
+        var column:GridColumn = getGridColumn(columnIndex);
+        
+        // Invalid row or column.
+        if (dataItem == null || column == null)
+            return null;
+                
+        const factory:IFactory = column.itemToRenderer(dataItem);
+        const renderer:IVisualElement = factory.newInstance() as IVisualElement;
+        
+        grid.itemRendererGroup.addElement(renderer);
+        
+        initializeItemRenderer(renderer, rowIndex, columnIndex, dataItem, false);
+
+        // The width/height may change later if the cell becomes visible.
+        var bounds:Rectangle = gridDimensions.getCellBounds(rowIndex, columnIndex);
+        layoutItemRenderer(renderer, bounds.x, bounds.y, bounds.width, bounds.height);
+        
+        grid.itemRendererGroup.removeElement(renderer);
+        renderer.visible = false;
+        
+        return renderer;
     }
     
     /**
