@@ -331,6 +331,18 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 }
             }
         }
+        
+        if (transformChanged)
+        {
+            transformChanged = false;
+            // Apply the transform props or matrix
+            TransformUtil.applyTransforms(this, _matrix, NaN, NaN, NaN, NaN, 
+                                          _rotation, _transformX, _transformY);
+            _matrix = null;
+            _rotation = NaN;
+            
+            invalidateParentSizeAndDisplayList();
+        }
 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         if (!alwaysUseItemRenderer)
@@ -396,16 +408,6 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 if (element)
                     element.validateDisplayList();
             }
-        }
-
-        // TODO EGeorgie: maybe move this to commitProperties, or at least before
-        // children validateDisplayList()    
-        if (transformChanged)
-        {
-            transformChanged = false;
-            // Apply the transform props or matrix
-            TransformUtil.applyTransforms(this, _matrix, _x, _y, _scaleX, _scaleY, 
-                                          _rotation, _transformX, _transformY);
         }
     }
     
@@ -1064,58 +1066,9 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
             
             _rotation = value;
             transformChanged = true;
-            invalidateDisplayList();
+            invalidateProperties();
         }
     }
-    
-    //----------------------------------
-    //  scaleX
-    //----------------------------------
-    
-    private var _scaleX:Number;
-    
-    /**
-     *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
-     */
-    override public function get scaleX():Number
-    {
-        return !isNaN(_scaleX) ? _scaleX : super.scaleX;
-    }
-    
-    
-    override public function set scaleX(value:Number):void
-    {
-        if (_scaleX != value)
-        {
-            _scaleX = value;
-            transformChanged = true;
-            invalidateDisplayList();
-        }
-        
-    }
-    
-    //----------------------------------
-    //  scaleY 
-    //----------------------------------
-    private var _scaleY:Number;
-    
-    /**
-     *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
-     */
-    override public function get scaleY():Number
-    {
-        return !isNaN(_scaleY) ? _scaleY : super.scaleY;
-    } 
-     
-    override public function set scaleY(value:Number):void
-    {
-        if (_scaleY != value)
-        {
-            _scaleY = value;
-            transformChanged = true;
-            invalidateDisplayList();
-        }
-    } 
 
     //----------------------------------
     //  transform
@@ -1165,7 +1118,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         {
             _transformX = value;
             transformChanged = true;
-            invalidateDisplayList();
+            invalidateProperties();
         }
     }
     
@@ -1188,52 +1141,10 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         {
             _transformY = value;
             transformChanged = true;
-            invalidateDisplayList();
+            invalidateProperties();
         }
     }
 
-    //----------------------------------
-    //  x
-    //----------------------------------
-    
-    private var _x:Number;
-    
-    override public function get x():Number
-    {
-        return !isNaN(_x) ? _x : super.x;
-    }
-    
-    override public function set x(value:Number):void
-    {
-        if (_x != value)
-        {
-            _x = value;
-            transformChanged = true;
-            invalidateDisplayList();
-        }
-    }
-
-    //----------------------------------
-    //  y
-    //----------------------------------
-    
-    private var _y:Number;
-    
-    override public function get y():Number
-    {
-        return !isNaN(_y) ? _y : super.y;
-    }
-    
-    override public function set y(value:Number):void
-    {
-        if (_y != value)
-        {
-            _y = value;
-            transformChanged = true;
-            invalidateDisplayList();
-        }
-    }
-    
     private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
     {
         if (event.kind == PropertyChangeEventKind.UPDATE)
@@ -1245,7 +1156,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 {
                     _matrix = _transform.matrix.clone();
                     transformChanged = true;
-                    invalidateDisplayList();
+                    invalidateProperties();
                 } 
             }
             else if (event.property == "colorTransform")
@@ -1254,8 +1165,10 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 if (_transform)
                 {
                     _colorTransform = _transform.colorTransform;
+                    // TODO EGeorgie: figure out what to invalidate when we implement
+                    // colotTransform being applied.
                     transformChanged = true;
-                    invalidateDisplayList();
+                    invalidateProperties();
                 }
             }
         }
