@@ -13,16 +13,18 @@
 
 /*
     This style sheet should be used if you would like to use the new
-    Text Layout Framework (TLF) text in your Halo controls.  TLF
-    provides text editing with high-quality international typography 
-    and layout.  It supports displaying left-to-right (ltr) text such as 
-    French, right-to-left (rtl) text such as Arabic, and bidirectional text
+    Flash Text Engine (FTE) and Text Layout Framework (TLF) text in your Halo
+    controls.  FTE/TLF provides text editing with high-quality international
+    typography and layout.  It supports displaying left-to-right (ltr) text such 
+    as French, right-to-left (rtl) text such as Arabic, and bidirectional text
     such as a French phrase inside of an Arabic one.
+
+    You should not modify this file.
 
     You use this style sheet by applying it as theme to your application.
 
     Alternatively you may apply this style sheet in your application with
-        <fx:Style source="path/TLFText.css" />
+        <fx:Style source="path/MXFTEText.css" />
     but you will see compiler warnings for any unused selectors.
 */
 
@@ -30,105 +32,105 @@
 @namespace s "library://ns.adobe.com/flex/spark";
 
 
-s|TLFTextInput
+s|MXFTETextInput
 {
 	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
 }
 
 AlertForm
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 Button
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 CalendarLayout
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 ColorPicker
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
-	textInputClass: ClassReference("mx.controls.TLFTextInput");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
 ComboBox
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
-	textInputClass: ClassReference("mx.controls.TLFTextInput");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
 DataGrid
 {
-	defaultDataGridItemEditor: ClassReference("mx.controls.TLFTextInput");
-	defaultDataGridItemRenderer: ClassReference("mx.controls.dataGridClasses.TLFDataGridItemRenderer");
+	defaultDataGridItemEditor: ClassReference("mx.controls.MXFTETextInput");
+	defaultDataGridItemRenderer: ClassReference("mx.controls.dataGridClasses.FTEDataGridItemRenderer");
 }
 
 DateChooser
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 DateField
 {
-	textInputClass: ClassReference("mx.controls.TLFTextInput");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
 Label
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 ListItemRenderer
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 MenuBarItem
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 MenuItemRenderer
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 NumericStepper
 {
-	textInputClass: ClassReference("mx.controls.TLFTextInput");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
 Panel
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 ProgressBar
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 SwatchPanel
 {
-	textInputClass: ClassReference("mx.controls.TLFTextInput");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
 TileListItemRenderer
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 TreeItemRenderer
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
 ToolTip
 {
-	textFieldClass: ClassReference("mx.core.UITLFTextField");
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
