@@ -2155,7 +2155,12 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         isMouseDown = true;
         mouseDownTarget = event.target as InteractiveObject;
-                
+        
+        // If we already have focus, make sure to open soft keyboard
+        // on mouse up
+        if (focusManager.getFocus() == this)
+            delaySetFocus = true;
+        
         // Wait for a mouseUp somewhere
         systemManager.getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, touchMouseUpHandler, false, 0, true);
