@@ -34,6 +34,8 @@ import mx.managers.IFocusManagerComponent;
  */
 [SkinStates("normal", "disabled")]
 
+[IconFile("FxSpinner.png")]
+
 /**
  *  A FxSpinner component selects a value from an
  *  ordered set. It uses two buttons that increase or
