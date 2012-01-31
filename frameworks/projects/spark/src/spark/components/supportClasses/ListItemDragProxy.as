@@ -177,7 +177,7 @@ public class ListItemDragProxy extends Group
     //
     //--------------------------------------------------------------------------
 
-    // FIXME (egeorgie): find a better place for this helper method.
+    // TODO (egeorgie): find a better place for this helper method.
     static private var elementBounds:Rectangle;
     /**
      *  @private
