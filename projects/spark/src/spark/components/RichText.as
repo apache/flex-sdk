@@ -105,12 +105,6 @@ public class TextGraphic extends TextGraphicElement
     private static var staticConfiguration:Configuration =
         new Configuration();
     
-    /**
-     *  @private
-     *  Used for determining whitespace processing during import.
-     */
-    private static var staticImportExportConfiguration:ImportExportConfiguration;
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -122,17 +116,6 @@ public class TextGraphic extends TextGraphicElement
      */
     public function TextGraphic()
     {
-        // Initialize staticImportExportConfiguration at instance-creation
-        // time rather than at static initialization time, to avoid
-        // any class-initialization-order problems.
-        if (!staticImportExportConfiguration)
-        {
-            staticImportExportConfiguration =
-                ImportExportConfiguration.defaultConfiguration;
-            
-            ImportExportConfiguration.restoreDefaults();
-        }
-
         super();
 
         _content = textFlow = createEmptyTextFlow();
@@ -497,8 +480,6 @@ public class TextGraphic extends TextGraphicElement
             getStyle("whiteSpaceCollapse");
 		staticConfiguration.textFlowInitialCharacterFormat =
             staticCharacterFormat;
-		staticImportExportConfiguration.textFlowConfiguration =
-            staticConfiguration; 
 
         if (markup is String)
         {
@@ -536,7 +517,7 @@ public class TextGraphic extends TextGraphicElement
         }
         
         return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                                       staticImportExportConfiguration);
+                                       staticConfiguration);
     }
     
     /**
