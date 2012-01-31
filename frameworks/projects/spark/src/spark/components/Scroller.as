@@ -1585,11 +1585,17 @@ public class Scroller extends SkinnableComponent
         
         // See whether we possibly need to re-throw because of changed max positions.
         var needRethrow:Boolean = false;
+        
+        // We don't rethrow in paging mode, as we don't want to go any further
+        // than to the adjacent page.
+        if (!pageScrollingEnabled)
+        {
         if (throwReachedMaximumScrollPosition && (throwFinalVSP < maxVerticalScrollPosition || throwFinalHSP < maxHorizontalScrollPosition))
             needRethrow = true;                
         
         if (throwFinalVSP > maxVerticalScrollPosition || throwFinalHSP > maxHorizontalScrollPosition)
             needRethrow = true;
+        }
 
         // See whether we possibly need to re-throw because the final snapped position is
         // no longer snapped.  This can occur when the snapped position was estimated due to virtual
@@ -1621,10 +1627,7 @@ public class Scroller extends SkinnableComponent
                 // require changing directions relative to the current throw,
                 // which looks strange.
                 throwEffect.stop();
-                if (viewport.verticalScrollPosition > maxVerticalScrollPosition)
-                    viewport.verticalScrollPosition = maxVerticalScrollPosition;
-                if (viewport.horizontalScrollPosition > maxHorizontalScrollPosition)
-                    viewport.horizontalScrollPosition = maxHorizontalScrollPosition;
+                snapContentScrollPosition();
             }
             else
             {
@@ -2525,6 +2528,9 @@ public class Scroller extends SkinnableComponent
                     position -= offset;
                 else
                     position += viewportWidth - offset;
+                
+                // Clip the position to the valid min/max range
+                position = Math.min(Math.max(minHorizontalScrollPosition, position), maxHorizontalScrollPosition);
             }
             else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION && viewportHeight != 0)
             {
@@ -2533,6 +2539,9 @@ public class Scroller extends SkinnableComponent
                     position -= offset;
                 else
                     position += viewportHeight - offset;
+
+                // Clip the position to the valid min/max range
+                position = Math.min(Math.max(minVerticalScrollPosition, position), maxVerticalScrollPosition);
             }
         }
         
@@ -3069,18 +3078,18 @@ public class Scroller extends SkinnableComponent
     private function snapContentScrollPosition(snapHorizontal:Boolean = true, snapVertical:Boolean = true):void
     {
         if (snapHorizontal)
-        {
-            viewport.horizontalScrollPosition = getSnappedPosition( 
-                Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
-                HORIZONTAL_SCROLL_POSITION);
+    {
+        viewport.horizontalScrollPosition = getSnappedPosition( 
+            Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
+            HORIZONTAL_SCROLL_POSITION);
         }
 
         if (snapVertical)
         {
-            viewport.verticalScrollPosition = getSnappedPosition( 
-                Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
-                VERTICAL_SCROLL_POSITION);
-        }
+        viewport.verticalScrollPosition = getSnappedPosition( 
+            Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
+            VERTICAL_SCROLL_POSITION);
+    }
     }
     
     /**
