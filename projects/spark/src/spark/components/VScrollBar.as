@@ -22,7 +22,6 @@ package flex.component
  *  <p>Although you can use the VScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
- * 
  */
 public class VScrollBar extends ScrollBar
 {
@@ -49,7 +48,7 @@ public class VScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     * The size of the track on a VScrollBar equals the height of the track.
+     *  The size of the track on a VScrollBar equals the height of the track.
      */
     override protected function get trackSize():Number
     {
@@ -59,20 +58,6 @@ public class VScrollBar extends ScrollBar
             return 0;
     }
     
-    /**
-     * HScrollBar's thumbSize determines the height of the thumb button.
-     * The button's minWidth property acts as a lower bound on this size.
-     */
-    override protected function set thumbSize(size:Number):void
-    {
-        super.thumbSize = Math.max(size, thumb.minHeight);
-        thumb.height = thumbSize;
-    }
-    override protected function get thumbSize():Number
-    {
-        return super.thumbSize; 
-    }
-
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -80,11 +65,11 @@ public class VScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     * Position the thumb button according to the given thumbPos parameter,
-     * relative to the current y location of the track in the scrollbar control.
+     *  Position the thumb button according to the given thumbPos parameter,
+     *  relative to the current y location of the track in the scrollbar control.
      * 
-     * @param thumbPos A number representing the new position of the thumb
-     * button in the control.
+     *  @param thumbPos A number representing the new position of the thumb
+     *  button in the control.
      */
     override protected function positionThumb(thumbPos:Number):void
     {
@@ -96,14 +81,30 @@ public class VScrollBar extends ScrollBar
     }
 
     /**
-     * The position of the thumb on a VScrollBar is equal to the given
-     * localY parameter.
-     * 
-     * @param localX The x position relative to the scrollbar control
-     * @param localY The y position relative to the scrollbar control
+     *  @private
      */
-    override protected function getScrollPosition(localX:Number, 
-                                                  localY:Number):Number
+    override protected function calculateThumbSize():Number
+    {
+        return Math.max(thumb.minHeight, super.calculateThumbSize());
+    }
+
+    /**
+     *  @private
+     */
+    override protected function sizeThumb(thumbSize:Number):void
+    {
+        thumb.height = thumbSize;
+    }
+    
+    /**
+     *  The position of the thumb on a VScrollBar is equal to the given
+     *  localY parameter.
+     * 
+     *  @param localX The x position relative to the scrollbar control
+     *  @param localY The y position relative to the scrollbar control
+     */
+    override protected function pointToPosition(localX:Number, 
+                                                localY:Number):Number
     {
         return localY;
     }
