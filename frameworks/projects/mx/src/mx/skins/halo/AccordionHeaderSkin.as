@@ -144,7 +144,7 @@ public class AccordionHeaderSkin extends Border
 		var borderColor:uint = getStyle("borderColor");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");		
 		var selectedFillColors:Array = getStyle("selectedFillColors");
 		var themeColor:uint = getStyle("themeColor");
