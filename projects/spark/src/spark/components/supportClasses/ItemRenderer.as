@@ -11,22 +11,26 @@
 
 package mx.components
 {
+import flash.display.DisplayObjectContainer; 	
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
+import mx.components.IItemRenderer;
+import mx.components.IItemRendererOwner;
 import mx.graphics.baseClasses.TextGraphicElement;
 
 /**
- *  The ItemRenderer class is the base class for List item renderers.
+ *  The ItemRenderer class is the base class for Spark item renderers.
+ *  It implements the IItemRenderer interface. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ItemRenderer extends MXMLComponent
+public class ItemRenderer extends MXMLComponent implements IItemRenderer
 {    
     //--------------------------------------------------------------------------
     //
@@ -102,6 +106,66 @@ public class ItemRenderer extends MXMLComponent
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  allowDeselection
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the allowDeselection property 
+     */
+    private var _allowDeselection:Boolean = true;
+
+    /**
+     *  @inheritDoc 
+     */    
+    public function get allowDeselection():Boolean
+    {
+        return _allowDeselection;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set allowDeselection(value:Boolean):void
+    {
+    	if (value == _allowDeselection)
+    		return;
+    		
+        _allowDeselection = value;
+    }
+    
+    //----------------------------------
+    //  showFocusIndicator
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the showFocusIndicator property 
+     */
+    private var _showFocusIndicator:Boolean = false;
+
+    /**
+     *  @inheritDoc 
+     */    
+    public function get showFocusIndicator():Boolean
+    {
+        return _showFocusIndicator;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set showFocusIndicator(value:Boolean):void
+    {
+        if (value == _showFocusIndicator)
+            return;
+
+        _showFocusIndicator = value;
+        //mx_internal::drawFocusAnyway = true;
+        //drawFocus(value);
+    }
+    
 	//----------------------------------
 	//  hovered
 	//----------------------------------
@@ -131,14 +195,13 @@ public class ItemRenderer extends MXMLComponent
             currentState = getCurrentSkinState();
         }
     }
-    
+       
     //----------------------------------
     //  labelElement
     //----------------------------------
 	
     /**
-     * Optional item renderer label component, used primarily for 
-     * auto-computation of baseline.
+     * Optional item renderer label component. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -146,7 +209,7 @@ public class ItemRenderer extends MXMLComponent
      *  @productversion Flex 4
      */
     public var labelElement:TextGraphicElement;
-
+ 
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -170,8 +233,8 @@ public class ItemRenderer extends MXMLComponent
             
         return labelPosition.y + labelElement.baselinePosition;
     }
-        
-    //--------------------------------------------------------------------------
+    
+	//--------------------------------------------------------------------------
     //
     //  Event handling
     //
