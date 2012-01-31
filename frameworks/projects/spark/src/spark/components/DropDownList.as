@@ -50,6 +50,8 @@ import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
+use namespace mx_internal;
+
 /**
  *  Dispatched when the drop-down list closes for any reason, such when 
  *  the user:
@@ -265,6 +267,26 @@ public class DropDownList extends List
             _dropDownController.openButton = openButton;
         if (dropDown)
             _dropDownController.dropDown = dropDown;    
+    }
+    
+    //----------------------------------
+    //  isDropDownOpen
+    //----------------------------------
+    
+    /**
+     *  @copy spark.components.supportClasses.DropDownController#isOpen
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get isDropDownOpen():Boolean
+    {
+        if (dropDownController)
+            return dropDownController.isOpen;
+        else
+            return false;
     }
 
     //----------------------------------
@@ -646,7 +668,7 @@ public class DropDownList extends List
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dropDownController_openHandler(event:DropDownEvent):void
+    mx_internal function dropDownController_openHandler(event:DropDownEvent):void
     {
         addEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
         proposedSelectedIndex = selectedIndex;
@@ -656,7 +678,7 @@ public class DropDownList extends List
     /**
      *  @private
      */
-    private function open_updateCompleteHandler(event:FlexEvent):void
+    mx_internal function open_updateCompleteHandler(event:FlexEvent):void
     {   
         removeEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
         ensureItemIsVisible(selectedIndex);
