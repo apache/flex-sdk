@@ -19,7 +19,12 @@ import flash.geom.Rectangle;
 import spark.components.supportClasses.Slider;
 import mx.core.ILayoutElement;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("HSlider.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The HSlider class defines a horizontal slider component.
