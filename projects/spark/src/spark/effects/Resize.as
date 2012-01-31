@@ -281,62 +281,6 @@ public class Resize extends Animate
         }
         return propertyChanges;
     }
-    
-    /**
-     * @private
-     * When we're done, check to see whether explicitWidth/Height values
-     * for the target were NaN in the start state. If so, we should restore
-     * them to that value. This ensures that the target will be sized by
-     * its layout manager instead of by the width/height that we set during
-     * the Resize.
-     */
-    override mx_internal function applyEndValues(propChanges:Array,
-        targets:Array):void
-    {
-        super.applyEndValues(propChanges, targets);
-        // Special case for Resize - since we use width/height during the effect,
-        // we may have clobbered the explicitWidth/Height values which otherwise 
-        // would not have been set. We need to restore these values plus any
-        // associated layout constraint values (percentWidth/Height)
-        // Note that this approach assumes that stripUnchangedValues on propChanges
-        // is false (which should be the case for Resize targets), otherwise
-        // unchanging explicit values would not be in propChanges and we would
-        // not restore them correctly.
-        if (propChanges)
-        {
-            var n:int = propChanges.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                var target:Object = propChanges[i].target;
-                if (propChanges[i].end["explicitWidth"] !== undefined)
-                {
-                    if (isNaN(propChanges[i].end["explicitWidth"]) && 
-                        "explicitWidth" in target)
-                    {
-                        target.explicitWidth = NaN;
-                        if (propChanges[i].end["percentWidth"] !== undefined && 
-                            "percentWidth" in target)
-                        {
-                            target.percentWidth = propChanges[i].end["percentWidth"];
-                        }
-                    }
-                }
-                if (propChanges[i].end["explicitHeight"] !== undefined)
-                {
-                    if (isNaN(propChanges[i].end["explicitHeight"]) && 
-                        "explicitHeight" in target)
-                    {
-                        target.explicitHeight = NaN;
-                        if (propChanges[i].end["percentHeight"] !== undefined && 
-                            "percentHeight" in target)
-                        {
-                            target.percentHeight = propChanges[i].end["percentHeight"];
-                        }
-                    }
-                }
-            }
-        }
-    }
                                                      
 }
 }
