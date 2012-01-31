@@ -70,6 +70,11 @@ use namespace mx_internal;
  *  is editable, each time a keystroke is entered in the box.
  *
  *  @eventType mx.events.ListEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.ListEvent")]
 
@@ -85,6 +90,11 @@ use namespace mx_internal;
  *  </ul>
  *
  *  @eventType mx.events.DropdownEvent.CLOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.DropdownEvent")]
 
@@ -98,6 +108,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -107,6 +122,11 @@ use namespace mx_internal;
  *  while typing in the editable text field.
  *
  *  @eventType mx.events.FlexEvent.ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -116,6 +136,11 @@ use namespace mx_internal;
  *  to the ComboBox and not the drop-down list.
  *
  *  @eventType mx.events.ListEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.ListEvent")]
 
@@ -125,6 +150,11 @@ use namespace mx_internal;
  *  to the ComboBox and not the drop-down list.
  *
  *  @eventType mx.events.ListEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.ListEvent")]
 
@@ -134,6 +164,11 @@ use namespace mx_internal;
  *  uses the keyboard and types Ctrl-Down to open the drop-down.
  *
  *  @eventType mx.events.DropdownEvent.OPEN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="open", type="mx.events.DropdownEvent")]
 
@@ -141,6 +176,11 @@ use namespace mx_internal;
  *  Dispatched when the user scrolls the ComboBox control's drop-down list.
  *
  *  @eventType mx.events.ScrollEvent.SCROLL
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="scroll", type="mx.events.ScrollEvent")]
 
@@ -163,12 +203,22 @@ include "../styles/metadata/TextStyles.as"
  *  backgroundColor style.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  Width of the arrow button in pixels.
  *  @default 22
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="arrowButtonWidth", type="Number", format="Length", inherit="no")]
 
@@ -179,6 +229,11 @@ include "../styles/metadata/TextStyles.as"
  *  <code>dropdownStyleName</code> CSSStyleDeclaration. 
  *
  *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThickness", type="Number", format="Length", inherit="no")]
 
@@ -187,6 +242,11 @@ include "../styles/metadata/TextStyles.as"
  *  The default transition has the drop-down slide up into the ComboBox.
  *
  *  @default 250
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeDuration", type="Number", format="Time", inherit="no")]
 
@@ -195,6 +255,11 @@ include "../styles/metadata/TextStyles.as"
  *  be used to control the acceleration and deceleration of the transition.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeEasingFunction", type="Function", inherit="no")]
 
@@ -204,6 +269,11 @@ include "../styles/metadata/TextStyles.as"
  *  is used by the validators to show the ComboBox in an error state.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropdownBorderColor", type="uint", format="Color", inherit="yes")]
 
@@ -215,6 +285,11 @@ include "../styles/metadata/TextStyles.as"
  * [deprecated]
  *
  *  @default "comboDropDown"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropDownStyleName", type="String", inherit="no", deprecatedReplacement="dropdownStyleName")]
 
@@ -224,6 +299,11 @@ include "../styles/metadata/TextStyles.as"
  *  renderers.
  *
  *  @default "comboDropdown"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropdownStyleName", type="String", inherit="no")]
 
@@ -232,6 +312,11 @@ include "../styles/metadata/TextStyles.as"
  *  The default transition has the drop-down slide down from the ComboBox.
  *
  *  @default 250
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
@@ -240,6 +325,11 @@ include "../styles/metadata/TextStyles.as"
  *  be used to control the acceleration and deceleration of the transition.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openEasingFunction", type="Function", inherit="no")]
 
@@ -251,6 +341,11 @@ include "../styles/metadata/TextStyles.as"
  *  of the ComboBox control, but do not affect the position of the editable text field.
  *  
  *  @default 0 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -262,6 +357,11 @@ include "../styles/metadata/TextStyles.as"
  *  of the ComboBox control, but do not affect the position of the editable text field.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -269,6 +369,11 @@ include "../styles/metadata/TextStyles.as"
  *  The rollOverColor of the drop-down list.
 
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -276,6 +381,11 @@ include "../styles/metadata/TextStyles.as"
  *  The selectionColor of the drop-down list.
 
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -285,6 +395,11 @@ include "../styles/metadata/TextStyles.as"
  *  @default 250
  * 
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionDuration", type="uint", format="Time", inherit="no")]
 
@@ -294,6 +409,11 @@ include "../styles/metadata/TextStyles.as"
  *  @default undefined
  * 
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionEasingFunction", type="Function", inherit="no")]
 
@@ -303,6 +423,11 @@ include "../styles/metadata/TextStyles.as"
  *  @default #2B333C
  *  
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -311,6 +436,11 @@ include "../styles/metadata/TextStyles.as"
  * 
  *  @default #2B333C
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -458,6 +588,11 @@ include "../styles/metadata/TextStyles.as"
  *  @see mx.effects.Tween
  *  @see mx.managers.PopUpManager
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ComboBox extends ComboBase
                       implements IDataRenderer, IDropInListItemRenderer,
@@ -485,6 +620,11 @@ public class ComboBox extends ComboBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ComboBox()
     {
@@ -627,6 +767,11 @@ public class ComboBox extends ComboBase
      *  <p>You do not set this property in MXML.</p>
      *
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -684,6 +829,11 @@ public class ComboBox extends ComboBase
      *  is used as a drop-in item renderer or drop-in item editor.</p>
      *
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -712,6 +862,11 @@ public class ComboBox extends ComboBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set dataProvider(value:Object):void
     {
@@ -752,6 +907,11 @@ public class ComboBox extends ComboBase
      *
      *  @see mx.controls.List
      *  @see mx.controls.listClasses.ListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get itemRenderer():IFactory
     {
@@ -794,6 +954,11 @@ public class ComboBox extends ComboBase
      *  -1. If the value of the <code>selectedIndex</code> 
      *  property is out of range, the <code>selectedIndex</code> property is set to the last
      *  item in the <code>dataProvider</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set selectedIndex(value:int):void
     {
@@ -838,6 +1003,11 @@ public class ComboBox extends ComboBase
      *  into the TextInput.
      *  It has a value only if the user selects an item from the drop-down
      *  list, or if it is set programmatically.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set selectedItem(value:Object):void
     {
@@ -870,6 +1040,11 @@ public class ComboBox extends ComboBase
 
     /**
      *  A reference to the List control that acts as the drop-down in the ComboBox.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropdown():ListBase
     {
@@ -893,6 +1068,11 @@ public class ComboBox extends ComboBase
      *  as the drop-down.
      *  The default value is an IFactory for List
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropdownFactory():IFactory
     {
@@ -918,6 +1098,11 @@ public class ComboBox extends ComboBase
      *  Styles in the dropDownStyleName style will override these styles.
      *  @see mx.styles.StyleProxy
      *  @review
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get dropDownStyleFilters():Object
     {
@@ -942,6 +1127,11 @@ public class ComboBox extends ComboBase
      *  <p>The default value is 100 or the width of the longest text
      *  in the <code>dataProvider</code>, whichever is greater.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dropdownWidth():Number
     {
@@ -990,6 +1180,11 @@ public class ComboBox extends ComboBase
      *  a <code>label</code> property, you can set the <code>labelField</code>
      *  property to use a different property.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -1045,6 +1240,11 @@ public class ComboBox extends ComboBase
      *  myLabelFunction(item:Object):String
      *  </pre>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -1085,6 +1285,11 @@ public class ComboBox extends ComboBase
      *  a String like "Select one...".  If there is no
      *  prompt, the ComboBox control sets <code>selectedIndex</code> to 0
      *  and displays the first item in the <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get prompt():String
     {
@@ -1121,6 +1326,11 @@ public class ComboBox extends ComboBase
      *  there are in the dataProvider.
      *  
      *  @default 5
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rowCount():int
     {
@@ -1146,6 +1356,11 @@ public class ComboBox extends ComboBase
      *  The String displayed in the TextInput portion of the ComboBox. It
      *  is calculated from the data by using the <code>labelField</code> 
      *  or <code>labelFunction</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedLabel():String
     {
@@ -1184,6 +1399,11 @@ public class ComboBox extends ComboBase
      *  and tall enough to fit one line of text
      *  in the TextInput portion of the control but at least
      *  22 pixels high.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -1322,6 +1542,11 @@ public class ComboBox extends ComboBase
      *  </ol>
      * 
      *  @param item The object that contains the value to convert to a label. If the item is null, this method returns the empty string.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToLabel(item:Object):String
     {
@@ -1373,6 +1598,11 @@ public class ComboBox extends ComboBase
 
     /**
      *  Displays the drop-down list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function open():void
     {
@@ -1381,6 +1611,11 @@ public class ComboBox extends ComboBase
 
     /**
      *  Hides the drop-down list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close(trigger:Event = null):void
     {
@@ -2092,6 +2327,11 @@ public class ComboBox extends ComboBase
      *  @param count The number of items to check to determine the value.
      *  
      *  @return An Object containing two properties: width and height.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function calculatePreferredSizeFromData(count:int):Object
     {
