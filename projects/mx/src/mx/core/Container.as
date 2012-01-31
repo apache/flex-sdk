@@ -389,9 +389,7 @@ include "../styles/metadata/TextStyles.as"
 public class Container extends UIComponent
                        implements IContainer, IDataRenderer, 
                        IFocusManagerContainer, IListItemRenderer,
-                       IRawChildrenContainer, IChildList, IVisualElementContainer,
-                       INavigatorContent
-
+                       IRawChildrenContainer, IChildList, IVisualElementContainer
 {
     include "../core/Version.as"
 
@@ -1307,25 +1305,6 @@ public class Container extends UIComponent
     {
         _defaultButton = value;
         ContainerGlobals.focusedContainer = null;
-    }
-
-    //----------------------------------
-    //  deferredContentCreated
-    //----------------------------------
-
-    /**
-     *  IDeferredContentOwner equivalent of processedDescriptors
-     * 
-     *  @see UIComponent#processedDescriptors
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get deferredContentCreated():Boolean
-    {
-        return processedDescriptors;
     }
 
     //----------------------------------
@@ -4081,7 +4060,6 @@ public class Container extends UIComponent
         }
     }
 
-
     /**
      *  Iterate through the Array of <code>childDescriptors</code>,
      *  and call the <code>createComponentFromDescriptor()</code> method for each one.
@@ -4133,22 +4111,6 @@ public class Container extends UIComponent
         numChildrenCreated = numChildren - numChildrenBefore;
 
         processedDescriptors = true;
-    }
-
-    /**
-     *  IDeferredContentOwner equivalent of createComponentsFromDescriptor(true)
-     *
-     *  @see createComponentsFromDescriptors
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function createDeferredContent():void
-    {
-        createComponentsFromDescriptors(true);
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
     }
 
    /**
