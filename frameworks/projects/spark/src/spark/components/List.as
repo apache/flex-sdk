@@ -170,7 +170,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#style:selectionColor
+ *  @copy mx.controls.listClasses.ListBase#style:selectionColor
  *
  *  @default 0xA8C6EE
  *  
