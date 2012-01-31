@@ -23,6 +23,7 @@ import flex.graphics.TransformUtil;
 import flex.graphics.graphicsClasses.GraphicElement;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
+import flex.intf.IViewport;
 import flex.layout.BasicLayout;
 import flex.layout.LayoutItemFactory;
 
@@ -68,7 +69,7 @@ import mx.managers.ILayoutManagerClient;
 /**
  *  The Group class.
  */
-public class Group extends UIComponent implements IGraphicElementHost
+public class Group extends UIComponent implements IGraphicElementHost, IViewport
 {   
     public function Group():void
     {
