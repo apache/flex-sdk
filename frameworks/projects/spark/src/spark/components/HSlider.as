@@ -18,7 +18,6 @@ import flash.geom.Rectangle;
 
 import spark.components.supportClasses.Slider;
 import mx.core.ILayoutElement;
-import spark.layout.supportClasses.LayoutElementFactory;
 
 [IconFile("HSlider.png")]
 
@@ -71,7 +70,7 @@ public class HSlider extends Slider
      */
     override protected function get trackSize():Number
     {
-        return track ? LayoutElementFactory.getLayoutElementFor(track).getLayoutBoundsWidth() : 0;
+        return track ? track.getLayoutBoundsWidth() : 0;
     }
 
     /**
@@ -84,7 +83,7 @@ public class HSlider extends Slider
      */
     override protected function calculateThumbSize():Number
     {
-        return LayoutElementFactory.getLayoutElementFor(thumb).getLayoutBoundsWidth();
+        return thumb.getLayoutBoundsWidth();
     }
 
     //--------------------------------------------------------------------------
@@ -110,15 +109,9 @@ public class HSlider extends Slider
     {
         if (thumb)
         {
-            var thumbLElement:ILayoutElement = 
-                LayoutElementFactory.getLayoutElementFor(thumb);
-
-            var trackLElement:ILayoutElement = 
-                LayoutElementFactory.getLayoutElementFor(track);
-            var trackPos:Number = trackLElement.getLayoutBoundsX();
-
-            thumbLElement.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
-                                                  thumbLElement.getLayoutBoundsY());
+            var trackPos:Number = track.getLayoutBoundsX();
+            thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
+                                          thumb.getLayoutBoundsY());
         }
     }
     
@@ -155,9 +148,7 @@ public class HSlider extends Slider
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
     {
-        var thumbLElement:ILayoutElement = 
-            LayoutElementFactory.getLayoutElementFor(thumb);
-        return pointToPosition(localX, localY) - thumbLElement.getLayoutBoundsWidth() / 2;
+        return pointToPosition(localX, localY) - thumb.getLayoutBoundsWidth() / 2;
     }
     
     /**
