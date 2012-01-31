@@ -37,6 +37,11 @@ use namespace mx_internal;
  *  Dispatched when a user selects an item from the pop-up menu.
  *
  *  @eventType mx.events.MenuEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.MenuEvent")]
 
@@ -47,6 +52,11 @@ use namespace mx_internal;
  *  the <code>textAlign</code> to <code>left</code>.
  *
  *  @default "popUpMenu"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="popUpStyleName", type="String", inherit="no")]
 
@@ -139,6 +149,11 @@ use namespace mx_internal;
  *
  *  @tiptext Provides ability to pop up a menu and act as a button
  *  @helpid 3441
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PopUpMenuButton extends PopUpButton
 {
@@ -152,6 +167,11 @@ public class PopUpMenuButton extends PopUpButton
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PopUpMenuButton()
     {
@@ -213,6 +233,11 @@ public class PopUpMenuButton extends PopUpButton
      *  (The write-only indicator appears in the syntax summary because the
      *  property in the superclass is read-write and this class overrides
      *  the setter with an empty implementation.)</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set popUp(value:IUIComponent):void
     {
@@ -254,6 +279,11 @@ public class PopUpMenuButton extends PopUpButton
      *
      *  <p>The default value is an internal instance of the
      *  DefaultDataDescriptor class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataDescriptor():IMenuDataDescriptor
     {
@@ -285,6 +315,11 @@ public class PopUpMenuButton extends PopUpButton
      *  DataProvider for popUpMenu.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -359,6 +394,11 @@ public class PopUpMenuButton extends PopUpButton
      *  explicitly; for example, use &#064;label to specify the <code>label</code> attribute.
      *
      *  @default "label"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -411,6 +451,11 @@ public class PopUpMenuButton extends PopUpButton
      *  <pre>labelFunction(item:Object):String</pre>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -459,6 +504,11 @@ public class PopUpMenuButton extends PopUpButton
      *  object.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showRoot():Boolean
     {
