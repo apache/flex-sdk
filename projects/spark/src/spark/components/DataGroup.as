@@ -150,8 +150,12 @@ public class DataGroup extends GroupBase
     [Bindable("dataProviderChanged")]
     /**
      *  DataProvider for this DataGroup.  It must be an IList.
+     * 
+     *  <p>There are several IList implementations included in the 
+     *  Flex framework, including ArrayCollection, ArrayList, and
+     *  XMLListCollection.</p>
      *
-     *  @default undefined
+     *  @default null
      *
      *  @see #itemRenderer
      *  @see #itemRendererFunction
@@ -167,12 +171,12 @@ public class DataGroup extends GroupBase
     public function set dataProvider(value:IList):void
     {
         if (_dataProvider)
-            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
         
         _dataProvider = value;
         
         if (_dataProvider)
-            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
+            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
             
         dataProviderChanged = true;
         invalidateProperties();
@@ -192,7 +196,7 @@ public class DataGroup extends GroupBase
         {
             for (var i:int = 0; i < _dataProvider.length; i++)
             {
-                itemAdded(_dataProvider.getItemAt(i), i);
+                mx_internal::itemAdded(_dataProvider.getItemAt(i), i);
             }
         }
     }
@@ -217,7 +221,7 @@ public class DataGroup extends GroupBase
      *
      *  @return The renderer that represents the data elelement.
      */
-    protected function createRendererForItem(item:Object, index:int):IVisualElement
+    private function createRendererForItem(item:Object):IVisualElement
     {
         var myItemRenderer:IVisualElement;
         
@@ -267,7 +271,7 @@ public class DataGroup extends GroupBase
      *  @param index The item index to associate the renderer with
      *  @param myItemRenderer The item renderer
      */    
-    protected function registerRenderer(index:int, myItemRenderer:IVisualElement):void
+    private function registerRenderer(index:int, myItemRenderer:IVisualElement):void
     {        
         itemRendererRegistry.splice(index, 0, myItemRenderer);
     }
@@ -279,7 +283,7 @@ public class DataGroup extends GroupBase
      *  @param index The item index to dis-associate the renderer with
      *  @param myItemRenderer The item renderer
      */
-    protected function unregisterRenderer(index:int, myItemRenderer:IVisualElement):void
+    private function unregisterRenderer(index:int, myItemRenderer:IVisualElement):void
     {
         itemRendererRegistry.splice(index, 1);
     }
@@ -295,7 +299,7 @@ public class DataGroup extends GroupBase
      *          is a visual element and has no item renderer, 
      *          the visual element itself is returned.
      */
-    public function getItemRenderer(index:int):IVisualElement
+    mx_internal function getRendererForItemAt(index:int):IVisualElement
     {
         return itemRendererRegistry[index];
     }
@@ -309,7 +313,7 @@ public class DataGroup extends GroupBase
      *          or -1 if there is no item associated with the passed in 
      *          renderer.
      */
-    public function getRendererItem(renderer:IVisualElement):int
+    mx_internal function getItemIndexForRenderer(renderer:IVisualElement):int
     {
         return itemRendererRegistry.indexOf(renderer);
     }
@@ -433,7 +437,7 @@ public class DataGroup extends GroupBase
      */
     override public function getLayoutElementAt(index:int):ILayoutElement
     {
-        var myItemRenderer:Object = getItemRenderer(index);
+        var myItemRenderer:Object = mx_internal::getRendererForItemAt(index);
 
         return LayoutElementFactory.getLayoutElementFor(myItemRenderer);
     }
@@ -455,9 +459,9 @@ public class DataGroup extends GroupBase
      *
      *  @param index The index where the item was added.
      */
-    protected function itemAdded(item:Object, index:int):void
+    mx_internal function itemAdded(item:Object, index:int):void
     {
-        var myItemRenderer:IVisualElement = createRendererForItem(item, index);
+        var myItemRenderer:IVisualElement = createRendererForItem(item);
         
         // Set the renderer's data to the item, but only if the item and renderer are different
         if (myItemRenderer is IDataRenderer && myItemRenderer != item)
@@ -484,9 +488,9 @@ public class DataGroup extends GroupBase
      * 
      *  @param index The index of the item that is being removed.
      */
-    protected function itemRemoved(item:Object, index:int):void
+    mx_internal function itemRemoved(item:Object, index:int):void
     {       
-        var myItemRenderer:IVisualElement = getItemRenderer(index);
+        var myItemRenderer:IVisualElement = mx_internal::getRendererForItemAt(index);
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, 
@@ -553,7 +557,7 @@ public class DataGroup extends GroupBase
      *
      *  @param event The collection change event
      */
-    protected function collectionChangeHandler(event:CollectionEvent):void
+    protected function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
         switch (event.kind)
         {
@@ -622,7 +626,7 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = 0; i < length; i++)
         {
-            itemAdded(items[i], location + i);
+            mx_internal::itemAdded(items[i], location + i);
         }
     }
     
@@ -634,7 +638,7 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
         {
-            itemRemoved(items[i], location + i);
+            mx_internal::itemRemoved(items[i], location + i);
         }
     }
     
@@ -643,14 +647,14 @@ public class DataGroup extends GroupBase
      */
     protected function adjustAfterMove(item:Object, location:int, oldLocation:int):void
     {
-        itemRemoved(item, oldLocation);
+        mx_internal::itemRemoved(item, oldLocation);
         
         // if item is removed before the newly added item
         // then change index to account for this
         if (location > oldLocation)
-            itemAdded(item, location-1);
+            mx_internal::itemAdded(item, location-1);
         else
-            itemAdded(item, location);
+            mx_internal::itemAdded(item, location);
     }
     
     /**
