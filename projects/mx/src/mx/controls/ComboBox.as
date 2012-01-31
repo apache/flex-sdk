@@ -275,7 +275,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="dropdownBorderColor", type="uint", format="Color", inherit="yes")]
+[Style(name="dropdownBorderColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  The name of a CSSStyleDeclaration to be used by the drop-down list.  This
