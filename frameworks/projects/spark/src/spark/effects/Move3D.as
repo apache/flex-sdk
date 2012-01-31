@@ -33,11 +33,11 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  * effect instance on any given target at a time, which means that they will
  * share the transform center set by any of the contributing effects.</p>
  */   
-public class AnimateTransformMove3D extends AnimateTransformMove
+public class Move3D extends Move
 {
     include "../core/Version.as";
     
-    public function AnimateTransformMove3D(target:Object=null)
+    public function Move3D(target:Object=null)
     {
         super(target);
         affectLayout = false;
