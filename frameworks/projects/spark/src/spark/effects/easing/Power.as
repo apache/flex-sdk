@@ -15,7 +15,7 @@ package flex.effects.easing
  * instance is created with a <code>power</code> parameter describing the 
  * behavior of the expression.
  */
-public class Power implements IEaser
+public class Power extends EaseInOut
 {
     /**
      * Storage for the exponent property
@@ -40,60 +40,35 @@ public class Power implements IEaser
     }
     
     /**
-     * Storage for the easeIn property
+     * Constructs a Power instance with optional easeInFraction and exponent
+     * values
      */
-    private var _easeIn:Number;
-    /**
-     * The percentage of an animation that should be spent accelerating
-     * according to the power formula. This factor sets an implicit
-     * "easeOut" parameter, equal to (1 - easeIn), so that any time not
-     * spent easing in is spent easing out. For example, to have an easing
-     * equation that spends half the time easing in and half easing out,
-     * set easeIn equal to .5.
-     * 
-     * @default .5
-     */
-    public function get easeIn():Number
+    public function Power(easeInFraction:Number = .5, exponent:Number = 2)
     {
-        return _easeIn;
-    }
-    public function set easeIn(value:Number):void
-    {
-        _easeIn = value;
+        super(easeInFraction);
+        this.exponent = exponent;
     }
 
     /**
-     * Constructs a Power instance with optional easeIn and exponent
-     * values
+     * @inheritDoc
+     * 
+     * The easeIn calculation for Power is equal to 
+     * <code>fraction^^exponent</code>.
      */
-    public function Power(easeIn:Number = .5, exponent:Number = 2)
+    override protected function easeIn(fraction:Number):Number
     {
-        this.easeIn = easeIn;
-        this.exponent = exponent;
+        return Math.pow(fraction, _exponent);
     }
-        
+    
     /**
      * @inheritDoc
      * 
-     * Calculates the eased fraction value based on the <code>easeIn</code> and
-     * <code>exponent</code> properties. If the fraction is in the easeIn
-     * phase of the animation, this result is equal to
-     * <code>x^^exponent</code>, where x is the percentage elapsed in the
-     * easeIn phase. Otherwise, the motion is in the easing-out phase
-     * (1 - easeIn), and the result is equal to <code>1 - (1-x)^^exponent</code>.
-     * 
-     * @param fraction The elapsed fraction of the animation
-     * @return The eased fraction of the animation
+     * The easeOut calculation for Power is equal to 
+     * <code>1 - ((1-fraction)^^exponent)</code>.
      */
-    public function ease(fraction:Number):Number
+    override protected function easeOut(fraction:Number):Number
     {
-        var easeOut:Number = 1 - easeIn;
-        
-        if (fraction <= easeIn)
-            return Math.pow(fraction/easeIn, _exponent)*easeIn;
-        else
-            return 1 - Math.pow((1 - fraction)/easeOut, _exponent)*easeOut;
+        return 1 - Math.pow((1 - fraction), _exponent);
     }
-    
 }
 }
