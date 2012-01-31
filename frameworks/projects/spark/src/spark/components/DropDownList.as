@@ -16,6 +16,7 @@ package spark.components
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 
+import spark.components.supportClasses.DropDownListBase;
 import spark.components.supportClasses.TextBase;
 import spark.utils.LabelUtil;
     
