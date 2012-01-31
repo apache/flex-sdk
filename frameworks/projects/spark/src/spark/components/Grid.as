@@ -2781,15 +2781,23 @@ public class Grid extends Group
     {
         const columns:IList = this.columns;
         
-        if (!columns || columnIndex < -1 || columnIndex >= columns.length)
+        if (!columns || columnIndex < -1 || columnIndex >= columns.length || 
+            !dataProvider || rowIndex < 0 || rowIndex >= dataProvider.length)
             return;
         
-        if (!dataProvider || rowIndex < 0 || rowIndex >= dataProvider.length)
-            return;
+        const columnsLength:int = columns.length;
         
+        // Make sure either all columns or the specified column is visible.
+        if (columnIndex == -1)
+            columnIndex = getNextVisibleColumnIndex(-1);
+            
+        var columnIsVisible:Boolean = (columnIndex != -1) && (GridColumn(columns.getItemAt(columnIndex)).visible);
+        if (!columnIsVisible)
+            return;
+
         // A cell's index as defined by LayoutBase it's just its position
         // in the row-major linear ordering of the grid's cells.  
-        const elementIndex:int = (rowIndex * columns.length) + ((columnIndex < 0) ? 0 : columnIndex);
+        const elementIndex:int = (rowIndex * columnsLength) + columnIndex;
         const scrollHorizontally:Boolean = columnIndex != -1;
         
         // Iterate until we've scrolled elementIndex at least partially into view.
@@ -3146,7 +3154,7 @@ public class Grid extends Group
                 caretColumnIndex =  _columns.length - 1;
             dispatchCaretChangeEvent();
             caretChanged = false;
-    }
+        }
     }
     
     /**
