@@ -48,6 +48,11 @@ use namespace mx_internal;
  *  @see mx.states.RemoveChild
  *
  *  @includeExample ../states/examples/TransitionExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RemoveChildAction extends Effect
 {
@@ -74,6 +79,11 @@ public class RemoveChildAction extends Effect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function RemoveChildAction(target:Object = null)
 	{
