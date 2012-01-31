@@ -227,9 +227,6 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const rendererHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         const maxRendererX:Number = columnHeaderGroup.horizontalScrollPosition + unscaledWidth;
         
-        const allocatedItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
-        var createdItemRenderers:Vector.<IGridItemRenderer> = null;
-        
         var columnIndex:int = -1;
         var visibleLeft:Number = 0;
         var visibleRight:Number = 0;
@@ -262,20 +259,6 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
                 if (!factory)
                     factory = columnHeaderGroup.headerRenderer;
                 renderer = allocateVisualElement(factory) as IGridItemRenderer;
-                
-                // Track which item renderers were created (uncommon) or recycled
-                // for the sake of the IGridItemRenderer prepare() method.
-                
-                if (createdVisualElement)
-                {
-                    if (!createdItemRenderers)
-                        createdItemRenderers = new Vector.<IGridItemRenderer>();
-                    createdItemRenderers.push(renderer);
-                }
-                else
-                {
-                    allocatedItemRenderers.push(renderer);
-                }
             }
                 
             // initialize the renderer
@@ -304,6 +287,8 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             
             if ((rendererX + rendererWidth) > maxRendererX)
                 break;
+         
+            renderer.prepare(!createdVisualElement);
             
             // allocate and layout a column separator
             
@@ -328,16 +313,6 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         visibleRenderersBounds.top = rendererY;
         visibleRenderersBounds.height = rendererHeight;
         
-        // Call prepare on renderers.
-        if (createdItemRenderers)
-        {
-            for each (var createdRenderer:IGridItemRenderer in createdItemRenderers)
-                createdRenderer.prepare(false);
-        }
-        
-        for each (var allocatedRenderer:IGridItemRenderer in allocatedItemRenderers)
-            allocatedRenderer.prepare(true);
-            
         // We may have created new renderers or changed their visibility.  Force
         // validation to avoid a display list flash.
         
