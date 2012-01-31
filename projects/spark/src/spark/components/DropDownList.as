@@ -91,7 +91,7 @@ import mx.utils.LabelUtil;
 [DefaultProperty("dataProvider")]
 
 /**
- *  FxComboBox control contains a drop-down list
+ *  DropDownList control contains a drop-down list
  *  from which the user can select a single value.
  *  Its functionality is very similar to that of the
  *  SELECT form element in HTML.
