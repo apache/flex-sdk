@@ -92,12 +92,12 @@
                                     </s:fill>
                                 </s:Rect>
 
-                                <s:SimpleText id="txtStart" color="#FFFFFF" fontWeight="bold" left="20" verticalCenter="2" />
-                                <s:SimpleText id="txtEnd" color="#FFFFFF" fontWeight="bold" right="20" verticalCenter="2" textAlign="right" />
+                                <s:Label id="txtStart" color="#FFFFFF" fontWeight="bold" left="20" verticalCenter="2" />
+                                <s:Label id="txtEnd" color="#FFFFFF" fontWeight="bold" right="20" verticalCenter="2" textAlign="right" />
 
                             </s:Group>
 
-                            <s:SimpleText id="txtDetails" color="#32353f" fontSize="11" />
+                            <s:Label id="txtDetails" color="#32353f" fontSize="11" />
 
                         </s:HGroup>
                     </s:ItemRenderer>
