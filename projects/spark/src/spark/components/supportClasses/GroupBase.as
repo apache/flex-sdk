@@ -655,7 +655,36 @@ public class GroupBase extends UIComponent implements IViewport
 
         // clipAndEnableScrolling affects measured minimum size
         invalidateSize();
-    }    
+    }
+    
+    //----------------------------------
+    //  scrollAxis
+    //----------------------------------
+    
+    private var _scrollAxis:String = "vertical";
+    
+    /**
+     *  @copy spark.core.IViewport#scrollAxis
+     *
+     *  @default vertical
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get scrollAxis():String 
+    {
+        return _scrollAxis;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set scrollAxis(value:String):void 
+    {
+        _scrollAxis = value;
+    }
     
     //----------------------------------
     //  scrollRect
