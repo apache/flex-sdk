@@ -593,7 +593,7 @@ public class Tile extends Container
 
             for (i = 0; i < n; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
 
                 if (!child.includeInLayout)
                     continue;
@@ -628,7 +628,7 @@ public class Tile extends Container
 
             for (i = 0; i < n; i++)
             {
-                child = IUIComponent(getChildAt(i));
+                child = getLayoutChildAt(i);
 
                 if (!child.includeInLayout)
                     continue;
@@ -703,7 +703,7 @@ public class Tile extends Container
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
-            var child:IUIComponent = IUIComponent(getChildAt(i));
+            var child:IUIComponent = getLayoutChildAt(i);
 
             if (!child.includeInLayout)
                 continue;
