@@ -17,6 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.system.ApplicationDomain;
 import flash.utils.ByteArray;
 import mx.containers.VBox;
+import mx.core.FlexVersion;
 import mx.core.IDeferredInstantiationUIComponent;
 import mx.events.FlexEvent;
 import mx.events.ModuleEvent;
@@ -354,6 +355,19 @@ public class ModuleLoader extends VBox
         module.addEventListener(ModuleEvent.ERROR, moduleErrorHandler);
         module.addEventListener(ModuleEvent.UNLOAD, moduleUnloadHandler);
 
+        // If an applicationDomain has not been specified and we have a module factory,
+        // then create a child application domain from the application domain
+        // this module factory is in.
+        // This is a change in behavior so only do it for Flex 4 and newer
+        // applications.
+        if (applicationDomain == null && moduleFactory &&         
+            FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var currentDomain:ApplicationDomain = moduleFactory.info()["currentDomain"];
+            if (currentDomain)
+                applicationDomain = new ApplicationDomain(currentDomain); 
+        }
+            
         module.load(applicationDomain, null, bytes, moduleFactory);
     }
 
