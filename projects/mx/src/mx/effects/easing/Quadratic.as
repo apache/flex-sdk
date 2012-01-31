@@ -13,6 +13,15 @@ package mx.effects.easing
 {
 
 /**
+ *  The new effects provided as of Flex 4 use classes which implement the 
+ *  IEaser interface instead of the easing functions in classes like Quadratic for 
+ *  the earlier Flex 3 effects. To achieve the same functionality of Quadratic, 
+ *  create a Power instance with an <code>exponent</code> of 2 and set the 
+ *  <code>easeInFraction</code> appropriately to get the desired result.
+ */
+[Alternative(replacement="spark.effects.easing.Power", since="4.0")]
+
+/**
  *  The Quadratic class defines three easing functions to implement 
  *  quadratic motion with Flex effect classes. The acceleration of motion 
  *  for a Quadratic easing equation is slower than for a Cubic or Quartic easing equation.
