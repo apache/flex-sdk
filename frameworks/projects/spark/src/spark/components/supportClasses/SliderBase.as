@@ -51,7 +51,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  committed as it is dragged along the track instead
  *  of when the thumb button is released.
  *  
- *  @default false
+ *  @default true
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -103,7 +103,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *    ligatureLevel="COMMON"
  *    lineHeight="120%"
  *    lineThrough="false"
- *    liveDragging="false"
+ *    liveDragging="true"
  *    local="en"
  *    renderingMode="CFF"
  *    textAlign="START"
