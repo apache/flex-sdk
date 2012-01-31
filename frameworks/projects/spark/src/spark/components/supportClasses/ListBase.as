@@ -947,7 +947,7 @@ public class ListBase extends SkinnableDataContainer
         
         // Set any new properties on the renderer now that it's going to 
         // come back into use. 
-        itemSelected(itemIndex, isItemIndexSelected(itemIndex));
+        itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
 	/*
         if (isItemIndexSelected(itemIndex))
             itemSelected(itemIndex, true);
@@ -1042,6 +1042,19 @@ public class ListBase extends SkinnableDataContainer
     mx_internal function isItemIndexSelected(index:int):Boolean
     {        
         return index == selectedIndex;
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    mx_internal function shouldItemAppearSelected(index:int):Boolean
+    {        
+        return isItemIndexSelected(index);
     }
     
     /**
