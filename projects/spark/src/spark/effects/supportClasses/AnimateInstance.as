@@ -14,17 +14,18 @@ package mx.effects.effectClasses
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.Animation;
+import mx.effects.AnimationProperty;
 import mx.effects.EffectInstance;
-import mx.effects.PropertyValuesHolder;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
+import mx.effects.interpolation.NumberInterpolator;
 import mx.events.AnimationEvent;
-import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 import mx.styles.IStyleClient;
 
@@ -75,24 +76,24 @@ public class FxAnimateInstance extends EffectInstance
     //
     //--------------------------------------------------------------------------
 
-    private var _propertyValuesList:Array;
+    private var _animationProperties:Array;
     /**
-     * An array of PropertyValuesHolder objects, each of which holds the
+     * An array of AnimationProperty objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation.
      */
-    public function get propertyValuesList():Array
+    public function get animationProperties():Array
     {
-        return _propertyValuesList;
+        return _animationProperties;
     }
-    public function set propertyValuesList(value:Array):void
+    public function set animationProperties(value:Array):void
     {
         // Only set the list to the given value if we have a 
         // null list to begin with. Otherwise, we've already
         // set up the list once and don't need to do it again
         // (for example, in a repeating effect).
-        if (!_propertyValuesList)
-            _propertyValuesList = value;
+        if (!_animationProperties)
+            _animationProperties = value;
     }
     
     /**
@@ -322,7 +323,7 @@ public class FxAnimateInstance extends EffectInstance
     {
         super.play();
 
-        if (!propertyValuesList || propertyValuesList.length == 0)
+        if (!animationProperties || animationProperties.length == 0)
         {
             // nothing to do; at least schedule the effect to end after
             // the specified duration
@@ -332,20 +333,19 @@ public class FxAnimateInstance extends EffectInstance
             return;
         }
             
-        isStyleMap = new Array(propertyValuesList.length);
+        isStyleMap = new Array(animationProperties.length);
         
         // These two temporary arrays will hold the values passed into the
         // Animation to be interpolated between during the animation. The order
         // of the values in these arrays must match the order of the property
-        // names in the propertyValuesList array, as we will assume during update
+        // names in the animationProperties array, as we will assume during update
         // events that the interpolated values in the array are in that same order.
         var fromVals:Array = [];
         var toVals:Array = [];
-        for (var i:int = 0; i < propertyValuesList.length; ++i)
+        for (var i:int = 0; i < animationProperties.length; ++i)
         {
-            var holder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
+            var holder:AnimationProperty = AnimationProperty(animationProperties[i]);
             var property:String = holder.property;
-            var propValues:Array = holder.values;
             var fromValue:Object = null;
             var toValue:Object = null;
             
@@ -354,17 +354,15 @@ public class FxAnimateInstance extends EffectInstance
                  
             setupStyleMapEntry(property);
 
-            // Set any NaN from/to values to the current values in the target
-            if (!isNaN(propValues[0]) && propValues[0] != null)
-                fromValue = propValues[0];
-            if (!isNaN(propValues[1]) && propValues[1] != null)
-                toValue = propValues[1];
-            else if (propertyChanges && 
+            // For any invalid value, set the animating value to null
+            // null is a trigger for finalizing the value later on
+            fromValue = isValidValue(holder.valueFrom) ? holder.valueFrom : null;
+            toValue = isValidValue(holder.valueTo) ? holder.valueTo : null;
+            if (toValue === null && propertyChanges && 
                 propertyChanges.end[property] !== undefined)
-            {
                 toValue = propertyChanges.end[property];
-            }
-            if (propertyValuesList.length > 1)
+            
+            if (animationProperties.length > 1)
             {
                 fromVals.push(fromValue);
                 toVals.push(toValue);
@@ -375,7 +373,7 @@ public class FxAnimateInstance extends EffectInstance
         // from/to values are the same. Not worth the cycles, but also want
         // to avoid triggering any side effects when we're not actually changing
         // values    
-        if (propertyValuesList.length > 1)
+        if (animationProperties.length > 1)
         {
             // Create the single Animation that will interpolate all properties
             // simultaneously by interpolating the elements of the 
@@ -413,31 +411,44 @@ public class FxAnimateInstance extends EffectInstance
 
     /**
      * Set the values in the given array on the properties held in our
-     * propertyValuesList array. This is called by the update and end 
+     * animationProperties array. This is called by the update and end 
      * functions, which are called by the Animation during the animation.
      */
     protected function applyValues(value:Object):void
     {
-        var holder:PropertyValuesHolder;
+        var holder:AnimationProperty;
         
-        if (propertyValuesList.length == 1)
+        if (animationProperties.length == 1)
         {
-            holder = PropertyValuesHolder(propertyValuesList[0]);
+            holder = AnimationProperty(animationProperties[0]);
             setValue(holder.property, value);
         }
         else
         {
             var valueArray:Array = value as Array;
-            for (var i:int = 0; i < propertyValuesList.length; ++i)
+            for (var i:int = 0; i < animationProperties.length; ++i)
             {
-                holder = PropertyValuesHolder(propertyValuesList[i]);
+                holder = AnimationProperty(animationProperties[i]);
                 setValue(holder.property, valueArray[i]);
             }
         }
     }
     
     /**
-     * Walk the propertyValuesList looking for null values. A null indicates
+     * @private
+     * 
+     * Utility function to determine whether a given value is 'valid',
+     * which means it's either a Number and it's not NaN, or it's not
+     * a Number and it's not null
+     */
+    private function isValidValue(value:Object):Boolean
+    {
+        return ((value is Number && !isNaN(Number(value))) ||
+            (!(value is Number) && value !== null));
+    }
+    
+    /**
+     * Walk the animationProperties looking for null values. A null indicates
      * that the value should be replaced by the current value or one that
      * is calculated from the other value and a supplied delta value.
      * 
@@ -446,28 +457,38 @@ public class FxAnimateInstance extends EffectInstance
     private function finalizeValues():Boolean
     {
         var changedValues:Boolean = false;
-        for (var i:int = 0; i < propertyValuesList.length; ++i)
+        for (var i:int = 0; i < animationProperties.length; ++i)
         {
-            var holder:PropertyValuesHolder = 
-                PropertyValuesHolder(propertyValuesList[i]);
+            var holder:AnimationProperty = 
+                AnimationProperty(animationProperties[i]);
             // Note that we use strict equality tests for null, as a simple
             // '0' value for a Number or int would look the same as a null
             // in a simple !value test.
-            if ((holder.values[0] === null) || (holder.values[1] === null))
+            // Let's hope they've set a reasonable interpolator by now,
+            // or otherwise we're just dealing with numbers
+            var interp:IInterpolator = 
+                interpolator ?
+                interpolator :
+                NumberInterpolator.getInstance();
+            var fromValid:Boolean = isValidValue(holder.valueFrom);
+            var toValid:Boolean = isValidValue(holder.valueTo);
+            var byValid:Boolean = isValidValue(holder.valueBy);
+            if (!fromValid || !toValid)
             {
-                if (holder.values[0] === null)
+                if (!fromValid)
                 {
-                    if ((holder.values[1] !== null) && !isNaN(holder.delta))
-                        holder.values[0] = holder.values[1] - holder.delta;
+                    if (toValid && byValid)
+                        holder.valueFrom = interp.decrement(holder.valueTo, holder.valueBy);
                     else
-                        holder.values[0] = getCurrentValue(holder.property);
+                        holder.valueFrom = getCurrentValue(holder.property);
+                    fromValid = isValidValue(holder.valueFrom);
                 }
-                if (holder.values[1] === null)
+                if (!toValid)
                 {
-                    if ((holder.values[0] !== null) && !isNaN(holder.delta))
-                        holder.values[1] = holder.values[0] + holder.delta;
+                    if (fromValid && byValid)
+                        holder.valueTo = interp.increment(holder.valueFrom, holder.valueBy);
                     else
-                        holder.values[1] = getCurrentValue(holder.property);
+                        holder.valueTo = getCurrentValue(holder.property);
                 }
                 changedValues = true;
             }
@@ -494,28 +515,28 @@ public class FxAnimateInstance extends EffectInstance
         var anim:Animation = Animation(event.target);
         if (finalizeValues())
         {
-            var holder:PropertyValuesHolder;
+            var holder:AnimationProperty;
             // Some of the values were updated; must now update
             // the respective values in the Animation
-            if (propertyValuesList.length == 1)
+            if (animationProperties.length == 1)
             {
-                holder = PropertyValuesHolder(propertyValuesList[0]);
+                holder = AnimationProperty(animationProperties[0]);
                 if (anim.startValue === null)
-                    anim.startValue = holder.values[0];
+                    anim.startValue = holder.valueFrom;
                 if (anim.endValue === null)
-                    anim.endValue = holder.values[1];
+                    anim.endValue = holder.valueTo;
             }
             else
             {
                 var startValues:Array = anim.startValue as Array;
                 var endValues:Array = anim.endValue as Array;
-                for (var i:int = 0; i < propertyValuesList.length; ++i)
+                for (var i:int = 0; i < animationProperties.length; ++i)
                 {
-                    holder = PropertyValuesHolder(propertyValuesList[i]);
+                    holder = AnimationProperty(animationProperties[i]);
                     if (startValues[i] === null)
-                        startValues[i] = holder.values[0];
+                        startValues[i] = holder.valueFrom;
                     if (endValues[i] === null)
-                        endValues[i] = holder.values[1];
+                        endValues[i] = holder.valueTo;
                 }
             }
         }
@@ -564,7 +585,7 @@ public class FxAnimateInstance extends EffectInstance
 
     /**
      * Handles the end event from the animation. The value here is an Array of
-     * values, one for each 'property' in our propertyValuesList.
+     * values, one for each 'property' in our animationProperties.
      * If you override this method, ensure that you call the super method.
      */
     protected function endHandler(event:AnimationEvent):void
@@ -775,7 +796,7 @@ public class FxAnimateInstance extends EffectInstance
     /**
      * Utility function to handle situation where values may be queried or
      * set on the target prior to completely setting up the effect's
-     * propertyValuesList data values (from which the styleMap is created)
+     * animationProperties data values (from which the styleMap is created)
      */
     protected function setupStyleMapEntry(property:String):void
     {
