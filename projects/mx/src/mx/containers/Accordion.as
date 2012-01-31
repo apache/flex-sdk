@@ -13,14 +13,13 @@ package mx.containers
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
-import flash.utils.getTimer;
+
 import mx.automation.IAutomationObject;
 import mx.containers.accordionClasses.AccordionHeader;
 import mx.controls.Button;
@@ -31,10 +30,10 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
+import mx.core.IDeferredContentOwner;
 import mx.core.IFactory;
-import mx.managers.IFocusManagerComponent;
-import mx.managers.IHistoryManagerClient;
 import mx.core.IInvalidating;
+import mx.core.INavigatorContent;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
@@ -46,9 +45,10 @@ import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
 import mx.geom.RoundedRectangle;
 import mx.managers.HistoryManager;
-import mx.styles.StyleManager;
+import mx.managers.IFocusManagerComponent;
+import mx.managers.IHistoryManagerClient;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleProxy;
+import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -962,18 +962,18 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get selectedChild():Container
+    public function get selectedChild():INavigatorContent
     {
         if (selectedIndex == -1)
             return null;
 
-        return Container(getChildAt(selectedIndex));
+        return INavigatorContent(getChildAt(selectedIndex));
     }
 
     /**
      *  @private
      */
-    public function set selectedChild(value:Container):void
+    public function set selectedChild(value:INavigatorContent):void
     {
         var newIndex:int = getChildIndex(DisplayObject(value));
 
@@ -1305,7 +1305,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         // cache until we're fully initialized.  (bug 102639)
         // This check was moved from the beginning of this function to
         // here to fix bugs 103665/104213.
-        if (selectedChild && Container(selectedChild).numChildrenCreated == -1)
+        if (selectedChild && selectedChild.deferredContentCreated)
             return;
 
         // Don't remember sizes if we don't have any children
@@ -1450,7 +1450,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
             var n:int = numChildren;
             for (var i:int = 0; i < n; i++)
             {
-                Container(getChildAt(i)).createComponentsFromDescriptors();
+                IDeferredContentOwner(getChildAt(i)).createDeferredContent();
             }
         }
     }
@@ -1572,7 +1572,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         overlayColor = color;
         overlayTargetArea = targetArea;
 
-        if (selectedChild && selectedChild.numChildrenCreated == -1) // No children have been created
+        if (selectedChild && selectedChild.deferredContentCreated == false) // No children have been created
         {
             // Wait for the childrenCreated event before creating the overlay
             selectedChild.addEventListener(FlexEvent.INITIALIZE,
@@ -1752,20 +1752,20 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
         IDataRenderer(header).data = content;
 
-        if (content is Container)
+        if (content is INavigatorContent)
         {
-            var contentContainer:Container = Container(content);
+            var contentContainer:INavigatorContent = INavigatorContent(content);
 
             header.label = contentContainer.label;
             if (contentContainer.icon)
                 header.setStyle("icon", contentContainer.icon);
 
             // If the child has a toolTip, transfer it to the header.
-            var toolTip:String = contentContainer.toolTip;
+            var toolTip:String = (contentContainer as UIComponent).toolTip;
             if (toolTip && toolTip != "")
             {
                 header.toolTip = toolTip;
-                contentContainer.toolTip = null;
+                (contentContainer as UIComponent).toolTip = null;
             }
         }
 
@@ -1841,7 +1841,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var header:Button = Button(event.currentTarget);
         var oldIndex:int = selectedIndex;
         // content is placed onto the button so we have to access it via []
-        selectedChild = Container(IDataRenderer(header).data);
+        selectedChild = INavigatorContent(IDataRenderer(header).data);
         var newIndex:int = selectedIndex;
         if (oldIndex != newIndex)
             dispatchChangeEvent(oldIndex, newIndex, event);
@@ -1937,13 +1937,13 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         {
             // Need to set the new index to be visible here
             // in order for effects to work.
-            Container(getChildAt(newIndex)).setVisible(true);
+            IUIComponent(getChildAt(newIndex)).setVisible(true);
 
             // Now that the effects have been triggered, we can hide the
             // current view until it is properly sized and positioned below.
-            Container(getChildAt(newIndex)).setVisible(false, true);
+            IUIComponent(getChildAt(newIndex)).setVisible(false, true);
             if (oldIndex != -1)
-                Container(getChildAt(oldIndex)).setVisible(false);
+                IUIComponent(getChildAt(oldIndex)).setVisible(false);
 
             instantiateChild(selectedChild);
         }
@@ -1959,7 +1959,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
     /**
      *  @private
      */
-    private function instantiateChild(child:Container):void
+    private function instantiateChild(child:INavigatorContent):void
     {
         // fix for bug#137430
         // when the selectedChild index is -1 (invalid value due to any reason)
@@ -1970,8 +1970,8 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
         // Performance optimization: don't call createComponents if we know
         // that createComponents has already been called.
-        if (child && child.numChildrenCreated == -1)
-            child.createComponentsFromDescriptors();
+        if (child && child.deferredContentCreated == false)
+            child.createDeferredContent();
 
         // Do the initial measurement/layout pass for the newly-instantiated
         // descendants.
@@ -2028,14 +2028,14 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         // EffectManager might try to play another effect that animates the same
         // properties.
         if (oldSelectedIndex != -1)
-            Container(getChildAt(oldSelectedIndex)).tweeningProperties = ["x", "y", "width", "height"];
-        Container(getChildAt(newSelectedIndex)).tweeningProperties = ["x", "y", "width", "height"];
+            IUIComponent(getChildAt(oldSelectedIndex)).tweeningProperties = ["x", "y", "width", "height"];
+        IUIComponent(getChildAt(newSelectedIndex)).tweeningProperties = ["x", "y", "width", "height"];
 
         // If the content of the new child hasn't been created yet, set the new child
         // to the content width/height. This way any background color will show up
         // properly during the animation.
-        var newSelectedChild:Container = Container(getChildAt(newSelectedIndex));
-        if (newSelectedChild.numChildren == 0)
+        var newSelectedChild:IDeferredContentOwner = IDeferredContentOwner(getChildAt(newSelectedIndex));
+        if (newSelectedChild.deferredContentCreated == false)
         {
             var paddingLeft:Number = getStyle("paddingLeft");
             var contentX:Number = borderMetrics.left + (paddingLeft > 0 ? paddingLeft : 0);
@@ -2085,7 +2085,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         for (var i:int = 0; i < n; i++)
         {
             var header:Button = getHeaderAt(i);
-            var content:Container = Container(getChildAt(i));
+            var content:UIComponent = UIComponent(getChildAt(i));
 
             header.$y = y;
             y += header.height;
@@ -2130,7 +2130,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var localContentHeight:Number = calcContentHeight();
 
         var y:Number = vm.top;
-        var content:Container;
+        var content:UIComponent;
 
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
@@ -2141,7 +2141,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
             if (i == selectedIndex)
             {
-                content = Container(getChildAt(i));
+                content = UIComponent(getChildAt(i));
                 content.cacheAsBitmap = false;
                 content.scrollRect = null;
                 content.visible = true;
@@ -2152,7 +2152,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
         if (oldSelectedIndex != -1)
         {
-            content = Container(getChildAt(oldSelectedIndex));
+            content = UIComponent(getChildAt(oldSelectedIndex));
             content.cacheAsBitmap = false;
             content.scrollRect = null;
             content.visible = false;
@@ -2170,7 +2170,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
         UIComponent.resumeBackgroundProcessing();
 
-        Container(getChildAt(selectedIndex)).tweeningProperties = null;
+        UIComponent(getChildAt(selectedIndex)).tweeningProperties = null;
 
         // If we interrupted a Dissolve effect, restart it here
         if (currentDissolveEffect)
@@ -2425,7 +2425,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
                 
                 // if something's selected, instantiate it
                 if (newIndex != -1)
-                    instantiateChild(Container(getChildAt(newIndex)));
+                    instantiateChild(INavigatorContent(getChildAt(newIndex)));
             }
             else
             {
@@ -2435,7 +2435,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
                 // newIndex + 1 because currently that's what the index 
                 // of the child is (SDK-12622) since this one isn't
                 // actually removed from the display list yet
-                instantiateChild(Container(getChildAt(newIndex+1)));
+                instantiateChild(INavigatorContent(getChildAt(newIndex+1)));
             }
 
             // Select the new selected index header.
