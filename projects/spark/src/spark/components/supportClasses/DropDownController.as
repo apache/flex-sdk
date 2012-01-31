@@ -628,7 +628,7 @@ public class DropDownController extends EventDispatcher
     private function systemManager_mouseWheelHandler(event:MouseEvent):void
     {
         // Close the dropDown unless we scrolled over the dropdown and the dropdown handled the event
-        if (!(DisplayObjectContainer(dropDown).contains(DisplayObject(event.target)) && event.isDefaultPrevented()))
+        if (dropDown && !(DisplayObjectContainer(dropDown).contains(DisplayObject(event.target)) && event.isDefaultPrevented()))
             closeDropDown(false);
     }
     
