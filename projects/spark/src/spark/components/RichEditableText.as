@@ -1725,10 +1725,10 @@ public class TextView extends UIComponent
     private function addListeners(textFlow:TextFlow):void
     {
         textFlow.addEventListener(
-            ModelChangeEvent.MODEL_CHANGE_EVENT, textFlow_modelChangeHandler);
+            ModelChangeEvent.MODEL_CHANGE, textFlow_modelChangeHandler);
 
         textFlow.selectionManager.addEventListener(
-            SelectionChangedEvent.SELECTION_CHANGED_EVENT,
+            SelectionChangedEvent.SELECTION_CHANGED,
             editManager_selectionChangeHandler);
 
         textFlow.selectionManager.addEventListener(
