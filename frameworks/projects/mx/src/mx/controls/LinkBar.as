@@ -596,9 +596,12 @@ public class LinkBar extends NavBar
         // Set new index.
         super.selectedIndex = index;
 
-        // Hilite the new selection.
-        child = Button(getChildAt(selectedIndex));
-        child.enabled = false;
+        if (index != -1)
+        {
+            // Hilite the new selection.
+            child = Button(getChildAt(selectedIndex));
+            child.enabled = false;
+        }
     }
 
     /**
