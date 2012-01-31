@@ -2656,6 +2656,7 @@ public class Container extends UIComponent
         /*
 
         Shouldn't implement removeChildAt() in terms of removeChild().
+        If we change this ViewStack IList is depending on it
 
         */
     }
