@@ -24,6 +24,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
@@ -383,6 +384,10 @@ public class Container extends UIComponent
         tabEnabled = false;
         
         showInAutomationHierarchy = false;
+
+        // If available, get soft-link to the TextView class to use in keyDownHandler().
+        if (ApplicationDomain.currentDomain.hasDefinition("mx.components.TextView"))
+            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.components.TextView"));
     }
 
     //--------------------------------------------------------------------------
@@ -518,6 +523,12 @@ public class Container extends UIComponent
      *  Keeps track of the number of mouse events we are listening for
      */
     private var mouseEventReferenceCount:int = 0;
+    
+    /**
+     *  @private
+     *  Soft-link to TextView class object, if available.
+     */
+    private var textViewClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -4954,8 +4965,10 @@ public class Container extends UIComponent
     {
         // If a text field currently has focus, it is handling all arrow keys.
         // We shouldn't also scroll this Container.
+        // ToDo: replace with universal scrolling scheme that provides same
+        // experience as browser.
         var focusObj:Object = getFocus();
-        if (focusObj is TextField)
+        if ((focusObj is TextField) || (textViewClass && focusObj is textViewClass))
             return;
 
         var direction:String;
@@ -5062,7 +5075,7 @@ public class Container extends UIComponent
             }
         }
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
