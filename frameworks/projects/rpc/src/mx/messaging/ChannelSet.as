@@ -1133,7 +1133,17 @@ public class ChannelSet extends EventDispatcher
     public function send(agent:MessageAgent, message:IMessage):void
     {
         if (connected)
-        {                      
+        {    
+            // Filter out any commands to trigger connection establishment, and ack them locally.            
+            if ((message is CommandMessage) && (CommandMessage(message).operation == CommandMessage.TRIGGER_CONNECT_OPERATION))
+            {
+                var ack:AcknowledgeMessage = new AcknowledgeMessage();
+                ack.clientId = agent.clientId;
+                ack.correlationId = message.messageId;
+                agent.acknowledge(ack, message);
+                return; 
+            }
+                              
             // If this ChannelSet targets a clustered destination, request the
             // endpoint URIs for the cluster.
             if (!_hasRequestedClusterEndpoints && clustered)
