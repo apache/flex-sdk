@@ -81,7 +81,7 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -184,8 +184,8 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
         if (Concurrency.SINGLE == concurrency && (hasPendingInvocations() || activeCalls.hasActiveCalls()))
         {
             var token:AsyncToken = new AsyncToken(null);
-			var message:String = resourceManager.getString(
-				"rpc", "pendingCallExists");
+            var message:String = resourceManager.getString(
+                "rpc", "pendingCallExists");
             var fault:Fault = new Fault("ConcurrencyError", message);
             var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token);
             new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
@@ -224,11 +224,6 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
 
     /*
      * Kill the busy cursor, find the matching call object and pass it back
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override mx_internal function preHandle(event:MessageEvent):AsyncToken
     {
@@ -257,13 +252,13 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
 
     private var _concurrency:String;
     
-	private var _concurrencySet:Boolean;
+    private var _concurrencySet:Boolean;
     
-	private var webService:mx.rpc.soap.mxml.WebService;
+    private var webService:mx.rpc.soap.mxml.WebService;
     
-	private var _showBusyCursor:Boolean;
+    private var _showBusyCursor:Boolean;
     
-	private var _showBusyCursorSet:Boolean;
+    private var _showBusyCursorSet:Boolean;
 }
 
 }
