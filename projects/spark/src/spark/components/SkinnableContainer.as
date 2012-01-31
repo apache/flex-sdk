@@ -25,15 +25,13 @@ import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.IUIComponent;
 import mx.core.IViewport;
-import mx.core.ScrollUnit;
 import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.ElementExistenceEvent;
 import mx.events.PropertyChangeEvent;
 import mx.layout.BasicLayout;
 import mx.layout.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
-
 
 /**
  *  Dispatched after the content for this component has been created. With deferred 
@@ -45,18 +43,20 @@ import mx.utils.BitFlagUtil;
 [Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched when an item is added to the component.
+ *  Dispatched when a visual element is added to the content holder.
+ *  <code>event.element</code> is the visual element that was added.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
+ *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
  */
-[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
 
 /**
- *  Dispatched when an item is removed from the component.
+ *  Dispatched when a visual element is removed to the content holder.
+ *  <code>event.element</code> is the visual element that's being removed.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
+ *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
  */
-[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
 
 include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
@@ -120,7 +120,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @private
      */
-    private static const CLIP_CONTENT_PROPERTY_FLAG:uint = 1 << 0;
+    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 0;
     
     /**
      *  @private
@@ -209,9 +209,9 @@ public class FxContainer extends FxContainerBase
                     _placeHolderGroup.mxmlContent = _mxmlContent;
                 
                 _placeHolderGroup.addEventListener(
-                    ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                    ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
                 _placeHolderGroup.addEventListener(
-                    ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                    ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
             }
             return _placeHolderGroup;
         }
@@ -253,32 +253,32 @@ public class FxContainer extends FxContainerBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  clipContent
+    //  clipAndEnableScrolling
     //----------------------------------
     
     /**
      *  @inheritDoc
      */
-    public function get clipContent():Boolean 
+    public function get clipAndEnableScrolling():Boolean 
     {
         return (contentGroup) 
-            ? contentGroup.clipContent 
-            : contentGroupProperties.clipContent;
+            ? contentGroup.clipAndEnableScrolling 
+            : contentGroupProperties.clipAndEnableScrolling;
     }
 
     /**
      *  @private
      */
-    public function set clipContent(value:Boolean):void 
+    public function set clipAndEnableScrolling(value:Boolean):void 
     {       
         if (contentGroup)
         {
-            contentGroup.clipContent = value;
+            contentGroup.clipAndEnableScrolling = value;
             contentGroupProperties = BitFlagUtil.update(contentGroupProperties as uint, 
-                                                        CLIP_CONTENT_PROPERTY_FLAG, true);
+                                                        CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
         }
         else
-            contentGroupProperties.clipContent = value;
+            contentGroupProperties.clipAndEnableScrolling = value;
     }
     
     //----------------------------------
@@ -378,26 +378,10 @@ public class FxContainer extends FxContainerBase
     
     private var _mxmlContent:Array;
     
-    /**
-     *  @copy mx.components.Group#content
-     */
     [ArrayElementType("mx.core.IVisualElement")]
-    [Bindable]
-    public function get mxmlContent():Array
-    { 
-        // Make sure deferred content is created, if needed
-        createContentIfNeeded();
-    
-        if (contentGroup)
-            return contentGroup.mxmlContent;
-        else if (_placeHolderGroup)
-            return _placeHolderGroup.mxmlContent;
-        else
-            return _mxmlContent; 
-    }
     
     /**
-     *  @private
+     *  @copy mx.components.Group#mxmlContent
      */
     public function set mxmlContent(value:Array):void
     {
@@ -411,7 +395,6 @@ public class FxContainer extends FxContainerBase
         else if (_placeHolderGroup)
             _placeHolderGroup.mxmlContent = value;
     }
-    
     
     //----------------------------------
     //  mxmlContentFactory
@@ -432,14 +415,6 @@ public class FxContainer extends FxContainerBase
     /**
      *  A factory object that creates the initial value for the
      *  content property.
-     */
-    public function get mxmlContentFactory():IDeferredInstance
-    {
-        return _mxmlContentFactory;
-    }   
-    
-    /**
-     *  @private
      */
     public function set mxmlContentFactory(value:IDeferredInstance):void
     {
@@ -575,19 +550,19 @@ public class FxContainer extends FxContainerBase
     /**
      *  @inheritDoc
      */
-    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
         return (contentGroup) ?
-            contentGroup.getHorizontalScrollPositionDelta(unit) : 0;     
+            contentGroup.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
     }
     
     /**
      *  @inheritDoc
      */
-    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
         return (contentGroup) ? 
-            contentGroup.getVerticalScrollPositionDelta(unit) : 0;     
+            contentGroup.getVerticalScrollPositionDelta(scrollUnit) : 0;     
     }
 
     //--------------------------------------------------------------------------
@@ -642,11 +617,11 @@ public class FxContainer extends FxContainerBase
             
             var newContentGroupProperties:uint = 0;
             
-            if (contentGroupProperties.clipContent !== undefined)
+            if (contentGroupProperties.clipAndEnableScrolling !== undefined)
             {
-                contentGroup.clipContent = contentGroupProperties.clipContent;
+                contentGroup.clipAndEnableScrolling = contentGroupProperties.clipAndEnableScrolling;
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
-                                                                 CLIP_CONTENT_PROPERTY_FLAG, true);
+                                                               CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
             }
             
             if (contentGroupProperties.layout !== undefined)
@@ -673,18 +648,18 @@ public class FxContainer extends FxContainerBase
             contentGroupProperties = newContentGroupProperties;
             
             contentGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
             contentGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
             contentGroup.addEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
             
             if (_placeHolderGroup)
             {
                 _placeHolderGroup.removeEventListener(
-                    ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                    ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
                 _placeHolderGroup.removeEventListener(
-                    ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                    ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
                 
                 _placeHolderGroup = null;
             }
@@ -699,9 +674,9 @@ public class FxContainer extends FxContainerBase
         if (instance == contentGroup)
         {
             contentGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
             contentGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
             contentGroup.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
             
@@ -709,8 +684,8 @@ public class FxContainer extends FxContainerBase
             
             var newContentGroupProperties:Object = {};
             
-            if (BitFlagUtil.isSet(contentGroupProperties as uint, CLIP_CONTENT_PROPERTY_FLAG))
-                newContentGroupProperties.clipContent = contentGroup.clipContent;
+            if (BitFlagUtil.isSet(contentGroupProperties as uint, CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG))
+                newContentGroupProperties.clipAndEnableScrolling = contentGroup.clipAndEnableScrolling;
             
             if (BitFlagUtil.isSet(contentGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newContentGroupProperties.layout = contentGroup.layout;
@@ -723,16 +698,18 @@ public class FxContainer extends FxContainerBase
                 
             contentGroupProperties = newContentGroupProperties;
             
-            if (contentGroup.mxmlContent)
+            var myMxmlContent:Array = contentGroup.mxmlContent;
+            
+            if (myMxmlContent)
             {
                 _placeHolderGroup = new Group();
                      
-                _placeHolderGroup.mxmlContent = contentGroup.mxmlContent;
+                _placeHolderGroup.mxmlContent = myMxmlContent;
                 
                 _placeHolderGroup.addEventListener(
-                    ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+                    ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
                 _placeHolderGroup.addEventListener(
-                    ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                    ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
             }
             
             // TODO: Need to force the contentGroup to removeChild on its content children
@@ -760,12 +737,12 @@ public class FxContainer extends FxContainerBase
         {
             mxmlContentCreated = true;
             
-            if (mxmlContentFactory)
+            if (_mxmlContentFactory)
             {
                 // TODO (rfrishbe): If we have compiler support for deferred content
                 // to do autotype conversion (do I create a single object, 
                 // an array, or an IList in the function)
-                var deferredContent:Object = mxmlContentFactory.getInstance();
+                var deferredContent:Object = _mxmlContentFactory.getInstance();
                 if (deferredContent is Array)
                     mxmlContent = deferredContent as Array;
                 else
@@ -790,23 +767,17 @@ public class FxContainer extends FxContainerBase
     //
     //--------------------------------------------------------------------------
     
-    private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
+    private function contentGroup_elementAddedHandler(event:ElementExistenceEvent):void
     {
-        if (event.relatedObject is IVisualElement)
-        {
-            IVisualElement(event.relatedObject).owner = this;
-        }
+        event.element.owner = this
         
         // Re-dispatch the event
         dispatchEvent(event);
     }
     
-    private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
+    private function contentGroup_elementRemovedHandler(event:ElementExistenceEvent):void
     {
-        if (event.relatedObject is IVisualElement)
-        {
-            IVisualElement(event.relatedObject).owner = null;
-        }
+        event.element.owner = null;
         
         // Re-dispatch the event
         dispatchEvent(event);
