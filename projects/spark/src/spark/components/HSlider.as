@@ -55,7 +55,7 @@ public class FxHSlider extends FxSlider
      */
     override protected function get trackSize():Number
     {
-        return track ? LayoutElementFactory.getLayoutElementFor(track).getLayoutWidth() : 0;
+        return track ? LayoutElementFactory.getLayoutElementFor(track).getLayoutBoundsWidth() : 0;
     }
 
     /**
@@ -63,7 +63,7 @@ public class FxHSlider extends FxSlider
      */
     override protected function calculateThumbSize():Number
     {
-        return LayoutElementFactory.getLayoutElementFor(thumb).getLayoutWidth();
+        return LayoutElementFactory.getLayoutElementFor(thumb).getLayoutBoundsWidth();
     }
 
     //--------------------------------------------------------------------------
@@ -89,10 +89,10 @@ public class FxHSlider extends FxSlider
 
             var trackLElement:ILayoutElement = 
                 LayoutElementFactory.getLayoutElementFor(track);
-            var trackPos:Number = trackLElement.getLayoutPositionX();
+            var trackPos:Number = trackLElement.getLayoutBoundsX();
 
-            thumbLElement.setLayoutPosition(Math.round(trackPos + thumbPos),
-                                            thumbLElement.getLayoutPositionY());
+            thumbLElement.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
+                                                  thumbLElement.getLayoutBoundsY());
         }
     }
     
@@ -121,7 +121,7 @@ public class FxHSlider extends FxSlider
     {
         var thumbLElement:ILayoutElement = 
             LayoutElementFactory.getLayoutElementFor(thumb);
-        return pointToPosition(localX, localY) - thumbLElement.getLayoutWidth() / 2;
+        return pointToPosition(localX, localY) - thumbLElement.getLayoutBoundsWidth() / 2;
     }
     
     /**
@@ -138,7 +138,7 @@ public class FxHSlider extends FxSlider
 	        var r:Point = localToGlobal(o);        
 			r = tipAsDisplayObject.parent.globalToLocal(r);
 			
-			// TODO (jszeto) Change to use ILayoutElement.setLayoutPosition?
+			// TODO (jszeto) Change to use ILayoutElement.setLayoutBoundsPosition?
         	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
         	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
     	}
