@@ -75,7 +75,7 @@ public class Scroller extends SkinnableComponent
         if (skinObject)
         {
             skinObject.invalidateSize()
-            skinObject.invalidateDisplayList();           
+            skinObject.invalidateDisplayList();
         }
     }    
     
