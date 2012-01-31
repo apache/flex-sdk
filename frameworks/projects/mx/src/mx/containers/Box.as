@@ -139,7 +139,7 @@ include "../styles/metadata/GapStyles.as";
  *
  *  @includeExample examples/SimpleBoxExample.mxml
  *
- *  @see mx.components.Container
+ *  @see mx.core.Container
  *  @see mx.containers.HBox
  *  @see mx.containers.VBox
  *  
