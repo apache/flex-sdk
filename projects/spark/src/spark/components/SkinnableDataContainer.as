@@ -61,6 +61,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  The alpha of the focus ring for this component.
+ *
+ *  @default 0.55
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -132,14 +134,44 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  &lt;s:SkinnableDataContainer
  *    <strong>Properties</strong>
  *    autoLayout="true"
- *    clipAndEnableScrolling="false"
  *    dataProvider="null"
- *    horizontalScrollPosition="null"
  *    itemRenderer="null"
  *    itemRendererFunction="null"
  *    layout="VerticalLayout"
  *    typicalItem="null"
- *    verticalScrollPosition="null"
+ *  
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="useDominantBaseline"
+ *    baselineShift="0.0"
+ *    cffHinting="horizontal_stem"
+ *    color="0"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="LTR"
+ *    dominantBaseline="auto"
+ *    focusAlpha="0.55"
+ *    focusColor=""
+ *    focusThickness="2"
+ *    fontFamily="Times New Roman"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="auto"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    renderingMode="CFF"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textJustify="inter_word"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="default"
  *  
  *    <strong>Events</strong>
  *    rendererAdd="<i>No default</i>"
@@ -314,6 +346,13 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     
     /**
      *  @copy spark.components.DataGroup#dataProvider
+     *
+     *  @see #itemRenderer
+     *  @see #itemRendererFunction
+     *  @see mx.collections.IList
+     *  @see mx.collections.ArrayCollection
+     *  @see mx.collections.ArrayList
+     *  @see mx.collections.XMLListCollection
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
