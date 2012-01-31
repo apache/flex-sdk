@@ -1507,7 +1507,8 @@ public class GridLayout extends LayoutBase
                 return null;
         }
         
-        if (rowIndex == -1 || grid.selectionMode == GridSelectionMode.NONE)
+        if (rowIndex == -1 || grid.selectionMode == GridSelectionMode.NONE ||
+            (isCellSelectionMode() && (grid.getNextVisibleColumnIndex(columnIndex - 1) != columnIndex)))
         {
             if (indicator)
                 indicator.visible = false;
