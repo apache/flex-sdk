@@ -34,6 +34,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseSelectionPending(incrementing:Boolean, index:int,
 											 stopData:Object,
@@ -65,6 +70,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  The bookmark we have to seek to
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var bookmark:CursorBookmark;
 
@@ -74,6 +84,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  True if we moveNext(), false if we movePrevious()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var incrementing:Boolean;
 
@@ -83,6 +98,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  The index into the iterator when we hit the page fault
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var index:int;
 
@@ -92,6 +112,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  The offset from the bookmark we have to seek to
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var offset:int;
 
@@ -101,6 +126,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  The bookmark we have to restore after we're done
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var placeHolder:CursorBookmark;
 
@@ -110,6 +140,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  The data of the current item, which is the thing we are looking for.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var stopData:Object;
 
@@ -119,6 +154,11 @@ public class ListBaseSelectionPending
 
 	/**
 	 *  Whether to tween in the visuals
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var transition:Boolean;
 }
