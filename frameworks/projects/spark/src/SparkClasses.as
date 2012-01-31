@@ -78,7 +78,6 @@ import spark.skins.spark.TitleWindowSkin; TitleWindowSkin;
 import spark.skins.spark.TitleWindowCloseButtonSkin; TitleWindowCloseButtonSkin;
 import spark.skins.spark.ToggleButtonSkin; ToggleButtonSkin;
 import spark.skins.spark.VideoPlayerSkin; VideoPlayerSkin;
-import spark.skins.spark.VideoPlayerSkin2; VideoPlayerSkin2;
 import spark.skins.spark.VScrollBarSkin; VScrollBarSkin;
 import spark.skins.spark.VScrollBarThumbSkin; VScrollBarThumbSkin;
 import spark.skins.spark.VScrollBarTrackSkin; VScrollBarTrackSkin;
