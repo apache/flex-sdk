@@ -16,8 +16,6 @@ import mx.rpc.wsdl.WSDLOperation;
 import mx.rpc.xml.IXMLDecoder;
 import mx.rpc.xml.SchemaConstants;
 
-[ExcludeClass]
-
 /**
  * Decodes the SOAP response for a particular operation.
  * 
