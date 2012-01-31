@@ -1347,6 +1347,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // but we want to do it before removing the element
         checkForRangeError(index);
         
+        if (getElementIndex(element) == index)
+            return;
+        
         removeElement(element);
         addElementAt(element, index);
     }
