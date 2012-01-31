@@ -1,92 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ArrowExample.mxml -->
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-     <s:Panel title="Arrow Graphic Example"
-        height="75%" width="75%" layout="horizontal"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-          <Canvas top="0" bottom="0" left="0" right="0">
-               <s:Graphic x="0" y="0">
-                    <s:Path>
-                         <!-- Use segment tags to define the arrow. -->
-                         <segments>
-                              <s:MoveSegment x="20" y="0"/>
-                              <s:CubicBezierSegment x="20" y="35" 
-                                   control1X="50" control1Y="0" 
-                                   control2X="50" control2Y="35"/>
-                              <s:LineSegment x="15" y="35"/>
-                              <s:LineSegment x="15" y="45"/>
-                              <s:LineSegment x="0" y="32"/>
-                              <s:LineSegment x="15" y="19"/>
-                              <s:LineSegment x="15" y="29"/>
-                              <s:LineSegment x="20" y="29"/>
-                              <s:CubicBezierSegment x="20" y="6" 
-                                   control1X="44" control1Y="29" 
-                                   control2X="44" control2Y="6"/>
-                         </segments>
-                         <!-- Define the border color of the arrow. -->
-                         <s:stroke>
-                              <s:Stroke color="0x888888"/>
-                         </s:stroke>
-                         <!-- Define the fill for the arrow. -->
-                         <s:fill>
-                              <s:LinearGradient rotation="90">
-                                   <s:GradientEntry color="0x000000" alpha="0.8"/>
-                                   <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
-                              </s:LinearGradient>
-                         </s:fill>
-                    </s:Path>
-               </s:Graphic>
-               <s:Graphic x="100" y="0">
-                    <!-- Use Use compact syntax with absolute coordinates. -->
-                    <s:Path data="
-                         M 20 0 
-                         C 50 0 50 35 20 35
-                         L 15 35 
-                         L 15 45 
-                         L 0 32 
-                         L 15 19 
-                         L 15 29 
-                         L 20 29 
-                         C 44 29 44 6 20 6
-                    ">
-                         <!-- Define the border color of the arrow. -->
-                         <s:stroke>
-                              <s:Stroke color="0x888888"/>
-                         </s:stroke>
-                         <!-- Define the fill for the arrow. -->
-                         <s:fill>
-                              <s:LinearGradient rotation="90">
-                                   <s:GradientEntry color="0x000000" alpha="0.8"/>
-                                   <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
-                              </s:LinearGradient>
-                         </s:fill>
-                    </s:Path>
-               </s:Graphic>
-               <s:Graphic x="200" y="0">
-                    <!-- Use compact syntax with relative coordinates. -->
-                    <s:Path data="   
-                              m 20 0 
-                              c 30 0 30 35 0 35 
-                              l -5 0
-                              l 0 10
-                              l -15 -13
-                              l 15 -13
-                              l 0 10
-                              l 5 0
-                              c 24 0 24 -23 0 -23">
-                         <!-- Define the border color of the arrow. -->
-                         <s:stroke>
-                              <s:Stroke color="0x888888"/>
-                         </s:stroke>
-                         <!-- Define the fill for the arrow. -->
-                         <s:fill>
-                              <s:LinearGradient rotation="90">
-                                   <s:GradientEntry color="0x000000" alpha="0.8"/>
-                                   <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
-                              </s:LinearGradient>
-                         </s:fill>
-                    </s:Path>
-               </s:Graphic>
-          </Canvas>
-     </s:Panel>
+<s:Application name="ArrowExample"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <s:Panel title="Arrow Graphic Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:Group left="10" right="10" top="10" bottom="10">
+            <s:Graphic x="0" y="0">
+                <s:Path>
+                    <!-- Use segment tags to define the arrow. -->
+                    <s:segments>
+                        <s:MoveSegment x="20" y="0"/>
+                        <s:CubicBezierSegment x="20" y="35" 
+                                control1X="50" control1Y="0" 
+                                control2X="50" control2Y="35" />
+                        <s:LineSegment x="15" y="35"/>
+                        <s:LineSegment x="15" y="45"/>
+                        <s:LineSegment x="0" y="32"/>
+                        <s:LineSegment x="15" y="19"/>
+                        <s:LineSegment x="15" y="29"/>
+                        <s:LineSegment x="20" y="29"/>
+                        <s:CubicBezierSegment x="20" y="6" 
+                                control1X="44" control1Y="29" 
+                                control2X="44" control2Y="6"/>
+                    </s:segments>
+                    <!-- Define the border color of the arrow. -->
+                    <s:stroke>
+                        <s:SolidColorStroke color="0x888888"/>
+                    </s:stroke>
+                    <!-- Define the fill for the arrow. -->
+                    <s:fill>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0x000000" alpha="0.8"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
+                        </s:LinearGradient>
+                    </s:fill>
+                </s:Path>
+            </s:Graphic>
+
+            <s:Graphic x="100" y="0">
+                <!-- Use Use compact syntax with absolute coordinates. -->
+                <s:Path data="M 20 0 
+                        C 50 0 50 35 20 35
+                        L 15 35 
+                        L 15 45 
+                        L 0 32 
+                        L 15 19 
+                        L 15 29 
+                        L 20 29 
+                        C 44 29 44 6 20 6">
+                    <!-- Define the border color of the arrow. -->
+                    <s:stroke>
+                        <s:SolidColorStroke color="0x888888"/>
+                    </s:stroke>
+                    <!-- Define the fill for the arrow. -->
+                    <s:fill>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0x000000" alpha="0.8"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
+                        </s:LinearGradient>
+                    </s:fill>
+                </s:Path>
+            </s:Graphic>
+
+            <s:Graphic x="200" y="0">
+                <!-- Use compact syntax with relative coordinates. -->
+                <s:Path data="m 20 0 
+                        c 30 0 30 35 0 35 
+                        l -5 0
+                        l 0 10
+                        l -15 -13
+                        l 15 -13
+                        l 0 10
+                        l 5 0
+                        c 24 0 24 -23 0 -23">
+                    <!-- Define the border color of the arrow. -->
+                    <s:stroke>
+                        <s:SolidColorStroke color="0x888888"/>
+                    </s:stroke>
+                    <!-- Define the fill for the arrow. -->
+                    <s:fill>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0x000000" alpha="0.8"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
+                        </s:LinearGradient>
+                    </s:fill>
+                </s:Path>
+            </s:Graphic>
+        </s:Group>
+    </s:Panel>
+
 </s:Application>
