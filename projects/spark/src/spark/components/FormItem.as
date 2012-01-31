@@ -59,7 +59,9 @@ use namespace mx_internal;
  *  are the content and are placed in the contentGroup skin part. The FormItem 
  *  container defines a number of skin parts, including labelDisplay, 
  *  sequenceLabelDisplay, and helpContentGroup. The content of these skin parts are 
- *  specified in order by the label, sequenceLabel and helpContent properties.     
+ *  specified in order by the label, sequenceLabel and helpContent properties.
+ *
+ *  @includeExample examples/FormItemExample.mxml
  */
 public class FormItem extends SkinnableContainer
 {
