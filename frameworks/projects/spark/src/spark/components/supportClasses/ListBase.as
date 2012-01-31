@@ -23,6 +23,7 @@ import spark.utils.LabelUtil;
 import mx.collections.IList;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.core.UIComponent; 
 import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
@@ -714,20 +715,38 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function updateRenderer(renderer:IVisualElement):void
     {
-        //First clean up any old, stale properties like selected and caret   
+        var transitions:Array;
+        
+        // First clean up any old, stale properties like selected and caret   
         if (renderer is IItemRenderer)
         {
+            // If there are transitions bound to the renderer, lets turn them 
+            // off while we clear stale properties
+            if (renderer is UIComponent)
+            {
+                transitions = UIComponent(renderer).transitions; 
+                UIComponent(renderer).transitions = null; 
+            }
+            
             // TODO (dsubrama) - Go through helper methods to do this. 
             // Make itemSelected()/itemInCaret() pass around the renderer 
-            // instead of index. 
+            // instead of index
             IItemRenderer(renderer).selected = false;
             IItemRenderer(renderer).caret = false; 
         }    
-        //Now run through and initialize the renderer correctly
+        
+        // Now run through and initialize the renderer correctly
         super.updateRenderer(renderer); 
+        
+        // Re-apply any transitions bound to the renderer that may 
+        // have been previously nulled out 
+        if (transitions) 
+            UIComponent(renderer).transitions = transitions; 
           
         var index:Number = dataGroup.getElementIndex(renderer);
         
+        // Set any new properties on the renderer now that it's going to 
+        // come back into use. 
         if (isItemIndexSelected(index))
             itemSelected(index, true);
         if (renderer is IItemRenderer)
