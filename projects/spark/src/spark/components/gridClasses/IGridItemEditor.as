@@ -1,6 +1,7 @@
 package spark.components
 {
 import mx.core.IDataRenderer;
+import mx.core.IIMESupport;
 import mx.core.IVisualElement;
 import mx.managers.IFocusManagerComponent;
 
@@ -23,7 +24,8 @@ import spark.components.DataGrid;
  * cancel()</code> function is called. 
  * </p>
  */
-public interface IGridItemEditor extends IDataRenderer, IVisualElement, IFocusManagerComponent
+public interface IGridItemEditor extends IDataRenderer, IVisualElement, 
+                                 IFocusManagerComponent, IIMESupport
 {
     //--------------------------------------------------------------------------
     //
