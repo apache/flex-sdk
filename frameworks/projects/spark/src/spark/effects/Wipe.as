@@ -13,7 +13,6 @@ package spark.effects
 import flash.display.Shader;
 import flash.utils.ByteArray;
 import mx.effects.IEffectInstance;
-import spark.effects.supportClasses.WipeInstance;
 
 /**
  *  The Wipe effect performs a bitmap transition effect by running a
@@ -63,9 +62,18 @@ import spark.effects.supportClasses.WipeInstance;
  */
 public class Wipe extends AnimateTransitionShader
 {
-    [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
-    private static var WipeShaderClass:Class;
-    private static var wipeShaderCode:ByteArray = new WipeShaderClass();
+    [Embed(source="WipeUp.pbj", mimeType="application/octet-stream")]
+    private static var WipeUpShaderClass:Class;
+    private static var wipeUpShaderCode:ByteArray = new WipeUpShaderClass();
+    [Embed(source="WipeDown.pbj", mimeType="application/octet-stream")]
+    private static var WipeDownShaderClass:Class;
+    private static var wipeDownShaderCode:ByteArray = new WipeDownShaderClass();
+    [Embed(source="WipeRight.pbj", mimeType="application/octet-stream")]
+    private static var WipeRightShaderClass:Class;
+    private static var wipeRightShaderCode:ByteArray = new WipeRightShaderClass();
+    [Embed(source="WipeLeft.pbj", mimeType="application/octet-stream")]
+    private static var WipeLeftShaderClass:Class;
+    private static var wipeLeftShaderCode:ByteArray = new WipeLeftShaderClass();
     
     
     [Inspectable(enumeration="left,right,up,down", defaultValue="right")]
@@ -101,8 +109,11 @@ public class Wipe extends AnimateTransitionShader
     public function Wipe(target:Object=null)
     {
         super(target);
-        instanceClass = WipeInstance;
-        shaderByteCode = wipeShaderCode;
+        // Note that we do not need a separate WipeInstance; the only
+        // addition that Wipe adds is specifying the Crossfade
+        // Pixel Bender shader, which is done at instance creation time,
+        // according to the value of the direction property. 
+        // Everything else needed is in the superclass already.
     }
 
     /**
@@ -110,10 +121,22 @@ public class Wipe extends AnimateTransitionShader
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
+        switch (direction)
+        {
+            case WipeDirection.RIGHT:
+                shaderByteCode = wipeRightShaderCode;
+                break;
+            case WipeDirection.LEFT:
+                shaderByteCode = wipeLeftShaderCode;
+                break;
+            case WipeDirection.UP:
+                shaderByteCode = wipeUpShaderCode;
+                break;
+            case WipeDirection.DOWN:
+                shaderByteCode = wipeDownShaderCode;
+                break;
+        }
         super.initInstance(instance);
-        
-        var wipeInstance:WipeInstance = WipeInstance(instance);
-        wipeInstance.direction = direction;
     }
     
 }
