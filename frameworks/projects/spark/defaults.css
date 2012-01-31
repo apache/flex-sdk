@@ -17,133 +17,133 @@
 
 Application
 {
-    skinClass: ClassReference("spark.skins.default.ApplicationSkin");
+    skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
 Button
 {
-    skinClass: ClassReference("spark.skins.default.ButtonSkin");
+    skinClass: ClassReference("spark.skins.spark.ButtonSkin");
 }
 
 Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.default.DefaultButtonSkin");
+    skinClass: ClassReference("spark.skins.spark.DefaultButtonSkin");
 }
 
 ButtonBar
 {
-    skinClass: ClassReference("spark.skins.default.ButtonBarSkin");
+    skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
 }
 
 CheckBox
 {
-    skinClass: ClassReference("spark.skins.default.CheckBoxSkin");
+    skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 
 DropDownList
 {
-    skinClass: ClassReference("spark.skins.default.DropDownListSkin");
+    skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
 SkinnableComponent
 {
-    errorSkin: ClassReference("spark.skins.default.ErrorSkin");
-    focusSkin: ClassReference("spark.skins.default.FocusSkin");
+    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
+    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
 }
 
 SkinnableContainer
 {
-    skinClass: ClassReference("spark.skins.default.SkinnableContainerSkin");
+    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
 SkinnableDataContainer
 {
-	skinClass: ClassReference("spark.skins.default.SkinnableDataContainerSkin");
+	skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
 }
 
 HScrollBar
 {
-    skinClass: ClassReference("spark.skins.default.HScrollBarSkin");
+    skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
 }
 
 HSlider
 {
-    skinClass: ClassReference("spark.skins.default.HSliderSkin");
+    skinClass: ClassReference("spark.skins.spark.HSliderSkin");
 }
 
 List
 {
-	skinClass: ClassReference("spark.skins.default.ListSkin");
+	skinClass: ClassReference("spark.skins.spark.ListSkin");
 }
 
 MuteButton
 {
-    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.MuteButtonSkin");
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
 }
 
 NumericStepper
 {
-    skinClass: ClassReference("spark.skins.default.NumericStepperSkin");
+    skinClass: ClassReference("spark.skins.spark.NumericStepperSkin");
 }
 
 Panel
 {
-	skinClass: ClassReference("spark.skins.default.PanelSkin");
+	skinClass: ClassReference("spark.skins.spark.PanelSkin");
 }
 
 RadioButton
 {
-	skinClass: ClassReference("spark.skins.default.RadioButtonSkin");
+	skinClass: ClassReference("spark.skins.spark.RadioButtonSkin");
 }
 
 Scroller
 {
-    skinClass: ClassReference("spark.skins.default.ScrollerSkin");
+    skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
 }
 
 ScrubBar
 {
-    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.ScrubBarSkin");
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.ScrubBarSkin");
 }
 
 Spinner
 {
-    skinClass: ClassReference("spark.skins.default.SpinnerSkin");    
+    skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
 TextArea
 {
-	skinClass: ClassReference("spark.skins.default.TextAreaSkin");
+	skinClass: ClassReference("spark.skins.spark.TextAreaSkin");
 }
 
 TextInput
 {
-	skinClass: ClassReference("spark.skins.default.TextInputSkin");
+	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
 }
 
 ToggleButton
 {
-	skinClass: ClassReference("spark.skins.default.ToggleButtonSkin");
+	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
 }
 
 VideoPlayer
 {
-    skinClass: ClassReference("spark.skins.default.VideoPlayerSkin");
+    skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
 
 VolumeBar
 {
-    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.VolumeBarSkin");
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.VolumeBarSkin");
 }
 
 VScrollBar
 {
-    skinClass: ClassReference("spark.skins.default.VScrollBarSkin");
+    skinClass: ClassReference("spark.skins.spark.VScrollBarSkin");
 }
 
 VSlider
 {
-    skinClass: ClassReference("spark.skins.default.VSliderSkin");
+    skinClass: ClassReference("spark.skins.spark.VSliderSkin");
 }
 
 global
