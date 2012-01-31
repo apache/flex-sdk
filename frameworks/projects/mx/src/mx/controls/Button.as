@@ -128,7 +128,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Gap between the label and icon, when the <code>labelPlacement</code> property
