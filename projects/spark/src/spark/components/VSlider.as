@@ -150,7 +150,6 @@ public class VSlider extends SliderBase
     
     /**
      *  @private
-     *  FIXME (jszeto): Update this to also use the ILayoutElement API SDK-22045
      */
     override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
@@ -168,12 +167,12 @@ public class VSlider extends SliderBase
             // Get the tips bounds. We only care about the dimensions.
             var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
             
-            // Make sure the tip doesn't exceed the bounds of the screen
-            r.x = Math.floor( Math.max(screenBounds.left, 
-                                Math.min(screenBounds.right - tipBounds.width, r.x)));
-            r.y = Math.floor( Math.max(screenBounds.top, 
-                                Math.min(screenBounds.bottom - tipBounds.height, r.y)));
-                                
+                // Make sure the tip doesn't exceed the bounds of the screen
+                r.x = Math.floor( Math.max(screenBounds.left, 
+                                    Math.min(screenBounds.right - tipBounds.width, r.x)));
+                r.y = Math.floor( Math.max(screenBounds.top, 
+                                    Math.min(screenBounds.bottom - tipBounds.height, r.y)));
+            
             r = tipAsDisplayObject.parent.globalToLocal(r);
             tipAsDisplayObject.x = r.x;
             tipAsDisplayObject.y = r.y;
