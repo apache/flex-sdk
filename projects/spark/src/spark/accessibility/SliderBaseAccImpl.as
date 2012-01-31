@@ -31,8 +31,119 @@ use namespace mx_internal;
 [ResourceBundle("components")]
 
 /**
- *  SliderBaseAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the SliderBase class.
+ *  SliderBaseAccImpl is the accessibility implementation class
+ *  for spark.components.supportClasses.SliderBase.
+ *
+ *  <p>The Spark HSlider and VSlider components extend SliderBase
+ *  and use SlideBaseAccImpl as their accessibility implementation
+ *  class. 
+ *  For convenience, the rest of this description uses the word
+ *  Slider to mean either HSlider or VSlider, even though there
+ *  is no Spark class named Slider.</p>
+ *
+ *  <p>When a Slider is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the Slider.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A Slider has 3 MSAA children:
+ *  <ol>
+ *    <li>Clickable area to the left (or bottom) of thumb</li>
+ *    <li>Thumb</li>
+ *    <li>Clickable area to the right (or top) of thumb</li>
+ *  </ol></p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a Slider is ROLE_SYSTEM_SLIDER.</p>
+ *
+ *  <p>The Role of each child is:
+ *  <ol>
+ *    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+ *    <li>ROLE_SYSTEM_INDICATOR</li>
+ *    <li>ROLE_SYSTEM_PUSHBUTTON</li>
+ *  </ol></p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a Slider is, by default, an empty string.
+ *  When wrapped in a FormItem element, the Name is the FormItem's label.
+ *  To override this behavior,
+ *  set the Slider's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>The Name of each child comes from a locale-dependent resource.
+ *  In the en_US locale, the names are:
+ *  <ol>
+ *    <li>"Page left" for HSlider; "Page up" for VSlider</li>
+ *    <li>"Position"</li>
+ *    <li>"Page right" for HSlider; "Page down" for VSlider</li>
+ *  </ol></p>
+ *
+ *  <p>When the Name of the Slider or one of its child parts changes,
+ *  a Slider dispatches the MSAA event EVENT_OBJECT_NAMECHANGE
+ *  with the proper childID for the part or 0 for itself.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a Slider is, by default, the empty string,
+ *  but you can set the Slider's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each child part is the empty string.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA state of a Slider is a combination of: 
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED
+ *    (when enabled is true and the Slider has focus)</li>
+ *  </ul></p>
+ *
+ *  <p>The State of each child part is:
+ *  <ul>
+ *     <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *  </ul></p>
+ *
+ *  <p>When the State of the Slider or one of its child parts changes,
+ *  a Slider dispatches the MSAA event EVENT_OBJECT_STATECHANGE
+ *  with the proper childID for the part or 0 for itself.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a Slider is a number between 0 and 100.</p>
+ *
+ *  <p>The child parts do not have MSAA values.</p>
+ *
+ *  <p>When the Value of the Slider changes,
+ *  a Slider dispatches the MSAA event EVENT_OBJECT_VALUECHANGE.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a Slider or its thumb is its bounding rectangle.
+ *  For the two children representing the trackbar regions adjacent
+ *  to the thumb, the slider's bounding rectangle is returned.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A Slider and its child parts have no default action.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A Slider accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ * <p>A Slider does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
