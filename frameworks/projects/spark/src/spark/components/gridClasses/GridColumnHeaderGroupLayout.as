@@ -211,7 +211,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
             var elementWidth:Number;
             var elementHeight:Number;            
 
-            elementWidth = gridDimensions.getColumnWidth(columnIndex);
+            // FIXME (klin): hack here to force the borders of each header to overlap.
+            elementWidth = gridDimensions.getColumnWidth(columnIndex) + 1;
             elementHeight = element.getPreferredBoundsHeight();
             
             element.setLayoutBoundsSize(elementWidth, elementHeight);
@@ -233,10 +234,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
         // this layout can use them.
                 
         // Now layout the separators between the headers.
-        visibleHeaderSeparators = gridLayout.layoutColumnHeaderSeparators(
+     /*   visibleHeaderSeparators = gridLayout.layoutColumnHeaderSeparators(
                                                 oldVisibleColumnIndices, 
                                                 visibleColumnIndices, 
-                                                visibleHeaderSeparators);
+                                                visibleHeaderSeparators);*/
         
         oldVisibleColumnIndices.length = 0;
     }
