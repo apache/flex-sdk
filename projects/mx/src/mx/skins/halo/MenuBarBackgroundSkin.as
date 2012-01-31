@@ -21,6 +21,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for the background of a MenuBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MenuBarBackgroundSkin extends Border
 {
@@ -76,6 +81,11 @@ public class MenuBarBackgroundSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MenuBarBackgroundSkin()
 	{
