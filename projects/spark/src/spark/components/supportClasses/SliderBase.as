@@ -31,7 +31,6 @@ import mx.managers.IFocusManagerComponent;
 
 import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
-import spark.effects.easing.IEaser;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
 
@@ -286,7 +285,21 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 		
 		return formattedValue;
     }
-
+    
+    /**
+     *  @private
+     */  
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+    	super.partAdded(partName, instance);
+    	
+    	// Prevent focus on our children so that focus remains with the Slider
+        if (instance == thumb)
+        	thumb.focusEnabled = false;
+        else if (instance == track)
+        	track.focusEnabled = false;
+    }
+    
     /**
      *  Converts a point retrieved from clicking on the track into a position. 
      *  This method lets subclasses center the thumb button when clicking on the track. 
@@ -330,7 +343,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-
+    
     //---------------------------------
     // Thumb dragging handlers
     //---------------------------------
