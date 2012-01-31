@@ -18,6 +18,7 @@ import flash.events.EventPhase;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
+
 import mx.containers.BoxDirection;
 import mx.controls.buttonBarClasses.ButtonBarButton;
 import mx.core.ClassFactory;
@@ -243,8 +244,6 @@ use namespace mx_internal;
  *    styles for the buttons</i>"
  *    buttonWidth="undefined"
  *    firstButtonStyleName="<i>The value of</i> <code>buttonStyleName</code>"
- *    focusAlpha="0.4"
- *    focusRoundedCorners="tl tr bl br"
  *    horizontalAlign="center|left|right"
  *    horizontalGap="0"
  *    lastButtonStyleName="<i>The value of</i> <code>buttonStyleName</code>"
@@ -457,40 +456,21 @@ use namespace mx_internal;
             styleProp == firstButtonStyleNameProp ||
             styleProp == lastButtonStyleNameProp)
         {
-            var buttonStyleName:String = getStyle(buttonStyleNameProp);
-            var firstButtonStyleName:String = getStyle(firstButtonStyleNameProp);
-            var lastButtonStyleName:String = getStyle(lastButtonStyleNameProp);
-            
-            if (!buttonStyleName)
-                buttonStyleName = "ButtonBarButton";
-            if (!firstButtonStyleName)
-                firstButtonStyleName = buttonStyleName;
-            if (!lastButtonStyleName)
-                lastButtonStyleName = buttonStyleName;
-            
-            var newStyleName:String;
-            
-            var n:int = numChildren;
-            for (var i:int = 0; i < n; i++)
-            {
-                if (i == 0)
-                    newStyleName = firstButtonStyleName;
-                else if (i == (n - 1))
-                    newStyleName = lastButtonStyleName;
-                else
-                    newStyleName = buttonStyleName;
-                
-                Button(getChildAt(i)).styleName = newStyleName;
-            }
-            
-            recalcButtonWidths = recalcButtonHeights = true;
+            resetNavItems();
         }
-
-        if (styleProp == buttonWidthProp)
+        else if (styleProp == buttonWidthProp)
+        {
             recalcButtonWidths = true;
+        }
         else if (styleProp == buttonHeightProp)
+        {
             recalcButtonHeights = true;
-            
+        }
+        else if (StyleManager.isInheritingStyle(styleProp) && 
+            StyleManager.isSizeInvalidatingStyle(styleProp))
+        {
+            recalcButtonWidths = recalcButtonHeights = true;
+        }        
     }
 
     /**
@@ -509,6 +489,14 @@ use namespace mx_internal;
             for (var i:int = 0; i < n; i++)
                 Button(getChildAt(i)).changeSkins();
         }
+        
+        // Buttons widths and/or heights must be reset before measurement. We do
+        // not reset these flags here since they will be used in updateDisplayList().
+        if (recalcButtonHeights)
+            resetButtonHeights();
+        
+        if (recalcButtonWidths)
+            resetButtonWidths();    
     }
 
     /**
@@ -741,71 +729,8 @@ use namespace mx_internal;
 
         // Set tabEnabled to false so individual buttons don't get focus.
         newButton.focusEnabled = false;
-
-        var buttonStyleName:String = getStyle(buttonStyleNameProp);
-        var firstButtonStyleName:String = getStyle(firstButtonStyleNameProp);
-        var lastButtonStyleName:String = getStyle(lastButtonStyleNameProp);
-
-        if (!buttonStyleName)
-            buttonStyleName = "ButtonBarButton";
-        if (!firstButtonStyleName)
-            firstButtonStyleName = buttonStyleName;
-        if (!lastButtonStyleName)
-            lastButtonStyleName = buttonStyleName;
-
-        var n:int = numChildren;
-        if (n == 0)
-        {
-            newButton.styleName = buttonStyleName;
-        }
-        else
-        {
-            newButton.styleName = lastButtonStyleName;
-            var cssStyleDeclaration:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration("." + lastButtonStyleName);
-
-            if (cssStyleDeclaration &&
-                !cssStyleDeclaration.getStyle("focusRoundedCorners"))
-            {
-                newButton.setStyle("focusRoundedCorners", "tr br");
-            }
-
-            // Refresh the skins for the last button that was in this position.
-            var first:Boolean = (n == 1);
-            var lastButton:Button = Button(getChildAt(first ? 0 : n - 1));
-
-            if (first)
-            {
-                lastButton.styleName = firstButtonStyleName;
-                cssStyleDeclaration =
-                    StyleManager.getStyleDeclaration("." + firstButtonStyleName);
-
-                if (cssStyleDeclaration &&
-                    !cssStyleDeclaration.getStyle("focusRoundedCorners"))
-                {
-                    lastButton.setStyle("focusRoundedCorners", "tl bl");
-                }
-            }
-            else
-            {
-                lastButton.styleName = buttonStyleName;
-                cssStyleDeclaration =
-                    StyleManager.getStyleDeclaration("." + buttonStyleName);
-
-                if (cssStyleDeclaration &&
-                    !cssStyleDeclaration.getStyle("focusRoundedCorners"))
-                {
-                    lastButton.setStyle("focusRoundedCorners", "");
-                }
-            }
-
-            lastButton.changeSkins();
-            lastButton.invalidateDisplayList();
-        }
-
         newButton.label = label;
         newButton.setStyle("icon", icon);
-
         newButton.addEventListener(MouseEvent.CLICK, clickHandler);
 
         addChild(newButton);
@@ -820,6 +745,39 @@ use namespace mx_internal;
      */
     override protected function resetNavItems():void
     {
+        var buttonStyleName:String = getStyle(buttonStyleNameProp);
+        var firstButtonStyleName:String = getStyle(firstButtonStyleNameProp);
+        var lastButtonStyleName:String = getStyle(lastButtonStyleNameProp);
+
+        if (!buttonStyleName)
+            buttonStyleName = "ButtonBarButton";
+        if (!firstButtonStyleName)
+            firstButtonStyleName = buttonStyleName;
+        if (!lastButtonStyleName)
+            lastButtonStyleName = buttonStyleName;
+
+        var button:Button;
+        var n:int = numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            button = Button(getChildAt(i));
+            if (i == 0)
+            {
+                button.styleName = firstButtonStyleName;
+            }
+            else if (i == (n - 1))
+            {
+                button.styleName = lastButtonStyleName;
+            }
+            else
+            {
+                button.styleName = buttonStyleName;
+            }
+
+            button.changeSkins();
+            button.invalidateDisplayList();
+        }
+
         recalcButtonWidths = recalcButtonHeights = true;
 
         invalidateDisplayList();
@@ -1145,14 +1103,10 @@ use namespace mx_internal;
 
     /**
      *  @private
+     *  Reset buttons widths so that it can be recalculated.
      */
-    private function scaleChangedHandler(event:Event):void
+    protected function resetButtonWidths():void
     {
-        // This is called whenever scaleX or scaleY is changed.
-        // We need to clear out the preferredWidth/preferredHeight
-        // of our children since scaling can cause rounding errors
-        // which then are not corrected when un-scaled.
-
         for (var i:int = 0; i < numChildren; i++)
         {
             var child:Button = getChildAt(i) as Button;
@@ -1161,12 +1115,39 @@ use namespace mx_internal;
                 child.explicitWidth = NaN;
                 child.minWidth = NaN;
                 child.maxWidth = NaN;
+            }
+        }
+    }
 
+    /**
+     *  @private
+     *  Reset buttons heights so that it can be recalculated.
+     */
+    protected function resetButtonHeights():void
+    {
+        for (var i:int = 0; i < numChildren; i++)
+        {
+            var child:Button = getChildAt(i) as Button;
+            if (child)
+            {
                 child.explicitHeight = NaN;
                 child.minHeight = NaN;
                 child.maxHeight = NaN;
             }
         }
+    }
+
+    /**
+     *  @private
+     */
+    private function scaleChangedHandler(event:Event):void
+    {
+    	// This is called whenever scaleX or scaleY is changed.
+        // We need to clear out the preferredWidth/preferredHeight
+        // of our children since scaling can cause rounding errors
+        // which then are not corrected when un-scaled.  
+        resetButtonHeights();
+        resetButtonWidths();
     }
 }
 
