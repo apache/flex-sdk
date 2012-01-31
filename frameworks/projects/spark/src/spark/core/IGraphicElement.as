@@ -21,20 +21,20 @@ import mx.core.IVisualElement;
  *  DisplayObject management.
  *
  *  <p>One typical use case is DisplayObject sharing.  
- *  Group, which implements <code>IGraphicElementContainer</code>, organizes its
+ *  the Group class, which implements <code>IGraphicElementContainer</code>, organizes its
  *  IGraphicElement children in sequences that share and draw to
  *  the same DisplayObject.
  *  The DisplayObject is created by the first element in the
  *  sequence.</p>
  *
- *  <p>Another use case is when an element does not derrive from
+ *  <p>Another use case is when an element does not derive from
  *  DisplayObject but instead maintains, creates and/or destroys
- *  its own DisplayObject. The <code>IGraphicElementContainer</code> will ensure to
+ *  its own DisplayObject. The <code>IGraphicElementContainer</code> will 
  *  call the element to create the DisplayObject, add the
- *  DisplayObject as its child at the correct index as well as
+ *  DisplayObject as its child at the correct index, and 
  *  handle its removal.</p> 
  *
- *  <p>Typically a developer extends the GraphicElement class
+ *  <p>Typically, you extend the GraphicElement class
  *  instead of directly implementing the IGraphciElement
  *  interface. The GraphicElement class already provides most of the
  *  required functionality.</p>
@@ -82,7 +82,7 @@ public interface IGraphicElement extends IVisualElement
 
     /**
      *  Indicates the association between this IGraphicElement and its
-     *  display objects.  The <code>IGraphicElementContainer</code> manages this 
+     *  display objects. The <code>IGraphicElementContainer</code> manages this 
      *  property and the values are one of the DisplayObjectSharingMode enum class.
      *
      *  <ul> 
@@ -127,19 +127,19 @@ public interface IGraphicElement extends IVisualElement
      *  Creates a new DisplayObject where this IGraphicElement
      *  is drawn.
      *  
-     *  Subsequent calls to the getter of the <code>displayObject</code> property must
-     *  return the same display object.
+     *  <p>Subsequent calls to the getter of the <code>displayObject</code> property must
+     *  return the same display object.</p>
      *
-     *  After the DisplayObject is created, the parent <code>IGraphicElementContainer</code>
-     *  will pass along the display objects to the rest of the elements in the sequence.
+     *  <p>After the DisplayObject is created, the parent <code>IGraphicElementContainer</code>
+     *  will pass along the display objects to the rest of the elements in the sequence.</p>
      *
-     *  The <code>IGraphicElementContainer</code> ensures that this method is called only when needed.
+     *  <p>The <code>IGraphicElementContainer</code> ensures that this method is called only when needed.</p>
      *
      *  <p>If the element wants to participate in the DisplayObject
      *  sharing, then the new DisplayObject must implement IShareableDisplayObject.
      *  This interface is being used by the <code>IGraphicElementContainer</code> to manage invalidation and
      *  redrawing of the graphic element sequence and typically is not directly
-     *  used by the Developer.</p>
+     *  used by the developer.</p>
      *
      *  <p>To reevaluate the shared sequences, call the 
      *  <code>invalidateGraphicElementSharing()</code> method
@@ -153,8 +153,8 @@ public interface IGraphicElement extends IVisualElement
      *  @return The display object created.
      * 
      *  @see #displayObject
-     *  @see spark.components.IGraphicElementContainer#invalidateGraphicElementSharing
-     *  @see spark.components.IGraphicElementContainer#discardDisplayObject
+     *  @see spark.core.IGraphicElementContainer#invalidateGraphicElementSharing
+     *  @see spark.core.IGraphicElementContainer#discardDisplayObject
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -192,7 +192,7 @@ public interface IGraphicElement extends IVisualElement
      *
      *  @see #canShareWithPrevious
      *  @see #canShareWithNext
-     *  @see spark.components.IGraphicElementContainer#invalidateGraphicElementSharing
+     *  @see spark.core.IGraphicElementContainer#invalidateGraphicElementSharing
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -211,7 +211,8 @@ public interface IGraphicElement extends IVisualElement
      *  In those cases, this method is not called.</p>
      * 
      *  @param element The element that comes before this element in the sequence.
-     *  @return Returns true when this element is compatible with the previous
+     *  
+     *  @return Returns <code>true</code> when this element is compatible with the previous
      *  element in the sequence.
      * 
      *  @see #canShareWithNext
@@ -230,7 +231,8 @@ public interface IGraphicElement extends IVisualElement
      *  in the sequence.
      * 
      *  @param element The element that comes after this element in the sequence.
-     *  @return Returns true when this element is compatible with the previous
+     * 
+     *  @return Returns <code>true</code> when this element is compatible with the previous
      *  element in the sequence.
      * 
      *  @see #canShareWithPrevious
@@ -245,8 +247,8 @@ public interface IGraphicElement extends IVisualElement
     
     /**
      *  Called by <code>IGraphicElementContainer</code> when an IGraphicElement
-     *  is added to or removed from the host.
-     *  <p>Developers typically never need to call this method.</p>
+     *  is added to or removed from the host component.
+     *  <p>You typically never need to call this method.</p>
      *
      *  @param parent The <code>IGraphicElementContainer</code> of this <code>IGraphicElement</code>.
      *  
