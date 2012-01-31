@@ -36,12 +36,16 @@ use namespace mx_internal;
 /**
  *  Dispatched when an item is added to the content holder.
  *  event.relatedObject is the visual item that was added.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
  */
 [Event(name="itemAdd", type="flex.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the content holder.
  *  event.relatedObject is the visual item that was removed.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
 [Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
 
@@ -201,8 +205,8 @@ public class Group extends GroupBase
     }
 
     /**
-     *  Internal Group method used to grab the elements from the content array
-     *  and add them to the Group.
+     *  Adds the elements in <code>content</code> to the Group.
+     *  Flex calls this method automatically; you do not call it directly.
      */ 
     protected function initializeChildrenArray():void
     {   
@@ -711,7 +715,8 @@ public class Group extends GroupBase
     }
 
     /**
-     *  Internal Group method called to add an item to this Group.
+     *  Adds an item to this Group.
+     *  Flex calls this method automatically; you do not call it directly.
      *
      *  @param item The item that was added.
      *
@@ -750,7 +755,8 @@ public class Group extends GroupBase
     }
     
     /**
-     *  Internal Group method called to remove an item from this Group.
+     *  Removes an item from this Group.
+     *  Flex calls this method automatically; you do not call it directly.
      *
      *  @param index The index of the item that is being removed.
      */
@@ -950,15 +956,17 @@ public class Group extends GroupBase
     } 
    
     /**
-     *  Internal helper method to remove item from another group or display list
+     *  Remove an item from another group or display list
      *  before adding it to this display list.
      * 
-     *  @param child DisplayObject to add to the display list
+     *  @param child DisplayObject to add to the display list.
+     *
      *  @param item Item associated with the display object to be added.  If 
      *  the item itself is a display object, it will be the same as the child parameter.
-     *  @param index Index position where the display object will be added
+     *
+     *  @param index Index position where the display object is added.
      * 
-     *  @return DisplayObject that was added
+     *  @return DisplayObject that was added.
      */ 
     protected function addItemToDisplayList(child:DisplayObject, item:Object, index:int = -1):DisplayObject
     { 
