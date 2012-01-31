@@ -562,6 +562,9 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
      *
      *  <p>If a field is unknown, it is replaced by "??".
      *  If undefined, the label is not displayed.</p>
+     *  
+     *  <p>If you are in manual mode, you can set the values of these special characters 
+     *  by using the <code>setProgress()</code> method.</p>
      *
      *  @default "LOADING %3%%"
      */
@@ -1114,8 +1117,8 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
 
             if (_mode == ProgressBarMode.POLLED)
             {
-            	// weak listener in case the pbar is removed before the timer is reset()
-            	// safe because pollTimer lives in the pbar
+                // weak listener in case the pbar is removed before the timer is reset()
+                // safe because pollTimer lives in the pbar
                 pollTimer.addEventListener(TimerEvent.TIMER, updatePolledHandler, false, 0, true);
                 pollTimer.start();
             }
@@ -1585,7 +1588,7 @@ public class ProgressBar extends UIComponent implements IFontContextComponent
         {
             indeterminatePlaying = true;
 
-			// weak listener in case the pbar is removed before the timer is reset()
+            // weak listener in case the pbar is removed before the timer is reset()
             // safe because pollTimer lives in the pbar
             pollTimer.addEventListener(TimerEvent.TIMER, updateIndeterminateHandler, false, 0, true);
             pollTimer.start();
