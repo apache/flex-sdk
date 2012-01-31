@@ -36,6 +36,11 @@ public interface INCManager
 	/**
 	 *  The bandwidth to be used to switch between multiple streams,
 	 *  in bits per second.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get bitrate():Number;
 
@@ -50,6 +55,11 @@ public interface INCManager
 
 	/**
 	 *  Read-only <code>NetConnection</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get netConnection():NetConnection;
 
@@ -69,6 +79,11 @@ public interface INCManager
 	 *  VideoPlayer#ncConnected()
 	 *  VideoPlayer#autoSize
 	 *  VideoPlayer#maintainAspectRatio
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get streamHeight():Number;
 		
@@ -89,6 +104,11 @@ public interface INCManager
 	 *  VideoPlayer#ncConnected()
 	 *  VideoPlayer#play()
 	 *  VideoPlayer#load()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get streamLength():Number;
 
@@ -98,6 +118,11 @@ public interface INCManager
 
 	/**
 	 *  Read-only stream name to be passed into <code>NetStream.play</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get streamName():String;
 
@@ -117,6 +142,11 @@ public interface INCManager
 	 *  VideoPlayer#ncConnected()
 	 *  VideoPlayer#autoSize
 	 *  VideoPlayer#maintainAspectRatio
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get streamWidth():Number;
 
@@ -126,6 +156,11 @@ public interface INCManager
 
 	/**
 	 *  Timeout after which we give up on connection, in milliseconds.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get timeout():uint;
 
@@ -140,6 +175,11 @@ public interface INCManager
 
 	/**
 	 *  The <code>VideoPlayer</code> object which owns this object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get videoPlayer():VideoPlayer;
 
@@ -167,6 +207,11 @@ public interface INCManager
 	 *  @see #netConnection
 	 *  @see #reconnect()
 	 *  @see VideoPlayer#ncConnected()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function connectToURL(url:String):Boolean;
 
@@ -194,6 +239,11 @@ public interface INCManager
 	 *
 	 *  @see #connectToURL()
 	 *  @see VideoPlayer#rtmpOnStatus()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function connectAgain():Boolean;
 	
@@ -208,11 +258,21 @@ public interface INCManager
 	 *  @see #connect()
 	 *  @see VideoPlayer#idleTimeout
 	 *  @see VideoPlayer#ncReonnected()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function reconnect():void;
 
 	/**
 	 *  Close the NetConnection
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function close():void;
 
@@ -222,6 +282,11 @@ public interface INCManager
 	 *
 	 *  @returns true if stream is rtmp streaming from FCS,
 	 *  false if progressive download of HTTP, local or other file.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function isRTMP():Boolean;
 }
