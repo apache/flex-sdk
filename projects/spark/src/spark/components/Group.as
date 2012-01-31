@@ -135,7 +135,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:Group
  *    <strong>Properties</strong>
- *    blendMode="normal"
+ *    blendMode="auto"
  *    mxmlContent="null"
  *    scaleGridBottom="null"
  *    scaleGridLeft="null"
@@ -284,8 +284,21 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         if (super.alpha == value)
             return;
-            
-        invalidateProperties();
+        
+        if (value > 0 && value < 1 && !blendModeExplicitlySet && _blendMode == "auto")
+        {
+            _blendMode = BlendMode.LAYER;
+            blendModeChanged = true;
+            invalidateDisplayObjectOrdering();
+            invalidateProperties();
+        }
+        else if ((value == 1 || value == 0) && !blendModeExplicitlySet && _blendMode == "auto")
+        {
+            _blendMode = BlendMode.NORMAL;
+            blendModeChanged = true;
+            invalidateDisplayObjectOrdering();
+            invalidateProperties();
+        }
         
         super.alpha = value;
     }
@@ -298,10 +311,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @private
      *  Storage for the blendMode property.
      */
-    private var _blendMode:String = BlendMode.NORMAL;
+    private var _blendMode:String = "auto";  
     private var blendModeChanged:Boolean;
+    private var blendModeExplicitlySet:Boolean;
 
-    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="normal")]
+    [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
 
     /**
      *  A value from the BlendMode class that specifies which blend mode to use. 
@@ -311,7 +325,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  If you attempt to set this property to an invalid value, 
      *  Flash Player or Adobe AIR sets the value to <code>BlendMode.NORMAL</code>. 
      *
-     *  @default BlendMode.NORMAL
+     *  @default "auto"
      *
      *  @see flash.display.DisplayObject#blendMode
      *  @see flash.display.BlendMode
@@ -331,31 +345,65 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     override public function set blendMode(value:String):void
     {
+        if (blendModeExplicitlySet && value == _blendMode)
+            return;
+        
     	// FIXME (dsubrama): Temporarily exit when blendMode is set
     	// to one of the AIM blendModes; support for this will come
     	// shortly. 
-        if (value == _blendMode || value == "colordodge" || 
+        if (value == "colordodge" || 
         	value =="colorburn" || value =="exclusion" || 
         	value =="softlight" || value =="hue" || 
         	value =="saturation" || value =="color" 
         	|| value =="luminosity")
             return;
-            
-        var oldValue:String = _blendMode;
-        _blendMode = value;
         
-        blendModeChanged = true;
+        //The default blendMode in FXG is 'auto'. There are only
+        //certain cases where this results in a rendering difference,
+        //one being when the alpha of the Group is > 0 and < 1. In that
+        //case we set the blendMode to layer to avoid the performance
+        //overhead that comes with a non-normal blendMode. 
         
-        // Only need to re-do display object assignment if blendmode was normal
-        // and is changing to something else, or the blend mode was something else 
-        // and is going back to normal.  This is because display object sharing
-        // only happens when blendMode is normal.
-        if (oldValue == BlendMode.NORMAL || value == BlendMode.NORMAL) 
+        if (alpha > 0 && alpha < 1 && !blendModeExplicitlySet && value == "auto")
         {
-            invalidateDisplayObjectOrdering();
+            if (value != BlendMode.LAYER)
+            {
+                _blendMode = BlendMode.LAYER;
+                blendModeChanged = true;
+                invalidateDisplayObjectOrdering();
+                invalidateProperties();
+            }
         }
+        else if ((alpha == 1 || alpha == 0) && !blendModeExplicitlySet && value == "auto")
+        {
+            if (value != BlendMode.NORMAL)
+            {
+                _blendMode = BlendMode.NORMAL;
+                blendModeChanged = true;
+                invalidateDisplayObjectOrdering();
+                invalidateProperties();
+            }
+        }
+
+        else 
+        {
+            var oldValue:String = _blendMode;
+            _blendMode = value;
+            blendModeExplicitlySet = true;
+            blendModeChanged = true;
         
-        invalidateProperties();
+            // Only need to re-do display object assignment if blendmode was normal
+            // and is changing to something else, or the blend mode was something else 
+            // and is going back to normal.  This is because display object sharing
+            // only happens when blendMode is normal.
+            if ((oldValue == BlendMode.NORMAL || value == BlendMode.NORMAL) && 
+                !(oldValue == BlendMode.NORMAL && value == BlendMode.NORMAL))
+            {
+                invalidateDisplayObjectOrdering();
+            }
+        
+            invalidateProperties();
+        }
     }
 
     //----------------------------------
@@ -688,7 +736,12 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (blendModeChanged)
         {
             blendModeChanged = false;
-            super.blendMode = blendMode;
+            if (_blendMode == "auto" && alpha < 1 && alpha > 0)
+                super.blendMode = BlendMode.LAYER;
+            else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
+                super.blendMode = BlendMode.NORMAL;
+            else 
+                super.blendMode = _blendMode; 
         }
         
         if (needsDisplayObjectAssignment)
@@ -1431,7 +1484,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // in our implementation, and we don't want those to use our display object to 
         // draw into because there could be something further down the line that has 
         // layer < 0
-        return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
+        return _blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
     /**
