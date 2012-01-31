@@ -9,7 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// Adobe Patent or Adobe Patent Pending Invention Included Within this File
+// AdobePatentID="B518"
+// AdobePatentID="B519"
 
 package mx.controls.listClasses
 {
@@ -3290,11 +3291,6 @@ public class ListBase extends ScrollControlBase
     protected function initiateDataChangeEffect(unscaledWidth:Number,
                                                 unscaledHeight:Number):void
     {
-        // Adobe patent application tracking #B518, entitled METHODS AND SYSTEMS 
-        //   FOR ANIMATING DISPLAYED REPRESENTATIONS OF DATA ITEMS, inventors: Schiff
-        // Adobe patent application tracking # B519, entitled METHODS AND SYSTEMS
-        //   FOR ANIMATING DISPLAYED REPRESENTATIONS OF DATA ITEMS, inventors: Schiff
-
         // as optimization, we might get targets from visibleData
         // if we know that nothing else has changed.
         // otherwise, rerender using our preserved collection view
