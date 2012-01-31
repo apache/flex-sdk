@@ -154,7 +154,7 @@ public class FxComponent extends UIComponent
         
         if (skinStateIsDirty)
         {
-            commitSkinState( getUpdatedSkinState() );
+            skin.currentState = getCurrentSkinState();
             skinStateIsDirty = false;
         }
     }
@@ -213,15 +213,14 @@ public class FxComponent extends UIComponent
      * 
      *  @return A string specifying the name of the state to apply to the skin.
      */
-    protected function getUpdatedSkinState():String 
+    protected function getCurrentSkinState():String 
     {
         return null; 
     }
     
     /**
-     *  Marks the component so that its <code>commitSkinState()</code> method
-     *  gets called during a later screen update. 
-     *  The <code>commitSkinState()</code> method sets the new state of the skin.
+     *  Marks the component so that the new state of the skin will get set
+     *  during a later screen update.
      */
     protected function invalidateSkinState():void
     {
@@ -230,21 +229,6 @@ public class FxComponent extends UIComponent
 
         skinStateIsDirty = true;
         invalidateProperties();
-    }
-
-    /**
-     *  Sets the new state of the skin. 
-     *  A subclass of FxComponent can override this method to add 
-     *  extra validation logic.
-     *
-     *  <p>You do not call this method directly. 
-     *  Flex calls it in response to a call to the <code>invalidateSkinState()</code> method.</p>
-     * 
-     *  @param newState A string specifying the name of the state to set.
-     */
-    protected function commitSkinState(newState:String):void
-    {
-        skin.currentState = newState;
     }
 
     //--------------------------------------------------------------------------
@@ -261,8 +245,8 @@ public class FxComponent extends UIComponent
      *  Typically, a subclass of FxComponent does not override this method.
      * 
      *  <p>This method instantiates the skin for the component, 
-     *  adds the skin as a child of the component, 
-     *  resolves all part associations for the skin, and calls the <code>skinLoaded()</code> method.</p>
+     *  adds the skin as a child of the component, and 
+     *  resolves all part associations for the skin</p>
      */
     protected function loadSkin():void
     {
@@ -302,6 +286,8 @@ public class FxComponent extends UIComponent
             }
             
             addChild(skin);
+            
+            skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         }
         else
         {
@@ -309,8 +295,6 @@ public class FxComponent extends UIComponent
         }
         
         findSkinParts();
-                
-        skinLoaded();
         
         invalidateSkinState();
     }
@@ -352,39 +336,6 @@ public class FxComponent extends UIComponent
     }
     
     /**
-     *  Attach behaviors to the skin object. 
-     *  You do not call this method directly. 
-     *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-     *  <p>A subclass of FxComponent must override this method to
-     *  attach behaviors to the skin object.</p>
-     * 
-     *  <p>Override the <code>partAdded()</code> method to attach behaviors to 
-     *  an individual part of the skin.</p>
-     */
-    protected function skinLoaded():void
-    {
-        skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
-        
-        // Declarative behaviors to the skin get attached here.  
-        // Use partAdded for individual part behaviors
-    }
-    
-    /**
-     *  Remove behavior from the skin object. 
-     *  You do not call this method directly. 
-     *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
-     *
-     *  <p>This method should be overridden by subclasses of FxComponent. </p>
-     */
-    protected function unloadingSkin():void
-    {
-        skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
-        
-        // Declarative behaviors to the skin get removed here.
-        // Use partRemoved for individual part behaviors
-    }
-    
-    /**
      *  Clear out references to skin parts. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
@@ -411,7 +362,7 @@ public class FxComponent extends UIComponent
                 {
                     var len:int = numDynamicParts(skinPartID);
                     for (var j:int = 0; j < len; j++)
-                        removePartInstance(skinPartID, getDynamicPartAt(skinPartID, j));
+                        removeDynamicPartInstance(skinPartID, getDynamicPartAt(skinPartID, j));
                 }
                 
                 this[skinPartID] = null;
@@ -424,15 +375,14 @@ public class FxComponent extends UIComponent
      *  You do not call this method directly. 
      *  Flex calls it automatically when a skin is changed at runtime.
      *
-     *  This method calls the <code>unloadingSkin()</code> method, removes the skin, 
-     *  and clears all part associations.
+     *  This method removes the skin and clears all part associations.
      *
      *  <p>Typically, subclasses of FxComponent do not override this method.</p>
      */
     protected function unloadSkin():void
     {       
-
-        unloadingSkin();
+        skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
+        
         clearSkinParts();
         removeChild(skin);
         setSkin(null);
@@ -449,7 +399,7 @@ public class FxComponent extends UIComponent
      *  You do not call this method directly. 
      *  For static parts, Flex calls it automatically when it calls the <code>loadSkin()</code> method. 
      *  For dynamic parts, Flex calls it automatically when it calls 
-     *  the <code>createPartInstance()</code> method. 
+     *  the <code>createDynamicPartInstance()</code> method. 
      *
      *  <p>Override this function to attach behavior to the part. 
      *  If you want to override behavior on a skin part that is inherited from a base class, 
@@ -465,11 +415,11 @@ public class FxComponent extends UIComponent
     }
 
     /**
-     *  Called when an instance of a dynamic part is being removed. 
+     *  Called when an instance of a skin part is being removed. 
      *  You do not call this method directly. 
      *  For static parts, Flex calls it automatically when it calls the <code>unloadSkin()</code> method. 
      *  For dynamic parts, Flex calls it automatically when it calls 
-     *  the <code>removePartInstance()</code> method. 
+     *  the <code>removeDynamicPartInstance()</code> method. 
      *
      *  <p>Override this function to remove behavior from the part.</p>
      *
@@ -503,7 +453,7 @@ public class FxComponent extends UIComponent
      *
      *  @return The instance of the part, or null if it cannot create the part.
      */
-    protected function createPartInstance(partName:String):Object
+    protected function createDynamicPartInstance(partName:String):Object
     {
         var factory:IFactory = this[partName];
         
@@ -538,7 +488,7 @@ public class FxComponent extends UIComponent
      *
      *  @param instance The part.
      */
-    protected function removePartInstance(partName:String, instance:Object):void
+    protected function removeDynamicPartInstance(partName:String, instance:Object):void
     {
         // Send notification
         partRemoved(partName, instance);
