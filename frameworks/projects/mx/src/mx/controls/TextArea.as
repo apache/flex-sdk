@@ -1125,7 +1125,7 @@ public class TextArea extends ScrollControlBase
      *  
      *  <p>Use an <code>hmtlText</code> attribute where any occurences
      *  of the HTML markup characters &lt; and &gt; in the attribute value
-     *  are written instead as the XML "entities" <code>&amp;lt;</code>
+     *  are written instead of the XML "entities" <code>&amp;lt;</code>
      *  and <code>&amp;gt;</code>:</p>
      *  
      *  <pre>
