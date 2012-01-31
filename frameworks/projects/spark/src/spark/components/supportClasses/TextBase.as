@@ -17,6 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
@@ -159,6 +160,44 @@ public class TextGraphicElement extends GraphicElement
             
     /**
      *  @private
+	 *  Keeps track of each TextLine's original x position when it was composed.
+	 *  Since multiple TextGraphicElements can share a single DisplayObject,
+	 *  the x position of the TextLine gets offset by drawX
+	 *  when it is added to the DisplayObject.
+	 *  We need to save the original position and offset it each time
+	 *  drawX changes; the alternative of accumulating deltas in drawX
+	 *  makes the TextLines drift within the DisplayObject.
+     */
+    mx_internal var textLinesX:Vector.<Number> = new Vector.<Number>;
+
+    /**
+     *  @private
+	 *  Keeps track of each TextLine's original y position when it was composed.
+	 *  Since multiple TextGraphicElements can share a single DisplayObject,
+	 *  the y position of the TextLine gets offset by drawY
+	 *  when it is added to the DisplayObject.
+	 *  We need to save the original position and offset it each time
+	 *  drawY changes; the alternative of accumulating deltas in drawY
+	 *  makes the TextLines drift within the DisplayObject.
+     */
+    mx_internal var textLinesY:Vector.<Number> = new Vector.<Number>;
+
+    /**
+     *  @private
+     *  The offset applied to each textLine.x so that it is positioned
+     *  correctly in the display object container.
+     */
+    private var lastDrawX:Number = 0;
+
+    /**
+     *  @private
+     *  The offset applied to each textLine.y so that it is positioned
+     *  correctly in the display object container.
+     */
+    private var lastDrawY:Number = 0;
+
+    /**
+     *  @private
      *  This flag is set to true if the text must be clipped.
      */
     mx_internal var isOverset:Boolean = false;
@@ -192,20 +231,6 @@ public class TextGraphicElement extends GraphicElement
     
     /**
      *  @private
-     *  The offset applied to each textLine.x so that it is positioned
-     *  correctly in the display object container.
-     */
-    private var _lastDrawX:Number = 0;
-
-    /**
-     *  @private
-     *  The offset applied to each textLine.y so that it is positioned
-     *  correctly in the display object container.
-     */
-    private var _lastDrawY:Number = 0;
-
-    /**
-     *  @private
      *  Cache the width constraint as set by the layout in setLayoutBoundsSize()
      *  so that text reflow can be calculated during a subsequent measure pass.
      */
@@ -221,7 +246,7 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      */
     private var displayObjectChanged:Boolean;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: GraphicElement
@@ -1250,8 +1275,8 @@ public class TextGraphicElement extends GraphicElement
 						
             //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
 
-            textLine.x += drawX;
-            textLine.y += drawY;
+            textLine.x = textLinesX[i] + drawX;
+            textLine.y = textLinesY[i] + drawY;
             textLine.visible = visible;
             
 			addChildAtMethod(textLine, index);
@@ -1259,9 +1284,10 @@ public class TextGraphicElement extends GraphicElement
 		
 		// If these lines went into a shared container these need to be saved
 		// so that the lines can be moved to another container without being
-		// recomposed.  If the container isn't shared they will be 0,0.
-		_lastDrawX = drawX;
-		_lastDrawY = drawY;
+		// recomposed.
+		// If the container isn't shared they will be relative to (0, 0).
+		lastDrawX = drawX;
+		lastDrawY = drawY;
 	}
 
 	/**
@@ -1292,13 +1318,14 @@ public class TextGraphicElement extends GraphicElement
 			
             removeChildMethod(textLine);
 
-            // Reset x and y to be relative to 0,0.
-            textLine.x -= _lastDrawX;
-            textLine.y -= _lastDrawY;
+            // Reset x and y to be relative to (0, 0).
+            textLine.x = textLinesX[i];
+            textLine.y = textLinesY[i];
+			textLine.visible = true;
 		}
 		
-		_lastDrawX = 0;
-		_lastDrawY = 0;
+		lastDrawX = 0;
+		lastDrawY = 0;
 	}
 
     /**
@@ -1323,14 +1350,18 @@ public class TextGraphicElement extends GraphicElement
         }
         
         textLinesVector.length = 0;
+        textLinesX.length = 0;
+        textLinesY.length = 0;
    }
 
     /**
      *  @private
      *  If the text lines are in a shared container then x and y have to be
-     *  adjusted if postLayoutTransformOffsets.x, postLayoutTransformOffsets.y, layoutX or layoutY changes.  When
-     *  these are changed, our updateDisplayList() is called but if we don't
-     *  recompose we may need to adjust the position of the text lines.
+     *  adjusted if postLayoutTransformOffsets.x, postLayoutTransformOffsets.y,
+	 *  layoutX or layoutY changes.
+	 *  When these are changed, our updateDisplayList() is called
+	 *  but if we don't recompose we may need to adjust the position
+	 *  of the text lines.
      */
     mx_internal function adjustTextLines():void
     {
@@ -1339,19 +1370,19 @@ public class TextGraphicElement extends GraphicElement
             return;
 
         // Are there any adjustments to be made?
-        if (_lastDrawX == drawX && _lastDrawY == drawY)
+        if (lastDrawX == drawX && lastDrawY == drawY)
             return;
             
         for (var i:int = 0; i < n; i++)
         {
             var textLine:DisplayObject = textLines[i];
             
-            textLine.x +=  drawX - _lastDrawX;
-            textLine.y += drawY - _lastDrawY;
+            textLine.x = textLinesX[i] + drawX;
+            textLine.y = textLinesY[i] + drawY;
         }
 
-        _lastDrawX = drawX;
-        _lastDrawY = drawY;
+        lastDrawX = drawX;
+        lastDrawY = drawY;
     }
     
     /**
