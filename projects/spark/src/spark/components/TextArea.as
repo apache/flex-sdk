@@ -72,32 +72,62 @@ use namespace mx_internal;
 
 /**
  *  TextArea is a text-entry control that lets users enter and edit
- *  multiple lines of richly formatted text. It can display horizontal and vertical scrollbars
- *  for scrolling through the text and supports vertical scrolling with the mouse wheel.
+ *  multiple lines of formatted text.
  *
  *  <p><b>The skin for the Spark theme
  *  uses the RichEditableText class. This means that the Spark TextArea control supports 
  *  the Text Layout Framework (TLF) library,
  *  which builds on the Flash Text Engine (FTE).</b>
  *  In combination, these layers provide text editing with
- *  high-quality international typography and layout.</p>
+ *  high-quality international typography and layout.  
+ *  The skin includes a scroller that can display horizontal and vertical scrollbars
+ *  for scrolling through the text and supports vertical scrolling with the mouse wheel.
+ *  The RichEditableText can be accessed as <code>textDisplay</code>
+ *  and the Scroller as <code>scroller</code>.</p>
  *  
- *  <p><b>The TextArea skin for the mobile theme uses the StyleableStageText class instead 
- *  of RichEditableText.</b>  
+ *  <p><b>The skin for the mobile theme uses the StyleableStageText class.</b>  
  *  Since StyleableStageText uses native text fields it allows for better text entry and 
  *  manipulation experiences on mobile devices however there are some
- *  <a href="supportClasses/StyleableStageText.html">limitations</a> that you should consider.
+ *  <a href="supportClasses/StyleableStageText.html">limitations and differences</a> that you should consider.
  *  Because StageText is not capable of measuring text, the TextArea must be given explicit, 
- *  percent-based, or constraint-based <code>width</code> and <code>height</code>.</p>
+ *  percent-based, or constraint-based <code>width</code> and <code>height</code>.
+ *  The StyleableStageText can be accessed as <code>textDisplay</code>.
+ *  If you wish to use the TextField-based skin, rather than the
+ *  StageText-based skin, set the <code>skinClass</code> property to
+ *  <code>"spark.skins.mobile.TextAreaSkin"</code>.</p>
  *
- *  <p>The soft-keyboard-specific properties, <code>autoCapitalize</code>
+ *  <p>You can set the text to be displayed, or get the text that the user
+ *  has entered, using the <code>text</code> property.</p>
+ *
+ *  <p>The text is formatted using CSS styles such as <code>fontFamily</code>
+ *  and <code>fontSize</code>.</p>
+ *
+ *  <p>For the Spark theme,  the <code>widthInChars</code> and <code>heightInLines</code>
+ *  properties let you specify the width and height of the TextArea 
+ *  in a way that scales with the font size or you can use the <code>typicalText</code> property.
+ *  Note that if you use <code>typicalText</code>, the <code>widthInChars</code> and 
+ *  <code>heightInLines</code> properties are ignored.
+ *  For all themes, you can also specify an explicit width or height in pixels,
+ *  or use a percent width and height or constraints such as
+ *  <code>left</code> and <code>right</code>
+ *  or <code>top</code> and <code>bottom</code>.</p>
+ *
+ *  <p>You can use the <code>maxChars</code> property to limit the number
+ *  of character that the user can enter, and the <code>restrict</code>
+ *  to limit which characters the user can enter.
+ *  To use this control for password input, set the
+ *  <code>displayAsPassword</code> property to <code>true</code>.</p>
+ *
+ *  <p>For the mobile theme, the soft-keyboard-specific properties, <code>autoCapitalize</code>,
  *  <code>autoCorrect</code>, <code>returnKeyLabel</code> and <code>softKeyboardType</code>
- *  are keyboard hints supported in the mobile theme. 
+ *  properties specify keyboard hints. 
  *  If a soft-keyboard is present but does not support a feature represented by the 
  *  hint, the hint is ignored. 
  *  In mobile environments with only hardware keyboards, these hints are ignored. 
  *  </p>
  *  
+ *  <p><b>Text Area for the Spark Theme</b></p>
+ * 
  *  <p>The most important differences between Spark TextArea and the
  *  MX TextArea control are as follows:
  *  <ul>
@@ -172,28 +202,6 @@ use namespace mx_internal;
  *  In those cases, a horizontal scrollbar automatically appears
  *  if any lines of text are wider than the control.</p>
  *
- *  <p>The <code>widthInChars</code> and <code>heightInLines</code>
- *  properties let you specify the width and height of the TextArea 
- *  in a way that scales with the font size.
- *  You can use the <code>typicalText</code> property as well.
- *  Note that if you use <code>typicalText</code>, the
- *  <code>widthInChars</code> and <code>heightInLines</code>
- *  are ignored.
- *  You can also specify an explicit width or height in pixels,
- *  or use a percent width and height or constraints such as
- *  <code>left</code> and <code>right</code>
- *  or <code>top</code> and <code>bottom</code>.</p>
- *
- *  <p>You can use the <code>maxChars</code> property to limit the number
- *  of character that the user can enter and the <code>restrict</code>
- *  to limit which characters the user can enter.</p>
- *
- *  <p>This control is a skinnable control whose default skin uses a
- *  RichEditableText class to display and edit the text
- *  and a Scroller control to provide scrollbars.
- *  The RichEditableText can be accessed as <code>textDisplay</code>
- *  and the Scroller as <code>scroller</code>. When used with the mobile theme, this control uses 
- *  the StyleableStageText class to display and edit text.</p>
  *
  *  <p>The Spark TextArea
  *  can display left-to-right (LTR) text, such as French,
@@ -218,7 +226,7 @@ use namespace mx_internal;
  *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
  *  Custom Spark item renderers</a>. </p>
  *
- *  <p>The TextArea control has the following default characteristics:</p>
+ *  <p>For the Spark theme, the TextArea control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
  *           <th>Characteristic</th>
@@ -242,6 +250,18 @@ use namespace mx_internal;
  *        </tr>
  *     </table>
  *
+ *  <p>For the Mobile theme, the TextArea control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.mobile.StageTextAreaSkin</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;s:TextArea&gt;</code> tag inherits all of the tag 
@@ -250,13 +270,13 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:TextArea
  *    <strong>Properties</strong>
- *    heightInLines="<i>Calculated default</i>"
- *    textFlow="<i>TextFlow</i>"
- *    typicalText=null
- *    widthInChars="<i>Calculated default</i>"
+ *    heightInLines="<i>Calculated default</i>"  <b>[Spark theme only]</b>
+ *    textFlow="<i>TextFlow</i>"  <b>[Spark theme only]</b>
+ *    typicalText=null  <b>[Spark theme only]</b>
+ *    widthInChars="<i>Calculated default</i>"  <b>[Spark theme only]</b>
  *  
  *    <strong>Styles</strong>
- *    horizontalScrollPolicy="auto"
+ *    horizontalScrollPolicy="auto" 
  *    symbolColor=""
  *    verticalScrollPolicy="auto"
  *  /&gt;
@@ -477,7 +497,7 @@ public class TextArea extends SkinnableTextBase
      *  <p>For the Spark theme, see
      *  <b>spark.components.RichEditableText.heightInLines</b></p>
      *
-     *  <p>For the Mobile theme, this is not supported.</p>
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
      * 
      *  @see spark.components.RichEditableText#heightInLines
      * 
@@ -516,7 +536,7 @@ public class TextArea extends SkinnableTextBase
      *  <p>For the Spark theme, see
      *  <b>spark.components.RichEditableText.textFlow</b></p>
      *
-     *  <p>For the Mobile theme, this is not supported.</p>
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
      * 
      *  @see spark.components.RichEditableText#textFlow
      * 
@@ -554,7 +574,7 @@ public class TextArea extends SkinnableTextBase
      *  <p>For the Spark theme, see
      *  <b>spark.components.RichEditableText.widthInChars</b></p>
      *
-     *  <p>For the Mobile theme, this is not supported.</p>
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
      * 
      *  @see spark.components.RichEditableText#widthInChars
      * 
