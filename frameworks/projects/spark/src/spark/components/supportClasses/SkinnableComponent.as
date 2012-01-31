@@ -38,12 +38,22 @@ import mx.modules.ModuleManager;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#baseColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Name of the skin class to use for this component. The skin must be a class that extends
  *  the mx.components.Skin class. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="skinClass", type="Class")]
 
@@ -81,6 +91,11 @@ import mx.modules.ModuleManager;
  *
  *
  *  @see mx.components.Skin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxComponent extends UIComponent
 {
@@ -94,6 +109,11 @@ public class FxComponent extends UIComponent
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxComponent()
     {
@@ -119,6 +139,11 @@ public class FxComponent extends UIComponent
      *  The instance of the skin class for this component instance. 
      *  This is a read-only property that you set 
      *  by calling the <code>loadSkin()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get skin():Skin
     {
@@ -321,6 +346,11 @@ public class FxComponent extends UIComponent
      *  <p>A subclass of FxComponent must override this method to return a value.</p>
      * 
      *  @return A string specifying the name of the state to apply to the skin.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function getCurrentSkinState():String 
     {
@@ -330,6 +360,11 @@ public class FxComponent extends UIComponent
     /**
      *  Marks the component so that the new state of the skin will get set
      *  during a later screen update.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateSkinState():void
     {
@@ -356,6 +391,11 @@ public class FxComponent extends UIComponent
      *  <p>This method instantiates the skin for the component, 
      *  adds the skin as a child of the component, and 
      *  resolves all part associations for the skin</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function loadSkin():void
     {
@@ -413,6 +453,11 @@ public class FxComponent extends UIComponent
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
      *  Typically, a subclass of FxComponent does not override this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function findSkinParts():void
     {
@@ -450,6 +495,11 @@ public class FxComponent extends UIComponent
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
      *
      *  <p>Typically, subclasses of FxComponent do not override this method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function clearSkinParts():void
     {
@@ -489,6 +539,11 @@ public class FxComponent extends UIComponent
      *  This method removes the skin and clears all part associations.
      *
      *  <p>Typically, subclasses of FxComponent do not override this method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function unloadSkin():void
     {       
@@ -520,6 +575,11 @@ public class FxComponent extends UIComponent
      *  @param partname The name of the part.
      *
      *  @param instance The part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function partAdded(partName:String, instance:Object):void
     {   
@@ -537,6 +597,11 @@ public class FxComponent extends UIComponent
      *  @param partname The name of the part.
      *
      *  @param instance The part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function partRemoved(partName:String, instance:Object):void
     {       
@@ -563,6 +628,11 @@ public class FxComponent extends UIComponent
      *  @param partName The name of the part.
      *
      *  @return The instance of the part, or null if it cannot create the part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function createDynamicPartInstance(partName:String):Object
     {
@@ -598,6 +668,11 @@ public class FxComponent extends UIComponent
      *  @param partname The name of the part.
      *
      *  @param instance The part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function removeDynamicPartInstance(partName:String, instance:Object):void
     {
@@ -615,6 +690,11 @@ public class FxComponent extends UIComponent
      *  @param partName The name of the dynamic part.
      *
      *  @return The number of instances of the dynamic part.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function numDynamicParts(partName:String):int
     {
@@ -632,6 +712,11 @@ public class FxComponent extends UIComponent
      *  @param index The index of the dynamic part.
      *
      *  @return The instance of the part, or null if it the part does not exist.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function getDynamicPartAt(partName:String, index:int):Object
     {
@@ -743,6 +828,11 @@ public class FxComponent extends UIComponent
      *  @param offstageHandler The handler added to the stage.  
      *  If <code>null</code> or not specified, the <code>onstagehandler</code> 
      *  is used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function addSystemHandlers(eventType:String, onstageHandler:Function,
            offstageHandler:Function = null):void
@@ -766,6 +856,11 @@ public class FxComponent extends UIComponent
      *  @param onstageHandler The handler added to the SystemManager object. 
      *
      *  @param offstageHandler The handler added to the stage.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function removeSystemHandlers(eventType:String, onstageHandler:Function,
            offstageHandler:Function = null):void
