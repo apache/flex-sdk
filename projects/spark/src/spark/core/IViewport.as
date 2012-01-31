@@ -42,17 +42,15 @@ public interface IViewport extends IEventDispatcher
      */
     function get contentHeight():Number;
 
-     /**
+    /**
      *  The X coordinate of the origin of the region the target is
      *  scrolled to.  
      * 
-     *  Setting this property causes the target's 
-     *  <code>scrollRect</code> to be set, if necessary, to:
+     *  If clipContent is true, setting this property typically causes 
+     *  <code>scrollRect</code> to be set to:
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
      *  </pre>
-     *  Where <code>width</code> and <code>height</code> are properties
-     *  of the target.
      * 
      *  Implementations of this property must be Bindable and
      *  they must generate events of type "propertyChange".
@@ -68,13 +66,11 @@ public interface IViewport extends IEventDispatcher
      *  The Y coordinate of the origin of the region this Group is
      *  scrolled to.  
      * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
+     *  If clipContent is true, stting this property typically causes 
+     *  the <code>scrollRect</code> to be set to:
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
      *  </pre>                 
-     *  Where <code>width</code> and <code>height</code> are properties
-     *  of the target.
      * 
      *  Implementations of this property must be Bindable and
      *  they must generate events of type "propertyChange".
@@ -89,11 +85,13 @@ public interface IViewport extends IEventDispatcher
      *  Returns the amount one would have to add to the viewport's current 
      *  verticalScrollPosition to scroll by the requested "scrolling" unit.
      * 
-     *  The value of unit must be one of the following flash.ui.Keyboard
+     *  The value of unit must be one of the following mx.core.ScrollUnit
      *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
      * 
      *  To scroll by a single row use UP or DOWN and to scroll to the
      *  first or last row, use HOME or END.
+     * 
+     *  @see ScrollUnit
      */
     function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     
@@ -101,11 +99,13 @@ public interface IViewport extends IEventDispatcher
      *  Returns the amount one would have to add to the viewport's current 
      *  verticalScrollPosition to scroll by the requested "scrolling" unit.
      * 
-     *  The value of unit must be one of the following flash.ui.Keyboard
-     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
+     *  The value of unit must be one of the following mx.core.ScrollUnit
+     *  constants: LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME, END.
      * 
-     *  To scroll by a single row use UP or DOWN and to scroll to the
-     *  first or last row, use HOME or END.
+     *  To scroll by a single column use LEFT or RIGHT and to scroll to the
+     *  first or last column, use HOME or END.
+     * 
+     *  @see ScrollUnit
      */
     function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
      
