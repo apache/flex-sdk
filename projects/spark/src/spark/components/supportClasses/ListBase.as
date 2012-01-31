@@ -316,7 +316,7 @@ public class FxListBase extends FxDataContainer
         
         // Obtain reference to newly generated item element which will be used
         // to compute the baseline.
-        var listItem:Object = dataGroup.getItemRenderer(0);
+        var listItem:Object = dataGroup.mx_internal::getItemRenderer(0);
         if (!listItem)
             return super.baselinePosition;
         
