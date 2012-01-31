@@ -15,18 +15,18 @@ package flex.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
+import flashx.tcal.conversion.TextFilter;
+import flashx.tcal.elements.FlowElement;
+import flashx.tcal.elements.ParagraphElement;
+import flashx.tcal.elements.SpanElement;
+import flashx.tcal.elements.TextFlow;
+import flashx.tcal.formats.ICharacterFormat;
+import flashx.tcal.formats.IContainerFormat;
+import flashx.tcal.formats.IParagraphFormat;
+
 import flex.graphics.graphicsClasses.TextFlowComposer;
 import flex.graphics.graphicsClasses.TextGraphicElement;
 import flex.utils.TextUtil;
-
-import text.elements.FlowElement;
-import text.elements.ParagraphElement;
-import text.elements.SpanElement;
-import text.elements.TextFlow;
-import text.formats.ICharacterFormat;
-import text.formats.IContainerFormat;
-import text.formats.IParagraphFormat;
-import text.importExport.TextFilter;
 
 //--------------------------------------
 //  Styles
@@ -232,7 +232,7 @@ public class TextGraphic extends TextGraphicElement
 			    '<content>' + markup + '</content>' +
 			'</TextGraphic>';
 		
-		return TextFilter.importFromString(markup, TextFilter.FXG_FORMAT);
+		return TextFilter.importToFlow(markup, TextFilter.FXG_FORMAT);
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class TextGraphic extends TextGraphicElement
 		    {
 			    if (text != null && text != "")
 			    {
-				    textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
+				    textFlow = TextFilter.importToFlow(text, TextFilter.PLAIN_TEXT_FORMAT);
 			    }
 			    else
 			    {
