@@ -486,9 +486,12 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function get horizontalScrollPosition():Number 
     {
-        return (contentGroup) 
-            ? contentGroup.horizontalScrollPosition 
-            : contentGroupProperties.horizontalScrollPosition;
+        if (contentGroup)
+            return contentGroup.horizontalScrollPosition;
+        
+        var hsp:Number = contentGroupProperties.horizontalScrollPosition;
+        return isNaN(hsp) ? 0 : hsp;
+        
     }
 
     /**
@@ -622,9 +625,11 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function get verticalScrollPosition():Number 
     {
-        return (contentGroup) 
-            ? contentGroup.verticalScrollPosition 
-            : contentGroupProperties.verticalScrollPosition;
+        if (contentGroup)
+            return contentGroup.verticalScrollPosition;
+        
+        var vsp:Number = contentGroupProperties.verticalScrollPosition;
+        return isNaN(vsp) ? 0 : vsp;        
     }
 
     /**
