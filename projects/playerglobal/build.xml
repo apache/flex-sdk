@@ -50,7 +50,6 @@
 					<include name="*.*"/>
 				</zipfileset>
 			</zip>
-			<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
 		</sequential>
 	</macrodef>	
 		
