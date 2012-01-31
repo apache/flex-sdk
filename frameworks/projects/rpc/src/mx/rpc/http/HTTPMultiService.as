@@ -94,8 +94,6 @@ use namespace mx_internal;
  *  <p><b>Note:</b> Due to a software limitation, like HTTPService, the HTTPMultiService does 
  *  not generate user-friendly error messages when using GET and not using a proxy.</p>
  * 
- *  @see mx.rpc.http.HTTPService
- *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
