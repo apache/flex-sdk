@@ -12,7 +12,7 @@
 package mx.effects
 {
 
-import mx.core.Application;
+import mx.core.ApplicationGlobals;
 import mx.effects.effectClasses.GlowInstance;
 import mx.styles.StyleManager;
 
@@ -276,7 +276,7 @@ public class Glow extends TweenEffect
 		glowInstance.color = 
 		    color != StyleManager.NOT_A_COLOR ?
 		    color : 
-		    Application.application.getStyle("themeColor");
+		    ApplicationGlobals.application.getStyle("themeColor");
 		glowInstance.inner = inner;
 		glowInstance.knockout = knockout;
 		glowInstance.strength = strength;
