@@ -159,9 +159,9 @@ public class FxHScrollBar extends FxScrollBar
      *
      *  @private
      */
-    private function updateViewportHSP(unit:ScrollUnit):void
+    private function updateViewportHSP(scrollUnit:uint):void
     {
-        var delta:Number = viewport.getHorizontalScrollPositionDelta(unit);
+        var delta:Number = viewport.getHorizontalScrollPositionDelta(scrollUnit);
         setValue(viewport.horizontalScrollPosition + delta);
     }
     
