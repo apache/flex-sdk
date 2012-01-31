@@ -13,14 +13,32 @@
 
 /* Default Skins */
 
+FxApplication
+{
+    skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
+    backgroundColor: #FFFFFF;
+}
+
 FxButton
 {
 	skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
+	textAlign: "center";
+	verticalAlign: "middle";
 }
 
 FxCheckBox
 {
 	skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
+}
+
+FxComponent
+{
+    focusSkin: ClassReference("mx.skins.spark.FxFocusSkin");
+}
+
+FxContainer
+{
+    skinClass: ClassReference("mx.skins.spark.FxContainerSkin");
 }
 
 FxDataContainer
@@ -36,11 +54,6 @@ FxHScrollBar
 FxHSlider
 {
     skinClass: ClassReference("mx.skins.spark.FxHSliderSkin");
-}
-
-FxContainer
-{
-	skinClass: ClassReference("mx.skins.spark.FxContainerSkin");
 }
 
 FxList
@@ -81,6 +94,8 @@ FxTextInput
 FxToggleButton
 {
 	skinClass: ClassReference("mx.skins.spark.FxToggleButtonSkin");
+	textAlign: "center";
+	verticalAlign: "middle";
 }
 
 FxVScrollBar
@@ -91,17 +106,6 @@ FxVScrollBar
 FxVSlider
 {
     skinClass: ClassReference("mx.skins.spark.FxVSliderSkin");
-}
-
-FxApplication
-{
-	skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
-	backgroundColor: #FFFFFF;
-}
-
-FxComponent
-{
-    focusSkin: ClassReference("mx.skins.spark.FxFocusSkin");
 }
 
 /* Default text styles for the Gumbo components. Eventually these
