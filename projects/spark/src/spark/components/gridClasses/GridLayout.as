@@ -894,7 +894,7 @@ public class GridLayout extends LayoutBase
     public function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
     {
         const index:int = getVisibleItemRendererIndex(rowIndex, columnIndex);
-        if (index == -1)
+        if (index == -1 || index >= visibleItemRenderers.length)
             return null;
         
         const renderer:IVisualElement = visibleItemRenderers[index];
@@ -907,7 +907,7 @@ public class GridLayout extends LayoutBase
     private function takeVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
     {
         const index:int = getVisibleItemRendererIndex(rowIndex, columnIndex);
-        if (index == -1)
+        if (index == -1 || index >= visibleItemRenderers.length)
             return null;
         
         const renderer:IVisualElement = visibleItemRenderers[index];
@@ -1574,8 +1574,10 @@ public class GridLayout extends LayoutBase
                 else
                     lastVisibleOffset = offset;
             }
-            else
+            else if (rowIndex > lastRemoveIndex)
+            {
                 visibleRowIndices[offset] = rowIndex - eventItemsLength;
+            }
         }
         
         // Remove the elements of visibleRowBackgrounds, visibleRowSeparators, visibleRowIndices,  
