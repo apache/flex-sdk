@@ -243,31 +243,6 @@ public class Group extends GroupBase
         
         assignDisplayObjects();
         needsDisplayObjectAssignment = false;
-        
-        /* if (maskElements)
-        {
-            for (var k:Object in maskElements)
-            {
-                var maskElement:DisplayObject = k as DisplayObject;
-                if (maskElement && (!maskElement.parent || maskElement.parent !== this))
-                {
-                    super.addChild(maskElement);
-                    var maskComp:UIComponent = maskElement as UIComponent;
-                    if (maskComp)
-                    {
-                        maskComp.validateNow();
-                        maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                               maskComp.getExplicitOrMeasuredHeight());
-                    }
-                    
-                    var maskTarget:IGraphicElement = maskElements[k] as IGraphicElement;
-                    if (maskTarget)
-                    {
-                        maskTarget.applyMask();
-                    }
-                }
-            }
-        } */
     }
     
     /**
@@ -280,7 +255,7 @@ public class Group extends GroupBase
             contentChanged = false;
             initializeChildrenArray();
             
-            maskChanged = true; //TODO (rfrishbe): need this maskChanged?
+            maskChanged = true; 
         }
     
     	// Need to initializeChildrenArray before calling super.commitProperties
@@ -1039,45 +1014,6 @@ public class Group extends GroupBase
         // One of our children have told us they might need a displayObject     
         needsDisplayObjectAssignment = true;
         invalidateProperties();
-    }
-    
-    /**
-     *  Dictionary to keep track of mask elements.  Because mask elements can be applied 
-     *  to GraphicElements, which may not be DisplayObjects, the Group needs to know this
-     *  to map GraphicElements to DisplayObjects later on since masking takes place
-     *  at the Flash Player level.
-     */ 
-    protected var maskElements:Dictionary;
-    
-    /**
-     *  @private
-     */
-    override public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        if (!maskElements)
-            maskElements = new Dictionary();
-            
-        maskElements[mask] = target;
-        contentChanged = true;
-        // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-        // callLater is necessary because addMaskElement gets called inside of commitProperties
-        callLater(invalidateProperties); 
-            
-    }
-    
-    /**
-     *  @private
-     */
-    override public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        if (maskElements && mask in maskElements)
-        {
-            delete maskElements[mask];
-            contentChanged = true;
-             // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
-            // callLater is necessary because removeMaskElement gets called inside of commitProperties
-            callLater(invalidateProperties);
-        }
     }
     
     //--------------------------------------------------------------------------
