@@ -93,7 +93,7 @@ public class TextGraphicElement extends GraphicElement
         }
                 
         // Register as a weak listener for "change" events from ResourceManager.
-        // If UITextFields registered as a strong listener,
+        // If TextGraphicElements registered as a strong listener,
         // they wouldn't get garbage collected.
         resourceManager.addEventListener(
             Event.CHANGE, resourceManager_changeHandler, false, 0, true);
@@ -138,6 +138,18 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal var invalidateCompose:Boolean = true;    
 
+    /**
+     *  @private
+     *  The value of bounds.width, before the compose was done.
+     */
+    private var _composeWidth:Number;
+
+    /**
+     *  @private
+     *  The value of bounds.height, before the compose was done.
+     */
+    private var _composeHeight:Number;
+    
     /**
      *  @private
      *  The offset applied to each textLine.x so that it is positioned
@@ -736,7 +748,8 @@ public class TextGraphicElement extends GraphicElement
         
         // ToDo: optimize for right-to-left text so compose isn't always done
         // when height or width changes.
-        if (mx_internal::invalidateCompose)
+        if (mx_internal::invalidateCompose || 
+            composeRequired(unscaledWidth, unscaledHeight))
         {
             compose = true;
         }
@@ -1032,6 +1045,46 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      *  TODO This should be mx_internal, but that causes a compiler error.
      */
+    protected function composeRequired(unscaledWidth:Number, 
+                                       unscaledHeight:Number):Boolean
+    {
+        // For textAlign, if the composeWidth isn't the same
+        // as the unscaledWidth, and the text isn't left aligned, we need to 
+        // recompose.
+        //
+        if (isNaN(_composeWidth) || _composeWidth != unscaledWidth)
+        {
+            var direction:String = getStyle("direction");
+            var textAlign:String = getStyle("textAlign");
+
+            var leftAligned:Boolean =
+                textAlign == "left" ||
+                textAlign == "start" && direction == "ltr" ||
+                textAlign == "end" && direction == "rtl";
+
+            if (!leftAligned)
+                return true;
+        }
+        
+        // For verticalAlign, if the composeHeight isn't the same as the
+        // unscaledHeight, and the text isn't top aligned, we need to
+        // recompose (or adjust the y values of all the text lines).
+        if (isNaN(_composeHeight) || _composeHeight != unscaledHeight)
+        {
+            var verticalAlign:String = getStyle("verticalAlign");
+            var topAligned:Boolean = (verticalAlign == "top");
+
+            if (!topAligned)
+                return true;
+        }
+
+        return false;   
+    }
+
+    /**
+     *  @private
+     *  TODO This should be mx_internal, but that causes a compiler error.
+     */
     protected function composeOnHeightChange():Boolean
     {
         if (truncation != 0 && getStyle("lineBreak") == "toFit")
@@ -1059,6 +1112,8 @@ public class TextGraphicElement extends GraphicElement
     protected function composeTextLines(width:Number = NaN,
 										height:Number = NaN):void
 	{
+	    _composeWidth = width;
+	    _composeHeight = height;
 	}
 
 	/**
@@ -1268,6 +1323,9 @@ public class TextGraphicElement extends GraphicElement
 
         mx_internal::truncationIndicatorResource = resourceManager.getString(
             "core", "truncationIndicator");
+
+        if (truncation != 0)
+            mx_internal::invalidateCompose = true;
 
         invalidateSize();
         invalidateDisplayList();
