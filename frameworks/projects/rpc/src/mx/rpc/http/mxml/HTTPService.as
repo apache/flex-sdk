@@ -177,7 +177,10 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     //--------------------------------------------------------------------------
 
     /**
-     * Cancels the most recent HTTPService request.
+     * Cancels the HTTPService request with the specified ID, or if the ID is not
+     * specified, cancels the most recent HTTPService request. 
+     *
+     * @param id The messageID of the HTTPService request to cancel.
      */
     override public function cancel(id:String = null):AsyncToken
     {
