@@ -822,7 +822,7 @@ public class Application extends SkinnableContainer
             const caption:String = resourceManager.getString("components", "viewSource");
             
             viewSourceCMI = new ContextMenuItem(caption, true);
-            viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, viewSourceMenuItemSelectHandler);
+            viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuItemSelectHandler);
             
             defaultMenu.customItems.push(viewSourceCMI);
         }
@@ -925,7 +925,7 @@ public class Application extends SkinnableContainer
      *  Called when the "View Source" item in the application's context menu is
      *  selected.
      */
-    protected function viewSourceMenuItemSelectHandler(event:Event):void
+    protected function menuItemSelectHandler(event:Event):void
     {
         navigateToURL(new URLRequest(_viewSourceURL), "_blank");
     }
