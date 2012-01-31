@@ -49,6 +49,7 @@ CheckBox
 
 DropDownList
 {
+    dropShadowVisible: true;
     skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
@@ -98,6 +99,7 @@ Panel
     borderAlpha: 0.5;
     borderColor: 0;
     cornerRadius: 0;
+    dropShadowVisible: true;
 	skinClass: ClassReference("spark.skins.spark.PanelSkin");
 }
 
@@ -173,7 +175,6 @@ global
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #FFFFFF;
-    dropShadowVisible : false;
     rollOverColor: #CEDBEF;
     focusColor: #70B2EE;
     symbolColor: #000000;
