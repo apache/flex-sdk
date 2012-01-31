@@ -88,6 +88,7 @@ public class Rotate3D extends AnimateTransform3D
         applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
         applyChangesPostLayout = true;
+        transformEffectSubclass = true;
     }
     
     //--------------------------------------------------------------------------
