@@ -75,6 +75,20 @@ public class TLFTextInput extends TextInput implements ITextInput
 
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Used by showBorder to record the value of contentBackgroundAlpha
+     *  before it is set to 0 so that it can be restored.
+     */
+    private var oldContentBackgroundAlpha:Number;
+    
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -261,11 +275,38 @@ public class TLFTextInput extends TextInput implements ITextInput
     //----------------------------------
     
     /**
-     *  Documentation is not currently available.
+     *  Used to determine if the control's border and background are 
+     *  visible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function showBorder(visible:Boolean):void
+    public function showBorderAndBackground(visible:Boolean):void
     {
-        // TLF-based text does not have a border.
+        // Hide everything in TextInputSkin except the textDisplay and
+        // the contentFill by setting borderVisible to false.
+        setStyle("borderVisible", visible);
+
+        var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
+        
+        // Hide background/contentFill of TextInput by setting 
+        // contentBackgroundAlpha to 0.
+        if (!visible)
+        {
+            if (isNaN(contentBackgroundAlpha)||contentBackgroundAlpha != 0)
+            {
+                // Save old value so it can be restored when visible again.
+                oldContentBackgroundAlpha = getStyle("contentBackgroundAlpha");
+                setStyle("contentBackgroundAlpha", 0);
+            }
+        }
+        else if (!isNaN(oldContentBackgroundAlpha))
+        {
+            setStyle("contentBackgroundAlpha", oldContentBackgroundAlpha);
+            oldContentBackgroundAlpha = NaN;
+        }
     }    
 
     //--------------------------------------------------------------------------
