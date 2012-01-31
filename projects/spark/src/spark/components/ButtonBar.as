@@ -96,7 +96,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  firstButton
     //---------------------------------- 
     
-    [SkinPart(required="false", type="mx.components.FxButton")]
+    [SkinPart(required="false", type="mx.core.IDataRenerer")]
     
     /**
      * A skin part that defines the first button.
@@ -112,7 +112,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  lastButton
     //---------------------------------- 
     
-    [SkinPart(required="false", type="mx.components.FxButton")]
+    [SkinPart(required="false", type="mx.core.IDataRenerer")]
     
     /**
      * A skin part that defines the last button.
@@ -128,7 +128,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  middleButton
     //---------------------------------- 
     
-    [SkinPart(required="true", type="mx.components.FxButton")]
+    [SkinPart(required="true", type="mx.core.IDataRenerer")]
     
     /**
      * A skin part that defines the middle button(s).
