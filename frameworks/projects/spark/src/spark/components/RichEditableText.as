@@ -543,11 +543,9 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  True if this component sizes itself based on its actual
-     *  contents.  This happens if it's configured for autoSize, it is not
-     *  contained within a scroller and an explicit width and height are not
-     *  specified.
+     *  contents.
      */
-    mx_internal var actuallyAutoSizing:Boolean = false;
+    mx_internal var autoSize:Boolean = false;
                 
     //--------------------------------------------------------------------------
     //
@@ -724,6 +722,10 @@ public class RichEditableText extends UIComponent
      */
     public function set horizontalScrollPosition(value:Number):void
     {
+        // Convert NaN to 0 to keep TCM happy.
+        if (isNaN(value))
+            value = 0;
+ 
         if (value == _horizontalScrollPosition)
             return;
 
@@ -767,6 +769,10 @@ public class RichEditableText extends UIComponent
      */
     public function set verticalScrollPosition(value:Number):void
     {
+        // Convert NaN to 0 to keep TCM happy.
+        if (isNaN(value))
+            value = 0;
+            
         if (value == _verticalScrollPosition)
             return;
 
@@ -984,7 +990,7 @@ public class RichEditableText extends UIComponent
      *  The height of the control, in lines.
      *  
      *  <p>RichEditableText's measure() method does not determine the measured
-     *   size from the text to be displayed, because a RichEditableText often 
+     *  size from the text to be displayed, because a RichEditableText often 
      *  starts out with no text. Instead it uses this property, and the 
      *  widthInChars property to determine its measuredWidth and measuredHeight. 
      *  These are similar to the cols and rows of an HTML TextArea.</p>
@@ -1699,10 +1705,7 @@ public class RichEditableText extends UIComponent
             
             displayAsPasswordChanged = false;
         }
-        
-        if (heightInLinesChanged || widthInCharsChanged || 
-            clipAndEnableScrollingChanged)
-                
+                                                    
         if (clipAndEnableScrollingChanged)
         {
             // Not sure if there is any real difference between on and auto.
@@ -1720,7 +1723,6 @@ public class RichEditableText extends UIComponent
             clipAndEnableScrollingChanged = false;
         }
         
-                                    
         if (horizontalScrollPositionChanged)
         {
             var oldHorizontalScrollPosition:Number = 
@@ -1765,7 +1767,7 @@ public class RichEditableText extends UIComponent
         super.setLayoutBoundsSize(width, height, postLayoutTransform);
 
         // Only autoSize cares about the real measured width.
-        if (!actuallyAutoSizing)
+        if (!autoSize)
             return;
             
         // FIXME (egeorgie): Possible optimization - if we reflow the text
@@ -1818,36 +1820,22 @@ public class RichEditableText extends UIComponent
      */
     override protected function skipMeasure():Boolean
     {
-        // If explicit width and height then definately not autoSizing.
-        if (super.skipMeasure())
+        // If any of width, height, widthInChars or heightInLines is specified
+        // we're not autoSizing. 
+        autoSize = isNaN(explicitWidth) && isNaN(explicitHeight) &&
+                   isNaN(heightInLines) && isNaN(widthInChars);
+                 
+        // If we're autoSizing, make sure we aren't scrolled from
+        // previously not being autoSized.
+        if (autoSize)
         {
-            actuallyAutoSizing = false;
-            return true;
+            _textContainerManager.horizontalScrollPosition = 0;
+            _textContainerManager.verticalScrollPosition = 0;
         }
-             
-        // FIXME (cframpto): consider moving to commitProperties()
-        if (isNaN(widthInChars) && isNaN(heightInLines))
-        {
-            // Can only autoSize if this component isn't the viewport
-            // of a scroller.  autoSize and scrolling don't play well together.
-            actuallyAutoSizing = !_clipAndEnableScrolling;
-            
-            // If we're autoSizing, make sure we aren't scrolled from
-            // previously not being autoSized.
-            if (actuallyAutoSizing)
-            {
-                _textContainerManager.horizontalScrollPosition = 0;
-                _textContainerManager.verticalScrollPosition = 0;
-            }
-        }
-        else
-        {
-            actuallyAutoSizing = false;
-        }
-        
-        return false;        
+  
+        return super.skipMeasure();                   
     }
-    
+        
     /**
      *  @private
      */
@@ -1855,7 +1843,7 @@ public class RichEditableText extends UIComponent
     {
         super.measure();
         
-        if (actuallyAutoSizing)
+        if (autoSize)
         {
             measureForAutoSize();
         }
@@ -1885,7 +1873,7 @@ public class RichEditableText extends UIComponent
         // values and TLF another set of values so there is room for the text
         // to grow.  The composition values for autoSize were set when the 
         // text was measured.
-        if (!actuallyAutoSizing)
+        if (!autoSize)
         {
             _textContainerManager.compositionWidth = unscaledWidth;
             _textContainerManager.compositionHeight = unscaledHeight;
@@ -3071,7 +3059,7 @@ public class RichEditableText extends UIComponent
         } 
 
         // If autoSize and text size changed, need to remeasure.
-        if (dimensionChanged && actuallyAutoSizing)
+        if (dimensionChanged && autoSize)
         {
             invalidateSize();
             invalidateDisplayList();
@@ -3341,7 +3329,7 @@ public class RichEditableText extends UIComponent
         // optionally remeasure and updateContainer.
         if (event.status == InlineGraphicElementStatus.READY)
         {
-            if (actuallyAutoSizing)
+            if (autoSize)
                 invalidateSize();
             
             invalidateDisplayList();
