@@ -2898,6 +2898,9 @@ public class FTETextField extends Sprite implements IFontContextComponent
 		var nextY:int = paragraphY;
 		var textLine:TextLine;
         
+        const thisLeftMargin:Number = leftMargin;
+        const thisRightMargin:Number = rightMargin;
+
         // TextField seems to do this.  You can see it with wordWrap and 
         // indent > width or when rightMargin > width.  In the former case,
         // the first line is visually empty but contains a character which is 
@@ -2915,7 +2918,7 @@ public class FTETextField extends Sprite implements IFontContextComponent
             // Adjust the compose width for indents and margins. 
             if (n <= 1)
             {
-                var totalIndent:Number = blockIndent + leftMargin;
+                var totalIndent:Number = blockIndent + thisLeftMargin;
                 if (n == 0)
                     totalIndent += indent;
                 
@@ -2928,7 +2931,7 @@ public class FTETextField extends Sprite implements IFontContextComponent
                     maxLineWidthBeforeIndent - totalIndent;
                 
                 if (wordWrap)
-                    maxLineWidthBeforeIndent -= rightMargin;
+                    maxLineWidthBeforeIndent -= thisRightMargin;
 
                 // Stay within the bounds to avoid exception.  Since 
                 // fitSomething is true it is okay if maxLineWidth is < 0.
@@ -3043,6 +3046,8 @@ public class FTETextField extends Sprite implements IFontContextComponent
 		var leftOffset:Number = PADDING_LEFT;
 		var centerOffset:Number = leftOffset + innerWidth / 2;
 		var rightOffset:Number = leftOffset + innerWidth;
+
+        const thisRightMargin:Number = rightMargin;
                 
         // Reposition each line if necessary.
         // based on the horizontal alignment,
@@ -3054,7 +3059,7 @@ public class FTETextField extends Sprite implements IFontContextComponent
             
             _textWidth = Math.max(_textWidth, textLine.textWidth);
             
-            var width:Number = textLine.x + textLine.textWidth + rightMargin;
+            var width:Number = textLine.x + textLine.textWidth + thisRightMargin;
             
             // Only align if there is width to do so.
             if (leftAligned || (width >= innerWidth && direction == "ltr"))
