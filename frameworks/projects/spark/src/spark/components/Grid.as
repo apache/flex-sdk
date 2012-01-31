@@ -1108,6 +1108,49 @@ public class Grid extends Group implements IDataGridElement
     }
     
     //----------------------------------
+    //  requestedMaxRowCount
+    //----------------------------------
+    
+    private var _requestedMaxRowCount:int = 10;
+    
+    [Inspectable(category="General", minValue="-1")]
+    
+    /**
+     *  The measured height of this grid will be large enough to display 
+     *  no more than <code>requestedMaxRowCount</code> rows.
+     * 
+     *  <p>This property has no effect if any of the following are true;
+     *  <ul>
+     *      <li><code>requestedRowCount</code> is set</li>
+     *      <li>the actual size of the grid has been explicitly set</li>
+     *  </ul>
+     *  </p>
+     * 
+     *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get requestedMaxRowCount():int
+    {
+        return _requestedMaxRowCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMaxRowCount(value:int):void
+    {
+        if (_requestedMaxRowCount == value)
+            return;
+        
+        _requestedMaxRowCount = value;
+        invalidateSize();
+    }      
+    
+    //----------------------------------
     //  requestedMinRowCount
     //----------------------------------
     
@@ -1123,7 +1166,6 @@ public class Grid extends Group implements IDataGridElement
      *  <ul>
      *      <li><code>requestedRowCount</code> is set</li>
      *      <li>the actual size of the grid has been explicitly set</li>
-     *      <li>the grid is inside a Scroller component</li>
      *  </ul>
      *  </p>
      * 
@@ -1155,7 +1197,7 @@ public class Grid extends Group implements IDataGridElement
     //  requestedRowCount
     //----------------------------------
     
-    private var _requestedRowCount:int = 10;
+    private var _requestedRowCount:int = -1;
     
     [Inspectable(category="General", minValue="-1")]
     
@@ -1169,7 +1211,7 @@ public class Grid extends Group implements IDataGridElement
      *  <p>If the actual size of the grid has been explicitly set,
      *  then this property has no effect.</p>
      * 
-     *  @default 10
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
