@@ -85,6 +85,11 @@ use namespace mx_internal;
  * @see mx.rpc.http.HTTPService
  * @see mx.validators.Validator
  * @see mx.managers.CursorManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport, IMXMLObject
 {
@@ -101,6 +106,11 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
      * @param rootURL The URL the HTTPService should use when computing relative URLS.
      *
      * @param destination An HTTPService destination name in the service-config.xml file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function HTTPService(rootURL:String = null, destination:String = null)
     {
@@ -134,6 +144,11 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
      * @param id The identifier used by <code>document</code> to refer
      * to this object. If the object is a deep property on document,
      * <code>id</code> is null. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
     {
