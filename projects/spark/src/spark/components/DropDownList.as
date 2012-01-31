@@ -12,7 +12,7 @@
 /*  NOTES
 
 Keyboard Interaction
-- List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
+- List current dispatches change on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
 - Handle commitData 
@@ -127,7 +127,7 @@ use namespace mx_internal;
  *    <li>Clicking outside of the drop-down list closes the drop-down list 
  *      and commits the currently selected data item.</li>
  *    <li>Clicking on a data item selects that item and closes the drop-down list.</li>
- *    <li>If the <code>requiresSelection</code> property is <code>false</code>, 
+ *    <li>If the <code>requireSelection</code> property is <code>false</code>, 
  *      clicking on a data item while pressing the Control key deselects 
  *      the item and closes the drop-down list.</li>
  *  </ul>
@@ -597,7 +597,7 @@ public class DropDownList extends List
                     itemSelected(proposedSelectedIndex, false);
                     proposedSelectedIndex = proposedNewIndex;
                     itemSelected(proposedSelectedIndex, true);
-                    ensureItemIsVisible(proposedSelectedIndex);
+                    ensureIndexIsVisible(proposedSelectedIndex);
                 }
             }
             else if (dataProvider)
@@ -683,7 +683,7 @@ public class DropDownList extends List
     mx_internal function open_updateCompleteHandler(event:FlexEvent):void
     {   
         removeEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
-        ensureItemIsVisible(selectedIndex);
+        ensureIndexIsVisible(selectedIndex);
         
         dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
     }
