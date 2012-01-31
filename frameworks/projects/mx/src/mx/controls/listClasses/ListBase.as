@@ -6848,6 +6848,9 @@ public class ListBase extends ScrollControlBase
     protected function moveSelectionHorizontally(code:uint, shiftKey:Boolean,
                                                  ctrlKey:Boolean):void
     {
+        // For Keyboard.LEFT and Keyboard.RIGHT and maybe Keyboard.UP and Keyboard.DOWN,
+        // need to account for layoutDirection="rtl".
+        
         return;
     }
 
