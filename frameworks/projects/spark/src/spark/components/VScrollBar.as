@@ -281,13 +281,6 @@ public class VScrollBar extends ScrollBar
      *  @private
      *  Set this scrollbar's value to the viewport's current 
      *  verticalScrollPosition.
-     * 
-     *  @see IViewport#verticalScrollPosition
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -299,11 +292,6 @@ public class VScrollBar extends ScrollBar
      *  @private
      *  Set this scrollbar's maximum to the viewport's contentHeight 
      *  less the viewport height and its pageSize to the viewport's height. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -323,14 +311,6 @@ public class VScrollBar extends ScrollBar
      *  @private
      *  Set this scrollbar's maximum to the viewport's contentHeight 
      *  less the viewport height. 
-     *
-     *  @see IViewport#contentWidth
-     *  @see IViewport#width 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
