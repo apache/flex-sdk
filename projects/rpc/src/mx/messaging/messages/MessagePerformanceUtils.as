@@ -119,7 +119,7 @@ package mx.messaging.messages
             this.mpio=message.headers[MPI_HEADER_OUT] as MessagePerformanceInfo;
                         
             // it is possible that if not all participants have mpi enabled we might be missing parts here
-            if (mpio == null || (mpii==null && mpip==null))
+            if (mpio == null || (mpii == null && message.headers[MPI_HEADER_PUSH] == null))
             {
                 throw new Error("Message is missing MPI headers.  Verify that all participants have it enabled.");
             }                
