@@ -35,6 +35,11 @@ use namespace mx_internal;
  * AbstractWebService is an abstract base class for implementations 
  * that provide RPC access to SOAP-based web services. This class does not
  * load WSDL descriptions at runtime.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AbstractWebService extends AbstractService
 {
@@ -49,6 +54,11 @@ public class AbstractWebService extends AbstractService
      * entry in services-config.xml.  If unspecified, the WebService uses the
      * DefaultHTTP destination. The <code>rootURL</code> is required if you
      * intend to use a relative URL find the WSDL document for this WebService.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AbstractWebService(destination:String = null, rootURL:String = null)
     {
@@ -91,6 +101,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * The description of the service for the currently active port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get description():String
     {
@@ -109,6 +124,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get destination():String
     {
@@ -131,6 +151,11 @@ public class AbstractWebService extends AbstractService
      * The location of the WebService. Normally, the WSDL document specifies
      * the location of the services, but you can set this property to override
      * that location.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get endpointURI():String
     {
@@ -149,6 +174,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Returns the array of SOAPHeaders registered for the WebService.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headers():Array
     {
@@ -167,6 +197,11 @@ public class AbstractWebService extends AbstractService
      * Custom HTTP headers to be sent to the SOAP endpoint. If multiple
      * headers need to be sent with the same name the value should be specified
      * as an Array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get httpHeaders():Object
     {
@@ -187,6 +222,11 @@ public class AbstractWebService extends AbstractService
     /**
      * When this value is true, anonymous objects returned are forced to
      * bindable objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get makeObjectsBindable():Boolean
     {
@@ -206,6 +246,11 @@ public class AbstractWebService extends AbstractService
     /**
      * Specifies the port within the WSDL document that this WebService should
      * use.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get port():String
     {
@@ -224,6 +269,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Specifies whether the WebService is ready to make requests.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ready():Boolean
     {
@@ -242,6 +292,11 @@ public class AbstractWebService extends AbstractService
      * URL is computed automatically based on the location of the SWF running
      * this application. If not set explicitly <code>rootURL</code> is
      * automatically set to the URL of mx.messaging.config.LoaderConfig.url.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rootURL():String
     {
@@ -265,6 +320,11 @@ public class AbstractWebService extends AbstractService
     /**
      * Specifies the service within the WSDL document that this WebService
      * should use.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get service():String
     {
@@ -291,6 +351,11 @@ public class AbstractWebService extends AbstractService
      * to <code>false</code>.
      *
      * @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get useProxy():Boolean
     {
@@ -331,6 +396,11 @@ public class AbstractWebService extends AbstractService
      * service unless specifically overwritten on the operation level.
      * If none is provided, the defaults to whatever is set by the particular
      * implementation of IXMLEncoder
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get xmlSpecialCharsFilter():Function
     {
@@ -356,6 +426,11 @@ public class AbstractWebService extends AbstractService
      * SOAP encoder.
      *  
      * @param header The SOAP header to add to all operations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addHeader(header:Object):void
     {
@@ -369,6 +444,11 @@ public class AbstractWebService extends AbstractService
      * @param qnameNamespace The namespace for the header QName.
      * @param headerName The name of the header.
      * @param headerValue The value of the header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addSimpleHeader(qnameLocal:String, qnameNamespace:String, headerName:String, headerValue:String):void
     {
@@ -379,6 +459,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Clears the headers that applied to all operations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearHeaders():void
     {
@@ -392,6 +477,11 @@ public class AbstractWebService extends AbstractService
      * @param headerName (Optional) Name of a header in the SOAPHeader content.
      *
      * @return Returns a header if a match is found based on QName, localName, and URI.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getHeader(qname:QName, headerName:String = null):SOAPHeader
     {
@@ -423,6 +513,11 @@ public class AbstractWebService extends AbstractService
      *  
      * @param qname QName of the SOAPHeader.
      * @param headerName (Optional) Name of a header in the SOAPHeader content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeHeader(qname:QName, headerName:String = null):void
     {
@@ -460,6 +555,11 @@ public class AbstractWebService extends AbstractService
      * @param charset The character set encoding to use while encoding the
      * remote credentials. The default is null, which implies the legacy charset
      * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function setRemoteCredentials(remoteUsername:String, remotePassword:String, charset:String=null):void
     {
