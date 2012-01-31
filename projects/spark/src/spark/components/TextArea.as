@@ -397,6 +397,7 @@ public class TextArea extends SkinnableTextBase
      *  within <p>, <span>, etc.
      */
     [RichTextContent]
+    [Inspectable(environment="none")]
         
     /**
      *  This property is intended for use in MXML at compile time;
@@ -449,6 +450,8 @@ public class TextArea extends SkinnableTextBase
     //----------------------------------
     //  heightInLines
     //----------------------------------
+
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  @copy spark.components.RichEditableText#heightInLines
@@ -506,6 +509,8 @@ public class TextArea extends SkinnableTextBase
     //----------------------------------
     //  widthInChars
     //----------------------------------
+
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  @copy spark.components.RichEditableText#widthInChars
