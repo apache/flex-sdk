@@ -86,6 +86,7 @@
 		    <doc-classes class="Flex4Classes"/>
 		    <doc-namespaces uri="http://ns.adobe.com/mxml/2009"/>
 		    <namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/manifest.xml"/>
+		    <jvmarg line="${compc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates flex4.swc with asdoc xml -->
