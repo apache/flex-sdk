@@ -351,7 +351,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor
+     *  Constructor.
      */
     public function MenuBar()
     {
