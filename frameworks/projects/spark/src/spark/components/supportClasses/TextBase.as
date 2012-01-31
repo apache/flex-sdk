@@ -238,11 +238,6 @@ public class TextBase extends UIComponent
      *  We can optimize for a single line text reflow, which is a lot of cases.
      */
     private var _measuredOneTextLine:Boolean = false;
-
-    /**
-     *  @private
-     */
-    private var displayObjectChanged:Boolean;
     
     //--------------------------------------------------------------------------
     //
@@ -593,7 +588,10 @@ public class TextBase extends UIComponent
             var n:int = textLines.length;
             for (var i:int = 0; i < n; i++)
             {
-                textLines[i].visible = visible && designLayer.effectiveVisibility;
+                if (designLayer)
+                    textLines[i].visible = visible && designLayer.effectiveVisibility;
+                else
+                    textLines[i].visible = visible;
             }
         }
 
