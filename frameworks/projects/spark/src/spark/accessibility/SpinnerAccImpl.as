@@ -118,7 +118,7 @@ public class SpinnerAccImpl extends AccImpl
      */
     override protected function get eventsToHandle():Array
     {
-        return super.eventsToHandle.concat(["change"]);
+        return super.eventsToHandle.concat([ Event.CHANGE ]);
     }
 
     //--------------------------------------------------------------------------
@@ -242,6 +242,7 @@ public class SpinnerAccImpl extends AccImpl
                     Spinner(master).changeValueByStep(true)
                 break;
             }
+				
             case 2:
             {
                 if (Spinner(master).incrementButton.enabled)
@@ -250,7 +251,8 @@ public class SpinnerAccImpl extends AccImpl
             }
         }
         
-        if (Spinner(master).value != prevValue) {
+        if (Spinner(master).value != prevValue)
+		{
             master.dispatchEvent(new Event(Event.CHANGE));
             master.dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
@@ -297,7 +299,7 @@ public class SpinnerAccImpl extends AccImpl
 
         switch (event.type)
         {
-            case "change":
+            case Event.CHANGE:
             {
                 Accessibility.sendEvent(master, 0,
                                         AccConst.EVENT_OBJECT_VALUECHANGE, true);
