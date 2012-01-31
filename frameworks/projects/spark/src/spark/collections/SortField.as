@@ -39,7 +39,12 @@ import spark.globalization.SortingCollator;
  *  The locale identifier that specifies the language, region, script
  *  and optionally other related tags and keys.
  *  The syntax of this identifier must follow the syntax defined
- *  by the Unicode Technical Standard #35 (e.g. en-US, de-DE, zh-Hans-CN)
+ *  by the Unicode Technical Standard #35 (for example, en-US, de-DE, zh-Hans-CN).
+ * 
+ *  <p>For browser based apps, the default locale is based on the language settings from the browser. 
+ *  (Note that this is not the browser UI language that is available from Javascript, but rather is the list of 
+ *  preferred locales for web pages that the user has set in the browser preferences.) For AIR applications, 
+ *  the default UI locale is based on the user's system preferences.</p>
  * 
  *  @see http://www.unicode.org/reports/tr35/
  *
