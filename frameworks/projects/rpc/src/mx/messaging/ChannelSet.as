@@ -799,6 +799,7 @@ public class ChannelSet extends EventDispatcher
                 if (_messageAgents.length == 0)
                 {
                     _shouldBeConnected = false;
+                    _currentChannelIndex = -1;
                     if (connected)
                         disconnectChannel();
                 }
@@ -831,6 +832,7 @@ public class ChannelSet extends EventDispatcher
     {        
         _connecting = false;
         _connected = true; // Set internally to allow us to send pending messages before dispatching the connect event.
+        _currentChannelIndex = -1; // Reset index so that future disconnects are followed by hunting through all available options in order.
                                                   
         // Send any pending messages.
         while (_pendingSends.length > 0)
