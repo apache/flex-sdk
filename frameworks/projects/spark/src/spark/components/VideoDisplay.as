@@ -178,7 +178,7 @@ public class VideoElement extends GraphicElement
         VideoPlayer.iNCManagerClass = fl.video.NCManagerDynamicStream;
         
         var flvPlayer:VideoPlayer = new VideoPlayer();
-        mx_internal::videoPlayer = flvPlayer;
+        videoPlayer = flvPlayer;
         
         // we wrap the VideoPlayer inside of another container because 
         // the video player doesn't handle setting x/y correctly. we could allocate
@@ -330,13 +330,13 @@ public class VideoElement extends GraphicElement
      */
     public function get autoRewind():Boolean
     {
-        var myVideoPlayer:VideoPlayer = mx_internal::videoPlayer;
+        var myVideoPlayer:VideoPlayer = videoPlayer;
         return myVideoPlayer.autoRewind;
     }
     
     public function set autoRewind(value:Boolean):void
     {
-        mx_internal::videoPlayer.autoRewind = value;
+        videoPlayer.autoRewind = value;
     }
     
     //----------------------------------
@@ -437,9 +437,9 @@ public class VideoElement extends GraphicElement
             // We don't need to worry about NO_SCALE as that's just not putting 
             // an explicit width on the VideoElement.
             if (value)
-                mx_internal::videoPlayer.scaleMode = VideoScaleMode.MAINTAIN_ASPECT_RATIO;
+                videoPlayer.scaleMode = VideoScaleMode.MAINTAIN_ASPECT_RATIO;
             else
-                mx_internal::videoPlayer.scaleMode = VideoScaleMode.EXACT_FIT;
+                videoPlayer.scaleMode = VideoScaleMode.EXACT_FIT;
 
             invalidateSize();
             invalidateDisplayList();
@@ -481,15 +481,15 @@ public class VideoElement extends GraphicElement
         // if trying to unmute and we're muted
         if (!value && mutedVolume != -1)
         {
-            mx_internal::videoPlayer.volume = mutedVolume;
+            videoPlayer.volume = mutedVolume;
             mutedVolume = -1;
             dispatchEvent(new Event("volumeChanged"));
         }
         // if trying to mute and we're not muted
         else if (value && mutedVolume == -1)
         {
-            mutedVolume = mx_internal::videoPlayer.volume;
-            mx_internal::videoPlayer.volume = 0;
+            mutedVolume = videoPlayer.volume;
+            videoPlayer.volume = 0;
             dispatchEvent(new Event("volumeChanged"));
         }
     }
@@ -499,7 +499,7 @@ public class VideoElement extends GraphicElement
     //----------------------------------
     
     [Bindable("playheadUpdate")]
-    [Bindable("autoRewound")]
+    [Bindable("playheadTimeChanged")]
     [Inspectable(Category="General", defaultValue="0")]
 
     /**
@@ -544,12 +544,12 @@ public class VideoElement extends GraphicElement
      */
     public function get playheadTime():Number
     {
-        return mx_internal::videoPlayer.playheadTime;
+        return videoPlayer.playheadTime;
     }
     
     public function set playheadTime(value:Number):void
     {
-        mx_internal::videoPlayer.playheadTime = value;
+        videoPlayer.playheadTime = value;
     }
     
     //----------------------------------
@@ -653,6 +653,7 @@ public class VideoElement extends GraphicElement
 
     [Bindable("complete")]
     [Bindable("metadataReceived")]
+    [Bindable("totalTimeChanged")]
     [Inspectable(Category="General", defaultValue="0")]
     
     /**
@@ -671,7 +672,7 @@ public class VideoElement extends GraphicElement
      */
     public function get totalTime():Number
     {
-        return mx_internal::videoPlayer.totalTime;
+        return videoPlayer.totalTime;
     }
     
     //----------------------------------
@@ -688,7 +689,7 @@ public class VideoElement extends GraphicElement
      */
     public function get videoObject():Video
     {
-        return mx_internal::videoPlayer as Video;
+        return videoPlayer as Video;
     }
     
     //----------------------------------
@@ -710,7 +711,7 @@ public class VideoElement extends GraphicElement
      */
     public function get volume():Number
     {
-        return mx_internal::videoPlayer.volume;
+        return videoPlayer.volume;
     }
     
     /**
@@ -719,7 +720,7 @@ public class VideoElement extends GraphicElement
     public function set volume(value:Number):void
     {
         mutedVolume = -1;
-        mx_internal::videoPlayer.volume = value;
+        videoPlayer.volume = value;
         dispatchEvent(new Event("volumeChanged"));
     }
     
@@ -757,8 +758,8 @@ public class VideoElement extends GraphicElement
     {
         super.measure();
 
-        var vw:Number = mx_internal::videoPlayer.videoWidth;
-        var vh:Number = mx_internal::videoPlayer.videoHeight;
+        var vw:Number = videoPlayer.videoWidth;
+        var vh:Number = videoPlayer.videoHeight;
 
         measuredWidth = vw;
         measuredHeight = vh;
@@ -784,7 +785,7 @@ public class VideoElement extends GraphicElement
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        var flvPlayer:VideoPlayer = mx_internal::videoPlayer;
+        var flvPlayer:VideoPlayer = videoPlayer;
         
         flvPlayer.width = Math.floor(unscaledWidth);
         flvPlayer.height = Math.floor(unscaledHeight);
@@ -811,7 +812,7 @@ public class VideoElement extends GraphicElement
     public function pause():void
     {
         setPlaying(false);
-        mx_internal::videoPlayer.pause();
+        videoPlayer.pause();
     }
     
     /**
@@ -825,6 +826,13 @@ public class VideoElement extends GraphicElement
      */
     public function play():void
     {
+        // close old video if it was open
+        if (sourceLastPlayed != null && sourceLastPlayed != this.source)
+        {
+            videoPlayer.close();
+            videoPlayer.clear();
+        }
+        
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
         {
@@ -839,16 +847,15 @@ public class VideoElement extends GraphicElement
             // stream where it was paused, one needs to call play(null).
             if (sourceLastPlayed == this.source)
             {
+                if (videoPlayer.state == VideoState.CONNECTION_ERROR)
+                {
+                    setPlaying(false);
+                    return;
+                }
                 flvSource = null;
             }
             else
             {
-                if (sourceLastPlayed != null)
-                {
-                    videoPlayer.close();
-                    videoPlayer.clear();
-                }
-                
                 flvSource =  new DynamicStreamItem();
                 sourceLastPlayed = source;
         
@@ -877,7 +884,7 @@ public class VideoElement extends GraphicElement
                 videoPlayer.play2(flvSource);
             }
         }
-        else if (source is String && String(source).length != 0)
+        else if (source is String && String(source).length > 0)
         {
             // The progressive case
             var sourceString:String;
@@ -887,16 +894,16 @@ public class VideoElement extends GraphicElement
             // stream where it was paused, one needs to call play(null).
             if (sourceLastPlayed == this.source)
             {
+                if (videoPlayer.state == VideoState.CONNECTION_ERROR)
+                {
+                    setPlaying(false);
+                    return;
+                }
+                
                 sourceString = null;
             }
             else
             {
-                if (sourceLastPlayed != null)
-                {
-                    videoPlayer.close();
-                    videoPlayer.clear();
-                }
-                
                 sourceString = String(this.source);
                 sourceLastPlayed = sourceString;
             }
@@ -909,11 +916,14 @@ public class VideoElement extends GraphicElement
         }
         else
         {
-            if (sourceLastPlayed != null)
-            {
-                videoPlayer.close();
-                videoPlayer.clear();
-            }
+            // huge hack to reset the video state
+            // otherwise there's no way to reset the 
+            // playheadTime and totalTime.
+            // In the future, this hopefully will be easier and the 
+            // video player might also have the concept of a bad URL or a 
+            // source=null.
+            videoPlayer.load("QYQYQYQYQYQ");
+            
             setPlaying(false);
         }
     }
@@ -925,56 +935,39 @@ public class VideoElement extends GraphicElement
      */
     private function load():void
     {
-        // essentially a load is a play and then a pause
+        // load is only called when source is changed.  We should clear out the source and close the connection
+        if (sourceLastPlayed != null)
+        {
+            videoPlayer.close();
+            videoPlayer.clear();
+        }
         
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
         {
-            if (source != null && sourceLastPlayed != null)
-            {
-                videoPlayer.close();
-                videoPlayer.clear();
-            }
-            //videoPlayer.volume = 0;
             // can't load in the streaming video case, so just call play(), then pause()
             play();
             pause();
             seek(0);
         }
-        else if (source is String && String(source).length != 0)
+        else if (source is String && String(source).length > 0)
         {
             // The progressive case
-            var sourceString:String;
-        
-            // if paused, pass in null as the flvSource.  Otherwise, calling 
-            // play(source) will reset the stream back to zero.  To restart the 
-            // stream where it was paused, one needs to call play(null).
-            if (sourceLastPlayed == this.source)
-            {
-                sourceString = null;
-            }
-            else
-            {
-                sourceString = String(this.source);
-                sourceLastPlayed = sourceString;
-                
-                if (sourceLastPlayed != null)
-                {
-                    videoPlayer.close();
-                    videoPlayer.clear();
-                }
-            }
-           
+            var sourceString:String = String(this.source);
+            sourceLastPlayed = sourceString;
+            
             // load the video up
             videoPlayer.load(sourceString);
         }
         else
         {
-            if (sourceLastPlayed != null)
-            {
-                videoPlayer.close();
-                videoPlayer.clear();
-            }
+            // huge hack to reset the video state
+            // otherwise there's no way to reset the 
+            // playheadTime and totalTime.
+            // In the future, this hopefully will be easier and the 
+            // video player might also have the concept of a bad URL or a 
+            // source=null.
+            videoPlayer.load("QYQYQYQYQYQ");
         }
         
         setPlaying(false);
@@ -1015,10 +1008,13 @@ public class VideoElement extends GraphicElement
      */
     public function seek(time:Number):void
     {
+        if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
         if (time < 0)
             time = 0;
         
-        mx_internal::videoPlayer.seek(time);
+        videoPlayer.seek(time);
     }
     
     /**
@@ -1038,7 +1034,7 @@ public class VideoElement extends GraphicElement
     public function stop():void
     {
         setPlaying(false);
-        mx_internal::videoPlayer.stop();
+        videoPlayer.stop();
     }
     
     //--------------------------------------------------------------------------
@@ -1053,7 +1049,7 @@ public class VideoElement extends GraphicElement
     private function videoPlayer_autoRewoundHandler(event:fl.video.VideoEvent):void
     {
         // just for binding purposes on VideoElement.playheadTime
-        dispatchEvent(new Event("autoRewound"));
+        dispatchEvent(new Event("playheadTimeChanged"));
     }
     
     /**
@@ -1117,6 +1113,8 @@ public class VideoElement extends GraphicElement
             case VideoState.STOPPED:
             case VideoState.DISCONNECTED:
             case VideoState.CONNECTION_ERROR:
+                dispatchEvent(new Event("playheadTimeChanged"));
+                dispatchEvent(new Event("totalTimeChanged"));
                 setPlaying(false);
                 break;
         }
