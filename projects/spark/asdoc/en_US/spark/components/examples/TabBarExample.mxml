@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Spark TabBar -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <fx:Style>
+        @namespace "library://ns.adobe.com/flex/spark";
+
+        TabBar ToggleButton:upAndSelected,
+        TabBar ToggleButton:overAndSelected,
+        TabBar ToggleButton:downAndSelected,
+        TabBar ToggleButton:disabledAndSelected {
+            baseColor: #9999CC;
+            color: #F00E34;
+        }
+
+        TabBar {
+            baseColor: #9999CC;
+            color: #410FF5;
+            cornerRadius:8;
+        }
+    </fx:Style>
+
+    <fx:Script>
+    <![CDATA[
+         import spark.events.IndexChangeEvent; 
+
+         private function changeSelection(event:IndexChangeEvent): void {
+             selectionText.text = "Selected Item: " + TabBar(event.target).selectedItem;
+         }
+    ]]>
+    </fx:Script>
+
+    <s:Panel title="Spark TabBar Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:Label text="Select an item below:" x="10" y="15" />
+        <s:TabBar id="viewMenu" x="10" y="40" width="320"
+                change="changeSelection(event)">
+            <s:dataProvider>
+                <s:ArrayCollection source="['Appetizers', 'Entrees', 'Desserts']" />
+            </s:dataProvider>
+        </s:TabBar>
+        <s:Label x="10" y="75" id="selectionText" />
+    </s:Panel>
+
+</s:Application>
