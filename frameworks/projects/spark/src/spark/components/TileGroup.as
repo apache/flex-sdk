@@ -49,6 +49,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  </pre>
  * 
  *  @see spark.layouts.TileLayout
+ *  @includeExample examples/TileGroupExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
