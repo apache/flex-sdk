@@ -369,7 +369,7 @@ package spark.components
      *  and ends when it loses focus.</p>
      *
      *  <p>RichEditableText uses TLF's TextContainerManager class
-     *  to handle its text display, scrolling, selection, and editing.</p>
+     *  to handle its text display, scrolling, selection, editing and context menu.</p>
      *
      *  <p>To use this component in a list-based component, such as a List or DataGrid, 
      *  create an item renderer.
