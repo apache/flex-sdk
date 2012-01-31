@@ -156,6 +156,11 @@ public class Animation extends EventDispatcher
     private var startTime:Number;
     // Track number of times repeated for use by repeatCount logic
     private var numRepeats:Number;
+    // The amount of time that the animation should delay before
+    // starting. This is set to a non-negative number only when
+    // an Animation is paused during its startDelay phase
+    private var delayTime:Number = -1;
+    
 
     private var easingFunction:Function;
     private static var defaultEaser:IEaser = new Sine(.5); 
@@ -722,6 +727,35 @@ public class Animation extends EventDispatcher
         // The rest of what we need to do is handled by the stop() function
         stop();
     }
+    
+    private function addToDelayedAnimations(timeToDelay:Number):void
+    {
+        // Run timer if it's not currently running
+        if (!timer)
+        {
+            Timeline.pulse();
+            timer = new Timer(_resolution);
+            timer.addEventListener(TimerEvent.TIMER, timerHandler);
+            timer.start();
+        }
+        var animStartTime:int = Timeline.currentTime + timeToDelay;
+        var insertIndex:int = -1;
+        for (var i:int = 0; i < delayedStartAnims.length; ++i)
+        {
+            var timeAtIndex:int = 
+                delayedStartTimes[delayedStartAnims[i]];
+            if (animStartTime < timeAtIndex)
+            {
+                insertIndex = i;
+                break;
+            }
+        }
+        if (insertIndex >= 0)
+            delayedStartAnims.splice(insertIndex, 0, this);
+        else
+            delayedStartAnims.push(this);
+        delayedStartTimes[this] = animStartTime;
+    }
 
     /**
      * Start the animation
@@ -729,37 +763,9 @@ public class Animation extends EventDispatcher
     public function play():void
     {
         if (startDelay > 0)
-        {
-            // Run timer if it's not currently running
-            if (!timer)
-            {
-                Timeline.pulse();
-                timer = new Timer(_resolution);
-                timer.addEventListener(TimerEvent.TIMER, timerHandler);
-                timer.start();
-            }
-            var animStartTime:int = Timeline.currentTime + startDelay;
-            var insertIndex:int = -1;
-            for (var i:int = 0; i < delayedStartAnims.length; ++i)
-            {
-                var timeAtIndex:int = 
-                    delayedStartTimes[delayedStartAnims[i]];
-                if (animStartTime < timeAtIndex)
-                {
-                    insertIndex = i;
-                    break;
-                }
-            }
-            if (insertIndex >= 0)
-                delayedStartAnims.splice(insertIndex, 0, this);
-            else
-                delayedStartAnims.push(this);
-            delayedStartTimes[this] = animStartTime;
-        }
+            addToDelayedAnimations(startDelay);
         else
-        {
             start();
-        }
     }
     
     /**
@@ -923,6 +929,12 @@ public class Animation extends EventDispatcher
      */
     public function pause():void
     {
+        var animPendingTime:Number = delayedStartTimes[this];
+        if (!isNaN(animPendingTime))
+        {
+            delayTime = animPendingTime - Timeline.currentTime;
+            removeFromDelayedAnimations();
+        }
         _isPlaying = false;
     }
 
@@ -952,12 +964,19 @@ public class Animation extends EventDispatcher
     public function resume():void
     {
         _isPlaying = true;
-        
-        startTime = intervalTime - _elapsedTime;
-        if (_doReverse)
+
+        if (delayTime >= 0)
         {
-            reverse();
-            _doReverse = false;
+            addToDelayedAnimations(delayTime);
+        }
+        else
+        {
+            startTime = intervalTime - _elapsedTime;
+            if (_doReverse)
+            {
+                reverse();
+                _doReverse = false;
+            }
         }
     }
     
