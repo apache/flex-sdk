@@ -82,6 +82,8 @@ use namespace mx_internal;
 
 [IconFile("VScrollBar.png")]
 
+[Alternative(replacement="spark.components.VScrollBar", since="4.0")]
+
 /**
  *  The VScrollBar (vertical ScrollBar) control  lets you control
  *  the portion of data that is displayed when there is too much data
