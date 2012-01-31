@@ -795,12 +795,14 @@ public class List extends ListBase implements IFocusManagerComponent
         super.commitProperties(); 
         
         if (multipleSelectionChanged)
+        {
 			// multipleSelectionChanged flag is cleared in commitSelection();
 			// this is so, because commitSelection() could be called from
 			// super.commitProperties() as well and in that case we don't
 			// want to commitSelection() twice, as that will actually wrongly 
 			// clear the selection.
-            commitSelection(); 
+            commitSelection();
+        }
     }
     
     /**
@@ -1373,7 +1375,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // Don't commit the selection immediately, but wait to see if the user
             // is actually dragging. If they don't drag, then commit the selection
-            if (dragEnabled && isItemIndexSelected(newIndex))
+            if (isItemIndexSelected(newIndex))
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionShiftKey = event.shiftKey;
@@ -1393,20 +1395,25 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!pendingSelectionOnMouseUp)
             validateProperties();
 
-        // Handle any drag gestures that may have been started
-        if (!dragEnabled || !selectedIndices || this.selectedIndices.indexOf(newIndex) == -1)
-            return;
-        
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
         mouseDownIndex = newIndex;
-        
-        // Listen for MOUSE_MOVE on both the list and the sandboxRoot.
-        // The user may have cliked on the item renderer close
-        // to the edge of the list, and we still want to start a drag
-        // operation if they move out of the list.
-        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
-        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
-        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+
+        var listenForDrag:Boolean = (dragEnabled && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
+        // Handle any drag gestures that may have been started
+        if (listenForDrag)
+        {
+            // Listen for MOUSE_MOVE on the sandboxRoot.
+            // The user may have cliked on the item renderer close
+            // to the edge of the list, and we still want to start a drag
+            // operation if they move out of the list.
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+        }
+
+        if (pendingSelectionOnMouseUp || listenForDrag)
+        {
+            systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+        }
     }
 
     /**
