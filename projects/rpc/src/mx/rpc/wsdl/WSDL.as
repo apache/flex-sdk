@@ -655,7 +655,7 @@ public class WSDL
 
                 // If we don't have the binding information for this operation,
                 // skip it.
-                if (operationName == null)
+                if (operation == null)
                 {
                     _log.warn("An operation '{0}' was found in the port type but is missing binding information.", operationName);
                     continue;
