@@ -11,35 +11,35 @@
 package mx.effects.interpolation
 {
 /**
- * The ColorInterpolator class provides RGB-space interpolation between
+ * The RGBInterpolator class provides RGB-space interpolation between
  * <code>uint</code> start and end values. Interpolation is done by treating
  * the start and end values as integers with color channel information in
  * the least-significant 3 bytes, interpolating each of those channels
  * separately.
  */
-public class ColorInterpolator implements IInterpolator
+public class RGBInterpolator implements IInterpolator
 {   
-    private static var theInstance:ColorInterpolator;
+    private static var theInstance:RGBInterpolator;
     
-    public function ColorInterpolator()
+    public function RGBInterpolator()
     {
         super();
     }
    
     /**
-     * Returns the singleton of this class. Since all ColorInterpolators
+     * Returns the singleton of this class. Since all RGBInterpolators
      * have the same behavior, there is no need for more than one instance.
      */
-    public static function getInstance():ColorInterpolator
+    public static function getInstance():RGBInterpolator
     {
         if (!theInstance)
-            theInstance = new ColorInterpolator();
+            theInstance = new RGBInterpolator();
         return theInstance;
     }
     
     /**
      * Returns the <code>uint</code> type, which is the type of
-     * object interpolated by ColorInterpolator
+     * object interpolated by RGBInterpolator
      */
     public function get interpolatedType():Class
     {
@@ -49,13 +49,14 @@ public class ColorInterpolator implements IInterpolator
     /**
      * @inheritDoc
      * 
-     * The interpolation for ColorInterpolator takes the form of parametric
+     * The interpolation for RGBInterpolator takes the form of parametric
      * calculations on each of the bottom three bytes of 
      * <code>startValue</code> and <code>endValue</code>. This interpolates
      * each color channel separately if the start and end values represent
      * RGB colors.
      */
-    public function interpolate(fraction:Number, startValue:*, endValue:*):*
+    public function interpolate(fraction:Number, startValue:Object, 
+        endValue:Object):Object
     {
         var startR:int;
         var startG:int;
@@ -82,5 +83,58 @@ public class ColorInterpolator implements IInterpolator
         return newR << 16 | newG << 8 | newB;
     }
 
+    /**
+     * @private
+     * 
+     * Utility function called by increment() and decrement()
+     */
+    private function combine(baseValue:uint, deltaValue:uint,
+        increment:Boolean):Object
+    {
+        var baseR:int = (baseValue & 0xff0000) >> 16;
+        var baseG:int = (baseValue & 0xff00) >> 8;
+        var baseB:int = baseValue & 0xff;
+        var deltaR:int = (deltaValue & 0xff0000) >> 16;
+        var deltaG:int = (deltaValue & 0xff00) >> 8;
+        var deltaB:int = deltaValue & 0xff;
+        var newR:uint, newG:uint, newB:uint;
+        if (increment)
+        {
+            newR = Math.min(baseR + deltaR, 255);
+            newG = Math.min(baseG + deltaG, 255);
+            newB = Math.min(baseB + deltaB, 255);
+        }
+        else
+        {
+            newR = Math.max(baseR - deltaR, 0);
+            newG = Math.max(baseG - deltaG, 0);
+            newB = Math.max(baseB - deltaB, 0);
+        }
+        return newR << 16 | newG << 8 | newB;
+    }
+
+    /**
+     * @inheritDoc
+     * 
+     * <p>This function returns the result of the two values added
+     * together on a per-channel basis. Each channel will be clamped
+     * at 255 to avoid overflow problems.</p>
+     */
+    public function increment(baseValue:Object, incrementValue:Object):Object
+    {
+        return combine(uint(baseValue), uint(incrementValue), true);
+    }
+
+    /**
+     * @inheritDoc
+     * 
+     * <p>This function returns the result of the two values subtracted
+     * on a per-channel basis. Each channel will be clamped
+     * at 0 to avoid underflow problems.</p>
+     */
+   public function decrement(baseValue:Object, decrementValue:Object):Object
+   {
+        return combine(uint(baseValue), uint(decrementValue), false);
+   }
 }
 }
