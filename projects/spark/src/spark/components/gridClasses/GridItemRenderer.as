@@ -121,7 +121,24 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 		const uiComp:IUIComponent = event.currentTarget as IUIComponent;
 		if (!uiComp)
 			return;
-		
+        
+        // If the renderer is partially obscured because the Grid has been 
+        // scrolled, we'll put the tooltip in the center of the exposed portion
+        // of the renderer.
+        
+        var rendererR:Rectangle = new Rectangle(
+            renderer.getLayoutBoundsX(),
+            renderer.getLayoutBoundsY(),
+            renderer.getLayoutBoundsWidth(),
+            renderer.getLayoutBoundsHeight());
+        
+        const scrollR:Rectangle = renderer.grid.scrollRect;
+        if (scrollR)
+            rendererR = rendererR.intersection(scrollR);  // exposed renderer b
+        
+        if ((rendererR.height == 0) || (rendererR.width == 0))
+            return;
+            
 		// Determine if the toolTip needs to be adjusted for RTL layout.
 		const mirror:Boolean = renderer.layoutDirection == LayoutDirection.RTL;
 		
@@ -133,15 +150,18 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         // center vertically and make sure it doesn't overlap the screen.
         // Call the helper function to handle this for us.
 
+        // x,y: tooltip's location relative to the renderer's layout bounds
         // Assume there's no scaling in the coordinate space between renderer.width and toolTip.width 
-        const x:int = mirror ? renderer.width - toolTip.width : 0;
+        const x:int =  mirror ? (renderer.width - toolTip.width) : (rendererR.x - renderer.getLayoutBoundsX());
+        const y:int = rendererR.y - renderer.getLayoutBoundsY() + ((rendererR.height - toolTip.height) / 2);
+
         var pt:Point = PopUpUtil.positionOverComponent(DisplayObject(uiComp),
                                                        uiComp.systemManager,
                                                        toolTip.width, 
                                                        toolTip.height,
-                                                       renderer.height / 2, 
+                                                       NaN, 
                                                        null, 
-                                                       new Point(x, 0)); 
+                                                       new Point(x, y)); 
         toolTip.move(pt.x, pt.y);
 	}
          
