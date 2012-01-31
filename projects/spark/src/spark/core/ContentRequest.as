@@ -286,8 +286,9 @@ public class ContentRequest extends EventDispatcher
         {
             if (_content == e.content)
             {
-                // FIXME(crl): Should recovery be deferred to the owner of this
-                // content request? 
+                // TODO(crl): We should defer to the owner of this
+                // content request to decide how to recover, for now
+                // we simply re-request automatically. 
                 _shared = false;
                 var loader:Loader = new Loader();
                 var loaderContext:LoaderContext = new LoaderContext();
