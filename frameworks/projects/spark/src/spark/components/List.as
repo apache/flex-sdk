@@ -423,6 +423,16 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     */
+    override public function set hasFocusableChildren(value:Boolean):void
+    {
+        super.hasFocusableChildren = value;
+        if (scroller)
+            scroller.hasFocusableChildren = value;
+    }
+    
+    /**
+     *  @private
      *  Let ListBase handle single selection and afterwards come in and 
      *  handle multiple selection via the commitMultipleSelection() 
      *  helper method. 
@@ -612,6 +622,8 @@ public class List extends ListBase implements IFocusManagerComponent
             dataGroup.addEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
+        if (instance == scroller)
+            scroller.hasFocusableChildren = hasFocusableChildren;
     }
 
     /**
