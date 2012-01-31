@@ -36,10 +36,6 @@ public class FxTextArea extends FxTextBase
 {
     include "../core/Version.as";
 
-    // Force a dependency on FxHScrollBar and FxVScrollBar to work around bug SDK-17222
-    private static var hScrollDep:FxHScrollBar;
-    private static var vScrollDep:FxVScrollBar;
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
