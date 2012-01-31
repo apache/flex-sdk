@@ -22,9 +22,10 @@ import flash.events.MouseEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+
+import mx.controls.DataGrid;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
-import mx.controls.DataGrid;
 import mx.core.EdgeMetrics;
 import mx.core.FlexSprite;
 import mx.core.IFlexDisplayObject;
@@ -32,6 +33,8 @@ import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
+import mx.effects.easing.Back;
 import mx.events.DataGridEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.CursorManager;
@@ -39,8 +42,6 @@ import mx.managers.CursorManagerPriority;
 import mx.skins.halo.DataGridColumnDropIndicator;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
-import mx.core.mx_internal;
-import mx.effects.easing.Back;
 
 use namespace mx_internal;
 
@@ -1022,9 +1023,9 @@ public class DataGridHeader extends DataGridHeaderBase
                     m.width = dataGrid.width / dataGrid.scaleX - m.x - dataGrid.viewMetrics.right;
                     m.height = dataGrid.height / dataGrid.scaleY - m.x - dataGrid.viewMetrics.bottom;
 
-                    columnDropIndicator.x = xx - columnDropIndicator.width;
-                    columnDropIndicator.y = 0;
                     columnDropIndicator.setActualSize(3, dataGrid.height / dataGrid.scaleY);
+                    columnDropIndicator.x = xx - columnDropIndicator.width + (layoutDirection == LayoutDirection.LTR ? 0 : 1);
+                    columnDropIndicator.y = 0;  
                 }
                 break;
             }
