@@ -15,8 +15,6 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
-import flashx.textLayout.conversion.ImportExportConfiguration;
-import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
@@ -25,9 +23,6 @@ import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.CharacterFormat;
 import flashx.textLayout.formats.ContainerFormat;
-import flashx.textLayout.formats.ICharacterFormat;
-import flashx.textLayout.formats.IContainerFormat;
-import flashx.textLayout.formats.IParagraphFormat;
 import flashx.textLayout.formats.ParagraphFormat;
 
 import mx.core.mx_internal;
@@ -369,22 +364,9 @@ public class TextGraphic extends TextGraphicElement
 
         var overset:Boolean = compose(unscaledWidth, unscaledHeight);
         
-        // Use scrollRect to clip overset lines.
-        // But don't read or write scrollRect if you can avoid it,
-        // because this causes Player 10.0 to allocate memory.
-        if (overset)
-        {
-            displayObject.scrollRect =
-                new Rectangle(0, 0, unscaledWidth, unscaledHeight);
-            mx_internal::hasScrollRect = true;
-        }
-        else if (mx_internal::hasScrollRect)
-        {
-            displayObject.scrollRect = null;
-            mx_internal::hasScrollRect = false;
-        }
+        mx_internal::clip(overset, unscaledWidth, unscaledHeight);
     }
-
+    
     /**
      *  @inheritDoc
      */
@@ -626,7 +608,7 @@ public class TextGraphic extends TextGraphicElement
         textFlowComposer.composeTextFlow(textFlow);
         
         textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
-
+        
         return textFlowComposer.isOverset;
     }
 }
