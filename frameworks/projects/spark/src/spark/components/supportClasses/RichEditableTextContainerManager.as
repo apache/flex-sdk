@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
+import flash.ui.Keyboard;
 
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.edit.EditingMode;
@@ -243,13 +244,44 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override public function keyDownHandler(event:KeyboardEvent):void
     {
+        //trace("TCM: keyDown cancelable ", event.cancelable.toString());
+
         super.keyDownHandler(event);
         
-        // Assume when this has focus it handles all keys.  Setting this will
-        // tell our scroller, if there is one, that it shouldn't act on the
-        // key.
-        event.preventDefault();
+        // ToDo: remove this when TLF starts doing this.  Note that our
+        // SystemManager.keyDownHandler redispatches keyDown events for the 
+        // following keyCodes as cancelable events for the player.  In AIR, 
+        // all keyboard events are cancelable.
+        //
+        // We need to tell the scroller, if there is one, to ignore the 
+        // navigation keys that TLF processes.
+        if (event.cancelable && textView.clipAndEnableScrolling)
+        {
+            // Copied from TLF SelectionManager.keyDownHandler.
+            if (event.charCode == 0)
+            {   
+                switch(event.keyCode)
+                {
+                    case Keyboard.LEFT:
+                    case Keyboard.UP:
+                    case Keyboard.RIGHT:
+                    case Keyboard.DOWN:
+                    case Keyboard.HOME:
+                    case Keyboard.END:
+                    case Keyboard.PAGE_DOWN:
+                    case Keyboard.PAGE_UP:
+                        event.preventDefault();
+                        break;
+                }
+            }                        
+        }        
     }    
+    
+//    override public function textInputHandler(event:TextEvent):void
+//    {
+//        trace("textInputHandler", event);
+//        super.textInputHandler(event);
+//    }
 }
 
 }
