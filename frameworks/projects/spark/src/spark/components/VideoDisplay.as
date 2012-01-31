@@ -181,8 +181,6 @@ public class VideoDisplay extends UIComponent
         // TLF itself has English-only messages,
         // but higher layers like Flex can provide localized versions.
         OSMFStrings.resourceStringFunction = getResourceString;
-        
-        trace(getResourceString('drmAuthenticationFailed'));
     }
     
     //--------------------------------------------------------------------------
