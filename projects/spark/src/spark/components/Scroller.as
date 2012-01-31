@@ -626,6 +626,13 @@ public class Scroller extends SkinnableComponent
      *  The final position in the throw effect's horizontal motion path
      */
     private var throwFinalHSP:Number;
+
+    /**
+     *  @private
+     *  Indicates whether the previous throw reached one of the maximum
+     *  scroll positions (vsp or hsp) that was in effect at the time. 
+     */
+    private var throwReachedMaximumScrollPosition:Boolean;
     
     /**
      *  @private
@@ -827,6 +834,7 @@ public class Scroller extends SkinnableComponent
             viewport.clipAndEnableScrolling = true;
             Group(skin).addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            systemManager.stage.addEventListener("orientationChange",orientationChangeHandler);
         }
         if (verticalScrollBar)
             verticalScrollBar.viewport = viewport;
@@ -845,6 +853,7 @@ public class Scroller extends SkinnableComponent
             viewport.clipAndEnableScrolling = false;
             Group(skin).removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            systemManager.stage.removeEventListener("orientationChange",orientationChangeHandler);
         }
     }
     
@@ -926,7 +935,7 @@ public class Scroller extends SkinnableComponent
 
         _measuredSizeIncludesScrollBars = value;
         invalidateSkin();
-    }   
+    }
     
     //--------------------------------------------------------------------------
     // 
@@ -936,86 +945,96 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Helper function for viewport_propertyChangeHandler below 
+     *  Helper function for checkScrollPositionsOnUpdateComplete.  
      */
-    private function checkForInvalidScrollPositions():void
+    private function getMotionPathCurrentVelocity(mp:MotionPath,currentTime:Number,totalTime:Number):Number
     {
-        var snapVSP:Number;
-        var snapHSP:Number;
-        var doVerticalSnap:Boolean = false;
-        var doHorizontalSnap:Boolean = false;
+        // Determine the fraction of the effect that has already played.
+        var fraction:Number = currentTime / totalTime;
+
+        // Now we need to determine the effective velocity at the effect's current position.
+        // Here we use a "poor man's" approximation that doesn't require us to know any of the
+        // derivative functions associated with the motion path.  We sample the position at two
+        // time values very close together and assume the velocity slope is a straight line 
+        // between them.  The smaller the distance between the two time values, the closer the 
+        // result will be to the "instantaneous" velocity.
+        const TINY_DELTA_TIME:Number = 0.00001; 
+        var value1:Number = Number(mp.getValue(fraction));
+        var value2:Number = Number(mp.getValue(fraction + (TINY_DELTA_TIME / totalTime)));
+        return (value2 - value1) / TINY_DELTA_TIME;
+    }
+    
+    /**
+     *  @private 
+     */
+    private function checkScrollPositionsOnUpdateComplete(event:FlexEvent):void
+    {
+        viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
+            checkScrollPositionsOnUpdateComplete);
         
-        function updateCompleteHandler(event:FlexEvent):void
-        {
-            viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
-                updateCompleteHandler);
-            
-            if (doHorizontalSnap)
-                viewport.horizontalScrollPosition = snapHSP;
-            
-            if (doVerticalSnap)
-                viewport.verticalScrollPosition = snapVSP;
-        }
+        var curVelocity:Point;
         
-        // There are two cases in which we'll potentially need to fix invalid 
-        // scroll positions...
-        if (throwEffect && throwEffect.isPlaying)
-        {
-            // 1) A throw effect animation is in progress, and may have been 
-            // set up to end at a scroll position that is now invalid.
-            snapVSP = throwFinalVSP;
-            snapHSP = throwFinalHSP;
-        }
-        else if (!inTouchInteraction)
-        {
-            // 2) There's no touch gesture in progress.  The content may be 
-            // at a scroll position that is now invalid.
-            snapVSP = viewport.verticalScrollPosition;
-            snapHSP = viewport.horizontalScrollPosition;
-        } 
-        else
-        {
-            // If we get here we know that a touch gesture is in progress but 
-            // the throw animation portion is not playing.  The user's finger 
-            // is down.  We don't need to worry about the scroll position being 
-            // invalid because when the finger is released the throw animation 
-            // will get us back to a valid position.
-            return;
-        }
-        
-        // Determine the maximum valid scroll positions
+        // Determine the new maximum valid scroll positions
         var maxVSP:Number = viewport.contentHeight > viewport.height ? 
             viewport.contentHeight-viewport.height : 0; 
         var maxHSP:Number = viewport.contentWidth > viewport.width ? 
-            viewport.contentWidth-viewport.width : 0; 
+            viewport.contentWidth-viewport.width : 0;
+        
+        // Determine whether we possibly need to re-throw because of changed max positions.
+        var didNotThrowFarEnough:Boolean = throwReachedMaximumScrollPosition &&
+            (throwFinalVSP < maxVSP || throwFinalHSP < maxHSP);
+        var threwTooFar:Boolean = (throwFinalVSP > maxVSP || throwFinalHSP > maxHSP);
 
-        // See whether the current scroll positions are invalid
-        if (snapVSP > maxVSP)
+        if (throwEffect && throwEffect.isPlaying && (didNotThrowFarEnough || threwTooFar))
         {
-            snapVSP = maxVSP;
-            doVerticalSnap = true;
-        }
-        if (snapHSP > maxHSP)
-        {
-            snapHSP = maxHSP;
-            doHorizontalSnap = true;
-        }
+            // There's currently a throw animation playing, and it's throwing to a 
+            // now-incorrect position.  We're going to stop the animation and start
+            // a better one to continue the throw.
+            
+            var velX:Number = 0;
+            var velY:Number = 0;
 
-        if (doHorizontalSnap || doVerticalSnap)
+            // Get the current position of the existing throw animation
+            var effectTime:Number = throwEffect.playheadTime;
+
+            // It's possible for playheadTime to not be set if we're getting it
+            // before the first animation timer call.
+            if (isNaN(effectTime))
+                effectTime = 0;
+
+            var effectDuration:Number = throwEffect.duration;
+            
+            // Now get the current effective velocity for each motionpath in the animation. 
+            for (var t:int = 0; t < throwEffect.motionPaths.length; t++)
+            {
+                var vel:Number = getMotionPathCurrentVelocity(throwEffect.motionPaths[t], effectTime, effectDuration);
+
+                // The property can only either be horizontalScrollPosition or verticalScrollPosition
+                if (throwEffect.motionPaths[t].property == "horizontalScrollPosition")
+                    velX = vel;
+                else
+                    velY = vel;
+            }
+
+            // Stop the existing throw animation now that we've determined its current velocities.
+            stoppedPreemptively = true;
+            throwEffect.stop();
+
+            // Now perform a new throw to get us to the right position.
+            performThrow(-velX, -velY);
+        }
+        else if (!inTouchInteraction)
         {
-            // One or both scroll positions are invalid
-            
-            // If a throw effect is playing, we need to stop it
-            if (throwEffect && throwEffect.isPlaying)
-                throwEffect.stop();
-            
-            // We need to wait until after the current update to change to the new 
-            // valid scroll positions.
-            viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
-                updateCompleteHandler);
+            // No touch interaction is in effect, but the content may be sitting at
+            // a scroll position that is now invalid.  Note that performThrow will
+            // only actually perform a throw if the positions actually are invalid.
+            performThrow(0, 0);
         }
     }
     
+    /**
+     *  @private 
+     */
     private function viewport_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         switch(event.property) 
@@ -1025,11 +1044,11 @@ public class Scroller extends SkinnableComponent
                 invalidateSkin();
                 if (getStyle("interactionMode") == InteractionMode.TOUCH)
                 {
-                    // If the content size changed, particularly because of a device 
-                    // orientation (i.e. landscape/portrait) change, then the valid 
-                    // scroll position ranges may have changed.  In this case, we may
-                    // need to snap the content scroll position back to a valid value. 
-                    checkForInvalidScrollPositions();
+                    // If the content size changed, then the valid scroll position ranges 
+                    // may have changed.  In this case, we need to schedule an updateComplete 
+                    // handler to check and potentially correct the scroll positions. 
+                    viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
+                        checkScrollPositionsOnUpdateComplete);
                 }
                 break;
         }
@@ -1101,6 +1120,22 @@ public class Scroller extends SkinnableComponent
                 if (viewport is UIComponent)
                     UIComponent(viewport).validateNow();
             }
+        }
+    }
+    
+    /**
+     *  @private 
+     */
+    private function orientationChangeHandler(event:Event):void
+    {
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // When the orientation (landscape/portrait) changes, then the valid
+            // scroll position ranges may have changed.  In this case, we need to
+            // schedule an updateComplete handler to check and potentially correct
+            // the scroll positions.
+            viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
+                checkScrollPositionsOnUpdateComplete);
         }
     }
     
@@ -1579,6 +1614,7 @@ public class Scroller extends SkinnableComponent
 
         var throwEffectMotionPaths:Vector.<MotionPath> = new Vector.<MotionPath>();
         
+        throwReachedMaximumScrollPosition = false;
         scrollingHorizontally = false;
         var horizontalTime:Number = 0;
         var finalKeyframe:int;
@@ -1598,6 +1634,8 @@ public class Scroller extends SkinnableComponent
                 throwEffectMotionPaths.push(horizontalMP);
                 horizontalTime = horizontalMP.keyframes[horizontalMP.keyframes.length-1].time;
                 throwFinalHSP = Number(horizontalMP.keyframes[horizontalMP.keyframes.length-1].value); 
+                if (throwFinalHSP == maxWidth)
+                    throwReachedMaximumScrollPosition = true;
                 scrollingHorizontally = true;
             }
         }
@@ -1620,6 +1658,8 @@ public class Scroller extends SkinnableComponent
                 throwEffectMotionPaths.push(verticalMP);
                 verticalTime = verticalMP.keyframes[verticalMP.keyframes.length-1].time;
                 throwFinalVSP = Number(verticalMP.keyframes[verticalMP.keyframes.length-1].value); 
+                if (throwFinalVSP == maxHeight)
+                    throwReachedMaximumScrollPosition = true;
                 scrollingVertically = true;
             }
         }
@@ -3193,12 +3233,15 @@ class TouchScrollHelper
      */
     public function endTouchScroll():void
     {
-        isScrolling = false;
-        
-        var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
-        scrollEndEvent.relatedObject = scroller;
-        scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-		dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
+        if (isScrolling)
+        {
+            isScrolling = false;
+            
+            var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
+            scrollEndEvent.relatedObject = scroller;
+            scrollEndEvent.reason = TouchInteractionReason.SCROLL;
+            dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
+        }
     }
 
 }
