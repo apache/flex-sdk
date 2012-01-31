@@ -299,7 +299,7 @@ public class FxScroller extends FxComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  Returns 1 if there is a viewport, 0 otherwise.
      */
     public function get numItems():int
     {
@@ -307,8 +307,15 @@ public class FxScroller extends FxComponent
     }
     
     /**
-     *  @inheritDoc
-     */
+     *  Returns the viewport if there is a viewport and the 
+     *  index passed in is 0.  Otherwise, it throws a RangeError.
+     *
+     *  @param index The index of the item to retrieve.
+     *
+     *  @return The item at the specified index.
+     * 
+     *  @throws RangeError If the index position does not exist in the child list.
+     */ 
     public function getItemAt(index:int):Object
     {
         if (viewport && index == 0)
@@ -318,8 +325,15 @@ public class FxScroller extends FxComponent
     }
     
     /**
-     *  @inheritDoc
-     */
+     *  Returns the 0 if the item passed in is the viewport.  
+     *  Otherwise, it throws an ArgumentError.
+     *
+     *  @param item The item to identify.
+     *
+     *  @return The index position of the item to identify.
+     * 
+     *  @throws ArgumentError If the item is not a child of this object.
+     */ 
     public function getItemIndex(item:Object):int
     {
         if (item != null && item == viewport)
