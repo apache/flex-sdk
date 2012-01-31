@@ -1765,8 +1765,6 @@ public class VideoPlayer extends SkinnableComponent
                                     includeInLayout: this.includeInLayout};
             includeInLayout = false;
             
-            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
-            
             // remove from old parent
             if (parent is IVisualElementContainer)
             {
@@ -1786,10 +1784,13 @@ public class VideoPlayer extends SkinnableComponent
             else
                 FlexGlobals.topLevelApplication.addChild(this);
             
+            // Resize the component to be the full screen of the stage.
             // Push the component at (0,0).  It should be on top of everything 
             // at this point because it was added directly to the application.
-            this.x = 0;
-            this.y = 0;
+            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight, true);
+            setLayoutBoundsPosition(0, 0, true);
+            invalidateSize();
+            invalidateDisplayList();
             
             // this is for video performance reasons
             videoElement.videoPlayer.smoothing = false;
@@ -1799,7 +1800,7 @@ public class VideoPlayer extends SkinnableComponent
             
             systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
             
-            systemManager.stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
+            systemManager.stage.fullScreenSourceRect = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
             
             // FIXME (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
