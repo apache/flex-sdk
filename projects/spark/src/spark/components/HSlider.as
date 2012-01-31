@@ -17,8 +17,12 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IDataRenderer;
+import mx.core.IVisualElement;
+import mx.core.mx_internal;
 
 import spark.components.supportClasses.SliderBase;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
@@ -148,7 +152,6 @@ public class HSlider extends SliderBase
         thumb.setLayoutBoundsPosition(Math.round(thumbPosParentX), thumb.getLayoutBoundsY());
     }
 
-    
     /**
      *  @private
      */
@@ -158,10 +161,16 @@ public class HSlider extends SliderBase
         
         if (tipAsDisplayObject && thumb)
         {
-            var relX:Number = thumb.getLayoutBoundsX() - 
-                                (tipAsDisplayObject.width - thumb.getLayoutBoundsWidth()) / 2;
+			const tipWidth:Number = tipAsDisplayObject.width;
+            var relX:Number = thumb.getLayoutBoundsX() - (tipWidth - thumb.getLayoutBoundsWidth()) / 2;
+
+			// If this component's coordinate system is RTL (x increases to the right), then
+			// getLayoutBoundsX() returns the right edge, not the left.
+			if (layoutDirection == "rtl")
+				relX += tipAsDisplayObject.width;
+			
             var o:Point = new Point(relX, initialPosition.y);
-            var r:Point = thumb.parent.localToGlobal(o);     
+            var r:Point = thumb.parent.localToGlobal(o);  
             
             // Get the screen bounds
             var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
