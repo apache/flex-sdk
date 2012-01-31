@@ -10,9 +10,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects
 {
+import mx.core.mx_internal;
+import mx.effects.IEffectInstance;
+
 import spark.effects.supportClasses.ResizeInstance;
 
-import mx.effects.IEffectInstance;
+use namespace mx_internal;
 
 /**
  *  The Resize effect changes the width, height, or both dimensions
@@ -250,5 +253,60 @@ public class Resize extends Animate
         if (!isNaN(heightBy))
             resizeInstance.heightBy = heightBy;
     }
+    
+    /**
+     * @private
+     * Tell the propertyChanges array to keep all values, unchanged or not.
+     * This enables us to check later, when the effect is finished, whether
+     * we need to restore explicit height/width values.
+     */
+    override mx_internal function captureValues(propChanges:Array,
+        setStartValues:Boolean):Array
+    {
+        var propertyChanges:Array = super.captureValues(propChanges, setStartValues);
+        
+        if (setStartValues)
+        {
+            var n:int = propertyChanges.length;
+            for (var i:int = 0; i < n; i++)
+                propertyChanges[i].stripUnchangedValues = false;
+        }
+        return propertyChanges;
+    }
+    
+    /**
+     * @private
+     * When we're done, check to see whether explicitWidth/Height values
+     * for the target were NaN in the start state. If so, we should restore
+     * them to that value. This ensures that the target will be sized by
+     * its layout manager instead of by the width/height that we set during
+     * the Resize.
+     */
+    override mx_internal function applyEndValues(propChanges:Array,
+        targets:Array):void
+    {
+        super.applyEndValues(propChanges, targets);
+        if (propChanges)
+        {
+            var n:int = propChanges.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                var target:Object = propChanges[i].target;
+                if (propChanges[i].end["explicitWidth"] !== undefined)
+                {
+                    if (isNaN(propChanges[i].end["explicitWidth"]) && 
+                        "explicitWidth" in target)
+                    target.explicitWidth = NaN;
+                }
+                if (propChanges[i].end["explicitHeight"] !== undefined)
+                {
+                    if (isNaN(propChanges[i].end["explicitHeight"]) && 
+                        "explicitHeight" in target)
+                    target.explicitHeight = NaN;
+                }
+            }
+        }
+    }
+                                                     
 }
 }
