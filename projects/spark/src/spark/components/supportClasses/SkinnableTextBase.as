@@ -222,26 +222,9 @@ public class TextBase extends SkinnableComponent
 
     /**
      *  @private
-     */
-    mx_internal var textInvalid:Boolean = false;
-    
-    /**
-     *  @private
      *  Mouse shield that is put up when this component is disabled.
      */
     private var mouseShield:DisplayObject;
-
-    /**
-     *  @private
-     *  Text is a special case from the proxy pattern used for all the other
-     *  textView properties.  It is expensive to extract the text from the  
-     *  textFlow so it is only done when really necessary.  As a result, the
-     *  textView text setter does not follow the normal pattern of checking
-     *  the value against the property and returning if it's already set.
-     *  We only want to proxy the text in the textView when we really need it
-     *  to be changed.
-     */
-    private var proxyText:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -759,13 +742,6 @@ public class TextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @private
-     *  Text is the exception to the how the proxied properties work.  Because
-     *  it can be expensive to get text from the flow, keep a local copy.
-     */
-    private var _text:String;
-    
-    /**
      *  The text String displayed by this component.
      *  
      *  @langversion 3.0
@@ -775,17 +751,12 @@ public class TextBase extends SkinnableComponent
      */
     public function get text():String
     {
-        // Thru events, textView notifies us when the text as we know it has
-        // changed.
-        if (mx_internal::textInvalid)
-        {
-            // Pull text up from textView into textViewProperties.
-            _text = textView.text;
-            mx_internal::textInvalid = false;
-        }
+        if (textView)
+            return textView.text;
             
         // want the default to be the empty string
-        return (_text == null) ? "" : _text;
+        var v:* = textViewProperties.text;
+        return (v === undefined) ? "" : v;
     }
 
     /**
@@ -793,22 +764,16 @@ public class TextBase extends SkinnableComponent
      */
     public function set text(value:String):void
     {
-        if (value == _text)
-            return;
-        
-        // If the textView is telling us about the change we don't want
-        // to proxy the text to it.
-        if (proxyText)
+        if (textView)
         {
             textView.text = value;
             textViewProperties = BitFlagUtil.update(
                 uint(textViewProperties), TEXT_PROPERTY_FLAG, true);
         }
-           
-        // Always keep this current, even if using the textView.    
-        _text = value;
-        
-        mx_internal::textInvalid = false;
+        else
+        {
+            textViewProperties.text = value;
+        }
 
         invalidateProperties();                    
      }
@@ -925,7 +890,6 @@ public class TextBase extends SkinnableComponent
                                       
             // Copy proxied values from textViewProperties (if set) to textView.
             textViewAdded();            
-            proxyText = true;
             
             // Start listening for various events from the RichEditableText.
 
@@ -955,7 +919,6 @@ public class TextBase extends SkinnableComponent
             // Copy proxied values from textView (if explicitly set) to 
             // textViewProperties.                        
             textViewRemoved();            
-            proxyText = false;
             
             // Stop listening for various events from the RichEditableText.
 
@@ -1242,10 +1205,9 @@ public class TextBase extends SkinnableComponent
                 SELECTION_VISIBILITY_PROPERTY_FLAG, true);
         }
             
-        // Text is special.            
-        if (_text != null)
+        if (textViewProperties.text != null)
         {
-            textView.text = _text;
+            textView.text = textViewProperties.text;
             newTextViewProperties = BitFlagUtil.update(
                 uint(newTextViewProperties), TEXT_PROPERTY_FLAG, true);
         }
@@ -1325,7 +1287,7 @@ public class TextBase extends SkinnableComponent
             
         // Text is special.            
         if (BitFlagUtil.isSet(uint(textViewProperties), TEXT_PROPERTY_FLAG))
-            _text = textView.text;
+            newTextViewProperties.text = textView.text;
 
         if (BitFlagUtil.isSet(uint(textViewProperties), 
             WIDTH_IN_CHARS_PROPERTY_FLAG))
@@ -1387,13 +1349,6 @@ public class TextBase extends SkinnableComponent
     protected function textView_changeHandler(event:TextOperationEvent):void
     {        
         //trace(id, "textView_changeHandler", textView.text);
-        
-        // Use the setter so that the textChanged event is dispatched.  Set
-        // proxyText to false so the setter doesn't try to push the text down to
-        // textView.
-        proxyText = false;
-        text = textView.text;
-        proxyText = true;
         
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
