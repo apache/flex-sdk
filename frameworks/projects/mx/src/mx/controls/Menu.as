@@ -2126,8 +2126,12 @@ public class Menu extends List implements IFocusManagerContainer
         var menu:Menu = row ? IMenuItemRenderer(row).menu : null;
         var menuEvent:MenuEvent;
 
+        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        
         // Handle Key.UP Navigation
-        if (event.keyCode == Keyboard.UP)
+        if (keyCode == Keyboard.UP)
         {
             if (rowData && _dataDescriptor.isBranch(rowData) && menu && menu.visible)
             {
@@ -2146,7 +2150,7 @@ public class Menu extends List implements IFocusManagerContainer
         }
 
         // Handle Key.DOWN Navigation
-        else if (event.keyCode == Keyboard.DOWN)
+        else if (keyCode == Keyboard.DOWN)
         {
             if (rowData && _dataDescriptor.isBranch(rowData) && menu && menu.visible)
             {
@@ -2165,7 +2169,7 @@ public class Menu extends List implements IFocusManagerContainer
         }
 
         // Handle Key.RIGHT Navigation
-        else if (event.keyCode == Keyboard.RIGHT)
+        else if (keyCode == Keyboard.RIGHT)
         {
             if (rowData && _dataDescriptor.isBranch(rowData))
             {
@@ -2194,7 +2198,7 @@ public class Menu extends List implements IFocusManagerContainer
         }
 
         // Handle Key.LEFT Navigation
-        else if (event.keyCode == Keyboard.LEFT)
+        else if (keyCode == Keyboard.LEFT)
         {
             if (_parentMenu)
             {
@@ -2219,7 +2223,7 @@ public class Menu extends List implements IFocusManagerContainer
         }
 
         // Handle Key.ENTER Commands
-        else if (event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.SPACE)
+        else if (keyCode == Keyboard.ENTER || keyCode == Keyboard.SPACE)
         {
             if (rowData && _dataDescriptor.isBranch(rowData))
             {
@@ -2263,7 +2267,7 @@ public class Menu extends List implements IFocusManagerContainer
         }
 
         // Handle Key.ESCAPE commands
-        else if (event.keyCode == Keyboard.TAB)
+        else if (keyCode == Keyboard.TAB)
         {
             menuEvent = new MenuEvent(MenuEvent.MENU_HIDE);
             menuEvent.menu = getRootMenu();
@@ -2275,7 +2279,7 @@ public class Menu extends List implements IFocusManagerContainer
             event.stopPropagation();
         }
 
-        else if (event.keyCode == Keyboard.ESCAPE)
+        else if (keyCode == Keyboard.ESCAPE)
         {
             if (_parentMenu)
             {
