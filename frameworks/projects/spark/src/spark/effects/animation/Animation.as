@@ -876,8 +876,12 @@ public final class Animation
         if (duration == 0)
         {
             for (i = 0; i < motionPaths.length; ++i)
-                currentValue[motionPaths[i].property] = motionPaths[i].
-                    keyframes[motionPaths[i].keyframes.length - 1].value;
+            {
+                currentValue[motionPaths[i].property] = 
+                    _invertValues ? 
+                    motionPaths[i].keyframes[0].value :
+                    motionPaths[i].keyframes[motionPaths[i].keyframes.length - 1].value;
+            }
             return;
         }
     
