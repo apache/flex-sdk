@@ -834,7 +834,7 @@ public class DropDownListBase extends List
                        
                 }
                 
-                proposedNewIndex = Math.min(proposedNewIndex, maxIndex);
+                proposedNewIndex = userProposedSelectedIndex = Math.min(proposedNewIndex, maxIndex);
                 
                 if (proposedNewIndex >= 0)
                     setSelectedIndex(proposedNewIndex, true);
