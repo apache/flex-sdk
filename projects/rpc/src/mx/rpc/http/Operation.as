@@ -58,6 +58,12 @@ public class Operation extends AbstractOperation
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
+
+     *  Creates a new Operation. 
+     *
+     *  @param service The HTTPMultiService object defining the service.
+     *
+     *  @param name The name of the service.
      */
     public function Operation(service:HTTPMultiService = null, name:String = null)
     {
