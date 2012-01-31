@@ -16,6 +16,8 @@ import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.IDataRenderer;
+
 import spark.components.supportClasses.Slider;
 
 //--------------------------------------
@@ -63,7 +65,7 @@ public class HSlider extends Slider
     // Methods
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private
      */
@@ -71,12 +73,12 @@ public class HSlider extends Slider
     {
         if (!thumb || !track)
             return 0;
-        
+
         var range:Number = maximum - minimum;
         var thumbRange:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
         return minimum + ((thumbRange != 0) ? (x / thumbRange) * range : 0); 
     }
-    
+
     /**
      *  @private
      */
@@ -84,25 +86,27 @@ public class HSlider extends Slider
     {
         if (!thumb || !track)
             return;
-        
+    
         var thumbRange:Number = track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth();
         var range:Number = maximum - minimum;
         var thumbPos:Number = (range > 0) ? ((pendingValue - minimum) / range) * thumbRange : 0;
         thumb.setLayoutBoundsPosition(Math.round(track.getLayoutBoundsX() + thumbPos), thumb.getLayoutBoundsY());
     }
-    
+
     
     /**
      *  @private
+     *  TODO (jszeto) Update this to also use the ILayoutElement API
      */
-    override protected function positionDataTip():void
+    override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
     	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
     	
     	if (tipAsDisplayObject && thumb)
     	{
-			var relX:Number = thumb.x - (tipAsDisplayObject.width - thumb.width) / 2;
-	        var o:Point = new Point(relX, dataTipOriginalPosition.y);
+			var relX:Number = thumb.getLayoutBoundsX() - 
+								(tipAsDisplayObject.width - thumb.getLayoutBoundsWidth()) / 2;
+	        var o:Point = new Point(relX, initialPosition.y);
 	        var r:Point = localToGlobal(o);     
 			
 			// Get the screen bounds
