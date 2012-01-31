@@ -30,6 +30,7 @@ import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IIMESupport;
 import mx.core.IRectangularBorder;
+import mx.core.ITextInput;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -971,7 +972,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    protected var textInput:TextInput;
+    protected var textInput:ITextInput;
 
 
     //----------------------------------
@@ -1125,7 +1126,17 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             if (!textInputStyleName)
                 textInputStyleName = new StyleProxy(this, textInputStyleFilters);
             
-            textInput = new TextInput();
+            // Mechanism to use TLFTextInput. 
+            var textInputClass:Class = getStyle("textInputClass");            
+            if (!textInputClass || 
+                FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                textInput = new TextInput();
+            }
+            else
+            {
+                textInput = new textInputClass();
+            }
 
             textInput.editable = _editable;
             editableChanged = true;
@@ -1143,7 +1154,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             textInput.addEventListener(FlexEvent.VALUE_COMMIT,
                                        textInput_valueCommitHandler);
 
-            addChild(textInput);
+            addChild(DisplayObject(textInput));
 
             textInput.move(0, 0);
 
@@ -1383,7 +1394,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 if (border)
                 	border.setActualSize(w, h);
                 textInput.setActualSize(w - arrowWidth, textInputHeight);
-                textInput.border.visible = false;
+                textInput.showBorder(false);
                 if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
                     textInput.move(textInput.x, ((h - textInputHeight - paddingTop - paddingBottom) / 2) + paddingTop);
                 downArrowButton.setActualSize(unscaledWidth, unscaledHeight);
@@ -1395,7 +1406,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 	border.setActualSize(w - arrowWidth, h);
                 textInput.setActualSize(w - arrowWidth, h);
                 downArrowButton.setActualSize(arrowWidth, unscaledHeight);
-                textInput.border.visible = true;
+                textInput.showBorder(true);
             }
         }
         
@@ -1664,7 +1675,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     /**
      *  @private
      */
-    mx_internal function getTextInput():TextInput
+    mx_internal function getTextInput():ITextInput
     {
         return textInput;
     }
