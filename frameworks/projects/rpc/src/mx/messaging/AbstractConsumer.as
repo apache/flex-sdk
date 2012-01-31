@@ -816,9 +816,8 @@ public class AbstractConsumer extends MessageAgent
             {
                 case CommandMessage.SUBSCRIPTION_INVALIDATE_OPERATION:
                     // We've been unsubscribed but it wasn't the result of an unsubscribe
-                    // message this agent sent. If a polling channel is being used, let it know.
-                    if (channelSet.currentChannel is PollingChannel)
-                        PollingChannel(channelSet.currentChannel).disablePolling();
+                    // message this agent sent. Set unsubscribe to false which will inform
+                    // the polling channel to stop polling if a polling channel is being used.
                     setSubscribed(false);
                 break;
                 default:
