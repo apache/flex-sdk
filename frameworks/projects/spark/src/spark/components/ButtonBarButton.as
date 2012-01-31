@@ -175,8 +175,8 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
         if (value != _labelText)
         {
             _labelText = value;
-            if (labelElement)
-                labelElement.text = _labelText;
+            if (labelDisplay)
+                labelDisplay.text = _labelText;
         }
     }
     
