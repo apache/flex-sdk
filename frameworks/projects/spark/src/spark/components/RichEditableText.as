@@ -788,7 +788,7 @@ public class TextView extends UIComponent implements IViewport
             // Eliminate detritus from the previous TextFlow.
             if (textFlow && textFlow.flowComposer)
                 textFlow.flowComposer.removeControllerAt(0);
-
+            
             // If the text was changed, clear the selection.
             if (textChanged || contentChanged)
                 if (textFlow.interactionManager)
@@ -936,12 +936,20 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private function importMarkup(markup:String):TextFlow
+    private function importStringMarkup(markup:String):TextFlow
     {
         markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
                  markup +
                  '</TextFlow>';
         
+        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+    }
+	
+	/**
+     *  @private
+     */
+    private function importXMLMarkup(markup:XML):TextFlow
+    {
         return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
     }
 
@@ -967,9 +975,13 @@ public class TextView extends UIComponent implements IViewport
                 textFlow = new TextFlow();
                 textFlow.mxmlChildren = [ _content ];
             }
+            else if (_content is XML)
+            {
+                textFlow = importXMLMarkup(XML(_content));
+            }
             else if (_content is String)
             {
-                textFlow = importMarkup(String(_content));
+                textFlow = importStringMarkup(String(_content));
             }
             else if (_content == null)
             {
