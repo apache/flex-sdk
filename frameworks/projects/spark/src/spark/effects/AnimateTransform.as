@@ -89,7 +89,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateTransform
+ *  &lt;s:AnimateTransform
  *    <b>Properties</b>
  *    id="ID"
  *    applyChangesPostLayout="false"
@@ -518,20 +518,20 @@ public class AnimateTransform extends Animate
                 // we still need to capture default start values, so let's initialize the offsets
                 // to a default set anyway.
             if(postLayoutTransformPropertiesSet && target.postLayoutTransformOffsets == null)
-            	target.postLayoutTransformOffsets = new TransformOffsets();
+                target.postLayoutTransformOffsets = new TransformOffsets();
                 
                 // if the target doesn't have any offsets, there's no need to capture
                 // offset values.
             if(target.postLayoutTransformOffsets != null)
                 {
-            	var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
-            	valueMap.postLayoutRotationX = postLayoutTransformOffsets.rotationX;
-            	valueMap.postLayoutRotationY = postLayoutTransformOffsets.rotationY;
-            	valueMap.postLayoutRotationZ = postLayoutTransformOffsets.rotationZ;
+                var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
+                valueMap.postLayoutRotationX = postLayoutTransformOffsets.rotationX;
+                valueMap.postLayoutRotationY = postLayoutTransformOffsets.rotationY;
+                valueMap.postLayoutRotationZ = postLayoutTransformOffsets.rotationZ;
     
-            	valueMap.postLayoutScaleX = postLayoutTransformOffsets.scaleX;
-            	valueMap.postLayoutScaleY = postLayoutTransformOffsets.scaleY;
-            	valueMap.postLayoutScaleZ = postLayoutTransformOffsets.scaleZ;
+                valueMap.postLayoutScaleX = postLayoutTransformOffsets.scaleX;
+                valueMap.postLayoutScaleY = postLayoutTransformOffsets.scaleY;
+                valueMap.postLayoutScaleZ = postLayoutTransformOffsets.scaleZ;
     
                     if (valueMap.postLayoutTranslationX === undefined ||
                         valueMap.postLayoutTranslationY === undefined ||
@@ -709,19 +709,19 @@ public class AnimateTransform extends Animate
                         position.z = xformPosition.z;
                 }
 
-				if(target.postLayoutTransformOffsets != null)
+                if(target.postLayoutTransformOffsets != null)
                 {
-					var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
+                    var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
                     if (!isNaN(transitionValues.postLayoutRotationX) ||
                         !isNaN(transitionValues.postLayoutRotationY) || 
                         !isNaN(transitionValues.postLayoutRotationZ))
                     {
                         offsetRotation.x = !isNaN(transitionValues.postLayoutRotationX) ? 
-			                transitionValues.postLayoutRotationX : postLayoutTransformOffsets.rotationX;
+                            transitionValues.postLayoutRotationX : postLayoutTransformOffsets.rotationX;
                         offsetRotation.y = !isNaN(transitionValues.postLayoutRotationY) ? 
-			                transitionValues.postLayoutRotationY : postLayoutTransformOffsets.rotationY;
+                            transitionValues.postLayoutRotationY : postLayoutTransformOffsets.rotationY;
                         offsetRotation.z = !isNaN(transitionValues.postLayoutRotationZ) ? 
-			                transitionValues.postLayoutRotationZ : postLayoutTransformOffsets.rotationZ;
+                            transitionValues.postLayoutRotationZ : postLayoutTransformOffsets.rotationZ;
                         tmpOffsetRotation = offsetRotation;
                     }
             
@@ -730,11 +730,11 @@ public class AnimateTransform extends Animate
                         !isNaN(transitionValues.postLayoutScaleZ))
                     {
                         offsetScale.x = !isNaN(transitionValues.postLayoutScaleX) ? 
-			                transitionValues.postLayoutScaleX : postLayoutTransformOffsets.scaleX;
+                            transitionValues.postLayoutScaleX : postLayoutTransformOffsets.scaleX;
                         offsetScale.y = !isNaN(transitionValues.postLayoutScaleY) ? 
-			                transitionValues.postLayoutScaleY : postLayoutTransformOffsets.scaleY;
+                            transitionValues.postLayoutScaleY : postLayoutTransformOffsets.scaleY;
                         offsetScale.z = !isNaN(transitionValues.postLayoutScaleZ) ? 
-			                transitionValues.postLayoutScaleZ : postLayoutTransformOffsets.scaleZ;
+                            transitionValues.postLayoutScaleZ : postLayoutTransformOffsets.scaleZ;
                         tmpOffsetScale = offsetScale;
                     }
             
@@ -1024,8 +1024,8 @@ public class AnimateTransform extends Animate
             // flag.  In that case, we can assume that they need an offsets object if one doesn't already exist.
             // Second, if we captured post-layout changes from a state change. In that case, we can assume that since values were captured,
             // offsets must already exist.      
-	        if(target.postLayoutTransformOffsets == null)
-	            target.postLayoutTransformOffsets = new TransformOffsets();
+            if(target.postLayoutTransformOffsets == null)
+                target.postLayoutTransformOffsets = new TransformOffsets();
         }
         // Feed startDelay directly into keyframe times
         if (motionPaths)
