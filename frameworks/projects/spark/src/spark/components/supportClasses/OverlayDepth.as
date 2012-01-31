@@ -13,7 +13,7 @@ package spark.components.supportClasses
 {
 /**
  *  The OverlayDepth class defines the default depth values for 
- *  various overlay elements.
+ *  various overlay elements used by Flex.
  * 
  *  @see spark.components.Group#overlay
  *  @see spark.components.DataGroup#overlay
@@ -25,7 +25,17 @@ package spark.components.supportClasses
  */
 public final class OverlayDepth
 {
-	/**
+    /**
+     *  The default depth value under all Flex overlay elements.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const BOTTOM:Number = 0;
+
+    /**
 	 *  The overlay depth for a drop indicator.
 	 *  
 	 *  @langversion 3.0
@@ -33,36 +43,36 @@ public final class OverlayDepth
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public static const DROP_INDICATOR_DEPTH:Number = 100;
+	public static const DROP_INDICATOR:Number = 1000;
 
 	/**
-	 *  The overlay depth for a mask object.
+	 *  The overlay depth for a focus pane.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public static const MASK_DEPTH:Number = 200;
+	public static const FOCUS_PANE:Number = 2000;
 
+    /**
+     *  The overlay depth for a mask.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const MASK:Number = 3000;
+    
 	/**
-	 *  The overlay depth for a focus object.
+	 *  The default depth value above all Flex overlay elements.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public static const FOCUS_DEPTH:Number = 300;
-
-	/**
-	 *  The default top most overlay depth.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public static const TOPMOST:Number = 10000;
+	public static const TOP:Number = 10000;
 }
 }
