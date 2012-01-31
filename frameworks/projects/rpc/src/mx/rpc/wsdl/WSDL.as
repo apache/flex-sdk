@@ -84,7 +84,7 @@ public class WSDL
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -158,11 +158,6 @@ public class WSDL
            import XML
         2. Also, check that the import being added does not cause a cyclic
            relationship.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 9
-    *  @playerversion AIR 1.1
-    *  @productversion Flex 3
     */
     public function addImport(targetNamespace:Namespace, wsdl:WSDL):void
     {
@@ -212,8 +207,8 @@ public class WSDL
 
         if (port == null)
         {
-			var message:String = resourceManager.getString(
-				"rpc", "noServiceAndPort", [ serviceName, portName ]);
+            var message:String = resourceManager.getString(
+                "rpc", "noServiceAndPort", [ serviceName, portName ]);
             throw new Fault("Client.NoSuchPort", message);
         }
 
@@ -258,8 +253,8 @@ public class WSDL
         {
             service = parseService(serviceName, portName);
 
-			var message:String;
-			var detail:String;
+            var message:String;
+            var detail:String;
 
             if (service != null)
             {
@@ -270,16 +265,16 @@ public class WSDL
             }
             else if (serviceName != null)
             {
-				message = resourceManager.getString(
-					"rpc", "noSuchServiceInWSDL", [ serviceName ]);
+                message = resourceManager.getString(
+                    "rpc", "noSuchServiceInWSDL", [ serviceName ]);
                 throw new Fault("Client.NoSuchService", message);
             }
             else
             {
-				message = resourceManager.getString(
-					"rpc", "noServiceElement");
-				detail = resourceManager.getString(
-					"rpc", "noServiceElement.details", [ "" ]);
+                message = resourceManager.getString(
+                    "rpc", "noServiceElement");
+                detail = resourceManager.getString(
+                    "rpc", "noServiceElement.details", [ "" ]);
                 throw new Fault("Server.NoServicesInWSDL", message, detail);
             }
         }
@@ -432,9 +427,9 @@ public class WSDL
             }
             else
             {
-				var message:String = resourceManager.getString(
-					"rpc", "unrecognizedBindingName",
-					[ bindingQName.localName, bindingQName.uri ]);
+                var message:String = resourceManager.getString(
+                    "rpc", "unrecognizedBindingName",
+                    [ bindingQName.localName, bindingQName.uri ]);
                 throw new Fault("WSDL.UnrecognizedBindingName", message);
             }
         }
