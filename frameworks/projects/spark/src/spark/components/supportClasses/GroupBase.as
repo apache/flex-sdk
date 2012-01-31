@@ -948,6 +948,17 @@ public class GroupBase extends UIComponent implements IViewport
         setContentHeight(height);
     }
     
+    /**
+     *  @private
+     *  Provisional support for notifying the layout of upcoming changes to the
+     *  layout elements.   Presently this property is only used to inform virtual
+     *  layouts of DataGroup add/remove() operations.
+     */  
+    mx_internal function get contentChangeDeltas():Vector.<int>
+    {
+        return null;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties: Overriden Focus management
