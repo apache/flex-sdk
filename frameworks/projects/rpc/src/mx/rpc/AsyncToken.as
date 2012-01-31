@@ -51,7 +51,7 @@ public dynamic class AsyncToken extends EventDispatcher
      *
      * @param message The message with which the token is associated.
      */
-    public function AsyncToken(message:IMessage)
+    public function AsyncToken(message:IMessage=null)
     {
         super();
         _message = message;
