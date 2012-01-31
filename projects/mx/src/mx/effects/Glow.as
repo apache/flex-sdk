@@ -17,6 +17,11 @@ import mx.effects.effectClasses.GlowInstance;
 import mx.styles.StyleManager;
 
 /**
+ *  In Flex 4, use an AnimateFilter effect with a Glow bitmap filter.
+ */
+[Alternative(replacement="spark.effects.AnimateFilter", since="4.0")]
+
+/**
  *  The Glow effect lets you apply a visual glow effect to a component. 
  *
  *  <p>The Glow effect uses the Flash GlowFilter class
