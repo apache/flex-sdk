@@ -211,6 +211,8 @@ public class GridRowList
         else // index is after cur.
             insertAfter(cur, newNode);
         
+        recentNode = newNode;
+        
         return newNode;
     }
     
@@ -366,7 +368,7 @@ public class GridRowList
         
         var indexToRecent:int;
         var temp:int;
-        var lastToIndex:int = _tail.rowIndex - index;
+        var lastToIndex:int;
         var result:GridRowNode = null;
         
         if (recentNode)
@@ -377,6 +379,8 @@ public class GridRowList
             indexToRecent = recentNode.rowIndex - index;
             temp = Math.abs(indexToRecent);
         }
+        
+        lastToIndex = _tail.rowIndex - index;
         
         if (index < _head.rowIndex)
         {
