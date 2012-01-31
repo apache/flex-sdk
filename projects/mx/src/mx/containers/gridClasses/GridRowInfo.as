@@ -33,6 +33,11 @@ public class GridRowInfo
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function GridRowInfo()
 	{
@@ -56,6 +61,11 @@ public class GridRowInfo
 
 	/**
 	 *  Input: Measurement for the GridRow.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var flex:Number;
 	
@@ -66,6 +76,11 @@ public class GridRowInfo
 	/**
 	 *  Output: The actual height of each row,
 	 *  as determined by updateDisplayList().
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var height:Number;
 
@@ -75,6 +90,11 @@ public class GridRowInfo
 
 	/**
 	 *  Input: Measurement for the GridRow.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var max:Number;
 	
@@ -84,6 +104,11 @@ public class GridRowInfo
 
 	/**
 	 *  Input: Measurement for the GridRow.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var min:Number;
 	
@@ -93,6 +118,11 @@ public class GridRowInfo
 
 	/**
 	 *  Input: Measurement for the GridRow.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var preferred:Number;
 	
@@ -103,6 +133,11 @@ public class GridRowInfo
 	/**
 	 *  Output: The actual position of each row,
 	 *  as determined by updateDisplayList().
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var y:Number;
 }
