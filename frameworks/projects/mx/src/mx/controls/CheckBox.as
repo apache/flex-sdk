@@ -225,29 +225,6 @@ public class CheckBox extends Button implements IToggleButton
             textH += getStyle("paddingTop") + getStyle("paddingBottom");
             measuredMinHeight = measuredHeight = Math.max(textH, measuredMinHeight);
         }
-        else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            var textHeight:Number = measureText(label).height;
-            var iconHeight:Number = currentIcon ? currentIcon.height : 0;
-    
-            var h:Number = 0;
-    
-            if (labelPlacement == ButtonLabelPlacement.LEFT ||
-                labelPlacement == ButtonLabelPlacement.RIGHT)
-            {
-                h = Math.max(textHeight, iconHeight);
-            }
-            else
-            {
-                h = textHeight + iconHeight;
-    
-                var verticalGap:Number = getStyle("verticalGap");
-                if (iconHeight != 0 && !isNaN(verticalGap))
-                    h += verticalGap;
-            }
-    
-            measuredMinHeight = measuredHeight = Math.max(h, 18);
-        }
     }
 }
 
