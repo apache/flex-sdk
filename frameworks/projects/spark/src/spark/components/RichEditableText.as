@@ -475,6 +475,9 @@ package spark.components
             staticConfiguration.manageEnterKey = false; // default is true
             staticConfiguration.manageTabKey = false;   // default is false
             
+            // See comment on staticConfiguration variable.
+            staticConfiguration.compatibilityVersion = 1.1;
+
             staticPlainTextImporter =
                 TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT,
                     staticConfiguration);
@@ -506,6 +509,11 @@ package spark.components
          *  It tells the TextContainerManager that we don't want it 
          *  to handle the ENTER key, because we need the ENTER key to behave 
          *  differently based on the 'multiline' property.
+         *  It tells the TextContainerManager that we want TLF1.1 compatibility
+         *  for the selection length.  Pre TLF2, the selection length 
+         *  was textFlow.length-1 and did not include the final paragraph terminator.  
+         *  For TLF2, the selection length is textFlow.length which includes
+         *  the final paragraph terminator.
          */
         private static var staticConfiguration:Configuration;
         
@@ -2604,8 +2612,27 @@ package spark.components
                 _textContainerManager.convertToTextFlowWithComposer();
             }
             
+            // The EditManager calls updateAllControllers() directly when there
+            // is interactive input such as typing or cut/paste. This bypasses
+            // our update cycle which matters if we are auto-sizing.
+            // compositionWidth/Height are NaN and the background is drawn with
+            // the old width/height because measureTextSize hasn't had a
+            // chance to update the layout manager yet.  Once the layoutManager
+            // has been updated, the compositionWidth/Height are still NaN
+            // so TLF doesn't think there is anything to compose.  The text 
+            // hasn't changed shape, but the background has.
+            if (autoSize && !isNaN(lastUnscaledWidth) &&
+                (lastUnscaledWidth != unscaledWidth || 
+                    lastUnscaledHeight != unscaledHeight))
+            {
+                if (_textContainerManager.composeState == TextContainerManager.COMPOSE_COMPOSER)
+                     _textContainerManager.getTextFlow().flowComposer.getControllerAt(0).shapesInvalid = true;
+                else if (!_textContainerManager.isDamaged())
+                    _textContainerManager.drawBackgroundAndSetScrollRect(0,0);
+            }
+                
             _textContainerManager.updateContainer();
-        }
+         }
         
         /**
          *  @private
@@ -2958,7 +2985,8 @@ package spark.components
         }
         
         /**
-         *  Selects all of the text.
+         *  Selects all of the text. This does not include the final paragraph
+         *  terminator.
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -2969,9 +2997,9 @@ package spark.components
         {
             selectRange(0, int.MAX_VALUE);
         }
-        
+       
         /**
-         *  Returns a TextLayoutFormat object specifying the formats
+         *  Returns a TextLayoutFormat object specifying the computed formats
          *  for the specified range of characters.
          *
          *  <p>If a format is not consistently set across the entire range,
@@ -4079,7 +4107,7 @@ package spark.components
             _text = null;
             _content = null;        
             _textFlow = _textContainerManager.getTextFlow();
-            
+                        
             lastGeneration = _textFlow.generation;
             
             // We don't need to call invalidateProperties()
