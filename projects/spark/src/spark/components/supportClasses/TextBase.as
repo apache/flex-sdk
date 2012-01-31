@@ -33,10 +33,6 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
-import spark.components.Group;
-import spark.core.DisplayObjectSharingMode;
-import spark.core.IGraphicElement;
-
 use namespace mx_internal;
 
 //--------------------------------------
@@ -77,10 +73,6 @@ use namespace mx_internal;
 /**
  *  The base class for Spark Text controls such as Label and RichText
  *  which display text using CSS styles for the default format.
- *  
- *  <p>This class extends GraphicElement to implement
- *  the IAdvancedStyleClient interface in order to support CSS
- *  in the same way that UIComponents do.</p>
  *
  *  <p>In addition to adding a <code>text</code> property,
  *  it also adds <code>maxDisplayedLines</code>
@@ -92,7 +84,6 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class TextBase extends UIComponent
-    implements IAdvancedStyleClient
 {
     include "../../core/Version.as";
 
@@ -166,32 +157,6 @@ public class TextBase extends UIComponent
      */
     mx_internal var textLines:Vector.<DisplayObject> =
     	new Vector.<DisplayObject>();
-            
-    /**
-     *  @private
-	 *  Keeps track of each TextLine's original x position when it was composed.
-	 *  Since multiple TextBases can share a single DisplayObject,
-	 *  the x position of the TextLine gets offset by drawX
-	 *  when it is added to the DisplayObject.
-	 *  We need to save the original position and offset it each time
-	 *  drawX changes; the alternative of accumulating deltas in drawX
-	 *  makes the TextLines drift within the DisplayObject.
-     */
-    mx_internal var textLinesX:Vector.<Number> = new Vector.<Number>;
-
-    // FIXME (rfrishbe): can probably remove textLineX and textLineY
-    
-    /**
-     *  @private
-	 *  Keeps track of each TextLine's original y position when it was composed.
-	 *  Since multiple TextBases can share a single DisplayObject,
-	 *  the y position of the TextLine gets offset by drawY
-	 *  when it is added to the DisplayObject.
-	 *  We need to save the original position and offset it each time
-	 *  drawY changes; the alternative of accumulating deltas in drawY
-	 *  makes the TextLines drift within the DisplayObject.
-     */
-    mx_internal var textLinesY:Vector.<Number> = new Vector.<Number>;
 
     /**
      *  @private
@@ -401,19 +366,6 @@ public class TextBase extends UIComponent
     }
 
     //----------------------------------
-    //  styleChainInitialized
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    mx_internal function get styleChainInitialized():Boolean
-    {
-        return inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED &&
-               nonInheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
-    }
-
-    //----------------------------------
     //  text
     //----------------------------------
 
@@ -423,7 +375,7 @@ public class TextBase extends UIComponent
     mx_internal var _text:String = "";
         
     /**
-     *  The text displayed by this GraphicElement.
+     *  The text displayed by this text component.
 	 *
      *  <p>The formatting of this text is controlled by CSS styles.
      *  The supported styles depend on the subclass.</p>
@@ -460,12 +412,6 @@ public class TextBase extends UIComponent
      */
     override protected function measure():void
     {
-        // The measure() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized
-        // or when no DisplayObject has been assigned to it.
-        if (!styleChainInitialized)
-            return;
-
         // _widthConstraint trumps even explicitWidth as some layouts may choose
         // to specify width different from the explicit.
         var constrainedWidth:Number =
@@ -532,7 +478,7 @@ public class TextBase extends UIComponent
             return;
 
         // If we don't measure
-        if (skipMeasure())
+        if (canSkipMeasurement())
             return;
 
         if (!isNaN(explicitHeight))
@@ -570,30 +516,8 @@ public class TextBase extends UIComponent
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
-        //trace(id, drawnDisplayObject.name, "updateDisplayList", unscaledWidth, unscaledHeight);
-
+        //trace(id, drawnDisplayObject.name, "updateDisplayList", unscaledWidth, unscaledHeight);  
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // The updateDisplayList() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized
-        // or when no DisplayObject has been assigned to it.
-        if (!styleChainInitialized)
-            return;
-        
-        // FIXME (rfrishbe): do we still need this?
-        if (visibleChanged)
-        {
-            visibleChanged = false;
-            
-            var n:int = textLines.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                if (designLayer)
-                    textLines[i].visible = visible && designLayer.effectiveVisibility;
-                else
-                    textLines[i].visible = visible;
-            }
-        }
 
         // Figure out if a compose is needed or maybe just clip what is already
         // composed.
@@ -840,10 +764,6 @@ public class TextBase extends UIComponent
 			var textLine:DisplayObject = textLines[i];
 						
             //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
-
-            textLine.x = textLinesX[i];
-            textLine.y = textLinesY[i];
-            textLine.visible = visible;
             
 			addChildAtMethod(textLine, index);
 		}
@@ -876,11 +796,6 @@ public class TextBase extends UIComponent
 			var textLine:DisplayObject = textLines[i];
 			
             removeChildMethod(textLine);
-
-            // Reset x and y to be relative to (0, 0).
-            textLine.x = textLinesX[i];
-            textLine.y = textLinesY[i];
-			textLine.visible = true;
 		}
 	}
 
@@ -906,8 +821,6 @@ public class TextBase extends UIComponent
         }
         
         textLinesVector.length = 0;
-        textLinesX.length = 0;
-        textLinesY.length = 0;
    }
     
     /**
