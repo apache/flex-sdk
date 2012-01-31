@@ -96,7 +96,7 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        // If the hoverIndicator is visible then we're going to have to fixup it's location
+        // If the hoverIndicator is visible then we're going to have to fixup its location
         // at updateDisplayList() time.
         
         if ((grid.hoverRowIndex != -1) || (grid.hoverColumnIndex != -1))
@@ -107,7 +107,7 @@ public class GridLayout extends LayoutBase
             invalidateHoverLocation(dx, dy);
         }
         
-        super.scrollPositionChanged();
+        super.scrollPositionChanged();  // sets grid.scrollRect
         
         // Only invalidate if we're clipping and scrollR extends outside validBounds
         
@@ -133,17 +133,13 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        const width:Number = grid.width;
-        const height:Number = grid.height;
-        if ((width > 0) && (height > 0))
-            updateGridDimensions(horizontalScrollPosition, verticalScrollPosition, width, height);        
+        updateGridDimensions(horizontalScrollPosition, verticalScrollPosition, NaN, NaN);        
         
         var measuredWidth:Number = gridDimensions.getContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getContentHeight(grid.requestedRowCount);
 		var measuredMinWidth:Number = gridDimensions.getContentHeight(grid.requestedMinColumnCount);
 		var measuredMinHeight:Number = gridDimensions.getContentHeight(grid.requestedMinRowCount);
 		
-
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
         
@@ -389,7 +385,7 @@ public class GridLayout extends LayoutBase
         
         var indices:Vector.<int> = null;  // return value       
 
-		for (var columnIndex:int = startIndex; (width > 0) && (columnIndex < columnCount); columnIndex++)
+		for (var columnIndex:int = startIndex; (isNaN(width) || (width > 0)) && (columnIndex < columnCount); columnIndex++)
 		{
             var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
 			var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
@@ -398,7 +394,6 @@ public class GridLayout extends LayoutBase
             if (!isNaN(column.width))
             {
                 cellWidth = column.width;
-                // explicit width so set it in GD
                 gridDimensions.setColumnWidth(columnIndex, cellWidth);
             }
             
@@ -421,10 +416,13 @@ public class GridLayout extends LayoutBase
                 freeGridElement(renderer);     
             }
             
-			if (columnIndex == startIndex)
-				width -= startCellX + cellWidth - startX;
-			else
-				width -= cellWidth + columnGap;
+            if (!isNaN(width))
+            {
+    			if (columnIndex == startIndex)
+    				width -= startCellX + cellWidth - startX;
+    			else
+    				width -= cellWidth + columnGap;
+            }
 		}
         
         return indices;
@@ -786,12 +784,6 @@ public class GridLayout extends LayoutBase
     private function uninitializeItemRenderer(renderer:IVisualElement):void
     {
         renderer.visible = false;
-        
-        // TBD: should this be done later, like right before the renderer is validated?
-        // Reset back to (0,0), otherwise when the element is reused
-        // it will be validated at its last layout size which causes
-        // problems with text reflow.
-        renderer.setLayoutBoundsSize(0, 0, false);     
         
         if (grid.gridOwner)
             grid.gridOwner.discardItemRenderer(renderer, true);
@@ -1512,6 +1504,11 @@ public class GridLayout extends LayoutBase
         if (!element)
             return false;
         element.visible = false;
+        
+        // Reset back to (0,0), otherwise when the element is reused
+        // it will be validated at its last layout size which causes
+        // problems with text reflow.
+        element.setLayoutBoundsSize(0, 0, false);        
         
         const factory:IFactory = elementToFactoryMap[element]; 
         if (!factory)
