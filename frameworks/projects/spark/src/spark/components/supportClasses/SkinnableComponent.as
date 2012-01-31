@@ -949,15 +949,3 @@ public class SkinnableComponent extends UIComponent
 }
 
 }
-
-class SkinPartInfo
-{
-    public function SkinPartInfo()
-    {
-        super();
-    }
-    
-    public var id:String;
-
-    public var required:Boolean;
-}
