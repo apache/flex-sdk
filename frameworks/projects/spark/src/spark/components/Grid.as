@@ -1639,7 +1639,7 @@ public class Grid extends Group implements IDataGridElement
      *  and selectCellRegion() methods should be used for programatic selection 
      *  updates, for example when writing a keyboard or mouse event handler. </p>  
      * 
-     *  @default []
+     *  @default An empty Vector.<CellPosition>
      * 
      *  @return Vector of CellPosition objects where each element represents
      *  a selected cell.
@@ -1761,7 +1761,7 @@ public class Grid extends Group implements IDataGridElement
      *  and selectIndices() methods should be used for programatic selection 
      *  updates, for example when writing a keyboard or mouse event handler. </p> 
      *
-     *  @default []
+     *  @default An empty Vector.<int>
      * 
      *  @return Vector of ints where each element is the index in 
      *  <code>dataProvider</code> of the selected row.
@@ -1888,7 +1888,7 @@ public class Grid extends Group implements IDataGridElement
      *  use <code>dataProvider.getItemIndex()</code> to compute the item's location
      *  and <code>setSelectedIndex()</code> to change the selection.</p>
      *  
-     *  @default []
+     *  @default An empty Vector.<Object>
      * 
      *  @return Vector of <code>dataProvider</code> items.
      *  
