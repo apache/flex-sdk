@@ -27,6 +27,7 @@ import mx.skins.spark.FxApplicationSkin; FxApplicationSkin;
 import mx.skins.spark.FxButtonSkin; FxButtonSkin;
 import mx.skins.spark.FxCheckBoxSkin; FxCheckBoxSkin;
 import mx.skins.spark.FxDataContainerSkin; FxDataContainerSkin;
+import mx.skins.spark.FxFocusSkin; FxFocusSkin;
 import mx.skins.spark.FxHScrollBarSkin; FxHScrollBarSkin;
 import mx.skins.spark.FxHScrollBarThumbSkin; FxHScrollBarThumbSkin;
 import mx.skins.spark.FxHSliderSkin; FxHSliderSkin;
