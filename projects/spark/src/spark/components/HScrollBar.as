@@ -21,8 +21,6 @@ import mx.layout.LayoutItemFactory;
  *  the portion of data that is displayed when there is too much data
  *  to fit horizontally in a display area.
  * 
- *  <p>This control extends the base ScrollBar control.</p> 
- *  
  *  <p>Although you can use the FxHScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
@@ -52,7 +50,7 @@ public class FxHScrollBar extends FxScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     *  The size of the track on an FxHScrollBar equals the width of the track.
+     *  The size of the track, which equals the width of the track.
      */
     override protected function get trackSize():Number
     {
@@ -69,8 +67,8 @@ public class FxHScrollBar extends FxScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     *  Position the thumb button according to the given thumbPos parameter,
-     *  relative to the current x location of the track in the scrollbar control.
+     *  Position the thumb button based on the specified thumb position,
+     *  relative to the current X location of the track in the control.
      * 
      *  @param thumbPos A number representing the new position of the thumb
      *  button in the control.
@@ -82,7 +80,7 @@ public class FxHScrollBar extends FxScrollBar
             var trackPos:Number = track ? track.x : 0;   
             var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(thumb);
             layoutItem.setActualPosition(Math.round(trackPos + thumbPos),
-            					    	 layoutItem.actualPosition.y);
+                                         layoutItem.actualPosition.y);
         }
     }
     
@@ -103,11 +101,14 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
-     *  The position of the thumb on an FxHScrollBar is equal to the given
-     *  localX parameter.
+     *  Returns the position of the thumb button on an FxHScrollBar control, 
+     *  which is equal to the <code>localX</code> parameter.
      * 
-     *  @param localX The x position relative to the scrollbar control
-     *  @param localY The y position relative to the scrollbar control
+     *  @param localX The X position relative to the scrollbar control.
+     *
+     *  @param localY The Y position relative to the scrollbar control.
+     *
+     *  @return The position of the thumb button.
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -128,13 +129,29 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
-     *  If viewport is non null then ask it to compute the horizontal
-     *  scroll position delta for page up/down.  The delta is added
-     *  to this scrollbar's value.  
+     *  If <code>viewport</code> is not null, 
+     *  change the horizontal scroll position for page up or page down by 
+     *  scrolling the viewport.
+     *  This method calculates the amount to scroll by calling the 
+     *  <code>IViewport.horizontalScrollPositionDelta()</code> method 
+     *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
+     *  or <code>flash.ui.Keyboard.PAGE_DOWN</code>.
+     *  It then calls the <code>setValue()</code> method to 
+     *  set the <code>IViewport.horizontalScrollPosition</code> property 
+     *  to the appropriate value.
+     *
+     *  <p>If <code>viewport</code> is null, 
+     *  change the scroll position for page up or page down by calling 
+     *  the <code>page()</code> method.</p>
+     *
+     *  @param increase Whether the page scroll is up (<code>true</code>) or
+     *  down (<code>false</code>). 
      * 
-     *  @see viewport
-     *  @see #setValue
-     *  @see IViewport#horizontalScrollPositionDelta
+     *  @see mx.components.baseClasses.FxTrackBase#page()
+     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.core.IViewport
+     *  @see mx.core.IViewport#horizontalScrollPosition
+     *  @see mx.core.IViewport#horizontalScrollPositionDelta()
      */
     override public function page(increase:Boolean = true):void
     {
@@ -145,13 +162,29 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
-     *  If viewport is non null then ask it to compute the horizontal
-     *  scroll position delta for step up/down.  The delta is added
-     *  to this scrollbar's value.  
+     *  If <code>viewport</code> is not null, 
+     *  change the horizontal scroll position for line up or line down by 
+     *  scrolling the viewport.
+     *  This method calculates the amount to scroll by calling the 
+     *  <code>IViewport.horizontalScrollPositionDelta()</code> method 
+     *  with either <code>flash.ui.Keyboard.RIGHT</code> 
+     *  or <code>flash.ui.Keyboard.LEFT</code>.
+     *  It then calls the <code>setValue()</code> method to 
+     *  set the <code>IViewport.horizontalScrollPosition</code> property 
+     *  to the appropriate value.
+     *
+     *  <p>If <code>viewport</code> is null, 
+     *  change the scroll position for line up or line down by calling 
+     *  the <code>step()</code> method.</p>
+     *
+     *  @param increase Whether the line scoll is up (<code>true</code>) or
+     *  down (<code>false</code>). 
      * 
-     *  @see viewport
-     *  @see #setValue
-     *  @see IViewport#horizontalScrollPositionDelta
+     *  @see mx.components.baseClasses.FxTrackBase#step()
+     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.core.IViewport
+     *  @see mx.core.IViewport#horizontalScrollPosition
+     *  @see mx.core.IViewport#horizontalScrollPositionDelta()
      */
     override public function step(increase:Boolean = true):void
     {
