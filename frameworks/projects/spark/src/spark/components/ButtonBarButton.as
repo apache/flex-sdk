@@ -73,7 +73,9 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     private var _allowDeselection:Boolean = true;
 
     /**
-     *  @inheritDoc 
+     *  If <code>true</code>, the user click on a currently selected button to deselect it.
+     *  If <code>false</code>, the user must select a different button 
+     *  to deselect the currently selected button.
      *
      *  @default true
      *  
@@ -133,24 +135,24 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
         drawFocus(value);
     }
 
-	//----------------------------------
-	//  dragging
-	//----------------------------------
+    //----------------------------------
+    //  dragging
+    //----------------------------------
 
-	/**
-	 *  @private  
-	 */
-	public function get dragging():Boolean
-	{
-		return false;
-	}
+    /**
+     *  @private  
+     */
+    public function get dragging():Boolean
+    {
+        return false;
+    }
 
-	/**
-	 *  @private  
-	 */
-	public function set dragging(value:Boolean):void
-	{
-	}
+    /**
+     *  @private  
+     */
+    public function set dragging(value:Boolean):void
+    {
+    }
 
     //----------------------------------
     //  data
