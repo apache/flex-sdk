@@ -72,10 +72,15 @@ use namespace mx_internal;
 /**
  *  The RadioButtonGroup control defines a group of RadioButton controls
  *  that act as a single mutually exclusive control; therefore,
- *  a user can select only one RadioButton control at a time.
- *  The <code>id</code> property is required when you use the
+ *  a user can select only one RadioButton control at a time. While grouping
+ *  RadioButton instances
+ *  in a RadioButtonGroup is optional, a group lets you do things 
+ *  like set a single event handler on a group of buttons, rather than
+ *  on each individual button.
+ *  
+ *  <p>The <code>id</code> property is required when you use the
  *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag to define the name
- *  of the group.
+ *  of the group.</p> 
  *
  *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher, not UIComponent,
  *  and implements the IMXMLObject interface.
