@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application height="450" width="600"
-    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
 ><s:layout> <s:VerticalLayout paddingLeft="50"/> </s:layout>
     <fx:Script>
         <![CDATA[
