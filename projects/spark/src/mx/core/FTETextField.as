@@ -2212,7 +2212,8 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has no effect on a TLFTextField,
+	 *  This method has no effect on a TLFTextField if beginIndex
+     *  or endIndex != -1
 	 *  because TLFTextField does not support formatting a range.
 	 *
 	 *  @see flash.text.TextField#setTextFormat()
@@ -2225,6 +2226,11 @@ public class TLFTextField extends Sprite
 								  beginIndex:int = -1,
 								  endIndex:int = -1):void
 	{
+        if (beginIndex == -1 && endIndex == -1)
+        {
+            defaultTextFormat = format;
+            validateNow();
+        }
 	}
 	
 	/**
