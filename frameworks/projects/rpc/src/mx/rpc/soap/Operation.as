@@ -583,6 +583,7 @@ public class Operation extends AbstractOperation
      * Returns a header if a match is found based on QName localName and URI.
      * @param qname QName of the SOAPHeader.
      * @param headerName Name of a header in the SOAPHeader content (Optional)
+     * @return Returns the SOAPHeader.
      */
     public function getHeader(qname:QName, headerName:String = null):SOAPHeader
     {
