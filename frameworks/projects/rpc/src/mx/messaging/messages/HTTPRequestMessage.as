@@ -63,6 +63,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *  Indicates the content type of this message.
      *  This value must be understood by the destination this request is sent to.
      *
+     *  <p>The following example sets the <code>contentType</code> property:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -109,6 +110,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *  This is the URL that the content of this message, found in the
      *  <code>body</code> property, will be sent to, using the method specified.
      *
+     *  <p>The following example sets the <code>url</code> property:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -159,6 +161,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *    <li><code>HTTPRequestMessage.TRACE_METHOD</code></li>
      *  </ul>
      *
+     *  <p>The following example sets the <code>method</code> property:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -203,6 +206,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the content of this message is XML.
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
@@ -221,6 +225,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the content of this message is a form.
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -240,6 +245,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *  Indicates that the content of this message is XML meant for a SOAP
      *  request.
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
@@ -258,6 +264,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "post".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -276,6 +283,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "get".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -294,6 +302,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "put".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -312,6 +321,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "head".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -330,6 +340,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "delete".
      *  
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -348,6 +359,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "options".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -366,6 +378,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the method used for this request should be "trace".
      *
+     *  <p>The following example uses this constant:</p>
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
