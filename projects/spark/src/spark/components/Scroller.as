@@ -23,12 +23,15 @@ import flash.text.TextField;
 import flash.ui.Keyboard;
 
 import mx.core.IInvalidating;
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
+import mx.core.mx_internal;
 import mx.events.EffectEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.TouchScrollEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.Group;
@@ -40,11 +43,70 @@ import spark.core.NavigationUnit;
 import spark.effects.Animate;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
-import spark.events.TouchScrollEvent;
+
+use namespace mx_internal;
 
 include "../styles/metadata/BasicInheritingTextStyles.as"
 include "../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
+
+//--------------------------------------
+//  TouchScroll events
+//--------------------------------------
+
+// touchScrollStarting defined on UIComponent
+// touchScrollStart defined on UIComponent
+
+/**
+ *  Dispatched as the user is drag scrolling.
+ * 
+ *  <p>The <code>event.dragX</code> and <code>event.dragY</code>
+ *  properties are set to the distance dragged since the initial 
+ *  mouseDown/touchBegin occurred.</p>
+ *
+ *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_DRAG
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="touchScrollDrag", type="mx.events.TouchScrollEvent")]
+
+/**
+ *  Dispatched when a user flicks or throw scrolls a list.
+ * 
+ *  <p>The <code>event.velocityX</code> and <code>event.velocityY</code>
+ *  properties are set to the velocity the user threw the list.</p>
+ *
+ *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_THROW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="touchScrollThrow", type="mx.events.TouchScrollEvent")]
+
+/**
+ *  Dispatched at the end of a scroll throw operation.
+ * 
+ *  <p>If no throw occurs, this is dispatched immediately on 
+ *  mouseUp/touchEnd.  However, if a scroll throw does occur, then
+ *  this is dispatched after the throw has completely finished.</p>
+ *
+ *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="touchScrollEnd", type="mx.events.TouchScrollEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
@@ -365,6 +427,44 @@ public class Scroller extends SkinnableComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Threshold for number of pixels they must move to count as a horizontal scroll
+     */
+    private static const MIN_HORIZONTAL_SLOP:int = 20;
+    
+    /**
+     *  @private
+     *  Threshold for number of pixels they must move to count as a vertical scroll
+     */
+    private static const MIN_VERTICAL_SLOP:int = 20;
+    
+    /**
+     *  @private
+     *  Threshold for number of pixels they must move to count as a diagonal scroll
+     */
+    private static const MIN_DIAGONAL_SLOP:int = 20;
+    
+    /**
+     *  @private
+     *  Length the touch scroll throw effect should run
+     */
+    private static const THROW_EFFECT_TIME:int = 2000;
+    
+    /**
+     *  @private
+     *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
+     *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
+     *  contentWidth >= viewport width + SDT, show the horizontal scrollbar.
+     */
+    mx_internal static const SDT:Number = 1.0;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -383,6 +483,100 @@ public class Scroller extends SkinnableComponent
         hasFocusableChildren = true;
         focusEnabled = false;
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables: Touch Scrolling
+    //
+    //--------------------------------------------------------------------------    
+    
+    /**
+     *  @private
+     *  Property used to communicate with ScrollerLayout to let it 
+     *  know when a horizontal scroll is in progress or not (and when 
+     *  the horizontal scroll bar should be hidden or not)
+     */
+    mx_internal var horizontalScrollInProgress:Boolean = false;
+    
+    /**
+     *  @private
+     *  Property used to communicate with ScrollerLayout to let it 
+     *  know when a vertical scroll is in progress or not (and when 
+     *  the vertical scroll bar should be hidden or not)
+     */
+    mx_internal var verticalScrollInProgress:Boolean = false;
+    
+    /**
+     *  @private
+     *  Touch Scroll Helper -- used to help figure out 
+     *  scrolling velocity and other information
+     */
+    private var touchScrollHelper:TouchScrollHelper;
+    
+    /**
+     *  @private
+     *  Keeps track of the horizontal scroll position
+     *  before scrolling started, so we can figure out 
+     *  how to related it to the dragX that are 
+     *  associated with the touchScrollDrag events.
+     */
+    private var hspBeforeTouchScroll:Number;
+    
+    /**
+     *  @private
+     *  Keeps track of the vertical scroll position
+     *  before scrolling started, so we can figure out 
+     *  how to related it to the dragY that are 
+     *  associated with the touchScrollDrag events.
+     */
+    private var vspBeforeTouchScroll:Number;
+    
+    /**
+     *  @private
+     *  Effect used for touch scroll throwing
+     */
+    private var throwEffect:Animate;
+    
+    /**
+     *  @private
+     *  Easing object used for touch scroll throwing
+     */
+    private var throwEaser:TouchScrollingEasing;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether the throw animation 
+     *  was stopped pre-emptively.  We stop propogation of 
+     *  the mouse event, but in the throwEffect.EFFECT_END
+     *  event handler, we need to tell it not to exit the
+     *  scrolling state.
+     */
+    private var stoppedPreemptively:Boolean = false;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether we are currently throwing
+     *  vertically.  This is so on effect update we can perhaps stop 
+     *  the effect pre-emptively since we are not doing pull 
+     *  or spring effects yet.
+     */
+    private var scrollingVertically:Boolean;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether we are currently throwing
+     *  horizontally.  This is so on effect update we can perhaps stop 
+     *  the effect pre-emptively since we are not doing pull 
+     *  or spring effects yet.
+     */
+    private var scrollingHorizontally:Boolean;
+    
+    /**
+     *  @private
+     *  Animation to fade the scrollbars out when we are done
+     *  throwing or dragging
+     */
+    private var hideScrollBarAnimation:Animate;
     
     //--------------------------------------------------------------------------
     //
@@ -818,6 +1012,217 @@ public class Scroller extends SkinnableComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Touch scrolling methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Add touch listeners
+     */
+    private function installTouchListeners():void
+    {
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
+    }
+    
+    /**
+     *  @private
+     */
+    private function uninstallTouchListeners():void
+    {
+        removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
+        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
+        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
+        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
+        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
+    }
+    
+    /**
+     *  @private
+     *  Helper function to determine whether the viewport scrolls horizontally
+     */
+    mx_internal function get shouldScrollHorizontally():Boolean
+    {
+        var viewportUIC:IUIComponent = viewport as IUIComponent;
+        var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
+        var viewportW:Number = isNaN(explicitViewportW) ? (viewport.width - (minViewportInset * 2)) : explicitViewportW;
+        
+        return viewport.contentWidth >= (viewportW + SDT);
+    }
+    
+    /**
+     *  @private
+     *  Helper function to determine whether the viewport scrolls vertically
+     */
+    mx_internal function get shouldScrollVertically():Boolean
+    {
+        var viewportUIC:IUIComponent = viewport as IUIComponent;
+        var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
+        var viewportH:Number = isNaN(explicitViewportH) ? (viewport.height - (minViewportInset * 2)) : explicitViewportH;
+        
+        return viewport.contentHeight >= (viewportH + SDT);
+    }
+    
+    /**
+     *  @private
+     *  Add event handlers while the scroll/throw animation is going on to 
+     *  capture the mouse down handlers and deal with it ourselves
+     */
+    private function installSwallowingMouseHandlers():void
+    {
+        // block click events from occuring on me
+        addEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
+        addEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
+    }
+    
+    /**
+     *  @private
+     *  Remove event handlers after scroll/throw animation is done.
+     */
+    private function uninstallSwallowingMouseHandlers():void
+    {
+        removeEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
+        removeEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
+    }
+    
+    /**
+     *  @private
+     *  Set up the effect to be used for the throw animation
+     *  FIXME (rfrishbe): this could use some work
+     */
+    private function setUpThrowEffect(velocityX:Number, velocityY:Number):void
+    {
+        // create throwEffect if we haven't already
+        if (!throwEffect)
+        {
+            throwEffect = new Animate();
+            throwEffect.addEventListener(EffectEvent.EFFECT_END, throwEffect_effectEndHandler);
+            throwEffect.addEventListener(EffectEvent.EFFECT_UPDATE, throwEffect_effectUpdateHandler);
+            throwEffect.target = viewport;
+            throwEffect.duration = THROW_EFFECT_TIME;
+            
+            // effect and easer stuff should be combined some or maybe we just need one 
+            // touch specific class rather than two
+            throwEaser = new TouchScrollingEasing(0);
+            
+            throwEffect.easer = throwEaser;
+        }
+        
+        // calculate the finalVSP/finalHSP
+        var finalHSP:Number = viewport.horizontalScrollPosition;
+        var finalVSP:Number = viewport.verticalScrollPosition;
+        
+        // want velocity to be 0 and to decrease by currentFriction every 
+        // SCROLLING_TIMER_DELAY over EFFECT_TIME total
+        var decelerationRateX:Number = velocityX/THROW_EFFECT_TIME;
+        var decelerationRateY:Number = velocityY/THROW_EFFECT_TIME;
+        
+        // figure out where we're scrolling to
+        if (getStyle("horizontalScrollPolicy") == "on" || 
+            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+        {
+            var hsp:Number = viewport.horizontalScrollPosition;
+            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+            var cWidth:Number = viewport.contentWidth;
+            var maxWidth:Number = Math.max(0, (cWidth == 0) ? viewport.horizontalScrollPosition : cWidth - viewportWidth);
+            
+            // FORMULA: initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
+            finalHSP = viewport.horizontalScrollPosition - (velocityX * THROW_EFFECT_TIME) + (.5 * decelerationRateX * THROW_EFFECT_TIME * THROW_EFFECT_TIME);
+            
+        }
+        
+        if (getStyle("verticalScrollPolicy") == "on" || 
+            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+        {
+            var vsp:Number = viewport.verticalScrollPosition;
+            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+            var cHeight:Number = viewport.contentHeight;
+            var maxHeight:Number = Math.max(0, (cHeight == 0) ? viewport.verticalScrollPosition : cHeight - viewportHeight);
+            
+            // FORMULA: initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
+            finalVSP = viewport.verticalScrollPosition - (velocityY * THROW_EFFECT_TIME) + (.5 * decelerationRateY * THROW_EFFECT_TIME * THROW_EFFECT_TIME);
+        }
+        
+        // set up easer for the the throw
+        throwEaser.velocityX = velocityX;
+        throwEaser.velocityY = velocityY;
+        throwEaser.maxVSP = maxHeight;
+        throwEaser.maxHSP = maxWidth;
+        
+        // maybe use motion paths with more keyframes for the bounce effect??
+        
+        var throwEffectMotionPaths:Vector.<MotionPath> = new Vector.<MotionPath>();
+        
+        // set up a simple motion path for the animation from our current hsp/vsp to
+        // the final hsp/vsp.
+        if (getStyle("horizontalScrollPolicy") == "on" || 
+            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+        {
+            var horizontalMP:MotionPath = new SimpleMotionPath("horizontalScrollPosition", hsp, finalHSP);
+            throwEffectMotionPaths.push(horizontalMP);
+            scrollingHorizontally = true;
+        }
+        else
+        {
+            scrollingHorizontally = false;
+        }
+        
+        if (getStyle("verticalScrollPolicy") == "on" || 
+            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+        {
+            var verticalMP:MotionPath = new SimpleMotionPath("verticalScrollPosition", vsp, finalVSP);
+            throwEffectMotionPaths.push(verticalMP);
+            scrollingVertically = true;
+        }
+        else
+        {
+            scrollingVertically = false;
+        }
+        
+        throwEffect.motionPaths = throwEffectMotionPaths;
+    }
+    
+    /**
+     *  @private
+     *  When the throw or drag scroll is over, we should play a nice 
+     *  animation to hide the scrollbars.
+     */
+    private function hideScrollBars():void
+    {
+        // FIXME (rfrishbe): need to make sure this coordinates with ScrollerLayout
+        // better.
+        if (!hideScrollBarAnimation)
+        {
+            hideScrollBarAnimation = new Animate();
+            hideScrollBarAnimation.addEventListener(EffectEvent.EFFECT_END, hideScrollBarAnimation_effectEndHandler);
+            hideScrollBarAnimation.duration = 500;
+            var alphaMP:Vector.<MotionPath> = Vector.<MotionPath>([new SimpleMotionPath("alpha", 1, 0)]);
+            hideScrollBarAnimation.motionPaths = alphaMP;
+        }
+        
+        // set up the target scrollbars (hsb and/or vsb)
+        var targets:Array = [];
+        if (horizontalScrollBar && horizontalScrollBar.visible)
+        {
+            targets.push(horizontalScrollBar);
+        }
+        
+        if (verticalScrollBar && verticalScrollBar.visible)
+        {
+            targets.push(verticalScrollBar);
+        }
+        
+        hideScrollBarAnimation.play(targets);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
@@ -843,254 +1248,19 @@ public class Scroller extends SkinnableComponent
             {
                 installTouchListeners();
                 
-                touchScrollHelper = new TouchScrollHelper(this);
-                touchScrollHelper.horizontalSlop = MIN_HORIZONTAL_SLOP;
-                touchScrollHelper.verticalSlop = MIN_VERTICAL_SLOP;
-                touchScrollHelper.diagonalSlop = MIN_DIAGONAL_SLOP;
+                if (!touchScrollHelper)
+                {
+                    touchScrollHelper = new TouchScrollHelper(this);
+                    touchScrollHelper.horizontalSlop = MIN_HORIZONTAL_SLOP;
+                    touchScrollHelper.verticalSlop = MIN_VERTICAL_SLOP;
+                    touchScrollHelper.diagonalSlop = MIN_DIAGONAL_SLOP;
+                }
             }
             else
             {
                 uninstallTouchListeners();
             }
         }
-    }
-    
-    /**
-     *  @private
-     */
-    private function installTouchListeners():void
-    {
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
-    }
-    
-    // ScrollerLayout vars
-    public var horizontalScrollInProgress:Boolean = false;
-    public var verticalScrollInProgress:Boolean = false;
-    
-    // SLOP CONSTANTS
-    private static const MIN_HORIZONTAL_SLOP:int = 10;
-    private static const MIN_VERTICAL_SLOP:int = 10;
-    private static const MIN_DIAGONAL_SLOP:int = 10;
-    
-    /**
-     *  @private
-     */
-    private function uninstallTouchListeners():void
-    {
-        removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
-        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
-        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
-        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
-        removeEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
-    }
-    
-    private function touchScrollStartingHandler(event:TouchScrollEvent):void
-    {
-        if (event.scrollingObject != this)
-        {
-            touchScrollHelper.stopScrollWatch();
-        }
-    }
-    
-    private function touchScrollStartHandler(event:TouchScrollEvent):void
-    {
-        installSwallowingMouseHandlers();
-        hspBeforeTouchScroll = viewport.horizontalScrollPosition;
-        vspBeforeTouchScroll = viewport.verticalScrollPosition;
-        
-        if (viewport.scrollAxis == "horizontal" || viewport.scrollAxis == "diagonal")
-            horizontalScrollInProgress = true;
-        if (viewport.scrollAxis == "vertical" || viewport.scrollAxis == "diagonal")
-            verticalScrollInProgress = true;
-        
-        // need to invaliadte the ScrollerLayout object so it'll update the
-        // scrollbars in overlay mode
-        skin.invalidateDisplayList();
-    }
-    
-    private function installSwallowingMouseHandlers():void
-    {
-        // block click events from occuring on me
-        addEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
-        addEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
-//        addEventListener(MouseEvent.MOUSE_OVER, touchScrolling_captureMouseHandler, true);
-//        addEventListener(MouseEvent.ROLL_OVER, touchScrolling_captureMouseHandler, true);
-    }
-    
-    private function uninstallSwallowingMouseHandlers():void
-    {
-        removeEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
-        removeEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
-//        removeEventListener(MouseEvent.MOUSE_OVER, touchScrolling_captureMouseHandler, true);
-//        removeEventListener(MouseEvent.ROLL_OVER, touchScrolling_captureMouseHandler, true);
-    }
-    
-    private var stoppedPreemptively:Boolean = false;
-    
-    private function touchScrolling_captureMouseHandler(event:MouseEvent):void
-    {
-        switch(event.type)
-        {
-            case MouseEvent.MOUSE_DOWN:
-                if (throwEffect && throwEffect.isPlaying)
-                {
-                    // stop the effect.  we don't want to move it to its final value...we want to stop it in place
-                    // FIXME (rfrishbe): however if it's below 0 or above maxVSP, we should snap it to these values
-                    stoppedPreemptively = true;
-                    throwEffect.stop();
-                    
-                    // get new values in case we start scrolling again
-                    hspBeforeTouchScroll = viewport.horizontalScrollPosition;
-                    vspBeforeTouchScroll = viewport.verticalScrollPosition;
-                }
-                
-                touchScrollHelper.startScrollWatch(event);
-                event.stopImmediatePropagation();
-                break;
-            case MouseEvent.ROLL_OVER:
-            case MouseEvent.MOUSE_OVER:
-            case MouseEvent.CLICK:
-                event.stopImmediatePropagation();
-                break;
-        }
-    }
-    
-    private function mouseDownHandler(event:MouseEvent):void
-    {
-        // FIXME (rfrishbe): if currently scrolling, we should stop scrolling 
-        // and move the VSP/HSP in to range (0, maxVSP).
-               
-        touchScrollHelper.startScrollWatch(event);
-    }
-    
-    private var touchScrollHelper:TouchScrollHelper;
-    private var hspBeforeTouchScroll:Number;
-    private var vspBeforeTouchScroll:Number;
-    
-    private function touchScrollDragHandler(event:TouchScrollEvent):void
-    {
-        var xMove:int = 0;
-        var yMove:int = 0;
-        
-        if (viewport.scrollAxis == "horizontal" || viewport.scrollAxis == "diagonal")
-            xMove = event.dragX;
-        
-        if (viewport.scrollAxis == "vertical" || viewport.scrollAxis == "diagonal")
-            yMove = event.dragY
-
-        // FIXME (rfrishbe): figure out how we want negative signs to work
-        viewport.horizontalScrollPosition = hspBeforeTouchScroll - xMove;
-        viewport.verticalScrollPosition = vspBeforeTouchScroll - yMove;
-    }
-    
-    private function touchScrollEndHandler(event:TouchScrollEvent):void
-    {
-        horizontalScrollInProgress = false;
-        verticalScrollInProgress = false;
-        uninstallSwallowingMouseHandlers();
-        
-        // need to invaliadte the ScrollerLayout object so it'll update the
-        // scrollbars in overlay mode
-        skin.invalidateDisplayList();
-    }
-    
-    private var throwEaser:TouchScrollingEasing;
-    private var EFFECT_TIME:int = 3000;
-    private var throwEffect:Animate;
-    
-    private function setUpThrowEffect(velocity:Point):void
-    {
-        if (!throwEffect)
-        {
-            throwEffect = new Animate();
-            throwEffect.addEventListener(EffectEvent.EFFECT_END, throwEffect_effectEndHandler);
-            
-            throwEaser = new TouchScrollingEasing(0);
-        }
-        var finalHSP:Number = viewport.horizontalScrollPosition;
-        var finalVSP:Number = viewport.verticalScrollPosition;
-        
-        // want velocity to be 0 and to decrease by currentFriction every 
-        // SCROLLING_TIMER_DELAY over EFFECT_TIME total
-        var decelerationRate:Point = velocity.clone();
-        decelerationRate.x = decelerationRate.x/EFFECT_TIME;
-        decelerationRate.y = decelerationRate.y/EFFECT_TIME;
-        
-        // figure out where we're scrolling to
-        if (viewport.scrollAxis == "horizontal" || viewport.scrollAxis == "diagonal")
-        {
-            var hsp:Number = viewport.horizontalScrollPosition;
-            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
-            var cWidth:Number = viewport.contentWidth;
-            var maxWidth:Number = Math.max(0, (cWidth == 0) ? viewport.horizontalScrollPosition : cWidth - viewportWidth);
-            
-            // initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
-            finalHSP = viewport.horizontalScrollPosition - (velocity.x * EFFECT_TIME) + (.5 * decelerationRate.x * EFFECT_TIME * EFFECT_TIME);
-//            finalHSP = Math.max(0, Math.min(finalHSP, maxWidth));
-            
-        }
-        
-        if (viewport.scrollAxis == "vertical" || viewport.scrollAxis == "diagonal")
-        {
-            var vsp:Number = viewport.verticalScrollPosition;
-            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
-            var cHeight:Number = viewport.contentHeight;
-            var maxHeight:Number = Math.max(0, (cHeight == 0) ? viewport.verticalScrollPosition : cHeight - viewportHeight);
-            
-            // initialVelocity.y * ellapsedTime - (0.5 * frictionToUse * ellapsedTime * ellapsedTime);
-            finalVSP = viewport.verticalScrollPosition - (velocity.y * EFFECT_TIME) + (.5 * decelerationRate.y * EFFECT_TIME * EFFECT_TIME);
-//            finalVSP = Math.max(0, Math.min(finalVSP, maxHeight));
-        }
-        
-        // set up easer.  Sometimes these values won't be exactly right, but it shouldn't 
-        // matter if maxHeight is wrong as long as we aren't actually moving it around
-        // in that axis.
-        throwEaser.velocity = velocity;
-        throwEaser.maxHeight = maxHeight;
-        throwEaser.maxWidth = maxWidth;
-        throwEaser.maxExtraY = viewportHeight;
-        throwEaser.maxExtraX = viewportWidth;
-        
-        // FIXME (rfrishbe): could move some of this to a setup function to do only once
-        // set up throw effect
-        throwEffect.target = viewport;
-        throwEffect.duration = EFFECT_TIME;
-        
-        // maybe use motion paths with more keyframes for the bounce effect??
-        var horizontalMP:MotionPath = new SimpleMotionPath("horizontalScrollPosition", hsp, finalHSP);
-        var verticalMP:MotionPath = new SimpleMotionPath("verticalScrollPosition", vsp, finalVSP);
-        
-        if (viewport.scrollAxis == "diagonal")
-            throwEffect.motionPaths = Vector.<MotionPath>([horizontalMP, verticalMP]);
-        else if (viewport.scrollAxis == "horizontal")
-            throwEffect.motionPaths = Vector.<MotionPath>([horizontalMP]);
-        else if (viewport.scrollAxis == "vertical")
-            throwEffect.motionPaths = Vector.<MotionPath>([verticalMP]);
-        
-        throwEffect.easer = throwEaser;
-    }
-    
-    private function throwEffect_effectEndHandler(event:EffectEvent):void
-    {
-        // if we stopped the effect ourself (because someone pressed down), then let's not consider
-        // this the end
-        if (stoppedPreemptively)
-            return;
-        
-        dispatchEvent(new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END));
-    }
-    
-    private function touchScrollThrowHandler(event:TouchScrollEvent):void
-    {
-        stoppedPreemptively = false;
-        setUpThrowEffect(event.throwVelocity);
-        throwEffect.play();
     }
 
     /**
@@ -1142,6 +1312,12 @@ public class Scroller extends SkinnableComponent
         else if (instance == horizontalScrollBar)
             horizontalScrollBar.viewport = null;
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
@@ -1289,6 +1465,254 @@ public class Scroller extends SkinnableComponent
             event.preventDefault();
         }            
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers: Touch Scrolling
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Event handler dispatched when someone is about to start scrolling.
+     */
+    private function touchScrollStartingHandler(event:TouchScrollEvent):void
+    {
+        // if it's us, don't do anything
+        // if it's someone else and we've started scrolling, cancel this event
+        // if it's someone else and we haven't started scrolling, don't do anything
+        // here yet. Worry about it in the touchScrollStartHandler().
+        if (event.scrollingObject != this && (horizontalScrollInProgress || verticalScrollInProgress))
+        {
+            event.preventDefault();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Event handler dispatched when someone has started scrolling.
+     */
+    private function touchScrollStartHandler(event:TouchScrollEvent):void
+    {
+        if (event.scrollingObject != this)
+        {
+            // if it's not us scrolling, abort our scrolling attempt
+            touchScrollHelper.stopScrollWatch();
+        }
+        else
+        {
+            // we are scrolling
+            installSwallowingMouseHandlers();
+            hspBeforeTouchScroll = viewport.horizontalScrollPosition;
+            vspBeforeTouchScroll = viewport.verticalScrollPosition;
+            
+            if (getStyle("horizontalScrollPolicy") == "on" || 
+                (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+            {
+                horizontalScrollInProgress = true;
+            }
+            
+            if (getStyle("verticalScrollPolicy") == "on" || 
+                (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+            {
+                verticalScrollInProgress = true;
+            }
+            
+            // need to invaliadte the ScrollerLayout object so it'll update the
+            // scrollbars in overlay mode
+            skin.invalidateDisplayList();
+            
+            // make sure our alpha is set back to normal from hideScrollBarAnimation
+            if (hideScrollBarAnimation && hideScrollBarAnimation.isPlaying)
+                hideScrollBarAnimation.pause();
+            if (horizontalScrollBar)
+            {
+                horizontalScrollBar.alpha = 1;
+            }
+            
+            if (verticalScrollBar)
+            {
+                verticalScrollBar.alpha = 1;
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Event listeners added while a scroll/throw animation is in effect
+     */
+    private function touchScrolling_captureMouseHandler(event:MouseEvent):void
+    {
+        switch(event.type)
+        {
+            case MouseEvent.MOUSE_DOWN:
+                if (throwEffect && throwEffect.isPlaying)
+                {
+                    // stop the effect.  we don't want to move it to its final value...we want to stop it in place
+                    // FIXME (rfrishbe): however if it's below 0 or above maxVSP, we should snap it to these values
+                    stoppedPreemptively = true;
+                    throwEffect.stop();
+                    
+                    // get new values in case we start scrolling again
+                    hspBeforeTouchScroll = viewport.horizontalScrollPosition;
+                    vspBeforeTouchScroll = viewport.verticalScrollPosition;
+                }
+                
+                touchScrollHelper.startScrollWatch(event);
+                event.stopImmediatePropagation();
+                break;
+            case MouseEvent.CLICK:
+                event.stopImmediatePropagation();
+                break;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Mousedown listener that adds the other listeners to watch for a scroll.
+     */
+    private function mouseDownHandler(event:MouseEvent):void
+    {
+        // TODO (rfrishbe): if currently scrolling and we have spring/pull effects, 
+        // we should stop scrolling and move the VSP/HSP in to range (0, maxVSP).
+        
+        touchScrollHelper.startScrollWatch(event);
+    }
+    
+    /**
+     *  @private
+     */
+    private function touchScrollDragHandler(event:TouchScrollEvent):void
+    {
+        var xMove:int = 0;
+        var yMove:int = 0;
+        
+        if (getStyle("horizontalScrollPolicy") == "on" || 
+            (getStyle("horizontalScrollPolicy") == "auto" && shouldScrollHorizontally))
+        {
+            xMove = event.dragX;
+        }
+        
+        if (getStyle("verticalScrollPolicy") == "on" || 
+            (getStyle("verticalScrollPolicy") == "auto" && shouldScrollVertically))
+        {
+            yMove = event.dragY;
+        }
+        
+        // FIXME (rfrishbe): figure out how we want negative signs to work
+        viewport.horizontalScrollPosition = hspBeforeTouchScroll - xMove;
+        viewport.verticalScrollPosition = vspBeforeTouchScroll - yMove;
+    }
+    
+    /**
+     *  @private
+     *  Used to get rid of the scrollbars early if they've hit the max or min values
+     *  FIXME (rfrishbe): This should be baked in to the effect instead of in here
+     */
+    private function throwEffect_effectUpdateHandler(event:EffectEvent):void
+    {
+        if (shouldStopScrolling)
+            throwEffect.stop();
+    }
+    
+    /**
+     *  @private
+     *  Returns true if the animation should stop because we've gone passed 
+     *  the scrolling bounds.  This is called form the throwEffect_effectUpdateHandler
+     *  and before the throwEffect is started.  Ideally this logic should be baked in 
+     *  to the effect itself.
+     */ 
+    private function get shouldStopScrolling():Boolean
+    {
+        if (scrollingVertically && scrollingHorizontally)
+        {
+            if ((viewport.horizontalScrollPosition <= 0 || viewport.horizontalScrollPosition >= throwEaser.maxHSP) && 
+                (viewport.verticalScrollPosition <= 0 || viewport.verticalScrollPosition >= throwEaser.maxVSP))
+            {
+                return true;
+            }
+        }
+        else if (scrollingVertically)
+        {
+            if (viewport.verticalScrollPosition <= 0 || viewport.verticalScrollPosition >= throwEaser.maxVSP)
+            {
+                return true;
+            }
+        }
+        else if (scrollingHorizontally)
+        {
+            if (viewport.horizontalScrollPosition <= 0 || viewport.horizontalScrollPosition >= throwEaser.maxHSP)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function throwEffect_effectEndHandler(event:EffectEvent):void
+    {
+        // if we stopped the effect ourself (because someone pressed down), then let's not consider
+        // this the end
+        if (stoppedPreemptively)
+            return;
+        
+        dispatchEvent(new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END));
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function touchScrollThrowHandler(event:TouchScrollEvent):void
+    {   
+        stoppedPreemptively = false;
+        setUpThrowEffect(event.velocityX, event.velocityY);
+        
+        if (!shouldStopScrolling)
+        {
+            // if we should throw, start the effect now
+            throwEffect.play();
+        }
+        else
+        {
+            // otherwise, let's end it early and fake this event so the ScrollThrowHelper will 
+            // know to stop scrolling and things will continue normally
+            dispatchEvent(new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END));
+        }
+    }
+    
+    /**
+     *  @private
+     *  When the throw is over, no need to listen for mouse events anymore.
+     *  Also, use this to hide the scrollbars.
+     */
+    private function touchScrollEndHandler(event:TouchScrollEvent):void
+    {
+        uninstallSwallowingMouseHandlers();
+        
+        hideScrollBars();
+    }
+    
+    /**
+     *  @private
+     *  Called when the effect finishes playing on the scrollbars.  This is so ScrollerLayout 
+     *  can hide the scrollbars completely and go back to controlling its visibility.
+     *  FIXME (rfrishbe): Not sure if this return to ScrollerLayout control is 
+     *  actually necessary
+     */
+    private function hideScrollBarAnimation_effectEndHandler(event:EffectEvent):void
+    {
+        // now get rid of the scrollbars visibility
+        horizontalScrollInProgress = false;
+        verticalScrollInProgress = false;
+        
+        // need to invaliadte the ScrollerLayout object so it'll update the
+        // scrollbars in overlay mode
+        skin.invalidateDisplayList();
+    }
 
 }
 
@@ -1301,16 +1725,56 @@ import flash.events.TouchEvent;
 import flash.geom.Point;
 import flash.utils.getTimer;
 
+import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
+import mx.events.TouchScrollEvent;
+import mx.utils.GetTimerUtil;
 
 import spark.components.Scroller;
-import spark.events.TouchScrollEvent;
 
+use namespace mx_internal;
+
+/**
+ *  @private
+ *  Helper class to handle some of the touch scrolling logic.  Specifically
+ *  it is used to handle some of the mouse tracking and velocity calculations.
+ */
 class TouchScrollHelper
 {
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Number of mouse movements to keep in the history to calculate 
+     *  velocity.
+     */
     private static const HISTORY:int = 5;
+    
+    /**
+     *  @private
+     *  Minimum velocity needed to start a throw gesture
+     */
     private static const MIN_START_VELOCITY:Number = 0.05;
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Helper function used to calculate velocity from a set of
+     *  points and a set of time values for when those points occurred.
+     * 
+     *  <p>The size of clickHistory and timeHistory should be the same.  
+     *  The size of the returned array should have one less item.</p>
+     */
     private static function calculateVelocity(clickHistory:Vector.<Point>, timeHistory:Vector.<int>):Vector.<Point>
     {
         var len:int = clickHistory.length - 1;
@@ -1332,6 +1796,11 @@ class TouchScrollHelper
         return velocities;
     }
     
+    /**
+     *  @private
+     *  Helper function that takes an vector of points and a vector
+     *  of weights and creates a weighted average from them.</p>
+     */
     private static function averagePoints(points:Vector.<Point>, weighted:Vector.<Number>):Point
     {
         var len:int = points.length;
@@ -1355,33 +1824,127 @@ class TouchScrollHelper
         return currentPoint;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor
+     */
     public function TouchScrollHelper(scroller:Scroller)
     {
         super();
         
-        clickHistory = new Vector.<Point>();
-        timeHistory = new Vector.<int>();
+        mouseEventCoordinatesHistory = new Vector.<Point>();
+        mouseEventTimeHistory = new Vector.<int>();
         
         this.scroller = scroller;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Horizontal slop - the scrolling threshold (minimum number of 
+     *  pixels needed to move before a scroll gesture is recognized
+     */
     public var horizontalSlop:Number;
+    
+    /**
+     *  @private
+     *  Vertical slop - the scrolling threshold (minimum number of 
+     *  pixels needed to move before a scroll gesture is recognized
+     */
     public var verticalSlop:Number;
+    
+    /**
+     *  @private
+     *  Diagonal slop - the scrolling threshold (minimum number of 
+     *  pixels needed to move before a scroll gesture is recognized
+     */
     public var diagonalSlop:Number;
+    
+    /**
+     *  @private
+     *  Reference to the Scroller associated with this ScrollThrowHelper
+     */
     public var scroller:Scroller;
     
-    // each of these per mouseEvent (or per touchPoint ID)
+    /**
+     *  @private
+     *  The point that was moused downed on for this scroll gesture
+     */
     private var mouseDownedPoint:Point;
+    
+    /**
+     *  @private
+     *  The point that a scroll was recognized from.
+     * 
+     *  <p>This is different from mouseDownedPoint because the user may 
+     *  mousedown on one point, but a scroll isn't recognized until 
+     *  they move more than the slop.  Because of this, we don't want
+     *  the delta scrolled to be calculated from the mouseDowned point 
+     *  because that would look jerky the first time a scroll occurred.</p>
+     */
     private var scrollStartPoint:Point;
+    
+    /**
+     *  @private
+     *  The time the scroll started
+     */
     private var startTime:Number;
+    
+    /**
+     *  @private
+     *  The displayObject that was mousedowned on.
+     */
     private var mouseDownedDisplayObject:DisplayObject;
-    private var clickHistory:Vector.<Point>;
-    private var timeHistory:Vector.<int>;
+    
+    /**
+     *  @private
+     *  Keeps track of the coordinates where the mouse events 
+     *  occurred.  We use this for velocity calculation along 
+     *  with timeHistory.
+     */
+    private var mouseEventCoordinatesHistory:Vector.<Point>;
+    
+    /**
+     *  @private
+     *  A history of times the last few mouse events occurred.
+     *  We keep HISTORY objects in memory, and we use this mouseEventTimeHistory
+     *  Vector along with mouseEventCoordinatesHistory to determine the velocity
+     *  a user was moving their fingers.
+     */
+    private var mouseEventTimeHistory:Vector.<int>;
+    
+    /**
+     *  @private
+     *  Whether we are currently in a scroll gesture or not.
+     */
     private var isScrolling:Boolean;
     
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Starts watching for a scroll operation.  This should take either 
+     *  MouseEvent.MOUSE_DOWN or TouchEvent.TOUCH_BEGIN, but for now, only
+     *  mousedown works.
+     */
     public function startScrollWatch(event:Event):void
     {
-        startTime = flash.utils.getTimer();
+        // this is the point from which all deltas are based.
+        startTime = GetTimerUtil.getTimerFunction();
         
         if (event is MouseEvent && event.type == MouseEvent.MOUSE_DOWN)
         {
@@ -1399,50 +1962,63 @@ class TouchScrollHelper
             // if we were already scrolling, continue scrolling
             if (isScrolling)
             {
-                // FIXME (rfrishbe): below is same as in mouseMove...should it be?
-//                var scrollDragStartEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_START);
-//                scrollDragStartEvent.scrollingObject = scroller;
-//                scroller.dispatchEvent(scrollDragStartEvent);
                 scrollStartPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
                 mouseDownedPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
             }
             
-            // only need to do this stuff once per target
             // store last 5 values
-            clickHistory.length = 0;
-            timeHistory.length = 0;
+            mouseEventCoordinatesHistory.length = 0;
+            mouseEventTimeHistory.length = 0;
             
             addMouseEventHistory(mouseEvent);
         }
         else if (event is TouchEvent && event.type == TouchEvent.TOUCH_BEGIN)
         {
             // TouchEvent case
+            // TODO (rfrishbe)
         }            
     }
     
+    /**
+     *  @private
+     *  Starts watching for a scroll operation.
+     */
     public function stopScrollWatch():void
     {
         uninstallMouseListeners();
     }
     
+    /**
+     *  @private
+     *  Adds the time and mouse coordinates for this event in to 
+     *  our mouse event history so that we can use it later to 
+     *  calculate velocity.
+     * 
+     *  @return the delta moved between this mouse event and the start
+     *          of the scroll gesture.
+     */
     private function addMouseEventHistory(event:MouseEvent):Point
     {
         var p:Point = new Point(event.stageX, event.stageY);
         var differencePoint:Point = p.subtract(mouseDownedPoint);
         
-        if (clickHistory.length >= HISTORY)
+        // only store the last 5
+        if (mouseEventCoordinatesHistory.length >= HISTORY)
         {
-            clickHistory.shift();
-            timeHistory.shift();
+            mouseEventCoordinatesHistory.shift();
+            mouseEventTimeHistory.shift();
         }
         
-        clickHistory.push(differencePoint);
-        timeHistory.push(flash.utils.getTimer() - startTime);
+        mouseEventCoordinatesHistory.push(differencePoint);
+        mouseEventTimeHistory.push(GetTimerUtil.getTimerFunction() - startTime);
         
         return differencePoint;
     }
 
-    // event listener helpers
+    /**
+     *  @private
+     *  Installs mouse listeners to determine how far we've moved.
+     */
     private function installMouseListeners():void
     {
         var sbRoot:DisplayObject = scroller.systemManager.getSandboxRoot();
@@ -1454,6 +2030,9 @@ class TouchScrollHelper
         scroller.systemManager.deployMouseShields(true);
     }
     
+    /**
+     *  @private
+     */
     private function uninstallMouseListeners():void
     {
         var sbRoot:DisplayObject = scroller.systemManager.getSandboxRoot();
@@ -1466,14 +2045,18 @@ class TouchScrollHelper
         scroller.systemManager.deployMouseShields(false);
     }
     
-    // event listeners
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  If we are not scrolling, this is used to determine whether we should start 
+     *  scrolling or not by checking if we've moved more than the slop.
+     *  If we are scrolling, this is used to dispatch TouchScrollEvent.TOUCH_SCROLL_DRAG
+     *  events and to determine how far the user has scrolled.
      */
     protected function sbRoot_mouseMoveHandler(event:MouseEvent):void
     {
@@ -1483,38 +2066,51 @@ class TouchScrollHelper
         {
             var shouldBeScrolling:Boolean = false;
             
-            switch (scroller.viewport.scrollAxis)
+            var possibleScrollHorizontally:Boolean = false;
+            var possibleScrollVertically:Boolean = false;
+            
+            // figure out if we can even scroll horizontally or vertically
+            if (scroller.getStyle("horizontalScrollPolicy") == "on" || 
+                (scroller.getStyle("horizontalScrollPolicy") == "auto" && scroller.shouldScrollHorizontally))
             {
-                case "vertical":
-                    shouldBeScrolling = Math.abs(mouseDownedDifference.y) >= verticalSlop;
-                    break;
-                case "horizontal":
-                    shouldBeScrolling = Math.abs(mouseDownedDifference.x) >= horizontalSlop;
-                    break;
-                case "diagonal":
-                    shouldBeScrolling = Math.abs(mouseDownedDifference.length) >= diagonalSlop;
-                    break;
+                possibleScrollHorizontally = true;
             }
             
-            // Check to see if we should be scrolling
+            if (scroller.getStyle("verticalScrollPolicy") == "on" || 
+                (scroller.getStyle("verticalScrollPolicy") == "auto" && scroller.shouldScrollVertically))
+            {
+                possibleScrollVertically = true;
+            }
+            
+            // now figure out if we should scroll horizontally or vertically based on our slop
+            if (possibleScrollHorizontally && possibleScrollVertically)
+                shouldBeScrolling = Math.abs(mouseDownedDifference.length) >= diagonalSlop;
+            else if (possibleScrollHorizontally)
+                shouldBeScrolling = Math.abs(mouseDownedDifference.x) >= horizontalSlop;
+            else if (possibleScrollVertically)
+                shouldBeScrolling = Math.abs(mouseDownedDifference.y) >= verticalSlop;
+            
+            // If we should be scrolling, start scrolling
             if (shouldBeScrolling)
             {
-                // cancellable and bubbling event
+                // Dispatch a cancellable and bubbling event to notify others
                 var scrollDragStartingEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_STARTING, true, true);
                 scrollDragStartingEvent.scrollingObject = scroller;
                 var eventAccepted:Boolean = mouseDownedDisplayObject.dispatchEvent(scrollDragStartingEvent);
                 
+                // if the event was preventDefaulted(), then stop scrolling scrolling
                 if (!eventAccepted)
                 {                    
                     // TODO (rfrishbe): do we need to call updateAfterEvent() here and below?
                     event.updateAfterEvent();
                     
-                    // if our mouse target has been rejected, let's give up and remove all the listeners
-                    uninstallMouseListeners();
+                    // calling stopScrollWatch() will remove all the appropriate listeners
+                    stopScrollWatch();
                     
                     return;
                 }
                 
+                // if the event has been accepted, then dispatch a bubbling start event
                 var scrollDragStartEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_START);
                 scrollDragStartEvent.scrollingObject = scroller;
                 scroller.dispatchEvent(scrollDragStartEvent);
@@ -1531,12 +2127,14 @@ class TouchScrollHelper
             
         }
         
-        // if we are scrolling
+        // if we are scrolling (even if we just started scrolling)
         if (isScrolling)
         {
+            // calculate the delta
             var p:Point = new Point(event.stageX, event.stageY);
             var scrollDifferencePoint:Point = p.subtract(scrollStartPoint);
             
+            // dispatch the event
             var scrollDragEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_DRAG, false, false);
             scrollDragEvent.scrollingObject = scroller;
             scrollDragEvent.dragX = scrollDifferencePoint.x;
@@ -1549,52 +2147,67 @@ class TouchScrollHelper
     
     /**
      *  @private
-     *  Called when the user releases the TitleWindow.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  Called when the user releases the mouse/touches up
      */
     protected function sbRoot_mouseUpHandler(event:Event):void
     {
         uninstallMouseListeners();
         
-        // FIXME (rfrishbe): can we scroll by velocity even tho no drag took place?
+        // If we weren't already scrolling, then let's not start scrolling now
         if (!isScrolling)
             return;
         
+        // This could be a SanboxMouseEvent
         if (event is MouseEvent)
             addMouseEventHistory(event as MouseEvent);
         
         // decide about throw
         
         // pad click and timeHistory if needed
-        var currentTime:Number = getTimer();
+        var currentTime:Number = GetTimerUtil.getTimerFunction();
         
         // calculate average time b/w events and see if the last two (mouseMove and this mouseUp) 
         // were far apart.  If they were, then don't do anything if the velocity of them is small.
         var averageTime:Number = 0;
-        var len:int = timeHistory.length;
+        var len:int = mouseEventTimeHistory.length;
         
-        // FIXME (rfrishbe): this isn't true sine we could get a mouseUpSomehwere event
-        // gauranteed to have 2 mouse events b/c atleast a mousedown and a mouse up
-        
+        // gauranteed to have 2 mouse events b/c atleast a mousedown and a mousemove 
+        // because if there was no mousemove, we definitely would not be scrolling and 
+        // would have exited this function earlier
         for (var i:int = 0; i < len - 2; i++)
         {
-            averageTime += timeHistory[i+1] - timeHistory[i];
+            averageTime += mouseEventTimeHistory[i+1] - mouseEventTimeHistory[i];
         }
         averageTime /= len-2;
         
-        var lastTime:Number = timeHistory[len-1] - timeHistory[len-2];
-        var lastVelocity:Point = clickHistory[len-1].subtract(clickHistory[len-2]);
+        // use the amount they've used as well as the velocity to denote how far to throw the list.
+        // to do this, we multiply by the ratio of how far they moved with respect to the screen size 
+        // available size of the scroller.
+        
+        // allow 0% faster if they used everything
+        const RATIO_TO_USE:Number = 1.0;
+        
+        // for the max size, we couldn't decide between using screen width/height or 
+        // scroller width/height, so we're using a weighted average for it
+        // FIXME (rfrishbe): use stage.stageWidth, stage.width, root.width, or FlexGlobals.topLevelApplication.width?
+        var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.width)/3;
+        var heightToUseForRatio:Number = (2*scroller.height + scroller.stage.height)/3;
+        var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[len-1];
+        var movedRatio:Point = new Point(Math.abs(RATIO_TO_USE*lastMouseEventPoint.x/widthToUseForRatio), Math.abs(RATIO_TO_USE*lastMouseEventPoint.y/heightToUseForRatio));
+
+        // calculate the last velocity and make sure there was no pause that occurred
+        var lastTime:Number = mouseEventTimeHistory[len-1] - mouseEventTimeHistory[len-2];
+        var lastVelocity:Point = lastMouseEventPoint.subtract(mouseEventCoordinatesHistory[len-2]);
         lastVelocity.x /= lastTime;
         lastVelocity.y /= lastTime;
+        lastVelocity.x *= movedRatio.x;
+        lastVelocity.y *= movedRatio.y;
         
         var scrollEndEvent:TouchScrollEvent;
         
         // FIXME (rfrishbe): should be minXVelocity, minYVelocity, minDiagonalVelocity
-        // FIXME (rfrishbe): this should be parameterized better
+        // FIXME (rfrishbe): this should be parameterized better and the heuristic should 
+        // be documented better
         if ( (lastTime >= 3*averageTime) &&
             (lastVelocity.length <= MIN_START_VELOCITY))
         {
@@ -1607,23 +2220,30 @@ class TouchScrollHelper
             return;
         }
         
-        var velocities:Vector.<Point> = calculateVelocity(clickHistory, timeHistory);
-        
+        // calculate the velocity using a weighted average
+        var velocities:Vector.<Point> = calculateVelocity(mouseEventCoordinatesHistory, mouseEventTimeHistory);
         var velocityWeights:Vector.<Number> = Vector.<Number>([1,1.33,1.66,2]);
         var throwVelocity:Point = averagePoints(velocities, velocityWeights);
         
-        //            trace("velocity: ", initialVelocity.y);
+        // use ratio of how far they scrolled to scale the velocity
+        throwVelocity.x *= movedRatio.x;
+        throwVelocity.y *= movedRatio.y;
+        
+        // if the velocity is greater than the minimum velocity, start throwing
         if (throwVelocity.length > MIN_START_VELOCITY)
         {
             var scrollEndAndThrowEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_THROW, false, false);
             scrollEndAndThrowEvent.scrollingObject = scroller;
-            scrollEndAndThrowEvent.throwVelocity = throwVelocity;
+            scrollEndAndThrowEvent.velocityX = throwVelocity.x;
+            scrollEndAndThrowEvent.velocityY = throwVelocity.y;
             
+            // wait for the animation to be over so we can dispatch a touchScrollEnd event
             scroller.addEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END, scroller_touchScrollThrowAnimationEnd);
             scroller.dispatchEvent(scrollEndAndThrowEvent);
         }
         else
         {
+            // otherwise, end the scroll operation
             isScrolling = false;
 
             // don't do anything
@@ -1631,12 +2251,12 @@ class TouchScrollHelper
             scrollEndEvent.scrollingObject = scroller;
             scroller.dispatchEvent(scrollEndEvent);
         }
-        
-        // if we own this user gesture, don't let others see this event
-//        if (isScrolling)
-//            event.stopImmediatePropagation();
     }
     
+    /**
+     *  @private
+     *  When the touchScrollThrow is over, we should dispatch a touchScrollEnd.
+     */
     private function scroller_touchScrollThrowAnimationEnd(event:TouchScrollEvent):void
     {
         scroller.removeEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END, scroller_touchScrollThrowAnimationEnd);
