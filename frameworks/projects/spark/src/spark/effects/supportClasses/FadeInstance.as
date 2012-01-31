@@ -9,21 +9,22 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.events.Event;
 
-import mx.components.Group;
-import mx.effects.Animation;
-import mx.effects.AnimationProperty;
-import mx.events.AnimationEvent;
+import spark.components.Group;
+import spark.effects.animation.Animation;
+import spark.effects.AnimationProperty;
+import spark.events.AnimationEvent;
 import mx.events.FlexEvent;
-import mx.graphics.baseClasses.GraphicElement;
+import spark.primitives.supportClasses.GraphicElement;
 import mx.managers.LayoutManager;
-    
-public class FxFadeInstance extends FxAnimateInstance
+import mx.effects.effectClasses.PropertyChanges;
+
+public class FadeInstance extends AnimateInstance
 {
-    public function FxFadeInstance(target:Object)
+    public function FadeInstance(target:Object)
     {
         super(target);
         
