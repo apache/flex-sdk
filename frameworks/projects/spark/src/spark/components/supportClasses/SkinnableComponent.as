@@ -207,10 +207,10 @@ public class SkinnableComponent extends UIComponent
     //----------------------------------
     
     /**
-     *  An Array that lists the skin parts 
+     *  Lists the skin parts that are
      *  excluded from bitmaps captured and used to
-     *  show focus.  This list is only used if
-     *  the skin has a null focusSkinExclusions property.
+     *  show focus. This list is only used if
+     *  the skin's <code>focusSkinExclusions</code> property is <code>null</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -777,12 +777,12 @@ public class SkinnableComponent extends UIComponent
      *
      *  <p>Override this function to attach behavior to the part. 
      *  If you want to override behavior on a skin part that is inherited from a base class, 
-     *  make sure that you do not call the <code>super.partAdded()</code> method. 
+     *  do not call the <code>super.partAdded()</code> method. 
      *  Otherwise, you should always call the <code>super.partAdded()</code> method.</p>
      *
      *  @param partname The name of the part.
      *
-     *  @param instance The part.
+     *  @param instance The instance of the part.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -812,7 +812,7 @@ public class SkinnableComponent extends UIComponent
      *
      *  @param partname The name of the part.
      *
-     *  @param instance The part.
+     *  @param instance The instance of the part.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -846,7 +846,7 @@ public class SkinnableComponent extends UIComponent
      *  Dynamic skin parts should always be instantiated by this method, 
      *  rather than directly by calling the <code>newInstance()</code> method on the factory.
      *  This method creates the part, but does not add it to the display list.
-     *  The componet must call the <code>Group.addElement()</code> method, or the appropriate 
+     *  The component must call the <code>Group.addElement()</code> method, or the appropriate 
      *  method to add the skin part to the display list. 
      *
      *  @param partName The name of the part.
@@ -891,7 +891,7 @@ public class SkinnableComponent extends UIComponent
      *
      *  @param partname The name of the part.
      *
-     *  @param instance The part.
+     *  @param instance The instance of the part.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
