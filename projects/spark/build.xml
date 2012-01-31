@@ -47,7 +47,7 @@
 				<include-classes/>
 				<source-path path-element="${basedir}/bundles/@{locale}"/>
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/osmf/bundles/@{locale}"/>
+				<!--source-path path-element="${FLEX_HOME}/frameworks/projects/osmf/bundles/@{locale}"/-->
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/textLayout/bundles/@{locale}"/>
 				<source-path path-element="${FLEX_HOME}/frameworks/projects/spark/src"/>
 				<include-libraries/>
