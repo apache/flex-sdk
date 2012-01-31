@@ -35,6 +35,17 @@ use namespace mx_internal;
 include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 
+
+/**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
+
 /**
  *  Color of the content area of the component.
  *   
