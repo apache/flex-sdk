@@ -56,6 +56,12 @@ import spark.components.supportClasses.Slider;
  *           <td>Maximum size</td>
  *           <td>10000 pixels wide and 10000 pixels high</td>
  *        </tr>
+ *        <tr>
+ *           <td>Default skin classes</td>
+ *           <td>spark.skins.spark.VSliderSkin
+ *              <p>spark.skins.spark.VSliderThumbSkin</p>
+ *              <p>spark.skins.spark.VSliderTrackSkin</p></td>
+ *        </tr>
  *     </table>
  *
  *  @mxml
