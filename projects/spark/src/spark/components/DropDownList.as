@@ -15,12 +15,7 @@ Keyboard Interaction
 - List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
-` List
-
-- Handle stage resize
-- Add type assist
 - Add typicalItem support for measuredSize (lower priority) 
-- Change button to stay down when dropdown is open (?)
 
 *  @langversion 3.0
 *  @playerversion Flash 10
@@ -32,6 +27,7 @@ and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 package spark.components
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -39,6 +35,7 @@ import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import mx.collections.IList;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
@@ -48,8 +45,6 @@ import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.ListBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
-
-
 
 
 /**
@@ -144,10 +139,23 @@ public class DropDownList extends List
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    // TODO!!! (jszeto) Replace with a toggle button 
     [SkinPart(required="true")]
-    public var button:Button;
+    public var button:ButtonBase;
 	
+	
+	/**
+     *  A skin part that defines the dropDown area. When the DropDownList is open,
+     *  clicking anywhere outside of the dropDown skin part will close the   
+     *  DropDownList. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    [SkinPart(required="false")]
+    public var dropDown:DisplayObject;
+    	
 	/**
      *  Constructor. 
      *  
@@ -384,20 +392,18 @@ public class DropDownList extends List
      */ 
     public function openDropDown():void
     {
-		//trace("DropDownBase.openDropDown isOpen",isOpen);
+		//trace("DDL.openDropDown isOpen",isOpen);
     	if (!isOpen)
     	{
-    		// TODO (jszeto) Change this to be marshall plan compliant
+    		// TODO (jszeto) Change these to be marshall plan compliant
     		systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+    		systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
     		
     		_isOpen = true;
+    		button.mx_internal::keepDown = true; // Force the button to stay in the down state
     		skin.currentState = getCurrentSkinState();
     		
-    		// TODO (jszeto) How to handle animations in the skin?
     		dispatchEvent(new DropdownEvent(DropdownEvent.OPEN));
-	    	
-	    	// Save the original selectedIndex
-			//previousSelectedIndex = selectedIndex;
     	}
     }
 	
@@ -419,7 +425,7 @@ public class DropDownList extends List
      */
     public function closeDropDown(commitData:Boolean):void
     {
-    	//trace("DropDownBase.closeDropDown isOpen",isOpen,"inKey",inKeyNavigation);
+    	//trace("DDL.closeDropDown isOpen",isOpen);
     	if (isOpen)
     	{
     		// TODO (jszeto) Add logic to check for commitData
@@ -427,13 +433,14 @@ public class DropDownList extends List
         		commitDropDownData();*/	
 	
 			_isOpen = false;
+			button.mx_internal::keepDown = false;
 	       	skin.currentState = getCurrentSkinState();
         	
-        	// TODO (jszeto) How to handle animations in the skin?
         	dispatchEvent(new DropdownEvent(DropdownEvent.CLOSE));
         	
-        	// TODO (jszeto) Change this to be marshall plan compliant
+        	// TODO (jszeto) Change these to be marshall plan compliant
         	systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+        	systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
     	}
     }
 	
@@ -515,7 +522,9 @@ public class DropDownList extends List
  
  		if (instance == button)
     	{
-    		button.addEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    		// TODO (jszeto) Change this to be mouseDown. Figure out how to not 
+    		// trigger systemManager_mouseDown.
+    		button.addEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
     		button.enabled = enabled;
     	}
     }
@@ -527,7 +536,7 @@ public class DropDownList extends List
     {
     	if (instance == button)
     	{
-    		button.removeEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    		button.removeEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
     	}
         
         super.partRemoved(partName, instance);
@@ -538,6 +547,7 @@ public class DropDownList extends List
      */
     override protected function item_clickHandler(event:MouseEvent):void
 	{
+		//trace("DDL.item_clickHandler mouse event",event.type);
 		super.item_clickHandler(event);
 		closeDropDown(true);
 	}
@@ -616,6 +626,7 @@ public class DropDownList extends List
                 !dataGroup.contains(event.relatedObject))
             {
                 // Close the dropdown.
+                //trace("DDL.focusOutHandler");
                 closeDropDown(false);
             }
         }
@@ -638,8 +649,9 @@ public class DropDownList extends List
  	 *  @playerversion AIR 1.5
  	 *  @productversion Flex 4
  	 */ 
-    protected function buttonDownHandler(event:Event):void
+    protected function button_buttonDownHandler(event:Event):void
     {
+    	//trace("DDL.button_buttonDownHandler");
         if (isOpen)
             closeDropDown(true);
         else
@@ -657,13 +669,21 @@ public class DropDownList extends List
      */     
     protected function systemManager_mouseDownHandler(event:MouseEvent):void
     {
+    	//trace("DropDownBase.systemManager_mouseDownHandler, hit dropDown?",dropDown.hitTestPoint(event.stageX, event.stageY));
     	// TODO (jszeto) Make marshall plan compliant
-     	if ((dataGroup && !dataGroup.hitTestPoint(event.stageX, event.stageY)) &&
-     	    (button && !button.hitTestPoint(event.stageX, event.stageY)))
+     	if ((dropDown && !dropDown.hitTestPoint(event.stageX, event.stageY) || !dropDown))
         {
-        	//trace("DropDownBase.systemManager_mouseDownHandler  [CLOSE]");
             closeDropDown(true);
         }
+    }
+    
+    /**
+     *  @private
+     *  Close the dropDown if the stage has been resized. Don't commit the data.
+     */
+    private function systemManager_resizeHandler(event:Event):void
+    {
+    	closeDropDown(false);
     }
 
 }
