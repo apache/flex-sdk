@@ -389,8 +389,7 @@ public class ModuleLoader extends VBox
             FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
         {
             var currentDomain:ApplicationDomain = moduleFactory.info()["currentDomain"];
-            if (currentDomain)
-                tempApplicationDomain = new ApplicationDomain(currentDomain); 
+            tempApplicationDomain = new ApplicationDomain(currentDomain); 
         }
             
         module.load(tempApplicationDomain, null, bytes, moduleFactory);
