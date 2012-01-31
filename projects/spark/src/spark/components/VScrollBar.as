@@ -16,8 +16,8 @@ import mx.core.IViewport;
 import mx.core.ScrollUnit;  
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 
 [IconFile("FxVScrollBar.png")]
 
@@ -108,9 +108,9 @@ public class FxVScrollBar extends FxScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.y : 0;
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(thumb);
-            layoutItem.setActualPosition(layoutItem.actualPosition.x,
-                                         Math.round(trackPos + thumbPos));
+            var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(thumb);
+            layoutElement.setLayoutPosition(layoutElement.getLayoutPositionX(),
+                                            Math.round(trackPos + thumbPos));
         }
     }
 
