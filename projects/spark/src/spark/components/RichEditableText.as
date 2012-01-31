@@ -192,7 +192,7 @@ public class TextView extends UIComponent
         var leaf:LeafElement = textFlow.getFirstLeaf();
         while (leaf)
         {
-            var p:Paragraph = leaf.findParagraph();
+            var p:Paragraph = leaf.getParagraph();
             for (;;)
             {
                 text += leaf.text;
