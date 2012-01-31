@@ -150,7 +150,9 @@ public class HScrollBar extends ScrollBar
         if (!thumb)
             return super.calculateThumbSize();
             
-        var size:Number = (fixedThumbSize) ? thumb.getPreferredBoundsWidth() : super.calculateThumbSize();
+        var size:Number = (getStyle("fixedThumbSize")) ? 
+            thumb.getPreferredBoundsWidth() : 
+            super.calculateThumbSize();
         return Math.max(thumb.minWidth, size);
     }
 
@@ -167,7 +169,9 @@ public class HScrollBar extends ScrollBar
             return;
         
         thumb.setLayoutBoundsSize(thumbSize, NaN);
-        var calculatedThumbSize:Number = (fixedThumbSize) ? super.calculateThumbSize() : thumbSize;
+        var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
+            super.calculateThumbSize() : 
+            thumbSize;
         thumb.visible = calculatedThumbSize < trackSize;
     }
     
