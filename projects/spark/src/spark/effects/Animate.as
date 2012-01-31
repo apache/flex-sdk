@@ -11,21 +11,21 @@
 package mx.effects
 {
 
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.Sine;
-import mx.effects.effectClasses.FxAnimateInstance;
-import mx.events.AnimationEvent;
+import flash.sampler.getInvocationCount;
 
 import mx.core.mx_internal;
-import mx.effects.Effect;
-import mx.effects.IEffectInstance;
+import mx.effects.effectClasses.FxAnimateInstance;
+import mx.effects.interpolation.IEaser;
+import mx.effects.interpolation.IInterpolator;
+import mx.effects.interpolation.NumberInterpolator;
+import mx.effects.interpolation.Sine;
+import mx.events.AnimationEvent;
 import mx.events.EffectEvent;
 import mx.styles.IStyleClient;
 
 use namespace mx_internal;
 
-[DefaultProperty("propertyValuesList")]
+[DefaultProperty("animationProperties")]
 
 /**
  * Dispatched when the effect starts, which corresponds to a 
@@ -78,16 +78,16 @@ use namespace mx_internal;
 
 /**
  * This effect animates an arbitrary set of properties between values, as specified
- * in the <code>propertyValuesList</code> array. Example usage is as follows:
+ * in the <code>animationProperties</code> array. Example usage is as follows:
  * 
- * @example Using the Animate effect to move a button from (100, 100)
+ * @example Using the FxAnimate effect to move a button from (100, 100)
  * to (200, 150):
  * <listing version="3.0">
  * var button:Button = new Button();
- * var anim:Animate = new Animate(button);
- * anim.propertyValuesList = [
- *     new PropertyValuesHolder("x", [100,200]),
- *     new PropertyValuesHolder("y", [100,150])];
+ * var anim:FxAnimate = new FxAnimate(button);
+ * anim.animationProperties = [
+ *     new AnimationProperty("x", 100, 200),
+ *     new AnimationProperty("y", 100, 150)];
  * anim.play();
  * </listing>
  */
@@ -118,7 +118,7 @@ public class FxAnimate extends Effect
     //--------------------------------------------------------------------------
     
     // Cached version of the affected properties. By default, we simply return
-    // the list of properties specified in the propertyValuesList array.
+    // the list of properties specified in the animationProperties array.
     // Subclasses should override getAffectedProperties() if they wish to 
     // specify a different set.
     private var affectedProperties:Array = null;
@@ -135,14 +135,14 @@ public class FxAnimate extends Effect
     //--------------------------------------------------------------------------
 
     /**
-     * An array of PropertyValuesHolder objects, each of which holds the
+     * An array of AnimationProperty objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation. This array takes precedence over
      * any helper properties that may be declared in subclasses of FxAnimate.
      * For example, if this array is set directly on an FxMove object, 
      * then any helper values such as <code>xFrom</code> will be ignored. 
      */
-    public var propertyValuesList:Array;
+    public var animationProperties:Array;
     
     /**
      * The easing behavior for this effect. This IEaser
@@ -219,7 +219,7 @@ public class FxAnimate extends Effect
 
     /**
      * By default, the affected properties are the same as those specified
-     * in the <code>propertyValuesList</code> array. If subclasses affect
+     * in the <code>animationProperties</code> array. If subclasses affect
      * or track a different set of properties, they should override this
      * method.
      */
@@ -227,12 +227,12 @@ public class FxAnimate extends Effect
     {
         if (!affectedProperties)
         {
-            if (propertyValuesList)
+            if (animationProperties)
             {
-                affectedProperties = new Array(propertyValuesList.length);
-                for (var i:int = 0; i < propertyValuesList.length; ++i)
+                affectedProperties = new Array(animationProperties.length);
+                for (var i:int = 0; i < animationProperties.length; ++i)
                 {
-                    var effectHolder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
+                    var effectHolder:AnimationProperty = AnimationProperty(animationProperties[i]);
                     affectedProperties[i] = effectHolder.property;
                 }
             }
@@ -271,30 +271,16 @@ public class FxAnimate extends Effect
         animateInstance.adjustConstraints = adjustConstraints;
         animateInstance.disableLayout = disableLayout;
         
-        // Deep-copy the propertyValuesList into the instance
-        if (propertyValuesList != null)
+        // Deep-copy the animationProperties into the instance
+        if (animationProperties != null)
         {
-            animateInstance.propertyValuesList = new Array(propertyValuesList.length);
+            animateInstance.animationProperties = new Array(animationProperties.length);
             var i:int, j:int;
-            for (i = 0; i < propertyValuesList.length; ++i)
+            for (i = 0; i < animationProperties.length; ++i)
             {
-                var effectHolder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
-                var holder:PropertyValuesHolder = new PropertyValuesHolder();
-                holder.property = effectHolder.property;
-                holder.delta = effectHolder.delta;
-                if (effectHolder.values)
-                {
-                    holder.values = new Array(effectHolder.values.length);
-                    for (j = 0; j < effectHolder.values.length; ++j)
-                    {
-                        holder.values[j] = effectHolder.values[j];
-                    }
-                }
-                else
-                {
-                    holder.values = [undefined, undefined];
-                }
-                animateInstance.propertyValuesList[i] = holder;
+                var prop:AnimationProperty = AnimationProperty(animationProperties[i]);
+                animateInstance.animationProperties[i] = new AnimationProperty(
+                    prop.property, prop.valueFrom, prop.valueTo, prop.valueBy);
             }
         }
     }
