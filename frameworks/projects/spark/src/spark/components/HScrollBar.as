@@ -14,8 +14,8 @@ package mx.components
 import mx.components.baseClasses.FxScrollBar;
 import mx.core.ScrollUnit;
 import mx.core.IViewport;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
@@ -109,9 +109,9 @@ public class FxHScrollBar extends FxScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.x : 0;   
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(thumb);
-            layoutItem.setActualPosition(Math.round(trackPos + thumbPos),
-                                         layoutItem.actualPosition.y);
+            var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(thumb);
+            layoutElement.setLayoutPosition(Math.round(trackPos + thumbPos),
+                                            layoutElement.getLayoutPositionY());
         }
     }
     
