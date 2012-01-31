@@ -6,12 +6,10 @@ import flash.events.Event;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import flash.geom.Transform;
 import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
-import flex.geom.Transform;
 import flex.graphics.Graphic;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
@@ -201,6 +199,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     /**
      *  Override so that we can return correct width when in scale mode. 
      */    
+   [PercentProxy("percentWidth")]
     override public function get width():Number
     {
         if (_resizeMode == ResizeMode._SCALE_UINT)
@@ -212,6 +211,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     /**
      *  Override so that we can return correct height when in scale mode. 
      */    
+   [PercentProxy("percentHeight")]
     override public function get height():Number
     {
         if (_resizeMode == ResizeMode._SCALE_UINT)
@@ -269,19 +269,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
                     cacheAsBitmap = true;
                 }
             }
-        }
-        
-        if (transformChanged)
-        {
-            transformChanged = false;
-            // Apply the transform props or matrix
-            TransformUtil.applyTransforms(this, _matrix, NaN, NaN, NaN, NaN, 
-                                          _rotation, _transformX, _transformY);
-            _matrix = null;
-            _rotation = NaN;
-            
-            invalidateParentSizeAndDisplayList();
-        }
+        }        
     }
 
     override protected function measure():void
@@ -599,144 +587,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             invalidateProperties();
         }
     }
-    
-    //----------------------------------
-    //  rotation
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _rotation:Number = 0;
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The rotation for this group, in degrees.
-     */
-    override public function get rotation():Number
-    {
-        return !isNaN(_rotation) ? _rotation : super.rotation;
-    }
-    
-    override public function set rotation(value:Number):void
-    {
-        if (_rotation != value)
-        {
-            var oldValue:Number = _rotation;
-            
-            _rotation = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
 
-    //----------------------------------
-    //  transform
-    //----------------------------------
-    private var _transform:flash.geom.Transform;
-    private var transformChanged:Boolean = false;
-    private var _matrix:Matrix;
-    private var _colorTransform:ColorTransform;
-    
-    override public function set transform(value:flash.geom.Transform):void
-    {
-        // Clean up the old event listeners
-        var oldTransform:flex.geom.Transform = _transform as flex.geom.Transform;       
-        if (oldTransform)
-        {
-            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
-        
-        var newTransform:flex.geom.Transform = value as flex.geom.Transform;
-        
-        if (newTransform)
-        {   
-            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-            _matrix = value.matrix.clone(); // Make sure it is a copy
-            _colorTransform = value.colorTransform; 
-        }
-    
-        _transform = value; 
-        super.transform = value; 
-    } 
-    
-    //----------------------------------
-    //  transformX
-    //----------------------------------
-    private var _transformX:Number = 0;
-        
-    /**
-     *  The x position transform point of the element. 
-     */
-    public function get transformX():Number
-    {
-        return _transformX;
-    }
-    
-    public function set transformX(value:Number):void
-    {
-        if (_transformX != value)
-        {
-            _transformX = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
-    
-    //----------------------------------
-    //  transformY
-    //----------------------------------
-    private var _transformY:Number = 0;
-    
-    /**
-     *  The y position transform point of the element. 
-     */
-    public function get transformY():Number
-    {
-        return _transformY;
-    }
-    
-    public function set transformY(value:Number):void
-    {
-        if (_transformY != value)
-        {
-            _transformY = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
-
-    private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        if (event.kind == PropertyChangeEventKind.UPDATE)
-        {           
-            if (event.property == "matrix")
-            {
-                // Apply matrix
-                if (_transform)
-                {
-                    _matrix = _transform.matrix.clone();
-                    transformChanged = true;
-                    invalidateProperties();
-                } 
-            }
-            else if (event.property == "colorTransform")
-            {
-                // Apply colorTranform
-                if (_transform)
-                {
-                    _colorTransform = _transform.colorTransform;
-                    // TODO EGeorgie: figure out what to invalidate when we implement
-                    // colotTransform being applied.
-                    transformChanged = true;
-                    invalidateProperties();
-                }
-            }
-        }
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  IGraphicElementHost Implementation
