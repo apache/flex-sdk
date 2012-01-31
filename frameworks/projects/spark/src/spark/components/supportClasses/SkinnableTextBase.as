@@ -86,7 +86,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
@@ -96,7 +96,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 
 /**
