@@ -51,6 +51,26 @@ use namespace mx_internal;
 use namespace mx_internal;
 
 /**
+ *  The radius of the corners for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
+
+/**
+ *  Controls the visibility of the drop shadow for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="dropShadowVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
  *  Dispatched when the drop-down list closes for any reason, such when 
  *  the user:
  *  <ul>
