@@ -96,7 +96,16 @@ use namespace mx_internal;
 //--------------------------------------
 
 [AccessibilityClass(implementation="spark.accessibility.ComboBoxAccImpl")]
+
 [IconFile("ComboBox.png")]
+
+/**
+ * Because this component does not define a skin for the mobile theme, Adobe
+ * recommends that you not use it in a mobile application. Alternatively, you
+ * can define your own mobile skin for the component. For more information,
+ * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html"/>Spark Skinning</a>.
+ */
+[DiscouragedForProfile("mobileDevice")]
 
 /**
  *  The ComboBox control is a child class of the DropDownListBase control. 
