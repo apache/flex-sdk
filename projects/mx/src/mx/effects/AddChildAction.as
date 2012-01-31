@@ -23,6 +23,8 @@ import mx.effects.effectClasses.PropertyChanges;
 
 [Exclude(name="duration", kind="property")]
 
+[Alternative(replacement="spark.effects.AddAction", since="4.0")]
+
 /**
  *  The AddChildAction class defines an action effect that corresponds
  *  to the <code>AddChild</code> property of a view state definition.
