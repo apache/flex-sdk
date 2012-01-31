@@ -37,7 +37,9 @@ use namespace mx_internal;
 [ExcludeClass]
 
 /**
- *  TBD
+ *  @private
+ *  A virtual two dimensional layout for the Grid class.   This is not a general purpose layout,
+ *  it's only intended to be use with Grid.
  */
 public class GridLayout extends LayoutBase
 {
@@ -74,7 +76,7 @@ public class GridLayout extends LayoutBase
     private var oldVisibleColumnIndices:Vector.<int> = new Vector.<int>(0);
         
     /** 
-     *  TBD: how do these vectors relate to visibleRow,ColumnIndices
+     *  TODO (hmuller): document how do these vectors relate to visibleRow,ColumnIndices
      */
     private var visibleRowBackgrounds:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
     private var visibleRowSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
@@ -82,7 +84,7 @@ public class GridLayout extends LayoutBase
     private var visibleItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>(0);
     
     /** 
-     *  TBD
+     *  TODO (hmuller): provide documentation
      */
     private var hoverIndicator:IVisualElement = null;
     private var caretIndicator:IVisualElement = null;
@@ -941,8 +943,6 @@ public class GridLayout extends LayoutBase
 
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
-                // TBD(hmuller): if takeVisibleItemRenderer returned true, and initializeItemRenderer
-                // returned false - because nothing changed - don't run prepare().
                 renderer.prepare(!createdGridElement);
                 
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
@@ -993,7 +993,7 @@ public class GridLayout extends LayoutBase
         {
             freeItemRenderer(oldRenderer);
             if (oldRenderer)
-                oldRenderer.discard(true);  // TBD(hmuller): need a scheme for shrinking the free-list
+                oldRenderer.discard(true);  // TODO (hmuller): need a scheme for shrinking the free-list
         }
         
         // Update visibleItemRenderersBounds
@@ -1032,7 +1032,7 @@ public class GridLayout extends LayoutBase
         if ((visibleRowIndices == null) || (visibleColumnIndices == null))
             return -1;
         
-        // TBD(hmuller) - binary search would be faster than indexOf()
+        // TODO (hmuller) - binary search would be faster than indexOf()
         
         const rowOffset:int = visibleRowIndices.indexOf(rowIndex);
         const colOffset:int = visibleColumnIndices.indexOf(columnIndex);
@@ -1320,7 +1320,7 @@ public class GridLayout extends LayoutBase
         newIndices:Vector.<int>, 
         lastIndex:int):void
     {
-        // TBD(hmuller): rewrite this, should be one pass (no indexOf)
+        // TODO(hmuller): rewrite this, should be one pass (no indexOf)
         for (var i:int = 0; i < elements.length; i++)
         {
             const offset:int = newIndices.indexOf(oldIndices[i]);
@@ -1431,7 +1431,7 @@ public class GridLayout extends LayoutBase
         
         const x:Number = bounds.x;
         const width:Number = bounds.width;
-        const y:Number = bounds.bottom; // TBD: should center on gap here.
+        const y:Number = bounds.bottom; // TODO: should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
     
@@ -1440,7 +1440,7 @@ public class GridLayout extends LayoutBase
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
-        const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TBD: should center on gap here.
+        const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TODO (hmuller): should center on gap here.
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1711,9 +1711,6 @@ public class GridLayout extends LayoutBase
     //  CollectionEvent handling: dataProvider, columns
     //
     //--------------------------------------------------------------------------     
-    
-    // TBD(hmuller): make a note about the fact that this handler runs AFTER the GridDimension
-    // object has been updated.
     
     public function dataProviderCollectionChanged(event:CollectionEvent):void
     {
@@ -2026,7 +2023,7 @@ public class GridLayout extends LayoutBase
             startTime = getTimer();
         
         const validatingElt:IInvalidating = renderer as IInvalidating;
-        if (renderer is IUITextField)  // TBD(hmuller) distinguish this special case differently
+        if (renderer is IUITextField)  // TODO (hmuller) distinguish this special case differently
         {
             if (!isNaN(width) || !isNaN(height)) 
                 renderer.setLayoutBoundsSize(width, height);
@@ -2319,7 +2316,7 @@ public class GridLayout extends LayoutBase
      */
     public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<CellPosition>
     { 
-        // TBD(hmuller)
+        // TODO(hmuller)
         return new Vector.<Object>;
     }
     
