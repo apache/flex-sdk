@@ -549,7 +549,7 @@ public class DividedBox extends Box
 		var n:int = numChildren;
 		for (var i:int = 0; i < n; i++)
 		{
-			var child:IUIComponent = IUIComponent(getChildAt(i));
+			var child:IUIComponent = getLayoutChildAt(i);
 
 			if (!child.includeInLayout)
 				continue;
@@ -608,7 +608,7 @@ public class DividedBox extends Box
  			n = numChildren;
  			for (i = 0; i < n; i++)
  			{
- 				var child:IUIComponent = IUIComponent(getChildAt(i));
+ 				var child:IUIComponent = getLayoutChildAt(i);
 
 				if (!child.includeInLayout)
 					continue;
@@ -811,8 +811,8 @@ public class DividedBox extends Box
 
 		var divider:BoxDivider = BoxDivider(getDividerAt(i));
 
-		var prevChild:IUIComponent = IUIComponent(getChildAt(i));
-		var nextChild:IUIComponent = IUIComponent(getChildAt(i + 1));
+		var prevChild:IUIComponent = getLayoutChildAt(i);
+		var nextChild:IUIComponent = getLayoutChildAt(i + 1);
 		
 		var vm:EdgeMetrics = viewMetrics;
 
@@ -987,7 +987,7 @@ public class DividedBox extends Box
 		var n:int = numChildren;
 		for (var i:int = 0; i < n; i++)
 		{
-			var child:IUIComponent = IUIComponent(getChildAt(i));
+			var child:IUIComponent = getLayoutChildAt(i);
 		
 			var sz:Number = vertical ? child.height : child.width;
 
@@ -1249,7 +1249,7 @@ public class DividedBox extends Box
 			amt -= move;
 
 			// Adjust the child size.
-			child = IUIComponent(getChildAt(i));
+			child = getLayoutChildAt(i);
 			childSize = (newSize / smallest) * 100;
 			
 			if (vertical)
@@ -1279,7 +1279,7 @@ public class DividedBox extends Box
 			newSize = size.size + move;
 			amt += move;
 
-			child = IUIComponent(getChildAt(i));
+			child = getLayoutChildAt(i);
 			childSize = (newSize / smallest) * 100;
 			
 			if (vertical)
@@ -1337,7 +1337,7 @@ public class DividedBox extends Box
 
 		for (i = 0; i < n; i++)
 		{
-			child = IUIComponent(getChildAt(i));
+			child = getLayoutChildAt(i);
 
 			if (!child.includeInLayout)
 				continue;
@@ -1363,7 +1363,7 @@ public class DividedBox extends Box
 			// without concern.
 			if (n > 0)
 			{
-				child = IUIComponent(getChildAt(n - 1));
+				child = getLayoutChildAt(n - 1);
 
 				if (child.includeInLayout)
 				{
@@ -1385,7 +1385,7 @@ public class DividedBox extends Box
 			var delta:Number = Math.ceil((100 - totalPerc) / percCount);
 			for (i = 0; i < n; i++)
 			{
-				child = IUIComponent(getChildAt(i));
+				child = getLayoutChildAt(i);
 
 				if (!child.includeInLayout)
 					continue;
@@ -1459,14 +1459,14 @@ public class DividedBox extends Box
 			// First, check for any percentage values
 			for (var i:int = 0; i < numChildren - 2; i++)
 			{
-				comp = IUIComponent(getChildAt(i));
+				comp = getLayoutChildAt(i);
 				if (!isNaN(isVertical ? comp.percentHeight : comp.percentWidth))
 					foundPercentage = true;
 			}
 			
 			// Next, see if the old last child has 100%, and reset if it 
 			// does.
-			comp = IUIComponent(getChildAt(numChildren - 2));
+			comp = getLayoutChildAt(numChildren - 2);
 			if (!foundPercentage)
 			{
 				if (isVertical)
