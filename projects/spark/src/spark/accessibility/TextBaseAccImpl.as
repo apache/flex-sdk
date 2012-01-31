@@ -23,10 +23,84 @@ import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
-
 /**
- *  TextBaseAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the TextBase class.
+ *  TextBaseAccImpl is the accessibility implementation class
+ *  for spark.components.TextBase.
+ *
+ *  <p>When a Spark Label or RichText component is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate
+ *  the Label or RichText component.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A TextBase has no MSAA children.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a TextBase is ROLE_SYSTEM_STATICTEXT.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a TextBase is, by default, the text that it displays.
+ *  When wrapped in a FormItem,
+ *  this text will be combined with the FormItem's label.
+ *  To override this behavior,
+ *  set the component's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a TextBase dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a TextBase is, by default, the empty string,
+ *  but you can set the TextBase's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a TextBase is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_READONLY</li>
+ *  </ul></p>
+ *
+ *  <p>When the State changes,
+ *  a TextBase dispatches the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>A TextBase does not have an MSAA Value.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a TextBase is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A TextBase does not have an MSAA DefaultAction.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A TextBase does not accept focus.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A TextBase does not support selection in the MSAA sense.</p>
+ *
+ *  <p><b>Other</b></p>
+ *
+ *  <p>MSAA documentation suggests that the <code>accessibilityShortcut</code>
+ *  should be set to the shortcut keystroke for any associated input component.
+ *  Since the shortcut is an accessibility property
+ *  and not implementable by an AccessibilityImplementation
+ *  it is not addressed in TextBaseAccImpl.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
