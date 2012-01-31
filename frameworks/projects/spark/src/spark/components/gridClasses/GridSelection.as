@@ -20,6 +20,8 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 
+import spark.components.DataGrid;
+import spark.components.GridContainerBase;
 import spark.components.Grid;
 
 use namespace mx_internal;
@@ -65,10 +67,12 @@ public class GridSelection
     
     /**
      *  @private
-     *  Selected rows.  Vector of rowIndexes that map to the dataProvider items.
+     *  The owner of the grid.  This class might come into being before
+     *  the grid part is loaded.  This is the connection between this class
+     *  and its grid.
      */    
-    private var grid:Grid;
-
+    private var gridOwner:GridContainerBase;
+    
     /**
      *  @private
      *  Vector of rowIndexes that map to the dataProvider items.  If 
@@ -123,11 +127,11 @@ public class GridSelection
     /**
      *  @private
      */
-    public function GridSelection(grid:Grid)
+    public function GridSelection(owner:GridContainerBase)
     {
         super();
         
-        this.grid = grid;
+        gridOwner = owner;
     }
     
     //--------------------------------------------------------------------------
@@ -966,6 +970,16 @@ public class GridSelection
     
     /**
      *  @private
+     *  To connect the selection with its grid.  Can't be in the constructor
+     *  since the selectionMode might be set before the grid part is added.
+     */
+    private function get grid():Grid
+    {
+        return gridOwner.grid;
+    }
+    
+    /**
+     *  @private
      */
     private function isRowSelectionMode():Boolean
     {
@@ -989,6 +1003,9 @@ public class GridSelection
      */
     private function getGridColumnsLength():uint
     {
+        if (grid == null)
+            return 0;
+        
         const columns:IList = grid.columns;
         return (columns) ? columns.length : 0;
     }
@@ -998,6 +1015,9 @@ public class GridSelection
      */
     private function getGridDataProviderLength():uint
     {
+        if (grid == null)
+            return 0;
+        
         const dataProvider:IList = grid.dataProvider;
         return (dataProvider) ? dataProvider.length : 0;
     }    
