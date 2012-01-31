@@ -89,6 +89,7 @@ public class GridLayout extends LayoutBase
      */
     private var hoverIndicator:IVisualElement = null;
     private var caretIndicator:IVisualElement = null;
+    private var editorIndicator:IVisualElement = null;
     
     /**
      *  @private
@@ -272,6 +273,9 @@ public class GridLayout extends LayoutBase
         
         freeGridElement(caretIndicator);
         caretIndicator = null;
+        
+        freeGridElement(editorIndicator);
+        editorIndicator = null;
         
         visibleItemRenderersBounds.setEmpty();
         visibleGridBounds.setEmpty();
@@ -491,6 +495,7 @@ public class GridLayout extends LayoutBase
         layoutHoverIndicator(grid.backgroundLayer);
         layoutSelectionIndicators(grid.selectionLayer);
         layoutCaretIndicator(grid.overlayLayer);
+        layoutEditorIndicator(grid.editorIndicatorLayer);
         
         // To avoid flashing, force all of the layers to render now
         
@@ -1616,6 +1621,44 @@ public class GridLayout extends LayoutBase
         // Show/hide caret based on the showCaret property.
         if (caretIndicator)
             caretIndicator.visible = _showCaret;
+    }
+    
+    private function layoutEditorIndicator(layer:GridLayer):void
+    {
+        const rowIndex:int = grid.dataGrid.editorRowIndex;
+        const columnIndex:int = grid.dataGrid.editorColumnIndex;
+        var indicatorFactory:IFactory = grid.dataGrid.editorIndicator;
+        
+        // If the indicatorFactory has changed for the specified non-null indicator, 
+        // then free the old indicator.
+        
+        if (editorIndicator && (indicatorFactory != elementToFactoryMap[editorIndicator]))
+        {
+            removeGridElement(editorIndicator);
+            editorIndicator = null;
+            if (indicatorFactory == null)
+                return;
+        }
+        
+        if (rowIndex == -1 || columnIndex == -1)
+        {
+            if (editorIndicator)
+                editorIndicator.visible = false;
+            return;
+        }
+        
+        if (!editorIndicator && indicatorFactory)
+            editorIndicator = createGridElement(indicatorFactory);
+        
+        if (editorIndicator)
+        {
+            const bounds:Rectangle = gridDimensions.getCellBounds(rowIndex, columnIndex);
+            
+            layoutGridElementR(editorIndicator, bounds);
+            layer.addGridElement(editorIndicator);
+            editorIndicator.visible = true;
+        }
+        
     }
     
     //--------------------------------------------------------------------------
