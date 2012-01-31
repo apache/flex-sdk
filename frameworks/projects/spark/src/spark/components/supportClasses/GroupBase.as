@@ -17,6 +17,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.ShaderFilter;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
@@ -24,7 +25,7 @@ import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.graphics.shaderClasses.LuminosityMaskShader; 
+import mx.graphics.shaderClasses.LuminosityMaskShader;
 
 import spark.components.ResizeMode;
 import spark.core.IViewport;
@@ -33,6 +34,7 @@ import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.FTETextUtil;
+import spark.utils.MaskUtil;
 
 use namespace mx_internal;
 
@@ -1135,14 +1137,8 @@ public class GroupBase extends UIComponent implements IViewport
                 {
                     // TODO (jszeto): Does this need to be attached to a sibling?
                     overlay.addDisplayObject(_mask, OverlayDepth.MASK);
-                    var maskComp:UIComponent = _mask as UIComponent;
-                    if (maskComp)
-                    {
-                        // Update properties and resize mask and all children.
-                        UIComponentGlobals.layoutManager.validateClient(maskComp, true);
-                        maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                               maskComp.getExplicitOrMeasuredHeight());
-                    }
+                    
+                    MaskUtil.applyMask(_mask, null);
                 }
             }
         }
@@ -1850,7 +1846,7 @@ public class GroupBase extends UIComponent implements IViewport
             }
         }
     }
-
+    
 }
 
 }
