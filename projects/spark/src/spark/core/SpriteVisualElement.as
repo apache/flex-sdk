@@ -29,9 +29,22 @@ use namespace mx_internal;
  *  The SpriteVisualElement class is a light-weight Sprite-based implemention 
  *  of IVisualElement.  It can be dropped in to Spark containers and be laid 
  *  out and renderered correctly.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class SpriteVisualElement extends FlexSprite implements IVisualElement
 {
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function SpriteVisualElement()
     {
         super();
@@ -74,8 +87,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _baseline = value;
         invalidateParentSizeAndDisplayList();
     }
-	
-	//----------------------------------
+    
+    //----------------------------------
     //  baselinePosition
     //----------------------------------
 
@@ -224,7 +237,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     private var _depth:Number = 0;
     
     /**
-     * @inheritDoc
+     * @copy spark.primitives.supportClasses.GraphicElement#depth
      */
     public function get depth():Number
     {
@@ -592,7 +605,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
 
     /**
-     *  @inheirtDoc 
+     *  @copy mx.core.ILayoutElement#getLayoutBoundsWidth()
      */
     public function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
