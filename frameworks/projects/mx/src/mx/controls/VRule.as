@@ -23,7 +23,7 @@ import mx.core.UIComponent;
  *  The shadow color of the line. 
  *  <ul>
  *    <li>If <code>strokeWidth</code> is 1, shadowColor
- *	  does nothing.</li>
+ *    does nothing.</li>
  *    <li>If <code>strokeWidth is 2</code> shadowColor is
  *    the color of the right line.</li>
  *    <li>If <code>strokeWidth</code> is greater than 2, shadowColor
@@ -53,18 +53,18 @@ import mx.core.UIComponent;
  *  The thickness of the rule in pixels. 
  *  <ul>
  *    <li>If <code>strokeWidth</code> is 1, 
- *	  the rule is a 1-pixel-wide line.</li>
+ *    the rule is a 1-pixel-wide line.</li>
  *    <li>If <code>strokeWidth</code> is 2,
- *	  the rule is two adjacent 1-pixel-wide vertical lines.</li>
+ *    the rule is two adjacent 1-pixel-wide vertical lines.</li>
  *    <li>If <code>strokeWidth</code> is greater than 2,
- *	  the rule is a hollow rectangle with 1-pixel-wide edges.</li>
+ *    the rule is a hollow rectangle with 1-pixel-wide edges.</li>
  *  </ul>
  *  
  *  @default 2
  */
 [Style(name="strokeWidth", type="Number", format="Length", inherit="yes")]
-	// Note: stroke-width is inheriting in SVG,
-	// although border-width is not inheriting in CSS
+    // Note: stroke-width is inheriting in SVG,
+    // although border-width is not inheriting in CSS
 
 //--------------------------------------
 //  Other metadata
@@ -121,142 +121,142 @@ import mx.core.UIComponent;
  */
 public class VRule extends UIComponent
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static const DEFAULT_PREFERRED_HEIGHT:Number = 100;
+    /**
+     *  @private
+     */
+    private static const DEFAULT_PREFERRED_HEIGHT:Number = 100;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor
-	 */
-	public function VRule()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     */
+    public function VRule()
+    {
+        super();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function measure():void
-	{
-		super.measure();
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();
 
-		measuredWidth = getStyle("strokeWidth");
-		measuredHeight = DEFAULT_PREFERRED_HEIGHT;
-	}
+        measuredWidth = getStyle("strokeWidth");
+        measuredHeight = DEFAULT_PREFERRED_HEIGHT;
+    }
 
-	/**
-	 *  @private
-	 *  The appearance of our vertical rule is inspired by
-	 *  the leading browser's rendering of HTML's <VR>.
-	 *
-	 *  The only reliable way to draw the 1-pixel lines that are
-	 *  the borders of the vertical rule is by filling rectangles!
-	 *  Otherwise, very short lines become antialised, probably because
-	 *  the Player is trying to render an endcap.
-	 */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
+    /**
+     *  @private
+     *  The appearance of our vertical rule is inspired by
+     *  the leading browser's rendering of HTML's <VR>.
+     *
+     *  The only reliable way to draw the 1-pixel lines that are
+     *  the borders of the vertical rule is by filling rectangles!
+     *  Otherwise, very short lines become antialised, probably because
+     *  the Player is trying to render an endcap.
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		var g:Graphics = graphics;
-		g.clear();
+        var g:Graphics = graphics;
+        g.clear();
 
-		// Look up the style properties
-		var strokeColor:Number = getStyle("strokeColor");
-		var shadowColor:Number = getStyle("shadowColor");
-		var strokeWidth:Number = getStyle("strokeWidth");
+        // Look up the style properties
+        var strokeColor:Number = getStyle("strokeColor");
+        var shadowColor:Number = getStyle("shadowColor");
+        var strokeWidth:Number = getStyle("strokeWidth");
 
-		// The thickness of the stroke shouldn't be greater than
-		// the unscaledWidth of the bounding rectangle.
-		if (strokeWidth > unscaledWidth)
-			strokeWidth = unscaledWidth;
+        // The thickness of the stroke shouldn't be greater than
+        // the unscaledWidth of the bounding rectangle.
+        if (strokeWidth > unscaledWidth)
+            strokeWidth = unscaledWidth;
 
-		// The vertical rule extends from the top edge
-		// to the bottom edge of the bounding rectangle and
-		// is horizontally centered within the bounding rectangle.
-		var left:Number = (unscaledWidth - strokeWidth) / 2;
-		var top:Number = 0;
-		var right:Number = left + strokeWidth;
-		var bottom:Number = unscaledHeight;
+        // The vertical rule extends from the top edge
+        // to the bottom edge of the bounding rectangle and
+        // is horizontally centered within the bounding rectangle.
+        var left:Number = (unscaledWidth - strokeWidth) / 2;
+        var top:Number = 0;
+        var right:Number = left + strokeWidth;
+        var bottom:Number = unscaledHeight;
 
-		if (strokeWidth == 1)
-		{
-			// *
-			// *
-			// *
-			// *
-			// *
-			// *
-			// *
+        if (strokeWidth == 1)
+        {
+            // *
+            // *
+            // *
+            // *
+            // *
+            // *
+            // *
 
-			g.beginFill(strokeColor);
-			g.drawRect(left, top, right-left, unscaledHeight);
-			g.endFill();
-		}
-		else if (strokeWidth == 2)
-		{
-			// *o
-			// *o
-			// *o
-			// *o
-			// *o
-			// *o
-			// *o
+            g.beginFill(strokeColor);
+            g.drawRect(left, top, right-left, unscaledHeight);
+            g.endFill();
+        }
+        else if (strokeWidth == 2)
+        {
+            // *o
+            // *o
+            // *o
+            // *o
+            // *o
+            // *o
+            // *o
 
-			g.beginFill(strokeColor);
-			g.drawRect(left, top, 1, unscaledHeight);
-			g.endFill();
+            g.beginFill(strokeColor);
+            g.drawRect(left, top, 1, unscaledHeight);
+            g.endFill();
 
-			g.beginFill(shadowColor);
-			g.drawRect(right - 1, top, 1, unscaledHeight);
-			g.endFill();
-		}
-		else if (strokeWidth > 2)
-		{
-			// **o
-			// * o
-			// * o
-			// * o
-			// * o
-			// * o
-			// ooo
+            g.beginFill(shadowColor);
+            g.drawRect(right - 1, top, 1, unscaledHeight);
+            g.endFill();
+        }
+        else if (strokeWidth > 2)
+        {
+            // **o
+            // * o
+            // * o
+            // * o
+            // * o
+            // * o
+            // ooo
 
-			g.beginFill(strokeColor);
-			g.drawRect(left, top, right - left - 1, 1);
-			g.endFill();
+            g.beginFill(strokeColor);
+            g.drawRect(left, top, right - left - 1, 1);
+            g.endFill();
 
-			g.beginFill(shadowColor);
-			g.drawRect(right - 1, top, 1, unscaledHeight - 1);
-			g.drawRect(left, bottom - 1, right - left, 1);
-			g.endFill();
+            g.beginFill(shadowColor);
+            g.drawRect(right - 1, top, 1, unscaledHeight - 1);
+            g.drawRect(left, bottom - 1, right - left, 1);
+            g.endFill();
 
-			g.beginFill(strokeColor);
-			g.drawRect(left, top + 1, 1, unscaledHeight - 2);
-			g.endFill();
-		}
-	}
+            g.beginFill(strokeColor);
+            g.drawRect(left, top + 1, 1, unscaledHeight - 2);
+            g.endFill();
+        }
+    }
 }
 
 }
