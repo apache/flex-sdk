@@ -2622,12 +2622,17 @@ package spark.components
                 
                 if (oldAnchorPosition != -1)
                 {
+                    // This will return null if editingMode = readOnly which is true when either
+                    // editable is false and/or enabled is false.
                     var selManager:ISelectionManager = _textContainerManager.beginInteraction();                    
 
                     // The visible selection will be refreshed during the update.
-                    selManager.selectRange(oldAnchorPosition, oldActivePosition);        
-                    _textContainerManager.endInteraction();
-                }                       
+                    if (selManager)
+                    {
+                        selManager.selectRange(oldAnchorPosition, oldActivePosition);        
+                        _textContainerManager.endInteraction();
+                    }
+                }           
             }
             
             if (clipAndEnableScrollingChanged)
