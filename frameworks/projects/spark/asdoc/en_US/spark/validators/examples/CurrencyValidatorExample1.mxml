@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sample program for spark.formatters.NumberValidator -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <fx:Declarations>
+        <s:CurrencyValidator id="currencyValidator" source='{inputNumber}' 
+                           property="text" trigger='{validateBtn}'
+                           triggerEvent="click" />
+        <s:CurrencyFormatter id="currencyFormatter" useCurrencySymbol="true" 
+                           useGrouping="true"/>
+    </fx:Declarations>
+    
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            private var number:Number = 123456789.12;
+        ]]>
+    </fx:Script>
+    
+    <mx:Form>
+        <mx:FormItem label="Input Locale ID Name">
+            <mx:HBox>
+                <s:TextInput id="inputLocaleIDName" text="en-US"/>
+                <!-- Upon button click, sets the locale style on the document
+                UI component. The formatter will inherit this style. -->
+                <s:Button click="setStyle('locale', inputLocaleIDName.text);"
+                          label="Apply"/>
+            </mx:HBox>
+            <mx:Text text="Example: 'en-US', 'fr-FR', 'ja-JP', 'ar-SA'"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Allow Negative">
+            <mx:CheckBox id="alowNegative" selected="true"
+                         change="currencyValidator.allowNegative = alowNegative.selected"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Fractional Digits">
+            <mx:TextInput id="fractionalDigits" text='{currencyValidator.fractionalDigits}' 
+                          change="currencyFormatter.fractionalDigits = 
+                          currencyValidator.fractionalDigits = Number(fractionalDigits.text)"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Currency Symbol">
+            <mx:TextInput id="currencySymbol" text='{currencyValidator.currencySymbol}' 
+                          change="currencyFormatter.currencySymbol = 
+                          currencyValidator.currencySymbol = currencySymbol.text"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Actual Locale ID Name">
+            <mx:Text text="{currencyValidator.actualLocaleIDName}"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="Enter currency amount" >
+            <mx:HBox>
+                <mx:TextInput id="inputNumber" />
+                <mx:Button id="validateBtn" label="Validate" />
+            </mx:HBox>
+        </mx:FormItem>
+
+        <mx:FormItem label="Example currency">
+            <mx:Text text="{currencyFormatter.format(123456789.12)}"/>
+        </mx:FormItem>
+    </mx:Form>
+</s:Application>
