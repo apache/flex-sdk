@@ -42,7 +42,8 @@
 					<!-- itemEditor that will be used when user clicks in cell -->
 					<mx:itemEditor>
 						<fx:Component>                            
-							<s:MXDataGridItemRenderer focusEnabled="true" height="22">
+							<s:MXDataGridItemRenderer focusEnabled="true" height="22"
+							    implements="mx.managers.IFocusManagerComponent">
 								<!-- TextInput to edit data displayed by Label -->
 								<s:TextInput id="editor" text="{data.firstName}" 
 									top="0" left="0" right="0" bottom="0" />
