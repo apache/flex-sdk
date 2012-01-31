@@ -57,6 +57,9 @@ use namespace mx_internal;
  *  directly from a server, typically by issuing an HTTP request.
  *  It is not displatched when playing a video from a special media server, 
  *  such as Flash Media Server.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  *
  *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
  *  
@@ -81,6 +84,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  *
  *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
  *
@@ -93,6 +99,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>duration</code> property of the media has changed.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  * 
  *  @eventType org.osmf.events.TimeEvent.DURATION_CHANGE
  * 
@@ -135,7 +144,11 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 
 /**
  *  The time, in milli-seconds, to wait in fullscreen mode with no user-interaction 
- *  before hiding the video playback controls.
+ *  before hiding the video playback controls.  
+ * 
+ *  <p>If set to <code>Infinity</code>, then the playback controls will not 
+ *  be hidden in fullscreen mode.  Changing this value while already in 
+ *  fullscreen mode has no effect.</p>
  *  
  *  @default 3000
  * 
@@ -144,7 +157,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="fullScreenHideControlsDelay", type="Number", inherit="no")]
+[Style(name="fullScreenHideControlsDelay", type="Number", format="Time", inherit="no")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
@@ -2155,22 +2168,34 @@ public class VideoPlayer extends SkinnableComponent
             // FIXME (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
             
-            // start timer for detecting for mouse movements/clicks to hide the controls
-            fullScreenHideControlTimer = new Timer(getStyle("fullScreenHideControlsDelay"), 1);
-            fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
-                fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
-            
             pauseWhenHidden = oldPauseWhenHidden;
+
+            var fullScreenHideControlsDelay:Number = getStyle("fullScreenHideControlsDelay");
             
-            // use stage or systemManager?
-            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
-            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
-            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
-            
-            // keyboard events don't happen when in fullScreen mode, but could be in fullScreen and interactive mode
-            systemManager.getSandboxRoot().addEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
-            
-            fullScreenHideControlTimer.start();
+            if (fullScreenHideControlsDelay == 0)
+            {
+                playerControls.visible = false;
+        
+                if (volumeBar)
+                    volumeBar.closeDropDown(true);
+            }
+            else if (fullScreenHideControlsDelay < Infinity)
+            {
+                // start timer for detecting for mouse movements/clicks to hide the controls
+                fullScreenHideControlTimer = new Timer(fullScreenHideControlsDelay, 1);
+                fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
+                    fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
+                
+                // use stage or systemManager?
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
+                
+                // keyboard events don't happen when in fullScreen mode, but could be in fullScreen and interactive mode
+                systemManager.getSandboxRoot().addEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+                
+                fullScreenHideControlTimer.start();
+            }
         }
         else
         {
@@ -2240,8 +2265,11 @@ public class VideoPlayer extends SkinnableComponent
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
         systemManager.getSandboxRoot().removeEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
         
-        fullScreenHideControlTimer.stop();
-        fullScreenHideControlTimer = null;
+        if (fullScreenHideControlTimer)
+        {
+            fullScreenHideControlTimer.stop();
+            fullScreenHideControlTimer = null;
+        }
         
         // make the controls visible no matter what
         playerControls.visible = true;
