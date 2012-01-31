@@ -11,8 +11,8 @@
 
 package flex.component
 {
+import flash.events.Event;
 import flex.core.Group;
-import flex.intf.ILayout;
 import flex.layout.HorizontalLayout;
 
 /**
@@ -27,16 +27,24 @@ import flex.layout.HorizontalLayout;
  */
 public class HGroup extends Group
 {
+	include "../core/Version.as";
 
     /**
      *  Initializes the layout property to an instance of HorizontalLayout.
      * 
+     *  Resetting the layout property or setting its properties directly
+     *  is not supported.
+     * 
      *  @see flex.layout.HorizontalLayout
+     *  @see flex.component.VGroup
      */  
     public function HGroup():void
     {
         super();
-        super.layout = new HorizontalLayout();
+        var hl:HorizontalLayout = new HorizontalLayout();
+        hl.addEventListener("indexInViewChanged", redispatchHandler);
+        hl.addEventListener("propertyChange", redispatchHandler);
+        layout = hl;        
     }
     
     private function get horizontalLayout():HorizontalLayout
@@ -73,6 +81,8 @@ public class HGroup extends Group
     //----------------------------------
     //  columnCount
     //----------------------------------
+
+    [Bindable("propertyChange")]    
         
     /**
      * @copy flex.layout.HorizontalLayout#columnCount
@@ -150,6 +160,8 @@ public class HGroup extends Group
     //  firstIndexInView
     //----------------------------------
  
+    [Bindable("indexInViewChanged")]    
+
     /**
      * @copy flex.layout.HorizontalLayout#firstIndexInView
      */
@@ -161,6 +173,8 @@ public class HGroup extends Group
     //----------------------------------
     //  lastIndexInView
     //----------------------------------
+    
+    [Bindable("indexInViewChanged")]    
 
     /**
      * @copy flex.layout.HorizontalLayout#lastIndexInView
@@ -168,8 +182,18 @@ public class HGroup extends Group
     public function get lastIndexInView():int
     {
         return horizontalLayout.lastIndexInView;
-    }    
+    } 
     
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    private function redispatchHandler(event:Event):void
+    {
+        dispatchEvent(event);
+    }      
 }
 
 }
