@@ -26,6 +26,11 @@ public interface IViewport extends IVisualElement
      * 
      *  Implementations of this property must be Bindable and
      *  they must generate events of type "propertyChange".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get contentWidth():Number;
     
@@ -38,6 +43,11 @@ public interface IViewport extends IVisualElement
      *
      *  Implementations of this property must be Bindable and
      *  they must generate events of type "propertyChange".  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get contentHeight():Number;
 
@@ -57,6 +67,11 @@ public interface IViewport extends IVisualElement
      *  @default 0
      *  @see target
      *  @see verticalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get horizontalScrollPosition():Number;
     function set horizontalScrollPosition(value:Number):void;
@@ -76,6 +91,11 @@ public interface IViewport extends IVisualElement
      *   
      *  @default 0
      *  @see horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get verticalScrollPosition():Number;
     function set verticalScrollPosition(value:Number):void;
@@ -91,6 +111,11 @@ public interface IViewport extends IVisualElement
      *  first or last column, use HOME or END.
      * 
      *  @see ScrollUnit
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getHorizontalScrollPositionDelta(scrollUnit:uint):Number;
     
@@ -105,6 +130,11 @@ public interface IViewport extends IVisualElement
      *  first or last row, use HOME or END.
      * 
      *  @see ScrollUnit
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getVerticalScrollPositionDelta(scrollUnit:uint):Number;
      
@@ -123,6 +153,11 @@ public interface IViewport extends IVisualElement
      *  @see LayoutBase#updateScrollRect
      *  @see verticalScrollPosition
      *  @see horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get clipAndEnableScrolling():Boolean;
     function set clipAndEnableScrolling(value:Boolean):void;    
