@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark Form control skins -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+            import mx.validators.Validator;
+            
+            protected function sbmt_clickHandler(evt:MouseEvent):void {
+                var arr:Array = Validator.validateAll(valArr);
+                if (arr.length == 0) {
+                    Alert.show("Form is valid!");
+                }
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <fx:Array id="valArr">
+            <mx:StringValidator id="fNameVal" source="{fName}" property="text" required="true" maxLength="64" />
+            <mx:StringValidator id="usrnmVal" source="{usrnm}" property="text" required="true" maxLength="32" />
+            <mx:StringValidator id="psswdVal" source="{psswd}" property="text" required="true" maxLength="32" />
+            <mx:SocialSecurityValidator id="ssnVal" source="{ssn}" property="text" required="false" />
+        </fx:Array>
+    </fx:Declarations>
+    
+    <s:Panel title="Spark Form Control Example"
+             width="75%" height="75%"
+             horizontalCenter="0" verticalCenter="0">
+        <s:Scroller width="100%" height="100%">
+            <s:Group left="10" right="10" top="10" bottom="10">
+                <s:Form id="frm" defaultButton="{sbmt}">
+                    <s:FormHeading label="SPARK FORM" backgroundColor="haloSilver" />
+                    <s:FormItem sequenceLabel="i)" label="First name:" required="true">
+                        <s:TextInput id="fName" maxChars="64" />
+                    </s:FormItem>
+                    <s:FormItem sequenceLabel="ii)" label="Last name:">
+                        <s:TextInput id="lName" maxChars="64" />
+                    </s:FormItem>
+                    <s:FormItem sequenceLabel="iii)" label="User name:" required="true">
+                        <s:TextInput id="usrnm" maxChars="32" />
+                    </s:FormItem>
+                    <s:FormItem sequenceLabel="iv)" label="Password:" required="true">
+                        <s:TextInput id="psswd" maxChars="32" displayAsPassword="true" />
+                    </s:FormItem>
+                    <s:FormItem sequenceLabel="v)" label="SSN:">
+                        <s:helpContent>
+                            <s:Label text="###-##-####" />
+                        </s:helpContent>
+                        <s:TextInput id="ssn" maxChars="11" />
+                    </s:FormItem>
+                    <s:FormItem>
+                        <s:Button id="sbmt" label="Submit" click="sbmt_clickHandler(event);" />
+                    </s:FormItem>
+                </s:Form>
+            </s:Group>
+        </s:Scroller>
+    </s:Panel>
+    
+</s:Application>
