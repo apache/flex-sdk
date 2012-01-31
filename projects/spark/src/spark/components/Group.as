@@ -16,6 +16,7 @@ import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
+import mx.core.FlexVersion;
 import mx.core.IFlexModule;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
@@ -207,6 +208,38 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
+   
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function get baselinePosition():Number
+    {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            return super.baselinePosition;
+        
+        if (!validateBaselinePosition())
+            return NaN;
+        
+        var bElement:IVisualElement = baselinePositionElement;
+        
+        // If no baselinePositionElement is specified, use the first element
+        if (bElement == null && numElements > 0)
+            bElement = getElementAt(0);
+        
+        if (bElement)
+            return bElement.baselinePosition + bElement.y;
+        else
+            return super.baselinePosition;
+    }
     
     [Inspectable(category="General", enumeration="noScale,scale", defaultValue="noScale")]
     
@@ -317,6 +350,37 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
         
         super.alpha = value;
+    }
+    
+    //----------------------------------
+    //  baselinePositionElement
+    //---------------------------------- 
+    
+    private var _baselinePositionElement:IVisualElement;
+    
+    /**
+     *  The element used to calculate the GroupBase's baselinePosition 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get baselinePositionElement():IVisualElement
+    {
+        return _baselinePositionElement;
+    }
+    
+    /**
+     *  @private 
+     */ 
+    public function set baselinePositionElement(value:IVisualElement):void
+    {
+        if (value === _baselinePositionElement)
+            return;
+        
+        _baselinePositionElement = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
