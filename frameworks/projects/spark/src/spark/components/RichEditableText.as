@@ -133,6 +133,7 @@ import mx.utils.TextUtil;
 
 include "../styles/metadata/AdvancedTextLayoutFormatStyles.as"
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 //--------------------------------------
