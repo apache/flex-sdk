@@ -113,6 +113,19 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         
         invalidateSkinState();
     }
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(textView);
+    }
+    
 
     //--------------------------------------------------------------------------
     //
