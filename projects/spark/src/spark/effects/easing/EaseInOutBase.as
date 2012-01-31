@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.interpolation
+package spark.effects.easing
 {
 /**
  * The superclass for classes that provide easing capability where there
