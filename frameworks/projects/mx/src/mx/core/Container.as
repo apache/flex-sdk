@@ -3273,12 +3273,12 @@ public class Container extends UIComponent
             vm = viewMetrics;
 
             // Set the position and size of the overlay .
-            if (overlay)
+            if (effectOverlay)
             {
-                overlay.x = 0;
-                overlay.y = 0;
-                overlay.width = unscaledWidth;
-                overlay.height = unscaledHeight;
+				effectOverlay.x = 0;
+				effectOverlay.y = 0;
+				effectOverlay.width = unscaledWidth;
+				effectOverlay.height = unscaledHeight;
             }
 
             // Set the positions and sizes of the scrollbars.
@@ -3726,7 +3726,7 @@ public class Container extends UIComponent
      */
     override protected function attachOverlay():void
     {
-        rawChildren_addChild(overlay);
+        rawChildren_addChild(effectOverlay);
     }
 
     /**
@@ -4988,7 +4988,7 @@ public class Container extends UIComponent
             needHorizontal ||
             needVertical ||
             hasNegativeCoords ||
-            overlay != null ||
+			effectOverlay != null ||
             vm.left > 0 ||
             vm.top > 0;
 
