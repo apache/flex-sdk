@@ -26,6 +26,8 @@ import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
+[IconFile("FxContainer.png")]
+
 /**
  *  Dispatched after the content for this component has been created. With deferred 
  *  instantiation, the content for a component may be created long after the 
