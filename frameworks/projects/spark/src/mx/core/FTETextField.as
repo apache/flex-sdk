@@ -65,6 +65,8 @@ use namespace mx_internal;
 /**
  *  FTETextField is a Sprite which displays text by using the new
  *  Text Layout Framework to implement the old TextField API.
+ * 
+ *  @see flash.text.TextField
  *
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -512,7 +514,7 @@ public class FTETextField extends Sprite
 	
 	/*
 	 *  Workaround for a Flash Player problem.
-	 *  Don't read the scrollRect property if its value has not been set,
+     *  Don't read the <code>scrollRect</code> property if its value has not been set,
 	 *  because this will cause a large memory allocation.
 	 *  And ignore attempts to reset the scrollRect property to null
 	 *  (its default value) if we've never set it. 
@@ -622,7 +624,7 @@ public class FTETextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in FTETextField.
+	 *  This property has no effect in FTETextField
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>null</code>
 	 *  and setting it will do nothing.
@@ -866,7 +868,7 @@ public class FTETextField extends Sprite
 	 *  because FTETextField does not support editing.
 	 *  Accessing it will throw a runtime error.
 	 *
-	 *  @copy flash.text.TextField#caretIndex
+	 *  @see flash.text.TextField#caretIndex
 	 * 
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
@@ -972,7 +974,7 @@ public class FTETextField extends Sprite
 	 *  because FTETextField does not support editing.
 	 *  Accessing it will throw a runtime error.
 	 *
-	 *  @copy flash.text.TextField#displayAsPassword
+	 *  @see flash.text.TextField#displayAsPassword
 	 * 
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
@@ -1035,7 +1037,7 @@ public class FTETextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in FTETextField.
+	 *  This property has no effect in FTETextField
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>null</code>
 	 *  and setting it will do nothing.
@@ -1380,7 +1382,7 @@ public class FTETextField extends Sprite
 	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
-	 *  @copy flash.text.TextField#scrollV
+	 *  @see flash.text.TextField#scrollV
 	 * 
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
@@ -1506,6 +1508,8 @@ public class FTETextField extends Sprite
 	/**
 	 *  @copy flash.text.TextField#styleSheet
 	 * 
+     *  @see flash.text.StyleSheet
+     * 
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
 	 *  @langversion 3.0
@@ -1706,7 +1710,7 @@ public class FTETextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in FTETextField.
+	 *  This property has no effect in FTETextField
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>NaN</code>
 	 *  and setting it will do nothing.
@@ -1777,7 +1781,7 @@ public class FTETextField extends Sprite
 	 *  or clipboard operations.
 	 *  Accessing it will throw a runtime error.
 	 *  
-	 *  @copy flash.text.TextField#useRichTextClipboard
+	 *  @see flash.text.TextField#useRichTextClipboard
 	 * 
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
@@ -1852,14 +1856,14 @@ public class FTETextField extends Sprite
 	private var _direction:String = "ltr";
 	
 	/**
-	 *  The directionality of the text displayed by FTETextField.
+	 *  The directionality of the text displayed by the FTETextField.
 	 * 
 	 *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
 	 *  as in Latin-style scripts,
 	 *  and <code>"rtl"</code> for right-to-left text,
 	 *  as in Arabic and Hebrew.</p>
 	 * 
-	 *  <p>Note: This property does not exist in the classic
+	 *  <p><strong>Note:</strong> This property does not exist in the
 	 *  flash.text.TextField API.</p>
 	 *
 	 *  @default "ltr"
@@ -1914,12 +1918,12 @@ public class FTETextField extends Sprite
 	
 	/**
 	 *  The ISWFContext instance that FTETextField
-	 *  uses for creating TextLines.
+	 *  uses for creating TextLine objects.
 	 * 
 	 *  <p>Set this if you need lines to be created in a different
 	 *  SWF context than the one containing the TLF code.</p>
 	 * 
-	 *  <p>Note: This property does not exist in the classic
+	 *  <p><strong>Note:</strong> This property does not exist in the 
 	 *  flash.text.TextField API.</p>
 	 * 
 	 *  @default null
@@ -2034,6 +2038,8 @@ public class FTETextField extends Sprite
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
+     *  @param newText n/a
+     *  
 	 *  @see flash.text.TextField#appendText()
 	 * 
 	 *  @playerversion Flash 10
@@ -2049,6 +2055,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     *  
+     *  @param charIndex n/a
+     *  
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getCharBoundaries()
 	 * 
@@ -2066,6 +2076,11 @@ public class FTETextField extends Sprite
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
+     *  @param x n/a
+     *  @param y n/a
+     *
+     *  @return n/a
+     * 
 	 *  @see flash.text.TextField#getCharIndexAtPoint()
 	 * 
 	 *  @playerversion Flash 10
@@ -2082,6 +2097,10 @@ public class FTETextField extends Sprite
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
+     *  @param charIndex n/a
+     * 
+     *  @return n/a
+     * 
 	 *  @see flash.text.TextField#getFirstCharInParagraph()
 	 * 
 	 *  @playerversion Flash 10
@@ -2097,6 +2116,12 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param x n/a
+     * 
+     *  @param y n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getLineIndexAtPoint()
 	 * 
@@ -2113,6 +2138,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param charIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getLineIndexOfChar()
 	 * 
@@ -2129,6 +2158,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param lineIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getLineLength()
 	 * 
@@ -2188,6 +2221,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param lineIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getLineOffset()
 	 * 
@@ -2204,6 +2241,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param lineIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getLineText()
 	 * 
@@ -2220,6 +2261,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param charIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getParagraphLength()
 	 * 
@@ -2236,6 +2281,12 @@ public class FTETextField extends Sprite
 	 *  This method has been implemented in FTETextField
 	 *  to simply return a copy of the <code>defaultTextFormat</code>,
 	 *  because FTETextField does not support formatting a range.
+     * 
+     *  @param beginIndex n/a
+     * 
+     *  @param endIndex n/a
+     * 
+     *  @return n/a
 	 * 
 	 *  @see flash.text.TextField#getTextFormat()
 	 * 
@@ -2257,6 +2308,8 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param value n/a
 	 *
  	 *  @see flash.text.TextField#replaceSelectedText()
 	 * 
@@ -2273,6 +2326,12 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param beginIndex n/a
+     * 
+     *  @param endIndex n/a
+     * 
+     *  @param newText n/a
 	 * 
 	 *  @see flash.text.TextField#replaceText()
 	 * 
@@ -2290,6 +2349,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because FTETextField does not support selection.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param beginIndex n/a
+     * 
+     *  @param endIndex n/a
 	 * 
 	 *  @see flash.text.TextField#setSelection()
 	 * 
@@ -2303,9 +2366,15 @@ public class FTETextField extends Sprite
 	}
 	
 	/**
-	 *  This method has no effect on a FTETextField if beginIndex
-     *  or endIndex != -1
+     *  This method has no effect on a FTETextField if <code>beginIndex</code>
+     *  or <code>endIndex</code> does not equal -1
 	 *  because FTETextField does not support formatting a range.
+     * 
+     *  @param format n/a
+     * 
+     *  @param beginIndex n/a
+     * 
+     *  @param endIndex n/a
 	 *
 	 *  @see flash.text.TextField#setTextFormat()
 	 * 
@@ -2333,6 +2402,10 @@ public class FTETextField extends Sprite
 	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
+     * 
+     *  @param id n/a
+     * 
+     *  @return n/a
 	 *
 	 *  @see flash.text.TextField#getImageReference()
 	 * 
