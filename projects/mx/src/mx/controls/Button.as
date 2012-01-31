@@ -21,6 +21,7 @@ import flash.events.TimerEvent;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
+
 import mx.controls.dataGridClasses.DataGridListData;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
@@ -35,7 +36,9 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
+import mx.core.IProgrammaticSkin;
 import mx.core.IRectangularBorder;
+import mx.core.IStateClient;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
@@ -45,11 +48,7 @@ import mx.events.FlexEvent;
 import mx.events.MoveEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager;
-import mx.states.State;
 import mx.styles.ISimpleStyleClient;
-import mx.core.IStateClient;
-import mx.core.IProgrammaticSkin;
 
 
 use namespace mx_internal;
@@ -2012,7 +2011,11 @@ public class Button extends UIComponent
 
         // Update the state of the skin if it accepts states and it implements the IStateClient interface.
         if (defaultSkinUsesStates && currentSkin is IStateClient)
+        {
             IStateClient(currentSkin).currentState = stateName;
+            if (currentSkin is IInvalidating)
+            	IInvalidating(currentSkin).validateNow();
+        }
 
         // Show the new skin.
         if (currentSkin)
@@ -2198,6 +2201,8 @@ public class Button extends UIComponent
                 stateName = selected ? "selectedDown" : "down";
             
             IStateClient(currentIcon).currentState = stateName;
+            if (currentIcon is IInvalidating)
+            	IInvalidating(currentIcon).validateNow();
         }
 
         // Show the new icon.
