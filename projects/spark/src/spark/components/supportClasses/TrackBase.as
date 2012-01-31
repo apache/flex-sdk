@@ -596,6 +596,9 @@ public class TrackBase extends Range
      */
     protected function system_mouseMoveHandler(event:MouseEvent):void
     {
+        if (!track)
+            return;
+        
         var p:Point = track.globalToLocal(new Point(event.stageX, event.stageY));
         var newValue:Number = pointToValue(p.x - clickOffset.x, p.y - clickOffset.y);
         newValue = nearestValidValue(newValue, snapInterval);
