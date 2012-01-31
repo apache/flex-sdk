@@ -14,7 +14,6 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.events.Event;
-import flash.events.EventPhase;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
@@ -42,14 +41,12 @@ import spark.components.gridClasses.CellPosition;
 import spark.components.gridClasses.CellRegion;
 import spark.components.gridClasses.DataGridEditor;
 import spark.components.gridClasses.GridColumn;
-import spark.components.gridClasses.GridDimensions;
 import spark.components.gridClasses.GridLayout;
 import spark.components.gridClasses.GridSelection;
 import spark.components.gridClasses.GridSelectionMode;
 import spark.components.gridClasses.GridSortField;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemEditor;
-import spark.components.gridClasses.IGridItemRenderer;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.NavigationUnit;
 import spark.events.GridCaretEvent;
@@ -2130,6 +2127,43 @@ public class DataGrid extends SkinnableContainerBase
     
     /**
      *  @private
+     *  Ensure that IDataGridElements are laid out after the grid skin part.
+     *  At the moment, DataGrid has only one IDataGridElement, columnHeaderGroup.
+     * 
+     *  The DataGrid columnHeaderGroup's layout role is unusual, since it depends on
+     *  the layout of the grid skin part.
+     *  The columnHeaderGroup's column widths, scroll position, and list of visible columns
+     *  are defined by the grid.
+     *  That means that the grid needs to compute its layout first.
+     * 
+     *  The Flex LayoutManager orders the per-element work in each of its phases according
+     *  to the element's nestLevel. The measure() (validateSize) phase is "bottom up"
+     *  with respect to the nestLevel, which means that the deepest nodes in the tree with the
+     *  highest nestLevel are measured first.
+     *  Similarly the updateDisplayList() (validateDisplayList) phase is "top down" where the nodes
+     *  with the lowest nestLevel are validated first. 
+     *  To guarantee that the columnHeaderGroup skin part is laid out after the grid skin part,
+     *  we need to ensure that its nestLevel is greater than the grid's nestLevel.
+     * 
+     *  As the DataGrid's skin defines the grid and columnHeaderGroup skin parts, there is no
+     *  way for the DataGrid component to constrain their relative locations in the visual element
+     *  hierarchy.
+     *  However, all ILayoutManagerClients have a nestLevel property, which specifies the element's
+     *  depth relative to its SystemManager root.
+     *  Thus, we can overcome the limitation by initializing the columnHeaderGroup's nestLevel
+     *  to be grid.nestLevel+1, which ensures that the columnHeaderGroup will be validated after
+     *  the grid.
+     */
+    override public function set nestLevel(value:int):void
+    {
+        super.nestLevel = value;
+        
+        if (grid)
+            initializeDataGridElement(columnHeaderGroup);
+    }
+    
+    /**
+     *  @private
      *  Ensure that the DataGrid appears in the correct tab order, despite the fact that its
      *  focusOwner gets the focus.
      */
@@ -2448,7 +2482,8 @@ public class DataGrid extends SkinnableContainerBase
             return;
         
         elt.dataGrid = this;
-        elt.nestLevel = grid.nestLevel + 1;
+        if (elt.nestLevel <= grid.nestLevel)
+            elt.nestLevel = grid.nestLevel + 1;
     }
     
     /**
