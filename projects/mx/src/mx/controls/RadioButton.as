@@ -25,6 +25,8 @@ import mx.events.ItemClickEvent;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerGroup;
 import mx.core.UITextField;
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.StyleManager;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
 
@@ -172,6 +174,18 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
         // Old padding logic variables
         centerContent = false;
         extraSpacing = 8;
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = 
+                StyleManager.getStyleDeclaration("mx.controls.RadioButton");
+            
+            if (typeSelector)
+            {
+                if (typeSelector.getStyle("cornerRadius") === undefined)
+                    typeSelector.setStyle("cornerRadius", 7);
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
