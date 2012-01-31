@@ -421,41 +421,41 @@ public class VideoPlayer extends SkinnableComponent
     //  Class constants
     //
     //--------------------------------------------------------------------------
+        
+    /**
+     *  @private
+     */
+    private static const AUTO_DISPLAY_FIRST_FRAME_PROPERTY_FLAG:uint = 1 << 0;
+
+    /**
+     *  @private
+     */
+    private static const AUTO_PLAY_PROPERTY_FLAG:uint = 1 << 1;
     
     /**
      *  @private
      */
-    private static const AUTO_PLAY_PROPERTY_FLAG:uint = 1 << 0;
+    private static const AUTO_REWIND_PROPERTY_FLAG:uint = 1 << 2;
     
     /**
      *  @private
      */
-    private static const AUTO_REWIND_PROPERTY_FLAG:uint = 1 << 1;
+    private static const LOOP_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const LOOP_PROPERTY_FLAG:uint = 1 << 2;
+    private static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 3;
+    private static const MUTED_PROPERTY_FLAG:uint = 1 << 5;
     
     /**
      *  @private
      */
-    private static const MUTED_PROPERTY_FLAG:uint = 1 << 4;
-    
-    /**
-     *  @private
-     */
-    private static const SOURCE_PROPERTY_FLAG:uint = 1 << 5;
-    
-    /**
-     *  @private
-     */
-    private static const SEEK_TO_FIRST_FRAME_PROPERTY_FLAG:uint = 1 << 6;
+    private static const SOURCE_PROPERTY_FLAG:uint = 1 << 6;
     
     /**
      *  @private
@@ -679,6 +679,52 @@ public class VideoPlayer extends SkinnableComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  autoDisplayFirstFrame
+    //----------------------------------
+        
+    [Inspectable(category="General", defaultValue="true")]
+    
+    /**
+     *  @copy spark.components.VideoDisplay#autoDisplayFirstFrame
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoDisplayFirstFrame():Boolean
+    {
+        if (videoDisplay)
+        {
+            return videoDisplay.autoDisplayFirstFrame;
+        }
+        else
+        {
+            var v:* = videoDisplayProperties.autoDisplayFirstFrame;
+            return (v === undefined) ? true : v;
+        }
+    }
+    
+    /**
+     * @private
+     */
+    public function set autoDisplayFirstFrame(value:Boolean):void
+    {
+        if (videoDisplay)
+        {
+            videoDisplay.autoDisplayFirstFrame = value;
+            videoDisplayProperties = BitFlagUtil.update(videoDisplayProperties as uint, 
+                AUTO_DISPLAY_FIRST_FRAME_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            videoDisplayProperties.autoDisplayFirstFrame = value;
+        }
+    }
     
     //----------------------------------
     //  autoPlay
@@ -1088,52 +1134,6 @@ public class VideoPlayer extends SkinnableComponent
     }
     
     //----------------------------------
-    //  seekToFirstFrame
-    //----------------------------------
-        
-    [Inspectable(category="General", defaultValue="true")]
-    
-    /**
-     *  @copy spark.components.VideoDisplay#seekToFirstFrame
-     * 
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get seekToFirstFrame():Boolean
-    {
-        if (videoDisplay)
-        {
-            return videoDisplay.seekToFirstFrame;
-        }
-        else
-        {
-            var v:* = videoDisplayProperties.seekToFirstFrame;
-            return (v === undefined) ? true : v;
-        }
-    }
-    
-    /**
-     * @private
-     */
-    public function set seekToFirstFrame(value:Boolean):void
-    {
-        if (videoDisplay)
-        {
-            videoDisplay.seekToFirstFrame = value;
-            videoDisplayProperties = BitFlagUtil.update(videoDisplayProperties as uint, 
-                SEEK_TO_FIRST_FRAME_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            videoDisplayProperties.seekToFirstFrame = value;
-        }
-    }
-    
-    //----------------------------------
     //  source
     //----------------------------------
     
@@ -1426,11 +1426,11 @@ public class VideoPlayer extends SkinnableComponent
                     PAUSE_WHEN_HIDDEN_PROPERTY_FLAG, true);
             }
             
-            if (videoDisplayProperties.seekToFirstFrame !== undefined)
+            if (videoDisplayProperties.autoDisplayFirstFrame !== undefined)
             {
-                videoDisplay.seekToFirstFrame = videoDisplayProperties.seekToFirstFrame;
+                videoDisplay.autoDisplayFirstFrame = videoDisplayProperties.autoDisplayFirstFrame;
                 newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                    SEEK_TO_FIRST_FRAME_PROPERTY_FLAG, true);
+                    AUTO_DISPLAY_FIRST_FRAME_PROPERTY_FLAG, true);
             }
             
             if (videoDisplayProperties.thumbnailSource !== undefined)
@@ -1616,8 +1616,8 @@ public class VideoPlayer extends SkinnableComponent
             if (BitFlagUtil.isSet(videoDisplayProperties as uint, PAUSE_WHEN_HIDDEN_PROPERTY_FLAG))
                 newVideoProperties.pauseWhenHidden = videoDisplay.pauseWhenHidden;
             
-            if (BitFlagUtil.isSet(videoDisplayProperties as uint, SEEK_TO_FIRST_FRAME_PROPERTY_FLAG))
-                newVideoProperties.seekToFirstFrame = videoDisplay.seekToFirstFrame;
+            if (BitFlagUtil.isSet(videoDisplayProperties as uint, AUTO_DISPLAY_FIRST_FRAME_PROPERTY_FLAG))
+                newVideoProperties.autoDisplayFirstFrame = videoDisplay.autoDisplayFirstFrame;
             
             if (BitFlagUtil.isSet(videoDisplayProperties as uint, THUMBNAIL_SOURCE_PROPERTY_FLAG))
                 newVideoProperties.thumbnailSource = videoDisplay.thumbnailSource;
@@ -1763,16 +1763,14 @@ public class VideoPlayer extends SkinnableComponent
             scrubBar.value = videoDisplay.currentTime;
         }
         
-        scrubBar.bufferedStart = 0;
-        
         // if streaming, then we pretend to have everything in view
         // if progressive, then look at the bytesLoaded and bytesTotal
         if (!videoDisplay.videoPlayer.downloadable)
-            scrubBar.bufferedEnd = videoDisplay.duration;
+            scrubBar.loadedRangeEnd = videoDisplay.duration;
         else if (videoDisplay.bytesTotal == 0)
-            scrubBar.bufferedEnd = 0;
+            scrubBar.loadedRangeEnd = 0;
         else
-            scrubBar.bufferedEnd = (videoDisplay.bytesLoaded/videoDisplay.bytesTotal)*videoDisplay.duration;
+            scrubBar.loadedRangeEnd = (videoDisplay.bytesLoaded/videoDisplay.bytesTotal)*videoDisplay.duration;
     }
     
     /**
