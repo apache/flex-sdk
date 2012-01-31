@@ -174,6 +174,9 @@ public class VScrollBar extends ScrollBarBase
      */
     override protected function pointToValue(x:Number, y:Number):Number
     {
+        if (!thumb || !track)
+            return 0;
+        
         var r:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
         return minimum + ((r != 0) ? (y / r) * (maximum - minimum) : 0); 
     }
