@@ -187,6 +187,8 @@ public class SliderEvent extends Event
      *  @param thumbIndex The zero-based index of the thumb
      *  whose position has changed.
      *
+     *  @param value The new value of the slider.
+     *
      *  @param triggerEvent The type of input action. 
      *  The value is either <code>InteractionInputType.MOUSE</code> 
      *  or <code>InteractionInputType.KEYBOARD</code>.
