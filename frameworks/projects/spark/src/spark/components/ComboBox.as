@@ -118,8 +118,8 @@ B-Feature
 
 // TODO Fill out ASDoc
 /**
- *  The ComboBox control is a child class of the DropDownList control. 
- *  Like the DropDownList control, when the user selects an item from 
+ *  The ComboBox control is a child class of the DropDownListBase control. 
+ *  Like the DropDownListBase control, when the user selects an item from 
  *  the drop-down list in the ComboBox control, the data item appears 
  *  in the prompt area of the control. 
  *
@@ -194,7 +194,7 @@ B-Feature
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ComboBox extends DropDownList
+public class ComboBox extends DropDownListBase
 {
     //--------------------------------------------------------------------------
     //
@@ -485,29 +485,21 @@ public class ComboBox extends DropDownList
                     var itemString:String = itemToLabel(item);
                     /*trace("CB.applyIndexToTextInput typed",textInput.text,"match",itemString,
                         "selectRange start",typedLength,"end",itemString.length);*/
-                    /*if (ignoreCase)
-                    {*/
-                        textInput.selectAll();
-                        textInput.insertText(itemString);
-                    /*}
-                    else
-                    {
-                        textInput.insertText(itemString.substring(typedLength));
-                    }*/
+
+                    textInput.selectAll();
+                    textInput.insertText(itemString);
                     textInput.selectRange(typedLength, itemString.length);
                 }
             }
             else
             {
-                itemSelected(userProposedSelectedIndex, false);
-                super.userProposedSelectedIndex = NO_SELECTION;
+                super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
             }
         }
         else
         {
             // If the input string is empty, then don't select anything
-            itemSelected(userProposedSelectedIndex, false);
-            super.userProposedSelectedIndex = NO_SELECTION;  
+            super.changeHighlightedSelection(NO_SELECTION);  
         }
     }
     
@@ -857,6 +849,7 @@ public class ComboBox extends DropDownList
         // Close the dropDown if we press delete or cut the selected text
         if (operation is DeleteTextOperation || operation is CutOperation)
         {
+            super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
             closeDropDown(false);
         }
         else
