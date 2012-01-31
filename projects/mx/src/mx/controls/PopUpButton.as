@@ -81,7 +81,8 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  Number of pixels between the divider line and the right 
  *  edge of the component.
- *  The default value is 16.
+ *  
+ *  @default 18
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -92,7 +93,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  Length of a close transition, in milliseconds.
- *  The default value is 250.
+ *
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 50.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -125,7 +128,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  Length of an open transition, in milliseconds.
- *  The default value is 250.
+ *
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 0.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -173,7 +178,8 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  Number of vertical pixels between the PopUpButton and the
  *  specified popup UIComponent.
- *  The default value is 0.
+ * 
+ *  @default 0
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -209,7 +215,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  Default stateful skin class for the control.
- *  @default mx.skins.halo.PopUpButtonSkin
+ *
+ *  The default value for the Halo theme is <code>mx.skins.halo.PopUpButtonSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.PopUpButtonSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
