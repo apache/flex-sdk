@@ -1630,10 +1630,27 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         if (!grid || event.isDefaultPrevented())
             return;
-        
+
+        // Caret is not required for ctrl-A selectAll operation.
+        if (event.keyCode == Keyboard.A && event.ctrlKey)
+        {            
+            if (selectionMode == GridSelectionMode.MULTIPLE_CELLS || 
+                selectionMode == GridSelectionMode.MULTIPLE_ROWS)
+            {
+                commitInteractiveSelection(
+                    GridSelectionEventKind.SELECT_ALL,
+                    0, 0, dataProvider.length, columns.length);
+                
+                grid.anchorRowIndex = 0;
+                grid.anchorColumnIndex = 0;
+                commitCaretPosition(-1, -1);
+            }
+            return;
+        }
+
         // Row selection requires valid row caret, cell selection
         // requires both a valid row and a valid column caret.
-        
+
         if (selectionMode == GridSelectionMode.NONE || 
             grid.caretRowIndex < 0 || 
             grid.caretRowIndex >= getDataProviderLength() ||
@@ -1702,17 +1719,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                     }
                 }
             }
-            return;
-        }
-        else if (event.keyCode == Keyboard.A && event.ctrlKey)
-        {            
-            commitInteractiveSelection(
-                GridSelectionEventKind.SELECT_ALL,
-                0, 0, dataProvider.length, columns.length);
-            
-            grid.anchorRowIndex = 0;
-            grid.anchorColumnIndex = 0;
-            commitCaretPosition(-1, -1);
             return;
         }
         
