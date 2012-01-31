@@ -14,24 +14,21 @@ package mx.controls.sliderClasses
 
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Sprite;
-import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
-import flash.utils.getTimer;
+
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
-import mx.core.mx_internal;
+import mx.core.IUIComponent;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.effects.Tween;
 import mx.events.FlexEvent;
 import mx.events.SliderEvent;
 import mx.events.SliderEventClickTarget;
 import mx.formatters.NumberFormatter;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleProxy;
 
@@ -1680,14 +1677,20 @@ public class Slider extends UIComponent
             n = thumbs.numChildren;
             for (i = 0; i < n; i++)
             {
-                SliderThumb(thumbs.getChildAt(i)).enabled = _enabled;
+                SliderThumb(thumbs.getChildAt(i)).enabled = enabled;
             }
 
             n = labelObjects ? labelObjects.numChildren : 0;
             for (i = 0; i < n; i++)
             {
-                SliderLabel(labelObjects.getChildAt(i)).enabled = _enabled;
+                SliderLabel(labelObjects.getChildAt(i)).enabled = enabled;
             }
+            
+            if (track is IUIComponent)
+                IUIComponent(track).enabled = enabled;
+            
+            if (highlightTrack && highlightTrack is IUIComponent)
+                IUIComponent(highlightTrack).enabled = enabled;
         }
         
         if (tabIndexChanged)
@@ -1933,6 +1936,9 @@ public class Slider extends UIComponent
 
             if (track is ISimpleStyleClient)
                 ISimpleStyleClient(track).styleName = this;
+            
+            if (track is IUIComponent)
+                IUIComponent(track).enabled = enabled;
 
             innerSlider.addChildAt(DisplayObject(track),0); 
         }
@@ -1952,6 +1958,9 @@ public class Slider extends UIComponent
 
             if (highlightTrack is ISimpleStyleClient)
                 ISimpleStyleClient(highlightTrack).styleName = this;
+            
+            if (highlightTrack is IUIComponent)
+                IUIComponent(highlightTrack).enabled = enabled;
 
             innerSlider.addChildAt(DisplayObject(highlightTrack),
                 innerSlider.getChildIndex(DisplayObject(track)) + 1);
