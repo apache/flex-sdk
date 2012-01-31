@@ -16,29 +16,45 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.WipeInstance;
 
 /**
- * This class performs a bitmap transition effect by running a
- * directional 'wipe' between the first and second bitmaps.
- * This wipe exposes the second bitmap over the course of the 
- * animation in a direction indicated by the <code>direction</code>
- * property.
+ *  The Wipe effect performs a bitmap transition effect by running a
+ *  directional wipe between the first and second bitmaps.
+ *  This wipe exposes the second bitmap over the course of the 
+ *  animation in a direction indicated by the <code>direction</code>
+ *  property.
  * 
- * <p>The underlying bitmap effect is run by a Pixel Bender shader 
- * that is loaded by the effect. There is no need to supply a shader
- * to this effect since it uses its own by default. However, if
- * a different Wipe behavior is desired, a different shader may be
- * supplied, as long as it adheres to the following constraints: 
- * obey the constraints specified for the <code>shaderCode</code>
- * property of AnimateShaderTransition, and supply three additional
- * parameters. The extra parameters required by the Wipe shader 
- * are an int <code>direction</code> parameter, 
- * whose values mean the same as the related String properties
- * in the Wipe class, and floating point parameters
- * <code>imageWidth</code> and <code>imageHeight</code>. All of these
- * parameters will be set on the shader when the effect starts playing,
- * so the parameters need to exist and do something appropriate in
- * order for the effect to function correctly.</p>
- * 
- * @see mx.effects.AnimateShaderTransition#shaderCode
+ *  <p>The underlying bitmap effect is run by a pixel-shader program
+ *  that is loaded by the effect. If you want to use 
+ *  a different Wipe behavior, you can specify a custom pixel-shader program 
+ *  as long as it adheres to the following constraints: 
+ *  obey the constraints specified for the <code>shaderCode</code>
+ *  property of AnimateShaderTransition class, and supply three additional
+ *  parameters. The extra parameters required by the Wipe shader 
+ *  are an int <code>direction</code> parameter, 
+ *  whose values mean the same as the related String properties
+ *  in the Wipe class, and floating point parameters
+ *  <code>imageWidth</code> and <code>imageHeight</code>. All of these
+ *  parameters are set on the shader when the effect starts playing,
+ *  so the parameters need to exist and do something appropriate in
+ *  order for the effect to function correctly.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Wipe&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Wipe
+ *    <b>Properties</b>
+ *    id="ID"
+ *    direction="right"
+ *  /&gt;
+ *  </pre>
+ *  
+ *  @see spark.effects.WipeDirection
+ *  @see spark.effects.AnimateShaderTransition
+ *  @see spark.effects.AnimateShaderTransition#shaderCode
+ *  @see spark.effects.supportClasses.WipeInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -54,14 +70,16 @@ public class Wipe extends AnimateShaderTransition
     
     [Inspectable(enumeration="left,right,up,down", defaultValue="right")]
     /**
-     * The direction that the wipe will move during the animation, 
-     * one of RIGHT, LEFT, UP, or DOWN. Other values will result in
-     * undefined behavior. If no direction is supplied, a default
-     * of RIGHT will be assumed;
-     * @see WipeDirection#RIGHT
-     * @see WipeDirection#UP
-     * @see WipeDirection#LEFT
-     * @see WipeDirection#DOWN
+     *  The direction that the wipe moves during the animation: 
+     *  <code>WipeDirection.RIGHT</code>, <code>WipeDirection.LEFT</code>, 
+     *  <code>WipeDirection.UP</code>, or <code>WipeDirection.DOWN</code>. 
+     *
+     *  @default WipeDirection.RIGHT
+     *
+     *  @see WipeDirection#RIGHT
+     *  @see WipeDirection#UP
+     *  @see WipeDirection#LEFT
+     *  @see WipeDirection#DOWN
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -70,6 +88,16 @@ public class Wipe extends AnimateShaderTransition
      */
     public var direction:String = WipeDirection.RIGHT;
     
+    /**
+     *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function Wipe(target:Object=null)
     {
         super(target);
