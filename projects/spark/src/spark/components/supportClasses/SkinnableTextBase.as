@@ -17,7 +17,6 @@ import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.events.SoftKeyboardEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
@@ -27,7 +26,6 @@ import mx.core.IIMESupport;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
@@ -337,7 +335,6 @@ public class SkinnableTextBase extends SkinnableComponent
     public function SkinnableTextBase()
     {
         super();
-        addHandlers();
     }
 
     //--------------------------------------------------------------------------
@@ -1328,15 +1325,6 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private function addHandlers():void
-    {
-        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, touchInteractionStartHandler);
-        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, touchInteractionEndHandler);
-    }
     
     /**
      *  @copy spark.components.RichEditableText#insertText()
@@ -2008,38 +1996,6 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
-    }
-    
-    /**
-     *  @private
-     */
-    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
-    {
-        // During a touch scroll we don't want the keyboard to activate. Add a
-        // "softKeyboardActivating" handler to cancel the event.
-        textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-                        softKeyboardActivatingHandler);
-    }
-    
-    /**
-     *  @private
-     */
-    private function touchInteractionEndHandler(event:TouchInteractionEvent):void
-    {
-        // Remove the soft keyboard activate cancelling handler.
-        textDisplay.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-                        softKeyboardActivatingHandler);
-    }
-    
-    /**
-     *  @private
-     * 
-     *  This handler is only added during touch scroll events. It prevents
-     *  the onscreen keyboard from activating if a scroll occurred.
-     */
-    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
-    {
-        event.preventDefault();
     }
 }
 
