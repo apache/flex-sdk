@@ -21,6 +21,7 @@ import mx.core.mx_internal;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
+import spark.components.gridClasses.TextGridItemEditor;
 
 use namespace mx_internal;
 
@@ -43,6 +44,18 @@ public class GridColumn extends EventDispatcher
      */
     public static const ERROR_TEXT:String = new String(" ");
     
+    /**
+     *  @private
+     */   
+    private static var _defaultItemEditorFactory:IFactory;
+    
+    mx_internal static function get defaultItemEditorFactory():IFactory
+    {
+        if (!_defaultItemEditorFactory)
+            _defaultItemEditorFactory = new ClassFactory(TextGridItemEditor);
+        return _defaultItemEditorFactory;
+    }
+
     public function GridColumn()
     {
         super();
@@ -282,6 +295,42 @@ public class GridColumn extends EventDispatcher
     }
     
     //----------------------------------
+    //  editable
+    //----------------------------------
+    
+    private var _editable:Boolean = true;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  A flag that indicates whether the items in the column are editable.
+     *  If <code>true</code>, and the DataGrid's <code>editable</code>
+     *  property is also <code>true</code>, the items in a column are 
+     *  editable and can be individually edited
+     *  by clicking on a selected item or by navigating to the item and 
+     *  pressing the F2 key.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        _editable = value;
+    }
+    
+    //----------------------------------
     //  headerRenderer
     //----------------------------------
     
@@ -363,6 +412,47 @@ public class GridColumn extends EventDispatcher
         dispatchEvent(new Event("headerTextChanged"));
     }
    
+    //----------------------------------
+    //  itemEditor
+    //----------------------------------
+    
+    private var _itemEditor:IFactory = null;
+    
+    [Bindable("itemEditorChanged")]
+    
+    /**
+     *  A factory for IGridItemEditors used to edit individual grid cells.
+     *  This property is only applies to grid columns that are used with
+     *  DataGrids.
+     * 
+     *  <p>If a column is editable this property determines the editor that
+     *  will be used. If this property is not specified, then the <code>
+     *  itemEditor</code> property of the DataGrid will be used. If the
+     *  DataGrid does not supply and editor then the <code>TextGridItemEditor
+     *  </code> will be used.
+     * </p>
+     * 
+     *  @default null
+     *
+     */
+    public function get itemEditor():IFactory
+    {
+        return _itemEditor;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set itemEditor(value:IFactory):void
+    {
+        if (_itemEditor == value)
+            return;
+        
+        _itemEditor = value;
+        
+        dispatchChangeEvent("itemEditorChanged");
+    }
+
     //----------------------------------
     //  itemRenderer
     //----------------------------------
@@ -642,6 +732,33 @@ public class GridColumn extends EventDispatcher
             grid.setContentSize(0, 0);
         
         dispatchChangeEvent("maxWidthChanged");
+    }
+    
+    //----------------------------------
+    //  renderIsEditable
+    //----------------------------------
+    
+    private var _renderIsEditable:Boolean = false;
+    
+    /**
+     *  Determines whether any of the item renderer's controls are editable.
+     *  If the column is editable, the focusable controls in the item renderer
+     *  will be given keyboard focus when the user starts editing the item
+     *  renderer.
+     * 
+     *  @default false
+     */
+    public function get renderIsEditable():Boolean
+    {
+        return _renderIsEditable;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set renderIsEditable(value:Boolean):void
+    {
+        _renderIsEditable = value;
     }
     
     //----------------------------------
