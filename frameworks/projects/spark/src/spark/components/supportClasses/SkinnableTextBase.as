@@ -1113,7 +1113,8 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
+        invalidateProperties();
+        invalidateSkinState();
      }
 
     //--------------------------------------------------------------------------
@@ -1472,7 +1473,8 @@ public class SkinnableTextBase extends SkinnableComponent
             promptDisplayProperties.prompt = value;
         
         // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
+        invalidateProperties();       
+        invalidateSkinState();
     }
     
     /**
@@ -1520,7 +1522,8 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
+        invalidateProperties();
+        invalidateSkinState();
     }
 
 	/**
