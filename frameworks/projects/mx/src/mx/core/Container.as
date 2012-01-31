@@ -32,7 +32,6 @@ import flash.utils.getDefinitionByName;
 
 import mx.binding.BindingManager;
 import mx.containers.utilityClasses.PostScaleAdapter;
-import mx.controls.Button;
 import mx.controls.HScrollBar;
 import mx.controls.VScrollBar;
 import mx.controls.listClasses.IListItemRenderer;
@@ -2518,15 +2517,15 @@ public class Container extends UIComponent
     /**
      *  @inheritDoc
      */ 
-    public function getElementAt(index:int):Object
+    public function getElementAt(index:int):IVisualElement
     {
-        return getChildAt(index);
+        return getChildAt(index) as IVisualElement;
     }
     
     /**
      *  @inheritDoc
      */
-    public function getElementIndex(element:Object):int
+    public function getElementIndex(element:IVisualElement):int
     {
         if (! (element is DisplayObject) )
             throw ArgumentError(element + " is not found in this Container");
@@ -2537,48 +2536,48 @@ public class Container extends UIComponent
     /**
      *  @inheritDoc
      */ 
-    public function addElement(element:Object):Object
+    public function addElement(element:IVisualElement):IVisualElement
     {
         if (! (element is DisplayObject) )
             throw ArgumentError(element + " is not supported in this Container");
         
-        return addChild(element as DisplayObject);
+        return addChild(element as DisplayObject) as IVisualElement;
     }
     
     /**
      *  @inheritDoc
      */
-    public function addElementAt(element:Object, index:int):Object
+    public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
         if (! (element is DisplayObject) )
             throw ArgumentError(element + " is not supported in this Container");
         
-        return addChildAt(element as DisplayObject, index);
+        return addChildAt(element as DisplayObject, index) as IVisualElement;
     }
     
     /**
      *  @inheritDoc
      */
-    public function removeElement(element:Object):Object
+    public function removeElement(element:IVisualElement):IVisualElement
     {
         if (! (element is DisplayObject) )
             throw ArgumentError(element + " is not found in this Container");
         
-        return removeChild(element as DisplayObject);
+        return removeChild(element as DisplayObject) as IVisualElement;
     }
     
     /**
      *  @inheritDoc
      */
-    public function removeElementAt(index:int):Object
+    public function removeElementAt(index:int):IVisualElement
     {
-        return removeChildAt(index);
+        return removeChildAt(index) as IVisualElement;
     }
     
     /**
      *  @inheritDoc
      */
-    public function setElementIndex(element:Object, index:int):void
+    public function setElementIndex(element:IVisualElement, index:int):void
     {
         if (! (element is DisplayObject) )
             throw ArgumentError(element + " is not found in this Container");
@@ -2589,7 +2588,7 @@ public class Container extends UIComponent
     /**
      *  @inheritDoc
      */
-    public function swapElements(element1:Object, element2:Object):void
+    public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
         if (! (element1 is DisplayObject) )
             throw ArgumentError(element1 + " is not found in this Container");
