@@ -681,7 +681,7 @@ public class Application extends SkinnableContainer
     /**
      *  The image class for the SplashScreen preloader.
      *
-     *  Typically developers set to an embedded resource, i.e. splashScreenImage="@Embed('Default.png')".
+     *  Typically developers set to an embedded resource, i.e. splashScreenImage="&#64;Embed('Default.png')".
      *
      *  <p><b>Note:</b> The property has effect only when the preloader is set to <code>spark.preloaders.SplashScreen</code>.
      *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
