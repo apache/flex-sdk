@@ -379,26 +379,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         invalidateProperties();
     }
-        
+
     //----------------------------------
     //  mxmlContent
     //----------------------------------
-    
+
     private var mxmlContentChanged:Boolean = false;
     private var _mxmlContent:Array;
-    
-    [ArrayElementType("mx.core.IVisualElement")]
 
-    /**
-     *  @private
-     */
-    mx_internal function getMXMLContent():Array
-    {
-        if (_mxmlContent)
-            return _mxmlContent.concat();
-        else
-            return null;
-    }
+    [ArrayElementType("mx.core.IVisualElement")]
 
     /**
      *  The visual content children for this Group.
@@ -435,8 +424,18 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
     }
     
-
     /**
+     *  @private
+     */
+    mx_internal function getMXMLContent():Array
+    {
+        if (_mxmlContent)
+            return _mxmlContent.concat();
+        else
+            return null;
+    }
+    
+   /**
      *  @private
      *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
