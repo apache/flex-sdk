@@ -1991,6 +1991,7 @@ public class Slider extends UIComponent
             thumbs = new UIComponent();
             thumbs.tabChildren = true;
             thumbs.tabEnabled = false;
+            thumbs.tabFocusEnabled = false;
             innerSlider.addChild(thumbs);
         }
 
