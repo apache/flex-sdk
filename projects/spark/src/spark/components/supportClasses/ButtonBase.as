@@ -198,7 +198,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     [SkinPart(required="false")]
 
     /**
-     *  A skin part that defines the  label of the button. 
+     *  A skin part that defines the label of the button. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
