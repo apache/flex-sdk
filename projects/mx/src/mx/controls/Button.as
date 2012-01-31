@@ -745,19 +745,21 @@ public class Button extends UIComponent
     mx_internal var currentSkin:IFlexDisplayObject;
 
     /**
-     *  @private
-     *  Skins for the various states (falseUp, trueOver, etc.)
-     *  are created just-in-time as they are needed.
-     *  Each icon is a child Sprite of this Button.
-     *  Each icon has a name property indicating which icon it is;
-     *  for example, the instance of the class specified by the falseUpIcon
+	 *  The icons array contains references to all icons
+	 *  that have been created. Since each icon is a child
+	 *  Sprite of this button, we need this array to keep
+	 *  track of which children are icons. Each icon has a 
+	 *  name property indicating which icon it is; for example,
+	 *  the instance of the class specified by the falseUpIcon
      *  style has the name "falseUpIcon" and can be found using
      *  getChildByName(). Note that there is no falseUpIcon property
      *  of Button containing a reference to this icon instance.
-     *  This array contains references to all icons that have been created,
-     *  for looping over them; without this array we wouldn't know
-     *  which of the children are the icons.
      *  New icons are created and added to this array in viewIcon().
+	 * 
+	 *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var icons:Array /* of Sprite */ = [];
 
