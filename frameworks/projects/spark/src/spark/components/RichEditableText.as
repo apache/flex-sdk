@@ -1584,9 +1584,10 @@ public class TextView extends UIComponent implements IViewport
             selectionVisibility == TextSelectionVisibility.ALWAYS ?
             1.0 : 0.0;
             
+        // The cursor is black.            
         interactionManager.focusSelectionFormat = new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
-            selectionColor, 1.0, BlendMode.NORMAL);
+            0x000000, 1.0, BlendMode.NORMAL);
         
         interactionManager.noFocusSelectionFormat = new SelectionFormat(
             unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
