@@ -589,6 +589,7 @@ public class Menu extends List implements IFocusManagerContainer
     {
         var menu:Menu = new Menu();
         menu.tabEnabled = false;
+        menu.tabFocusEnabled = false;
         menu.owner = DisplayObjectContainer(FlexGlobals.topLevelApplication);
         menu.showRoot = showRoot;
         popUpMenu(menu, parent, mdp);
