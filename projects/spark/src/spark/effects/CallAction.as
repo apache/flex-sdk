@@ -50,7 +50,7 @@ public class CallAction extends Effect
     public function CallAction(target:Object = null)
     {
         super(target);
-
+        duration = 0;
         instanceClass = CallActionInstance;
     }
 
