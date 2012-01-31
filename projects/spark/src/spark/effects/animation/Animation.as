@@ -794,6 +794,9 @@ public final class Animation
                 case EffectEvent.EFFECT_END:
                     _animationTarget.animationEnd(this);
                     break;
+                case EffectEvent.EFFECT_STOP:
+                    _animationTarget.animationStop(this);
+                    break;
                 case EffectEvent.EFFECT_REPEAT:
                     _animationTarget.animationRepeat(this);
                     break;
@@ -883,8 +886,8 @@ public final class Animation
             sendAnimationEvent(EffectEvent.EFFECT_END);
         }
 
-        // The rest of what we need to do is handled by the stop() function
-        stop();
+        // The rest of what we need to do is handled by stopAnimation()
+        stopAnimation();
     }
     
     private function addToDelayedAnimations(timeToDelay:Number):void
@@ -929,7 +932,7 @@ public final class Animation
     public function play():void
     {
         // stop an already-playing animation first
-        stop();
+        stopAnimation();
         
         // Make sure the time values in our motion paths are reasonable
         // SimpleMotionPath objects may be set up with no time values, so
@@ -1112,15 +1115,13 @@ public final class Animation
     }
 
     /**
-     *  Stops the animation, ending it without dispatching an event or calling
-     *  the <code>end()</code> method. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     * @private
+     * 
+     * Called by stop(), but also other places where we simply
+     * want to stop the animation without sending out the stop()
+     * event.
      */
-    public function stop():void
+    private function stopAnimation():void
     {
         removeFromDelayedAnimations();
         // If animation has been added, id >= 0
@@ -1133,6 +1134,22 @@ public final class Animation
             _invertValues = false;
             _isPlaying = false;
         }
+    }
+    /**
+     *  Stops the animation, ending it without dispatching an 
+     *  EFFECT_END event or calling the <code>end()</code> method.
+     *  The EFFECT_STOP event will be sent to the 
+     *  <code>animationTarget</code>. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function stop():void
+    {
+        stopAnimation();
+        sendAnimationEvent(EffectEvent.EFFECT_STOP);
     }
     
     /**
