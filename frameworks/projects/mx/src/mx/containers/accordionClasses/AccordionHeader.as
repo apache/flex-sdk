@@ -24,7 +24,6 @@ import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
