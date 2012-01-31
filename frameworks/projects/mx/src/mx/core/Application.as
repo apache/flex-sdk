@@ -280,9 +280,10 @@ public class Application extends LayoutContainer
      *  and to walk up the hierarchy to the top-level Application.</p>
      *  
      *  <p>This property has been deprecated starting in Flex4. Note that this
-     *  property will return applications of type Application and 
-     *  WindowedApplication as before but will return null for applications
-     *  of type FxApplication or FxWindowedApplication.</p>
+     *  property will still return applications of type mx.core.Application and 
+     *  mx.core.WindowedApplication as in previous versions. Starting in Flex 4
+     *  it will also return applications of type spark.components.Application or 
+     *  spark.components.WindowedApplication.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -307,7 +308,7 @@ public class Application extends LayoutContainer
     
     public static function get application():Object
     {
-        return FlexGlobals.topLevelApplication as Application;
+        return FlexGlobals.topLevelApplication;
     }
 
     //--------------------------------------------------------------------------
