@@ -14,6 +14,8 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
+import flash.geom.PerspectiveProjection;
+import flash.geom.Rectangle;
 
 import mx.collections.IList;
 import mx.core.IDataRenderer;
@@ -25,6 +27,7 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.utils.MatrixUtil;
 
 import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
@@ -666,6 +669,79 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         return " ";
     }
     
+    /**
+     *  Return the indices of the item renderers visible within this DataGroup.
+     * 
+     *  <p>If clipAndEnableScrolling=true, return the indices of the visible=true 
+     *  ItemRenderers that overlap this DataGroup's scrollRect, i.e. the ItemRenders 
+     *  that are at least partially visible relative to this DataGroup.  If 
+     *  clipAndEnableScrolling=false, return a list of integers from 
+     *  0 to dataProvider.length - 1.  Note that if this DataGroup's owner is a 
+     *  Scroller, then clipAndEnableScrolling has been set to true.</p>
+     * 
+     *  <p>The corresponding item renderer for each returned index can be 
+     *  retrieved with getElementAt(), even if the layout is virtual</p>
+     * 
+     *  <p>The order of the items in the returned Vector is not guaranteed.</p>
+     * 
+     *  <p>Note that the VerticalLayout and HorizontalLayout classes provide bindable
+     *  firstIndexInView and lastIndexInView properties which convey the same information
+     *  as this method.</p>
+     * 
+     *  @return The indices of the visible item renderers.
+     */
+    public function getItemIndicesInView():Vector.<int>
+    {
+        if (layout && layout.useVirtualLayout)
+            return (virtualRendererIndices) ? virtualRendererIndices.concat() : new Vector.<int>(0);
+        
+        const scrollR:Rectangle = scrollRect;
+        const dataProviderLength:int = dataProvider.length;
+        
+        if (scrollR)
+        {
+            const visibleIndices:Vector.<int> = new Vector.<int>();
+            const eltR:Rectangle = new Rectangle();
+            const perspectiveProjection:PerspectiveProjection = transform.perspectiveProjection;            
+            
+            for (var index:int = 0; index < dataProviderLength; index++)
+            {
+                var elt:IVisualElement = getElementAt(index);
+                if (!elt || !elt.visible)
+                    continue;
+                
+                // TODO (egeorgie): provide a generic getElementBounds() utility function
+                if (elt.hasLayoutMatrix3D && perspectiveProjection)
+                {
+                    eltR.x = 0; 
+                    eltR.y = 0;
+                    eltR.width = elt.getLayoutBoundsWidth(false);
+                    eltR.height = elt.getLayoutBoundsHeight(false);                    
+                    MatrixUtil.projectBounds(eltR, elt.getLayoutMatrix3D(), perspectiveProjection);
+                }
+                else
+                {
+                    eltR.x = elt.getLayoutBoundsX();
+                    eltR.y = elt.getLayoutBoundsY();
+                    eltR.width = elt.getLayoutBoundsWidth();
+                    eltR.height = elt.getLayoutBoundsHeight();                    
+                }
+                
+                if (scrollR.intersects(eltR))
+                    visibleIndices.push(index);
+            }
+
+            return visibleIndices;
+        }
+        else
+        {
+            const allIndices:Vector.<int> = new Vector.<int>(dataProviderLength);
+            for (index = 0; index < dataProviderLength; index++)
+                allIndices[index] = index;
+            return allIndices;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Item -> Renderer mapping
@@ -1059,6 +1135,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
+     *  True if it's OK to recycle virtual item renderers.   More about
+     *  the conditions under which recyling can work at getVirtualElementAt().
+     */
+    private function isRecyclingOK():Boolean
+    {
+        return (itemRendererFunction == null) && (itemRenderer != null);   
+    }
+    
+    /**
+     *  @private
      *  Called before super.updateDisplayList() if layout.useVirtualLayout=true.
      *  Copies virtualRendererIndices to oldRendererIndices, clears virtualRendererIndices
      *  (which will be repopulated by subsequence getVirtualElementAt() calls), and
@@ -1106,8 +1192,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (oldVirtualRendererIndices.length == 0)
             return;
         
-        // Remove the old ItemRenderers that aren't new ItemRenderers and 
-        // add them to the freeRenderers list.
+        // Remove the old ItemRenderers that aren't new ItemRenderers and if 
+        // recycling is possible, add them to the freeRenderers list.
+        
+        const recyclingOK:Boolean = isRecyclingOK();       
         
         for each (var vrIndex:int in oldVirtualRendererIndices)
         {
@@ -1121,7 +1209,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             // Free or remove the IR.
             var item:Object = (dataProvider.length > vrIndex) ? dataProvider.getItemAt(vrIndex) : null;
-            if ((item != elt) && (elt is IDataRenderer))
+            if (recyclingOK && (item != elt) && (elt is IDataRenderer))
             {
                 // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
                 elt.includeInLayout = false;
@@ -1291,10 +1379,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 setUpItemRenderer(elt, index, dataProvider.getItemAt(index));
             else
             {
-                var item:Object = dataProvider.getItemAt(index);
-                var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null);
+                const item:Object = dataProvider.getItemAt(index);
                 
-                if (recyclingOK && (freeRenderers.length > 0))
+                if (isRecyclingOK() && (freeRenderers.length > 0))
                 {
                     elt = freeRenderers.pop();
                     elt.visible = true;
