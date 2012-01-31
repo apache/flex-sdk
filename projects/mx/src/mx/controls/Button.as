@@ -119,6 +119,18 @@ include "../styles/metadata/SkinStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Color applied to the button when the emphasized flag is true. 
+ * 
+ *  @default #0099FF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  Color of focus ring when the component is in focus
  *   
  *  @default 0x70B2EE
