@@ -3398,11 +3398,11 @@ public class RichEditableText extends UIComponent
             // set to "auto", in which case we automatically
             // determine it based on whether the CSS styles
             // specify an embedded font.
-            if (s == "auto")
+            if (s != "device")
             {
-                s = _textContainerManager.swfContext ?
-                    FontLookup.EMBEDDED_CFF :
-                    FontLookup.DEVICE;
+                s = TextUtil.resolveFontLookup(
+                    _textContainerManager.swfContext, 
+                    _textContainerManager.hostFormat);
             }
             fontDescription.fontLookup = s;
         }
