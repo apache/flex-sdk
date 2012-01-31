@@ -1012,8 +1012,11 @@ public class ComboBox extends ComboBase
     override public function set selectedItem(value:Object):void
     {
         selectedItemSet = true;
-
-        super.selectedItem = value
+        
+        // We do not want to apply an implicit default index in this case.
+        implicitSelectedIndex = false;
+        
+        super.selectedItem = value;
     }
 
     //----------------------------------
