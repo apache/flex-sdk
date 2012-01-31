@@ -1065,22 +1065,25 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
         super.createChildren();
 
         // Create the border first, in the back.
-        if (!border)
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-            var borderClass:Class = getStyle("borderSkin");
-
-            if (borderClass)
-            {
-                border = new borderClass();
-
-                if (border is IFocusManagerComponent)
-                    IFocusManagerComponent(border).focusEnabled = false;
-
-                if (border is ISimpleStyleClient)
-                    ISimpleStyleClient(border).styleName = this;
-
-                addChild(DisplayObject(border));
-            }
+	        if (!border)
+	        {
+	            var borderClass:Class = getStyle("borderSkin");
+	
+	            if (borderClass)
+	            {
+	                border = new borderClass();
+	
+	                if (border is IFocusManagerComponent)
+	                    IFocusManagerComponent(border).focusEnabled = false;
+	
+	                if (border is ISimpleStyleClient)
+	                    ISimpleStyleClient(border).styleName = this;
+	
+	                addChild(DisplayObject(border));
+	            }
+	        }
         }
 
         // Next, create the downArrowButton before creating the textInput,
@@ -1344,7 +1347,8 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             var wh:Number = h - vm.top - vm.bottom;
             downArrowButton.setActualSize(wh, wh);
             downArrowButton.move(w - arrowWidth - vm.right, vm.top);
-            border.setActualSize(w, h);
+            if (border)
+            	border.setActualSize(w, h);
             textInput.setActualSize(w - arrowWidth, textInputHeight);
         }
         else
@@ -1355,7 +1359,8 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
                 var paddingBottom:Number = getStyle("paddingBottom");
                 
                 downArrowButton.move(0, 0);
-                border.setActualSize(w, h);
+                if (border)
+                	border.setActualSize(w, h);
                 textInput.setActualSize(w - arrowWidth, textInputHeight);
                 textInput.border.visible = false;
                 if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
@@ -1365,7 +1370,8 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             else
             {
                 downArrowButton.move(w - arrowWidth, 0);
-                border.setActualSize(w - arrowWidth, h);
+                if (border)
+                	border.setActualSize(w - arrowWidth, h);
                 textInput.setActualSize(w - arrowWidth, h);
                 downArrowButton.setActualSize(arrowWidth, unscaledHeight);
                 textInput.border.visible = true;
