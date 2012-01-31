@@ -47,7 +47,9 @@ use namespace mx_internal;
 [SkinState("inactive")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *
+ *  @default 0x000000
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -77,7 +79,7 @@ use namespace mx_internal;
  *  <code>VScrollBar</code> make the thumb visible if it's smaller than
  *  the track, unless this style is false.   
  * 
- *  Set this style to false to control thumb visiblity directly.  
+ *  Set this style to false to control thumb visibility directly.  
  * 
  *  @default true
  * 
@@ -174,7 +176,7 @@ use namespace mx_internal;
  *  &lt;s:ScrollBarBase
  *    <strong>Properties</strong>
  *    pageSize="20"
- *    snapInterval=""
+ *    snapInterval="1"
  *    viewport="null"
  *
  *    <strong>Styles</strong>
@@ -183,7 +185,7 @@ use namespace mx_internal;
  *    repeatDelay="500"
  *    repeatInterval="35"
  *    smoothScrolling="true"
- *    symbolColor=""
+ *    symbolColor="0x000000"
  *  /&gt;
  *  </pre> 
  *  @see spark.core.IViewport
@@ -367,6 +369,8 @@ public class ScrollBarBase extends TrackBase
     
     /**
      *  @inheritDoc
+     *
+     *  @default 1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -852,7 +856,7 @@ public class ScrollBarBase extends TrackBase
     {
         if (steppingDown || steppingUp)
         {
-        	// stopAnimation will not dispatch a changeEnd.
+            // stopAnimation will not dispatch a changeEnd.
             stopAnimation();
             
             dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
