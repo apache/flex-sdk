@@ -93,7 +93,7 @@ public class FxFade extends FxAnimate
      */
     override public function getAffectedProperties():Array /* of String */
     {
-        return ["alpha", "visible", "parent", "elementHost"];
+        return ["alpha", "visible", "parent"];
     }
 
     override protected function applyValueToTarget(target:Object,
@@ -101,10 +101,10 @@ public class FxFade extends FxAnimate
                                                    value:*,
                                                    props:Object):void
     {
-        // We only want to track these properties as they affect how
+        // We only want to track "parent" as it affects how
         // we fade; we don't actually want to change target properties
         // other than alpha or visibility
-        if (property == "parent" || property == "elementHost")
+        if (property == "parent")
             return;
             
         super.applyValueToTarget(target, property, value, props);
