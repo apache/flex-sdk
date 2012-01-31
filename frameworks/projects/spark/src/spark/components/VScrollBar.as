@@ -12,11 +12,11 @@
 package mx.components
 {
 import mx.components.baseClasses.FxScrollBar;
+import mx.core.ILayoutElement;
 import mx.core.IViewport;
-import mx.core.ScrollUnit;  
+import mx.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 
 [IconFile("FxVScrollBar.png")]
@@ -159,9 +159,9 @@ public class FxVScrollBar extends FxScrollBar
      *
      *  @private
      */
-    private function updateViewportVSP(unit:ScrollUnit):void
+    private function updateViewportVSP(scrollUnit:uint):void
     {
-        var delta:Number = viewport.getVerticalScrollPositionDelta(unit);
+        var delta:Number = viewport.getVerticalScrollPositionDelta(scrollUnit);
         setValue(viewport.verticalScrollPosition + delta);
     }
     
