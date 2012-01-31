@@ -223,11 +223,6 @@ ToggleButton
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
 }
 
-Tree
-{
-    skinClass: ClassReference("spark.skins.spark.DataGridSkin");
-}
-
 VideoDisplay
 {
     layoutDirection: "ltr";
