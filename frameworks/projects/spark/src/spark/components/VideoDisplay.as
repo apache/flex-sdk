@@ -144,12 +144,12 @@ public class VideoDisplay extends UIComponent
      *  Set as the OSMF.resourceBundleFunction and used to look up
      *  strings so the OSMF RTEs are localized in Flex.
      */
-	private static function getResourceString(resourceName:String,
-											  args:Array = null):String
-	{
-		var resourceManager:IResourceManager = ResourceManager.getInstance();
-		return resourceManager.getString("osmf", resourceName, args);
-	}
+    private static function getResourceString(resourceName:String,
+                                              args:Array = null):String
+    {
+        var resourceManager:IResourceManager = ResourceManager.getInstance();
+        return resourceManager.getString("osmf", resourceName, args);
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -288,12 +288,13 @@ public class VideoDisplay extends UIComponent
     /**
      *  If <code>autoPlay = false</code>, then 
      *  <code>autoDisplayFirstFrame</code> controls whether the video 
-     *  is loaded up at all when the source is set.  If <code>autoDisplayFirstFrame</code>
+     *  is loaded when the <code>source</code> is set.  
+     *  If <code>autoDisplayFirstFrame</code>
      *  is set to <code>true</code>, then the first frame of the video is 
-     *  loaded up and the video will be sized correctly.  If 
-     *  <code>autoDisplayFirstFrame</code> is set to <code>false</code>, then no 
-     *  connection to the source is made, the first frame will not be shown, 
-     *  and the video's size will not be determined until someone tries to play
+     *  loaded and the video is sized correctly.  
+     *  If <code>autoDisplayFirstFrame</code> is set to <code>false</code>, then no 
+     *  connection to the source is made, the first frame is not shown, 
+     *  and the video's size is not determined until someone tries to play
      *  the video.
      * 
      *  <p>If <code>autoPlay = true</code>, then this flag is ignored.</p>
@@ -327,7 +328,7 @@ public class VideoDisplay extends UIComponent
     private var _autoPlay:Boolean = true;
     
     /**
-     *  Specifies whether the video should start playing immediately when the
+     *  Specifies whether the video starts playing immediately when the
      *  <code>source</code> property is set.
      *  If <code>true</code>, the video file immediately begins to buffer and
      *  play.
@@ -340,9 +341,9 @@ public class VideoDisplay extends UIComponent
      *  In the case of an HTTP download, Flex starts downloading the stream
      *  and shows the first frame.</p>
      * 
-     *  If <code>playWhenHidden</code> is set to <code>false</code>, then 
+     *  <p>If <code>playWhenHidden</code> is set to <code>false</code>, then 
      *  <code>autoPlay</code> also affects what happens when the video 
-     *  comes back on stage and is enabled and visible.
+     *  comes back on stage and is enabled and visible.</p>
      *  
      *  @default true
      *  
@@ -378,7 +379,7 @@ public class VideoDisplay extends UIComponent
     [Inspectable(category="General", defaultValue="true")]
     
     /**
-     *  Specifies whether the FLV file should be rewound to the first frame
+     *  Specifies whether the FLV file should rewind to the first frame
      *  when play stops, either by calling the <code>stop()</code> method or by
      *  reaching the end of the stream.
      *
@@ -501,7 +502,7 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  Indicates whether the media should play again after playback has completed. 
-     *  The <code>loop</code> property takes precedence over the the <code>autoRewind</code>
+     *  The <code>loop</code> property takes precedence over the <code>autoRewind</code>
      *  property, so if loop is set to <code>true</code>, the <code>autoRewind</code> 
      *  property is ignored. 
      *
@@ -615,13 +616,13 @@ public class VideoDisplay extends UIComponent
      *  is set to <code>false</code> on it or one of its ancestors,  
      *  or when the video is taken off 
      *  of the display list.  If set to <code>true</code>, the video 
-     *  will pause playback until the video is visible again.  If set to 
-     *  <code>false</code> the video will continue to play when it is hidden.
+     *  pauses playback until the video is visible again.  If set to 
+     *  <code>false</code> the video continues to play when it is hidden.
      * 
      *  <p>If the video is disabled (or one of the video's parents are 
-     *  disabled), the video will pause as well, but when it is re-enabled, 
-     *  the video will not play again.  This behavior is not controlled through 
-     *  pauseWhenHidden; it is baked in to the VideoDisplay component.</p>
+     *  disabled), the video pauses as well, but when it is re-enabled, 
+     *  the video does not play again.  This behavior is not controlled through 
+     *  <code>pauseWhenHidden</code>; it is defined in the VideoDisplay component.</p>
      * 
      *  @default true
      *  
@@ -669,7 +670,7 @@ public class VideoDisplay extends UIComponent
     [Bindable("mediaPlayerStateChange")]
     
     /**
-     *  Returns true if the video is playing or is attempting to play.
+     *  Contains <code>true</code> if the video is playing or is attempting to play.
      *  
      *  <p>The video may not be currently playing, as it may be seeking 
      *  or buffering, but the video is attempting to play.</p> 
@@ -1118,32 +1119,29 @@ public class VideoDisplay extends UIComponent
     }
     
     /**
-     *  Seeks to given second in video. If video is playing,
-     *  continues playing from that point. If video is paused, seek to
-     *  that point and remain paused. If video is stopped, seek to
-     *  that point and enters paused state. Has no effect with live
-     *  streams.
+     *  Seeks to given time in the video. If the video is playing,
+     *  continue playing from that point. If the video is paused, seek to
+     *  that point and remain paused. If the video is stopped, seek to
+     *  that point and enters paused state. 
+     *  This method has no effect with live video streams.
      *
-     *  <p>If time is less than 0 or NaN, throws exeption. If time
+     *  <p>If time is less than 0 or NaN, throws exception. If time
      *  is past the end of the stream, or past the amount of file
-     *  downloaded so far, then will attempt seek and when fails
-     *  will recover.</p>
+     *  downloaded so far, then attempts to seek and, if it fails, it then recovers.</p>
      * 
      *  <p>The <code>playheadTime</code> property might not have the expected value 
-     *  immediately after you call one of the seek methods or set  
-     *  <code>playheadTime</code> to cause seeking. For a progressive download,
+     *  immediately after you call <code>seek()</code>. 
+     *  For a progressive download,
      *  you can seek only to a keyframe; therefore, a seek takes you to the 
      *  time of the first keyframe after the specified time.</p>
      *  
      *  <p><strong>Note</strong>: When streaming, a seek always goes to the precise specified 
      *  time even if the source FLV file doesn't have a keyframe there.</p>
      *
-     *  <p>Seeking is asynchronous, so if you call a seek method or set the 
-     *  <code>playheadTime</code> property, <code>playheadTime</code> does not update immediately. 
-     *  To obtain the time after the seek is complete, listen for the <code>seek</code> event, 
-     *  which does not start until the <code>playheadTime</code> property is updated.</p>
+     *  <p>Seeking is asynchronous, so if you call the <code>seek()</code> method or set the 
+     *  <code>playheadTime</code> property, <code>playheadTime</code> does not update immediately. </p>
      *
-     *  @param time seconds
+     *  @param time The seek time, in seconds.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
