@@ -613,6 +613,106 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  <pre>
  *  &lt;s:DataGrid 
  *    <strong>Properties</strong>
+ *    columns="null"
+ *    dataProvider="null"  
+ *    dataTipField="null"  
+ *    dataTipFunction="null"
+ *    editable="false"
+ *    editorColumnIndex="-1"
+ *    editorRowIndex="-1"
+ *    imeMode="null"
+ *    itemEditor="null"
+ *    itemRenderer="<i>DefaultGridItemRenderer</i>" 
+ *    preserveSelection="true"
+ *    requestedColumnCount="-1"
+ *    requestedMaxRowCount="-1"
+ *    requestedMinColumnCount="-1"
+ *    requestedMinRowCount="-1"
+ *    requestedRowCount="-1"
+ *    requireSelection="false"
+ *    resizeableColumns="true"
+ *    rowHeight="<i>Calculated default</i>"
+ *    selectedCell="null"
+ *    selectedCells="<i>empty Vector.&lt;CellPosition&gt<i>"
+ *    selectedIndex="null"
+ *    selectedIndices="<i>empty Vector.&lt;CellPosition&gt<i>"
+ *    selectedItem="null"
+ *    selectedItems="<i>empty Vector.&lt;Object&gt<i>"
+ *    selectionMode="singleRow"
+ *    showDataTips="false"
+ *    sortableColumns="true"
+ *    typicalItem="null"
+ *    variableRowHeight="false" 
+ * 
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="useDominantBaseline"
+ *    baselineShift="0.0"
+ *    cffHinting="horizontalStem"
+ *    color="0"
+ *    defaultGridItemEditor="null"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="ltr"
+ *    dominantBaseline="auto"
+ *    fontFamily="Arial"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="auto"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    renderingMode="cff"
+ *    stretchCursor="<i>cursorStretch symbol from Assets.swf</i>"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="none"
+ *    textJustify="interWord"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="default"
+ *    verticalScrollPolicy="auto"
+ *
+ *    <strong>Styles for the Spark Theme</strong>
+ *    alternatingRowColors="undefined"
+ *    borderAlpha="1.0"
+ *    borderColor="0x696969"
+ *    borderVisible="true"
+ *    caretColor="0x0167FF"
+ *    contentBackgroundAlpha="1.0"
+ *    contentBackgroundColor="0xFFFFFF"
+ *    rollOverColor="0xCEDBEF"
+ *    selectionColor="0xA8C6EE"
+ *    symbolColor="0x000000"
+ * 
+ *    <strong>Styles for the Mobile Theme</strong>
+ *    leading="0"
+ *    letterSpacing="0"
+ *    selectionColor="0xE0E0E0"
+ *    symbolColor="0x000000"
+ * 
+ *    <strong>Events</strong>
+ *    caretChange="<i>No default</i>"
+ *    gridClick="<i>No default</i>"
+ *    gridDoubleClick="<i>No default</i>"
+ *    gridItemEditorSessionCancel="<i>No default</i>"
+ *    gridItemEditorSessionSave="<i>No default</i>"
+ *    gridItemEditorSessionStart="<i>No default</i>"
+ *    gridItemEditorSessionStarting="<i>No default</i>"
+ *    gridMouseDown="<i>No default</i>"
+ *    gridMouseDrag="<i>No default</i>"
+ *    gridMouseUp="<i>No default</i>"
+ *    gridMouseRollOut="<i>No default</i>"
+ *    gridMouseRollOver="<i>No default</i>"
+ *    selectionChange="<i>No default</i>"
+ *    selectionChanging="<i>No default</i>"
+ *    sortChange="<i>No default</i>"
+ *    sortChanging="<i>No default</i>" 
  *  /&gt;
  *  </pre>
  *
@@ -1870,6 +1970,8 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  @copy spark.components.Grid#selectionMode
      *
+     *  @default GridSelectionMode.SINGLE_ROW
+     * 
      *  @see spark.components.gridClasses.GridSelectionMode
      * 
      *  @langversion 3.0
