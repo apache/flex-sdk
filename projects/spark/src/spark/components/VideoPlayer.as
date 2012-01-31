@@ -76,7 +76,7 @@ use namespace mx_internal;
  *  @playerversion Flash 10
  *  @playerversion AIR 1.0
  *  @productversion Flex 4
- */	 
+ */  
 [Event(name="complete", type="org.osmf.events.TimeEvent")]
 
 /**
@@ -1224,7 +1224,7 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @copy spark.components.VideoDisplay#scaleMode
      * 
-     *  @default letterbox
+     *  @default "letterbox"
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
