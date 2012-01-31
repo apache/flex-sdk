@@ -85,29 +85,21 @@ public class VScrollBar extends ScrollBar
     //
     //--------------------------------------------------------------------------
 
+    private function updateMaximumAndPageSize():void
+    {
+        var vsp:Number = viewport.verticalScrollPosition;
+        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+        // Special case: if contentHeight is 0, assume that it hasn't been 
+        // updated yet.  Making the maximum==vsp here avoids trouble later
+        // when Range constrains value
+        var cHeight:Number = viewport.contentHeight;
+        maximum = (cHeight == 0) ? vsp : cHeight - viewportHeight;
+        pageSize = viewportHeight;
+    }
+    
     /**
      *  The viewport controlled by this scrollbar.
-     *  The viewport is the scrollable, rectangular subset of the area of a component
-     *  to display.
      *  
-     *  If a viewport is specified, then changes to its actual size, content 
-     *  size, and scroll position cause the corresponding ScrollBar methods to
-     *  run:
-     *  <ul>
-     *  <li><code>viewportResizeHandler()</code></li>
-     *  <li><code>contentWidthChangeHandler()</code></li>
-     *  <li><code>contentHeightChangeHandler()</code></li>
-     *  <li><code>viewportVerticalScrollPositionChangeHandler()</code></li>
-     *  <li><code>viewportHorizontalScrollPositionChangeHandler()</code></li>
-     *  </ul>
-     * 
-     *  <p>The VScrollBar and HScrollBar classes override these methods to 
-     *  keep their <code>pageSize</code>, <code>maximum</code>, and <code>value</code> properties in sync with the
-     *  viewport.   Similarly, they override their <code>changeValueByPage()</code> and 
-     *  <code>changeValueByStep()</code> methods to
-     *  use the viewport's <code>scrollPositionDelta</code> methods to compute page and
-     *  and step offsets.</p>
-     *
      *  @default null
      *  @see spark.core.IViewport
      *  @langversion 3.0
@@ -121,17 +113,11 @@ public class VScrollBar extends ScrollBar
         super.viewport = newViewport;
         if (newViewport)
         {
-            var vsp:Number = newViewport.verticalScrollPosition;
-            // Special case: if contentHeight is 0, assume that it hasn't been 
-            // updated yet.  Making the maximum==vsp here avoids trouble later
-            // when Range constrains value
-            var cHeight:Number = newViewport.contentHeight;
-            maximum = (cHeight == 0) ? vsp : cHeight - newViewport.height;
-            pageSize = newViewport.height;
-            value = vsp;
+            updateMaximumAndPageSize();
+            value = newViewport.verticalScrollPosition;;
         }
     }    
-    
+
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -344,17 +330,9 @@ public class VScrollBar extends ScrollBar
     override mx_internal function viewportResizeHandler(event:ResizeEvent):void
     {
         if (viewport)
-        {
-            var vsp:Number = viewport.verticalScrollPosition;
-            // Special case: if contentHeight is 0, assume that it hasn't been 
-            // updated yet.  Making the maximum==vsp here avoids trouble later
-            // when Range constrains value
-            var cHeight:Number = viewport.contentHeight;
-            maximum = (cHeight == 0) ? vsp : cHeight - viewport.height;
-            pageSize = viewport.height;
-        } 
+            updateMaximumAndPageSize();
     }
-
+    
     /**
      *  @private
      *  Set this scrollbar's maximum to the viewport's contentHeight 
@@ -363,9 +341,10 @@ public class VScrollBar extends ScrollBar
     override mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
+        {
+            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
             maximum = viewport.contentHeight - viewport.height;
+        }
     }
-    
 }
-
 }
