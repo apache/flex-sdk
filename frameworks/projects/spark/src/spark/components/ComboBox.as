@@ -159,6 +159,7 @@ use namespace mx_internal;
  *
  *  @see spark.skins.spark.ComboBoxSkin
  *  @see spark.skins.spark.ComboBoxTextInputSkin
+ *  @includeExample examples/ComboBoxExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
