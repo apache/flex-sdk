@@ -170,6 +170,11 @@ public class Application extends SkinnableContainer
      */
     private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
 
+    /**
+     *  @private
+     */
+    private static const VISIBLE_PROPERTY_FLAG:uint = 1 << 2;
+
     //--------------------------------------------------------------------------
     //
     //  Class properties
@@ -321,7 +326,7 @@ public class Application extends SkinnableContainer
      *  controlBarGroupProperties stores booleans as to whether these properties 
      *  have been explicitely set or not.
      */
-    private var controlBarGroupProperties:Object = {};
+    private var controlBarGroupProperties:Object = { visible: true };
 
     //----------------------------------
     //  controlBarGroup
@@ -413,6 +418,47 @@ public class Application extends SkinnableContainer
         }
         else
             controlBarGroupProperties.layout = value;
+    }
+
+    //----------------------------------
+    //  controlBarVisible
+    //---------------------------------- 
+    
+    /**
+     *  A flag that controls whether the controlBar is visible.
+     *  The flag has no meaning if there is no controlBarContent.
+     *  The Panel does not monitor the controlBarGroup so if some
+     *  other code makes it invisible, the Panel may not update
+     *  correctly
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get controlBarVisible():Boolean
+    {
+        return (controlBarGroup) 
+            ? controlBarGroup.visible 
+            : controlBarGroupProperties.visible;
+    }
+
+    public function set controlBarVisible(value:Boolean):void
+    {
+        if (controlBarGroup)
+        {
+            controlBarGroup.visible = value;
+            controlBarGroupProperties = BitFlagUtil.update(controlBarGroupProperties as uint, 
+                                                        VISIBLE_PROPERTY_FLAG, value);
+        }
+        else
+            controlBarGroupProperties.visible = value;
+
+        invalidateSkinState();
+        if (skin)
+            skin.invalidateSize();
     }
 
     //--------------------------------------------------------------------------
@@ -883,6 +929,13 @@ public class Application extends SkinnableContainer
                                                                LAYOUT_PROPERTY_FLAG, true);
             }
 
+            if (controlBarGroupProperties.visible !== undefined)
+            {
+                controlBarGroup.visible = controlBarGroupProperties.visible;
+                newControlBarGroupProperties = BitFlagUtil.update(newControlBarGroupProperties, 
+                                                               VISIBLE_PROPERTY_FLAG, true);
+            }
+
             controlBarGroupProperties = newControlBarGroupProperties;
         }
     }
@@ -911,6 +964,9 @@ public class Application extends SkinnableContainer
             if (BitFlagUtil.isSet(controlBarGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newControlBarGroupProperties.layout = controlBarGroup.layout;
             
+            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, VISIBLE_PROPERTY_FLAG))
+                newControlBarGroupProperties.visible = controlBarGroup.visible;
+            
             controlBarGroupProperties = newControlBarGroupProperties;
 
             controlBarGroup.mxmlContent = null;
@@ -931,12 +987,14 @@ public class Application extends SkinnableContainer
         var state:String = enabled ? "normal" : "disabled";
         if (controlBarGroup)
         {
-            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG))
+            if (BitFlagUtil.isSet(controlBarGroupProperties as uint, CONTROLBAR_PROPERTY_FLAG) &&
+                BitFlagUtil.isSet(controlBarGroupProperties as uint, VISIBLE_PROPERTY_FLAG))
                 state += "WithControlBar";
         }
         else
         {
-            if (controlBarGroupProperties.controlBarContent)
+            if (controlBarGroupProperties.controlBarContent &&
+                controlBarGroupProperties.visible)
                 state += "WithControlBar";
         }
 
