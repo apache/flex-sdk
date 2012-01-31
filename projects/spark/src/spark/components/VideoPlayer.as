@@ -916,6 +916,7 @@ public class VideoPlayer extends SkinnableComponent
     
     [Inspectable(Category="General", defaultValue="0")]
     [Bindable("bytesLoadedChange")]
+    [Bindable("mediaPlayerStateChange")]
     
     /**
      *  @copy spark.components.VideoDisplay#bytesLoaded
@@ -966,6 +967,7 @@ public class VideoPlayer extends SkinnableComponent
     
     [Inspectable(Category="General", defaultValue="0")]
     [Bindable("currentTimeChange")]
+    [Bindable("mediaPlayerStateChange")]
     
     /**
      *  @copy spark.components.VideoDisplay#currentTime
@@ -981,6 +983,32 @@ public class VideoPlayer extends SkinnableComponent
     {
         if (videoDisplay)
             return videoDisplay.currentTime;
+        else
+            return 0;
+    }
+    
+    //----------------------------------
+    //  duration
+    //----------------------------------
+    
+    [Inspectable(Category="General", defaultValue="0")]
+    [Bindable("durationChange")]
+    [Bindable("mediaPlayerStateChange")]
+    
+    /**
+     *  @copy spark.components.VideoDisplay#duration
+     * 
+     *  @default 0
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get duration():Number
+    {
+        if (videoDisplay)
+            return videoDisplay.duration;
         else
             return 0;
     }
@@ -1323,31 +1351,6 @@ public class VideoPlayer extends SkinnableComponent
         {
             videoDisplayProperties.thumbnailSource = value;
         }
-    }
-    
-    //----------------------------------
-    //  duration
-    //----------------------------------
-    
-    [Inspectable(Category="General", defaultValue="0")]
-    [Bindable("durationChange")]
-    
-    /**
-     *  @copy spark.components.VideoDisplay#duration
-     * 
-     *  @default 0
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get duration():Number
-    {
-        if (videoDisplay)
-            return videoDisplay.duration;
-        else
-            return 0;
     }
     
     //----------------------------------
