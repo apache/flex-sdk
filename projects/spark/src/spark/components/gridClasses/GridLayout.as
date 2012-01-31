@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
@@ -18,9 +18,7 @@ import flash.utils.getTimer;
 import mx.collections.IList;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
-import mx.core.IUIComponent;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
@@ -29,17 +27,11 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
-import mx.styles.ISimpleStyleClient;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.Group;
-import spark.components.IGridItemRenderer;
-import spark.components.IGridRowBackground;
-import spark.components.supportClasses.GridLayer;
+import spark.components.gridClasses.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.skins.spark.DefaultGridItemRenderer;
-import spark.skins.spark.UITextFieldGridItemRenderer;
 
 use namespace mx_internal;
 
@@ -425,10 +417,10 @@ public class GridLayout extends LayoutBase
         const lastVisibleColumnIndex:int = (columns) ? grid.getPreviousVisibleColumnIndex(grid.columns.length) : -1;
         if (!columns || lastVisibleColumnIndex < 0)
         {
-            // HACK: Make sure columnHeaderBar fixes itself
+            // HACK: Make sure columnHeaderGroup fixes itself
             var dg:DataGrid = grid.dataGrid;
-            if (dg && dg.columnHeaderBar)
-                dg.columnHeaderBar.invalidateDisplayList();
+            if (dg && dg.columnHeaderGroup)
+                dg.columnHeaderGroup.invalidateDisplayList();
             return;
         }
         
@@ -495,8 +487,8 @@ public class GridLayout extends LayoutBase
         
         // HACK
         dg = grid.dataGrid;
-        if (dg && dg.columnHeaderBar)
-            dg.columnHeaderBar.invalidateDisplayList();
+        if (dg && dg.columnHeaderGroup)
+            dg.columnHeaderGroup.invalidateDisplayList();
         
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
