@@ -47,12 +47,6 @@ public class AddActionInstance extends ActionEffectInstance
 	public function AddActionInstance(target:Object)
 	{
 		super(target);
-        try {
-            target.parent;
-            hasParent = true;
-        } catch (e:Error) {
-            hasParent = false;
-        }
 	}
 	
 	//--------------------------------------------------------------------------
@@ -60,8 +54,6 @@ public class AddActionInstance extends ActionEffectInstance
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
-	
-	private var hasParent:Boolean;
 	
 	//----------------------------------
 	//  index
@@ -98,42 +90,39 @@ public class AddActionInstance extends ActionEffectInstance
 	
 	private function getContainer(child:*):*
 	{
-	    if (hasParent)
-	       return child.parent;
-	    else
-	       return child.elementHost;
+	   return child.parent;
 	}
 	
     private function addChild(container:*, child:*):void
     {
-        if (hasParent && !(container is Group))
-           container.addChild(child);
-        else
+        if (container is Group)
            container.addItem(child);
+        else
+           container.addChild(child);
     }
     
     private function removeChild(container:*, child:*):void
     {
-        if (hasParent && !(container is Group))
-           container.removeChild(child);
-        else
+        if (container is Group)
            container.removeItem(child);
+        else
+           container.removeChild(child);
     }
     
     private function addChildAt(container:*, child:*, index:int):void
     {
-        if (hasParent && !(container is Group))
-           container.addChildAt(child, index);
-        else
+        if (container is Group)
            container.addItemAt(child, index);
+        else
+           container.addChildAt(child, index);
     }
     
     private function getChildIndex(container:*, child:*):int
     {
-        if (hasParent && !(container is Group))
-           return container.getChildIndex(child);
-        else
+        if (container is Group)
            return container.getItemIndex(child);
+        else
+           return container.getChildIndex(child);
     }
 
 	/**
@@ -141,13 +130,6 @@ public class AddActionInstance extends ActionEffectInstance
 	 */
 	override public function play():void
 	{
-	    try {
-	        target.parent;
-	        hasParent = true;
-	    } catch (e:Error) {
-	        hasParent = false;
-	    }
-	    
 		// Dispatch an effectStart event from the target.
 		super.play();	
 		
