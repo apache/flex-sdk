@@ -927,6 +927,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     * This method should be overriden by subclasses
     * 
     * @param msg The message for which the existence of pending requests is checked.
+    *
+    * @return Returns <code>true</code> if there are any pending requests for the 
+    * passed in message.
     */
     public function hasPendingRequestForMessage(msg:IMessage):Boolean
     {
