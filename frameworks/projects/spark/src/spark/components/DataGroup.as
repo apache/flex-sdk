@@ -791,7 +791,7 @@ public class DataGroup extends GroupBase
         
         // Set the index
         if (renderer is IItemRenderer)
-            IItemRenderer(renderer).index = index;
+            IItemRenderer(renderer).itemIndex = index;
         
         // If a delegate is specified defer to the rendererUpdateDelegate
         // to update the renderer.
@@ -1055,7 +1055,7 @@ public class DataGroup extends GroupBase
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        renderBackgroundFill();
+        drawBackground();
 
         if (layout && layout.useVirtualLayout)
         {
@@ -1254,7 +1254,7 @@ public class DataGroup extends GroupBase
                 renderer = indexToRenderer[i] as IItemRenderer;
                 
                 if (renderer)
-                    renderer.index = i;
+                    renderer.itemIndex = i;
                 // TODO (rfrishbe): could make this more optimal by only re-computing a subset of the visible
                 // item renderers, but it's probably not worth it
             }
