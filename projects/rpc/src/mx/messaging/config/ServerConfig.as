@@ -628,7 +628,7 @@ public class ServerConfig
         else
         {
 			channelIds = getChannelIds(destinationConfig);
-			clustered = (destinationConfig.properties.network.cluster.length() > 0) ? true : false;
+			clustered = (destinationConfig.properties.network.cluster.length() > 0) ? true : false;			
         } 
                             
         var channelSetId:String = channelIds.join(",") + ":" + clustered;
@@ -640,6 +640,10 @@ public class ServerConfig
         else
         {
             var channelSet:ChannelSet = new ChannelSet(channelIds, clustered);
+            if (clustered)
+            {
+                channelSet.initialDestinationId = destinationId;
+            }
             _channelSets[channelSetId] = channelSet;
             return channelSet;
         }
