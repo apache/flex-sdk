@@ -123,6 +123,12 @@ public class TrackBase extends Range
         invalidateDisplayList();
     }
     
+    override protected function setValue(value:Number):void
+    {
+        super.setValue(value);
+        invalidateDisplayList();
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Properties
