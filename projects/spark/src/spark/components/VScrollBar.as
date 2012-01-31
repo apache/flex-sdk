@@ -11,6 +11,9 @@
 
 package flex.component
 {
+import flex.intf.ILayoutItem;
+import flex.layout.LayoutItemFactory;
+	
 
 /**
  *  The VScrollBar (vertical ScrollBar) control lets you control
@@ -76,7 +79,9 @@ public class VScrollBar extends ScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.y : 0;
-            thumb.y = trackPos + thumbPos;
+            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(thumb);
+            layoutItem.setActualPosition(layoutItem.actualPosition.x,
+            					    	 Math.round(trackPos + thumbPos));
         }
     }
 
