@@ -1943,6 +1943,10 @@ public class ComboBox extends ComboBase
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
+        // If the combo box is disabled, don't do anything
+        if(!enabled)
+            return;
+            
         // If a the editable field currently has focus, it is handling
         // all arrow keys. We shouldn't also scroll this selection.
         if (event.target == textInput)
