@@ -160,17 +160,19 @@ in accordance with the terms of the license agreement accompanying it.
             {
                 // Add a mouse down handler for the dropDown part. When 
                 // the user clicks in the drop down we want to end the editing 
-                // session.
-                if (comboBox.dropDown)
-                    comboBox.dropDown.addEventListener(MouseEvent.MOUSE_DOWN, dropDown_mouseClickHandler, false, 0, true);
+                // session. We listen to the dataGroup here instead of the dropDown
+                // part to avoid closing the editor when the dropDown's 
+                // scrollbar is clicked.
+                if (comboBox.dataGroup)
+                    comboBox.dataGroup.addEventListener(MouseEvent.MOUSE_DOWN, dataGroup_mouseClickHandler, false, 0, true);
             }
             
             /**
              *  @private
              */ 
-            private function dropDown_mouseClickHandler(event:MouseEvent):void
+            private function dataGroup_mouseClickHandler(event:MouseEvent):void
             {
-                // When the drop down list is clicked end the editting session
+                // When the drop down list is clicked, end the editting session
                 // to allow the edit to be completed with just one click.
                 // Use callLater to let the click and change handlers finish 
                 // before we close the editor.
