@@ -718,6 +718,9 @@ public class RichText extends TextBase implements IFontContextComponent
             lastGeneration = _textFlow ? _textFlow.generation : 0;
 		}
 		
+		_textFlow.addEventListener(DamageEvent.DAMAGE,
+								   textFlow_damageHandler);
+		
 		return _textFlow;
 	}
 	
