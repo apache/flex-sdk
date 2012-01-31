@@ -54,6 +54,13 @@ use namespace mx_internal;
 [IconFile("ControlBar.png")]
 
 /**
+ *  As of Flex 4, the ControlBar is no longer recommended. You can achieve the same 
+ *  effect by compositing groups and graphics tags in your Panel, or creating a
+ *  Panel subclass that has a control bar part.
+ */
+[Alternative(replacement="none", since="4.0")]
+
+/**
  *  The ControlBar container lets you place controls
  *  at the bottom of a Halo Panel or Halo TitleWindow container.
  *  The <code>&lt;mx:ControlBar&gt;</code> tag must be the last child tag
