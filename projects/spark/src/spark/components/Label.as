@@ -130,11 +130,9 @@ public class TextBox extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        var width:Number = !isNaN(explicitWidth) ? explicitWidth : Infinity;
-        var height:Number = !isNaN(explicitHeight) ? explicitHeight : Infinity;
-        compose(width, height);
+        compose(explicitWidth, explicitHeight);
 
-        var r:Rectangle = textBlockComposer.actualBounds;
+        var r:Rectangle = textBlockComposer.bounds;
         measuredWidth = Math.ceil(r.width);
         measuredHeight = Math.ceil(r.height);
     }
@@ -153,7 +151,20 @@ public class TextBox extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        compose(unscaledWidth, unscaledHeight);
+        var overset:Boolean = compose(unscaledWidth, unscaledHeight);
+
+        // Use scrollRect to clip overset lines.
+        // But don't set scrollRect to null if it is already null,
+        // because this causes Player 10.0 to allocate memory.
+        if (overset)
+        {
+            displayObject.scrollRect =
+                new Rectangle(0, 0, unscaledWidth, unscaledHeight);
+        }
+        else if (displayObject.scrollRect)
+        {
+            displayObject.scrollRect = null;
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -165,9 +176,11 @@ public class TextBox extends TextGraphicElement
     /**
      *  @private
      */
-    private function compose(width:Number = Infinity,
-                             height:Number = Infinity):void
+    private function compose(width:Number = NaN, height:Number = NaN):Boolean
     {
+        var container:DisplayObjectContainer = 
+            DisplayObjectContainer(displayObject);
+        
         var fontDescription:FontDescription = new FontDescription();
         fontDescription.cffHinting = getStyle("cffHinting");
         fontDescription.fontLookup = getStyle("fontLookup");
@@ -180,6 +193,7 @@ public class TextBox extends TextGraphicElement
         elementFormat.alignmentBaseline = getStyle("alignmentBaseline");
         elementFormat.alpha = getStyle("textAlpha");
         elementFormat.baselineShift = getStyle("baselineShift");
+        elementFormat.breakOpportunity = getStyle("breakOpportunity");
         elementFormat.color = getStyle("color");
         elementFormat.digitCase = getStyle("digitCase");
         elementFormat.digitWidth = getStyle("digitWidth");
@@ -193,15 +207,15 @@ public class TextBox extends TextGraphicElement
         setTracking(elementFormat);
         elementFormat.typographicCase = getStyle("typographicCase");
         
-        textBlockComposer.removeTextLines(
-            DisplayObjectContainer(displayObject));
+        textBlockComposer.removeTextLines(container);
         
-        var bounds:Rectangle = textBlockComposer.requestedBounds;
+        var bounds:Rectangle = textBlockComposer.bounds;
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = width;
         bounds.height = height;
 
+        textBlockComposer.lineBreak = getStyle("lineBreak");
         textBlockComposer.lineHeight = getStyle("lineHeight");
         textBlockComposer.paddingBottom = getStyle("paddingBottom");
         textBlockComposer.paddingLeft = getStyle("paddingLeft");
@@ -212,7 +226,9 @@ public class TextBox extends TextGraphicElement
 
         textBlockComposer.composeText(text, elementFormat);
                 
-        textBlockComposer.addTextLines(DisplayObjectContainer(displayObject));
+        textBlockComposer.addTextLines(container);
+
+        return textBlockComposer.isOverset;
     }
 
     /**
