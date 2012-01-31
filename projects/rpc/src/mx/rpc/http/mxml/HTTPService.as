@@ -177,10 +177,7 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     //--------------------------------------------------------------------------
 
     /**
-     * Cancels the HTTPService request with the specified ID, or if the ID is not
-     * specified, cancels the most recent HTTPService request. 
-     *
-     * @param id The messageID of the HTTPService request to cancel.
+     * @private
      */
     override public function cancel(id:String = null):AsyncToken
     {
@@ -192,8 +189,19 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
     }
 
     /**
+     * Called after the implementing object has been created and all
+     * component properties specified on the MXML tag have been
+     * initialized. 
+     *
      * If you create this class in ActionScript and want it to function with validation, you must
-     * call this method and pass in the MXML document and the HTTPService's <code>id</code>.
+     * call this method and pass in the MXML document and the
+     * HTTPService's <code>id</code>.
+     *
+     * @param document The MXML document that created this object.
+     *
+     * @param id The identifier used by <code>document</code> to refer
+     * to this object. If the object is a deep property on document,
+     * <code>id</code> is null. 
      */
     public function initialized(document:Object, id:String):void
     {
