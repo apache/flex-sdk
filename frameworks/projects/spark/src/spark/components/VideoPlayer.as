@@ -453,6 +453,11 @@ public class VideoPlayer extends SkinnableComponent
      */
     private static const PLAY_WHEN_HIDDEN_PROPERTY_FLAG:uint = 1 << 7;
     
+    /**
+     *  @private
+     */
+    private static const THUMBNAIL_SOURCE_PROPERTY_FLAG:uint = 1 << 8;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -1087,6 +1092,55 @@ public class VideoPlayer extends SkinnableComponent
     }
     
     //----------------------------------
+    //  thumbnailSource
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @private
+     *  @copy spark.primitives.VideoElement#thumbnailSource
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get thumbnailSource():Object
+    {
+        if (videoElement)
+        {
+            return videoElement.thumbnailSource;
+        }
+        else
+        {
+            var v:* = videoElementProperties.thumbnailSource;
+            return (v === undefined) ? null : v;
+        }
+    }
+    
+    /**
+     * @private
+     */
+    public function set thumbnailSource(value:Object):void
+    {
+        if (videoElement)
+        {
+            videoElement.thumbnailSource = value;
+            videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
+                THUMBNAIL_SOURCE_PROPERTY_FLAG, true);
+        }
+        else if (videoElementProperties)
+        {
+            videoElementProperties.thumbnailSource = value;
+        }
+        else
+        {
+            videoElementProperties = {thumbnailSource: value};
+        }
+    }
+    
+    //----------------------------------
     //  totalTime
     //----------------------------------
     
@@ -1325,6 +1379,13 @@ public class VideoPlayer extends SkinnableComponent
                         PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
                 }
                 
+                if (videoElementProperties.thumbnailSource !== undefined)
+                {
+                    videoElement.thumbnailSource = videoElementProperties.thumbnailSource;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                        THUMBNAIL_SOURCE_PROPERTY_FLAG, true);
+                }
+                
                 // these are state properties just carried over from an old video element
                 if (videoElementProperties.playheadTime !== undefined || 
                     videoElementProperties.playing !== undefined)
@@ -1525,6 +1586,12 @@ public class VideoPlayer extends SkinnableComponent
             if (BitFlagUtil.isSet(videoElementProperties as uint, PLAY_WHEN_HIDDEN_PROPERTY_FLAG))
             {
                 newVideoProperties.playWhenHidden = videoElement.playWhenHidden;
+                propertySet = true;
+            }
+            
+            if (BitFlagUtil.isSet(videoElementProperties as uint, THUMBNAIL_SOURCE_PROPERTY_FLAG))
+            {
+                newVideoProperties.thumbnailSource = videoElement.thumbnailSource;
                 propertySet = true;
             }
             
