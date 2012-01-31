@@ -1746,16 +1746,6 @@ public class RichEditableText extends UIComponent
             
             verticalScrollPositionChanged = false;            
         }
-
-        // Events (for example, change event) can be dispatched as a result 
-        // of calling updateDisplayList(). These may trigger calls
-        // back to our setters (for example, bindings).  All of this is done
-        // in the middle of the validate display list loop of the 
-        // LayoutManager. Even though we called invalidateDisplayList() in 
-        // the setter, in this case, the invalidateDisplayListFlag is 
-        // reset before we've updated the display with the new value(s).  
-        // We need to invalidate the display again here.
-        invalidateDisplayList();        
     }
 
     /**
