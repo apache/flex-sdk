@@ -316,7 +316,7 @@ public class RichText extends TextBase implements IFontContextComponent
 		 *  TLF itself has English-only messages,
 		 *  but higher layers like Flex can provide localized versions.
 		 */
-		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
 		
 		staticStringFactory = new StringTextLineFactory();
 		
