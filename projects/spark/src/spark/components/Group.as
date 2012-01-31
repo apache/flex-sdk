@@ -28,6 +28,7 @@ import mx.layout.LayoutElementFactory;
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
+import mx.core.IUITextField;
 import mx.graphics.Graphic;
 import mx.graphics.IGraphicElement;
 import mx.graphics.graphicsClasses.GraphicElement;
@@ -40,7 +41,9 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
+import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.styles.StyleProtoChain;
 
 use namespace mx_internal;
 
@@ -343,6 +346,70 @@ public class Group extends GroupBase implements IVisualElementContainer
             var element:GraphicElement = getElementAt(i) as GraphicElement;
             if (element)
                 element.validateDisplayList();
+        }
+    }
+
+    /**
+     *  @private
+     *  TODO: Most of this code is a duplicate of UIComponent::notifyStyleChangeInChildren,
+     *  refactor as appropriate to avoid code duplication once we have a common
+     *  child iterator between UIComponent and Group.
+     */ 
+    override public function notifyStyleChangeInChildren(
+                        styleProp:String, recursive:Boolean):void
+    {
+        var n:int = numElements;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:ISimpleStyleClient = getElementAt(i) as ISimpleStyleClient;
+            if (child)
+            {
+                child.styleChanged(styleProp);
+
+                // Always recursively call this function because of my
+                // descendants might have a styleName property that points
+                // to this object.  The recursive flag is respected in
+                // Container.notifyStyleChangeInChildren.
+                if (child is IStyleClient)
+                    IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  TODO: Most of this code is a duplicate of UIComponent::regenerateStyleCache,
+     *  refactor as appropriate to avoid code duplication once we have a common
+     *  child iterator between UIComponent and Group.
+     */ 
+    override public function regenerateStyleCache(recursive:Boolean):void
+    {
+        // Regenerate the proto chain for this object
+        initProtoChain();
+
+        // Recursively call this method on each child.
+        var n:int = numElements;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:Object = getItemAt(i);
+
+            if (child is IStyleClient)
+            {
+                // Does this object already have a proto chain?
+                // If not, there's no need to regenerate a new one.
+                if (IStyleClient(child).inheritingStyles !=
+                    StyleProtoChain.STYLE_UNINITIALIZED)
+                {
+                    IStyleClient(child).regenerateStyleCache(recursive);
+                }
+            }
+            else if (child is IUITextField)
+            {
+                // Does this object already have a proto chain?
+                // If not, there's no need to regenerate a new one.
+                if (IUITextField(child).inheritingStyles)
+                    StyleProtoChain.initTextField(IUITextField(child));
+            }
         }
     }
 
