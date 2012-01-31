@@ -1168,8 +1168,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        if (event.keyCode != Keyboard.SPACE)
+        if (event.keyCode != Keyboard.SPACE && 
+            !(getStyle("interactionMode") == InteractionMode.TOUCH && event.keyCode == Keyboard.ENTER))
             return;
+        
         keyboardPressed = true;
         event.updateAfterEvent();
     }
@@ -1179,7 +1181,8 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     override protected function keyUpHandler(event:KeyboardEvent):void
     {
-        if (event.keyCode != Keyboard.SPACE)
+        if (event.keyCode != Keyboard.SPACE && 
+            !(getStyle("interactionMode") == InteractionMode.TOUCH && event.keyCode == Keyboard.ENTER))
             return;
         
         if (enabled && keyboardPressed)
