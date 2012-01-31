@@ -1092,11 +1092,16 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @inheritDoc
-     *  
      *  <p>If the layout object has not been set yet, 
      *  createChildren() assigns this container a 
      *  default layout object, BasicLayout.</p>
+     *  
+     *  @copy mx.core.UIComponent:createChildren()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     override protected function createChildren():void
     {
