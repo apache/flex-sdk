@@ -11,13 +11,21 @@
 
 package flex.intf
 {
+import flash.events.IEventDispatcher;
 
-public interface IViewport
+public interface IViewport extends IEventDispatcher
 {
     function get width():Number;
     function get height():Number;
+    
     function get contentWidth():Number;
     function get contentHeight():Number;
+
+    function get verticalScrollPosition():Number;
+    function set verticalScrollPosition(value:Number):void;
+    
+    function get horizontalScrollPosition():Number;
+    function set horizontalScrollPosition(value:Number):void;
 }
 
 }
