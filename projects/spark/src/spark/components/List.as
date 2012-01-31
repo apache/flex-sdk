@@ -77,7 +77,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 /**
  *  The color of the border for this component.
  *
- *   @default 0#CCCCCC
+ *   @default #696969
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
