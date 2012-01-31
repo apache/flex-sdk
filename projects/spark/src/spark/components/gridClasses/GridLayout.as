@@ -1547,6 +1547,23 @@ public class GridLayout extends LayoutBase
     }
 
     /**
+     *  Returns the index of the column at the specified coordinates.
+     * 
+     *  @param x The pixel's x coordinate relative to the grid.
+     *  @param y The pixel's y coordinate relative to the grid.
+     *  @return the index of the column or -1 if the coordinates are out of bounds. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getColumnIndexAt(x:Number, y:Number):int
+    {
+        return gridDimensions.getColumnIndexAt(x, y); 
+    }
+        
+    /**
      *  Return the row and column indices of the cell that overlaps the pixel at the 
      *  specified grid coordinate as an Object with "rowIndex" and "columnIndex" properties.  
      *  If no such cell exists, null is returned.
