@@ -69,6 +69,15 @@ public class DataGroup extends GroupBase
     private var _itemRenderer:IFactory;
     
     private var itemRendererChanged:Boolean;
+    
+    /**
+     *  @private
+     *  flag to indicate whether a child in the item renderer has a non-zero layer, requiring child re-ordering.
+     */
+    private var _layeringFlags:uint = 0;
+    
+    private static const LAYERING_ENABLED:uint = 	0x1;
+    private static const LAYERING_DIRTY:uint = 		0x2;
 
     [Inspectable(category="Data")]
 
@@ -331,6 +340,11 @@ public class DataGroup extends GroupBase
         // GroupBase's commitProperties reattaches the mask
         super.commitProperties();
 
+        if(_layeringFlags & LAYERING_DIRTY)
+        {
+        	manageDisplayObjectLayers();
+        }
+
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
@@ -383,6 +397,80 @@ public class DataGroup extends GroupBase
         }
     }
     
+   private function manageDisplayObjectLayers():void
+    {
+        var topLayerItems:Vector.<IVisualElement>;
+        var bottomLayerItems:Vector.<IVisualElement>;        
+        var keepLayeringEnabled:Boolean = false;
+        
+        var insertIndex:uint = 0;
+
+		_layeringFlags &= ~LAYERING_DIRTY;
+		
+        // Iterate through all of the items
+        var len:int = itemRendererRegistry.length; 
+        var displayObject:DisplayObject;
+        
+        for (var i:int = 0; i < len; i++)
+        {  
+            var item:Object = itemRendererRegistry[i];
+            
+            var layer:Number = 0;
+            if (item is IVisualElement)
+                layer = (item as IVisualElement).layer;
+            if (layer != 0)
+            {               
+                if (layer > 0)
+                {
+                    if (topLayerItems == null) topLayerItems = new Vector.<IVisualElement>();
+                    topLayerItems.push(item);
+                    continue;                   
+                }
+                else
+                {
+                    if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualElement>();
+                    bottomLayerItems.push(item);
+                    continue;                   
+                }
+            }
+            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
+            super.setChildIndex(displayObject,insertIndex++);
+        }
+        if (topLayerItems != null)
+        {
+            keepLayeringEnabled = true;
+            GroupBase.mx_internal::sortOnLayer(topLayerItems);
+            len = topLayerItems.length;
+            for (i=0;i<len;i++)
+            {
+            	item = topLayerItems[i];
+	            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
+	            super.setChildIndex(displayObject,insertIndex++);
+            }
+        }
+        
+        if (bottomLayerItems != null)
+        {
+            keepLayeringEnabled = true;
+            insertIndex=0;
+
+            GroupBase.mx_internal::sortOnLayer(bottomLayerItems);
+            len = bottomLayerItems.length;
+
+            for (i=0;i<len;i++)
+            {
+            	item = bottomLayerItems[i];
+	            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
+	            super.setChildIndex(displayObject,insertIndex++);
+            }
+        }
+        
+        if (keepLayeringEnabled == false)
+        {
+            _layeringFlags &= ~LAYERING_ENABLED;
+        } 
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Layout item iteration
@@ -410,6 +498,15 @@ public class DataGroup extends GroupBase
         return LayoutElementFactory.getLayoutElementFor(myItemRenderer);
     }
     
+    /**
+     *  @private
+     */
+    override public function invalidateLayering():void
+    {
+    	_layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
+        invalidateProperties();
+    }
+
     /**
      *  Adds an item to this DataGroup.
      *  Flex calls this method automatically; you do not call it directly.
@@ -439,6 +536,7 @@ public class DataGroup extends GroupBase
             myItemRenderer = createRendererForItem(item, index);
         }
         
+
         registerRenderer(index, myItemRenderer);
         
         if (myItemRenderer is GraphicElement)
@@ -454,6 +552,7 @@ public class DataGroup extends GroupBase
         
         invalidateSize();
         invalidateDisplayList();
+
     }
     
     /**
@@ -525,7 +624,9 @@ public class DataGroup extends GroupBase
         
         // TODO (rfrishbe): need to check for DisplayObject?
         if (item is IVisualElement)
-            host = IVisualElement(item).parent; 
+        {
+            host = IVisualElement(item).parent;
+        } 
         else if (item is DisplayObject)
             host = DisplayObject(item).parent;
         
@@ -557,9 +658,12 @@ public class DataGroup extends GroupBase
                 return child;
             }
             else        
-                child.parent.removeChild(child);
-        
+                child.parent.removeChild(child);        
         }
+
+        if ((_layeringFlags & LAYERING_ENABLED) || 
+        	(item is IVisualElement && (item as IVisualElement).layer != 0))
+        	invalidateLayering();
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
