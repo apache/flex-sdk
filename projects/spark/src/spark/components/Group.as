@@ -43,6 +43,11 @@ use namespace mx_internal;
  *  <code>event.element</code> is the visual element that was added.
  *
  *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
 
@@ -51,6 +56,11 @@ use namespace mx_internal;
  *  <code>event.element</code> is the visual element that's being removed.
  *
  *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
 
@@ -75,11 +85,21 @@ use namespace mx_internal;
  *
  *  @includeExample examples/GroupExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Group extends GroupBase implements IVisualElementContainer, ISharedGraphicsDisplayObject
 {
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Group():void
     {
@@ -177,6 +197,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *
      *  @see flash.display.DisplayObject#blendMode
      *  @see flash.display.BlendMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get blendMode():String
     {
@@ -234,6 +259,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  directly. Use the methods defined on Group to do this.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get mxmlContent():Array
     {
@@ -264,6 +294,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     /**
      *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     private function setMxmlContent(value:Array):void
     {
@@ -560,6 +595,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
  
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
@@ -576,6 +616,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
@@ -615,6 +660,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
@@ -623,6 +673,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElementAt(index:int):IVisualElement
     {
@@ -657,6 +712,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
@@ -670,6 +730,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
@@ -678,6 +743,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
@@ -725,6 +795,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @param item The item that was added.
      *
      *  @param index The index where the item was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     mx_internal function elementAdded(element:IVisualElement, index:int):void
     {
@@ -770,6 +845,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  Flex calls this method automatically; you do not call it directly.
      *
      *  @param index The index of the item that is being removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     mx_internal function elementRemoved(element:IVisualElement, index:int):void
     {
@@ -846,6 +926,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *
      *  @param element The graphic element whose display object will be discarded.
      *  @see #graphicElementLayerChanged
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function discardDisplayObject(element:IGraphicElement):void
     {
@@ -1147,6 +1232,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @param index Index position where the display object is added.
      * 
      *  @return DisplayObject that was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function addItemToDisplayList(child:DisplayObject, element:IVisualElement, index:int = -1):DisplayObject
     {
@@ -1178,6 +1268,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  to give it a chance to redraw.
      *
      *  @param element The element that has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function graphicElementChanged(element:IGraphicElement):void
     {
@@ -1194,6 +1289,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  to give it a chnace to commit its properties.
      *
      *  @param element The element that has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function graphicElementPropertiesChanged(element:IGraphicElement):void
     {
@@ -1206,6 +1306,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  to give it a chance to validate its size.
      * 
      *  @param element The element that has changed size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function graphicElementSizeChanged(element:IGraphicElement):void
     {
@@ -1220,6 +1325,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  and may re-assign the DisplayObjects and redraw the sequences as a result. 
      * 
      *  @param element The element that has layers size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function graphicElementLayerChanged(element:IGraphicElement):void
     {
@@ -1246,6 +1356,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      * Specfies the bottom coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleGridBottom():Number
     {
@@ -1276,6 +1391,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      * Specfies the left coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleGridLeft():Number
     {
@@ -1307,6 +1427,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      * Specfies the right coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleGridRight():Number
     {
@@ -1338,6 +1463,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      * Specfies the top coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleGridTop():Number
     {
@@ -1369,6 +1499,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>addElement()</code>.
      * 
      *  @see mx.components.Group#addElement
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
@@ -1384,6 +1519,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>addElementAt()</code>.
      * 
      *  @see mx.components.Group#addElementAt
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
@@ -1399,6 +1539,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>removeElement()</code>.
      * 
      *  @see mx.components.Group#removeElement
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
@@ -1414,6 +1559,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>removeElementAt()</code>.
      * 
      *  @see mx.components.Group#removeElementAt
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function removeChildAt(index:int):DisplayObject
     {
@@ -1429,6 +1579,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>setElementIndex()</code>.
      * 
      *  @see mx.components.Group#setElementIndex
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
@@ -1444,6 +1599,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>swapElements()</code>.
      * 
      *  @see mx.components.Group#swapElements
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
@@ -1459,6 +1619,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <code>swapElementsAt()</code>.
      * 
      *  @see mx.components.Group#swapElementsAt
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
@@ -1480,6 +1645,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  True when any of the <code>IGraphicElement</code> objects, that share
      *  this <code>DisplayObject</code>, needs to redraw.  This is used internally
      *  by the <code>Group</code> class and developers don't typically use this. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get redrawRequested():Boolean
     {
