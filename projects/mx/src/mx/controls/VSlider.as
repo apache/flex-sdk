@@ -25,6 +25,11 @@ import mx.controls.sliderClasses.SliderDirection;
  *  <code>"top"</code>, and <code>"bottom"</code>.
  *  
  *  @default "left"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dataTipPlacement", type="String", enumeration="left, top, right, bottom", inherit="no")]
 
@@ -102,6 +107,11 @@ import mx.controls.sliderClasses.SliderDirection;
  *  @see mx.controls.sliderClasses.SliderThumb
  *  @see mx.controls.sliderClasses.SliderDataTip
  *  @see mx.controls.sliderClasses.SliderLabel
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class VSlider extends Slider
 {
@@ -115,6 +125,11 @@ public class VSlider extends Slider
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function VSlider()
 	{
