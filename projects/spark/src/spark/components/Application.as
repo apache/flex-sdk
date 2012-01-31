@@ -1336,10 +1336,8 @@ public class Application extends SkinnableContainer
         // for orientationChanging events dispatched by iOS AIR applications.
         // In the handler, the stage's width and height are swapped, and a validation
         // pass is forced to allow the application to resize and re-layout itself before the
-        // orientation change animation occurs.  These events are only dispatched on iOS
-        // devices.  These events are not wrapped by iOS version checks so that they still
-        // execute in ADL
-        if (sm && sm.stage && sm.isTopLevelRoot())
+        // orientation change animation occurs
+        if (isIOS && sm && sm.stage && sm.isTopLevelRoot())
         {
             sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
             sm.stage.addEventListener("orientationChange", stage_orientationChange);
@@ -1369,8 +1367,8 @@ public class Application extends SkinnableContainer
      *  This is the event handler for the stage's orientationChanging event.  It
      *  cancels the orientation animation and manually swaps the width and height
      *  of the application to allow the application to validate itself before
-     *  the orientation change occurs.  The orientaitonChanging event is only
-     *  dispatched on iOS devices.
+     *  the orientation change occurs.  The orientaitonChanging is only listened
+     *  for on iOS devices.
      */
     private function stage_orientationChangingHandler(event:Event):void
     {
@@ -1496,7 +1494,6 @@ public class Application extends SkinnableContainer
             };
         }
     }
-    
     
     
     /**
