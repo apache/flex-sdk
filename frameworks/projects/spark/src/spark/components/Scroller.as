@@ -2125,8 +2125,10 @@ public class Scroller extends SkinnableComponent
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.events.TimerEvent;
 import flash.events.TouchEvent;
 import flash.geom.Point;
+import flash.utils.Timer;
 
 import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
@@ -2171,6 +2173,12 @@ class TouchScrollHelper
      */
     private static const MAX_THROW_VELOCITY_IPS:Number = 10.0;
     
+    /**
+     *  @private
+     *  Maximum number of times per second we will change the scroll position 
+     *  and update the display while dragging.
+     */
+    private static const MAX_DRAG_RATE:Number = 30;
 
     /**
      *  @private
@@ -2257,6 +2265,26 @@ class TouchScrollHelper
     
     /**
      *  @private
+     *  The delta coordinates of the most recent mouse event during a drag gesture
+     */
+    private var mostRecentDragDeltaX:Number;
+    private var mostRecentDragDeltaY:Number;
+    
+    /**
+     *  @private
+     *  Timer used to do drag scrolling.
+     */
+    private var dragTimer:Timer = null;
+    
+    /**
+     *  @private
+     *  Indicates that the mouse coordinates have changed and the 
+     *  next dragTimer invokation needs to do a scroll.
+     */
+    private var dragScrollPending:Boolean = false;
+    
+    /**
+     *  @private
      *  The time the scroll started
      */
     private var startTime:Number;
@@ -2332,7 +2360,7 @@ class TouchScrollHelper
             // reset circular buffer index/length
             mouseEventLength = 0;
             
-            addMouseEventHistory(mouseEvent);
+            addMouseEventHistory(mouseEvent.stageX, mouseEvent.stageY);
         }
         else if (event is TouchEvent && event.type == TouchEvent.TOUCH_BEGIN)
         {
@@ -2359,11 +2387,11 @@ class TouchScrollHelper
      *  @return the delta moved between this mouse event and the start
      *          of the scroll gesture.
      */
-    private function addMouseEventHistory(event:MouseEvent):Point
+    private function addMouseEventHistory(stageX:Number, stageY:Number):Point
     {
         // calculate dx, dy
-        var dx:Number = event.stageX - mouseDownedPoint.x;
-        var dy:Number = event.stageY - mouseDownedPoint.y;
+        var dx:Number = stageX - mouseDownedPoint.x;
+        var dy:Number = stageY - mouseDownedPoint.y;
         
         // either use a Point object already created or use one already created
         // in mouseEventCoordinatesHistory
@@ -2435,7 +2463,8 @@ class TouchScrollHelper
      */
     private function sbRoot_mouseMoveHandler(event:MouseEvent):void
     {
-        var mouseDownedDifference:Point = addMouseEventHistory(event);
+        var mouseDownedDifference:Point = 
+            new Point(event.stageX - mouseDownedPoint.x, event.stageY - mouseDownedPoint.y);   
         
         if (!isScrolling)
         {
@@ -2545,13 +2574,69 @@ class TouchScrollHelper
             var dx:Number = event.stageX - scrollGestureAnchorPoint.x;
             var dy:Number = event.stageY - scrollGestureAnchorPoint.y;
             
-            scroller.performDrag(dx, dy);
+            if (!dragTimer)
+            {
+                dragTimer = new Timer(1000/MAX_DRAG_RATE, 0);
+                dragTimer.addEventListener(TimerEvent.TIMER, dragTimerHandler);
+            }
             
-            // Call updateAfterEvent() to make sure it looks smooth
-            event.updateAfterEvent();
+            if (!dragTimer.running)
+            {
+                // The drag timer is not running, so we record the event and scroll
+                // the content immediately.
+                addMouseEventHistory(event.stageX, event.stageY);
+                scroller.performDrag(dx, dy);
+                
+                // Call updateAfterEvent() to make sure it looks smooth
+                event.updateAfterEvent();
+                
+                // Start the periodic timer that will do subsequent drag 
+                // scrolling if necessary. 
+                dragTimer.start();
+                
+                // No additional mouse events received yet, so no scrolling pending.
+                dragScrollPending = false;
+            }
+            else
+            {
+                // The drag timer is running, so we just save the delta coordinates
+                // and indicate that a scroll is pending.
+                mostRecentDragDeltaX = dx;
+                mostRecentDragDeltaY = dy;
+                dragScrollPending = true;
+            }
         }
     }
     
+    /**
+     *  @private
+     *  Used to periodically scroll during a drag gesture
+     */
+    private function dragTimerHandler(event:TimerEvent):void
+    {
+        if (dragScrollPending)
+        {
+            // A scroll is pending, so record the mouse deltas and scroll the content. 
+            addMouseEventHistory(
+                mostRecentDragDeltaX + scrollGestureAnchorPoint.x,
+                mostRecentDragDeltaY + scrollGestureAnchorPoint.y);
+            scroller.performDrag(mostRecentDragDeltaX, mostRecentDragDeltaY);
+            
+            // Call updateAfterEvent() to make sure it looks smooth
+            event.updateAfterEvent();
+
+            // No scroll is pending now. 
+            dragScrollPending = false;
+        }
+        else
+        {
+            // The timer elapsed with no mouse events, so we'll
+            // just turn the timer off for now.  It will get turned
+            // back on if another mouse event comes in.
+            dragTimer.stop();
+        }
+    }
+
     /**
      *  @private
      *  Called when the user releases the mouse/touches up
@@ -2564,9 +2649,31 @@ class TouchScrollHelper
         if (!isScrolling)
             return;
         
+        if (dragTimer)
+        {
+            if (dragScrollPending)
+            {
+                // A scroll is pending, so record the mouse deltas and scroll
+                // the content.
+                addMouseEventHistory(
+                    mostRecentDragDeltaX + scrollGestureAnchorPoint.x,
+                    mostRecentDragDeltaY + scrollGestureAnchorPoint.y);
+                scroller.performDrag(mostRecentDragDeltaX, mostRecentDragDeltaY);
+
+                // Call updateAfterEvent() to make sure it looks smooth
+                if (event is MouseEvent)
+                    MouseEvent(event).updateAfterEvent();
+            }
+            
+            // The drag gesture is over, so we no longer need the timer.
+            dragTimer.stop();
+            dragTimer.removeEventListener(TimerEvent.TIMER, dragTimerHandler);
+            dragTimer = null;
+        }
+        
         // This could be a SanboxMouseEvent
         if (event is MouseEvent)
-            addMouseEventHistory(event as MouseEvent);
+            addMouseEventHistory(MouseEvent(event).stageX, MouseEvent(event).stageY);
         
         // decide about throw
         
