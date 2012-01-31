@@ -164,7 +164,9 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Script>
 
-    <!--- Background to cover the cell that the ComboBox control does not. 
+    <!--- @private
+    
+          Background to cover the cell that the ComboBox control does not. 
         
           @langversion 3.0
           @playerversion Flash 10
@@ -173,7 +175,8 @@ in accordance with the terms of the license agreement accompanying it.
     -->
     <s:Rect id="bgRect" top="1" left="1" bottom="1" right="1">
         <s:fill>
-            <!--- Defines the color of the background. 
+            <!--- @private
+                Defines the color of the background. 
                 @default 0xFFFFFF
         
                 @langversion 3.0
