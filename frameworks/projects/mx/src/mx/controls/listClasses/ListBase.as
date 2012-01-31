@@ -53,7 +53,6 @@ import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
-import mx.core.IRawChildrenContainer;
 import mx.core.IUIComponent;
 import mx.core.IUID;
 import mx.core.IUITextField;
