@@ -34,6 +34,7 @@ import flex.skin.HSliderThumbSkin; HSliderThumbSkin;
 import flex.skin.HSliderTrackSkin; HSliderTrackSkin;
 import flex.skin.ItemsComponentSkin; ItemsComponentSkin;
 import flex.skin.ListSkin; ListSkin;
+import flex.skin.NumericStepperSkin; NumericStepperSkin;
 import flex.skin.PanelSkin; PanelSkin;
 import flex.skin.RadioButtonSkin; RadioButtonSkin;
 import flex.skin.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
