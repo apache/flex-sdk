@@ -23,10 +23,10 @@
 
     <fx:Script>
     <![CDATA[
-         import mx.events.ItemClickEvent;
+         import mx.events.IndexChangedEvent;
 
-         private function changeSelection(event:ItemClickEvent): void {
-             selectionText.text = "Selected Item: " + event.label;
+         private function changeSelection(event:IndexChangedEvent): void {
+             selectionText.text = "Selected Item: " + ButtonBar(event.target).selectedItem;
          }
     ]]>
     </fx:Script>
@@ -36,7 +36,7 @@
             horizontalCenter="0" verticalCenter="0">
         <s:SimpleText text="Select an item below:" x="10" y="15" />
         <s:ButtonBar id="viewMenu" requiresSelection="true" x="10" y="40" width="320"
-                itemClick="changeSelection(event)">
+                selectionChanged="changeSelection(event)">
             <s:dataProvider>
                 <s:ArrayCollection source="['Home', 'Rooms', 'Dining']" />
             </s:dataProvider>
