@@ -22,6 +22,7 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flashx.textLayout.compose.ISWFContext;
+import flashx.textLayout.elements.GlobalSettings;
 import mx.automation.IAutomationObject;
 import mx.core.FTETextField;
 import mx.managers.ISystemManager;
@@ -37,6 +38,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
+import spark.utils.TextUtil;
 
 use namespace mx_internal;
 
@@ -265,6 +267,13 @@ public class UIFTETextField extends FTETextField
     {
         super();
 
+		/**
+		 *  Set the TLF hook used for localizing runtime error messages.
+		 *  TLF itself has English-only messages,
+		 *  but higher layers like Flex can provide localized versions.
+		 */
+		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		
         // Although a TextField's 'text' is initially "",
         // getLineMetrics() will return bad values until some text is set.
         super.text = "";
