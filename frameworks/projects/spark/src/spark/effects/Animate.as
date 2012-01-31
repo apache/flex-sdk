@@ -12,6 +12,7 @@ package flex.effects
 {
 
 import flex.effects.easing.IEaser;
+import flex.effects.easing.Sine;
 import flex.effects.effectClasses.AnimateInstance;
 import flex.events.AnimationEvent;
 
@@ -123,6 +124,11 @@ public class Animate extends Effect
     // specify a different set.
     private var affectedProperties:Array = null;
 
+    // Cached default easer. We only need one of these, so we cache this static
+    // object to be reused by any Animate instances that do not specify
+    // a custom easer.
+    private static var defaultEaser:IEaser = new Sine(.5); 
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -136,8 +142,27 @@ public class Animate extends Effect
      */
     public var propertyValuesList:Array;
     
-    public var easer:IEaser;
+    /**
+     * The easing behavior for this effect. This IEaser
+     * object will be used to convert the elapsed fraction of 
+     * the animation into an eased fraction, which will then be used to
+     * calculate the value at that eased elapsed fraction.
+     * 
+     * @default flex.effects.easing.Sine(.5)
+     * @see flex.effects.easing.Sine
+     */
+    public var easer:IEaser = defaultEaser;
     
+    /**
+     * The behavior of a repeating effect (an effect
+     * with <code>repeatCount</code> equal to either 0 or >1). This
+     * value should be either <code>Animation.LOOP</code>, where the animation
+     * will repeat in the same order each time, or <code>Animation.REVERSE</code>,
+     * where the animation will reverse direction each iteration.
+     * 
+     * @default Animation.LOOP
+     * @see flex.effects.Animation#repeatBehavior
+     */
     public var repeatBehavior:String = Animation.LOOP;
     
     //--------------------------------------------------------------------------
