@@ -19,6 +19,11 @@ import mx.messaging.config.LoaderConfig;
  *  full and relative URLs within Flex.
  *  
  *  @see mx.managers.BrowserManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class URLUtil
 {
@@ -46,6 +51,11 @@ public class URLUtil
      *  
      *  @param url The URL to analyze.
      *  @return The server name and port of the specified URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getServerNameWithPort(url:String):String
     {
@@ -60,6 +70,11 @@ public class URLUtil
      *  
      *  @param url The URL to analyze.
      *  @return The server name of the specified URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getServerName(url:String):String
     {
@@ -79,6 +94,11 @@ public class URLUtil
      *  
      *  @param url The URL to analyze.
      *  @return The port number of the specified URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getPort(url:String):uint
     {
@@ -108,6 +128,11 @@ public class URLUtil
      *  @param url URL to convert.
      *
      *  @return Fully-qualified URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getFullURL(rootURL:String, url:String):String
     {
@@ -159,6 +184,11 @@ public class URLUtil
      *  @param url The URL to analyze.
      * 
      *  @return <code>true</code> if the URL starts with "http://", "https://", or "rtmp://".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isHttpURL(url:String):Boolean
     {
@@ -173,6 +203,11 @@ public class URLUtil
      *  @param url The URL to analyze.
      * 
      *  @return <code>true</code> if the URL starts with "https://".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isHttpsURL(url:String):Boolean
     {
@@ -193,6 +228,11 @@ public class URLUtil
      *  @param url String containing the URL to parse.
      *
      *  @return The protocol or an empty String if no protocol is specified.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getProtocol(url:String):String
     {
@@ -223,6 +263,11 @@ public class URLUtil
      *
      *  @return The URI with the protocol replaced,
      *  or an empty String if the URI does not contain a protocol.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function replaceProtocol(uri:String,
                                            newProtocol:String):String
@@ -239,6 +284,11 @@ public class URLUtil
      *  @param newPort uint containing the new port to subsitute.
      *
      *  @return The URI with the new port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function replacePort(uri:String, newPort:uint):String
     {
@@ -303,6 +353,11 @@ public class URLUtil
      *  which should be replaced by the port and server from the application.
      *
      *  @return The URI with the port and server replaced.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function replaceTokens(url:String):String
     {             
@@ -356,6 +411,11 @@ public class URLUtil
      *  @param uri2 The second URI to compare.
      *  
      *  @return <code>true</code> if the URIs are equal. Otherwise, <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function urisEqual(uri1:String, uri2:String):Boolean
     {
@@ -379,6 +439,11 @@ public class URLUtil
      * replace the server name and port properties properly.
      * 
      * @return <code>true</code> if the <code>LoaderConfig.url</code> property is not available. Otherwise, <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static function hasUnresolvableTokens():Boolean
     {
@@ -388,12 +453,22 @@ public class URLUtil
     /**
      *  The pattern in the String that is passed to the <code>replaceTokens()</code> method that 
      *  is replaced by the application's server name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SERVER_NAME_TOKEN:String = "{server.name}";
 
     /**
      *  The pattern in the String that is passed to the <code>replaceTokens()</code> method that 
      *  is replaced by the application's port.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SERVER_PORT_TOKEN:String = "{server.port}";
 
@@ -416,6 +491,11 @@ public class URLUtil
      *  @param encodeURL Whether or not to URL-encode the String.
      *  
      *  @return The object that was passed to the method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function objectToString(object:Object, separator:String=';',
                                 encodeURL:Boolean = true):String
@@ -546,6 +626,11 @@ public class URLUtil
      *  @param decodeURL Whether or not to decode URL-encoded characters in the String.
      * 
      *  @return The object containing properties and values extracted from the String passed to this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function stringToObject(string:String, separator:String = ";",
                                 decodeURL:Boolean = true):Object
