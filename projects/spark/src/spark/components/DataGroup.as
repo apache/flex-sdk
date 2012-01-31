@@ -25,16 +25,15 @@ import flex.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
-import mx.collections.ListCollectionView;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.collections.ArrayCollection;
 import mx.styles.IStyleClient;
 
 /**
@@ -53,22 +52,111 @@ public class DataGroup extends GroupBase
     public function DataGroup()
     {
         super();
-        
-        // TODO (rfrishbe): work on initialization of dataProvider
-        _dataProvider = new ArrayCollection();
-        _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
     }
     
     private var skinRegistry:Dictionary;
     
-    // item renderer
-    public var itemRenderer:IFactory;   
-    public var itemRendererFunction:Function; // signature: itemRendererFunction(item:*):IFactory
+    //----------------------------------
+    //  itemRenderer
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the itemRenderer property.
+     */
+    private var _itemRenderer:IFactory;
     
-    // TODO (rfrishbe): be smarter about initialization
+    private var itemRendererChanged:Boolean;
+
+    [Inspectable(category="Data")]
+
+    /**
+     *  Renderer to use for data items. The class must
+     *  implement the IDataRenderer interface.
+     *  The itemRendererFunction property,
+     *  if defined, takes precedence over this property.
+     *
+     *  @default null
+     */
+    public function get itemRenderer():IFactory
+    {
+        return _itemRenderer;
+    }
+
+    /**
+     *  @private
+     */
+    public function set itemRenderer(value:IFactory):void
+    {
+        _itemRenderer = value;
+
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        itemRendererChanged = true;
+
+        dispatchEvent(new Event("itemRendererChanged"));
+    }
+    
+    //----------------------------------
+    //  itemRendererFunction
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the itemRendererFunction property.
+     */
+    private var _itemRendererFunction:Function;
+
+    [Inspectable(category="Data")]
+
+    /**
+     *  Function that returns an item renderer for a specific item.
+     *  The signature of the function is:
+     *  
+     *  function itemRendererFunction(item:Object):IFactory
+     *
+     *  @default null
+     */
+    public function get itemRendererFunction():Function
+    {
+        return _itemRendererFunction;
+    }
+
+    /**
+     *  @private
+     */
+    public function set itemRendererFunction(value:Function):void
+    {
+        _itemRendererFunction = value;
+
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        itemRendererChanged = true;
+
+        dispatchEvent(new Event("itemRendererChanged"));
+    }
+    
     private var _dataProvider:IList;
     private var dataProviderChanged:Boolean = false;
-    private var needsDisplayObjectAssignment:Boolean = false;
+    
+    [Bindable("dataProviderChanged")]
+    /**
+     *  DataProvider for this DataGroup.  It must be an IList.
+     *
+     *  @default undefined
+     *
+     *  @see #itemRenderer
+     *  @see #itemRendererFunction
+     */
+    public function get dataProvider():IList
+    {
+        return _dataProvider;
+    }
+    
     
     public function set dataProvider(value:IList):void
     {
@@ -92,34 +180,22 @@ public class DataGroup extends GroupBase
         invalidateProperties();
     }
     
-    public function get dataProvider():IList
-    {
-        return _dataProvider;
-    }
-    
-    protected function initializeChildrenArray():void
+    protected function initializeDataProvider():void
     {   
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGING));  
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_PROVIDER_CHANGING));  
           
         // Get rid of existing display object children.
         // !!!!! This should probably be done through change notification
-        // TODO!! This should be removing the last child b/c we want to 
-        // send an event for each content child. This logic will send
-        // remove event for the 0th content child x times. 
         for (var idx:int = numChildren; idx > 0; idx--)
-            //itemRemoved(0);
             super.removeChildAt(0);
         
-        if (_dataProvider !== null)
+        if (_dataProvider != null)
         {
             for (var i:int = 0; i < _dataProvider.length; i++)
             {
                 itemAdded(_dataProvider.getItemAt(i), i);
             }
         }
-        
-        assignDisplayObjects();
-        needsDisplayObjectAssignment = false;
         
         /* if (maskElements)
         {
@@ -146,55 +222,54 @@ public class DataGroup extends GroupBase
             }
         } */
         
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGED)); 
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_PROVIDER_CHANGED)); 
     }
     
-    protected function createVisualForItem(item:*):DisplayObject
+    protected function createVisualForItem(item:Object):DisplayObject
     {
-        var itemSkin:DisplayObject;
+        var itemSkin:Object;
+        var itemDisplayObject:DisplayObject;
         
-        if (item === undefined || item === null)
-            throw new Error("DataGroup content can not contain null or undefined items.");
-        
+        if (item === null)
+            throw new Error("DataGroup content can not contain null items.");
+            
         // Rules for skin lookup:
-        // 0. if the item is a deferred instance, instantiate it and fall through to the other item(s)
-        // 1. if the item is a display object, use it directly
-        // 2. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
-        // 3. if itemRenderer is defined, instantiate one
-        // 4. create a Label component and call toString() on the item
-            
-        // 0. if the item is a deferred instance, instantiate it and fall through to the other item(s)
-        if (item is IDeferredInstance)
-            item = IDeferredInstance(item).getInstance();
-        // TODO (rfrishbe): do deferred instantiation in DataGroup?
+        // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
+        // 2. if itemRenderer is defined, instantiate one
+        // 3. if item is a GraphicElement, create the display object for it
+        // 4. if item is a DisplayObject, use it directly
         
-        // 1. if the item is a display object, use it directly unless the alwaysUseItemRenderer
-        // flag is set.
-        if (item is DisplayObject && itemRendererFunction == null)
-            itemSkin = item;
-            
-        // 2. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
-        if (!itemSkin && itemRendererFunction != null)
+        // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it    
+        if (itemRendererFunction != null)
         {
             var rendererFactory:IFactory = itemRendererFunction(item);
             
             if (rendererFactory)
-                itemSkin = rendererFactory.newInstance();
-            else if (item is DisplayObject)
-                itemSkin = item;
+                itemSkin = itemDisplayObject = rendererFactory.newInstance();
         }
         
-        // 3. if itemRenderer is defined, instantiate one
-        if (!itemSkin && itemRenderer != null)
-            itemSkin = itemRenderer.newInstance();
-                    
-        // 4. create a Label component and call toString() on the item
-        if (!itemSkin)
+        // 2. if itemRenderer is defined, instantiate one
+        if (!itemSkin && itemRenderer)
         {
-            // No custom skin, use a Label
-            itemSkin = new Label();
-            Label(itemSkin).condenseWhite = true;
-            Label(itemSkin).htmlText = item.toString();
+            itemSkin = itemDisplayObject = itemRenderer.newInstance();
+        }
+        
+        // 3. if item is a GraphicElement, create the display object for it
+        if (!itemSkin && item is GraphicElement)
+        {
+            var graphicItem:GraphicElement = GraphicElement(item);
+                            
+            if (!graphicItem.displayObject)
+                graphicItem.displayObject = graphicItem.createDisplayObject();
+                
+            itemDisplayObject = graphicItem.displayObject;
+            itemSkin = graphicItem;
+        }
+        
+        // 4. if item is a DisplayObject, use it directly
+        if (!itemSkin && item is DisplayObject)
+        {
+            itemSkin = itemDisplayObject = DisplayObject(item);
         }
         
         // Set the skin data to the item, but only if the item and skin are different
@@ -203,10 +278,10 @@ public class DataGroup extends GroupBase
     
         registerSkin(item, itemSkin);
 
-        return itemSkin;
+        return itemDisplayObject;
     }
     
-    protected function registerSkin(item:*, itemSkin:DisplayObject):void
+    protected function registerSkin(item:*, itemSkin:Object):void
     {
         if (!skinRegistry)
             skinRegistry = new Dictionary(true);
@@ -229,26 +304,26 @@ public class DataGroup extends GroupBase
         if (dataProviderChanged)
         {
             dataProviderChanged = false;
-            initializeChildrenArray();
+            initializeDataProvider();
             
             // maskChanged = true; TODO (rfrishbe): need this maskChanged?
+        }
+        
+        if (itemRendererChanged)
+        {
+            itemRendererChanged = false;
+            initializeDataProvider();
         }
 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
-        var length:int = dataProvider.length;
+        var length:int = dataProvider ? dataProvider.length : 0;
         for (var i:int = 0; i < length; i++)
         {
             var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
             if (element)
                 element.validateProperties();
-        }
-        
-        if (needsDisplayObjectAssignment)
-        {
-            needsDisplayObjectAssignment = false;
-            assignDisplayObjects();
         }
     }
     
@@ -260,7 +335,7 @@ public class DataGroup extends GroupBase
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element size
-        var length:int = dataProvider.length;
+        var length:int = dataProvider ? dataProvider.length : 0;
         for (var i:int = 0; i < length; i++)
         {
             var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
@@ -277,7 +352,7 @@ public class DataGroup extends GroupBase
 
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Iterate through the graphic elements, clear their graphics and draw them
-        var length:int = dataProvider.length;
+        var length:int = dataProvider ? dataProvider.length : 0;
         for (var i:int = 0; i < length; i++)
         {
             var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
@@ -300,7 +375,7 @@ public class DataGroup extends GroupBase
      */
     override public function get numLayoutItems():int
     {
-        return dataProvider.length;
+        return dataProvider ? dataProvider.length : 0;
     }
     
     /**
@@ -316,31 +391,35 @@ public class DataGroup extends GroupBase
     {
         var item:* = dataProvider.getItemAt(index);
 
-        if (!(item is IGraphicElement))
-            item = getItemSkin(item);
+        var itemSkin:Object = getItemSkin(item);
 
-        return LayoutItemFactory.getLayoutItemFor(item);
+        return LayoutItemFactory.getLayoutItemFor(itemSkin);
     }
     
-    protected function itemAdded(item:*, index:int):void
+    protected function itemAdded(item:Object, index:int):void
     {
-        var child:DisplayObject;
+        var childDO:DisplayObject;
                 
         if (item is GraphicElement) 
         {
-            item.elementHost = this;
+            var graphicItem:GraphicElement = GraphicElement(item);
+            graphicItem.elementHost = this;
         
             // If a styleable GraphicElement is being added,
             // build its protochain for use by getStyle().
             if (item is IStyleClient)
                 IStyleClient(item).regenerateStyleCache(true);
+                
+            childDO = createVisualForItem(graphicItem);
         }   
         else
         {     
             // This always adds the child to the end of the display list. Any 
             // ordering discrepancies will be fixed up in assignDisplayObjects().
-            child = addItemToDisplayList(createVisualForItem(item), item);
+            childDO = createVisualForItem(item);
         }
+        
+        addItemToDisplayList(childDO, item);
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
@@ -379,82 +458,6 @@ public class DataGroup extends GroupBase
         invalidateSize();
         invalidateDisplayList();
     }
-    
-    // Returns true if the Group's display object can be shared with graphic elements
-    // inside the group
-    private function get canShareDisplayObject():Boolean
-    {
-    	return blendMode == "normal";
-    }
-    
-    // This function assumes that the only displayObjects are either items in the content array
-    // or created directly for an item in the content array. 
-    private function assignDisplayObjects(startIndex:int = 0):void
-    {
-        var currentAssignableDO:DisplayObject = canShareDisplayObject ? this : null;
-        var lastDisplayObject:DisplayObject = this;
-        
-        // Iterate through all of the items
-        var len:int = _dataProvider.length; 
-        for (var i:int = startIndex; i < len; i++)
-        {  
-            var item:* = _dataProvider.getItemAt(i);
-            var insertIndex:int;
-            
-            if (!(item is GraphicElement)) 
-                item = getItemSkin(item);
-            
-        	if (lastDisplayObject == this)
-        		insertIndex = 0;
-        	else
-        		insertIndex = super.getChildIndex(lastDisplayObject) + 1;
-        		
-            if (item is DisplayObject)
-            {
-            	super.setChildIndex(item as DisplayObject, insertIndex);
-            	
-                lastDisplayObject = item as DisplayObject;
-                // Null this out so that we are forced to create one for the next item
-                currentAssignableDO = null; 
-            }           
-            else if (item is GraphicElement)
-            {
-                var element:GraphicElement = item as GraphicElement;
-                
-                if (currentAssignableDO == null || element.needsDisplayObject)
-                {
-                    var newChild:DisplayObject = element.displayObject;
-                    
-                    if (newChild == null)
-                    {
-                        newChild = element.createDisplayObject();
-                        element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?                 
-                    }
-                    
-                    addItemToDisplayList(newChild, item, insertIndex); 
-                    // If the element is transformed, the next item needs its own DO        
-                    currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
-                    lastDisplayObject = newChild;
-                }
-                else
-                {
-                    // Item should be assigned the currentAssignableDO
-                    // If it already has a DO, we need to remove it
-                    if (element.displayObject)
-                    {
-                        if (element.displayObject.parent == this)
-                            super.removeChild(element.displayObject);
-                        element.destroyDisplayObject();
-                    }
-                    
-                    element.sharedDisplayObject = currentAssignableDO;
-                    if (element.nextSiblingNeedsDisplayObject)
-                        currentAssignableDO = null;
-                }
-            }
-        }
-    } 
-    
     
     // Helper function to remove child from other Group or display list before 
     // adding to the display list. 
@@ -502,22 +505,13 @@ public class DataGroup extends GroupBase
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
     
-    override public function elementLayerChanged(e:IGraphicElement):void
-    {
-        super.elementLayerChanged(e);
-        
-        // One of our children have told us they might need a displayObject     
-        assignDisplayObjects();
-    }
-    
-    
     protected function collectionChangeHandler(event:Event):void
     {
         if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
 
-            /* if (ce.kind == CollectionEventKind.ADD)
+            if (ce.kind == CollectionEventKind.ADD)
             {
                 
             }
@@ -542,8 +536,8 @@ public class DataGroup extends GroupBase
             }
             else if (ce.kind == CollectionEventKind.UPDATE)
             {
-                
-            } */
+                return;
+            }
             
             // TODO!! Fow now, always reapply the content. This needs to
             // be optimized in the future            
@@ -559,9 +553,9 @@ public class DataGroup extends GroupBase
     //
     //--------------------------------------------------------------------------
     
-    public function getItemSkin(item:*):DisplayObject
+    public function getItemSkin(item:*):Object
     {
-        var result:DisplayObject = null;
+        var result:Object = null;
                     
         if (skinRegistry)
             result = skinRegistry[item];
@@ -572,7 +566,7 @@ public class DataGroup extends GroupBase
         return result;
     }
     
-    public function getSkinItem(skin:DisplayObject):*
+    public function getSkinItem(skin:Object):*
     {
         // !! This implementation is really slow... 
         var item:*;
@@ -616,37 +610,44 @@ public class DataGroup extends GroupBase
 	
 	override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("addChild is not available in Group. Use addItem instead."));
+        throw(new Error("addChild is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("addChildAt is not available in Group. Use addItemAt instead."));
+        throw(new Error("addChildAt is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("removeChild is not available in Group. Use removeItem instead."));
+        throw(new Error("removeChild is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("removeChildAt is not available in Group. Use removeItemAt instead."));
+        throw(new Error("removeChildAt is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("setChildIndex is not available in Group. Use setItemIndex instead."));
+        throw(new Error("setChildIndex is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("swapChildren is not available in Group. Use swapItems instead."));
+        throw(new Error("swapChildren is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
     
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
+        throw(new Error("swapChildrenAt is not available in DataGroup. " + 
+                "Use methods defined on the dataProvider instead"));
     }
 }
 }
