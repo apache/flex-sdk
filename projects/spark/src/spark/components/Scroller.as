@@ -28,6 +28,8 @@ import mx.managers.IFocusManagerComponent;
     
 [DefaultProperty("viewport")]
 
+[IconFile("FxScroller.png")]
+
 /**
  *  The FxScroller component displays a single scrollable component, 
  *  called a viewport, and a horizontal and vertical scrollbars. 
