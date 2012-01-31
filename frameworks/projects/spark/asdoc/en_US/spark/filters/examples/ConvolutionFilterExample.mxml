@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!-- filters/examples/ConvolutionGlowFilterExample .mxml -->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="createFilters()">
+    
+  <fx:Script><![CDATA[ 
+     import spark.filters.*;
+     import flash.filters.BitmapFilterQuality;
+     import flash.filters.BitmapFilterType;
+  
+     private var myOutlineConvolutionFilter:ConvolutionFilter;  
+     private var mySharpnessConvolutionFilter:ConvolutionFilter;  
+     private var myBrightnessConvolutionFilter:ConvolutionFilter;  
+
+     private var outlineMatrix:Array = [    -30, 30, 0,
+                                                          -30, 30, 0,
+                                                          -30, 30, 0 ];
+
+     private var sharpnessMatrix:Array = [0, -1, 0,
+                                                          -1, 20, -1,
+                                                          0, -1, 0];
+
+     private var brightnessMatrix:Array = [2, 2, 2,
+                                                          2, 0, 2, 
+                                                          2, 2, 2];
+             
+     public function createFilters():void {        
+        myOutlineConvolutionFilter = new ConvolutionFilter(3, 3, outlineMatrix, 9, 0, true, true, 0x00CC99, 0);
+        mySharpnessConvolutionFilter = new ConvolutionFilter(3, 3, sharpnessMatrix, 9, 0, true, true, 0x00CC99, 0);
+        myBrightnessConvolutionFilter = new ConvolutionFilter(3, 3, brightnessMatrix, 3, 0, true, true, 0x00CC99, 0);
+
+        outlineImage.filters = [myOutlineConvolutionFilter];
+        sharpnessImage.filters = [mySharpnessConvolutionFilter];
+        brightnessImage.filters = [myBrightnessConvolutionFilter];
+     }
+  
+  ]]></fx:Script>
+
+    <s:VGroup>
+        <s:VGroup>
+            <s:Label text="Original Image"/>
+            <mx:Image id="originalImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Outline Matrix Image"/>
+            <mx:Image id="outlineImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Sharpness Matrix Image"/>
+            <mx:Image id="sharpnessImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+
+        <s:VGroup>
+            <s:Label text="Brightness Matrix Image"/>
+            <mx:Image id="brightnessImage" source="@Embed(source='assets/Nokia_6630.png')"/>
+        </s:VGroup>        
+    </s:VGroup>        
+</s:Application>
