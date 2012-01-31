@@ -127,7 +127,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  @private
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
      */
 
     //--------------------------------------------------------------------------
@@ -136,9 +136,9 @@ public class HTTPRequestMessage extends AbstractMessage
     // 
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  method
-	//----------------------------------
+    //----------------------------------
+    //  method
+    //----------------------------------
 
     /**
      *  @private
@@ -182,20 +182,14 @@ public class HTTPRequestMessage extends AbstractMessage
      */
     public function set method(value:String):void
     {
-		/*
+        /*
         if (VALID_METHODS.indexOf(value) == -1)
-		{
-			var message:String = resourceManager.getString(
-				"messaging", "invalidRequestMethod");
+        {
+            var message:String = resourceManager.getString(
+                "messaging", "invalidRequestMethod");
             throw new ArgumentError(message);
-		}
-		*  
-		*  @langversion 3.0
-		*  @playerversion Flash 9
-		*  @playerversion AIR 1.1
-		*  @productversion BlazeDS 4
-		*  @productversion LCDS 3 
-		*/
+        }
+        */
 
         _method = value;
     }
