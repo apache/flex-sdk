@@ -977,7 +977,7 @@ public class Container extends UIComponent
      *  of the border, expressed in pixels.
      *
      *  <p>Unlike <code>viewMetrics</code>, this property is not
-     *  overriden by subclasses of Container.</p>
+     *  overridden by subclasses of Container.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
