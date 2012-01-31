@@ -78,7 +78,18 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-// TODO (jszeto) set to mobile theme only
+/**
+ *  Class or instance to use as the default icon.
+ *
+ *  @default null 
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="icon", type="Object", inherit="no")]
+
 /**
  *  Orientation of the icon in relation to the label.
  *  Valid MXML values are <code>right</code>, <code>left</code>,
@@ -611,41 +622,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     }
 
     //----------------------------------
-    //  icon
-    //----------------------------------
-
-    private var _icon:Class;
-    
-    /**
-     *  The class to use for the button's icon. The iconPlacement style
-     *  controls the position of the label relative to the icon.
-     *
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function set icon(value:Class):void
-    {
-        if (value == _icon)
-            return;
-        
-        _icon = value;
-        if (iconDisplay)
-            iconDisplay.source = _icon;
-        
-        // TODO (jszeto) Should we dispatch an contentChange event instead?
-        dispatchEvent(new Event("iconChange"));
-    }
-    
-    public function get icon():Class
-    {
-        return _icon;
-    }
-    
-    //----------------------------------
     //  keepDown
     //----------------------------------
     
@@ -901,7 +877,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         }
         else if (instance == iconDisplay)
         {
-            iconDisplay.source = icon;
+            iconDisplay.source = getStyle("icon");
         }
     }
     
@@ -939,6 +915,28 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             return "over";
         
         return "up";
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    override public function styleChanged(styleProp:String):void 
+    {    
+        if (!styleProp ||
+            styleProp == "styleName" ||
+            styleProp == "icon")
+        {
+            if (iconDisplay)
+                iconDisplay.source = getStyle("icon");
+        }
+
+        super.styleChanged(styleProp);
     }
     
     //--------------------------------------------------------------------------
