@@ -70,7 +70,6 @@ use namespace mx_internal;
 //--------------------------------------
 
 [Exclude(name="errorColor", kind="style")]
-[Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="themeColor", kind="style")]
 [Exclude(name="addChild", kind="method")]
 [Exclude(name="addChildAt", kind="method")]
