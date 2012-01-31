@@ -20,6 +20,8 @@ import mx.effects.effectClasses.SetPropertyActionInstance;
 
 [Exclude(name="duration", kind="property")]
 
+[Alternative(replacement="spark.effects.SetAction", since="4.0")]
+
 /**
  *  The SetPropertyAction class defines an action effect that corresponds
  *  to the <code>SetProperty property</code> of a view state definition.
