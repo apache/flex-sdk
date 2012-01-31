@@ -911,6 +911,8 @@ public class ScrollBarBase extends TrackBase
      *  The delay before repetition begins and the delay between repeated events
      *  are determined by the <code>repeatDelay</code> and 
      *  <code>repeatInterval</code> styles of the underlying Button objects.
+     *
+     *  @param event The event object.
      * 
      *  @see spark.components.Button
      *
@@ -968,6 +970,8 @@ public class ScrollBarBase extends TrackBase
      *  Handles releasing the increment or decrement button of the scrollbar. 
      *  This ends the stepping operation started by the original buttonDown
      *  event on the button.
+     *
+     *  @param event The event object.
      *
      *  @see spark.components.Button
      *
