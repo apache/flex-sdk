@@ -1751,7 +1751,7 @@ public class Scroller extends SkinnableComponent
             var horizontalMP:SimpleMotionPath = 
                     createThrowMotionPath("horizontalScrollPosition",velocityX,hsp,0,maxWidth,throwEffectTime);
             if (horizontalMP)
-            {
+            { 
                 throwEffectMotionPaths.push(horizontalMP);
                 horizontalTime = horizontalMP.keyframes[horizontalMP.keyframes.length-1].time;
                 throwFinalHSP = Number(horizontalMP.keyframes[horizontalMP.keyframes.length-1].value); 
@@ -2263,13 +2263,40 @@ public class Scroller extends SkinnableComponent
         switch(event.type)
         {
             case MouseEvent.MOUSE_DOWN:
-                if (!captureNextMouseDown)
-                    return;
+                // If we get a mouse down when the throw animation is within a few
+                // pixels of its final destination, we'll go ahead and stop the 
+                // touch interaction and allow the event propogation to continue
+                // so other handlers can see it.  Otherwise, we'll capture the 
+                // down event and start watching for the next scroll.
                 
-                stopThrowEffectOnMouseDown();
+                // 5 pixels at 252dpi worked fairly well for this heuristic.
+                const THRESHOLD_INCHES:Number = 0.01984; // 5/252 
+                var captureThreshold:Number = Math.round(THRESHOLD_INCHES * flash.system.Capabilities.screenDPI);
                 
-                touchScrollHelper.startScrollWatch(event);
-                event.stopImmediatePropagation();
+                // Need to convert the pixel delta to the local coordinate system in 
+                // order to compare it to a scroll position delta. 
+                captureThreshold = globalToLocal(
+                    new Point(captureThreshold,0)).subtract(globalToLocal(ZERO_POINT)).x;
+
+                if (captureNextMouseDown &&  
+                    (Math.abs(viewport.verticalScrollPosition - throwFinalVSP) > captureThreshold || 
+                     Math.abs(viewport.horizontalScrollPosition - throwFinalHSP) > captureThreshold))
+                {
+                    // Capture the down event.
+                    stopThrowEffectOnMouseDown();
+                    touchScrollHelper.startScrollWatch(event);
+                    event.stopImmediatePropagation();
+                }
+                else
+                {
+                    // Stop the current throw and allow the down event
+                    // to propogate normally.
+                    if (throwEffect && throwEffect.isPlaying)
+                    {
+                        throwEffect.stop();
+                        snapContentScrollPosition();
+                    }
+                }
                 break;
             case MouseEvent.CLICK:
                 if (!captureNextClick)
@@ -3429,4 +3456,4 @@ class PartialExponentialCurve extends EaseInOutBase
     private var _ymult:Number;
     private var _exponent:Number;
 }
-
+    
