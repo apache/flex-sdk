@@ -626,6 +626,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         var endVal:* = propertyChanges.end[constraintName];
         if (startVal !== undefined && endVal !== undefined &&
             startVal !== null && endVal !== null &&
+            !isNaN(startVal) && !isNaN(endVal) &&
             startVal != endVal)
         {
             motionPaths.push(new SimpleMotionPath(constraintName, startVal, endVal));
