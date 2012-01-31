@@ -29,13 +29,13 @@ use namespace mx_internal;
 
 /**
  *  ButtonBaseAccImpl is the accessibility implementation class
- *  for spark.components.ButtonBase.
+ *  for spark.components.supportClasses.ButtonBase.
  *
  *  <p>Although ToggleButton, CheckBox, and RadioButton have their own
  *  accessibility implementation subclasses,
  *  Button simply uses the one for ButtonBase.
  *  Therefore, the rest of this description refers to
- *  the commonly-used Button class rather than the ButtonBase base class.</p>
+ *  the commonly-used Button component rather than the ButtonBase base class.</p>
  *
  *  <p>When a Spark Button is created,
  *  its <code>accessibilityImplementation</code> property
