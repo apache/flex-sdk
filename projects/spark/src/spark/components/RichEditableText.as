@@ -156,6 +156,37 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
+/**
+ *  The alpha level of the color defined by
+ *  the <code>backgroundColor</code> style.
+ *  Valid values range from 0.0 to 1.0.
+ * 
+ *  @default 1.0
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo")]
+
+/**
+ *  The color of the background of the entire
+ *  bounding rectangle of this component.
+ *  If this style is <code>undefined</code>,
+ *  no background is drawn.
+ *  Otherwise, this RGB color is drawn with an alpha level
+ *  determined by the <code>backgroundAlpha</code> style.
+ * 
+ *  @default undefined
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
@@ -271,16 +302,6 @@ public class RichEditableText extends UIComponent
      */
     mx_internal static var debug:Boolean = false;
     
-    /**
-     *  @private
-     *  Used for debugging.
-     *  Set this to an RGB uint to draw an opaque background
-     *  so that you can see the bounds of the component.
-     *  If it is null, the background is black pixels at 0 alpha,
-     *  to be transparent but catch mouse events.
-     */
-    mx_internal static var backgroundColor:Object = null; // 0xDDDDDD;
-
     //--------------------------------------------------------------------------
     //
     //  Class properties
