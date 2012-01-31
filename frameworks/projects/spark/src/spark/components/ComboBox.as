@@ -155,7 +155,8 @@ B-Feature
  *        </tr>
  *        <tr>
  *           <td>Default skin class</td>
- *           <td>spark.skins.spark.ComboBoxSkin</td>
+ *           <td>spark.skins.spark.ComboBoxSkin
+                <p>spark.skins.spark.ComboBoxTextInputSkin</p></td>
  *        </tr>
  *     </table>
  *
@@ -180,6 +181,7 @@ B-Feature
  *  </pre>
  *
  *  @see spark.skins.spark.ComboBoxSkin
+ *  @see spark.skins.spark.ComboBoxTextInputSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
