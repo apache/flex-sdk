@@ -11,6 +11,8 @@
 
 package mx.containers
 {
+import mx.core.mx_internal;
+use namespace mx_internal;
 
 //--------------------------------------
 //  Excluded APIs
@@ -103,7 +105,7 @@ public class VBox extends Box
     {
         super();
         
-        mx_internal::layoutObject.direction = BoxDirection.VERTICAL;
+        layoutObject.direction = BoxDirection.VERTICAL;
     }
     
     //--------------------------------------------------------------------------
