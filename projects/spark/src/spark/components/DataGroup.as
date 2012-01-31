@@ -1386,22 +1386,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 virtualRendererIndices.push(index);
             
             var createdIR:Boolean = false;
-            var recycledIR:Boolean = false;
+            const item:Object = dataProvider.getItemAt(index);
             
-            // If the IR for index already exists, it may not be associated with the 
-            // right item if the dataProvider has changed
-            if (elt)
-                setUpItemRenderer(elt, index, dataProvider.getItemAt(index));
-            else
+            if (!elt)
             {
-                const item:Object = dataProvider.getItemAt(index);
-                
                 if (isRecyclingOK() && (freeRenderers.length > 0))
                 {
                     elt = freeRenderers.pop();
                     elt.visible = true;
                     elt.includeInLayout = true;
-                    recycledIR = true;
                 }
                 else 
                 {
@@ -1412,23 +1405,22 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 indexToRenderer[index] = elt;
             }
             
-            addItemRendererToDisplayList(DisplayObject(elt));            
+            addItemRendererToDisplayList(DisplayObject(elt));           
+            setUpItemRenderer(elt, index, item);
             
-            if (createdIR || recycledIR) 
+            if (!isNaN(eltWidth) || !isNaN(eltHeight))
             {
-                setUpItemRenderer(elt, index, item);
-                if (!isNaN(eltWidth) || !isNaN(eltHeight))
-                {
-                    // If we're going to set the width or height of this
-                    // layout element, first force it to initialize its
-                    // measuredWidth,Height.    
-                    if (elt is IInvalidating) 
-                        IInvalidating(elt).validateNow();
-                    elt.setLayoutBoundsSize(eltWidth, eltHeight);
-                }
-                if (elt is IInvalidating)
+                // If we're going to set the width or height of this
+                // layout element, first force it to initialize its
+                // measuredWidth,Height.    
+                if (elt is IInvalidating) 
                     IInvalidating(elt).validateNow();
+                elt.setLayoutBoundsSize(eltWidth, eltHeight);
             }
+            
+            if (elt is IInvalidating)
+                IInvalidating(elt).validateNow();
+            
             if (createdIR)
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
         }
