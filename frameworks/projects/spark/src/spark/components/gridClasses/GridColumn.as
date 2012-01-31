@@ -40,7 +40,6 @@ public class GridColumn extends EventDispatcher
      */
     public static const ERROR_TEXT:String = new String(" ");
     
-    
     public function GridColumn()
     {
         super();
@@ -51,21 +50,6 @@ public class GridColumn extends EventDispatcher
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    private function dispatchChangeEvent(type:String):void
-    {
-        if (hasEventListener(type))
-            dispatchEvent(new Event(type));
-    }
-    
-    private function maybeInvalidateGrid():void
-    {
-        if (grid)
-        {
-            grid.invalidateSize();
-            grid.invalidateDisplayList();
-        }
-    }
     
     //----------------------------------
     //  grid
@@ -173,9 +157,10 @@ public class GridColumn extends EventDispatcher
         else
             dataFieldPath = [value];
         
-        dispatchChangeEvent("dataFieldChanged");
+        invalidateGrid();
+        clearGridLayoutCache();
         
-        maybeInvalidateGrid();
+        dispatchChangeEvent("dataFieldChanged");
     }
     
     //----------------------------------
@@ -349,13 +334,9 @@ public class GridColumn extends EventDispatcher
             return;
         
         _itemRenderer = value;
-        
-        if (grid)
-        {
-            if (grid.layout)
-                grid.layout.typicalLayoutElement = null;
-            grid.invalidateDisplayList();
-        }
+
+        invalidateGrid();
+        clearGridLayoutCache();
         
         dispatchChangeEvent("itemRendererChanged");
     }
@@ -399,6 +380,10 @@ public class GridColumn extends EventDispatcher
             return;
 
         _itemRendererFunction = value;
+        
+        invalidateGrid();
+        clearGridLayoutCache();
+        
         dispatchChangeEvent("itemRendererFunctionChanged");
     }
     
@@ -449,9 +434,11 @@ public class GridColumn extends EventDispatcher
             return;
 
         _labelFunction = value;
-        dispatchChangeEvent("labelFunctionChanged");
         
-        maybeInvalidateGrid();
+        invalidateGrid();
+        clearGridLayoutCache();
+        
+        dispatchChangeEvent("labelFunctionChanged");
     }
     
     //----------------------------------
@@ -483,7 +470,7 @@ public class GridColumn extends EventDispatcher
         
         _width = value;
         
-        maybeInvalidateGrid();
+        invalidateGrid();
 
         dispatchChangeEvent("widthChanged");
     }
@@ -519,7 +506,7 @@ public class GridColumn extends EventDispatcher
         
         _minWidth = value;
         
-        maybeInvalidateGrid();
+        invalidateGrid();
         
         dispatchChangeEvent("minWidthChanged");
     }    
@@ -555,7 +542,7 @@ public class GridColumn extends EventDispatcher
         
         _maxWidth = value;
         
-        maybeInvalidateGrid();
+        invalidateGrid();
         
         dispatchChangeEvent("maxWidthChanged");
     }
@@ -774,7 +761,41 @@ public class GridColumn extends EventDispatcher
         const itemRendererFunction:Function = itemRendererFunction;
         return (itemRendererFunction != null) ? itemRendererFunction(item) : itemRenderer;
     }
-        
     
+    /**
+     *  @private
+     *  Clears the layout's cache and the typical item's measurements.
+     */
+    private function clearGridLayoutCache():void
+    {
+        if (grid && grid.layout)
+        {
+            var gridLayout:GridLayout = grid.layout as GridLayout;
+            if (gridLayout)
+                gridLayout.gridDimensions.clearTypicalCellWidthsAndHeights();
+            grid.layout.clearVirtualLayoutCache();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function dispatchChangeEvent(type:String):void
+    {
+        if (hasEventListener(type))
+            dispatchEvent(new Event(type));
+    }
+    
+    /**
+     *  @private
+     */
+    private function invalidateGrid():void
+    {
+        if (grid)
+        {
+            grid.invalidateSize();
+            grid.invalidateDisplayList();
+        }
+    }
 }
 }
