@@ -619,10 +619,18 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  /&gt;
  *  </pre>
  *
- *  @see Grid
+ *  @see spark.components.Grid
  *  @see spark.components.gridClasses.GridColumn
  *  @see spark.skins.spark.DataGridSkin
  *  
+ *  @includeExample examples/DataGridSimpleExample.mxml
+ *  @includeExample examples/DataGridExample.mxml
+ *  @includeExample examples/DataGridTypicalItemExample.mxml
+ *  @includeExample examples/DataGridRowHeightExample.mxml
+ *  @includeExample examples/DataGridSelectionExample.mxml
+ *  @includeExample examples/DataGridInvalidateCellExample.mxml
+ *  @includeExample examples/DataGridRollOverExample.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -654,9 +662,6 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  Constructor. 
      *  
-     *
-     *  @includeExample examples/DataGridExample.mxml
-     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -1561,6 +1566,7 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @default DefaultGridItemRenderer
      *
+     *  @see spark.components.gridClasses.GridItemRenderer
      *  @see spark.skins.spark.DefaultGridItemRenderer
      *
      *  @langversion 3.0
