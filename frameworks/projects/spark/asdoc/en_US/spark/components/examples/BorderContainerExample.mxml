@@ -40,7 +40,7 @@
 				<!-- Define content -->
 				<s:Label text="Spark BorderContainer Component"/>
 				<s:NumericStepper/>
-				<s:Button label="Spark Button" baseColor="yellow"/>
+				<s:Button label="Spark Button" chromeColor="yellow"/>
 				<s:TextArea height="250" width="250" text="Large Spark TextArea"/>
 			</s:Group>
 			
