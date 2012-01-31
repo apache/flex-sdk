@@ -102,6 +102,11 @@ package mx.containers
  *  @see mx.containers.GridRow
  *
  *  @includeExample examples/GridLayoutExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GridItem extends HBox
 {
@@ -115,6 +120,11 @@ public class GridItem extends HBox
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function GridItem()
     {
@@ -154,6 +164,11 @@ public class GridItem extends HBox
      *  Number of columns of the Grid container spanned by the cell.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get colSpan():int
     {
@@ -187,6 +202,11 @@ public class GridItem extends HBox
      *  You cannot extend a cell past the number of rows in the Grid.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rowSpan():int
     {
