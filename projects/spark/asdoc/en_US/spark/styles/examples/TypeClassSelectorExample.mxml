@@ -4,12 +4,13 @@
     xmlns:mx="library://ns.adobe.com/flex/halo" >
 
      <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
 
-        List.greenTheme {
+        s|List.greenTheme {
             selectionColor: #99FF99;
         }
 
-        Panel.greenTheme {
+        s|Panel.greenTheme {
             contentBackgroundColor: #FFFFFF;
         }
 
@@ -20,15 +21,15 @@
         }
     </fx:Style>
 
-    <s:Panel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
-    	styleName="greenTheme">
-        <mx:Text width="300" text="This Spark Panel has a styleName, but, the Spark List and Spark Panel have some different styles defined in a Type+Class selector."
+    <s:Panel title="Advanced CSS: Type Selector Example" height="75%" width="75%"
+    	styleName="greenTheme" horizontalCenter="0" verticalCenter="0">
+        <s:SimpleText width="300" text="This Spark Panel has a styleName, but, the Spark List and Spark Panel have some different styles defined in a Type+Class selector."
         	x="10" y="10" />
-        <s:TextInput text="value" x="65" y="75" styleName="greenTheme"/>
+        <s:TextInput text="value" x="70" y="75" styleName="greenTheme"/>
         <s:NumericStepper x="10" y="75" styleName="greenTheme"/>
-        <s:List id="carList" x="10" y="110" selectedIndex="2" styleName="greenTheme">
+        <s:List id="carList" x="10" y="110" height="110" selectedIndex="2" styleName="greenTheme">
         	<s:dataProvider>
-        		  <mx:ArrayCollection source="[Fit, Mini, M3, Prius, Blazer, Flex]" />
+        		  <mx:ArrayCollection source="[Fit, Mini, M3, Prius, Flex]" />
         	</s:dataProvider>
         </s:List>
     </s:Panel>
