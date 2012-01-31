@@ -1479,7 +1479,7 @@ package spark.components
          *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
          *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the 
          *  item in the <code>dataProvider</code> that is currently selected or
-         *  <code>undefined</code> if not rows are selected.  
+         *  <code>undefined</code> if no rows are selected.  
          * 
          *  <p>When the user changes the selection by interacting with the 
          *  control, the control dispatches the <code>selectionChange</code> 
@@ -1515,7 +1515,7 @@ package spark.components
         /**
          *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
          *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns a Vector of 
-         *  the dataProvider items that are currently selected
+         *  the dataProvider items that are currently selected.
          * 
          *  <p>When the user changes the selection by interacting with the 
          *  control, the control dispatches the <code>selectionChange</code> 
@@ -2819,6 +2819,7 @@ package spark.components
                 case CollectionEventKind.ADD:
                     if (oldCaretRowIndex >= location)
                         caretRowIndex += event.items.length;
+                    // TBD: call ensureIndexIsVisible
                     break;
                
                 case CollectionEventKind.REMOVE:
@@ -2829,6 +2830,7 @@ package spark.components
                             caretRowIndex = -1;
                         else
                             caretRowIndex -= itemsLength;    
+                        // TBD: call ensureIndexIsVisible
                     }
                     
                     break;
@@ -2839,6 +2841,7 @@ package spark.components
                         itemsLength = event.items.length;
                         if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
                             caretRowIndex += location - oldLocation;
+                        // TBD: call ensureIndexIsVisible
                     }
                     break;                        
                     
@@ -2850,9 +2853,11 @@ package spark.components
                 case CollectionEventKind.RESET:
                     caretRowIndex = -1;
                     caretColumnIndex = -1;
+                    horizontalScrollPosition = 0;
+                    verticalScrollPosition = 0;
                     break;
             }
-                        
+             
         }
         
         /**
@@ -2898,7 +2903,7 @@ package spark.components
             
             if (gridSelection)
                 gridSelection.dataProviderCollectionChanged(event);
-            
+                
             if (caretRowIndex != -1)
                 updateCaretForDataProviderChange(event);
             
