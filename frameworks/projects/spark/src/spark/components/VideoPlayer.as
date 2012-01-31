@@ -50,7 +50,7 @@ import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
 import spark.primitives.VideoElement;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -497,7 +497,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playheadTimeDisplay:TextGraphicElement;
+    public var playheadTimeDisplay:TextBase;
     
     [SkinPart(required="false")]
     
@@ -613,7 +613,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var totalTimeDisplay:TextGraphicElement;
+    public var totalTimeDisplay:TextBase;
     
     [SkinPart(required="false")]
     
