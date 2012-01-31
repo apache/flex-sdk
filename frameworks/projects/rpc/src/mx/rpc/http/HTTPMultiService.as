@@ -60,7 +60,7 @@ use namespace mx_internal;
  *  specified URL, and an HTTP response is returned. You can pass
  *  parameters to the specified URL which are used to put data into the HTTP request. 
  *  The contentType property specifies a mime-type which is used to determine the over-the-wire
- *  data format (i.e. HTTP forms, XML).  You can also use a serialization filter to
+ *  data format (i.e. HTTP form encoding, XML).  You can also use a serialization filter to
  *  implement a custom resultFormat such as JSON.   
  *  When you do not go through the server-based
  *  proxy service, you can use only HTTP GET or POST methods. However, when you set
@@ -148,6 +148,13 @@ public dynamic class HTTPMultiService extends AbstractService
      *  requests as XML.
      */
     public var contentType:String = AbstractOperation.CONTENT_TYPE_FORM;
+
+    [Inspectable(defaultValue="false", category="General")]
+    /**
+    * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
+    * value is <code>false</code>.
+    */
+    public var showBusyCursor:Boolean = false;
 
     //----------------------------------
     //  headers
