@@ -54,8 +54,6 @@ public class Form extends SkinnableContainer
         // the error skin or error tip, but that its children do. 
         setStyle("showErrorSkin", false);
         setStyle("showErrorTip", false);
-        
-        showInAutomationHierarchy = false;
     }
     
     private var errorStateChanged:Boolean = false;
