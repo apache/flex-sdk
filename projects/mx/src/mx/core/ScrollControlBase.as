@@ -1113,6 +1113,23 @@ public class ScrollControlBase extends UIComponent
         
         return verticalScrollBar;
     }
+
+    /**
+     *  Determines if there is enough space in this component to display 
+     *  a given scrollbar.
+     *
+     *  @param bar The scrollbar
+     *
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     *
+     *  @return Returns true if there is enough space for a scrollbar.
+     */
     
     protected function roomForScrollBar(bar:ScrollBar, 
     		unscaledWidth:Number, unscaledHeight:Number):Boolean
