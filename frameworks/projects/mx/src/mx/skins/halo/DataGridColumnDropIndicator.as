@@ -18,6 +18,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for the column drop indicator in a DataGrid.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridColumnDropIndicator extends ProgrammaticSkin
 {
@@ -31,6 +36,11 @@ public class DataGridColumnDropIndicator extends ProgrammaticSkin
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DataGridColumnDropIndicator()
 	{
