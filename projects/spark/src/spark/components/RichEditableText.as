@@ -65,6 +65,8 @@ import mx.utils.TextUtil;
  *  Dispached after the <code>selectionAnchorPosition</code> and/or
  *  <code>selectionActivePosition</code> properties have changed.
  *  due to a user interaction.
+ *
+ *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
  */
 [Event(name="selectionChange", type="mx.events.FlexEvent")]
 
@@ -72,16 +74,22 @@ import mx.utils.TextUtil;
  *  Dispatched before a user editing operation occurs.
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
+ *
+ *  @eventType mx.events.FlexEvent.CHANGING
  */
 [Event(name="changing", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
+ *
+ *  @eventType mx.events.FlexEvent.CHANGE
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched when the user pressed the Enter key.
+ *
+ *  @eventType mx.events.FlexEvent.ENTER
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -982,11 +990,11 @@ public class TextView extends UIComponent implements IViewport
     {
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when markup is imported.
-		staticCharacterFormat.whiteSpaceCollapse =
+        staticCharacterFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-		staticConfiguration.textFlowInitialCharacterFormat =
+        staticConfiguration.textFlowInitialCharacterFormat =
             staticCharacterFormat;
-		staticImportExportConfiguration.textFlowConfiguration =
+        staticImportExportConfiguration.textFlowConfiguration =
             staticConfiguration; 
 
         if (markup is String)
@@ -1038,7 +1046,7 @@ public class TextView extends UIComponent implements IViewport
             {
                 textFlow = createTextFlowFromChildren([ _content ]);
             }
-	        else if (_content is String || _content is XML)
+            else if (_content is String || _content is XML)
             {
                 textFlow = createTextFlowFromMarkup(_content);
             }
