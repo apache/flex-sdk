@@ -730,8 +730,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */ 
     override protected function commitProperties():void
     {
-        super.commitProperties();
-        
         if (blendModeChanged)
         {
             blendModeChanged = false;
@@ -807,6 +805,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 }
             }
         }
+        
+        super.commitProperties();
         
         if (needsDisplayObjectAssignment)
         {
