@@ -631,13 +631,11 @@
             textArea.getTextField().defaultTextFormat = tf;
             if (textChanged)
             {
-                if (_text !== null)
                     textArea.text = _text;
                 textChanged = false;
             }
             else
             {
-                if (_htmlText !== null)
                     textArea.htmlText = _htmlText;
                 htmlTextChanged = false;
             }
