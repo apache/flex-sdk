@@ -21,6 +21,7 @@ import spark.components.Group;
 import spark.components.IGridItemEditor;
 import spark.components.IGridItemRenderer;
 import mx.validators.IValidatorListener;
+import mx.core.IIMESupport;
 
 use namespace mx_internal;
     
@@ -46,7 +47,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
     {
     }
     
-   //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
@@ -134,6 +135,73 @@ public class GridItemEditor extends Group implements IGridItemEditor
     public function get dataGrid():DataGrid
     {
         return DataGrid(owner);
+    }
+    
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+    
+    /**
+     *  @inheritdoc
+     */
+    public function get enableIME():Boolean
+    {
+        return true;
+    }
+    
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  Specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     * <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @see flash.system.IMEConversionMode
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+        
+        // set the ime mode in child controls
+        var n:int = numElements;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:IIMESupport = getElementAt(i) as IIMESupport;
+            if (child)
+            {
+                child.imeMode = value;
+            }
+        }
+        
     }
     
     //----------------------------------
@@ -278,10 +346,13 @@ public class GridItemEditor extends Group implements IGridItemEditor
             if (!(newData is int))
                 newData = Number(newData);
         }
-        
-        data[property] = newData;
-        dataGrid.dataProvider.itemUpdated(data, property, data[property], newData);
-        dataGrid.validateNow();
+     
+        if (property && data[property] != newData)
+        {
+            data[property] = newData;
+            dataGrid.dataProvider.itemUpdated(data, property, data[property], newData);
+            dataGrid.validateNow();
+        }
 
         return true;
     }
