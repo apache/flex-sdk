@@ -21,16 +21,18 @@ import mx.components.FxButton;
 import mx.core.IViewport;
 
 /**
- *  A ScrollBar control is used to help position
+ *  The FxScrollBar class helps to position
  *  the portion of data that is displayed when there is too much data
- *  to fit in a display area.
+ *  to fit in a display area. 
+ *  The FxScrollBar class displays a pair of scrollbars and a viewport. 
+ *  A viewport is a UIComponent that implements IViewport, such as Group.
  *  
- *  <p>This control extends the Range class and
+ *  <p>This control extends the FxTrackBase class and
  *  is the base class for the FxHScrollBar and FxVScrollBar
  *  controls.</p> 
  * 
- *  <p>A ScrollBar consists of a track, a variable-size scroll thumb, and 
- *  two optional arrow buttons. The ScrollBar control uses four parameters 
+ *  <p>A scroll bar consists of a track, a variable-size scroll thumb, and 
+ *  two optional arrow buttons. The FxScrollBar class uses four parameters 
  *  to calculate its display state:</p>
  *
  *  <ul>
@@ -44,6 +46,8 @@ import mx.core.IViewport;
  *    range, where the range is the set of values between
  *    the minimum range value and the maximum range value.</li>
  *  </ul>
+ *
+ *  @see mx.core.IViewport
  */
 public class FxScrollBar extends FxTrackBase
 {
@@ -83,18 +87,19 @@ public class FxScrollBar extends FxTrackBase
     [SkinPart(required="false")]
     
     /**
-     *  <code>decrementButton</code> is an optional SkinPart that defines a button 
-     *  that, when pressed, will step the scrollbar "up", which is equivalent 
-     *  to a decreasing step in the <code>value</code> property.
+     *  An optional skin part that defines a button 
+     *  that, when pressed, steps the scrollbar up. 
+     *  This is equivalent to a decreasing step to the <code>value</code> property.
      */
     public var decrementButton:FxButton;
     
     [SkinPart(required="false")]
     
     /**
-     *  <code>incrementButton</code> is an optional SkinPart that defines a button 
-     *  that, when pressed, will step the scrollbar "down", which is equivalent
-     *  to a increasing step in the <code>value</code> property.
+     *  An optional skin part that defines a button 
+     *  that, when pressed, steps the scrollbar down.
+     *  This is equivalent
+     *  to an increasing step to the <code>value</code> property.
      */
     public var incrementButton:FxButton;
     
@@ -125,7 +130,10 @@ public class FxScrollBar extends FxTrackBase
     //
     //--------------------------------------------------------------------------
     
-    override public function set valueInterval(value:Number):void
+    /**
+     *  @inheritDoc
+     */
+     override public function set valueInterval(value:Number):void
     {
         super.valueInterval = value;
         
@@ -148,8 +156,8 @@ public class FxScrollBar extends FxTrackBase
     private var pageSizeChanged:Boolean = false;
 
     /**
-     *  Amount of change in <code>value</code> when
-     *  the range is paged. Affects the thumb size.
+     *  The change in the value of the <code>value</code> property 
+     *  when you call the <code>page()</code> method.
      *
      *  @default 20
      */
@@ -158,6 +166,9 @@ public class FxScrollBar extends FxTrackBase
         return _pageSize;
     }
 
+    /**
+     *  @private
+     */
     public function set pageSize(value:Number):void
     {
         if (value == _pageSize)
@@ -176,11 +187,22 @@ public class FxScrollBar extends FxTrackBase
 
     private var _viewport:IViewport;
     
+    /**
+     *  The ViewPort object associated with the scroll bars.
+     *  A viewport is a UIComponent that implements the IViewport interface, 
+     *  such as the Group component.
+     *
+     *  @see mx.components.Group
+     *
+     */
     public function get viewport():IViewport
     {
         return _viewport;
     }
     
+    /**
+     *  @private
+     */
     public function set viewport(value:IViewport):void
     {
         _viewport = value;
@@ -263,7 +285,7 @@ public class FxScrollBar extends FxTrackBase
     }
 
     /**
-     *  Make the skins reflect the enabled state of the ScrollBar.
+     *  @inheritDoc
      */
     override protected function enableSkinParts(value:Boolean):void
     {
@@ -276,10 +298,16 @@ public class FxScrollBar extends FxTrackBase
     }
 
     /**
-     *  Pages the <code>value</code> up or down.
+     *  Adds or subtracts <code>pageSize</code> from <code>value</code>.
+     *  For an add, the new <code>value</code> is the closets multiple of <code>pageSize</code> 
+     *  that is larger than the current <code>value</code>.
+     *  For an subtraction, the new <code>value</code> 
+     *  is the closets multiple of <code>pageSize</code> that is 
+     *  smaller than the current value. 
+     *  The minimum value of <code>value</code> is <code>pageSize</code>. 
      *
-     *  @param increase Whether the paging action increases or
-     *  decreases <code>value</code>.
+     *  @param increase Whether the paging action adds (<code>true</code>)or
+     *  decreases (<code>false</code>) <code>value</code>. 
      */
     public function page(increase:Boolean = true):void
     {
@@ -290,8 +318,8 @@ public class FxScrollBar extends FxTrackBase
     }
 
     /**
-     *  This utility method calculates an appropriate size for
-     *  the thumb, given the current range, pageSize, and
+     *  Calculate the size for
+     *  the thumb from the current range, pageSize, and
      *  trackSize settings.
      */
     override protected function calculateThumbSize():Number
@@ -316,6 +344,7 @@ public class FxScrollBar extends FxTrackBase
     //---------------------------------
      
     /**
+     *  @private
      *  Handle a click on the up button of the scroll bar. This
      *  should up one step.
      */
@@ -333,6 +362,7 @@ public class FxScrollBar extends FxTrackBase
     }
     
     /**
+     *  @private
      *  Handle a click on the down button of the scroll bar. This
      *  should down one step.
      */
@@ -354,6 +384,7 @@ public class FxScrollBar extends FxTrackBase
     //---------------------------------
     
     /**
+     *  @private
      *  Handle mouse-down events for the scroll track. In our handler,
      *  we figure out where the event occurred on the track and begin
      *  paging the scroll position toward that location. We start a 
@@ -469,6 +500,7 @@ public class FxScrollBar extends FxTrackBase
     }
 
     /**
+     *  @private
      *  Handle mouse-move events for track scrolling anywhere on the stage
      */
     private function stage_track_mouseMoveHandler(event:MouseEvent):void
