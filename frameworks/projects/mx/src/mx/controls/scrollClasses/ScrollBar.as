@@ -25,10 +25,10 @@ import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleProxy;
 
@@ -1357,13 +1357,13 @@ public class ScrollBar extends UIComponent
 
         trackScrolling = true;
         
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+        systemManager.getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+        systemManager.getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
-			MarshalMouseEvent.MOUSE_UP, scrollTrack_mouseLeaveHandler);
+        systemManager.getSandboxRoot().addEventListener(
+			SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
         
         var pt:Point = new Point(event.localX, event.localY);
         pt = event.target.localToGlobal(pt);
@@ -1423,13 +1423,13 @@ public class ScrollBar extends UIComponent
     {
         trackScrolling = false;
 
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+        systemManager.getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+        systemManager.getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
-			MarshalMouseEvent.MOUSE_UP, scrollTrack_mouseLeaveHandler);
+        systemManager.getSandboxRoot().removeEventListener(
+			SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, scrollTrack_mouseLeaveHandler);
 
         if (trackScrollTimer)
             trackScrollTimer.reset();
