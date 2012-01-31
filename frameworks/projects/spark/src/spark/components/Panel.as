@@ -13,6 +13,8 @@ package spark.components
 {
 
 import flash.display.Graphics;
+import flash.utils.getQualifiedClassName;
+
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
@@ -481,8 +483,12 @@ public class Panel extends SkinnableContainer
      */
     override protected function initializeAccessibility():void
     {
-        if (Panel.createAccessibilityImplementation != null)
-            Panel.createAccessibilityImplementation(this);
+		// Do nothing... don't even call super.
+		// The PanelAccImpl needs to be attached not to the Panel
+		// but to the Panel's titleDisplay, which is a skin part
+		// which may not exist initially and which may come and go.
+		// So we have to create and attach the PanelAccImpl
+		// in partAdded() instead.
     }
 
     /**
@@ -490,7 +496,8 @@ public class Panel extends SkinnableContainer
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // fixme (gosmith): this is not working to extend the height of the the titleDisplay
+        // TODO (gosmith): this is not working
+		// to extend the height of the the titleDisplay
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         if (titleDisplay)
         {
@@ -498,7 +505,7 @@ public class Panel extends SkinnableContainer
             g.clear();
             // Also draw an invisible unfilled rect whose height
             // is the height of the entire Panel, not just the headerHeight.
-            // This is for accessibility; the titlebar of the Panel
+            // This is for accessibility; the titleDisplay of the Panel
             // has an AccessibilityImplementation (see PanelAccImpl)
             // which makes it act like a grouping (ROLE_SYSTEM_GROUPING)
             // for the controls inside the panel.
@@ -527,6 +534,19 @@ public class Panel extends SkinnableContainer
         if (instance == titleDisplay)
         {
             titleDisplay.text = title;
+			
+			// Since the PanelAccImpl must be attached to the Panel's titleDisplay
+			// instead of to the Panel itself, we delay doing this until we are
+			// sure there is a titleDisplay, and we do it again if it gets
+			// re-added.
+			// But if the TitleWindow subclass has already attached its acc impl,
+			// leave that one.
+			if (getQualifiedClassName(titleDisplay.accessibilityImplementation) !=
+				"spark.accessibility::TitleWindowAccImpl")
+			{
+				if (Panel.createAccessibilityImplementation != null)
+					Panel.createAccessibilityImplementation(this);
+			}
         }
         else if (instance == controlBarGroup)
         {
@@ -570,7 +590,14 @@ public class Panel extends SkinnableContainer
     {
         super.partRemoved(partName, instance);
 
-        if (instance == controlBarGroup)
+		if (instance == titleDisplay)
+		{
+			// Since the PanelAccImpl must be attached to the Panel's titleDisplay
+			// instead of to the Panel itself, we remove it from the titleDisplay
+			// when the titleDisplay is removed from the Panel.
+			titleDisplay.accessibilityImplementation = null;
+		}
+		else if (instance == controlBarGroup)
         {
             // copy proxied values from contentGroup (if explicitely set) to contentGroupProperties
             
