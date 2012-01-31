@@ -2910,9 +2910,9 @@ public class Tree extends List implements IIMESupport
         if (itemEditorInstance)
             return;
             
-        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event);
                         
         // Keyboard handling is consistent with Windows Explorer.
         var item:Object = selectedItem;
