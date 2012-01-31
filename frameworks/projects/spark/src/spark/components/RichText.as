@@ -64,10 +64,18 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *  defined by parent elements, and clipped to any clipping content defined on its parent elements. TextGraphic content is only filled, 
  *  not stroked.</p>
  *  
+ *  <p>TextGraphic does not support drawing a background or border; it only renders text and inline graphics. If you want a simpler text class, 
+ *  use the TextBox class. If you want a text control with more capabilities, use the TextView class.</p>
+ *  
  *  <p>The TextGraphic element automatically clips the text rendering to the bounds of the text box.</p>
  *  
  *  <p>If you do not specify the value of the <code>width</code> or <code>height</code> properties, or if the specified value
  *  of these properties is 0, the width and height are calculated based on the text content.</p>
+ *  
+ *  @see mx.components.TextView
+ *  @see mx.graphics.TextBox
+ *  
+ *  @includeExample examples/TextGraphicExample.mxml
  */
 public class TextGraphic extends TextGraphicElement
 {
