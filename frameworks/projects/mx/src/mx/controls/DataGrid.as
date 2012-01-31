@@ -4321,8 +4321,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
             addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
         systemManager.getSandboxRoot().
             addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler, false, 0, true);
-        // we disappear if stage is resized
-        systemManager.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
+        // we disappear if stage or our grid is resized
+        systemManager.addEventListener(Event.RESIZE, editorAncestorResizeHandler);
+        addEventListener(Event.RESIZE, editorAncestorResizeHandler);
 
 	// Dispatch our item editor created event
         var event:DataGridEvent =
@@ -4423,7 +4424,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
             systemManager.getSandboxRoot().
                 removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler);
-            systemManager.removeEventListener(Event.RESIZE, editorStageResizeHandler, true);
+            systemManager.removeEventListener(Event.RESIZE, editorAncestorResizeHandler);
+            removeEventListener(Event.RESIZE, editorAncestorResizeHandler);
 
             var event:DataGridEvent =
                 new DataGridEvent(DataGridEvent.ITEM_FOCUS_OUT);
@@ -5102,11 +5104,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  @private
      */
-    private function editorStageResizeHandler(event:Event):void
+    private function editorAncestorResizeHandler(event:Event):void
     {
-        if (event.target is DisplayObjectContainer &&
-            DisplayObjectContainer(event.target).contains(this))
-            endEdit(DataGridEventReason.OTHER);
+        endEdit(DataGridEventReason.OTHER);
     }
 
     /**
