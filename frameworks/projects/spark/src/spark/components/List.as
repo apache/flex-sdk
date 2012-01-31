@@ -829,11 +829,6 @@ public class List extends ListBase implements IFocusManagerComponent
      *  such as <code>dragEnter</code> and <code>dragOver</code>, 
      *  and call the DragEvent's <code>preventDefault()</code> method 
      *  to customize the way the list class accepts dropped data.</p>
-     *
-     *  <p>When you set <code>dropEnabled</code> to <code>true</code>, 
-     *  Flex automatically calls the <code>showDropFeedback()</code> 
-     *  and <code>hideDropFeedback()</code> methods to display the drop
-     *  indicator.</p>
      * 
      *  <p>Drag and drop is not supported on mobile devices where 
      *  <code>interactionMode</code> is set to <code>touch</code>.</p>
