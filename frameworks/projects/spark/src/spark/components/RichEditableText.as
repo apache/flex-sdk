@@ -2440,14 +2440,6 @@ public class RichEditableText extends UIComponent
         // composing text.
         updateStylesIfChanged();
                  
-        // ScrollerLayout.measure() has heuristics for figuring out whether to
-        // use the actual content size or the preferred size when there are
-        // automatic scroll bars.  Force it to use the preferredSizes until
-        // the content sizes have been updated to accurate values.  This
-        // comes into play when remeasuring to reduce either the width/height.
-        _contentWidth = 0;
-        _contentHeight = 0;
-
         // percentWidth and/or percentHeight will come back in as constraints
         // on the remeasure if we're autoSizing.
                           
