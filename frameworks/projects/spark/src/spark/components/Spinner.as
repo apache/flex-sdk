@@ -102,7 +102,28 @@ import spark.components.supportClasses.Range;
  *  
  *  Therefore the scale is {-1,0,3,6,9,10}.
  *
- *  @see mx.components.NumericStepper
+ *  @mxml
+ *
+ *  <p>The <code>&lt;Spinner&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Spinner
+ *    <strong>Properties</strong>
+ *    allowValueWrap="false"
+ *  
+ *    <strong>Events</strong>
+ *    change="<i>No default</i>"
+ *
+ *    <strong>Styles</strong>
+ *    focusColor=""
+ *    symbolColor=""
+ *      
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.NumericStepper
+ *  @see spark.skins.spark.SpinnerSkin
  *
  *  @includeExample examples/SpinnerExample.mxml
  *  
