@@ -29,14 +29,20 @@ import spark.components.gridClasses.DefaultGridItemEditor;
 use namespace mx_internal;
 
 /**
- *  A non-visual object that defines the mapping from each dataProvider item to a Grid column.
- *  Each dataProvider item corresponds to one Grid row and this object specifies the item property
- *  whose value is to be displayed in one column, the item renderer to display that value, the editor
- *  that's used to change the value, and so on.
+ *  The GridColumn class defines a column of a Spark grid control,
+ *  such as the Spark DataGrid or Grid control.
+ *  Each data provider item for the control corresponds to one row of the grid. 
+ *  The GridColumn class specifies the field of the data provider item 
+ *  whose value is to be displayed in the column.
+ *  It also specifies the item renderer used to display that value, the item editor
+ *  used to change the value, and other properties of the column.
+ *
+ *  @see spark.components.Grid
+ *  @see spark.components.DataGrid
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */   
 public class GridColumn extends EventDispatcher
@@ -50,15 +56,17 @@ public class GridColumn extends EventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  The return value for itemToLabel() or itemToDataTip() if resolving the corresponding
-     *  property name (path) fails.  The value of this constant is a single space: <code>" "</code>.
+     *  The return value for the <code>itemToLabel()</code> or 
+     *  <code>itemToDataTip()</code> method  if resolving the corresponding 
+     *  property name (path) fails.  
+     *  The value of this constant is a single space String: <code>" "</code>.
      * 
-     *  @see itemToLabel
-     *  @see itemToDataTip
+     *  @see #itemToLabel
+     *  @see #itemToDataTip
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const ERROR_TEXT:String = new String(" ");
@@ -126,7 +134,7 @@ public class GridColumn extends EventDispatcher
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridColumn(columnName:String = null)
@@ -166,11 +174,11 @@ public class GridColumn extends EventDispatcher
     [Bindable("gridChanged")]    
     
     /**
-     *  The Grid this whose list of columns contains this Column, or null.
+     *  The Grid object associated this whose column.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get grid():Grid
@@ -201,11 +209,12 @@ public class GridColumn extends EventDispatcher
     [Bindable("columnIndexChanged")]    
     
     /**
-     *  The position of this column in the grid's column list, or -1 if this column's grid is null.
+     *  The position of this column in the grid's column list, 
+     *  or -1 if this column's grid is null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get columnIndex():int
@@ -223,22 +232,32 @@ public class GridColumn extends EventDispatcher
     [Bindable("dataFieldChanged")]    
     
     /**
-     *  Names the dataProvider property whose value is used to initialize item renderer's 
-     *  label string. In other words, the value of the itemRenderer's label property 
-     *  for the row at <code>rowIndex</code> in this column is: 
-     *  <code>grid.dataProvider.getItemAt(rowIndex).dataField.toString()</code>.
-     *  
-     *  <p>If this column or its grid specifies a <code>labelFunction</code>, then the
-     *  dataField is not used.</p>
+     *  The name of the field or property in the data provider item associated 
+     *  with the column. 
+     *  Each GridColumn requires this property or 
+     *  the <code>labelFunction</code> property to be set 
+     *  to calculate the displayable text for the item renderer.
+     *  If the <code>dataField</code>
+     *  and <code>labelFunction</code> properties are set, 
+     *  the data is displayed using the <code>labelFunction</code> and sorted
+     *  using the <code>dataField</code>.  
+     *
+     *  <p>This value of this property is not necessarily the String that 
+     *  is displayed in the column header.  This property is
+     *  used only to access the data in the data provider. 
+     *  For more information, see the <code>headerText</code> property.</p>
      * 
+     *  <p>If the column or its grid specifies a <code>labelFunction</code>, 
+     *  then the dataField is not used.</p>
+     *      
      *  @default null
      * 
-     *  @see itemToLabel
-     *  @see labelFunction
+     *  @see #itemToLabel
+     *  @see #labelFunction
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get dataField():String
@@ -285,21 +304,27 @@ public class GridColumn extends EventDispatcher
     [Bindable("dataTipFieldChanged")]    
     
     /**
-     *  The property of the dataProvider item to display as the dataTip for this column.
-     *  By default, if <code>showDataTips=true</code>, the itemRenderer's label is displayed
-     *  as the dataTip.  This property, which is similar to <code>dataField</code>, can 
-     *  be specified to show a different value for the dataTip.
+     *  The name of the field in the data provider to display as the datatip. 
+     *  By default, if <code>showDataTips</code> is <code>true</code>,
+     *  the associated grid control looks for a property named 
+     *  <code>label</code> on each data provider item and displays it.
+     *  However, if the data provider does not contain a <code>label</code>
+     *  property, you can set the <code>dataTipField</code> property to
+     *  specify a different property name.  
+     *  For example, you could set the value to "FullName" when a user views a
+     *  set of people's names included from a database.
      * 
-     *  <p>If this column or its grid specifies a <code>dataTipFunction</code>, then the
-     *  dataTipField is not used.</p>
+     *  <p>If this column or its grid specifies a value for the 
+     *  <code>dataTipFunction</code> property, then the
+     *  <code>dataTipField</code> property is ignored.</p>
      * 
      *  @default null
-     *  @see dataTipFunction
-     *  @see itemToDataTip
+     *  @see #dataTipFunction
+     *  @see #itemToDataTip
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get dataTipField():String
@@ -332,32 +357,43 @@ public class GridColumn extends EventDispatcher
     [Bindable("dataTipFunctionChanged")]
     
     /**
-     *  A function that converts a dataProvider item into a column-specific string
-     *  which will be displayed as a dataTip, if <code>showDataTips=true</code>.
-     *  A dataTipFunction can be use to combine the values of several dataProvider item
-     *  properties into a single string.  If specified, this property is used by the 
-     *  <code>itemToDataTip()</code> method.
-     *
+     *  Specifies a callback function to run on each item of the data provider 
+     *  to determine its dataTip.
+     *  This property is used by the <code>itemToDataTip</code> method.
+     * 
+     *  <p>By default, if <code>showDataTips</code> is <code>true</code>,
+     *  the column looks for a property named <code>label</code>
+     *  on each data provider item and displays it as its dataTip.
+     *  However, some data providers do not have a <code>label</code> property 
+     *  nor do they have another property that you can use for displaying data 
+     *  in the rows.
+     *  For example, you might have a data provider that contains a lastName 
+     *  and firstName fields, but you want to display full names as the dataTip.
+     *  You can specify a function to the <code>dataTipFunction</code> property 
+     *  that returns a single String containing the value of both fields. You 
+     *  can also use the <code>dataTipFunction</code> property for handling 
+     *  formatting and localization.</p>
+     * 
      *  <p>The dataTipFunction's signature must match the following:
      * 
      *  <pre>dataTipFunction(item:Object, column:GridColumn):String</pre>
      *
-     *  The item parameter is the dataProvider item for an entire row; it's 
-     *  the value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.  The second
-     *  parameter is this column.</p>
+     *  The <code>item</code> parameter is the data provider item for an entire row.  
+     *  The second parameter is this column object.</p>
      *
-     *  <p>A typical dataTipFunction might concatenate the item's firstName and
-     *  lastName properties, or do some custom formatting on a Date valued
-     *  item property.</p>
+     *  <p>A typical function might concatenate an item's firstName and
+     *  lastName properties, or do some custom formatting on a Date value
+     *  property.</p>
+     *
      * 
      *  @default null
      * 
-     *  @see itemToDataTip
-     *  @see dataTipField
+     *  @see #itemToDataTip
+     *  @see #dataTipField
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get dataTipFunction():Function
@@ -391,18 +427,18 @@ public class GridColumn extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  A flag that indicates whether the items in the column are editable.
-     *  If <code>true</code>, and the DataGrid's <code>editable</code>
+     *  Indicates whether the items in the column are editable.
+     *  If <code>true</code>, and the associated grid's <code>editable</code>
      *  property is also <code>true</code>, the items in a column are 
      *  editable and can be individually edited
-     *  by clicking on a selected item or by navigating to the item and 
+     *  by clicking on a selected item, or by navigating to the item and 
      *  pressing the F2 key.
      *
      *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get editable():Boolean
@@ -431,8 +467,10 @@ public class GridColumn extends EventDispatcher
     [Bindable("headerRendererChanged")]
     
     /**
-     *  A factory for the IGridItemRenderer used as the header for this column.  If unspecified,
-     *  the DataGrid's columnHeaderGroup skin part provides a default header renderer.
+     *  The class factory for the IGridItemRenderer class used as 
+     *  the header for this column.  
+     *  If unspecified, the DataGrid controls's <code>columnHeaderGroup</code>
+     *  skin part defines the default header renderer.
      * 
      *  @default null
      *
@@ -441,7 +479,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get headerRenderer():IFactory
@@ -474,13 +512,13 @@ public class GridColumn extends EventDispatcher
     [Bindable("headerTextChanged")]
     
     /**
-     *  Text for the header of this column. By default, the Grid
-     *  control uses the value of the <code>dataField</code> property 
-     *  as the header text.
+     *  Text for the header of this column. 
+     *  By default, the associated grid control uses the value of 
+     *  the <code>dataField</code> property  as the header text.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get headerText():String
@@ -510,14 +548,7 @@ public class GridColumn extends EventDispatcher
     [Inspectable(environment="none")]
     
     /**
-     *  Specifies the IME (input method editor) mode.
-     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
-     *  Flex sets the specified IME mode when the control gets the focus,
-     *  and sets it back to the previous value when the control loses the focus.
-     *
-     * <p>The flash.system.IMEConversionMode class defines constants for the
-     *  valid values for this property.
-     *  You can also specify <code>null</code> to specify no IME.</p>
+     *  @copy spark.components.gridClasses.GridItemEditor#imeMode
      *
      *  @see flash.system.IMEConversionMode
      *
@@ -525,7 +556,7 @@ public class GridColumn extends EventDispatcher
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get imeMode():String
@@ -550,18 +581,27 @@ public class GridColumn extends EventDispatcher
     [Bindable("itemEditorChanged")]
     
     /**
-     *  A factory for IGridItemEditors used to edit individual grid cells in 
-     *  this column.
-
-     *  If this property is null, and the column grid's owner is a DataGrid, 
-     *  then the value of the DataGrid's itemEditor property is used.   If no
-     *  item editor is specified then TextGridItemEditor is used.
+     *  A class factory for IGridItemEditor class used to edit individual 
+     *  grid cells in this column.
+     *  If this property is null, and the column grid's owner is a DataGrid control, 
+     *  then the value of the DataGrid control's <code>itemEditor</code> property is used.   
+     *  If no item editor is specified by the DataGrid control, 
+     *  then use the TextGridItemEditor class.
+     * 
+     *  <p>The default item editor is the DefaultGridItemEditor class, 
+     *  which lets you edit a simple text field. 
+     *  You can create custom item renderers by creating a subclass of the GridItemEditor class.
+     *  Your custom item editor can write data to the entire row of the grid
+     *  to define more complex editor. </p>
      * 
      *  @default null
      *
+     *  @see spark.components.gridClasses.DefaultGridItemEditor
+     *  @see spark.components.gridClasses.GridItemEditor
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get itemEditor():IFactory
@@ -591,22 +631,27 @@ public class GridColumn extends EventDispatcher
     [Bindable("itemRendererChanged")]
     
     /**
-     *  A factory for IGridItemRenderers used to render invidual grid cells.  If not specified, 
-     *  the grid's <code>itemRenderer</code> is returned.
+     *  The class factory for the IGridItemRenderer class used to 
+     *  render individual grid cells.  
+     *  If not specified, use the value of the <code>itemRenderer</code> 
+     *  property from the associated grid control.
      * 
-     *  <p>The default item renderer just displays the value of its <code>label</code> property, 
-     *  which is based on the dataProvider item for the cell's row, and on the column's dataField 
-     *  property.  Custom item renderers that derive more values from the data item and include 
-     *  more complex visuals are easily created by subclassing <code>GridItemRenderer</code>.</p>
+     *  <p>The default item renderer is the DefaultGridItemRenderer class, 
+     *  which displays the data item as text. 
+     *  You can create custom item renderers by creating a subclass of the GridItemRenderer class.
+     *  Your custom item renderer can access the data from the entire row of the grid
+     *  to define more complex visual representation of the cell. </p>
      * 
-     *  @default The value of the grid's itemRenderer, or null.
+     *  <p>The default value is the value of the <code>itemRenderer</code> 
+     *  property from the associated grid control, or null.</p>
      *
      *  @see #dataField 
-     *  @see GridItemRenderer
+     *  @see spark.skins.spark.DefaultGridItemRenderer
+     *  @see spark.components.gridClasses.GridItemRenderer
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get itemRenderer():IFactory
@@ -641,19 +686,20 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  If specified, the value of this property must be an idempotent function 
-     *  that returns an item renderer IFactory based on its dataProvider item 
-     *  and column parameters.  Specifying an itemRendererFunction makes it possible to 
-     *  employ more than one item renderer in this column.
+     *  that returns an item renderer IFactory based on its data provider item 
+     *  and column parameters.  
+     *  Specifying a value to the <code>itemRendererFunction</code> property
+     *  makes it possible to use more than one item renderer in this column.
      * 
-     *  <p>The itemRendererFunction's signature must match the following:
+     *  <p>The function specified to the <code>itemRendererFunction</code> property 
+     *  must have the following signature:</p>
      *
      *  <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
      *
-     *  The item parameter is the dataProvider item for an entire row; it's 
-     *  the value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.  The second
-     *  parameter is this column.</p> 
+     *  <p>The <code>item</code> parameter is the data provider item for an entire row.  
+     *  The second parameter is this column object.</p> 
      * 
-     *  <p>Here's an example of an itemRendererFunction:</p>
+     *  <p>Shown below is an example of an item renderer function:</p>
      *  <pre>
      *  function myItemRendererFunction(item:Object, column:GridColumn):IFactory
      *  {
@@ -665,7 +711,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get itemRendererFunction():Function
@@ -699,34 +745,35 @@ public class GridColumn extends EventDispatcher
     [Bindable("labelFunctionChanged")]
     
     /**
-     *  An idempotent function that converts a dataProvider item into a column-specific string
+     *  An idempotent function that converts a data provider item into a column-specific string
      *  that's used to initialize the item renderer's <code>label</code> property.
      * 
-     *  <p>A labelFunction can be use to combine the values of several dataProvider item
-     *  properties into a single string.  If specified, this property is used by the 
+     *  <p>You can use a label function to combine the values of several data provider items
+     *  into a single string.  
+     *  If specified, this property is used by the 
      *  <code>itemToLabel()</code> method, which computes the value of each item 
-     *  renderer's label property in this column.</p>
+     *  renderer's <code>label</code> property in this column.</p>
      *
-     *  <p>The labelFunction's signature must match the following:</p>
+     *  <p>The function specified to the <code>labelFunction</code> property 
+     *  must have the following signature:</p>
      *
      *  <pre>labelFunction(item:Object, column:GridColumn):String</pre>
      *
-     *  <p>The item parameter is the dataProvider item for an entire row; it's 
-     *  the value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.  The second
-     *  parameter is this column.</p>
+     *  <p>The <code>item</code> parameter is the data provider item for an entire row.  
+     *  The second parameter is this column object.</p>
      *
-     *  <p>A typical labelFunction might concatenate the item's firstName and
-     *  lastName properties, or do some custom formatting on a Date valued
-     *  item property.</p>
+     *  <p>A typical label function could concatenate the firstName and
+     *  lastName properties of the data provider item , 
+     *  or do some custom formatting on a Date value property.</p>
      * 
      *  @default null
      * 
-     *  @see itemToLabel
-     *  @see dataField
+     *  @see #itemToLabel
+     *  @see #dataField
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get labelFunction():Function
@@ -760,14 +807,16 @@ public class GridColumn extends EventDispatcher
     [Bindable("widthChanged")]    
     
     /**
-     *  The width of this column in pixels. If specified, the grid's layout will ignore its
-     *  typicalItem and this column's minWidth and maxWidth.
+     *  The width of this column in pixels. 
+     *  If specified, the grid's layout ignores its
+     *  <code>typicalItem</code> property and this column's 
+     *  <code>minWidth</code> and <code>maxWidth</code> properties.
      * 
      *  @default NaN
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get width():Number
@@ -808,16 +857,20 @@ public class GridColumn extends EventDispatcher
     [Bindable("minWidthChanged")]    
     
     /**
-     *  The minimum width of this column in pixels. If specified, the grid's layout will
-     *  make the column's layout width the larger of the typicalItem's width and the minWidth.
-     *  If this column is resizable, this property limits how small the user can make this column.
-     *  Setting this property will not change the width or maxWidth properties.
+     *  The minimum width of this column in pixels. 
+     *  If specified, the grid's layout makes the column's layout 
+     *  width the larger of the width of the <code>typicalItem</code> and 
+     *  the <code>minWidth</code>.
+     *  If this column is resizable, this property limits how small 
+     *  the user can make this column.
+     *  Setting this property does not change the <code>width</code> 
+     *  or <code>maxWidth</code> properties.
      *  
      *  @default 20
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get minWidth():Number
@@ -856,16 +909,18 @@ public class GridColumn extends EventDispatcher
     [Bindable("maxWidthChanged")]
     
     /**
-     *  The maximum width of this column in pixels. If specified, the grid's layout will make
-     *  the column's layout width the smaller of the typicalItem's width and the maxWidth.
+     *  The maximum width of this column in pixels. 
+     *  If specified, the grid's layout makes the column's layout width the 
+     *  smaller of the width of the <code>typicalItem</code> and the <code>maxWidth</code>.
      *  If this column is resizable, this property limits how wide the user can make this column.
-     *  Setting this property will not change the width or minWidth properties.
+     *  Setting this property does not change the <code>width</code> 
+     *  or <code>minWidth</code> properties.
      *
      *  @default NaN
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get maxWidth():Number
@@ -906,17 +961,19 @@ public class GridColumn extends EventDispatcher
     /**
      *  Determines whether any of the item renderer's controls are editable.
      *  If the column is editable, the focusable controls in the item renderer
-     *  will be given keyboard focus when the user starts editing the item
+     *  are given keyboard focus when the user starts editing the item
      *  renderer.
      * 
-     *  <p>By setting this property to true, the developer takes responsibility for 
-     *  validating and saving input collected by the renderer.  If the renderer is configured
-     *  with an override of the IGridItemRenderer prepare() method, then the developer must
-     *  ensure that unsaved input field changes are not overwritten.   For example, if
-     *  rendererIsEditable=true, the renderer contains a single TextInput element that displays
-     *  the value of data.myDataField, and the renderer's prepare() method sets the TextInput's
-     *  text property, then the prepare() method must not set the text property when there
-     *  are pending changes.</p>
+     *  <p>By setting this property to <code>true</code>, you take responsibility for 
+     *  validating and saving input collected by the item renderer.  
+     *  If the item renderer contains an override of the <code>IGridItemRenderer.prepare()</code> method, 
+     *  then you must ensure that unsaved input field changes are not overwritten.   
+     *  For example, <code>rendererIsEditable</code> is <code>true</code>  
+     *  and the renderer contains a single TextInput element that displays
+     *  the value of <code>data.myDataField</code>.
+     *  If the renderer's <code>prepare()</code> method sets the TextInput control's
+     *  <code>text</code> property, then the <code>prepare()</code> method must 
+     *  not set the <code>text</code> property when there are pending changes.</p>
      * 
      *  <p>TBD: example code or link.</p>
      * 
@@ -924,7 +981,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get rendererIsEditable():Boolean
@@ -954,14 +1011,17 @@ public class GridColumn extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Enable interactive resizing of this column's width if the grid's 
-     *  <code>resizableColumns</code> property is also <code>true</code>.
+     *  Indicates whether the user is allowed to resize
+     *  the width of the column.
+     *  If <code>true</code>, and the <code>resizableColumns</code> property of 
+     *  the associated grid is also <code>true</code>, the user can drag 
+     *  the grid lines between the column headers to resize the column. 
      * 
      *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get resizable():Boolean
@@ -990,11 +1050,13 @@ public class GridColumn extends EventDispatcher
     [Bindable("showDataTipsChanged")]  
     
     /**
-     *  Show dataTips for the cells in this column.   
+     *  Indicates whether the datatips are shown in the column.
+     *  If <code>true</code>, datatips are displayed for text in the rows. 
+     *  Datatips are tooltips designed to show the text that is too long for the row.   
      * 
-     *  <p>If this property's value is undefined(the default), then the grid's showDataTips
-     *  property determines if dataTips will be shown.   If this property is set, then 
-     *  the grid's showDataTips property is ignored. </p>
+     *  <p>If this property's value is undefined, the default, then the associated 
+     *  grid's <code>showDataTips</code> property determines if datatips are shown.   
+     *  If this property is set, the grid's <code>showDataTips</code> property is ignored.</p>
      * 
      *  @default undefined
      * 
@@ -1002,7 +1064,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get showDataTips():*
@@ -1044,19 +1106,19 @@ public class GridColumn extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  If true, and if the grid's dataProvider is a ICollectionView,
-     *  and if the DataGrid's sortableColumns property is true,
-     *  then this column supports interactive sorting. Typically the column's
-     *  header handles mouse clicks by setting the dataProvider's sort property
-     *  to a Sort object whose SortField is this column's dataField.
+     *  If <code>true</code>, and if the grid's data provider is an ICollectionView,
+     *  and if the associated grid's <code>sortableColumns</code> property is <code>true</code>,
+     *  then this column supports interactive sorting. 
+     *  Typically the column's header handles mouse clicks by setting the data provider's 
+     *  <code>sort</code> property to a Sort object whose SortField is this column's <code>dataField</code>.
      *  
-     *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
+     *  <p>If the data provider is not an ICollectionView, then this property has no effect.</p>
      *  
      *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get sortable():Boolean
@@ -1089,7 +1151,6 @@ public class GridColumn extends EventDispatcher
     /**
      *  The function that compares two elements during a sort of on the
      *  data elements of this column.
-     * 
      *  If you specify a value of the <code>labelFunction</code> property,
      *  you typically also provide a <code>sortCompareFunction</code>.
      *
@@ -1118,7 +1179,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get sortCompareFunction():Function
@@ -1148,20 +1209,21 @@ public class GridColumn extends EventDispatcher
     [Bindable("sortDescendingChanged")]
     
     /**
-     *  If true, this column is sorted in descending order. For example, if the column's dataField 
-     *  selects a numeric value, then the first row would be the one with the largest value
+     *  If <code>true</code>, this column is sorted in descending order. 
+     *  For example, if the column's <code>dataField</code> contains a numeric value, 
+     *  then the first row would be the one with the largest value
      *  for this column. 
      *
      *  <p>Setting this property does not start a sort; it only sets the sort direction.
-     *  Once dataProvider.refresh() is called, the sort will be performed.</p>
+     *  When the <code>dataProvider.refresh()</code> method is called, the sort is performed.</p>
      * 
-     *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
+     *  <p>If the data provider is not an ICollectionView, then this property has no effect.</p>
      * 
      *  @default false;
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get sortDescending():Boolean
@@ -1187,22 +1249,23 @@ public class GridColumn extends EventDispatcher
     //----------------------------------
     
     /**
-     *  Read-only property that creates and returns a SortField that can
+     *  Returns a SortField that can
      *  be used to sort a collection by this column's dataField.
      *  
-     *  <p>If the sortCompareFunction is defined, it assigns the SortField's
-     *  compare function to a closure around the sortCompareFunction
-     *  that uses the right signature for the SortField and captures
-     *  this column.</p>
+     *  <p>If the <code>sortCompareFunction</code> property is defined, 
+     *  it assigns the SortField's compare function to a closure around 
+     *  the <code>sortCompareFunction</code> that uses the right signature 
+     *  for the SortField and captures this column.</p>
      * 
-     *  <p>If the sortCompareFunction and dataField are not defined but the
-     *  labelFunction is defined, then it assigns the compareFunction to a 
-     *  closure that does a basic string compare on the labelFunction applied
-     *  to the data objects.</p>
+     *  <p>If the <code>sortCompareFunction</code> and 
+     *  <code>dataField</code> properties are not defined, but the
+     *  <code>labelFunction</code> property is defined, then it assigns the 
+     *  <code>compareFunction</code> to a closure that does a basic string compare 
+     *  on the <code>labelFunction</code> applied to the data objects.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get sortField():SortField
@@ -1252,14 +1315,15 @@ public class GridColumn extends EventDispatcher
     [Bindable("visibleChanged")]  
     
     /**
-     *  If true, then display this column.  If false, no space will be allocated 
+     *  If <code>true</code>, then display this column.  
+     *  If <code>false</code>, no space will be allocated 
      *  for this column; it will not be included in the layout.
      * 
      *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get visible():Boolean
@@ -1331,28 +1395,33 @@ public class GridColumn extends EventDispatcher
     }
     
     /**
-     *  Convert the specified dataProvider item to a column-specific String.   
-     *  The value of this method is used to initialize item renderers' label property.
+     *  Convert the specified data provider item to a column-specific String.   
+     *  This method is used to initialize item renderers' <code>label</code> property.
      * 
-     *  <p>If labelFunction is null, and dataField is a string that does not contain "." 
-     *  field name separator characters, then this method is equivalent to:
-     *  <code>item[dataField].toString()</code>.   If dataField is a "." separated
-     *  path, then this method looks up each successive path element.  For example if
-     *  <code>="foo.bar.baz"</code> then this method would return
-     *  the value of <code>item.foo.bar.baz</code>.   If resolving the item's dataField
+     *  <p>If <code>labelFunction</code> is null, and <code>dataField</code> 
+     *  is a string that does not contain "." field name separator characters, 
+     *  then this method is equivalent to:</p>
+     *
+     *  <pre>item[dataField].toString()</pre>   
+     *
+     *  <p>If <code>dataField</code> is a "." separated
+     *  path, then this method looks up each successive path element.  
+     *  For example if <code>="foo.bar.baz"</code>, then this method returns
+     *  the value of <code>item.foo.bar.baz</code>.   
+     *  If resolving the item's <code>dataField</code>
      *  causes an error to be thrown, ERROR_TEXT is returned.</p>
      * 
-     *  <p>If item and labelFunction are not null then this method returns 
-     *  <code>labelFunction(item, this)</code>, where the second argument is
-     *  this GridColumn.</p> 
+     *  <p>If <code>item</code> and <code>labelFunction</code> are not null,
+     *  then this method returns <code>labelFunction(item, this)</code>, 
+     *  where the second argument is this GridColumn.</p> 
      *
-     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
+     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.
      * 
      *  @return A column-specific string for the specified dataProvider item or ERROR_TEXT.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function itemToLabel(item:Object):String
@@ -1361,27 +1430,33 @@ public class GridColumn extends EventDispatcher
     }
 
     /**
-     *  Convert the specified dataProvider item to a column-specific dataTip String. 
+     *  Convert the specified data provider item to a column-specific datatip String. 
      * 
-     *  <p>This method uses the values dataTipField and dataTipFunction and if
-     *  they're null, it uses the corresponding Grid properties.  If both dataTipField
-     *  properties are null then the dataField property is used.</p>
+     *  <p>This method uses the values <code>dataTipField</code> 
+     *  and <code>dataTipFunction</code>.
+     *  If those properties are null, it uses the corresponding properties
+     *  from the associated grid control.  
+     *  If <code>dataTipField</code> properties is also null in the grid control, 
+     *  then use the <code>dataField</code> property.</p>
      * 
-     *  <p>If dataTipFunction is null, then this method is equivalent to:
-     *  <code>item[dataTipField].toString()</code>.   If resolving the item's dataField
-     *  causes an error to be thrown, ERROR_TEXT is returned.</p>
+     *  <p>If <code>dataTipFunction</code> is null, then this method is equivalent to:
+     *  <code>item[dataTipField].toString()</code>.   
+     *  If resolving the item's <code>dataField</code>
+     *  causes an error to be thrown, <code>ERROR_TEXT</code> is returned.</p>
      * 
-     *  <p>If item and dataTipFunction are not null then this method returns 
+     *  <p>If <code>item</code> and <code>dataTipFunction</code> 
+     *  are not null,  then this method returns 
      *  <code>dataTipFunction(item, this)</code>, where the second argument is
      *  this GridColumn.</p> 
      *
-     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
+     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.
      * 
-     *  @return A column-specific string for the specified dataProvider item or ERROR_TEXT.
+     *  @return A column-specific string for the specified data provider item 
+     *  or <code>ERROR_TEXT</code>.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function itemToDataTip(item:Object):String
@@ -1394,18 +1469,18 @@ public class GridColumn extends EventDispatcher
     }
     
     /**
-     *  Convert the specified dataProvider item to a column-specific item renderer factory.
+     *  Convert the specified data provider item to a column-specific item renderer factory.
      *  By default this method calls the <code>itemRendererFunction</code> if it's 
      *  non-null, otherwise it just returns the value of the column's <code>itemRenderer</code> 
      *  property.
      *
-     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
+     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.
      * 
      *  @return A column-specific item renderer factory for the specified dataProvider item.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public function itemToRenderer(item:Object):IFactory
