@@ -17,13 +17,11 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
 import flashx.textLayout.compose.TextLineRecycler;
 
-import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -36,6 +34,7 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 import spark.components.Group;
+import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 
 use namespace mx_internal;
@@ -815,7 +814,7 @@ public class TextGraphicElement extends GraphicElement
         // position of the lines has remained the same.
         if (compose)
             composeTextLines(unscaledWidth, unscaledHeight);
-        else if (sharedIndex != -1)
+        else if (displayObjectSharingMode != DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             adjustTextLines();
             
         // If the text is overset it always has to be clipped (as well as if 
@@ -831,7 +830,7 @@ public class TextGraphicElement extends GraphicElement
         if (clipText)
         {
             alwaysCreateDisplayObject = true;
-            if (sharedIndex > 0)
+            if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
                 return;
         }
         
