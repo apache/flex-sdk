@@ -848,7 +848,7 @@ public class Grid extends Group implements IDataGridElement
         invalidateSize();
         invalidateDisplayList();
         
-        dispatchChangeEvent("dataProviderChanged");        
+        dispatchChangeEvent("dataProviderChanged");
     }
     
     //----------------------------------
@@ -3203,7 +3203,13 @@ public class Grid extends Group implements IDataGridElement
 
            // make sure we have the right number of columns.
            gridDimensions.columnCount = _columns ? _columns.length : 0;
-           clearGridLayoutCache(columnsChanged);
+           
+           // Keep typical item size cache only when the typical item is still valid
+           // and the columns haven't changed.
+           if (typicalItem != null && !columnsChanged)
+               clearGridLayoutCache(false);
+           else
+               clearGridLayoutCache(true);
             
             if (!caretChanged)
                 initializeCaretPosition();
@@ -3703,7 +3709,10 @@ public class Grid extends Group implements IDataGridElement
         }
         
         if (gridDimensions)
+        {
             gridDimensions.dataProviderCollectionChanged(event);
+            gridDimensions.rowCount = dataProvider.length;
+        }
         
         if (gridLayout)
             gridLayout.dataProviderCollectionChanged(event);
