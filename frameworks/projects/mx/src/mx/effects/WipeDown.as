@@ -22,7 +22,7 @@ import mx.effects.effectClasses.WipeDownInstance;
 [Alternative(replacement="spark.effects.Wipe", since="4.0")]
 
 /**
- *  The WipeDown class defines a bar wipe down effect.
+ *  The WipeDown class defines a wipe down effect.
  *  The before or after state of the component must be invisible. 
  * 
  *  <p>You often use this effect with the <code>showEffect</code> 
@@ -68,28 +68,28 @@ public class WipeDown extends MaskEffect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function WipeDown(target:Object = null)
-	{
-		super(target);
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function WipeDown(target:Object = null)
+    {
+        super(target);
 
-		instanceClass = WipeDownInstance;
-	}
+        instanceClass = WipeDownInstance;
+    }
 }
 
 }
