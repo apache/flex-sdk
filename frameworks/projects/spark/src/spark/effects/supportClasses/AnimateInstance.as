@@ -129,6 +129,16 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     private var oldWidth:Number;
     private var oldHeight:Number;
 
+    /**
+     * @private
+     * Used to selectively disable constraints that are being animated by
+     * their underlying values because the constraint values are not
+     * valid in both states of a transition. For example, if left is set
+     * in only one state, then we disable left and animate x instead,
+     * re-enabling left when the effect is finished.
+     */
+    private var disabledConstraintsMap:Object;
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -448,14 +458,68 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         // from/to values are the same. Not worth the cycles, but also want
         // to avoid triggering any side effects when we're not actually changing
         // values
+        var addWidthMP:Boolean;
+        var addHeightMP:Boolean;
         var i:int;
         var j:int;
         for (i = 0; i < motionPaths.length; ++i)
         {
             var mp:MotionPath = MotionPath(motionPaths[i]);
-            var keyframes:Vector.<Keyframe> = motionPaths[i].keyframes;
+            var keyframes:Vector.<Keyframe> = mp.keyframes;
             if (!keyframes)
                 continue;
+            // Account for animating constraints where one or both state values
+            // are invalid; use underlying properties of x, y, width, height
+            // instead, or in addition
+            if (propertyChanges != null &&
+                (mp.property == "left" || mp.property == "right" ||
+                 mp.property == "top" || mp.property == "bottom" ||
+                 mp.property == "percentWidth" || mp.property == "percentHeight" ||
+                 mp.property == "horizontalCenter" || mp.property == "verticalCenter"))
+            {
+                // We need to substitute an underlying property if the animation is
+                // trying to automatically use and animate between the constraint
+                // values in the states, but one or both values are invalid
+                if (!isValidValue(propertyChanges.start[mp.property]) ||
+                    !isValidValue(propertyChanges.end[mp.property]) &&
+                    keyframes.length == 2 && !isValidValue(keyframes[0].value) &&
+                    !isValidValue(keyframes[1].value))
+                {
+                    if (mp.property == "percentWidth")
+                        mp.property = "width";
+                    else if (mp.property == "percentHeight")
+                        mp.property = "height";
+                    else if (mp.property == "left" || mp.property == "right" || 
+                        mp.property == "horizontalCenter")
+                    {
+                        if (!disabledConstraintsMap)
+                            disabledConstraintsMap = new Object();
+                        disabledConstraintsMap[mp.property] = true;
+                        mp.property = "x";
+                        if (isValidValue(propertyChanges.start["width"]) &&
+                            isValidValue(propertyChanges.end["width"]) &&
+                            propertyChanges.start["width"] != propertyChanges.end["width"])
+                        {
+                            // add motionPath to account for width changing between states
+                            addWidthMP = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!disabledConstraintsMap)
+                            disabledConstraintsMap = new Object();
+                        disabledConstraintsMap[mp.property] = true;
+                        mp.property = "y";
+                        if (isValidValue(propertyChanges.start["height"]) &&
+                            isValidValue(propertyChanges.end["height"]) &&
+                            propertyChanges.start["height"] != propertyChanges.end["height"])
+                        {
+                            // add motionPath to account for height changing between states
+                            addHeightMP = true;
+                        }
+                    }
+                }
+            }
             if (interpolator)
                 mp.interpolator = interpolator;
             // adjust effect duration to be the max of all MotionPath keyframe times
@@ -472,6 +536,10 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                         duration = Math.max(duration, keyframes[j].time);
 
         }
+        if (addWidthMP)
+            motionPaths.push(new SimpleMotionPath("width"));
+        if (addHeightMP)
+            motionPaths.push(new SimpleMotionPath("height"));
 
         animation = new Animation(duration);
         animation.animationTarget = this;
@@ -650,7 +718,10 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             setupParentLayout(false);
             cacheConstraints();
         }
-            
+        if (disabledConstraintsMap && !disableLayout)
+            for (var constraint:String in disabledConstraintsMap)
+                cacheConstraint(constraint);
+
         finalizeValues();
     }
     
@@ -697,10 +768,12 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     private function animationCleanup():void
     {
-        if (disableLayout)
+        if (disableLayout || disabledConstraintsMap)
         {
             reenableConstraints();
-            setupParentLayout(true);
+            if (disableLayout)
+                setupParentLayout(true);
+            disabledConstraintsMap = null;
         }
     }
     
@@ -953,7 +1026,6 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             oldWidth = target.explicitWidth;
             target.width = w;
         }
-    
         if (top != undefined && bottom != undefined && "explicitHeight" in target)
         {
             var h:Number = target.height;
