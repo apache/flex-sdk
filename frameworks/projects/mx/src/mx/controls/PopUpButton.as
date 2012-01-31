@@ -862,8 +862,11 @@ public class PopUpButton extends Button
         // before the popUp is displayed
         // or override to implement special display behavior
         
+        if (getPopUp() == null)
+            return;
+        
         var popUpGap:Number = getStyle("popUpGap");
-        var point:Point = new Point(layoutDirection == "rtl" ? unscaledWidth : 0, unscaledHeight + popUpGap);
+        var point:Point = new Point(layoutDirection == "rtl" ? _popUp.width : 0, unscaledHeight + popUpGap);
         point = localToGlobal(point);
         
         //Show or hide the popup
@@ -875,10 +878,7 @@ public class PopUpButton extends Button
         var screen:Rectangle = sm.getVisibleApplicationRect();
 
         if (show)
-        {
-            if (getPopUp() == null)
-                return;
-
+        {          
             if (_popUp.parent == null)
             {
                 PopUpManager.addPopUp(_popUp, this, false);
