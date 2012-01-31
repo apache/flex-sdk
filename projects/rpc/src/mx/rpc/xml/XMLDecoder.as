@@ -2159,7 +2159,7 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                             // for simple property values on strongly typed values
 
                             // HACK for SDK-14800:
-                            // Flex Builder 3 may generate a strongly typed class for simpleContent extensions
+                            // Flash Builder may generate a strongly typed class for simpleContent extensions
                             // or restrictions, which uses the convention of "_" + typeName for the simpleContent
                             // value.
                             var localName:String = getUnqualifiedClassName(simpleContent); 
@@ -2171,7 +2171,7 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                             }
 
                             // HACK for SDK-22327:
-                            // Flex Builder 3 may alternatively generate a property
+                            // Flash Builder may alternatively generate a property
                             // name with camel case for a simpleType enumeration
                             simplePropName = localName.charAt(0).toLowerCase() + localName.substr(1);
                             if (Object(simpleContent).hasOwnProperty(simplePropName))
