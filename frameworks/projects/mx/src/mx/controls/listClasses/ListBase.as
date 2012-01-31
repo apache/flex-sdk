@@ -3162,10 +3162,8 @@ public class ListBase extends ScrollControlBase
      *  If the height of the component has been explicitly set,
      *  this property might not have any effect.
      *
-     *  <p>For a DataGrid control, the <code>rowCount</code> property includes the  
-     *  header row. 
-     *  So, for a DataGrid control with 3 body rows and a header row, 
-     *  the <code>rowCount</code> property is 4.</p>
+     *  <p>For a DataGrid control, the <code>rowCount</code> property does   
+     *  not include the header row. </p>
      * 
      *  @default 4
      *  
