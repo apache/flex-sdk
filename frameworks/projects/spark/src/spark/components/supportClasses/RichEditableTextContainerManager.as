@@ -18,6 +18,7 @@ import flash.events.FocusEvent;
 import flash.geom.Rectangle;
 
 import flashx.textLayout.container.TextContainerManager;
+import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.elements.IConfiguration;
@@ -172,11 +173,17 @@ public class RichEditableTextContainerManager extends TextContainerManager
     {
         var selectionColor:* = textView.getStyle("selectionColor");
 
-        // The insertion point is black, inverted, which makes it
+        var focusedPointAlpha:Number =
+            editingMode == EditingMode.READ_WRITE ?
+            1.0 :
+            0.0;
+
+        // If editable, the insertion point is black, inverted, which makes it
         // the inverse color of the background, for maximum readability.         
+        // If not editable, then no insertion point.        
         return new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
-            0x000000, 1.0, BlendMode.INVERT);
+            0x000000, focusedPointAlpha, BlendMode.INVERT);
     }
     
     /**
@@ -226,23 +233,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
 
         super.focusInHandler(event);
     }    
-
-    /**
-     *  @private
-     */
-    override public function setText(text:String):void
-    {
-        super.setText(text);
-        if (textView.systemManager && textView.systemManager.stage.focus == textView)
-        {
-            var im:ISelectionManager = beginInteraction();
-            im.setSelection(int.MAX_VALUE, int.MAX_VALUE);
-            im.refreshSelection();
-            im.setFocus();
-            endInteraction();
-       }
-    }
-
 }
 
 }
