@@ -341,7 +341,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             if (target is GraphicElement)
                 bmData = GraphicElement(target).captureBitmapData(true, 0, false);
             else
-                bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+                bmData = BitmapUtil.getSnapshot(IUIComponent(target), null, true);
         }
         catch (e:SecurityError)
         {
