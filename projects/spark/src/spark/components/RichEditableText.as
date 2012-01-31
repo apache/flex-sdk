@@ -2184,6 +2184,11 @@ package spark.components
          *  @see spark.utils.TextFlowUtil#importFromString()
          *  @see spark.utils.TextFlowUtil#importFromXML()
          *  @see spark.components.RichEditableText#text
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
          */
         public function get textFlow():TextFlow
         {
