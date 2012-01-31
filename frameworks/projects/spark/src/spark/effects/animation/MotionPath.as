@@ -12,10 +12,10 @@
 package spark.effects  
 {
 import mx.core.mx_internal;
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.NumberInterpolator;
-import mx.effects.interpolation.Sine;
+import spark.effects.easing.IEaser;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.interpolation.NumberInterpolator;
+import spark.effects.easing.Sine;
 
 use namespace mx_internal;
 
@@ -35,7 +35,7 @@ use namespace mx_internal;
  */
 public class MotionPath
 {
-    include "../../mx/core/Version.as";
+    include "../../spark/core/Version.as";
     
     //--------------------------------------------------------------------------
     //
