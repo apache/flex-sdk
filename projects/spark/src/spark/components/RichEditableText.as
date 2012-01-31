@@ -2768,7 +2768,7 @@ package spark.components
                 }
                 
                 // Make sure we weren't previously scrolled. 
-                if (autoSize)
+                if (autoSize && getStyle("lineBreak") == "toFit")
                 {
                     _textContainerManager.horizontalScrollPosition = 0;
                     _textContainerManager.verticalScrollPosition = 0;                
