@@ -22,7 +22,7 @@ import mx.core.IFactory;
 import mx.core.ISelectableRenderer;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.RendererExistenceEvent;
 import mx.managers.IFocusManagerComponent;
 
 [IconFile("FxButtonBar.png")]
@@ -158,7 +158,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 			for (var i:int = 0; i < n; i++)
 			{
 				var renderer:ISelectableRenderer = 
-					dataGroup.getRendererForItemAt(i) as ISelectableRenderer;
+					dataGroup.getElementAt(i) as ISelectableRenderer;
 				if (renderer)
 					renderer.allowDeselection = !requiresSelection;
 			}
@@ -181,7 +181,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 				for (var i:int = 0; i < n; i++)
 				{
 					var renderer:ISelectableRenderer = 
-						dataGroup.getRendererForItemAt(i) as ISelectableRenderer;
+						dataGroup.getElementAt(i) as ISelectableRenderer;
 					if (renderer)
 						renderer.enabled = enabled;
 				}
@@ -206,7 +206,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         super.itemSelected(index, selected);
         
         var renderer:ISelectableRenderer = 
-			dataGroup.getRendererForItemAt(index) as ISelectableRenderer;
+			dataGroup.getElementAt(index) as ISelectableRenderer;
         
         if (renderer)
         {
@@ -224,9 +224,9 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         if (instance == dataGroup)
         {
             dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.addEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
     }
 
@@ -238,9 +238,9 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         if (instance == dataGroup)
         {
             dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.removeEventListener(
-                ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
         
         super.partRemoved(partName, instance);
@@ -282,7 +282,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been added to this component.
      */
-    private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
+    private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
         var renderer:IEventDispatcher = IEventDispatcher(event.renderer);
         var index:int = event.index;
@@ -307,7 +307,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item has been removed from this component.
      */
-    private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
+    private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
     {        
         var renderer:Object = event.renderer;
         
@@ -321,7 +321,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var index:int = dataGroup.getItemIndexForRenderer(
+        var index:int = dataGroup.getElementIndex(
                             event.currentTarget as IVisualElement);
 
 		if (index == selectedIndex)
@@ -345,7 +345,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 		var n:int = dataProvider.length;
 		for (var i:int = 0; i < n; i++)
 		{
-			var renderer:IVisualElement = IVisualElement(dataGroup.getRendererForItemAt(i));
+			var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
 			if (i == focusedIndex)
 				renderer.layer = 1;
 			else
@@ -366,14 +366,14 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 				if (focusedIndex > 0)
 				{
 					if (currentRenderer)
 						currentRenderer.showFocusIndicator = false;
 					--focusedIndex;
 					adjustLayering(focusedIndex);
-					renderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+					renderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 					if (renderer)
 						renderer.showFocusIndicator = true;
 				}
@@ -383,14 +383,14 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 				if (focusedIndex < dataProvider.length - 1)
 				{
 					if (currentRenderer)
 						currentRenderer.showFocusIndicator = false;
 					++focusedIndex;
 					adjustLayering(focusedIndex);
-					renderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+					renderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 					if (renderer)
 						renderer.showFocusIndicator = true;
 				}
@@ -399,7 +399,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             }            
             case Keyboard.SPACE:
             {
-				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
 					return;
 				currentRenderer.selected = !currentRenderer.selected;
@@ -421,7 +421,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         if (n > 0 && index < n)
         {
 			var renderer:ISelectableRenderer = 
-				dataGroup.getRendererForItemAt(index) as ISelectableRenderer;
+				dataGroup.getElementAt(index) as ISelectableRenderer;
 			if (renderer)
 				renderer.showFocusIndicator = focused;
         }
