@@ -62,7 +62,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;VScrollBar
+ *  &lt;s:VScrollBar
  *
  *    <strong>Properties</strong>
  *    viewport=""
