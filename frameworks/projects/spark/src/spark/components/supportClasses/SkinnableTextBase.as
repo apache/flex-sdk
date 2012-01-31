@@ -102,7 +102,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 
 /**
- *  Documentation is not currently available.
+ *  The base class for skinnable components that include RichEditableText
+ *  in their skin.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -342,7 +343,7 @@ public class TextBase extends SkinnableComponent
     /**
      *  Specifies whether the user is allowed to edit the text in this control.
      *
-     *  @default true;
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
