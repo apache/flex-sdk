@@ -893,6 +893,7 @@ public class DataGroup extends GroupBase
             {
                 // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
                 elt.includeInLayout = false;
+                elt.visible = false;
                 
                 // Reset back to (0,0), otherwise when the element is reused
                 // it will be validated at its last layout size which causes
