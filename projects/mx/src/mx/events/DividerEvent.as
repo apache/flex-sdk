@@ -21,6 +21,11 @@ import flash.events.Event;
  *  These events are dispatched by the DividedBox control and its children.
  *
  *  @see mx.containers.DividedBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DividerEvent extends Event
 {
@@ -58,6 +63,11 @@ public class DividerEvent extends Event
 	 *  </table>
      *
      *  @eventType dividerDrag
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DIVIDER_DRAG:String = "dividerDrag";
 
@@ -87,6 +97,11 @@ public class DividerEvent extends Event
 	 *  </table>
      *
      *  @eventType dividerPress
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DIVIDER_PRESS:String = "dividerPress";
 
@@ -116,6 +131,11 @@ public class DividerEvent extends Event
 	 *  </table>
      *
      *  @eventType dividerRelease
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DIVIDER_RELEASE:String = "dividerRelease";
 
@@ -137,6 +157,11 @@ public class DividerEvent extends Event
 	 *  @param dividerIndex Index of the divider that generated the event.
 	 *
 	 *  @param delta The number of pixels by which the divider has been dragged.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DividerEvent(type:String, bubbles:Boolean = false,
 								 cancelable:Boolean = false,
@@ -162,6 +187,11 @@ public class DividerEvent extends Event
 	 *  The number of pixels that the divider has been dragged.
 	 *  Positive numbers represent a drag toward the right or bottom,
 	 *  negative numbers toward the left or top.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var delta:Number;
 
@@ -173,6 +203,11 @@ public class DividerEvent extends Event
 	 *  The zero-based index of the divider being pressed or dragged.
 	 *  The leftmost or topmost divider has a <code>dividerIndex</code>
 	 *  of 0.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dividerIndex:int;
 
