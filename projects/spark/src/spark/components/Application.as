@@ -27,6 +27,7 @@ import flash.utils.setInterval;
 
 import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
+import mx.core.InteractionMode;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -34,6 +35,7 @@ import mx.managers.FocusManager;
 import mx.managers.IActiveWindowManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
+import mx.managers.ToolTipManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.utils.BitFlagUtil;
@@ -1177,6 +1179,21 @@ public class Application extends SkinnableContainer
         }
 
         return state;
+    }
+    
+    
+    /**
+     *  @private 
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        
+        if (!styleProp || styleProp == "styleName" || styleProp == "interactionMode")
+        {
+            // Turn off tooltip support for all mobile applications
+            ToolTipManager.enabled = getStyle("interactionMode") != InteractionMode.TOUCH;
+        }
     }
 
     //----------------------------------
