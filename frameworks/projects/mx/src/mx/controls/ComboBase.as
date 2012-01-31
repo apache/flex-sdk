@@ -50,6 +50,11 @@ use namespace mx_internal;
  *  Name of the class to use as the default skin for the background and border. 
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="skin", type="Class", inherit="no", states=" up, over, down, disabled,  editableUp, editableOver, editableDown, editableDisabled")]
 
@@ -58,6 +63,11 @@ use namespace mx_internal;
  *  when the mouse is not over the control.
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upSkin", type="Class", inherit="no")]
 
@@ -68,6 +78,11 @@ use namespace mx_internal;
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
  *  For the ColorPicker class, the default value is the ColorPickerSkin class.
  *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="overSkin", type="Class", inherit="no")]
 
@@ -78,6 +93,11 @@ use namespace mx_internal;
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
  *  For the ColorPicker class, the default value is the ColorPickerSkin class.
  *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downSkin", type="Class", inherit="no")]
 
@@ -88,6 +108,11 @@ use namespace mx_internal;
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
  *  For the ColorPicker class, the default value is the ColorPickerSkin class.
  *  For the DateField class, the default value is the ScrollArrowDownSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledSkin", type="Class", inherit="no")]
 
@@ -97,6 +122,11 @@ use namespace mx_internal;
  *  property is <code>true</code>. This skin is only used by the ComboBox class.
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="editableUpSkin", type="Class", inherit="no")]
 
@@ -106,6 +136,11 @@ use namespace mx_internal;
  *  property is <code>true</code>. This skin is only used by the ComboBox class.
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="editableOverSkin", type="Class", inherit="no")]
 
@@ -115,6 +150,11 @@ use namespace mx_internal;
  *  property is <code>true</code>. This skin is only used by the ComboBox class.
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="editableDownSkin", type="Class", inherit="no")]
 
@@ -124,6 +164,11 @@ use namespace mx_internal;
  *  property is <code>true</code>. This skin is only used by the ComboBox class.
  *  For the ComboBase class, there is no default value.
  *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="editableDisabledSkin", type="Class", inherit="no")]
 
@@ -134,6 +179,11 @@ use namespace mx_internal;
  *  the default text styles defined by the ComboBase class.
  *
  *  @default ""
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textInputStyleName", type="String", inherit="no")]
 //--------------------------------------
@@ -181,6 +231,11 @@ use namespace mx_internal;
  *  @see mx.controls.Button
  *  @see mx.controls.TextInput
  *  @see mx.collections.ICollectionView
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ComboBase extends UIComponent implements IIMESupport, IFocusManagerComponent
 {
@@ -206,6 +261,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ComboBase()
     {
@@ -222,6 +282,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
     /**
      *  The ICollectionView of items this component displays.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var collection:ICollectionView;
 
@@ -230,6 +295,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  dataProvider and pass the items to the renderers.
      *  At the end of any sequence of code, it must always be positioned
      *  at the topmost visible item on screen.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var iterator:IViewCursor;
 
@@ -358,6 +428,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     /**
      *  Set of styles to pass from the ComboBase to the down arrow button
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     protected function get arrowButtonStyleFilters():Object
     {
@@ -376,6 +451,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *
      *  @return EdgeMetrics object with the left, right, top,
      *  and bottom properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get borderMetrics():EdgeMetrics
     {
@@ -410,6 +490,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  it is out of range of the new data provider, unexpected behavior is
      *  likely to occur.</p>
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -494,6 +579,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  @default false.
      *  This property is ignored by the DateField control.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editable():Boolean
     {
@@ -563,6 +653,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *
      *  @see flash.text.TextField#restrict
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get restrict():String
     {
@@ -608,6 +703,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  affects the other.</p>
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -692,6 +792,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  affects the other.</p>
      *
      *  @default null;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedItem():Object
     {
@@ -774,6 +879,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  setting this property sets the contents of the text field.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get text():String
     {
@@ -800,6 +910,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     /**
      *  The internal TextInput subcomponent that displays
      *  the current selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textInput:TextInput;
 
@@ -813,6 +928,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  These styles are ignored if you set 
      *  the <code>textInputStyleName</code> style property.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get textInputStyleFilters():Object 
     {
@@ -864,6 +984,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  is often preferable to using this property. The <code>value</code>
      *  property exists for backward compatibility with older applications.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Object
     {
@@ -1095,6 +1220,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  to <code>UIComponent.DEFAULT_MEASURED_HEIGHT</code>.
      * 
      *  @see mx.core.UIComponent#measure()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -1150,6 +1280,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  <code>scaleY</code> property of the component.
      * 
      *  @see mx.core.UIComponent#updateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -1249,6 +1384,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *
      *  @return An Object with <code>width</code> and <code>height</code> 
      *  properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function calculatePreferredSizeFromData(numItems:int):Object
     {
@@ -1263,6 +1403,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  @param data A dataProvider item.
      *
      *  @return A unique identifier.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToUID(data:Object):String
     {
@@ -1320,6 +1465,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  @param event The CollectionEvent dispatched from the collection.
      *
      *  @see mx.events.CollectionEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function collectionChangeHandler(event:Event):void
     {
@@ -1395,6 +1545,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  <code>selectedItem</code> to <code>null</code>).
      * 
      *  @param event The event that is triggered each time the text in the control changes.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function textInput_changeHandler(event:Event):void
     {
@@ -1434,6 +1589,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
      *  overridden by the subclasses.
      * 
      *  @param event The event that is triggered when the drop-down button is pressed.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function downArrowButton_buttonDownHandler(event:FlexEvent):void
     {
