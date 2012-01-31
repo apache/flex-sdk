@@ -10,6 +10,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.effects.interpolation
 {
+	
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;	
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("sparkEffects")]
+	
 /**
  * ArrayInterpolator interpolates each element of start/end array
  * inputs separately, using another internal interpolator to do
@@ -31,6 +41,13 @@ public class ArrayInterpolator implements IInterpolator
     {
         elementInterpolator = value;
     }
+
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     // The internal per-element interpolator
     private var _elementInterpolator:IInterpolator;
@@ -68,7 +85,7 @@ public class ArrayInterpolator implements IInterpolator
         endValue:Object):Object
     {
         if (startValue.length != endValue.length)
-            throw new Error("Start/end arrays must be of equal length");
+            throw new Error(resourceManager.getString("sparkEffects", "arraysNotOfEqualLength"));
         var returnArray:Array = [];
         for (var i:int = 0; i < startValue.length; i++)
             returnArray[i] = _elementInterpolator.interpolate(fraction, 
