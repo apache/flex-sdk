@@ -45,7 +45,7 @@ public interface IViewport extends IVisualElement
      *  The X coordinate of the origin of the region the target is
      *  scrolled to.  
      * 
-     *  If clipContent is true, setting this property typically causes 
+     *  If clipAndEnableScrolling is true, setting this property typically causes 
      *  <code>scrollRect</code> to be set to:
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
@@ -65,7 +65,7 @@ public interface IViewport extends IVisualElement
      *  The Y coordinate of the origin of the region this Group is
      *  scrolled to.  
      * 
-     *  If clipContent is true, stting this property typically causes 
+     *  If clipAndEnableScrolling is true, setting this property typically causes 
      *  the <code>scrollRect</code> to be set to:
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
@@ -92,7 +92,7 @@ public interface IViewport extends IVisualElement
      * 
      *  @see ScrollUnit
      */
-    function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number;
+    function getHorizontalScrollPositionDelta(scrollUnit:uint):Number;
     
     /**
      *  Returns the amount one would have to add to the viewport's current 
@@ -106,10 +106,13 @@ public interface IViewport extends IVisualElement
      * 
      *  @see ScrollUnit
      */
-    function getVerticalScrollPositionDelta(unit:ScrollUnit):Number;
+    function getVerticalScrollPositionDelta(scrollUnit:uint):Number;
      
     /**
-     *  If true then clip the viewport's contents by setting its scrollRect
+     *  This flag must set to true to enable scrolling via the
+     *  vertical and horizontalScrollPosition properties. 
+     *  
+     *  If true then viewport's contents are clipped by setting its scrollRect
      *  to a rectangle with origin at horizontalScrollPosition,
      *  verticalScrollPosition and width and height equal to the 
      *  viewport's width and height.
@@ -121,8 +124,8 @@ public interface IViewport extends IVisualElement
      *  @see verticalScrollPosition
      *  @see horizontalScrollPosition
      */
-    function get clipContent():Boolean;
-    function set clipContent(value:Boolean):void;    
+    function get clipAndEnableScrolling():Boolean;
+    function set clipAndEnableScrolling(value:Boolean):void;    
 }
 
 }
