@@ -46,6 +46,8 @@ import flashx.tcal.formats.LineBreak;
 
 /**
  *  Documentation is not currently available.
+ *
+ *  @includeExample examples/FxTextInputExample.mxml
  */
 public class FxTextInput extends FxTextBase
 {
