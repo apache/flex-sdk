@@ -1329,6 +1329,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
             var column:DataGridColumn = _columns[i];
             column.owner = this;
             column.colNum = i;
+            if (column.cachedHeaderRenderer)
+            {
+                var item:DisplayObject = column.cachedHeaderRenderer as DisplayObject
+                if (item.parent)
+                    item.parent.removeChild(item);
+                column.cachedHeaderRenderer = null;
+            }
         }
 
         updateSortIndexAndDirection();
@@ -1437,7 +1444,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /**
      *  @private
-     *  the last editedItemPosition.  We restore editing
+     *  the last editedItemPosition and the last
+     *  position where editing was attempted if editing
+     *  was cancelled.  We restore editing
      *  to this point if we get focus from the TAB key
      */
     private var lastEditedItemPosition:*;
@@ -1810,9 +1819,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             actualContentHolder.setChildIndex(DisplayObject(itemEditorInstance),
                                       actualContentHolder.numChildren - 1);
-            var col:DataGridColumn = editedItemPosition.columnIndex < lockedColumnCount ?
-                                        visibleLockedColumns[actualColIndex] : 
-                                        visibleColumns[actualColIndex];
+            var col:DataGridColumn;
+            if (lockedColumnCount && editedItemPosition.columnIndex && visibleLockedColumns[lockedColumnCount - 1].colNum)
+                col = visibleLockedColumns[actualColIndex];
+            else
+                col = visibleColumns[actualColIndex];
 
             var item:IListItemRenderer = actualContentHolder.listItems[actualRowIndex][actualColIndex];
             var rowData:ListRowInfo = actualContentHolder.rowInfo[actualRowIndex];
@@ -4327,13 +4338,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 if (!itemEditorInstance || endEdit(reason))
                 {
                     // send event to create the new one
-                    var dataGridEvent:DataGridEvent =
-                        new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                        // ITEM_EDIT events are cancelable
-                    dataGridEvent.columnIndex = colIndex;
-                    dataGridEvent.dataField = _columns[colIndex].dataField;
-                    dataGridEvent.rowIndex = index;
-                    dispatchEvent(dataGridEvent);
+                    beginningEdit(colIndex, index);
                 }
             }
         }
@@ -4388,6 +4393,24 @@ public class DataGrid extends DataGridBase implements IIMESupport
             itemEditorInstance = null;
             _editedItemPosition = null;
         }
+    }
+
+    /**
+     *  @private
+     *  dispatch an ITEM_EDIT_BEGINNING event;
+     */
+    private function beginningEdit(columnIndex:int, rowIndex:int, itemRenderer:IListItemRenderer = null):void
+    {
+        var dataGridEvent:DataGridEvent =
+            new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
+            // ITEM_EDIT events are cancelable
+        dataGridEvent.columnIndex = columnIndex;
+        dataGridEvent.dataField = _columns[columnIndex].dataField;
+        dataGridEvent.rowIndex = rowIndex;
+        dataGridEvent.itemRenderer = itemRenderer;
+        if (!dispatchEvent(dataGridEvent))
+            lastEditedItemPosition = { columnIndex: columnIndex, rowIndex: rowIndex };
+
     }
 
     /**
@@ -4503,6 +4526,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 }
             }
         }
+
+        item = c.cachedHeaderRenderer as DisplayObject;
+        if (item && item.parent)
+            item.parent.removeChild(item);
+        c.cachedHeaderRenderer = null;
 
         rendererChanged = true;
         invalidateDisplayList();
@@ -4742,18 +4770,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
             {
                 if (displayableColumns[pos.x].editable)
                 {
-                    dataGridEvent = new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                    // ITEM_EDIT events are cancelable
-                    dataGridEvent.columnIndex = displayableColumns[pos.x].colNum;
-                    dataGridEvent.dataField = displayableColumns[pos.x].dataField;
-                    dataGridEvent.rowIndex = pos.y;
-                    dataGridEvent.itemRenderer = r;
-                    dispatchEvent(dataGridEvent);
+                    beginningEdit(displayableColumns[pos.x].colNum, pos.y, r);
                 }
                 else
-                    // if the item is not editable, set lastPosition to it any
+                    // if the item is not editable, set lastPosition to it anyways
                     // so future tabbing starts from there
-                    lastEditedItemPosition = { columnIndex: pos.x, rowIndex: pos.y };
+                    lastEditedItemPosition = { columnIndex: displayableColumns[pos.x].colNum, rowIndex: pos.y };
             }
         }
         else if (lastItemDown && lastItemDown != itemEditorInstance)
@@ -4764,18 +4786,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
             {
                 if (displayableColumns[pos.x].editable)
                 {
-                    dataGridEvent = new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                    // ITEM_EDIT events are cancelable
-                    dataGridEvent.columnIndex = displayableColumns[pos.x].colNum;
-                    dataGridEvent.dataField = displayableColumns[pos.x].dataField;
-                    dataGridEvent.rowIndex = pos.y;
-                    dataGridEvent.itemRenderer = lastItemDown;
-                    dispatchEvent(dataGridEvent);
+                    beginningEdit(displayableColumns[pos.x].colNum, pos.y, lastItemDown);
                 }
                 else
-                    // if the item is not editable, set lastPosition to it any
+                    // if the item is not editable, set lastPosition to it anyways
                     // so future tabbing starts from there
-                    lastEditedItemPosition = { columnIndex: pos.x, rowIndex: pos.y };
+                    lastEditedItemPosition = { columnIndex: displayableColumns[pos.x].colNum, rowIndex: pos.y };
             }
         }
 
@@ -4833,13 +4849,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 var pos:Point = itemRendererToIndices(IListItemRenderer(target));
                 if (pos && pos.y >= 0 && editable && displayableColumns[pos.x].editable && !dontEdit)
                 {
-                    dataGridEvent = new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                    // ITEM_EDIT events are cancelable
-                    dataGridEvent.columnIndex = displayableColumns[pos.x].colNum;
-                    dataGridEvent.dataField = displayableColumns[pos.x].dataField;
-                    dataGridEvent.rowIndex = pos.y;
-                    dataGridEvent.itemRenderer = IListItemRenderer(target);
-                    dispatchEvent(dataGridEvent);
+                    beginningEdit(displayableColumns[pos.x].colNum, pos.y, IListItemRenderer(target));
                 }
             }
             // trace("subcomponent got focus ignoring");
@@ -4880,12 +4890,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (foundOne)
             {
                 // trace("setting focus", _editedItemPosition.columnIndex, _editedItemPosition.rowIndex);
-                dataGridEvent = new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                // ITEM_EDIT events are cancelable
-                dataGridEvent.columnIndex = _editedItemPosition.columnIndex;
-                dataGridEvent.dataField = _columns[_editedItemPosition.columnIndex].dataField;
-                dataGridEvent.rowIndex = _editedItemPosition.rowIndex;
-                dispatchEvent(dataGridEvent);
+                beginningEdit(_editedItemPosition.columnIndex, _editedItemPosition.rowIndex);
             }
 
         }
@@ -5089,13 +5094,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             rowIndex = newIndex;
 
         // send event to create the new one
-        var dataGridEvent:DataGridEvent =
-            new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-            // ITEM_EDIT events are cancelable
-        dataGridEvent.columnIndex = columnIndex;
-        dataGridEvent.dataField = _columns[columnIndex].dataField;
-        dataGridEvent.rowIndex = rowIndex;
-        dispatchEvent(dataGridEvent);
+        beginningEdit(columnIndex, rowIndex);
     }
 
     /**
