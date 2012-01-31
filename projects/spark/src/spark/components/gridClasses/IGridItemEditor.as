@@ -1,12 +1,12 @@
-package spark.components
+package spark.components.gridClasses
 {
 import mx.core.IDataRenderer;
 import mx.core.IIMESupport;
 import mx.core.IVisualElement;
 import mx.managers.IFocusManagerComponent;
 
-import spark.components.supportClasses.GridItemRenderer;
-import spark.components.supportClasses.GridColumn;
+import spark.components.gridClasses.GridItemRenderer;
+import spark.components.gridClasses.GridColumn;
 import spark.components.DataGrid;
 
 /**
