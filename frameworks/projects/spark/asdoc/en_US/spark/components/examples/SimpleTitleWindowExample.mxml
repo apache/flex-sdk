@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple custom MXML Spark TitleWindow component.
+The TitleWindowApp application displays this component. 
+You cannot run it independently. -->
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/halo"
+			   title="Title Window" x="168" y="86">
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import mx.controls.Text;
+			
+			// A reference to the TextInput control in which to put the result.
+			public var loginName:Text;
+			
+			// Event handler for the OK button.
+			private function returnName():void {
+				loginName.text="Name entered: " + userName.text;
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup>
+		<s:Label text="Enter Name: "/>
+		<s:TextInput id="userName" width="100%"/>
+	</s:HGroup>
+	
+	<s:HGroup>
+		<s:Button label="OK" click="returnName();"/>
+		<s:Button label="Cancel" click="PopUpManager.removePopUp(this);"/>
+	</s:HGroup>
+	
+</s:TitleWindow>
