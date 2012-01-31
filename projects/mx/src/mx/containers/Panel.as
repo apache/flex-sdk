@@ -429,6 +429,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *   status=""
  *   title=""
  *   titleIcon="null"
+ *  
  *   <strong>Styles</strong>
  *   borderAlpha="0.4"
  *   borderThicknessBottom="NaN"
@@ -458,6 +459,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *   titleStyleName="windowStyles"
  *   verticalAlign="top|middle|bottom"
  *   verticalGap="6"
+ *  
  *   <strong>Effects</strong>
  *   resizeEndEffect="Dissolve"
  *   resizeStartEffect="Dissolve"
@@ -470,7 +472,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  
  *  @includeExample examples/SimplePanelExample.mxml
  *
- *  @see mx.components.Panel
+ *  @see spark.components.Panel
  *  @see mx.containers.ControlBar
  *  @see mx.containers.VBox
  *  
