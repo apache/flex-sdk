@@ -296,7 +296,7 @@ public class CSSTextLayoutFormat implements ITextLayoutFormat
         // Since a CSS selector or parent container
 		// can affect both Halo and Spark components,
 		// we need to map true to "on" and false to "off"
-		// here and in SimpleText.
+		// here and in Label.
 		// For Halo components, UITextField and UITLFTextField
 		// do the opposite mapping
 		// of "auto" and "on" to true and "off" to false.
