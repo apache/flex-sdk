@@ -862,10 +862,19 @@ public class VideoDisplay extends UIComponent
     [Bindable("sourceChanged")]
     
     /**
-     *  For progressive download, the source is just a path or URL pointing 
-     *  to the video file to play.  For streaming (streaming, live streaming, 
+     *  The video source.
+     * 
+     *  <p>For progressive download, the source is just a path or URL pointing 
+     *  to the video file to play.</p>
+     * 
+     *  <p>For streaming (recorded streaming, live streaming, 
      *  or multi-bitrate streaming), the source property is a 
-     *  DynamicStreamingVideoSource object.
+     *  DynamicStreamingVideoSource object.  If you just want to play 
+     *  a recorded or live streaming video with no multi-bitrate support, 
+     *  you can just pass in a String URL pointing to the video 
+     *  stream.  However, if you do this, the streamType is assumed to be "any," 
+     *  and you don't have as much control over the streaming as you would if 
+     *  you used the DynamicStreamingVideoSource object.</p>
      *
      *  @see spark.components.mediaClasses.DynamicStreamingVideoSource
      *  
