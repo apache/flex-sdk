@@ -14,6 +14,7 @@ package mx.components
 
 import mx.components.Group;
 import mx.core.IDeferredContentOwner;
+import mx.core.mx_internal;
 import mx.components.baseClasses.FxComponent;
 import mx.components.baseClasses.FxContainerBase;
 import mx.events.FlexEvent;
@@ -54,12 +55,17 @@ import mx.core.IUIComponent;
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="content", kind="property")]
+
 [DefaultProperty("contentFactory")]
 
 /**
  *  The FxContainer class is the base class for all skinnable components that have 
- *  visual content. This class is not typically instantiated in MXML. It is primarily
- *  used as a base class, or to define a skin part.
+ *  visual content.
  *
  *  @see FxDataContainer
  */
@@ -91,6 +97,11 @@ public class FxContainer extends FxContainerBase
     //--------------------------------------------------------------------------
     
     [SkinPart]
+    
+    /**
+     *  A required skin part that defines the Group where the content 
+     *  children get pushed into and laid out.
+     */
     public var contentGroup:Group;
     
     //--------------------------------------------------------------------------
@@ -102,7 +113,7 @@ public class FxContainer extends FxContainerBase
     // Used to hold the content until the contentGroup is created. 
     private var _placeHolderGroup:Group;
     
-    protected function get currentContentGroup():Group
+    mx_internal function get currentContentGroup():Group
     {          
         createContentIfNeeded();
     
@@ -298,7 +309,7 @@ public class FxContainer extends FxContainerBase
      */
     public function get numItems():int
     {
-        return currentContentGroup.numItems;
+        return mx_internal::currentContentGroup.numItems;
     }
     
     /**
@@ -306,7 +317,16 @@ public class FxContainer extends FxContainerBase
      */
     public function getItemAt(index:int):Object
     {
-        return currentContentGroup.getItemAt(index);
+        return mx_internal::currentContentGroup.getItemAt(index);
+    }
+    
+        
+    /**
+     *  @copy mx.components.Group#getItemIndex()
+     */
+    public function getItemIndex(item:Object):int
+    {
+        return mx_internal::currentContentGroup.getItemIndex(item);
     }
     
     /**
@@ -314,7 +334,7 @@ public class FxContainer extends FxContainerBase
      */
     public function addItem(item:Object):Object
     {
-        return currentContentGroup.addItem(item);
+        return mx_internal::currentContentGroup.addItem(item);
     }
     
     /**
@@ -322,7 +342,7 @@ public class FxContainer extends FxContainerBase
      */
     public function addItemAt(item:Object, index:int):Object
     {
-        return currentContentGroup.addItemAt(item, index);
+        return mx_internal::currentContentGroup.addItemAt(item, index);
     }
     
     /**
@@ -330,7 +350,7 @@ public class FxContainer extends FxContainerBase
      */
     public function removeItem(item:Object):Object
     {
-        return currentContentGroup.removeItem(item);
+        return mx_internal::currentContentGroup.removeItem(item);
     }
     
     /**
@@ -338,15 +358,7 @@ public class FxContainer extends FxContainerBase
      */
     public function removeItemAt(index:int):Object
     {
-        return currentContentGroup.removeItemAt(index);
-    }
-    
-    /**
-     *  @copy mx.components.Group#getItemIndex()
-     */
-    public function getItemIndex(item:Object):int
-    {
-        return currentContentGroup.getItemIndex(item);
+        return mx_internal::currentContentGroup.removeItemAt(index);
     }
     
     /**
@@ -354,7 +366,7 @@ public class FxContainer extends FxContainerBase
      */
     public function setItemIndex(item:Object, index:int):void
     {
-        currentContentGroup.setItemIndex(item, index);
+        mx_internal::currentContentGroup.setItemIndex(item, index);
     }
     
     /**
@@ -362,7 +374,7 @@ public class FxContainer extends FxContainerBase
      */
     public function swapItems(item1:Object, item2:Object):void
     {
-        currentContentGroup.swapItems(item1, item2);
+        mx_internal::currentContentGroup.swapItems(item1, item2);
     }
     
     /**
@@ -370,7 +382,7 @@ public class FxContainer extends FxContainerBase
      */
     public function swapItemsAt(index1:int, index2:int):void
     {
-        currentContentGroup.swapItemsAt(index1, index2);
+        mx_internal::currentContentGroup.swapItemsAt(index1, index2);
     }
 
     //--------------------------------------------------------------------------
