@@ -23,6 +23,11 @@ import mx.core.mx_internal;
  *  an AddChildAction effect; you do not create one yourself.
  *
  *  @see mx.effects.AddChildAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class AddChildActionInstance extends ActionEffectInstance
 {
@@ -38,6 +43,11 @@ public class AddChildActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AddChildActionInstance(target:Object)
 	{
@@ -56,6 +66,11 @@ public class AddChildActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The index of the child within the parent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var index:int = -1;
 	
@@ -65,6 +80,11 @@ public class AddChildActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The location where the child component is added.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var relativeTo:DisplayObjectContainer;
 	
@@ -74,6 +94,11 @@ public class AddChildActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The position of the child component, relative to relativeTo, where it is added.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var position:String;
 	
