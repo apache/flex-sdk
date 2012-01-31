@@ -34,6 +34,11 @@ use namespace mx_internal;
  * 
  *  @see mx.controls.MenuBar 
  *  @see mx.controls.menuClasses.MenuBarItem 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 
 public interface IMenuBarItemRenderer extends IDataRenderer, IUIComponent, ISimpleStyleClient, IListItemRenderer 
@@ -51,6 +56,11 @@ public interface IMenuBarItemRenderer extends IDataRenderer, IUIComponent, ISimp
 
     /**
      *  Contains a reference to the item renderer's MenuBar control. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get menuBar():MenuBar;
     
@@ -69,6 +79,11 @@ public interface IMenuBarItemRenderer extends IDataRenderer, IUIComponent, ISimp
      *  The index of the first item renderer,
      *  the left most renderer, is 0 and increases by 1 as you
      *  move to the right in the MenuBar control. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get menuBarItemIndex():int;
     
@@ -86,6 +101,11 @@ public interface IMenuBarItemRenderer extends IDataRenderer, IUIComponent, ISimp
      *  Contains the current state of this item renderer. 
      *  The possible values are <code>"itemUpSkin"</code>, 
      *  <code>"itemDownSkin"</code>, and <code>"itemOverSkin"</code>. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get menuBarItemState():String;
     
