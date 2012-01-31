@@ -21,6 +21,7 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.media.Video;
+import flash.system.ApplicationDomain;
 import flash.utils.Timer;
 
 import mx.core.FlexGlobals;
@@ -549,6 +550,43 @@ public class VideoPlayer extends SkinnableComponent
      *  @private
      */
     private static const THUMBNAIL_SOURCE_PROPERTY_FLAG:uint = 1 << 9;
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * @private
+     */  
+    private static var _screenClass:Class;
+    
+    /**
+     * @private
+     */
+    private static var checkedForScreenClass:Boolean;
+    
+    /**
+     *  @private
+     */
+    private static function get screenClass():Class
+    {
+        if (!checkedForScreenClass)
+        {
+            checkedForScreenClass = true;
+            
+            if (ApplicationDomain.currentDomain.
+                hasDefinition("flash.display::Screen"))
+            {
+                _screenClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("flash.display::Screen"));
+            }
+        }
+        
+        return _screenClass;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -1978,6 +2016,30 @@ public class VideoPlayer extends SkinnableComponent
     {
         currentTimeDisplay.text = formatTimeValue(currentTime);
     } 
+        
+    /**
+     *  @private
+     *  Returns the screen bounds. 
+     *  If we are on the AIR Player, we need to work around AIR Player bug #2503351 
+     *  We check if the flash.display.Screen class is defined. If so, then 
+     *  we are running on the AIR Player and can access this API. 
+     */
+    mx_internal function getScreenBounds():Rectangle
+    {       
+        if (screenClass)
+        {
+            // Get the screen where the application resides
+            var nativeWindowBounds:Rectangle = stage["nativeWindow"]["bounds"];             
+            var currentScreen:Object = screenClass["getScreensForRectangle"](nativeWindowBounds)[0];
+          
+            // Return the bounds of that screen
+            return currentScreen["bounds"];
+        }
+        else
+        {
+            return new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
+        }
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -2100,6 +2162,8 @@ public class VideoPlayer extends SkinnableComponent
             if (!systemManager.getTopLevelRoot())
                 return;
             
+            var screenBounds:Rectangle = getScreenBounds();
+            
             fullScreen = true;
             
             // need it to go into full screen state for the skin
@@ -2141,7 +2205,7 @@ public class VideoPlayer extends SkinnableComponent
             // Resize the component to be the full screen of the stage.
             // Push the component at (0,0).  It should be on top of everything 
             // at this point because it was added as a popup
-            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight, true);
+            setLayoutBoundsSize(screenBounds.width, screenBounds.height, true);
             // set the explicit width/height to make sure this value sticks regardless 
             // of any other code or layout passes.  Calling setLayoutBoundsSize() before hand
             // allows us to use postLayout width/height
@@ -2162,8 +2226,6 @@ public class VideoPlayer extends SkinnableComponent
             this.validateNow();
             
             systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
-            
-            systemManager.stage.fullScreenSourceRect = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
             
             // FIXME (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
