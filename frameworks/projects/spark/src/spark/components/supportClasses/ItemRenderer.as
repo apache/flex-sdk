@@ -28,7 +28,10 @@ public class ItemRenderer extends MXMLComponent
     
 	public function ItemRenderer()
 	{
+		super();
+		
 		percentWidth = 100;  // TODO: Make this a layout property...
+		addHandlers();
 	}
 	
     //--------------------------------------------------------------------------
@@ -74,10 +77,8 @@ public class ItemRenderer extends MXMLComponent
      *  @private
      *  Attach the mouse events.
      */
-	override protected function attachBehaviors():void
+	protected function addHandlers():void
 	{
-		super.attachBehaviors();
-		
 		addEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
 		addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
 		addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
