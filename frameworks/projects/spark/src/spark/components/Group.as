@@ -1749,7 +1749,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  Group will re-evaluate the sequences of elements with shared DisplayObjects
      *  and may re-assign the DisplayObjects and redraw the sequences as a result. 
      * 
-     *  @param element The element that has layers size.
+     *  @param element The element that has changed size.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
