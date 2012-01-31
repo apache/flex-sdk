@@ -136,6 +136,28 @@ public class CheckBox extends ToggleButtonBase
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  suggestedFocusSkinExclusions
+    //----------------------------------
+    /** 
+     * @private 
+     */     
+    private static const focusExclusions:Array = ["labelDisplay"];
+    
+    /**
+     *  @private
+     */
+    override public function get suggestedFocusSkinExclusions():Array
+    {
+        return focusExclusions;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
