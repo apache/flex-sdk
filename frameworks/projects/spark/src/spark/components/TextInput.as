@@ -128,7 +128,7 @@ public class TextInput extends TextBase
 	/**
 	 *  @private
 	 */
-	override protected function partAdded(partName:String, instance:*):void
+	override protected function partAdded(partName:String, instance:Object):void
 	{
 		super.partAdded(partName, instance);
 
