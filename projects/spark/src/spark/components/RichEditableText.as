@@ -43,6 +43,7 @@ import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
+import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
@@ -50,6 +51,7 @@ import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
+import flashx.textLayout.events.StatusChangeEvent;
 import flashx.textLayout.formats.Category;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
@@ -401,6 +403,10 @@ public class RichEditableText extends UIComponent
         _inputManager.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_END,
             inputManager_flowOperationEndHandler);
+
+        _inputManager.addEventListener(
+            StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGED, 
+            inputManager_inlineGraphicStatusChangedHandlder);
     }
     
     //--------------------------------------------------------------------------
@@ -3220,7 +3226,28 @@ public class RichEditableText extends UIComponent
             
         textFlowChanged = false;            
     }
-    
+
+    /**
+     *  @private
+     *  Called when a InlineGraphicElement is resized due to having width or 
+     *  height as auto or percent and the graphic has finished loading.  The
+     *  size of the graphic is now known.
+     */
+    private function inputManager_inlineGraphicStatusChangedHandlder (
+                        event:StatusChangeEvent):void
+    {
+        //trace("inlineGraphicStatusChangedHandlder", event.status);
+
+        // Now that the actual size of the graphic is availabe need to
+        // optionally remeasure and updateContainer.
+        if (InlineGraphicElementStatus.READY)
+        {
+            if (actuallyAutoSizing)
+                invalidateSize();
+            
+            invalidateDisplayList();
+        }
+    }    
 }
 
 }
