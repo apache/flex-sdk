@@ -144,8 +144,6 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
-        
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
         oldVisibleRowIndices = visibleRowIndices;
@@ -153,7 +151,9 @@ public class GridLayout extends LayoutBase
         
         const scrollX:Number = horizontalScrollPosition;
         const scrollY:Number = verticalScrollPosition;
-		updateVisibleColumnWidths(scrollX, scrollY, unscaledWidth, unscaledHeight);
+        
+		updateGridDimensions(scrollX, scrollY, unscaledWidth, unscaledHeight);
+
         layoutItemRenderers(grid.itemRendererGroup, scrollX, scrollY, unscaledWidth, unscaledHeight);
         
         // Layout the row backgrounds
@@ -273,14 +273,11 @@ public class GridLayout extends LayoutBase
 	
 	//--------------------------------------------------------------------------
 	//
-	//  Computing the Visible Column Widths
+	//  Updating the GridDimensions' typicalCell sizes and columnWidths
 	//
 	//-------------------------------------------------------------------------- 
 	
-	private const columnIndices:Vector.<int> = new Vector.<int>(0);
-	private const columnWidths:Vector.<Number> = new Vector.<Number>(0);
-	
-	/**
+    /**
 	 *  @private
 	 *  Use the specified GridColumn's itemRenderer (IFactory) to create a temporary
 	 *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
@@ -307,44 +304,63 @@ public class GridLayout extends LayoutBase
 	
 	/**
 	 *  @private
-	 *  Compute the widths and indices of the columns that fit within the specified width, where the 
-	 *  first column's index is startIndex, and the left edge of the first column is startX.  The 
-	 *  widths and indices are returned in the vector parameters.   The vector parameters are 
-	 *  expected to be empty when this method is called.
-	 * 
-	 *  The returned width for GridColumns with an explicit width, is just the explicit width.
-	 *  Otherwise an item renderer is created for the column and the grid's typical item and
-	 *  the item renderer's preferred width is the column's width.    
+     *  Update the typicalCellWidth,Height for all of the columns starting 
+     *  with x coordinate startX and column startIndex that fit within the 
+     *  specified width.  Typical sizes are only updated if the current 
+     *  typical cell size is NaN. 
+     * 
+     *  The typicalCellWidth for GridColumns with an explicit width, is just 
+     *  the explicit width.  Otherwise an item renderer is created for the column 
+     *  and the item renderer's preferred bounds become the typical cell size.   
+     * 
+     *  Return the indices of the columns whose typicalCellWidth,Height was updated. 
 	 */
-	private function computeVisibleColumnWidths(width:Number, startX:Number, startIndex:int, indices:Vector.<int>, widths:Vector.<Number>):void
+	private function updateTypicalCellSizes(width:Number, startX:Number, startIndex:int):Vector.<int>
 	{
 		const gridDimensions:GridDimensions = gridDimensions;
 		const columnCount:int = gridDimensions.columnCount;
 		const columnGap:int = gridDimensions.columnGap;
-		const startCellR:Rectangle = gridDimensions.getCellBounds(0 /* rowIndex */, startIndex);        
-		
-		for (var index:int = startIndex; (width > 0) && (index < columnCount); index++)
-		{
-			var gridColumn:GridColumn = getGridColumn(index);
-			var columnWidth:Number;
-			
-			if (isNaN(gridColumn.width)) // if this column's width wasn't explicitly specified	
-			{
-				var renderer:IVisualElement = createTypicalItemRenderer(index);
-				columnWidth = renderer.getPreferredBoundsWidth();
-				freeGridElement(renderer);
-			}
-			else
-				columnWidth = gridColumn.width;
-			
-			if (index == startIndex)
-				width -= startCellR.x + columnWidth - startX;
-			else
-				width -= columnWidth + columnGap;
+		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, startIndex);
+        const isFixedRowHeight:Boolean = !isNaN(grid.fixedRowHeight);
+        
+        // Update the typicalCellWidth,Height as needed.   Avoid creating renderers or
+        // the indices vector if possible
+        
+        var indices:Vector.<int> = null;  // return value       
 
-			indices.push(index);
-			widths.push(columnWidth);
-		}		
+		for (var columnIndex:int = startIndex; (width > 0) && (columnIndex < columnCount); columnIndex++)
+		{
+            var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
+			var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
+			
+            var column:GridColumn = getGridColumn(columnIndex);
+            if (!isNaN(column.width))
+                cellWidth = column.width;
+            
+            if (isNaN(cellWidth) || (!isFixedRowHeight && isNaN(cellHeight)))
+            {
+                var renderer:IVisualElement = createTypicalItemRenderer(columnIndex);
+                if (isNaN(cellWidth))
+                    cellWidth = renderer.getPreferredBoundsWidth();
+                if (isNaN(cellHeight))
+                    cellHeight = renderer.getPreferredBoundsHeight();
+                freeGridElement(renderer);
+                
+                gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
+                gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
+                
+                if (indices == null)
+                    indices = new Vector.<int>();
+                indices.push(columnIndex);                
+            }
+            
+			if (columnIndex == startIndex)
+				width -= startCellX + cellWidth - startX;
+			else
+				width -= cellWidth + columnGap;
+		}
+        
+        return indices;
 	}	
 	
 	/**
@@ -356,17 +372,20 @@ public class GridLayout extends LayoutBase
 	 * 
 	 *  This method should be called *before* layoutItemRenderers(). 
 	 */
- 	private function updateVisibleColumnWidths(scrollX:Number, scrollY:Number, width:Number, height:Number):void
+ 	private function updateGridDimensions(scrollX:Number, scrollY:Number, width:Number, height:Number):void
 	{
+        const gridDimensions:GridDimensions = gridDimensions;        
 		const firstVisibleColumnIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
-	    computeVisibleColumnWidths(width, scrollX, firstVisibleColumnIndex, columnIndices, columnWidths);
-		// TBD: loop to incorporate "slave" elements, notably CHB 
-		
-		const visibleColumnCount:uint = columnIndices.length;
-		for (var index:int = 0; index < visibleColumnCount; index++)
+        const columnIndices:Vector.<int> = updateTypicalCellSizes(width, scrollX, firstVisibleColumnIndex);
+        
+        if (!columnIndices)  // there no new typical item cell widths
+            return;
+        
+		const columnCount:uint = columnIndices.length;
+		for (var index:int = 0; index < columnCount; index++)
 		{
 			var columnIndex:int = columnIndices[index];
-			var columnWidth:Number = columnWidths[index];
+			var columnWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
 			var gridColumn:GridColumn = getGridColumn(columnIndex);
 			
 			if (isNaN(gridColumn.width)) // if this column's width wasn't explicitly specified
@@ -385,9 +404,6 @@ public class GridLayout extends LayoutBase
 			
 			gridDimensions.setColumnWidth(columnIndex, columnWidth);  // store the column width
 		}
-		
-		columnIndices.length = 0;
-		columnWidths.length = 0;
 	}
 	
 
