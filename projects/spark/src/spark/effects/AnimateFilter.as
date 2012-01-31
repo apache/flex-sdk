@@ -24,49 +24,35 @@ import mx.styles.IStyleClient;
 use namespace mx_internal;
 
 /**
- * This effect applies an IBitmapFilter instance and allows you to animate
- * an arbitrary set of properties of the filter between values, as specified
- * by the motionPaths. 
- * 
- * Example usage is as follows:
- * @example AnimateFilter example:
- * <listing version="3.0">
- * &lt;?xml version="1.0" encoding="utf-8"?&gt;
- * &lt;Application xmlns="http://ns.adobe.com/mxml/2009" &gt;
- * 
- * &lt;Script&gt;
- * &lt;![CDATA[
- * 
- * import mx.effects.*;
- * import spark.filters.DropShadowFilter;
- * 
- * // Use AnimateFilter to animate the color, distance, and angle
- * // of a DropShadowFilter.
- * 
- * private function doDropShadowFilterSample():void{
- *     var df:DropShadowFilter = new DropShadowFilter();
- *     var anim:AnimateFilter = new AnimateFilter(btn1, df);
- *     
- *     anim.motionPaths = [
- *         new SimpleMotionPath("color", 0, 0x0000FF),
- *         new SimpleMotionPath("distance", 0, 10),		
- *         new SimpleMotionPath("angle", 270, 360)
- *     ];
- * 
- *     anim.repeatCount = 0;
- *     anim.duration = 500;
- *     anim.repeatBehavior = Animation.REVERSE;
- *     anim.play();
- * }
- * 
- * ]]&gt;
- * &lt;/Script&gt;
- * 
- * &lt;Button id="btn1" x="50" y="50" label="Animate a DropShadowFilter" click="doDropShadowFilterSample()" /&gt;
- * 
- * &lt;/Application&gt;
- * </listing>
+ *  The AnimateFilter effect applies an mx.filters.IBitmapFilter instance to the target 
+ *  and allows you to animate properties of the filter between values. 
+ *  Unlike effects that animate properties of the target, 
+ *  the AnimateFilter effect animates properties of the filter applied to the target.
+ *
+ *  <p>The filters that you can use with this effect are defined in the spark.filters. package. 
+ *  Common filters include the DropShadowFilter, GlowFilter, BlurFilter, and ShaderFilter.</p>
+ *
+ *  <p>To define the properties of the filter to animate, pass an Array of SimpleMotionPath objects 
+ *  to the to the <code>motionPath</code> property of the AnimateFilter effect. 
+ *  Each SimpleMotionPath object defines a property on the filer, 
+ *  the starting value of the property, and the ending value of the property.</p>
  *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:AnimateFilter&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:AnimateFilter
+ *    <b>Properties</b>
+ *    id="ID"
+ *    bitmapFilter="no default"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.AnimateFilterInstance
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -84,6 +70,8 @@ public class AnimateFilter extends Animate
 
     /**
      *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -109,6 +97,9 @@ public class AnimateFilter extends Animate
     
     /**
      *  IBitmapFilter instance to apply and animate.
+     *
+     *  <p>The filters that you can use with this effect are defined in the spark.filters. package. 
+     *  Common filters include the DropShadowFilter, GlowFilter, BlurFilter, and ShaderFilter.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
