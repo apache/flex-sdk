@@ -58,6 +58,9 @@ public class SOAPMessage extends HTTPRequestMessage
     /**
      *  Provides access to the name of the remote method/operation that
      *  will be called.
+     *
+     *  @return Returns the name of the remote method/operation that 
+     *  will be called.
      */
     public function getSOAPAction():String
     {
