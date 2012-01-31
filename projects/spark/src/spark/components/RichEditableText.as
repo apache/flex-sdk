@@ -18,6 +18,8 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
+import flash.system.IME;
+import flash.system.IMEConversionMode;
 import flash.text.TextFormat;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
@@ -68,16 +70,18 @@ import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
+import mx.core.IIMESupport;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.mx_internal;
-import mx.managers.ISystemManager;
 import mx.events.FlexEvent;
+import mx.managers.ISystemManager;
+import mx.resources.ResourceManager;
 import mx.utils.StringUtil;
 
+import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
-import spark.core.CSSTextLayoutFormat;
 import spark.core.TextBaseClassWithStylesAndFocus;
 import spark.events.TextOperationEvent;
 import spark.utils.TextUtil;
@@ -180,7 +184,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends TextBaseClassWithStylesAndFocus
-	implements IInputManagerClient, IViewport, IFontContextComponent
+	implements IInputManagerClient, IViewport, IFontContextComponent, IIMESupport
 {
     include "../core/Version.as";
         
@@ -480,6 +484,17 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      */
     mx_internal var embeddedFontContext:IFlexModuleFactory;
 
+    /**
+     *  @private
+     *  Previous imeMode.
+     */
+    private var prevMode:String = IMEConversionMode.UNKNOWN;
+
+    /**
+     *  @private
+     */    
+    private var errorCaught:Boolean = false;
+            
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -2819,6 +2834,33 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     {        
         if (focusManager && multiline)
             focusManager.defaultButtonEnabled = false;
+
+        if (_imeMode != null && _editable)
+        {
+            IME.enabled = true;
+            prevMode = IME.conversionMode;
+            // When IME.conversionMode is unknown it cannot be
+            // set to anything other than unknown(English)      
+            try
+            {
+                if (!errorCaught &&
+                    IME.conversionMode != IMEConversionMode.UNKNOWN)
+                {
+                    IME.conversionMode = _imeMode;
+                }
+                errorCaught = false;
+            }
+            catch(e:Error)
+            {
+                // Once an error is thrown, focusIn is called 
+                // again after the Alert is closed, throw error 
+                // only the first time.
+                errorCaught = true;
+                var message:String = ResourceManager.getInstance().getString(
+                    "controls", "unsupportedMode", [ _imeMode ]);          
+                throw new Error(message);
+            }
+        }            
     }
 
     /**
@@ -2832,6 +2874,17 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
                     
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
+
+        if (_imeMode != null && _editable)
+        {
+            // When IME.conversionMode is unknown it cannot be
+            // set to anything other than unknown(English)
+            // and when known it cannot be set to unknown           
+            if (IME.conversionMode != IMEConversionMode.UNKNOWN 
+                && prevMode != IMEConversionMode.UNKNOWN)
+                IME.conversionMode = prevMode;
+            IME.enabled = false;
+        }
     }
 
     /**
