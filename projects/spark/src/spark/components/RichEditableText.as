@@ -44,7 +44,7 @@ import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.events.CompositionCompletionEvent;
+import flashx.textLayout.events.CompositionCompleteEvent;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
@@ -422,7 +422,7 @@ public class RichEditableText extends UIComponent
         // Add event listeners on its TextContainerManager.
         
         _textContainerManager.addEventListener(
-            CompositionCompletionEvent.COMPOSITION_COMPLETE,
+            CompositionCompleteEvent.COMPOSITION_COMPLETE,
             textContainerManager_compositionCompleteHandler);
         
         _textContainerManager.addEventListener(
@@ -3215,7 +3215,7 @@ public class RichEditableText extends UIComponent
      *  event when it has recomposed the text into TextLines.
      */
     private function textContainerManager_compositionCompleteHandler(
-                                    event:CompositionCompletionEvent):void
+                                    event:CompositionCompleteEvent):void
     {
         //trace("compositionComplete");
                 
