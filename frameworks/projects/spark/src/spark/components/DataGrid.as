@@ -470,7 +470,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         typicalItem: null,
         variableRowHeight: true,
         dataTipField: null,
-        dataTipFunction:null
+        dataTipFunction: null
     };
     
     /** 
@@ -667,7 +667,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get dataTipField():IFactory
+    public function get dataTipField():String
     {
         return getGridProperty("dataTipField");
     }
@@ -675,7 +675,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    public function set dataTipField(value:IFactory):void
+    public function set dataTipField(value:String):void
     {
         if (setGridProperty("dataTipField", value))
             dispatchChangeEvent("dataTipFieldChanged");
@@ -695,7 +695,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get dataTipFunction():IFactory
+    public function get dataTipFunction():Function
     {
         return getGridProperty("dataTipFunction");
     }
@@ -703,7 +703,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    public function set dataTipFunction(value:IFactory):void
+    public function set dataTipFunction(value:Function):void
     {
         if (setGridProperty("dataTipFunction", value))
             dispatchChangeEvent("dataTipFunctionChanged");
