@@ -479,6 +479,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             }
             
         }
+		else
+			hasComplexFieldName = false;
 
         if (owner)
             owner.invalidateList();
