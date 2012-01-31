@@ -16,7 +16,7 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script>
         <![CDATA[
-            import spark.components.IGridItemRenderer;
+            import spark.components.gridClasses.IGridItemRenderer;
             import mx.core.IUITextField;
             import mx.core.IVisualElement;
             
