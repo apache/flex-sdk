@@ -24,7 +24,7 @@ import mx.components.baseClasses.FxComponent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.core.IDataRenderer;
-import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.baseClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
