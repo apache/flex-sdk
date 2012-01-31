@@ -40,7 +40,7 @@ use namespace mx_internal;
  *  setRow(rowIndex:int):void
  *  addRow(rowIndex:int):void
  *  removeRow(rowIndex:int):void
- *  setRows(rowIndices:Vector.&lt;int&gt;):void
+ *  setRows(startRowIndex:int, endRowIndex:int):void
  *  </pre>
  *  The <code>containsRow()</code> method returns true if specified row is selected.
  *  The <code>setRow()</code> method replaces the current selection with the
@@ -699,22 +699,38 @@ public class GridSelection
     
     /**
      *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
-     *  replaces the current selection with the rows in <code>rowIndices</code>.
+     *  replaces the current selection with the rows starting at 
+     *  <code>startRowIndex</code> and ending with <code>endRowIndex</code>.
      * 
-     *  @param rowIndices Vector of 0-based row indices which are relative to 
-     *  the Grid's dataProvider.
+     *  @param startRowIndex 0-based row index of the first row in the selection
+     *  @param endRowIndex 0-based row index of the last row in the selection
      * 
-     *  @return True if no errors, or false if any of the the 
-     *  <code>rowIndices</code> are not a valid index in 
-     *  <code>dataProvider</code> or the selectionMode is not valid.
+     *  @return True if no errors, or false if any of the indices are invalid
+     *  or <code>startRowIndex</code> is not less than or equal to <code>endRowIndex</code>
+     *  or the selectionMode is not valid.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */    
-    public function setRows(rowIndices:Vector.<int>):Boolean
+    public function setRows(startRowIndex:int, endRowIndex:int):Boolean
     {
+        // ToDo: convert selection to use rowRange internally
+        // For now, just change the API to use it.
+        
+        // ToDo:  consider allowing startRowIndex to be either end of the range.
+        
+        const rowCount:int = endRowIndex - startRowIndex + 1;
+        if (rowCount < 0)
+            return false;
+        
+        const rowIndices:Vector.<int> = new Vector.<int>(rowCount, true);
+        for (var i:int = startRowIndex; i <= endRowIndex; i++)
+        {
+            rowIndices[i - startRowIndex] = i;
+        }                 
+        
         if (!validateIndices(rowIndices))
             return false;
        
