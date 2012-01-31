@@ -367,9 +367,9 @@ public class TextArea extends TextBase
             // round to ints then the sets of verticalScrollPosition and
             // horizontalScrollPosition will be no-ops which is desirable.
             if (scroller.horizontalScrollBar)
-                scroller.horizontalScrollBar.valueInterval = 0;
+                scroller.horizontalScrollBar.snapInterval = 0;
             if (scroller.verticalScrollBar)
-                scroller.verticalScrollBar.valueInterval = 0;
+                scroller.verticalScrollBar.snapInterval = 0;
         }            
     }
     
