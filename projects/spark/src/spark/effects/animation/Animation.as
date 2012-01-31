@@ -1169,6 +1169,7 @@ public final class Animation
             }
             startTime = cycleStartTime = intervalTime - playheadTime;
         }
+        
         doInterval();
         _doSeek = false;
     }
@@ -1366,22 +1367,15 @@ public final class Animation
         
         calculateValue(0);
 
-        if (duration == 0)
-        {
-            id = -1; // use -1 to indicate that this animation was never added
-            end();
-        }
-        else
-        {
-            // TODO (rfrishbe): if the animation gets stopped() or ended() in 
-            // the first update, then the animation never actually gets removed
-            sendUpdateEvent();
-            Animation.addAnimation(this);
-            startTime = cycleStartTime;
-            _isPlaying = true;
-            if (actualStartTime > 0)
-                seek(actualStartTime);
-        }
+        // TODO (rfrishbe): if the animation gets stopped() or ended() in 
+        // the first update, then the animation never actually gets removed
+        sendUpdateEvent();
+        Animation.addAnimation(this);
+        startTime = cycleStartTime;
+        _isPlaying = true;
+        if (actualStartTime > 0)
+            seek(actualStartTime);
+
         started = true;
     }
 
