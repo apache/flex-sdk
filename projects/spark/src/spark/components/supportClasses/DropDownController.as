@@ -257,6 +257,8 @@ public class DropDownController extends EventDispatcher
                 openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
                 openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
+            
+            openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     }
     
@@ -282,6 +284,8 @@ public class DropDownController extends EventDispatcher
                 openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
                 openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
+            
+            openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     } 
 
@@ -502,6 +506,17 @@ public class DropDownController extends EventDispatcher
     {
         closeDropDown(true);
     }       
+    
+    /**
+     *  @private
+     *  Called when the mouseWheel is used
+     */
+    private function systemManager_mouseWheelHandler(event:MouseEvent):void
+    {
+        // Close the dropDown unless we scrolled over the dropdown and the dropdown handled the event
+        if (!(DisplayObjectContainer(dropDown).contains(DisplayObject(event.target)) && event.isDefaultPrevented()))
+            closeDropDown(false);
+    }
     
     /**
      *  Close the drop down if it is no longer in focus.
