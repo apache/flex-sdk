@@ -11,6 +11,8 @@
 
 package spark.primitives
 {
+import fl.video.DynamicStream;
+import fl.video.DynamicStreamItem;
 import fl.video.MetadataEvent;
 import fl.video.VideoAlign;
 import fl.video.VideoEvent;
@@ -21,10 +23,13 @@ import fl.video.VideoState;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.ProgressEvent;
+import flash.geom.Matrix;
 import flash.media.Video;
 
 import mx.core.mx_internal;
 
+import spark.components.supportClasses.StreamItem;
+import spark.components.supportClasses.StreamingVideoSource;
 import spark.events.VideoEvent;
 import spark.primitives.supportClasses.GraphicElement;
 
@@ -150,6 +155,8 @@ import spark.primitives.supportClasses.GraphicElement;
  */
 public class VideoElement extends GraphicElement
 {
+    include "../core/Version.as";
+    
     /**
      *  Constructor.
      *   
@@ -162,15 +169,23 @@ public class VideoElement extends GraphicElement
     {
         super();
         VideoPlayer.iNCManagerClass = fl.video.NCManagerDynamicStream;
-        mx_internal::videoPlayer = new VideoPlayer();
-        mx_internal::videoPlayer.align = VideoAlign.CENTER;
         
-        mx_internal::videoPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
-        mx_internal::videoPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
-        mx_internal::videoPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
-        mx_internal::videoPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
-        mx_internal::videoPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-        mx_internal::videoPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
+        var flvPlayer:VideoPlayer = new VideoPlayer();
+        mx_internal::videoPlayer = flvPlayer;
+        
+        flvPlayer.align = VideoAlign.CENTER;
+        // unfortunately, there's a bug in the video player that 
+        // won't easily let align center if we set x and y directly 
+        // on the video player.  So to work-around this, we always 
+        // create a transform and set x/y that way
+        allocateLayoutFeatures();
+               
+        flvPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
+        flvPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
+        flvPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
+        flvPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
+        flvPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+        flvPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -305,52 +320,6 @@ public class VideoElement extends GraphicElement
     {
         mx_internal::videoPlayer.autoRewind = value;
     }
-        
-    //----------------------------------
-    //  live
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for live property.
-     */
-    private var _live:Boolean = false;
-
-    [Inspectable(category="General", defaultValue="false")]
-
-    /**
-     *  A Boolean value that is <code>true</code> if the video stream is live. 
-     *  This property is effective only when streaming from Flash Media Server 
-     *  or Flash Video Streaming Service (FVSS). The value of this 
-     *  property is ignored for an HTTP download.
-     * 
-     *  <p>Set the <code>live</code> property to <code>false</code> when sending 
-     *  a prerecorded video stream to the video player and to <code>true</code> 
-     *  when sending real-time data such as a live broadcast.</p>
-     *
-     *  @see #source 
-     *  @see VideoPlayer#live 
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get live():Boolean
-    {
-        return _live;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set live(value:Boolean):void
-    {
-        _live = value;
-        sourceChanged = true;
-        invalidateProperties();
-    }
     
     //----------------------------------
     //  maintainAspectRatio
@@ -442,12 +411,14 @@ public class VideoElement extends GraphicElement
         {
             mx_internal::videoPlayer.volume = mutedVolume;
             mutedVolume = -1;
+            dispatchEvent(new Event("volumeChanged"));
         }
         // if trying to mute and we're not muted
         else if (value && mutedVolume == -1)
         {
             mutedVolume = mx_internal::videoPlayer.volume;
             mx_internal::videoPlayer.volume = 0;
+            dispatchEvent(new Event("volumeChanged"));
         }
     }
     
@@ -544,14 +515,30 @@ public class VideoElement extends GraphicElement
     private var _source:Object;
     private var sourceChanged:Boolean;
     
+    /**
+     *  @private
+     *  Keeps track of the last source that's been played.  That way if 
+     *  we've been paused, we pass in play(null) to the underlying video player.  
+     *  Passing in play(source) resets the stream back to 0.
+     */
+    private var sourceLastPlayed:Object;
+    
+    /**
+     *  @private
+     *  Keeps track of whether we were paused or not when someone calls 
+     *  play().  This is used for the same purpose as sourceLastPlayed.
+     *  This is set to true in pause().  It's set to false in stop() and play().
+     */
+    private var wasPaused:Boolean;
+    
     [Bindable("sourceChanged")]
     [Inspectable(category="General", defaultValue="null")]
     
     /**
-     *  Path or URL of the video file or stream to play.  For 
-     *  multi-bitrate, <code>source</code> can be set to an Array 
-     *  of objects, where each object has a streamName and a bitRate
-     *  property.
+     *  For progressive download, the source is just a path or URL pointing 
+     *  to the video file to play.  For streaming (streaming, live streaming, 
+     *  or multi-bitrate streaming), the source property is a 
+     *  StreamingVideoSource object.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -640,10 +627,7 @@ public class VideoElement extends GraphicElement
      */
     public function get volume():Number
     {
-        if (mutedVolume == -1)
-            return mx_internal::videoPlayer.volume;
-        else
-            return mutedVolume;
+        return mx_internal::videoPlayer.volume;
     }
     
     /**
@@ -675,11 +659,6 @@ public class VideoElement extends GraphicElement
             if (autoPlay)
             {
                 play();
-            }
-            else
-            {
-                // TODO: should we load the video if autoPlay is false?
-                mx_internal::videoPlayer.load(source as String, NaN, live);
             }
         }
     }
@@ -718,8 +697,10 @@ public class VideoElement extends GraphicElement
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        mx_internal::videoPlayer.width = Math.floor(unscaledWidth);
-        mx_internal::videoPlayer.height = Math.floor(unscaledHeight);
+        var flvPlayer:VideoPlayer = mx_internal::videoPlayer;
+        
+        flvPlayer.width = Math.floor(unscaledWidth);
+        flvPlayer.height = Math.floor(unscaledHeight);
     }
     
     //--------------------------------------------------------------------------
@@ -742,6 +723,7 @@ public class VideoElement extends GraphicElement
      */
     public function pause():void
     {
+        wasPaused = true;
         mx_internal::videoPlayer.pause();
     }
     
@@ -764,20 +746,104 @@ public class VideoElement extends GraphicElement
      */
     public function play(startTime:Number=NaN, duration:Number=NaN):void
     {
-        if (!isNaN(startTime))
-            seek(startTime);
-        
-        var source:String;
-        
-        if (mx_internal::videoPlayer.state == VideoState.PAUSED)
-            source = null;
+        // check for 2 cases: streaming video or progressive download
+        if (source is StreamingVideoSource)
+        {
+            // the streaming video case.
+            // build up a DynamicStreamItem to pass in to 
+            // play2();
+            var streamingSource:StreamingVideoSource = source as StreamingVideoSource;
+            var flvSource:DynamicStreamItem;
+            
+            // if paused, pass in null as the flvSource.  Otherwise, calling 
+            // play(source) will reset the stream back to zero.  To restart the 
+            // stream where it was paused, one needs to call play(null).
+            if (wasPaused && (sourceLastPlayed == this.source) )
+            {
+                flvSource = null;
+            }
+            else
+            {
+                flvSource =  new DynamicStreamItem();
+                sourceLastPlayed = source;
+                
+                flvSource.uri = streamingSource.serverURI;
+            
+                var n:int = streamingSource.streamItems.length;
+                var item:StreamItem;
+                for (var i:int = 0; i < n; i++)
+                {
+                    item = StreamItem(streamingSource.streamItems[i]);
+                    flvSource.addStream(item.streamName, item.bitRate);
+                }
+            }
+            
+            wasPaused = false;
+            
+            // we don't do anything with the duration or startTime in 
+            // the play2() case, as the underlying FLVPlayback VideoPlayer
+            // doesn't handle it right now.
+            
+            // TODO (rfrishbe): Could we just call play2() and then call seek()
+            // like we do in the progressive case?  Is it worth it?  Need to talk
+            // to Strobe team about this.
+
+            mx_internal::videoPlayer.play2(flvSource);
+        }
         else
-            source = this.source as String;
-        
-        if (isNaN(duration))
-            mx_internal::videoPlayer.play(source, live);
-        else
-            mx_internal::videoPlayer.play(source, live, duration);
+        {
+            // The progressive case
+            var sourceString:String;
+            
+            // if paused, pass in null as the flvSource.  Otherwise, calling 
+            // play(source) will reset the stream back to zero.  To restart the 
+            // stream where it was paused, one needs to call play(null).
+            if (wasPaused && (sourceLastPlayed == this.source) )
+            {
+                sourceString = null;
+            }
+            else
+            {
+                sourceString = String(this.source);
+                sourceLastPlayed = sourceString;
+            }
+            
+            wasPaused = false;
+            
+            // TODO (rfrishbe): how we handle startTime is pretty hacky.
+            // Need to figure out if there's a better way or talk to Strobe 
+            // team to see if this is even worth it.  Right now, we're also 
+            // inconsistent with the streaming case.
+            
+            if (sourceString != null && !isNaN(startTime))
+            {
+                // If we need to seek before playing, and we haven't 
+                // seen this video yet, 
+                // we load up the video, call seek(), and then 
+                // call play(null)
+                mx_internal::videoPlayer.load(sourceString);
+                
+                seek(startTime);
+                
+                if (isNaN(duration))
+                    mx_internal::videoPlayer.play(null);
+                else
+                    mx_internal::videoPlayer.play(null, false, duration);
+            }
+            else
+            {
+                // if we've played this video before or we don't 
+                // need to seek (startTime is null), we can handle these 
+                // cases separately
+                if (!isNaN(startTime))
+                    seek(startTime);
+                
+                if (isNaN(duration))
+                    mx_internal::videoPlayer.play(sourceString);
+                else
+                    mx_internal::videoPlayer.play(sourceString, false, duration);
+            }
+        }
     }
    
     /**
@@ -823,6 +889,7 @@ public class VideoElement extends GraphicElement
      */
     public function stop():void
     {
+        wasPaused = false;
         mx_internal::videoPlayer.stop();
     }
     
