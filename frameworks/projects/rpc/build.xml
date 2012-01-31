@@ -53,8 +53,10 @@
 			Write a bundle list of referenced resource bundles
 			into the file bundles.properties in this directory.
 		-->
-		<compc output="${FLEX_HOME}/frameworks/libs/rpc.swc"
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/libs/rpc.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
@@ -76,8 +78,10 @@
 	<target name="bundle">
 		<echo message="Compiling frameworks/locale/${locale}/rpc_rb.swc"/>
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-		<compc output="${FLEX_HOME}/frameworks/locale/${locale}/rpc_rb.swc"
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/locale/${locale}/rpc_rb.swc"
 			   locale="${locale}">
+			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="core"/>
 			<include-resource-bundles bundle="logging"/>
