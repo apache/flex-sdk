@@ -22,6 +22,8 @@ import mx.components.baseClasses.FxSlider;
 
 /**
  *  The FxVSlider class defines a vertical slider component.
+ *
+ *  @includeExample examples/FxVSliderExample.mxml
  */
 public class FxVSlider extends FxSlider
 {
