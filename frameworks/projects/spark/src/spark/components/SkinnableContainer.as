@@ -837,6 +837,8 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+		super.partAdded(partName, instance);
+
         if (instance == contentGroup)
         {
             if (_contentModified)
@@ -914,6 +916,8 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+		super.partRemoved(partName, instance);
+
         if (instance == contentGroup)
         {
             contentGroup.removeEventListener(
