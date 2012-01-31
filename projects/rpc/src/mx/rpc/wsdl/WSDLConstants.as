@@ -189,6 +189,11 @@ public class WSDLConstants
      * The namespace representing the version of SOAP used by a WSDL,
      * currently 1.1 is supported.
      * FIXME: Need SOAP 1.2 support.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _soapNS:Namespace;
 
@@ -196,6 +201,11 @@ public class WSDLConstants
      * The namespace representing the version of WSDL, currently only 1.1 is
      * supported.
      * TODO: Need WSDL 2.0 support.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _wsdlNS:Namespace;
 
