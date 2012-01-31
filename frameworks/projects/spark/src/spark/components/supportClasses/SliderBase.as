@@ -25,6 +25,15 @@ import mx.core.UIComponent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
+include "../../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
 /**
  *  The FxSlider class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
