@@ -48,7 +48,8 @@ public class GridDimensions
     private var recentNode:GridRowNode = null;
     
     private const typicalCellWidths:Array = new Array();
-    private const typicalCellHeights:Array = new Array();    
+    private const typicalCellHeights:Array = new Array();
+    private var isFirstTypicalCellHeight:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -140,6 +141,17 @@ public class GridDimensions
             {
                 for (i = temp; i < _columnCount; i++)
                     _columnWidths[i] = NaN;
+                
+                if (_columnCount == 0)
+                {
+                    clearTypicalCellWidthsAndHeights();
+                }
+                else
+                {
+                    typicalCellWidths.length = _columnCount;
+                    typicalCellHeights.length = _columnCount;
+                }
+
             }
         }
     }
@@ -190,6 +202,9 @@ public class GridDimensions
             return;
         
         _defaultRowHeight = bound(value, _minRowHeight, _maxRowHeight);
+        
+        // reset recent node.
+        recentNode = null;
     }
     
     //----------------------------------
@@ -853,6 +868,29 @@ public class GridDimensions
     public function setTypicalCellHeight(columnIndex:int, value:Number):void
     {
         typicalCellHeights[columnIndex] = value;
+        
+        // if this is the first cell height, set default to it
+        if (isFirstTypicalCellHeight)
+        {
+            this.defaultRowHeight = value;
+            isFirstTypicalCellHeight = false;
+        }
+        else
+        {
+            // otherwise, find the max of the typical cell heights.
+            var max:Number = 0;
+            for (var i:int = 0; i < typicalCellHeights.length; i++)
+                max = Math.max(max, typicalCellHeights[i]);
+            this.defaultRowHeight = max;
+        }
+    }
+    
+    public function clearTypicalCellWidthsAndHeights():void
+    {
+        typicalCellWidths.length = 0;
+        typicalCellHeights.length = 0;
+        defaultRowHeight = 22;
+        isFirstTypicalCellHeight = true;
     }
         
     /**
