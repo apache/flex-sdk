@@ -365,7 +365,7 @@ public class TextBase extends SkinnableComponent
         }
         else
         {
-            textViewProperties.autoLayout = value;
+            textViewProperties.autoSize = value;
         }
             
         invalidateProperties();            
