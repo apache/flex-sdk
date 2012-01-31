@@ -132,7 +132,7 @@ public class FxToggleButton extends FxButton
 
     /**
      *  @private
-     *  Storage for the allowDeselection property 
+     *  Storage for the selected property 
      */
     private var _selected:Boolean;
 
