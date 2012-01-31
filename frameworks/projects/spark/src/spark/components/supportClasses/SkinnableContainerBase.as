@@ -76,56 +76,6 @@ public class SkinnableContainerBase extends SkinnableComponent implements IFocus
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  mouseChildren
-    //----------------------------------
-
-    private var _explicitMouseChildren:Boolean = true;
-
-    /**
-     *  @private
-     */
-    override public function set mouseChildren(value:Boolean):void
-    {
-        if (enabled)
-            super.mouseChildren = value;
-        _explicitMouseChildren = value;
-    }
-
-    //----------------------------------
-    //  mouseEnabled
-    //----------------------------------
-
-    private var _explicitMouseEnabled:Boolean = true;
-
-    /**
-     *  @private
-     */
-    override public function set mouseEnabled(value:Boolean):void
-    {
-        if (enabled)
-            super.mouseEnabled = value;
-        _explicitMouseEnabled = value;
-    }
-
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        super.enabled = value;
-        invalidateSkinState();
-
-        // If enabled, reset the mouseChildren, mouseEnabled to the previously
-        // set explicit value, otherwise disable mouse interaction.
-        super.mouseChildren = value ? _explicitMouseChildren : false;
-        super.mouseEnabled  = value ? _explicitMouseEnabled  : false; 
-    }
-
-    //----------------------------------
     //  defaultButton
     //----------------------------------
 
