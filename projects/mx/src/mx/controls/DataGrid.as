@@ -100,6 +100,11 @@ use namespace mx_internal;
  *  or in any other way attempts to edit an item.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_EDIT_BEGINNING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditBeginning", type="mx.events.DataGridEvent")]
 
@@ -108,6 +113,11 @@ use namespace mx_internal;
  *  and the item can be edited.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_EDIT_BEGIN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditBegin", type="mx.events.DataGridEvent")]
 
@@ -115,6 +125,11 @@ use namespace mx_internal;
  *  Dispatched when an item editing session ends for any reason.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_EDIT_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemEditEnd", type="mx.events.DataGridEvent")]
 
@@ -124,6 +139,11 @@ use namespace mx_internal;
  *  a keyboard.  Only dispatched if the item is editable.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_FOCUS_IN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemFocusIn", type="mx.events.DataGridEvent")]
 
@@ -135,6 +155,11 @@ use namespace mx_internal;
  *  Only dispatched if the item is editable.
  *
  *  @eventType mx.events.DataGridEvent.ITEM_FOCUS_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemFocusOut", type="mx.events.DataGridEvent")]
 
@@ -146,6 +171,11 @@ use namespace mx_internal;
  *  and they also dispatch this event.
  *
  *  @eventType mx.events.DataGridEvent.COLUMN_STRETCH
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="columnStretch", type="mx.events.DataGridEvent")]
 
@@ -165,6 +195,11 @@ use namespace mx_internal;
  * </p>
  *
  *  @eventType mx.events.DataGridEvent.HEADER_RELEASE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="headerRelease", type="mx.events.DataGridEvent")]
 
@@ -174,6 +209,11 @@ use namespace mx_internal;
  *  to a new index.
  *
  *  @eventType mx.events.IndexChangedEvent.HEADER_SHIFT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="headerShift", type="mx.events.IndexChangedEvent")]
 
@@ -189,6 +229,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  If <code>true</code>, shows vertical grid lines.
  *  If <code>false</code>, hides vertical grid lines.
  *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGridLines", type="Boolean", inherit="no")]
 
@@ -198,17 +243,32 @@ include "../styles/metadata/IconColorStyles.as"
  *  If <code>true</code>, shows horizontal grid lines.
  *  If <code>false</code>, hides horizontal grid lines.
  *  @default false
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGridLines", type="Boolean", inherit="no")]
 
 /**
  *  The color of the vertical grid lines.
  *  @default 0x666666
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGridLineColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  The color of the horizontal grid lines.
+  *  
+  *  @langversion 3.0
+  *  @playerversion Flash 9
+  *  @playerversion AIR 1.1
+  *  @productversion Flex 3
   */
 [Style(name="horizontalGridLineColor", type="uint", format="Color", inherit="yes")]
 
@@ -217,12 +277,22 @@ include "../styles/metadata/IconColorStyles.as"
  *  The first color is the top color.
  *  The second color is the bottom color.
  *  @default [0xFFFFFF, 0xE6E6E6]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  The color of the row background when the user rolls over the row.
  *  @default 0xE3FFD6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -230,6 +300,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  The color of the background for the row when the user selects 
  *  an item renderer in the row.
  *  @default 0xCDFFC1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -237,12 +312,22 @@ include "../styles/metadata/IconColorStyles.as"
  *  The name of a CSS style declaration for controlling other aspects of
  *  the appearance of the column headers.
  *  @default "dataGridStyles"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerStyleName", type="String", inherit="no")]
 
 /**
  *  The class to use as the skin for a column that is being resized.
  *  @default mx.skins.halo.DataGridColumnResizeSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="columnResizeSkin", type="Class", inherit="no")]
 
@@ -251,6 +336,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin that defines the appearance of the  
  *  background of the column headers in a DataGrid control.
  *  @default mx.skins.halo.DataGridHeaderSeparator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerBackgroundSkin", type="Class", inherit="no")]
 
@@ -258,6 +348,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin that defines the appearance of the 
  *  separator between column headers in a DataGrid control.
  *  @default mx.skins.halo.DataGridHeaderSeparator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerSeparatorSkin", type="Class", inherit="no")]
 
@@ -269,6 +364,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  to draw the separators.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalSeparatorSkin", type="Class", inherit="no")]
 
@@ -280,6 +380,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  to draw the separators.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalLockedSeparatorSkin", type="Class", inherit="no")]
 
@@ -291,6 +396,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  to draw the separators.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalSeparatorSkin", type="Class", inherit="no")]
 
@@ -302,6 +412,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  to draw the separators.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalLockedSeparatorSkin", type="Class", inherit="no")]
 
@@ -309,6 +424,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin for the arrow that indicates the column sort 
  *  direction.
  *  @default mx.skins.halo.DataGridSortArrow
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="sortArrowSkin", type="Class", inherit="no")]
 
@@ -316,6 +436,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin for the cursor that indicates that a column
  *  can be resized.
  *  The default value is the "cursorStretch" symbol from the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="stretchCursor", type="Class", inherit="no")]
 
@@ -324,6 +449,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  a column can be dropped in the current location.
  *
  *  @default mx.skins.halo.DataGridColumnDropIndicator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="columnDropIndicatorSkin", type="Class", inherit="no")]
 
@@ -332,6 +462,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  appearance of column when the user is dragging it to another location.
  *
  *  @default "headerDragProxyStyle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerDragProxyStyleName", type="String", inherit="no")]
 
@@ -499,6 +634,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  @see mx.events.DataGridEvent
  *
  *  @includeExample examples/SimpleDataGrid.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGrid extends DataGridBase implements IIMESupport
 {
@@ -524,6 +664,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGrid()
     {
@@ -580,6 +725,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  and, therefore, the data type of the item editor instance.</p>
      *
      *  <p>You do not set this property in MXML.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemEditorInstance:IListItemRenderer;
 
@@ -591,6 +741,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  and <code>itemEditEnd</code> events,
      *  you can access the current value of the item being edited
      *  using the <code>editedItemRenderer.data</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editedItemRenderer():IListItemRenderer
     {
@@ -813,6 +968,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  that will make the last column visible.  This is different from the
      *  List control that scrolls by pixels.  The DataGrid control always aligns the left edge
      *  of a column with the left edge of the DataGrid control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set horizontalScrollPosition(value:Number):void
     {
@@ -951,6 +1111,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @see flash.system.IMEConversionMode
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get imeMode():String
     {
@@ -1019,6 +1184,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  their own minimum widths.
      *  
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minColumnWidth():Number
     {
@@ -1067,6 +1237,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  and then assign the new array to the columns property.  This is because
      *  the DataGrid control returned a new copy of the array of columns and therefore
      *  did not notice the changes.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get columns():Array
     {
@@ -1127,6 +1302,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  of the DataGrid control by dragging the header cells.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get draggableColumns():Boolean
     {
@@ -1159,6 +1339,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  <code>itemEditBegin</code> events</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var editable:Boolean = false;
 
@@ -1213,6 +1398,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  open an item editor on the specified item renderer.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editedItemPosition():Object
     {
@@ -1257,6 +1447,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  prevent the user from resizing a particular column.  
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var resizableColumns:Boolean = true;
 
@@ -1291,6 +1486,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *
      *  @see mx.controls.dataGridClasses.DataGridColumn#dataField
      *  @see mx.controls.dataGridClasses.DataGridColumn#sortCompareFunction
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sortableColumns:Boolean = true;
 
@@ -2934,6 +3134,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param dataIndex The index of the item for that row in the
      *  data provider.  This can be used to color the 10th item differently
      *  for example.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawRowBackground(s:Sprite, rowIndex:int,
                                             y:Number, height:Number, color:uint, dataIndex:int):void
@@ -2984,6 +3189,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param color The suggested color for the indicator
      * 
      *  @param column The column of the DataGrid control that you are drawing the background for.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawColumnBackground(s:Sprite, columnIndex:int,
                                             color:uint, column:DataGridColumn):void
@@ -3022,6 +3232,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  Creates and sizes the horizontalSeparator skins. If none have been specified, then draws the lines using
      *  drawHorizontalLine(). 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function drawHorizontalSeparator(s:Sprite, rowIndex:int, color:uint, y:Number, useLockedSeparator:Boolean = false):void
     {
@@ -3095,6 +3310,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param color The suggested color for the indicator
      * 
      *  @param y The suggested y position for the background
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawHorizontalLine(s:Sprite, rowIndex:int, color:uint, y:Number):void
     {
@@ -3109,6 +3329,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  Creates and sizes the verticalSeparator skins. If none have been specified, then draws the lines using
      *  drawVerticalLine(). 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function drawVerticalSeparator(s:Sprite, colIndex:int, color:uint, x:Number, useLockedSeparator:Boolean = false):void
     {
@@ -3179,6 +3404,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param color The suggested color for the indicator
      * 
      *  @param x The suggested x position for the background
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawVerticalLine(s:Sprite, colIndex:int, color:uint, x:Number):void
     {
@@ -3198,6 +3428,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  It creates a
      *  Sprite that contains all of these graphics and adds it as a
      *  child of the listContent at the front of the z-order.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawLinesAndColumnBackgrounds():void
     {
@@ -3216,6 +3451,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param contentHolder A container of all of the DataGrid's item renderers and item editors.
      *  @param visibleColumns An array of the visible columns in the DataGrid.
      *  @param separators An object that defines the top, bottom, left, and right lines that separate the columns and rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawLinesAndColumnGraphics(contentHolder:ListBaseContentHolder, visibleColumns:Array, separators:Object):void
     {
@@ -3366,6 +3606,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *
      *  @param headerBG A UIComponent that will contain the header
      *  background graphics.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawHeaderBackground(headerBG:UIComponent):void
     {
@@ -3380,6 +3625,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  Removes column header separators that the user normally uses
      *  to resize columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearSeparators():void
     {
@@ -3400,6 +3650,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  instances of the <code>headerSeparatorSkin</code> and attaches mouse
      *  listeners to them in order to know when the user wants
      *  to resize a column.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawSeparators():void
     {
@@ -3482,6 +3737,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  it in the appropriate column header.  It
      *  also shrinks the size of the column header if the text in the header
      *  would be obscured by the sort arrow.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function placeSortArrow():void
     {
@@ -3817,6 +4077,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @param colIndex The column index in the data provider of the item to be edited.
      *
      *  @param rowIndex The row index in the data provider of the item to be edited.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createItemEditor(colIndex:int, rowIndex:int):void
     {
@@ -3974,6 +4239,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  for the <code>itemEditEnd</code> event, after
      *  you have already called the <code>preventDefault()</code> method to 
      *  prevent the default event listener from executing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function destroyItemEditor():void
     {
@@ -4067,6 +4337,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      * 
      *  @return The default behavior is to return <code>true</code> if the DataGrid's <code>editable</code> property is 
      *  <code>true</code> and the data object is not <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isItemEditable(data:Object):Boolean
     {
@@ -4941,6 +5216,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /** 
      *  diagnostics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override mx_internal function get rendererArray():Array 
     {
@@ -4952,6 +5232,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /** 
      *  diagnostics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get sortArrow():IFlexDisplayObject 
     {
@@ -4964,6 +5249,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  
      *  @param unscaledWidth The width of the listContent. This value ignores changes to the width from external components or settings.
      *  @param unscaledHeight The height of the listContent. This value ignores changes to the height from external components or settings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
@@ -5079,6 +5369,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function scrollPositionToIndex(horizontalScrollPosition:int,
                                              verticalScrollPosition:int):int
@@ -5088,6 +5383,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function scrollVertically(pos:int, deltaPos:int,
                                         scrollUp:Boolean):void
