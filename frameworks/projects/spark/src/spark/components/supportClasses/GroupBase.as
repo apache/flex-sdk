@@ -18,9 +18,9 @@ import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
 import flex.graphics.TransformUtil;
 import flex.graphics.graphicsClasses.GraphicElement;
-import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flex.intf.IViewport;
+import flex.layout.LayoutBase;
 import flex.layout.BasicLayout;
 import flex.layout.LayoutItemFactory;
 
@@ -64,7 +64,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         tabChildren = true;
         
         _layout = new BasicLayout();
-        ILayout(_layout).target = this;  
+        _layout.target = this;  
     }
     
     //--------------------------------------------------------------------------
@@ -78,9 +78,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //  layout
     //----------------------------------    
         
-    private var _layout:ILayout;  // initialized in the ctor
+    private var _layout:LayoutBase;  // initialized in the ctor
         
-    public function get layout():ILayout
+    public function get layout():LayoutBase
     {
         return _layout;
     }
@@ -88,14 +88,14 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     /**
      * @private
      */
-    public function set layout(value:ILayout):void
+    public function set layout(value:LayoutBase):void
     {
         if (_layout == value)
             return;
         
         _layout = value;  
         if (_layout)
-            ILayout(_layout).target = this;
+            _layout.target = this;
         invalidateSize();
         invalidateDisplayList();
     }
@@ -283,7 +283,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             invalidateParentSizeAndDisplayList();
         }
     }
-    
+
     override protected function measure():void
     {
         super.measure();
@@ -305,6 +305,12 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         if (_layout)
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IViewport properties and methods that delegate to layout
+    //
+    //--------------------------------------------------------------------------    
     
     //----------------------------------
     //  horizontalScrollPosition
@@ -340,7 +346,26 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             layout.verticalScrollPosition = value;
     }
     
+    //----------------------------------
+    //  horizontal,verticalScrollPositionDelta
+    //----------------------------------
+
+    public function horizontalScrollPositionDelta(unit:uint):Number
+    {
+        return (layout) ? layout.horizontalScrollPositionDelta(unit) : 0;     
+    }
     
+    public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        return (layout) ? layout.verticalScrollPositionDelta(unit) : 0;     
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IViewport properties
+    //
+    //--------------------------------------------------------------------------        
+
     //----------------------------------
     //  contentWidth
     //---------------------------------- 
@@ -412,6 +437,21 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         setContentWidth(w);
         setContentHeight(h);
     }
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+    
+    public function get clipContent():Boolean 
+    {
+        return (layout) ? layout.clipContent : false;
+    }
+
+    public function set clipContent(value:Boolean):void 
+    {
+        if (layout)
+            layout.clipContent = value;
+    }    
     
     //--------------------------------------------------------------------------
     //
