@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.gridClasses
 {
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -424,7 +424,7 @@ public class GridColumn extends EventDispatcher
     {
         _headerText = value;
         
-        // Todo: invalidate just the ColumnHeaderBar not the entire grid?
+        // Todo: invalidate just the GridColumnHeaderGroup not the entire grid?
         if (grid)
             grid.invalidateDisplayList();
 
