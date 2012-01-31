@@ -158,6 +158,7 @@ global
     symbolColor: #000000;
     
     /* Behaviors */
+    autoThumbVisibility: true;
     fixedThumbSize: false;
     fullScreenHideControlsDelay: 3000;
     horizontalScrollPolicy: "auto";
