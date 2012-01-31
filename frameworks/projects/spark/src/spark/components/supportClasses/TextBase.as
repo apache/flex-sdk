@@ -99,7 +99,7 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("color", oldValue, value);			
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateDisplayList();
 		}
 	}
 
@@ -132,7 +132,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("fontFamily", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -165,7 +166,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("fontSize", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -198,7 +200,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("fontStyle", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -231,7 +234,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("fontWeight", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -264,7 +268,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("kerning", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -297,7 +302,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("lineHeight", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -330,7 +336,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("paddingBottom", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -363,7 +370,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("paddingLeft", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -396,7 +404,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("paddingRight", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -429,7 +438,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("paddingTop", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -462,7 +472,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("textAlign", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 
@@ -495,7 +506,7 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("textAlpha", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateDisplayList();
 		}
 	}
 
@@ -528,7 +539,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("tracking", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateSize(); // TODO: does tracking change our size?
+			invalidateDisplayList();
 		}
 	}
 
@@ -561,7 +573,7 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("verticalAlign", oldValue, value);
 
 			invalidateTextLines("style");
-			notifyElementChanged();
+			invalidateDisplayList();
 		}
 	}
 
@@ -600,7 +612,8 @@ public class TextGraphicElement extends GraphicElement
 			dispatchPropertyChangeEvent("text", oldValue, value);
 
 			invalidateTextLines("text");
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -611,23 +624,21 @@ public class TextGraphicElement extends GraphicElement
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  @private
+	 *  @inheritDoc
 	 */
-	override public function get actualSize():Point
-	{
-		return new Point(drawWidth, drawHeight);
-	}
-
-	/**
-	 *  @private
-	 */
-	override public function draw(g:Graphics):void 
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
 	{
 		/*
-		g.clear();
+		var g:Graphics = Sprite(displayObject).graphics;
+		
+	    // TODO EGeorgie: clearing the graphics needs to be shared when
+	    // the display objects are shared.
+	    g.clear();
+
 		g.lineStyle()
 		g.beginFill(0xCCCCCC);
-		g.drawRect(0, 0, drawWidth, drawHeight);
+		g.drawRect(0, 0, unscaledWidth, unscaledHeight);
 		g.endFill();
 		*/
 	}
