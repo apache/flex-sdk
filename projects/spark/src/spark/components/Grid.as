@@ -3011,12 +3011,7 @@ public class Grid extends Group
                 gridSelection.requireSelection = savedRequireSelection;
             }
             
-           clearGridLayoutCache(columnsChanged);
-            
-            // To workaround the loop-prevention logic in the scroller which 
-            // may not allow the width of the viewport to be reduced if there 
-            // are automatic scrollbars.  See ScrollerLayout/measure().
-            setLayoutBoundsSize(0, 0, false); 
+           clearGridLayoutCache(columnsChanged);            
             
             if (!caretChanged)
                 initializeCaretPosition();
@@ -3677,6 +3672,9 @@ public class Grid extends Group
         
         gridDimensions.columnCount = _columns.length;
         
+        if (gridLayout)
+            gridLayout.columnsCollectionChanged(event);
+        
         if (gridSelection)
             gridSelection.columnsCollectionChanged(event);
         
@@ -3716,6 +3714,12 @@ public class Grid extends Group
             gridDimensions.rowCount = _dataProvider ? _dataProvider.length : 0;
             gridDimensions.columnCount = _columns ? _columns.length : 0;
         }
+        
+        // Reset content size so scroller's viewport can be resized.  There
+        // is loop-prevention logic in the scroller which may not allow the
+        // width/height to be reduced if there are automatic scrollbars.
+        // See ScrollerLayout/measure().
+        setContentSize(0, 0);
     }
     
     /**
