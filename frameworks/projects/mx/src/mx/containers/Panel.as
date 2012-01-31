@@ -32,7 +32,6 @@ import mx.core.Container;
 import mx.core.ContainerLayout;
 import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -630,9 +629,6 @@ public class Panel extends Container
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.baselinePosition;
-        
         if (!validateBaselinePosition())
             return NaN;
 
@@ -1147,56 +1143,6 @@ public class Panel extends Container
     //  viewMetrics
     //----------------------------------
 
-    /**
-     *  @private  
-     *
-     *  Returns the thickness of the edges of the object, including  
-     *  the border, title bar, and scroll bars, if visible.
-     *  @return Object with left, right, top, and bottom properties
-     *  containing the edge thickness, in pixels.
-     */
-    override public function get viewMetrics():EdgeMetrics
-    {
-        var vm:EdgeMetrics = super.viewMetrics;
-        
-        // The getViewMetrics function needs to return its own object.
-        // Rather than allocating a new one each time, we'll allocate
-        // one once and then hold a pointer to it.
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            if (!panelViewMetrics)
-                panelViewMetrics = new EdgeMetrics(0, 0, 0, 0);
-            vm = panelViewMetrics;
-    
-            var o:EdgeMetrics = super.viewMetrics;
-            var bt:Number = getStyle("borderThickness");
-            var btl:Number = getStyle("borderThicknessLeft");
-            var btt:Number = getStyle("borderThicknessTop");
-            var btr:Number = getStyle("borderThicknessRight");
-            var btb:Number = getStyle("borderThicknessBottom");
-    
-            // Add extra space to edges (was margins).
-            vm.left = o.left + (isNaN(btl) ? bt : btl);
-            vm.top = o.top + (isNaN(btt) ? bt : btt);
-            vm.right = o.right + (isNaN(btr) ? bt : btr);
-            // Bottom is a special case. If borderThicknessBottom is NaN,
-            // use btl if we don't have a control bar or btt if we do.
-            vm.bottom = o.bottom + (isNaN(btb) ? 
-                (controlBar && !isNaN(btt) ? btt : isNaN(btl) ? bt : btl) : 
-                btb);
-                    
-            // Since the header covers the solid portion of the border,  
-            // we need to use the larger of borderThickness or headerHeight
-            var hHeight:Number = getHeaderHeight();
-            if (!isNaN(hHeight))
-                vm.top += hHeight;
-    
-            if (controlBar && controlBar.includeInLayout)
-                vm.bottom += controlBar.getExplicitOrMeasuredHeight();
-        }
-        return vm;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: DisplayObjectContainer
@@ -1421,10 +1367,7 @@ public class Panel extends Container
         var textWidth:Number = textSize.width;
         var textHeight:Number = textSize.height;
         
-        var bm:EdgeMetrics =
-            FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-            borderMetrics :
-            EdgeMetrics.EMPTY;
+        var bm:EdgeMetrics = EdgeMetrics.EMPTY;
         textWidth += bm.left + bm.right;    
         
         var offset:Number = 5;
@@ -1566,10 +1509,7 @@ public class Panel extends Container
         
         // Remove the borderThickness from the border metrics,
         // since the header and control bar overlap any solid border.
-        var bm:EdgeMetrics =
-            FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-            borderMetrics :
-            em;      
+        var bm:EdgeMetrics = em;      
         
         var x:Number = bm.left;
         var y:Number = bm.top;
@@ -1651,10 +1591,7 @@ public class Panel extends Container
             }
 
             // Set the position of the title text. 
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                h = titleTextField.nonZeroTextHeight;
-            else 
-                h = titleTextField.getUITextFormat().measureText(titleTextField.text).height;
+            h = titleTextField.getUITextFormat().measureText(titleTextField.text).height;
             offset = (headerHeight - h) / 2;
 
             var borderWidth:Number = bm.left + bm.right;            
@@ -1665,10 +1602,7 @@ public class Panel extends Container
                                    h + UITextField.TEXT_HEIGHT_PADDING);
 
             // Set the position of the status text.
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                h = statusTextField.textHeight;
-            else
-                h = statusTextField.text != "" ? statusTextField.getUITextFormat().measureText(statusTextField.text).height : 0;
+            h = statusTextField.text != "" ? statusTextField.getUITextFormat().measureText(statusTextField.text).height : 0;
             offset = (headerHeight - h) / 2;
             var statusX:Number = unscaledWidth - rightOffset - 4 -
                                  borderWidth - statusTextField.textWidth;
