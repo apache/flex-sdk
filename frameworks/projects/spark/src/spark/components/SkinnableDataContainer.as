@@ -875,7 +875,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     {
         super.addEventListener(type, listener, useCapture, priority, useWeakReference);
         
-        // TODO (rfrishbe): this isn't ideal as we should deal with the useCapture, 
+        // FIXME (rfrishbe): this isn't ideal as we should deal with the useCapture, 
         // priority, and useWeakReference parameters.
         
         // if it's a different type of event or the dataGroup doesn't
