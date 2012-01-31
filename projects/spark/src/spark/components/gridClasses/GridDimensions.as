@@ -133,7 +133,8 @@ public class GridDimensions
     
     private const typicalCellWidths:Vector.<Number> = new Vector.<Number>();
     private const typicalCellHeights:Vector.<Number> = new Vector.<Number>();
-    private var isFirstTypicalCellHeight:Boolean = true;
+    private var maxTypicalCellHeight:Number = NaN;
+    private var useMaxTypicalCellHeight:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -280,18 +281,22 @@ public class GridDimensions
     //  defaultRowHeight
     //----------------------------------
 
-    /**
-     *  If this changes, update the ASDoc for GridLayout/getItemRendererAt().
-     */
-    private var _defaultRowHeight:Number = 26;
+    private var _defaultRowHeight:Number = NaN;
     
     /**
-     *  The default height of a row. The defaultRowHeight is always
-     *  bounded by the minRowHeight and maxRowHeight.
+     *  The default height of a row.
+     *
+     *  <p>If this property is not set explicitly, it will use the maximum
+     *  of the typical cell heights.</p>
+     *
+     *  <p>When variableRowHeight is false, all rows have a height of
+     *  defaultRowHeight.</p>
+     *
+     *  @default NaN
      */
     public function get defaultRowHeight():Number
     {
-        return _defaultRowHeight;
+        return useMaxTypicalCellHeight ? maxTypicalCellHeight : _defaultRowHeight;
     }
     
     /**
@@ -303,6 +308,7 @@ public class GridDimensions
             return;
         
         _defaultRowHeight = bound(value, _minRowHeight, _maxRowHeight);
+        useMaxTypicalCellHeight = isNaN(_defaultRowHeight);
         
         // reset recent node.
         recentNode = null;
@@ -320,35 +326,14 @@ public class GridDimensions
     public var defaultColumnWidth:Number = 150;
     
     //----------------------------------
-    //  fixedRowHeight
+    //  variableRowHeight
     //----------------------------------
     
-    private var _fixedRowHeight:Number = NaN;
-    
     /**
-     *  If fixedRowHeight is set, calling getRowHeight will return
-     *  its value for every row. Individual cell heights are not
-     *  affected, but calling getCellBounds will return bounds
-     *  respecting fixedRowHeight. The fixedRowHeight is always
-     *  bounded by the minRowHeight and maxRowHeight.
-     * 
-     *  @default NaN
+     *  If variableRowHeight is false, calling getRowHeight
+     *  will return the value of defaultRowHeight.
      */
-    public function get fixedRowHeight():Number
-    {
-        return _fixedRowHeight;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set fixedRowHeight(value:Number):void
-    {
-        if (value == _fixedRowHeight)
-            return;
-        
-        _fixedRowHeight = bound(value, _minRowHeight, _maxRowHeight);
-    }
+    public var variableRowHeight:Boolean = true;
     
     //----------------------------------
     //  minRowHeight
@@ -376,7 +361,6 @@ public class GridDimensions
         
         _minRowHeight = value;
         _defaultRowHeight = Math.max(_defaultRowHeight, _minRowHeight);
-        _fixedRowHeight = Math.max(_fixedRowHeight, _minRowHeight);
     }
     
     //----------------------------------
@@ -405,7 +389,6 @@ public class GridDimensions
         
         _maxRowHeight = value;
         _defaultRowHeight = Math.min(_defaultRowHeight, _maxRowHeight);
-        _fixedRowHeight = Math.min(_fixedRowHeight, _maxRowHeight);
     }
 
     //--------------------------------------------------------------------------
@@ -428,11 +411,7 @@ public class GridDimensions
         // Unless setRowHeight is called, return the max cell height for this row
         var height:Number = defaultRowHeight;
         
-        if (!isNaN(fixedRowHeight))
-        {
-            height = fixedRowHeight;
-        }
-        else
+        if (variableRowHeight)
         {
             var node:GridRowNode = rowList.find(row);
             if (node)
@@ -444,7 +423,7 @@ public class GridDimensions
             }
         }
         
-        return bound(height, minRowHeight, maxRowHeight);
+        return (!isNaN(height)) ? bound(height, minRowHeight, maxRowHeight) : height;
     }
     
     /**
@@ -455,7 +434,7 @@ public class GridDimensions
      */
     public function setRowHeight(row:int, height:Number):void
     {
-        if (!isNaN(fixedRowHeight))
+        if (!variableRowHeight)
             return;
         
         var node:GridRowNode = rowList.find(row);
@@ -522,7 +501,7 @@ public class GridDimensions
      */
     public function setCellHeight(row:int, col:int, height:Number):void
     {
-        if (!isNaN(fixedRowHeight))
+        if (!variableRowHeight)
             return;
         
         var node:GridRowNode = rowList.find(row);
@@ -591,10 +570,7 @@ public class GridDimensions
     public function getCellY(row:int, col:int):Number
     { 
         // no cache so we use default heights for each row.
-        if (!isNaN(fixedRowHeight))
-            return row * (fixedRowHeight + rowGap);
-        
-        if (rowList.length == 0)
+        if (!variableRowHeight || rowList.length == 0)
             return row * (defaultRowHeight + rowGap);
         
         if (row == 0)
@@ -807,13 +783,7 @@ public class GridDimensions
         
         var index:int;
         
-        if (!isNaN(fixedRowHeight))
-        {
-            index = y / (fixedRowHeight + rowGap);
-            return index < _rowCount ? index : -1;
-        }
-        
-        if (rowList.length == 0)
+        if (!variableRowHeight || rowList.length == 0)
         {
             index = y / (defaultRowHeight + rowGap);
             return index < _rowCount ? index : -1;
@@ -1066,10 +1036,7 @@ public class GridDimensions
         if (nRows > 1)
             contentHeight += (nRows - 1) * rowGap;
         
-        if (!isNaN(fixedRowHeight))
-            return contentHeight + nRows * fixedRowHeight;
-        
-        if (rowList.length == 0)
+        if (!variableRowHeight || rowList.length == 0)
             return contentHeight + nRows * defaultRowHeight;
         
         var node:GridRowNode = rowList.first;
@@ -1122,12 +1089,8 @@ public class GridDimensions
         if (nRows > 1)
             contentHeight += (nRows - 1) * rowGap;
         
-        if (!isNaN(fixedRowHeight))
-            return contentHeight + nRows * fixedRowHeight;
-        
-        // if typical cell heights have been specified.
-        if (!isFirstTypicalCellHeight)
-            return contentHeight + nRows * defaultRowHeight
+        if (!variableRowHeight || !isNaN(defaultRowHeight))
+            return contentHeight + nRows * defaultRowHeight;
         
         return 0;
     }
@@ -1165,24 +1128,14 @@ public class GridDimensions
     {
         typicalCellHeights[columnIndex] = value;
         
-        // if this is the first cell height, set default to it
-        if (isFirstTypicalCellHeight)
+        var max:Number = 0;
+        const typicalCellHeightsLength:int = typicalCellHeights.length;
+        for (var i:int = 0; i < typicalCellHeightsLength; i++)
         {
-            this.defaultRowHeight = value;
-            isFirstTypicalCellHeight = false;
+            if (!isNaN(typicalCellHeights[i])) 
+                max = Math.max(max, typicalCellHeights[i]);
         }
-        else
-        {
-            // otherwise, find the max of the typical cell heights.
-            var max:Number = 0;
-            const typicalCellHeightsLength:int = typicalCellHeights.length;
-            for (var i:int = 0; i < typicalCellHeightsLength; i++)
-            {
-                if (!isNaN(typicalCellHeights[i])) 
-                    max = Math.max(max, typicalCellHeights[i]);
-            }
-            this.defaultRowHeight = max;
-        }
+        this.maxTypicalCellHeight = max;
     }
     
     /**
@@ -1192,8 +1145,7 @@ public class GridDimensions
     {
         clearVector(typicalCellWidths, NaN);
         clearVector(typicalCellHeights, NaN);
-        defaultRowHeight = 26;
-        isFirstTypicalCellHeight = true;
+        maxTypicalCellHeight = NaN;
     }
         
     /**
