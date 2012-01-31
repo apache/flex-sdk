@@ -363,6 +363,14 @@ public class RichText extends TextBase implements IFontContextComponent
      */
     private var hostFormat:ITextLayoutFormat;
 
+    /**
+     *  @private
+     *  Holds the last recorded value of the textFlow generation.  Used to
+     *  determine whether to return immediately from damage event if there 
+     *  have been no changes.
+     */
+    private var lastGeneration:uint = 0;    // 0 means not set
+        
 	/**
      *  @private
      *  Holds the last recorded value of the module factory
@@ -765,7 +773,9 @@ public class RichText extends TextBase implements IFontContextComponent
 			_textFlow = createTextFlowFromContent(_content);
 			contentChanged = false;
     	}
-    	
+    
+        lastGeneration = _textFlow ? _textFlow.generation : 0;
+        
     	// At this point we know which TextLineFactory we're going to use
     	// and we know the _text or _textFlow that it will compose.
 
@@ -1057,6 +1067,14 @@ public class RichText extends TextBase implements IFontContextComponent
     private function textFlow_damageHandler(event:DamageEvent):void
     {
         //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
+                
+        // No changes so don't recompose.  The TextFlowFactory 
+        // createTextLines dispatches damage events every time the textFlow
+        // is composed, even if there are no changes.
+        if (_textFlow.generation == lastGeneration)
+            return;
+
+        lastGeneration = _textFlow.generation;
                 
         // Invalidate _text and _content.
         _text = null;
