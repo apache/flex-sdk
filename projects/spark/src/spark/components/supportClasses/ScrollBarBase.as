@@ -24,6 +24,11 @@ import mx.events.ResizeEvent;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -55,6 +60,11 @@ import mx.events.ResizeEvent;
  *  </ul>
  *
  *  @see mx.core.IViewport
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxScrollBar extends FxTrackBase
 {
@@ -79,6 +89,11 @@ public class FxScrollBar extends FxTrackBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxScrollBar():void
     {
@@ -97,6 +112,11 @@ public class FxScrollBar extends FxTrackBase
      *  An optional skin part that defines a button 
      *  that, when pressed, steps the scrollbar up. 
      *  This is equivalent to a decreasing step to the <code>value</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var decrementButton:FxButton;
     
@@ -107,6 +127,11 @@ public class FxScrollBar extends FxTrackBase
      *  that, when pressed, steps the scrollbar down.
      *  This is equivalent
      *  to an increasing step to the <code>value</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var incrementButton:FxButton;
     
@@ -139,6 +164,11 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      override public function set valueInterval(value:Number):void
     {
@@ -167,6 +197,11 @@ public class FxScrollBar extends FxTrackBase
      *  when you call the <code>page()</code> method.
      *
      *  @default 20
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get pageSize():Number
     {
@@ -218,6 +253,11 @@ public class FxScrollBar extends FxTrackBase
      *  @see mx.components.FxVScrollBar
      *  @see mx.components.FxHScrollBar
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get viewport():IViewport
     {
@@ -327,6 +367,11 @@ public class FxScrollBar extends FxTrackBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function enableSkinParts(value:Boolean):void
     {
@@ -349,6 +394,11 @@ public class FxScrollBar extends FxTrackBase
      *
      *  @param increase Whether the paging action adds (<code>true</code>)or
      *  decreases (<code>false</code>) <code>value</code>. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function page(increase:Boolean = true):void
     {
@@ -362,6 +412,11 @@ public class FxScrollBar extends FxTrackBase
      *  Calculate the size for
      *  the thumb from the current range, pageSize, and
      *  trackSize settings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function calculateThumbSize():Number
     {
@@ -409,6 +464,11 @@ public class FxScrollBar extends FxTrackBase
     
    /**
     *  Called when the viewport's width or height changes, does nothing by default.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     protected function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -416,6 +476,11 @@ public class FxScrollBar extends FxTrackBase
     
    /**
     *  Called when the viewport's contentWidth changes, does nothing by default.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
@@ -423,6 +488,11 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  Called when the viewport's contentHeight changes, does nothing by default.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
@@ -430,6 +500,11 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  Called when the viewport's horizontalScrollPosition changes, does nothing by default.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -437,6 +512,11 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  Called when the viewport's verticalScrollPosition changes, does nothing by default. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
