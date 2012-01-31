@@ -269,18 +269,18 @@ public class ScrollBar extends TrackBase
     private static var easyInLinearEaser:IEaser = new Linear(.1);
     private static var deceleratingSineEaser:IEaser = new Sine(0);
     
-    // TODO: transient?    
+    // FIXME (hmuller): transient?    
     // Direction indicator for current track-scrolling operations
     private var trackScrollDown:Boolean;
     
     // Timer used for repeated scrolling when mouse is held down on track
     private var trackScrollTimer:Timer;
     
-    // TODO: transient?    
+    // FIXME (hmuller): transient?    
     // Cache current position on track for scrolling operations
     private var trackPosition:Point = new Point();
     
-    // TODO: transient?    
+    // FIXME (hmuller): transient?    
     // Flag to indicate whether track-scrolling is in process
     private var trackScrolling:Boolean = false;
     
@@ -694,7 +694,7 @@ public class ScrollBar extends TrackBase
             var increment:Boolean = (event.target == incrementButton);
             var oldValue:Number = value;
             
-            // TODO (chaase): first step is non-animated, just to simplify the delayed
+            // FIXME (chaase): first step is non-animated, just to simplify the delayed
             // start of the animated stepping. Seems okay, but worth thinking
             // about whether we should animate the first step too
             changeValueByStep(increment);
@@ -705,7 +705,7 @@ public class ScrollBar extends TrackBase
                     button_buttonUpHandler, true /*useCapture*/);
                 systemManager.getSandboxRoot().addEventListener(
                     SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
-                // TODO (chaase): what's a reasonable stepSize? Can't use viewport's because
+                // FIXME (chaase): what's a reasonable stepSize? Can't use viewport's because
                 // it can vary widely depending on what items are in the view. Can't use
                 // default stepSize because it can be quite small if not changed by
                 // the scroller. 1/10th of pageSize seems reasonable, but will result
@@ -766,7 +766,7 @@ public class ScrollBar extends TrackBase
      */
     override protected function track_mouseDownHandler(event:MouseEvent):void
     {
-        // TODO (chaase): We might want a different event mechanism eventually
+        // FIXME (chaase): We might want a different event mechanism eventually
         // which would push this enabled check into the child/skin components
         if (!enabled)
             return;
@@ -828,7 +828,7 @@ public class ScrollBar extends TrackBase
         systemManager.stage.addEventListener(Event.MOUSE_LEAVE, 
                             track_mouseLeaveHandler);
 
-        // TODO (chaase): consider using the repeat behavior of Button
+        // FIXME (chaase): consider using the repeat behavior of Button
         // to handle track-down repetition, instead of doing it with a
         // custom Timer. As long as we can distinguish the first
         // down event from subsequent ones, we may be able to just let
@@ -876,7 +876,7 @@ public class ScrollBar extends TrackBase
         animatingSinglePage = false;
         if (trackScrollDown)
             newValue = newValue - pageSize;
-        // TODO (chaase): hard-coding easing behavior, how to style it?
+        // FIXME (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
             nearestValidValue(newValue, pageSize), linearEaser);
@@ -906,11 +906,11 @@ public class ScrollBar extends TrackBase
     {
         steppingDown = (newValue > value);
         steppingUp = !steppingDown;
-        // TODO (chaase): we're using ScrollBar's repeatInterval for animated
+        // FIXME (chaase): we're using ScrollBar's repeatInterval for animated
         // stepping, but Button's repeatInterval for non-animated stepping
-        // TODO (chaase): think about the total duration for the animation. This
+        // FIXME (chaase): think about the total duration for the animation. This
         // calculation
-        // TODO (chaase): hard-coding easing behavior, how to style it?
+        // FIXME (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / stepSize),
             newValue, easyInLinearEaser, getStyle("repeatDelay"));
