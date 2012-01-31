@@ -2515,20 +2515,15 @@ package spark.components
                     // The composeWidth may be adjusted for minWidth/maxWidth.
                     bounds = measureTextSize(NaN, composeHeight);
                     
+                    measuredWidth = Math.ceil(bounds.right);               
+                    measuredHeight = composeHeight;
+
                     // Have we already hit the limit with the existing text?  If we
                     // are beyond the composeHeight we can assume we've maxed out on
-                    // the compose width as well.
+                    // the compose width as well (or the composeHeight isn't
+                    // large enough for even one line of text).
                     if (bounds.bottom > composeHeight)
-                    {
-                        measuredWidth = _textContainerManager.compositionWidth;
-                        measuredHeight = composeHeight;
                         autoSize = false;
-                    }
-                    else
-                    {
-                        measuredWidth = Math.ceil(bounds.right);               
-                        measuredHeight = composeHeight;
-                    }
                 }
                 else
                 {
@@ -2615,6 +2610,31 @@ package spark.components
             }
             
             _textContainerManager.updateContainer();
+
+            widthConstraint = NaN;
+            heightConstraint = NaN;
+        }
+        
+        /**
+         *  @private
+         */
+        override public function setLayoutBoundsSize(
+                                    width:Number, height:Number,
+                                    postLayoutTransform:Boolean = true):void
+        {
+            // width and height are NaN unless there are constraints on them.
+            // Save these so when we are auto-sizing we know which dimensions
+            // are constrained.  Without this it is not possible to differentiate 
+            // between a measured width/height that is the same as the
+            // constrained width/height to know whether that dimension can
+            // be sized or must be fixed at the constrained value.
+            if (!isNaN(width))
+                widthConstraint = width;
+            
+            if (!isNaN(height))
+                heightConstraint = height;
+            
+            super.setLayoutBoundsSize(width, height, postLayoutTransform);
         }
         
         /**
@@ -3341,9 +3361,11 @@ package spark.components
         
         /**
          *  @private
-         *  If auto-sizing text, it may need to be remeasured if it is constrained
-         *  by the layout manager.  Changing one dimension may change the size of
-         *  the measured text and the layout manager needs to know this.
+         *  If auto-sizing text, it may need to be remeasured if it is 
+         *  constrained in one dimension by the layout manager.  If it is
+         *  constrained in both dimensions there is no need to remeasure.  
+         *  Changing one dimension may change the size of the measured text 
+         *  and the layout manager needs to know this.
          */
         private function remeasureText(width:Number, height:Number):Boolean
         {   
@@ -3355,15 +3377,15 @@ package spark.components
             // remeasure which will reset autoSize.
             autoSize = false;
             
-            widthConstraint = NaN;
-            heightConstraint = NaN;
-            
-            if (width != measuredWidth)
+            if (!isNaN(widthConstraint))
             {
                 // Do we have a constrained width and an explicit height?
                 // If so, the sizes are set so no need to remeasure now.
-                if (!isNaN(explicitHeight) || !isNaN(_heightInLines))
+                if (!isNaN(explicitHeight) || !isNaN(_heightInLines) ||
+                    !isNaN(heightConstraint))
+                {
                     return false;
+                }
                 
                 // Is there no width?
                 if (width == 0) 
@@ -3372,11 +3394,9 @@ package spark.components
                 // No reflow for explicit lineBreak
                 if (_textContainerManager.hostFormat.lineBreak == "explicit")
                     return false;
-                
-                widthConstraint = width;
             } 
             
-            if (height != measuredHeight)
+            if (!isNaN(heightConstraint))
             {        
                 // Do we have a constrained height and an explicit width?
                 // If so, the sizes are set so no need to remeasure now.
@@ -3385,9 +3405,7 @@ package spark.components
                 
                 // Is there no height?
                 if (height == 0)
-                    return false;
-                
-                heightConstraint = height;
+                    return false;                
             }                       
             
             // Width or height is different than what was measured.  Since we're
