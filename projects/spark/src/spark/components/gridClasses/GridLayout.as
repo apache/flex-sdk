@@ -1885,9 +1885,22 @@ public class GridLayout extends LayoutBase
      */
     public function columnsCollectionChanged(event:CollectionEvent):void
     {
-        clearVirtualLayoutCache();
-        if (grid)
-            grid.setContentSize(0, 0);
+        switch (event.kind)
+        {
+            case CollectionEventKind.UPDATE:
+            {
+                clearVirtualLayoutCache();
+                break;
+            }
+                
+            default:
+            {
+                clearVirtualLayoutCache();
+                if (grid)
+                    grid.setContentSize(0, 0);
+                break;
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
