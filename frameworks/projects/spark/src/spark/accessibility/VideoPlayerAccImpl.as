@@ -14,22 +14,24 @@ package spark.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
-import flash.events.MouseEvent;
 import flash.events.FocusEvent;
+import flash.events.MouseEvent;
+
 import org.osmf.events.TimeEvent;
-import spark.components.VideoPlayer;
-import spark.components.Button;
-import spark.events.VideoEvent;
+
+import mx.accessibility.AccConst;
+import mx.accessibility.AccImpl;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.accessibility.AccImpl;
-import mx.accessibility.AccConst;
-import mx.resources.ResourceManager;
 import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
+
+import spark.components.Button;
+import spark.components.VideoPlayer;
+import spark.events.VideoEvent;
 
 use namespace mx_internal;
-
 
 [ResourceBundle("components")]
 
@@ -150,12 +152,14 @@ public class VideoPlayerAccImpl extends AccImpl
 
 	    role = AccConst.ROLE_SYSTEM_PANE; 
         
-        VideoPlayer(master).playPauseButton.addEventListener(Event.CHANGE,
-        eventHandler);
-        VideoPlayer(master).volumeBar.addEventListener(Event.CHANGE,
-        eventHandler);
-        VideoPlayer(master).volumeBar.addEventListener(FlexEvent.MUTED_CHANGE,
-        eventHandler);
+        VideoPlayer(master).playPauseButton.addEventListener(
+			Event.CHANGE, eventHandler);
+
+        VideoPlayer(master).volumeBar.addEventListener
+			(Event.CHANGE, eventHandler);
+
+        VideoPlayer(master).volumeBar.addEventListener(
+			FlexEvent.MUTED_CHANGE, eventHandler);
 	}
 
 	//--------------------------------------------------------------------------
@@ -178,7 +182,6 @@ public class VideoPlayerAccImpl extends AccImpl
         FocusEvent.FOCUS_IN, TimeEvent.CURRENT_TIME_CHANGE ])
 	}
 
-
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods: AccessibilityImplementation
@@ -186,7 +189,7 @@ public class VideoPlayerAccImpl extends AccImpl
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  @public
+	 *  @private
 	 *  Method to return the location of the child display object
  	 *  This function should never be called for parent (childID 0)
 	 *
@@ -225,14 +228,8 @@ public class VideoPlayerAccImpl extends AccImpl
         } 
 	}
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  Method to return an array of childIDs.
 	 *  Currently there are six (6) child objects that render accessibility
      *
@@ -243,14 +240,8 @@ public class VideoPlayerAccImpl extends AccImpl
         return createChildIDArray(VIDEOPLAYER_NUM_ACCESSIBLE_COMPONENTS); 
 	}
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  IAccessible method for returning the role of the VideoPlayer components.
 	 *  Roles are predefined for all the components in MSAA.
 	 *  Roles are assigned to each component.
@@ -306,14 +297,8 @@ public class VideoPlayerAccImpl extends AccImpl
 		return accRole;
 	}
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  IAccessible method for returning the state of the VideoPlayer.
 	 *  States are predefined for all the components in MSAA.
 	 *  Values are assigned to each state.
@@ -374,14 +359,8 @@ public class VideoPlayerAccImpl extends AccImpl
         return accState;
 	}
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  IAccessible method for returning the default action
 	 *  of the VideoPlayer, which is Press.
 	 *
@@ -411,14 +390,8 @@ public class VideoPlayerAccImpl extends AccImpl
 		return action;
 	}
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  IAccessible method for returning the childFocus of the VideoPlayer.
 	 *
 	 *  @param childID uint
@@ -436,14 +409,8 @@ public class VideoPlayerAccImpl extends AccImpl
 		return index;
 	}
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
 	/**
-	 *  @public
+	 *  @private
 	 *  IAccessible method for performing the default action
 	 *  associated with VideoPlayer, which is Press.
 	 *
@@ -472,9 +439,74 @@ public class VideoPlayerAccImpl extends AccImpl
 		}
 	}
 	
+	/**
+	 *  @private
+	 *  IAccessible method for returning the value of sliders
+	 *  which is spoken out by the screen reader
+	 *  @param childID uint
+	 *
+	 *  @return Value String
+	 */
+	override public function get_accValue(childID:uint):String
+	{
+		var videoPlayer:VideoPlayer = VideoPlayer(master);
+		var accValue:String = "";
+		
+		if (childID == VIDEOPLAYER_SCRUBBAR) 
+  	   	    accValue = videoPlayer.currentTimeDisplay.text; 
+		
+        if (childID == VIDEOPLAYER_VOLUMEBAR) 
+            accValue = String(Math.floor(videoPlayer.volumeBar.value*100));
+		
+		return accValue;
+	}
+
+    /**
+     *  @private
+     *  IAccessible method for setting focus or selecting a child element
+     *  @param selFlag uint
+     *  @param childID uint
+	 */
+	override public function accSelect(selFlag:uint, childID:uint):void
+	{   
+        var videoPlayer:VideoPlayer = VideoPlayer(master);
+
+	    if (selFlag == AccConst.SELFLAG_TAKEFOCUS) 
+        {
+	       	switch (childID) 
+            {
+	            case VIDEOPLAYER_PLAYPAUSEBUTTON: 
+                {
+			        videoPlayer.playPauseButton.setFocus();
+			 	    break;
+			    }
+			    case VIDEOPLAYER_SCRUBBAR:
+                {
+			     	videoPlayer.scrubBar.setFocus();
+			     	break;
+			    }
+			    case VIDEOPLAYER_MUTEBUTTON:
+                {
+			     	 videoPlayer.volumeBar.setFocus();
+			     	 break;
+			    }
+			    case VIDEOPLAYER_VOLUMEBAR:
+                {
+			    	 videoPlayer.volumeBar.setFocus();
+			    	 break;
+			    }
+			    case VIDEOPLAYER_FULLSCREENBUTTON:
+                {
+			    	 videoPlayer.fullScreenButton.setFocus();
+			         break;
+			    }
+		    } 
+	    }
+	}
+
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden methods: AccessibilityImplementation
+	//  Overridden methods: AccImpl
 	//
 	//--------------------------------------------------------------------------
 
@@ -592,90 +624,15 @@ public class VideoPlayerAccImpl extends AccImpl
 
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden methods: AccessibilityImplementation
+	//  Methods
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @public
-	 *  IAccessible method for returning the value of sliders
-	 *  which is spoken out by the screen reader
-	 *  @param childID uint
-	 *
-	 *  @return Value String
-	 *  @review
-	 */
-	override public function get_accValue(childID:uint):String
-	{
-		var videoPlayer:VideoPlayer = VideoPlayer(master);
-		var accValue:String = "";
-		
-		if (childID == VIDEOPLAYER_SCRUBBAR) 
-  	   	    accValue = videoPlayer.currentTimeDisplay.text; 
-		
-        if (childID == VIDEOPLAYER_VOLUMEBAR) 
-            accValue = String(Math.floor(videoPlayer.volumeBar.value*100));
-		
-		return accValue;
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
-
-    /**
-     *  @public
-     *  IAccessible method for setting focus or selecting a child element
-     *  @param selFlag uint
-     *  @param childID uint
-     *
-     *  @review
-     */
-	 
-	override public function accSelect(selFlag:uint, childID:uint):void
-	{   
-        var videoPlayer:VideoPlayer = VideoPlayer(master);
-
-	    if (selFlag == AccConst.SELFLAG_TAKEFOCUS) 
-        {
-	       	switch (childID) 
-            {
-	            case VIDEOPLAYER_PLAYPAUSEBUTTON: 
-                {
-			        videoPlayer.playPauseButton.setFocus();
-			 	    break;
-			    }
-			    case VIDEOPLAYER_SCRUBBAR:
-                {
-			     	videoPlayer.scrubBar.setFocus();
-			     	break;
-			    }
-			    case VIDEOPLAYER_MUTEBUTTON:
-                {
-			     	 videoPlayer.volumeBar.setFocus();
-			     	 break;
-			    }
-			    case VIDEOPLAYER_VOLUMEBAR:
-                {
-			    	 videoPlayer.volumeBar.setFocus();
-			    	 break;
-			    }
-			    case VIDEOPLAYER_FULLSCREENBUTTON:
-                {
-			    	 videoPlayer.fullScreenButton.setFocus();
-			         break;
-			    }
-		    } 
-	    }
-	}
 
     /**
      *  @private
      *  Returns a child id based on a sub component that is passed in. 
      */
-	protected function elementToChildID(obj: Object): Number 
+	private function elementToChildID(obj:Object):Number 
 	{
 		var str:String = String(obj);
 		var index:Number = 0;
