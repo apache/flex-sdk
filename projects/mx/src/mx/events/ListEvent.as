@@ -21,6 +21,11 @@ import mx.controls.listClasses.IListItemRenderer;
  *
  *  @see mx.controls.List
  *  @see mx.controls.listClasses.ListBase
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListEvent extends Event
 {
@@ -63,6 +68,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType change
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CHANGE:String = "change";
 
@@ -128,6 +138,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemEditBegin
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_BEGIN:String = "itemEditBegin";
 
@@ -191,6 +206,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemEditEnd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_END:String = "itemEditEnd"
 
@@ -224,6 +244,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemFocusIn
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_FOCUS_IN:String = "itemFocusIn";
 
@@ -258,6 +283,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemFocusOut
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_FOCUS_OUT:String = "itemFocusOut";
 
@@ -302,6 +332,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemEditBeginning
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_EDIT_BEGINNING:String = "itemEditBeginning";
 
@@ -336,6 +371,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemClick
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_CLICK:String = "itemClick";
 
@@ -373,6 +413,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemDoubleClick
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_DOUBLE_CLICK:String = "itemDoubleClick";
 
@@ -407,6 +452,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemRollOut
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OUT:String = "itemRollOut";
 
@@ -441,6 +491,11 @@ public class ListEvent extends Event
      *  </table>
      *
      *  @eventType itemRollOver
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OVER:String = "itemRollOver";
 
@@ -472,6 +527,11 @@ public class ListEvent extends Event
      *  @param reason The reason for an <code>itemEditEnd</code> event.
      *
      *  @param itemRenderer The item renderer for the data provider item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = false,
@@ -500,6 +560,11 @@ public class ListEvent extends Event
     /**
      *  The zero-based index of the column that contains
      *  the item renderer where the event occurred.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var columnIndex:int;
 
@@ -510,6 +575,11 @@ public class ListEvent extends Event
     /**
      *  The item renderer where the event occurred.
      *  You can access the data provider item using this property. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var itemRenderer:IListItemRenderer;
 
@@ -523,6 +593,11 @@ public class ListEvent extends Event
      *  The possible values are defined in the ListEventReason class.
      * 
      *  @see ListEventReason
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var reason:String;
 
@@ -534,6 +609,11 @@ public class ListEvent extends Event
      *  In the zero-based index of the row that contains
      *  the item renderer where the event occured, or for editing events,
      *  the index of the item in the data provider that is being edited.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rowIndex:int;
 
