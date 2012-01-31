@@ -9,12 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.core.contentLoader
+package spark.core
 {
-
-import mx.core.mx_internal;
-import mx.utils.LinkedList;
-import mx.utils.LinkedListNode;
 
 import flash.display.Loader;
 import flash.display.LoaderInfo;
@@ -23,6 +19,12 @@ import flash.events.EventDispatcher;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 import flash.utils.Dictionary;
+
+import mx.core.mx_internal;
+import mx.utils.LinkedList;
+import mx.utils.LinkedListNode;
+
+import spark.events.LoaderInvalidationEvent;
 
 use namespace mx_internal;
 
@@ -39,14 +41,14 @@ use namespace mx_internal;
  *  Each content request notified then attempts instead re-requests the
  *  asset.
  *
- *  @eventType spark.core.contentLoader.LoaderInvalidationEvent
+ *  @eventType spark.events.LoaderInvalidationEvent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-[Event(name="invalidateLoader", type="spark.core.contentLoader.LoaderInvalidationEvent")]
+[Event(name="invalidateLoader", type="spark.events.LoaderInvalidationEvent")]
 
 /**
  *  Provides a caching and queuing image content loader suitable for using
@@ -118,6 +120,39 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  enableQueuing
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _enableCaching:Boolean = true;
+    
+    /**
+     *  Enables caching behavior and functionality.
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get enableCaching():Boolean 
+    {
+        return _enableCaching; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set enableCaching(value:Boolean):void
+    {
+        if (value != _enableCaching)
+            _enableCaching = value;
+    }
     
     //----------------------------------
     //  enableQueuing
@@ -126,32 +161,34 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     /**
      *  @private
      */
-    private var _enableQueuing:Boolean;
+    private var _enableQueueing:Boolean = false;
     
     /**
      *  Enables queuing behavior and functionality.
+     * 
+     *  @default false;
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get enableQueuing():Boolean 
+    public function get enableQueueing():Boolean 
     {
-        return _enableQueuing; 
+        return _enableQueueing; 
     }
     
     /**
      *  @private
      */
-    public function set enableQueuing(value:Boolean):void
+    public function set enableQueueing(value:Boolean):void
     {
-        if (value != _enableQueuing)
-            _enableQueuing = value;
+        if (value != _enableQueueing)
+            _enableQueueing = value;
     }
       
     //----------------------------------
-    //  numEntries
+    //  numCacheEntries
     //----------------------------------
     
     /**
@@ -162,7 +199,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get numEntries():Number 
+    public function get numCacheEntries():int 
     {
         return cacheEntries.length; 
     }
@@ -174,7 +211,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     /**
      *  @private
      */
-    private var _maxActiveRequests:Number = 2;
+    private var _maxActiveRequests:int = 2;
     
     /**
      *  Maximum simultaneous active requests when queuing is
@@ -187,7 +224,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get maxActiveRequests():Number 
+    public function get maxActiveRequests():int 
     {
         return _maxActiveRequests; 
     }
@@ -195,24 +232,24 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     /**
      *  @private
      */
-    public function set maxActiveRequests(value:Number):void
+    public function set maxActiveRequests(value:int):void
     {
         if (value != _maxActiveRequests)
             _maxActiveRequests = value;
     }
     
     //----------------------------------
-    //  maximumEntries
+    //  maxCacheEntries
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _maxEntries:Number = 100;
+    private var _maxCacheEntries:int = 100;
     
     /**
-     *  Maximum size of MRU based cache.  When numEntries exceeds
-     *  maxEntries the least recently used are pruned to fit.
+     *  Maximum size of MRU based cache.  When numCacheEntries exceeds
+     *  maxCacheEntries the least recently used are pruned to fit.
      * 
      *  @default 100
      *  
@@ -221,19 +258,19 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function get maxEntries():Number 
+    public function get maxCacheEntries():int 
     {
-        return _maxEntries; 
+        return _maxCacheEntries; 
     }
     
     /**
      *  @private
      */
-    public function set maxEntries(value:Number):void
+    public function set maxCacheEntries(value:int):void
     {
-        if (value != _maxEntries)
+        if (value != _maxCacheEntries)
         {
-            _maxEntries = value;
+            _maxCacheEntries = value;
             enforceMaximumEntries();
         }
     }
@@ -245,14 +282,15 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     //--------------------------------------------------------------------------
               
     /**
-     *  @copy spark.core.contentLoader.IContentLoader#load
+     *  @copy spark.core.IContentLoader#load()
      */
-    public function load(source:Object, contentGrouping:String=null):ContentRequest
+    public function load(source:Object, contentLoaderGrouping:String=null):ContentRequest
     {   
-        var cacheEntry:CacheEntryNode = cachedData[source];
+        var key:Object = source is URLRequest ? URLRequest(source).url : source;
+        var cacheEntry:CacheEntryNode = cachedData[key];
         var contentRequest:ContentRequest;
                
-        if (!cacheEntry || cacheEntry.value == UNTRUSTED)
+        if (!cacheEntry || cacheEntry.value == UNTRUSTED || !enableCaching)
         {             
             // No previously cached entry or the entry is marked as
             // unshareable (untrusted).
@@ -265,12 +303,15 @@ public class ContentCache extends EventDispatcher implements IContentLoader
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, 
 				false, 0, true);
 			
-            loader.load(new URLRequest(source as String), loaderContext);
+            var urlRequest:URLRequest = source is URLRequest ? 
+                source as URLRequest : new URLRequest(source as String);
+            
+            loader.load(urlRequest, loaderContext);
             contentRequest = new ContentRequest(this, loader.contentLoaderInfo);
             
             // Now cache our new loader info.
-            if (!cacheEntry) 
-                addEntry(source, loader.contentLoaderInfo);
+            if (!cacheEntry && enableCaching) 
+                addCacheEntry(source, loader.contentLoaderInfo);
         }
         else
         {
@@ -283,34 +324,21 @@ public class ContentCache extends EventDispatcher implements IContentLoader
         
         return contentRequest;
     }
-    
-    /**
-     *  @private
-     *  Invalidation method to invalidate entire cache.
-     */
-    mx_internal function invalidateAll():void
-    {
-        removeAll();
-    }
-    
-    /**
-     *  Invalidation method to invalidate single cache entry.
-     *  @private
-     */
-	mx_internal function invalidateEntry(source:Object):void
-    {
-        removeEntry(source);
-    }
-    
+            
     /**
      *  Obtain an entry for the given key if one exists.
+     * 
+     *  @param source Unique key used to represent the requested content resource.
+     * 
+     *  @return A value being stored by the cache for the provided key. Returns 
+     *  null if not found or in the likely case the value was stored as null.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function getEntry(source:Object):*
+    public function getCacheEntry(source:Object):Object
     {
         var cacheEntry:CacheEntryNode = cachedData[source];
         return cacheEntry ? cacheEntry.value : null;
@@ -324,7 +352,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function removeAll():void
+    public function removeAllCacheEntries():void
     {
         cachedData = new Dictionary();
         cacheEntries = new LinkedList();
@@ -333,37 +361,44 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     /**
      *  Remove specific entry from cache.
      * 
+     *  @param source Unique key for value to remove from cache.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5 
      */
-    public function removeEntry(source:Object):void
+    public function removeCacheEntry(source:Object):void
     {
-        var node:CacheEntryNode = cachedData[source];
+        var key:Object = source is URLRequest ? URLRequest(source).url : source;
+        var node:CacheEntryNode = cachedData[key];
         if (node)
         {
             cacheEntries.remove(node);
-            delete cachedData[source];
+            delete cachedData[key];
         }
     }
     
     /**
      *  Adds new entry to cache (or replaces existing entry).
      * 
+     *  @param source Unique key to associate provided value with in cache.
+     *  @param value Value to cache for given key.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5    
      */
-    public function addEntry(source:Object, value:*):void
+    public function addCacheEntry(source:Object, value:Object):void
     {
-        var node:CacheEntryNode = cachedData[source];
+        var key:Object = source is URLRequest ? URLRequest(source).url : source;
+        var node:CacheEntryNode = cachedData[key];
 		
         if (node)
             cacheEntries.remove(node);
         
-        node = new CacheEntryNode(source, value);
+        node = new CacheEntryNode(key, value);
         cachedData[source] = node;
         cacheEntries.unshift(node);
         enforceMaximumEntries();
@@ -372,12 +407,16 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     /**
      *  Promotes a content grouping to the head of the loading queue.
      * 
+     *  @param contentLoaderGrouping Name of content grouping to promote
+     *  in the loading queue. All queued requests with matching 
+     *  contentLoaderGroup will be shifted to the head of the queue.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function prioritizeContentGrouping(contentGrouping:String):void
+    public function prioritize(contentLoaderGrouping:String):void
     {
         // TODO (crl)
     }
@@ -390,10 +429,10 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      */
     mx_internal function enforceMaximumEntries():void
     {
-        if (_maxEntries <= 0 || cacheEntries.length <= _maxEntries)
+        if (_maxCacheEntries <= 0 || cacheEntries.length <= _maxCacheEntries)
             return;
     
-        while (cacheEntries.length > _maxEntries)
+        while (cacheEntries.length > _maxCacheEntries)
         {
             var node:CacheEntryNode = cacheEntries.pop() as CacheEntryNode;
             delete cachedData[node.source];
@@ -421,7 +460,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
         {
             // Detected that our loader cannot be shared or cached. Mark 
             // as such and notify and possibly active content requests.
-            addEntry(loaderInfo.url, UNTRUSTED);
+            addCacheEntry(loaderInfo.url, UNTRUSTED);
             dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
         }
         loaderInfo.removeEventListener(Event.COMPLETE, loader_completeHandler);
@@ -437,7 +476,7 @@ import mx.utils.LinkedListNode;
  */
 class CacheEntryNode extends LinkedListNode
 {
-    public function CacheEntryNode(source:Object, value:*):void
+    public function CacheEntryNode(source:Object, value:Object):void
     {
         super(value);
         this.source = source;
