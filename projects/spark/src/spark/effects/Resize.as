@@ -78,7 +78,7 @@ public class Resize extends Animate
         "left", "right", "top", "bottom"
     ];
     private static var RELEVANT_STYLES:Array = 
-        ["left", "right", "top", "bottom"];
+        ["left", "right", "top", "bottom", "percentWidth", "percentHeight"];
 
     //--------------------------------------------------------------------------
     //
@@ -292,6 +292,14 @@ public class Resize extends Animate
         targets:Array):void
     {
         super.applyEndValues(propChanges, targets);
+        // Special case for Resize - since we use width/height during the effect,
+        // we may have clobbered the explicitWidth/Height values which otherwise 
+        // would not have been set. We need to restore these values plus any
+        // associated layout constraint values (percentWidth/Height)
+        // Note that this approach assumes that stripUnchangedValues on propChanges
+        // is false (which should be the case for Resize targets), otherwise
+        // unchanging explicit values would not be in propChanges and we would
+        // not restore them correctly.
         if (propChanges)
         {
             var n:int = propChanges.length;
@@ -302,13 +310,27 @@ public class Resize extends Animate
                 {
                     if (isNaN(propChanges[i].end["explicitWidth"]) && 
                         "explicitWidth" in target)
-                    target.explicitWidth = NaN;
+                    {
+                        target.explicitWidth = NaN;
+                        if (propChanges[i].end["percentWidth"] !== undefined && 
+                            "percentWidth" in target)
+                        {
+                            target.percentWidth = propChanges[i].end["percentWidth"];
+                        }
+                    }
                 }
                 if (propChanges[i].end["explicitHeight"] !== undefined)
                 {
                     if (isNaN(propChanges[i].end["explicitHeight"]) && 
                         "explicitHeight" in target)
-                    target.explicitHeight = NaN;
+                    {
+                        target.explicitHeight = NaN;
+                        if (propChanges[i].end["percentHeight"] !== undefined && 
+                            "percentHeight" in target)
+                        {
+                            target.percentHeight = propChanges[i].end["percentHeight"];
+                        }
+                    }
                 }
             }
         }
