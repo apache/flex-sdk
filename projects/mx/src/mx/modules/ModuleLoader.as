@@ -135,6 +135,8 @@ import mx.events.ModuleEvent;
 
 [IconFile("ModuleLoader.png")]
 
+[Alternative(replacement="spark.modules.ModuleLoader", since="4.5")]
+
 /**
  *  ModuleLoader is a component that behaves much like a SWFLoader except
  *  that it follows a contract with the loaded content. This contract dictates that the child
@@ -146,6 +148,7 @@ import mx.events.ModuleEvent;
  *  only a single copy of the module SWF file is transferred over the network by using the
  *  ModuleManager singleton.</p>
  *  
+ *  @see mx.modules.ModuleManager
  *  @see mx.controls.SWFLoader
  *  
  *  @langversion 3.0
