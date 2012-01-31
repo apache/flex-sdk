@@ -18,7 +18,7 @@ import mx.effects.Animation;
 import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
 import mx.events.FlexEvent;
-import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.baseClasses.GraphicElement;
 import mx.managers.LayoutManager;
     
 public class FxFadeInstance extends FxAnimateInstance
