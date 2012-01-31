@@ -113,7 +113,6 @@ public class MotionPath
      */
     public var interpolator:IInterpolator = NumberInterpolator.getInstance();
     
-    [Inspectable(category="General", arrayType="spark.effects.Keyframe")]
     /**
      *  A sequence of Keyframe objects that represent the time/value pairs
      *  that the property takes during the animation. Each successive
