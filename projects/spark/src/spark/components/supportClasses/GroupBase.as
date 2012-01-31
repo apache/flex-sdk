@@ -436,7 +436,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Bindable]
     
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IViewport#verticalScrollPosition
      */
     public function get verticalScrollPosition():Number 
     {
@@ -457,7 +457,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------
 
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IViewport#horizontalScrollPositionDelta
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -465,7 +465,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IViewport#verticalScrollPositionDelta
      */
     public function verticalScrollPositionDelta(unit:uint):Number
     {
