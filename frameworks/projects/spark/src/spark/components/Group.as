@@ -64,7 +64,7 @@ public class Group extends GroupBase
     private var contentChanged:Boolean = false;
     private var needsDisplayObjectAssignment:Boolean = false;
     
-    private var _content:*;
+    private var _content:Object;
     private var _contentType:int;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     
@@ -127,6 +127,16 @@ public class Group extends GroupBase
     /**
      *  Documentation is not currently available. 
      */
+    override public function get blendMode():String
+    {
+        if (blendModeExplicitlySet)
+            return _blendMode;
+        else return BlendMode.LAYER;
+    }
+    
+    /**
+     *  @private
+     */
     override public function set blendMode(value:String):void
     {
     	if (blendModeExplicitlySet && value == _blendMode)
@@ -144,23 +154,28 @@ public class Group extends GroupBase
     }
     
     /**
-     *  Documentation is not currently available. 
+     *  Content for this Group.
+     *
+     *  <p>The content can be an Array or a single item.
+     *  The content items can be any type.</p>
+     * 
+     *  <p>If the content is an Array, do not modify the array 
+     *  directly. Use the methods defined on Group to do this.</p>
+     *
+     *  @default null
      */
-    override public function get blendMode():String
+    public function get content():Object
     {
-    	if (blendModeExplicitlySet)
-        	return _blendMode;
-		else return BlendMode.LAYER;
+        return _content;
     }
     
-    public function set content(value:*):void
+    /**
+     *  @private
+     */
+    public function set content(value:Object):void
     {
         _content = value;
         
-        // Need to convert null to undefined here, since subsequent content checks test for undefined
-        if (_content === null)
-            _content = undefined;
-            
         if (_content is Array)
             _contentType = CONTENT_TYPE_ARRAY;
         else
@@ -169,12 +184,11 @@ public class Group extends GroupBase
         contentChanged = true;
         invalidateProperties();
     }
-    
-    public function get content():*
-    {
-        return _content;
-    }
 
+    /**
+     *  Internal Group method used to grab the elements from the content array
+     *  and add them to the Group.
+     */ 
     protected function initializeChildrenArray():void
     {   
         // Get rid of existing display object children.
@@ -186,7 +200,7 @@ public class Group extends GroupBase
             //itemRemoved(0);
             super.removeChildAt(0);
         
-        if (_content !== undefined)
+        if (_content !== null)
         {
             for (var i:int = 0; i < numItems; i++)
             {
@@ -223,6 +237,9 @@ public class Group extends GroupBase
         } */
     }
     
+    /**
+     *  @private
+     */ 
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -260,6 +277,9 @@ public class Group extends GroupBase
         }
     }
     
+    /**
+     *  @private
+     */
     override public function validateSize(recursive:Boolean = false):void
     {
         // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
@@ -279,6 +299,9 @@ public class Group extends GroupBase
         super.validateSize(recursive);
     }   
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -306,9 +329,14 @@ public class Group extends GroupBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  The number of items in this group.
+     *
+     *  @return The number of items in this group
+     */
     public function get numItems():int
     {
-        if (_content === undefined)
+        if (_content === null)
             return 0;
             
         if (_contentType == CONTENT_TYPE_ARRAY)
@@ -317,9 +345,21 @@ public class Group extends GroupBase
         return 1;
     }
     
-    public function getItemAt(index:int):*
+    /**
+     *  Returns the item that exists at the specified index.
+     *
+     *  @param index The index of the item to retrieve.
+     *
+     *  @return The item at the specified index.
+     * 
+     *  @throws RangeError Throws if the index position does not exist in the child list.
+     */ 
+    public function getItemAt(index:int):Object
     {
-        if (_content === undefined)
+        // check for RangeError:
+        checkForRangeError(index);
+        
+        if (_content === null)
             return null;
         
         if (_contentType == CONTENT_TYPE_ARRAY)
@@ -328,15 +368,80 @@ public class Group extends GroupBase
         return _content;
     }
     
-    public function addItem(item:*):*
+    /**
+     *  @private 
+     *  Checks the range of index to make sure it's valid
+     */ 
+    private function checkForRangeError(index:int, addingItem:Boolean = false):void
+    {
+        // figure out the maximum allowable index
+        var maxIndex:int = -1;
+        
+        if (_content === null)
+            maxIndex = -1;
+        else if (_contentType == CONTENT_TYPE_UNKNOWN)
+            maxIndex = 0;
+        else if (_contentType == CONTENT_TYPE_ARRAY)
+            maxIndex = content.length - 1;
+        
+        // if adding an item, we allow an extra index at the end
+        if (addingItem)
+            maxIndex++;
+            
+        if (index > maxIndex)
+            throw new RangeError("Index " + index + " is out of range");
+    }
+ 
+    /**
+     *  Adds an item to this Group. The item is added after all other
+     *  items and on top of all other items.  (To add an item to a specific 
+     *  index position, use the addChildAt() method.)
+     * 
+     * <p>If you add an item object that already has a different
+     * container as a parent, the object is removed from the child 
+     * list of the other container.</p>  
+     *
+     *  @param item The item to add as a child of this Group instance
+     *
+     *  @return The item that was added to the Group.
+     * 
+     *  @event itemAdded Dispatched when the item is added to the child list
+     * 
+     *  @throws ArgumentError if the child is the same as the parent.
+     */   
+    public function addItem(item:Object):Object
     {
         return addItemAt(item, numItems);
     }
     
-    public function addItemAt(item:*, index:int):*
+    /**
+     *  Adds an item to this Group. The item is added at the index
+     *  position specified.  An index of 0 represents the first item
+     *  and the back (bottom) of the display list.
+     *
+     *  @param item The item to add as a child of this Group instance
+     *  @param index The index position to which the item is added. If 
+     *  you specify a currently occupied index position, the child object 
+     *  that exists at that position and all higher positions are moved 
+     *  up one position in the child list.
+     *
+     *  @return The item that was added to the Group.
+     * 
+     *  @event itemAdded Dispatched when the item is added to the child list
+     * 
+     *  @throws ArgumentError if the child is the same as the parent.
+     *  @throws RangeError Throws if the index position does not exist in the child list.
+     */
+    public function addItemAt(item:Object, index:int):Object
     {
+        if (item == this)
+            throw new ArgumentError("Cannot add yourself as a child of yourself");
+            
+        // check for RangeError:
+        checkForRangeError(index, true);
+        
         // If we don't have any content yet, initialize it to an empty array
-        if (_content === undefined)
+        if (_content === null)
         {
             content = [];
             contentChanged = false;
@@ -360,16 +465,39 @@ public class Group extends GroupBase
         return item;
     }
     
-    public function removeItem(item:*):*
+    /**
+     *  Removes the specified item from the child list of this group.
+     *  The index positions of any items above the item in the Group 
+     *  are decreased by 1.
+     *
+     *  @param item The item to be removed from the Group.
+     *
+     *  @return The item removed from the Group.
+     * 
+     *  @throws ArgumentError Throws if the item parameter is not a child of this object.
+     */
+    public function removeItem(item:Object):Object
     {
         return removeItemAt(getItemIndex(item));
     }
     
-    public function removeItemAt(index:int):*
-    {       
-        var item:*;
+    /**
+     *  Removes an item from the specified index position in the Group.
+     *
+     *  @param index The index of the item to remove.
+     *
+     *  @return The item removed from the Group.
+     * 
+     *  @throws RangeError Throws if the index does not exist in the child list.
+     */
+    public function removeItemAt(index:int):Object
+    {
+        // check RangeError
+        checkForRangeError(index);
         
-        if (_content === undefined)
+        var item:Object;
+        
+        if (_content === null)
             return null;
         
         // Need to call itemRemoved before removing the item so anyone listening
@@ -390,7 +518,7 @@ public class Group extends GroupBase
             case CONTENT_TYPE_UNKNOWN:
             {
                 item = _content;
-                _content = undefined;
+                _content = null;
                 break;
             }    
         }
@@ -401,28 +529,93 @@ public class Group extends GroupBase
         return item;
     }
     
-    public function getItemIndex(item:*):int
+    /**
+     *  Returns the index position of an item
+     *
+     *  @param item The item to identify
+     *
+     *  @return The index position of the item to identify
+     * 
+     *  @throws ArgumentError Throws if the item is not a child of this object
+     */ 
+    public function getItemIndex(item:Object):int
     {
-        if (_content === undefined)
-            return -1;
+        var index:int = -1;
         
-        if (_contentType == CONTENT_TYPE_ARRAY)
-            return _content.indexOf(item);
+        switch (_contentType)
+        {
+            case CONTENT_TYPE_UNKNOWN:
+            {
+                if (_content == item)
+                    index = 0;
+                break;
+            }
+            
+            case CONTENT_TYPE_ARRAY:
+            {
+                index = _content.indexOf(item);
+                break;
+            }
+        }
         
-        return 0;
+        if (index == -1)
+            throw ArgumentError(item + " is not found in this Group");
+        else
+            return index;
     }
     
-    public function setItemIndex(item:*, index:int):void
+    /**
+     *  Changes the position of an existing child in the Group.
+     * 
+     *  <p>When you use the setItemIndex() method and specify an 
+     *  index position that is already occupied, the only positions 
+     *  that change are those in between the item's former and new position.
+     *  All others will stay the same.  If an item is moved to an index 
+     *  LOWER than its current index, all items in between will INCREASE 
+     *  by 1 for their index reference.  If an item is moved to an index
+     *  HIGHER than its current index, all items in between will 
+     *  DECREASE by 1 for their index reference.</p>
+     *
+     *  @param item The item for which you want to change the index number.
+     *  @param index The resulting index number for the item
+     * 
+     *  @throws RangeError - Throws if the index does not exist in the child list.
+     *  @throws ArgumentError - Throws if the item parameter is not a child 
+     *  of this object
+     */
+    public function setItemIndex(item:Object, index:int):void
     {
+        // check for RangeError...this is done in addItemAt
+        // but we want to do it before removing the item
+        checkForRangeError(index);
+        
         removeItem(item);
         addItemAt(item, index);
     }
     
-    public function swapItems(item1:*, item2:*):void
+    /**
+     *  Swaps the index of the two specified items. All other items
+     *  remain in the same index position.
+     *
+     *  @param item1 The first item.
+     *  @param item2 The second item.
+     * 
+     *  @throws ArgumentError Throws if either item is not a child of this object
+     */
+    public function swapItems(item1:Object, item2:Object):void
     {
         swapItemsAt(getItemIndex(item1), getItemIndex(item2));
     }
     
+    /**
+     *  Swaps the items at the two specified index positions in 
+     *  the Group.  All other items remain in the same index position.
+     *
+     *  @param index1 The index of the first item.
+     *  @param index2 The index of the second item.
+     * 
+     *  @throws RangeError If either index does not exist in the child list
+     */
     public function swapItemsAt(index1:int, index2:int):void
     {
         // Make sure that index1 is the smaller index so that addItemAt 
@@ -436,8 +629,8 @@ public class Group extends GroupBase
         else if (index1 == index2)
             return;
         
-        var item1:* = getItemAt(index1);
-        var item2:* = getItemAt(index2);
+        var item1:Object = getItemAt(index1);
+        var item2:Object = getItemAt(index2);
         
         removeItem(item1);
         removeItem(item2);
@@ -454,9 +647,9 @@ public class Group extends GroupBase
     //  is the item itself. For data items, the layout item is the item renderer
     //  instance that is associated with the item.
     //--------------------------------------------------------------------------
-     /**
-     *  The number of layout items in this Group. Typically this is the same
-     *  as the number of items in the Group.
+    
+    /**
+     *  @private
      */
     override public function get numLayoutItems():int
     {
@@ -464,17 +657,13 @@ public class Group extends GroupBase
     }
     
     /**
-     *  Gets the <i>n</i>th layout item in the Group. For visual items, the 
-     *  layout item is the item itself. For data items, the layout item is the 
-     *  item renderer instance that is associated with the item.
-     *
-     *  @param index The index of the item to retrieve.
-     *
-     *  @return The layout item at the specified index.
-     */
+     *  @inheritDoc
+     * 
+     *  @throws RangeError Throws if the index position does not exist in the child list.
+     */ 
     override public function getLayoutItemAt(index:int):ILayoutItem
     {
-        var item:* = getItemAt(index);
+        var item:Object = getItemAt(index);
 
         return LayoutItemFactory.getLayoutItemFor(item);
     }
@@ -486,19 +675,26 @@ public class Group extends GroupBase
     //
     //--------------------------------------------------------------------------
     
-    
+    /**
+     *  @private
+     */
     override public function invalidateLayering():void
     {
-    	if(layeringMode == ITEM_ORDERED_LAYERING)
+    	if (layeringMode == ITEM_ORDERED_LAYERING)
     		layeringMode = SPARSE_LAYERING;
-    	if(needsDisplayObjectAssignment == true)
+    	if (needsDisplayObjectAssignment == true)
     		return;
     	needsDisplayObjectAssignment = true;
     	invalidateProperties();
     }
 
-
-    protected function itemAdded(item:*, index:int):void
+    /**
+     *  Internal Group method called to add an item to this Group.
+     *
+     *  @param item The item that was added.
+     *  @param index The index where the item was added.
+     */
+    protected function itemAdded(item:Object, index:int):void
     {
         var child:DisplayObject;
                 
@@ -515,10 +711,12 @@ public class Group extends GroupBase
                 IStyleClient(item).regenerateStyleCache(true);
         }   
         else
-        {     
+        {
+            // item must be a DisplayObject
+            
             // This always adds the child to the end of the display list. Any 
             // ordering discrepancies will be fixed up in assignDisplayObjects().
-            child = addItemToDisplayList(item, item);
+            child = addItemToDisplayList(DisplayObject(item), item);
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -528,9 +726,14 @@ public class Group extends GroupBase
         invalidateDisplayList();
     }
     
+    /**
+     *  Internal Group method called to remove an item from this Group.
+     *
+     *  @param index The index of the item that is being removed.
+     */
     protected function itemRemoved(index:int):void
     {       
-        var item:* = getItemAt(index);
+        var item:Object = getItemAt(index);
         var childDO:DisplayObject = item as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -549,14 +752,23 @@ public class Group extends GroupBase
         invalidateDisplayList();
     }
     
-    // Returns true if the Group's display object can be shared with graphic elements
-    // inside the group
+    /**
+     *  @private
+     *  
+     *  Returns true if the Group's display object can be shared with graphic elements
+     *  inside the group
+     */
     private function get canShareDisplayObject():Boolean
     {
     	return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
-   private function assignDisplayObjects():void
+    /**
+     *  @private
+     *  
+     *  Called to assign display objects to graphic elements
+     */
+    private function assignDisplayObjects():void
     {
         var topLayerItems:Vector.<IVisualItem>;
         var bottomLayerItems:Vector.<IVisualItem>;        
@@ -570,24 +782,24 @@ public class Group extends GroupBase
         var len:int = numItems; 
         for (var i:int = 0; i < len; i++)
         {  
-            var item:* = getItemAt(i);
+            var item:Object = getItemAt(i);
             
-        	if(layeringMode != ITEM_ORDERED_LAYERING)
+        	if (layeringMode != ITEM_ORDERED_LAYERING)
         	{
         		var layer:Number = 0;
         		if (item is IVisualItem)
         			layer = (item as IVisualItem).layer;
-        		if(layer != 0)
+        		if (layer != 0)
         		{        		
             		if (layer > 0)
             		{
-            			if(topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
+            			if (topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
             			topLayerItems.push(item);
             			continue;            		
             		}
             		else
             		{
-            			if(bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
+            			if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
             			bottomLayerItems.push(item);
             			continue;            		
             		}
@@ -595,18 +807,19 @@ public class Group extends GroupBase
          	}
 			assignDisplayObjectTo(item,mergeData);
         }
-        if(topLayerItems != null)
+        if (topLayerItems != null)
         {
         	keepLayeringEnabled = true;
         	//topLayerItems.sortOn("layer",Array.NUMERIC);
         	sortOnLayer(topLayerItems);
         	len = topLayerItems.length;
-        	for(i=0;i<len;i++)
+        	for (i=0;i<len;i++)
         	{
         		assignDisplayObjectTo(topLayerItems[i],mergeData);
         	}
         }
-        if(bottomLayerItems != null)
+        
+        if (bottomLayerItems != null)
         {
         	keepLayeringEnabled = true;
 	        mergeData.currentAssignableDO  = null;
@@ -617,34 +830,36 @@ public class Group extends GroupBase
         	sortOnLayer(bottomLayerItems);
         	len = bottomLayerItems.length;
 
-        	for(i=0;i<len;i++)
+        	for (i=0;i<len;i++)
         	{
         		assignDisplayObjectTo(bottomLayerItems[i],mergeData);
         	}
         }
-        if(keepLayeringEnabled == false)
+        
+        if (keepLayeringEnabled == false)
         	layeringMode = ITEM_ORDERED_LAYERING;        
     }
     
     /**
-    * @private
-    * a simple insertion sort.  This works well for small lists (under 12 or so), uses
-    * no aditional memory, and most importantly, is stable, meaning items with comparable
-    * values will stay in the same order relative to each other. For layering, we guarantee
-    * first the layer property, and then the item order, so a stable sort is important (and the 
-    * built in flash sort is not stable).
-    */
+     *  @private
+     * 
+     *  A simple insertion sort.  This works well for small lists (under 12 or so), uses
+     *  no aditional memory, and most importantly, is stable, meaning items with comparable
+     *  values will stay in the same order relative to each other. For layering, we guarantee
+     *  first the layer property, and then the item order, so a stable sort is important (and the 
+     *  built in flash sort is not stable).
+     */
 	private static function sortOnLayer(a:Vector.<IVisualItem>):void
 	{
 		var len:Number = a.length;
-		var tmp:*;
-		if(len<= 1)
+		var tmp:IVisualItem;
+		if (len<= 1)
 			return;
-		for(var i:int = 1;i<len;i++)
+		for (var i:int = 1;i<len;i++)
 		{
 			for (var j:int = i;j > 0;j--)
 			{
-				if( a[j].layer < a[j-1].layer )
+				if ( a[j].layer < a[j-1].layer )
 				{
 					tmp = a[j];
 					a[j] = a[j-1];
@@ -656,9 +871,11 @@ public class Group extends GroupBase
 		}
 	}
 
-    private function assignDisplayObjectTo(item:*,mergeData:GroupDisplayObjectMergeData):void
+    /**
+     *  @private
+     */
+    private function assignDisplayObjectTo(item:Object,mergeData:GroupDisplayObjectMergeData):void
     {
-            
     	if (mergeData.lastDisplayObject == this)
     		mergeData.insertIndex = 0;
     	else
@@ -709,10 +926,18 @@ public class Group extends GroupBase
         }
     } 
    
-    
-    // Helper function to remove child from other Group or display list before 
-    // adding to the display list. 
-    protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
+    /**
+     *  Internal helper method to remove item from another group or display list
+     *  before adding it to this display list.
+     * 
+     *  @param child DisplayObject to add to the display list
+     *  @param item Item associated with the display object to be added.  If 
+     *  the item itself is a display object, it will be the same as the child parameter.
+     *  @param index Index position where the display object will be added
+     * 
+     *  @return DisplayObject that was added
+     */ 
+    protected function addItemToDisplayList(child:DisplayObject, item:Object, index:int = -1):DisplayObject
     { 
         var host:DisplayObject;
         
@@ -750,12 +975,13 @@ public class Group extends GroupBase
             }
             else        
                 child.parent.removeChild(child);
-        
         }
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
-    
+    /**
+     *  @private
+     */
     override public function elementLayerChanged(e:IGraphicElement):void
     {
         super.elementLayerChanged(e);
@@ -765,8 +991,17 @@ public class Group extends GroupBase
         invalidateProperties();
     }
     
+    /**
+     *  Dictionary to keep track of mask elements.  Because mask elements can be applied 
+     *  to GraphicElements, which may not be DisplayObjects, the Group needs to know this
+     *  to map GraphicElements to DisplayObjects later on since masking takes place
+     *  at the Flash Player level.
+     */ 
     protected var maskElements:Dictionary;
     
+    /**
+     *  @private
+     */
     override public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (!maskElements)
@@ -780,6 +1015,9 @@ public class Group extends GroupBase
             
     }
     
+    /**
+     *  @private
+     */
     override public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (maskElements && mask in maskElements)
@@ -920,38 +1158,57 @@ public class Group extends GroupBase
         }
     }
     
-    // TODO (rfrishbe): need to figure out if we must duplicate these 
-    // RTEs across DataGroup and Group.
+    /**
+     *  @private
+     */
     override public function addChild(child:DisplayObject):DisplayObject
     {
         throw(new Error("addChild is not available in Group. Use addItem instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
         throw(new Error("addChildAt is not available in Group. Use addItemAt instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
         throw(new Error("removeChild is not available in Group. Use removeItem instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function removeChildAt(index:int):DisplayObject
     {
         throw(new Error("removeChildAt is not available in Group. Use removeItemAt instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
         throw(new Error("setChildIndex is not available in Group. Use setItemIndex instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
         throw(new Error("swapChildren is not available in Group. Use swapItems instead."));
     }
     
+    /**
+     *  @private
+     */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
         throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
