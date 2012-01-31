@@ -274,11 +274,8 @@ public class Move extends AnimateTransform
         var xProp:String = applyChangesPostLayout ? "postLayoutTranslationX" : "translationX";
         var yProp:String = applyChangesPostLayout ? "postLayoutTranslationY" : "translationY";
         
-        if (!(isNaN(xFrom) && isNaN(xTo) && isNaN(xBy)))
-            addMotionPath(xProp, xFrom, xTo, xBy);
-        
-        if (!(isNaN(yFrom) && isNaN(yTo) && isNaN(yBy)))
-            addMotionPath(yProp, yFrom, yTo, yBy);
+        addMotionPath(xProp, xFrom, xTo, xBy);
+        addMotionPath(yProp, yFrom, yTo, yBy);
         
         super.initInstance(instance);
     }    
