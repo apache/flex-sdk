@@ -34,7 +34,10 @@ import spark.components.TextSelectionVisibility;
 
 use namespace mx_internal;
 
+[ExcludeClass]
+
 /**
+ *  @private
  *  A subclass of TextContainerManager that manages the text in
  *  a RichEditableText component.
  *  
