@@ -1459,7 +1459,7 @@ public class NumericStepper extends UIComponent
     override protected function focusOutHandler(event:FocusEvent):void
     {
         var fm:IFocusManager = focusManager;
-        if (fm)
+        if (fm && event.target == this)
             fm.defaultButtonEnabled = true;
 
         super.focusOutHandler(event);
