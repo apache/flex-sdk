@@ -459,11 +459,11 @@ public class DropDownList extends List
      *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
     // TODO (jszeto): Make this protected and make the name more generic (passing data to skin) 
-    mx_internal function updateLabelElement():void
+    mx_internal function updateLabelDisplay():void
     {
         if (labelDisplay)
         {
-            if (selectedItem)
+            if (selectedItem != null && selectedItem != undefined)
                 labelDisplay.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
             else
                 labelDisplay.text = prompt;
@@ -482,7 +482,7 @@ public class DropDownList extends List
     override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
         var retVal:Boolean = super.commitSelection(dispatchChangedEvents);
-        updateLabelElement();
+        updateLabelDisplay();
         return retVal; 
     }
     
@@ -496,7 +496,7 @@ public class DropDownList extends List
         if (labelChanged)
         {
             labelChanged = false;
-            updateLabelElement();
+            updateLabelDisplay();
         }
     }
     
