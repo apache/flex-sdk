@@ -141,7 +141,7 @@ include "../styles/metadata/TextStyles.as"
  *  NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider, and any
  *  components that support the <code>borderStyle</code> style.
  *  The default value depends on the component class;
- *  if not overriden for the class, the default value is <code>0xB7BABC</code>.
+ *  if not overridden for the class, the default value is <code>0xB7BABC</code>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -182,7 +182,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Color of the highlight area of the date when the user holds the
  *  mouse pointer over a date in the DateChooser control.
- *  @default 0xE3FFD6
+ * 
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -194,7 +196,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Color of the highlight area of the currently selected date
  *  in the DateChooser control.
- *  @default 0xCDFFC1
+ * 
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
