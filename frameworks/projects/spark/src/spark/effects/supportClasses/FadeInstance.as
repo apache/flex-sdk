@@ -19,6 +19,7 @@ import mx.managers.LayoutManager;
 
 import spark.components.Group;
 import spark.effects.animation.Animation;
+import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.primitives.supportClasses.GraphicElement;
@@ -90,7 +91,7 @@ public class FadeInstance extends AnimateInstance
     public var alphaFrom:Number;
     
     //----------------------------------
-    //  alphaFrom
+    //  alphaTo
     //----------------------------------
 
     /** 
@@ -203,9 +204,10 @@ public class FadeInstance extends AnimateInstance
         {
             makeInvisible = true;
         }
-        
-        motionPaths = new <MotionPath>[
-            new SimpleMotionPath("alpha",alphaFrom, alphaTo, duration)];
+
+        motionPaths = new <MotionPath>[new MotionPath("alpha")];
+        motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, alphaFrom), 
+            new Keyframe(duration, alphaTo)];
         
         super.play();
     }
