@@ -26,6 +26,12 @@ use namespace object_proxy;
 /**
  *  The ConfigMap class provides a mechanism to store the properties returned 
  *  by the server with the ordering of the properties maintained. 
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3  
  */ 
 public dynamic class ConfigMap extends Proxy
 {
@@ -39,6 +45,12 @@ public dynamic class ConfigMap extends Proxy
      * Constructor.
      *
      * @param item An Object containing name/value pairs.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3       
      */
     public function ConfigMap(item:Object = null)
     {
@@ -59,6 +71,12 @@ public dynamic class ConfigMap extends Proxy
     
     /**
      *  Contains a list of all of the property names for the proxied object.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     object_proxy var propertyList:Array;
             
@@ -91,6 +109,12 @@ public dynamic class ConfigMap extends Proxy
      *  inspecting the <code>localName</code> property.
      *
      *  @return The value of the property.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function getProperty(name:*):*
     {
@@ -111,6 +135,12 @@ public dynamic class ConfigMap extends Proxy
      *  called method.
      *
      *  @return The return value of the called method.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function callProperty(name:*, ... rest):*
     {
@@ -126,6 +156,12 @@ public dynamic class ConfigMap extends Proxy
      *  inspecting the <code>localName</code> property.
      *
      *  @return A Boolean indicating if the property was deleted.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function deleteProperty(name:*):Boolean
     {
@@ -160,6 +196,12 @@ public dynamic class ConfigMap extends Proxy
      *  otherwise <code>false</code>.
      *
      *  @see flash.utils.Proxy#hasProperty()
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function hasProperty(name:*):Boolean
     {
@@ -176,6 +218,12 @@ public dynamic class ConfigMap extends Proxy
      *  @return The property's name.
      *
      *  @see flash.utils.Proxy#nextName()
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function nextName(index:int):String
     {
@@ -192,6 +240,12 @@ public dynamic class ConfigMap extends Proxy
      *  @return The zero-based index of the next proprety.
      *
      *  @see flash.utils.Proxy#nextNameIndex()
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function nextNameIndex(index:int):int
     {        
@@ -215,6 +269,12 @@ public dynamic class ConfigMap extends Proxy
      *  @return The property's value.
      *
      *  @see flash.utils.Proxy#nextValue()
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function nextValue(index:int):*
     {
@@ -229,6 +289,12 @@ public dynamic class ConfigMap extends Proxy
      *  should be updated on the proxied object.
      *
      *  @param value Value that should be set on the proxied object.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3     
      */
     override flash_proxy function setProperty(name:*, value:*):void
     {
