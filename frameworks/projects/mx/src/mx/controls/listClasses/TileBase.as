@@ -1990,7 +1990,7 @@ public class TileBase extends ListBase
         // the freeItemRenderers table has a free one
         if (factory == itemRenderer)
         {
-            if (freeItemRenderers && freeItemRenderers.length)
+            if (freeItemRenderers && freeItemRenderers.length && freeItemRenderersByFactory[factory])
             {
                 renderer = freeItemRenderers.pop();
                 delete freeItemRenderersByFactory[factory][renderer];
