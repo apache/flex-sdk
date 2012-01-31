@@ -3630,16 +3630,23 @@ package spark.components
          */
         private function handlePasteOperation(op:PasteOperation):void
         {
+            var hasConstraints:Boolean = 
+                restrict || maxChars || displayAsPassword;
+            
+            // If there are no constraints and multiline text is allowed
+            // there is nothing that needs to be done.
+            if (!hasConstraints && multiline)
+                return;
+            
             // If copied/cut from displayAsPassword field the pastedText
             // is '*' characters but this is correct.
             var pastedText:String = TextUtil.extractText(op.textScrap.textFlow);
-            // See if there is anything we need to do.
-            if (!restrict && !maxChars && !displayAsPassword)
-            {
-                if (multiline || pastedText.indexOf("\n") == -1)
-                    return;
-            }
             
+            // If there are no constraints and no newlines there is nothing
+            // more to do.
+            if (!hasConstraints && pastedText.indexOf("\n") == -1)
+                return;
+
             // Save this in case we modify the pasted text.  We need to know
             // how much text to delete.
             var textLength:int = pastedText.length;
