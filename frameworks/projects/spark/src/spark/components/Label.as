@@ -30,7 +30,9 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
+
 import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.TextLineRecycler;
 
 import mx.core.mx_internal;
 import mx.core.EmbeddedFont;
@@ -41,6 +43,7 @@ import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.managers.ISystemManager;
+
 import spark.primitives.supportClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
@@ -103,9 +106,6 @@ public class SimpleText extends TextGraphicElement
 		staticEmbeddedFont = new EmbeddedFont("", false, false);
 	
 		staticTextFormat = new TextFormat();
-		
-		if ("recreateTextLine" in staticTextBlock)
-			recreateTextLine = staticTextBlock["recreateTextLine"];
 	}
 	
 	initClass();
@@ -361,11 +361,10 @@ public class SimpleText extends TextGraphicElement
         bounds.width = width;
         bounds.height = height;
 
-        // Remove the text lines from the container.  If we're recycling the
-        // text lines, leave them in mx_internal::textLines.
+        // Remove the text lines from the container and then release them for
+        // reuse, if supported by the player.
         mx_internal::removeTextLines();
-        if (recreateTextLine == null)
-            mx_internal::textLines.length = 0;
+        mx_internal::releaseTextLines();
         
 		var allLinesComposed:Boolean = createTextLines(elementFormat);
         
@@ -691,6 +690,9 @@ public class SimpleText extends TextGraphicElement
                 	                              textLines:Array,
                 	                              bounds:Rectangle):Boolean
 	{
+       // Start with 0 text lines.
+	   mx_internal::releaseTextLines(textLines);
+	       
 		// Get CSS styles for formats that we have to apply ourselves.
 		var direction:String = getStyle("direction");
         var lineBreak:String = getStyle("lineBreak");
@@ -717,7 +719,6 @@ public class SimpleText extends TextGraphicElement
 		
 		if (innerWidth < 0 || innerHeight < 0 || !textBlock)
 		{
-            textLines.length = 0;
 			bounds.width = 0;
 			bounds.height = 0;
 			return false;
@@ -742,7 +743,6 @@ public class SimpleText extends TextGraphicElement
         var maxTextWidth:Number = 0;
 		var totalTextHeight:Number = 0;
 		var n:int = 0;
-        var nRecycleLines:int = recreateTextLine != null ? textLines.length : 0;
 		var nextTextLine:TextLine;
 		var nextY:Number = 0;
 		var textLine:TextLine;
@@ -759,11 +759,9 @@ public class SimpleText extends TextGraphicElement
 		// (0, 0, innerWidth, innerHeight), with top-left alignment.
 		while (true)
 		{
-		    if (nRecycleLines > 0)
-		    {
-		        //trace("recreateTextLine", n);
-		        var recycleLine:TextLine = textLines[n];
-                
+            var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
+            if (recycleLine)
+            {
                 if (textLineCreator)
                 {
                     nextTextLine = textLineCreator.recreateTextLine(
@@ -774,8 +772,6 @@ public class SimpleText extends TextGraphicElement
                     nextTextLine = recreateTextLine(
                     	recycleLine, textLine, maxLineWidth);
                 }  
-                      
-                nRecycleLines--;    
 		    }
 		    else
 		    {
@@ -857,9 +853,6 @@ public class SimpleText extends TextGraphicElement
             }
 		}
 
-        // If recycling text lines, eliminate any unused lines.
-        textLines.length = n;
-        
 		// At this point, n is the number of lines that fit
 		// and textLine is the last line that fit.
 
@@ -1061,6 +1054,9 @@ public class SimpleText extends TextGraphicElement
                     measuredTextLine.specifiedWidth -
                     measuredTextLine.unjustifiedTextWidth;                          
                                         
+                measuredTextLine = null;                                        
+                mx_internal::releaseTextLines(indicatorLines);
+                                                        
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
                 var truncateAtCharPosition:int = 
@@ -1116,7 +1112,7 @@ public class SimpleText extends TextGraphicElement
         // padding.
         if (!somethingFit)
         {
-            mx_internal::textLines.length = 0;
+            mx_internal::releaseTextLines();
 
             var paddingBottom:Number = getStyle("paddingBottom");
             var paddingLeft:Number = getStyle("paddingLeft");
