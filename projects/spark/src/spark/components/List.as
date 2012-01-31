@@ -930,7 +930,7 @@ public class List extends ListBase implements IFocusManagerComponent
 		}
         
         if (dispatchChangeEvent)
-            dispatchChangeAfterSelection = dispatchChangeEvent;
+            dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
         
         if (value)
             _proposedSelectedIndices = value;
