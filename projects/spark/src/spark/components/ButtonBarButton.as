@@ -25,7 +25,7 @@ use namespace mx_internal;
  *  the default skin for the ButtonBar.
  *
  *  @see spark.components.ButtonBar
- *  @see spark.skins.default.ButtonBarSkin
+ *  @see spark.skins.spark.ButtonBarSkin
  *  
  *  
  *  @langversion 3.0
