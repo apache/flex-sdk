@@ -1100,7 +1100,7 @@ public class DataGridHeader extends DataGridHeaderBase
                     i = headerItems.length - 1;
             }
 
-            if (visibleColumns[i].sortable)
+            if (visibleColumns.length > 0 && visibleColumns[i].sortable)
             {
                 var s:Sprite = Sprite(
                     selectionLayer.getChildByName("headerSelection"));
