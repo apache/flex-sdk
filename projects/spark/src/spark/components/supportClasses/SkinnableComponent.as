@@ -391,6 +391,8 @@ public class FxComponent extends UIComponent
                 var skinPart:SkinPartInfo = parts[i];
                 var skinPartID:String = skinPart.id;
                 
+                if (this[skinPartID] != null)
+                {
                 if (!(this[skinPartID] is IFactory))
                 {
                     partRemoved(skinPartID, this[skinPartID]);
@@ -401,7 +403,7 @@ public class FxComponent extends UIComponent
                     for (var j:int = 0; j < len; j++)
                         removeDynamicPartInstance(skinPartID, getDynamicPartAt(skinPartID, j));
                 }
-                
+            }
                 this[skinPartID] = null;
             }
         }
