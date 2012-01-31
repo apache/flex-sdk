@@ -97,7 +97,7 @@ use namespace mx_internal;
  *    iconField="icon"
  *    labeField="label"
  *    selectedIndex="-1"
- *    toolTipField="tooltip"
+ *    toolTipField="toolTip"
  *     
  *    <strong>Events</strong>
  *    itemClick="<i>No default</i>"
