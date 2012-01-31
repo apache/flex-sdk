@@ -79,6 +79,11 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Exclude(name="fontWeight", kind="style")]
 [Exclude(name="textAlign", kind="style")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.SliderAccImpl")]
 /**
  *  The Slider class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
@@ -147,6 +152,18 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 public class Slider extends TrackBase implements IFocusManagerComponent
 {
     include "../../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by SliderAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -366,6 +383,16 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     // Methods
     //
     //--------------------------------------------------------------------------
+    
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (Slider.createAccessibilityImplementation != null)
+            Slider.createAccessibilityImplementation(this);
+    }
+
     
     /**
      *  @private
