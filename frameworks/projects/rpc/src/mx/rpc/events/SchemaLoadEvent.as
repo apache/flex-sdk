@@ -26,6 +26,11 @@ public class SchemaLoadEvent extends XMLLoadEvent
 {
     /**
      * Creates a new SchemaLoadEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SchemaLoadEvent(type:String, bubbles:Boolean = false, 
         cancelable:Boolean = true, schema:Schema = null, location:String = null)
@@ -41,11 +46,21 @@ public class SchemaLoadEvent extends XMLLoadEvent
 
     /**
      * The full Schema document.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var schema:Schema;
 
     /**
      * Returns a copy of this SchemaLoadEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function clone():Event
     {
@@ -54,6 +69,11 @@ public class SchemaLoadEvent extends XMLLoadEvent
 
     /**
      * Returns a String representation of this SchemaLoadEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
