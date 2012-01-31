@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package spark.components
+package spark.components.supportClasses
 {
 
 import flash.display.DisplayObject;
@@ -25,9 +25,7 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
 
-import spark.components.supportClasses.ButtonBase;
-import spark.components.supportClasses.DropDownController;
-import spark.components.supportClasses.TextBase;
+import spark.components.List;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
 import spark.events.IndexChangeEvent;
@@ -176,7 +174,7 @@ use namespace mx_internal;
  */
 public class DropDownListBase extends List
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
  
     //--------------------------------------------------------------------------
     //
