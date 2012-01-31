@@ -20,7 +20,8 @@ import flash.events.EventDispatcher;
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.IMXMLObject;
-import mx.core.IRawChildrenContainer;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -562,9 +563,9 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number
     {
-        var aParent:DisplayObject = a.parent;
-        var bParent:DisplayObject = b.parent;
-
+        var aParent:DisplayObjectContainer = a.parent;
+        var bParent:DisplayObjectContainer = b.parent;
+        
         if (!aParent || !bParent)
             return 0;
    
@@ -585,17 +586,25 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
         var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
 
-        var aIndex:int = aParent is IRawChildrenContainer ?
-            IRawChildrenContainer(aParent).rawChildren.getChildIndex(a) :
-            DisplayObjectContainer(aParent).getChildIndex(a);
-
-        var bIndex:int = bParent is IRawChildrenContainer ?
-            IRawChildrenContainer(bParent).rawChildren.getChildIndex(b) :
-            DisplayObjectContainer(bParent).getChildIndex(b);
-
-        if (aNestLevel > bNestLevel || (a.parent == b.parent && aIndex > bIndex))
+        var aIndex:int = 0;
+        var bIndex:int = 0;
+        
+        if (aParent == bParent)
+        {
+            if (aParent is IVisualElementContainer && a is IVisualElement)
+                aIndex = IVisualElementContainer(aParent).getElementIndex(IVisualElement(a));
+            else
+                aIndex = DisplayObjectContainer(aParent).getChildIndex(a);
+                
+            if (bParent is IVisualElementContainer && b is IVisualElement)
+                bIndex = IVisualElementContainer(bParent).getElementIndex(IVisualElement(b));
+            else
+                bIndex = DisplayObjectContainer(bParent).getChildIndex(b);
+        }
+        
+        if (aNestLevel > bNestLevel || aIndex > bIndex)
             return 1;
-        else if (aNestLevel < bNestLevel ||  (a.parent == b.parent && bIndex > aIndex))
+        else if (aNestLevel < bNestLevel ||  bIndex > aIndex)
             return -1;
         else if (a == b)
             return 0;
