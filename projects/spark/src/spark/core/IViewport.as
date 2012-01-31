@@ -95,8 +95,8 @@ public interface IViewport extends IVisualElement
      *   
      *  @default 0
      * 
-     *  @see target
-     *  @see verticalScrollPosition
+     *  @see #target
+     *  @see #verticalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -121,7 +121,7 @@ public interface IViewport extends IVisualElement
      *   
      *  @default 0
      * 
-     *  @see horizontalScrollPosition
+     *  @see #horizontalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -136,15 +136,22 @@ public interface IViewport extends IVisualElement
      *  <code>horizontalScrollPosition</code> to scroll by the requested scrolling unit.
      *
      *  @param navigationUnit The amount to scroll. 
-     *  The value of unit must be one of the following spark.core.NavigationUnit
-     *  constants: <code>LEFT</code>, <code>RIGHT</code>, <code>PAGE_LEFT</code>, 
-     *  <code>PAGE_RIGHT</code>, <code>HOME</code>, or <code>END</code>.
+     *  The value must be one of the following spark.core.NavigationUnit
+     *  constants: 
+     *  <ul>
+     *   <li><code>LEFT</code></li>
+     *   <li><code>RIGHT</code></li>
+     *   <li><code>PAGE_LEFT</code></li>
+     *   <li><code>PAGE_RIGHT</code></li>
+     *   <li><code>HOME</code></li>
+     *   <li><code>END</code></li>
+     *  </ul>
      *  To scroll by a single column, use <code>LEFT</code> or <code>RIGHT</code>.
      *  To scroll to the first or last column, use <code>HOME</code> or <code>END</code>.
      *
      *  @return The number of pixels to add to <code>horizontalScrollPosition</code>.
      * 
-     *  @see NavigationUnit
+     *  @see spark.core.NavigationUnit
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -159,14 +166,21 @@ public interface IViewport extends IVisualElement
      *
      *  @param navigationUnit The amount to scroll. 
      *  The value of unit must be one of the following spark.core.NavigationUnit
-     *  constants: <code>UP</code>, <code>DOWN</code>, <code>PAGE_UP</code>, 
-     *  <code>PAGE_DOWN</code>, <code>HOME</code>, or <code>END</code>.
+     *  constants: 
+     *  <ul>
+     *   <li><code>UP</code></li>
+     *   <li><code>DOWN</code></li>
+     *   <li><code>PAGE_UP</code></li>
+     *   <li><code>PAGE_DOWN</code></li>
+     *   <li><code>HOME</code></li>
+     *   <li><code>END</code></li>
+     *  </ul>
      *  To scroll by a single row use <code>UP</code> or <code>DOWN</code>.
      *  To scroll to the first or last row, use <code>HOME</code> or <code>END</code>.
      *
      *  @return The number of pixels to add to <code>verticalScrollPosition</code>.
      * 
-     *  @see NavigationUnit
+     *  @see spark.core.NavigationUnit
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -182,9 +196,9 @@ public interface IViewport extends IVisualElement
      *  
      *  @default false
      *
-     *  @see LayoutBase#updateScrollRect
-     *  @see verticalScrollPosition
-     *  @see horizontalScrollPosition
+     *  @see spark.layouts.supportClasses.LayoutBase#updateScrollRect
+     *  @see #verticalScrollPosition
+     *  @see #horizontalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
