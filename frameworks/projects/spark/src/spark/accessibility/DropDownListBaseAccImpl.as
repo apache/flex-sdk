@@ -19,7 +19,7 @@ import mx.accessibility.AccConst;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.accessibility.AccImpl;
-    import spark.components.DropDownListBase;
+    import spark.components.supportClasses.DropDownListBase;
     
     use namespace mx_internal;
     
