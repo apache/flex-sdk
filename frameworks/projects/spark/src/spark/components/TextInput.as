@@ -105,6 +105,10 @@ use namespace mx_internal;
  *
  *  <p>The <code>widthInChars</code> property provides a convenient way
  *  to specify the width in a way that scales with the font size.
+ *  You can use the <code>typicalText</code> property as well.
+ *  Note that if you use <code>typicalText</code>, the
+ *  <code>widthInChars</code> and <code>heightInLines</code>
+ *  are ignored.
  *  Of course, you can also specify an explicit width in pixels,
  *  a percent width, or use constraints such as <code>left</code>
  *  and <code>right</code>.
@@ -183,6 +187,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:TextInput
  *    <strong>Properties</strong>
+ *    typicalText=null
  *    widthInChars="<i>Calculated default</i>"
  *  
  *    <strong>Events</strong>
@@ -272,6 +277,33 @@ public class TextInput extends SkinnableTextBase
     //
     //--------------------------------------------------------------------------
 
+	//----------------------------------
+	//  typicalText
+	//----------------------------------
+	
+	/**
+	 *  @default null
+	 *
+	 *  @see spark.components.RichEditableText#typicalText
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	public function get typicalText():String
+	{
+		return getTypicalText();
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set typicalText(value:String):void
+	{
+		setTypicalText(value);
+	}
+	
     //----------------------------------
     //  widthInChars
     //----------------------------------
@@ -296,6 +328,9 @@ public class TextInput extends SkinnableTextBase
      *  a percent width, or both <code>left</code> and <code>right</code>
      *  constraints.</p>
      *
+	 *  <p>This property will also be ignored if the <code>typicalText</code> 
+	 *  property is specified.</p>
+	 * 
      *  @default 10
      *
      *  @see spark.primitives.heightInLines
