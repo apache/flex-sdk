@@ -211,32 +211,32 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
     
     //----------------------------------
-    //  layer
+    //  depth
     //----------------------------------  
     
     /**
      *  @private
-     *  Storage for the layer property.
+     *  Storage for the depth property.
      */
-    private var _layer:Number = 0;
+    private var _depth:Number = 0;
     
     /**
      * @inheritDoc
      */
-    public function get layer():Number
+    public function get depth():Number
     {
-        return _layer;
+        return _depth;
     }
 
     /**
      *  @private
      */
-    public function set layer(value:Number):void
+    public function set depth(value:Number):void
     {
-        if(value == _layer)
+        if(value == _depth)
             return;
 
-        _layer = value;
+        _depth = value;
         if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
     }
@@ -519,22 +519,11 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //--------------------------------------------------------------------------
     
     /**
-     *  Gets the transformation matrix.
-     *  
-     *  @return Returns the transformation matrix for this element, or null
-     *  if it is delta identity.
-     */
-    protected function computeMatrix():Matrix
-    {
-        return transform.matrix;
-    }
-    
-    /**
      *  @inheritDoc 
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? transform.matrix : null;
         if (!m)
             return x;
             
@@ -548,7 +537,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? transform.matrix : null;
         if (!m)
             return y;
             
@@ -633,7 +622,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         var m:Matrix;
         if (!postLayoutTransform)
-            m = computeMatrix();
+            m = transform.matrix;
         if (!m)
             return x;
 
@@ -662,7 +651,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         var m:Matrix;
         if (!postLayoutTransform)
-            m = computeMatrix();
+            m = transform.matrix;
         if (!m)
             return y;
 
@@ -724,7 +713,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         // Calculate the width and height pre-transform:
         var m:Matrix;
         if (postLayoutTransform)
-            m = computeMatrix();
+            m = transform.matrix;
         if (!m)
         {
             if (isNaN(width))
@@ -817,7 +806,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         if (postLayoutTransform)
         {
-            var m:Matrix = computeMatrix();
+            var m:Matrix = transform.matrix;
             if (m)
             {
                 var size:Point = new Point(width, height);
@@ -844,7 +833,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         if (postLayoutTransform)
         {
-            var m:Matrix = computeMatrix();
+            var m:Matrix = transform.matrix;
             if (m)
             {
                 var size:Point = new Point(width, height);
