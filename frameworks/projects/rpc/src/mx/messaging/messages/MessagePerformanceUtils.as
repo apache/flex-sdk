@@ -48,6 +48,12 @@ package mx.messaging.messages
      * <pre>var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
      * </pre>    
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public class MessagePerformanceUtils
     {   
@@ -110,6 +116,12 @@ package mx.messaging.messages
          * @param message The message received from the server. 
          * This can be a message pushed from the server, or an acknowledge message received
          * by the client after the client pushed a message to the server. 
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */                 
         public function MessagePerformanceUtils(message:Object):void
         {
@@ -139,6 +151,12 @@ package mx.messaging.messages
          * receiving a response from the server.
          *
          * <p>This property contains 0 for a streaming or RTMP (LiveCycle Data Services ES only) channel. </p> 
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get totalTime():Number
         {
@@ -156,6 +174,12 @@ package mx.messaging.messages
          * a message from the producer and sends the acknowledge message back to the producer. 
          * For a consumer that uses polling, it is the time between the arrival of 
          * the consumers polling message and any message returned in response to the poll. 
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get serverProcessingTime():Number
         {
@@ -172,6 +196,12 @@ package mx.messaging.messages
         /**
          * Time, in milliseconds, between the server receiving the client message 
          * and the server beginning to push the message out to other clients.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get serverPrePushTime():Number
         {
@@ -190,6 +220,12 @@ package mx.messaging.messages
          * to the receiving client. 
          * This corresponds to the time that the message was processed by your code 
          * on the server.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */           
         public function get serverAdapterTime():Number
         {
@@ -220,6 +256,12 @@ package mx.messaging.messages
          * This corresponds to the time that the message was processed by the server,
          * excluding the time it was processed by your custom code, as defined by the value in
          * the <code>serverAdapterTime</code> property.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get serverAdapterExternalTime():Number
         {
@@ -248,6 +290,12 @@ package mx.messaging.messages
          * to be pushed to this client but before it was picked up by a poll request.
          * 
          * <p>For a streaming or RTMP (LiveCycle Data Services ES only) channel, this value is always 0.</p>
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */     
         public function get serverPollDelay():Number
         {
@@ -263,6 +311,12 @@ package mx.messaging.messages
          * Server processing time spent outside of the adapter associated with 
          * the destination of this message. 
          * Calculated as <code>serverProcessingTime</code> - <code>serverAdapterTime</code>.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get serverNonAdapterTime():Number
         {       
@@ -281,6 +335,12 @@ package mx.messaging.messages
          * this value is 0. 
          * However, for an acknowledge message sent over a streaming or RTMP channel, 
          * the metric contains a valid number. </p>
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */             
         public function get networkRTT():Number
         {
@@ -293,6 +353,12 @@ package mx.messaging.messages
         /**
          * The number of milliseconds since the start of the Unix epoch, 
          * January 1, 1970, 00:00:00 GMT, to when the server sent a response message back to the client.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */             
         public function get serverSendTime():Number
         {
@@ -302,6 +368,12 @@ package mx.messaging.messages
         /**
          * The number of milliseconds since the start of the Unix epoch, 
          * January 1, 1970, 00:00:00 GMT, to when the client received response message from the server.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get clientReceiveTime():Number
         {
@@ -311,6 +383,12 @@ package mx.messaging.messages
         /**
          * The size of the original client message, in bytes, 
          * as measured during deserialization by the server endpoint.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get messageSize():int
         {
@@ -323,6 +401,12 @@ package mx.messaging.messages
         /**
          * The size, in bytes, of the response message sent to the client by the server 
          * as measured during serialization at the server endpoint.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get responseMessageSize():int
         {
@@ -336,6 +420,12 @@ package mx.messaging.messages
          * <code>pushedMessageFlag</code> is <code>false</code>. 
          * When you are using a streaming channel, <code>pushedMessageFlag</code> is true. 
          * For an acknowledge message, <code>pushedMessageFlag</code> is <code>false</code>.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get pushedMessageFlag():Boolean
         {
@@ -347,6 +437,12 @@ package mx.messaging.messages
          * and the time that the receiving client received the pushed message. 
          * Note that this value is only relevant if the two clients have synchronized clocks.
          * Only populated in the case of a pushed message, but not for an acknowledge message,
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */             
         public function get totalPushTime():Number
         {           
@@ -359,6 +455,12 @@ package mx.messaging.messages
          * Note that this value is only relevant if the server and receiving client 
          * have synchronized clocks.
          * Only populated in the case of a pushed message, but not for an acknowledge message.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */ 
         public function get pushOneWayTime():Number
         {
@@ -369,6 +471,12 @@ package mx.messaging.messages
          * The timestamp, in milliseconds since the start of the Unix epoch on 
          * January 1, 1970, 00:00:00 GMT, to when the client that caused a push message sent its message.
          * Only populated in the case of a pushed message, but not for an acknowledge message.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */             
         public function get originatingMessageSentTime():Number
         {
@@ -378,6 +486,12 @@ package mx.messaging.messages
         /**
          * Size, in bytes, of the message that originally caused this pushed message.
          * Only populated in the case of a pushed message, but not for an acknowledge message.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function get originatingMessageSize():Number
         {
@@ -397,6 +511,12 @@ package mx.messaging.messages
          * </pre>            
          * 
          * @return String containing a summary of all available non-zero and non-null metrics.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion BlazeDS 4
+         *  @productversion LCDS 3 
          */         
         public function prettyPrint():String
         {       
