@@ -94,6 +94,11 @@ HSlider
     skinClass: ClassReference("spark.skins.spark.HSliderSkin");
 }
 
+Image
+{
+    skinClass: ClassReference("spark.skins.spark.ImageSkin");
+}
+
 List
 {
 	skinClass: ClassReference("spark.skins.spark.ListSkin");
