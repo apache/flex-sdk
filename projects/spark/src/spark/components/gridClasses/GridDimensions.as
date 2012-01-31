@@ -205,15 +205,29 @@ public class GridDimensions
     
     /**
      *  @private
+     * 
+     *  Clears the cache and resets GridDimensions such that the
+     *  number of columns is value.
      */
     public function set columnCount(value:int):void
     {
-        if (value == _columnCount)
-            return;
+        // Don't short-circuit return if the column count didn't change.
+        // There might be a new set of columns which is the same length
+        // as the old set of columns.
+
+        // clear cached information
+        clear();
         
-        // if we change the columnCount, clear everything
-        // because we don't know which columns are valid anymore.
-        resetColumns(value);
+        // fix up the number of columns
+        _columnCount = value;
+        _columnWidths.length = value;
+        typicalCellHeights.length = value;
+        typicalCellWidths.length = value;
+        rowList.numColumns = value;
+        
+        // clear the rest of the vectors
+        clearTypicalCellWidthsAndHeights();
+        clearVector(_columnWidths, NaN, 0, _columnCount);
     }
 
     //----------------------------------
@@ -1304,28 +1318,7 @@ public class GridDimensions
         recentNode = null;
         recentNode2 = null;   
     }
-    
-    /**
-     *  Clears the cache and resets GridDimensions such that the
-     *  number of columns is newLength.
-     */
-    public function resetColumns(columnsLength:int):void
-    {
-        // clear cached information
-        clear();
         
-        // fix up the number of columns
-        _columnCount = columnsLength;
-        _columnWidths.length = columnsLength;
-        typicalCellHeights.length = columnsLength;
-        typicalCellWidths.length = columnsLength;
-        rowList.numColumns = columnsLength
-        
-        // clear the rest of the vectors
-        clearTypicalCellWidthsAndHeights();
-        clearVector(_columnWidths, NaN, 0, _columnCount);
-    }
-    
     /**
      *  Moves count number of rows from the fromRow index to the toRow
      *  index. This operation will not affect rowCount.
@@ -1541,7 +1534,7 @@ public class GridDimensions
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
             {
-                resetColumns(IList(event.target).length);
+                columnCount = IList(event.target).length;
                 break;
             }
                 
