@@ -129,8 +129,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-[Exclude(name="enabled", kind="property")] 
-
 /**
  *  The GroupBase class defines the base class for components that display visual elements.
  *  A group component does not control the layout of the visual items that it contains. 
