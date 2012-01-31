@@ -275,7 +275,7 @@ public class DataGrid extends GridContainerBase
     public function get selectedItem():Object
     {
         if (grid)
-            return grid.selectedItem();
+            return grid.selectedItem;
         
         return (dataProvider && (selectedIndex > 0)) ? 
                 dataProvider.getItemAt(selectedIndex) : undefined;
