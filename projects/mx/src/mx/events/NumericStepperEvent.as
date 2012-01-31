@@ -18,6 +18,11 @@ import flash.events.Event;
  *  Represents events that are specific to the NumericStepper control.
  *
  *  @see mx.controls.NumericStepper
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumericStepperEvent extends Event
 {
@@ -51,6 +56,11 @@ public class NumericStepperEvent extends Event
 	 *  </table>
 	 *
      *  @eventType change
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CHANGE:String = "change";
 
@@ -74,6 +84,11 @@ public class NumericStepperEvent extends Event
          *  @param triggerEvent If the value changed in response to a user action, contains a value
          *  indicating the type of input action, either <code>InteractionInputType.MOUSE</code>
          *  or <code>InteractionInputType.KEYBOARD</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function NumericStepperEvent(type:String, bubbles:Boolean = false,
                                         cancelable:Boolean = false,
@@ -98,6 +113,11 @@ public class NumericStepperEvent extends Event
 
 	/**
 	 *	The value of the NumericStepper control when the event was dispatched.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public var value:Number;
 
@@ -110,6 +130,11 @@ public class NumericStepperEvent extends Event
 	 *  this property contains a value indicating the type of input action. 
 	 *  The value is either <code>InteractionInputType.MOUSE</code> 
 	 *  or <code>InteractionInputType.KEYBOARD</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var triggerEvent:Event;
 	
