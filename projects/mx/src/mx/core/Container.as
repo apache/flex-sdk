@@ -3117,7 +3117,6 @@ public class Container extends UIComponent
             if ("addToCreationQueue" in mainApp)
                 mainApp.addToCreationQueue(this, creationIndex, null, this);
             else
-                // FIXME (clucier): Clarify error message and add to resource manager
                 throw new Error("addToCreationQueue called but method does not exist within application");
         }
         else if (recursionFlag)
