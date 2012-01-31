@@ -14,10 +14,12 @@ package spark.components
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.FocusEvent;
+import flash.events.Event;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import mx.core.IVisualElement;
+import mx.core.mx_internal; 
 import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -25,8 +27,9 @@ import spark.components.supportClasses.ListBase;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalLayout;
-import flash.events.Event;
 import spark.core.NavigationUnit;
+
+use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
@@ -190,90 +193,13 @@ public class List extends ListBase implements IFocusManagerComponent
         _allowMultipleSelection = value; 
     }
     
-    //----------------------------------
-    //  selectedIndex
-    //----------------------------------
-    
-    [Bindable("selectionChanged")]
-    /**
-     *  @private
-     */
-    override public function get selectedIndex():int
-    {   
-        if (dataProvider == null)
-            return NO_SELECTION; 
-        
-        if (selectedIndices && selectedIndices.length > 0)
-            return selectedIndices[selectedIndices.length - 1];
-            
-        return super.selectedIndex;  
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set selectedIndex(value:int):void
-    {   
-        if (value == selectedIndex)
-            return; 
-                 
-        super.selectedIndex = value;
-        
-        if (value > NO_SELECTION) 
-            _proposedSelectedIndices = [value];
-        else 
-            _proposedSelectedIndices = [];
-            
-        multipleSelectionChanged = true;
-        invalidateProperties();  
-    }
-    
-    //----------------------------------
-    //  selectedItem
-    //----------------------------------
-    
-    [Bindable("selectionChanged")]
-    /**
-     *  @private
-     */
-    override public function get selectedItem():*
-    {   
-        if (dataProvider == null)
-            return undefined; 
-        
-        if (selectedIndices && selectedIndices.length > 0)
-            return dataProvider.getItemAt(selectedIndices[selectedIndices.length - 1]); 
-        
-        return super.selectedItem; 
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set selectedItem(value:*):void
-    {
-        if (value == selectedItem)
-            return; 
-        
-        super.selectedItem = value;
-        
-        if (value !== undefined && dataProvider && dataProvider.getItemIndex(value) > 0)
-            _proposedSelectedIndices = [dataProvider.getItemIndex(value)]; 
-        else
-            _proposedSelectedIndices = [];
-            
-        multipleSelectionChanged = true;
-        invalidateProperties();  
-    }
-    
-    
     /**
      *  @private
      *  Internal storage for the selectedIndices property and invalidation variables.
      */
     private var _selectedIndices:Array;
-    private var _proposedSelectedIndices:Array;
-    private var multipleSelectionChanged:Boolean = false;
+    private var _proposedSelectedIndices:Array = []; 
+    private var multipleSelectionChanged:Boolean; 
     
     [Bindable("selectionChanged")]
     /**
@@ -302,8 +228,8 @@ public class List extends ListBase implements IFocusManagerComponent
         if (_proposedSelectedIndices == value)
             return; 
         
-        multipleSelectionChanged = true;
         _proposedSelectedIndices = value;
+        multipleSelectionChanged = true;  
         invalidateProperties();
     }
     
@@ -368,7 +294,9 @@ public class List extends ListBase implements IFocusManagerComponent
             }
         }
         
-        selectedIndices = indices;
+        _proposedSelectedIndices = indices;
+        multipleSelectionChanged = true;
+        invalidateProperties(); 
     }
 
     /**
@@ -405,40 +333,144 @@ public class List extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
+     /**
      *  @private
      */
     override protected function commitProperties():void
     {
-        super.commitProperties();
-        
-        if (multipleSelectionChanged)
-        {
-            multipleSelectionChanged = false;
-            commitMultipleSelection();
-        }
+    	super.commitProperties(); 
+    	
+    	if (multipleSelectionChanged)
+    	{
+    		commitSelection(); 
+    		multipleSelectionChanged = false; 
+    	}
     }
     
     /**
      *  @private
-     *  Let ListBase handle single selection, but we want to make 
-     *  sure we keep the multiple selection properties in-sync 
-     *  correctly.  
+     *  Let ListBase handle single selection and afterwards come in and 
+     *  handle multiple selection via the commitMultipleSelection() 
+     *  helper method. 
      */
-    override protected function commitSelectedIndex():Boolean
+    override protected function commitSelection(dispatchSelectionChanged:Boolean = true):Boolean
     {
-        var retVal:Boolean = super.commitSelectedIndex(); 
+    	var oldIndex:Number = _selectedIndex; 
+    	
+    	// Ensure that multiple selection is allowed and that proposed 
+        // selected indices honors it. For example, in the single 
+        // selection case, proposedSelectedIndices should only be an 
+        // array of 1 entry. If its not, we pare it down and select the 
+        // first item.  
+        if (!allowMultipleSelection && !isEmpty(_proposedSelectedIndices))
+            _proposedSelectedIndices = [_proposedSelectedIndices[0]];
+    	
+    	// Keep _proposedSelectedIndex in-sync with multiple selection properties. 
+    	if (!isEmpty(_proposedSelectedIndices))
+    	   _proposedSelectedIndex = getLastItemValue(_proposedSelectedIndices); 
+    	
+    	// Let ListBase handle the validating and commiting of the single-selection
+    	// properties.  
+        var retVal:Boolean = super.commitSelection(false); 
         
-        // The requiresSelection property is handled by ListBase. 
-        // When true, selectedIndex gets updated in commitSelectedIndex()
-        // in the parent class. We need to ensure the selectedIndices 
-        // property stays in-sync and so we override commitSelectedIndex 
-        // here to keep the properties in lockstep with each other.   
-        if (_selectedIndex != NO_SELECTION)
+        // If super.commitSelection returns a value of false, 
+        // the selection was cancelled, so return false and exit. 
+        if (!retVal)
+            return false; 
+        
+        // Now keep _proposedSelectedIndices in-sync with single selection 
+        // properties now that the single selection properties have been 
+        // comitted.  
+        if (selectedIndex > NO_SELECTION)
         {
-            selectedIndices = [_selectedIndex]; 
+        	if (_proposedSelectedIndices && _proposedSelectedIndices.indexOf(selectedIndex) == -1)
+                _proposedSelectedIndices.push(selectedIndex);
         }
+        
+        // Validate and commit the multiple selection related properties. 
+        commitMultipleSelection(); 
+        
+        // Finally, dispatch a selectionChanged event so that all of the bindings
+        // update correctly. 
+        if (dispatchSelectionChanged && retVal)
+        {
+            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+            e.oldIndex = oldIndex;
+            e.newIndex = _selectedIndex;
+            dispatchEvent(e);
+        }
+        
         return retVal; 
+    }
+    
+    /**
+     *  @private
+     *  Given a new selection interval, figure out which
+     *  items are newly added/removed from the selection interval and update
+     *  selection properties and view accordingly. 
+     */
+    protected function commitMultipleSelection():void
+    {
+        var removedItems:Array = [];
+        var addedItems:Array = [];
+        var i:int;
+        var count:int;
+        
+        if (!isEmpty(_selectedIndices) && !isEmpty(_proposedSelectedIndices))
+        {
+            // Changing selection, determine which items were added to the 
+            // selection interval 
+            count = _proposedSelectedIndices.length;
+            for (i = 0; i < count; i++)
+            {
+                if (_selectedIndices.indexOf(_proposedSelectedIndices[i]) < 0)
+                    addedItems.push(_proposedSelectedIndices[i]);
+            }
+            // Then determine which items were removed from the selection 
+            // interval 
+            count = _selectedIndices.length; 
+            for (i = 0; i < count; i++)
+            {
+                if (_proposedSelectedIndices.indexOf(_selectedIndices[i]) < 0)
+                    removedItems.push(_selectedIndices[i]);
+            }
+        }
+        else if (!isEmpty(_selectedIndices))
+        {
+            // Going to a null selection, remove all
+            removedItems = _selectedIndices;
+        }
+        else if (!isEmpty(_proposedSelectedIndices))
+        {
+            // Going from a null selection, add all
+            addedItems = _proposedSelectedIndices;
+        }
+         
+        // De-select the old items that were selected 
+        if (removedItems.length > 0)
+        {
+            count = removedItems.length;
+            for (i = 0; i < count; i++)
+            {
+                itemSelected(removedItems[i], false);
+            }
+        }
+        
+        // Select the new items in the new selection interval 
+        if (_proposedSelectedIndices.length > 0)
+        {
+            count = _proposedSelectedIndices.length;
+            for (i = 0; i < count; i++)
+            {
+                itemSelected(_proposedSelectedIndices[i], true);
+            }
+        }
+        
+        // Commit the selected indices and put _proposedSelectedIndices
+        // back to its default value.  
+        _selectedIndices = _proposedSelectedIndices;
+        _proposedSelectedIndices = [];
+        
     }
     
     /**
@@ -553,6 +585,19 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Given an Array, returns the value of the last item, 
+     *  or -1 if there are no items in the Array; 
+     */
+    private function getLastItemValue(arr:Array):Number
+    {
+        if (arr && arr.length > 0)
+            return arr[arr.length - 1]; 
+        else 
+            return -1; 
+    }
+    
+    /**
+     *  @private
      *  Returns true if a is null or an empty array.
      */
     private function isEmpty(a:Array):Boolean
@@ -561,93 +606,9 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  @private
-     *  Given a new selection interval, figure out which
-     *  items are newly added/removed from the selection interval and update
-     *  selection properties and view accordingly. Additionally, dispatch the 
-     *  selectionChanged event. 
-     */
-    protected function commitMultipleSelection():void
-    {
-        var removedItems:Array = [];
-        var addedItems:Array = [];
-        var i:int;
-        var count:int;
-        
-        // Ensure that multiple selection is allowed and that proposed 
-        // selected indices honors it. For example, in the single 
-        // selection case, proposedSelectedIndices should only be an 
-        // array of 1 entry. If its not, we pare it down and select the 
-        // first item.  
-        if (!allowMultipleSelection && _proposedSelectedIndices.length > 1)
-            _proposedSelectedIndices = [_proposedSelectedIndices[0]]; 
-        
-        if (!isEmpty(_selectedIndices) && !isEmpty(_proposedSelectedIndices))
-        {
-            // Changing selection, determine which items were added to the 
-            // selection interval 
-            count = _proposedSelectedIndices.length;
-            for (i = 0; i < count; i++)
-            {
-                if (_selectedIndices.indexOf(_proposedSelectedIndices[i]) < 0)
-                    addedItems.push(_proposedSelectedIndices[i]);
-            }
-            // Then determine which items were removed from the selection 
-            // interval 
-            count = _selectedIndices.length; 
-            for (i = 0; i < count; i++)
-            {
-                if (_proposedSelectedIndices.indexOf(_selectedIndices[i]) < 0)
-                    removedItems.push(_selectedIndices[i]);
-            }
-        }
-        else if (!isEmpty(_selectedIndices))
-        {
-            // Going to a null selection, remove all
-            removedItems = _selectedIndices;
-        }
-        else if (!isEmpty(_proposedSelectedIndices))
-        {
-            // Going from a null selection, add all
-            addedItems = _proposedSelectedIndices;
-        }
-        
-        // Commit the selected Indices 
-        _selectedIndices = _proposedSelectedIndices;
-        if (_proposedSelectedIndices.length > 0)
-            _selectedIndex = _proposedSelectedIndices[_proposedSelectedIndices.length - 1]; 
-        else 
-            _selectedIndex = NO_SELECTION; 
-        _proposedSelectedIndices = null;
-        
-        // De-select the old items that were selected 
-        if (removedItems.length > 0)
-        {
-            count = removedItems.length;
-            for (i = 0; i < count; i++)
-            {
-                itemSelected(removedItems[i], false);
-            }
-        }
-        
-        // Select the new items in the new selection interval 
-        if (addedItems.length > 0)
-        {
-            count = addedItems.length;
-            for (i = 0; i < count; i++)
-            {
-                itemSelected(addedItems[i], true);
-            }
-        }
-         
-        //Dispatch the selectionChanged event
-        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
-        e.multipleSelectionChange = true; 
-        dispatchEvent(e); 
-    }
-    
-    /**
      *  @private 
+     *  Handle the setting of the renderer's caret property and the 
+     *  dispatching of focus events. 
      */
     private function handleCaretChange(index:Number, focusIn:Boolean):void
     {
@@ -686,11 +647,11 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 if (!isEmpty(selectedIndices))
                 {
-                    //Quick check to see if selectedIndices had only one selected item
-                    //and that item was de-selected
+                    // Quick check to see if selectedIndices had only one selected item
+                    // and that item was de-selected
                     if (selectedIndices.length == 1 && (selectedIndices[0] == index))
                     {
-                        //we need to respect requiresSelection 
+                        // We need to respect requiresSelection 
                         if (!requiresSelection)
                             return [];
                         else 
@@ -711,27 +672,27 @@ public class List extends ListBase implements IFocusManagerComponent
                         }
                         if (!found)
                         {
-                            //Nothing from the selection model was de-selected. 
-                            //Instead, the Ctrl key was held down and we're doing a  
-                            //new add. 
+                            // Nothing from the selection model was de-selected. 
+                            // Instead, the Ctrl key was held down and we're doing a  
+                            // new add. 
                             interval.push(index);   
                         }
                         return interval; 
                     } 
                 }
-                //Ctrl+click with no previously selected items 
+                // Ctrl+click with no previously selected items 
                 else 
                     return [index]; 
             }
-            //A single item was newly selected, add that to the selection interval.  
+            // A single item was newly selected, add that to the selection interval.  
             else 
                 return [index];
         }
         
         else (shiftKey)
         {
-            //A contiguous selection action has occurred. Figure out which new 
-            //indices to add to the selection interval and return that. 
+            // A contiguous selection action has occurred. Figure out which new 
+            // indices to add to the selection interval and return that. 
             var start:Number = (!isEmpty(selectedIndices)) ? selectedIndices[0] : 0; 
             var end:Number = index; 
             if (start < end)
@@ -799,19 +760,19 @@ public class List extends ListBase implements IFocusManagerComponent
         var newIndex:Number; 
         if (!allowMultipleSelection)
         {
-            //Single selection case 
+            // Single selection case 
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
             
-            //Check to see if we're deselecting the currently selected item 
+            // Check to see if we're deselecting the currently selected item 
             if (event.ctrlKey && selectedIndex == newIndex)
                 selectedIndex = NO_SELECTION;  
-            //Otherwise, select the new item 
+            // Otherwise, select the new item 
             else 
                 selectedIndex = newIndex; 
         }
         else 
         {
-            //Multiple selection is handled by the helper method below 
+            // Multiple selection is handled by the helper method below
             selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
         }
     }
@@ -860,21 +821,46 @@ public class List extends ListBase implements IFocusManagerComponent
         var i:int; 
         var curr:Number; 
         var newInterval:Array = [];
-        
-        if (!selectedIndices || (_proposedSelectedIndices != null))
-            validateNow(); 
+        var e:IndexChangedEvent; 
         
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
-            return;
+        {
+            // The case where one item has been newly added and it needs to be 
+            // selected because requiresSelection is true. 
+            if (dataProvider && dataProvider.length == 1 && requiresSelection)
+            {
+                _selectedIndices = [0]; 
+                _selectedIndex = 0; 
+                // If the selection properties have been adjusted to account for items that
+                // have been added or removed, send out a "selectionChanged" event so
+                // any bindings to them are updated correctly.
+                e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+                e.oldIndex = -1;
+                e.newIndex = _selectedIndex;
+                dispatchEvent(e);
+            }
+            return; 
+        }
         
+        // Ensure multiple and single selection are in-sync before adjusting  
+        // selection. Sometimes if selection has been changed before adding/removing
+        // an item, we may not have handled selection via invalidation, so in those 
+        // cases, force a call to commitSelection() to validate and commit the selection. 
+        if ((!selectedIndices && selectedIndex > NO_SELECTION) ||
+            (selectedIndex > NO_SELECTION && selectedIndices.indexOf(selectedIndex) == -1))
+        {
+        	commitSelection(); 
+        }
+        
+        // Handle the add or remove and adjust selection accordingly. 
         if (add)
         {
             for (i = 0; i < selectedIndices.length; i++)
             {
                 curr = selectedIndices[i];
                  
-                //adding an item above one of the selected items,
-                //bump the selected item up. 
+                // Adding an item above one of the selected items,
+                // bump the selected item up. 
                 if (curr >= index)
                     newInterval.push(curr + 1); 
                 else 
@@ -895,9 +881,9 @@ public class List extends ListBase implements IFocusManagerComponent
                 }
                 else if (index == 0)
                 {
-                    //We can't just set selectedIndex to 0 directly
-                    //since the previous value was 0 and the new value is
-                    //0, so the setter will return early.
+                    // We can't just set selectedIndex to 0 directly
+                    // since the previous value was 0 and the new value is
+                    // 0, so the setter will return early.
                     _proposedSelectedIndex = 0; 
                     invalidateProperties();
                     return;
@@ -912,8 +898,8 @@ public class List extends ListBase implements IFocusManagerComponent
                 for (i = 0; i < selectedIndices.length; i++)
                 {
                     curr = selectedIndices[i]; 
-                    //removing an item above one of the selected items,
-                    //bump the selected item down. 
+                    // Removing an item above one of the selected items,
+                    // bump the selected item down. 
                     if (curr > index)
                         newInterval.push(curr - 1); 
                     else if (curr < index) 
@@ -921,14 +907,18 @@ public class List extends ListBase implements IFocusManagerComponent
                 }
             }
         }
+        var oldIndices:Array = selectedIndices;  
         _selectedIndices = newInterval;
-        _selectedIndex = (newInterval.length > 0) ? newInterval[newInterval.length - 1] : -1;  
-        // If the selection properties have been adjusted to account for items that
-        // have been added or removed, send out a "selectionChanged" event so
-        // any bindings to them are updated correctly.
-        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
-        e.multipleSelectionChange = true; 
-        dispatchEvent(e);
+        _selectedIndex = getLastItemValue(newInterval);
+        
+        // If the selection has actually changed, trigger a pass to 
+        // commitProperties where a selectionChanged event will be 
+        // fired to update any bindings to selection properties. 
+        if (_selectedIndices != oldIndices)
+        {
+        	selectedIndexAdjusted = true; 
+            invalidateProperties(); 
+        }
     }
     
     /**
@@ -1028,8 +1018,8 @@ public class List extends ListBase implements IFocusManagerComponent
         // Entering the caret state with the Ctrl key down 
         else if (event.ctrlKey)
         {
-            //TODO (dsubrama) Finish up caret support, including visual 
-            //indicators to default renderers. 
+            // TODO (dsubrama) Finish up caret support, including visual 
+            // indicators to default renderers. 
             handleCaretChange(proposedNewIndex, true);
             //ensureItemIsVisible(proposedNewIndex); 
         }
