@@ -64,8 +64,8 @@ public class SliderEvent extends Event
      *     <tr><td><code>thumbIndex</code></td><td>The zero-based index of the thumb
      *       whose position has changed.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>Contains a value indicating the 
-     *       type of input action. The value is either <code>InteractionInputType.MOUSE</code> 
-     *       or <code>InteractionInputType.KEYBOARD</code>.</td></tr>
+     *       type of input action. The value is an event object of type flash.events.MouseEvent
+     *       or flash.events.KeyBoardEvent.</td></tr>
      *     <tr><td><code>value</code></td><td>The new value of the slider.</td></tr>
      *  </table>
      *
@@ -102,8 +102,8 @@ public class SliderEvent extends Event
      *     <tr><td><code>thumbIndex</code></td><td>The zero-based index of the thumb
      *       whose position has changed.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>Contains a value indicating the 
-     *       type of input action. The value is either <code>InteractionInputType.MOUSE</code> 
-     *       or <code>InteractionInputType.KEYBOARD</code>.</td></tr>
+     *       type of input action. The value is an event object of type flash.events.MouseEvent
+     *       or flash.events.KeyBoardEvent.</td></tr>
      *     <tr><td><code>value</code></td><td>The new value of the slider.</td></tr>
      *  </table>
      *
@@ -140,8 +140,8 @@ public class SliderEvent extends Event
      *     <tr><td><code>thumbIndex</code></td><td>The zero-based index of the thumb
      *       whose position has changed.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>Contains a value indicating the 
-     *       type of input action. The value is either <code>InteractionInputType.MOUSE</code> 
-     *       or <code>InteractionInputType.KEYBOARD</code>.</td></tr>
+     *       type of input action. The value is an event object of type flash.events.MouseEvent
+     *       or flash.events.KeyBoardEvent.</td></tr>
      *     <tr><td><code>value</code></td><td>The new value of the slider.</td></tr>
      *  </table>
      *
@@ -178,8 +178,8 @@ public class SliderEvent extends Event
      *     <tr><td><code>thumbIndex</code></td><td>The zero-based index of the thumb
      *       whose position has changed.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>Contains a value indicating the 
-     *       type of input action. The value is either <code>InteractionInputType.MOUSE</code> 
-     *       or <code>InteractionInputType.KEYBOARD</code>.</td></tr>
+     *       type of input action. The value is an event object of type flash.events.MouseEvent
+     *       or flash.events.KeyBoardEvent.</td></tr>
      *     <tr><td><code>value</code></td><td>The new value of the slider.</td></tr>
      *  </table>
      *
@@ -215,8 +215,8 @@ public class SliderEvent extends Event
      *  @param value The new value of the slider.
      *
      *  @param triggerEvent The type of input action. 
-     *  The value is either <code>InteractionInputType.MOUSE</code> 
-     *  or <code>InteractionInputType.KEYBOARD</code>.
+     *  The value is an object of type flash.events.MouseEvent 
+     *  or flash.events.KeyBoardEvent.
      *
      *  @param clickTarget Whether the slider track or a slider thumb was pressed.
      *
@@ -304,8 +304,11 @@ public class SliderEvent extends Event
 
     /**
      *  Indicates the type of input action. 
-     *  The value is either <code>InteractionInputType.MOUSE</code> 
-     *  or <code>InteractionInputType.KEYBOARD</code>.
+     *  The value is an event object of type flash.events.MouseEvent
+     *  or flash.events.KeyBoardEvent.
+     *
+     *  @see flash.events.MouseEvent
+     *  @see flash.events.KeyBoardEvent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
