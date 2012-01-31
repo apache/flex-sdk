@@ -370,6 +370,34 @@ public class List extends ListBase implements IFocusManagerComponent
         
         selectedIndices = indices;
     }
+
+    /**
+     *  A convenience that delegates to <code>layout.useVirtualLayout</code>.  
+     *  If this list's layout is subsequently replaced and the value of this 
+     *  property is true, then then the new layout's <code>useVirtualLayout</code> property 
+     *  will also be true.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get useVirtualLayout():Boolean
+    {
+        return super.useVirtualLayout;
+    }
+
+    /**
+     *  @private
+     *  The set/get overrides here only exist as a place to document the fact that
+     *  the default for this inherited property is now true.  See the List constructor.
+     */
+    override public function set useVirtualLayout(value:Boolean):void
+    {
+        super.useVirtualLayout = value;
+    }
         
     //--------------------------------------------------------------------------
     //
