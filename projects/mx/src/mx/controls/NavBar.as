@@ -920,6 +920,7 @@ public class NavBar extends Box
 
             navItem.enabled = enabled;
         }
+        resetNavItems();
     }
 
 
@@ -1035,6 +1036,7 @@ public class NavBar extends Box
         if (index != -1)
             hiliteSelectedNavItem(index);
 
+        resetNavItems();
         invalidateDisplayList();
     }
 
@@ -1098,6 +1100,7 @@ public class NavBar extends Box
         newChild.addEventListener("toolTipChanged", toolTipChangedHandler);
 	
         item.enabled = enabled && newChild.enabled;
+        callLater(resetNavItems);
     }
 
     /**
