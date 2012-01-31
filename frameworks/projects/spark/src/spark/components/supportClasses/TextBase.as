@@ -75,9 +75,17 @@ use namespace mx_internal;
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
- *  The base class for GraphicElements such as TextBox and TextGraphic
+ *  The base class for GraphicElements such as SimpleText and RichText
  *  which display text using CSS styles for the default format.
  *  
+ *  <p>This class extends GraphicElement to implement
+ *  the IAdvancedStyleClient interface in order to support CSS
+ *  in the same way that UIComponents do.</p>
+ *
+ *  <p>In addition to adding a <code>text</code> property,
+ *  it also adds <code>maxDisplayedLines</code>
+ *  and <code>isTruncated</code> properties to support truncation.</p>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -270,15 +278,32 @@ public class TextGraphicElement extends GraphicElement
     }
 
     //----------------------------------
-    //  maxWidth
+    //  canShareWithPrevious
     //----------------------------------
 
-// Leave at 10,000 for now.
-//    override public function get maxWidth():Number
-//    {
-//        return !isNaN(_maxWidth) ? _maxWidth : 
-//                UIComponent.DEFAULT_MEASURED_WIDTH;      // 160 not 10000
-//    }
+    /**
+     *  @private
+     */
+    override public function canShareWithPrevious(element:IGraphicElement):Boolean
+    {
+        // TextGraphicElement always requires its own display object because
+        // Group doesn't support IGraphicElements with multiple display objects.
+        return false;
+    }
+
+    //----------------------------------
+    //  canShareWithNext
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function canShareWithNext(element:IGraphicElement):Boolean
+    {
+        // TextGraphicElement always requires its own display object because
+        // Group doesn't support IGraphicElements with multiple display objects.
+        return false;
+    }
 
     //----------------------------------
     //  visible
@@ -298,7 +323,7 @@ public class TextGraphicElement extends GraphicElement
     	visibleChanged = true;
 
     	invalidateDisplayList();
-        }
+	}
              
     //--------------------------------------------------------------------------
     //
@@ -489,7 +514,7 @@ public class TextGraphicElement extends GraphicElement
     //----------------------------------
 
     /**
-     *  The parent of this component.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -518,9 +543,31 @@ public class TextGraphicElement extends GraphicElement
 	mx_internal var _isTruncated:Boolean = false;
         
     /**
-	 *  Determines if the text, once composed, has been truncated.
+	 *  A read-only property reporting whether the text has been truncated.
 	 *
-	 *  @return <code>true</code> if the text has been truncated.
+	 *  <p>Truncating text means replacing excess text
+	 *  with a truncation indicator such as "...".
+     *  The truncation indicator is locale-dependent;
+     *  it is specified by the "truncationIndicator" resource
+     *  in the "core" resource bundle.</p>
+	 *
+     *  <p>If <code>maxDisplayedLines</code> is 0, no truncation occurs.
+     *  Instead, the text will simply be clipped
+	 *  if it doesn't fit within the component's bounds.</p>
+     *
+     *  <p>If <code>maxDisplayedLines</code> is is a positive integer,
+	 *  the text will be truncated if necessary to reduce
+	 *  the number of lines to this integer.</p>
+     *
+     *  <p>If <code>maxDisplayedLines</code> is -1, the text will be truncated
+	 *  to display as many lines as will completely fit within the height
+     *  of the component.</p>
+     *
+     *  <p>Truncation is only performed if the <code>lineBreak</code>
+     *  style is <code>"toFit"</code>; the value of this property
+     *  is ignored if <code>lineBreak</code> is <code>"explicit"</code>.</p>
+	 *
+	 *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -544,8 +591,32 @@ public class TextGraphicElement extends GraphicElement
 	private var _maxDisplayedLines:int = 0;
     
     /**
-     *  Documentation is not currently available.
-     *  This property is ignored if lineBreak="explicit".
+     *  An integer which determines whether, and where,
+	 *  the text gets truncated.
+	 *
+	 *  <p>Truncating text means replacing excess text
+	 *  with a truncation indicator such as "...".
+     *  The truncation indicator is locale-dependent;
+     *  it is specified by the "truncationIndicator" resource
+     *  in the "core" resource bundle.</p>
+     *
+     *  <p>If the value is 0, no truncation occurs.
+     *  Instead, the text will simply be clipped
+	 *  if it doesn't fit within the component's bounds.</p>
+     *
+     *  <p>If the value is is a positive integer,
+	 *  the text will be truncated if necessary to reduce
+	 *  the number of lines to this integer.</p>
+     *
+     *  <p>If the value is -1, the text will be truncated to display
+     *  as many lines as will completely fit within the height
+     *  of the component.</p>
+     *
+     *  <p>Truncation is only performed if the <code>lineBreak</code>
+     *  style is <code>"toFit"</code>; the value of this property
+     *  is ignored if <code>lineBreak</code> is <code>"explicit"</code>.</p>
+	 *
+	 *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -573,36 +644,6 @@ public class TextGraphicElement extends GraphicElement
     	}
     }
 
-    /**
-     *  @private
-     */
-    override public function canShareWithPrevious(element:IGraphicElement):Boolean
-    {
-        // TextGraphicElement always requires its own display object as
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
-    /**
-     *  @private
-     */
-    override public function canShareWithNext(element:IGraphicElement):Boolean
-    {
-        // TextGraphicElement always requires its own display object as
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
-    /**
-     *  @private
-     */
-    override public function setSharedDisplayObject(displayObject:DisplayObject):Boolean
-    {
-        // TextGraphicElement always requires its own display object as
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
     //----------------------------------
     //  styleChainInitialized
     //----------------------------------
@@ -626,7 +667,12 @@ public class TextGraphicElement extends GraphicElement
     mx_internal var _text:String = "";
         
     /**
-     *  The text in this element.
+     *  The text displayed by this GraphicElement.
+	 *
+     *  <p>The formatting of this text is controlled by CSS styles.
+     *  The supported styles depend on the subclass.</p>
+	 *
+	 *  @default ""
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -662,24 +708,38 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    override protected function commitProperties():void
+    override public function setSharedDisplayObject(
+									displayObject:DisplayObject):Boolean
     {
-        super.commitProperties();
-        
-        if (displayObjectChanged)
+        // TextGraphicElement always requires its own display object because
+        // Group doesn't support IGraphicElements with multiple display objects.
+        return false;
+    }
+
+    /**
+     *  @private
+     */
+    override protected function setDisplayObject(value:DisplayObject):void
+    {        
+        if (displayObject == value)
+            return;
+
+        // There is an exisiting d.o. so this element is either being moved
+        // to a different container (value != null) or it is being removed 
+        // (value == null).
+        if (displayObject)
         {
-            // If there is a container, move any existing text to it, otherwise
-            // remove the text from the previous container.
-            removeTextLines();
-            if (drawnDisplayObject)
-                addTextLines(DisplayObjectContainer(drawnDisplayObject));
-            else
-                releaseTextLines();
-                       
-            displayObjectChanged = false;
-        }  
+            // If there was a scroll rect remove it before we lose the reference
+            // to the display object. 
+            clip(false, 0, 0);
+        
+            displayObjectChanged = true;        
+            invalidateProperties();
+        }
+             
+        super.setDisplayObject(value);
     }    
-    
+  
     /**
      *  @private
      */
@@ -708,6 +768,27 @@ public class TextGraphicElement extends GraphicElement
             parent.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
     }
 
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (displayObjectChanged)
+        {
+            // If there is a container, move any existing text to it, otherwise
+            // remove the text from the previous container.
+            removeTextLines();
+            if (drawnDisplayObject)
+                addTextLines(DisplayObjectContainer(drawnDisplayObject));
+            else
+                releaseTextLines();
+                       
+            displayObjectChanged = false;
+        }  
+    }    
+    
     /**
      *  @private
      */
@@ -924,30 +1005,6 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    override protected function setDisplayObject(value:DisplayObject):void
-    {        
-        if (displayObject == value)
-            return;
-
-        // There is an exisiting d.o. so this element is either being moved
-        // to a different container (value != null) or it is being removed 
-        // (value == null).
-        if (displayObject)
-        {
-            // If there was a scroll rect remove it before we lose the reference
-            // to the display object. 
-            clip(false, 0, 0);
-        
-            displayObjectChanged = true;        
-            invalidateProperties();
-        }
-             
-        super.setDisplayObject(value);
-    }    
-  
-    /**
-     *  @private
-     */
     override mx_internal function doUpdateDisplayList():void
     {
 		super.doUpdateDisplayList();
@@ -997,6 +1054,7 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     [Bindable(style="true")]
+
     /**
      *  @inheritDoc
      *  
@@ -1112,8 +1170,7 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     *  Determines whether this instance is the same as - or is a subclass of -
-     *  the given type.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1449,7 +1506,7 @@ public class TextGraphicElement extends GraphicElement
         return isOverset;                                                     
     } 
     
-     /**
+    /**
 	 *  Use scrollRect to clip overset lines.
 	 *  But don't read or write scrollRect if you can avoid it,
 	 *  because this causes Player 10.0 to allocate memory.
@@ -1488,9 +1545,9 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
-     * @private
-     * Used to ensure baselinePosition will reflect something
-     * reasonable.
+     *  @private
+     *  Used to ensure baselinePosition will reflect something
+     *  reasonable.
      */ 
     mx_internal function validateBaselinePosition():void
     {
