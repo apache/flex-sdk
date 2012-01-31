@@ -1229,10 +1229,8 @@ public class ListBase extends SkinnableDataContainer
                 dispatchEvent(e);
                 dispatchChangeAfterSelection = false;
             }
-            else
-            {
-                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-            }
+
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             
             //Dispatch the caretChange event 
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
