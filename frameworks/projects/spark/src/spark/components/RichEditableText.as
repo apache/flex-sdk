@@ -2734,7 +2734,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
      */
     mx_internal function focusInHandler(event:FocusEvent):void
     {
-        trace("focusIn handler");
+        //trace("focusIn handler");
         if (_editable)
         {
             // If no selection, give it one so that there is an insertion
