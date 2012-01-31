@@ -146,7 +146,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
 
 /**
  *  Boolean property that controls the visibility
