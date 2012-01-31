@@ -450,25 +450,25 @@ public class PopUpButton extends Button
     private var _closeOnActivity:Boolean = true;
     
     /**
-     *  @private
-     *  Specifies popUp would close on click/enter activity.
-     *  In popUps like Menu/List/TileList etc, one need not change
-     *  this as they should close on activity. However for multiple 
-     *  selection, and other popUp, this can be set to false, to 
-     *  prevent the popUp from closing on activity.
+     *  If <code>true</code>, specifies popUp would close
+     *  on click/enter activity.
+     *  In <code>popUp</code> like Menu/List/TileList etc,
+     *  one need not change this as they should close on activity.
+     *  However for multiple selection, and other <code>popUp</code>,
+     *  this can be set to <code>false</code>, to prevent the 
+     *  <code>popUp</code> from closing on activity.
      *  
      *  @default true 
      */     
-    private function get closeOnActivity():Boolean
+    public function get closeOnActivity():Boolean
     {
-        // We are not exposing this property for now, until the need arises.
         return _closeOnActivity;
     }
     
     /**
      *  @private
      */  
-    private function set closeOnActivity(value:Boolean):void
+    public function set closeOnActivity(value:Boolean):void
     {
         _closeOnActivity = value;
     }
@@ -594,6 +594,9 @@ public class PopUpButton extends Button
                                     popMouseDownOutsideHandler);
             _popUp.addEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE,
                                     popMouseDownOutsideHandler);
+            //weak reference to stage
+             var sm:ISystemManager = systemManager.topLevelSystemManager;
+            sm.getSandboxRoot().addEventListener(Event.RESIZE, stage_resizeHandler, false, 0, true);
                 
             _popUp.owner = this;
             
@@ -1287,6 +1290,18 @@ public class PopUpButton extends Button
             showingPopUp = false;
         }
     }
+
+    /**
+     *  @private
+     */
+    private function stage_resizeHandler(event:Event):void 
+    {
+        // Hide the popUp and don't show tweening when popUp is closed
+        // due to resizing.
+        _popUp.visible = false;
+
+        close();
+    } 
     
     /**
      *  @private
