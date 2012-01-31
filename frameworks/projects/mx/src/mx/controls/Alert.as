@@ -12,26 +12,24 @@
 package mx.controls
 {
 
-import flash.display.DisplayObject;
-import flash.geom.Rectangle;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventPhase;
+
 import mx.containers.Panel;
 import mx.controls.alertClasses.AlertForm;
 import mx.core.EdgeMetrics;
 import mx.core.FlexGlobals;
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.CloseEvent;
 import mx.events.FlexEvent;
-import mx.graphics.RadialGradient;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
-import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -857,6 +855,16 @@ public class Alert extends Panel
         
         measuredHeight = alertForm.getExplicitOrMeasuredHeight() +
                          m.top + m.bottom;
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            // Graphic skins don't include border (and header) in viewMetrics
+            // Check for that here by testing the headerHeight style, and
+            // add the headerHeight to the measuredHeight if needed.
+            var headerHeight:Number = getStyle("headerHeight");
+            if (m.top == 0)
+                measuredHeight += headerHeight;
+        }
     }
 
     /**
