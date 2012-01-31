@@ -94,15 +94,14 @@ public class SkinnableComponent extends UIComponent
     [Bindable("skinObjectChanged")]
     
     /**
-     *  The instantiated skin object. This property should not be set 
-     *  directly but should be set using loadSkin().
+     *  @private
      */
-    protected function get _skinObject():Skin
+    private function get _skinObject():Skin
     {
         return __skinObject;
     }
     
-    protected function set _skinObject(value:Skin):void
+    private function set _skinObject(value:Skin):void
     {
     	if (value === __skinObject)
     	   return;
@@ -114,7 +113,8 @@ public class SkinnableComponent extends UIComponent
     [Bindable("skinObjectChanged")]
     
     /**
-     *  The instantiated skin object.
+     *  The instantiated skin object. This is a read-only property that
+     *  should be set by loadSkin().
      */
     public function get skinObject():Skin
     {
@@ -213,7 +213,7 @@ public class SkinnableComponent extends UIComponent
     
     //--------------------------------------------------------------------------
     //
-    // Component states support
+    // Skin states support
     //
     //--------------------------------------------------------------------------
 
@@ -265,7 +265,7 @@ public class SkinnableComponent extends UIComponent
 	 *  directly. Typically, subclasses will not need to override this method.
 	 * 
 	 *  It instantiates the skin for the component, adds the skin as a child, 
-	 *  resolves all part associations, and calls attachBehaviors().
+	 *  resolves all part associations, and calls skinLoaded().
 	 */
     protected function loadSkin():void
     {
@@ -313,7 +313,7 @@ public class SkinnableComponent extends UIComponent
         
         findSkinParts();
                 
-        attachBehaviors();
+        skinLoaded();
     }
     
     /**
@@ -352,14 +352,14 @@ public class SkinnableComponent extends UIComponent
     }
     
 	/**
-	 *  Attach behaviors to the component. This method should be overridden
+	 *  Attach behaviors to the skin object. This method should be overridden
 	 *  by subclasses.  The code to attach behaviors to an individual part
 	 *  should be put into partAdded().  The code to attach behaviors to 
 	 *  the skin object as a whole, should be done here.
 	 *  
 	 *  It is called by the loadSkin() method.
 	 */
-    protected function attachBehaviors():void
+    protected function skinLoaded():void
     {
         skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
@@ -368,12 +368,12 @@ public class SkinnableComponent extends UIComponent
     }
     
 	/**
-	 *  Remove behavior from the component. This method should be overridden
+	 *  Remove behavior from the skin object. This method should be overridden
 	 *  by subclasses. 
 	 *
 	 *  It is called by the unloadSkin() method.
 	 */
-    protected function removeBehaviors():void
+    protected function unloadingSkin():void
     {
         skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
@@ -419,13 +419,13 @@ public class SkinnableComponent extends UIComponent
 	 *  directly. Typically, subclasses will not need to override this method.
 	 *
 	 *  This method is called whenever a skin is changed at runtime. It removes the skin,
-	 *  clears all part associations, and calls removeBehaviors().
+	 *  clears all part associations, and calls unloadingSkin().
 	 */
     protected function unloadSkin():void
     {       
         if (skinObject)
         {
-            removeBehaviors();
+            unloadingSkin();
             clearSkinParts();
             removeChild(skinObject);
             _skinObject = null;
@@ -437,10 +437,6 @@ public class SkinnableComponent extends UIComponent
     //  Methods - Parts
     //
     //--------------------------------------------------------------------------
-    
-    // Private cache of instantiated dynamic parts. This is accessed through
-    // the numDynamicParts() and getDynamicPartAt() methods.
-    private var dynamicPartsCache:Object;
     
     /**
      *  Called when a part has been added. Override this function to attach
@@ -457,6 +453,16 @@ public class SkinnableComponent extends UIComponent
     protected function partRemoved(partName:String, instance:*):void
     {       
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods - Dynamic Parts
+    //
+    //--------------------------------------------------------------------------
+    
+    // Private cache of instantiated dynamic parts. This is accessed through
+    // the numDynamicParts() and getDynamicPartAt() methods.
+    private var dynamicPartsCache:Object;
     
     /**
      *  Create an instance of a dynamic part. Dynamic parts should always be instantiated
