@@ -42,7 +42,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     //  baseline
     //----------------------------------
@@ -74,8 +74,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         _baseline = value;
         invalidateParentSizeAndDisplayList();
     }
-    
-    //----------------------------------
+	
+	//----------------------------------
     //  baselinePosition
     //----------------------------------
 
@@ -125,13 +125,16 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //  height
     //----------------------------------
     
+    private var _explicitHeight:Number = NaN;    // The height explicitly set by the user
+    private var _layoutHeight:Number = 0;        // The height that's set by the layout
+        
     /**
      *  @private
      */
     [PercentProxy("percentHeight")]
     override public function get height():Number
     {
-        return super.height;
+        return _layoutHeight;
     }
     
     /**
@@ -139,10 +142,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     override public function set height(value:Number):void
     {
-        if (super.height == value)
+        _layoutHeight = value;
+        if (_explicitHeight == value)
             return;
-        
-        super.height = value;
+        _explicitHeight = value;
         invalidateParentSizeAndDisplayList();
     }
     
@@ -459,13 +462,16 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //  width
     //----------------------------------
     
+    private var _explicitWidth:Number = NaN;    // The width explicitly set by the user
+    private var _layoutWidth:Number = 0;      // The width that's set by the layout
+    
     /**
      *  @private
      */
     [PercentProxy("percentWidth")]
     override public function get width():Number
     {
-        return super.width;
+        return _layoutWidth;
     }
     
     /**
@@ -473,10 +479,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     override public function set width(value:Number):void
     {
-        if (super.width == value)
+        _layoutWidth = value;
+        if (_explicitWidth == value)
             return;
-        
-        super.width = value;
+        _explicitWidth = value;
         invalidateParentSizeAndDisplayList();
     }
     
@@ -510,7 +516,28 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     public function set dir(value:String):void
     {
     }
+
+    //----------------------------------
+    //  viewWidth
+    //----------------------------------
+
+    private var _viewWidth:Number = NaN;
+
+    protected function set viewWidth(value:Number):void
+    {
+        _viewWidth = value;
+    }
+
+    //----------------------------------
+    //  viewHeight
+    //----------------------------------
     
+    private var _viewHeight:Number = NaN;
+    
+    protected function set viewHeight(value:Number):void
+    {
+        _viewHeight = value;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -518,6 +545,24 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //
     //--------------------------------------------------------------------------
     
+    private function get preferredWidth():Number
+    {
+        if (!isNaN(_explicitWidth))
+            return _explicitWidth;
+        if (!isNaN(_viewWidth))
+            return _viewWidth;
+        return super.width;
+    }
+
+    private function get preferredHeight():Number
+    {
+        if (!isNaN(_explicitHeight))
+            return _explicitHeight;
+        if (!isNaN(_viewHeight))
+            return _viewHeight;
+        return super.height;
+    }
+        
     /**
      *  @inheritDoc 
      */
@@ -567,7 +612,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postLayoutTransform);
+        return getPreferredBoundsWidth(postLayoutTransform);
     }
 
     /**
@@ -575,7 +620,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postLayoutTransform);
+        return getPreferredBoundsHeight(postLayoutTransform);
     }
 
     /**
@@ -583,7 +628,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postLayoutTransform);
+        return getPreferredBoundsWidth(postLayoutTransform);
     }
 
     /**
@@ -591,7 +636,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postLayoutTransform);
+        return getPreferredBoundsHeight(postLayoutTransform);
     }
 
     /**
@@ -599,7 +644,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(width, height, postLayoutTransform);
+        return transformWidthForLayout(preferredWidth, preferredHeight, postLayoutTransform);
     }
 
     /**
@@ -607,7 +652,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(width, height, postLayoutTransform);
+        return transformHeightForLayout(preferredWidth, preferredHeight, postLayoutTransform);
     }
     
     /**
@@ -625,17 +670,9 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
             m = transform.matrix;
         if (!m)
             return x;
-
-        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
-                                                 this.width,
-                                                 this.height,
-                                                 this.width, this.height,
-                                                 this.width, this.height);
-        if (!newSize)
-            newSize = new Point(this.width, this.height);
-            
+        
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(newSize, m, topLeft);
+        MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
         return topLeft.x;
     }
     
@@ -655,16 +692,8 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         if (!m)
             return y;
 
-        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
-                                                 this.width,
-                                                 this.height,
-                                                 this.width, this.height,
-                                                 this.width, this.height);
-        if (!newSize)
-            newSize = new Point(this.width, this.height);
-            
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(newSize, m, topLeft);
+        MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
         return topLeft.y;
     }
     
@@ -710,44 +739,25 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
                                         height:Number,
                                         postLayoutTransform:Boolean = true):void
     {
-        // Calculate the width and height pre-transform:
-        var m:Matrix;
         if (postLayoutTransform)
-            m = transform.matrix;
-        if (!m)
         {
-            if (isNaN(width))
-                width = this.width;
-            if (isNaN(height))
-                height = this.height;
+            // If the size is specified post-transform,
+            // then always snap to the preferredSize.
+            width = preferredWidth;
+            height = preferredHeight;
         }
         else
         {
-            var newSize:Point = MatrixUtil.fitBounds(width, height, m,
-                                                     this.width,
-                                                     this.height,
-                                                     this.width, this.height,
-                                                     this.width, this.height);
-
-            if (newSize)
-            {
-                width = newSize.x;
-                height = newSize.y;
-            }
-            else
-            {
-                width = this.width;
-                height = this.height;
-            }
+            if (isNaN(width))
+                width = preferredWidth;
+            if (isNaN(height))
+                height = preferredHeight;
         }
 
-        if (this.width != width || this.height != height)
-        {
-            super.width = width;
-            super.height = height;
-        }
+        _layoutWidth = width;
+        _layoutHeight = height;
     }
-    
+
     /**
      *  @inheritDoc
      */
