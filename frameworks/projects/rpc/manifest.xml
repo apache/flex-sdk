@@ -15,7 +15,7 @@
 
     <component id="Consumer" class="mx.messaging.Consumer"/>
     <component id="HTTPService" class="mx.rpc.http.mxml.HTTPService"/>
-    <component id="HTTPMultiService" class="mx.rpc.http.HTTPMultiService"/>
+    <component id="HTTPMultiService" class="mx.rpc.http.mxml.HTTPMultiService"/>
     <component id="HTTPOperation" class="mx.rpc.http.Operation"/>
     <component id="Producer" class="mx.messaging.Producer"/>
     <component id="RemoteObject" class="mx.rpc.remoting.mxml.RemoteObject"/>
