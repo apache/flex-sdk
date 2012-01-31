@@ -11,7 +11,7 @@
 package mx.effects
 {
 
-import mx.effects.easing.IEaser;
+import mx.effects.fxEasing.IEaser;
 import mx.effects.effectClasses.FxAnimateFilterInstance;
 
 import mx.core.mx_internal;
