@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.filters.ShaderFilter; 
 import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
@@ -28,6 +29,7 @@ import spark.core.IViewport;
 import spark.core.MaskType;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
+import spark.primitives.shaders.LuminosityMaskShader; 
 
 use namespace mx_internal;
 
@@ -970,6 +972,33 @@ public class GroupBase extends UIComponent implements IViewport
                     _mask.cacheAsBitmap = true;
                     cacheAsBitmap = true;
                 }
+				else if (_maskType == MaskType.LUMINOSITY)
+				{
+					// Sets up the mask's mode property based on 
+					// whether the luminosityClip and 
+					// luminosityInvert properties are on or off. 
+					var mode:int;
+					if (luminosityClip && !luminosityInvert) 
+						mode = 0; 
+					if (luminosityClip && luminosityInvert) 
+						mode = 1; 
+					if (!luminosityClip && !luminosityInvert) 
+						mode = 2; 
+					if (!luminosityClip && luminosityInvert) 
+						mode = 3;
+					
+					_mask.cacheAsBitmap = true;
+					cacheAsBitmap = true;
+					
+					// Create the luminosityMask shader, apply the correct mode to it, 
+					// and create the filter
+					var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
+					luminosityMaskShader.mode = mode;
+					var maskFilter:ShaderFilter = new ShaderFilter(luminosityMaskShader);
+					
+					// Apply the filter to the mask
+					_mask.filters = [maskFilter];
+				}
             }
         }       
 
@@ -1411,7 +1440,8 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  The mask type.
-     *  Possible values are <code>MaskType.CLIP</code> and <code>MaskType.ALPHA</code>. 
+     *  Possible values are <code>MaskType.CLIP</code> and <code>MaskType.ALPHA</code> 
+	 *  or <code>MaskType.LUMINOSITY</code>. 
      *
      *  <p>The default value is <code>MaskType.CLIP</code>, corresponding to "clip".</p>
      *
@@ -1432,12 +1462,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function set maskType(value:String):void
     {
-    	// FIXME (dsubrama): Temporarily exit when maskType is
-    	// set to luminosity; support for this will come shortly. 
-    	if (value == "luminosity")
-    		return; 
-    		
-        if (_maskType != value)
+		if (_maskType != value)
         {
             _maskType = value;
             maskTypeChanged = true;
