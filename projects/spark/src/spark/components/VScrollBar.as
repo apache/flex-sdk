@@ -14,7 +14,8 @@ package mx.components
 import flash.ui.Keyboard;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
-import mx.components.baseClasses.FxScrollBar;   
+import mx.components.baseClasses.FxScrollBar;
+import mx.core.ScrollUnit;  
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 import flash.events.Event;
@@ -142,9 +143,9 @@ public class FxVScrollBar extends FxScrollBar
      *
      *  @private
      */
-    private function updateViewportVSP(unit:uint):void
+    private function updateViewportVSP(unit:ScrollUnit):void
     {
-        var delta:Number = viewport.verticalScrollPositionDelta(unit);
+        var delta:Number = viewport.getVerticalScrollPositionDelta(unit);
         setValue(viewport.verticalScrollPosition + delta);
     }
     
@@ -153,7 +154,7 @@ public class FxVScrollBar extends FxScrollBar
      *  change the vertical scroll position for page up or page down by 
      *  scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.verticalScrollPositionDelta()</code> method 
+     *  <code>IViewport.getVerticalScrollPositionDelta()</code> method 
      *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
      *  or <code>flash.ui.Keyboard.PAGE_DOWN</code>.
      *  It then calls the <code>setValue()</code> method to 
@@ -171,14 +172,14 @@ public class FxVScrollBar extends FxScrollBar
      *  @see mx.components.baseClasses.FxTrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
-     *  @see mx.core.IViewport#verticalScrollPositionDelta()     
+     *  @see mx.core.IViewport#getVerticalScrollPositionDelta()     
     */
     override public function page(increase:Boolean = true):void
     {
         if (!viewport)
             super.page(increase);
         else
-            updateViewportVSP((increase) ? Keyboard.PAGE_DOWN : Keyboard.PAGE_UP);
+            updateViewportVSP((increase) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP);
     }
     
     /**
@@ -186,7 +187,7 @@ public class FxVScrollBar extends FxScrollBar
      *  change the vertical scroll position for line up or line down by 
      *  scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.verticalScrollPositionDelta()</code> method 
+     *  <code>IViewport.getVerticalScrollPositionDelta()</code> method 
      *  with either <code>flash.ui.Keyboard.RIGHT</code> 
      *  or <code>flash.ui.Keyboard.LEFT</code>.
      *  It then calls the <code>setValue()</code> method to 
@@ -204,14 +205,14 @@ public class FxVScrollBar extends FxScrollBar
      *  @see mx.components.baseClasses.FxTrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
-     *  @see mx.core.IViewport#verticalScrollPositionDelta()
+     *  @see mx.core.IViewport#getVerticalScrollPositionDelta()
      */
     override public function step(increase:Boolean = true):void
     {
         if (!viewport)
             super.step(increase);
         else
-            updateViewportVSP((increase) ? Keyboard.DOWN : Keyboard.UP);
+            updateViewportVSP((increase) ? ScrollUnit.DOWN : ScrollUnit.UP);
     }
     
     /**
