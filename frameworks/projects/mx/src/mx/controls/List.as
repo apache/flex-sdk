@@ -62,7 +62,6 @@ import mx.events.ScrollEventDetail;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
-import mx.styles.StyleManager;
 import mx.collections.ItemWrapper;
 import mx.collections.ModifiedCollectionView;
 import mx.core.IUIComponent;
@@ -1201,7 +1200,7 @@ public class List extends ListBase implements IIMESupport
             return;
         }
 
-        StyleManager.getColorNames(colors);
+        styleManager.getColorNames(colors);
 
         var curRow:int = 0;
         var actualRow:int = verticalScrollPosition;
