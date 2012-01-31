@@ -31,7 +31,7 @@ import spark.core.MaskType;
 import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.utils.TextUtil;
+import spark.utils.FTETextUtil;
 
 use namespace mx_internal;
 
@@ -266,7 +266,7 @@ public class GroupBase extends UIComponent implements IViewport
         // At the crossover height, these two calculations
         // produce the same result.
 
-        return TextUtil.calculateFontBaseline(this, height, moduleFactory);
+        return FTETextUtil.calculateFontBaseline(this, height, moduleFactory);
     }
 
     //----------------------------------
