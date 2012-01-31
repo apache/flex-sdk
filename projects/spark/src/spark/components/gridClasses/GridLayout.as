@@ -2318,9 +2318,9 @@ public class GridLayout extends LayoutBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getItemRendererAt(rowIndex:int, columnIndex:int):IVisualElement
+    public function getItemRendererAt(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
-        const visibleItemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
+        const visibleItemRenderer:IGridItemRenderer = getVisibleItemRenderer(rowIndex, columnIndex);
         if (visibleItemRenderer)
             return visibleItemRenderer;
         
