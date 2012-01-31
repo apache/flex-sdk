@@ -46,12 +46,6 @@ use namespace mx_internal;
  *  Dispatched when an acknowledge message is received for a sent message.
  *
  *  @eventType mx.messaging.events.MessageAckEvent.ACKNOWLEDGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="acknowledge", type="mx.messaging.events.MessageAckEvent")]
 
@@ -59,12 +53,6 @@ use namespace mx_internal;
  *  Dispatched when a message fault occurs.
  * 
  *  @eventType mx.messaging.events.MessageFaultEvent.FAULT
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="fault", type="mx.messaging.events.MessageFaultEvent")]
 
@@ -72,12 +60,6 @@ use namespace mx_internal;
  *  Dispatched when the underlying Channel the MessageAgent is using connects.
  *
  *  @eventType mx.messaging.events.ChannelEvent.CONNECT
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="channelConnect", type="mx.messaging.events.ChannelEvent")]
 
@@ -85,12 +67,6 @@ use namespace mx_internal;
  *  Dispatched when the underlying Channel the MessageAgent is using disconnects.
  *
  *  @eventType mx.messaging.events.ChannelEvent.DISCONNECT
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
 
@@ -98,12 +74,6 @@ use namespace mx_internal;
  *  Dispatched when the underlying Channel the MessageAgent is using faults.
  * 
  *  @eventType mx.messaging.events.ChannelFaultEvent.FAULT
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
 
@@ -112,12 +82,6 @@ use namespace mx_internal;
  *  Also dispatched when the <code>subscribed</code> of a Consumer changes.
  *  @see mx.messaging.Consumer
  *  @eventType mx.events.PropertyChangeEvent.PROPERTY_CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 [Event(name="propertyChange", type="mx.events.PropertyChangeEvent")]
 
@@ -156,12 +120,6 @@ use namespace mx_internal;
  *    propertyChange="<i>No default.</i>"  
  *  /&gt;
  *  </pre> 
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion BlazeDS 4
- *  @productversion LCDS 3 
  */
 public class MessageAgent extends EventDispatcher implements IMXMLObject
 {
@@ -192,12 +150,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
     /**
      *  Constructor.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function MessageAgent()
     {
@@ -315,12 +267,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     /**
      *  Indicates if this MessageAgent is using an authenticated connection to 
      *  its destination.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function get authenticated():Boolean
     {
@@ -358,12 +304,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  ChannelSet can be manually constructed and assigned, or it will be 
      *  dynamically initialized to use the configured Channels for the
      *  destination for this MessageAgent.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function get channelSet():ChannelSet
     {
@@ -424,12 +364,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  MessageAgents are assigned their client id by the remote destination
      *  and this value is used to route messages from the remote destination to
      *  the proper MessageAgent.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function get clientId():String
     {
@@ -471,12 +405,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  Indicates whether this MessageAgent is currently connected to its
      *  destination via its ChannelSet. The <code>propertyChange</code> event is dispatched when
      *  this property changes.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function get connected():Boolean
     {
@@ -514,12 +442,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *
      *  @throws mx.messaging.errors.InvalidDestinationError If the destination is null or 
      *                                  zero-length.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */ 
     public function get destination():String
     {
@@ -605,12 +527,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  If an acknowledgement, response or fault is not received from the 
      *  remote destination before the timeout is reached the message is faulted on the client.
      *  A value less than or equal to zero prevents request timeout.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */ 
     public function get requestTimeout():int
     {
@@ -672,12 +588,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     /**
      *  Indicates if this MessageAgent needs to request configuration from the 
      *  server. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     mx_internal function get needsConfig():Boolean
     {
@@ -723,12 +633,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  @param ackMsg The AcknowledgMessage returned.
      * 
      *  @param msg The original sent message.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function acknowledge(ackMsg:AcknowledgeMessage, msg:IMessage):void
     {
@@ -773,19 +677,13 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                     
-        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg)); 
-        monitorRpcMessage(ackMsg,msg);               
+        dispatchEvent(MessageAckEvent.createEvent(ackMsg, msg));    
+        monitorRpcMessage(ackMsg,msg);              
     }
         
     /**
      *  Disconnects the MessageAgent's network connection.
      *  This method does not wait for outstanding network operations to complete.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function disconnect():void
     {
@@ -799,12 +697,12 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             // connecting and the client fails to connect to the server, no faults will be
             // dispatched).
             if (connected)
-            _disconnectBarrier = true;
-
+                _disconnectBarrier = true;
+            
             if (_channelSetMode == AUTO_CONFIGURED_CHANNELSET)
                 internalSetChannelSet(null);
             else if (_channelSet != null)
-                _channelSet.disconnect(this);                
+                _channelSet.disconnect(this);
         }
     }   
     
@@ -817,12 +715,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  @param errMsg The ErrorMessage.
      * 
      *  @param msg The original sent message that caused this fault.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function fault(errMsg:ErrorMessage, msg:IMessage):void
     {   
@@ -844,9 +736,9 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                 flushClientIdWaitQueue();
         }
                 
-        dispatchEvent(MessageFaultEvent.createEvent(errMsg));  
-        monitorRpcMessage(errMsg,msg);    
-        
+        dispatchEvent(MessageFaultEvent.createEvent(errMsg));    
+        monitorRpcMessage(errMsg,msg);
+              
         // If we get an authentication fault on the server and our authenticated
         // flag is true then the authentication fault must have been caused by a
         // session expiration on the server.  Set our authentication state to false.
@@ -872,12 +764,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      * 
      *  @param msg The message that caused the fault and should be resent once we have
      *  disconnected/connected causing re-authentication.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */    
     protected function reAuthorize(msg:IMessage):void
     {
@@ -891,12 +777,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  <code>super.channelConnectHandler()</code>.
      * 
      *  @param event The ChannelEvent.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function channelConnectHandler(event:ChannelEvent):void 
     {
@@ -925,12 +805,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  <code>super.channelDisconnectHandler()</code>.
      * 
      *  @param event The ChannelEvent.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function channelDisconnectHandler(event:ChannelEvent):void
     {
@@ -951,12 +825,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  <code>super.channelFaultHandler()</code>.
      * 
      *  @param The ChannelFaultEvent
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function channelFaultHandler(event:ChannelFaultEvent):void
     {
@@ -983,12 +851,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *
      *  @param id id used by the document to refer to this object.
      *  If the object is a deep property on the document, id is null.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function initialized(document:Object, id:String):void
     {
@@ -1001,12 +863,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  as specified in the server configuration. For example, if several DataService components
      *  are connected over an RTMP channel and <code>logout()</code> is invoked on one of them, 
      *  all other client components that are connected using the same ChannelSet are also logged out.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function logout():void
     {
@@ -1030,12 +886,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  have already been set and an authentication is in progress with the remote
      *  detination, or if authenticated and the credentials specified don't match
      *  the currently authenticated credentials.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function setCredentials(username:String, password:String, charset:String=null):void
     {
@@ -1070,12 +920,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  remote credentials. The default is null, which implies the legacy
      *  charset of ISO-Latin-1. The only other currently supported option is
      *  &quot;UTF-8&quot;.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function setRemoteCredentials(username:String, password:String, charset:String=null):void
     {
@@ -1106,12 +950,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
     *
     * @return Returns <code>true</code> if there are any pending requests for the 
     * passed in message.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 9
-    *  @playerversion AIR 1.1
-    *  @productversion BlazeDS 4
-    *  @productversion LCDS 3 
     */
     public function hasPendingRequestForMessage(msg:IMessage):Boolean
     {
@@ -1176,27 +1014,27 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
 
             if (clientId == null)
             {
-            // If we still don't have a clientId, remove the first queued message and send it.
-            // Leave the queue intact to buffer subsequent sends until we get a response/fault
-            // back for this one.
-            if (_clientIdWaitQueue.length > 0)
-            {
+                // If we still don't have a clientId, remove the first queued message and send it.
+                // Leave the queue intact to buffer subsequent sends until we get a response/fault
+                // back for this one.
+                if (_clientIdWaitQueue.length > 0)
+                {
                     var saveQueue:Array = _clientIdWaitQueue;
                     // Make sure we don't just put it back into the queue - we let the first
                     // one through if this is null.
                     _clientIdWaitQueue = null;
                     internalSend(saveQueue.shift() as IMessage);
                     _clientIdWaitQueue = saveQueue;
-            }
-            else
-            {
-                // Regardless of whether the clientId is defined or not, if the wait queue
-                // is empty set it to null to allow the next message to be processed by the
-                // send code path rather than being routed to the queue.
-                _clientIdWaitQueue = null;
+                }
+                else
+                {
+                    // Regardless of whether the clientId is defined or not, if the wait queue
+                    // is empty set it to null to allow the next message to be processed by the
+                    // send code path rather than being routed to the queue.
+                    _clientIdWaitQueue = null;
+                }
             }
         }
-    }
     }
 
     /**
@@ -1212,12 +1050,6 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *                         agent may pass false to override the default queuing behavior.
      * 
      *  @throws mx.messaging.errors.InvalidDestinationError If no destination is set.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
     {
@@ -1271,7 +1103,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             }
             
             channelSet.send(this, message);
-            monitorRpcMessage(message,message);  
+            monitorRpcMessage(message,message);           
         }
         else if (destination.length > 0)
         {
@@ -1279,7 +1111,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             if (channelSet != null)
             {
                 channelSet.send(this, message);
-                monitorRpcMessage(message,message);     
+                monitorRpcMessage(message,message);      
             }
         }        
         else
@@ -1289,19 +1121,45 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             throw new InvalidDestinationError(msg);
         }
     }
-
+    
+    /**
+     * Monitor a rpc message that is being send
+    */
+    
+    private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
+    {
+        if (NetworkMonitor.isMonitoring())
+        {
+            if (message is ErrorMessage)
+            {
+                NetworkMonitor.monitorFault(actualMessage, MessageFaultEvent.createEvent(ErrorMessage(message)));
+            }
+            else if (message is AcknowledgeMessage)
+            {
+                NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
+            }
+            else
+            {
+                NetworkMonitor.monitorInvocation(getNetmonId(), message, this);
+            }
+        }
+    }
+    
+    /**
+     * Return the id for the NetworkMonitor.
+     * @private
+     */
+    mx_internal function getNetmonId():String
+    {
+        return null;
+    }
+    
     /**
      *  Used to automatically initialize the <code>channelSet</code> property for the
      *  MessageAgent before it connects for the first time. 
      *  Subtypes may override to perform custom initialization.
      * 
      *  @param message The message that needs to be sent.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     protected function initChannelSet(message:IMessage):void
     {
@@ -1321,46 +1179,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
         
         if (_credentials != null)
             channelSet.setCredentials(_credentials, this, _credentialsCharset);
-    }    
-    
-     /**
-    * Monitor a rpc message that is being send
-   *  
-   *  @langversion 3.0
-   *  @playerversion Flash 9
-   *  @playerversion AIR 1.1
-   *  @productversion BlazeDS 4
-   *  @productversion LCDS 3 
-   */
-   private function monitorRpcMessage(message:IMessage,actualMessage:IMessage):void
-   {
-       if (NetworkMonitor.isMonitoring())
-       {
-	        if (message is ErrorMessage)
-	        {
-                NetworkMonitor.monitorFault(actualMessage, MessageFaultEvent.createEvent(ErrorMessage(message)));
-	        }
-	        else if (message is AcknowledgeMessage)
-	        {
-	       	    	NetworkMonitor.monitorResult(message, MessageEvent.createEvent(MessageEvent.RESULT, actualMessage));  
-        	}
-	       
-            else 
-            {
-	        		NetworkMonitor.monitorInvocation(getNetmonId(), message, this);
-	        }
-      }
-   }    
-   	
-	/**
-     * Return the id for the NetworkMonitor.
-    * @private
-    */
-   mx_internal function getNetmonId():String
-   {
-       return null;
-   }
-       
+    }        
 }
 
 }
