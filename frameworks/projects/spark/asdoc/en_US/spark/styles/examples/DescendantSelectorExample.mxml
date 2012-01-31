@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the descendant selectors
+   in both Spark and Halo components. -->
+<FxApplication xmlns="http://ns.adobe.com/mxml/2009">
+     <Style>
+        FxButtonBar FxToggleButton:upAndSelected,
+        FxButtonBar FxToggleButton:overAndSelected,
+        FxButtonBar FxToggleButton:downAndSelected,
+        FxButtonBar FxToggleButton:disabledAndSelected {
+            baseColor: #FF6633;
+            color: #FFFFCC;
+        }
+
+        FxButtonBar {
+            baseColor: #FFFFCC;
+        }
+
+        VBox Text {
+            fontWeight: "bold";
+        }
+    </Style>
+
+    <FxPanel title="Advanced CSS: Descendant Selector Example" height="75%" width="75%" >
+
+    <FxButtonBar id="viewMenu" requiresSelection="true" x="10" y="10">
+        <dataProvider>
+            <ArrayCollection source="['Home', 'Events', 'Rooms', 'Dining']" />
+        </dataProvider>
+    </FxButtonBar>
+
+    <Text x="10" y="60" text="Only text in the VBox below has bold content." />
+    <VBox x="10" y="80">
+    	<Text text="Featured Content" fontSize="15" />
+    	<Text text="From holding onto depleted assets to delaying Social Security, these ..." />
+    </VBox>
+
+    </FxPanel>
+</FxApplication>
