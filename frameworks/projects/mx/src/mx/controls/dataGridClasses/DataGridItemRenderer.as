@@ -36,7 +36,6 @@ import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 
 use namespace mx_internal;
@@ -328,7 +327,7 @@ public class DataGridItemRenderer extends UITextField
      */
     override public function getStyle(styleProp:String):*
     {
-        return (StyleManager.inheritingStyles[styleProp]) ?        
+        return (styleManager.inheritingStyles[styleProp]) ?        
             inheritingStyles[styleProp] : nonInheritingStyles[styleProp];
     }
 
@@ -366,7 +365,7 @@ public class DataGridItemRenderer extends UITextField
         // then regenerate the UIComponent's proto chain (and the proto chains
         // of this UIComponent's descendants).
         var isInheritingStyle:Boolean =
-            StyleManager.isInheritingStyle(styleProp);
+            styleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
             inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
         if (isInheritingStyle)
@@ -582,7 +581,7 @@ public class DataGridItemRenderer extends UITextField
                 for (var c:int=0; c < styleNames.length; c++)
                 {
                     if (styleNames[c].length) {
-                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
+                        classSelectors.push(styleManager.getStyleDeclaration("." + 
                             styleNames[c]));
                     }
                 }
@@ -594,7 +593,7 @@ public class DataGridItemRenderer extends UITextField
         // getting the tail of the proto chain, which is:
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
-        var nonInheritChain:Object = StyleManager.stylesRoot;
+        var nonInheritChain:Object = styleManager.stylesRoot;
 
         var p:IStyleClient = parent as IStyleClient;
         if (p)
@@ -605,7 +604,7 @@ public class DataGridItemRenderer extends UITextField
         }
         else
         {
-            inheritChain = StyleManager.stylesRoot;
+            inheritChain = styleManager.stylesRoot;
         }
 
         // Working backwards up the list, the next element in the
@@ -687,7 +686,7 @@ public class DataGridItemRenderer extends UITextField
                className != "mx.core.UITextField")
         {
             var s:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration(className);
+                styleManager.getStyleDeclaration(className);
             
             if (s)
             {
