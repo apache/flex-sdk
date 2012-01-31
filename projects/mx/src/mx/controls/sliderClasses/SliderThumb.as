@@ -286,23 +286,28 @@ public class SliderThumb extends Button
 			Slider(owner).direction == SliderDirection.HORIZONTAL;
 		
 		var newVal:Number;
-		if ((event.keyCode == Keyboard.DOWN && !isHorizontal) ||
-			(event.keyCode == Keyboard.LEFT && isHorizontal))
+        
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+        
+		if ((keyCode == Keyboard.DOWN && !isHorizontal) ||
+			(keyCode == Keyboard.LEFT && isHorizontal))
 		{
 			newVal = currentVal - moveInterval;
 		}
-		else if ((event.keyCode == Keyboard.UP && !isHorizontal) ||
-				 (event.keyCode == Keyboard.RIGHT && isHorizontal))
+		else if ((keyCode == Keyboard.UP && !isHorizontal) ||
+				 (keyCode == Keyboard.RIGHT && isHorizontal))
 		{
 			newVal = currentVal + moveInterval;
 		}
-		else if ((event.keyCode == Keyboard.PAGE_DOWN && !isHorizontal) ||
-				 (event.keyCode == Keyboard.HOME && isHorizontal))
+		else if ((keyCode == Keyboard.PAGE_DOWN && !isHorizontal) ||
+				 (keyCode == Keyboard.HOME && isHorizontal))
 		{
 			newVal = Slider(owner).getXFromValue(Slider(owner).minimum);
 		}
-		else if ((event.keyCode == Keyboard.PAGE_UP && !isHorizontal) ||
-				 (event.keyCode == Keyboard.END && isHorizontal))
+		else if ((keyCode == Keyboard.PAGE_UP && !isHorizontal) ||
+				 (keyCode == Keyboard.END && isHorizontal))
 		{
 			newVal = Slider(owner).getXFromValue(Slider(owner).maximum);
 		}
