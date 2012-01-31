@@ -1528,7 +1528,7 @@ public class ScrollBar extends UIComponent
      */
     private function scrollTrack_mouseOverHandler(event:MouseEvent):void
     {
-        if (!(event.target == this || event.target == scrollTrack))
+        if (!(event.target == this || event.target == scrollTrack) || !enabled)
             return;
 
         if (trackScrolling)
@@ -1541,7 +1541,7 @@ public class ScrollBar extends UIComponent
      */
     private function scrollTrack_mouseOutHandler(event:MouseEvent):void
     {
-        if (trackScrolling)
+        if (trackScrolling && enabled)
             trackScrollTimer.stop();
     }
 
@@ -1551,7 +1551,7 @@ public class ScrollBar extends UIComponent
      */
     private function scrollTrack_mouseDownHandler(event:MouseEvent):void
     {
-        if (!(event.target == this || event.target == scrollTrack))
+        if (!(event.target == this || event.target == scrollTrack) || !enabled)
             return;
 
         trackScrolling = true;
@@ -1621,7 +1621,7 @@ public class ScrollBar extends UIComponent
         scrollTrack_mouseLeaveHandler(event);
     }
     private function scrollTrack_mouseLeaveHandler(event:Event):void
-    {
+    {    	
         trackScrolling = false;
 
         var sbRoot:DisplayObject = systemManager.getSandboxRoot();
