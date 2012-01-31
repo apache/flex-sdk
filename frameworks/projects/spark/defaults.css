@@ -96,6 +96,7 @@ NumericStepper
 
 Panel
 {
+    backgroundColor: #FFFFFF;
     borderAlpha: 0.5;
     borderColor: 0;
     cornerRadius: 0;
