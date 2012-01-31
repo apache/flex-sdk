@@ -49,7 +49,8 @@ public final class MaskType
     public static const ALPHA:String = "alpha";
     
     /**
-     *  Documentation is not currently available.
+     *  The mask respects both opacity and RGB color values and 
+	 *  uses the strokes and bitmap filters of the mask.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
