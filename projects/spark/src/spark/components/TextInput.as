@@ -42,6 +42,8 @@ import flashx.tcal.formats.LineBreak;
  */
 [SkinStates("normal", "disabled")]
 
+[IconFile("FxTextInput.png")]
+
 /**
  *  Documentation is not currently available.
  */
