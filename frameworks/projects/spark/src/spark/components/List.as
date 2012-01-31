@@ -294,6 +294,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Placeholder for mixin by ListAccImpl.
      */
     mx_internal static var createAccessibilityImplementation:Function;
+    
+    // FIXME (rfrishbe): should be style
+    private static const DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE:int = 150;
 
     //--------------------------------------------------------------------------
     //
@@ -325,7 +328,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     "spark.components.RichEditableText"));
         }
         
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -348,6 +351,13 @@ public class List extends ListBase implements IFocusManagerComponent
      *  track which is the "focus item" for a drag and drop operation.
      */
     mx_internal var mouseDownIndex:int = -1;
+    
+    /**
+     *  @private
+     *  Timer for putting the item renderer in the selected state on a delay
+     *  timer because of touch input.
+     */
+    private var mouseDownSelectTimer:Timer;
     
     /**
      *  @private
@@ -1525,9 +1535,14 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
-        // someone else handled it already
-//        if (event.isDefaultPrevented())
-//            return;
+        // someone else handled it already since this is cancellable thanks to 
+        // some extra code in SystemManager that redispatches a cancellable version 
+        // of the same event
+        if (event.isDefaultPrevented())
+            return;
+        
+        // we are about to handle it
+        event.preventDefault();
         
         // Handle the fixup of selection
         var newIndex:int
@@ -1549,19 +1564,21 @@ public class List extends ListBase implements IFocusManagerComponent
                     currentRenderer.showsCaret = false;
             }
             
-            // Check to see if we're deselecting the currently selected item 
-            if ((event.ctrlKey && selectedIndex == newIndex) || (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling))
+            // Check to see if we're deselecting the currently selected item because if we're 
+            // possibly dragging we don't want to de-select this immediately.  Similarly, if we 
+            // are in touch inputMode, we need to delay the item renderer highlight for a bit 
+            if ((event.ctrlKey && selectedIndex == newIndex) || getStyle("inputMode") == "touch")
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionCtrlKey = event.ctrlKey;
                 pendingSelectionShiftKey = event.shiftKey;
                 
-                if (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling)
+                if (getStyle("inputMode") == "touch")
                 {
                     if (selectedIndex != newIndex)
                     {
                         // visually select the item here
-                        selectMouseDownItemAfterDelay(150);
+                        startSelectButtonAfterDelayTimer();
                     }
                 }
             }
@@ -1572,20 +1589,18 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // Don't commit the selection immediately, but wait to see if the user
             // is actually dragging. If they don't drag, then commit the selection
-            if (isItemIndexSelected(newIndex) || (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling))
+            if (isItemIndexSelected(newIndex) || getStyle("inputMode") == "touch")
             {
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionShiftKey = event.shiftKey;
                 pendingSelectionCtrlKey = event.ctrlKey;
                 
-                if (getStyle("inputMode") == "touch" && scroller.viewport.clipAndEnableScrolling)
+                if (getStyle("inputMode") == "touch")
                 {
                     if (!isItemIndexSelected(newIndex))
                     {
                         // visually select the item here
-                        selectMouseDownItemAfterDelay(150);
-                        
-                        // FIXME (rfrishbe): Need to also deselect the old item
+                        startSelectButtonAfterDelayTimer();
                     }
                 }
             }
@@ -1624,30 +1639,29 @@ public class List extends ListBase implements IFocusManagerComponent
         }
     }
     
-    private var mouseDownSelectTimer:Timer;
-    
-    private function selectMouseDownItemAfterDelay(delay:Number):void
+    /**
+     *  @private
+     *  Starts timer to select the button
+     */
+    private function startSelectButtonAfterDelayTimer():void
     {
-        mouseDownSelectTimer = new Timer(delay, 1);
+        mouseDownSelectTimer = new Timer(DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE, 1);
         mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
         mouseDownSelectTimer.start();
     }
     
-    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent):void
+    /**
+     *  @private
+     */
+    private function stopSelectButtonAfterDelayTimer():void
     {
-        if (mouseDownIndex != -1)
+        if (mouseDownSelectTimer)
         {
-            // select item visually now
-            itemSelected(mouseDownIndex, true);
-            
-            // deselect old selected item
-            if (selectedIndex != NO_SELECTION)
-            {
-                itemSelected(selectedIndex, false);
-            }
+            mouseDownSelectTimer.stop();
+            mouseDownSelectTimer = null;
         }
     }
-
+    
     /**
      *  @private
      *  Handles <code>MouseEvent.MOUSE_MOVE</code> events from any mouse
@@ -1986,8 +2000,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    // FIXME (rfrishbe): this should really be on start, not starting...
-    private function touchScrollStartingHandler(event:TouchScrollEvent):void
+    private function touchScrollStartHandler(event:TouchScrollEvent):void
     {
         if (event.scrollingObject == this.scroller)
         {
@@ -1995,9 +2008,7 @@ public class List extends ListBase implements IFocusManagerComponent
             mouseDownCancelledFromScroll = true;
             
             // remove visual selection indicator
-            if (mouseDownSelectTimer)
-                mouseDownSelectTimer.stop();
-            mouseDownSelectTimer = null;
+            stopSelectButtonAfterDelayTimer();
             
             // unselect what we thought was selected
             itemSelected(mouseDownIndex, false);
@@ -2601,14 +2612,17 @@ public class List extends ListBase implements IFocusManagerComponent
             ensureIndexIsVisible(proposedNewIndex); 
         }
         // Entering the caret state with the Ctrl key down 
-        else if (event.ctrlKey)
+        // FIXME (rfrishbe): shouldn't just check inputMode but should depend on 
+        // either the platform or whether it was a 5-way button or whether 
+        // soem other keyboardSelection style.
+        else if (event.ctrlKey || getStyle("inputMode") == "touch")
         {
             var oldCaretIndex:Number = caretIndex; 
             setCurrentCaretIndex(proposedNewIndex);
             var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
             e.newIndex = caretIndex; 
-            dispatchEvent(e);    
+            dispatchEvent(e);
             ensureIndexIsVisible(proposedNewIndex); 
         }
         // Its just a new selection action, select the new index.
@@ -2630,6 +2644,24 @@ public class List extends ListBase implements IFocusManagerComponent
         return ((focusObj is TextField && focusObj.type=="input") ||
             (richEditableTextClass && focusObj is richEditableTextClass &&
              focusObj.editable == true))
+    }
+    
+    /**
+     *  @private
+     */
+    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        if (mouseDownIndex != -1)
+        {
+            // select item visually now
+            itemSelected(mouseDownIndex, true);
+            
+            // deselect old selected item
+            if (selectedIndex != NO_SELECTION)
+            {
+                itemSelected(selectedIndex, false);
+            }
+        }
     }
 }
 
