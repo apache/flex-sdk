@@ -33,7 +33,20 @@ include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 
 /**
  *  A box, specified in the parent Group element's coordinate space, that contains text.
- *  Defined by a TextGraphic element.
+ *  
+ *  <p>The TextBox class is similar to the mx.controls.Label control, although it can display 
+ *  multiple lines.</p>
+ *  
+ *  <p>TextBox does not support drawing a background or border; it only renders text. It supports only the basic formatting styles.
+ *  If you want to use more advanced formatting styles, use the TextGraphic or TextView control.</p> 
+ *  
+ *  <p>The specified text is wrapped at the right edge of the component's bounds. If it extends below the bottom, it is clipped.
+ *  The display cannot be scrolled.</p>
+ *  
+ *  @see mx.components.TextView
+ *  @see mx.graphics.TextGraphic
+ *  
+ *  @includeExample examples/TextBoxExample.mxml
  */
 public class TextBox extends TextGraphicElement
 {
