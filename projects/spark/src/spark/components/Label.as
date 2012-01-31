@@ -219,6 +219,8 @@ public class TextBox extends TextGraphicElement
         bounds.height = height;
 
         textBlockComposer.direction = getStyle("direction");
+        textBlockComposer.justificationRule = getStyle("justificationRule");
+        textBlockComposer.justificationStyle = getStyle("justificationStyle");
         textBlockComposer.lineBreak = getStyle("lineBreak");
         textBlockComposer.lineHeight = getStyle("lineHeight");
         textBlockComposer.lineThrough = getStyle("lineThrough");
@@ -228,6 +230,7 @@ public class TextBox extends TextGraphicElement
         textBlockComposer.paddingTop = getStyle("paddingTop");
         setTabStops(textBlockComposer);
         textBlockComposer.textAlign = getStyle("textAlign");
+        textBlockComposer.textAlignLast = getStyle("textAlignLast");
         textBlockComposer.textDecoration = getStyle("textDecoration");
         textBlockComposer.verticalAlign = getStyle("verticalAlign");
 
