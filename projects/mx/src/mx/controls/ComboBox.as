@@ -33,7 +33,6 @@ import mx.controls.listClasses.ListBase;
 import mx.controls.listClasses.ListData;
 import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.ScrollPolicy;
@@ -1416,8 +1415,7 @@ public class ComboBox extends ComboBase
         var bm:EdgeMetrics = borderMetrics;
         measuredMinHeight = measuredHeight =
             Math.max(textHeight + bm.top + bm.bottom, DEFAULT_MEASURED_MIN_HEIGHT);
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)    
-            measuredMinHeight = measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
+        measuredMinHeight = measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
     }
 
     /**
@@ -1661,30 +1659,8 @@ public class ComboBox extends ComboBase
             if (itemRenderer)
                 _dropdown.itemRenderer = itemRenderer;
 
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                _dropdown.styleName = this;
-            }
-
             if (dropDownStyleName)
-            {
-                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                {
-                    var styleDecl:CSSStyleDeclaration =
-                        StyleManager.getStyleDeclaration("." + dropDownStyleName);
-    
-                    if (styleDecl)
-                        _dropdown.styleDeclaration = styleDecl;
-                }
-                else
-                {
-                    _dropdown.styleName = dropDownStyleName;
-                }
-            }
-            else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                _dropdown.setStyle("cornerRadius", 0);
-            }
+                _dropdown.styleName = dropDownStyleName;
 
             PopUpManager.addPopUp(_dropdown, this);
 
@@ -1692,9 +1668,6 @@ public class ComboBox extends ComboBase
             // The dropdown menu is about to appear anyway,
             // and other processing can make the tween look choppy.
             _dropdown.setStyle("selectionDuration", 0);
-
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 && dropdownBorderStyle && dropdownBorderStyle != "")
-                _dropdown.setStyle("borderStyle", dropdownBorderStyle);
 
             // Set up a data provider in case one doesn't yet exist,
             // so we can share it with the dropdown listbox.
