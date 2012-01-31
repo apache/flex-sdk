@@ -48,8 +48,9 @@ use namespace mx_internal;
 
 /**
  *  The SpriteVisualElement class is a light-weight Sprite-based implemention
- *  of IVisualElement.  It can be dropped in to Spark containers and be laid
- *  out and renderered correctly.
+ *  of the IVisualElement interface. Spark containers can lay out and render SpriteVisualElement objects.
+ *  
+ *  <p>If you use ActionScript to add an FXG component to an application, it should be of type SpriteVisualElement.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -308,7 +309,7 @@ public class SpriteVisualElement extends FlexSprite
     //----------------------------------
 
     /**
-     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
+     *  @copy mx.core.IVisualElement#postLayoutTransformOffsets
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1022,6 +1023,9 @@ public class SpriteVisualElement extends FlexSprite
     //  z
     //----------------------------------
 
+    /**
+     *  @private
+     */
     override public function get z():Number
     {
         return (_layoutFeatures == null) ? super.z : _layoutFeatures.layoutZ;
@@ -1218,6 +1222,9 @@ public class SpriteVisualElement extends FlexSprite
         return (_layoutFeatures == null) ? 1 : _layoutFeatures.layoutScaleY;
     }
 
+    /**
+     *  @private
+     */
     override public function set scaleY(value:Number):void
     {
         if (value == scaleY)
@@ -2191,8 +2198,10 @@ public class SpriteVisualElement extends FlexSprite
     }
 
     /**
-     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
-     *  doesn't trigger a layout pass.
+     *  @inheritDoc
+     *  
+     *  Similar to the <code>layoutMatrix3D</code> property. This property, however, 
+     *  does not trigger a layout pass.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2217,7 +2226,7 @@ public class SpriteVisualElement extends FlexSprite
     }
 
     /**
-     * @copy mx.core.ILayoutElement#transformAround
+     *  @copy mx.core.ILayoutElement#transformAround()
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2334,9 +2343,9 @@ public class SpriteVisualElement extends FlexSprite
      *
      * @param localPosition The point to be transformed, specified in the
      * local coordinates of the object.
-     * @position A Vector3D point that will hold the pre-layout
+     * @param position A Vector3D point that will hold the pre-layout
      * result. If null, the parameter is ignored.
-     * @postLayoutPosition A Vector3D point that will hold the post-layout
+     * @param postLayoutPosition A Vector3D point that will hold the post-layout
      * result. If null, the parameter is ignored.
      *
      *  @langversion 3.0
