@@ -15,6 +15,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 import flash.utils.getQualifiedClassName;
 
 import mx.collections.IList;
@@ -179,6 +180,19 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     private static const LAYERING_ENABLED:uint =    0x1;
     private static const LAYERING_DIRTY:uint =      0x2;
+    
+    /**
+     *  @private
+     *  The following variables are used to track free virtual item renderers.
+     *  When an item renderer is created an entry is added to rendererToFactoryMap
+     *  so when it's time to move the renderer to the freeRendererMap "free list",
+     *  we can store it with the other renderers produced by the same factory (IFactory).
+     *  The value of rendererToFactoryMap[renderer] is a factory, the value of 
+     *  freeRendererMap[factory] is the vector of free renderers produced by factory.
+     */
+    private var rendererToFactoryMap:Dictionary = new Dictionary(true);
+    private var freeRendererMap:Dictionary = new Dictionary();
+    private var addedVirtualRenderer:Boolean = false;  // see createVirtualRendererForItem()
     
     //--------------------------------------------------------------------------
     //
@@ -476,12 +490,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  <pre>
      *    function myItemRendererFunction(item:Object):IFactory</pre>
      * 
-     *  <p>Currently, when using itemRendererFunction with a virtual layout 
-     *  (useVirtualLayout=true), item renderer recycling 
-     *  is turned off.  Because of this, using itemRendererFunction 
-     *  can cause a performance degredation and is not recommended for mobile.  
-     *  This may be fixed in future versions of Flex.</p>
-     * 
      *  @default null
      *  
      *  @langversion 3.0
@@ -661,11 +669,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             virtualRendererIndices.length = 0;
             oldVirtualRendererIndices.length = 0;
             
-            for (var i:int = freeRenderers.length - 1; i >= 0; i--)
-            {
-                var myItemRenderer:IVisualElement = freeRenderers.pop() as IVisualElement;
-                super.removeChild(myItemRenderer as DisplayObject);
-            }
+            const freeRenderers:Vector.<IVisualElement> = allFreeRenderers();
+            for each (var renderer:IVisualElement in freeRenderers)
+                super.removeChild(renderer as DisplayObject);
+
+            resetFreeRenderers();
         }   
         else 
         {
@@ -795,66 +803,167 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     //--------------------------------------------------------------------------
     
     /**
-     *  Create the item renderer for the item, if needed.
+     *  Return the item renderer factory for the specified item, if any.  Prefer 
+     *  itemRendererFunction over itemRenderer.
+     */
+    private function itemToRendererFactory(item:Object):IFactory
+    {
+        if (itemRendererFunction != null)
+            return itemRendererFunction(item);
+        
+        return itemRenderer;
+    }
+    
+    /**
+     *  Return a new renderer created with the specified factory and add an entry for it
+     *  to rendererToFactoryMap so that we can free and allocate it later.
+     */
+    private function createRenderer(factory:IFactory):IVisualElement
+    {
+        const element:IVisualElement = factory.newInstance() as IVisualElement;
+        rendererToFactoryMap[element] = factory;
+        return element;
+    }
+    
+    /**
+     *  If a vector of free renderers exists for the specified factory, remove 
+     *  one and return it.
+     */
+    private function allocateRenderer(factory:IFactory):IVisualElement
+    {
+        const renderers:Vector.<IVisualElement> = freeRendererMap[factory] as Vector.<IVisualElement>;
+        if (renderers)
+        {
+            const element:IVisualElement = renderers.pop();
+            if (renderers.length == 0)
+                delete freeRendererMap[factory];
+            if (element)
+                return element;
+        }
+        
+        return null;
+    }
+    
+    /**
+     *  Add the specified renderer to the rendererToFactoryMap.
+     */
+    private function freeRenderer(renderer:IVisualElement):void
+    {
+        if (!renderer)
+            return;
+        
+        const factory:IFactory = rendererToFactoryMap[renderer]; 
+        if (!factory)
+            return;
+        
+        var freeRenderers:Vector.<IVisualElement> = freeRendererMap[factory];
+        if (!freeRenderers)
+        {
+            freeRenderers = new Vector.<IVisualElement>();
+            freeRendererMap[factory] = freeRenderers;            
+        }
+        freeRenderers.push(renderer);
+    }
+    
+    /** 
+     *  @private
+     *  Return a vector of all of the renderers in freeRendererMap.
+     */
+    private function allFreeRenderers():Vector.<IVisualElement>
+    {
+        const rv:Vector.<IVisualElement> = new Vector.<IVisualElement>();
+        
+        for each (var v:Vector.<IVisualElement> in freeRendererMap)
+        {
+            for each (var e:IVisualElement in v)
+                rv.push(e);
+        }
+        
+        return rv;
+    }
+    
+    /**
+     *  @private
+     *  Reset the private free renderers data.
+     */
+    private function resetFreeRenderers():void
+    {
+        rendererToFactoryMap = new Dictionary(true);
+        freeRendererMap = new Dictionary();
+    }
+    
+    /**
+     *  @private
+     *  Throw an error which indicates that we were unable to create an item renderer
+     *  for the specified dataProvide and we weren't able to use the item as an 
+     *  item renderer.
+     */
+    private function throwCreateRendererFailedError(item:Object):void
+    {
+        var err:String;
+        if (item is IVisualElement || item is DisplayObject)
+            err = resourceManager.getString("components", "cannotDisplayVisualElement");
+        else
+            err = resourceManager.getString("components", "unableToCreateRenderer", [item]);
+        
+        throw new Error(err);
+    }          
+    
+    /**
+     *  @private
+     *  Create or reuse an item renderer for the specified dataProvider item.  This method is 
+     *  used by getVirtualLayoutElementAt(), i.e. when useVirtualLayout=true.
      * 
-     *  <p>The rules to create a visual item are:</p>
-     *  <ol><li>if itemRendererFunction is defined, call 
-     *  it to get the renderer factory and instantiate it</li>
-     *  <li>if itemRenderer is defined, instantiate one</li>
-     *  <li>if item is an IVisualElement and a DisplayObject, use 
-     *  it directly</li></ol>
-     * 
-     *  @param item The data element.
-     *
-     *  @return The renderer that represents the data element.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  This method actually "returns" two values: the renderer itself and a flag that indicates
+     *  if the renderer was newly added.   The second value is actually just a variable.  Each  
+     *  time this method is called it sets addedVirtualRenderer.
+     */
+    private function createVirtualRendererForItem(item:Object, failRTE:Boolean=true):IVisualElement
+    {
+        var renderer:IVisualElement = null;
+        
+        const rendererFactory:IFactory = itemToRendererFactory(item);
+        if (rendererFactory)
+            renderer = allocateRenderer(rendererFactory);  // use a free renderer
+
+        if (!renderer && rendererFactory)
+        {
+            renderer = createRenderer(rendererFactory);
+            addedVirtualRenderer = true;
+        }
+        
+        if (!renderer && (item is IVisualElement) && (item is DisplayObject))
+        {
+            renderer = IVisualElement(item);
+            addedVirtualRenderer = true;            
+        }
+        
+        if (!renderer && failRTE)
+            throwCreateRendererFailedError(item);
+        
+        return renderer;
+    }
+            
+    /**
+     *  @private
+     *  Create an item renderer for the specified dataProvider item.   This method is used
+     *  when useVirtualLayout=false.
      */
     private function createRendererForItem(item:Object, failRTE:Boolean=true):IVisualElement
     {
-        var myItemRenderer:IVisualElement;
+        var renderer:IVisualElement = null;
         
-        // Rules for lookup:
-        // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
-        // 2. if itemRenderer is defined, instantiate one
-        // 3. if item is an IVisualElement and a DisplayObject, use it directly
+        const rendererFactory:IFactory = itemToRendererFactory(item);
+        if (rendererFactory)
+            renderer = createRenderer(rendererFactory);
         
-        // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it    
-        if (itemRendererFunction != null)
-        {
-            var rendererFactory:IFactory = itemRendererFunction(item);
-            
-            // if the function returned a factory, use that.
-            // otherwise, if it returned null, try using the item directly
-            if (rendererFactory)
-                myItemRenderer = rendererFactory.newInstance();
-            else if (item is IVisualElement && item is DisplayObject)
-                myItemRenderer = IVisualElement(item);
-        }
+        if (!renderer && (item is IVisualElement) && (item is DisplayObject))
+            renderer = IVisualElement(item);
         
-        // 2. if itemRenderer is defined, instantiate one
-        if (!myItemRenderer && itemRenderer)
-            myItemRenderer = itemRenderer.newInstance();
-        
-        // 3. if item is an IVisualElement and a DisplayObject, use it directly
-        if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
-            myItemRenderer = IVisualElement(item);
-        
-        // Couldn't find item renderer.  Throw an RTE.
-        if (!myItemRenderer && failRTE)
-        {
-            var err:String;
-            if (item is IVisualElement || item is DisplayObject)
-                err = resourceManager.getString("components", "cannotDisplayVisualElement");
-            else
-                err = resourceManager.getString("components", "unableToCreateRenderer", [item]);
-            throw new Error(err);
-        }
-        
-        return myItemRenderer;
+        if (!renderer && failRTE)
+            throwCreateRendererFailedError(item);      
+
+        return renderer;
     }
     
     /** 
@@ -864,7 +973,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  called by commitProperties().
      * 
      *  Reuse as many of the IItemRenderer renderers in indexToRenders as possible.
-     *  Note that if itemRendererFunction was specified, we can reuse any of them. 
      */
     private function createItemRenderers():void
     {
@@ -873,10 +981,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             removeAllItemRenderers();
             return;
         }
-        
-        // Can't reuse renderers if ...
-        if ((itemRenderer == null) || (itemRendererFunction != null))  
-            removeAllItemRenderers();   // indexToRenderer.length = 0
 
         if (layout && layout.useVirtualLayout)
         {   
@@ -891,6 +995,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             // The item renderers will be created lazily, at updateDisplayList() time
             invalidateSize();
             invalidateDisplayList();
+            
             return;
         }
         
@@ -1195,24 +1300,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     *  freeRenderers - IRs that were created by getLayoutElementAt() but
-     *  are no longer in view.   They'll be reused by getLayoutElementAt().
-     *  The list is updated by finishVirtualLayout().  
-     */
-    private var freeRenderers:Array = new Array();
-    
-    /**
-     *  @private
-     *  True if it's OK to recycle virtual item renderers.   More about
-     *  the conditions under which recyling can work at getVirtualElementAt().
-     */
-    private function isRecyclingOK():Boolean
-    {
-        return (itemRendererFunction == null) && (itemRenderer != null);   
-    }
-    
-    /**
-     *  @private
      *  Called before super.updateDisplayList() if layout.useVirtualLayout=true.
      *  Also called by createItemRenderers to ready existing renderers
      *  to be recycled by the following call to finishVirtualLayout.
@@ -1266,8 +1353,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // Remove the old ItemRenderers that aren't new ItemRenderers and if 
         // recycling is possible, add them to the freeRenderers list.
         
-        const recyclingOK:Boolean = isRecyclingOK();       
-        
         for each (var vrIndex:int in oldVirtualRendererIndices)
         {
             // Skip renderers that are still in view.
@@ -1280,13 +1365,13 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             // Free or remove the IR.
             var item:Object = (dataProvider.length > vrIndex) ? dataProvider.getItemAt(vrIndex) : null;
-            if (recyclingOK && (item != elt) && (elt is IDataRenderer))
+            if ((item != elt) && (elt is IDataRenderer))
             {
                 // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
                 elt.includeInLayout = false;
                 elt.visible = false;
                 
-                freeRenderers.push(elt);
+                freeRenderer(elt);
             }
             else if (elt)
             {
@@ -1326,10 +1411,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     mx_internal function clearFreeRenderers():void
     {
-        const freeRenderersLength:int = freeRenderers.length;
-        for (var i:int = 0; i < freeRenderersLength; i++)
-            freeRenderers[i] = null;
-        freeRenderers.length = 0;
+        resetFreeRenderers();
     }
     
     /**
@@ -1409,26 +1491,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     * 
-     *  Currently, item renderers ("IRs") can only be recycled if they're all
-     *  of the same type, they implement IDataRenderer, and they're all
-     *  produced - by the itemRenderer factory - with the same initial
-     *  configuration.  We can't ever really guarantee this however the case
-     *  for which we're assuming that it's true is when just the itemRenderer
-     *  is specified.  Even in this case, for recycling to work the
-     *  itemRenderer (factory) must be essentially stateless, the IRs
-     *  appearance must be based exclusively on its data.  For this reason
-     *  we're also defeating recycling of IRs that don't implement
-     *  IDataRenderer, see endVirtualLayout().  Although one could recycle
-     *  these IRs, doing so would imply that either all of the IRs were
-     *  the same, or that some did implement IDataRenderer and others
-     *  did not.   We can't handle the latter, and a DataGroup where
-     *  all items are the same wouldn't be worth the trouble.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     override public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN):IVisualElement
     {
@@ -1442,25 +1504,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             if (virtualRendererIndices.indexOf(index) == -1)
                 virtualRendererIndices.push(index);
             
-            var createdIR:Boolean = false;
             const item:Object = dataProvider.getItemAt(index);
             
+            addedVirtualRenderer = false;  // set by createVirtualRendererForItem()
             if (!elt)
             {
-                if (isRecyclingOK() && (freeRenderers.length > 0))
-                {
-                    elt = freeRenderers.pop();
-                    elt.visible = true;
-                    elt.includeInLayout = true;
-                }
-                else 
-                {
-                    elt = createRendererForItem(item);
-                    createdIR = true;
-                }
-                
+                elt = createVirtualRendererForItem(item);
+                elt.visible = true;
+                elt.includeInLayout = true;
                 indexToRenderer[index] = elt;
-
                 addItemRendererToDisplayList(DisplayObject(elt)); 
                 setUpItemRenderer(elt, index, item);
             }
@@ -1485,7 +1537,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             if (!isNaN(eltWidth) || !isNaN(eltHeight))
                 elt.setLayoutBoundsSize(eltWidth, eltHeight);
             
-            if (createdIR)
+            if (addedVirtualRenderer) 
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
         }
         
