@@ -908,7 +908,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (!enabled)
             return "disabled";
         
-        if (isDown())
+        if (isDown() || _keepDown)
             return "down";
         
         // if interactionMode == InteractionMode.TOUCH, then we have no over state
@@ -1000,9 +1000,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         if (!enabled)
             return false;
-
-        if (_keepDown)
-            return true;
 
         if (keyboardPressed)
             return true;
@@ -1147,7 +1144,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         // Only if down state has changed, do we need to do something
         if (_downEventFired != isCurrentlyDown)
         {
-            if (isCurrentlyDown)
+            if (isCurrentlyDown && hasEventListener(FlexEvent.BUTTON_DOWN))
                 dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
             
             _downEventFired = isCurrentlyDown;
