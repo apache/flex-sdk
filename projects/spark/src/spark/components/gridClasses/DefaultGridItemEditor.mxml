@@ -19,6 +19,12 @@ in accordance with the terms of the license agreement accompanying it.
             import mx.core.IVisualElement;
             import mx.core.UIComponent;
             
+            //--------------------------------------------------------------------------
+            //
+            //  Overridden properties
+            //
+            //--------------------------------------------------------------------------
+
             /**
              *  @private
              */ 
@@ -35,6 +41,12 @@ in accordance with the terms of the license agreement accompanying it.
                 textArea.text = newValue.toString();
             }
             
+            //--------------------------------------------------------------------------
+            //
+            //  Overidden methods
+            //
+            //--------------------------------------------------------------------------
+
             /**
              *  @private
              */ 
