@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.supportClasses
+package spark.components.mediaClasses
 {
     
 [DefaultProperty("streamItems")]
@@ -120,7 +120,7 @@ public class StreamingVideoSource extends Object
     private var _streamItems:Array;
 
     [Inspectable(category="General")]
-    [ArrayElementType("spark.components.supportClasses.StreamItem")]
+    [ArrayElementType("spark.components.mediaClasses.StreamItem")]
     
     // TODO (rfrishbe): change to vectors when possible
 
