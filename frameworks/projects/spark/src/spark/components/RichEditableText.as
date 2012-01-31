@@ -1503,6 +1503,8 @@ package spark.components
          *  A flag that indicates whether the IME should
          *  be enabled when the component receives focus.
          *
+         *  @returns true if the component is editable and it is not displaying a password.
+         * 
          *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
@@ -1510,7 +1512,7 @@ package spark.components
          */
         public function get enableIME():Boolean
         {
-            return editable;
+            return editable && !displayAsPassword;
         }
         
         //----------------------------------
