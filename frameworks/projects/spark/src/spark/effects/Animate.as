@@ -42,28 +42,28 @@ use namespace mx_internal;
  * <p>The <code>Effect.effectStart</code> event is dispatched 
  * before the <code>animationStart</code> event.</p>
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_START
+ * @eventType spark.events.AnimationEvent.ANIMATION_START
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationStart", type="mx.events.AnimationEvent")]
+[Event(name="animationStart", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched every time the effect updates the target.
  * This event corresponds to a call to 
  * the <code>AnimateInstance.updateHandler()</code> method.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
+ * @eventType spark.events.AnimationEvent.ANIMATION_UPDATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
+[Event(name="animationUpdate", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched when the effect begins a new repetition, for
@@ -73,14 +73,14 @@ use namespace mx_internal;
  * Flex also dispatches an <code>animationUpdate</code> event 
  * for the effect at the same time.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
+ * @eventType spark.events.AnimationEvent.ANIMATION_REPEAT
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationRepeat", type="mx.events.AnimationEvent")]
+[Event(name="animationRepeat", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched when the effect ends.
@@ -93,14 +93,14 @@ use namespace mx_internal;
  * A repeating effect dispatches this event only after the 
  * final repetition.</p>
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_END
+ * @eventType spark.events.AnimationEvent.ANIMATION_END
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationEnd", type="mx.events.AnimationEvent")]
+[Event(name="animationEnd", type="spark.events.AnimationEvent")]
 
 /**
  * This effect animates an arbitrary set of properties between values, as specified
@@ -227,7 +227,7 @@ public class Animate extends Effect
      * where the animation will reverse direction each iteration.
      * 
      * @default Animation.LOOP
-     * @see mx.effects.Animation#repeatBehavior
+     * @see spark.effects.animation.Animation#repeatBehavior
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
