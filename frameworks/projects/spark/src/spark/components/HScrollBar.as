@@ -14,7 +14,7 @@ package mx.components
 import mx.components.baseClasses.FxScrollBar;
 import mx.core.ScrollUnit;
 import mx.core.IViewport;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
