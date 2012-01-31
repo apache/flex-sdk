@@ -16,6 +16,11 @@ package mx.effects.interpolation
  * the start and end values as integers with color channel information in
  * the least-significant 3 bytes, interpolating each of those channels
  * separately.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class RGBInterpolator implements IInterpolator
 {   
@@ -29,6 +34,11 @@ public class RGBInterpolator implements IInterpolator
     /**
      * Returns the singleton of this class. Since all RGBInterpolators
      * have the same behavior, there is no need for more than one instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getInstance():RGBInterpolator
     {
@@ -40,6 +50,11 @@ public class RGBInterpolator implements IInterpolator
     /**
      * Returns the <code>uint</code> type, which is the type of
      * object interpolated by RGBInterpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get interpolatedType():Class
     {
@@ -54,6 +69,11 @@ public class RGBInterpolator implements IInterpolator
      * <code>startValue</code> and <code>endValue</code>. This interpolates
      * each color channel separately if the start and end values represent
      * RGB colors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
@@ -119,6 +139,11 @@ public class RGBInterpolator implements IInterpolator
      * <p>This function returns the result of the two values added
      * together on a per-channel basis. Each channel will be clamped
      * at 255 to avoid overflow problems.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function increment(baseValue:Object, incrementValue:Object):Object
     {
@@ -131,6 +156,11 @@ public class RGBInterpolator implements IInterpolator
      * <p>This function returns the result of the two values subtracted
      * on a per-channel basis. Each channel will be clamped
      * at 0 to avoid underflow problems.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
    public function decrement(baseValue:Object, decrementValue:Object):Object
    {
