@@ -3605,13 +3605,31 @@ public class Grid extends Group implements IDataGridElement
      */
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
-        if (!dataProvider || (rowIndex < 0) || (rowIndex >= dataProvider.length))
-            return;
-        
+        if (!dataProvider || rowIndex >= dataProvider.length)
+			return;
+		
+		if (!isCellVisible(rowIndex, columnIndex))
+			return;
+		
         // TODO (hmuller) this is a provisional implementation: invalidate the entire row
+        
         const column:GridColumn = getGridColumn(columnIndex);
         const dataField:String = (column) ? column.dataField : null;
-        dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
+		
+		if (rowIndex >= 0)
+		{
+			// invalidate the cell or the row by invalidating the visible row
+			dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
+		}
+		else
+		{
+			// invaliate the column by invalidating all visible rows
+			const rowIndices:Vector.<int> = getVisibleRowIndices();
+			for each (rowIndex in rowIndices)
+			{
+				dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);			
+			}
+		}
     }
     
     /**
