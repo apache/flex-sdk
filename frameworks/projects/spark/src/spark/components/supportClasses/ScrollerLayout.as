@@ -13,6 +13,7 @@ package spark.components.supportClasses
 {
 import flash.geom.Point;
 
+import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.utils.MatrixUtil;
@@ -558,6 +559,14 @@ public class ScrollerLayout extends LayoutBase
         if ((invalidationCount < 2) && (((vsbVisible != oldShowVSB) && vAuto) || ((hsbVisible != oldShowHSB) && hAuto)))
         {
             target.invalidateSize();
+            
+            // If the viewport's layout is virtual, it's possible that its
+            // measured size changed as a consequence of laying it out,
+            // so we invalidate its size as well.
+            var viewportGroup:GroupBase = viewport as GroupBase;
+            if (viewportGroup && viewportGroup.layout && viewportGroup.layout.useVirtualLayout)
+                viewportGroup.invalidateSize();
+            
             invalidationCount += 1; 
         }
         else
