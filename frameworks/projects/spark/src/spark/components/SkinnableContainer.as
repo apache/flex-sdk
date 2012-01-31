@@ -262,7 +262,10 @@ public class SkinnableContainer extends SkinnableContainerBase
                 _placeHolderGroup = new Group();
                  
                 if (_mxmlContent)
+                {
                     _placeHolderGroup.mxmlContent = _mxmlContent;
+                    _mxmlContent = null;
+                }
                 
                 _placeHolderGroup.addEventListener(
                     ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
@@ -517,15 +520,12 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function set mxmlContent(value:Array):void
     {
-        if (value == _mxmlContent)
-            return;
-            
-        _mxmlContent = value;   
-
         if (contentGroup)
             contentGroup.mxmlContent = value;
         else if (_placeHolderGroup)
             _placeHolderGroup.mxmlContent = value;
+        else
+            _mxmlContent = value;
     }
     
     //----------------------------------
@@ -824,6 +824,12 @@ public class SkinnableContainer extends SkinnableContainerBase
                 
                 contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
                 
+                // TODO (rfrishbe): investigate why we need this, especially if these elements shouldn't 
+                // be added to the place holder Group's display list
+                
+                // TODO (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
+                // especially if we make it mx_internal.
+                
                 // Temporary workaround because copying content from one Group to another throws RTE
                 for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
                 {
@@ -834,6 +840,7 @@ public class SkinnableContainer extends SkinnableContainerBase
             else if (_mxmlContent != null)
             {
                 contentGroup.mxmlContent = _mxmlContent;
+                _mxmlContent = null;
             }
             
             // copy proxied values from contentGroupProperties (if set) to contentGroup
