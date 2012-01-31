@@ -35,6 +35,11 @@ public dynamic class ConfigMap extends Proxy
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * Constructor.
+     *
+     * @param item An Object containing name/value pairs.
+     */
     public function ConfigMap(item:Object = null)
     {
         super();
