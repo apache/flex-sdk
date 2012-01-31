@@ -563,8 +563,6 @@ public class TextGraphic extends TextGraphicElement
 		super.updateDisplayList(unscaledWidth, unscaledHeight);
 		
 		compose(unscaledWidth, unscaledHeight);
-		
-		applyDisplayObjectProperties();
 	}
 
 	//--------------------------------------------------------------------------
