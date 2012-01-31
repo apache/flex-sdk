@@ -333,6 +333,11 @@ public class CommandMessage extends AsyncMessage
      *  @productversion LCDS 3 
      */
     public static const MAX_FREQUENCY_HEADER:String = "DSMaxFrequency";
+    
+    /**
+     * Header that indicates the message is a heartbeat.
+     */
+    public static const HEARTBEAT_HEADER:String = "DS<3";
 
     //--------------------------------------------------------------------------
     //
