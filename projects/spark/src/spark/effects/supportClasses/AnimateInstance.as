@@ -31,6 +31,7 @@ import spark.effects.animation.Animation;
 import spark.effects.animation.IAnimationTarget;
 import spark.effects.easing.IEaser;
 import spark.effects.interpolation.IInterpolator;
+import spark.primitives.supportClasses.GraphicElement;
 
 use namespace mx_internal;
 
@@ -819,6 +820,12 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                         IVisualElementContainer(parentStart).addElement(target as IVisualElement);
                     else
                         parentStart.addChild(target);
+                    // GraphicElements may delay parenting their underlying displayObject until
+                    // a layout pass, so let's force it to make sure we're ready to go
+                    // TODO (chaase): this should probably happen as a part of applyStartValues()
+                    // instead, then we already force the layout to happen
+                    if (target is GraphicElement)
+                        GraphicElement(target).validateNow();
                     needsRemoval = true;
                 }
             }
