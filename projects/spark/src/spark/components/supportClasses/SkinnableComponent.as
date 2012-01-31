@@ -19,13 +19,11 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.utils.*;
 
-import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
 
 use namespace mx_internal;
@@ -330,13 +328,20 @@ public class SkinnableComponent extends UIComponent
             var factory:Object = getStyle("skinFactory");
             var newSkinClass:Class;
             
+            // if it's a factory, only reload the skin if the skinFactory
+            // style has been explicitly changed.  right now this style is only 
+            // used by design view, and this is the contract we have with them.
             if (factory)
-                newSkinClass = (factory is ClassFactory) ? ClassFactory(factory).generator : null;
+                skipReload = !skinFactoryStyleChanged;
             else
+            {
                 newSkinClass = getStyle("skinClass");
                 
-            skipReload = newSkinClass && 
-                getQualifiedClassName(newSkinClass) == getQualifiedClassName(_skin);
+                skipReload = newSkinClass && 
+                    getQualifiedClassName(newSkinClass) == getQualifiedClassName(_skin);
+            }
+            
+            skinFactoryStyleChanged = false;
         }
         
         if (!skipReload)
@@ -411,6 +416,9 @@ public class SkinnableComponent extends UIComponent
         {
             skinChanged = true;
             invalidateProperties();
+            
+            if (styleProp == "skinFactory")
+                skinFactoryStyleChanged = true;
         }
         
         super.styleChanged(styleProp);
@@ -1016,6 +1024,14 @@ public class SkinnableComponent extends UIComponent
      *  True if the skin has changed and hasn't gone through validation yet.
      */
     private var skinChanged:Boolean = false;
+    
+    /**
+     *  @private
+     *  True if the skinFactory style has explicitly changed or not.  We use 
+     *  this to determine whether we need to actually create a new skin or 
+     *  not in validateSkinChange().
+     */
+    private var skinFactoryStyleChanged:Boolean = false;
     
         
     /**
