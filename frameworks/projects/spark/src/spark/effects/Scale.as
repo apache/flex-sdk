@@ -63,6 +63,27 @@ public class Scale extends AnimateTransform
 {
     include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["scaleX", "scaleY",
+         "postLayoutScaleX","postLayoutScaleY"];
+
+    private static var RELEVANT_STYLES:Array = [];
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  Constructor.
      *
@@ -199,6 +220,22 @@ public class Scale extends AnimateTransform
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
 
     // FIXME (chaase): Can we remove this override? It exists only to create motionPaths,
     // which we should be able to do somewhere else
