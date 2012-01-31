@@ -20,7 +20,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="20" right="20" top="20" bottom="20">
-            <s:SimpleText width="330"
+            <s:Label width="330"
                 text="Select a name to see employee's phone number. You should not be able to select the first name."/>
             <s:List id="list" changing="selectionChangingHandler(event);">
                 <!-- itemRenderer is inline in this sample -->
@@ -38,8 +38,8 @@
                                             alpha.selected="0.6" />
                                 </s:fill>
                              </s:Rect>
-                             <s:SimpleText id="nameLabel" text="{data.lastName}, {data.firstName}" top="5" left="5" right="5" />
-                             <s:SimpleText y="20" id="phoneLabel" text="{data.phone}" includeIn="selected" top="25" bottom="5" left="5" right="5" />
+                             <s:Label id="nameLabel" text="{data.lastName}, {data.firstName}" top="5" left="5" right="5" />
+                             <s:Label y="20" id="phoneLabel" text="{data.phone}" includeIn="selected" top="25" bottom="5" left="5" right="5" />
                         </s:ItemRenderer>
                     </fx:Component>
                 </s:itemRenderer>
