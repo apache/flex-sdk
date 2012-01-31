@@ -2,10 +2,14 @@ package flex.core {
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
+import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
+import flex.graphics.Graphic;
 import flex.graphics.IGraphicElement;
 import flex.graphics.graphicsClasses.GraphicElement;
 import flex.intf.ILayoutItem;
@@ -14,6 +18,12 @@ import flex.layout.LayoutItemFactory;
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
+import mx.controls.Label;
+import mx.core.IDataRenderer;
+import mx.core.IDeferredInstance;
+import mx.core.IFactory;
+import mx.core.IVisualItem;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.styles.IStyleClient;
@@ -57,6 +67,10 @@ public class Group extends GroupBase
     private var _content:*;
     private var _contentType:int;
     private var contentCollection:ICollectionView;
+    private var layeringMode:uint = ITEM_ORDERED_LAYERING;
+    
+    private static const ITEM_ORDERED_LAYERING:uint = 0;
+    private static const SPARSE_LAYERING:uint = 1;
     
     private static const CONTENT_TYPE_UNKNOWN:int = 0;
     private static const CONTENT_TYPE_ARRAY:int = 1;
@@ -519,10 +533,25 @@ public class Group extends GroupBase
     //
     //--------------------------------------------------------------------------
     
+    
+    override public function invalidateLayering():void
+    {
+    	if(layeringMode == ITEM_ORDERED_LAYERING)
+    		layeringMode = SPARSE_LAYERING;
+    	if(needsDisplayObjectAssignment == true)
+    		return;
+    	needsDisplayObjectAssignment = true;
+    	invalidateProperties();
+    }
+
+
     protected function itemAdded(item:*, index:int):void
     {
         var child:DisplayObject;
                 
+        if (item is IVisualItem && (item as IVisualItem).layer != 0)
+        	invalidateLayering();
+
         if (item is GraphicElement) 
         {
             item.elementHost = this;
@@ -613,75 +642,162 @@ public class Group extends GroupBase
     // inside the group
     private function get canShareDisplayObject():Boolean
     {
-    	return _blendMode == "normal";
+    	return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
-    // This function assumes that the only displayObjects are either items in the content array
-    // or created directly for an item in the content array. 
-    private function assignDisplayObjects(startIndex:int = 0):void
+   private function assignDisplayObjects():void
     {
-        var currentAssignableDO:DisplayObject = canShareDisplayObject ? this : null;
-        //trace("currADO: " + currentAssignableDO);
-        var lastDisplayObject:DisplayObject = this;
+        var topLayerItems:Vector.<IVisualItem>;
+        var bottomLayerItems:Vector.<IVisualItem>;        
+        var keepLayeringEnabled:Boolean = false;
         
+        mergeData.currentAssignableDO  = canShareDisplayObject ? this : null;
+        mergeData.lastDisplayObject = this;
+        mergeData.insertIndex = 0;
+
         // Iterate through all of the items
         var len:int = numItems; 
-        for (var i:int = startIndex; i < len; i++)
+        for (var i:int = 0; i < len; i++)
         {  
             var item:* = getItemAt(i);
-            var insertIndex:int;
             
-        	if (lastDisplayObject == this)
-        		insertIndex = 0;
-        	else
-        		insertIndex = super.getChildIndex(lastDisplayObject) + 1;
-        		
-            if (item is DisplayObject)
+        	if(layeringMode != ITEM_ORDERED_LAYERING)
+        	{
+        		var layer:Number = 0;
+        		if (item is IVisualItem)
+        			layer = (item as IVisualItem).layer;
+        		if(layer != 0)
+        		{        		
+            		if (layer > 0)
+            		{
+            			if(topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
+            			topLayerItems.push(item);
+            			continue;            		
+            		}
+            		else
+            		{
+            			if(bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
+            			bottomLayerItems.push(item);
+            			continue;            		
+            		}
+            	}
+         	}
+			assignDisplayObjectTo(item,mergeData);
+        }
+        if(topLayerItems != null)
+        {
+        	keepLayeringEnabled = true;
+        	//topLayerItems.sortOn("layer",Array.NUMERIC);
+        	sortOnLayer(topLayerItems);
+        	len = topLayerItems.length;
+        	for(i=0;i<len;i++)
+        	{
+        		assignDisplayObjectTo(topLayerItems[i],mergeData);
+        	}
+        }
+        if(bottomLayerItems != null)
+        {
+        	keepLayeringEnabled = true;
+	        mergeData.currentAssignableDO  = null;
+	        mergeData.lastDisplayObject = this;
+	        mergeData.insertIndex = 0;
+
+        	//bottomLayerItems.sortOn("layer",Array.NUMERIC);
+        	sortOnLayer(bottomLayerItems);
+        	len = bottomLayerItems.length;
+
+        	for(i=0;i<len;i++)
+        	{
+        		assignDisplayObjectTo(bottomLayerItems[i],mergeData);
+        	}
+        }
+        if(keepLayeringEnabled == false)
+        	layeringMode = ITEM_ORDERED_LAYERING;        
+    }
+    
+    /**
+    * @private
+    * a simple insertion sort.  This works well for small lists (under 12 or so), uses
+    * no aditional memory, and most importantly, is stable, meaning items with comparable
+    * values will stay in the same order relative to each other. For layering, we guarantee
+    * first the layer property, and then the item order, so a stable sort is important (and the 
+    * built in flash sort is not stable).
+    */
+	private static function sortOnLayer(a:Vector.<IVisualItem>):void
+	{
+		var len:Number = a.length;
+		var tmp:*;
+		if(len<= 1)
+			return;
+		for(var i:int = 1;i<len;i++)
+		{
+			for (var j:int = i;j > 0;j--)
+			{
+				if( a[j].layer < a[j-1].layer )
+				{
+					tmp = a[j];
+					a[j] = a[j-1];
+					a[j-1] = tmp;
+				}
+				else
+					break;
+			}
+		}
+	}
+
+    private function assignDisplayObjectTo(item:*,mergeData:GroupDisplayObjectMergeData):void
+    {
+            
+    	if (mergeData.lastDisplayObject == this)
+    		mergeData.insertIndex = 0;
+    	else
+    		mergeData.insertIndex = super.getChildIndex(mergeData.lastDisplayObject) + 1;
+    		
+        if (item is DisplayObject)
+        {
+        	super.setChildIndex(item as DisplayObject, mergeData.insertIndex);
+        	
+            mergeData.lastDisplayObject = item as DisplayObject;
+            // Null this out so that we are forced to create one for the next item
+            mergeData.currentAssignableDO = null; 
+        }           
+        else if (item is GraphicElement)
+        {
+            var element:GraphicElement = item as GraphicElement;
+            
+            if (mergeData.currentAssignableDO == null || element.needsDisplayObject)
             {
-            	super.setChildIndex(item as DisplayObject, insertIndex);
-            	
-                lastDisplayObject = item as DisplayObject;
-                // Null this out so that we are forced to create one for the next item
-                currentAssignableDO = null; 
-            }           
-            else if (item is GraphicElement)
-            {
-                var element:GraphicElement = item as GraphicElement;
+                var newChild:DisplayObject = element.displayObject;
                 
-                if (currentAssignableDO == null || element.needsDisplayObject)
+                if (newChild == null)
                 {
-                    var newChild:DisplayObject = element.displayObject;
-                    
-                    if (newChild == null)
-                    {
-                        newChild = element.createDisplayObject();
-                        element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?                 
-                    }
-                    
-                    addItemToDisplayList(newChild, item, insertIndex); 
-                    // If the element is transformed, the next item needs its own DO        
-                    currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
-                    lastDisplayObject = newChild;
+                    newChild = element.createDisplayObject();
+                    element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?                 
                 }
-                else
+                
+                addItemToDisplayList(newChild, item, mergeData.insertIndex); 
+                // If the element is transformed, the next item needs its own DO        
+                mergeData.currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
+                mergeData.lastDisplayObject = newChild;
+            }
+            else
+            {
+                // Item should be assigned the currentAssignableDO
+                // If it already has a DO, we need to remove it
+                if (element.displayObject)
                 {
-                    // Item should be assigned the currentAssignableDO
-                    // If it already has a DO, we need to remove it
-                    if (element.displayObject)
-                    {
-                        if (element.displayObject.parent == this)
-                            super.removeChild(element.displayObject);
-                        element.destroyDisplayObject();
-                    }
-                    
-                    element.sharedDisplayObject = currentAssignableDO;
-                    if (element.nextSiblingNeedsDisplayObject)
-                        currentAssignableDO = null;
+                    if (element.displayObject.parent == this)
+                        super.removeChild(element.displayObject);
+                    element.destroyDisplayObject();
                 }
+                
+                element.sharedDisplayObject = mergeData.currentAssignableDO;
+                if (element.nextSiblingNeedsDisplayObject)
+                    mergeData.currentAssignableDO = null;
             }
         }
     } 
-    
+   
     
     // Helper function to remove child from other Group or display list before 
     // adding to the display list. 
@@ -932,3 +1048,15 @@ public class Group extends GroupBase
     
 }
 }
+
+
+import flash.display.DisplayObject;	
+
+class GroupDisplayObjectMergeData
+{
+    public var currentAssignableDO:DisplayObject;
+    public var lastDisplayObject:DisplayObject;
+    public var insertIndex:int;
+}
+
+const mergeData:GroupDisplayObjectMergeData = new GroupDisplayObjectMergeData();
