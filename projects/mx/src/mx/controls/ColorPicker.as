@@ -23,6 +23,7 @@ import flash.ui.Keyboard;
 import flash.utils.getTimer;
 import mx.controls.colorPickerClasses.SwatchPanel;
 import mx.controls.colorPickerClasses.WebSafePalette;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -1224,7 +1225,7 @@ public class ColorPicker extends ComboBase
             getDropdown();
                         
             // Find global position for the dropdown
-            var point:Point = new Point(layoutDirection == "rtl" ? 
+            var point:Point = new Point(layoutDirection == LayoutDirection.RTL ? 
                                         dropdownSwatch.getExplicitOrMeasuredWidth() : 0, 
                                         0);
             point = localToGlobal(point);
