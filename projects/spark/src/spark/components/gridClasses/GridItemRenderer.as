@@ -23,7 +23,6 @@ import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
 
 import spark.components.Group;
-import spark.components.supportClasses.ItemRenderer;
 import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
@@ -39,8 +38,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -52,8 +51,22 @@ use namespace mx_internal;
  */
 public class GridItemRenderer extends Group implements IGridItemRenderer
 {
-    include "../../core/Version.as";    
-
+    include "../../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
     public function GridItemRenderer()
     {
         super();
@@ -65,7 +78,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Private Properties
+    //  Variables
     //
     //--------------------------------------------------------------------------
     
@@ -89,6 +102,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
     private function dispatchChangeEvent(type:String):void
     {
         if (hasEventListener(type))
@@ -128,6 +144,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  before calling <code>preprare()</code></p>. 
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get column():GridColumn
     {
@@ -160,6 +181,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  that, despite its name, this property does not depend on the column's "dataField". 
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get data():Object
     {
@@ -182,11 +208,49 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     //----------------------------------
-    //  hovered
+    //  down
     //----------------------------------
+    
     /**
      *  @private
-     *  storage for the selected property 
+     *  storage for the down property 
+     */
+    private var _down:Boolean = false;
+    
+    /**
+     *  @inheritDoc
+     *
+     *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */    
+    public function get down():Boolean
+    {
+        return _down;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set down(value:Boolean):void
+    {
+        if (value == _down)
+            return;
+        
+        _down = value;
+        setCurrentState(getCurrentRendererState(), playTransitions);
+    }
+    
+    //----------------------------------
+    //  hovered
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  storage for the hovered property 
      */    
     private var _hovered:Boolean = false;
     
@@ -194,6 +258,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  Set to <code>true</code> when the mouse is hovered over the item renderer.
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function get hovered():Boolean
     {
@@ -227,6 +296,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  before calling <code>prepare()</code></p>.   
      * 
      *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function get rowIndex():int
     {
@@ -262,6 +336,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  before calling <code>preprare()</code></p>.   
      * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function get showsCaret():Boolean
     {
@@ -299,6 +378,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  before calling <code>preprare()</code></p>.   
      * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function get selected():Boolean
     {
@@ -362,7 +446,12 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  <p>The Grid sets this property to the value of the column's <code>itemToLabel()</code> method, before
      *  calling <code>preprare()</code>.</p>   
      *
-     *  @default ""  
+     *  @default ""
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get label():String
     {
@@ -398,6 +487,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  <code>text</code> will be kept in sync with this renderer's <code>label</code>.
      * 
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function get labelDisplay():TextBase
     {
@@ -425,22 +519,47 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  Returns the name of the state to be applied to the renderer. For example, a
      *  very basic Grid item renderer would return the String "normal", "hovered", 
-     *  or "selected" to specify the renderer's state. 
+     *  or "selected" to specify the renderer's state.      
+     *  If dealing with touch interactions (or mouse interactions where selection
+     *  is ignored), "down" and "downAndSelected" are also important states.
      * 
      *  <p>A subclass of GridItemRenderer must override this method to return a value 
      *  if the behavior desired differs from the default behavior.</p>
      * 
-     *  @return A string specifying the name of the state to apply to the renderer. 
+     *  <p>In Flex 4.0, the 3 main states were "normal", "hovered", and "selected".
+     *  In Flex 4.5, "down" and "downAndSelected" have been added.</p>
+     * 
+     *  <p>The full set of states supported (in order of precedence) are: 
+     *    <ul>
+     *      <li>dragging</li>
+     *      <li>downAndSelected</li>
+     *      <li>selectedAndShowsCaret</li>
+     *      <li>hoveredAndShowsCaret</li>
+     *      <li>normalAndShowsCaret</li>
+     *      <li>down</li>
+     *      <li>selected</li>
+     *      <li>hovered</li>
+     *      <li>normal</li>
+     *    </ul>
+     *  </p>
+     * 
+     *  @return A String specifying the name of the state to apply to the renderer. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     protected function getCurrentRendererState():String
     {
+        // this code is pretty confusing without multi-dimensional states, but it's
+        // defined in order of precedence.
+        
         if (dragging && hasState("dragging"))
             return "dragging";
+        
+        if (selected && down && hasState("downAndSelected"))
+            return "downAndSelected";
         
         if (selected && showsCaret && hasState("selectedAndShowsCaret"))
             return "selectedAndShowsCaret";
@@ -451,6 +570,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if (showsCaret && hasState("normalAndShowsCaret"))
             return "normalAndShowsCaret"; 
         
+        if (down && hasState("down"))
+            return "down";
+        
         if (selected && hasState("selected"))
             return "selected";
         
@@ -460,6 +582,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if (hasState("normal"))    
             return "normal";
         
+        // If none of the above states are defined in the item renderer,
+        // we return null. This means the user-defined renderer
+        // will display but essentially be non-interactive visually. 
         return null;
     }
     
@@ -504,7 +629,6 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
             toolTip = null;
     } 
         
-    
     /**
      *  @inheritDoc
      */
