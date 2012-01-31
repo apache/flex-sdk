@@ -15,7 +15,6 @@ package spark.components
 import flash.events.Event;
 
 import spark.components.supportClasses.TextBase;
-import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
 import mx.events.FlexEvent;
 import spark.events.TextOperationEvent;
