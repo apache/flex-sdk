@@ -24,6 +24,10 @@ import mx.managers.IFocusManagerComponent;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
 include "../styles/metadata/BasicInheritingTextStyles.as"
 include "../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
@@ -52,10 +56,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
-[IconFile("NumericStepper.png")]
+[AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
+
 [DefaultTriggerEvent("change")]
 
-[AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
+[IconFile("NumericStepper.png")]
 
 /**
  *  The NumericStepper control lets you select
@@ -215,7 +220,7 @@ public class NumericStepper extends Spinner
     
     //--------------------------------------------------------------------------
     //
-    //  SkinParts
+    //  Skin parts
     //
     //--------------------------------------------------------------------------
 
@@ -236,6 +241,77 @@ public class NumericStepper extends Spinner
      */
     public var textDisplay:TextInput;
 
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(textDisplay);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties: Range
+    //
+    //--------------------------------------------------------------------------
+    
+    //---------------------------------
+    // maximum
+    //---------------------------------   
+    
+    /**
+     *  @private
+     */
+    private var maxChanged:Boolean = false;
+    
+    /**
+     *  Number which represents the maximum value possible for 
+     *  <code>value</code>. If the values for either 
+     *  <code>minimum</code> or <code>value</code> are greater
+     *  than <code>maximum</code>, they will be changed to 
+     *  reflect the new <code>maximum</code>
+     *
+     *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set maximum(value:Number):void
+    {
+        maxChanged = true;
+        super.maximum = value;
+    }
+    
+    //---------------------------------
+    // stepSize
+    //---------------------------------   
+    
+    /**
+     *  @private
+     */
+    private var stepSizeChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function set stepSize(value:Number):void
+    {
+        stepSizeChanged = true;
+        super.stepSize = value;       
+    }   
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -312,10 +388,17 @@ public class NumericStepper extends Spinner
     // valueFormatFunction
     //---------------------------------
 
+    /**
+     *  @private
+     */
     private var _valueFormatFunction:Function;
-    private var valueFormatFunctionChanged:Boolean;
     
-     /**
+    /**
+     *  @private
+     */
+	private var valueFormatFunctionChanged:Boolean;
+    
+    /**
      *  Callback function that formats the value displayed
      *  in the skin's <code>textDisplay</code> property.
      *  The function takes a single Number as an argument
@@ -352,10 +435,17 @@ public class NumericStepper extends Spinner
     // valueParseFunction
     //---------------------------------
 
+    /**
+     *  @private
+     */
     private var _valueParseFunction:Function;
-    private var valueParseFunctionChanged:Boolean;
     
-     /**
+    /**
+     *  @private
+     */
+	private var valueParseFunctionChanged:Boolean;
+    
+    /**
      *  Callback function that extracts the numeric 
      *  value from the displayed value in the 
      *  skin's <code>textDisplay</code> field.  
@@ -442,72 +532,6 @@ public class NumericStepper extends Spinner
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        return getBaselinePositionForPart(textDisplay);
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden Properties: Range
-    //
-    //--------------------------------------------------------------------------
-    
-    //---------------------------------
-    // maximum
-    //---------------------------------   
-    
-    private var maxChanged:Boolean = false;
-    
-    /**
-     *  Number which represents the maximum value possible for 
-     *  <code>value</code>. If the values for either 
-     *  <code>minimum</code> or <code>value</code> are greater
-     *  than <code>maximum</code>, they will be changed to 
-     *  reflect the new <code>maximum</code>
-     *
-     *  @default 10
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    
-    override public function set maximum(value:Number):void
-    {
-        maxChanged = true;
-        super.maximum = value;
-    }
-    
-    //---------------------------------
-    // stepSize
-    //---------------------------------   
-    
-    private var stepSizeChanged:Boolean = false;
-    
-    /**
-     *  @private
-     */
-    override public function set stepSize(value:Number):void
-    {
-        stepSizeChanged = true;
-        super.stepSize = value;       
-    }   
-    
-    //--------------------------------------------------------------------------
-    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
@@ -560,16 +584,6 @@ public class NumericStepper extends Spinner
             imeModeChanged = false;
         }
     } 
-    
-    /**
-     *  @private
-     */
-    override protected function setValue(newValue:Number):void
-    {
-        super.setValue(newValue);
-        
-        applyDisplayFormatFunction();
-    }
     
     /**
      *  @private
@@ -638,6 +652,16 @@ public class NumericStepper extends Spinner
 
     /**
      *  @private
+     */
+    override protected function setValue(newValue:Number):void
+    {
+        super.setValue(newValue);
+        
+        applyDisplayFormatFunction();
+    }
+    
+    /**
+     *  @private
      *  Calls commitTextInput() before stepping.
      */
     override public function changeValueByStep(increase:Boolean = true):void
@@ -695,13 +719,7 @@ public class NumericStepper extends Spinner
                 dispatchEvent(new Event(Event.CHANGE));
         }
     }
-    
-    //--------------------------------------------------------------------------
-    // 
-    //  Private Methods
-    //
-    //--------------------------------------------------------------------------
-    
+        
     /**
      *  @private
      *  Helper method that returns a number corresponding
@@ -746,6 +764,7 @@ public class NumericStepper extends Spinner
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
+
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
     }
     
@@ -755,6 +774,7 @@ public class NumericStepper extends Spinner
     override protected function focusOutHandler(event:FocusEvent):void
     {
         super.focusOutHandler(event);
+
         removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
     }
    
