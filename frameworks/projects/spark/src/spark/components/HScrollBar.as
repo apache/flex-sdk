@@ -15,7 +15,6 @@ import spark.components.supportClasses.ScrollBar;
 import spark.core.ScrollUnit;
 import spark.core.IViewport;
 import mx.core.ILayoutElement;
-import spark.layout.supportClasses.LayoutElementFactory;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
@@ -139,9 +138,8 @@ public class HScrollBar extends ScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.x : 0;   
-            var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(thumb);
-            layoutElement.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
-                                            layoutElement.getLayoutBoundsY());
+            thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
+                                          thumb.getLayoutBoundsY());
         }
     }
     
