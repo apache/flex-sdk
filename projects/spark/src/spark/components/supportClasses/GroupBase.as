@@ -790,22 +790,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         return null;
     }
     
-    /**
-     *  @inheritDoc
-     */
-    public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        
-    }
-    
-    /**
-     *  @inheritDoc
-     */
-    public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
-    {
-        
-    }
-    
     /** 
      *  Helper method to wrap up the changes in a <code>PropertyChangeEvent</code> event object, 
      *  and dispatch the event.
