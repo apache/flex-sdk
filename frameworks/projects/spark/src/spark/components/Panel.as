@@ -117,17 +117,17 @@ public class Panel extends SkinnableContainer
     /**
      *  @private
      */
-    private static const CONTROLBAR_PROPERTY_FLAG:uint = 1 << 0;
+    mx_internal static const CONTROLBAR_PROPERTY_FLAG:uint = 1 << 0;
 
     /**
      *  @private
      */
-    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
+    mx_internal static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
 
     /**
      *  @private
      */
-    private static const VISIBLE_PROPERTY_FLAG:uint = 1 << 2;
+    mx_internal static const VISIBLE_PROPERTY_FLAG:uint = 1 << 2;
 
     //--------------------------------------------------------------------------
     //
@@ -175,7 +175,7 @@ public class Panel extends SkinnableContainer
      *  controlBarGroupProperties stores booleans as to whether these properties 
      *  have been explicitely set or not.
      */
-    private var controlBarGroupProperties:Object = { visible: true };
+    mx_internal var controlBarGroupProperties:Object = { visible: true };
 
     //----------------------------------
     //  controlBarGroup
