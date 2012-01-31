@@ -1430,7 +1430,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         if (!overlayChild)
             return;
 
-        overlayColor = color;
+        effectOverlayColor = color;
         overlayTargetArea = targetArea;
 
         if (selectedChild && selectedChild.deferredContentCreated == false) // No children have been created
@@ -1453,7 +1453,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      */
     private function initializeHandler(event:FlexEvent):void
     {
-        UIComponent(overlayChild).addOverlay(overlayColor, overlayTargetArea);
+        UIComponent(overlayChild).addOverlay(effectOverlayColor, overlayTargetArea);
     }
 
     /**
