@@ -43,9 +43,9 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.states.State;
 import mx.styles.ISimpleStyleClient;
 import mx.core.IStateClient;
@@ -2517,10 +2517,10 @@ public class Button extends UIComponent
     mx_internal function buttonReleased():void
     {
         // Remove the handlers that were added in mouseDownHandler().
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+        systemManager.getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
-            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
+        systemManager.getSandboxRoot().removeEventListener(
+            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
         
         if (autoRepeatTimer)
         {
@@ -2741,10 +2741,10 @@ public class Button extends UIComponent
         // We also place a mouseLeave handler on the stage
         // in case the user drags off the stage and releases the mouse.
         // These handlers are removed in buttonReleased().
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+        systemManager.getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
-            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
+        systemManager.getSandboxRoot().addEventListener(
+            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         buttonPressed();
 
