@@ -21,8 +21,6 @@ import mx.graphics.IGraphicElement;
 import mx.graphics.graphicsClasses.GraphicElement;
 import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
-import mx.core.IDataRenderer;
-import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.core.IVisualItem;
 import mx.core.UIComponent;
