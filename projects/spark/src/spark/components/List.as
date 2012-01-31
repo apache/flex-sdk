@@ -160,7 +160,6 @@ public class List extends ListBase implements IFocusManagerComponent
     //----------------------------------
     
     private var _allowMultipleSelection:Boolean = false;
-    private var allowMultipleSelectionChanged:Boolean = false; 
     
     /**
      *  Boolean flag controlling whether multiple selection
@@ -185,19 +184,9 @@ public class List extends ListBase implements IFocusManagerComponent
     public function set allowMultipleSelection(value:Boolean):void
     {
         if (value == _allowMultipleSelection)
-            return 
+            return;     
         
-        _allowMultipleSelection = value;
-        
-        //Going from multiple to single, clear out selection  
-        if (!_allowMultipleSelection)
-        {
-            if (!requiresSelection)
-                _proposedSelectedIndices = [];
-            else 
-                _proposedSelectedIndices = [0];
-            commitMultipleSelection(); 
-        } 
+        _allowMultipleSelection = value; 
     }
     
     //----------------------------------
@@ -210,38 +199,26 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedIndex():int
     {   
-        if (!allowMultipleSelection)
-            return super.selectedIndex;
-            
-        //The case that selection has been set as a result of 
-        //requiresSelection, we want to make sure the multiple selection
-        //properties stay in sync. 
-        if (!_selectedIndices && _selectedIndex >= 0)
-        {
-            selectedIndices = [_selectedIndex]; 
-            return _selectedIndex; 
-        }
-            
         if (_selectedIndices && _selectedIndices.length > 0)
             return _selectedIndices[_selectedIndices.length - 1];
             
-        return NO_SELECTION;
+        return super.selectedIndex;  
     }
     
     /**
      *  @private
      */
     override public function set selectedIndex(value:int):void
-    {        
-        if (!allowMultipleSelection)
-        {
-            super.selectedIndex = value;
-            return;
-        }
+    {   
         if (value == selectedIndex)
             return; 
-            
-        selectedIndices = [value];
+                 
+        super.selectedIndex = value;
+        
+        if (value !== NO_SELECTION) 
+            selectedIndices = [value];
+        else 
+            selectedIndices = [];     
     }
     
     //----------------------------------
@@ -254,13 +231,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedItem():*
     {   
-        if (!allowMultipleSelection || !_selectedIndices)
-            return super.selectedItem;
-            
         if (_selectedIndices && _selectedIndices.length > 0)
             return dataProvider.getItemAt(_selectedIndices[_selectedIndices.length - 1]); 
             
-        return undefined;
+        return super.selectedItem; 
     }
     
     /**
@@ -268,15 +242,15 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function set selectedItem(value:*):void
     {
-        if (!allowMultipleSelection)
-        {
-            super.selectedItem = value;
-            return;
-        }
         if (value == selectedItem)
             return; 
-            
-        selectedItems = [value];
+        
+        super.selectedItem = value;
+        
+        if (value !== undefined)
+            selectedItems = [value];
+        else
+            selectedItems = []; 
     }
     
     
@@ -301,9 +275,6 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function get selectedIndices():Array
     {
-        if (!allowMultipleSelection)
-            return null;
-        
         return _selectedIndices;
     }
     
@@ -312,9 +283,6 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function set selectedIndices(value:Array):void
     {
-        if (!allowMultipleSelection)
-            return;
-            
         if (_proposedSelectedIndices == value)
             return; 
         
@@ -393,6 +361,22 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Let ListBase handle single selection, but we want to make 
+     *  sure we keep the multiple selection properties in-sync 
+     *  correctly.  
+     */
+    override protected function commitSelectedIndex():Boolean
+    {
+        var retVal:Boolean = super.commitSelectedIndex(); 
+        
+        if (_selectedIndex != NO_SELECTION)
+            selectedIndices = [_selectedIndex]; 
+        
+        return retVal; 
+    }
+    
+    /**
+     *  @private
      */
     override protected function itemSelected(index:int, selected:Boolean):void
     {
@@ -463,6 +447,24 @@ public class List extends ListBase implements IFocusManagerComponent
         super.partRemoved(partName, instance);
     }
     
+    /**
+     *  @private
+     *  Called when an item has been added to this component.
+     */
+    override protected function itemAddedHandler(item:*, index:int):void
+    {
+        adjustSelectedIndices(index, true); 
+    }
+    
+    /**
+     *  @private
+     *  Called when an item has been removed from this component.
+     */
+    override protected function itemRemovedHandler(item:*, index:int):void
+    {
+        adjustSelectedIndices(index, false);        
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Private Methods
@@ -477,12 +479,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     private function getFirstSelectedIndex():Number
     {
-        if (!allowMultipleSelection)
-            return selectedIndex;
-        else if (selectedIndices && selectedIndices.length > 0)
+        if (selectedIndices && selectedIndices.length > 0)
             return selectedIndices[0]; 
         else 
-            return -1; 
+            return 0; 
     }
     
     /**
@@ -507,7 +507,7 @@ public class List extends ListBase implements IFocusManagerComponent
         var addedItems:Array = [];
         var i:int;
         var count:int;
-    
+        
         if (!isEmpty(_selectedIndices) && !isEmpty(_proposedSelectedIndices))
         {
             // Changing selection, determine which items were added to the 
@@ -518,7 +518,6 @@ public class List extends ListBase implements IFocusManagerComponent
                 if (_selectedIndices.indexOf(_proposedSelectedIndices[i]) < 0)
                     addedItems.push(_proposedSelectedIndices[i]);
             }
-            
             // Then determine which items were removed from the selection 
             // interval 
             count = _selectedIndices.length; 
@@ -541,6 +540,10 @@ public class List extends ListBase implements IFocusManagerComponent
         
         // Commit the selected Indices 
         _selectedIndices = _proposedSelectedIndices;
+        if (_proposedSelectedIndices.length > 0)
+            _selectedIndex = _proposedSelectedIndices[_proposedSelectedIndices.length - 1]; 
+        else 
+            _selectedIndex = NO_SELECTION; 
         _proposedSelectedIndices = null;
         
         // De-select the old items that were selected 
@@ -768,6 +771,82 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
+     *  Adjusts the selected indices to account for items being added to or 
+     *  removed from this component. 
+     *   
+     *  @param index The new index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function adjustSelectedIndices(index:int, add:Boolean):void
+    {
+        var i:int; 
+        var curr:Number; 
+        var newInterval:Array = []; 
+        
+        if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
+            return;
+        
+        if (add)
+        {
+            for (i = 0; i < selectedIndices.length; i++)
+            {
+                curr = selectedIndices[i]; 
+                //adding an item above one of the selected items,
+                //bump the selected item up. 
+                if (curr >= index)
+                    newInterval.push(curr + 1); 
+                else 
+                    newInterval.push(curr); 
+            }
+        }
+        else
+        {
+            // Quick check to see if we're removing the only selected item
+            // in which case we need to honor requiresSelection. 
+            if (!isEmpty(selectedIndices) && selectedIndices.length == 1 
+                && index == selectedIndex && requiresSelection)
+            {
+                //Removing the last item 
+                if (dataProvider.length == 0)
+                {
+                    newInterval = []; 
+                }
+                else if (index == 0)
+                {
+                    //We can't just set selectedIndex to 0 directly
+                    //since the previous value was 0 and the new value is
+                    //0, so the setter will return early.
+                    _proposedSelectedIndex = 0; 
+                    invalidateProperties();
+                    return;
+                }    
+                else
+                {
+                    newInterval = [0];
+                }
+            }
+            else
+            {    
+                for (i = 0; i < selectedIndices.length; i++)
+                {
+                    curr = selectedIndices[i]; 
+                    //removing an item above one of the selected items,
+                    //bump the selected item down. 
+                    if (curr > index)
+                        newInterval.push(curr - 1); 
+                    else if (curr < index) 
+                        newInterval.push(curr);
+                }
+            }
+        }
+        selectedIndices = newInterval;
+    }
+    
+    /**
      *  Used by <code>keyDownHandler</code> to map the keyboard events
      *  to NavigationUnit. The NavigationUnit values are passed to the
      *  layout to figure out what the new item in focus is based on
@@ -815,26 +894,20 @@ public class List extends ListBase implements IFocusManagerComponent
 
         var navigationUnit:uint = mapEventToNavigationUnit(event);    
         
-        if (!dataProvider || !layout)
+        if (!dataProvider || !layout || navigationUnit == NavigationUnit.NONE)
             return;
 
-        var currentIndex:Number; 
-        
-        if (allowMultipleSelection && selectedIndices && selectedIndices.length > 0)
-            currentIndex = selectedIndices[selectedIndices.length - 1]; 
-        else
-            currentIndex = selectedIndex;
+        var currentIndex:Number = selectedIndex; 
             
         // Delegate to the layout to tell us what the next item is we should select or focus into.
         // TODO (jszeto) At some point we should refactor this so we don't depend on layout
         // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
         var proposedNewIndex:int = (selectUponNavigation) ? layout.getDestinationIndex(navigationUnit, currentIndex)
             : layout.getDestinationIndex(navigationUnit, currentCaretIndex);   
-
+        
         // TODO (jszeto) proposedNewIndex depends on CTRL key
         // move CTRL key logic into single selection
         // add SPACE logic - add to selection for multi-select or change selection for single-select
-		
 
         // Note that the KeyboardEvent is canceled even if the current selected or in focus index
         // doesn't change because we don't want another component to start handling these
@@ -870,8 +943,10 @@ public class List extends ListBase implements IFocusManagerComponent
         // Entering the caret state with the Ctrl key down 
         else if (event.ctrlKey)
         {
+            //TODO (dsubrama) Finish up caret support, including visual 
+            //indicators to default renderers. 
             handleCaretChange(proposedNewIndex, true);
-            ensureItemIsVisible(proposedNewIndex); 
+            //ensureItemIsVisible(proposedNewIndex); 
         }
         // Its just a new selection action  
         else
