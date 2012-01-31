@@ -27,8 +27,8 @@ import mx.effects.PropertyValuesHolder;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
 import mx.core.IVisualElementContainer;
@@ -655,11 +655,13 @@ public class FxAnimateInstance extends EffectInstance
         {
             if (adjustConstraints)
             {
-                var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(target);
-                var location:Point = layoutItem.actualPosition;
-                var size:Point = layoutItem.actualSize;
+                var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(target);
                 var parentW:int = 0;
                 var parentH:int = 0;
+                var targetX:Number = layoutElement.getLayoutPositionX();
+                var targetY:Number = layoutElement.getLayoutPositionY();
+                var targetW:Number = layoutElement.getLayoutWidth();
+                var targetH:Number = layoutElement.getLayoutHeight();
                 
                 // For 'bottom' or 'verticalCenter' we need the parent height
                 if (constraintsHolder["bottom"] !== undefined ||
@@ -682,27 +684,27 @@ public class FxAnimateInstance extends EffectInstance
                 }
 
                 if (constraintsHolder["left"] !== undefined)
-                    constraintsHolder["left"] = Math.round(location.x);
+                    constraintsHolder["left"] = Math.round(targetX);
                 if (constraintsHolder["top"] !== undefined)
-                    constraintsHolder["top"] = Math.round(location.y);
+                    constraintsHolder["top"] = Math.round(targetY);
 
                 // Only bother adjusting 'right' if our target is
                 // parented to an object with a positive width
                 if (parentW > 0 && constraintsHolder["right"] !== undefined)
-                    constraintsHolder["right"] = parentW - location.x - size.x;
+                    constraintsHolder["right"] = parentW - targetX - targetW;
 
                 // Only bother adjusting 'bottom' if our target is
                 // parented to an object with a positive height
                 if (parentH > 0 && constraintsHolder["bottom"] !== undefined)
-                    constraintsHolder["bottom"] = parentH - location.y - size.y;
+                    constraintsHolder["bottom"] = parentH - targetY - targetH;
 
                 // Only bother adjusting 'horizontalCenter' if our target is
                 // parented to an object with a positive width
                 if (parentW > 0 && constraintsHolder["horizontalCenter"] !== undefined)
                 {
                     // Layout uses horizontalCenter to calculate position this way
-                    // location.x = parentW / 2 - size.x / 2 + horizontalCenter
-                    constraintsHolder["horizontalCenter"] = location.x + size.x / 2 - parentW / 2;
+                    // targetX = parentW / 2 - targetW / 2 + horizontalCenter
+                    constraintsHolder["horizontalCenter"] = targetX + targetW / 2 - parentW / 2;
                 }
 
                 // Only bother adjusting 'verticalCenter' if our target is
@@ -710,8 +712,8 @@ public class FxAnimateInstance extends EffectInstance
                 if (parentH > 0 && constraintsHolder["verticalCenter"] !== undefined)
                 {
                     // Layout uses verticalCenter to calculate position this way
-                    // location.y = parentH / 2 - size.y / 2 + verticalCenter
-                    constraintsHolder["verticalCenter"] = location.y + size.y / 2 - parentH / 2;
+                    // targetY = parentH / 2 - targetH / 2 + verticalCenter
+                    constraintsHolder["verticalCenter"] = targetY + targetH / 2 - parentH / 2;
                 }
 
                 // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
