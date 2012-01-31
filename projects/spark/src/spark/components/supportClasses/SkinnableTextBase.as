@@ -899,7 +899,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  @inheritDoc
+     *  @copy flash.text.TextField#displayAsPassword
      * 
      *  @default false
      * 
@@ -1079,7 +1079,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="0")]    
 
     /**
-     *  @inheritDoc
+     *  @copy flash.text.TextField#maxChars
      * 
      *  @default 0
      * 
@@ -1125,7 +1125,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="null")]
 
     /**
-     *  @inheritDoc
+     *  @copy flash.text.TextField#restrict
      * 
      *  @default null
      *  
@@ -1888,7 +1888,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @copy spark.core.IEditableText#insertText()
      *   
      *  @see spark.components.RichEditableText#insertText()
      *  @see spark.components.supportClasses.StyleableStageText#insertText()
@@ -1910,7 +1910,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @inheritDoc
+     *  @copy spark.core.IEditableText#appendText()
      *  
      *  @see spark.components.RichEditableText#appendText()
      *  @see spark.components.supportClasses.StyleableStageText#appendText()
@@ -1932,7 +1932,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
+     *  @copy spark.core.IEditableText#selectRange()
      *  
      *  @see spark.components.RichEditableText#selectRange()
      *  @see spark.components.supportClasses.StyleableStageText#selectRange()
@@ -1954,7 +1954,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @inheritDoc
+     *  @copy spark.core.IEditableText#selectAll()
      * 
      *  @see spark.components.RichEditableText#selectAll()
      *  @see spark.components.supportClasses.StyleableStageText#selectAll()
