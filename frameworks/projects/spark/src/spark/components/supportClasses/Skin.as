@@ -11,11 +11,12 @@
 
 package flex.core
 {
+import mx.core.IDataRenderer;	
 
 /**
  *  Documentation is not currently available.
  */
-public class Skin extends Group
+public class Skin extends Group implements IDataRenderer
 {
     include "../core/Version.as";
 
@@ -32,6 +33,25 @@ public class Skin extends Group
 	{
 		super();
 	}
+	
+	//--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+	
+	private var _data:Object;
+    [Bindable]
+    public function get data():Object
+    {
+        return _data;
+    }
+    
+    public function set data(value:Object):void
+    {
+        _data = value;
+    }
+    
 }
 
 }
