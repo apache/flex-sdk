@@ -21,6 +21,7 @@ import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextConverter;
+import flashx.textLayout.elements.GlobalSettings;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.StringTextLineFactory;
@@ -39,6 +40,7 @@ import mx.managers.ISystemManager;
 
 import spark.components.supportClasses.TextBase;
 import spark.core.CSSTextLayoutFormat;
+import spark.utils.TextUtil;
 
 use namespace mx_internal;
 
@@ -310,6 +312,13 @@ public class RichText extends TextBase implements IFontContextComponent
 		if (classInitialized)
 			return;
 			
+		/**
+		 *  Set the TLF hook used for localizing runtime error messages.
+		 *  TLF itself has English-only messages,
+		 *  but higher layers like Flex can provide localized versions.
+		 */
+		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		
 		staticStringFactory = new StringTextLineFactory();
 		
 		staticTextFlowFactory = new TextFlowTextLineFactory();
