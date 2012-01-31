@@ -946,7 +946,8 @@ public class DataGroup extends GroupBase
         if (layout && layout.useVirtualLayout)
         {
             // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
-            // will become oldVirtualLayoutStart,End index.   See finishVirtualLayout().
+            // will become oldVirtualLayoutStart,End index.  The changes 
+            // to virtualLayoutStart,EndIndex only affect finishVirtualLayout().
             if (index <= virtualLayoutEndIndex)
             {
                 if (index <= virtualLayoutStartIndex)
@@ -996,12 +997,15 @@ public class DataGroup extends GroupBase
         if (layout && layout.useVirtualLayout)
         {
             // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
-            // will become oldVirtualLayoutStart,End index.   See finishVirtualLayout().
-            if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
+            // will become oldVirtualLayoutStart,End index.  The changes 
+            // to virtualLayoutStart,EndIndex only affect finishVirtualLayout().
+            if (index <= virtualLayoutEndIndex)
             {
+                if (index <= virtualLayoutStartIndex)
+                    virtualLayoutStartIndex -= 1;
                 virtualLayoutEndIndex -= 1;
                 indexToRenderer.splice(index, 1);
-            }
+            }            
         }
         else 
             indexToRenderer.splice(index, 1);
