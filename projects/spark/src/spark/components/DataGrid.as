@@ -39,6 +39,7 @@ import spark.components.gridClasses.GridDimensions;
 import spark.components.gridClasses.GridLayout;
 import spark.components.gridClasses.GridSelection;
 import spark.components.gridClasses.GridSelectionMode;
+import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemEditor;
 import spark.components.gridClasses.IGridItemRenderer;
 import spark.components.gridClasses.IGridItemRendererOwner;
@@ -1943,6 +1944,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
+    private function initializeDataGridElement(elt:IDataGridElement):void
+    {
+        if (!elt)
+            return;
+        
+        elt.dataGrid = this;
+        elt.nestLevel = grid.nestLevel + 1;
+    }
+    
+    /**
+     *  @private
+     */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
@@ -1987,6 +2000,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
+            grid.addEventListener("invalidateSize", grid_invalidateSizeHandler);            
+            grid.addEventListener("invalidateDisplayList", grid_invalidateDisplayListHandler);
             
             // Deferred operations (grid selection updates)
             
@@ -1994,12 +2009,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 deferredGridOperation(grid);
             deferredGridOperations.length = 0;
             
-            // IDataGridElements: grid, columnHeaderGroup
+            // IDataGridElements: columnHeaderGroup...
             
-            if (columnHeaderGroup)
-                columnHeaderGroup.dataGrid = this;
+            initializeDataGridElement(columnHeaderGroup);
             
             // Create the data grid editor
+            
             editor = createEditor();
             editor.initialize();                               
         }
@@ -2038,7 +2053,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (instance == columnHeaderGroup)
         {
             if (grid)
-                columnHeaderGroup.dataGrid = this;
+                initializeDataGridElement(columnHeaderGroup);
             
             columnHeaderGroup.addEventListener(GridEvent.GRID_CLICK, columnHeaderGroup_clickHandler);
             columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
@@ -2085,12 +2100,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Event Handlers
             
+            grid.removeEventListener("invalidateSize", grid_invalidateSizeHandler);            
+            grid.removeEventListener("invalidateDisplayList", grid_invalidateDisplayListHandler);
             grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_MouseDownHandler);
             grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_MouseUpHandler);
             grid.removeEventListener(GridEvent.GRID_ROLL_OVER, grid_RollOverHandler);
             grid.removeEventListener(GridEvent.GRID_ROLL_OUT, grid_RollOutHandler);            
             grid.removeEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
-            grid.removeEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);            
+            grid.removeEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             
             // Cover Properties
             
@@ -3864,6 +3881,26 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(event);
     }
+    
+    /**
+     *  @private
+     */
+    private function grid_invalidateDisplayListHandler(event:Event):void
+    {
+        // invalidate all IDataGridElements
+        if (columnHeaderGroup)
+            columnHeaderGroup.invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    private function grid_invalidateSizeHandler(event:Event):void
+    {
+        // invalidate all IDataGridElements
+        if (columnHeaderGroup)
+            columnHeaderGroup.invalidateSize();
+    }     
     
     //--------------------------------------------------------------------------
     //
