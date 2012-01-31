@@ -758,7 +758,7 @@ public class DropDownListBase extends List
 
             var proposedNewIndex:int = NO_SELECTION;
             var currentIndex:int;
-            
+                        
             if (isDropDownOpen)
             {   
                 // Normalize the proposed index for getNavigationDestinationIndex
@@ -773,6 +773,8 @@ public class DropDownListBase extends List
             }
             else if (dataProvider)
             {
+                var maxIndex:int = dataProvider.length - 1;
+                
                 // Normalize the proposed index for getNavigationDestinationIndex
                 currentIndex = caretIndex < NO_SELECTION ? NO_SELECTION : caretIndex;
                 
@@ -780,20 +782,26 @@ public class DropDownListBase extends List
                 {
                     case NavigationUnit.UP:
                     {
-                        if (arrowKeysWrapFocus && currentIndex == 0)
-                            proposedNewIndex = dataProvider.length - 1;
+                        if (arrowKeysWrapFocus && 
+                            (currentIndex == 0 || 
+                             currentIndex == NO_SELECTION || 
+                             currentIndex == CUSTOM_SELECTED_ITEM))
+                            proposedNewIndex = maxIndex;
                         else
-                        proposedNewIndex = currentIndex - 1;  
+                            proposedNewIndex = currentIndex - 1;  
                         event.preventDefault();
                         break;
                     }                      
         
                     case NavigationUnit.DOWN:
                     {
-                        if (arrowKeysWrapFocus && currentIndex == (dataProvider.length - 1))
+                        if (arrowKeysWrapFocus && 
+                            (currentIndex == maxIndex || 
+                             currentIndex == NO_SELECTION || 
+                             currentIndex == CUSTOM_SELECTED_ITEM))
                             proposedNewIndex = 0;
                         else
-                        proposedNewIndex = currentIndex + 1;  
+                            proposedNewIndex = currentIndex + 1;  
                         event.preventDefault();
                         break;
                     }
@@ -823,14 +831,14 @@ public class DropDownListBase extends List
 
                     case NavigationUnit.END:
                     {
-                        proposedNewIndex = dataProvider.length - 1;  
+                        proposedNewIndex = maxIndex;  
                         event.preventDefault();
                         break;
                     }  
                        
                 }
                 
-                proposedNewIndex = Math.min(proposedNewIndex, dataProvider.length - 1);
+                proposedNewIndex = Math.min(proposedNewIndex, maxIndex);
                 
                 if (proposedNewIndex >= 0)
                     selectedIndex = proposedNewIndex;
