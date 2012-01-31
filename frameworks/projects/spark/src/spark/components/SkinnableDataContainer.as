@@ -14,13 +14,10 @@ package spark.components
 
 import mx.collections.IList;
 import mx.core.IFactory;
-import mx.core.IVisualElement; 
-import mx.events.FlexEvent;
+import mx.core.IVisualElement;
 import mx.events.PropertyChangeEvent;
-import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.ItemRenderer;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.IViewport;
 import spark.events.RendererExistenceEvent;
@@ -422,9 +419,11 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     public function get horizontalScrollPosition():Number 
     {
-        return (dataGroup) 
-            ? dataGroup.horizontalScrollPosition 
-            : dataGroupProperties.horizontalScrollPosition;
+        if (dataGroup)
+            return dataGroup.horizontalScrollPosition;
+
+        var hsp:Number = dataGroupProperties.horizontalScrollPosition;
+        return isNaN(hsp) ? 0 : hsp;
     }
 
     /**
@@ -596,9 +595,11 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     public function get verticalScrollPosition():Number 
     {
-        return (dataGroup) 
-            ? dataGroup.verticalScrollPosition 
-            : dataGroupProperties.verticalScrollPosition;
+        if (dataGroup)
+            return dataGroup.verticalScrollPosition;
+        
+        var vsp:Number = dataGroupProperties.verticalScrollPosition;
+        return isNaN(vsp) ? 0 : vsp;        
     }
 
     /**
