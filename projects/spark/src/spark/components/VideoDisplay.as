@@ -597,7 +597,7 @@ public class VideoElement extends GraphicElement
     //----------------------------------
 
     /**
-     *  The underlying video object.
+     *  The underlying flash player flash.media.Video object
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -628,7 +628,7 @@ public class VideoElement extends GraphicElement
      */
     public function get volume():Number
     {
-            return mx_internal::videoPlayer.volume;
+        return mx_internal::videoPlayer.volume;
     }
     
     /**
