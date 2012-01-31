@@ -891,27 +891,17 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (isDown())
             return "down";
         
-        if (hovered || mouseCaptured)
+        // if inputMode == "touch", then we have no over state
+        // if inputMode == "mouse", then only go in to the over state if 
+        // we are currently hovered or if someone pressed down on us 
+        // and then rolled away (and stickyHighlighting is off--otherwise 
+        // isDown() would have returned true)
+        if (getStyle("inputMode") == "mouse" && (hovered || mouseCaptured))
             return "over";
         
         return "up";
     }
     
-    /**
-     *  @private
-     */ 
-    override public function styleChanged(styleName:String):void
-    {
-        var allStyles:Boolean = styleName == null || styleName == "styleName";
-        
-        super.styleChanged(styleName);
-        
-        if (allStyles || styleName == "inputMode")
-        {
-            addHandlers();
-        }
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -923,49 +913,12 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     protected function addHandlers():void
     {
-        addOrRemoveRollOverRollOutHandlers();
+        addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
+        addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
         addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_START, gestureCaptureStartHandler);
-    }
-    
-    /**
-     *  @private
-     *  Keeps track of whether rollover/rollout events were added
-     * 
-     *  We need to be careful about calling add/remove event listener
-     *  in ItemRenderer because of the reference counting going on in 
-     *  GroupBase.  We don't have the same issues here in ButtonBase, but 
-     *  it seems safer and more consistent to follow the same pattern.
-     */
-    private var rolloverEventsAdded:Boolean = false;
-    
-    /**
-     *  @private
-     *  Adds or removes handlers for rollover/rollout depending on 
-     *  if inputMode == mouse or not.
-     */
-    private function addOrRemoveRollOverRollOutHandlers():void
-    {
-        if (getStyle("inputMode") == "mouse")
-        {
-            if (!rolloverEventsAdded)
-            {
-                rolloverEventsAdded = true;
-                addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
-                addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
-            }
-        }
-        else
-        {
-            if (rolloverEventsAdded)
-            {
-                rolloverEventsAdded = false;
-                removeEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
-                removeEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
-            }
-        }
     }
     
     /**
@@ -1012,12 +965,8 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (keyboardPressed)
             return true;
         
-        if (mouseCaptured)
-        {
-            // if in touch mode, we never go in to the hovered state
-            if (getStyle("inputMode") == "touch" || hovered || stickyHighlighting)
-                return true;
-        }
+        if (mouseCaptured && (hovered || stickyHighlighting))
+            return true;
 
         return false;
     }
@@ -1306,8 +1255,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 // was captured before.
                 if (event.target == this)
                 {
-                    // only set hovered if we are in mouse inputMode
-                    hovered = (getStyle("inputMode") == "mouse");
+                    hovered = true;
                     
                     if (mouseCaptured)
                     {
@@ -1379,6 +1327,11 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             return;
         
         mouseCaptured = false;
+        
+        // If the mouseDownSelectTimer is still running, 
+        // we don't want to ever go in to the down state in this case, so stop it
+        if (mouseDownSelectTimer && mouseDownSelectTimer.running)
+            stopSelectButtonAfterDelayTimer();
     }
     
     /**
