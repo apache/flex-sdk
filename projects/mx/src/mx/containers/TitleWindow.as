@@ -26,6 +26,11 @@ use namespace mx_internal;
  *  @eventType mx.events.CloseEvent.CLOSE
  *  @helpid 3985
  *  @tiptext close event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.CloseEvent")]
 
@@ -36,6 +41,11 @@ use namespace mx_internal;
  *  The close button default skin.
  *
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -43,6 +53,11 @@ use namespace mx_internal;
  *  The close button disabled skin.
  *
  *  The default value is the "CloseButtonDisabled" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonDisabledSkin", type="Class", inherit="no")]
 
@@ -50,6 +65,11 @@ use namespace mx_internal;
  *  The close button down skin.
  *
  *  The default value is the "CloseButtonDown" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonDownSkin", type="Class", inherit="no")]
 
@@ -57,6 +77,11 @@ use namespace mx_internal;
  *  The close button over skin.
  *
  *  The default value is the "CloseButtonOver" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonOverSkin", type="Class", inherit="no")]
 
@@ -64,6 +89,11 @@ use namespace mx_internal;
  *  The close button up skin.
  *
  *  The default value is the "CloseButtonUp" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonUpSkin", type="Class", inherit="no")]
 
@@ -157,6 +187,11 @@ use namespace mx_internal;
  *  @see mx.core.Application
  *  @see mx.managers.PopUpManager
  *  @see mx.containers.Panel
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TitleWindow extends Panel
 {
@@ -182,6 +217,11 @@ public class TitleWindow extends Panel
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TitleWindow()
     {
@@ -213,6 +253,11 @@ public class TitleWindow extends Panel
      *
      *  @tiptext If true, the close button is displayed
      *  @helpid 3986
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showCloseButton():Boolean
     {
