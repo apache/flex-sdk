@@ -530,8 +530,9 @@ public class Grid extends Group implements IDataGridElement
         caretChanged = true;
         invalidateProperties();
         
-        if (caretIndicator)
-            invalidateDisplayListFor("caretIndicator");         
+        // Unconditionally invalidate because renderers may depend on
+        // caretColumnIndex even when the caretIndicator doesn't exist.
+        invalidateDisplayListFor("caretIndicator");         
         dispatchChangeEvent("caretColumnIndexChanged");
     }
     
@@ -583,9 +584,10 @@ public class Grid extends Group implements IDataGridElement
         
         caretChanged = true;
         invalidateProperties();
-        
-        if (caretIndicator)
-            invalidateDisplayListFor("caretIndicator");         
+
+        // Unconditionally invalidate because renderers may depend on
+        // caretRowIndex even when the caretIndicator doesn't exist.
+        invalidateDisplayListFor("caretIndicator");         
         dispatchChangeEvent("caretRowIndexChanged");
     }
     
@@ -674,8 +676,10 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _hoverColumnIndex = value;
-        if (hoverIndicator)
-            invalidateDisplayListFor("hoverIndicator");
+
+        // Unconditionally invalidate because renderers may depend on
+        // hoverColumnIndex even when the hoverIndicator doesn't exist.
+        invalidateDisplayListFor("hoverIndicator");
         dispatchChangeEvent("hoverColumnIndexChanged");
     }
     
@@ -722,8 +726,10 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _hoverRowIndex = value;
-        if (hoverIndicator)
-            invalidateDisplayListFor("hoverIndicator");           
+
+        // Unconditionally invalidate because renderers may depend on
+        // hoverRowIndex even when the hoverIndicator doesn't exist.
+        invalidateDisplayListFor("hoverIndicator");           
         dispatchChangeEvent("hoverRowIndexChanged");
     }
     
