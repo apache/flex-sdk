@@ -29,6 +29,11 @@ import mx.core.IUIComponent;
  *  Changing these values can lead to unexpected results.</p>
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListData extends BaseListData
 {
@@ -61,6 +66,11 @@ public class ListData extends BaseListData
 	 *  @param columnIndex The index of the column in the currently visible columns of the 
      *  control.
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListData(text:String, icon:Class, labelField:String,
 							 uid:String, owner:IUIComponent, rowIndex:int = 0,
@@ -85,6 +95,11 @@ public class ListData extends BaseListData
 	/**
 	 *  A Class representing the icon for the item in the List control computed
 	 *  from the list class's <code>itemToIcon()</code> method
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var icon:Class;
 
@@ -105,6 +120,11 @@ public class ListData extends BaseListData
 	 *  and the <code>itemRenderer</code> property 
 	 *  can be set to DateField. The DateField control then uses the hiredDate
 	 *  property.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var labelField:String;
 }
