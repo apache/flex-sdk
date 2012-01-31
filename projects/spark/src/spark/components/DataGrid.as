@@ -467,14 +467,14 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Dispatched before the sort has been applied to the data provder's collection.
  *  Typically this is when the user releases the mouse button on a column header
  *  to request the control to sort the grid contents based on the contents of the column.
- *  Only dispatched if the column is sortable and the data provider supports sorting.<p>
+ *  Only dispatched if the column is sortable and the data provider supports sorting.
  *  
  *  <p>The DataGrid control has a default handler for this event that implements
  *  a single-column sort and updates the <code>visibleSortIndices</code> in the grid's
  *  <code>columnHeaderGroup</code> with the <code>columnIndices</code>.
  *  Multiple-column sort can be implemented by calling the <code>preventDefault()</code> method 
  *  to prevent the single column sort and setting the <code>columnIndices</code> and 
- *  <code>newSortFields</code> parameters of the event to change the default behavior.
+ *  <code>newSortFields</code> parameters of the event to change the default behavior.</p>
  *   
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you sort the data provider's collection programmatically, 
