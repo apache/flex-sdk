@@ -14,7 +14,6 @@ package mx.controls
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
@@ -22,12 +21,11 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 import flash.ui.Keyboard;
-import flash.utils.describeType;
 import flash.utils.Dictionary;
+import flash.utils.describeType;
+
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.ItemResponder;
@@ -52,9 +50,9 @@ import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
 import mx.core.FlexVersion;
-import mx.core.IChildList;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IPropertyChangeNotifier;
@@ -66,26 +64,20 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.ListEvent;
 import mx.events.DataGridEvent;
 import mx.events.DataGridEventReason;
 import mx.events.DragEvent;
-import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
+import mx.events.ListEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
-import mx.managers.CursorManager;
-import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
-import mx.managers.ISystemManager;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
 import mx.utils.ObjectUtil;
-import mx.managers.ISystemManager;
-import mx.core.IFlexModuleFactory;
 import mx.utils.StringUtil;
 
 use namespace mx_internal;
@@ -120,6 +112,13 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 [Event(name="itemEditBegin", type="mx.events.DataGridEvent")]
+
+/**
+ *  Dispatched when the item editor has just been instantiated.
+ *
+ *  @eventType mx.events.DataGridEvent.ITEM_EDITOR_CREATE
+ */
+[Event(name="itemEditorCreate", type="mx.events.DataGridEvent")]
 
 /**
  *  Dispatched when an item editing session ends for any reason.
@@ -4177,6 +4176,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
             addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler, false, 0, true);
         // we disappear if stage is resized
         systemManager.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
+
+	// Dispatch our item editor created event
+        var event:DataGridEvent =
+        		new DataGridEvent(DataGridEvent.ITEM_EDITOR_CREATE, false, true, colIndex, null, rowIndex);
+        dispatchEvent(event);
     }
 
     /**
@@ -4582,11 +4586,23 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 if (itemEditorInstance)
                 {
                     if (displayableColumns[pos.x].editable == false)
+                    {
                         bEndedEdit = endEdit(DataGridEventReason.OTHER);
+                    }
                     else
-                        bEndedEdit = endEdit(editedItemPosition.rowIndex == pos.y ?
+                    {
+                        //Possible to get here and not have an editedItemPosition
+                        if (editedItemPosition)
+                        {
+                            bEndedEdit = endEdit(editedItemPosition.rowIndex == pos.y ?
                                          DataGridEventReason.NEW_COLUMN :
                                          DataGridEventReason.NEW_ROW);
+                        }
+                        else
+                        {
+                            bEndedEdit = false;
+                        }
+                    }
                 }
 
                 // if we didn't end edit session, don't do default behavior (call super)
@@ -4928,6 +4944,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         else if (event.charCode == Keyboard.ENTER && event.keyCode != 229)
         {
             // multiline editors can take the enter key.
+            if (!_editedItemPosition)
+                return;
+
             if (columns[_editedItemPosition.columnIndex].editorUsesEnterKey)
                 return;
 
@@ -4962,6 +4981,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
             return;
 
         _editedItemPosition = lastEditedItemPosition;
+
+        // though endEdit checks this, an ITEM_EDIT_END event handler can, in
+        // the meantime, wipe out the item editor (e.g. by setting a new data
+        // provider). so we add another check here.
+        if (!_editedItemPosition)
+            return;
 
         var rowIndex:int = _editedItemPosition.rowIndex;
         var columnIndex:int = _editedItemPosition.columnIndex;
@@ -5155,10 +5180,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     if (!(newData is int))
                         newData = Number(newData);
                 }
-                if (property != null && data[property] !== newData)
+                /** Old code assumed that the property would be a simply name that could be dereferenced
+                  * through array notation. Using a method call here provides, minimally, an override
+                  * point where developers could extend this functionality in their own datagrid subclass **/
+                if (property != null && getCurrentDataValue( data, property ) !== newData)
                 {
-                    bChanged = true;
-                    data[property] = newData;
+                    bChanged = setNewValue( data, property, newData, event.columnIndex );
                 }
                 if (bChanged && !(data is IPropertyChangeNotifier || data is XML))
                 {
@@ -5194,6 +5221,59 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             destroyItemEditor();
         }
+    }
+
+	protected function isComplexColumn( property:String ):Boolean
+    {
+        return ( property.indexOf( "." ) != -1 );
+    }
+
+	//Gets the reference to the parent object where a property will be updated
+    protected function deriveComplexFieldReference( data:Object, complexFieldNameComponents:Array ):Object
+    {
+        var currentRef:Object = data;
+        if ( complexFieldNameComponents ) 
+        {
+            for ( var i:int=0; i<complexFieldNameComponents.length; i++ ) 
+                currentRef = currentRef[ complexFieldNameComponents[ i ] ];
+        }
+        
+        return currentRef;   	
+    }
+
+    //default implementations of these two methods, intended for subclassing
+    //not checking if it really is a complex value here as the performance hit of doing this here is negligible
+    //compared with every display
+    protected function getCurrentDataValue( data:Object, property:String ):String
+    {
+        if ( !isComplexColumn( property ) )
+            return data[ property ];
+        
+        var complexFieldNameComponents:Array = property.split( "." );
+        var obj:Object = deriveComplexFieldReference( data, complexFieldNameComponents );
+
+        return String( obj );
+    }
+
+	//Passing all of these parameters as it basically allows everything you would need to subclass for all sorts of fun implementations
+    protected function setNewValue( data:Object, property:String, value:Object, columnIndex:int ):Boolean 
+    {
+        if ( !isComplexColumn( property ) )
+        {
+        	data[ property ] = value;
+        } 
+        else 
+        {
+            var complexFieldNameComponents:Array = property.split( "." );
+            var lastProp:String = complexFieldNameComponents.pop();
+            var parent:Object = deriveComplexFieldReference( data, complexFieldNameComponents );
+            parent[ lastProp ] = value;
+        }
+        
+        //The value they typed in is always converted to a string, but is the value actually a string in the dataprovider?
+        //unknown as it is cast by datagridcolumn before datagrid ever gets to know...
+        //control if this really causes an update in subclass
+        return true;
     }
 
     /**
