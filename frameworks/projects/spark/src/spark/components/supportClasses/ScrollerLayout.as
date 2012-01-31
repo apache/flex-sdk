@@ -82,7 +82,7 @@ public class ScrollerLayout extends LayoutBase
         
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
-        switch(scroller.horizontalScrollPolicy) 
+        switch(scroller.getStyle("horizontalScrollPolicy")) 
         {
             case ScrollPolicy.ON: 
                 if (hsb) showHSB = true; 
@@ -94,7 +94,7 @@ public class ScrollerLayout extends LayoutBase
 
         var vsb:ScrollBar = scroller.verticalScrollBar;
         var showVSB:Boolean = false;
-        switch(scroller.verticalScrollPolicy) 
+        switch(scroller.getStyle("verticalScrollPolicy")) 
         {
            case ScrollPolicy.ON: 
                 if (vsb) showVSB = true; 
@@ -181,7 +181,7 @@ public class ScrollerLayout extends LayoutBase
 
         var showHSB:Boolean = false;
         var hAuto:Boolean = false; 
-        switch(scroller.horizontalScrollPolicy) {
+        switch(scroller.getStyle("horizontalScrollPolicy")) {
             case ScrollPolicy.ON: 
                 if (hsb) showHSB = true; 
                 break;
@@ -198,7 +198,7 @@ public class ScrollerLayout extends LayoutBase
 
         var showVSB:Boolean = false;
         var vAuto:Boolean = false;
-        switch(scroller.verticalScrollPolicy) {
+        switch(scroller.getStyle("verticalScrollPolicy")) {
            case ScrollPolicy.ON: 
                 if (vsb) showVSB = true; 
                 break;
