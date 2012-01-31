@@ -12,6 +12,7 @@
 package spark.primitives
 {
 
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
@@ -911,10 +912,15 @@ public class RichText extends TextGraphicElement
 		var factory:TextLineFactoryBase;
 		if (textFlow)
             factory = staticTextFlowFactory;
-		else if (mx_internal::_text)
+		else
             factory = staticStringFactory;	
- 		else
-		    return;
+
+		// Note: Even if we have nothing to compose, we nevertheless
+		// use the StringTextLineFactory to compose an empty string.
+		// Since it appends the paragraph terminator "\u2029",
+		// it actually creates and measures one TextLine.
+		// Its width is 0 but its height is equal to the font's
+		// ascent plus descent.
         
         factory.compositionBounds = mx_internal::bounds;   
         
@@ -948,7 +954,7 @@ public class RichText extends TextGraphicElement
      *  @private
      *  Callback passed to createTextLines().
      */
-    private function addTextLine(textLine:TextLine):void
+    private function addTextLine(textLine:DisplayObject):void
     {
         mx_internal::textLines.push(textLine);
     }
