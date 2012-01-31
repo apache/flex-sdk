@@ -42,6 +42,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * when the effect is played by grabbing a snapshot of the target
      * object, or by using a transparent bitmap if the object does not
      * exist in the start state of a transition.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var bitmapFrom:BitmapData;
     
@@ -51,6 +56,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * when the effect is played by grabbing a snapshot of the target
      * object, or by using a transparent bitmap if the object does not
      * exist in the end state of a transition.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var bitmapTo:BitmapData;
 
@@ -98,6 +108,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * </listing>
      * 
      * @see flash.display.Shader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var shaderCode:ByteArray;
     
@@ -113,6 +128,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      *   var shaderEffect = new FxAnimateShaderTransition();
      *   shaderEffect.shaderCode = WipeCodeClass;
      *   shaderEffect.shaderProperties = {direction:1};</listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var shaderProperties:Object;
 
@@ -121,6 +141,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * property as the underlying bytecode. Each instance needs its
      * own separate Shader, but can share the bytecode. When each instance
      * is played, we create the Shader that the instance will use.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var shader:Shader;    
 
@@ -145,6 +170,11 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      * property of the target object with every update during the animation,
      * so that animated updates to the underlying shader are reflected
      * in the filter applied to the display object that the user sees.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var shaderFilter:ShaderFilter;
     
