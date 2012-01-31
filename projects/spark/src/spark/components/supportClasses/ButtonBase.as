@@ -108,7 +108,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="labelPlacement", type="String", enumeration="left,right,top,bottom", inherit="no", theme="spark")]
+[Style(name="labelPlacement", type="String", enumeration="top,bottom,right,left", inherit="yes", theme="spark")]
 
 /**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
