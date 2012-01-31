@@ -15,6 +15,12 @@ package mx.messaging.errors
 /**
  *  This is the base class for any messaging related error.
  *  It allows for less granular catch code.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MessagingError extends Error
 {
@@ -29,6 +35,12 @@ public class MessagingError extends Error
 	 *  specified message.
 	 *
 	 *  @param msg String that contains the message that describes the error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MessagingError(msg:String)
     {
@@ -45,6 +57,12 @@ public class MessagingError extends Error
      *  Returns the string "[MessagingError]" by default, and includes the message property if defined.
      * 
      *  @return String representation of the MessagingError.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function toString():String
     {
