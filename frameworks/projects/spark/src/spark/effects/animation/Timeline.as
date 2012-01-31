@@ -20,6 +20,11 @@ import flash.utils.getTimer;
  * This approach means that effects that are set up to end/start at the same
  * time, through use of duration and startDelay properties, will be
  * synchronized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 internal class Timeline
 {
