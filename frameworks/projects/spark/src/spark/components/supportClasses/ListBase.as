@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+
 import flash.events.Event;
 
 import mx.collections.IList;
@@ -30,6 +31,10 @@ import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.LabelUtil;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
+
+//--------------------------------------
+//  Events
+//--------------------------------------
 
 /**
  *  Dispatched when the selection is going to change. 
@@ -68,6 +73,10 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @productversion Flex 4
  */
 [Event(name="caretChange", type="spark.events.IndexChangeEvent")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [AccessibilityClass(implementation="mx.accessibility.ListBaseAccImpl")]
 
@@ -109,19 +118,7 @@ public class ListBase extends SkinnableDataContainer
 
     //--------------------------------------------------------------------------
     //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Placeholder for mixin by ListBaseAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constants
+    //  Class constants
     //
     //--------------------------------------------------------------------------
     
@@ -147,6 +144,23 @@ public class ListBase extends SkinnableDataContainer
      */
     private static const NO_CARET:int = -1;
     
+	/**
+	 *  @private
+	 */
+    mx_internal static var CUSTOM_SELECTED_ITEM:int = -3;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ListBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -166,435 +180,22 @@ public class ListBase extends SkinnableDataContainer
         super();
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 */
     mx_internal var allowCustomSelectedItem:Boolean = false;
-    mx_internal static var CUSTOM_SELECTED_ITEM:int = -3;
     
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Overridden properties
     //
     //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  arrowKeysWrapFocus
-    //---------------------------------- 
-    
-    /**
-     *  If <code>true</code>, using arrow keys to navigate within
-     *  the component wraps when it hits either end.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var arrowKeysWrapFocus:Boolean;
-
-    //----------------------------------
-    //  CaretIndex
-    //----------------------------------
-    
-    mx_internal var _caretIndex:Number = NO_CARET; 
-    
-    [Bindable("caretChange")]
-    /**
-     *  Item that is currently in focus. 
-     *
-     *  @default -1
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get caretIndex():Number
-    {
-        return _caretIndex;
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal var doingWholesaleChanges:Boolean = false;
-    
-    //----------------------------------
-    //  dataProvider
-    //----------------------------------
-    private var dataProviderChanged:Boolean;
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set dataProvider(value:IList):void
-    {
-        if (dataProvider)
-            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
-    
-        dataProviderChanged = true;
-        doingWholesaleChanges = true;
-        
-        // ensure that our listener is added before the dataGroup which adds a listener during
-        // the base class setter if the dataGroup already exists.  If the dataGroup isn't
-        // created yet, then we still be first.
-        if (value)
-            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
-
-        super.dataProvider = value;
-        invalidateProperties();
-    }
-    
-    //----------------------------------
-    //  labelField
-    //----------------------------------
-    private var labelFieldOrFunctionChanged:Boolean; 
-    private var _labelField:String = "label";
-    
-    /**
-     *  The name of the field in the data provider items to display 
-     *  as the label. 
-     *  The <code>labelFunction</code> property overrides this property.
-     *
-     *  @default "label" 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get labelField():String
-    {
-        return _labelField;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set labelField(value:String):void
-    {
-        if (value == _labelField)
-            return 
-            
-        _labelField = value;
-        labelFieldOrFunctionChanged = true;
-        invalidateProperties();
-    }
-    
-    //----------------------------------
-    //  labelFunction
-    //----------------------------------
-    
-    private var _labelFunction:Function; 
-    
-    /**
-     *  A user-supplied function to run on each item to determine its label.  
-     *  The <code>labelFunction</code> property overrides 
-     *  the <code>labelField</code> property.
-     *
-     *  <p>You can supply a <code>labelFunction</code> that finds the 
-     *  appropriate fields and returns a displayable string. The 
-     *  <code>labelFunction</code> is also good for handling formatting and 
-     *  localization. </p>
-     *
-     *  <p>The label function takes a single argument which is the item in 
-     *  the data provider and returns a String.</p>
-     *  <pre>
-     *  myLabelFunction(item:Object):String</pre>
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get labelFunction():Function
-    {
-        return _labelFunction;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set labelFunction(value:Function):void
-    {
-        if (value == _labelFunction)
-            return 
-            
-        _labelFunction = value;
-        labelFieldOrFunctionChanged = true;
-        invalidateProperties(); 
-    }
-    
-    //----------------------------------
-    //  selectedIndex
-    //----------------------------------
-
-    /**
-     *  @private
-     *  The proposed selected index. This is a temporary variable that is
-     *  used until the selected index is committed.
-     */
-    mx_internal var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
-    
-    /** 
-     *  @private
-     *  Flag that is set when the selectedIndex has been adjusted due to
-     *  items being added or removed. When this flag is true, the value
-     *  of the selectedIndex has changed, but the actual selected item
-     *  is the same. This flag is cleared in commitProperties().
-     */
-    mx_internal var selectedIndexAdjusted:Boolean = false;
-    
-    /** 
-     *  @private
-     *  Flag that is set when the caretIndex has been adjusted due to
-     *  items being added or removed. This flag is cleared in 
-     *  commitProperties().
-     */
-    mx_internal var caretIndexAdjusted:Boolean = false;
-    
-    /**
-     *  @private
-     *  Internal storage for the selectedIndex property.
-     */
-    mx_internal var _selectedIndex:int = NO_SELECTION;
-    
-    [Bindable("change")]
-    /**
-     *  The 0-based index of the selected item, or -1 if no item is selected.
-     *  Setting the <code>selectedIndex</code> property deselects the currently selected
-     *  item and selects the data item at the specified index.
-     *
-     *  <p>The value is always between -1 and (<code>dataProvider.length</code> - 1). 
-     *  If items at a lower index than <code>selectedIndex</code> are 
-     *  removed from the component, the selected index is adjusted downward
-     *  accordingly.</p>
-     *
-     *  <p>If the selected item is removed, the selected index is set to:</p>
-     *
-     *  <ul>
-     *    <li>-1 if <code>requireSelection</code> = <code>false</code> 
-     *     or there are no remaining items.</li>
-     *    <li>0 if <code>requireSelection</code> = <code>true</code> 
-     *     and there is at least one item.</li>
-     *  </ul>
-     *
-     *  @default -1
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get selectedIndex():int
-    {
-        if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
-            return _proposedSelectedIndex;
-            
-        return _selectedIndex;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set selectedIndex(value:int):void
-    {
-        if (value == selectedIndex)
-            return;
-            
-        _proposedSelectedIndex = value;
-        invalidateProperties();
-    }
-
-    //----------------------------------
-    //  selectedItem
-    //----------------------------------
-    
-    mx_internal var _pendingSelectedItem:*;
-    private var _selectedItem:*;
-    
-    [Bindable("change")]
-    /**
-     *  The item that is currently selected. 
-     *  Setting this property deselects the currently selected 
-     *  item and selects the newly specified item.
-     *
-     *  <p>Setting <code>selectedItem</code> to an item that is not 
-     *  in this component results in no selection, 
-     *  and <code>selectedItem</code> being set to <code>undefined</code>.</p>
-     * 
-     *  <p>If the selected item is removed, the selected item is set to:</p>
-     *
-     *  <ul>
-     *    <li><code>undefined</code> if <code>requireSelection</code> = <code>false</code> 
-     *      or there are no remaining items.</li>
-     *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
-     *      and there is at least one item.</li>
-     *  </ul>
-     *
-     *  @default undefined
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get selectedItem():*
-    {
-        if (_pendingSelectedItem !== undefined)
-            return _pendingSelectedItem;
-            
-        if (allowCustomSelectedItem && selectedIndex == CUSTOM_SELECTED_ITEM)
-            return _selectedItem;
-        
-        if (selectedIndex == NO_SELECTION || dataProvider == null)
-           return undefined;
-           
-        return dataProvider.length > selectedIndex ? dataProvider.getItemAt(selectedIndex) : undefined;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set selectedItem(value:*):void
-    {
-        if (selectedItem === value)
-            return;
-        
-        _pendingSelectedItem = value;
-        invalidateProperties();
-    }
-
-    //----------------------------------
-    //  requireSelection
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the requireSelection property.
-     */
-    private var _requireSelection:Boolean = false;
-    
-    /**
-     *  @private
-     *  Flag that is set when requireSelection has changed.
-     */
-    private var requireSelectionChanged:Boolean = false;
-
-    /**
-     *  If <code>true</code>, a data item must always be selected in the control.
-     *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
-     *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1), 
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get requireSelection():Boolean
-    {
-        return _requireSelection;
-    }
-
-    /**
-     *  @private
-     */
-    public function set requireSelection(value:Boolean):void
-    {
-        if (value == _requireSelection)
-            return;
-            
-        _requireSelection = value;
-        
-        // We only need to update if the value is changing 
-        // from false to true
-        if (value == true)
-        {
-            requireSelectionChanged = true;
-            invalidateProperties();
-        }
-    }
-    
-    //----------------------------------
-    //  useVirtualLayout
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _useVirtualLayout:Boolean = false;
-    
-    /**
-     *  Sets the value of the <code>useVirtualLayout</code> property
-     *  of the layout associated with this control.  
-     *  If the layout is subsequently replaced and the value of this 
-     *  property is <code>true</code>, then the new layout's 
-     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get useVirtualLayout():Boolean
-    {
-        return (layout) ? layout.useVirtualLayout : _useVirtualLayout;
-    }
-
-    /**
-     *  @private
-     *  Note: this property deviates a little from the conventional delegation pattern.
-     *  If the user explicitly sets ListBase.useVirtualLayout=false and then sets
-     *  the layout property to a layout with useVirtualLayout=true, the layout's value
-     *  for this property trumps the ListBase.  The convention dictates opposite
-     *  however in this case, always honoring the layout's useVirtalLayout property seems 
-     *  less likely to cause confusion.
-     */
-    public function set useVirtualLayout(value:Boolean):void
-    {
-        if (value == useVirtualLayout)
-            return;
-            
-        _useVirtualLayout = value;
-        if (layout)
-            layout.useVirtualLayout = value;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set layout(value:LayoutBase):void
-    {
-        if (useVirtualLayout)
-            value.useVirtualLayout = true;
-        super.layout = value;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (ListBase.createAccessibilityImplementation != null)
-            ListBase.createAccessibilityImplementation(this);
-    }
 
     //----------------------------------
     //  baselinePosition
@@ -650,11 +251,465 @@ public class ListBase extends SkinnableDataContainer
         return result;
     }
         
+    //----------------------------------
+    //  dataProvider
+    //----------------------------------
+
+	/**
+	 *  @private
+	 */
+    private var dataProviderChanged:Boolean;
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set dataProvider(value:IList):void
+    {
+        if (dataProvider)
+            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+    
+        dataProviderChanged = true;
+        doingWholesaleChanges = true;
+        
+        // ensure that our listener is added before the dataGroup which adds a listener during
+        // the base class setter if the dataGroup already exists.  If the dataGroup isn't
+        // created yet, then we still be first.
+        if (value)
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+
+        super.dataProvider = value;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set layout(value:LayoutBase):void
+    {
+        if (useVirtualLayout)
+            value.useVirtualLayout = true;
+
+        super.layout = value;
+    }
+
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods
+    //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  arrowKeysWrapFocus
+    //---------------------------------- 
+    
+    /**
+     *  If <code>true</code>, using arrow keys to navigate within
+     *  the component wraps when it hits either end.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var arrowKeysWrapFocus:Boolean;
+
+    //----------------------------------
+    //  caretIndex
+    //----------------------------------
+    
+	/**
+	 *  @private
+	 */
+    mx_internal var _caretIndex:Number = NO_CARET; 
+    
+    [Bindable("caretChange")]
+
+    /**
+     *  Item that is currently in focus. 
+     *
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get caretIndex():Number
+    {
+        return _caretIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal var doingWholesaleChanges:Boolean = false;
+    
+    //----------------------------------
+    //  labelField
+    //----------------------------------
+
+	/**
+	 *  @private
+	 */
+    private var _labelField:String = "label";
+    
+	/**
+	 *  @private
+	 */
+    private var labelFieldOrFunctionChanged:Boolean; 
+
+    /**
+     *  The name of the field in the data provider items to display 
+     *  as the label. 
+     *  The <code>labelFunction</code> property overrides this property.
+     *
+     *  @default "label" 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get labelField():String
+    {
+        return _labelField;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set labelField(value:String):void
+    {
+        if (value == _labelField)
+            return 
+            
+        _labelField = value;
+        labelFieldOrFunctionChanged = true;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  labelFunction
+    //----------------------------------
+    
+	/**
+	 *  @private
+	 */
+    private var _labelFunction:Function; 
+    
+    /**
+     *  A user-supplied function to run on each item to determine its label.  
+     *  The <code>labelFunction</code> property overrides 
+     *  the <code>labelField</code> property.
+     *
+     *  <p>You can supply a <code>labelFunction</code> that finds the 
+     *  appropriate fields and returns a displayable string. The 
+     *  <code>labelFunction</code> is also good for handling formatting and 
+     *  localization. </p>
+     *
+     *  <p>The label function takes a single argument which is the item in 
+     *  the data provider and returns a String.</p>
+     *  <pre>
+     *  myLabelFunction(item:Object):String</pre>
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get labelFunction():Function
+    {
+        return _labelFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set labelFunction(value:Function):void
+    {
+        if (value == _labelFunction)
+            return 
+            
+        _labelFunction = value;
+        labelFieldOrFunctionChanged = true;
+        invalidateProperties(); 
+    }
+    
+    //----------------------------------
+    //  requireSelection
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the requireSelection property.
+     */
+    private var _requireSelection:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag that is set when requireSelection has changed.
+     */
+    private var requireSelectionChanged:Boolean = false;
+
+    /**
+     *  If <code>true</code>, a data item must always be selected in the control.
+     *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
+     *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1), 
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requireSelection():Boolean
+    {
+        return _requireSelection;
+    }
+
+    /**
+     *  @private
+     */
+    public function set requireSelection(value:Boolean):void
+    {
+        if (value == _requireSelection)
+            return;
+            
+        _requireSelection = value;
+        
+        // We only need to update if the value is changing 
+        // from false to true
+        if (value == true)
+        {
+            requireSelectionChanged = true;
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
+    //  selectedIndex
+    //----------------------------------
+
+    /**
+     *  @private
+     *  The proposed selected index. This is a temporary variable that is
+     *  used until the selected index is committed.
+     */
+    mx_internal var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
+    
+    /** 
+     *  @private
+     *  Flag that is set when the selectedIndex has been adjusted due to
+     *  items being added or removed. When this flag is true, the value
+     *  of the selectedIndex has changed, but the actual selected item
+     *  is the same. This flag is cleared in commitProperties().
+     */
+    mx_internal var selectedIndexAdjusted:Boolean = false;
+    
+    /** 
+     *  @private
+     *  Flag that is set when the caretIndex has been adjusted due to
+     *  items being added or removed. This flag is cleared in 
+     *  commitProperties().
+     */
+    mx_internal var caretIndexAdjusted:Boolean = false;
+    
+    /**
+     *  @private
+     *  Internal storage for the selectedIndex property.
+     */
+    mx_internal var _selectedIndex:int = NO_SELECTION;
+    
+    [Bindable("change")]
+
+    /**
+     *  The 0-based index of the selected item, or -1 if no item is selected.
+     *  Setting the <code>selectedIndex</code> property deselects the currently selected
+     *  item and selects the data item at the specified index.
+     *
+     *  <p>The value is always between -1 and (<code>dataProvider.length</code> - 1). 
+     *  If items at a lower index than <code>selectedIndex</code> are 
+     *  removed from the component, the selected index is adjusted downward
+     *  accordingly.</p>
+     *
+     *  <p>If the selected item is removed, the selected index is set to:</p>
+     *
+     *  <ul>
+     *    <li>-1 if <code>requireSelection</code> = <code>false</code> 
+     *     or there are no remaining items.</li>
+     *    <li>0 if <code>requireSelection</code> = <code>true</code> 
+     *     and there is at least one item.</li>
+     *  </ul>
+     *
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get selectedIndex():int
+    {
+        if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
+            return _proposedSelectedIndex;
+            
+        return _selectedIndex;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set selectedIndex(value:int):void
+    {
+        if (value == selectedIndex)
+            return;
+            
+        _proposedSelectedIndex = value;
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  selectedItem
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    mx_internal var _pendingSelectedItem:*;
+
+    /**
+     *  @private
+     */
+    private var _selectedItem:*;
+    
+    [Bindable("change")]
+
+    /**
+     *  The item that is currently selected. 
+     *  Setting this property deselects the currently selected 
+     *  item and selects the newly specified item.
+     *
+     *  <p>Setting <code>selectedItem</code> to an item that is not 
+     *  in this component results in no selection, 
+     *  and <code>selectedItem</code> being set to <code>undefined</code>.</p>
+     * 
+     *  <p>If the selected item is removed, the selected item is set to:</p>
+     *
+     *  <ul>
+     *    <li><code>undefined</code> if <code>requireSelection</code> = <code>false</code> 
+     *      or there are no remaining items.</li>
+     *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
+     *      and there is at least one item.</li>
+     *  </ul>
+     *
+     *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get selectedItem():*
+    {
+        if (_pendingSelectedItem !== undefined)
+            return _pendingSelectedItem;
+            
+        if (allowCustomSelectedItem && selectedIndex == CUSTOM_SELECTED_ITEM)
+            return _selectedItem;
+        
+        if (selectedIndex == NO_SELECTION || dataProvider == null)
+           return undefined;
+           
+        return dataProvider.length > selectedIndex ? dataProvider.getItemAt(selectedIndex) : undefined;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set selectedItem(value:*):void
+    {
+        if (selectedItem === value)
+            return;
+        
+        _pendingSelectedItem = value;
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _useVirtualLayout:Boolean = false;
+    
+    /**
+     *  Sets the value of the <code>useVirtualLayout</code> property
+     *  of the layout associated with this control.  
+     *  If the layout is subsequently replaced and the value of this 
+     *  property is <code>true</code>, then the new layout's 
+     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get useVirtualLayout():Boolean
+    {
+        return (layout) ? layout.useVirtualLayout : _useVirtualLayout;
+    }
+
+    /**
+     *  @private
+     *  Note: this property deviates a little from the conventional delegation pattern.
+     *  If the user explicitly sets ListBase.useVirtualLayout=false and then sets
+     *  the layout property to a layout with useVirtualLayout=true, the layout's value
+     *  for this property trumps the ListBase.  The convention dictates opposite
+     *  however in this case, always honoring the layout's useVirtalLayout property seems 
+     *  less likely to cause confusion.
+     */
+    public function set useVirtualLayout(value:Boolean):void
+    {
+        if (value == useVirtualLayout)
+            return;
+            
+        _useVirtualLayout = value;
+        if (layout)
+            layout.useVirtualLayout = value;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ListBase.createAccessibilityImplementation != null)
+            ListBase.createAccessibilityImplementation(this);
+    }
     
     /**
      *  @private
@@ -773,6 +828,20 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  @private
      */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        if (instance == dataGroup)
+        {
+            // Not your typical delegation, see 'set useVirtualLayout'
+            if (_useVirtualLayout && dataGroup.layout)
+                dataGroup.layout.useVirtualLayout = true;
+        }
+    }
+
+    /**
+     *  @private
+     */
     override public function updateRenderer(renderer:IVisualElement):void
     {
         var transitions:Array;
@@ -815,26 +884,6 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        if (instance == dataGroup)
-        {
-            // Not your typical delegation, see 'set useVirtualLayout'
-            if (_useVirtualLayout && dataGroup.layout)
-                dataGroup.layout.useVirtualLayout = true;
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
      *  Given a data item, return the correct text a renderer
      *  should display while taking the <code>labelField</code> 
      *  and <code>labelFunction</code> properties into account. 
@@ -854,6 +903,12 @@ public class ListBase extends SkinnableDataContainer
         return LabelUtil.itemToLabel(item, labelField, labelFunction);
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  Called when an item is selected or deselected. 
      *  Subclasses must override this method to display the selection.
@@ -927,12 +982,6 @@ public class ListBase extends SkinnableDataContainer
     {        
         return index == caretIndex;
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Private Methods
-    //
-    //--------------------------------------------------------------------------
     
     /**
      *  @private
@@ -1133,7 +1182,7 @@ public class ListBase extends SkinnableDataContainer
     
     //--------------------------------------------------------------------------
     //
-    //  Event Handlers
+    //  Event handlers
     //
     //--------------------------------------------------------------------------
     
@@ -1185,7 +1234,6 @@ public class ListBase extends SkinnableDataContainer
         }
             
     }
-    
 }
 
 }
