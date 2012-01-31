@@ -47,7 +47,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Scale3D
+ *  &lt;s:Scale3D
  *    <b>Properties</b>
  *    id="ID"
  *    scaleXBy="no default"
