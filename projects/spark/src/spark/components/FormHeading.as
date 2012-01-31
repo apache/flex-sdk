@@ -12,8 +12,8 @@
 package spark.components
 {
 
+import spark.core.IDisplayText;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.TextBase;
 
 include "../styles/metadata/BasicInheritingTextStyles.as"
 include "../styles/metadata/AdvancedInheritingTextStyles.as"
@@ -67,7 +67,7 @@ public class FormHeading extends SkinnableComponent
      */
     [Bindable]
     [SkinPart(required="false")]
-    public var labelDisplay:TextBase;
+    public var labelDisplay:IDisplayText;
             
     //--------------------------------------------------------------------------
     //
