@@ -8,9 +8,9 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
-import mx.effects.effectClasses.FxAnimateColorInstance;
+import spark.effects.supportClasses.AnimateColorInstance;
 
 import mx.effects.IEffectInstance;
 import mx.styles.StyleManager;
@@ -19,14 +19,14 @@ import mx.styles.StyleManager;
  * This effect animates a change in color over time, interpolating
  * between given from/to color values on a per-channel basis.
  *
- *  @includeExample examples/FxAnimateColorEffectExample.mxml
+ *  @includeExample examples/AnimateColorEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateColor extends FxAnimate
+public class AnimateColor extends Animate
 {
     include "../core/Version.as";
 
@@ -79,17 +79,17 @@ public class FxAnimateColor extends FxAnimate
     public var colorPropertyName:String = "color";
     
     /**
-     * Constructs an FxAnimateColor effect with an optional target object
+     * Constructs an AnimateColor effect with an optional target object
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxAnimateColor(target:Object=null)
+    public function AnimateColor(target:Object=null)
     {
         super(target);
-        instanceClass = FxAnimateColorInstance;
+        instanceClass = AnimateColorInstance;
     }
 
     /**
@@ -120,7 +120,7 @@ public class FxAnimateColor extends FxAnimate
     {
         super.initInstance(instance);
         
-        var tintInstance:FxAnimateColorInstance = FxAnimateColorInstance(instance);
+        var tintInstance:AnimateColorInstance = AnimateColorInstance(instance);
         tintInstance.colorFrom = colorFrom;
         tintInstance.colorTo = colorTo;
         tintInstance.colorPropertyName = colorPropertyName;
