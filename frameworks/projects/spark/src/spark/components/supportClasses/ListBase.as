@@ -1139,12 +1139,8 @@ public class ListBase extends SkinnableDataContainer
         else if (index <= selectedIndex)
         {
             // If an item is added before the selected item, bump up our
-            // selected index backing variable. We check for valid values
-            // because there is a scenario when a ViewStack is the 
-            // dataProvider and has its first child added that the ViewStack
-            // assigns selectedIndex to 0 then this code would
-            // bump it to 1.
-            adjustSelection(Math.min(selectedIndex + 1, dataProvider.length - 1));
+            // selected index backing variable.
+            adjustSelection(selectedIndex + 1);
         }
     }
     
