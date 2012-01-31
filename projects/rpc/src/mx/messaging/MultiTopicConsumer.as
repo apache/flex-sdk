@@ -83,7 +83,7 @@ public class MultiTopicConsumer extends AbstractConsumer
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs a MultiTopicConsumer.
+     *  Constructor.
      * 
      * 
      *  @example
