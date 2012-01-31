@@ -496,6 +496,10 @@ public class PopUpButton extends Button
             
             popUpChanged = false;
         }
+        
+        // Close if we're disabled and we happen to still be showing our popup.
+        if (showingPopUp && !enabled)
+            close();
     }
 
     /**
@@ -698,7 +702,7 @@ public class PopUpButton extends Button
      */
     private function closeWithEvent(trigger:Event = null):void
     {
-        if (showingPopUp && enabled)
+        if (showingPopUp)
         {
             displayPopUp(false);
 
@@ -1150,6 +1154,7 @@ public class PopUpButton extends Button
         // we'll be leaked.
         if (_popUp) {
             PopUpManager.removePopUp(_popUp);
+            showingPopUp = false;
         }
     }
     
