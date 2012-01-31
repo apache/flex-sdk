@@ -1013,6 +1013,7 @@ public class Grid extends Group implements IDataGridElement
         _itemRenderer = value;
         
         itemRendererChanged = true;
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
         
@@ -2971,9 +2972,9 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  Return the data provider indices and padding indices of the 
-     *  currently visible rows.  
-     *  Indices which are greater than or equal to the 
-     *  <code>dataProvider</code> length represent padding rows.
+	 *  currently visible rows.  
+	 *  Indices which are greater than or equal to the 
+	 *  <code>dataProvider</code> length represent padding rows.
      *  Note that the item renderers for the first and last rows 
      *  may only be partially visible. 
      *  The returned vector's contents are in the order they're displayed.
@@ -3599,7 +3600,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @param rowIndex The 0-based row index of the cell that changed, or -1.
      *
-     *  @param column Index The 0-based column index of the cell that changed or -1.
+     *  @param columnIndex The 0-based column index of the cell that changed or -1.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3609,38 +3610,50 @@ public class Grid extends Group implements IDataGridElement
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
         if (!dataProvider)
-            return;
-        
-        const dataProviderLength:int = dataProvider.length;
-        if (rowIndex >= dataProvider.length)
-            return;
-        
-        if (!isCellVisible(rowIndex, columnIndex))
-            return;
-        
-        // TODO (hmuller) this is a provisional implementation: invalidate the entire row
-        
-        const column:GridColumn = getGridColumn(columnIndex);
-        const dataField:String = (column) ? column.dataField : null;
-        
-        if (rowIndex >= 0)
+			return;
+		
+		const dataProviderLength:int = dataProvider.length;
+		if (rowIndex >= dataProvider.length)
+			return;
+		
+		if (!isCellVisible(rowIndex, columnIndex))
+			return;
+
+        if (invalidateDisplayListFlag || invalidateSizeFlag)
+            return;        
+		
+		if ((rowIndex >= 0) && (columnIndex >= 0))
+		{
+            gridLayout.invalidateCell(rowIndex, columnIndex);
+		}
+        else if (rowIndex >= 0)  // invalidate a row
         {
-            // invalidate the cell or the row by invalidating the visible row
-            dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
-        }
-        else
-        {
-            // invaliate the column by invalidating all visible rows
-            const rowIndices:Vector.<int> = getVisibleRowIndices();
-            for each (rowIndex in rowIndices)
+            const visibleColumnIndices:Vector.<int> = getVisibleColumnIndices();
+            for each (var visibleColumnIndex:int in visibleColumnIndices)
             {
-                // If there are any padding rows, skip them.
-                if (rowIndex >= dataProviderLength)
-                    break;
+                gridLayout.invalidateCell(rowIndex, visibleColumnIndex);
                 
-                dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);          
+                // If invalidating the cell caused the entire grid to be invalid, punt 
+                if (invalidateDisplayListFlag || invalidateSizeFlag)
+                    break;                
             }
         }
+		else if (columnIndex >= 0)  // invalidate a column
+		{
+			const visibleRowIndices:Vector.<int> = getVisibleRowIndices();
+			for each (var visibleRowIndex:int in visibleRowIndices)
+			{
+				// If there are any padding rows, skip them.
+				if (visibleRowIndex >= dataProviderLength)
+					break;
+                
+                gridLayout.invalidateCell(visibleRowIndex, columnIndex);
+
+                // If invalidating the cell caused the entire grid to be invalid, punt 
+                if (invalidateDisplayListFlag || invalidateSizeFlag)
+                    break;
+			}
+		}
     }
     
     /**
