@@ -750,6 +750,8 @@ public class TextGraphic extends TextGraphicElement
 		textFlowComposer.composeTextFlow(textFlow);
 		
 		textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
+
+        displayObject.scrollRect = textFlowComposer.isOverset ? bounds : null;
 	}
 }
 
