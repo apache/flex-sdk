@@ -45,6 +45,7 @@ import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.GlobalSettings;
+import flashx.textLayout.elements.InlineGraphicElement;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.CompositionCompleteEvent;
@@ -2492,7 +2493,7 @@ public class RichEditableText extends UIComponent
                     composeHeight = calculateHeightInLines();
 
                 // The composeWidth may be adjusted for minWidth/maxWidth.
-                bounds = measureTextSize(NaN);
+                bounds = measureTextSize(NaN, composeHeight);
                 
                 // Have we already hit the limit with the existing text?  If we
                 // are beyond the composeHeight we can assume we've maxed out on
@@ -2862,8 +2863,8 @@ public class RichEditableText extends UIComponent
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
-        // Make sure the properties are commited and the text is composed.
-        validateNow();
+        // Make sure the properties are commited since the text could change.
+        validateProperties();
 
         // Scrolls so that the text position is visible in the container. 
         textContainerManager.scrollToRange(anchorPosition, activePosition);       
@@ -2888,8 +2889,8 @@ public class RichEditableText extends UIComponent
     public function selectRange(anchorPosition:int,
                                 activePosition:int):void
     {
-        // Make sure all properties are committed before doing the operation.
-        validateNow();
+        // Make sure the properties are commited since the text could change.
+        validateProperties();
 
         if (editingMode == EditingMode.READ_ONLY)
         {
@@ -2965,8 +2966,8 @@ public class RichEditableText extends UIComponent
     {
         var format:TextLayoutFormat = new TextLayoutFormat();
  
-         // Make sure all properties are committed before doing the operation.
-        validateNow();
+        // Make sure all properties are committed.
+        validateProperties();
 
         // This internal TLF object maps the names of format properties
         // to Property instances.
@@ -3088,8 +3089,9 @@ public class RichEditableText extends UIComponent
                                      anchorPosition:int=-1,
                                      activePosition:int=-1):void
     {
-         // Make sure all properties are committed before doing the operation.
-        validateNow();
+        // Make sure all properties are committed.  The damage handler for the 
+        // applyTextFormat op will cause the remeasure and display update.
+        validateProperties();
         
         // Assign each specified attribute to one of three format objects,
         // depending on whether it is container-, paragraph-,
@@ -3273,7 +3275,8 @@ public class RichEditableText extends UIComponent
      *  be adjusted for minWidth or maxWidth.  The value used for the compose
      *  is in _textContainerManager.compositionWidth.
      */
-    private function measureTextSize(composeWidth:Number):Rectangle
+    private function measureTextSize(composeWidth:Number, 
+                                     composeHeight:Number=NaN):Rectangle
     {             
         // Adjust for explicit min/maxWidth so the measurement is accurate.
         if (isNaN(explicitWidth))
@@ -3290,9 +3293,10 @@ public class RichEditableText extends UIComponent
             }
         }
         
-        // The bottom border can grow to allow all the text to fit.
+        // If the width is NaN it can grow up to TextLine.MAX_LINE_WIDTH wide.
+        // If the height is NaN it can grow to allow all the text to fit.
         _textContainerManager.compositionWidth = composeWidth;
-        _textContainerManager.compositionHeight = NaN;
+        _textContainerManager.compositionHeight = composeHeight;
 
         // Compose only.  The display should not be updated.
         _textContainerManager.compose();
@@ -3311,7 +3315,7 @@ public class RichEditableText extends UIComponent
             bounds.width = bounds.width + getStyle("fontSize");
        }
 
-       //trace("measureTextSize", composeWidth, "->", bounds.width, bounds.height);
+       //trace("measureTextSize", composeWidth, "->", bounds.width, composeHeight, "->", bounds.height);
         
        return bounds;
     }
@@ -3566,9 +3570,9 @@ public class RichEditableText extends UIComponent
      */
     private function handleInsertText(newText:String, isAppend:Boolean=false):void
     {
-        // Make sure all properties are committed and events dispatched
-        // before doing the append.
-        validateNow();
+        // Make sure all properties are committed.  The damage handler for the 
+        // insert will cause the remeasure and display update.
+        validateProperties();
 
         if (isAppend)
         {
@@ -4198,17 +4202,24 @@ public class RichEditableText extends UIComponent
     private function textContainerManager_inlineGraphicStatusChangeHandler (
                         event:StatusChangeEvent):void
     {
-        //trace("inlineGraphicStatusChangedHandler", event.status);
-
-        // Now that the actual size of the graphic is available need to
-        // optionally remeasure and updateContainer.
-        if (event.status == InlineGraphicElementStatus.READY)
+        if (event.status == InlineGraphicElementStatus.SIZE_PENDING &&
+            event.element is InlineGraphicElement)
         {
+            // Force InlineGraphicElement.applyDelayedElementUpdate to
+            // execute and finish loading the graphic.  This is a workaround
+            // for the case when the image is in a compiled text flow.
+            InlineGraphicElement(event.element).updateForMustUseComposer(
+                                        _textContainerManager.getTextFlow());
+        }
+        else if (event.status == InlineGraphicElementStatus.READY)
+        {
+            // Now that the actual size of the graphic is available need to
+            // optionally remeasure and updateContainer.
             if (autoSize)
                 invalidateSize();
             
             invalidateDisplayList();
-        } 
+        }
     }    
 }
 
