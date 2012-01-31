@@ -1823,7 +1823,7 @@ public class Scroller extends SkinnableComponent
             {
                 throwEffectMotionPaths.push(verticalMP);
                 verticalTime = verticalMP.keyframes[verticalMP.keyframes.length-1].time;
-                throwFinalVSP = Number(verticalMP.keyframes[verticalMP.keyframes.length-1].value); 
+                throwFinalVSP = Number(verticalMP.keyframes[verticalMP.keyframes.length-1].value);
                 if (throwFinalVSP == maxHeight)
                     throwReachedMaximumScrollPosition = true;
                 scrollingVertically = true;
@@ -2855,6 +2855,8 @@ class TouchScrollHelper
     {
         super();
         
+        isIOS = (flash.system.Capabilities.version.indexOf("IOS") == 0);
+
         mouseEventCoordinatesHistory = new Vector.<Point>(EVENT_HISTORY_LENGTH);
         mouseEventTimeHistory = new Vector.<int>(EVENT_HISTORY_LENGTH);
         
@@ -2913,6 +2915,12 @@ class TouchScrollHelper
     
     /**
      *  @private
+     *  The time of the most recent mouse event during a drag gesture
+     */
+    private var mostRecentDragTime:Number;
+    
+    /**
+     *  @private
      *  Timer used to do drag scrolling.
      */
     private var dragTimer:Timer = null;
@@ -2961,6 +2969,12 @@ class TouchScrollHelper
      */
     private var isScrolling:Boolean;
     
+    /**
+     *  @private
+     *  Indicates whether we're running on an iOS device
+     */
+    private var isIOS:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -3001,7 +3015,7 @@ class TouchScrollHelper
             // reset circular buffer index/length
             mouseEventLength = 0;
             
-            addMouseEventHistory(mouseEvent.stageX, mouseEvent.stageY);
+            addMouseEventHistory(mouseEvent.stageX, mouseEvent.stageY, GetTimerUtil.getTimer());
         }
         else if (event is TouchEvent && event.type == TouchEvent.TOUCH_BEGIN)
         {
@@ -3028,7 +3042,7 @@ class TouchScrollHelper
      *  @return the delta moved between this mouse event and the start
      *          of the scroll gesture.
      */
-    private function addMouseEventHistory(stageX:Number, stageY:Number):Point
+    private function addMouseEventHistory(stageX:Number, stageY:Number, time:Number):Point
     {
         // calculate dx, dy
         var dx:Number = stageX - mouseDownedPoint.x;
@@ -3051,7 +3065,13 @@ class TouchScrollHelper
         }
         
         // add time history as well
-        mouseEventTimeHistory[currentIndex] = GetTimerUtil.getTimer() - startTime;
+
+        // Using the passed-in "time" value is more accurate than querying the timer here, as the 
+        // delta coordinates may have been captured a while ago (i.e. in the event thinning
+        // timer handler).  However, I'm only making this change for iOS right now in order
+        // to reduce risk at the end of the 4.5.1 release.
+        // TODO (ejd):  Change this to use the passed-in time for all platforms.
+        mouseEventTimeHistory[currentIndex] = isIOS ? (time - startTime) : (GetTimerUtil.getTimer() - startTime);
         
         // increment current length if appropriate
         mouseEventLength ++;
@@ -3236,7 +3256,7 @@ class TouchScrollHelper
             {
                 // The drag timer is not running, so we record the event and scroll
                 // the content immediately.
-                addMouseEventHistory(event.stageX, event.stageY);
+                addMouseEventHistory(event.stageX, event.stageY, GetTimerUtil.getTimer());
                 scroller.performDrag(dx, dy);
                 
                 // Call updateAfterEvent() to make sure it looks smooth
@@ -3260,6 +3280,7 @@ class TouchScrollHelper
                 // and indicate that a scroll is pending.
                 mostRecentDragDeltaX = dx;
                 mostRecentDragDeltaY = dy;
+                mostRecentDragTime = GetTimerUtil.getTimer();
                 dragScrollPending = true;
             }
         }
@@ -3276,7 +3297,7 @@ class TouchScrollHelper
             // A scroll is pending, so record the mouse deltas and scroll the content. 
             addMouseEventHistory(
                 mostRecentDragDeltaX + scrollGestureAnchorPoint.x,
-                mostRecentDragDeltaY + scrollGestureAnchorPoint.y);
+                mostRecentDragDeltaY + scrollGestureAnchorPoint.y, mostRecentDragTime);
             scroller.performDrag(mostRecentDragDeltaX, mostRecentDragDeltaY);
             
             // Call updateAfterEvent() to make sure it looks smooth
@@ -3322,7 +3343,7 @@ class TouchScrollHelper
                 // the content.
                 addMouseEventHistory(
                     mostRecentDragDeltaX + scrollGestureAnchorPoint.x,
-                    mostRecentDragDeltaY + scrollGestureAnchorPoint.y);
+                    mostRecentDragDeltaY + scrollGestureAnchorPoint.y, mostRecentDragTime);
                 scroller.performDrag(mostRecentDragDeltaX, mostRecentDragDeltaY);
 
                 // Call updateAfterEvent() to make sure it looks smooth
@@ -3343,10 +3364,14 @@ class TouchScrollHelper
             return;
         }
 
-        // This could be a SanboxMouseEvent
-        if (event is MouseEvent)
-            addMouseEventHistory(MouseEvent(event).stageX, MouseEvent(event).stageY);
-        
+        // Note that on iOS we essentially ignore the delta position and time of the mouseUp event.
+        // This is because this last event seems to not reliably track with the actual velocity of the 
+        // gesture, and causes problem for our velocity calculation.
+        // TODO (ejd): determine the right cross-platform approach here.
+        // We check for "MouseEvent" because this could be a SanboxMouseEvent
+        if (!isIOS && event is MouseEvent)
+            addMouseEventHistory(MouseEvent(event).stageX, MouseEvent(event).stageY, GetTimerUtil.getTimer());
+
         // decide about throw
         
         // pad click and timeHistory if needed
@@ -3385,21 +3410,19 @@ class TouchScrollHelper
 			return;
 		}
 		
-        var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
-
-        // calculate the last velocity and make sure there was no pause that occurred
-        var indexBeforeLast:int = ((mouseEventLength - 2) % EVENT_HISTORY_LENGTH);
-        var lastDt:Number = mouseEventTimeHistory[endIndex] - mouseEventTimeHistory[indexBeforeLast];
-        var lastVelocity:Point = lastMouseEventPoint.subtract(mouseEventCoordinatesHistory[indexBeforeLast]);
-        lastVelocity.x /= lastDt;
-        lastVelocity.y /= lastDt;
-        
         var minVelocityPixels:Number = MIN_START_VELOCITY_IPS * Scroller.effectiveScreenDPI / 1000;
-        
-        var scrollEndEvent:TouchInteractionEvent;
         
         // calculate the velocity using a weighted average
         var throwVelocity:Point = calculateThrowVelocity();
+
+        // Also calculate the effective velocity for the final 100ms of the drag.
+        var finalDragVel:Point = calculateFinalDragVelocity(100);
+        
+        // On iOS, we use the final 100ms of the drag to determine the velocity.
+        // TODO (ejd): arrive at a velocity-calculation scheme that works across platforms. 
+        if (isIOS)
+            throwVelocity = finalDragVel; 
+
         if (throwVelocity.length <= minVelocityPixels)
         {
             throwVelocity.x = 0;
@@ -3408,9 +3431,7 @@ class TouchScrollHelper
 
         // If the gesture appears to have slowed or stopped prior to the mouse up, 
         // then force the velocity to zero.
-        // Calculate the effective velocity for the final 100ms of the drag and compare
-        // that to the minimum value. 
-        var finalDragVel:Point = calculateFinalDragVelocity(100); 
+        // Compare the final 100ms of the drag to the minimum value. 
         if ( finalDragVel.length <= minVelocityPixels)
         {
             throwVelocity.x = 0;
@@ -3479,7 +3500,7 @@ class TouchScrollHelper
             var dt:Number = mouseEventTimeHistory[nextIndex] - mouseEventTimeHistory[currentIndex];
             var dx:Number = mouseEventCoordinatesHistory[nextIndex].x - mouseEventCoordinatesHistory[currentIndex].x;
             var dy:Number = mouseEventCoordinatesHistory[nextIndex].y - mouseEventCoordinatesHistory[currentIndex].y;
-            
+
             if (dt != 0)
             {
                 // calculate a weighted sum for velocities
@@ -3566,6 +3587,17 @@ class TouchScrollHelper
         
         if (dt == 0)
             return new Point(0,0);
+        
+        if (isIOS)
+        {
+            // On iOS, we use this function to determine the throw velocity.  So we need to enforce
+            // the same maximum velocity as calculateThrowVelocity.
+            // TODO (ejd): make all this stuff platform-independent.
+            var maxPixelsPerMS:Number = MAX_THROW_VELOCITY_IPS * Scroller.effectiveScreenDPI / 1000;
+            var velX:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,dx/dt));
+            var velY:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,dy/dt));
+            return new Point(velX,velY);
+        }
         
         // Create the point representing the velocity values.
         return new Point(dx/dt,dy/dt);
