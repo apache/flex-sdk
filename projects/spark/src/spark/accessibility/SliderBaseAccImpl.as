@@ -21,10 +21,14 @@ import mx.accessibility.AccImpl;
 import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.SliderBase;
 
 use namespace mx_internal;
+
+[ResourceBundle("components")]
 
 /**
  *  SliderBaseAccImpl is a subclass of AccessibilityImplementation
@@ -100,8 +104,6 @@ public class SliderBaseAccImpl extends AccImpl
         super(master);
 
         role = AccConst.ROLE_SYSTEM_SLIDER;
-
-        master.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -125,12 +127,12 @@ public class SliderBaseAccImpl extends AccImpl
             case 1:
             case 3:
             {
-                childRole = AccConst.ROLE_SYSTEM_INDICATOR;
+                childRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;
                 break;
             }
             case 2:
             {
-                childRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;
+                childRole = AccConst.ROLE_SYSTEM_INDICATOR;
                 break;
             }
             default:
@@ -158,7 +160,7 @@ public class SliderBaseAccImpl extends AccImpl
      */
     override protected function get eventsToHandle():Array
     {
-        return super.eventsToHandle.concat([ "change" ]);
+        return super.eventsToHandle.concat([ "change", FocusEvent.FOCUS_IN]);
     }
 
     //--------------------------------------------------------------------------
@@ -167,6 +169,50 @@ public class SliderBaseAccImpl extends AccImpl
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     *  IAccessible method for returning the Default Action.
+     *
+     *  @param childID uint
+     *
+     *  @return DefaultAction String
+     */
+    override public function get_accDefaultAction(childID:uint):String
+    {
+        if (childID == 1 || childID == 3)
+            return "Press";
+        return null;
+    }
+    
+    /**
+     *  @private
+     *  IAccessible method for executing the Default Action.
+     *
+     *  @param childID uint
+     */
+    override public function accDoDefaultAction(childID:uint):void
+    { 
+        var slider:SliderBase = SliderBase(master)
+        if (childID == 1 && slider.enabled)
+            slider.value = slider.value - slider.stepSize;
+        else if (childID == 3 && slider.enabled)
+            slider.value = slider.value + slider.stepSize;
+    }
+    
+    /**
+     *  @private
+     *  IAccessible method for returning the bounding box of the Slider or its parts.
+     *
+     *  @param childID uint
+     *
+     *  @return Location Object
+     */
+    override public function accLocation(childID:uint):*
+    {
+        if (childID == 2)
+            return SliderBase(master).thumb;
+        // no way to return the parts of the track bar for childID 1 and 3
+    }
     /**
      *  @private
      *  IAccessible method for returning the value of the slider
@@ -184,7 +230,7 @@ public class SliderBaseAccImpl extends AccImpl
         val = (val -  SliderBase(master).minimum) /
               (SliderBase(master).maximum - SliderBase(master).minimum) * 100;
 
-        return String(val);
+        return String(Math.floor(val));
     }
 
     /**
@@ -196,7 +242,7 @@ public class SliderBaseAccImpl extends AccImpl
      */
     override public function getChildIDArray():Array
     {
-        return createChildIDArray(3);;
+        return createChildIDArray(3);
     }
 
     /**
@@ -210,17 +256,24 @@ public class SliderBaseAccImpl extends AccImpl
      */
     override protected function getName(childID:uint):String
     {
-        //TODO: Localize these strings
+        var resourceManager:IResourceManager = ResourceManager.getInstance();
+        var isHSlider:Boolean = 
+            getQualifiedClassName(master) == "spark.components::HSlider";
         switch(childID)
         {
             case 1:
-                return getQualifiedClassName(master) == "HSlider" ? "Page Left" : "Page up";
+                return resourceManager.getString(
+                    "components", isHSlider ? 
+                    "sliderPageLeftAccName" : "sliderPageDownAccName");
             break;
             case 2:
-                return "Position";
+                return resourceManager.getString(
+                    "components", "sliderPositiontAccName");
             break;
             case 3:
-                return getQualifiedClassName(master) == "HSlider" ? "Page right" : "Page down";
+                return resourceManager.getString(
+                    "components", isHSlider ? 
+                    "sliderPageRightAccName" : "sliderPageUpAccName");
             break;
             default:
                 return "";
@@ -240,7 +293,11 @@ public class SliderBaseAccImpl extends AccImpl
      */
     override public function get_accState(childID:uint):uint
     {
-        var accState:uint = getState(childID);
+        var accState:uint;
+        if (childID == 0)
+            accState= getState(childID);
+        else if (!master.enabled)
+            accState = AccConst.STATE_SYSTEM_UNAVAILABLE;
         return accState;
     }
 
@@ -270,24 +327,10 @@ public class SliderBaseAccImpl extends AccImpl
                                         AccConst.EVENT_OBJECT_VALUECHANGE, true);
                 break;
             }
+            case "focusIn":
+                Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
+                break;
         }
-    }
-
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-     *  @private
-     *  This is (kind of) a hack to get around the fact
-	 *  that SliderBase is not an IFocusManagerComponent.
-	 *  It forces focus from accessibility when one of its thumbs get focus.
-     */
-    private function focusInHandler(event:Event):void
-    {
-        Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
     }
 }
 
