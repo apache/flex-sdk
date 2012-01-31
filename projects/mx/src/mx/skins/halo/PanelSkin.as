@@ -78,8 +78,8 @@ public class PanelSkin extends HaloBorder
             return super.borderMetrics;
         
         var hasPanelParent:Boolean = isPanel(parent);
-        var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
-        var hHeight:Number = hasPanelParent ? Object(parent).mx_internal::getHeaderHeightProxy() : NaN;
+        var controlBar:IUIComponent = hasPanelParent ? Object(parent)._controlBar : null;        
+        var hHeight:Number = hasPanelParent ? Object(parent).getHeaderHeightProxy() : NaN;
 
         var newControlBarHeight:Number;
         
