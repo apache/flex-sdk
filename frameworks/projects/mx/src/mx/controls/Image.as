@@ -54,6 +54,8 @@ use namespace mx_internal;
 
 [IconFile("Image.png")]
 
+[Alternative(replacement="spark.components.Image", since="4.5")]
+
 /**
  *  The Image control lets you import JPEG, PNG, GIF, and SWF files 
  *  at runtime. You can also embed any of these files and SVG files at compile time
@@ -65,9 +67,7 @@ use namespace mx_internal;
  *  is also designed to be used in custom item renderers and item editors. </p>
  * 
  *  <p><strong>Note: </strong>Flex also includes the BitmapImage class. This class is 
- *  used for embedding images into skins and FXG components. It is not a general-purpose
- *  image-loading class. For example, you cannot load images with the BitmapImage class at
- *  run-time.</p>
+ *  used for embedding images into skins and FXG components. </p>
  *
  *  <p>Embedded images load immediately, because they are already part of the 
  *  Flex SWF file. However, they add to the size of your application and slow down 
