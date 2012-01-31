@@ -435,8 +435,12 @@ public class AnimateTransformInstance extends AnimateInstance
         if (propertyChanges)
         {
             for (var s:String in propertyChanges.end)
-                if (TRANSFORM_PROPERTIES.indexOf(s) >= 0)
+                if (TRANSFORM_PROPERTIES.indexOf(s) >= 0 &&
+                    propertyChanges.end[s] !== undefined &&
+                    propertyChanges.start[s] != propertyChanges.end[s])
+                {
                     autoProps[s] = s;
+                }
         } 
         if (motionPaths)
         {
