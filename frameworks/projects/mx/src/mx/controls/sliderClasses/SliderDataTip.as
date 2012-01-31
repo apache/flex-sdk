@@ -24,6 +24,11 @@ import mx.controls.ToolTip;
  *  @see mx.controls.sliderClasses.Slider
  *  @see mx.controls.sliderClasses.SliderLabel
  *  @see mx.controls.sliderClasses.SliderThumb
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderDataTip extends ToolTip
 {
@@ -37,6 +42,11 @@ public class SliderDataTip extends ToolTip
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderDataTip()
 	{
