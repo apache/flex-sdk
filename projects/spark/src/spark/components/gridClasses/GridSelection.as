@@ -1337,40 +1337,46 @@ public class GridSelection
      *  The sort or filter on the collection changed.
      */
     private function dataProviderCollectionRefresh(event:CollectionEvent):void
-    {        
-        // Not preserving selection so this is similiar to a RESET.
-        if (!selectedItem)
-        {            
-            removeSelection();
-            ensureRequiredSelection();
-            return;
+    {       
+        handleRefreshAndReset(event);
+    }
+      
+    /**
+     *  @private
+     *  If preserving the selection and the selected item is in the new view, 
+     *  keep the item selected.  Otherwise, clear the selection (or maintain one
+     *  if requireSelection is true), including the selectAllFlag if it is set.
+     */
+    private function handleRefreshAndReset(event:CollectionEvent):void
+    {
+        // Is the selectedItem still in the collection?
+        if (selectedItem)
+        {
+            const view:ICollectionView = event.currentTarget as ICollectionView;       
+            if (view && view.contains(selectedItem))
+            {
+                // Selection is in view so move it to the new row location.
+                const newRowIndex:int = grid.dataProvider.getItemIndex(selectedItem);
+                if (selectionMode == GridSelectionMode.SINGLE_ROW)
+                {
+                    internalSetCellRegion(newRowIndex);
+                }
+                else
+                {
+                    var oldSelectedCell:CellPosition = allCells()[0];
+                    internalSetCellRegion(newRowIndex, oldSelectedCell.columnIndex);
+                }
+                return;
+            }
         }
         
-        // Is the selectedItem still in the collection?
-        const view:ICollectionView = event.currentTarget as ICollectionView;       
-        if (view && view.contains(selectedItem))
-        {
-            // Selection is in view so move it to the new row location.
-            const newRowIndex:int = grid.dataProvider.getItemIndex(selectedItem);
-            if (selectionMode == GridSelectionMode.SINGLE_ROW)
-            {
-                internalSetCellRegion(newRowIndex);
-            }
-            else
-            {
-                var oldSelectedCell:CellPosition = allCells()[0];
-                internalSetCellRegion(newRowIndex, oldSelectedCell.columnIndex);
-            }            
-        }
-        else
-        {
-            // Selection not in current view so remove selection.
-            removeSelection();
-            ensureRequiredSelection();
-            return;            
-        }
+        // Not preserving selection or selection not in current view so remove 
+        // selection.
+        removeSelection();
+        ensureRequiredSelection();
+        return;            
     }
-                
+    
     /**
      *  @private
      *  An item has been removed from the collection.
@@ -1432,13 +1438,13 @@ public class GridSelection
     
     /**
      *  @private
-     *  The data source changed so don't preserve the selection.  Clear the
-     *  selectAll flag if set.
+     *  The data source changed or all the items were removed from the data
+     *  source.  If there is a preserved selected item and it is in the new
+     *  data source the selection will be maintained.
      */
     private function dataProviderCollectionReset(event:CollectionEvent):void
-    {
-        removeSelection();
-        ensureRequiredSelection();
+    {        
+        handleRefreshAndReset(event);
     }
 
     /**
