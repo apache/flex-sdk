@@ -23,16 +23,23 @@ import mx.effects.IEffectInstance;
  * 
  *  <p>The underlying bitmap effect is run by a pixel-shader program
  *  that is loaded by the effect. If you want to use 
- *  a different Wipe behavior, you can specify a custom pixel-shader program 
- *  as long as it adheres to the following constraints: 
- *  obey the constraints specified for the <code>shaderByteCode</code>
+ *  a different Wipe behavior, you can specify a custom pixel-shader program. 
+ *  The pixel-shader program must adhere to the constraints 
+ *  specified for the <code>shaderByteCode</code>
  *  property of AnimateTransitionShader class, and supply three additional
- *  parameters. The extra parameters required by the Wipe shader 
- *  are an int <code>direction</code> parameter, 
- *  whose values mean the same as the related String properties
- *  in the Wipe class, and floating point parameters
- *  <code>imageWidth</code> and <code>imageHeight</code>. All of these
- *  parameters are set on the shader when the effect starts playing,
+ *  parameters. 
+ *  The extra parameters required by the Wipe shader 
+ *  are:</p>
+ *
+ *  <ul>
+ *    <li>An int <code>direction</code> parameter, 
+ *  whose value means the same as the related String property
+ *  in the Wipe class.</li>
+ *    <li>Two floating point parameters: 
+ *  <code>imageWidth</code> and <code>imageHeight</code>. </li>
+ *  </ul>
+ *
+ *  <p>All of these parameters are set on the shader when the effect starts playing,
  *  so the parameters need to exist and do something appropriate in
  *  order for the effect to function correctly.</p>
  *  
@@ -53,7 +60,8 @@ import mx.effects.IEffectInstance;
  *  @see spark.effects.WipeDirection
  *  @see spark.effects.AnimateTransitionShader
  *  @see spark.effects.AnimateTransitionShader#shaderByteCode
- *  @see spark.effects.supportClasses.WipeInstance
+ *
+ *  @includeExample examples/WipeExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
