@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark TextArea control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:layout>
+        <s:BasicLayout />
+    </s:layout>
+
+    <s:Panel title="Spark TextArea Control Example"
+    		horizontalCenter="0"
+    		verticalCenter="0">
+		<s:VGroup left="10" right="10" top="10" bottom="10">
+	        <s:TextArea width="400" height="100">
+	            <s:text>This is a multiline, editable Spark TextArea control. If you need a non-editable multiline control, use the Text control.</s:text>
+	        </s:TextArea>
+	        <s:TextArea width="400" height="100">
+	            <s:content><![CDATA[This is <span color="#FF0000">HTML text</span> in an <span fontWeight="bold">Spark TextArea control</span>. Use the <span textDecoration="underline">content property</span> of the <span color="#008800">Spark TextArea control</span> to include basic HTML markup in your text.]]></s:content>
+	        </s:TextArea>
+		</s:VGroup>
+    </s:Panel>
+
+</s:Application>
