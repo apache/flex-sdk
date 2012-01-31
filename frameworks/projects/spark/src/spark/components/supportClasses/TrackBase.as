@@ -530,6 +530,7 @@ public class TrackBase extends Range
         {
             var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
             setValue(newValue);
+            dispatchEvent(new Event(Event.CHANGE));
             event.preventDefault();
         }
     }
