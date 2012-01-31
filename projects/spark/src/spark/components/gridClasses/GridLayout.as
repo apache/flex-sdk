@@ -2094,7 +2094,7 @@ public class GridLayout extends LayoutBase
         
     /**
      *  Return the row and column indices of the cell that overlaps the pixel at the 
-     *  specified grid coordinate as an Object with "rowIndex" and "columnIndex" properties.  
+     *  specified grid coordinate.
      *  If no such cell exists, null is returned.
      * 
      *  <p>The example function below uses this method to compute the value of the 
@@ -2102,30 +2102,30 @@ public class GridLayout extends LayoutBase
      *  <pre>
      *  function getCellData(x:Number, y:Number):Object
      *  {
-     *      var cell:Object = getCellAt(x, y);
+     *      var cell:CellPosition = getCellAt(x, y);
      *      if (!cell)
      *          return null;
      *      var GridColumn:column = grid.columns.getItemAt(cell.columnIndex);
-     *      return grid.dataProvider[cell.rowIndex][column.dataField];
+     *      return grid.dataProvider.getItemAt(cell.rowIndex)[column.dataField];
      *  }
      *  </pre> 
      * 
      *  @param x The pixel's x coordinate relative to the grid.
      *  @param y The pixel's y coordinate relative to the grid.
-     *  @return An object like <code>{rowIndex:0, columnIndex:0}</code> or null. 
+     *  @return The cell position or null. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getCellAt(x:Number, y:Number):Object
+    public function getCellAt(x:Number, y:Number):CellPosition
     {
         const rowIndex:int = gridDimensions.getRowIndexAt(x, y);
         const columnIndex:int = gridDimensions.getColumnIndexAt(x, y);
         if ((rowIndex == -1) || (columnIndex == -1))
             return null;
-        return {rowIndex:rowIndex, columnIndex:columnIndex};
+        return new CellPosition(rowIndex, columnIndex);
     }
 
     /**
