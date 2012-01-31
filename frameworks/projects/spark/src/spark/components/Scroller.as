@@ -89,6 +89,18 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
+ *  @copy spark.components.supportClasses.GroupBase#style:downColor
+ *   
+ *  @default 0xA8C6EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
@@ -132,13 +144,15 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 /**
- * @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *   
+ *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
- */ 
+ */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
@@ -335,6 +349,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *    digitWidth="default"
  *    direction="LTR"
  *    dominantBaseline="auto"
+ *    downColor=""
  *    firstBaselineOffset="auto"
  *    focusColor=""
  *    focusedTextSelectionColor=""
@@ -2159,7 +2174,7 @@ class TouchScrollHelper
         
         // for the max size, we couldn't decide between using screen width/height or 
         // scroller width/height, so we're using a weighted average for it
-        // FIXME (rfrishbe): use stage.stageWidth, stage.width, root.width, or FlexGlobals.topLevelApplication.width?
+        // FIXME (rfrishbe): use stage.stageWidth
         var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.width)/3;
         var heightToUseForRatio:Number = (2*scroller.height + scroller.stage.height)/3;
         var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
