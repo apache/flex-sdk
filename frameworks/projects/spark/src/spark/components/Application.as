@@ -128,7 +128,7 @@ use namespace mx_internal;
  *  @see mx.managers.SystemManager
  *  @see flash.events.EventDispatcher
  */
-public class FxApplication extends FxItemsComponent 
+public class FxApplication extends FxContainer 
 {
     include "../core/Version.as";
 
