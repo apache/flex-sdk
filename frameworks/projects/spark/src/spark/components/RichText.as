@@ -13,7 +13,6 @@ package spark.components
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
 
@@ -22,16 +21,13 @@ import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextConverter;
-import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.StringTextLineFactory;
 import flashx.textLayout.factory.TextFlowTextLineFactory;
 import flashx.textLayout.factory.TextLineFactoryBase;
 import flashx.textLayout.factory.TruncationOptions;
-import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
-import flashx.textLayout.formats.TextLayoutFormat;
 
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
@@ -41,8 +37,8 @@ import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 
-import spark.core.CSSTextLayoutFormat;
 import spark.components.supportClasses.TextBase;
+import spark.core.CSSTextLayoutFormat;
 
 use namespace mx_internal;
 
@@ -203,8 +199,7 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichText extends TextBase
-	implements IFontContextComponent
+public class RichText extends TextBase implements IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -543,12 +538,51 @@ public class RichText extends TextBase
      *  within <p>, <span>, etc.
      */
     [RichTextContent]
-        
+    
+	/**
+	 *  This property is intended for use in MXML at compile time;
+	 *  to get or set rich text content at runtime,
+	 *  please use the <code>textFlow</code> property instead.
+	 *
+	 *  <p>The <code>content</code> property is the default property
+	 *  for RichText, so that you can write MXML such as
+	 *  <pre>
+	 *  &lt;s:RichText&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:RichText&gt;
+	 *  </pre>
+	 *  and have the String and SpanElement that you specify
+	 *  as the content be used to create a TextFlow.</p>
+	 *
+	 *  <p>This property is typed as Object because you can set it to
+	 *  to a String, a FlowElement, or an Array of Strings and FlowElements.
+	 *  In the example above, you are specifying the content
+	 *  to be a 2-element Array whose first element is the String
+	 *  "Hello" and whose second element is a SpanElement with the text
+	 *  "World" in boldface.</p>
+	 * 
+	 *  <p>No matter how you specify the content, it gets converted
+	 *  into a TextFlow, and when you get this property, you will get
+	 *  the resulting TextFlow.</p>
+	 * 
+	 *  <p>Adobe recommends using <code>textFlow</code> property
+	 *  to get and set rich text content at runtime,
+	 *  because it is strongly typed as a TextFlow
+	 *  rather than as an Object.
+	 *  A TextFlow is the canonical representation
+	 *  for rich text content in the Text Layout Framework.</p>
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public function get content():Object
+    {
+    	return textFlow;
+    }
+    
     /**
-     *  This write-only property is for internal use by the MXML compiler.
-     *  Please use the <code>textFlow</code> property to set
-     *  rich text content.
-     */
+     *  @private
+     */   
     public function set content(value:Object):void
     {
     	// Treat setting the 'content' to null
