@@ -190,7 +190,7 @@ public class ChannelFaultEvent extends ChannelEvent
      * issued by the AMFChannel when the channel is already connected but it gets a
      * Call.Failed code from its underlying NetConnection.
      * Only the AMFChannel class listens for NetConnection.Call.Failed, which gets
-     * converted to Channel.Call.Failed.     
+     * converted to Channel.Call.Failed.</p>     
      *
      *  @see #faultString
      *  @see #faultDetail
