@@ -12,8 +12,6 @@
 package flex.component
 {
 
-import flash.geom.Point;
-
 /**
  *  The HScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
@@ -50,7 +48,7 @@ public class HScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     * The size of the track on an HScrollBar equals the width of the track.
+     *  The size of the track on an HScrollBar equals the width of the track.
      */
     override protected function get trackSize():Number
     {
@@ -60,20 +58,6 @@ public class HScrollBar extends ScrollBar
            return 0;
     }
     
-    /**
-     * HScrollBar's thumbSize determines the width of the thumb button.
-     * The button's minWidth property acts as a lower bound on this size.
-     */
-    override protected function set thumbSize(size:Number):void
-    {
-        super.thumbSize = Math.max(size, thumb.minWidth);
-        thumb.width = thumbSize;
-    }
-    override protected function get thumbSize():Number
-    {
-        return super.thumbSize; 
-    }
-
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -81,11 +65,11 @@ public class HScrollBar extends ScrollBar
     //--------------------------------------------------------------------------
 
     /**
-     * Position the thumb button according to the given thumbPos parameter,
-     * relative to the current x location of the track in the scrollbar control.
+     *  Position the thumb button according to the given thumbPos parameter,
+     *  relative to the current x location of the track in the scrollbar control.
      * 
-     * @param thumbPos A number representing the new position of the thumb
-     * button in the control.
+     *  @param thumbPos A number representing the new position of the thumb
+     *  button in the control.
      */
     override protected function positionThumb(thumbPos:Number):void
     {
@@ -97,14 +81,30 @@ public class HScrollBar extends ScrollBar
     }
     
     /**
-     * The position of the thumb on an HScrollBar is equal to the given
-     * localX parameter.
-     * 
-     * @param localX The x position relative to the scrollbar control
-     * @param localY The y position relative to the scrollbar control
+     *  @private
      */
-    override protected function getScrollPosition(localX:Number, 
-                                                  localY:Number):Number
+    override protected function calculateThumbSize():Number
+    {
+        return Math.max(thumb.minWidth, super.calculateThumbSize());
+    }
+
+    /**
+     *  @private
+     */
+    override protected function sizeThumb(thumbSize:Number):void
+    {
+        thumb.width = thumbSize;
+    }
+    
+    /**
+     *  The position of the thumb on an HScrollBar is equal to the given
+     *  localX parameter.
+     * 
+     *  @param localX The x position relative to the scrollbar control
+     *  @param localY The y position relative to the scrollbar control
+     */
+    override protected function pointToPosition(localX:Number, 
+                                                localY:Number):Number
     {
         return localX;
     }
