@@ -13,6 +13,15 @@ package mx.effects.easing
 {
 
 /**
+ *  The new effects provided as of Flex 4 use classes which implement the 
+ *  IEaser interface instead of the easing functions in classes like Cubic for 
+ *  the earlier Flex 3 effects. To achieve the same functionality of Cubic, 
+ *  create a Power instance with an <code>exponent</code> of 3 and set the 
+ *  <code>easeInFraction</code> appropriately to get the desired result.
+ */
+[Alternative(replacement="spark.effects.easing.Power", since="4.0")]
+
+/**
  *  The Cubic class defines three easing functions to implement 
  *  motion with Flex effect classes. The acceleration of motion for a Cubic easing
  *  equation is greater than for a Quadratic easing equation.
