@@ -209,7 +209,8 @@ global
     rollOverColor: #CEDBEF;
     focusColor: #70B2EE;
     symbolColor: #000000;
-    
+    fontLookup: "embeddedCFF";
+
     /* Behaviors */
     autoThumbVisibility: true;
     fixedThumbSize: false;
