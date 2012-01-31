@@ -123,7 +123,7 @@ use namespace mx_internal;
  *  muteButton functions as a mute/unmute button when clicked.
  *
  *  @see spark.components.VideoPlayer 
- *  @see spark.primitives.VideoElement
+ *  @see spark.components.VideoDisplay
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
