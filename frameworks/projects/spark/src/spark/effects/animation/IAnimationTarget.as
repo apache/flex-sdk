@@ -41,6 +41,23 @@ public interface IAnimationTarget
     function animationStart(animation:Animation):void;
 
     /**
+     *  Called when an Animation instance stops. This is different
+     *  than animationEnd, which is called when the animation ends,
+     *  automatically setting the end values of the targets. Stop
+     *  is called when an animation is stopped where it's at.
+     *  Handling this event allows necessary cleanup when the animation
+     *  is interrupted.
+     *
+     *  @param animation The Animation object.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function animationStop(animation:Animation):void;
+
+    /**
      *  Called when an Animation instance ends.
      *
      *  @param animation The Animation object.
