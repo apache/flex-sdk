@@ -1622,8 +1622,10 @@ public class ChannelSet extends EventDispatcher
      */
     protected function messageHandler(event:MessageEvent):void
     {
+        unscheduleHeartbeat();
         dispatchEvent(event);
-    }    
+        scheduleHeartbeat();
+    }
     
     /**
      *  @private
