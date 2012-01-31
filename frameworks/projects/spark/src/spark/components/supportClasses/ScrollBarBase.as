@@ -17,10 +17,19 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
-import spark.components.Button;
-import spark.core.IViewport;
+
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
+import mx.events.SandboxMouseEvent;
+
+import spark.components.Button;
+import spark.core.IViewport;
+import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Animation;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
+import spark.effects.easing.Sine;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#symbolColor
@@ -31,6 +40,32 @@ import mx.events.ResizeEvent;
  *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  Number of milliseconds after the first pageevent
+ *  until subsequent page events occur.
+ * 
+ *  @default 500
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
+
+/**
+ *  Number of milliseconds between page events
+ *  if the user presses and holds the mouse on the track.
+ *  
+ *  @default 35
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
 
 /**
  *  The ScrollBar class helps to position
@@ -75,11 +110,6 @@ public class ScrollBar extends TrackBase
     //  Class constants
     //
     //--------------------------------------------------------------------------
-
-    // TODO (chaase): These constants should go away and be replaced by a more
-    // flexible mechanism of setting the repeat parameters
-    private const REPEAT_DELAY:Number = 500;
-    private const REPEAT_INTERVAL:Number = 35;
 
     //--------------------------------------------------------------------------
     //
@@ -141,6 +171,44 @@ public class ScrollBar extends TrackBase
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     * this one animator is used by both paging and stepping animations. It
+     * is responsible for running the repeated operation (animating from the beginning
+     * of the repeat to whenever it ends or the user stops the repeating action).
+     */
+    private var _animator:Animation = null;
+    private function get animator():Animation
+    {
+        if (_animator)
+            return _animator;
+        _animator = new Animation();
+        var animTarget:AnimationTarget = new AnimationTarget(animationUpdateHandler);
+        animTarget.endFunction = animationEndHandler;
+        _animator.animationTarget = animTarget;
+        return _animator;
+    }
+
+    /**
+     * @private
+     * These variables track whether we are currently involved in a stepping
+     * animation, and which direction we are stepping
+     */
+    private var steppingDown:Boolean;
+    private var steppingUp:Boolean;
+
+    /**
+     * @private
+     * This variable tracks whether we are currently running an animation to
+     * do a single page() operation. This is used to end that operation properly
+     * if another operation interrupts it.
+     */ 
+    private var animatingSinglePage:Boolean;
+    
+    
+    private static var easyInLinearEaser:IEaser = new Linear(.1);
+    private static var deceleratingSineEaser:IEaser = new Sine(0);
+    
     // TODO: transient?    
     // Direction indicator for current track-scrolling operations
     private var trackScrollDown:Boolean;
@@ -183,6 +251,47 @@ public class ScrollBar extends TrackBase
     // Properties
     //
     //--------------------------------------------------------------------------
+    
+    //---------------------------------
+    // smoothScrolling
+    //--------------------------------- 
+    /**
+     * This property determines the default value <code>smoothScrolling</code>
+     * for all ScrollBars.
+     * 
+     * @default true
+     * @see #smoothScrolling
+     */
+    public static var smoothScrollingDefault:Boolean = true;
+    
+    //---------------------------------
+    // smoothScrolling
+    //--------------------------------- 
+    
+    /**
+     * @private
+     * Backing storage for the smoothScrolling property
+     */
+    private var _smoothScrolling:Boolean = smoothScrollingDefault;
+    
+    /**
+     * This property determines whether the scrollbar will animate
+     * smoothly when paging and stepping. When false, page and step
+     * operations will jump directly to the paged/stepped locations. 
+     * When true, the scrollbar, and any content it is scrolling, will
+     * animate to that location.
+     * 
+     * @default true
+     */
+    public function get smoothScrolling():Boolean
+    {
+        return _smoothScrolling;
+    }
+    
+    public function set smoothScrolling(value:Boolean):void
+    {
+        _smoothScrolling = value;
+    }
     
     //---------------------------------
     // pageSize
@@ -298,6 +407,20 @@ public class ScrollBar extends TrackBase
     /**
      *  @private
      */
+    private function startAnimation(duration:Number, valueTo:Number, 
+        easer:IEaser, startDelay:Number = 0):void
+    {
+        animator.stop();
+        animator.duration = duration;
+        animator.easer = easer;
+        animator.motionPaths = [new SimpleMotionPath("value", value, valueTo)];
+        animator.startDelay = startDelay;
+        animator.play();
+    }
+    
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -320,14 +443,22 @@ public class ScrollBar extends TrackBase
         
         if (instance == decrementButton)
         {
-            decrementButton.addEventListener("buttonDown",
-                                            decrementButton_buttonDownHandler);
+            decrementButton.addEventListener(FlexEvent.BUTTON_DOWN,
+                                             button_buttonDownHandler);
+            decrementButton.addEventListener(MouseEvent.ROLL_OVER,
+                                             button_rollOverHandler);
+            decrementButton.addEventListener(MouseEvent.ROLL_OUT,
+                                             button_rollOutHandler);
             decrementButton.autoRepeat = true;
         }
         else if (instance == incrementButton)
         {
-            incrementButton.addEventListener("buttonDown",
-                                            incrementButton_buttonDownHandler);
+            incrementButton.addEventListener(FlexEvent.BUTTON_DOWN,
+                                             button_buttonDownHandler);
+            incrementButton.addEventListener(MouseEvent.ROLL_OVER,
+                                             button_rollOverHandler);
+            incrementButton.addEventListener(MouseEvent.ROLL_OUT,
+                                             button_rollOutHandler);
             incrementButton.autoRepeat = true;
         }
         else if (instance == track)
@@ -348,13 +479,21 @@ public class ScrollBar extends TrackBase
         
         if (instance == decrementButton)
         {
-            decrementButton.removeEventListener("buttonDown",
-                                            decrementButton_buttonDownHandler);
+            decrementButton.removeEventListener(FlexEvent.BUTTON_DOWN,
+                                                button_buttonDownHandler);
+            decrementButton.removeEventListener(MouseEvent.ROLL_OVER,
+                                                button_rollOverHandler);
+            decrementButton.removeEventListener(MouseEvent.ROLL_OUT,
+                                                button_rollOutHandler);
         }
         else if (instance == incrementButton)
         {
-            incrementButton.removeEventListener("buttonDown",
-                                            incrementButton_buttonDownHandler);
+            incrementButton.removeEventListener(FlexEvent.BUTTON_DOWN,
+                                                button_buttonDownHandler);
+            incrementButton.removeEventListener(MouseEvent.ROLL_OVER,
+                                                button_rollOverHandler);
+            incrementButton.removeEventListener(MouseEvent.ROLL_OUT,
+                                                button_rollOutHandler);
         }
         else if (instance == track)
         {
@@ -385,7 +524,7 @@ public class ScrollBar extends TrackBase
 
     /**
      *  Adds or subtracts <code>pageSize</code> from <code>value</code>.
-     *  For an add, the new <code>value</code> is the closets multiple of <code>pageSize</code> 
+     *  For an add, the new <code>value</code> is the closest multiple of <code>pageSize</code> 
      *  that is larger than the current <code>value</code>.
      *  For an subtraction, the new <code>value</code> 
      *  is the closets multiple of <code>pageSize</code> that is 
@@ -402,10 +541,20 @@ public class ScrollBar extends TrackBase
      */
     public function page(increase:Boolean = true):void
     {
+        var val:Number;
         if (increase)
-            setValue(nearestValidValue(value + pageSize, pageSize));
+            val = value + pageSize;
         else
-            setValue(nearestValidValue(value - pageSize, pageSize));
+            val = value - pageSize;
+        if (smoothScrolling) {
+            startAnimation(getStyle("repeatInterval"), val, Linear.getInstance());            
+            animatingSinglePage = true;
+        }
+        else
+        {
+            setValue(val);
+            dispatchEvent(new Event("change"));
+        }
     }
 
     /**
@@ -527,40 +676,78 @@ public class ScrollBar extends TrackBase
     //---------------------------------
      
     /**
-     *  @private
-     *  Handle a click on the up button of the scroll bar. This
-     *  should up one step.
+     *  Handle a click on the increment or decrement button of the scroll bar. 
+     *  This should cause a stepping operation, which is repeated if held down.
+     *  The delay before repetition begins and the delay between repeated events
+     *  are determined by the <code>repeatDelay</code> and 
+     *  <code>repeatInterval</code> styles of the underlying Button objects.
+     * 
+     *  @see spark.components.Button
      */
-    protected function decrementButton_buttonDownHandler(event:Event):void
+    protected function button_buttonDownHandler(event:Event):void
     {
-        var oldValue:Number = value;
-        
-        step(false); // up
-        
-        if (value != oldValue)
+        // Noop if we're currently running a stepping animation. We get
+        // called repeatedly here due to the button's autoRepeat
+        if (!steppingDown && !steppingUp)
         {
-            positionThumb(valueToPosition(value));
-            dispatchEvent(new Event("change"));
+            var increment:Boolean = (event.target == incrementButton);
+            var oldValue:Number = value;
+            
+            // TODO (chaase): first step is non-animated, just to simplify the delayed
+            // start of the animated stepping. Seems okay, but worth thinking
+            // about whether we should animate the first step too
+            step(increment);
+            
+            if (value != oldValue)
+            {
+                positionThumb(valueToPosition(value));
+                dispatchEvent(new Event("change"));
+            }
+
+            if (smoothScrolling)
+            {
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+                    button_buttonUpHandler, true /*useCapture*/);
+                systemManager.getSandboxRoot().addEventListener(
+                    SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
+                // TODO (chaase): what's a reasonable stepSize? Can't use viewport's because
+                // it can vary widely depending on what items are in the view. Can't use
+                // default stepSize because it can be quite small if not changed by
+                // the scroller. 1/10th of pageSize seems reasonable, but will result
+                // in a different total duration with animated vs. non-animated stepping
+                animateStepping(increment ? maximum : minimum, pageSize/10);
+            }
+            return;
         }
     }
     
     /**
-     *  @private
-     *  Handle a click on the down button of the scroll bar. This
-     *  should down one step.
+     *  Handle releasing the increment or decrement button of the scrollbar. 
+     *  This ends the stepping operation started by the original buttonDown
+     *  event on the button.
      */
-    protected function incrementButton_buttonDownHandler(event:Event):void
+    protected function button_buttonUpHandler(event:Event):void
     {
-        var oldValue:Number = value;
-        
-        step(true); // down
-        
-        if (value != oldValue)
+        if (steppingDown || steppingUp)
         {
-            positionThumb(valueToPosition(value));
-            dispatchEvent(new Event("change"));
+            if (animator.isPlaying)
+            {
+                animationEndHandler(animator);
+            }
+            else
+            {
+                // probably shouldn't get here, but just in case
+                steppingUp = steppingDown = false;
+            }
+            // stop even if !isPlaying - it might just be startDelayed
+            animator.stop();
+            
+            systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+                button_buttonUpHandler, true /*useCapture*/);
+            systemManager.getSandboxRoot().removeEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, button_buttonUpHandler);
         }
-    }    
+    }
     
     //---------------------------------
     // Track dragging handlers
@@ -580,7 +767,13 @@ public class ScrollBar extends TrackBase
         // which would push this enabled check into the child/skin components
         if (!enabled)
             return;
-                    
+
+        // Make sure we finish any running page animation before starting
+        // a new one. end() will set value to the desired paged-to value for 
+        // that running animation
+        if (animatingSinglePage)
+            animator.end();
+        
         var pt:Point = new Point(event.stageX, event.stageY);
         // Cache original event location for use on later repeating events
         trackPosition = track.globalToLocal(pt);
@@ -591,14 +784,35 @@ public class ScrollBar extends TrackBase
         
         var oldValue:Number = value;
         
+        if (event.shiftKey)
+        {
+            // shift-click positions jumps to the clicked location instead
+            // of incrementally paging
+            var slideDuration:Number = getStyle("slideDuration");
+            // Adjust the position - we want the clicked position to be at the
+            // half-way point of the thumb when it's done moving
+            newScrollPosition -= thumbSize/2;
+            newScrollValue = positionToValue(newScrollPosition);
+            var adjustedValue:Number = nearestValidValue(newScrollValue, valueInterval);
+            if (smoothScrolling && 
+                slideDuration != 0 && 
+                (maximum - minimum) != 0)
+            {
+                // Animate the shift-click operation
+                startAnimation(slideDuration * 
+                    (Math.abs(value - newScrollValue) / (maximum - minimum)),
+                    adjustedValue, deceleratingSineEaser);
+            }
+            else
+            {
+                setValue(adjustedValue);
+                dispatchEvent(new Event("change"));
+            }
+            return;
+        }
+        
         page(trackScrollDown);
         
-        if (value != oldValue)
-        {
-            positionThumb(valueToPosition(value));
-            dispatchEvent(new Event("change"));
-        }
-
         trackScrolling = true;
 
         // Add event handlers for drag and up events
@@ -608,7 +822,7 @@ public class ScrollBar extends TrackBase
             MouseEvent.MOUSE_UP, track_mouseLeaveHandler, true);
         systemManager.stage.addEventListener(Event.MOUSE_LEAVE, 
                             track_mouseLeaveHandler);
-                            
+
         // TODO (chaase): consider using the repeat behavior of Button
         // to handle track-down repetition, instead of doing it with a
         // custom Timer. As long as we can distinguish the first
@@ -618,7 +832,7 @@ public class ScrollBar extends TrackBase
         // continues to hold the mouse button down
         if (!trackScrollTimer)
         {
-            trackScrollTimer = new Timer(REPEAT_DELAY, 1);
+            trackScrollTimer = new Timer(getStyle("repeatDelay"), 1);
             trackScrollTimer.addEventListener(TimerEvent.TIMER, 
                                               trackScrollTimerHandler);
         } 
@@ -627,12 +841,73 @@ public class ScrollBar extends TrackBase
             // Note that this behavior, resetting the initial delay, differs 
             // from Flex3 but is more consistent with general application
             // scrollbar behavior
-            trackScrollTimer.delay = REPEAT_DELAY;
+            trackScrollTimer.delay = getStyle("repeatDelay");
             trackScrollTimer.repeatCount = 1;
         }
         trackScrollTimer.start();
     }
 
+    protected function animatePaging(newValue:Number, pageSize:Number):void
+    {
+        animatingSinglePage = false;
+        if (trackScrollDown)
+            newValue = newValue - pageSize;
+        // TODO (chaase): hard-coding easing behavior, how to style it?
+        startAnimation(
+            getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
+            nearestValidValue(newValue, pageSize), Linear.getInstance());
+    }
+
+    protected function animateStepping(newValue:Number, stepSize:Number):void
+    {
+        steppingDown = (newValue > value);
+        steppingUp = !steppingDown;
+        // TODO (chaase): we're using ScrollBar's repeatInterval for animated
+        // stepping, but Button's repeatInterval for non-animated stepping
+        // TODO (chaase): think about the total duration for the animation. This
+        // calculation
+        // TODO (chaase): hard-coding easing behavior, how to style it?
+        startAnimation(
+            getStyle("repeatInterval") * (Math.abs(newValue - value) / stepSize),
+            newValue, easyInLinearEaser, getStyle("repeatDelay"));
+    }
+
+    /**
+     * @private
+     * Handles events from the Animation that runs the page, step,
+     * and shift-click smooth-scrolling operations.
+     * Just call setValue() with the current animated value.
+     */
+    private function animationUpdateHandler(animation:Animation):void
+    {
+        setValue(animation.currentValue["value"]);
+    }
+    
+    /**
+     * @private
+     * Handles end event from the Animation that runs the page, step,
+     * and shift-click animations.
+     * We dispatch the "change" event at this time, after the animation
+     * is done.
+     */
+    private function animationEndHandler(animation:Animation):void
+    {
+        if (trackScrolling)
+            trackScrolling = false;
+
+        if (steppingDown || steppingUp)
+        {
+            // If we're animating stepping, end on a final real step call in the
+            // appropriate direction, ensuring that we stop on a content 
+            // item boundary 
+            step(steppingDown);
+            steppingUp = steppingDown = false;
+            animator.startDelay = 0;
+        }
+        animatingSinglePage = false;
+        dispatchEvent(new Event("change"));
+    }
+    
     /**
      *  @private
      *  This gets called at certain intervals to repeat the scroll 
@@ -654,12 +929,20 @@ public class ScrollBar extends TrackBase
             if (range == 0)
                 return;
             
-            //if (newScrollValue <= (value + (thumbSize / trackSize) * range))
             if ((value + pageSize) > newScrollValue)
                 return;
         }
         else if (newScrollValue > value)
         {
+            return;
+        }
+
+        if (smoothScrolling)
+        {
+            // This gets called after an initial repeateDelay on a paging
+            // operation, but after that we're just running the animation. This
+            // function is only called repeatedly in the non-smoothScrolling case.
+            animatePaging(newScrollValue, pageSize);
             return;
         }
 
@@ -677,7 +960,7 @@ public class ScrollBar extends TrackBase
         {
             // If this was the first time repeating, set the Timer to
             // repeat indefinitely with an appropriate interval delay
-            trackScrollTimer.delay = REPEAT_INTERVAL;
+            trackScrollTimer.delay = getStyle("repeatInterval");
             trackScrollTimer.repeatCount = 0;
         }
     }
@@ -731,6 +1014,17 @@ public class ScrollBar extends TrackBase
 
         if (trackScrollTimer)
             trackScrollTimer.reset();
+            
+        if (smoothScrolling && !animatingSinglePage)
+        {
+            if (animator.isPlaying)
+            {
+                animationEndHandler(animator);
+            }
+            // Stop it regardless, in case the animation is startDelayed and
+            // thus not 'playing', but still active
+            animator.stop();
+        }
     }
 
     /**
@@ -740,7 +1034,7 @@ public class ScrollBar extends TrackBase
      */
     private function track_rollOverHandler(event:MouseEvent):void
     {
-        if (trackScrolling)
+        if (trackScrolling && trackScrollTimer)
             trackScrollTimer.start();
     }
     
@@ -751,8 +1045,30 @@ public class ScrollBar extends TrackBase
      */
     private function track_rollOutHandler(event:MouseEvent):void
     {
-        if (trackScrolling)
+        if (trackScrolling && trackScrollTimer)
             trackScrollTimer.stop();
+    }
+    
+    /**
+     *  @private
+     *  Resume the increment/decrement animation if the mouse enters the
+     *  button area
+     */
+    private function button_rollOverHandler(event:MouseEvent):void
+    {
+        if (steppingUp || steppingDown)
+            animator.resume();
+    }
+    
+    /**
+     *  @private
+     *  Pause the increment/decrement animation if the mouse leaves the
+     *  button area
+     */
+    private function button_rollOutHandler(event:MouseEvent):void
+    {
+        if (steppingUp || steppingDown)
+            animator.pause();
     }
 }
 
