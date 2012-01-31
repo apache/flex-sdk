@@ -11,23 +11,16 @@
 package spark.effects
 {
 
-import flash.sampler.getInvocationCount;
-
 import mx.core.mx_internal;
-import spark.effects.supportClasses.AnimateInstance;
-import spark.effects.easing.IEaser;
-import spark.effects.interpolation.IInterpolator;
-import spark.effects.interpolation.NumberInterpolator;
-import spark.effects.easing.Sine;
-import spark.events.AnimationEvent;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
-import mx.events.EffectEvent;
+
 import spark.effects.animation.Animation;
-
-import mx.styles.IStyleClient;
-
-import spark.effects.MotionPath;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Sine;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.supportClasses.AnimateInstance;
+import spark.events.AnimationEvent;
 
 use namespace mx_internal;
 
@@ -261,6 +254,21 @@ public class Animate extends Effect
      *  @productversion Flex 4
      */
     public var adjustConstraints:Boolean = false;
+    
+    /**
+     * This property indicates whether the effect should disable constraints on its
+     * targets while the effect is running. If set to true, the effect
+     * will disable any constraints that are set for the duration of the effect
+     * and then re-enable those same constraints when the effect finishes.
+     * 
+     * @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var disableConstraints:Boolean = false;
 
     /**
      * This property indicates whether the effect should disable layout on its
@@ -340,8 +348,8 @@ public class Animate extends Effect
             animateInstance.repeatCount = repeatCount;
             
         animateInstance.repeatBehavior = repeatBehavior;
-        animateInstance.adjustConstraints = adjustConstraints;
         animateInstance.disableLayout = disableLayout;
+        animateInstance.disableConstraints = disableConstraints;
         
         if (animationProperties)
         {
