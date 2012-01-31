@@ -1369,6 +1369,8 @@ public final class Animation
         }
         else
         {
+            // TODO (rfrishbe): if the animation gets stopped() or ended() in 
+            // the first update, then the animation never actually gets removed
             sendUpdateEvent();
             Animation.addAnimation(this);
             startTime = cycleStartTime;
