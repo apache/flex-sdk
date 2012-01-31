@@ -40,6 +40,8 @@ public class AnimateTransformMove3D extends AnimateTransformMove
     public function AnimateTransformMove3D(target:Object=null)
     {
         super(target);
+        affectLayout = false;
+        applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
     }
         
@@ -94,7 +96,14 @@ public class AnimateTransformMove3D extends AnimateTransformMove
      */
    override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("translationZ", zFrom, zTo, zBy);
+        if(affectLayout)
+        {
+           addMotionPath("translationZ", zFrom, zTo, zBy);
+        }
+        else
+        {
+            addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+        }
         super.initInstance(instance);
     }    
 }
