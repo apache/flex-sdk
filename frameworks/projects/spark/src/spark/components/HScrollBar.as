@@ -15,6 +15,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.EventPriority;
+import mx.core.IInvalidating;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
@@ -433,7 +434,11 @@ public class HScrollBar extends ScrollBarBase
         {
             var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
             if (!isNaN(hspDelta))
+            {
                 vp.horizontalScrollPosition += hspDelta;
+                if (vp is IInvalidating)
+                    IInvalidating(vp).validateNow();
+            }
         }
         
         event.preventDefault();
