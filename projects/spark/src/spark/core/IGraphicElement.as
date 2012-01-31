@@ -12,15 +12,15 @@ package mx.graphics
 {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
 import flash.geom.Transform;
+
+import mx.core.IInvalidating;
+import mx.core.IVisualElement;
 
 /**
  *  The IGraphicElement interface is implemented by all child tags of Graphic and Group.
  */
-public interface IGraphicElement
+public interface IGraphicElement extends IVisualElement, IInvalidating
 {
  
     //--------------------------------------------------------------------------
@@ -29,19 +29,6 @@ public interface IGraphicElement
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  parent
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    function get parent():DisplayObjectContainer;
-    function set parent(value:DisplayObjectContainer):void;
-
-    //----------------------------------
-    //  alpha
-    //----------------------------------
     /**
      *  Specifies the level of transparency of the graphic element.
      * 
@@ -50,9 +37,6 @@ public interface IGraphicElement
     function get alpha():Number;
     function set alpha(value:Number):void;
 
-    //----------------------------------
-    //  blendMode
-    //----------------------------------
     /**
      *  Specifies the blend mode.
      * 
@@ -61,18 +45,12 @@ public interface IGraphicElement
     function get blendMode():String;
     function set blendMode(value:String):void;
         
-    //----------------------------------
-    //  filters
-    //----------------------------------
     /**
      *  The array of IBitmapFilter filters applied to the element.
      */
     function get filters():Array;
     function set filters(value:Array):void;
     
-    //----------------------------------
-    //  maskType
-    //----------------------------------
     /**
      *  Controls how the mask performs masking on the element. 
      *  Possible values are MaskType.CLIP and MaskType.ALPHA
@@ -84,46 +62,12 @@ public interface IGraphicElement
     function get maskType():String;
     function set maskType(value:String):void;
     
-    //----------------------------------
-    //  mask
-    //----------------------------------
     /**
      * The mask applied to the element.
      */
-    
     function set mask(value:DisplayObject):void;
     function get mask():DisplayObject;
-        
-    //----------------------------------
-    //  rotation
-    //----------------------------------
-    /**
-     *  Indicates the rotation of the element, in degrees, from the transform point.
-     */
-    function get rotation():Number;
-    function set rotation(value:Number):void;
     
-    //----------------------------------
-    //  scaleX
-    //----------------------------------
-    /**
-     *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
-     */
-    function get scaleX():Number;
-    function set scaleX(value:Number):void;
-    
-    //----------------------------------
-    //  scaleY
-    //----------------------------------
-    /**
-     *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
-     */
-    function get scaleY():Number;
-    function set scaleY(value:Number):void;
-    
-    //----------------------------------
-    //  transform
-    //----------------------------------
     /**
      *  An object with properties pertaining to an element's matrix, 
      *  color transform, and pixel bounds. 
@@ -131,60 +75,78 @@ public interface IGraphicElement
     function get transform():Transform;
     function set transform(value:Transform):void; 
     
-    //----------------------------------
-    //  transformX
-    //----------------------------------
     /**
-     *  The x position transform point of the element. 
+     *  The DisplayObject where the GraphicElement will be drawn.
+     *  This property is automatically assigned by the parent Group of this element.
      */
-    function get transformX():Number;
-    function set transformX(value:Number):void;
+    function get displayObject():DisplayObject;
+    function set displayObject(value:DisplayObject):void;
     
-    //----------------------------------
-    //  transformY
-    //----------------------------------
     /**
-     *  The y position transform point of the element. 
+     *  <code>true</code> if the graphic element needs its own unique display object to render into.
+     *  In general, you will not set this property, although if you extend the GraphicElement class, you
+     *  might override the setter.
      */
-    function get transformY():Number;
-    function set transformY(value:Number):void;
+    function get needsDisplayObject():Boolean;
     
-    //----------------------------------
-    //  visible
-    //----------------------------------
+    /**
+     *  <code>true</code> if the another graphic element can use this display object to render into.
+     *  In general, you will not set this property, although if you extend the GraphicElement class, you
+     *  might override the setter.
+     */
+    function get nextSiblingNeedsDisplayObject():Boolean;
     
-    //----------------------------------
-    //  scaleY
-    //----------------------------------
     /**
-     *  Indicates the layer of the element relative to its siblings. Defaults to 0.
+     *  The DisplayObject where the GraphicElement will be drawn.  This DisplayObject is shared
+     *  between other GraphicElements.  This property is automatically assigned by the 
+     *  parent Group of this element.
      */
-    function get layer():Number;
-    function set layer(value:Number):void;
-
-
-    /**
-     *  Controls the visibility of the element.
-     */
-    function get visible():Boolean;
-    function set visible(value:Boolean):void;
+    function get sharedDisplayObject():DisplayObject;
+    function set sharedDisplayObject(value:DisplayObject):void;
     
-    //----------------------------------
-    //  x
-    //----------------------------------
-    /**
-     *  The x position of the element.
-     */
-    function get x():Number;
-    function set x(value:Number):void;
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  y
-    //----------------------------------
     /**
-     *  The y position of the element.
+     * @copy mx.managers.ILayoutManagerClient#validateProperties
      */
-    function get y():Number;
-    function set y(value:Number):void;
+    function validateProperties():void;
+    
+    /**
+     * @copy mx.managers.ILayoutManagerClient#validateSize
+     */
+    function validateSize(recursive:Boolean = false):void;
+    
+    /**
+     * @copy mx.managers.ILayoutManagerClient#validateDisplayList
+     */
+    function validateDisplayList():void;
+    
+    /**
+     *  Called by Flex when a graphic element object is added to or removed from a parent.
+     *  Developers typically never need to call this method.
+     *
+     *  @param p The parent of this graphic element object.
+     */
+    function parentChanged(p:DisplayObjectContainer):void;
+    
+    /**
+     *  Creates a new DisplayObject where the GraphicElement is drawn, 
+     *  if one does not already exist.  This methods also assigns the graphic element's 
+     *  <code>displayObject</code> property to the newly created DisplayObject.
+     * 
+     *  @return The display object created
+     */
+    function createDisplayObject():DisplayObject;
+    
+    /**
+     *  Destroys the DisplayObject where the GraphicElement is drawn, 
+     *  if it exists.  This methods also nulls out the graphic element's 
+     *  <code>displayObject</code> property.
+     */
+    function destroyDisplayObject():void;
 }
 }
