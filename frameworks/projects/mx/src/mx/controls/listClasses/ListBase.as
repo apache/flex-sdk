@@ -4413,7 +4413,15 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Called from the <code>updateDisplayList()</code> method to adjust the size and position of
-     *  listContent.
+     *  <code>listContent</code>.
+     *
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -5638,6 +5646,8 @@ public class ListBase extends ScrollControlBase
      *  is found) it retrieves from the freeItemRenderers stack.
      *
      *  @param data The data to be presented by the item renderer.
+     *
+     *  @return An already-created item renderer not currently in use.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -9679,6 +9689,8 @@ public class ListBase extends ScrollControlBase
     
     /**
      *  Prepares the data effect for the collection event.
+     *
+     *  @param ce The collection event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
