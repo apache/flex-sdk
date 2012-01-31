@@ -264,9 +264,9 @@ public class PanelSkin extends HaloBorder
    	/**
 	 *  We don't use 'is' to prevent dependency issues
 	 */
-	static private var panels:Object = {};
+	private static var panels:Object = {};
 
-	static private function isPanel(parent:Object):Boolean
+	private static function isPanel(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (panels[s] == 1)
