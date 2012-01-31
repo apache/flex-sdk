@@ -11,18 +11,17 @@
 package spark.core
 {
 /**
- *  ISharedDisplayObject defines the minimum requirements for a
- *  <code>DisplayObject</code> to be shared between <code>IGraphicElement</code>
- *  objects.
+ *  The ISharedDisplayObject interface defines the minimum requirements 
+ *  that a DisplayObject must implement to be shared between 
+ *  <code>IGraphicElement</code> objects.
  *
- *  <code>Group</code> uses <code>ISharedDisplayObject</code> to manage
- *  invalidation and redrawing of sequences of <code>IGraphicElement</code>
- *  objects that share a <code>DisplayObject</code>.
+ *  The Group class uses the ISharedDisplayObject interface to manage
+ *  invalidation and redrawing of sequences of IGraphicElement
+ *  objects that share a DisplayObject.
  *
- *  Typically when implementing a custom <code>IGraphicElement</code>
- *  Developers also implement this interface for the <code>DisplayObject</code>
- *  that the custom <code>IGraphicElement</code> creates.
- *
+ *  <p>Typically, when implementing a custom IGraphicElement class,
+ *  you also implement this interface for the DisplayObject
+ *  that the custom IGraphicElement creates.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,10 +31,11 @@ package spark.core
 public interface ISharedDisplayObject
 {
     /**
-     *  True when any of the <code>IGraphicElement</code> objects, that share
-     *  this <code>DisplayObject</code>, needs to redraw.  This is used internally
-     *  by the <code>Group</code> class and developers don't typically use this.
-     *  The <code>Group</code> sets and reads back this property in order to
+     *  Contains <code>true</code> when any of the IGraphicElement objects that share
+     *  this DisplayObject need to redraw.  
+     *  This property is used internally by the Group class 
+     *  and you do not typically use it.
+     *  The Group class sets and reads back this property to
      *  determine which graphic elements to validate.
      *  
      *  @langversion 3.0
