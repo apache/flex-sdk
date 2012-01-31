@@ -69,12 +69,6 @@ DataGrid
     skinClass: ClassReference("spark.skins.spark.DataGridSkin");
 }
 
-DefaultGridHeaderRenderer
-{
-    cornerRadius: 0;
-    skinClass: ClassReference("spark.skins.spark.DefaultGridHeaderRendererSkin");    
-}
-
 DropDownList
 {
     dropShadowVisible: true;
