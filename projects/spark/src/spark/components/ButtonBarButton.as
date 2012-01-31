@@ -50,6 +50,11 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
 {
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function ButtonBarButton()
     {
@@ -195,6 +200,11 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
      *  @inheritDoc 
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get itemIndex():int
     {
