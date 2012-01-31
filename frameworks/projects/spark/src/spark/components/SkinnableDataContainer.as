@@ -101,7 +101,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;SkinnableDataContainer
+ *  &lt;s:SkinnableDataContainer
  *    <strong>Properties</strong>
  *    autoLayout="true"
  *    clipAndEnableScrolling="false"
