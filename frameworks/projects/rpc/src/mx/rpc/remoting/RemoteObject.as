@@ -13,6 +13,10 @@ package mx.rpc.remoting
 {
 
 import mx.core.mx_internal;
+import mx.messaging.Channel;
+import mx.messaging.ChannelSet;
+import mx.messaging.channels.AMFChannel;
+import mx.messaging.channels.SecureAMFChannel;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AbstractService;
 
@@ -133,6 +137,34 @@ public dynamic class RemoteObject extends AbstractService
     public function set source(s:String):void
     {
         _source = s;
+    }
+        
+   //-------------------------------------------------------------------------
+
+   //
+   // Internal Methods
+   //
+   //-------------------------------------------------------------------------
+
+    /**
+     *@private
+     */
+    mx_internal function initEndpoint():void
+    {
+        if (endpoint != null)
+        {
+            var chan:Channel;
+            if (endpoint.indexOf("https") == 0)
+            {
+                chan = new SecureAMFChannel(null, endpoint);
+            }
+            else
+            {
+                chan = new AMFChannel(null, endpoint);
+            }
+            channelSet = new ChannelSet();
+            channelSet.addChannel(chan);
+        }
     }
 
     //--------------------------------------------------------------------------
