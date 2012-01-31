@@ -604,6 +604,26 @@ public class ListBase extends SkinnableDataContainer
         }
     }
     
+    /**
+     *  @private
+     */
+    override public function updateRenderer(renderer:IVisualElement):void
+    {
+        //First clean up any old, stale properties like selected      
+        if (renderer is IItemRenderer && IItemRenderer(renderer).selected)
+            IItemRenderer(renderer).selected = false;
+            
+        //Now run through and initialize the renderer correctly
+        super.updateRenderer(renderer); 
+          
+        var index:Number = dataGroup.getElementIndex(renderer);
+        
+        if (isItemIndexSelected(index))
+            itemSelected(index, true);
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
