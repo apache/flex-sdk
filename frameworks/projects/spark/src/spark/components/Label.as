@@ -16,9 +16,11 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.geom.Rectangle;
+import flash.text.TextFormat;
 import flash.text.engine.EastAsianJustifier;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
+import flash.text.engine.FontLookup;
 import flash.text.engine.FontMetrics;
 import flash.text.engine.Kerning;
 import flash.text.engine.LineJustification;
@@ -27,8 +29,17 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
+import flashx.textLayout.elements.ITextLineCreator;
 
 import mx.core.mx_internal;
+import mx.core.EmbeddedFont;
+import mx.core.EmbeddedFontRegistry;
+import mx.core.IEmbeddedFontRegistry;
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
+import mx.core.IUIComponent;
+import mx.core.Singleton;
+import mx.managers.ISystemManager;
 import spark.primitives.supportClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
@@ -64,7 +75,7 @@ include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SimpleText extends TextGraphicElement
+public class SimpleText extends TextGraphicElement implements IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -98,6 +109,36 @@ public class SimpleText extends TextGraphicElement
      */
     private static var staticEastAsianJustifier:EastAsianJustifier =
         new EastAsianJustifier();
+
+    //----------------------------------
+    //  embeddedFontRegistry
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the _embeddedFontRegistry property.
+     *  Note: This gets initialized on first access,
+     *  not when this class is initialized, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
+
+    /**
+     *  @private
+     *  A reference to the embedded font registry.
+     *  Single registry in the system.
+     *  Used to look up the moduleFactory of a font.
+     */
+    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
+    {
+        if (!_embeddedFontRegistry)
+        {
+            _embeddedFontRegistry = IEmbeddedFontRegistry(
+                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+        }
+
+        return _embeddedFontRegistry;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -152,10 +193,57 @@ public class SimpleText extends TextGraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Variables
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     * 
+     * Cache last value of embedded font.
+     */
+    private var cachedEmbeddedFont:EmbeddedFont = null;
+     
+    /**
+     *  @private
+     * Holds the last recorded value of the module factory used to create the font.
+     */
+    private var embeddedFontContext:IFlexModuleFactory = null;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  fontContext
+    //----------------------------------
+    
+    private var _fontContext:IFlexModuleFactory;
+
+    /**
+     *  @private
+     */
+    public function get fontContext():IFlexModuleFactory
+    {
+        return _fontContext;
+    }
+
+    /**
+     *  @private
+     */
+    public function set fontContext(value:IFlexModuleFactory):void
+    {
+        _fontContext = value;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      */
@@ -183,7 +271,7 @@ public class SimpleText extends TextGraphicElement
         mx_internal::removeTextLines();
         if (!recycleTextLines)
             mx_internal::textLines.length = 0;
-            
+        
 		var createdAllLines:Boolean = createTextLines(elementFormat);
         
         // Need truncation if all the following are true
@@ -219,9 +307,9 @@ public class SimpleText extends TextGraphicElement
         // Just recomposed so reset.
         mx_internal::invalidateCompose = false;                
     }
-    
-    /**
-     *  @private
+
+	/**
+	 *  @private
      *  Cleans up and sets the validity of the lines disassociated with the 
      *  TextBlock to TextLineValidity.INVALID.
      */
@@ -260,6 +348,8 @@ public class SimpleText extends TextGraphicElement
 		// or ElementFormat throw an error, so the following code does
 		// null-checking on the problematic properties.
         
+        var checkForEmbed:Boolean = false;
+
         var s:String;
         
         var fontDescription:FontDescription = new FontDescription();
@@ -269,8 +359,10 @@ public class SimpleText extends TextGraphicElement
         	fontDescription.cffHinting = s;
         
         s = getStyle("fontLookup");
-        if (s != null)
+        if (s != null && s != "auto")
         	fontDescription.fontLookup = s;
+        else
+            checkForEmbed = true;
         
         s = getStyle("fontFamily");
         if (s != null)
@@ -283,7 +375,46 @@ public class SimpleText extends TextGraphicElement
         s = getStyle("fontWeight");
         if (s != null)
         	fontDescription.fontWeight = s;
-        	
+        
+        if (checkForEmbed)
+        {
+            var embeddedFont:EmbeddedFont = getEmbeddedFont(
+                fontDescription.fontName, 
+                fontDescription.fontWeight == "bold", 
+                fontDescription.fontPosture == "italic");
+            
+            embeddedFontContext = 
+                embeddedFontRegistry.getAssociatedModuleFactory(
+                    embeddedFont, fontContext);
+
+            // if we found the font, then it is embedded. 
+            // Some fonts are not listed in info(), so are not in the above registry.
+            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
+            if (embeddedFontContext != null) 
+            {
+                fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
+            }
+            else
+            {
+                var sm:ISystemManager = creatingSystemManager();
+                var textFormat:TextFormat = new TextFormat();
+                textFormat.font = fontDescription.fontName;
+                textFormat.bold = fontDescription.fontWeight == "bold";
+                textFormat.italic = fontDescription.fontPosture == "italic";
+                if (sm != null && sm.isFontFaceEmbedded(textFormat))
+                {
+                    fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
+                }
+            }
+        }
+        else
+        {
+            if (fontDescription.fontLookup == FontLookup.EMBEDDED_CFF)
+                embeddedFontContext = fontContext;
+            else
+                embeddedFontContext = null;
+        }
+
         s = getStyle("renderingMode");
         if (s != null)
         	fontDescription.renderingMode = s;
@@ -508,7 +639,7 @@ public class SimpleText extends TextGraphicElement
 		var textLine:TextLine;
         
 		// For truncation, need to know if all lines have been composed.
-		var createdAllLines:Boolean = false;
+        var createdAllLines:Boolean = false;
 		
 		// Generate TextLines, stopping when we run out of text
 		// or reach the bottom of the requested bounds.
@@ -520,13 +651,21 @@ public class SimpleText extends TextGraphicElement
 		    {
 		        //trace("recreateTextLine", n);
 		        var recycleLine:TextLine = textLines[n];
-                nextTextLine = textBlock["recreateTextLine"]
+                if (embeddedFontContext)
+                    nextTextLine = TextLine(ITextLineCreator(embeddedFontContext).recreateTextLine
+                                    (textBlock, recycleLine, textLine, maxLineWidth));		        
+                else
+                    nextTextLine = textBlock["recreateTextLine"]
                                     (recycleLine, textLine, maxLineWidth);		        
                 nRecycleLines--;    
 		    }
 		    else
 		    {
-                nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
+                if (embeddedFontContext)
+                    nextTextLine = TextLine(ITextLineCreator(embeddedFontContext).createTextLine
+                                    (textBlock, textLine, maxLineWidth));
+                else
+    			    nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
             }
             
 			if (!nextTextLine)
@@ -604,9 +743,9 @@ public class SimpleText extends TextGraphicElement
 		
         // innerWidth remains the same.  alignment is done over the innerWidth
         // not over the width of the text that was just composed.
-		if (isNaN(bounds.height))
+        if (isNaN(bounds.height))
             innerHeight = textLine.y + textLine.descent;
-
+		
         var leftAligned:Boolean = 
             textAlign == "start" && direction == "ltr" ||
             textAlign == "end" && direction == "rtl" ||
@@ -820,7 +959,7 @@ public class SimpleText extends TextGraphicElement
                 } while (true);
             }
         }
-        
+
         // If nothing fit, return no lines and bounds that just contains
         // padding.
         if (!somethingFit)
@@ -984,6 +1123,34 @@ public class SimpleText extends TextGraphicElement
         return nextTruncationPosition;
     } 
         
+    private function creatingSystemManager():ISystemManager
+    {
+        return ((fontContext != null) && (fontContext is ISystemManager))
+                ? ISystemManager(fontContext)
+                : IUIComponent(parent).systemManager;
+    }
+    
+    /**
+     * @private
+     * 
+     * Get the embedded font for a set of font attributes.
+     */ 
+    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
+    {
+        // Check if we can reuse a cached value.
+        if (cachedEmbeddedFont)
+        {
+            if (cachedEmbeddedFont.fontName == fontName &&
+                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
+            {
+                return cachedEmbeddedFont;
+            }   
+        }
+        
+        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
+        
+        return cachedEmbeddedFont;
+    }
 }
 
 }
