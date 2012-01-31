@@ -26,6 +26,8 @@ import mx.events.ItemClickEvent;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerGroup;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Styles
 //--------------------------------------
@@ -213,20 +215,20 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
                     // Special automaticRadioButtonGroup slot to hold generated
                     // radio button groups.  Shared with halo so prefix
                     // groupName to differentiate.
-                    if (document.mx_internal::automaticRadioButtonGroups &&
-                        document.mx_internal::automaticRadioButtonGroups[autoGroupIndex])
+                    if (document.automaticRadioButtonGroups &&
+                        document.automaticRadioButtonGroups[autoGroupIndex])
                     {
                         g = RadioButtonGroup(
-                            document.mx_internal::automaticRadioButtonGroups[autoGroupIndex]);
+                            document.automaticRadioButtonGroups[autoGroupIndex]);
                     }
                 }
                 if (!g)
                 {
                     g = new RadioButtonGroup(IFlexDisplayObject(document));
                     
-                    if (!document.mx_internal::automaticRadioButtonGroups)
-                        document.mx_internal::automaticRadioButtonGroups = [];
-                    document.mx_internal::automaticRadioButtonGroups[autoGroupIndex] = g;                        
+                    if (!document.automaticRadioButtonGroups)
+                        document.automaticRadioButtonGroups = [];
+                    document.automaticRadioButtonGroups[autoGroupIndex] = g;                        
                 }
                 else if (!(g is RadioButtonGroup))
                 {
@@ -256,7 +258,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         // If the group is set then the groupName is the generated name of
         // the rbg.  If it's set to null, then set the groupName back to the
         // default group so this button will move back to that group.
-        _groupName = value ? group.mx_internal::name : "radioGroup";    
+        _groupName = value ? group.name : "radioGroup";    
         
         // Make sure this gets added to it's RadioButtonGroup
         groupChanged = true;
@@ -433,7 +435,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     
     /**
      *  @private
-     *  mx_internal::automaticRadioButtonGroups is shared with halo radio button groups.
+     *  automaticRadioButtonGroups is shared with halo radio button groups.
      *  Gumbo radio button groups are prefixed with _fx to differentiate the
      *  halo groups which are stored in the same table.
      */
@@ -451,7 +453,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     {        
         var g:RadioButtonGroup = group; // Trigger getting the group
         if (g)
-            g.mx_internal::addInstance(this);
+            g.addInstance(this);
               
         return g;
     }
@@ -471,9 +473,9 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         // specified by groupName.
         try
         {
-            if (document.mx_internal::automaticRadioButtonGroups[autoGroupIndex].numRadioButtons == 0)
+            if (document.automaticRadioButtonGroups[autoGroupIndex].numRadioButtons == 0)
             {
-                delete document.mx_internal::automaticRadioButtonGroups[autoGroupIndex];
+                delete document.automaticRadioButtonGroups[autoGroupIndex];
             }
         }
         catch(e:Error)
@@ -493,21 +495,21 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         if (fm)
             fm.showFocusIndicator = true;
 
-        for (var i:int = 1; i <= mx_internal::indexNumber; i++)
+        for (var i:int = 1; i <= indexNumber; i++)
         {
             var radioButton:RadioButton = 
-                    g.getRadioButtonAt(mx_internal::indexNumber - i);
+                    g.getRadioButtonAt(indexNumber - i);
             if (radioButton && isRadioButtonEnabled(radioButton))
             {
                 if (moveSelection)
-                    g.mx_internal::setSelection(radioButton);
+                    g.setSelection(radioButton);
                 radioButton.setFocus();
                 return;
             }
         }
 
-        if (moveSelection && g.getRadioButtonAt(mx_internal::indexNumber) != g.selection)
-            g.mx_internal::setSelection(this);
+        if (moveSelection && g.getRadioButtonAt(indexNumber) != g.selection)
+            g.setSelection(this);
         
         this.drawFocus(true);   
     }
@@ -524,20 +526,20 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         if (fm)
             fm.showFocusIndicator = true;
 
-        for (var i:int = mx_internal::indexNumber + 1; i < g.numRadioButtons; i++)
+        for (var i:int = indexNumber + 1; i < g.numRadioButtons; i++)
         {
             var radioButton:RadioButton = g.getRadioButtonAt(i);
             if (radioButton && isRadioButtonEnabled(radioButton))
             {
                 if (moveSelection)
-                    g.mx_internal::setSelection(radioButton);
+                    g.setSelection(radioButton);
                 radioButton.setFocus();
                 return;
             }
         }
 
-        if (moveSelection && g.getRadioButtonAt(mx_internal::indexNumber) != g.selection)
-            g.mx_internal::setSelection(this);
+        if (moveSelection && g.getRadioButtonAt(indexNumber) != g.selection)
+            g.setSelection(this);
         this.drawFocus(true);   
     }
 
@@ -572,12 +574,12 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
      */
     private function setThis():void
     {
-        if (!mx_internal::radioButtonGroup)
+        if (!radioButtonGroup)
             addToGroup();
 
         var g:RadioButtonGroup = group;
         if (g.selection != this)
-            g.mx_internal::setSelection(this);
+            g.setSelection(this);
     }
 
    /**
@@ -594,8 +596,8 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
             
         // The button is enabled so it's enabled if it's not in a group
         // or the group is enabled.
-        return !mx_internal::radioButtonGroup || 
-               mx_internal::radioButtonGroup.enabled;
+        return !radioButtonGroup || 
+               radioButtonGroup.enabled;
     }
     
     //--------------------------------------------------------------------------
@@ -698,20 +700,20 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         if (!enabled || selected)
             return; // prevent a selected button from dispatching "click"
 
-        if (!mx_internal::radioButtonGroup)
+        if (!radioButtonGroup)
             addToGroup();
 
         // Must call super.clickHandler() before setting
         // the group's selection.
         super.clickHandler(event);
 
-        group.mx_internal::setSelection(this);
+        group.setSelection(this);
 
         // Dispatch an itemClick event from the RadioButtonGroup.
         var itemClickEvent:ItemClickEvent =
             new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
         itemClickEvent.label = label;
-        itemClickEvent.index = mx_internal::indexNumber;
+        itemClickEvent.index = indexNumber;
         itemClickEvent.relatedObject = this;
         itemClickEvent.item = value;
         group.dispatchEvent(itemClickEvent);
