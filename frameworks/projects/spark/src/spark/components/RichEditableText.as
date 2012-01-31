@@ -47,14 +47,21 @@ import flashx.textLayout.formats.IContainerFormat;
 import flashx.textLayout.formats.IParagraphFormat;
 import flashx.textLayout.formats.ParagraphFormat;
 import flashx.textLayout.operations.ApplyFormatOperation;
+import flashx.textLayout.operations.CutOperation;
+import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
+import flashx.textLayout.operations.FlowTextOperation;
+import flashx.textLayout.operations.InsertTextOperation;
+import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.operations.SplitParagraphOperation;
 
 import mx.core.IViewport;
+import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.ScrollUnit;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
+import mx.utils.StringUtil;
 import mx.utils.TextUtil;
 
 //--------------------------------------
@@ -135,6 +142,23 @@ public class TextView extends UIComponent implements IViewport
 {
     include "../core/Version.as";
         
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static function splice(str:String, start:int, end:int,
+                                   strToInsert:String):String
+    {
+        return str.substring(0, start) +
+               strToInsert +
+               str.substring(end, str.length);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Class variables
@@ -263,6 +287,11 @@ public class TextView extends UIComponent implements IViewport
      */
     private var charWidth:Number;
 
+    /**
+     *  @private
+     */
+    mx_internal var passwordChar:String = "*";
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -380,6 +409,41 @@ public class TextView extends UIComponent implements IViewport
     }
 
     //----------------------------------
+    //  displayAsPassword
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _displayAsPassword:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var displayAsPasswordChanged:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get displayAsPassword():Boolean
+    {
+        return _displayAsPassword;
+    }
+
+    /**
+     *  @private
+     */
+    public function set displayAsPassword(value:Boolean):void
+    {
+        if (value == _displayAsPassword)
+            return;
+
+        _displayAsPassword = value;
+        displayAsPasswordChanged = true;
+        invalidateDisplayList();
+    }
+
+    //----------------------------------
     //  heightInLines
     //----------------------------------
 
@@ -460,7 +524,7 @@ public class TextView extends UIComponent implements IViewport
     }
     
     //----------------------------------
-    //  horizontal ScrollPositionDelta
+    //  horizontalScrollPositionDelta
     //----------------------------------
 
     /**
@@ -502,6 +566,38 @@ public class TextView extends UIComponent implements IViewport
     }
     
     //----------------------------------
+    //  maxChars
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _maxChars:int = 0;
+
+    /**
+     *  The maximum number of characters that the TextView can contain,
+     *  as entered by a user.
+     *  A script can insert more text than maxChars allows;
+     *  the maxChars property indicates only how much text a user can enter.
+     *  If the value of this property is 0,
+     *  a user can enter an unlimited amount of text. 
+     * 
+     *  @default 0
+     */
+    public function get maxChars():int 
+    {
+        return _maxChars;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set maxChars(value:int):void
+    {
+        _maxChars = value;
+    }
+
+    //----------------------------------
     //  multiline
     //----------------------------------
 
@@ -529,6 +625,33 @@ public class TextView extends UIComponent implements IViewport
     public function set multiline(value:Boolean):void
     {
         _multiline = value;
+    }
+
+    //----------------------------------
+    //  restrict
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _restrict:String = null;
+
+    /**
+     *  Documentation is not currently available.
+     * 
+     *  @default null
+     */
+    public function get restrict():String 
+    {
+        return _restrict;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set restrict(value:String):void
+    {
+        _restrict = value;
     }
 
     //----------------------------------
@@ -596,7 +719,7 @@ public class TextView extends UIComponent implements IViewport
      */
     public function get text():String 
     {
-        if (textInvalid)
+        if (textInvalid && !displayAsPassword)
         {
             _text = TextUtil.extractText(textFlow);
             textInvalid = false;
@@ -830,7 +953,8 @@ public class TextView extends UIComponent implements IViewport
         var flowComposer:IFlowComposer;
         
         // Regenerate TextLines if necessary.
-        if (textChanged || contentChanged || stylesChanged)
+        if (textChanged || contentChanged ||
+            stylesChanged || displayAsPasswordChanged)
         {
             // Eliminate detritus from the previous TextFlow.
             if (textFlow && textFlow.flowComposer &&
@@ -862,6 +986,7 @@ public class TextView extends UIComponent implements IViewport
             textChanged = false;
             contentChanged = false;
             stylesChanged = false;
+            displayAsPasswordChanged = false;
         }
 
         // Tell the TextFlow to generate TextLines within the
@@ -1072,6 +1197,14 @@ public class TextView extends UIComponent implements IViewport
             {
                 textFlow = createEmptyTextFlow();
             }
+        }
+
+        if (textChanged || contentChanged || displayAsPasswordChanged)
+        {
+            if (_displayAsPassword)
+                TextUtil.obscureTextFlow(textFlow, mx_internal::passwordChar);
+            else if (_text != null)
+                TextUtil.unobscureTextFlow(textFlow, _text);
         }
 
         if (hostFormatsInvalid)
@@ -1383,7 +1516,7 @@ public class TextView extends UIComponent implements IViewport
         
         dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
     }
-    
+
     /**
      *  @private
      *  Called when the TextFlow dispatches an 'operationEnd' event
@@ -1403,23 +1536,68 @@ public class TextView extends UIComponent implements IViewport
         {
             event.preventDefault();
             dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+            return;
         }
         
-        // Otherwise, we dispatch a 'changing' event from the TextView
-        // as notification that an editing operation is about to occur.
-        else
+        if (op is InsertTextOperation)
         {
-            var newEvent:TextOperationEvent =
-                new TextOperationEvent(TextOperationEvent.CHANGING);
-            newEvent.operation = op;
-            dispatchEvent(newEvent);
+            var insertTextOperation:InsertTextOperation =
+                InsertTextOperation(op);
+
+            var textToInsert:String = insertTextOperation.text;
+
+            // Note: Must process restrict first, then maxChars,
+            // then displayAsPassword last.
             
-            // If the event dispatched from this TextView is canceled,
-            // cancel the one from the EditManager, which will prevent
-            // the editing operation from being processed.
-            if (newEvent.isDefaultPrevented())
-                event.preventDefault();
+            if (restrict != null)
+                textToInsert = StringUtil.restrict(textToInsert, restrict);
+
+            if (maxChars != 0)
+            {
+                var length1:int = text.length;
+                var length2:int = textToInsert.length;
+                if (length1 + length2 > maxChars)
+                    textToInsert = textToInsert.substr(0, maxChars - length1);
+            }
+
+            if (displayAsPassword)
+            {
+                _text = splice(_text, insertTextOperation.absoluteStart,
+                               insertTextOperation.absoluteEnd, textToInsert);
+                textToInsert = StringUtil.repeat(mx_internal::passwordChar,
+                                                 textToInsert.length);
+            }
+
+            insertTextOperation.text = textToInsert;
         }
+        else if (op is PasteOperation)
+        {
+            // to be implemented
+        }
+        else if (op is DeleteTextOperation || op is CutOperation)
+        {
+            var flowTextOperation:FlowTextOperation =
+                FlowTextOperation(op);
+            
+            if (displayAsPassword)
+            {
+                _text = splice(_text, flowTextOperation.absoluteStart,
+                               flowTextOperation.absoluteEnd, "");
+            }
+        }
+        
+        // Dispatch a 'changing' event from the TextView
+        // as notification that an editing operation is about to occur.
+        var newEvent:TextOperationEvent =
+            new TextOperationEvent(TextOperationEvent.CHANGING);
+        newEvent.operation = op;
+        dispatchEvent(newEvent);
+        
+        // If the event dispatched from this TextView is canceled,
+        // cancel the one from the EditManager, which will prevent
+        // the editing operation from being processed.
+        if (newEvent.isDefaultPrevented())
+            event.preventDefault();
     }
     
     /**
