@@ -304,7 +304,13 @@ public class RichEditableTextContainerManager extends TextContainerManager
     override protected function createEditManager(
                         undoManager:flashx.undo.IUndoManager):IEditManager
     {
-        return new RichEditableTextEditManager(textDisplay, undoManager);
+        var editManager:IEditManager = super.createEditManager(undoManager);
+        
+        // Default is to batch text input.  If the component, like ComboBox
+        // wants to act on each keystroke then set this to false.
+        editManager.delayedOperations = textDisplay.batchTextInput;
+        
+        return editManager;
     }
 
     /**
