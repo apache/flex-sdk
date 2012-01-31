@@ -27,6 +27,15 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  <p>You can get or set this state programmatically
  *  by using the <code>selected</code> property.</p>
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;ToggleButton&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no tag attributes:</p>
+ *  <pre>
+ *  &lt;ToggleButton/&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.spark.ToggleButtonSkin
  *  @includeExample examples/ToggleButtonExample.mxml
  *  
  *  @langversion 3.0
