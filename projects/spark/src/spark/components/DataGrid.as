@@ -723,7 +723,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------    
     
     [Bindable("selectionModeChanged")]
-    [Inspectable(category="General", enumeration="none,row,multipleRows,cell,multipleCells", defaultValue="row")]
+    [Inspectable(category="General", enumeration="none,singleRow,multipleRows,singleCell,multipleCells", defaultValue="singleRow")]
     
     /**
      *  @copy spark.components.Grid#selectionMode
@@ -863,27 +863,30 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             }
             else
             {
-                if (isRowSelectionMode())
+                if (grid.caretRowIndex != -1)
                 {
-                    // Add the row and leave the caret position unchanged.
-                    if (!commitInteractiveSelection(
-                        GridSelectionEventKind.ADD_ROW, 
-                        grid.caretRowIndex, grid.caretColumnIndex))
+                    if (isRowSelectionMode())
                     {
-                        return;
+                        // Add the row and leave the caret position unchanged.
+                        if (!commitInteractiveSelection(
+                            GridSelectionEventKind.ADD_ROW, 
+                            grid.caretRowIndex, grid.caretColumnIndex))
+                        {
+                            return;
+                        }
+                        event.preventDefault();                
                     }
-                    event.preventDefault();                
-                }
-                else if (isCellSelectionMode())
-                {
-                    // Add the cell and leave the caret position unchanged.
-                    if (!commitInteractiveSelection(
-                        GridSelectionEventKind.ADD_CELL, 
-                        grid.caretRowIndex, grid.caretColumnIndex))
+                    else if (isCellSelectionMode() && grid.caretColumnIndex != -1)
                     {
-                        return;
+                        // Add the cell and leave the caret position unchanged.
+                        if (!commitInteractiveSelection(
+                            GridSelectionEventKind.ADD_CELL, 
+                            grid.caretRowIndex, grid.caretColumnIndex))
+                        {
+                            return;
+                        }
+                        event.preventDefault();                
                     }
-                    event.preventDefault();                
                 }
             }
             return;
