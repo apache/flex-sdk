@@ -1254,7 +1254,13 @@ public class VideoPlayer extends SkinnableComponent
     override protected function partRemoved(partName:String, instance:Object):void
     {
         if (instance == videoElement)
-        {           
+        {
+            // validate before doing anything with the videoElement.
+            // This is so if the video element hasn't been validated, it won't start playing.
+            // plus this way we'll get a valid playheadTime and all those other properties 
+            // we are interested in.
+            videoElement.validateNow();
+            
             // copy proxied values from video (if explicitely set) to videoProperties
             
             var newVideoProperties:Object = {};
@@ -1689,6 +1695,9 @@ public class VideoPlayer extends SkinnableComponent
             else
                 FlexGlobals.topLevelApplication.addChild(this);
             
+            // Push the component out to -2*width, -2*height so that it's completely 
+            // off-screen.  This way no component will get in the way when we set 
+            // the fullScreenRect to this spot.
             this.x = -2*width;
             this.y = -2*height;
             
