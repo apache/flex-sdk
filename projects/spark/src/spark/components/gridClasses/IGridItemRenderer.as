@@ -66,9 +66,10 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set rowIndex(value:int):void;
     
     /**
-     *  This property is set to true when one of two input gestures occurs within a 
-     *  grid cell:  either the mouse button or the touch screen is pressed.   The down 
-     *  property is reset to false when the mouse button goes up, the user lifts off 
+     *  This property is set to <code>true</code> when one of two input gestures occurs within a 
+     *  grid cell:  either the mouse button or the touch screen is pressed.   
+     *  The <code>down</code> property is reset to <code>false</code> when 
+     *  the mouse button goes up, the user lifts off 
      *  the touch screen, or the mouse/touch is dragged out of the grid cell.   
      * 
      *  <p>Unlike a List item renderer, grid item renderers do not have exclusive
@@ -121,7 +122,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set hovered(value:Boolean):void;
     
     /**
-     *  The string to display in the item renderer.  
+     *  The String to display in the item renderer.  
      * 
      *  <p>The GridItemRenderer class automatically copies the 
      *  value of this property to the <code>text</code> property 
