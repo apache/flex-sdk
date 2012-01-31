@@ -63,7 +63,7 @@ public class DataGroup extends GroupBase
         super();
     }
     
-    private var skinRegistry:Dictionary;
+    private var itemRendererRegistry:Dictionary;
     
     //----------------------------------
     //  itemRenderer
@@ -269,7 +269,7 @@ public class DataGroup extends GroupBase
      */
     protected function createVisualForItem(item:Object):DisplayObject
     {
-        var itemSkin:Object;
+        var myItemRenderer:Object;
         var itemDisplayObject:DisplayObject;
         
         if (item === null)
@@ -287,17 +287,17 @@ public class DataGroup extends GroupBase
             var rendererFactory:IFactory = itemRendererFunction(item);
             
             if (rendererFactory)
-                itemSkin = itemDisplayObject = rendererFactory.newInstance();
+                myItemRenderer = itemDisplayObject = rendererFactory.newInstance();
         }
         
         // 2. if itemRenderer is defined, instantiate one
-        if (!itemSkin && itemRenderer)
+        if (!myItemRenderer && itemRenderer)
         {
-            itemSkin = itemDisplayObject = itemRenderer.newInstance();
+            myItemRenderer = itemDisplayObject = itemRenderer.newInstance();
         }
         
         // 3. if item is a GraphicElement, create the display object for it
-        if (!itemSkin && item is GraphicElement)
+        if (!myItemRenderer && item is GraphicElement)
         {
             var graphicItem:GraphicElement = GraphicElement(item);
             graphicItem.elementHost = this;
@@ -306,44 +306,52 @@ public class DataGroup extends GroupBase
                 graphicItem.displayObject = graphicItem.createDisplayObject();
                 
             itemDisplayObject = graphicItem.displayObject;
-            itemSkin = graphicItem;
+            myItemRenderer = graphicItem;
         }
         
         // 4. if item is a DisplayObject, use it directly
-        if (!itemSkin && item is DisplayObject)
+        if (!myItemRenderer && item is DisplayObject)
         {
-            itemSkin = itemDisplayObject = DisplayObject(item);
+            myItemRenderer = itemDisplayObject = DisplayObject(item);
         }
         
-        // Set the skin data to the item, but only if the item and skin are different
-        if (itemSkin is IDataRenderer && itemSkin != item)
-            IDataRenderer(itemSkin).data = item;
+        // Set the renderer's data to the item, but only if the item and renderer are different
+        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
+            IDataRenderer(myItemRenderer).data = item;
     
-        registerSkin(item, itemSkin);
+        registerRenderer(item, myItemRenderer);
 
         return itemDisplayObject;
     }
     
     /**
-     *  Documentation is not currently available. 
+     *  Called to associate an item with a particular renderer.
+     *  This is called automatically when an item renderer is created.
+     *
+     *  @param item The item to associate the renderer with
+     *  @param myItemRenderer The item renderer
      */
-    protected function registerSkin(item:*, itemSkin:Object):void
+    protected function registerRenderer(item:Object, myItemRenderer:Object):void
     {
-        if (!skinRegistry)
-            skinRegistry = new Dictionary(true);
+        if (!itemRendererRegistry)
+            itemRendererRegistry = new Dictionary(true);
         
-        skinRegistry[item] = itemSkin;
+        itemRendererRegistry[item] = myItemRenderer;
     }
     
     /**
-     *  Documentation is not currently available. 
+     *  Called to dis-associate an item with a particular rendering display object.
+     *  This will be called when virtualization support is added to datagroup.
+     *
+     *  @param item The item to dis-associate the renderer with
+     *  @param myItemRenderer The item renderer
      */
-    protected function unregisterSkin(item:*, itemSkin:DisplayObject):void
+    protected function unregisterRenderer(item:Object, myItemRenderer:DisplayObject):void
     {
-        if (!skinRegistry)
+        if (!itemRendererRegistry)
             return;
         
-        delete skinRegistry[item];
+        delete itemRendererRegistry[item];
     }
     
     /**
@@ -436,11 +444,11 @@ public class DataGroup extends GroupBase
      */
     override public function getLayoutItemAt(index:int):ILayoutItem
     {
-        var item:* = dataProvider.getItemAt(index);
+        var item:Object = dataProvider.getItemAt(index);
 
-        var itemSkin:Object = getItemSkin(item);
+        var myItemRenderer:Object = getItemRenderer(item);
 
-        return LayoutItemFactory.getLayoutItemFor(itemSkin);
+        return LayoutItemFactory.getLayoutItemFor(myItemRenderer);
     }
     
     /**
@@ -488,13 +496,13 @@ public class DataGroup extends GroupBase
      */
     protected function itemRemoved(item:Object, index:int):void
     {       
-        var skin:* = getItemSkin(item);
+        var renderer:Object = getItemRenderer(item);
         var childDO:DisplayObject = item as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
         
-        // if either the item or the skin is a GraphicElement,
+        // if either the item or the renderer is a GraphicElement,
         // release the display objects
         if (item && (item is GraphicElement))
         {
@@ -503,20 +511,20 @@ public class DataGroup extends GroupBase
         }
         
         // determine who the child display object is
-        if (skin && (skin is GraphicElement))
+        if (renderer && (renderer is GraphicElement))
         {
-            childDO = GraphicElement(skin).displayObject;
+            childDO = GraphicElement(renderer).displayObject;
         }
-        else if (skin && (skin is DisplayObject))
+        else if (renderer && (renderer is DisplayObject))
         {
-            childDO = skin as DisplayObject;
+            childDO = renderer as DisplayObject;
         }
         
-        // If the item and skin are different objects, set the skin data to 
-        // null here to clear it out. Otherwise, the skin keeps a reference to the item,
+        // If the item and renderer are different objects, set the renderer data to 
+        // null here to clear it out. Otherwise, the renderer keeps a reference to the item,
         // which can cause problems later.
-        if (item && skin && item != skin)
-            skin.data = null;
+        if (item && renderer && item != renderer)
+            renderer.data = null;
                 
         if (childDO)
             super.removeChild(childDO);
@@ -538,7 +546,7 @@ public class DataGroup extends GroupBase
      * 
      *  @return DisplayObject that was added.
      */ 
-    protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
+    protected function addItemToDisplayList(child:DisplayObject, item:Object, index:int = -1):DisplayObject
     { 
         var host:DisplayObject;
         
@@ -583,73 +591,70 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Collection change handler for the dataProvider.
-     */ 
-    protected function collectionChangeHandler(event:Event):void
+     *  Called when contents within the dataProvider changes.  We will catch certain 
+     *  events and update our children based on that.
+     *
+     *  @param event The collection change event
+     */
+    protected function collectionChangeHandler(event:CollectionEvent):void
     {
-        if (event is CollectionEvent)
+        switch (event.kind)
         {
-            var ce:CollectionEvent = CollectionEvent(event);
-
-            switch (ce.kind)
+            case CollectionEventKind.ADD:
             {
-                case CollectionEventKind.ADD:
-                {
-                    // items are added
-                    // figure out what items were added and where
-                    // for virtualization also figure out if items are now in view
-                    adjustAfterAdd(ce.items, ce.location);
-                    break;
-                }
+                // items are added
+                // figure out what items were added and where
+                // for virtualization also figure out if items are now in view
+                adjustAfterAdd(event.items, event.location);
+                break;
+            }
+        
+            case CollectionEventKind.REPLACE:
+            {
+                // items are replaced
+                adjustAfterReplace(event.items, event.location);
+                break;
+            }
+        
+            case CollectionEventKind.REMOVE:
+            {
+                // items are added
+                // figure out what items were removed
+                // for virtualization also figure out what items are now in view
+                adjustAfterRemove(event.items, event.location);
+                break;
+            }
             
-                case CollectionEventKind.REPLACE:
-                {
-                    // items are replaced
-                    adjustAfterReplace(ce.items, ce.location);
-                    break;
-                }
+            case CollectionEventKind.MOVE:
+            {
+                // one item is moved
+                adjustAfterMove(event.items[0], event.location, event.oldLocation);
+                break;
+            }
+        
+            case CollectionEventKind.REFRESH:
+            {
+                // from a filter or sort...let's just reset everything          
+                dataProviderChanged = true;
+                invalidateProperties();
+                break;
+            }
             
-                case CollectionEventKind.REMOVE:
-                {
-                    // items are added
-                    // figure out what items were removed
-                    // for virtualization also figure out what items are now in view
-                    adjustAfterRemove(ce.items, ce.location);
-                    break;
-                }
-                
-                case ce.kind == CollectionEventKind.MOVE:
-                {
-                    // one item is moved
-                    adjustAfterMove(ce.items[0], ce.location, ce.oldLocation);
-                    break;
-                }
+            case CollectionEventKind.RESET:
+            {
+                // reset everything          
+                dataProviderChanged = true;
+                invalidateProperties();
+                break;
+            }
             
-                case CollectionEventKind.REFRESH:
-                {
-                    // from a filter or sort...let's just reset everything          
-                    dataProviderChanged = true;
-                    invalidateProperties();
-                    break;
-                }
-                
-                case CollectionEventKind.RESET:
-                {
-                    // reset everything          
-                    dataProviderChanged = true;
-                    invalidateProperties();
-                    break;
-                }
-                
-                case CollectionEventKind.UPDATE:
-                {
-                    // update event, do nothing
-                    // TODO: maybe we need to do something here, like recreate renderer?
-                    break;
-                }
+            case CollectionEventKind.UPDATE:
+            {
+                // update event, do nothing
+                // TODO: maybe we need to do something here, like recreate renderer?
+                break;
             }
         }
-            
     }
     
     /**
@@ -699,7 +704,7 @@ public class DataGroup extends GroupBase
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
         {
-            itemRemoved(items[i].oldValue, location + i);
+            itemRemoved(items[i].oldValue, location + i);               
         }
         
         for (var k:int = length-1; k >= 0; k--)
@@ -715,14 +720,22 @@ public class DataGroup extends GroupBase
     //--------------------------------------------------------------------------
     
     /**
-     *  Documentation is not currently available. 
+     *  Returns the instance of the renderer for the specified item. If the
+     *  the specified item is a visual item (component or IGraphicElment) that 
+     *  doesn't use an item renderer, the item itself is returned.
+     *
+     *  @param item The item whose renderer is to be returned.
+     *
+     *  @return The renderer instance for the specified item. If the item
+     *          is a subclass of DisplayObject or GraphicElement and has no 
+     *          item renderer, the item itself is returned.
      */
-    public function getItemSkin(item:*):Object
+    public function getItemRenderer(item:Object):Object
     {
         var result:Object = null;
                     
-        if (skinRegistry)
-            result = skinRegistry[item];
+        if (itemRendererRegistry)
+            result = itemRendererRegistry[item];
         
         if (!result && item is DisplayObject)
             result = item;
@@ -731,23 +744,33 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Documentation is not currently available. 
+     *  Returns the item associated with the specified renderer.
+     *
+     *  @param renderer The renderer whose item you want to retrieve.
+     *
+     *  @return The item associated with the specified renderer.
      */
-    public function getSkinItem(skin:Object):*
+    public function getRendererItem(renderer:Object):Object
     {
         // !! This implementation is really slow... 
-        var item:*;
+        var item:Object;
         
         for (var i:int = 0; i < dataProvider.length; i++)
         {
             item = dataProvider.getItemAt(i);
-            if (getItemSkin(item) == skin)
+            if (getItemRenderer(item) == renderer)
                 return item;
         }
         
         return null;
     }
     
+    /**
+     *  Dictionary to keep track of mask elements.  Because mask elements can be applied 
+     *  to GraphicElements, which may not be DisplayObjects, the DataGroup needs to know this
+     *  to map GraphicElements to DisplayObjects later on since masking takes place
+     *  at the Flash Player level.
+     */ 
     protected var maskElements:Dictionary;
     
     /**
