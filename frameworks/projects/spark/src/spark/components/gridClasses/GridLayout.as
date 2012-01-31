@@ -936,7 +936,10 @@ public class GridLayout extends LayoutBase
         const width:Number = r.width;  
         const height:Number = 1; // TBD: should be max(1, colGap)
         const x:Number = r.x;
-        const y:Number = gridDimensions.getRowBounds(rowIndex).bottom;
+        const bounds:Rectangle = gridDimensions.getRowBounds(rowIndex);
+        if (!bounds)
+            return;
+        const y:Number = bounds.bottom;
         layoutGridElement(separator, x, y, width, height);
     }
     
@@ -945,7 +948,10 @@ public class GridLayout extends LayoutBase
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = 1;  // TBD: should be max(1, rowGap)
         const height:Number = r.height; 
-        const x:Number = gridDimensions.getColumnBounds(columnIndex).right;
+        const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+        if (!bounds)
+            return;
+        const x:Number = bounds.right;
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
     }
@@ -956,6 +962,8 @@ public class GridLayout extends LayoutBase
         const width:Number = 1;  // TBD: should be max(1, rowGap)
         const height:Number = columnHeaderBar.height; 
         const columnBounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+        if (!columnBounds)
+            return;
         const x:Number = columnBounds.right;
         const y:Number = columnBounds.top;
         layoutGridElement(separator, x, y, width, height);
