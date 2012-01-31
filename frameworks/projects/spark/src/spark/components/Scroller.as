@@ -184,8 +184,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  as the following example shows:</p>
  * 
  *  <pre>
- *  &lt;s:Scroller&gt;
- *       &lt;s:Group width="100" height="100"&gt; 
+ *  &lt;s:Scroller width="100" height="100"&gt;
+ *       &lt;s:Group&gt; 
  *          &lt;mx:Image width="300" height="400" 
  *               source="&#64;Embed(source='assets/logo.jpg')"/&gt; 
  *       &lt;/s:Group&gt;        
@@ -196,17 +196,25 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  Rather than allow the child to extend past the boundaries of the parent container, 
  *  the Scroller specifies to clip the child to the boundaries and display scroll bars.</p>
  *
- *  <p>For Spark containers that do not implement the IViewport interface, 
- *  you can still use scroll bars. 
- *  To add scroll bars, create a custom skin for the container that 
- *  includes the Scroller control. </p>
+ *  <p>Not all Spark containers implement the IViewPort interface. 
+ *  Therefore, those containers, such as the Border and SkinnableContainer containers, 
+ *  cannot be used as the direct child of the Scroller component.
+ *  However, all Spark containers can have a Scroller component as a child component. 
+ *  For example, to use scroll bars on a child of the Spark Border container, 
+ *  wrap the child in a Scroller component. </p>
+ *
+ *  <p>To make the entire Border container scrollable, wrap it in a Group container. 
+ *  Then, make the Group container the child of the Scroller component,
+ *  For skinnable Spark containers that do not implement the IViewport interface, 
+ *  you can also create a custom skin for the container that 
+ *  includes the Scroller component. </p>
  * 
  *  <p>The IViewport interface define a viewport for the components that implement it.
  *  A viewport is a rectangular subset of the area of a container that you want to display, 
  *  rather than displaying the entire container.
- *  The scrollbars control the viewport's <code>horizontalScrollPosition</code> and
+ *  The scroll bars control the viewport's <code>horizontalScrollPosition</code> and
  *  <code>verticalScrollPosition</code> properties.
- *  Scrollbars make it possible to view the area defined by the viewport's 
+ *  scroll bars make it possible to view the area defined by the viewport's 
  *  <code>contentWidth</code> and <code>contentHeight</code> properties.</p>
  *
  *  <p>You can combine scroll bars with explicit settings for the container's viewport. 
@@ -214,24 +222,24 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  and then you can use the scroll bars to move it, as the following example shows: </p>
  *  
  *  <pre>
- *  &lt;s:Scroller&gt;
- *      &lt;s:Group width="100" height="100"
+ *  &lt;s:Scroller width="100" height="100"&gt;
+ *      &lt;s:Group
  *          horizontalScrollPosition="50" verticalScrollPosition="50"&gt; 
  *          &lt;mx:Image width="300" height="400" 
  *              source="&#64;Embed(source='assets/logo.jpg')"/&gt; 
  *      &lt;/s:Group&gt;                 
  *  &lt;/s:Scroller&gt;</pre>
  * 
- *  <p>The scrollbars are displayed according to the vertical and horizontal scroll bar
+ *  <p>The scroll bars are displayed according to the vertical and horizontal scroll bar
  *  policy, which can be <code>auto</code>, <code>on</code>, or <code>off</code>.
- *  The <code>auto</code> policy means that the scrollbar will be visible and included
+ *  The <code>auto</code> policy means that the scroll bar will be visible and included
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
  * 
  *  <p>The Scroller skin layout cannot be changed. It is unconditionally set to a 
  *  private layout implementation that handles the scroll policies.  Scroller skins
- *  can only provide replacement scrollbars.  To gain more control over the layout
- *  of a viewport and its scrollbars, instead of using Scroller, just add them 
- *  to a <code>Group</code> and use the scrollbar <code>viewport</code> property 
+ *  can only provide replacement scroll bars.  To gain more control over the layout
+ *  of a viewport and its scroll bars, instead of using Scroller, just add them 
+ *  to a <code>Group</code> and use the scroll bar <code>viewport</code> property 
  *  to link them together.</p>
  *
  *  <p>The Scroller control has the following default characteristics:</p>
@@ -352,7 +360,7 @@ public class Scroller extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     * Constructor
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -387,7 +395,7 @@ public class Scroller extends SkinnableComponent
     [Bindable]    
 
     /**
-     *  A skin part that defines the horizontal scrollbar.
+     *  A skin part that defines the horizontal scroll bar.
      * 
      *  This property should be considered read-only. It is only
      *  set by the Scroller's skin.
@@ -409,7 +417,7 @@ public class Scroller extends SkinnableComponent
     [Bindable]
     
     /**
-     *  A skin part that defines the vertical scrollbar.
+     *  A skin part that defines the vertical scroll bar.
      * 
      *  This property should be considered read-only. It is only
      *  set by the Scroller's skin.
@@ -437,7 +445,7 @@ public class Scroller extends SkinnableComponent
      * 
      *  <p>
      *  The viewport is added to the Scroller component's skin, 
-     *  which lays out both the viewport and scrollbars.
+     *  which lays out both the viewport and scroll bars.
      * 
      *  When the <code>viewport</code> property is set, the viewport's 
      *  <code>clipAndEnableScrolling</code> property is 
@@ -515,11 +523,11 @@ public class Scroller extends SkinnableComponent
     /**
      *  The minimum space between the viewport and the edges of the Scroller.  
      * 
-     *  If neither of the scrollbars is visible, then the viewport is inset by 
+     *  If neither of the scroll bars is visible, then the viewport is inset by 
      *  <code>minViewportInset</code> on all four sides.
      * 
-     *  If a scrollbar is visible then the viewport is inset by <code>minViewportInset</code>
-     *  or by the scrollbar's size, whichever is larger.
+     *  If a scroll bar is visible then the viewport is inset by <code>minViewportInset</code>
+     *  or by the scroll bar's size, whichever is larger.
      * 
      *  ScrollBars are laid out flush with the edges of the Scroller.   
      * 
@@ -550,7 +558,7 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  If <code>true</code>, the Scroller's measured size includes the space required for
-     *  the visible scrollbars, otherwise the Scroller's measured size depends
+     *  the visible scroll bars, otherwise the Scroller's measured size depends
      *  only on its viewport.
      * 
      *  <p>Components like TextArea, which "reflow" their contents to fit the
@@ -562,7 +570,7 @@ public class Scroller extends SkinnableComponent
      * 
      *  <p>In components where the content does not reflow, like a typical List's
      *  items, the default behavior is preferable because it makes it less
-     *  likely that the component's content will not obscured by a scrollbar.</p>
+     *  likely that the component's content will not obscured by a scroll bar.</p>
      * 
      *  @default true
      */
