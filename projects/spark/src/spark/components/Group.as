@@ -16,27 +16,26 @@ import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 import flex.geom.Transform;
 import flex.graphics.Graphic;
-import flex.graphics.graphicsClasses.GraphicElement;
 import flex.graphics.IAssignableDisplayObjectElement;
 import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
 import flex.graphics.TransformUtil;
-import flex.intf.ILayout; 
+import flex.graphics.graphicsClasses.GraphicElement;
+import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flex.layout.BasicLayout;
 import flex.layout.LayoutItemFactory;
 
-import mx.collections.IList;
 import mx.collections.ICollectionView;
+import mx.collections.IList;
 import mx.collections.ListCollectionView;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.core.UIComponent;
-import mx.events.ChildExistenceChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
@@ -419,6 +418,15 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
                     element.validateProperties();
             }
         }
+
+        if (scrollPositionChanged) {
+        	scrollPositionChanged = false;
+	        var r:Rectangle = scrollRect;
+			if (r == null) r = new Rectangle(0, 0, width, height);
+			r.x = _horizontalScrollPosition;
+			r.y = _verticalScrollPosition;
+			scrollRect = r; 
+        }
     }
     
     override public function validateSize(recursive:Boolean = false):void
@@ -521,40 +529,53 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     }
     
     //----------------------------------
-    //  horizontal,verticalScrollPosition
+    //  horizontalScrollPosition
     //----------------------------------
 		
-
+    private var scrollPositionChanged:Boolean = false;
     private var _horizontalScrollPosition:Number = 0;
-    private var _verticalScrollPosition:Number = 0;
-
-    private function getScrollRect():Rectangle {
-        var r:Rectangle = scrollRect;
-        return (r == null) ? new Rectangle(0,0,width,height) : r;
-    }
-
-    public function get horizontalScrollPosition():Number {
-            return _horizontalScrollPosition;
-    }
     
     [Bindable]
-    public function set horizontalScrollPosition(value:Number):void {
+    [Inspectable(category="General")]
+    
+    public function get horizontalScrollPosition():Number 
+    {
+        return _horizontalScrollPosition;
+    }
+    
+    public function set horizontalScrollPosition(value:Number):void 
+    {
+        if (value == _horizontalScrollPosition) 
+            return;
+    
         _horizontalScrollPosition = value;
-        var r:Rectangle = getScrollRect(); 
-        r.x = _horizontalScrollPosition; 
-        scrollRect = r;
+        scrollPositionChanged = true;
+        invalidateProperties();
     }
     
-    public function get verticalScrollPosition():Number {
-            return _verticalScrollPosition;
-    }
+
+    //----------------------------------
+    //  verticalScrollPosition
+    //----------------------------------
+
+    private var _verticalScrollPosition:Number = 0;
     
     [Bindable]
-    public function set verticalScrollPosition(value:Number):void {
+    [Inspectable(category="General")]    
+
+    public function get verticalScrollPosition():Number 
+    {
+        return _verticalScrollPosition;
+    }
+    
+    public function set verticalScrollPosition(value:Number):void 
+    {
+        if (value == _verticalScrollPosition)
+        	return;
+        	
         _verticalScrollPosition = value;
-        var r:Rectangle = getScrollRect();
-        r.y = _verticalScrollPosition; 
-        scrollRect = r;
+        scrollPositionChanged = true;
+        invalidateProperties();
     }
     
     
@@ -566,7 +587,7 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     [Bindable] public var contentHeight:Number;
 	
 
-        //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Properties: Overriden Focus management
     //
