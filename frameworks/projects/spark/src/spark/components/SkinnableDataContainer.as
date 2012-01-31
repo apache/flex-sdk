@@ -12,6 +12,8 @@
 package spark.components
 {
 
+import flash.events.Event;
+
 import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
@@ -317,7 +319,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    [Bindable]
+    [Bindable("dataProviderChanged")]
+    
     public function get dataProvider():IList
     {       
         return (dataGroup) 
@@ -335,6 +338,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
         }
         else
             dataGroupProperties.dataProvider = value;
+        dispatchEvent(new Event("dataProviderChanged"));
     }
     
     //----------------------------------
