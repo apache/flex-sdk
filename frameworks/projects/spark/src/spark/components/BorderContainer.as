@@ -62,27 +62,27 @@ import spark.components.SkinnableContainer;
 [Style(name="backgroundImage", type="Object", format="File", inherit="no")]
 
 /**
- *  The resizeMode determines how the background image fills in the dimensions. If you set the value
+ *  The fillMode determines how the background image fills in the dimensions. If you set the value
  *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
- *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NOSCALE</code>).
+ *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
  * 
- *  When set to <code>BitmapResizeMode.NOSCALE</code> ("noScale"), the image
+ *  When set to <code>BitmapFillMode.CLIP</code> ("clip"), the image
  *  ends at the edge of the region.
  * 
- *  When set to <code>BitmapResizeMode.REPEAT</code> ("repeat"), the image 
+ *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the image 
  *  repeats to fill the region.
  *
- *  When set to <code>BitmapResizeMode.SCALE</code> ("scale"), the image
+ *  When set to <code>BitmapFillMode.SCALE</code> ("scale"), the image
  *  stretches to fill the region.
  * 
- *  @default <code>BitmapResizeMode.SCALE</code>
+ *  @default <code>BitmapFillMode.SCALE</code>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundImageResizeMode", type="String", enumeration="scale,noScale,repeat", inherit="no")]
+[Style(name="backgroundImageFillMode", type="String", enumeration="scale,clip,repeat", inherit="no")]
 
 /**
  *  Alpha level of the color defined by the <code>borderColor</code> style.
@@ -201,7 +201,7 @@ public class Border extends SkinnableContainer
     /**
      *  The backgroundFill is used to draw the background of the Border. 
      *  Setting this property will override the backgroundAlpha, 
-     *  backgroundColor, backgroundImage and backgroundImageResizeMode styles.
+     *  backgroundColor, backgroundImage and backgroundImageFillMode styles.
      * 
      *  @default null
      * 
