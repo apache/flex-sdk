@@ -517,6 +517,8 @@ public class ListBase extends SkinnableDataContainer
      *  If <code>true</code>, a data item must always be selected in the control.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
      *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1).
+     * 
+     * <p>The default value is <code>false</code> for most subclasses, except TabBar. In that case, the default is <code>true</code>.</p>
      *
      *  @default false
      *  
@@ -643,14 +645,14 @@ public class ListBase extends SkinnableDataContainer
     mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false):void
     {
         if (value == selectedIndex)
-		{
-			// this should short-circuit, but we should check to make sure 
-			// that caret doesn't need to be changed either, as that's a side
-			// effect of setting selectedIndex
-			setCurrentCaretIndex(selectedIndex);
-			
+        {
+            // this should short-circuit, but we should check to make sure 
+            // that caret doesn't need to be changed either, as that's a side
+            // effect of setting selectedIndex
+            setCurrentCaretIndex(selectedIndex);
+            
             return;
-		}
+        }
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
