@@ -2550,6 +2550,8 @@ package spark.components
                     gridSelection.requireSelection = savedRequireSelection;
                 }
                 
+                gridLayout.clearVirtualLayoutCache();
+                
                 if (gridDimensions)
                 {
                     gridDimensions.clear();
