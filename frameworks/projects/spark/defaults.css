@@ -38,6 +38,11 @@ FxCheckBox
     textAlign: "start";
 }
 
+DropDownList
+{
+	skinClass: ClassReference("mx.skins.spark.DropDownListSkin");
+}
+
 FxComponent
 {
     focusSkin: ClassReference("mx.skins.spark.FxFocusSkin");
