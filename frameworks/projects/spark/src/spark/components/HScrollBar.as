@@ -16,6 +16,9 @@ import mx.components.baseClasses.FxTextBase;
 import mx.components.baseClasses.FxScrollBar;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
+import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
+
 /**
  *  The FxHScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
@@ -65,6 +68,21 @@ public class FxHScrollBar extends FxScrollBar
     // Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Update the value property and, if viewport is non null, then set 
+     *  its horizontalScrollPosition to <code>value</code>.
+     * 
+     *  @param value The new value of the <code>value</code> property. 
+     *  @see viewport
+     */
+    override protected function setValue(value:Number):void
+    {
+        super.setValue(value);
+        if (viewport)
+            viewport.horizontalScrollPosition = value;
+    }
+    
 
     /**
      *  Position the thumb button based on the specified thumb position,
@@ -207,7 +225,45 @@ public class FxHScrollBar extends FxScrollBar
         }      
         
         super.partAdded(partName, instance);
-    }     
+    }
+    
+    /**
+     *  Set this scrollbar's value to the viewport's current horizontalScrollPosition.
+     * 
+     *  @see IViewport#horizontalScrollPosition
+     */
+    override protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (viewport)
+            value = viewport.horizontalScrollPosition;
+    } 
+    
+    /**
+     *  Set this scrollbar's maximum to the viewport's contentWidth 
+     *  less the viewport width and its pageSize to the viewport's width. 
+     */
+    override protected function viewportResizeHandler(event:ResizeEvent):void
+    {
+        if (viewport)
+        {
+            maximum = viewport.contentWidth - viewport.width;
+            pageSize = viewport.width;
+        } 
+    }
+    
+    /**
+     *  Set this scrollbar's maximum to the viewport's contentWidth 
+     *  less the viewport width. 
+     *
+     *  @see IViewport#contentWidth
+     *  @see IViewport#width 
+     */
+    override protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (viewport)
+            maximum = viewport.contentWidth - viewport.width;
+    }
+
         
 }
 
