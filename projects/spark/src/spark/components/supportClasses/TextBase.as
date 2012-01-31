@@ -666,11 +666,11 @@ public class TextGraphicElement extends GraphicElement
      *  text reflow. This is a convenient place, as the layout passes NaN
      *  for a dimension not constrained to the parent.
      */
-    override public function setLayoutBoundsSize(width:Number=NaN,
-                                                 height:Number=NaN,
-                                                 postTransform:Boolean=true):void
+    override public function setLayoutBoundsSize(width:Number,
+                                                 height:Number,
+                                                 postLayoutTransform:Boolean = true):void
     {
-        super.setLayoutBoundsSize(width, height, postTransform);
+        super.setLayoutBoundsSize(width, height, postLayoutTransform);
 
         // TODO EGeorgie: possible optimization - if we reflow the text
         // immediately, we'll be able to detect whether the constrained
@@ -714,7 +714,7 @@ public class TextGraphicElement extends GraphicElement
         // We support reflow only when we don't have a transform.
         // We could add support for scale, but not skew or rotation.
         var matrix:Matrix;
-        if (postTransform)
+        if (postLayoutTransform)
             matrix = computeMatrix();
         if (null != matrix)
             return;
