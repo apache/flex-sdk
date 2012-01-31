@@ -39,6 +39,8 @@ import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.IUndoManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.edit.SelectionManager;
+import flashx.textLayout.edit.SelectionState;
+import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.edit.UndoManager;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
@@ -284,6 +286,13 @@ public class TextView extends UIComponent implements IViewport
      */
     private var charWidth:Number;
 
+    /**
+     *  @private
+     *  True if TextOperationEvent.CHANGING should be dispatched at
+     *  operationEnd.
+     */
+    private var dispatchChangingEvent:Boolean = true;
+    
     /**
      *  @private
      */
@@ -2071,7 +2080,7 @@ public class TextView extends UIComponent implements IViewport
             // Note: Must process restrict first, then maxChars,
             // then displayAsPassword last.
             
-            if (restrict != null)
+            if (_restrict != null)
             {
                 textToInsert = StringUtil.restrict(textToInsert, restrict);
                 if (textToInsert.length == 0)
@@ -2089,7 +2098,7 @@ public class TextView extends UIComponent implements IViewport
                     textToInsert = textToInsert.substr(0, maxChars - length1);
             }
 
-            if (displayAsPassword)
+            if (_displayAsPassword)
             {
                 _text = splice(_text, insertTextOperation.absoluteStart,
                                insertTextOperation.absoluteEnd, textToInsert);
@@ -2101,7 +2110,10 @@ public class TextView extends UIComponent implements IViewport
         }
         else if (op is PasteOperation)
         {
-            // to be implemented
+            // Paste is implemented in operationEnd.  The basic idea is to allow 
+            // the paste to go through unchanged, but group it together with a 
+            // second operation that modifies text as part of the same 
+            // transaction. This is vastly simpler for TLF to manage. 
         }
         else if (op is DeleteTextOperation || op is CutOperation)
         {
@@ -2117,25 +2129,28 @@ public class TextView extends UIComponent implements IViewport
                 return;
             }           
             
-            if (displayAsPassword)
+            if (_displayAsPassword)
             {
                 _text = splice(_text, flowTextOperation.absoluteStart,
                                flowTextOperation.absoluteEnd, "");
             }
         }
-        
+ 
         // Dispatch a 'changing' event from the TextView
         // as notification that an editing operation is about to occur.
-        var newEvent:TextOperationEvent =
-            new TextOperationEvent(TextOperationEvent.CHANGING);
-        newEvent.operation = op;
-        dispatchEvent(newEvent);
-        
-        // If the event dispatched from this TextView is canceled,
-        // cancel the one from the EditManager, which will prevent
-        // the editing operation from being processed.
-        if (newEvent.isDefaultPrevented())
-            event.preventDefault();
+        if (dispatchChangingEvent)
+        {
+            var newEvent:TextOperationEvent =
+                new TextOperationEvent(TextOperationEvent.CHANGING);
+            newEvent.operation = op;
+            dispatchEvent(newEvent);
+            
+            // If the event dispatched from this TextView is canceled,
+            // cancel the one from the EditManager, which will prevent
+            // the editing operation from being processed.
+            if (newEvent.isDefaultPrevented())
+                event.preventDefault();
+        }
     }
     
     /**
@@ -2147,6 +2162,11 @@ public class TextView extends UIComponent implements IViewport
                         event:FlowOperationEvent):void
     {
         //trace("operationEnd");
+        
+        // Paste is a special case.  Any mods have to be made to the text
+        // which includes what was pasted.
+        if (event.operation is PasteOperation)
+            handlePasteOperation(PasteOperation(event.operation));
 
         // Since the text may have changed, set a flag which will
         // cause the 'text' getter to call extractText() to extract
@@ -2160,6 +2180,37 @@ public class TextView extends UIComponent implements IViewport
             new TextOperationEvent(TextOperationEvent.CHANGE);
         newEvent.operation = event.operation;
         dispatchEvent(newEvent);
+    }
+
+    private function handlePasteOperation(op:PasteOperation):void
+    {
+        if (!restrict && !maxChars && !displayAsPassword)
+            return;
+            
+        var textScrap:TextScrap = op.scrapToPaste();
+        var pastedText:String = TextUtil.extractText(textScrap.textFlow);
+
+        // We know it's an EditManager or we wouldn't have gotten here.
+        var editManager:EditManager = EditManager(textFlow.interactionManager);
+
+        // Generate a CHANGING event for the PasteOperation but not for the
+        // DeleteTextOperation or the InsertTextOperation which are also part
+        // of the paste.
+        dispatchChangingEvent = false;
+                        
+        var selectionState:SelectionState = 
+            new SelectionState(textFlow, op.absoluteStart, 
+                    op.absoluteStart + pastedText.length);             
+        editManager.deleteText(selectionState);
+
+        // Insert the same text, the same place where the paste was done.
+        // This will go thru the InsertPasteOperation and do the right
+        // things with restrict, maxChars and displayAsPassword.
+        selectionState = 
+            new SelectionState(textFlow, op.absoluteStart, op.absoluteStart);
+        editManager.insertText(pastedText, selectionState);        
+
+        dispatchChangingEvent = true;
     }
 }
 
