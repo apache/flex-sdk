@@ -67,7 +67,7 @@ public class FxTrackBase extends FxRange
     //
     //--------------------------------------------------------------------------
 
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A skin part that defines a button
@@ -79,7 +79,7 @@ public class FxTrackBase extends FxRange
      */
     public var thumb:FxButton;
     
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A skin part that defines a button
@@ -87,7 +87,6 @@ public class FxTrackBase extends FxRange
      *  to the value corresponding with the current button position on the track.
      */
     public var track:FxButton; 
-
 
     //--------------------------------------------------------------------------
     //
