@@ -63,7 +63,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      */
-    private var hasScrollRect:Boolean = false;
+    //private var hasScrollRect:Boolean = false;
 
     /**
      *  @private
@@ -205,7 +205,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
      *  there is a controller attached all the event handling is done by the
      *  controller and this no longer gets called.
      */
-    override protected function focusInHandler(event:FocusEvent):void
+    override public function focusInHandler(event:FocusEvent):void
     {
         textView.mx_internal::focusInHandler(event);
 
