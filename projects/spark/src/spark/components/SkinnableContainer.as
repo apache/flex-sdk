@@ -334,8 +334,8 @@ public class SkinnableContainer extends SkinnableContainerBase
         else
         {
             // want the default to be true
-            return (contentGroupProperties.autoLayout === undefined) ?
-                    true : false
+            var v:* = contentGroupProperties.autoLayout;
+            return (v === undefined) ? true : v;
         }
     }
 
