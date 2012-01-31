@@ -13,6 +13,8 @@ package flex.effects.effectClasses
 import flex.effects.PropertyValuesHolder;
 import flex.effects.interpolation.ColorInterpolator;
 
+import mx.styles.StyleManager;
+
 /**
  * The instance of the Tint effect, which animates a change in
  * color by interpolating the from/to values per color channel
@@ -53,14 +55,14 @@ public class TintInstance extends AnimateInstance
         // The user may have supplied some combination of xFrom, xTo, and xBy.
         // If either xFrom or xTo is not explicitly defined, calculate its
         // value based on the other two values.
-        if (isNaN(colorFrom))
+        if (colorFrom == StyleManager.NOT_A_COLOR)
         {
             if (propertyChanges && propertyChanges.start[colorPropertyName] !== undefined)
                 colorFrom = propertyChanges.start[colorPropertyName];
             else
                 colorFrom = getCurrentValue(colorPropertyName);
         }
-        if (isNaN(colorTo))
+        if (colorTo == StyleManager.NOT_A_COLOR)
         {
             if (propertyChanges &&
                 propertyChanges.end[colorPropertyName] !== undefined)
