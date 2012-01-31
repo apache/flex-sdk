@@ -16,7 +16,7 @@ package spark.effects.easing
  *  the acceleration, or ease in phase, followed by the deceleration, or ease out phase. 
  *  The default behavior of this class returns a linear
  *  interpolation for both easing phases. You can create a subclass
- *  of EaseInOutBase to get more interestion behavior.
+ *  of EaseInOutBase to get more interesting behavior.
  *  
  *  @mxml
  *
