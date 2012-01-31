@@ -24,6 +24,7 @@ import flash.ui.Keyboard;
 
 import flashx.textLayout.container.ContainerController;
 import flashx.textLayout.container.TextContainerManager;
+import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.ElementRange;
 import flashx.textLayout.edit.IEditManager;
@@ -35,6 +36,7 @@ import flashx.textLayout.elements.FlowLeafElement;
 import flashx.textLayout.elements.IConfiguration;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.elements.TextRange;
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.Category;
 import flashx.textLayout.formats.ITextLayoutFormat;
@@ -373,10 +375,21 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         var operationState:SelectionState =
             new SelectionState(textFlow, anchorPosition, activePosition);
+                    
+        // If using the edit manager and the selection is the current selection,
+        // need to set the flag so point selection is set with pending formats for next 
+        // char typed.
+        const editManager:IEditManager = textFlow.interactionManager as IEditManager;
+        if (editManager)
+        {
+            const absoluteStart:int = getAbsoluteStart(anchorPosition, activePosition);
+            const absoluteEnd:int = getAbsoluteEnd(anchorPosition, activePosition);
+            
+            if (editManager.absoluteStart == absoluteStart && editManager.absoluteEnd == absoluteEnd)
+                operationState.selectionManagerOperationState = true;
+        }
         
-        // On point selection remember pending formats for next char typed.
-        operationState.selectionManagerOperationState = true;
-        
+        // For the case when interactive editing is not allowed.
         var op:ApplyFormatOperation = 
             new ApplyFormatOperation(
                 operationState, leafFormat, paragraphFormat, containerFormat);
@@ -386,7 +399,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         {
             textFlow.normalize(); 
             textFlow.flowComposer.updateAllControllers(); 
-        } 
+        }
         
         return success;
     }
@@ -408,10 +421,13 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         if (textFlow.interactionManager)
         {
-            // If there is a selection manager use it so that the format
-            // will include any attributes set on a point selection but not 
-            // yet applied.	
-            return textFlow.interactionManager.getCommonCharacterFormat();
+            // If there is a selection manager use it so that the format,
+            // depending on the range, may include any attributes set on a point 
+            // selection but not yet applied.	
+            const range:TextRange = 
+                new TextRange(textFlow, anchorPosition, activePosition);
+            
+            return textFlow.interactionManager.getCommonCharacterFormat(range);
         }
         else
         {
@@ -528,6 +544,11 @@ public class RichEditableTextContainerManager extends TextContainerManager
         return success;
     }
 
+    /**
+     *  Note:  It is probably a TLF bug that, if delayedUpdates is true, we have to call 
+     *  updateAllControllers before doing a format operation to guarantee the correct
+     *  results.
+     */
     mx_internal function getTextFlowWithComposer():TextFlow
     {
         var textFlow:TextFlow = getTextFlow();
@@ -535,11 +556,20 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // Make sure there is a text flow with a flow composer.  There will
         // not be an interaction manager if editingMode is read-only.  If
         // there is an interaction manager flush any pending inserts into the
-        // text flow.
+        // text flow unless we are delaying updates in which case we may have to finish
+        // composition.
         if (composeState != TextContainerManager.COMPOSE_COMPOSER)
+        {
             convertToTextFlowWithComposer();
+        }
         else if (textFlow.interactionManager)
-            textFlow.interactionManager.flushPendingOperations();
+        {
+            const editManager:IEditManager = textFlow.interactionManager as IEditManager;
+            if (editManager && editManager.delayUpdates)
+                editManager.updateAllControllers();
+            else
+                textFlow.interactionManager.flushPendingOperations();
+        }
         
         return textFlow;
     }
