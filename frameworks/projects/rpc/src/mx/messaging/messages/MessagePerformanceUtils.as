@@ -138,7 +138,7 @@ package mx.messaging.messages
          * Time, in milliseconds, between this client sending a message and 
          * receiving a response from the server.
          *
-         * This property contains 0 for an RTMP channel. 
+         * <p>This property contains 0 for a streaming or RTMP (LiveCycle Data Services ES only) channel. </p> 
          */         
         public function get totalTime():Number
         {
@@ -246,7 +246,8 @@ package mx.messaging.messages
         /**
          * Time, in milliseconds, that this message sat on the server after it was ready 
          * to be pushed to this client but before it was picked up by a poll request.
-         * For an RTMP channel, this value is always 0.
+         * 
+         * <p>For a streaming or RTMP (LiveCycle Data Services ES only) channel, this value is always 0.</p>
          */     
         public function get serverPollDelay():Number
         {
@@ -273,11 +274,13 @@ package mx.messaging.messages
          * until it received a response, excluding the server processing time. 
          * This value is calculated as totalTime - serverProcessingTime. 
          * 
-         * <p>In the case of a pushed message using an RTMP channel, this metric is 
-         * meaningless because client does not initiate the pushed message; 
+         * <p>If a pushed message is using a streaming or RTMP (LiveCycle Data Services ES only) channel, 
+         * the metric is meaningless because the client does not initiate the pushed message; 
          * the server sends a message to the client whenever a message is available. 
-         * Therefore, for RTMP pushed message this value is 0, 
-         * but for RTMP acknowledge messages it contains a valid number. </p>
+         * Therefore, for a message pushed over a streaming or RTMP channel, 
+         * this value is 0. 
+         * However, for an acknowledge message sent over a streaming or RTMP channel, 
+         * the metric contains a valid number. </p>
          */             
         public function get networkRTT():Number
         {
