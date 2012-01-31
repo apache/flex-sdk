@@ -41,6 +41,10 @@ import mx.events.PropertyChangeEventKind;
 import mx.managers.ILayoutManagerClient;
 import mx.styles.IStyleClient;
 
+//--------------------------------------
+//  Events
+//--------------------------------------
+
 /**
  *  Dispatched prior to the group's content being changed. This is only
  *  dispatched when all content of the group is changing.
@@ -64,6 +68,21 @@ import mx.styles.IStyleClient;
  *  event.relatedObject is the visual item that was removed.
  */
 [Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [DefaultProperty("content")] 
 
