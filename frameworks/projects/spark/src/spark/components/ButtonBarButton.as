@@ -165,30 +165,31 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     }
     
     //----------------------------------
-    //  index
+    //  itemIndex
     //----------------------------------
+    
     /**
      *  @private
-     *  storage for the index property 
+     *  storage for the itemIndex property 
      */    
-    private var _index:int;
+    private var _itemIndex:int;
     
     /**
      *  @inheritDoc 
      *
      *  @default false
      */    
-    public function get index():int
+    public function get itemIndex():int
     {
-        return _index;
+        return _itemIndex;
     }
     
     /**
      *  @private
      */    
-    public function set index(value:int):void
+    public function set itemIndex(value:int):void
     {
-        _index = value;
+        _itemIndex = value;
     }
     
     //----------------------------------
