@@ -52,19 +52,17 @@ public class SimpleMotionPath extends MotionPath
      *  
      *  @param valueTo The final value of the property.
      *  
-     *  @param duration The time, in milliseconds, of the animation.
-     *  
      *  @param valueBy An optional parameter that specifies the delta with
      *  which to calculate either the from or to values, if one is omitted. 
      */    
     public function SimpleMotionPath(property:String = null, 
         valueFrom:Object = null, valueTo:Object = null, 
-        duration:Number = NaN, valueBy:Object = null)
+        valueBy:Object = null)
     {
         super();
         this.property = property;
         keyframes = new <Keyframe>[new Keyframe(0, valueFrom), 
-            new Keyframe(duration, valueTo, valueBy)];
+            new Keyframe(NaN, valueTo, valueBy)];
         if (valueFrom is Array && valueTo is Array)
         {
             if (!numberArrayInterpolator)
