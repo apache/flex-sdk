@@ -156,6 +156,9 @@ public dynamic class ConfigMap extends Proxy
      *  @param name The property name that should be tested 
      *  for existence.
      *
+     *  @return If the property exists, <code>true</code>; 
+     *  otherwise <code>false</code>.
+     *
      *  @see flash.utils.Proxy#hasProperty()
      */
     override flash_proxy function hasProperty(name:*):Boolean
@@ -166,6 +169,11 @@ public dynamic class ConfigMap extends Proxy
     /**
      *  This is an internal function that must be implemented by 
      *  a subclass of flash.utils.Proxy.
+     *
+     *  @param index The zero-based index value of the object's
+     *  property.
+     *
+     *  @return The property's name.
      *
      *  @see flash.utils.Proxy#nextName()
      */
@@ -195,6 +203,11 @@ public dynamic class ConfigMap extends Proxy
     /**
      *  This is an internal function that must be implemented by 
      *  a subclass of flash.utils.Proxy.
+     *
+     *  @param index The zero-based index value of the object's
+     *  property.
+     *
+     *  @return The property's value.
      *
      *  @see flash.utils.Proxy#nextValue()
      */
