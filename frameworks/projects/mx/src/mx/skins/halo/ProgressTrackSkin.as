@@ -93,7 +93,7 @@ public class ProgressTrackSkin extends Border
 		// User-defined styles
 		var borderColor:uint = getStyle("borderColor");
 		var fillColors:Array = getStyle("trackColors") as Array;
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		
 		// ProgressTrack-unique styles
 		var borderColorDrk1:Number =
