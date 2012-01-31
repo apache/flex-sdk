@@ -15,6 +15,10 @@ package mx.controls
 import mx.controls.listClasses.TileBase;
 import mx.controls.listClasses.TileListItemRenderer;
 import mx.core.ClassFactory;
+import mx.core.mx_internal;
+import mx.core.ScrollPolicy;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Other metadata
@@ -103,7 +107,7 @@ public class TileList extends TileBase
 	public function TileList()
 	{
 		super();
-
+		_horizontalScrollPolicy = ScrollPolicy.AUTO;
 		itemRenderer = new ClassFactory(TileListItemRenderer);
 	}
 }
