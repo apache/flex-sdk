@@ -225,7 +225,7 @@ public class DataGroup extends GroupBase
 
     private function initializeTypicalItem():void
     {
-        if (!_typicalItem)
+        if (_typicalItem == null)
         {
             setTypicalLayoutElement(null);
             return;
@@ -675,6 +675,21 @@ public class DataGroup extends GroupBase
     }
     
     /**
+     *  @private
+     *  True if we are updating a renderer currently. 
+     *  We keep track of this so we can ignore any dataProvider collectionChange
+     *  UPDATE events while we are updating a renderer just in case we try to update 
+     *  the rendererInfo of the same renderer twice.  This can happen if setting the 
+     *  data in an item renderer causes the data to mutate and issue a propertyChange
+     *  event, which causes an collectionChange.UPDATE event in the dataProvider.  This 
+     *  can happen for components which are being treated as data because the first time 
+     *  they get set on the renderer, they get added to the display list, which may 
+     *  cause a propertyChange event (if there's a child with an ID in it, that causes 
+     *  a propertyChange event) or the data to morph in some way.
+     */
+    private var renderersBeingUpdated:Boolean = false;
+    
+    /**
      *  @private 
      *  Sets the renderer's data, owner and labelText properties. 
      *  Then, gives the "true" owner a chance to call update the 
@@ -687,11 +702,15 @@ public class DataGroup extends GroupBase
     private function updateRenderer(renderer:IVisualElement, data:Object):void
     {
         if (!renderer)
-           return; 
+           return;
+
+        // keep track of whether we are actively updating an renderers 
+        // so we can ignore any collectionChange.UPDATE events
+        renderersBeingUpdated = true;
         
         //Set the data    
         if ((renderer is IDataRenderer) && (renderer != data))
-            IDataRenderer(renderer).data = data;   
+            IDataRenderer(renderer).data = data;
         
         //Newly created renderer with no owner, set owner to this     
         if (!renderer.owner)
@@ -706,7 +725,11 @@ public class DataGroup extends GroupBase
         //owner a chance to update the renderer. 
         else if (renderer.owner != this)
             IItemRendererOwner(renderer.owner).updateRenderer(renderer);
-                        
+        
+        // technically if this got called "recursively", this renderersBeingUpdated flag
+        // would be prematurely set to false, but in most cases, this check should be 
+        // good enough.
+        renderersBeingUpdated = false;
     }
 
     
@@ -1297,6 +1320,11 @@ public class DataGroup extends GroupBase
             
             case CollectionEventKind.UPDATE:
             {
+                // if a renderer is currently being updated, let's 
+                // just ignore any UPDATE events.
+                if (renderersBeingUpdated)
+                    break;
+                
                 //update the renderer's data and data-dependant
                 //properties. 
                 for (var i:int = 0; i < event.items.length; i++)
