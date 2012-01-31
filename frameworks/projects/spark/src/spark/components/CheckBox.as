@@ -27,6 +27,16 @@ import spark.components.supportClasses.ToggleButtonBase;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="cornerRadius", kind="style")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("CheckBox.png")]
 
 /**
