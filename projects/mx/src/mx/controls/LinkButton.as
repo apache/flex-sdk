@@ -24,7 +24,8 @@ use namespace mx_internal;
 /**
  *  Corner radius of the highlighted rectangle around a LinkButton.
  * 
- *  @default 4
+ *  The default value for the Halo theme is <code>4</code>.
+ *  The default value for the Spark theme is <code>2</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -36,7 +37,8 @@ use namespace mx_internal;
 /**
  *  Color of a LinkButton as a user moves the mouse pointer over it.
  * 
- *  @default 0xEEFEE6
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -48,7 +50,8 @@ use namespace mx_internal;
 /**
  *  Background color of a LinkButton as a user presses it.
  * 
- *  @default 0xB7F39B
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -60,7 +63,8 @@ use namespace mx_internal;
 /**
  *  Text color of a LinkButton as a user moves the mouse pointer over it.
  * 
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -72,7 +76,8 @@ use namespace mx_internal;
 /**
  *  Text color of a LinkButton as a user presses it.
  * 
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
