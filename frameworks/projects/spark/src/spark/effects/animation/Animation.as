@@ -711,7 +711,9 @@ public final class Animation
             { 
                 // numRepeats reflects the current repetition cycle that we're going to
                 // be in, once we repeat.
-                var numRepeats:int = 2 + (_playheadTime - duration) / (duration + repeatDelay);
+                var numRepeats:int = 2;
+                if ((duration + repeatDelay) > 0)
+                    numRepeats += (_playheadTime - duration) / (duration + repeatDelay);
                 if (repeatCount == 0 || numRepeats <= repeatCount)
                 {
                     if (repeatDelay == 0)
