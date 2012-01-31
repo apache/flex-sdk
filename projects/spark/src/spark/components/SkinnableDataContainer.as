@@ -28,7 +28,7 @@ import mx.utils.BitFlagUtil;
  *  Dispatched when a renderer is added to the content holder.
  * <code>event.renderer</code> is the renderer that was added.
  *
- *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
+ *  @eventType spark.events.RendererExistenceEvent.RENDERER_ADD
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -41,7 +41,7 @@ import mx.utils.BitFlagUtil;
  *  Dispatched when a renderer is removed from the content holder.
  * <code>event.renderer</code> is the renderer that was removed.
  *
- *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
+ *  @eventType spark.events.RendererExistenceEvent.ITEM_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -53,7 +53,7 @@ import mx.utils.BitFlagUtil;
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -210,7 +210,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     [Inspectable(defaultValue="true")]
 
     /**
-     *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     *  @copy spark.components.supportClasses.GroupBase#autoLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -323,7 +323,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //----------------------------------    
     
     /**
-     *  @copy mx.components.DataGroup#dataProvider
+     *  @copy spark.components.DataGroup#dataProvider
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -391,7 +391,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //----------------------------------
     
     /**
-     *  @copy mx.components.DataGroup#itemRenderer
+     *  @copy spark.components.DataGroup#itemRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -425,7 +425,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //----------------------------------
     
     /**
-     *  @copy mx.components.DataGroup#itemRendererFunction
+     *  @copy spark.components.DataGroup#itemRendererFunction
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -461,7 +461,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     private var _layout:LayoutBase;
     
     /**
-     *  @copy mx.components.baseClasses.GroupBase#layout
+     *  @copy spark.components.supportClasses.GroupBase#layout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -495,7 +495,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //----------------------------------
 
     /**
-     *  @copy mx.components.DataGroup#typicalItem
+     *  @copy spark.components.DataGroup#typicalItem
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
