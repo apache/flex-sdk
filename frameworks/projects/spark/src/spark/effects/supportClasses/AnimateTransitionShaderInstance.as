@@ -162,14 +162,21 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     protected var shader:Shader;    
 
-
     /**
      * @private
      * Cache the filters set on the target when the effect begins.
      * We will assign our own filters during the effect, so we should
      * restore the old filters when we're done
      */
-    private var oldFilters:Array;
+    private var previousFilters:Array;
+
+    /**
+     * @private
+     * The filters that we will assign during the animation. This is
+     * a concatenation of our shaderFilter plus any filters that were
+     * already on the target.
+     */
+    private var previousPlusShaderFilters:Array;
         
     //--------------------------------------------------------------------------
     //
@@ -284,11 +291,18 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     private function getSnapshot(target:Object):BitmapData
     {
-        if (target is GraphicElement)
-            return GraphicElement(target).captureBitmapData(true, 0, false);
-        else if (!(target is IUIComponent))
+        if (!(target is GraphicElement || target is IUIComponent))
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
-        return BitmapUtil.getSnapshot(IUIComponent(target));
+        var bmData:BitmapData;
+        var tempFilters:Array = target.filters;
+        target.filters = [];
+        if (target is GraphicElement)
+            bmData = GraphicElement(target).captureBitmapData(true, 0, false);
+        else
+            bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        target.filters = tempFilters;
+        
+        return bmData;
     }
     /**
      * Unlike Animate's setValue we assign the new value to the filter
@@ -300,7 +314,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
     override protected function setValue(property:String, value:Object):void
     {
         shader.data.progress.value = [value];
-        target.filters = [shaderFilter];
+        target.filters = previousPlusShaderFilters;
     }
 
     /**
@@ -309,14 +323,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
     override public function animationStart(animation:Animation):void
     {
         super.animationStart(animation);
-        // Note that we don't want the old filters active on the target
-        // during the animation; these filters will already be accounted
-        // for when we take a bitmap snapshot of the object. Applying
-        // the same filters during the animation will effectively double
-        // their impact. So we simply record what the filters are, so that
-        // we can replace them when we're done, and then use only our
-        // shader filter during the animation.
-        oldFilters  = target.filters;
+        previousFilters = target.filters;
+        previousPlusShaderFilters = [shaderFilter].concat(previousFilters);
+        target.filters = previousPlusShaderFilters;
     }
 
     /**
@@ -326,8 +335,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     private function cleanup():void
     {
-        target.filters = oldFilters;
-        oldFilters = null;
+        target.filters = previousFilters;
+        previousFilters = null;
+        previousPlusShaderFilters = null;
         if (disposeFrom)
             bitmapFrom.dispose();
         if (disposeTo)
