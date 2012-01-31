@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the pseudo selectors -->
-<FxApplication xmlns="http://ns.adobe.com/mxml/2009" xmlns:custom="*">
-     <Style>
+<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:custom="*">
+     <fx:Style>
         FxButton:up {
             baseColor: #000000;
             color: #FFFFFF;
@@ -28,8 +28,8 @@
 			color: #330066;
 		}
 
-    </Style>
-    <Script>
+    </fx:Style>
+    <fx:Script>
     	<![CDATA[
     	    private function changeCompState(): void
     	    {
@@ -43,7 +43,7 @@
     	        }
     	    }
     	]]>
-    </Script>
+    </fx:Script>
     <FxPanel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%" >
         <Label text="The FxButton below uses pseudo selectors to define its baseColor for each of its states."
         	x="10" y="10" />
