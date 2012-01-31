@@ -500,7 +500,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     [Bindable("labelChanged")]
     
     /**
-     *  @iheritDoc
+     *  @copy IGridItemRenderer#label
      *
      *  @default ""
      * 
