@@ -256,7 +256,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  Documentation is not currently available.
+     *  @copy flash.text.TextField#displayAsPassword
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -477,7 +477,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  @copy flash.text.TextField#restrict
      * 
      *  @default null
      *  
@@ -624,7 +624,11 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  Determines when text selections should be highlighted.
+     *  
+     *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
+     *  
+     *  @see mx.components.TextSelectionHighlighting
      * 
      *  @default null
      *  
@@ -1018,7 +1022,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
     
     /**
-     *  Documentation is not currently available.
+     *  Selects the entire text range.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1034,7 +1038,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @copy flashx.textLayout.edit.ISelectionManager#selectRange()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1050,7 +1054,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @copy spark.primitives.RichEditableText#insertText()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1066,7 +1070,7 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  Documentation is not currently available.
+     *  @copy spark.primitives.RichEditableText#appendText()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
