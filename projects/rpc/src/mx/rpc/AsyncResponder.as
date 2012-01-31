@@ -29,6 +29,11 @@ package mx.rpc
  *  </pre></code>
  * 
  * Any other signature will result in a runtime error.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AsyncResponder implements IResponder 
 {
@@ -57,6 +62,11 @@ public class AsyncResponder implements IResponder
      *          </pre></code>
      *  @param  token Object [optional] additional information to associate with
      *          this request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AsyncResponder(result:Function, fault:Function, token:Object = null)
     {
@@ -78,6 +88,11 @@ public class AsyncResponder implements IResponder
      *  received.
      *
      *  @param  data Object containing the information returned from the request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function result(data:Object):void
     {
@@ -89,6 +104,11 @@ public class AsyncResponder implements IResponder
      *
      *  @param  info Object containing the information about the error that 
      *          occured.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function fault(info:Object):void
     {
