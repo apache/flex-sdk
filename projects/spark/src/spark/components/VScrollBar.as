@@ -171,8 +171,9 @@ public class VScrollBar extends ScrollBar
         thumb.setLayoutBoundsSize(NaN, thumbSize);
         var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
             super.calculateThumbSize() : 
-            thumbSize;        
-        thumb.visible = calculatedThumbSize < trackSize;
+            thumbSize;
+        if (getStyle("autoThumbVisibility"))
+            thumb.visible = calculatedThumbSize < trackSize;
     }
     
     /**
