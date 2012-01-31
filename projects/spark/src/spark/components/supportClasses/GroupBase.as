@@ -91,6 +91,8 @@ public class GroupBase extends UIComponent implements IViewport
         
     private var _layout:LayoutBase;  // initialized in the ctor
     private var _layoutProperties:Object = null;
+    private var layoutInvalidateSizeFlag:Boolean = false;
+    private var layoutInvalidateDisplayListFlag:Boolean = false;
     
     /**
      *  The layout object for this container.  
@@ -545,14 +547,35 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @private
      */
+    override public function invalidateSize():void
+    {
+        super.invalidateSize();
+        layoutInvalidateSizeFlag = true;
+    }
+
+    /**
+     *  @private
+     */
+    override public function invalidateDisplayList():void
+    {
+        super.invalidateDisplayList();
+        layoutInvalidateDisplayListFlag = true;
+    }
+    
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         super.measure();
         
-        if (_layout)
+        if (_layout && layoutInvalidateSizeFlag)
+        {
+            layoutInvalidateSizeFlag = false;
             _layout.measure();
+        }
     }
-    
+
     /**
      *  @private
      */
@@ -566,12 +589,15 @@ public class GroupBase extends UIComponent implements IViewport
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        if (autoLayout && _layout)
-            _layout.updateDisplayList(unscaledWidth, unscaledHeight);
-            
-        if (_layout)
-            _layout.updateScrollRect(unscaledWidth, unscaledHeight);
-            
+        if (layoutInvalidateDisplayListFlag)
+        {
+            layoutInvalidateDisplayListFlag = false;
+            if (autoLayout && _layout)
+                _layout.updateDisplayList(unscaledWidth, unscaledHeight);
+                
+            if (_layout)
+                _layout.updateScrollRect(unscaledWidth, unscaledHeight);
+        }
     }
     
     //----------------------------------
@@ -842,8 +868,8 @@ public class GroupBase extends UIComponent implements IViewport
     public function elementChanged(e:IGraphicElement):void
     {
         // TODO!!! Optimize
-        invalidateSize();
-        invalidateDisplayList();    
+        // Call super, so that we don't invalidate the layout
+        super.invalidateDisplayList();
     }
     
     /**
@@ -854,8 +880,8 @@ public class GroupBase extends UIComponent implements IViewport
     public function elementSizeChanged(e:IGraphicElement):void
     {
         // TODO!!! Optimize
-        invalidateSize();
-        invalidateDisplayList();    
+        // Call super so that we don't invalidate the layout
+        super.invalidateSize();
     }
     
     /**
@@ -867,8 +893,8 @@ public class GroupBase extends UIComponent implements IViewport
     {
         // TODO!!! Optimize
         // TODO!!! Need to recalculate the elements
-        invalidateSize();
-        invalidateDisplayList();
+        // Call super, so that we don't invalidate the layout
+        super.invalidateDisplayList();
     }
 }
 
