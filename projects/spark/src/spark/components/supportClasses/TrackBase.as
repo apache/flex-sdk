@@ -123,7 +123,7 @@ import spark.events.TrackBaseEvent;
  *  The <code>smoothScrolling</code> style must also be set on the
  *  ScrollBar to get animated behavior when shift-clicking.
  *  
- * <p>This time is for an animation that covers the entire distance of the 
+ * <p>This duration is for an animation that covers the entire distance of the 
  * track; smaller distances will use a proportionally smaller duration.</p>
  *
  *  @default 300
@@ -143,8 +143,27 @@ import spark.events.TrackBaseEvent;
  *  The TrackBase class also provides the code for
  *  dragging the thumb button, which is shared by the Slider and ScrollBar classes.
  * 
- *  @see mx.components.baseClasses.Slider
- *  @see mx.components.baseClasses.ScrollBar
+ *  @mxml
+ *
+ *  <p>The <code>&lt;TrackBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;TrackBase
+ *    <strong>Styles</strong>
+ *    slideDuration="300"
+ *
+ *    <strong>Events</strong>
+ *    change="<i>No default</i>"
+ *    changing="<i>No default</i>"
+ *    thumbDrag="<i>No default</i>"
+ *    thumbPress="<i>No default</i>"
+ *    thumbRelease="<i>No default</i>"
+ *  /&gt;
+ *  </pre> 
+ * 
+ *  @see spark.components.supportClasses.Slider
+ *  @see spark.components.supportClasses.ScrollBar
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -202,7 +221,7 @@ public class TrackBase extends Range
     
     /**
      *  A skin part that defines a button
-     *  that when  pressed sets the <code>value</code> property
+     *  that, when  pressed, sets the <code>value</code> property
      *  to the value corresponding with the current button position on the track.
      *  
      *  @langversion 3.0
@@ -319,23 +338,23 @@ public class TrackBase extends Range
     //--------------------------------------------------------------------------
 
     /**
-     *  Convert a track relative x,y pixel location into a value between 
-     *  minimum and maximum inclusive.  
+     *  Converts a track-relative x,y pixel location into a value between 
+     *  the minimum and maximum, inclusive.  
      * 
      *  <p>TrackBase subclasses must override this method and perform conversions
      *  that take their own geometry into account.
      * 
-     *  For example a vertical slider might compute a value like this:
+     *  For example, a vertical slider might compute a value like this:
      *  <pre>
      *  return (y / track.height) * (maximum - minimum);
      *  </pre>
      *  </p>
      * 
-     *  <p>By default this method just returns <code>minimum</code>.</p>
+     *  <p>By default, this method returns <code>minimum</code>.</p>
      * 
      *  @param x The x coordinate of the location relative to the track's origin.
      *  @param y The y coordinate of the location relative to the track's origin.
-     *  @return A value between minimum and maximum, inclusive.
+     *  @return A value between the minimum and maximum, inclusive.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -454,11 +473,11 @@ public class TrackBase extends Range
     private var clickOffset:Point;
     
     /**
-     *  Set the bounds of skin parts - typically the thumb - whose geometry isn't fully
+     *  Sets the bounds of skin parts - typically the thumb - whose geometry isn't fully
      *  specified by the skin's layout.
      * 
      *  <p>Most subclasses override this method to update the thumb's size, position, and 
-     *  visibility, based on the minimum, maximum, and value properties. </p>
+     *  visibility, based on the <code>minimum</code>, <code>maximum</code>, and <code>value</code> properties. </p>
      * 
      *  <p>Does nothing by default.</p> 
      * 
@@ -497,8 +516,8 @@ public class TrackBase extends Range
     }
     
     /**
-     *  Handles the mouseWheel event when the component is in focus. The thumb is 
-     *  moved by the amount of the mouse event delta multiplied by the stepSize.  
+     *  Handles the <code>mouseWheel</code> event when the component is in focus. The thumb is 
+     *  moved by the amount of the mouse event delta multiplied by the <code>stepSize</code>.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
