@@ -75,11 +75,22 @@ public class AnimateTransformMove extends AnimateTransform
         instanceClass = AnimateTransformInstance;
     }
 
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  affectLayout
+    //----------------------------------
+    [Inspectable(category="General")]
+    /** 
+     * whether or not this effect should animate the target directly or its post layout transform offsets. 
+     */
+    public var affectLayout:Boolean = true;
+
     
     //----------------------------------
     //  yBy
@@ -213,8 +224,16 @@ public class AnimateTransformMove extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("translationX", xFrom, xTo, xBy);
-        addMotionPath("translationY", yFrom, yTo, yBy);
+       if(affectLayout)
+        {
+            addMotionPath("translationX", xFrom, xTo, xBy);
+            addMotionPath("translationY", yFrom, yTo, yBy);
+        }
+        else
+        {
+        	addPostLayoutMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
+            addPostLayoutMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
+        }
         super.initInstance(instance);
     }    
 }
