@@ -24,9 +24,11 @@ import flash.ui.Keyboard;
 import flash.utils.Timer;
 
 import mx.core.mx_internal;
-import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
+import mx.events.SandboxMouseEvent;
 
+import spark.events.DropDownEvent; 
+ 
 /**
  *  DropDownController handles the mouse, keyboard, and focus
  *  interactions for an anchor button and its dropDown. This helper class
@@ -48,9 +50,9 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
 	 */
-	public function DropDownController(target:IEventDispatcher=null)
+	public function DropDownController()
 	{
-		super(target);
+		super();
 	}
 	
 	//--------------------------------------------------------------------------
@@ -60,28 +62,28 @@ public class DropDownController extends EventDispatcher
     //--------------------------------------------------------------------------
 	
 	//----------------------------------
-    //  button
+    //  openButton
     //----------------------------------
 	
-	private var _button:ButtonBase;
+	private var _openButton:ButtonBase;
 	
 	/**
-     *  Reference to the button skin part of the dropDown component. 
+     *  Reference to the openButton skin part of the dropDown component. 
      *         
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function set button(value:ButtonBase):void
+	public function set openButton(value:ButtonBase):void
 	{
-		if (_button === value)
+		if (_openButton === value)
 			return;
 		
 		removeOpenTriggers();
-					
-		_button = value;
-
+			
+		_openButton = value;
+		
         addOpenTriggers();
 		
 	}
@@ -89,9 +91,9 @@ public class DropDownController extends EventDispatcher
 	/**
      *  @private 
      */
-	public function get button():ButtonBase
+	public function get openButton():ButtonBase
 	{
-		return _button;
+		return _openButton;
 	}
 	
 	//----------------------------------
@@ -145,7 +147,7 @@ public class DropDownController extends EventDispatcher
     {
     	return _isOpen;
     }
-    
+		
     //----------------------------------
     //  rolloverOpenDelay
     //----------------------------------
@@ -155,7 +157,7 @@ public class DropDownController extends EventDispatcher
     
     /**
      *  If set, this is the delay to wait for opening the drop down 
-     *  when the button is rolled over.  If set to NaN, then the drop 
+     *  when the openButton is rolled over.  If set to NaN, then the drop 
      *  down will open on click, not rollover.
      * 
      *  @default Number.NaN
@@ -189,43 +191,43 @@ public class DropDownController extends EventDispatcher
     //
     //  Methods
     //
-    //--------------------------------------------------------------------------  
-    
-    /**
+    //--------------------------------------------------------------------------   
+
+	/**
      *  @private 
-     *  Adds event triggers to the button to open the popup.
+     *  Adds event triggers to the openButton to open the popup.
      * 
-     *  <p>This is called from the button setter after the button has been set.</p>
+     *  <p>This is called from the openButton setter after the openButton has been set.</p>
      */ 
     private function addOpenTriggers():void
     {
         // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
-        if (button)
+        if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
-                button.addEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+                openButton.addEventListener(FlexEvent.BUTTON_DOWN, openButton_buttonDownHandler);
             else
-                button.addEventListener(MouseEvent.ROLL_OVER, button_rollOverHandler);
+                openButton.addEventListener(MouseEvent.ROLL_OVER, openButton_rollOverHandler);
         }
     }
     
     /**
      *  @private
-     *  Removes event triggers from the button to open the popup.
+     *  Removes event triggers from the openButton to open the popup.
      * 
-     *  <p>This is called from the button setter after the button has been set.</p>
+     *  <p>This is called from the openButton setter after the openButton has been set.</p>
      */ 
     private function removeOpenTriggers():void
     {
         // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
-        if (button)
+        if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
-                button.removeEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+                openButton.removeEventListener(FlexEvent.BUTTON_DOWN, openButton_buttonDownHandler);
             else
-                button.removeEventListener(MouseEvent.ROLL_OVER, button_rollOverHandler);
+                openButton.removeEventListener(MouseEvent.ROLL_OVER, openButton_rollOverHandler);
         }
     }
     
@@ -238,17 +240,19 @@ public class DropDownController extends EventDispatcher
     private function addCloseTriggers():void
     {
         // TODO (jszeto) Change these to be marshall plan compliant
-        if (button)
+        if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
             {
-                button.systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-                button.systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+    			openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+    			openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
             else
             {
-                button.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
-                button.systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                openButton.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                openButton.systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
         }
     }
@@ -262,17 +266,19 @@ public class DropDownController extends EventDispatcher
     private function removeCloseTriggers():void
     {
         // TODO (jszeto) Change these to be marshall plan compliant
-        if (button)
+        if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
             {
-                button.systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-                button.systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+    			openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
+    			openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
             }
             else
             {
-                button.systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
-                button.systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
         }
     } 
@@ -292,16 +298,16 @@ public class DropDownController extends EventDispatcher
     	    addCloseTriggers();
     		
     		_isOpen = true;
-    		button.mx_internal::keepDown = true; // Force the button to stay in the down state
+    		openButton.mx_internal::keepDown = true; // Force the button to stay in the down state
     		
-    		dispatchEvent(new DropdownEvent(DropdownEvent.OPEN));
+    		dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
     	}
     }	
     
     /**
-     *  Closes the dropDown and dispatches a <code>DropdownEvent.CLOSE</code> event.  
+     *  Closes the dropDown and dispatches a <code>DropDownEvent.CLOSE</code> event.  
      *   
-     *  @param commitData Flag indicating if the component should commit the selected
+     *  @param commit Flag indicating if the component should commit the selected
      *  data from the dropDown. 
      *  
      *  @langversion 3.0
@@ -309,16 +315,16 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeDropDown(commitData:Boolean):void
+    public function closeDropDown(commit:Boolean):void
     {
     	if (isOpen)
     	{	
 			_isOpen = false;
-			button.mx_internal::keepDown = false;
+			openButton.mx_internal::keepDown = false;
         	
-        	var dde:DropdownEvent = new DropdownEvent(DropdownEvent.CLOSE, false, true);
+        	var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
         	
-        	if (!commitData)
+        	if (!commit)
         		dde.preventDefault();
         	
         	dispatchEvent(dde);
@@ -342,16 +348,16 @@ public class DropDownController extends EventDispatcher
  	 *  @playerversion AIR 1.5
  	 *  @productversion Flex 4
  	 */ 
-    protected function button_buttonDownHandler(event:Event):void
+    protected function openButton_buttonDownHandler(event:Event):void
     {
         if (isOpen)
             closeDropDown(true);
         else
             openDropDown();
     }
-    
-    /**
-     *  Called when the button's rollOver event is dispatched. This function opens 
+			
+	/**
+     *  Called when the openButton's rollOver event is dispatched. This function opens 
      *  the dropDown, or opens the drop down after the rollOverOpenDelay.
      *  
      *  @langversion 3.0
@@ -359,13 +365,13 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    protected function button_rollOverHandler(event:MouseEvent):void
+    protected function openButton_rollOverHandler(event:MouseEvent):void
     {
         if (rollOverOpenDelay == 0)
             openDropDown();
         else
         {
-            button.addEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+            openButton.addEventListener(MouseEvent.ROLL_OUT, openButton_rollOutHandler);
             rollOverOpenDelayTimer = new Timer(rollOverOpenDelay, 1);
             rollOverOpenDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, rollOverDelay_timerCompleteHandler);
             rollOverOpenDelayTimer.start();
@@ -374,11 +380,11 @@ public class DropDownController extends EventDispatcher
     
     /**
      *  @private 
-     *  Called when the button's rollOut event is dispatched while waiting 
+     *  Called when the openButton's rollOut event is dispatched while waiting 
      *  for the rollOverOpenDelay.  This will cancel the timer so we don't open
      *  any more.
      */ 
-    private function button_rollOutHandler(event:MouseEvent):void
+    private function openButton_rollOutHandler(event:MouseEvent):void
     {
         if (rollOverOpenDelayTimer && rollOverOpenDelayTimer.running)
         {
@@ -386,7 +392,7 @@ public class DropDownController extends EventDispatcher
             rollOverOpenDelayTimer = null;
         }
         
-        button.removeEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+        openButton.removeEventListener(MouseEvent.ROLL_OUT, openButton_rollOutHandler);
     }
     
     /**
@@ -395,7 +401,7 @@ public class DropDownController extends EventDispatcher
      */ 
      private function rollOverDelay_timerCompleteHandler(event:TimerEvent):void
      {
-         button.removeEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+         openButton.removeEventListener(MouseEvent.ROLL_OUT, openButton_rollOutHandler);
          rollOverOpenDelayTimer = null;
          
          openDropDown();
@@ -410,9 +416,8 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */     
-    protected function systemManager_mouseDownHandler(event:MouseEvent):void
+    protected function systemManager_mouseDownHandler(event:Event):void
     {
-    	// TODO (jszeto) Make marshall plan compliant
     	if (!dropDown || 
     		(dropDown && 
     		 (event.target == dropDown 
@@ -425,7 +430,7 @@ public class DropDownController extends EventDispatcher
     
     /**
      *  Called when the dropdown is popped up from a rollover and the mouse moves 
-     *  anywhere on the screen.  If the mouse moves over the button or the dropdown, 
+     *  anywhere on the screen.  If the mouse moves over the openButton or the dropdown, 
      *  the popup will stay open.  Otherwise, the popup will close.
      *  
      *  @langversion 3.0
@@ -433,20 +438,21 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    protected function systemManager_mouseMoveHandler(event:MouseEvent):void
+    protected function systemManager_mouseMoveHandler(event:Event):void
     {
         var target:DisplayObject = event.target as DisplayObject;
         
         // if the mouse is down, wait until it's released
         // TODO (rfrishbe): Need to do something when they mouse up in 
-        // this case if they mouseup outside of the button/dropdown.
-        if (event.buttonDown)
+        // this case if they mouseup outside of the openButton/dropdown.
+        if ((event is MouseEvent && MouseEvent(event).buttonDown) ||
+            (event is SandboxMouseEvent && SandboxMouseEvent(event).buttonDown))
             return;
         
         if (target)
         {
-            // check if the target is the button or contained within the button
-            if (button.contains(target))
+            // check if the target is the openButton or contained within the openButton
+            if (openButton.contains(target))
                 return;
             
             // check if the target is the dropdown or contained within the dropdown
@@ -486,7 +492,7 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function focusOutHandler(event:FocusEvent):void
+    public function processFocusOut(event:FocusEvent):void
     {
         // Note: event.relatedObject is the object getting focus.
         // It can be null in some cases, such as when you open
@@ -518,7 +524,7 @@ public class DropDownController extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4 
 	 */
-	public function keyDownHandler(event:KeyboardEvent):Boolean
+	public function processKeyDown(event:KeyboardEvent):Boolean
 	{
         
         if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
