@@ -1134,6 +1134,9 @@ public class Application extends LayoutContainer
      */
     override mx_internal function initThemeColor():Boolean
     {
+    	if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+    		return true;
+    	
         var result:Boolean = super.initThemeColor();
         
         if (!result)
