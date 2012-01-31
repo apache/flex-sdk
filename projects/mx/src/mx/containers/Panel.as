@@ -1772,13 +1772,13 @@ public class Panel extends Container
         regX = event.stageX - x;
         regY = event.stageY - y;
 
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler, true);
 
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
 		// let folks know we've started to drag.
@@ -1791,13 +1791,13 @@ public class Panel extends Container
      */
     protected function stopDragging():void
     {
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler, true);
 
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
         regX = NaN;
