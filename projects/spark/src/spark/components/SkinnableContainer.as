@@ -51,7 +51,7 @@ import mx.utils.BitFlagUtil;
  *  Dispatched when a visual element is added to the content holder.
  *  <code>event.element</code> is the visual element that was added.
  *
- *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
+ *  @eventType spark.events.ElementExistenceEvent.ELEMENT_ADD
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -64,7 +64,7 @@ import mx.utils.BitFlagUtil;
  *  Dispatched when a visual element is removed to the content holder.
  *  <code>event.element</code> is the visual element that's being removed.
  *
- *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
+ *  @eventType spark.events.ElementExistenceEvent.ELEMENT_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -78,7 +78,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -88,7 +88,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -98,7 +98,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -108,7 +108,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
- * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ * @copy spark.components.supportClasses.GroupBase#rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -118,7 +118,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -320,7 +320,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     [Inspectable(defaultValue="true")]
 
     /**
-     *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     *  @copy spark.components.supportClasses.GroupBase#autoLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -469,7 +469,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     //----------------------------------
     
     /**
-     *  @copy mx.components.baseClasses.GroupBase#layout
+     *  @copy spark.components.supportClasses.GroupBase#layout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -508,7 +508,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  @copy mx.components.Group#mxmlContent
+     *  @copy spark.components.Group#mxmlContent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
