@@ -86,6 +86,8 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 /**
  *  The DataGroup class is the base container class for data elements.
  *  The DataGroup class converts data elements to visual elements for display.
+ *  While this container can hold visual items, it is often used only 
+ *  to hold data items as children.
  *
  *  <p>The DataGroup class takes as children visual components that implement 
  *  the IUIComponent interface and data items. 
@@ -98,7 +100,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  data item in the container. 
  *  The item renderer converts the data item into a format that can 
  *  be displayed by the container. 
- *  You must pass an item renderer to a DataGroup or SkinnableDataContainer container.</p>
+ *  You must pass an item renderer to a DataGroup container.</p>
  *
  *  <p>To improve performance and minimize application size, 
  *  the DataGroup container cannot be skinned. 
@@ -187,8 +189,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  <p>Setting this property sets the <code>typicalLayoutElement</code> property
      *  of the layout.</p>
      * 
-     *  Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
-     *  also be a member of the data Provider.
+     *  <p>Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
+     *  also be a member of the data Provider.</p>
      * 
      *  @default null
      *  
