@@ -1031,6 +1031,9 @@ public class VideoDisplay extends UIComponent
                 thumbnailBitmapImage.includeInLayout = false;
                 
                 thumbnailGroup = new Group();
+                // add thumbnailGroup to the display list first in case
+                // bitmap needs to check its layoutDirection.
+                addChild(thumbnailGroup);
                 thumbnailGroup.clipAndEnableScrolling = true;
                 thumbnailGroup.addElement(thumbnailBitmapImage);
             }
