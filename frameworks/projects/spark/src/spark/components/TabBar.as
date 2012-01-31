@@ -34,6 +34,8 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
 /**
  *  Defines the radius of the TabBar buttons' top-left and top-right corners for the default
  *  TabBarButton skin.
+ *
+ *  @default 4
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -43,15 +45,53 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
 
 /**
- *  Displays a list of identical buttons called "tabs".  One tab can be selected at a time
- *  and the first tab is selected by default.
+ *  The TabBar class displays a set of identical tabs.  
+ *  One tab can be selected at a time, and the first tab is selected by default.
+ *  The TabBarSkin class arranges the tabs in a single row.  
+ *  Use the TabBar <code>cornerRadius</code> style to configure the corner radius 
+ *  of the tabs.
  * 
- *  <p>The list of tabs is defined by the <code>dataProvider</code> and their appearance is
- *  defined by the <code>dataGroup's</code> ItemRenderer, typically a <code>ButtonBarButton</code>.</p>
- * 
- *  <p>The default TabBar skin arranges ButtonBarButton tabs in a single row.  The TabBar 
- *  <code>cornerRadius</code> style is used by the default skin to configure the cornerRadius 
- *  of ButtonBarButton tabs, setting the style on the TabBar affects all tabs.</p>
+ *  <p>The set of tabs is defined by the <code>dataProvider</code> property.
+ *  The appearance of each tab is defined by the TabBarSkin class.
+ *  By default, each tab is defined as a ButtonBarButton component 
+ *  with a skin defined by the TabBarButtonSkin class.</p>
+ *
+ *  <p>You can use the TabBar control to set the active child of a ViewStack container, 
+ *  as the following example shows:</p>
+ *  
+ *  <pre>
+ *  &lt;s:TabBar dataProvider="{myViewStack}"/&gt; 
+ *  
+ *  &lt;mx:ViewStack id="myViewStack" 
+ *      borderStyle="solid"&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="search" label="Search"&gt; 
+ *          &lt;s:Label text="Search Screen"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="custInfo" label="Customer Info"&gt; 
+ *          &lt;s:Label text="Customer Info"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *  
+ *      &lt;s:NavigatorContent id="accountInfo" label="Account Info"&gt; 
+ *          &lt;s:Label text="Account Info"/&gt; 
+ *          &lt;/s:NavigatorContent&gt; 
+ *      &lt;/mx:ViewStack&gt; </pre>
+ *  
+ *  @mxml <p>The <code>&lt;s:TabBar&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:TabBar
+ *    <b>Styles</b>
+ *    cornerRadius="4"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see mx.containers.ViewStack
+ *  @see spark.skins.spark.TabBarSkin
+ *  @see spark.skins.spark.TabBarButtonSkin
+ *  @see spark.components.ButtonBarButton
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -63,6 +103,14 @@ public class TabBar extends ButtonBarBase implements IFocusManagerComponent
     include "../core/Version.as";
     
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function TabBar()
     {
         super();
