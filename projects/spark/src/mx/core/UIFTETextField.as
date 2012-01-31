@@ -240,6 +240,8 @@ public class UIFTETextField extends FTETextField
     //  embeddedFontRegistry
     //----------------------------------
 
+    private static var noEmbeddedFonts:Boolean;
+    
     /**
      *  @private
      *  Storage for the _embeddedFontRegistry property.
@@ -257,12 +259,19 @@ public class UIFTETextField extends FTETextField
      */
     private static function get embeddedFontRegistry():IEmbeddedFontRegistry
     {
-        if (!_embeddedFontRegistry)
+        if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
         }
-
+        
         return _embeddedFontRegistry;
     }
 
@@ -2217,7 +2226,8 @@ public class UIFTETextField extends FTETextField
             var textFormat:TextFormat = getTextStyles();
             if (textFormat.font)
             {
-                var fontModuleFactory:IFlexModuleFactory = 
+                var fontModuleFactory:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+                    null : 
                     embeddedFontRegistry.getAssociatedModuleFactory(
                     textFormat.font, textFormat.bold, textFormat.italic,
                         this, moduleFactory, creatingSystemManager(), true);
