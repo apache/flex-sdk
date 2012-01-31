@@ -19,6 +19,8 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.events.SandboxMouseEvent;
+import mx.events.FlexEvent;
+import mx.events.ResizeEvent;
 
 import spark.components.Button;
 import spark.events.TrackBaseEvent;
@@ -203,7 +205,6 @@ public class TrackBase extends Range
     //
     //--------------------------------------------------------------------------
 
-    private var tempTrackSize:Number = NaN;
 	private var mouseDownTarget:DisplayObject;
 
     //--------------------------------------------------------------------------
@@ -411,22 +412,6 @@ public class TrackBase extends Range
     }
 
     /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        if (thumb)
-        {
-            thumbSize = calculateThumbSize();
-            sizeThumb(thumbSize);
-            positionThumb(valueToPosition(value));
-        }
-    }
-
-    /**
      *  @private   
      */
     override protected function getCurrentSkinState():String
@@ -436,22 +421,26 @@ public class TrackBase extends Range
     
     /**
      *  @private
+     *  Warning: the goal of the listeners added here (and removed below) is to 
+     *  give the TrackBase a change to fixup the thumb's size and position
+     *  after the skin's BasicLayout has run.   This particular implementation
+     *  is a hack and it begs a solution to the general problem of what we've
+     *  called "cooperative layout".   More about that here:
+     *  http://opensource.adobe.com/wiki/display/flexsdk/Cooperative+Subtree+Layout
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
         if (instance == thumb)
         {
-            thumb.addEventListener(MouseEvent.MOUSE_DOWN,
-                                   thumb_mouseDownHandler);
+            thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
+            thumb.addEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);
+            thumb.addEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
             thumb.stickyHighlighting = true;
         }
         else if (instance == track)
         {
-            track.addEventListener(MouseEvent.MOUSE_DOWN,
-                                   track_mouseDownHandler);
-            track.addEventListener("updateComplete", 
-                                   track_updateCompleteHandler);
-            
+            track.addEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
+            track.addEventListener(ResizeEvent.RESIZE, track_resizeHandler);
         }
     }
 
@@ -462,16 +451,14 @@ public class TrackBase extends Range
     {
         if (instance == thumb)
         {
-            thumb.removeEventListener(MouseEvent.MOUSE_DOWN, 
-                                      thumb_mouseDownHandler);
+            thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
+            thumb.removeEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);            
+            thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);            
         }
         else if (instance == track)
         {
-            track.removeEventListener(MouseEvent.MOUSE_DOWN, 
-                                      track_mouseDownHandler);
-            track.removeEventListener("updateComplete", 
-                                      track_updateCompleteHandler);
-            tempTrackSize = NaN;                                      
+            track.removeEventListener(MouseEvent.MOUSE_DOWN, track_mouseDownHandler);
+            track.removeEventListener(ResizeEvent.RESIZE, track_resizeHandler);
         }
     }
     
@@ -662,24 +649,70 @@ public class TrackBase extends Range
     {
     	removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
     }
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(w:Number, h:Number):void
+    {
+        super.updateDisplayList(w, h);
+        completeTrackLayout();
+    }
 
     //--------------------------------------------------------------------------
     // 
     // Event Handlers
     //
     //--------------------------------------------------------------------------
-
+    
     /**
-     *  @private
-     *  Force the component to set itself up correctly now that the
-     *  track is completely loaded.
+     *  Set <code>thumbSize</code> to the value of <code>calculateThumbSize()</code>
+     *  and then size and position the thumb with <code>sizeThumb()</code> and 
+     *  <code>positionThumb</code>.
+     *   
+     *  We're assuming that the track's skin will layout the thumb at its default size
+     *  and position.   
+     * 
+     *  We complete the layout here, when either the track or thumb
+     *  has changed size, or when the track's display list is updated, 
+     *  by recomputing the thumb's size and position.  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     * 
      */
-    protected function track_updateCompleteHandler(event:Event):void
+    protected function completeTrackLayout():void
     {
         thumbSize = calculateThumbSize();
         sizeThumb(thumbSize);
         positionThumb(valueToPosition(value));
-        tempTrackSize = trackSize;
+    }
+    
+    /**
+     *  @private
+     */
+    private function track_resizeHandler(event:Event):void
+    {
+        completeTrackLayout();
+    }
+
+    /**
+     *  @private
+     */
+    private function thumb_resizeHandler(event:Event):void
+    {
+        completeTrackLayout();
+    }
+    
+    /**
+     *  @private
+     */
+    private function thumb_updateCompleteHandler(event:Event):void
+    {
+        completeTrackLayout();
+        thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
     }
     
     /**
