@@ -45,7 +45,7 @@ import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.events.CloseEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.ISystemManager;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
@@ -1779,7 +1779,7 @@ public class Panel extends Container
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
         sbRoot.addEventListener(
-            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         // add the mouse shield so we can drag over untrusted applications.
         systemManager.deployMouseShields(true);
@@ -1799,7 +1799,7 @@ public class Panel extends Container
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
         sbRoot.removeEventListener(
-            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         regX = NaN;
         regY = NaN;
