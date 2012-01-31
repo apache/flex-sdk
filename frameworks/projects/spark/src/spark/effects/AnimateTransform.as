@@ -48,7 +48,9 @@ use namespace mx_internal;
  *  rotation, are combined into single operations that act
  *  in parallel to avoid any conflict when modifying overlapping property values. 
  *  This effect works by combining all current transform effects
- *  on a target into one single effect instance for that target.
+ *  on a target into one single effect instance for that target. That is, multiple
+ *  transform effects within the same Parallel effect will be combined (transform
+ *  effects within a Sequence will run separately).
  * 
  *  <p>While this combination of multiple transform effects happens
  *  internally,
@@ -406,7 +408,9 @@ public class AnimateTransform extends Animate
         if (!target)
             target = this.target;
     
-        if (!transformInstancePerTarget[target])
+        var parent:Effect = parentCompositeEffect;
+        if (!transformInstancePerTarget[target] ||
+            (parent && parent is Sequence))
         {
             // FIXME (chaase): need to clear out this entry once the effect
             // starts (stops?) because we don't want it hanging around for
@@ -1000,7 +1004,7 @@ public class AnimateTransform extends Animate
      * @private
      * 
      * This is where we create the single instance and/or feed extra
-     * MotionPath information (from othe transform-related effects) into the
+     * MotionPath information (from other transform-related effects) into the
      * single transform effect instance.
      */
     override protected function initInstance(instance:IEffectInstance):void
