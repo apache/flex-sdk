@@ -75,6 +75,8 @@ use namespace mx_internal;
  *  initialize the <code>rowBackground</code> skin part directly.</p>
  * 
  *  @default undefined
+ *
+ *  @includeExample examples/DataGridExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
