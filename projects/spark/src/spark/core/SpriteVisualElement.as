@@ -2065,33 +2065,47 @@ public class SpriteVisualElement extends FlexSprite
 		}
 	}
 
-	/**
-	 *  @inheritDoc
-	 *
+    /**
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
-	{
-		hasDeltaIdentityTransform = false;
-		if (_layoutFeatures == null)
-		{
-			// flash will make a copy of this on assignment.
-			super.transform.matrix = value;
-		}
-		else
-		{
-			// layout features will internally make a copy of this matrix rather than
-			// holding onto a reference to it.
-			_layoutFeatures.layoutMatrix = value;
-			invalidateTransform();
-		}
-
-		if (invalidateLayout)
-			invalidateParentSizeAndDisplayList();
-	}
+     */
+    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
+    {
+        hasDeltaIdentityTransform = false;
+        
+        var previousMatrix:Matrix = _layoutFeatures ? 
+            _layoutFeatures.layoutMatrix : super.transform.matrix;
+        
+        if (_layoutFeatures == null)
+        {
+            // flash will make a copy of this on assignment.
+            super.transform.matrix = value;
+        }
+        else
+        {
+            // layout features will internally make a copy of this matrix rather than
+            // holding onto a reference to it.
+            _layoutFeatures.layoutMatrix = value;
+            invalidateTransform();
+        }
+        
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        // We need to do the check here, after our new value has been applied
+        // because our matrix components are rounded upon being applied to a
+        // DisplayObject.
+        if (MatrixUtil.isEqual(previousMatrix, _layoutFeatures ? 
+            _layoutFeatures.layoutMatrix : super.transform.matrix))
+        {    
+            return;
+        }
+        
+        if (invalidateLayout)
+            invalidateParentSizeAndDisplayList();
+    }
 
     /**
      *  @inheritDoc
@@ -2138,27 +2152,31 @@ public class SpriteVisualElement extends FlexSprite
 		return _layoutFeatures.layoutMatrix3D.clone();
 	}
 
-	/**
-	 *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
-	 *  doesn't trigger a layout pass.
-	 *
+    /**
+     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
+     *  doesn't trigger a layout pass.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
-	{
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
-		// layout features will internally make a copy of this matrix rather than
-		// holding onto a reference to it.
-		_layoutFeatures.layoutMatrix3D = value;
-		invalidateTransform();
+     */
+    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
+    {
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        if (_layoutFeatures && MatrixUtil.isEqual3D(_layoutFeatures.layoutMatrix3D, value))
+            return;
+        
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        // layout features will internally make a copy of this matrix rather than
+        // holding onto a reference to it.
+        _layoutFeatures.layoutMatrix3D = value;
+        invalidateTransform();
 
-		if (invalidateLayout)
-			invalidateParentSizeAndDisplayList();
-	}
+        if (invalidateLayout)
+            invalidateParentSizeAndDisplayList();
+    }
 	
     /**
      * @copy mx.core.ILayoutElement#transformAround
