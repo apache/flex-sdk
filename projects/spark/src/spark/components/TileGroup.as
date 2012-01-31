@@ -48,6 +48,10 @@ import spark.layouts.supportClasses.LayoutBase;
  *    horizontalAlign="justify"
  *    horizontalGap="6"
  *    orientation="rows"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
  *    requestedColumnCount"-1"
  *    requestedRowCount="-1"
  *    rowAlign="top"
@@ -269,6 +273,122 @@ public class TileGroup extends Group
     {
         tileLayout.orientation = value;
     }
+    
+    //----------------------------------
+    //  paddingLeft
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.TileLayout#paddingLeft
+     *  
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingLeft():Number
+    {
+        return tileLayout.paddingLeft;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set paddingLeft(value:Number):void
+    {
+        tileLayout.paddingLeft = value;
+    }    
+    
+    //----------------------------------
+    //  paddingRight
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.TileLayout#paddingRight
+     *  
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingRight():Number
+    {
+        return tileLayout.paddingRight;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set paddingRight(value:Number):void
+    {
+        tileLayout.paddingRight = value;
+    }    
+    
+    //----------------------------------
+    //  paddingTop
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.TileLayout#paddingTop
+     *  
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingTop():Number
+    {
+        return tileLayout.paddingTop;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set paddingTop(value:Number):void
+    {
+        tileLayout.paddingTop = value;
+    }    
+    
+    //----------------------------------
+    //  paddingBottom
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.layouts.TileLayout#paddingBottom
+     *  
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingBottom():Number
+    {
+        return tileLayout.paddingBottom;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set paddingBottom(value:Number):void
+    {
+        tileLayout.paddingBottom = value;
+    }    
     
     //----------------------------------
     //  requestedColumnCount
