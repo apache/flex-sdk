@@ -60,7 +60,7 @@ import mx.core.IButton;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Button 
+ *  &lt;s:Button 
  *    <strong>Properties</strong>
  *    emphasized="false"
  *  /&gt;
