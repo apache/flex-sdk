@@ -175,6 +175,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:Application
  *    <strong>Properties</strong>
+ *    applicationDPI=<i>Device dependent</i>"
  *    backgroundColor="0xFFFFFF"
  *    colorCorrection="default"
  *    controlBarContent="null"
@@ -184,8 +185,13 @@ use namespace mx_internal;
  *    pageTitle""
  *    preloader="<i>No default</i>"
  *    preloaderChromeColor="<i>No default</i>"
+ *    resizeForSoftKeyboard=true"
+ *    runtimeDPIProvider="RuntimeDPIProvider"
  *    scriptRecursionLimit="1000"
  *    scriptTimeLimit="60"
+ *    splashScreenImage=""
+ *    splashScreenMinimumDisplayTime="1000"
+ *    splashScreenScaleMode="none"
  *    usePreloader="true"
  *    viewSourceURL=""
  *    xmlns:<i>No default</i>="<i>No default</i>"
@@ -696,15 +702,24 @@ public class Application extends SkinnableContainer
 
     /**
      *  The image class for the SplashScreen preloader.
+     *  Typically you set this property to an embedded resource.
+     *  For example:
      *
-     *  Typically developers set to an embedded resource, i.e. splashScreenImage="&#64;Embed('Default.png')".
+     *  <pre>splashScreenImage="&#64;Embed('Default.png')"</pre>
      *
-     *  <p><b>Note:</b> The property has effect only when the preloader is set to <code>spark.preloaders.SplashScreen</code>.
-     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  <p><b>Note:</b> The property has effect only when the <code>preloader</code> 
+     *  property is set to spark.preloaders.SplashScreen.
+     *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
-     *  @see splashScreenScaleMode
-     *  @see splashScreenMinimumDisplayTime
+     *  @see spark.preloaders.SplashScreen
+     *  @see #splashScreenScaleMode
+     *  @see #splashScreenMinimumDisplayTime
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get splashScreenImage():Class
     {
@@ -727,31 +742,43 @@ public class Application extends SkinnableContainer
     [Inspectable(category="General", enumeration="none,letterbox,stretch,zoom", defaultValue="none")]
 
     /**
-     *  The splash screen image scale mode.
+     *  The splash screen image scale mode:
+     *  
+     *  <ul>
+     *      <li>A value of <code>none</code> implies that the image size is set 
+     *      to match its intrinsic size.</li>
      *
-     *  <p>A value of "none" implies that the image size is set to match its intrinsic size.
+     *      <li>A value of <code>stretch</code> sets the width and the height of the image to the
+     *      stage width and height, possibly changing the content aspect ratio.</li>
      *
-     *  A value of "stretch" sets the width and the height of the image to the
-     *  stage width and height, possibly changing the content aspect ratio.
+     *      <li>A value of <code>letterbox</code> sets the width and height of the image 
+     *      as close to the stage width and height as possible while maintaining aspect ratio.  
+     *      The image is stretched to a maximum of the stage bounds,
+     *      with spacing added inside the stage to maintain the aspect ratio if necessary.</li>
      *
-     *  A value of "letterbox" sets the width and height of the image as close to the stage width and height
-     *  as possible while maintaining aspect ratio.  The image is stretched to a maximum of the stage bounds,
-     *  with spacing added inside the stage to maintain the aspect ratio if necessary.
+     *      <li>A value of <code>zoom</code> is similar to <code>letterbox</code>, except 
+     *      that <code>zoom</code> stretches the image past the bounds of the stage, 
+     *      to remove the spacing required to maintain aspect ratio.
+     *      This setting has the effect of using the entire bounds of the stage, but also 
+     *      possibly cropping some of the image.</li>
+     *  </ul>
      *
-     *  A value of "zoom" is similar to "letterbox", except that "zoom" stretches the
-     *  image past the bounds of the stage, to remove the spacing required to maintain aspect ratio.
-     *  This has the effect of using the entire bounds of the stage, but also possibly cropping some of the image.
+     *  <p>The portion of the stage that is not covered by the image shows 
+     *  in the Application container's <code>backgroundColor</code>.</p>
      *
-     *  <b>Note:</b> The portion of the stage that is not covered by the image will show in the Application's <code>backgroundColor</code>.</p>
-     *
-     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property is set
-     *  and the preloader is <code>spark.preloaders.SplashScreen</code>.
-     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property 
+     *  is set and the <code>preloader</code> property is set to spark.preloaders.SplashScreen.
+     *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *  @default "none"
-     *  @see splashScreenImage
-     *  @see splashScreenMinimumDisplayTime
+     *  @see #splashScreenImage
+     *  @see #splashScreenMinimumDisplayTime
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var splashScreenScaleMode:String;
 
@@ -763,15 +790,22 @@ public class Application extends SkinnableContainer
 
     /**
      *  Minimum amount of time, in milliseconds, to show the splash screen image.
+     *  Specify the splash screen image by using the <code>splashScreenImage</code> property.
      *
-     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property is set
-     *  and the preloader is <code>spark.preloaders.SplashScreen</code>.
-     *  The <code>spark.preloaders.SplashScreen</code> class is the default preloader for Mobile Flex applications.
+     *  <p><b>Note:</b> The property has effect only when the <code>splashScreenImage</code> property 
+     *  is set and the <code>preloader</code> property is set to spark.preloaders.SplashScreen.
+     *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *  @default 1000
-     *  @see splashScreenImage
-     *  @see splashScreenScaleMode
+     * 
+     *  @see #splashScreenImage
+     *  @see #splashScreenScaleMode
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var splashScreenMinimumDisplayTime:Number;
     
@@ -800,6 +834,10 @@ public class Application extends SkinnableContainer
      * 
      *  @see #runtimeDPI
      *  @see mx.core.DPIClassification
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get applicationDPI():Number
     {
@@ -833,6 +871,10 @@ public class Application extends SkinnableContainer
      *   
      *  @see #applicationDPI
      *  @see mx.core.DPIClassification
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */  
     public function get runtimeDPI():Number
     {
@@ -863,6 +905,10 @@ public class Application extends SkinnableContainer
      *  @see #runtimeDPI
      *  @see mx.core.DPIClassification
      *  @see mx.core.RuntimeDPIProvider
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get runtimeDPIProvider():Class
     {
@@ -1054,10 +1100,24 @@ public class Application extends SkinnableContainer
     private var resizeForSoftKeyboardChanged:Boolean = true;
     
     /**
-     *  A value of true means the application is resized when the softKeyboard is actiaved or
-     *  deactivated. 
+     *  Some devices do not support a hardware keyboard. 
+     *  Instead, these devices use a keyboard that opens on 
+     *  the screen when necessary. 
+     *  The screen keyboard, also called a soft or virtual keyboard, 
+     *  closes after the user enters the information, or when the user cancels the operation.
+     *  A value of <code>true</code> means the application 
+     *  is resized when the soft keyboard is open or
+     *  closed.  
+     *
+     *  <p>To enable application resizing, you must also set the 
+     *  <code>&lt;softKeyboardBehavior&gt;</code> attribute in the 
+     *  application's xml descriptor file to <code>none</code>.</p>
      * 
      *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function get resizeForSoftKeyboard():Boolean
     {
@@ -1176,9 +1236,9 @@ public class Application extends SkinnableContainer
 
         var sm:ISystemManager = systemManager;
 
-		// add listener if one is already attached
-		if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
-			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+        // add listener if one is already attached
+        if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
+            systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
@@ -1715,32 +1775,32 @@ public class Application extends SkinnableContainer
         invalidateDisplayList();
     }
 
-	/**
-	 * @private
-	 */
-	override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-	{
-		// this can get called before we know our systemManager.  Hook it up later in initialize()
-		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
-			systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
-		super.addEventListener(type, listener, useCapture, priority, useWeakReference)
-	}
+    /**
+     * @private
+     */
+    override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+    {
+        // this can get called before we know our systemManager.  Hook it up later in initialize()
+        if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
+            systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference)
+    }
 
-	/**
-	 * @private
-	 */
-	override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-	{
-		super.removeEventListener(type, listener, useCapture);
-		if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
-			systemManager.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
-	}
+    /**
+     * @private
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        if (type == UncaughtErrorEvent.UNCAUGHT_ERROR && systemManager)
+            systemManager.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
+    }
 
-	private function uncaughtErrorRedispatcher(event:Event):void
-	{
-		if (!dispatchEvent(event))
-			event.preventDefault();
-	}
+    private function uncaughtErrorRedispatcher(event:Event):void
+    {
+        if (!dispatchEvent(event))
+            event.preventDefault();
+    }
 }
 
 }
