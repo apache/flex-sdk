@@ -91,10 +91,10 @@ use namespace mx_internal;
  *  "Visible" here means not hidden by the developer
  *  (<code>column.visible=false</code>).  The header for a column that is not
  *  marked invisible by the developer but which is scrolled off screen is
- *  considered "visible" here.
- *  <li>In row selection mode, one child for each data row in the grid; OR
+ *  considered "visible" here.</li>
+ *  <li>In row selection mode, one child for each data row in the grid; OR</li>
  *  <li>In cell selection mode, one child for each cell in the grid,
- *  excluding cells in invisible (as just described) columns.
+ *  excluding cells in invisible (as just described) columns.</li>
  *  </ul>
  *
  *  <p>The number of children depends on the number of rows and columns in
@@ -184,23 +184,23 @@ use namespace mx_internal;
  *  <p>The MSAA State of a DataGrid is a combination of:</p>
  *  <ul>
  *  <li><code>STATE_SYSTEM_UNAVAILABLE</code> (when <code>enabled</code> is
- *  <code>false</code>)
+ *  <code>false</code>)</li>
  *  <li><code>STATE_SYSTEM_FOCUSABLE</code> (when <code>enabled</code> is
- *  <code>true</code>)
+ *  <code>true</code>)</li>
  *  <li><code>STATE_SYSTEM_FOCUSED</code> (when <code>enabled</code> is
- *  <code>true</code> and the DataGrid has focus)
+ *  <code>true</code> and the DataGrid has focus)</li>
  *  <li><code>STATE_SYSTEM_MULTISELECTABLE</code> (when
- *  <code>allowMultipleSelection</code> is true)
+ *  <code>allowMultipleSelection</code> is true)</li>
  *  </ul>
  *
  *  <p>The State of a data row or cell is a combination of:</p>
  *  <ul>
- *  <li><code>STATE_SYSTEM_FOCUSABLE</code>
- *  <li><code>STATE_SYSTEM_FOCUSED</code> (when focused)
+ *  <li><code>STATE_SYSTEM_FOCUSABLE</code></li>
+ *  <li><code>STATE_SYSTEM_FOCUSED</code> (when focused)</li>
  *  <li><code>STATE_SYSTEM_OFFSCREEN</code> (when the row or cell has
- *  scrolled offscreen)
- *  <li><code>STATE_SYSTEM_SELECTABLE</code>
- *  <li><code>STATE_SYSTEM_SELECTED</code> (when it is selected)
+ *  scrolled offscreen)</li>
+ *  <li><code>STATE_SYSTEM_SELECTABLE</code></li>
+ *  <li><code>STATE_SYSTEM_SELECTED</code> (when it is selected)</li>
  *  </ul>
  *
  *  <p>The State of a header cell is <code>STATE_SYSTEM_NORMAL</code>, since
