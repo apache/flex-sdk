@@ -409,6 +409,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         var columnIndex:int = grid.getColumnIndexAt(paddedX, 0);
         
         // Special case for the stretched renderer above the vertical scrollbar
+        // TODO (klin): Rethink this case if we change how the last header looks.
         if (columnIndex < 0)
         {
             const contentWidth:Number = columnHeaderGroup.contentWidth;
@@ -822,6 +823,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
      */
     private function columns_collectionChangeHandler(event:CollectionEvent):void
     {
+        // TODO (klin): The cache could be adjusted here too.
         switch (event.kind)
         {
             case CollectionEventKind.ADD: 
