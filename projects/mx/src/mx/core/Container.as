@@ -80,6 +80,11 @@ use namespace mx_internal;
  *  <code>creationComplete</code> event.</p>
  *
  *  @eventType mx.events.ChildExistenceChangedEvent.CHILD_ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="childAdd", type="mx.events.ChildExistenceChangedEvent")]
 
@@ -95,6 +100,11 @@ use namespace mx_internal;
  *  <code>setChildIndex()</code> method is called.</p>
  *
  *  @eventType mx.events.IndexChangedEvent.CHILD_INDEX_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="childIndexChange", type="mx.events.IndexChangedEvent")]
 
@@ -106,6 +116,11 @@ use namespace mx_internal;
  *  or <code>removeAllChildren()</code>.</p>
  *
  *  @eventType mx.events.ChildExistenceChangedEvent.CHILD_REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="childRemove", type="mx.events.ChildExistenceChangedEvent")]
 
@@ -117,6 +132,11 @@ use namespace mx_internal;
  *  the data to display.</p>
  *
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -137,6 +157,11 @@ use namespace mx_internal;
  *  have not been shifted to reflect the new scroll position.</p>
  *
  *  @eventType mx.events.ScrollEvent.SCROLL
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="scroll", type="mx.events.ScrollEvent")]
 
@@ -155,12 +180,22 @@ include "../styles/metadata/TextStyles.as"
  *  or scrolls along with the content (<code>"scroll"</code>).
  *
  *  @default "scroll"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundAttachment", type="String", inherit="no")]
 
 /**
  *  The alpha value for the overlay that is placed on top of the
  *  container when it is disabled.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledOverlayAlpha", type="Number", inherit="no")]
 
@@ -168,6 +203,11 @@ include "../styles/metadata/TextStyles.as"
  *  The name of the horizontal scrollbar style.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalScrollBarStyleName", type="String", inherit="no")]
 
@@ -175,6 +215,11 @@ include "../styles/metadata/TextStyles.as"
  *  The name of the vertical scrollbar style.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalScrollBarStyleName", type="String", inherit="no")]
 
@@ -183,6 +228,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the bottom of its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -191,6 +241,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the top of its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -287,6 +342,11 @@ include "../styles/metadata/TextStyles.as"
  *      ...
  *  &lt;/mx:<i>tagname</i>&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Container extends UIComponent
                        implements IContainer, IDataRenderer, 
@@ -340,6 +400,16 @@ public class Container extends UIComponent
         In this example, _firstChildIndex would be 3 and _numChildren
         would be 4.
 
+    *  
+
+    *  @langversion 3.0
+
+    *  @playerversion Flash 9
+
+    *  @playerversion AIR 1.1
+
+    *  @productversion Flex 3
+
     */
 
     //--------------------------------------------------------------------------
@@ -373,6 +443,11 @@ public class Container extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Container()
     {
@@ -403,6 +478,11 @@ public class Container extends UIComponent
      *  The creation policy of this container. 
      *  This property is useful when the container inherits its creation policy 
      *  from its parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var actualCreationPolicy:String;
 
@@ -460,6 +540,11 @@ public class Container extends UIComponent
      *  Containers use an internal content pane to control scrolling. 
      *  The <code>creatingContentPane</code> is <code>true</code> while the container is creating 
      *  the content pane so that some events can be ignored or blocked.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get creatingContentPane():Boolean
     {
@@ -588,6 +673,11 @@ public class Container extends UIComponent
 
     /**
      *  @copy mx.core.UIComponent#contentMouseX
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get contentMouseX():Number
     {
@@ -603,6 +693,11 @@ public class Container extends UIComponent
 
     /**
      *  @copy mx.core.UIComponent#contentMouseY
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get contentMouseY():Number
     {
@@ -758,6 +853,11 @@ public class Container extends UIComponent
      *  and existing children may be removed by calling
      *  <code>removeChild()</code>, <code>removeChildAt()</code>,
      *  or <code>removeAllChildren()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get numChildren():int
     {
@@ -800,6 +900,11 @@ public class Container extends UIComponent
      *  Accordion or ViewStack containers.</p>
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoLayout():Boolean
     {
@@ -841,6 +946,11 @@ public class Container extends UIComponent
      *
      *  <p>Unlike <code>viewMetrics</code>, this property is not
      *  overriden by subclasses of Container.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get borderMetrics():EdgeMetrics
     {
@@ -876,6 +986,11 @@ public class Container extends UIComponent
      *  and so on, that were specified in MXML.</p>
      *
      *  @see mx.core.UIComponentDescriptor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get childDescriptors():Array /* of UIComponentDescriptor */
     {
@@ -939,6 +1054,11 @@ public class Container extends UIComponent
      *  see <code>horizontalScrollPolicy</code> and <code>verticalScrollPolicy</code>.</p>
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get clipContent():Boolean
     {
@@ -1009,6 +1129,11 @@ public class Container extends UIComponent
      *  Otherwise, it is ignored.</p>
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get creationIndex():int
     {
@@ -1087,6 +1212,11 @@ public class Container extends UIComponent
      *  In that case, it is the responsibility of the MXML author
      *  to create the children by calling the
      *  <code>createComponentsFromDescriptors()</code> method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get creationPolicy():String
     {
@@ -1122,6 +1252,11 @@ public class Container extends UIComponent
      *  Enter key is the same as clicking this Button control.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get defaultButton():IFlexDisplayObject
     {
@@ -1160,6 +1295,11 @@ public class Container extends UIComponent
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -1216,6 +1356,11 @@ public class Container extends UIComponent
      *  button in the horizontal scroll bar is pressed.
      *  
      *  @default 5
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalLineScrollSize():Number
     {
@@ -1256,6 +1401,11 @@ public class Container extends UIComponent
      *  will be calculated to be a full screen.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalPageScrollSize():Number
     {
@@ -1294,6 +1444,11 @@ public class Container extends UIComponent
      *  Manipulation of the <code>horizontalScrollPolicy</code> 
      *  and <code>horizontalScrollPosition</code>
      *  properties should provide sufficient control over the scroll bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollBar():ScrollBar
     {
@@ -1329,6 +1484,11 @@ public class Container extends UIComponent
      *  that is currently visible.
      *  
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPosition():Number
     {
@@ -1402,6 +1562,11 @@ public class Container extends UIComponent
      *  </ul>
      *
      *  @default ScrollPolicy.AUTO
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPolicy():String
     {
@@ -1455,6 +1620,11 @@ public class Container extends UIComponent
      *  <p>The image can be a JPEG, GIF, PNG, SVG, or SWF file.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get icon():Class
     {
@@ -1494,6 +1664,11 @@ public class Container extends UIComponent
      *  this string appears in the corresponding header.</p>
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get label():String
     {
@@ -1518,6 +1693,11 @@ public class Container extends UIComponent
      *  The largest possible value for the
      *  <code>horizontalScrollPosition</code> property.
      *  Defaults to 0 if the horizontal scrollbar is not present.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHorizontalScrollPosition():Number
     {
@@ -1534,6 +1714,11 @@ public class Container extends UIComponent
      *  The largest possible value for the
      *  <code>verticalScrollPosition</code> property.
      *  Defaults to 0 if the vertical scrollbar is not present.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxVerticalScrollPosition():Number
     {
@@ -1661,6 +1846,11 @@ public class Container extends UIComponent
      *  set <code>tabEnabled = false</code> on the component that you have added.
      *  Doing so prevents users from tabbing to the visual-only component
      *  that you have added.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rawChildren():IChildList
     {
@@ -1702,6 +1892,11 @@ public class Container extends UIComponent
      *  or when you scroll by using the mouse wheel.
      *  
      *  @default 5
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalLineScrollSize():Number
     {
@@ -1742,6 +1937,11 @@ public class Container extends UIComponent
      *  will be calculated to be a full screen.
      * 
      *  @default 0   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalPageScrollSize():Number
     {
@@ -1780,6 +1980,11 @@ public class Container extends UIComponent
      *  Manipulation of the <code>verticalScrollPolicy</code> 
      *  and <code>verticalScrollPosition</code>
      *  properties should provide sufficient control over the scroll bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalScrollBar():ScrollBar
     {
@@ -1815,6 +2020,11 @@ public class Container extends UIComponent
      *  that is currently visible.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalScrollPosition():Number
     {
@@ -1889,6 +2099,11 @@ public class Container extends UIComponent
      *  </ul>
      *
      *  @default ScrollPolicy.AUTO
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalScrollPolicy():String
     {
@@ -1940,6 +2155,11 @@ public class Container extends UIComponent
      *  For example, the <code>viewMetrics</code> property for the
      *  Panel class should return an object whose <code>top</code> property
      *  includes the thickness of the Panel container's title bar.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get viewMetrics():EdgeMetrics
     {
@@ -2012,6 +2232,11 @@ public class Container extends UIComponent
      *  scroll bar. If a scroll policy is <code>ScrollPolicy.AUTO</code>,
      *  the chrome measurement does not include the scroll bar thickness, 
      *  even if a scroll bar is displayed.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get viewMetricsAndPadding():EdgeMetrics
     {
@@ -2150,6 +2375,11 @@ public class Container extends UIComponent
      *  @see mx.core.IUIComponent
      *
      *  @tiptext Adds a child object to this container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
@@ -2166,6 +2396,11 @@ public class Container extends UIComponent
         childAdded(child);
 
         return child;
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
     }
 
@@ -2205,6 +2440,11 @@ public class Container extends UIComponent
      *  or to the type of the added component.
      *
      *  @see mx.core.IUIComponent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function addChildAt(child:DisplayObject,
                                         index:int):DisplayObject
@@ -2251,6 +2491,11 @@ public class Container extends UIComponent
      *  @return The removed child as an object of type DisplayObject. 
      *  You typically cast the return value to UIComponent, 
      *  or to the type of the removed component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
@@ -2308,6 +2553,11 @@ public class Container extends UIComponent
      *  @return The removed child as an object of type DisplayObject. 
      *  You typically cast the return value to UIComponent, 
      *  or to the type of the removed component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function removeChildAt(index:int):DisplayObject
     {
@@ -2316,6 +2566,16 @@ public class Container extends UIComponent
         /*
 
         Shouldn't implement removeChildAt() in terms of removeChild().
+
+        *  
+
+        *  @langversion 3.0
+
+        *  @playerversion Flash 9
+
+        *  @playerversion AIR 1.1
+
+        *  @productversion Flex 3
 
         */
     }
@@ -2332,6 +2592,11 @@ public class Container extends UIComponent
      *  @return Reference to the child as an object of type DisplayObject. 
      *  You typically cast the return value to UIComponent, 
      *  or to the type of a specific Flex control, such as ComboBox or TextArea.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getChildAt(index:int):DisplayObject
     {
@@ -2359,6 +2624,11 @@ public class Container extends UIComponent
      *  @return The DisplayObject representing the child as an object of type DisplayObject.
      *  You typically cast the return value to UIComponent, 
      *  or to the type of a specific Flex control, such as ComboBox or TextArea.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getChildByName(name:String):DisplayObject
     {
@@ -2415,6 +2685,11 @@ public class Container extends UIComponent
      *  @param child Reference to child whose index to get.
      *
      *  @return Number between 0 and (numChildren - 1).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getChildIndex(child:DisplayObject):int
     {
@@ -2445,6 +2720,11 @@ public class Container extends UIComponent
      *
      *  @param newIndex Number that indicates the new index.
      *  Must be an integer between 0 and (numChildren - 1).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function setChildIndex(child:DisplayObject, newIndex:int):void
     {
@@ -2508,6 +2788,11 @@ public class Container extends UIComponent
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get numElements():int
     {
@@ -2516,6 +2801,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function getElementAt(index:int):IVisualElement
     {
@@ -2524,6 +2814,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getElementIndex(element:IVisualElement):int
     {
@@ -2535,6 +2830,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function addElement(element:IVisualElement):IVisualElement
     {
@@ -2546,6 +2846,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
@@ -2557,6 +2862,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
@@ -2568,6 +2878,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeElementAt(index:int):IVisualElement
     {
@@ -2576,6 +2891,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
@@ -2587,6 +2907,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
@@ -2600,6 +2925,11 @@ public class Container extends UIComponent
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
@@ -2984,6 +3314,11 @@ public class Container extends UIComponent
      *  <code>scaleY</code> property of the component.
      *
      *  @see mx.core.UIComponent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -3063,6 +3398,11 @@ public class Container extends UIComponent
 
     /**
      *  @copy mx.core.UIComponent#contentToGlobal()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function contentToGlobal(point:Point):Point
     {
@@ -3074,6 +3414,11 @@ public class Container extends UIComponent
     
     /**
      *  @copy mx.core.UIComponent#globalToContent()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function globalToContent(point:Point):Point
     {
@@ -3085,6 +3430,11 @@ public class Container extends UIComponent
 
     /**
      *  @copy mx.core.UIComponent#contentToLocal()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function contentToLocal(point:Point):Point
     {
@@ -3097,6 +3447,11 @@ public class Container extends UIComponent
     
     /**
      *  @copy mx.core.UIComponent#localToContent()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function localToContent(point:Point):Point
     {
@@ -3263,6 +3618,11 @@ public class Container extends UIComponent
     
     /**
      *  Used internally by the Dissolve Effect to add the overlay to the chrome of a container. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function attachOverlay():void
     {
@@ -3277,6 +3637,11 @@ public class Container extends UIComponent
      *
      *  The Container fills the overlay object so it covers the viewable area returned
      *  by the <code>viewMetrics</code> property and uses the <code>cornerRadius</code> style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override mx_internal function fillOverlay(overlay:UIComponent, color:uint,
                                               targetArea:RoundedRectangle = null):void
@@ -3328,6 +3693,11 @@ public class Container extends UIComponent
      *  If <code>true</code>, then also execute the bindings on this
      *  container's children, grandchildren,
      *  great-grandchildren, and so on.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function executeBindings(recurse:Boolean = false):void
     {
@@ -3489,6 +3859,11 @@ public class Container extends UIComponent
      *  of the container.
      * 
      *  @see #rawChildren
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getChildren():Array
     {
@@ -3505,6 +3880,11 @@ public class Container extends UIComponent
 
     /**
      *  Removes all children from the child list of this container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAllChildren():void
     {
@@ -3604,6 +3984,11 @@ public class Container extends UIComponent
      *
      *  @param recurse If <code>true</code>, recursively
      *  create components.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createComponentsFromDescriptors(
                         recurse:Boolean = true):void
@@ -3664,6 +4049,11 @@ public class Container extends UIComponent
      *  of its children, based on the value of the component's <code>creationPolicy</code> property.
      *
      *  @see mx.core.UIComponentDescriptor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createComponentFromDescriptor(
                             descriptor:ComponentDescriptor,
@@ -4096,6 +4486,11 @@ public class Container extends UIComponent
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function layoutChrome(unscaledWidth:Number,
                                     unscaledHeight:Number):void
@@ -4113,6 +4508,11 @@ public class Container extends UIComponent
     /**
      *  Creates the container's border skin 
      *  if it is needed and does not already exist.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createBorder():void
     {
@@ -4828,6 +5228,11 @@ public class Container extends UIComponent
      *  Content that doesn't appear in the viewable area gets clipped. 
      *  This method should be overridden by subclasses that have scrollable 
      *  chrome in the content area.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function scrollChildren():void
     {
@@ -4936,6 +5341,11 @@ public class Container extends UIComponent
      *  If <code>true</code>, then also execute the bindings on this
      *  container's grandchildren,
      *  great-grandchildren, and so on.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function executeChildBindings(recurse:Boolean):void
     {
