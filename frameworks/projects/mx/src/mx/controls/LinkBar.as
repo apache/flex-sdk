@@ -35,6 +35,11 @@ use namespace mx_internal;
  *  Number of pixels between the LinkButton controls in the horizontal direction.
  * 
  *  @default 8
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -43,6 +48,11 @@ use namespace mx_internal;
  *  button navigation items.
  * 
  *  @default ""
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="linkButtonStyleName", type="String", inherit="no")]
 
@@ -50,6 +60,11 @@ use namespace mx_internal;
  *  Number of pixels between the bottom border and the LinkButton controls.
  * 
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -57,6 +72,11 @@ use namespace mx_internal;
  *  Number of pixels between the top border and the LinkButton controls.
  * 
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -65,6 +85,11 @@ use namespace mx_internal;
  *  The default value is based on the current <code>themeColor</code>.
  * 
  *  @default 0xEEFEE6 (light green)
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -72,6 +97,11 @@ use namespace mx_internal;
  *  Background color of the LinkButton control as you press it.
  * 
  *  @default 0xCDFFC1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -79,6 +109,11 @@ use namespace mx_internal;
  *  Separator color used by the default separator skin.
  * 
  *  @default 0xC4CCCC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="separatorColor", type="uint", format="Color", inherit="yes")]
 
@@ -86,6 +121,11 @@ use namespace mx_internal;
  *  Seperator symbol between LinkButton controls in the LinkBar. 
  * 
  *  @default mx.skins.halo.LinkSeparator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="separatorSkin", type="Class", inherit="no")]
 
@@ -93,6 +133,11 @@ use namespace mx_internal;
  *  Separator pixel width, in pixels.
  * 
  *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="separatorWidth", type="Number", format="Length", inherit="yes")]
 
@@ -100,6 +145,11 @@ use namespace mx_internal;
  *  Text color of the link as you move the mouse pointer over it.
  * 
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -107,6 +157,11 @@ use namespace mx_internal;
  *  Text color of the link as you press it.
  * 
  *  @default 0x000000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -114,6 +169,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the vertical direction.
  * 
  *  @default 8
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -223,6 +283,11 @@ use namespace mx_internal;
  *  @see mx.controls.LinkButton
  *  @see mx.controls.ToggleButtonBar
  *  @see mx.controls.ButtonBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LinkBar extends NavBar
 {
@@ -247,6 +312,11 @@ public class LinkBar extends NavBar
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LinkBar()
     {
@@ -288,6 +358,11 @@ public class LinkBar extends NavBar
      *  control uses a ViewStack container as its data provider.
      * 
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get selectedIndex():int
     {
@@ -319,6 +394,11 @@ public class LinkBar extends NavBar
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function styleChanged(styleProp:String):void
     {
@@ -386,6 +466,11 @@ public class LinkBar extends NavBar
      *  @see mx.core.UIComponent#updateDisplayList()
      *  @see mx.containers.Box#updateDisplayList()
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
