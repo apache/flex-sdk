@@ -17,6 +17,8 @@ import spark.layouts.supportClasses.LayoutBase;
 
 [IconFile("HGroup.png")]
 
+[Exclude(name="layout", kind="property")]
+
 /**
  *  The HGroup container is an instance of the Group container 
  *  that uses the HorizontalLayout class.  
