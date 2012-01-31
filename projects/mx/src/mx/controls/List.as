@@ -24,9 +24,12 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.utils.Dictionary;
+
 import mx.collections.CursorBookmark;
 import mx.collections.IList;
 import mx.collections.ItemResponder;
+import mx.collections.ItemWrapper;
+import mx.collections.ModifiedCollectionView;
 import mx.collections.errors.ItemPendingError;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
@@ -48,6 +51,7 @@ import mx.core.IFactory;
 import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IPropertyChangeNotifier;
+import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -62,9 +66,6 @@ import mx.events.ScrollEventDetail;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
-import mx.collections.ItemWrapper;
-import mx.collections.ModifiedCollectionView;
-import mx.core.IUIComponent;
 
 use namespace mx_internal;
 
@@ -1197,8 +1198,10 @@ public class List extends ListBase implements IIMESupport
         }
 
         var colors:Array;
-
-        colors = getStyle("alternatingItemColors");
+		var colorsStyle:Object = getStyle("alternatingItemColors");
+		colorsStyle = getStyle("alternatingItemColors");
+		if (colorsStyle)
+			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
 
         if (!colors || colors.length == 0)
         {
