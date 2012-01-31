@@ -23,6 +23,12 @@ import mx.rpc.soap.SOAPConstants;
  */
 public class WSDLBinding
 {
+   /**
+    * Creates a new WSDLBinding. Currently, only SOAP binding is
+    * supported for WSDL.
+    *
+    * @param name The unique name of this binding.
+    */
     public function WSDLBinding(name:String)
     {
         super();
