@@ -153,8 +153,10 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The background skin of the MenuBar control. 
  *   
- *  @default mx.skins.halo.MenuBarBackgroundSkin 
- *  
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.MenuBarBackgroundSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
@@ -165,7 +167,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The default skin for a MenuBar item.
  * 
- *  @default mx.skins.halo.ActivatorSkin 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ActivatorSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.MenuItemSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -177,7 +181,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The skin when a MenuBar item is not selected.
  * 
- *  @default mx.skins.halo.ActivatorSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ActivatorSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.MenuItemSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -189,7 +195,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The skin when focus is over a MenuBar item. 
  * 
- *  @default mx.skins.halo.ActivatorSkin
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ActivatorSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.MenuItemSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -201,7 +209,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The skin when a MenuBar item is selected. 
  * 
- *  @default mx.skins.halo.ActivatorSkin 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ActivatorSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.MenuItemSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
