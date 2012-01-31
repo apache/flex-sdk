@@ -810,12 +810,14 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                 var parentEnd:* = propertyChanges.end["parent"];
                 if (parentStart && !parentEnd && parentStart is IVisualElementContainer)
                 {
+                    var startContainer:IVisualElementContainer = 
+                        IVisualElementContainer(parentStart);
                     var startIndex:* = propertyChanges.start["index"];
-                    if (startIndex !== undefined)
-                        IVisualElementContainer(parentStart).addElementAt(
+                    if (startIndex !== undefined && startIndex <= startContainer.numElements)
+                        startContainer.addElementAt(
                             target as IVisualElement, int(startIndex));
                     else
-                        IVisualElementContainer(parentStart).addElement(
+                        startContainer.addElement(
                             target as IVisualElement);
                     // GraphicElements may delay parenting their underlying displayObject until
                     // a layout pass, so let's force it to make sure we're ready to go
