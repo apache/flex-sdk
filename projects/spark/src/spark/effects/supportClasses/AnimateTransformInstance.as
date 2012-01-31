@@ -427,8 +427,6 @@ public class AnimateTransformInstance extends AnimateInstance
     {
         if (applyLocalProjection && removeLocalProjectionWhenComplete)
         {
-            // FIXME (rfrishbe): need to check for IUIComponent? 
-            // as well if checking for IVisualElement?
             var parent:DisplayObject= target.parent as DisplayObject;
             
             if (parent != null)
