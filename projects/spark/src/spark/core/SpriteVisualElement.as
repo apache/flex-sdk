@@ -19,12 +19,14 @@ import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Vector3D;
-
 import mx.core.AdvancedLayoutFeatures;
+import mx.core.DesignLayer;
 import mx.core.FlexSprite;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
+import mx.utils.MatrixUtil;
 import mx.events.FlexEvent;
 import mx.geom.Transform;
 import mx.utils.MatrixUtil;
@@ -247,6 +249,42 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  alpha
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the alpha property.
+     */
+    private var _alpha:Number = 1.0;
+    
+    /**
+     *  @private
+     */
+    override public function get alpha():Number
+    {
+        // Here we roundtrip alpha in the same manner as the 
+        // player (purposely introducing a rounding error).
+        return int(_alpha * 256.0) / 256.0;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set alpha(value:Number):void
+    { 
+        if (_alpha != value)
+        {
+            _alpha = value;
+            
+            if (layer)
+                value = value * layer.computedAlpha; 
+            
+            super.alpha = value;
+        }
+    }
+    
     //----------------------------------
     //  baseline
     //----------------------------------
@@ -546,7 +584,46 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     {
         _owner = value;
     }
+    
+    //----------------------------------
+    //  layer
+    //----------------------------------
 
+    /**
+     *  @private
+     *  Storage for the layer property.
+     */
+    private var _layer:DesignLayer;
+    
+    [Inspectable (environment='none')]
+    
+    /**
+     *  @copy mx.core.IVisualElement#layer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get layer():DesignLayer
+    {
+        return _layer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set layer(value:DesignLayer):void
+    {
+        if (_layer)
+            _layer.removeEventListener("layerPropertyChange", layer_PropertyChange, false);
+        
+        _layer = value;
+        
+        if (_layer)
+            _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+    }
+        
     //----------------------------------
     //  percentHeight
     //----------------------------------
@@ -1024,6 +1101,40 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
 
     //----------------------------------
+    //  visible
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the visible property.
+     */
+    private var _visible:Boolean = true;
+    
+    /**
+     *  @inheritDoc
+     */
+    override public function get visible():Boolean
+    {
+        return _visible;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set visible(value:Boolean):void
+    {
+        _visible = value;
+        
+        if (layer && !layer.computedVisibility)
+            value = false; 
+        
+        if (super.visible == value)
+            return;
+        
+        super.visible = value;
+    }
+    
+    //----------------------------------
     //  width
     //----------------------------------
 
@@ -1220,6 +1331,30 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
         return naturalHeight;
     }
 
+    /**
+     *  @private
+     */
+    protected function layer_PropertyChange(event:PropertyChangeEvent):void
+    {
+        switch (event.property)
+        {
+            case "visible":
+            {
+                var newValue:Boolean = (event.newValue && _visible);            
+                if (newValue != super.visible)
+                    super.visible = newValue;
+                break;
+            }
+            case "alpha":
+            {
+                var newAlpha:Number = Number(event.newValue) * _alpha;
+                if (newAlpha != super.alpha)
+                    super.alpha = newAlpha;
+                break;
+            }
+        }
+    }
+    
     /**
      *  @inheritDoc
      *
