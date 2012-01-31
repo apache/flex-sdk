@@ -217,8 +217,8 @@ public class TextGraphic extends TextGraphicElement
 		var textFlow:TextFlow = new TextFlow();
 		var p:ParagraphElement = new ParagraphElement();
 		var span:SpanElement = new SpanElement();
-		textFlow.replaceElements(0, 0, p);
-		p.replaceElements(0, 0, span);
+		textFlow.replaceChildren(0, 0, p);
+		p.replaceChildren(0, 0, span);
 		return textFlow;
 	}
 	
