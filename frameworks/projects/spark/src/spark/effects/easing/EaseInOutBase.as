@@ -25,7 +25,7 @@ package spark.effects.easing
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:EaseInOutBase
+ *  &lt;s:EaseInOutBase
  *    id="ID"
  *    easeInFraction="0.5" 
  *   /&gt;
