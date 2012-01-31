@@ -105,18 +105,8 @@ public class ApplicationBackground extends ProgrammaticSkin
 			
 			fillColors = [];
 
-            // Starting in Flex 4, the background color is a solid instead of 
-            // a gradient.
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-            {
-                fillColors[0] = bgColor;
-                fillColors[1] = bgColor;
-            }
-            else 
-            {
-                fillColors[0] = ColorUtil.adjustBrightness(bgColor, 15);
-                fillColors[1] = ColorUtil.adjustBrightness(bgColor, -25);
-            }
+            fillColors[0] = ColorUtil.adjustBrightness(bgColor, 15);
+            fillColors[1] = ColorUtil.adjustBrightness(bgColor, -25);
 		}
 		
 		if (!fillAlphas)
