@@ -1,7 +1,7 @@
 package spark.components.supportClasses
 {
 import flash.display.Sprite;
-import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
+import spark.core.ISharedDisplayObject;
 
 /**
  *  <code>GraphicElement</code> creates shared <code>DsiplayObject</code> of type
@@ -12,7 +12,7 @@ import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class InvalidatingSprite extends Sprite implements ISharedGraphicsDisplayObject
+public class InvalidatingSprite extends Sprite implements ISharedDisplayObject
 {
     public function InvalidatingSprite()
     {
