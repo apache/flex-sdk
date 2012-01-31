@@ -1669,47 +1669,60 @@ public class GridLayout extends LayoutBase
     // TBD(hmuller): make a note about the fact that this handler runs AFTER the GridDimension
     // object has been updated.
     
-    public function dataProviderCollectionChanged(event:CollectionEvent):Boolean
+    public function dataProviderCollectionChanged(event:CollectionEvent):void
     {
         switch (event.kind)
         {
-            case CollectionEventKind.ADD:    
-                return dataProviderCollectionAdd(event);
+            case CollectionEventKind.ADD:
+            {
+                dataProviderCollectionAdd(event);
+                break;
+            }
                 
             case CollectionEventKind.REMOVE: 
-                return dataProviderCollectionRemove(event);
+            {
+                dataProviderCollectionRemove(event);
+                break;
+            }
                 
             case CollectionEventKind.MOVE:
+            {
                 // TBD(hmuller)
                 break;
+            }
             
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
-                return dataProviderCollectionReset(event);
+            {
+                dataProviderCollectionReset(event);
+                break;
+            }
                 
             case CollectionEventKind.UPDATE:
-                return dataProviderCollectionUpdate(event);
-            case CollectionEventKind.REPLACE:
+            {
+                dataProviderCollectionUpdate(event);
                 break;
+            }
+                
+            case CollectionEventKind.REPLACE:
+            {
+                break;
+            }
         }
-        
-        return false;
     }
     
     /**
      *  @private
      *  Called in response to one or more items having been inserted into the 
      *  grid's dataProvider.  Ensure that visibleRowIndices and visibleRowSelectionIndices 
-     *  correspond to the same, potentially shifted, dataProvider items.  Return true
-     *  any visible index had to be changed.   
+     *  correspond to the same, potentially shifted, dataProvider items.
      */
-    private function dataProviderCollectionAdd(event:CollectionEvent):Boolean
+    private function dataProviderCollectionAdd(event:CollectionEvent):void
     {
         const insertIndex:int = event.location;
         const insertLength:int = event.items.length;
-        const b1:Boolean = incrementIndicesGTE(visibleRowIndices, insertIndex, insertLength);
-        const b2:Boolean = incrementIndicesGTE(visibleRowSelectionIndices, insertIndex, insertLength);
-        return b1 || b2;
+        incrementIndicesGTE(visibleRowIndices, insertIndex, insertLength);
+        incrementIndicesGTE(visibleRowSelectionIndices, insertIndex, insertLength);
     }
     
     /**
@@ -1717,7 +1730,7 @@ public class GridLayout extends LayoutBase
      *  Called in response to one or more items having been removed from the 
      *  grid's dataProvider.  
      */
-    private function dataProviderCollectionRemove(event:CollectionEvent):Boolean
+    private function dataProviderCollectionRemove(event:CollectionEvent):void
     {
         const eventItemsLength:uint = event.items.length;
         const firstRemoveIndex:int = event.location;
@@ -1753,27 +1766,25 @@ public class GridLayout extends LayoutBase
         {
             const removeCount:int = (lastVisibleOffset - firstVisibleOffset) + 1; 
             visibleRowIndices.splice(firstVisibleOffset, removeCount);
-            freeGridElements(visibleRowBackgrounds.splice(firstVisibleOffset, removeCount));
-            freeGridElements(visibleRowSeparators.splice(firstVisibleOffset, removeCount));
+            
+            if (lastVisibleOffset < visibleRowBackgrounds.length)
+                freeGridElements(visibleRowBackgrounds.splice(firstVisibleOffset, removeCount));
+            
+            if (lastVisibleOffset < visibleRowSeparators.length)
+                freeGridElements(visibleRowSeparators.splice(firstVisibleOffset, removeCount));
             
             const visibleColCount:int = visibleColumnIndices.length;
             const firstRendererOffset:int = firstVisibleOffset * visibleColCount;
             freeItemRenderers(visibleItemRenderers.splice(firstRendererOffset, removeCount * visibleColCount));
-
-            return true;
         }
-            
-        return false;        
     }    
 
     /**
      *  @private
-     *  Increment the elements of indices that are >= insertIndex by delta.  Returns true if any
-     *  element was changed.
+     *  Increment the elements of indices that are >= insertIndex by delta.
      */
-    private function incrementIndicesGTE(indices:Vector.<int>, insertIndex:int, delta:int):Boolean
+    private function incrementIndicesGTE(indices:Vector.<int>, insertIndex:int, delta:int):void
     {
-        var elementChanged:Boolean = false;
         const indicesLength:int = indices.length;
         for (var i:int = 0; i < indicesLength; i++)
         {
@@ -1781,20 +1792,17 @@ public class GridLayout extends LayoutBase
             if (index >= insertIndex)
             {
                 indices[i] = index + delta;
-                elementChanged = true;
             }
         }
-        return elementChanged;
     }
     
     /**
      *  @private
      *  Called in response to a refresh/reset CollectionEvent.  Clear everything.
      */
-    private function dataProviderCollectionReset(event:CollectionEvent):Boolean
+    private function dataProviderCollectionReset(event:CollectionEvent):void
     {
         clearVirtualLayoutCache();
-        return true;
     }
     
     /**
@@ -1803,7 +1811,7 @@ public class GridLayout extends LayoutBase
      *  to see if the item is visible and invalidates the grid if it is. Otherwise, 
      *  do nothing.
      */
-    private function dataProviderCollectionUpdate(event:CollectionEvent):Boolean
+    private function dataProviderCollectionUpdate(event:CollectionEvent):void
     {
         var data:Object;
         const itemsLength:int = event.items.length;
@@ -1823,7 +1831,6 @@ public class GridLayout extends LayoutBase
                 }
             }
         }
-        return true;
     }
     
     /**
