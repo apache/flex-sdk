@@ -24,8 +24,103 @@ import spark.components.TabBar;
 use namespace mx_internal;
 
 /**
- *  TabBarAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the TabBar class.
+ *  TabBarAccImpl is the accessibility implementation class
+ *  for spark.components.TabBar.
+ *
+ *  <p>When a Spark TabBar is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the TabBar.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>The MSAA children of a TabBar are its tabs.
+ *  As described above, the accessibility of these tabs is managed
+ *  by the TabBar; their own <code>accessibilityImplementation</code> and
+ *  <code>accessibilityProperties</code> are ignored by the Flash Player.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a TabBar is ROLE_SYSTEM_PAGETABLIST.</p>
+ *
+ *  <p>The Role of each tab is ROLE_SYSTEM_PAGETAB.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a TabBar is, by default, an empty string.
+ *  When wrapped in a FormItem element, the Name is the FormItem's label.
+ *  To override this behavior, set the TabBar's
+ *  <code>accessibilityName</code> property.</p>
+ *
+ *  <p>The Name of each tab is determined by the TabBar's
+ *  <code>itemToLabel()</code> method.</p>
+ *
+ *  <p>When the Name of the TabBar or one of its tabs changes,
+ *  a TabBar dispatches the MSAA event EVENT_OBJECT_NAMECHANGE
+ *  with the proper childID for the tab or 0 for itself.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a TabBar is, by default, an empty string,
+ *  but you can set the TabBar's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each tab is the empty string.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a TabBar is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED
+ *    (when enabled is true and the TabBar has focus)</li>
+ *  </ul></p>
+ *
+ *  <p>The State of a tab in a TabBar is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_FOCUSED</li>
+ *    <li>STATE_SYSTEM_PRESSED</li>
+ *  </ul></p>
+ *
+ *  <p>When the State of the TabBar or one of its tabs changes,
+ *  a TabBar dispatches the MSAA event EVENT_OBJECT_STATECHANGE
+ *  with the proper childID for the tab or 0 for itself.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>A TabBar, or a tab in a TabBar, does not have an MSAA Value.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a TabBar, or a tab in a TabBar,
+ *  is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A TabBar does not have an MSAA DefaultAction.</p>
+ *
+ *  <p>The DefaultAction of a tab in a TabBar is "Switch".
+ *  When it is performed, the given tab is pressed.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>Both the TabBar and its individual tabs accept focus.
+ *  When they do so it dispatches the MSAA event EVENT_OBJECT_FOCUS.
+ *  A tab is not automatically pressed
+ *  when focused through arrow key navigation.
+ *  To press a focused tab, the user must press the spacebar.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>MSAA Selection will press the tab
+ *  corresponding to the specified childID.
+ *  Only one tab can be pressed at a time.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
