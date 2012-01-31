@@ -514,7 +514,8 @@ public class HaloBorder extends RectangularBorder
                     drawDropShadow(0, 1, w, h - 1,
                                    radius, radius, radius, radius);
 
-                    if (backgroundColor !== null && StyleManager.isValidStyleValue(backgroundColor))
+                    if (backgroundColor !== null && 
+                        styleManager.isValidStyleValue(backgroundColor))
                     {
                         drawRoundRect(
                             0, 1, w, h - 1, radius,
@@ -912,7 +913,7 @@ public class HaloBorder extends RectangularBorder
         if (p && !p.enabled)
         {
             var color:Object = getStyle("backgroundDisabledColor");
-            if (color !== null && StyleManager.isValidStyleValue(color))
+            if (color !== null && styleManager.isValidStyleValue(color))
                 return color;
         }
 
