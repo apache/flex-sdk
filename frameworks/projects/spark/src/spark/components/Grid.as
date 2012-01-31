@@ -724,7 +724,12 @@ package spark.components
             invalidateSize();
             invalidateDisplayList();
             
-            //TBD: clear selection and dimnsions        
+            //TBD: clear selection and dimnsions
+            gridDimensions.clear();
+            if (_columns)
+                gridDimensions.columnCount = _columns.length;
+            if (_dataProvider) // clearing the gridDimensions resets rowCount
+                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("columnsChanged");        
         }
@@ -783,7 +788,10 @@ package spark.components
             invalidateSize();
             invalidateDisplayList();
             
-            //TBD: clear selection and dimnsions
+            //TBD: clear selection
+            gridDimensions.clear();
+            if (_dataProvider)
+                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("dataProviderChanged");        
         }
@@ -2441,6 +2449,8 @@ package spark.components
                     break;
                 }                                
             }
+            
+            gridDimensions.columnCount = _columns.length;
             
             if (gridSelection)
                 gridSelection.columnsCollectionChanged(event);
