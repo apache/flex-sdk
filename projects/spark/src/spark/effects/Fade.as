@@ -153,10 +153,7 @@ public class Fade extends Animate
      */
     override public function getAffectedProperties():Array /* of String */
     {
-        return ["alpha", "visible", "parent", "index", 
-            "explicitWidth", "explicitHeight", "rotation", "x", "y",
-            "left", "right", "top", "bottom",
-            "percentWidth", "percentHeight"];
+        return ["alpha", "visible", "parent", "index"];
     }
 
     /**
@@ -234,11 +231,7 @@ public class Fade extends Animate
         // We only want to track "parent" as it affects how
         // we fade; we don't actually want to change target properties
         // other than alpha or visibility
-        if (property == "parent" || property == "index" || 
-            property == "explicitWidth" || property == "explicitHeight" ||
-            property == "percentWidth" || property == "percentHeight" ||
-            property == "rotation" || property == "x" || property == "y" ||
-            property == "left" || property == "right" || property == "top" || property == "bottom")
+        if (property == "parent" || property == "index")
         {
             return;
         }
