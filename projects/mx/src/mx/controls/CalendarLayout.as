@@ -48,6 +48,28 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Number of pixels between the component's top border
+ *  and the top edge of its content area.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Number of pixels between the component's bottom border
+ *  and the bottom edge of its content area.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
+
+/**
  *  Name of the skin for the <code>rollOverIndicator</code>.
  *  It can be customized to some other shape other than rectangular.
  *  If you want to change just the color,
@@ -76,9 +98,20 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="selectionIndicatorSkin", type="Class", inherit="no")]
 
 /**
+ *  Color of the background of today's date.
+ *  The default value is <code>0x818181</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="todayColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Name of the skin for <code>todayIndicator</code> style property. It can be customized
  *  to some other shape other than rectangular. If you
- *  wnat to change just the color, use the <code>todayColor</code> style property instead.
+ *  want to change just the color, use the <code>todayColor</code> style property instead.
  *  The default value is the DateChooserTodayIndicator class.
  *  
  *  @langversion 3.0
