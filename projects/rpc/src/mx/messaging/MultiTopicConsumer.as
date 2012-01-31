@@ -390,13 +390,14 @@ public class MultiTopicConsumer extends AbstractConsumer
         if ((_shouldBeSubscribed || subscribed) && _subchangeTimer == null)
         {
             _subchangeTimer = new Timer(0, 1);
-            _subchangeTimer.addEventListener("timer", doResubscribe);
+            _subchangeTimer.addEventListener(TimerEvent.TIMER, doResubscribe);
             _subchangeTimer.start();
         }
     }
 
     private function doResubscribe(event:TimerEvent):void
     {
+        _subchangeTimer.removeEventListener(TimerEvent.TIMER, doResubscribe);
         _subchangeTimer = null;
 
         if (subscribed) 
