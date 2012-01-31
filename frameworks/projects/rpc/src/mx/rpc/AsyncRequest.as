@@ -109,8 +109,8 @@ public class AsyncRequest extends mx.messaging.Producer
     * 
     * @param msg The message for which the existence of pending requests is checked.
     *
-    * @return <code>true</code> if there are any pending requests for the passed in message;
-    * otherwise, returns <code>false</code>
+    * @return Returns <code>true</code> if there are any pending requests for the 
+    * passed in message; otherwise, returns <code>false</code>.
     */
 	override public function hasPendingRequestForMessage(msg:IMessage):Boolean
 	{
