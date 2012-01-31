@@ -42,6 +42,11 @@ public class WSDLService
 
     /**
      * The unique name of this service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
@@ -50,6 +55,11 @@ public class WSDLService
 
     /**
      * Provides access to this service's map of ports.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ports():Object
     {
@@ -65,6 +75,11 @@ public class WSDLService
 
     /**
      * Registers a port with this service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addPort(port:WSDLPort):void
     {
@@ -75,6 +90,11 @@ public class WSDLService
 
     /**
      * Retrieves a port by name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getPort(name:String):WSDLPort
     {
