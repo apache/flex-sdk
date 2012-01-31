@@ -19,6 +19,7 @@ import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.effects.Effect;
 import mx.effects.EffectInstance;
 import mx.events.EffectEvent;
 import mx.managers.SystemManager;
@@ -631,7 +632,23 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                 }
                 else
                 {
-                    keyframes[0].value = getCurrentValue(motionPath.property);
+                    // An interrupting transition effect should grab its start
+                    // values from the propertyChanges array, which has been populated
+                    // in UIComponent.commitCurrentState() with the values of target
+                    // objects when the previous transition was interrupted. The
+                    // current values of the objects, from getCurrentValue(), may be
+                    // set to the end values of that previous transition, so we do not
+                    // want those values for the animation
+                    if (Effect(effect).transitionInterruption && 
+                        propertyChanges &&
+                        propertyChanges.start[motionPath.property] !== undefined)
+                    {
+                        keyframes[0].value = propertyChanges.start[motionPath.property];
+                    }
+                    else
+                    {
+                        keyframes[0].value = getCurrentValue(motionPath.property);
+                    }
                 }
             }
             // set any other invalid values based on information in surrounding
