@@ -718,7 +718,7 @@ public class TextGraphicElement extends GraphicElement
             return;
 
         // If we don't measure
-        if (skipMeasure())
+        if (canSkipMeasurement())
             return;
 
         if (!isNaN(explicitHeight))
@@ -742,15 +742,12 @@ public class TextGraphicElement extends GraphicElement
     
         // We support reflow only when we don't have a transform.
         // We could add support for scale, but not skew or rotation.
-        var matrix:Matrix;
-        if (postLayoutTransform)
-            matrix = computeMatrix();
-        if (null != matrix)
-            return;
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+			return;
 
         _widthConstraint = width;
-        
         invalidateSize();
+    
     }
 
     /**
@@ -1328,7 +1325,7 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      *  If the text lines are in a shared container then x and y have to be
-     *  adjusted if offsets.x, offsets.y, layoutX or layoutY changes.  When
+     *  adjusted if postLayoutTransformOffsets.x, postLayoutTransformOffsets.y, layoutX or layoutY changes.  When
      *  these are changed, our updateDisplayList() is called but if we don't
      *  recompose we may need to adjust the position of the text lines.
      */
