@@ -843,7 +843,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     {
         super.createChildren();
         
-        // TODO: When navigator support is added, this is where we would 
+        // FIXME (rfrishbe): When navigator support is added, this is where we would 
         // determine if content should be created now, or wait until
         // later. For now, we always create content here unless
         // creationPolicy="none".
@@ -868,10 +868,10 @@ public class SkinnableContainer extends SkinnableContainerBase
                 
                 contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
                 
-                // TODO (rfrishbe): investigate why we need this, especially if these elements shouldn't 
+                // FIXME (rfrishbe): investigate why we need this, especially if these elements shouldn't 
                 // be added to the place holder Group's display list
                 
-                // TODO (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
+                // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
                 // especially if we make it mx_internal.
                 
                 // Temporary workaround because copying content from one Group to another throws RTE
@@ -1084,7 +1084,7 @@ public class SkinnableContainer extends SkinnableContainerBase
             
             if (_mxmlContentFactory)
             {
-                // TODO (rfrishbe): If we have compiler support for deferred content
+                // FIXME (rfrishbe): If we have compiler support for deferred content
                 // to do autotype conversion (do I create a single object, 
                 // an array, or an IList in the function)
                 var deferredContent:Object = _mxmlContentFactory.getInstance();
