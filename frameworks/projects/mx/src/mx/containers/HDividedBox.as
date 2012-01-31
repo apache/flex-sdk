@@ -13,6 +13,7 @@ package mx.containers
 {
 
 import mx.core.mx_internal;
+use namespace mx_internal;
 
 //--------------------------------------
 //  Excluded APIs
@@ -105,7 +106,7 @@ public class HDividedBox extends DividedBox
 	{
 		super();
 				
-		mx_internal::layoutObject.direction = BoxDirection.HORIZONTAL;
+		layoutObject.direction = BoxDirection.HORIZONTAL;
 	}
 
 	//--------------------------------------------------------------------------
