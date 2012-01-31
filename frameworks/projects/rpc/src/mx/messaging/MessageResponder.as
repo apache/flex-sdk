@@ -32,6 +32,12 @@ import mx.resources.ResourceManager;
  *  successful result or an error, the MessageResponder should invoke 
  *  <code>acknowledge()</code> on its agent. If the response was a fault, the
  *  MessageResponder should also invoke <code>fault()</code> on its agent.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MessageResponder extends Responder
 {
@@ -50,6 +56,12 @@ public class MessageResponder extends Responder
      *  @param  message The Message being sent.
      * 
      *  @param channel The Channel used to send. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MessageResponder(agent:MessageAgent, message:IMessage,
                                                         channel:Channel = null)
@@ -106,6 +118,12 @@ public class MessageResponder extends Responder
     
     /**
      *  Provides access to the MessageAgent that sent the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get agent():MessageAgent
     {
@@ -123,6 +141,12 @@ public class MessageResponder extends Responder
     
     /**
      *  Provides access to the Channel used to send the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get channel():Channel
     {
@@ -140,6 +164,12 @@ public class MessageResponder extends Responder
 
     /**
      *  Provides access to the sent Message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get message():IMessage
     {
@@ -185,6 +215,12 @@ public class MessageResponder extends Responder
      *  perform any necessary custom processing.
      *
      *  @param message The result Message returned by the destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     final public function result(message:IMessage):void 
     {
@@ -208,6 +244,12 @@ public class MessageResponder extends Responder
      *  perform any necessary custom processing.
      * 
      *  @param message The fault Message returned by the destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     final public function status(message:IMessage):void 
     {
@@ -235,6 +277,12 @@ public class MessageResponder extends Responder
      *
      *  @return Returns an ErrorMessage that can be passed to the associated
      *  MessageAgent's callbacks upon a request timeout.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function createRequestTimeoutErrorMessage():ErrorMessage
     {
@@ -254,12 +302,24 @@ public class MessageResponder extends Responder
      *  MessageAgent.
      * 
      *  @param message The result Message returned by the destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function resultHandler(message:IMessage):void {}
 
     /**
      *  Subclasses must override this method to handle a request timeout and 
      *  invoke the proper callbacks on the associated MessageAgent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     protected function requestTimedOut():void {}
     
@@ -269,6 +329,12 @@ public class MessageResponder extends Responder
      *  MessageAgent.
      * 
      *  @param message The fault Message returned by the destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function statusHandler(message:IMessage):void {}
 
