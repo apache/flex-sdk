@@ -23,37 +23,37 @@ internal class Flex4Classes
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
-import flex.skin.ApplicationSkin; ApplicationSkin;
-import flex.graphics.Parser; Parser;
-import flex.skin.ButtonSkin; ButtonSkin;
-import flex.skin.CheckBoxSkin; CheckBoxSkin;
-import flex.skin.DataComponentSkin; DataComponentSkin;
-import flex.skin.HScrollBarSkin; HScrollBarSkin;
-import flex.skin.HScrollBarThumbSkin; HScrollBarThumbSkin;
-import flex.skin.HSliderSkin; HSliderSkin;
-import flex.skin.HSliderThumbSkin; HSliderThumbSkin;
-import flex.skin.HSliderTrackSkin; HSliderTrackSkin;
-import flex.skin.ItemsComponentSkin; ItemsComponentSkin;
-import flex.skin.ListSkin; ListSkin;
-import flex.skin.NumericStepperSkin; NumericStepperSkin;
-import flex.skin.RadioButtonSkin; RadioButtonSkin;
-import flex.skin.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
-import flex.skin.ScrollBarDownButtonSkin; ScrollBarDownButtonSkin;
-import flex.skin.ScrollBarLeftButtonSkin; ScrollBarLeftButtonSkin;
-import flex.skin.ScrollBarRightButtonSkin; ScrollBarRightButtonSkin;
-import flex.skin.ScrollerSkin; ScrollerSkin;
-import flex.skin.SelectorSkin; SelectorSkin;
-import flex.skin.SpinnerDecrButtonSkin; SpinnerDecrButtonSkin;
-import flex.skin.SpinnerIncrButtonSkin; SpinnerIncrButtonSkin;
-import flex.skin.SpinnerSkin; SpinnerSkin;
-import flex.skin.TextAreaSkin; TextAreaSkin;
-import flex.skin.TextInputSkin; TextInputSkin;
-import flex.skin.ToggleButtonSkin; ToggleButtonSkin;
-import flex.skin.VScrollBarSkin; VScrollBarSkin;
-import flex.skin.VScrollBarThumbSkin; VScrollBarThumbSkin;
-import flex.skin.VSliderSkin; VSliderSkin;
-import flex.skin.VSliderThumbSkin; VSliderThumbSkin;
-import flex.skin.VSliderTrackSkin; VSliderTrackSkin;
+import mx.skins.spark.FxApplicationSkin; FxApplicationSkin;
+import mx.skins.spark.FxButtonSkin; FxButtonSkin;
+import mx.skins.spark.FxCheckBoxSkin; FxCheckBoxSkin;
+import mx.skins.spark.FxDataComponentSkin; FxDataComponentSkin;
+import mx.skins.spark.FxHScrollBarSkin; FxHScrollBarSkin;
+import mx.skins.spark.FxHScrollBarThumbSkin; FxHScrollBarThumbSkin;
+import mx.skins.spark.FxHSliderSkin; FxHSliderSkin;
+import mx.skins.spark.FxHSliderThumbSkin; FxHSliderThumbSkin;
+import mx.skins.spark.FxHSliderTrackSkin; FxHSliderTrackSkin;
+import mx.skins.spark.FxItemsComponentSkin; FxItemsComponentSkin;
+import mx.skins.spark.FxListSkin; FxListSkin;
+import mx.skins.spark.FxNumericStepperSkin; FxNumericStepperSkin;
+import mx.skins.spark.FxRadioButtonSkin; FxRadioButtonSkin;
+import mx.skins.spark.FxScrollBarUpButtonSkin; FxScrollBarUpButtonSkin;
+import mx.skins.spark.FxScrollBarDownButtonSkin; FxScrollBarDownButtonSkin;
+import mx.skins.spark.FxScrollBarLeftButtonSkin; FxScrollBarLeftButtonSkin;
+import mx.skins.spark.FxScrollBarRightButtonSkin; FxScrollBarRightButtonSkin;
+import mx.skins.spark.FxScrollerSkin; FxScrollerSkin;
+import mx.skins.spark.FxSelectorSkin; FxSelectorSkin;
+import mx.skins.spark.FxSpinnerDecrButtonSkin; FxSpinnerDecrButtonSkin;
+import mx.skins.spark.FxSpinnerIncrButtonSkin; FxSpinnerIncrButtonSkin;
+import mx.skins.spark.FxSpinnerSkin; FxSpinnerSkin;
+import mx.skins.spark.FxTextAreaSkin; FxTextAreaSkin;
+import mx.skins.spark.FxTextInputSkin; FxTextInputSkin;
+import mx.skins.spark.FxToggleButtonSkin; FxToggleButtonSkin;
+import mx.skins.spark.FxVScrollBarSkin; FxVScrollBarSkin;
+import mx.skins.spark.FxVScrollBarThumbSkin; FxVScrollBarThumbSkin;
+import mx.skins.spark.FxVSliderSkin; FxVSliderSkin;
+import mx.skins.spark.FxVSliderThumbSkin; FxVSliderThumbSkin;
+import mx.skins.spark.FxVSliderTrackSkin; FxVSliderTrackSkin;
+import mx.graphics.Parser; Parser;
 }
 
 }
