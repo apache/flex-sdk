@@ -19,6 +19,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.TextEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.StyleSheet;
 import flash.text.TextField;
@@ -118,7 +119,7 @@ public class FTETextField extends Sprite
 		config.textFlowInitialFormat = format;
 		preservingHTMLImporter =
 			TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
-		preservingHTMLImporter.throwOnError = true;
+		preservingHTMLImporter.throwOnError = false;
 		
 		// Create an exporter for TEXT_FIELD_HTML_FORMAT.
 		htmlExporter =
@@ -169,8 +170,8 @@ public class FTETextField extends Sprite
 	 *  Masks for bits inside the 'flags' var
 	 *  which control what work validateNow() needs to do.
 	 */
-	private static const FLAG_TEXT_CHANGED:uint = 1 << 6;
-	private static const FLAG_HTML_TEXT_CHANGED:uint = 1 << 7;
+	private static const FLAG_TEXT_SET:uint = 1 << 6;
+	private static const FLAG_HTML_TEXT_SET:uint = 1 << 7;
 	private static const FLAG_TEXT_LINES_INVALID:uint = 1 << 8;
 	private static const FLAG_GRAPHICS_INVALID:uint = 1 << 9;
 	
@@ -190,8 +191,6 @@ public class FTETextField extends Sprite
 	 *  @private
 	 */
 	private static const ALL_INVALIDATION_FLAGS:uint =
-		FLAG_TEXT_CHANGED |
-		FLAG_HTML_TEXT_CHANGED |
 		FLAG_TEXT_LINES_INVALID |
 		FLAG_GRAPHICS_INVALID;
 	
@@ -1120,9 +1119,9 @@ public class FTETextField extends Sprite
 		// _text is now invalid and will get regenerated on demand.
 		_text = null;
 		
-		clearFlag(FLAG_TEXT_CHANGED);
+		clearFlag(FLAG_TEXT_SET);
 		
-		setFlag(FLAG_HTML_TEXT_CHANGED |
+		setFlag(FLAG_HTML_TEXT_SET |
 				FLAG_TEXT_LINES_INVALID |
 				FLAG_GRAPHICS_INVALID);
 		
@@ -1586,9 +1585,9 @@ public class FTETextField extends Sprite
 		// _htmlText is now invalid and will get regenerated on demand
 		_htmlText = null;
 		
-		clearFlag(FLAG_HTML_TEXT_CHANGED);
+		clearFlag(FLAG_HTML_TEXT_SET);
 		
-		setFlag(FLAG_TEXT_CHANGED |
+		setFlag(FLAG_TEXT_SET |
 				FLAG_TEXT_LINES_INVALID |
 				FLAG_GRAPHICS_INVALID);
 		
@@ -1625,7 +1624,12 @@ public class FTETextField extends Sprite
 			return;
 
 		_defaultTextFormat.color = value;
-		
+        
+        // These FTE and TLF formatting objects are now invalid
+        // and must be recreated when needed.
+        elementFormat = null;
+        hostFormat = null;
+
 		setFlag(FLAG_TEXT_LINES_INVALID);
 		
 		invalidate();
@@ -2138,8 +2142,10 @@ public class FTETextField extends Sprite
 		// The nth line is the nth child.
 		var textLine:TextLine = TextLine(getChildAt(lineIndex));
 		
-		var x:Number = textLine.x; // indent, blockIndent, leftMargin
-		var width:Number = textLine.textWidth;
+        // Convert textLine.x to the global coordinate space.  The new point 
+        // x is relative to textLine.x.
+        var x:Number = Math.round(textLine.localToGlobal(new Point(0, 0)).x);
+        var width:Number = Math.round(textLine.textWidth);
 		var ascent:Number = Math.round(textLine.ascent + textLine.descent)
 		var descent:Number = Math.round(textLine.descent);
 		var leading:Number = Number(_defaultTextFormat.leading);
@@ -2284,6 +2290,11 @@ public class FTETextField extends Sprite
         if (beginIndex == -1 && endIndex == -1)
         {
             defaultTextFormat = format;
+            
+            // The format changed.  Some of the attributes such as indent
+            // and blockIndent require the text to be regenerated.
+            setFlag(FLAG_TEXT_LINES_INVALID | FLAG_GRAPHICS_INVALID);
+
             validateNow();
         }
 	}
@@ -2395,7 +2406,7 @@ public class FTETextField extends Sprite
 				compositionWidth = _width;
 			}
 			
-			if (testFlag(FLAG_HTML_TEXT_CHANGED))
+			if (testFlag(FLAG_HTML_TEXT_SET))
 			{
 				if (!hostFormat)
 					createHostFormat();
@@ -2434,7 +2445,7 @@ public class FTETextField extends Sprite
 			if (_textWidth > origWidth || _textHeight > origHeight)
 			{
 				// need to clip
-				//trace("clip");
+                //trace("clip", "_textWidth", _textWidth, "origWidth", origWidth);
 				var r:Rectangle = scrollRect;
 				if (!r)
 					r = new Rectangle();
@@ -2447,7 +2458,7 @@ public class FTETextField extends Sprite
 			else 
 			{
 				// don't need to clip
-				//trace("don't clip");
+				//trace("don't clip", "_textWidth", _textWidth, "origWidth", origWidth);
 				scrollRect = null;
 			}
 		}
@@ -2601,7 +2612,8 @@ public class FTETextField extends Sprite
 		// and have the correct spacing, but are all left-aligned
 		// starting at (0, 0).
 		// This method will adjust their x and y so that they
-		// are correctly aligned and inset by the left and top padding.
+		// are correctly aligned and inset by the left and top padding and 
+        // indent and margins.
 		alignTextLines(innerWidth);
 		
 		_textWidth = Math.round(_textWidth);
@@ -2679,9 +2691,15 @@ public class FTETextField extends Sprite
 		if (innerWidth < 0 || innerHeight < 0)
 			return paragraphY;
 		
-		var maxLineWidth:Number =
+        var blockIndent:Number = Number(_defaultTextFormat.blockIndent);
+        var indent:Number = Number(_defaultTextFormat.indent);
+        var leftMargin:Number = Number(_defaultTextFormat.leftMargin);
+        var rightMargin:Number = Number(_defaultTextFormat.rightMargin);
+        
+		var maxLineWidthBeforeIndent:Number =
 			wordWrap ? innerWidth : TextLine.MAX_LINE_WIDTH;
-		
+        var maxLineWidth:Number = maxLineWidthBeforeIndent;
+                
 		var n:int = 0;
 		var nextTextLine:TextLine;
 		var nextY:int = paragraphY;
@@ -2693,7 +2711,35 @@ public class FTETextField extends Sprite
 		// (0, 0, innerWidth, innerHeight), with left alignment.
 		while (true)
 		{
-			var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
+            // Adjust the compose width for indents and margins. 
+            if (n <= 1)
+            {
+                var totalIndent:Number = blockIndent + leftMargin;
+                if (n == 0)
+                    totalIndent += indent;
+                
+                if (totalIndent < 0)
+                    totalIndent = 0;
+                
+                if (!wordWrap)
+                    rightMargin = 0;
+                
+                maxLineWidth = 
+                    maxLineWidthBeforeIndent - totalIndent - rightMargin;
+                            
+                // If right margin larger than width, make 1
+                // character wide to match TextField behavior.  This isn't
+                // an exact match since sometimes 2 characters can fit within
+                // the width.
+                if (rightMargin && maxLineWidth < elementFormat.fontSize)
+                    maxLineWidth = elementFormat.fontSize;
+                else if (maxLineWidth < 0)
+                    maxLineWidth = 0;
+                else if (maxLineWidth > TextLine.MAX_LINE_WIDTH)
+                    maxLineWidth = TextLine.MAX_LINE_WIDTH;
+            }        
+
+            var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
 			if (recycleLine)
 			{
 				if (fontContext)
@@ -2742,6 +2788,11 @@ public class FTETextField extends Sprite
 			// Its x position is 0 by default.
 			textLine.y = nextY;
 			
+            // Adjust for positive indent/left margin.  Do it here rather
+            // than at the end when alignment is done so the first 
+            // line of each paragraph is indented properly.
+            textLine.x += totalIndent;            
+            
 			if (_defaultTextFormat.underline)
 			{
 				// FTE doesn't render underlines,
@@ -2762,8 +2813,6 @@ public class FTETextField extends Sprite
 			}
 			
 			addChild(textLine);
-
-			_textWidth = Math.max(_textWidth, textLine.textWidth);
 		}
 		
 		return nextY + descent;
@@ -2771,9 +2820,14 @@ public class FTETextField extends Sprite
 	
 	/**
 	 *  @private
+     *  Returns with _textWidth set.
 	 */
 	private function alignTextLines(innerWidth:Number):void
 	{
+        var alignWidth:Number = isNaN(innerWidth) ? _textWidth : innerWidth;
+    
+        var rightMargin:Number = Number(_defaultTextFormat.rightMargin);        
+
 		var align:String = _defaultTextFormat.align;
 		var leftAligned:Boolean = 
 			align == "left" && direction == "ltr" ||
@@ -2788,24 +2842,35 @@ public class FTETextField extends Sprite
 		var leftOffset:Number = PADDING_LEFT;
 		var centerOffset:Number = leftOffset + innerWidth / 2;
 		var rightOffset:Number = leftOffset + innerWidth;
-		
-		// Reposition each line if necessary.
-		// based on the horizontal alignment,
-		// and adjusting for the padding.
-		var n:int = numChildren;
-		for (var i:int = 0; i < n; i++)
-		{
-			var textLine:TextLine = TextLine(getChildAt(i));
-			
-			if (leftAligned)
-				textLine.x = leftOffset;
-			else if (centerAligned)
-				textLine.x = centerOffset - textLine.textWidth / 2;
-			else if (rightAligned)
-				textLine.x = rightOffset - textLine.textWidth;
-				
-			textLine.y += PADDING_TOP; 
-		}
+        
+        _textWidth = 0;
+        
+        // Reposition each line if necessary.
+        // based on the horizontal alignment,
+        // and adjusting for the padding.
+        var n:int = numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            var textLine:TextLine = TextLine(getChildAt(i));
+            
+            // Adjust text width to include indents and margins so that
+            // autoSize will be correct.
+            var width:Number = textLine.x + textLine.textWidth;
+            if (autoSize == TextFieldAutoSize.NONE || !wordWrap) 
+                 width += rightMargin;
+            
+            // Only align if there is width to do so.
+            if (leftAligned || width > alignWidth)
+                textLine.x += leftOffset;
+            else if (centerAligned)
+                textLine.x += centerOffset - width / 2;
+            else if (rightAligned)
+                textLine.x += rightOffset - width;
+            
+            _textWidth = Math.max(_textWidth, width);
+            
+            textLine.y += PADDING_TOP;
+        }
 	}
 	
 	/**
@@ -2815,7 +2880,10 @@ public class FTETextField extends Sprite
 									 compositionHeight:Number):void
 	{
 		textFlow = htmlImporter.importToFlow(_htmlText);
-		
+        
+		if (!textFlow)
+            return;
+        
 		textFlow.addEventListener(MouseEvent.CLICK, linkClickHandler);
 					
 		textFlow.addEventListener(
