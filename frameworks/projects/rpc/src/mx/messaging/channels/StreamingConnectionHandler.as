@@ -220,6 +220,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  The server-assigned id for the streaming connection.
      */
     protected var streamId:String;
+    
+    /**
+     *  @private
+     *  Optional token to append to request URLs; generally contains a session token.
+     */
+    private var _appendToURL:String;
 
     /**
      *  Storage for the hex-format chunk size value from the byte stream.
@@ -258,6 +264,8 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     public function openStreamingConnection(appendToURL:String=null):void
     {
+        _appendToURL = appendToURL;
+        
     	// Construct the streaming connection if needed.
         if (streamingConnection == null)
         {
@@ -275,8 +283,8 @@ public class StreamingConnectionHandler extends EventDispatcher
         {
             var request:URLRequest = new URLRequest();
             var url:String = channel.endpoint;
-            if (appendToURL != null)
-                url += appendToURL;
+            if (_appendToURL != null)
+                url += _appendToURL;
             request.url = url + "?" + COMMAND_PARAM_NAME + "=" + OPEN_COMMAND + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;
             request.method = URLRequestMethod.POST;
             var postParams:URLVariables = new URLVariables();
@@ -292,6 +300,8 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     public function closeStreamingConnection():void
     {
+        resetParserState();
+        
     	// First, close the existing connection.
         if (streamingConnection != null)
         {
@@ -344,7 +354,10 @@ public class StreamingConnectionHandler extends EventDispatcher
     		if (!streamingConnectionCloser.connected)
     		{
     			var request:URLRequest = new URLRequest();
-    			request.url = channel.endpoint + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&"
+    			var url:String = channel.endpoint;
+                if (_appendToURL != null)
+                    url += _appendToURL;
+    			request.url = url + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&"
     			              + STREAM_ID_PARAM_NAME + "=" + streamId + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;
     			request.method = URLRequestMethod.POST;
     			var postParams:URLVariables = new URLVariables();
@@ -401,6 +414,18 @@ public class StreamingConnectionHandler extends EventDispatcher
             result += digit * powerOfSixteen;
         }
         return result;
+    }
+    
+    /**
+     *  Helper method to reset parser to initial state.
+     */
+    private function resetParserState():void
+    {
+        state = INIT_STATE;
+        chunkBuffer = null;
+        hexChunkSize = null;
+        dataBytesToRead = -1;
+        dataOffset = 0;        
     }
 
     /**
