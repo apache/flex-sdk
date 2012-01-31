@@ -1174,6 +1174,7 @@ public class VideoDisplay extends UIComponent
             
             thumbnailBitmapImage.source = thumbnailSource;
             invalidateSize();
+            invalidateDisplayList();
         }
         else
         {
