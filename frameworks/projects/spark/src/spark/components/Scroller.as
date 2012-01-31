@@ -492,6 +492,47 @@ public class Scroller extends SkinnableComponent
         _minViewportInset = value;
         invalidateSkin();
     }
+
+    //----------------------------------
+    //  measuredSizeIncludesScrollBars
+    //----------------------------------
+    
+    private var _measuredSizeIncludesScrollBars:Boolean = true;
+    
+    /**
+     *  If true, the Scroller's measured size includes the space required for
+     *  the visible scrollbars, otherwise the Scroller's measured size depends
+     *  only on its viewport.
+     * 
+     *  <p>Components like TextArea, which "reflow" their contents to fit the
+     *  available width or height may use this property to stabilize their
+     *  measured size.  By default a TextArea's is defined by its widthInChars
+     *  and heightInChars properties and in many applications it's preferable
+     *  for the measured size to remain constant, event when scrollbars are displayed
+     *  by the TextArea skin's Scroller.</p>
+     * 
+     *  <p>In components where the content does not reflow, like a typical List's
+     *  items, the default behavior is preferable because it makes it less
+     *  likely that the component's content will not obscured by a scrollbar.</p>
+     * 
+     *  @default true
+     */
+    public function get measuredSizeIncludesScrollBars():Boolean
+    {
+        return _measuredSizeIncludesScrollBars;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set measuredSizeIncludesScrollBars(value:Boolean):void
+    {
+        if (value == _measuredSizeIncludesScrollBars)
+            return;
+
+        _measuredSizeIncludesScrollBars = value;
+        invalidateSkin();
+    }   
     
     //--------------------------------------------------------------------------
     // 
