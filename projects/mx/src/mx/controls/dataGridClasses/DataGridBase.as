@@ -145,7 +145,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     mx_internal var headerClass:Class = DataGridHeader;
 
     /**
-     *  @private
+     *  
      */
     protected var headerMask:Shape;
 
@@ -731,8 +731,10 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Make sure there's a slot in the row arrays for the given row number
+     *  Ensures that there is a slot in the row arrays for the given row number.
+     *  
      *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  
      *  @param rowNum The row number.
      */
     protected function prepareRowArray(contentHolder:ListBaseContentHolder, rowNum:int):void
@@ -759,7 +761,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Make the renderers for the given rowNum, dataObject and uid.
+     *  Creates the renderers for the given rowNum, dataObject and uid.
+     *  
      *  @param contentHolder The set of rows (locked rows, regular rows).
      *  @param rowNum The row number.
      *  @param left The offset from the left side for the first column.
@@ -767,6 +770,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  @param yy The y position of the row.
      *  @param data The data for the row.
      *  @param uid The uid for the data.
+     *  
      *  @return Height of the row.
      */
     protected function makeRow(contentHolder:ListBaseContentHolder, rowNum:int, left:Number, right:Number, yy:Number, data:Object, uid:String):Number
@@ -832,9 +836,10 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Remove renderers from a row that should be empty for the given rowNum
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
+     *  Removes renderers from a row that should be empty for the given rowNum.
+     *  
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
      */
     protected function clearRow(contentHolder:ListBaseContentHolder, rowNum:int):void
     {
@@ -871,11 +876,12 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Adjust size and positions of the renderers for the given rowNum, row position and height
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
-     *  @param yy The y position of the row
-     *  @param hh The height of the row
+     *  Adjusts the size and positions of the renderers for the given rowNum, row position and height.
+     *  
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
+     *  @param yy The y position of the row.
+     *  @param hh The height of the row.
      */
     protected function adjustRow(contentHolder:ListBaseContentHolder, rowNum:int, yy:Number, hh:Number):void
     {
@@ -956,12 +962,13 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Set the rowInfo for the given rowNum, row position and height
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
-     *  @param yy The y position of the row
-     *  @param hh The height of the row
-     *  @param uid The UID for the data
+     *  Sets the rowInfo for the given rowNum, row position and height.
+     *  
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
+     *  @param yy The y position of the row.
+     *  @param hh The height of the row.
+     *  @param uid The UID for the data.
      */
     protected function setRowInfo(contentHolder:ListBaseContentHolder, rowNum:int, yy:Number, hh:Number, uid:String):void
     {
@@ -984,8 +991,9 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Remove extra row from the end of the contentHolder
-     *  @param contentHolder The set of rows (locked rows, regular rows)
+     *  Removes extra row from the end of the contentHolder.
+     *  
+     *  @param contentHolder The set of rows (locked rows, regular rows).
      */
     protected function removeExtraRow(contentHolder:ListBaseContentHolder):void
     {
@@ -1018,15 +1026,17 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Setup an item renderer for a column and put it in the listItems array
-     *  at the requested position
-     *  @param c The DataGridColumn for the renderer
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
-     *  @param colNum The column number
-     *  @param data The data for the row
-     *  @param uid The uid for the data
-     *  @return The renderer for this column and row
+     *  Sets up an item renderer for a column and put it in the listItems array
+     *  at the requested position.
+     *  
+     *  @param c The DataGridColumn for the renderer.
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
+     *  @param colNum The column number.
+     *  @param data The data for the row.
+     *  @param uid The uid for the data.
+     *  
+     *  @return The renderer for this column and row.
      */
     protected function setupColumnItemRenderer(c:DataGridColumn, contentHolder:ListBaseContentHolder,
                     rowNum:int, colNum:int, data:Object, uid:String):IListItemRenderer
@@ -1067,13 +1077,15 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Size and temporarily position an itemRenderer for a column, returning its size as a Point
-     *  Its final position may be adjusted later due to alignment settings
-     *  @param c The DataGridColumn for the renderer
-     *  @param item The renderer
-     *  @param xx The x position
-     *  @param yy The y position
-     *  @return Size of the renderer as a Point
+     *  Sizes and temporarily positions an itemRenderer for a column, returning its size as a Point.
+     *  The final position might be adjusted later due to alignment settings.
+     *  
+     *  @param c The DataGridColumn for the renderer.
+     *  @param item The renderer.
+     *  @param xx The x position.
+     *  @param yy The y position.
+     *  
+     *  @return Size of the renderer as a Point.
      */
     protected function layoutColumnItemRenderer(c:DataGridColumn, item:IListItemRenderer, xx:Number, yy:Number):Point
     {
@@ -1093,7 +1105,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Draw an item if it is visible.
+     *  Draws an item if it is visible.
+     *  
      *  @param uid The uid used to find the renderer.
      *  @param selected <code>true</code> if the renderer should be drawn in
      *  its selected state.
@@ -1158,8 +1171,9 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  redraw the renderer synchronously
-     *  @param r the renderer;
+     *  Redraws the renderer synchronously.
+     *  
+     *  @param r The renderer;
      */
     protected function updateRendererDisplayList(r:IListItemRenderer):void
     {
@@ -1329,12 +1343,12 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  Calculates the row height of columns in a row.
-     *  If <code>skipVisible</code> is <code>true></code> 
+     *  If <code>skipVisible</code> is <code>true></code>, 
      *  the DataGridBase already knows the height of
      *  the renderers for the column that do fit in the display area
      *  so this method only needs to calculate for the item renderers
      *  that would exist if other columns in that row were in the
-     *  display area.  This is needed so that if the user scrolls
+     *  display area. This is needed so that if the user scrolls
      *  horizontally, the height of the row does not adjust as different
      *  columns appear and disappear.
      *
@@ -1342,8 +1356,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *
      *  @param hh The current height of the row.
      *
-     *  @param skipVisible If <code>true</code>, no need to measure item
-     *  renderers in visible columns
+     *  @param skipVisible If <code>true</code>, there is no need to measure item
+     *  renderers in visible columns.
      *
      *  @return The row height, in pixels.
      */
@@ -1430,7 +1444,12 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Get the headerWordWrap for a column, using the default wordWrap if none specified
+     *  Gets the headerWordWrap for a column, using the default wordWrap if none is specified.
+     *  
+     *  @param c The column to get the headerWordWrap for.
+     *  
+     *  @return <code>true</code> if the value of the column's <code>headerWordWrap</code> property is <code>true</code>, or
+     *  <code>false</code> if the value is <code>false</code>.
      */
     mx_internal function columnHeaderWordWrap(c:DataGridColumn):Boolean
     {
@@ -1443,7 +1462,12 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Get the wordWrap for a column, using the default wordWrap if none specified
+     *  Gets the wordWrap for a column, using the default wordWrap if none is specified.
+     *  
+     *  @param c The column to get the wordWrap for.
+     * 
+     *  @return <code>true</code> if the value of the column's <code>wordWrap</code> property is <code>true</code>, or
+     *  <code>false</code> if the value is <code>false</code>.
      */
     mx_internal function columnWordWrap(c:DataGridColumn):Boolean
     {
@@ -1726,8 +1750,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  called to determine the column under the mouse for dropping a column, if any.
-     *  only checks horizontal position, assumes y value is within headers
+     *  Determines the column under the mouse for dropping a column, if any.
+     *  This method only checks horizontal position, and assumes the y value is within headers.
      */
     mx_internal function getAllVisibleColumns():Array
     {
@@ -2285,17 +2309,19 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     
     /**
      *  Moves the selection in a vertical direction in response
-     *  to the user selecting items using the up-arrow or down-arrow
-     *  Keys and modifiers such as the Shift and Ctrl keys.  This method
+     *  to the user selecting items with the up arrow or down arrow
+     *  keys and modifiers such as the Shift and Ctrl keys. This method
      *  might change the <code>horizontalScrollPosition</code>, 
      *  <code>verticalScrollPosition</code>, and <code>caretIndex</code>
      *  properties, and call the <code>finishKeySelection()</code>method
-     *  to update the selection
+     *  to update the selection.
      *
-     *  @param code The key that was pressed (e.g. Keyboard.DOWN)
-     *  @param shiftKey <code>true</code> if the shift key was held down when
+     *  @param code The key that was pressed (for example, <code>Keyboard.DOWN</code>).
+     *  
+     *  @param shiftKey <code>true</code> if the Shift key was held down when
      *  the keyboard key was pressed.
-     *  @param ctrlKey <code>true</code> if the ctrl key was held down when
+     *  
+     *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
      *  the keyboard key was pressed
      */
     override protected function moveSelectionVertically(code:uint, shiftKey:Boolean,
@@ -2488,10 +2514,9 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  Sets selected items based on the <code>caretIndex</code> and 
      *  <code>anchorIndex</code> properties.  
-     *  Called by the keyboard selection handlers
-     *  and by the <code>updateDisplayList</code> method in case the 
-     *  keyboard selection handler
-     *  got a page fault while scrolling to get more items.
+     *  This method is called by the keyboard selection handlers
+     *  and by the <code>updateDisplayList()</code> method in case the 
+     *  keyboard selection handler received a page fault while scrolling to get more items.
      */
     override protected function finishKeySelection():void
     {
@@ -2573,21 +2598,19 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /**
-     *  Returns a Point containing the columnIndex and rowIndex of an
-     *  item renderer.  Since item renderers are only created for items
-     *  within the set of viewable rows
-     *  you cannot use this method to get the indices for items
-     *  that are not visible.  Also note that item renderers
-     *  are recycled so the indices you get for an item may change
+     *  Returns a Point object that defines the <code>columnIndex</code> and <code>rowIndex</code> properties of an
+     *  item renderer. Because item renderers are only created for items
+     *  within the set of viewable rows, you cannot use this method to get the indices for items
+     *  that are not visible. Also, item renderers
+     *  are recycled so the indices that you get for an item might change
      *  if that item renderer is reused to display a different item.
      *  Usually, this method is called during mouse and keyboard handling
-     *  when the set of data displayed by the item renderers hasn't yet
-     *  changed.
+     *  when the set of data displayed by the item renderers has not yet changed.
      *
-     *  @param item An item renderer
+     *  @param item An item renderer.
      *
-     *  @return A Point.  The <code>x</code> property is the columnIndex
-     *  and the <code>y</code> property is the rowIndex.
+     *  @return A Point object. The <code>x</code> property is the <code>columnIndex</code>
+     *  and the <code>y</code> property is the <code>rowIndex</code>.
      */
     override protected function itemRendererToIndices(item:IListItemRenderer):Point
     {
