@@ -71,15 +71,20 @@ public interface IXMLDecoder
      * @param xml The XML instance to decode to an ActionScript object. 
      * This may be an XML instance, an XMLList of length 1 or a String that is
      * valid XML.
+     *
      * @param name The QName of an XML Schema <code>element</code> that
      * describes how to decode the value, or the name to be used for the
      * decoded value when a type parameter is also specified.
+     *
      * @param type The QName of an XML Schema <code>simpleType</code> or
      * <code>complexType</code> definition that describes how to decode the
      * value.
+     *
      * @param definition If neither a top-level element nor type exists in the
      * schema to describe how to decode this value, a custom element definition
      * can be provided.
+     *
+     * @return Returns an ActionScript object decoded from the given XML document.
      */
     function decode(xml:*, name:QName = null, type:QName = null, definition:XML = null):*;
 
