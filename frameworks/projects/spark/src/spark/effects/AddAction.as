@@ -175,7 +175,7 @@ public class AddAction extends Effect
     //  index
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
     
     /** 
      *  The index of the child within the parent.
