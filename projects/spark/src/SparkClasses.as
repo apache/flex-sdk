@@ -28,6 +28,8 @@ import mx.controls.advancedDataGridClasses.MXAdvancedDataGridItemRenderer; MXAdv
 import mx.controls.dataGridClasses.FTEDataGridItemRenderer; FTEDataGridItemRenderer;
 import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
+import spark.core.contentLoader.ContentCache; ContentCache;
+import spark.core.contentLoader.LoaderInvalidationEvent; LoaderInvalidationEvent;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
@@ -57,6 +59,8 @@ import spark.skins.spark.HScrollBarThumbSkin; HScrollBarThumbSkin;
 import spark.skins.spark.HSliderSkin; HSliderSkin;
 import spark.skins.spark.HSliderThumbSkin; HSliderThumbSkin;
 import spark.skins.spark.HSliderTrackSkin; HSliderTrackSkin;
+import spark.skins.spark.ImageSkin; ImageSkin;
+import spark.skins.spark.ImageLoadingSkin; ImageLoadingSkin;
 import spark.skins.spark.ListDropIndicator; ListDropIndicator;
 import spark.skins.spark.ListSkin; ListSkin;
 import spark.skins.spark.mediaClasses.normal.MuteButtonSkin; MuteButtonSkin;
