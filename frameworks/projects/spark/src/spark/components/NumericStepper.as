@@ -25,6 +25,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
@@ -51,6 +56,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see mx.components.FxSpinner
  * 
  *  @includeExample examples/FxNumericStepperExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxNumericStepper extends FxSpinner implements IFocusManagerComponent
 {
@@ -64,6 +74,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     
     /**
      *  Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
     public function FxNumericStepper()
     {
@@ -85,6 +100,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  The value is rounded and committed
      *  when the user presses enter, focuses out of
      *  the FxNumericStepper, or steps the FxNumericStepper.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var textInput:FxTextInput;
 
@@ -114,6 +134,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  A value of 0 means that any number of characters can be entered.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxChars():int
     {
@@ -153,6 +178,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  </pre>
      
      *  @default undefined   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get displayFormatFunction():Function
     {
@@ -190,6 +220,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  </pre>
      
      *  @default undefined   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get extractValueFunction():Function
     {
@@ -245,6 +280,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  reflect the new <code>maximum</code>
      *
      *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get maximum():Number
     {
@@ -421,6 +461,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  the <code>valueInterval</code> property, 
      *  and constrains the value to the range defined by the 
      *  <code>maximum</code> and <code>minimum</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function commitTextInput(dispatchChange:Boolean = false):void
     {
