@@ -16,6 +16,7 @@ package spark.effects
 import flash.geom.Vector3D;
 import flash.utils.Dictionary;
 
+import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.effects.CompositeEffect;
@@ -33,7 +34,6 @@ import spark.effects.animation.MotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 import spark.effects.supportClasses.AnimateTransformInstance;
-import mx.core.ILayoutElement;
 
 use namespace mx_internal;
 
@@ -132,7 +132,8 @@ public class AnimateTransform extends Animate
          "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ",
          "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ",
          "left", "right", "top", "bottom",
-         "horizontalCenter", "verticalCenter"];
+         "horizontalCenter", "verticalCenter",
+         "width", "height"];
     
     // FIXME (chaase): We probably need to advertise percentWidth/Height
     // in the affected properties/styles arrays; we don't pick these up
@@ -835,8 +836,10 @@ public class AnimateTransform extends Animate
     override protected function applyValueToTarget(target:Object, property:String, 
                                           value:*, props:Object):void
     {
-        // We've already set these properties in applyStartValues() or
-        // applyEndValues() override; don't set them again here
+        // We've already set most of these properties in applyStartValues() or
+        // applyEndValues() override; don't set them again here. Skip width/height
+        // because they are only used to track the size for autoCenterTransform;
+        // we should not apply those values as a side effect of this transform effect
         if (property == "translationX" || property == "translationY" ||
             property == "translationZ" || property == "rotationX" ||
             property == "rotationY" || property == "rotationZ" ||
@@ -846,7 +849,8 @@ public class AnimateTransform extends Animate
             property == "postLayoutTranslationZ" || property == "postLayoutRotationX" ||
             property == "postLayoutRotationY" || property == "postLayoutRotationZ" ||
             property == "postLayoutScaleX" || property == "postLayoutScaleY" ||
-            property == "postLayoutScaleZ"
+            property == "postLayoutScaleZ" || 
+            property == "width" || property == "height"
             )
         {
             return;
