@@ -453,6 +453,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         
         if (dataTipInstance)
         {
+            removeDynamicPartInstance("dataTip", dataTipInstance);
             systemManager.toolTipChildren.removeChild(DisplayObject(dataTipInstance));
             dataTipInstance = null;
         }
