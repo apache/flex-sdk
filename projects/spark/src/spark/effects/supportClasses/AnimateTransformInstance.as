@@ -475,7 +475,10 @@ public class AnimateTransformInstance extends AnimateInstance
             if (!motionPaths)
                 motionPaths = [];
             motionPaths.push(mp);
-        } 
+        }
+        // TODO (chaase): We probably need to advertise percentWidth/Height
+        // in the affected properties/styles arrays; we don't pick these up
+        // in the transition propertyChanges automatically otherwise 
         if (propertyChanges && !disableConstraints)
         {
             setupConstraintAnimation("left");
