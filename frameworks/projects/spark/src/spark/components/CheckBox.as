@@ -15,6 +15,8 @@ package mx.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+import mx.components.baseClasses.ToggleButtonBase;
+
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
  *  
@@ -44,7 +46,7 @@ import flash.events.MouseEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxCheckBox extends FxToggleButton
+public class FxCheckBox extends ToggleButtonBase
 {
     include "../core/Version.as";
 
