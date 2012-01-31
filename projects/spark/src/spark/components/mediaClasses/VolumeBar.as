@@ -74,7 +74,8 @@ use namespace mx_internal;
 [Event(name="open", type="spark.events.DropDownEvent")]
 
 /**
- *  Dispatched when the video mutes or unmutes the volume.
+ *  Dispatched when the video mutes or unmutes the volume
+ *  from user-interaction.
  *
  *  @eventType mx.events.FlexEvent.MUTED_CHANGE
  *  
@@ -270,7 +271,7 @@ public class VolumeBar extends VSlider
      */
     private var _muted:Boolean = false;
     
-    [Bindable("mutedChange")]
+    [Bindable("mutedChanged")]
     
     /**
      *  <code>true</code> if the volume of the video is muted; 
@@ -299,7 +300,7 @@ public class VolumeBar extends VSlider
         if (muteButton)
             muteButton.muted = value;
         
-        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
+        dispatchEvent(new Event("mutedChanged"));
     }
         
     //----------------------------------
@@ -415,6 +416,7 @@ public class VolumeBar extends VSlider
             
             muteButton.addEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
             muteButton.volume = value;
+            muteButton.muted = muted;
         }
         
         if (instance == dropDown && dropDownController)
@@ -424,6 +426,7 @@ public class VolumeBar extends VSlider
     private function muteButton_mutedChangeHandler(event:FlexEvent):void
     {
         muted = muteButton.muted;
+        dispatchEvent(event);
     }
     
     /**
