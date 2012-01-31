@@ -27,7 +27,7 @@ import mx.core.IIMESupport;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.GestureCaptureEvent;
+import mx.events.TouchInteractionEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
@@ -1173,7 +1173,7 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function addHandlers():void
     {
-        addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_STARTING, gestureCaptureStartingHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, touchInteractionStartingHandler);
     }
     
     /**
@@ -1740,10 +1740,10 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private function gestureCaptureStartingHandler(event:GestureCaptureEvent):void
+    private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
     {
         // This implementation prevents the scroll from happening, which means
-        // the gesture will be interpreted by the text (ie selection).
+        // the touch interaction will be interpreted by the text (ie selection).
         if (selectable || editable)
             event.preventDefault();
     }
