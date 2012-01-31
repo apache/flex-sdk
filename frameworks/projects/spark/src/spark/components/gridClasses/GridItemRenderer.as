@@ -104,9 +104,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         const showDataTips:Boolean = (renderer.rowIndex != -1) && renderer.column && renderer.column.getShowDataTips();
         const dataTip:String = toolTipClient.toolTip;
         
-        if (!dataTip)
+        if (!dataTip && showDataTips)
             toolTipClient.toolTip = "<dataTip>";
-        else if (!showDataTips && dataTip)
+        else if (dataTip && !showDataTips)
             toolTipClient.toolTip = null;
     }
 	
