@@ -41,6 +41,7 @@ import mx.styles.StyleProtoChain;
 import spark.components.supportClasses.GroupBase;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
+import spark.core.IGraphicElementHost;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
 
@@ -175,7 +176,9 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Group extends GroupBase implements IVisualElementContainer, ISharedDisplayObject
+public class Group extends GroupBase implements IVisualElementContainer, 
+                                                IGraphicElementHost, 
+                                                ISharedDisplayObject
 {
     /**
      *  Constructor.
@@ -1612,17 +1615,17 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <p>This method doesn't necessarily trigger new <code>DisplayObject</code>
      *  reassignment for the passed in <code>element</code>.
      *  To request new display object reassignment, call the
-     *  <code>graphicElementLayerChanged</code> method.</p> 
+     *  <code>invalidateGraphicElementSharing()</code> method.</p> 
      *
      *  @param element The graphic element whose display object is discarded.
-     *  @see #graphicElementLayerChanged
+     *  @see #invalidateGraphicElementSharing
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    mx_internal function discardDisplayObject(element:IGraphicElement):void
+    public function discardDisplayObject(element:IGraphicElement):void
     {
         var oldDisplayObject:DisplayObject = element.displayObject;
         if (!oldDisplayObject)
@@ -1647,7 +1650,40 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             super.$invalidateDisplayList();
         }
     }
-    
+
+    /**
+     *  @copy spark.core.IGraphicElementHost#detachDisplayObject()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function detachDisplayObject(element:IGraphicElement):int
+    {
+        var displayObject:DisplayObject = element.displayObject;
+        if (!displayObject)
+            return -1;
+        var index:int = getChildIndex(displayObject);
+        $removeChild(displayObject);
+        return index;
+    }
+
+    /**
+     *  @copy spark.core.IGraphicElementHost#attachDisplayObject()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function attachDisplayObject(element:IGraphicElement, index:int):void
+    {
+        if (index == -1)
+            return;
+        $addChildAt(element.displayObject, index);
+    }
+
     /**
      *  @private
      *  
