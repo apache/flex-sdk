@@ -1139,6 +1139,9 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal function setCurrentCaretIndex(value:Number):void
     {
+        if (value == caretIndex)
+            return;
+        
         itemShowingCaret(caretIndex, false); 
         
         _caretIndex = value;
