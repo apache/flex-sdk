@@ -74,7 +74,7 @@ import mx.events.FlexEvent;
  */
 [SkinState("disabledAndSelected")]
 
-// TODO EGeorgie: figure out whether we need this?
+// FIXME (egeorgie): figure out whether we need this?
 [DefaultBindingProperty(source="selected", destination="label")]
 
 /**
