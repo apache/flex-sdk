@@ -147,15 +147,15 @@ import spark.components.SkinnableContainer;
 [Style(name="dropShadowVisible", type="Boolean", inherit="no")]
 
 /**
- *  The Border class defines a set of CSS styles that control
+ *  The BorderContainer class defines a set of CSS styles that control
  *  the appearance of the border and background fill of the container. 
  *
  *  <p><b>Note: </b>Becasue you use CSS styles and class properties to control 
- *  the appearance of the Border container, you typically do not create a custom skin for it.
+ *  the appearance of the BorderContainer, you typically do not create a custom skin for it.
  *  If you do create a custom skin, your skin class should apply any styles to control the 
  *  appearance of the container.</p>
  *  
- *  <p>The Border control has the following default characteristics:</p>
+ *  <p>The BorderContainer control has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
  *     <tr><td>Default size</td><td>112 pixels by 112 pixels</td></tr>
@@ -165,11 +165,11 @@ import spark.components.SkinnableContainer;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Border&gt;</code> tag inherits all the tag attributes
+ *  <p>The <code>&lt;mx:BorderContainer&gt;</code> tag inherits all the tag attributes
  *  of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Border
+ *  &lt;mx:BorderContainer
  *    <b>Properties</b>
  *    backgroundFill="null"
  *    borderStroke="null"
@@ -187,7 +187,7 @@ import spark.components.SkinnableContainer;
  *  /&gt;
  *  </pre>
  * 
- *  @see spark.skins.spark.BorderSkin
+ *  @see spark.skins.spark.BorderContainerSkin
  *  @includeExample examples/BorderExample.mxml
  * 
  *  @langversion 3.0
@@ -195,7 +195,7 @@ import spark.components.SkinnableContainer;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-public class Border extends SkinnableContainer
+public class BorderContainer extends SkinnableContainer
 {
     /**
      *  Constructor.
@@ -205,7 +205,7 @@ public class Border extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function Border()
+    public function BorderContainer()
     {
         super(); 
     }
@@ -213,7 +213,7 @@ public class Border extends SkinnableContainer
     private var _backgroundFill:IFill;
     
     /**
-     *  Defines the background of the Border. 
+     *  Defines the background of the BorderContainer. 
      *  Setting this property override the <code>backgroundAlpha</code>, 
      *  <code>backgroundColor</code>, <code>backgroundImage</code>, 
      *  and <code>backgroundImageFillMode</code> styles.
@@ -222,13 +222,13 @@ public class Border extends SkinnableContainer
      *  to set the background color to red:</p>
      *
      *  <pre>
-     *  &lt;s:Border cornerRadius="10"&gt; 
+     *  &lt;s:BorderContainer cornerRadius="10"&gt; 
      *     &lt;s:backgroundFill&gt; 
      *         &lt;s:SolidColor 
      *             color="red" 
      *             alpha="1"/&gt; 
      *     &lt;/s:backgroundFill&gt; 
-     *  &lt;/s:Border&gt; </pre>
+     *  &lt;/s:BorderContainer&gt; </pre>
      *
      *  @default null
      * 
@@ -259,7 +259,7 @@ public class Border extends SkinnableContainer
     private var _borderStroke:IStroke;
     
     /**
-     *  Defines the stroke of the Border container. 
+     *  Defines the stroke of the BorderContainer container. 
      *  Setting this property override the <code>borderAlpha</code>, 
      *  <code>borderColor</code>, <code>borderStyle</code>, <code>borderVisible</code>, 
      *  and <code>borderWeight</code> styles.  
@@ -267,13 +267,13 @@ public class Border extends SkinnableContainer
      *  <p>The following example sets the <code>borderStroke</code> property:</p>
      *
      *  <pre>
-     *  &lt;s:Border cornerRadius="10"&gt; 
+     *  &lt;s:BorderContainer cornerRadius="10"&gt; 
      *     &lt;s:borderStroke&gt; 
      *         &lt;mx:SolidColorStroke 
      *             color="black" 
      *             weight="3"/&gt; 
      *     &lt;/s:borderStroke&gt; 
-     *  &lt;/s:Border&gt; </pre>
+     *  &lt;/s:BorderContainer&gt; </pre>
      *
      *  @default null
      * 
