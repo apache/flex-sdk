@@ -343,7 +343,6 @@ public class SkinnableTextBase extends SkinnableComponent
     public function SkinnableTextBase()
     {
         super();
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -2138,14 +2137,6 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
-    /**
-     * @private
-     * Cancel mouseDown so itemRenderers don't also change state
-     */  
-    private function mouseDownHandler(event:MouseEvent):void
-    {
-        event.preventDefault();
-    }
 
     /**
      * @private
