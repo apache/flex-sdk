@@ -677,7 +677,10 @@ public class DataGroup extends GroupBase
 
         if(_layeringFlags & LAYERING_DIRTY)
         {
-            manageDisplayObjectLayers();
+            if (layout && layout.useVirtualLayout)
+                invalidateDisplayList();
+            else
+                manageDisplayObjectLayers();
         }
         
         if (typicalItemChanged)
@@ -981,6 +984,8 @@ public class DataGroup extends GroupBase
         if (virtualLayoutUnderway)
         {
             finishVirtualLayout();
+            if(_layeringFlags & LAYERING_DIRTY)
+                manageDisplayObjectLayers();            
             virtualLayoutUnderway = false;
         }
     }
@@ -1262,10 +1267,9 @@ public class DataGroup extends GroupBase
                 insertIndex = index;
                 
             // Quietly ignore invalid indices since they're typically caused
-            // by duplicate data items and Halo quietly ignore those
+            // by duplicate data items and Halo quietly ignored those
             if ((insertIndex >= 0) && (insertIndex < super.numChildren)) 
                 super.setChildIndex(child, insertIndex);
-
             return child;
         }
         else if (child.parent && child.parent is DataGroup)
