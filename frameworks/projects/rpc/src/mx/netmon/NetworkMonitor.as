@@ -58,7 +58,17 @@ public class NetworkMonitor
      *  @productversion Flex 3
      */
     public static var adjustURLRequestImpl:Function;
-
+    
+    /**
+     *  To be assigned by mix-in.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static var adjustNetConnectionURLImpl:Function;
+	
     /**
      *  To be assigned by mix-in.
      *  
@@ -148,6 +158,25 @@ public class NetworkMonitor
         if (adjustURLRequestImpl != null)
             adjustURLRequestImpl(urlRequest, rootURL, correlationID);
     } 
+    
+    /**
+     *  Adjust the URL for NetConnectionChannel and HTTPChannel Requests
+     *  so that it goes through the monitor. 
+     *  Returns the modified url.
+     *
+     *  @param url to adjust.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */ 
+     public static function adjustNetConnectionURL(rootUrl:String, url:String):String
+     {
+    	 if (adjustNetConnectionURLImpl != null)
+    		return adjustNetConnectionURLImpl(rootUrl, url);
+    	 return null;
+     } 
     
     /**
      *  Tell the monitor that an event occurred.
