@@ -12,9 +12,9 @@
 package spark.components.gridClasses
 {
 
-[ExcludeClass]
-
 import mx.collections.ArrayCollection;
+
+[ExcludeClass]
 
 /**
  *  Open LinkedList implementation for representing row heights in a Grid
@@ -50,8 +50,8 @@ public class GridRowList
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function GridRowList():void
     {
@@ -73,8 +73,8 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get first():GridRowNode
     {
@@ -90,8 +90,8 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get last():GridRowNode
     {
@@ -107,8 +107,8 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get tail():GridRowNode
     {
@@ -124,8 +124,8 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get head():GridRowNode
     {
@@ -141,8 +141,8 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get length():Number
     {
@@ -160,14 +160,17 @@ public class GridRowList
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get numColumns():uint
     {
         return _numColumns;
     }
     
+    /**
+     *  @private
+     */
     public function set numColumns(value:uint):void
     {
         if (_numColumns == value)
@@ -185,22 +188,22 @@ public class GridRowList
     
     //--------------------------------------------------------------------------
     //
-    //  Class methods
+    //  Methods
     //
     //--------------------------------------------------------------------------
     
     /**
-     *  Inserts new node at the specified index. If a RowNode with the
+     *  Inserts new node at the specified row index. If a node with the
      *  index already exists, it will be returned.
      * 
-     *  @param value Value to insert. If the value is not a RowNode
-     *  one will be created.
-     *  @param prev The previous node to insert relative to.
+     *  @param index The row index in which to create and insert the node.
+     *  
+     *  @return The newly created or existing node for the specified row index.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insert(index:int):GridRowNode
     {
@@ -235,6 +238,11 @@ public class GridRowList
     /**
      *  Inserts a new node after the specified node. Returns
      *  the new node.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertAfter(node:GridRowNode, newNode:GridRowNode):void
     {
@@ -252,6 +260,11 @@ public class GridRowList
     /**
      *  Inserts a new node after the specified node. Returns
      *  the new node.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertBefore(node:GridRowNode, newNode:GridRowNode):void
     {
@@ -267,14 +280,14 @@ public class GridRowList
     }
     
     /**
-     *  Searches through all nodes for the given value.
+     *  Searches through all nodes for the given row index.
      * 
-     *  @param index The value to find.
-     *  
+     *  @param index The row index to find.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function find(index:int):GridRowNode
     {
@@ -364,17 +377,17 @@ public class GridRowList
     }
     
     /**
-     *  Searches through all nodes for the value closest and less than
-     *  the specified index. If the index exists, it will just return
-     *  the node at that index. Returns null if nearest is at the head
-     *  of the list.
+     *  Searches through all nodes for the one with a row index closest and
+     *  less than equal to the specified index. If a node with the row index
+     *  exists, it will just return the node at that index. Returns null if
+     *  all nodes have a row index greater than the provided index.
      * 
-     *  @param index The value to find
+     *  @param index The row index to find
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function findNearestLTE(index:int):GridRowNode
     {
@@ -430,8 +443,8 @@ public class GridRowList
     
     /**
      *  @private
-     *  Searches for the node with the closest value less than the specified
-     *  index. Searches forwards from the specified node.
+     *  Searches through all nodes for the one with a row index closest and
+     *  less than equal to the specified index. Searches forwards from the specified node.
      */
     private function findNearestLTEAfter(index:int, node:GridRowNode):GridRowNode
     {
@@ -450,8 +463,8 @@ public class GridRowList
     
     /**
      *  @private
-     *  Searches for the node with the closest value less than the specified
-     *  index. Searches backwards from the specified node.
+     *  Searches through all nodes for the one with a row index closest and
+     *  less than equal to the specified index. Searches backwards from the specified node.
      */
     private function findNearestLTEBefore(index:int, node:GridRowNode):GridRowNode
     {
@@ -463,9 +476,13 @@ public class GridRowList
         return cur;
     }
     
-    
     /**
      *  Inserts the specified node at the end of the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function push(node:GridRowNode):void
     {
@@ -488,16 +505,17 @@ public class GridRowList
     }
     
     /**
-     *  Searches through all nodes for the given value and
+     *  Searches through all nodes for the given row index and
      *  removes it from the list if found.
      * 
-     *  @param value The value to find and remove.
+     *  @param index The row index to remove.
+     *  
      *  @return The removed node, null otherwise.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function remove(index:int):GridRowNode
     {
@@ -508,8 +526,12 @@ public class GridRowList
     }
     
     /**
-     *  @private
-     *  Removes specified node.
+     *  Removes specified node from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeNode(node:GridRowNode):void
     {
@@ -533,12 +555,12 @@ public class GridRowList
     }
     
     /**
-     *  Removes all the nodes.
+     *  Removes all nodes.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeAll():void
     {
@@ -548,9 +570,20 @@ public class GridRowList
         this.recentNode = null;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Methods for column changes
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  Inserts count number of columns into each node and
      *  increases numColumns by count.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertColumns(startColumn:int, count:int):void
     {
@@ -567,6 +600,11 @@ public class GridRowList
     /**
      *  Inserts count number of columns into each node and
      *  increases numColumns by count.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeColumns(startColumn:int, count:int):void
     {
@@ -580,6 +618,14 @@ public class GridRowList
         }
     }
     
+    /**
+     *  Moves the specified columns in each node.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
     public function moveColumns(fromCol:int, toCol:int, count:int):void
     {
         var node:GridRowNode = first;
@@ -590,6 +636,15 @@ public class GridRowList
         }
     }
     
+    /**
+     *  Clears the column values for count number of columns in each
+     *  node.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
     public function clearColumns(startColumn:int, count:int):void
     {
         var node:GridRowNode = first;
@@ -601,6 +656,7 @@ public class GridRowList
     }
     
     /**
+     *  @private
      *  for testing;
      */
     public function toString():String
@@ -620,6 +676,10 @@ public class GridRowList
         return s;
     }
     
+    /**
+     *  @private
+     *  for testing;
+     */
     public function toArray():ArrayCollection
     {
         var arr:ArrayCollection = new ArrayCollection();
