@@ -34,6 +34,8 @@ import flash.utils.ByteArray;
  * 
  * @see spark.effects.AnimateTransitionShader
  * @see spark.effects.AnimateTransitionShader#shaderByteCode
+ *
+ *  @includeExample examples/CrossFadeExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
