@@ -20,7 +20,6 @@ import mx.core.mx_internal;
 import mx.messaging.Channel;
 import mx.messaging.ChannelSet;
 import mx.messaging.MessageAgent;
-import mx.messaging.config.LoaderConfig;
 import mx.messaging.errors.InvalidChannelError;
 import mx.messaging.errors.InvalidDestinationError;
 import mx.resources.IResourceManager;
@@ -459,33 +458,44 @@ public class ServerConfig
             var newServices:XML = <services></services>;
             convertToXML(serverConfig, newServices);
 
-            // Update default-channels of the application
+            // Update default-channels of the application.
             xml["default-channels"] = newServices["default-channels"];
 
-            // Update the services
+            // Update the service destinations.
             for each (var newService:XML in newServices..service)
             {
                 var oldServices:XMLList = xml.service.(@id == newService.@id);
+                var oldDestinations:XMLList;
+                var newDestination:XML;
+                // The service already exists, update its destinations.
                 if (oldServices.length() != 0)
                 {
-                    // Assuming only one service exists with the id
-                    var oldService:XML = oldServices[0];
-
-                    // Update destinations
-                    for each (var newDestination:XML in newService..destination)
+                    var oldService:XML = oldServices[0]; // Service ids are unique.
+                    for each (newDestination in newService..destination)
                     {
-                        var oldDestinations:XMLList = oldService.destination.(@id == newDestination.@id);
+                        oldDestinations = oldService.destination.(@id == newDestination.@id);
                         if (oldDestinations.length() != 0)
-                        {
-                            // Assuming only one destination exists with the id
-                            delete oldDestinations[0];
-                        }
-                        oldService.appendChild(newDestination);
+                            delete oldDestinations[0]; // Destination ids are unique.
+                        oldService.appendChild(newDestination.copy());
                     }
                 }
+                // The service does not exist which means that this is either a new
+                // service with its destinations, or a proxy service (eg. GatewayService)
+                // with configuration for existing destinations for other services.
                 else
                 {
-                    xml.appendChild(newService);
+                    for each (newDestination in newService..destination)
+                    {
+                        oldDestinations = xml..destination.(@id == newDestination.@id);
+                        if (oldDestinations.length() != 0) // Replace the existing destination.
+                        {
+                            oldDestinations[0] = newDestination[0].copy(); // Destination ids are unique.
+                            delete newService..destination.(@id == newDestination.@id)[0];
+                        }
+                    }
+
+                    if (newService.children().length() > 0) // Add the new service.
+                        xml.appendChild(newService);
                 }
             }
 
