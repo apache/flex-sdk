@@ -574,11 +574,26 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     [Bindable]
     [Inspectable(category="General")]
     
+	/**
+	 *  The X coordinate of the origin of the region this Group is
+	 *  scrolled to.  
+	 * 
+	 *  Setting this property causes the <code>scrollRect</code> to
+	 *  be set, if necessary, to:
+	 *  <pre>
+	 *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+	 *  </pre>
+	 * 
+	 *  @default 0
+	 */
     public function get horizontalScrollPosition():Number 
     {
         return _horizontalScrollPosition;
     }
     
+    /**
+     *  @private
+     */
     public function set horizontalScrollPosition(value:Number):void 
     {
         if (value == _horizontalScrollPosition) 
@@ -598,12 +613,27 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     
     [Bindable]
     [Inspectable(category="General")]    
-
+    
+	/**
+	 *  The Y coordinate of the origin of the region this Group is
+	 *  scrolled to.  
+	 * 
+	 *  Setting this property causes the <code>scrollRect</code> to
+	 *  be set, if necessary, to:
+	 *  <pre>
+	 *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
+	 *  </pre>                 
+	 * 
+	 *  @default 0
+	 */
     public function get verticalScrollPosition():Number 
     {
         return _verticalScrollPosition;
     }
     
+    /**
+     *  @private
+     */
     public function set verticalScrollPosition(value:Number):void 
     {
         if (value == _verticalScrollPosition)
@@ -624,6 +654,10 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     [Bindable]
     [Inspectable(category="General")]    
 
+	/**
+	 * The positive extent of this Group's content, relative to the 0,0
+	 * origin, along the X axis.
+	 */
     public function get contentWidth():Number 
     {
         return _contentWidth;
@@ -643,6 +677,10 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     [Bindable]
     [Inspectable(category="General")]    
 
+	/**
+	 * The positive extent of this Group's content, relative to the 0,0 
+	 * origin, along the Y axis.
+	 */
     public function get contentHeight():Number 
     {
         return _contentHeight;
@@ -653,7 +691,16 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         _contentHeight = value;
     }    
 
-
+	/**
+	 *  Sets this Group's <code>contentWidth</code> and <code>contentHeight</code>
+	 *  properties.
+	 * 
+	 *  This method is is intended for layout class developers who should
+	 *  call it from <code>measure()</code> and <code>updateDisplayList()<code>.
+	 *
+	 *  @param w The new value of contentWidth.
+	 *  @param h The new value of contentHeight.
+	 */
     public function setContentSize(w:Number, h:Number):void
     {
     	if ((w == _contentWidth) && (h == _contentHeight))
