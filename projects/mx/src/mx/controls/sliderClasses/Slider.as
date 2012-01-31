@@ -1712,6 +1712,8 @@ public class Slider extends UIComponent
             n = thumbs.numChildren;
             for (i = n - 1; i >= 0; i--)
             {
+                // we don't need to bother to remove the event listeners here
+                // they will be removed by the garbage collector automatically
                 thumbs.removeChildAt(i);
             }
         }
