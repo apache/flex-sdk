@@ -18,6 +18,11 @@ package mx.effects
  * effect, or subclasses of that effect.
  * 
  * @see FxAnimate
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class AnimationProperty
 {
@@ -25,6 +30,11 @@ public class AnimationProperty
      * The name of the property to be animated. The property can
      * be either a property of the target object in the animation
      * or a style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var property:String;
     
@@ -37,6 +47,11 @@ public class AnimationProperty
      * getting the value from the target property directly or calculating
      * it if the other value is valid and there is also a valid <code>valueBy</code>
      * value supplied.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get valueFrom():Object
     {
@@ -56,6 +71,11 @@ public class AnimationProperty
      * getting the value from the target property directly or calculating
      * it if the other value is valid and there is also a valid <code>valueBy</code>
      * value supplied.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get valueTo():Object
     {
@@ -89,6 +109,11 @@ public class AnimationProperty
      * object to calculate the values through its increment() and decrement()
      * functions. If no interpolator is set, then it will use NumberInterpolator
      * by default.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get valueBy():Object
     {
