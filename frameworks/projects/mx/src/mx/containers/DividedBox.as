@@ -28,6 +28,7 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.DividerEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 
 use namespace mx_internal;
@@ -311,38 +312,6 @@ public class DividedBox extends Box
 
 	//--------------------------------------------------------------------------
 	//
-	//  Class properties
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static var classInitialized:Boolean = false;
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 *  This method gets called once at first instance construction
-	 *  rather than during class initialization.
-	 *  In order for calls to StyleManager methods to work,
-	 *  the factory class for the application or module
-	 *  must have already registered StyleManagerImpl with Singleton.
-	 *  This may not be the case at class initialization time.
-	 */
-	private static function initializeClass():void
-	{
-		StyleManager.registerSizeInvalidatingStyle("dividerAffordance");
-		StyleManager.registerSizeInvalidatingStyle("dividerThickness");
-	}
-
-	//--------------------------------------------------------------------------
-	//
 	//  Constructor
 	//
 	//--------------------------------------------------------------------------
@@ -359,13 +328,10 @@ public class DividedBox extends Box
 	{
 		super();
 
-		if (!classInitialized)
-		{
-			initializeClass();
-			classInitialized = true;
-		}
+        styleManager.registerSizeInvalidatingStyle("dividerAffordance");
+        styleManager.registerSizeInvalidatingStyle("dividerThickness");
 
-		addEventListener(ChildExistenceChangedEvent.CHILD_ADD, childAddHandler);
+        addEventListener(ChildExistenceChangedEvent.CHILD_ADD, childAddHandler);
 		addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, 
 						 childRemoveHandler);
 
@@ -759,7 +725,7 @@ public class DividedBox extends Box
 			}
 		}
 		
-		if (StyleManager.isSizeInvalidatingStyle(styleProp))
+		if (styleManager.isSizeInvalidatingStyle(styleProp))
 		{
 			layoutStyleChanged = true;
 		}
