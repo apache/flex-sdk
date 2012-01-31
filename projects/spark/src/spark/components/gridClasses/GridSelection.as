@@ -593,7 +593,7 @@ public class GridSelection
         selectedRows.length = 1;
         selectedRows[0] = rowIndex;
         
-        if (_preserveSelection)
+        if (preserveSelection)
             selectedRowValues[rowIndex] = grid.getDataProviderItem(rowIndex);
     
         return true;
@@ -1117,7 +1117,7 @@ public class GridSelection
         if (offset == -1)
         {
             selectedRows.push(rowIndex);    
-            if (_preserveSelection)
+            if (preserveSelection)
                 selectedRowValues[rowIndex] = grid.getDataProviderItem(rowIndex);
             return true;
         }
@@ -1135,7 +1135,7 @@ public class GridSelection
         if (offset != -1)
         {
             selectedRows.splice(offset, 1);        
-            if (_preserveSelection)
+            if (preserveSelection)
                 delete selectedRowValues[rowIndex];
             return true;
         }
@@ -1254,7 +1254,7 @@ public class GridSelection
         filterCellRegions(new CellRegion(rowIndex, columnIndex, 
                                          rowCount, columnCount, true));
         
-        if (_preserveSelection)
+        if (preserveSelection)
         {
             const endRowIndex:int = rowIndex + rowCount;
             while (rowIndex < endRowIndex)
@@ -1285,7 +1285,7 @@ public class GridSelection
         // By default, the selectedRowValues aren't removed since there 
         // could be other cell regions that contain these rows.  The caller
         // knows the context so let it decide.
-        if (removePreservedSelection && _preserveSelection)
+        if (removePreservedSelection && preserveSelection)
         {
             const endRowIndex:int = rowIndex + rowCount;
             for (var i:int = rowIndex; i < endRowIndex; i++)
@@ -1346,7 +1346,7 @@ public class GridSelection
             }
         }
 
-        if (elementChanged && _preserveSelection)
+        if (elementChanged && preserveSelection)
         {
             selectedRowValues[newRowIndex] = selectedRowValues[oldRowIndex];
             delete selectedRowValues[oldRowIndex];
@@ -1381,7 +1381,7 @@ public class GridSelection
             }
         }
         
-        if (elementChanged && _preserveSelection)
+        if (elementChanged && preserveSelection)
             delete selectedRowValues[rowIndex];
         
         return elementChanged;
@@ -1465,8 +1465,10 @@ public class GridSelection
      */
     private function dataProviderCollectionAdd(event:CollectionEvent):Boolean
     {
-        // New rows are included in the selection if everything is selected.
-        if (selectAllFlag)
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
             return true;
         
         const insertIndex:int = event.location;
@@ -1509,7 +1511,7 @@ public class GridSelection
                 var newRowIndex:int = rowIndex + insertLength;
                 selectedRows[i] = newRowIndex;
                 
-                if (_preserveSelection)
+                if (preserveSelection)
                 {
                     selectedRowValues[newRowIndex] = selectedRowValues[rowIndex];                
                     delete selectedRowValues[rowIndex];
@@ -1554,8 +1556,14 @@ public class GridSelection
      */
     private function dataProviderCollectionMove(event:CollectionEvent):Boolean
     {
-        // TBD: this needs to be reviewed/tested for correctness!!!
+        // FIXME: this needs to be reviewed/tested for correctness!!!
                
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
+            return true;
+
         var elementChanged:Boolean;
                 
         const oldRowIndex:int = event.oldLocation;
@@ -1566,23 +1574,6 @@ public class GridSelection
         // that are impacted by the move.
         if (hasRowSelection())
         {
-            if (selectAllFlag)
-            {
-                // ToDo: there might be a better way to do this but for now
-                // if there is a selectAll with some removals, convert to a
-                // straight selection so the move can be done with the exisiting
-                // code.
-                if (selectedRows.length == 0)
-                    return true;
-                
-                var rows:Vector.<int> = allRows();
-                removeSelection();
-                for each (var rowIndex:int in rows)
-                {
-                    setRow(rowIndex);
-                }
-            }
-            
             adjustRowsAfterRemove(oldRowIndex, oldRowIndex);
 
             // If the row is removed before the newly added item
@@ -1596,23 +1587,6 @@ public class GridSelection
         }
         else if (hasCellSelection())
         {
-            if (selectAllFlag)
-            {
-                // ToDo: there might be a better way to do this but for now
-                // if there is a selectAll with some removals, convert to a
-                // straight selection so the move can be done with the exisiting
-                // code.
-                if (cellRegions.length == 0)
-                    return true;
-                
-                var cells:Vector.<Object> = allCells();
-                removeSelection();
-                for each (var o:Object in cells)
-                {
-                    setCell(o["rowIndex"], o["columnIndex"]);
-                }
-            }
-
             const bounds:Rectangle = this.getCellRegionsBounds();
             const selectedCellColumns:Vector.<int> = new Vector.<int>();
             
@@ -1656,17 +1630,35 @@ public class GridSelection
     private function dataProviderCollectionRefresh(event:CollectionEvent):Boolean
     {
         // Not preserving selection so this is similiar to a RESET.
-        if (!_preserveSelection)
+        if (!preserveSelection)
         {            
             removeSelection();
             ensureRequiredSelection();
             return true;
         }
+        
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
+            return true;
            
-        if (selectedRows.length)
-            adjustRowsAfterRefresh(); 
-        else if (cellRegions.length)
-            adjustCellsAfterRefresh();
+        // Nothing preserved, so don't bother looking.
+        if (selectedRowValues.length == 0)
+            return true;
+        
+        if (isRowSelectionMode())
+            adjustRowsAfterRefresh();
+        
+        // FIXME:  don't think we should even try to support preserveSelection
+        // if a cell-based selectionMode.  Would need to duplicate selection
+        // since we need column information as well as the row information
+        // stored in selectedRowValues.  If we decide to not support this,
+        // then remove the code that stores the selectedRowValues when setting
+        // cell selections.
+        
+        //else if (isCellSelectionMode())
+        //    adjustCellsAfterRefresh();
         
         ensureRequiredSelection();
         
@@ -1702,6 +1694,7 @@ public class GridSelection
      *  @private
      *  Sort or filter on collection changed.  Update selected cells.
      */
+    /*
     private function adjustCellsAfterRefresh():Boolean
     {
         // Make a pass thru the saved items, and if the item is still in 
@@ -1745,6 +1738,7 @@ public class GridSelection
                 
         return true;
     }
+    */
     
     /**
      *  @private
@@ -1752,10 +1746,12 @@ public class GridSelection
      */
     private function dataProviderCollectionRemove(event:CollectionEvent):Boolean
     {
-        // Everything selected, so nothing to do.
-        if (selectAllFlag)
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
             return true;
-       
+               
         const firstRemoveIndex:int = event.location;
         const lastRemoveIndex:int = event.location + event.items.length - 1;
   
@@ -1818,7 +1814,7 @@ public class GridSelection
             else if (rowIndex > lastRemoveIndex)
             {
                 const newRowIndex:int = rowIndex - 1;
-                if (_preserveSelection)
+                if (preserveSelection)
                 {
                     selectedRowValues[newRowIndex] = 
                         selectedRowValues[rowIndex];                
@@ -1836,7 +1832,7 @@ public class GridSelection
             selectedRows.splice(firstVisibleOffset, removeCount);
             elementChanged = true;
             
-            if (_preserveSelection)
+            if (preserveSelection)
             {
                 for (rowIndex = firstVisibleOffset; 
                     rowIndex <= lastVisibleOffset; rowIndex++)
@@ -1884,13 +1880,15 @@ public class GridSelection
      */
     private function dataProviderCollectionReplace(event:CollectionEvent):Boolean
     {
-        // Everything selected, so no cached item to replace.
-        if (selectAllFlag)
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
             return true;
-
+        
         var elementChanged:Boolean;
        
-        if (_preserveSelection && selectedRowValues.length > 0)
+        if (preserveSelection && selectedRowValues.length > 0)
         {
             const rowIndex:int = event.location;            
             if (selectedRowValues[rowIndex] !== undefined)
@@ -1905,7 +1903,8 @@ public class GridSelection
     
     /**
      *  @private
-     *  The data source changed so don't preserve the selection.
+     *  The data source changed so don't preserve the selection.  Clear the
+     *  selectAll flag if set.
      */
     private function dataProviderCollectionReset(event:CollectionEvent):Boolean
     {
@@ -1921,13 +1920,15 @@ public class GridSelection
      */
     private function dataProviderCollectionUpdate(event:CollectionEvent):Boolean
     {
-        // Everything selected, so no cached items to update.
-        if (selectAllFlag)
+        // If a pure selectAll, with nothing on the removal list, then there
+        // is nothing that needs to be done.  If there is anything on the
+        // removal list, their indices may need to be updated.
+        if (selectAllFlag && selectedRows.length == 0 && cellRegions.length == 0)
             return true;
-
+        
         var elementChanged:Boolean;
                
-        if (_preserveSelection && selectedRowValues.length > 0)
+        if (preserveSelection && selectedRowValues.length > 0)
         {
             for each (var updateInfo:PropertyChangeEvent in event.items)
             {
@@ -1964,10 +1965,6 @@ public class GridSelection
      */
     public function columnsCollectionChanged(event:CollectionEvent):Boolean
     {
-        // If no selectionMode or a row-based selectionMode, nothing to do.
-        if (!isCellSelectionMode())
-            return true;
-        
         inCollectionHandler = true;
         
         var result:Boolean;
@@ -2000,16 +1997,15 @@ public class GridSelection
             }
                 
             case CollectionEventKind.REFRESH:
+            {
+                result = columnsCollectionRefresh(event);
+                break;                
+            }
             case CollectionEventKind.RESET:
             {
-                if (hasCellSelection())
-                {
-                    removeSelection();
-                    ensureRequiredSelection();
-                }
-                result = true;
-                break;
-            }
+                result = columnsCollectionReset(event);
+                break;                
+           }
         }
         
         inCollectionHandler = false;
@@ -2023,7 +2019,11 @@ public class GridSelection
      */
     private function columnsCollectionAdd(event:CollectionEvent):Boolean
     {
-        // If a pure selectAll with no removals, return.
+        // If no selectionMode or a row-based selectionMode, nothing to do.
+        if (!isCellSelectionMode())
+            return true;
+        
+        // If a pure selectAll with no cell removals, return.
         if (selectAllFlag && cellRegions.length == 0)
             return true;
         
@@ -2067,7 +2067,11 @@ public class GridSelection
      */
     private function columnsCollectionMove(event:CollectionEvent):Boolean
     {
-        // If a pure selectAll with no removals, return.
+        // If no selectionMode or a row-based selectionMode, nothing to do.
+        if (!isCellSelectionMode())
+            return true;
+        
+        // If a pure selectAll with no cell removals, return.
        if (selectAllFlag && cellRegions.length == 0)
             return true;
         
@@ -2100,7 +2104,11 @@ public class GridSelection
      */
     private function columnsCollectionRemove(event:CollectionEvent):Boolean
     {
-        // If a pure selectAll with no removals, return.
+        // If no selectionMode or a row-based selectionMode, nothing to do.
+        if (!isCellSelectionMode())
+            return true;
+        
+        // If a pure selectAll with no cell removals, return.
         if (selectAllFlag && cellRegions.length == 0)
             return true;
                 
@@ -2142,6 +2150,43 @@ public class GridSelection
         }            
 
         return elementChanged;
+    }
+    
+    /**
+     *  @private
+     *  The sort or filter on the collection changed.  If the selectionMode is
+     *  cell-based, reset the selection.
+     */
+    private function columnsCollectionRefresh(event:CollectionEvent):Boolean
+    {
+        // If no selectionMode or a row-based selectionMode, nothing to do.
+        if (!isCellSelectionMode())
+            return true;
+        
+        // Columns changing could impact cell selection and we have no way
+        // to map the column locations before the refresh to the column
+        // locations after the refresh.
+        removeSelection();
+        ensureRequiredSelection();
+        
+        return true;
+    }
+
+    /**
+     *  @private
+     *  The columns changed.  If the selectionMode is cell-based, don't preserve 
+     *  the selection.
+     */
+    private function columnsCollectionReset(event:CollectionEvent):Boolean
+    {
+        // If no selectionMode or a row-based selectionMode, nothing to do.
+        if (!isCellSelectionMode())
+            return true;
+
+        removeSelection();
+        ensureRequiredSelection();
+            
+        return true;
     }
 }
 }
