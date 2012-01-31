@@ -169,11 +169,13 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     //  enabled
     //----------------------------------
 
-    [Bindable("enabledChanged")]
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Determines whether selection is allowed.
+     *  Determines whether selection is allowed.  Note that the value returned
+     *  only reflects the value that was explicitly set on the 
+     *  <code>FxRadioButtonGroup</code> and does not reflect any values explicitly
+     *  set on the individual radio buttons. 
      *
      *  @default true
      *  
@@ -201,8 +203,6 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
         // radio button skin most likely will change.
         for (var i:int = 0; i < numRadioButtons; i++)
             getRadioButtonAt(i).mx_internal::invalidateRadioButtonState(true);
-
-        dispatchEvent(new Event("enabledChanged"));
     }
 
     //----------------------------------
@@ -229,12 +229,6 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     //----------------------------------
     //  selectedValue
     //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the selectedValue property.
-     */
-    private var _selectedValue:Object;
 
     [Bindable("change")]
     [Bindable("valueCommit")]
@@ -276,8 +270,6 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     public function set selectedValue(value:Object):void
     {
-        _selectedValue = value;
-
         var n:int = numRadioButtons;
         for (var i:int = 0; i < n; i++)
         {
