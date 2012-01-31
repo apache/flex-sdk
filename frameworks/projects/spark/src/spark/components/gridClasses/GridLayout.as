@@ -383,6 +383,16 @@ public class GridLayout extends LayoutBase
                 performanceStatistics.updateDisplayListStartTime = startTime;
         }
         
+        const columns:IList = grid.columns;
+        if (!columns)
+            return;
+        
+        // Find the index of the last GridColumn.visible==true column
+        
+        const lastVisibleColumnIndex:int = grid.getPreviousVisibleColumnIndex(grid.columns.length);
+        if (lastVisibleColumnIndex < 0)
+            return;
+        
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
         oldVisibleRowIndices = visibleRowIndices;
@@ -429,13 +439,12 @@ public class GridLayout extends LayoutBase
         // Layout the row and column separators. 
         
         const lastRowIndex:int = paddedRowCount - 1;
-        const lastColumnIndex:int = gridDimensions.columnCount - 1;
 
         visibleRowSeparators = layoutLinearElements(grid.rowSeparator, grid.overlayLayer, 
             visibleRowSeparators, oldVisibleRowIndices, visibleRowIndices, layoutRowSeparator, lastRowIndex);
         
         visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, grid.overlayLayer, 
-            visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastColumnIndex);
+            visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
         
         // HACK
         var dg:DataGrid = grid.gridOwner as DataGrid;
@@ -580,7 +589,9 @@ public class GridLayout extends LayoutBase
 		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
 		const columnGap:int = gridDimensions.columnGap;
         
-		for (var columnIndex:int = firstVisibleColumnIndex; (width > 0) && (columnIndex < columnCount); columnIndex++)
+		for (var columnIndex:int = firstVisibleColumnIndex;
+            (width > 0) && (columnIndex >= 0) && (columnIndex < columnCount);
+            columnIndex = grid.getNextVisibleColumnIndex(columnIndex))
 		{
             var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
 			var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
@@ -626,6 +637,7 @@ public class GridLayout extends LayoutBase
         const columnCount:int = gridDimensions.columnCount;
         const columnGap:int = gridDimensions.columnGap;
         const requestedColumnCount:int = grid.requestedColumnCount;
+        var measuredColumnCount:int = 0;
         
         for (var columnIndex:int = 0; (columnIndex < columnCount); columnIndex++)
         {
@@ -633,13 +645,24 @@ public class GridLayout extends LayoutBase
             var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
             
             var column:GridColumn = getGridColumn(columnIndex);
+            
+            // GridColumn.visible==false columns have a typical size of (0,0)
+            // to distinguish them from the GridColumn.visible==true columns
+            // that aren't in view yet.
+            if (!column.visible)
+            {
+                gridDimensions.setTypicalCellWidth(columnIndex, 0);
+                gridDimensions.setTypicalCellHeight(columnIndex, 0);
+                continue;
+            }
+            
             if (!isNaN(column.width))
             {
                 cellWidth = column.width;
                 gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
             }
             
-            var needTypicalRenderer:Boolean = (requestedColumnCount == -1) || (columnIndex < requestedColumnCount);
+            var needTypicalRenderer:Boolean = (requestedColumnCount == -1) || (measuredColumnCount < requestedColumnCount);
             if (needTypicalRenderer && (isNaN(cellWidth) || isNaN(cellHeight)))
             {
                 var renderer:IGridItemRenderer = createTypicalItemRenderer(columnIndex);
@@ -655,6 +678,7 @@ public class GridLayout extends LayoutBase
                 }
                 freeGridElement(renderer);
             }
+            measuredColumnCount++;
         }
     }
 
@@ -687,8 +711,10 @@ public class GridLayout extends LayoutBase
         const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
         var availableWidth:Number = width;
         var flexibleColumnCount:uint = 0;
-                
-        for (var columnIndex:int = firstVisibleColumnIndex; (availableWidth > 0) && (columnIndex < columnCount); columnIndex++)
+        
+        for (var columnIndex:int = firstVisibleColumnIndex;
+             (availableWidth > 0) && (columnIndex >= 0) && (columnIndex < columnCount);
+             columnIndex = grid.getNextVisibleColumnIndex(columnIndex))
         {
             var columnWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
             var gridColumn:GridColumn = getGridColumn(columnIndex);
@@ -725,7 +751,9 @@ public class GridLayout extends LayoutBase
         
         const columnWidthDelta:Number = Math.ceil(availableWidth / flexibleColumnCount);
 
-        for (columnIndex = firstVisibleColumnIndex; (columnIndex < columnCount) && (availableWidth >= 1.0); columnIndex++)
+        for (columnIndex = firstVisibleColumnIndex;
+             (columnIndex >= 0) && (columnIndex < columnCount) && (availableWidth >= 1.0);
+             columnIndex = grid.getNextVisibleColumnIndex(columnIndex))
         {
             gridColumn = getGridColumn(columnIndex);
             
@@ -805,8 +833,11 @@ public class GridLayout extends LayoutBase
         
         const newVisibleColumnIndices:Vector.<int> = new Vector.<int>();
         var availableWidth:Number = width;
+        var column:GridColumn;
         
-        for (colIndex = startColIndex; (availableWidth > 0) && (colIndex >= 0) && (colIndex < colCount); colIndex++)
+        for (colIndex = startColIndex; 
+             (availableWidth > 0) && (colIndex >= 0) && (colIndex < colCount);
+             colIndex = grid.getNextVisibleColumnIndex(colIndex))
         {
             newVisibleColumnIndices.push(colIndex);
             var columnWidth:Number = gridDimensions.getColumnWidth(colIndex);
@@ -836,7 +867,7 @@ public class GridLayout extends LayoutBase
                 if (!renderer)
                 {       
                     var dataItem:Object = getDataProviderItem(rowIndex);
-                    var column:GridColumn = getGridColumn(colIndex);
+                    column = getGridColumn(colIndex);
                     var factory:IFactory = itemToRenderer(column, dataItem);
                     renderer = allocateGridElement(factory) as IGridItemRenderer;                   
                 }
@@ -2156,6 +2187,10 @@ public class GridLayout extends LayoutBase
         
         // Invalid row or column.
         if (dataItem == null || column == null)
+            return null;
+
+        // column is GridColumn.visible==false
+        if (!column.visible)
             return null;
                 
         const factory:IFactory = itemToRenderer(column, dataItem);
