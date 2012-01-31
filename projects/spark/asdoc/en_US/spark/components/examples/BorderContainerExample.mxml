@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate Spark Border component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+        		
+    <!-- Define a border component with clipAndEnableScrolling set to true -->
+	<s:Border width="200" height="200" clipAndEnableScrolling="true"
+	    borderWeight="10" borderColor="blue"
+	    backgroundColor="red" backgroundAlpha="0.5">
+	    
+		<s:borderStroke>
+			<s:LinearGradientStroke weight="5">
+				<fx:Array>
+					<s:GradientEntry color="0xFF0000"/>
+					<s:GradientEntry color="0x0000FF"/>
+				</fx:Array>
+			</s:LinearGradientStroke>
+		</s:borderStroke>
+		
+		<s:backgroundFill>
+			<s:RadialGradient>
+				<fx:Array>
+					<s:GradientEntry color="0xFF0000"/>
+					<s:GradientEntry color="0x0000FF"/>
+					<s:GradientEntry color="0x00FF00"/>
+				</fx:Array>
+			</s:RadialGradient>
+		</s:backgroundFill>
+	    
+		<!-- Define and constrain the scroller to match the size of the Border -->
+		<s:Scroller top="0" left="0" right="0" bottom="0">
+			<!-- Define a group to hold all the Border's content -->
+			
+			<s:Group>
+				<!-- Set layout for the content in the Group -->
+				<s:layout>
+					<s:VerticalLayout paddingTop="10" paddingLeft="10"
+					    paddingRight="10" paddingBottom="10"/>
+				</s:layout>
+				
+				<!-- Define content -->
+				<s:Label text="Spark Border Component"/>
+				<s:NumericStepper/>
+				<s:Button label="Spark Button" baseColor="yellow"/>
+				<s:TextArea height="250" width="250" text="Large Spark TextArea"/>
+			</s:Group>
+			
+		</s:Scroller>
+	</s:Border>
+</s:Application>
