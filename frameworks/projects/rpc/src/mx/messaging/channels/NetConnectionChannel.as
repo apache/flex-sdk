@@ -140,14 +140,6 @@ public class NetConnectionChannel extends PollingChannel
     /**
      *  @private
      */
-    override protected function getPollSyncMessageResponder(agent:MessageAgent, msg:CommandMessage):MessageResponder
-    {
-        return new PollSyncMessageResponder(agent, msg, this);
-    }
-
-    /**
-     *  @private
-     */
     override protected function getDefaultMessageResponder(agent:MessageAgent, msg:IMessage):MessageResponder
     {
         return new NetConnectionMessageResponder(agent, msg, this);
@@ -686,96 +678,4 @@ class NetConnectionMessageResponder extends MessageResponder
         channel.removeEventListener(ChannelEvent.DISCONNECT, channelDisconnectHandler);
         channel.removeEventListener(ChannelFaultEvent.FAULT, channelFaultHandler);
     }
-}
-
-/**
- *  @private
- *  This class provides a way to synchronize polling with a subscribe or
- *  unsubscribe request.
- *  It is constructed in response to a Consumer sending either a subscribe or
- *  unsubscribe command message.
- *  If a successfull subscribe/unsubscribe is made this responder will inform the
- *  channel which will trigger it to start/stop polling if necessary.
- *
- */
-class PollSyncMessageResponder extends NetConnectionMessageResponder
-{
-    //--------------------------------------------------------------------------
-    //
-    // Constructor
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Constructs a PollSyncMessageResponder.
-     *
-     *  @param agent The agent to manage polling for.
-     *
-     *  @param msg The subscribe or unsubscribe message for the agent.
-     *
-     *  @param channel The underlying Channel for the responder.
-     */
-    public function PollSyncMessageResponder(agent:MessageAgent, msg:IMessage,
-                                                channel:NetConnectionChannel)
-    {
-        super(agent, msg, channel);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // Overridden Protected Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  This method is called by the player when the result of sending a message
-     *  is received.
-     *
-     *  @param msg The response to a subscribe or unsubscribe request.
-     */
-    override protected function resultHandler(msg:IMessage):void
-    {
-        super.resultHandler(msg);
-        if ((msg is AsyncMessage) && (AsyncMessage(msg).correlationId == message.messageId))
-        {
-            // notify the channel
-            var cmd:CommandMessage = CommandMessage(message);
-            switch (cmd.operation)
-            {
-                case CommandMessage.SUBSCRIBE_OPERATION:
-                    NetConnectionChannel(channel).enablePolling();
-                break;
-
-                case CommandMessage.UNSUBSCRIBE_OPERATION:
-                    NetConnectionChannel(channel).disablePolling();
-                break;
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // Protected Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Handles a disconnect of the underlying Channel before a response is
-     *  returned to the responder and supresses resend attempts.
-     *
-     *  @param event The Channel disconnect event.
-     */
-    override protected function channelDisconnectHandler(event:ChannelEvent):void {}
-
-    /**
-     *  @private
-     *  Handles a fault of the underlying Channel before a response is
-     *  returned to the responder and supresses resend attempts.
-     *
-     *  @param event The Channel fault event.
-     */
-    override protected function channelFaultHandler(event:ChannelFaultEvent):void {}
 }
