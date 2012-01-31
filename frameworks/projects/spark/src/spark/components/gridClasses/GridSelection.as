@@ -17,6 +17,7 @@ import mx.collections.IList;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.collections.ICollectionView;
 
 import spark.components.Grid;
 import spark.components.gridClasses.CellPosition;
@@ -79,6 +80,14 @@ public class GridSelection
      */    
     private var cellRegions:Vector.<CellRect> = new Vector.<CellRect>();
            
+    /**
+     *  @private
+     *  If preserveSelection, and selectionMode is "singleRow" or "singleCell",
+     *  cache the dataItem that goes with the selection so we can find the
+     *  index of the selection after a collection refresh event.
+     */    
+    private var selectedItem:Object;
+    
     /**
      *  @private
      *  True if all cells are selected.  In this case, the data structures are
@@ -154,11 +163,12 @@ public class GridSelection
     private var _preserveSelection:Boolean = false;
     
     /**
-     *  If true, the selection will be preserved when the 
-     *  <code>dataProvider</code> refreshes its collection.
-     *  The selection will be clipped if it includes rows or columns that no
-     *  longer exist after the refresh.  The selection sticks to its position,
-     *  not the data.
+     *  If true, and <code>selectionMode</code> is 
+     *  <code>GridSelectionMode.SINGLE_ROW</code> or 
+     *  <code>GridSelectionMode.SINGLE_CELL</code>, the selection will be 
+     *  preserved when the <code>dataProvider</code> refreshes its collection,
+     *  if the corresponding item is contained in the collection after
+     *  the refresh event.
      *
      *  @default false
      * 
@@ -181,6 +191,21 @@ public class GridSelection
             return;
         
         _preserveSelection = value;
+        
+        selectedItem = null;
+        
+        // If preserving the selection and there is currently a selection,
+        // save the corresponding data item.
+        if (_preserveSelection && 
+            (selectionMode == GridSelectionMode.SINGLE_ROW || 
+                selectionMode == GridSelectionMode.SINGLE_CELL) && 
+            selectionLength > 0)
+        {
+            if (selectionMode == GridSelectionMode.SINGLE_ROW)
+                selectedItem = grid.dataProvider.getItemAt(allRows()[0]);
+            else  // SINGLE_CELL
+                selectedItem = grid.dataProvider.getItemAt(allCells()[0].rowIndex);
+        }
     }
     
     //----------------------------------
@@ -874,7 +899,7 @@ public class GridSelection
         return mode == GridSelectionMode.SINGLE_CELL || 
                 mode == GridSelectionMode.MULTIPLE_CELLS;
     }     
-
+    
     /**
      *  @private
      */
@@ -975,6 +1000,7 @@ public class GridSelection
         cellRegions.length = 0;       
         selectAllFlag = false;
         _selectionLength = 0;
+        selectedItem = null;
     }
         
     /**
@@ -1095,6 +1121,13 @@ public class GridSelection
         cellRegions.push(cr);
         
         _selectionLength = rowCount * columnCount;
+        
+        if (preserveSelection && 
+            selectionMode == GridSelectionMode.SINGLE_ROW || 
+            selectionMode == GridSelectionMode.SINGLE_CELL)
+        {
+            selectedItem = grid.dataProvider.getItemAt(rowIndex);
+        }
     }
 
     /**
@@ -1132,6 +1165,8 @@ public class GridSelection
             // length.
             if (_selectionLength >= 0)
                 _selectionLength--;
+            
+            selectedItem = null;
         }
     }
     
@@ -1302,40 +1337,38 @@ public class GridSelection
      *  The sort or filter on the collection changed.
      */
     private function dataProviderCollectionRefresh(event:CollectionEvent):void
-    {
+    {        
         // Not preserving selection so this is similiar to a RESET.
-        if (!preserveSelection)
+        if (!selectedItem)
         {            
             removeSelection();
             ensureRequiredSelection();
             return;
         }
         
-        const rowCount:int = getGridDataProviderLength(); 
-        var crIndex:int = 0
-        while (crIndex < cellRegions.length)
+        // Is the selectedItem still in the collection?
+        const view:ICollectionView = event.currentTarget as ICollectionView;       
+        if (view && view.contains(selectedItem))
         {
-            var cr:CellRect = cellRegions[crIndex];
-            
-            // clip or remove any cell regions that extend beyond the
-            // new number of rows
-            if (cr.bottom > rowCount)
+            // Selection is in view so move it to the new row location.
+            const newRowIndex:int = grid.dataProvider.getItemIndex(selectedItem);
+            if (selectionMode == GridSelectionMode.SINGLE_ROW)
             {
-                _selectionLength = -1;  // recalculate               
-                if (cr.y >= rowCount)
-                {
-                    cellRegions.splice(crIndex, 1);
-                    continue;
-                }
-                else
-                {
-                    cr.height = rowCount - cr.y;
-                }
+                internalSetCellRegion(newRowIndex);
             }
-            crIndex++;
+            else
+            {
+                var oldSelectedCell:CellPosition = allCells()[0];
+                internalSetCellRegion(newRowIndex, oldSelectedCell.columnIndex);
+            }            
         }
-        
-        ensureRequiredSelection();
+        else
+        {
+            // Selection not in current view so remove selection.
+            removeSelection();
+            ensureRequiredSelection();
+            return;            
+        }
     }
                 
     /**
@@ -1607,49 +1640,13 @@ public class GridSelection
 
     /**
      *  @private
-     *  The sort or filter on the collection changed.  If the selectionMode is
-     *  cell-based, reset the selection.
+     *  The sort or filter on the collection changed. For columns, this is
+     *  the same as a "reset" event.
      */
     private function columnsCollectionRefresh(event:CollectionEvent):void
     {
-        // If no selectionMode or a row-based selectionMode, nothing to do.
-        if (!isCellSelectionMode())
-            return;
-        
-        // Not preserving selection so this is similiar to a RESET.
-        if (!preserveSelection)
-        {            
-            removeSelection();
-            ensureRequiredSelection();
-            return;
-        }
-        
-        const columnCount:int = getGridColumnsLength();
-        var crIndex:int = 0
-        while (crIndex < cellRegions.length)
-        {
-            var cr:CellRect = cellRegions[crIndex];
-             
-            // clip or remove any cell regions that extend beyond the
-            // new number of columns
-            if (cr.right > columnCount)
-            {
-                _selectionLength = -1;  // recalculate               
-                if (cr.x >= columnCount)
-                {
-                    cellRegions.splice(crIndex, 1);
-                    continue;
-                }
-                else
-                {
-                    cr.width = columnCount - cr.x;
-                }
-            }
-            crIndex++;
-        }
-        
-        ensureRequiredSelection();
-     }
+        columnsCollectionReset(event);
+    }
 
     /**
      *  @private
