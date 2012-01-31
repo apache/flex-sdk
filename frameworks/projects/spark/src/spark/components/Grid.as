@@ -1948,6 +1948,19 @@ package spark.components
         }
         
         /**
+         *  @copy spark.components.supportClasses.GridLayout#getRowIndexAt()
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function getRowIndexAt(x:Number, y:Number):int
+        {
+            return gridLayout.getRowIndexAt(x, y);
+        }
+        
+        /**
          *  @copy spark.components.supportClasses.GridLayout#getColumnIndexAt()
          *  
          *  @langversion 3.0
