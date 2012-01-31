@@ -479,6 +479,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         graphics.clear();
         
         var backgroundColor:uint;
+        var drawBackground:Boolean = true;
         
         if (selected)
             backgroundColor = getStyle("selectionColor");
@@ -494,27 +495,31 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
                 styleManager.getColorNames(alternatingColors);
                 
                 backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
-            }
+            }            
             else
             {
-                backgroundColor = getStyle("contentBackgroundColor");
+                // don't draw background if it is the contentBackgroundColor. The
+                // list skin handles the background drawing for us.
+                drawBackground = false;
             }
-            
         }
-        graphics.beginFill(backgroundColor, 1);
+        
+        if (drawBackground)
+            graphics.beginFill(backgroundColor, 1);
         
         if (showsCaret)
         {
             graphics.lineStyle(1, getStyle("selectionColor"));
             graphics.drawRect(0.5, 0.5, w-1, h-1);
         }
-        else
+        else 
         {
             graphics.lineStyle();
             graphics.drawRect(0, 0, w, h);
         }
-        
-        graphics.endFill();
+            
+        if (drawBackground)
+            graphics.endFill();
     }
     
     //--------------------------------------------------------------------------
