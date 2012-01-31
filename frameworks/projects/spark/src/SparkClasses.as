@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2008 Adobe Systems Incorporated
@@ -31,8 +31,8 @@ import spark.core.IDisplayText; IDisplayText;
 import spark.core.IEditableText; IEditableText;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.components.IconPlacement; IconPlacement;
-import spark.components.supportClasses.CellPosition; CellPosition;
-import spark.components.supportClasses.CellRegion; CellRegion;
+import spark.components.gridClasses.CellPosition; CellPosition;
+import spark.components.gridClasses.CellRegion; CellRegion;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
 import spark.skins.spark.BorderContainerSkin; BorderContainerSkin;
