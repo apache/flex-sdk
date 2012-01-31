@@ -29,170 +29,170 @@ public interface IGraphicElement
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  elementHost
-	//----------------------------------
-	
- 	/**
-	 *  @private
-	 */
-	function get elementHost():IGraphicElementHost;
-	function set elementHost(value:IGraphicElementHost):void;
+    //----------------------------------
+    //  elementHost
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    function get elementHost():IGraphicElementHost;
+    function set elementHost(value:IGraphicElementHost):void;
 
-	//----------------------------------
-	//  alpha
-	//----------------------------------
-	/**
-     *  Specifies the alpha
+    //----------------------------------
+    //  alpha
+    //----------------------------------
+    /**
+     *  Specifies the level of transparency of the graphic element.
      * 
      *  @see flash.display.DisplayObject#Alpha
      */
-	function get alpha():Number;
-	function set alpha(value:Number):void;
+    function get alpha():Number;
+    function set alpha(value:Number):void;
 
-	//----------------------------------
-	//  blendMode
-	//----------------------------------
-	/**
-     *  Specifies the blendMode
+    //----------------------------------
+    //  blendMode
+    //----------------------------------
+    /**
+     *  Specifies the blend mode.
      * 
      *  @see flash.display.DisplayObject#BlendMode
      */
-	function get blendMode():String;
-	function set blendMode(value:String):void;
-		
-	//----------------------------------
-	//  filters
-	//----------------------------------
-	/**
-	 *  The array of IBitmapFilter filters applied to the element
-	 */
-	function get filters():Array;
-	function set filters(value:Array):void;
-	
-	//----------------------------------
-	//  maskType
-	//----------------------------------
-	/**
-	 *  Controls how the mask performs masking on the element. 
-	 *  Possible values are MaskType.CLIP and MaskType.ALPHA
-	 *  A value of MaskType.CLIP means that the mask either displays the pixel
-	 *  or doesn't. Strokes and bitmap filters are not used. 
-	 *  A value of MaskType.ALPHA means that the mask respects opacity and
-	 *  will use the strokes and bitmap filters of the mask.  
-	 */
-	function get maskType():String;
-	function set maskType(value:String):void;
-	
-	//----------------------------------
-	//  mask
-	//----------------------------------
-	/**
-	 * The mask applied to the element
-	 */
-	
-	function set mask(value:DisplayObject):void;
-	function get mask():DisplayObject;
-		
-	//----------------------------------
-	//  rotation
-	//----------------------------------
-	/**
-	 *  Indicates the rotation of the element, in degrees, from the transform point.
-	 */
-	function get rotation():Number;
-	function set rotation(value:Number):void;
-	
-	//----------------------------------
-	//  scaleX
-	//----------------------------------
-	/**
-	 *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
-	 */
-	function get scaleX():Number;
-	function set scaleX(value:Number):void;
-	
-	//----------------------------------
-	//  scaleY
-	//----------------------------------
-	/**
-	 *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
-	 */
-	function get scaleY():Number;
-	function set scaleY(value:Number):void;
-	
-	//----------------------------------
-	//  transform
-	//----------------------------------
-	/**
-	 *  An object with properties pertaining to an element's matrix, 
-	 *  color transform, and pixel bounds. 
-	 */
-	function get transform():Transform;
-	function set transform(value:Transform):void; 
-	
-	//----------------------------------
-	//  transformX
-	//----------------------------------
-	/**
-	 *  The x position transform point of the element. 
-	 */
-	function get transformX():Number;
-	function set transformX(value:Number):void;
-	
-	//----------------------------------
-	//  transformY
-	//----------------------------------
-	/**
-	 *  The y position transform point of the element. 
-	 */
-	function get transformY():Number;
-	function set transformY(value:Number):void;
-	
-	//----------------------------------
-	//  visible
-	//----------------------------------
-	
-	//----------------------------------
-	//  scaleY
-	//----------------------------------
-	/**
-	 *  Indicates the layer of the element relative to its siblings. Defaults to 0.
-	 */
-	function get layer():Number;
-	function set layer(value:Number):void;
+    function get blendMode():String;
+    function set blendMode(value:String):void;
+        
+    //----------------------------------
+    //  filters
+    //----------------------------------
+    /**
+     *  The array of IBitmapFilter filters applied to the element.
+     */
+    function get filters():Array;
+    function set filters(value:Array):void;
+    
+    //----------------------------------
+    //  maskType
+    //----------------------------------
+    /**
+     *  Controls how the mask performs masking on the element. 
+     *  Possible values are MaskType.CLIP and MaskType.ALPHA
+     *  A value of MaskType.CLIP means that the mask either displays the pixel
+     *  or doesn't. Strokes and bitmap filters are not used. 
+     *  A value of MaskType.ALPHA means that the mask respects opacity and
+     *  will use the strokes and bitmap filters of the mask.  
+     */
+    function get maskType():String;
+    function set maskType(value:String):void;
+    
+    //----------------------------------
+    //  mask
+    //----------------------------------
+    /**
+     * The mask applied to the element.
+     */
+    
+    function set mask(value:DisplayObject):void;
+    function get mask():DisplayObject;
+        
+    //----------------------------------
+    //  rotation
+    //----------------------------------
+    /**
+     *  Indicates the rotation of the element, in degrees, from the transform point.
+     */
+    function get rotation():Number;
+    function set rotation(value:Number):void;
+    
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    /**
+     *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
+     */
+    function get scaleX():Number;
+    function set scaleX(value:Number):void;
+    
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    /**
+     *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
+     */
+    function get scaleY():Number;
+    function set scaleY(value:Number):void;
+    
+    //----------------------------------
+    //  transform
+    //----------------------------------
+    /**
+     *  An object with properties pertaining to an element's matrix, 
+     *  color transform, and pixel bounds. 
+     */
+    function get transform():Transform;
+    function set transform(value:Transform):void; 
+    
+    //----------------------------------
+    //  transformX
+    //----------------------------------
+    /**
+     *  The x position transform point of the element. 
+     */
+    function get transformX():Number;
+    function set transformX(value:Number):void;
+    
+    //----------------------------------
+    //  transformY
+    //----------------------------------
+    /**
+     *  The y position transform point of the element. 
+     */
+    function get transformY():Number;
+    function set transformY(value:Number):void;
+    
+    //----------------------------------
+    //  visible
+    //----------------------------------
+    
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    /**
+     *  Indicates the layer of the element relative to its siblings. Defaults to 0.
+     */
+    function get layer():Number;
+    function set layer(value:Number):void;
 
 
-	/**
-	 *  Controls the visibility of the element.
-	 */
-	function get visible():Boolean;
-	function set visible(value:Boolean):void;
-	
-	//----------------------------------
-	//  x
-	//----------------------------------
-	/**
-	 *  The x position of the element
-	 */
-	function get x():Number;
-	function set x(value:Number):void;
-	
-	//----------------------------------
-	//  y
-	//----------------------------------
-	/**
-	 *  The y position of the element
-	 */
-	function get y():Number;
-	function set y(value:Number):void;
-	
+    /**
+     *  Controls the visibility of the element.
+     */
+    function get visible():Boolean;
+    function set visible(value:Boolean):void;
+    
+    //----------------------------------
+    //  x
+    //----------------------------------
+    /**
+     *  The x position of the element.
+     */
+    function get x():Number;
+    function set x(value:Number):void;
+    
+    //----------------------------------
+    //  y
+    //----------------------------------
+    /**
+     *  The y position of the element.
+     */
+    function get y():Number;
+    function set y(value:Number):void;
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
 
-	function applyMask():void;
+    function applyMask():void;
 }
 }
