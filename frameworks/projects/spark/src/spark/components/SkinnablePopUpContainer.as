@@ -292,7 +292,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     private var _resizeForSoftKeyboard:Boolean = true;
     
     /**
-     *  Enables resizing the pop-up when the soft keyboard is active. 
+     *  Enables resizing the pop-up when the soft keyboard 
+     *  on a mobile device is active. 
      *  
      *  @default true
      *  
@@ -323,7 +324,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     private var _moveForSoftKeyboard:Boolean = true;
     
     /**
-     *  Enables moving the pop-up when the soft keyboard is active. 
+     *  Enables moving the pop-up when the soft keyboard 
+     *  on a mobile device is active. 
      *  
      *  @default true
      *  
