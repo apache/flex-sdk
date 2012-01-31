@@ -199,7 +199,7 @@ public class ScrubBar extends HSlider
         var trackSize:Number = track.getLayoutBoundsWidth();
         var thumbSize:Number = thumb.getLayoutBoundsWidth();
         var range:Number = maximum - minimum;
-        var thumbPos:Number = (range > 0) ? (pendingValue - minimum) * ((trackSize - thumbSize) / range) : 0;
+        var thumbPos:Number = (range > 0) ? (value - minimum) * ((trackSize - thumbSize) / range) : 0;
         return thumbSize + thumbPos;
     }
     
