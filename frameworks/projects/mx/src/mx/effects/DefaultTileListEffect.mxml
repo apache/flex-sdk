@@ -45,6 +45,12 @@
  @see mx.controls.TileList
   
  @includeExample examples/DefaultTileListEffectExample.mxml
+ 
+ @langversion 3.0
+ @playerversion Flash 9
+ @playerversion AIR 1.1
+ @productversion Flex 3
+
  -->
  <mx:Parallel xmlns:mx="http://www.adobe.com/2006/mxml">
 
@@ -112,6 +118,11 @@
          *  fade out renderers for removed and replaced items.
          *
          *  @default 350
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         public function get fadeOutDuration():Number
         {
@@ -139,6 +150,11 @@
          *  used to fade in renderers for added and removed items.
          *
          *  @default 350
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
            public function get fadeInDuration():Number
         {
@@ -167,6 +183,11 @@
          *  as part of the effect.
          *
          *  @default 300
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         public function get moveDuration():Number
         {
@@ -193,6 +214,11 @@
          *  the added and removed item.
          *
          *  @default 0xFFFFFF
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         public function get color():Number
         {
