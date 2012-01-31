@@ -22,6 +22,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IFlexDisplayObject;
+import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -484,6 +485,8 @@ public class PopUpAnchor extends UIComponent
         if (DisplayObject(popUp).parent == null && displayPopUp)
         {
             PopUpManager.addPopUp(popUp,this,false);
+			if (popUp is IUIComponent)
+				IUIComponent(popUp).owner = this;
             popUpIsDisplayed = true;
             if (popUp is UIComponent && !popUpSizeCaptured)
             {
