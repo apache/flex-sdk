@@ -69,7 +69,6 @@ import mx.events.TreeEvent;
 import mx.managers.DragManager;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -1454,7 +1453,7 @@ public class Tree extends List implements IIMESupport
             return;
 		}
 
-        StyleManager.getColorNames(colors);
+        styleManager.getColorNames(colors);
 
         var curRow:int = 0;
         var actualRow:int = verticalScrollPosition;
