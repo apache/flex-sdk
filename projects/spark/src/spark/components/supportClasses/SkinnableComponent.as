@@ -15,21 +15,16 @@ package spark.components.supportClasses
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Point;
-import flash.system.ApplicationDomain;
 import flash.utils.*;
 
-import spark.components.supportClasses.Skin;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.managers.ISystemManager;
-import mx.modules.ModuleManager;
 
 //--------------------------------------
 //  Styles
@@ -526,30 +521,25 @@ public class SkinnableComponent extends UIComponent
      */
     protected function clearSkinParts():void
     {
-        var className:String = getQualifiedClassName(this);
-        var parts:Array = getSkinPartMetadata(className);
-        
-        if (parts)
+        if (skinParts)
         {
-            for (var i:int = 0; i < parts.length; i++)
+            for (var id:String in skinParts)
             {
-                var skinPart:SkinPartInfo = parts[i];
-                var skinPartID:String = skinPart.id;
-                
-                if (this[skinPartID] != null)
+                if (this[id] != null)
                 {
-                if (!(this[skinPartID] is IFactory))
-                {
-                    partRemoved(skinPartID, this[skinPartID]);
+                    if (!(this[id] is IFactory))
+                    {
+                        partRemoved(id, this[id]);
+                    }
+                    else
+                    {
+                        var len:int = numDynamicParts(id);
+                        for (var j:int = 0; j < len; j++)
+                            removeDynamicPartInstance(id, getDynamicPartAt(id, j));
+                    }
                 }
-                else
-                {
-                    var len:int = numDynamicParts(skinPartID);
-                    for (var j:int = 0; j < len; j++)
-                        removeDynamicPartInstance(skinPartID, getDynamicPartAt(skinPartID, j));
-                }
-            }
-                this[skinPartID] = null;
+              
+                this[id] = null;
             }
         }
     }
@@ -749,86 +739,6 @@ public class SkinnableComponent extends UIComponent
         
         return null;
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods - Part Metadata
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Cache of found skin parts.
-     */
-    private static var skinPartsByClassName:Dictionary;
-    
-    /**
-     *  @private
-     *  Find the skin part metadata for a given className.
-     */
-    private function getSkinPartMetadata(className:String):Array
-    {
-        // Check cached values first
-        if (!skinPartsByClassName)
-            skinPartsByClassName = new Dictionary(true);
-            
-        var skinParts:Array = skinPartsByClassName[className];
-        
-        if (skinParts != null)
-            return skinParts;
-            
-        var myApplicationDomain:ApplicationDomain;
-        
-        var factory:IFlexModuleFactory = ModuleManager.getAssociatedFactory(this);
-        if (factory != null)
-        {
-            myApplicationDomain = ApplicationDomain(factory.info()["currentDomain"]);
-        }
-        else
-        {
-            myApplicationDomain = systemManager ? 
-                                    systemManager.loaderInfo.applicationDomain :
-                                    ApplicationDomain.currentDomain;
-        }
-        
-        // If the application domain is null it is because the application that this
-        // component lives in has been unloaded.
-        if (myApplicationDomain == null)
-            return null;
-            
-        var type:Class = myApplicationDomain.getDefinition(className) as Class;             
-        skinParts = new Array;
-        
-        var des:XML = flash.utils.describeType(type);
-
-        // Find Part metadata on variables 
-        var metadata:XMLList = des.factory.variable.metadata.(@name == "SkinPart");
-        var skinPartInfo:SkinPartInfo;
-        var i:int;
-        
-        for (i = 0; i < metadata.length(); i++)
-        {
-            skinPartInfo = new SkinPartInfo();
-            
-            skinPartInfo.id = metadata[i].parent().@name;
-            skinPartInfo.required = !(metadata[i].arg.(@key == "required").@value == "false");
-            skinParts.push(skinPartInfo);
-        }
-
-        // Find Part metadata on getter/setters 
-        metadata = des.factory.accessor.metadata.(@name == "SkinPart");
-        for (i = 0; i < metadata.length(); i++)
-        {
-            skinPartInfo = new SkinPartInfo();
-            
-            skinPartInfo.id = metadata[i].parent().@name;
-            skinPartInfo.required = !(metadata[i].arg.(@key == "required").@value == "false");
-            skinParts.push(skinPartInfo);
-        }
-        
-        skinPartsByClassName[className] = skinParts;
-        return skinParts;           
-    }
 
     //---------------------------------
     //  Utility methods for subclasses
@@ -943,23 +853,15 @@ public class SkinnableComponent extends UIComponent
      */
     private function skin_propertyChangeHandler(event:PropertyChangeEvent):void
     {
-        var className:String = getQualifiedClassName(this);
-        var parts:Array = getSkinPartMetadata(className);
-        
-        if (parts)
+        if (skinParts)
         {
-            for (var i:int = 0; i < parts.length; i++)
+            var skinPartID:String = event.property as String;
+            if(skinParts[skinPartID] != null)
             {
-                var skinPart:SkinPartInfo = parts[i];
+                this[skinPartID] = event.newValue;
                 
-                if (event.property == skinPart.id)
-                {
-                    this[skinPart.id] = event.newValue;
-                    
-                    if (!(this[skinPart.id] is IFactory))
-                        partAdded(skinPart.id, this[skinPart.id]);
-                    break;
-                }
+                if (!(this[skinPartID] is IFactory))
+                    partAdded(skinPartID, this[skinPartID]);
             }
         }
     }
