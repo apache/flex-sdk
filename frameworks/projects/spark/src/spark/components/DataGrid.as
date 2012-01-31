@@ -23,6 +23,7 @@ import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.Sort;
 import mx.collections.SortField;
+import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
 import mx.core.LayoutDirection;
@@ -2033,10 +2034,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Event Handlers
             
-            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_mouseDownHandler);
-            grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_mouseUpHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_rollOverHandler);
-            grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_rollOutHandler);
+            grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_mouseDownHandler, false, EventPriority.DEFAULT_HANDLER);
+            grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_mouseUpHandler, false, EventPriority.DEFAULT_HANDLER);
+            grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_rollOverHandler, false, EventPriority.DEFAULT_HANDLER);
+            grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_rollOutHandler, false, EventPriority.DEFAULT_HANDLER);
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener("invalidateSize", grid_invalidateSizeHandler);            
@@ -3836,6 +3837,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function grid_rollOverHandler(event:GridEvent):void
     {
+        if (event.isDefaultPrevented())
+            return;
+        
         // The related object is the object that was previously under
         // the pointer.
         if (event.buttonDown && event.relatedObject != grid)
@@ -3852,6 +3856,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function grid_rollOutHandler(event:GridEvent):void
     {
+        if (event.isDefaultPrevented())
+            return;
+        
         grid.hoverRowIndex = -1;
         grid.hoverColumnIndex = -1;
         
@@ -3865,6 +3872,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function grid_mouseUpHandler(event:GridEvent):void
     {
+        if (event.isDefaultPrevented())
+            return;
+        
         if (!updateHoverOnRollOver)
         {
             grid.hoverRowIndex = event.rowIndex;
@@ -3878,6 +3888,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function grid_mouseDownHandler(event:GridEvent):void
     {
+        if (event.isDefaultPrevented())
+            return;
+        
         const isCellSelection:Boolean = isCellSelectionMode();
 
         const rowIndex:int = event.rowIndex;
