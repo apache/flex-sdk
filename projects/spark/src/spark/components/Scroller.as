@@ -26,7 +26,7 @@ import spark.core.IViewport;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.ScrollPolicy;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 import flash.display.InteractiveObject;
@@ -704,22 +704,22 @@ public class Scroller extends SkinnableComponent
             switch (event.keyCode)
             {
                 case Keyboard.UP:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.UP);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.UP);
                      break;
                 case Keyboard.DOWN:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.DOWN);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.DOWN);
                      break;
                 case Keyboard.PAGE_UP:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.PAGE_UP);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.PAGE_UP);
                      break;
                 case Keyboard.PAGE_DOWN:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.PAGE_DOWN);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.PAGE_DOWN);
                      break;
                 case Keyboard.HOME:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.HOME);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.HOME);
                      break;
                 case Keyboard.END:
-                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.END);
+                     vspDelta = vp.getVerticalScrollPositionDelta(NavigationUnit.END);
                      break;
             }
             if (!isNaN(vspDelta))
@@ -735,26 +735,26 @@ public class Scroller extends SkinnableComponent
             switch (event.keyCode)
             {
                 case Keyboard.LEFT:
-                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.LEFT);
+                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.LEFT);
                     break;
                 case Keyboard.RIGHT:
-                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.RIGHT);
+                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT);
                     break;
                 case Keyboard.HOME:
-                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.HOME);
+                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.HOME);
                     break;
                 case Keyboard.END:                
-                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.END);
+                    hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.END);
                     break;
                 // If there's no vertical scrollbar, then map page up/down to
                 // page left,right
                 case Keyboard.PAGE_UP:
                      if (!verticalScrollBar || !(verticalScrollBar.visible))   
-                         hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.PAGE_LEFT);
+                         hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT);
                      break;
                 case Keyboard.PAGE_DOWN:
                      if (!verticalScrollBar || !(verticalScrollBar.visible))   
-                         hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.PAGE_RIGHT);
+                         hspDelta = vp.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT);
                      break;
             }
             if (!isNaN(hspDelta))
@@ -795,17 +795,17 @@ public class Scroller extends SkinnableComponent
             return;*/
 
         var nSteps:uint = Math.abs(event.delta);
-        var scrollUnit:uint;
+        var navigationUnit:uint;
 
         // Scroll event.delta "steps".  If the VSB is up, scroll vertically,
         // if -only- the HSB is up then scroll horizontally.
          
         if (verticalScrollBar && verticalScrollBar.visible)
         {
-            scrollUnit = (event.delta < 0) ? ScrollUnit.DOWN : ScrollUnit.UP;
+            navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
             for(var vStep:int = 0; vStep < nSteps; vStep++)
             {
-                var vspDelta:Number = vp.getVerticalScrollPositionDelta(scrollUnit);
+                var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
                 if (!isNaN(vspDelta))
                     vp.verticalScrollPosition += vspDelta;
             }
@@ -813,10 +813,10 @@ public class Scroller extends SkinnableComponent
         }
         else if (horizontalScrollBar && horizontalScrollBar.visible)
         {
-            scrollUnit = (event.delta < 0) ? ScrollUnit.LEFT : ScrollUnit.RIGHT;
+            navigationUnit = (event.delta < 0) ? NavigationUnit.LEFT : NavigationUnit.RIGHT;
             for(var hStep:int = 0; hStep < nSteps; hStep++)
             {
-                var hspDelta:Number = vp.getHorizontalScrollPositionDelta(scrollUnit);
+                var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
                 if (!isNaN(hspDelta))
                     vp.horizontalScrollPosition += hspDelta;
             }
