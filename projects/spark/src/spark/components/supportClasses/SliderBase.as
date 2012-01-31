@@ -75,7 +75,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Slider
+ *  &lt;s:Slider
  *    <strong>Properties</strong>
  *    dataTipFormatFunction="20"
  *    dataTipPrecision="2"
@@ -148,7 +148,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         super();
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Skin Parts
     //
@@ -174,7 +174,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-	private var dataFormatter:NumberFormatter;
+    private var dataFormatter:NumberFormatter;
 
     private var animator:Animation = null;
     
@@ -185,15 +185,15 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //
     // Properties
     //
-    //-------------------------------------------------------------------------- 	
+    //--------------------------------------------------------------------------    
 
-	//--------------------------------- 
+    //--------------------------------- 
     // dataTipformatFunction
     //---------------------------------
 
-	private var _dataTipFormatFunction:Function;
-	
-	 /**
+    private var _dataTipFormatFunction:Function;
+    
+     /**
      *  Callback function that formats the data tip text.
      *  The function takes a single Number as an argument
      *  and returns a formatted String.
@@ -222,31 +222,31 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function set dataTipFormatFunction(value:Function):void
-	{
-		_dataTipFormatFunction = value;
-	}
-	
-	public function get dataTipFormatFunction():Function
-	{
-		return _dataTipFormatFunction;
-	}
-	
-	//--------------------------------- 
+    public function set dataTipFormatFunction(value:Function):void
+    {
+        _dataTipFormatFunction = value;
+    }
+    
+    public function get dataTipFormatFunction():Function
+    {
+        return _dataTipFormatFunction;
+    }
+    
+    //--------------------------------- 
     // dataTipPrecision
     //---------------------------------
     /**
-	 *  Number of decimal places to use for the data tip text.
-	 *  A value of 0 means to round all values to an integer.
-	 *  This value is ignored if <code>dataTipFormatFunction</code> is defined.
-	 * 
-	 *  @default 2
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     *  Number of decimal places to use for the data tip text.
+     *  A value of 0 means to round all values to an integer.
+     *  This value is ignored if <code>dataTipFormatFunction</code> is defined.
+     * 
+     *  @default 2
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public var dataTipPrecision:int = 2;
     
     //--------------------------------- 
@@ -365,23 +365,23 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     private function formatDataTipText(value:Number):Object
     {
-    	var formattedValue:Object;
-    		
-		if (dataTipFormatFunction != null)
-		{
-			formattedValue = dataTipFormatFunction(value); 
-		}
-		else
-		{
-			if (dataFormatter == null)
-				dataFormatter = new NumberFormatter();
-				
-			dataFormatter.precision = dataTipPrecision;
-			
-			formattedValue = dataFormatter.format(value);	
-		}
-		
-		return formattedValue;
+        var formattedValue:Object;
+            
+        if (dataTipFormatFunction != null)
+        {
+            formattedValue = dataTipFormatFunction(value); 
+        }
+        else
+        {
+            if (dataFormatter == null)
+                dataFormatter = new NumberFormatter();
+                
+            dataFormatter.precision = dataTipPrecision;
+            
+            formattedValue = dataFormatter.format(value);   
+        }
+        
+        return formattedValue;
     }
   
    
@@ -399,7 +399,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
-		// Override in the subclasses
+        // Override in the subclasses
     }
 
     //--------------------------------------------------------------------------
@@ -429,24 +429,24 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // Popup a dataTip only if we have a SkinPart and the boolean flag is true
         if (dataTip && showDataTip && enabled)
         {
-	        dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
-	        systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
-	        
-	        dataTipInstance.data = formatDataTipText(value);
-	        
-	        // Force the dataTip to render so that we have the correct size since
-	        // updateDataTip might need the size
-	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
-	        if (tipAsUIComponent)
-	        {
-	        	tipAsUIComponent.validateNow();
-	        	tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),
-	        								   tipAsUIComponent.getExplicitOrMeasuredHeight());
-	        }
-	        
-	        dataTipInitialPosition = new Point(DisplayObject(dataTipInstance).x, 
-	        									DisplayObject(dataTipInstance).y);   
-	        updateDataTip(dataTipInstance, dataTipInitialPosition);
+            dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
+            systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
+            
+            dataTipInstance.data = formatDataTipText(value);
+            
+            // Force the dataTip to render so that we have the correct size since
+            // updateDataTip might need the size
+            var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
+            if (tipAsUIComponent)
+            {
+                tipAsUIComponent.validateNow();
+                tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),
+                                               tipAsUIComponent.getExplicitOrMeasuredHeight());
+            }
+            
+            dataTipInitialPosition = new Point(DisplayObject(dataTipInstance).x, 
+                                                DisplayObject(dataTipInstance).y);   
+            updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
     }
 
@@ -473,18 +473,18 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                   
         if (dataTipInstance && showDataTip)
         { 
-	        dataTipInstance.data = formatDataTipText(pendingValue);
-	        
-	        // Force the dataTip to render so that we have the correct size since
-	        // updateDataTip might need the size
-	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
-	        if (tipAsUIComponent)
-	        {
-	        	tipAsUIComponent.validateNow();
-	        	tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),tipAsUIComponent.getExplicitOrMeasuredHeight());
-	        }
-	        
-			updateDataTip(dataTipInstance, dataTipInitialPosition);
+            dataTipInstance.data = formatDataTipText(pendingValue);
+            
+            // Force the dataTip to render so that we have the correct size since
+            // updateDataTip might need the size
+            var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
+            if (tipAsUIComponent)
+            {
+                tipAsUIComponent.validateNow();
+                tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),tipAsUIComponent.getExplicitOrMeasuredHeight());
+            }
+            
+            updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
         
         event.updateAfterEvent();
@@ -592,7 +592,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             if (event.cancelable)
                 event.preventDefault();
             else
-        	    event.stopPropagation();
+                event.stopPropagation();
         }
     }
 
